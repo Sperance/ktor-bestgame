@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.dokka)
 }
 
 group = "ru.descend"
@@ -27,17 +28,16 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
+
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.exposed.json)
+    implementation(libs.exposed.java.time)
+
+    implementation(libs.zaxxer.hikariCP)
+    implementation(libs.postgresql.postgresql)
+
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
-
-    val exposed = "1.1.0"
-    implementation("org.jetbrains.exposed:exposed-core:$exposed")
-    implementation("org.jetbrains.exposed:exposed-dao:$exposed")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed")
-    implementation("org.jetbrains.exposed:exposed-json:$exposed")
-    implementation("org.jetbrains.exposed:exposed-java-time:$exposed")
-
-    implementation("com.zaxxer:HikariCP:7.0.2")
-
-    implementation("org.postgresql:postgresql:42.7.6")
 }

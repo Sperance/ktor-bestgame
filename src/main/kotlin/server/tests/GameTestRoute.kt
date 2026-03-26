@@ -52,11 +52,6 @@ fun Application.configureTestRouting() {
                         this.user = user
                     }
 
-                    val charMeta = charEnt.toSnapshot()
-                    charMeta._inventory._items?.forEach { item ->
-                        item.quantity = 666
-                    }
-
                     charEnt.setStat(StatBool(EnumStatBool.IS_BANNED, false))
                     charEnt.setStat(ParamsStock(EnumStatKey.MAGIC_RESIST, 20.3))
                     charEnt.setStat(ParamsStock(EnumStatKey.MAGIC_RESIST, 40.1))

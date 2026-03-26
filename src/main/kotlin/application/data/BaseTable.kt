@@ -15,43 +15,156 @@ import org.jetbrains.exposed.v1.jdbc.select
 import org.jetbrains.exposed.v1.jdbc.update
 import java.time.Instant
 
+/**
+ * Базовый интерфейс для доступа к таблице
+ */
 interface BaseDao<E : BaseEntity<*>> {
+
+    /**
+     * Поиск элемента по id
+     * @param id идентфикатор элемента
+     * @return найденный элмент или NULL
+     */
+
     fun findById(id: Long): E?
+    /**
+     * Поиск элемента по id
+     * @param id идентфикатор [EntityID] элемента
+     * @return найденный элмент или NULL
+     */
     fun findById(id: EntityID<Long>): E?
+
+    /**
+     * Получение всех элементов таблицы
+     * @param limit ограничение получаемых значений из таблицы
+     * @return список элементов
+     */
     fun findAll(limit: Int? = null): List<E>
+
+    /**
+     * Получение всех элементов таблицы по заданному условию
+     * @param condition условие выборки
+     * @return список элементов
+     */
     fun findWhere(condition: Op<Boolean>): List<E>
+
+    /**
+     * Получение одного элемента таблицы(первого) по заданному условию
+     * @param condition условие выборки
+     * @return найденный элмент или NULL
+     */
     fun findOne(condition: Op<Boolean>): E?
+
+    /**
+     * Получить количество записей из таблицы по элементу
+     * @param condition условие выборки
+     * @return количество записей, подходящих под условие [condition]
+     */
     fun count(condition: Op<Boolean> = Op.TRUE): Long
+
+    /**
+     * Проверка существования хотя бы одной строки удволетворяющий условию
+     * @param condition условие для проверки
+     * @return true если хотя бы одна строка найдена по условию; false во противном случае
+     */
     fun exists(condition: Op<Boolean>): Boolean
 
+    /**
+     * Создание записи в базе данных
+     * @param body тело создаваемого объекта
+     * @return созданный экземпляр
+     */
     fun create(body: E.() -> Unit): E
 
+    /**
+     * Обновление существующей записи в базе данных
+     * @param entity объект реализующий [BaseEntity]
+     * @param body функция с обновленными параметрами объекта [entity]
+     * @return объект после изменения
+     */
     fun update(entity: E, body: E.() -> Unit): E
 
+    /**
+     * Мягкое удаление объекта (объект остается в базе данных, но ставится флаг удаленности)
+     * @param entity объект, который необходимо удалить
+     * @return объект, который мы удалили
+     */
     fun softDelete(entity: E): E
+
+    /**
+     * Строгое удаление объекта из базы данных
+     * @param id идентификатор обьекта для удаления
+     * @return true если удаление прошло успешно; иначе false
+     */
     fun hardDelete(id: Long): Boolean
 }
 
 open class BaseDTO(
+    /**
+     * Дата создания записи
+     */
     var _createdAt: Instant = Instant.now(),
+    /**
+     * Дата изменения записи
+     */
     var _updatedAt: Instant = Instant.now(),
+    /**
+     * Дата удаления записи
+     */
     var _deletedAt: Instant? = null,
+    /**
+     * Версия записи (для решения проблемы Race Conditions)
+     */
     var _version: Long = 0
 )
 
+/**
+ * Базовый асбтрактный класс таблиц
+ * @param name название таблицы
+ */
 abstract class BaseTable(name: String = "") : LongIdTable(name) {
+    /**
+     * Колонка даты создания записи (по умолчанию = текущее время)
+     */
     val createdAt = timestamp("created_at").default(Instant.now())
+    /**
+     * Колонка даты изменения записи (по умолчанию = текущее время)
+     */
     val updatedAt = timestamp("updated_at").default(Instant.now())
+    /**
+     * Колонка даты удаления записи (по умолчанию null). Если не null - объект считается удаленным (Soft)
+     */
     val deletedAt = timestamp("deleted_at").nullable()
+    /**
+     * Колонка версии записи (для решения проблемы Race Conditions)
+     */
     val version = long("version").default(0)
 }
 
 abstract class BaseEntity<SNAPSHOT : BaseDTO>(id: EntityID<Long>, table: BaseTable) : LongEntity(id) {
+    /**
+     * Дата создания записи
+     */
     var createdAt by table.createdAt
+
+    /**
+     * Дата изменения записи
+     */
     var updatedAt by table.updatedAt
+
+    /**
+     * Дата удаления записи (по умолчанию null). Если не null - объект считается удаленным (Soft)
+     */
     var deletedAt by table.deletedAt
+
+    /**
+     * Версия записи (для решения проблемы Race Conditions)
+     */
     var version by table.version
 
+    /**
+     * Преобразование элемента таблицы к элементу класса
+     */
     abstract fun toSnapshot(): SNAPSHOT
 }
 

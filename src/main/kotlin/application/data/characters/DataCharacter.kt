@@ -42,18 +42,58 @@ object CharactersTable : BaseTable("characters") {
     ).nullable()
 }
 
+/**
+ * Основная сущность Персонажа (связь многие [CharacterEntity] к одному [UserEntity])
+ */
 class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, CharactersTable) {
+
+    /**
+     * Ссылка на пользователя [UserEntity]
+     */
     var user by UserEntity referencedOn CharactersTable.user
+
+    /**
+     * Имя персонажа
+     */
     var name by CharactersTable.name
+
+    /**
+     * Уровень персонажа
+     */
     var level by CharactersTable.level
+
+    /**
+     * Текущий опыт персонажа
+     */
     var experience by CharactersTable.experience
+
+    /**
+     * Все параметры персонажа
+     */
     var params by CharactersTable.params
+
+    /**
+     * Все дополнительные бонусы к параметрам персонажа
+     */
     var buffs by CharactersTable.buffs
+
+    /**
+     * Все флаги персонажа
+     */
     var bools by CharactersTable.bools
 
+    /**
+     * Ссылка на строку таблицы инвентаря [InventoryEntity]
+     */
     val inventory by InventoryEntity referrersOn InventoryTable.character
+
     private val equipments by EquipmentEntity referrersOn EquipmentsTable.character
 
+    /**
+     * Конвертация объекта [CharacterEntity] в объект [SnapshotCharacter]
+     * Изменения [CharacterEntity] меняют базу данных напрямую, изменения [SnapshotCharacter] изменяют только объект класса
+     * @return экземпляр класса [SnapshotCharacter], который можно изменять без сохранений в БД
+     */
     override fun toSnapshot(): SnapshotCharacter =
         SnapshotCharacter(
             _id = id.value,
@@ -73,10 +113,22 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
             _version = version
         }
 
+    /**
+     * Получение инвентаря персонажа (хранятся все обычные предметы (не экипировка))
+     * @return [InventoryEntity]
+     */
     fun getInventory() = inventory.first()
 
+    /**
+     * Получение экипировки персонажа (только экипировки)
+     * @return Список объектов типа [EquipmentEntity]
+     */
     fun getEquipments() = equipments.toList()
 
+    /**
+     * Получение начальных параметров нового персонажа
+     * @return [MutableSet] из элементов [ParamsStock]
+     */
     fun getStockParams(): MutableSet<ParamsStock> {
         val stock = mutableSetOf<ParamsStock>()
         stock.add(ParamsStock(EnumStatKey.LIFE, 100.0))
@@ -90,16 +142,18 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
     }
 
     /**
-     * Получение ссылки на параметр по ключу
-     * @param enum ключ параметра как Enum
+     * Получение параметра [bools] по ключу (если он существует)
+     * @param enum [EnumStatBool] ключ параметра как Enum
+     * @return [StatBool] если элемент найден, иначе NULL
      */
     fun getStat(enum: EnumStatBool): StatBool? {
         return bools?.firstOrNull { it.key == enum }
     }
 
     /**
-     * Установка значения параметра (или добавления, если параметра нет)
+     * Установка значения параметра [bools] (или добавления, если параметра нет)
      * @param value нужный параметр
+     * @return [ResultExec.Success]
      */
     fun setStat(value: StatBool): ResultExec {
         val currentItems = bools?.toMutableSet() ?: mutableSetOf()
@@ -114,11 +168,10 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
         return ResultExec.Success()
     }
 
-    /*****/
-
     /**
-     * Получение ссылки на параметр по ключу
-     * @param enum ключ параметра как Enum
+     * Получение параметра [params] по ключу (если он существует)
+     * @param enum [EnumStatKey] ключ параметра как Enum
+     * @return [ParamsStock] если элемент найден, иначе NULL
      */
     fun getStat(enum: EnumStatKey): ParamsStock? {
         return params.firstOrNull { it.param == enum }
@@ -126,9 +179,11 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
 
     /**
      * Установка значения параметра (или добавления, если параметра нет)
-     * @param value нужный параметр
+     * @param value [ParamsStock] нужный параметр
      * @param minVal итоговое значение параметра не сможет быть ниже указанного
      * @param maxVal итоговое значение параметра не сможет быть выше указанного
+     * @return [ResultExec.Success]
+     * @throws [Exception] Если [minVal] больше чем [maxVal]
      */
     fun setStat(value: ParamsStock, minVal: Double? = null, maxVal: Double? = null): ResultExec {
         if (minVal != null && maxVal != null && minVal > maxVal) throw Exception("В методе setStat параметр minVal не может быть больше, чем параметр maxVal")
@@ -148,9 +203,10 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
     }
 
     /**
-     * Добавление параметра или увеличение значения параметра
-     * @param value необходимый параметр для модификации
+     * Добавление параметра или увеличение значения параметра в [params]
+     * @param value [ParamsStock] необходимый параметр для модификации
      * @param maxVal итоговое значение параметра не сможет быть выше указанного
+     * @return [ResultExec.Success]
      */
     fun addStat(value: ParamsStock, maxVal: Double? = null): ResultExec {
         val currentItems = params.toMutableSet()
@@ -166,9 +222,11 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
     }
 
     /**
-     * Уменьшение значения параметра
-     * @param value элемент для уменьшения с количеством
+     * Уменьшение значения параметра в [params]
+     * Параметр не должен быть меньше нуля (пока) и не должен быть полностью удален (всегда),
+     * @param value [ParamsStock] элемент для уменьшения с количеством
      * @param minVal итоговое значение параметра не сможет быть ниже указанного
+     * @return [ResultExec.Success]
      */
     fun remStat(value: ParamsStock, minVal: Double? = null): ResultExec {
 
@@ -188,6 +246,9 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
         return ResultExec.Success()
     }
 
+    /**
+     * Строковое отображение элемента [CharacterEntity]
+     */
     override fun toString(): String {
         return "CharacterEntity(user=$user, name='$name', params=$params, buffs=$buffs)"
     }
