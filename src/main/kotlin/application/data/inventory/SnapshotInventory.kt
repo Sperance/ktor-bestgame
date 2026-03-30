@@ -2,7 +2,9 @@ package application.data.inventory
 
 import application.data.BaseDTO
 import application.model.ItemStock
+import kotlinx.serialization.Serializable
 
+@Serializable
 class SnapshotInventory(
     val _id: Long,
     var _items: MutableSet<ItemStock>?,

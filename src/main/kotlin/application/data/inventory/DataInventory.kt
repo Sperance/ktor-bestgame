@@ -13,6 +13,7 @@ import application.model.enums.EnumStatKey
 import extensions.ResultExec
 import application.data.BaseEntity
 import application.data.BaseTable
+import kotlin.time.toKotlinInstant
 
 object InventoryTable : BaseTable("inventory") {
     val character = reference("character", CharactersTable).uniqueIndex()
@@ -32,9 +33,9 @@ class InventoryEntity(id: EntityID<Long>) : BaseEntity<SnapshotInventory>(id, In
             _id = id.value,
             _items = items
         ).apply {
-            _createdAt = createdAt
-            _updatedAt = updatedAt
-            _deletedAt = deletedAt
+            _createdAt = createdAt.toKotlinInstant()
+            _updatedAt = updatedAt.toKotlinInstant()
+            _deletedAt = deletedAt?.toKotlinInstant()
             _version = version
         }
 

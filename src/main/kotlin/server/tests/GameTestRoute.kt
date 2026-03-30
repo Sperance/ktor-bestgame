@@ -27,8 +27,6 @@ fun Application.configureTestRouting() {
     routing {
         route("/test") {
             get("/1") {
-                DatabaseConfig.init()
-
                 val userDao = DAOusers()
                 val characterDao = DAOCharacters()
 
@@ -101,7 +99,6 @@ fun Application.configureTestRouting() {
                     printLog(":::EQUIPMENTS:::")
                     printLog("${charEnt.getEquipments()}")
                 }
-                DatabaseConfig.close()
                 call.respondText("It`s ok!")
             }
         }

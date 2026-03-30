@@ -1,5 +1,11 @@
 package application.data
 
+import application.DatabaseConfig.dbQuery
+import extensions.IntBaseDataImpl
+import extensions.ResultResponse
+import extensions.generateMapError
+import io.ktor.server.application.ApplicationCall
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.v1.core.Op
 import org.jetbrains.exposed.v1.core.and
 import org.jetbrains.exposed.v1.core.dao.id.EntityID
@@ -13,7 +19,9 @@ import org.jetbrains.exposed.v1.javatime.timestamp
 import org.jetbrains.exposed.v1.jdbc.deleteWhere
 import org.jetbrains.exposed.v1.jdbc.select
 import org.jetbrains.exposed.v1.jdbc.update
-import java.time.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
+import kotlin.time.toJavaInstant
 
 /**
  * Базовый интерфейс для доступа к таблице
@@ -99,15 +107,16 @@ interface BaseDao<E : BaseEntity<*>> {
     fun hardDelete(id: Long): Boolean
 }
 
+@Serializable
 open class BaseDTO(
     /**
      * Дата создания записи
      */
-    var _createdAt: Instant = Instant.now(),
+    var _createdAt: Instant = Clock.System.now(),
     /**
      * Дата изменения записи
      */
-    var _updatedAt: Instant = Instant.now(),
+    var _updatedAt: Instant = Clock.System.now(),
     /**
      * Дата удаления записи
      */
@@ -126,11 +135,11 @@ abstract class BaseTable(name: String = "") : LongIdTable(name) {
     /**
      * Колонка даты создания записи (по умолчанию = текущее время)
      */
-    val createdAt = timestamp("created_at").default(Instant.now())
+    val createdAt = timestamp("created_at").default(Clock.System.now().toJavaInstant())
     /**
      * Колонка даты изменения записи (по умолчанию = текущее время)
      */
-    val updatedAt = timestamp("updated_at").default(Instant.now())
+    val updatedAt = timestamp("updated_at").default(Clock.System.now().toJavaInstant())
     /**
      * Колонка даты удаления записи (по умолчанию null). Если не null - объект считается удаленным (Soft)
      */
@@ -172,6 +181,32 @@ abstract class ExposedBaseDao<T : BaseTable, E : BaseEntity<*>>(
     protected val table: T,
     protected val entityClass: LongEntityClass<E>
 ) : BaseDao<E> {
+
+    suspend fun getAll(call: ApplicationCall): ResultResponse {
+        return try {
+            val data = dbQuery {
+                findAll()
+            }.map { it.toSnapshot() }
+            ResultResponse.Success(data)
+        } catch (e: Exception) {
+            ResultResponse.Error(generateMapError(call, 440 to e.localizedMessage.substringBefore("\n")))
+        }
+    }
+
+    suspend fun getFromId(call: ApplicationCall): ResultResponse {
+        return try {
+            val id = call.parameters["id"]?.toLongOrNull() ?: return ResultResponse.Error(
+                generateMapError(call, 301 to "Не указан параметр id")
+            )
+            val users = dbQuery {
+                findById(id)?.toSnapshot()
+            }
+            if (users == null) return ResultResponse.Error(generateMapError(call, 302 to "Не найдена запись с id $id"))
+            ResultResponse.Success(users)
+        } catch (e: Exception) {
+            ResultResponse.Error(generateMapError(call, 440 to e.localizedMessage.substringBefore("\n")))
+        }
+    }
 
     // CREATE: возвращает E
     override fun create(body: E.() -> Unit): E {
@@ -226,7 +261,7 @@ abstract class ExposedBaseDao<T : BaseTable, E : BaseEntity<*>>(
 
         // локально меняем поля
         entity.body()
-        entity.updatedAt = Instant.now()
+        entity.updatedAt = Clock.System.now().toJavaInstant()
 
         val updatedRows = table.update({
             table.id eq id and
@@ -271,7 +306,7 @@ abstract class ExposedBaseDao<T : BaseTable, E : BaseEntity<*>>(
     override fun softDelete(entity: E): E {
         val id = entity.id.value
         val currentVersion = entity.version
-        val now = Instant.now()
+        val now = Clock.System.now().toJavaInstant()
 
         val updatedRows = table.update({
             table.id eq id and

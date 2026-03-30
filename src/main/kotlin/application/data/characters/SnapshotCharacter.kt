@@ -8,7 +8,9 @@ import application.model.Stat
 import application.model.StatBool
 import application.model.enums.EnumStatType
 import extensions.addPercent
+import kotlinx.serialization.Serializable
 
+@Serializable
 class SnapshotCharacter(
     /**
      * id персонажа
@@ -42,10 +44,6 @@ class SnapshotCharacter(
      * Объект класса [SnapshotInventory] - инвентарь персонажа (без экипировки)
      */
     var _inventory: SnapshotInventory,
-    /**
-     * [List] объектов [EquipmentEntity] - вся экипировка персонажа
-     */
-    var _equipments: List<EquipmentEntity>?,
     /**
      * id [application.data.users.UserEntity] владельца персонажа
      */

@@ -16,6 +16,14 @@ kotlin {
     jvmToolchain(21)
 }
 
+ktor {
+    openApi {
+        enabled = true
+        codeInferenceEnabled = true
+        onlyCommented = false
+    }
+}
+
 dependencies {
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.serialization.kotlinx.json)
@@ -26,8 +34,10 @@ dependencies {
     implementation(libs.ktor.server.cors)
     implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.openapi)
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
+    implementation(libs.kotlinx.datetime)
 
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)

@@ -2,7 +2,9 @@ package application.data.users
 
 import application.data.BaseDTO
 import application.data.characters.SnapshotCharacter
+import kotlinx.serialization.Serializable
 
+@Serializable
 class SnapshotUser(
     val _id: Long,
     var _name: String,

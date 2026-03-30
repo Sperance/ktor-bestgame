@@ -6,6 +6,8 @@ import application.data.characters.CharacterEntity
 import application.data.characters.CharactersTable
 import application.data.BaseEntity
 import application.data.BaseTable
+import kotlinx.serialization.Serializable
+import kotlin.time.toKotlinInstant
 
 object UsersTable : BaseTable("users") {
     val name = varchar("name", 255)
@@ -23,9 +25,9 @@ class UserEntity(id: EntityID<Long>) : BaseEntity<SnapshotUser>(id, UsersTable) 
             _name = name,
             _email = email
         ).apply {
-            _createdAt = createdAt
-            _updatedAt = updatedAt
-            _deletedAt = deletedAt
+            _createdAt = createdAt.toKotlinInstant()
+            _updatedAt = updatedAt.toKotlinInstant()
+            _deletedAt = deletedAt?.toKotlinInstant()
             _version = version
         }
 

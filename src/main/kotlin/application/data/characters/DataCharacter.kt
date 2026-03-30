@@ -18,6 +18,7 @@ import application.model.enums.EnumStatKey
 import extensions.ResultExec
 import application.data.users.UserEntity
 import application.data.users.UsersTable
+import kotlin.time.toKotlinInstant
 
 object CharactersTable : BaseTable("characters") {
     val user = reference("user_id", UsersTable)
@@ -104,12 +105,12 @@ class CharacterEntity(id: EntityID<Long>) : BaseEntity<SnapshotCharacter>(id, Ch
             _buffs = buffs,
             _bools = bools,
             _inventory = getInventory().toSnapshot(),
-            _equipments = getEquipments(),
+//            _equipments = getEquipments(),
             _userId = user.id.value
         ).apply {
-            _createdAt = createdAt
-            _updatedAt = updatedAt
-            _deletedAt = deletedAt
+            _createdAt = createdAt.toKotlinInstant()
+            _updatedAt = updatedAt.toKotlinInstant()
+            _deletedAt = deletedAt?.toKotlinInstant()
             _version = version
         }
 

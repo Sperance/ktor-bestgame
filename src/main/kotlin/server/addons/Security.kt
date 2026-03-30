@@ -1,11 +1,14 @@
-package ru.descend.server.addons
+package server.addons
 
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.routing.openapi.hide
 import io.ktor.server.sessions.*
+import io.ktor.utils.io.ExperimentalKtorApi
 import kotlinx.serialization.Serializable
 
+@OptIn(ExperimentalKtorApi::class)
 fun Application.configureSecurity() {
     install(Sessions) {
         cookie<MySession>("MY_SESSION") {
@@ -17,8 +20,9 @@ fun Application.configureSecurity() {
             val session = call.sessions.get<MySession>() ?: MySession()
             call.sessions.set(session.copy(count = session.count + 1))
             call.respondText("Counter is ${session.count}. Refresh to increment.")
-        }
+        }.hide()
     }
 }
+
 @Serializable
 data class MySession(val count: Int = 0)
