@@ -9,7 +9,7 @@ import application.data.characters.CharactersTable
 import application.data.equipments.EquipmentEntity
 import application.data.equipments.SnapshotEquipment
 import application.model.ItemStock
-import application.model.enums.EnumStatKey
+import application.enums.EnumStatKey
 import extensions.ResultExec
 import application.data.BaseEntity
 import application.data.BaseTable

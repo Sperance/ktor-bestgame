@@ -7,7 +7,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import application.model.enums.EnumItem
+import application.enums.EnumItem
 
 @Serializable(with = CompactItemStockSerializer::class)
 data class ItemStock(

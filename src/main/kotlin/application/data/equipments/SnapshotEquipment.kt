@@ -1,8 +1,8 @@
 package application.data.equipments
 
 import application.data.BaseDTO
-import application.model.enums.EnumEquipmentType
-import application.model.enums.EnumItem
+import application.enums.EnumEquipmentType
+import application.enums.EnumItem
 import application.model.ItemStock
 import application.model.ParamsStock
 import application.model.Stat

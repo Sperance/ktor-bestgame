@@ -1,23 +1,21 @@
 package application.data.equipments
 
-import org.jetbrains.exposed.v1.core.statements.UpdateStatement
 import application.data.ExposedBaseDao
 import kotlin.uuid.ExperimentalUuidApi
 
 @OptIn(ExperimentalUuidApi::class)
-class DAOequipments : ExposedBaseDao<EquipmentsTable, EquipmentEntity>(
+class DAOequipments : ExposedBaseDao<EquipmentsTable, EquipmentEntity, SnapshotEquipment>(
     EquipmentsTable,
     EquipmentEntity.Companion
 ) {
-    override fun applyEntityToStatement(entity: EquipmentEntity, stmt: UpdateStatement) {
-        stmt[table.character] = entity.character.id
-        stmt[table.name] = entity.name
-        stmt[table.content] = entity.content
-        stmt[table.uuid] = entity.uuid
-        stmt[table.enumEquipmentType] = entity.enumEquipmentType
-        stmt[table.requirements] = entity.requirements
-        stmt[table.params] = entity.params
-        stmt[table.buffs] = entity.buffs
-        stmt[table.bools] = entity.bools
+    override fun mapDtoToEntity(dto: SnapshotEquipment, entity: EquipmentEntity) {
+        entity.name = dto._name
+        entity.content = dto._content
+        entity.uuid = dto._uuid
+        entity.enumEquipmentType = dto._enumEquipmentType
+        entity.requirements = dto._requirements
+        entity.params = dto._params
+        entity.buffs = dto._buffs
+        entity.bools = dto._bools
     }
 }

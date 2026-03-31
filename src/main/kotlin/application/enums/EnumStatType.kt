@@ -1,4 +1,4 @@
-package application.model.enums
+package application.enums
 
 enum class EnumStatType(val code: Int) {
     FLAT(1),

@@ -9,6 +9,7 @@ import ru.descend.server.addons.configureMonitoring
 import server.addons.configureRouting
 import server.addons.configureSecurity
 import server.addons.configureSerialization
+import server.tests.simpleTestData
 
 fun main() {
     printLog("Starting up")
@@ -24,6 +25,8 @@ fun main() {
         },
         module = {
             configureModules()
+
+            simpleTestData()
         })
     server.start(wait = true)
 

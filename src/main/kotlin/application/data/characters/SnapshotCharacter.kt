@@ -1,12 +1,11 @@
 package application.data.characters
 
 import application.data.BaseDTO
-import application.data.equipments.EquipmentEntity
 import application.data.inventory.SnapshotInventory
 import application.model.ParamsStock
 import application.model.Stat
 import application.model.StatBool
-import application.model.enums.EnumStatType
+import application.enums.EnumStatType
 import extensions.addPercent
 import kotlinx.serialization.Serializable
 

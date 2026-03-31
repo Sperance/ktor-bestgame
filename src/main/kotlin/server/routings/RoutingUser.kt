@@ -3,20 +3,27 @@ package server.routings
 import application.data.characters.SnapshotCharacter
 import application.data.users.DAOusers
 import application.data.users.SnapshotUser
+import extensions.RequestParams
 import extensions.respond
 import io.ktor.http.HttpStatusCode
 import io.ktor.openapi.jsonSchema
 import io.ktor.server.application.Application
 import io.ktor.server.routing.get
 import io.ktor.server.routing.openapi.describe
+import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import io.ktor.utils.io.ExperimentalKtorApi
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.serializer
 
 /**
  * API для работы с таблицей [application.data.users.UserEntity] - список пользователей
  */
-@OptIn(ExperimentalKtorApi::class)
+@OptIn(ExperimentalKtorApi::class, InternalSerializationApi::class)
 fun Application.configureRoutingUser() {
     routing {
 
@@ -102,6 +109,14 @@ fun Application.configureRoutingUser() {
                         required = true
                     }
                 }
+            }
+
+            get("/{id}/testupdate") {
+                call.respond(userDao.testUserUpdate(call))
+            }
+
+            post {
+                call.respond(userDao.post(call, ListSerializer(SnapshotUser.serializer())))
             }
 
         }.describe {

@@ -8,8 +8,7 @@ import application.data.characters.CharacterEntity
 import application.data.characters.CharactersTable
 import application.data.BaseEntity
 import application.data.BaseTable
-import application.data.characters.SnapshotCharacter
-import application.model.enums.EnumEquipmentType
+import application.enums.EnumEquipmentType
 import application.model.ParamsStock
 import application.model.Stat
 import application.model.StatBool

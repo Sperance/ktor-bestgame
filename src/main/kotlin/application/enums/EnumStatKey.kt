@@ -1,4 +1,4 @@
-package application.model.enums
+package application.enums
 
 import application.model.IntStat
 

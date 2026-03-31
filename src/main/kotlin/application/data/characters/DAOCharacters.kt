@@ -1,22 +1,20 @@
 package application.data.characters
 
-import org.jetbrains.exposed.v1.core.statements.UpdateStatement
 import application.data.ExposedBaseDao
 import application.data.inventory.InventoryEntity
 import extensions.printLog
 
-class DAOCharacters : ExposedBaseDao<CharactersTable, CharacterEntity>(
+class DAOCharacters : ExposedBaseDao<CharactersTable, CharacterEntity, SnapshotCharacter>(
     CharactersTable,
     CharacterEntity.Companion
 ) {
-    override fun applyEntityToStatement(entity: CharacterEntity, stmt: UpdateStatement) {
-        stmt[table.user] = entity.user.id
-        stmt[table.name] = entity.name
-        stmt[table.level] = entity.level
-        stmt[table.experience] = entity.experience
-        stmt[table.params] = entity.params
-        stmt[table.buffs] = entity.buffs
-        stmt[table.bools] = entity.bools
+    override fun mapDtoToEntity(dto: SnapshotCharacter, entity: CharacterEntity) {
+        entity.name = dto._name
+        entity.level = dto._level
+        entity.experience = dto._experience
+        entity.params = dto._params
+        entity.buffs = dto._buffs
+        entity.bools = dto._bools
     }
 
     @Suppress("SENSELESS_COMPARISON")

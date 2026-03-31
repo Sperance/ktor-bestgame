@@ -34,18 +34,6 @@ fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 fun Double.to1Digits() = String.format("%.1f", this).replace(",", ".").toDouble()
 
-fun IntBaseDataImpl<*>.generateMapError(call: ApplicationCall, errorPair: Pair<Int, String>): MutableMap<String, String> {
-    val map = mutableMapOf<String, String>()
-//    map["errorKey"] = getTable().tableName().uppercase() + "_" + errorPair.first.toString()
-    map["errorCode"] = errorPair.first.toString()
-    map["errorDescription"] = errorPair.second
-    map["errorType"] = call.request.httpMethod.value
-    map["errorUri"] = call.request.uri
-//    map["errorTable"] = getTable().tableName()
-    map["requestKey"] = call.response.headers["ERA-key"].toString()
-    return map
-}
-
 fun generateMapError(call: ApplicationCall, errorPair: Pair<Int, String>): MutableMap<String, String> {
     val map = mutableMapOf<String, String>()
     map["errorCode"] = errorPair.first.toString()

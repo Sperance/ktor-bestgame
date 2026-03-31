@@ -13,8 +13,8 @@ import application.data.inventory.InventoryTable
 import application.model.ParamsStock
 import application.model.Stat
 import application.model.StatBool
-import application.model.enums.EnumStatBool
-import application.model.enums.EnumStatKey
+import application.enums.EnumStatBool
+import application.enums.EnumStatKey
 import extensions.ResultExec
 import application.data.users.UserEntity
 import application.data.users.UsersTable

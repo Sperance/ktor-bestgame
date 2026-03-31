@@ -1,4 +1,4 @@
-package application.model.enums
+package application.enums
 
 enum class EnumEquipmentType(val text: String) {
     HELMET("Шлем"),

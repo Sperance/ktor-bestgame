@@ -7,7 +7,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import application.model.enums.EnumStatKey
+import application.enums.EnumStatKey
 
 @Serializable(with = CompactParamsStockSerializer::class)
 data class ParamsStock(
