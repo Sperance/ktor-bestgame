@@ -1,6 +1,5 @@
 package extensions
 
-import application.DatabaseConfig.dbQuery
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.httpMethod
@@ -10,7 +9,6 @@ import io.ktor.server.util.toZonedDateTime
 import io.ktor.utils.io.InternalAPI
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
-import server.enums.EnumSQLTypes
 import java.util.Date
 import kotlin.toString
 
@@ -44,19 +42,6 @@ fun generateMapError(call: ApplicationCall, errorPair: Pair<Int, String>): Mutab
     return map
 }
 
-private suspend fun executeScript(script: String): String? {
-    printLog("[executeScript] $script")
-    try {
-        dbQuery {
-            exec(script.trimIndent())
-        }
-        return null
-    } catch (e: Exception) {
-        printLog("[executeScript] Error: ${e.localizedMessage}")
-        return e.localizedMessage
-    }
-}
-
 fun Any.haveField(name: String) = this::class.java.declaredFields.find { it.isAccessible = true ; it.name == name } != null
 fun Any.getField(name: String) = this::class.java.declaredFields.find { it.isAccessible = true ; it.name == name }?.get(this)
 fun Any.putField(name: String, value: Any?) = this::class.java.declaredFields.find { it.isAccessible = true ; it.name == name }?.set(this, value)
@@ -83,27 +68,3 @@ fun Number?.isNullOrZero() : Boolean {
 
 @OptIn(InternalAPI::class)
 fun LocalDateTime.Companion.currectDatetime(): LocalDateTime = Date().toZonedDateTime().toLocalDateTime().toKotlinLocalDateTime()
-
-suspend fun ApplicationCall.respond(response: ResultResponse) {
-    try {
-        when(response) {
-            is ResultResponse.Error -> {
-                this.response.headers.append("Answer-TimeStamp", LocalDateTime.currectDatetime().toString())
-                this.response.headers.append("Answer-Error", response.message.toString())
-                respond(
-                    status = HttpStatusCode(350, "Request error"),
-                    message = response.message)
-            }
-            is ResultResponse.Success -> {
-                this.response.headers.append("Answer-TimeStamp", LocalDateTime.currectDatetime().toString())
-                response.headers?.forEach { (key, value) ->
-                    this.response.headers.append(key, value.toString())
-                }
-                respond(status = HttpStatusCode.OK, message = response.data ?: "")
-            }
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        printLog("[ApplicationCall] Error: ${e.localizedMessage}")
-    }
-}

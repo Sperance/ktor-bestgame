@@ -1,4 +1,4 @@
-package ru.descend.server.addons
+package server.addons
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.calllogging.*

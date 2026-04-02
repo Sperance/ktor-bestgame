@@ -1,4 +1,4 @@
-package ru.descend.server.addons
+package server.addons
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -16,6 +16,6 @@ fun Application.configureHTTP() {
         allowMethod(HttpMethod.Patch)
         allowHeader(HttpHeaders.Authorization)
         allowHeader("MyCustomHeader")
-        anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
+        anyHost()
     }
 }
