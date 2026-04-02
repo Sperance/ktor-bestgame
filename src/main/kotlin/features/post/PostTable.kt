@@ -39,17 +39,3 @@ data class Post(
     @ReadOnly
     val updatedAt: String? = null
 ) : BaseEntity
-
-// Отдельная модель только для нестандартных JOIN-запросов
-@Serializable
-data class PostWithAuthor(
-    val id: Long,
-    val title: String,
-    val content: String,
-    val authorId: Long,
-    val authorName: String,
-    val authorEmail: String,
-    val isPublished: Boolean,
-    val version: Long,
-    val createdAt: String? = null
-)

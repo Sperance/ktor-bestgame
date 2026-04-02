@@ -15,21 +15,11 @@ class PostRoute(
     basePath = "/api/posts",
     entitySerializer = Post.serializer()   // ← явный сериализатор
 ) {
-
-    // Сериализатор для нестандартного PostWithAuthor
-    private val postWithAuthorListSerializer = apiResponseListSerializer(PostWithAuthor.serializer())
-
     override fun additionalRoutes(route: Route) = with(route) {
 
         get("/published") {
             val posts = postService.findPublished()
             call.respondEntityList(posts)
-        }
-
-        get("/published/with-authors") {
-            val posts = postService.findPublishedWithAuthors()
-            val response = ApiResponse.ok(posts)
-            call.respond(HttpStatusCode.OK, postWithAuthorListSerializer, response)
         }
 
         get("/by-author/{authorId}") {

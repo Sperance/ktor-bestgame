@@ -15,7 +15,7 @@ import features.user.UsersTable
 fun main() {
     printLog("Starting up")
 
-    DatabaseFactory.init(tables = arrayOf(UsersTable, PostsTable))
+    DatabaseFactory.init()
 
     embeddedServer(
         Netty,

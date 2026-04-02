@@ -23,5 +23,4 @@ class PostService(
 
     fun findByAuthor(authorId: Long) = postRepo.findByAuthor(authorId)
     fun findPublished() = postRepo.findPublished()
-    fun findPublishedWithAuthors() = postRepo.findPublishedWithAuthors()
 }
