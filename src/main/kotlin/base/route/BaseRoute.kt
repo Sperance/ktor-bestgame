@@ -20,9 +20,11 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
+import io.ktor.server.routing.openapi.describe
 import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import io.ktor.server.routing.route
+import io.ktor.utils.io.ExperimentalKtorApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.JsonObject
 import server.addons.AppJson
@@ -163,6 +165,7 @@ abstract class BaseRoute<E : BaseEntity, T : BaseTable>(
      * }
      * ```
      */
+    @OptIn(ExperimentalKtorApi::class)
     fun register(routing: Routing) {
         routing.route(basePath) {
             // Кастомные маршруты ПЕРВЫМИ (до /{id})
@@ -176,6 +179,8 @@ abstract class BaseRoute<E : BaseEntity, T : BaseTable>(
             updateRoute()
             deleteRoute()
             deleteWithVersionRoute()
+        }.describe {
+            tag(this@BaseRoute.basePath.substringAfterLast("/"))
         }
     }
 

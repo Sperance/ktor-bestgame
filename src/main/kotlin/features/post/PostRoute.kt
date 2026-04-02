@@ -1,10 +1,6 @@
 package features.post
 
-import base.model.ApiResponse
-import base.model.apiResponseListSerializer
 import base.route.BaseRoute
-import base.route.respond
-import io.ktor.http.HttpStatusCode
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
