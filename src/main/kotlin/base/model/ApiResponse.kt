@@ -1,6 +1,10 @@
 package base.model
 
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
 
 @Serializable
 data class ApiResponse<T>(
@@ -32,3 +36,26 @@ data class PagedResponse<T>(
     val totalItems: Long,
     val totalPages: Int
 )
+
+// ==================== Фабрики сериализаторов ====================
+
+/**
+ * Строит KSerializer<ApiResponse<T>> для конкретного T.
+ * Используется в BaseRoute чтобы обойти type erasure.
+ */
+fun <T> apiResponseSerializer(dataSerializer: KSerializer<T>): KSerializer<ApiResponse<T>> =
+    ApiResponse.serializer(dataSerializer)
+
+fun <T> apiResponseListSerializer(itemSerializer: KSerializer<T>): KSerializer<ApiResponse<List<T>>> =
+    ApiResponse.serializer(ListSerializer(itemSerializer))
+
+fun <T> apiResponsePagedSerializer(itemSerializer: KSerializer<T>): KSerializer<ApiResponse<PagedResponse<T>>> =
+    ApiResponse.serializer(PagedResponse.serializer(itemSerializer))
+
+/** Для ApiResponse<Unit> (сообщения без данных) */
+val apiResponseUnitSerializer: KSerializer<ApiResponse<Unit>> =
+    ApiResponse.serializer(Unit.serializer())
+
+/** Для ApiResponse<Map<String, Long>> (count и т.п.) */
+val apiResponseMapSerializer: KSerializer<ApiResponse<Map<String, Long>>> =
+    ApiResponse.serializer(MapSerializer(String.serializer(), Long.serializer()))

@@ -1,42 +1,33 @@
 package features.user
 
 import base.repository.BaseRepository
-import org.jetbrains.exposed.v1.core.SortOrder
 import org.jetbrains.exposed.v1.core.eq
 import org.jetbrains.exposed.v1.core.like
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
-/**
- * Нет ни одного ручного маппинга полей —
- * insert/update/toEntity полностью через рефлексию.
- *
- * Здесь только кастомные запросы.
- */
-class UserRepository : BaseRepository<UserResponse, CreateUserRequest, UpdateUserRequest, UsersTable>(
+class UserRepository : BaseRepository<User, UsersTable>(
     table = UsersTable,
-    entityClass = UserResponse::class
+    entityClass = User::class
 ) {
     override val entityName = "User"
 
-    fun findByEmail(email: String): UserResponse? = transaction {
+    fun findByEmail(email: String): User? = transaction {
         table.selectAll()
             .where { table.email eq email }
             .singleOrNull()
             ?.let(::toEntity)
     }
 
-    fun searchByName(name: String): List<UserResponse> = transaction {
+    fun searchByName(name: String): List<User> = transaction {
         table.selectAll()
             .where { table.name like "%$name%" }
-            .orderBy(table.name, SortOrder.ASC)
             .map(::toEntity)
     }
 
-    fun findActive(): List<UserResponse> = transaction {
+    fun findActive(): List<User> = transaction {
         table.selectAll()
             .where { table.isActive eq true }
-            .orderBy(table.id, SortOrder.ASC)
             .map(::toEntity)
     }
 }

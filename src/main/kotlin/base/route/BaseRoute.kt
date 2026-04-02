@@ -3,14 +3,18 @@ package base.route
 import base.exception.BadRequestException
 import base.model.ApiResponse
 import base.model.BaseEntity
-import base.model.CreateRequest
 import base.model.PagedResponse
-import base.model.UpdateRequest
+import base.model.apiResponseListSerializer
+import base.model.apiResponseMapSerializer
+import base.model.apiResponsePagedSerializer
+import base.model.apiResponseSerializer
+import base.model.apiResponseUnitSerializer
 import base.service.BaseService
 import base.table.BaseTable
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
+import io.ktor.server.request.receive
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.Routing
@@ -20,84 +24,44 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.builtins.MapSerializer
-import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.json.Json
-import org.jetbrains.exposed.v1.jdbc.update
+import kotlinx.serialization.json.JsonObject
+import server.addons.AppJson
 import kotlin.text.toIntOrNull
 import kotlin.text.toLongOrNull
 
 /**
- * Один наследник = один REST-ресурс.
+ * Базовый роут с CRUD.
  *
- * Регистрирует стандартные CRUD + пагинацию + count.
- * Хук [additionalRoutes] — для кастомных эндпоинтов.
+ * Каждый наследник обязан передать [entitySerializer] — это решает
+ * проблему type erasure при сериализации generic ApiResponse<E>.
  *
- * ВАЖНО: additionalRoutes регистрируются ПЕРЕД /{id},
- *         иначе /active, /search и т.д. перехватятся как {id}.
+ * @param E — Entity
+ * @param T — Table
  */
-abstract class BaseRoute<E : BaseEntity, CQ : CreateRequest, UQ : UpdateRequest>(
-    protected val service: BaseService<E, CQ, UQ, out BaseTable>,
-    protected val basePath: String
+abstract class BaseRoute<E : BaseEntity, T : BaseTable>(
+    protected val service: BaseService<E, T>,
+    protected val basePath: String,
+    entitySerializer: KSerializer<E>
 ) {
 
-    // ========== Сериализаторы — переопределяются через reified-обёртку ==========
+    // ========== Предвычисленные сериализаторы (создаются один раз) ==========
 
-    /** Сериализатор для ОДНОЙ сущности E */
-    protected abstract val entitySerializer: KSerializer<E>
+    private val singleResponseSerializer: KSerializer<ApiResponse<E>> =
+        apiResponseSerializer(entitySerializer)
 
-    protected abstract suspend fun deserializeCreate(call: ApplicationCall): CQ
-    protected abstract suspend fun deserializeUpdate(call: ApplicationCall): UQ
+    private val listResponseSerializer: KSerializer<ApiResponse<List<E>>> =
+        apiResponseListSerializer(entitySerializer)
 
-    // ========== Вспомогательный JSON (можно вынести в DI / companion) ==========
+    private val pagedResponseSerializer: KSerializer<ApiResponse<PagedResponse<E>>> =
+        apiResponsePagedSerializer(entitySerializer)
 
-    protected open val json: Json = Json {
-        encodeDefaults = true
-        ignoreUnknownKeys = true
-    }
-
-    // ========== Производные сериализаторы (вычисляются один раз) ==========
-
-    /** ApiResponse<E> */
-    private val apiResponseEntitySerializer: KSerializer<ApiResponse<E>> by lazy {
-        ApiResponse.serializer(entitySerializer)
-    }
-
-    /** ApiResponse<List<E>> */
-    private val apiResponseListSerializer: KSerializer<ApiResponse<List<E>>> by lazy {
-        ApiResponse.serializer(ListSerializer(entitySerializer))
-    }
-
-    /** ApiResponse<PagedResponse<E>> */
-    private val apiResponsePagedSerializer: KSerializer<ApiResponse<PagedResponse<E>>> by lazy {
-        ApiResponse.serializer(PagedResponse.serializer(entitySerializer))
-    }
-
-    /** ApiResponse<Unit> (для message-ответов) */
-    private val apiResponseUnitSerializer: KSerializer<ApiResponse<Unit>> by lazy {
-        ApiResponse.serializer(Unit.serializer())
-    }
-
-    // ========== Типизированный respond ==========
-
-    /**
-     * Отправляет JSON-ответ с ЯВНЫМ сериализатором — обходим type erasure.
-     */
-    protected suspend fun <R> ApplicationCall.respondJson(
-        statusCode: HttpStatusCode,
-        serializer: KSerializer<R>,
-        body: R
-    ) {
-        val text = json.encodeToString(serializer, body)
-        respondText(text, ContentType.Application.Json, statusCode)
-    }
-
-    // ========== Регистрация ==========
+    // ==================== Регистрация ====================
 
     fun register(routing: Routing) {
         routing.route(basePath) {
+            // Кастомные маршруты ПЕРВЫМИ (до /{id})
             additionalRoutes(this)
+
             pagedRoute()
             countRoute()
             getAllRoute()
@@ -109,98 +73,115 @@ abstract class BaseRoute<E : BaseEntity, CQ : CreateRequest, UQ : UpdateRequest>
         }
     }
 
-    // ==================== CRUD routes ====================
+    // ==================== CRUD ====================
 
     private fun Route.getAllRoute() = get {
-        call.respondJson(
-            HttpStatusCode.OK,
-            apiResponseListSerializer,
-            ApiResponse.ok(service.findAll())
-        )
+        val items = service.findAll()
+        val response = ApiResponse.ok(items)
+        call.respond(HttpStatusCode.OK, listResponseSerializer, response)
     }
 
     private fun Route.getByIdRoute() = get("/{id}") {
-        call.respondJson(
-            HttpStatusCode.OK,
-            apiResponseEntitySerializer,
-            ApiResponse.ok(service.getById(call.longParam("id")))
-        )
+        val entity = service.getById(call.longParam("id"))
+        val response = ApiResponse.ok(entity)
+        call.respond(HttpStatusCode.OK, singleResponseSerializer, response)
     }
 
     private fun Route.createRoute() = post {
-        val created = service.create(deserializeCreate(call))
-        call.respondJson(
-            HttpStatusCode.Created,
-            apiResponseEntitySerializer,
-            ApiResponse.created(created)
-        )
+        val json = call.receive<JsonObject>()
+        val created = service.create(json)
+        val response = ApiResponse.created(created)
+        call.respond(HttpStatusCode.Created, singleResponseSerializer, response)
     }
 
     private fun Route.updateRoute() = put("/{id}") {
         val id = call.longParam("id")
-        val updated = service.update(id, deserializeUpdate(call))
-        call.respondJson(
-            HttpStatusCode.OK,
-            apiResponseEntitySerializer,
-            ApiResponse.ok(updated, "Updated")
-        )
+        val json = call.receive<JsonObject>()
+        val updated = service.update(id, json)
+        val response = ApiResponse.ok(updated, "Updated")
+        call.respond(HttpStatusCode.OK, singleResponseSerializer, response)
     }
 
     private fun Route.deleteRoute() = delete("/{id}") {
         service.delete(call.longParam("id"))
-        call.respondJson(
-            HttpStatusCode.OK,
-            apiResponseUnitSerializer,
-            ApiResponse.message("Deleted")
-        )
+        val response = ApiResponse.message("Deleted")
+        call.respond(HttpStatusCode.OK, apiResponseUnitSerializer, response)
     }
 
     private fun Route.deleteWithVersionRoute() = delete("/{id}/version/{version}") {
         val id = call.longParam("id")
         val version = call.longParam("version")
         service.deleteWithVersion(id, version)
-        call.respondJson(
-            HttpStatusCode.OK,
-            apiResponseUnitSerializer,
-            ApiResponse.message("Deleted")
-        )
+        val response = ApiResponse.message("Deleted")
+        call.respond(HttpStatusCode.OK, apiResponseUnitSerializer, response)
     }
 
     private fun Route.pagedRoute() = get("/paged") {
         val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 0
         val size = call.request.queryParameters["size"]?.toIntOrNull() ?: 20
-        call.respondJson(
-            HttpStatusCode.OK,
-            apiResponsePagedSerializer,
-            ApiResponse.ok(service.findPaged(page, size))
-        )
+        val paged = service.findPaged(page, size)
+        val response = ApiResponse.ok(paged)
+        call.respond(HttpStatusCode.OK, pagedResponseSerializer, response)
     }
 
     private fun Route.countRoute() = get("/count") {
-        val countSerializer = ApiResponse.serializer(
-            MapSerializer(String.serializer(), Long.serializer())
-        )
-        call.respondJson(
-            HttpStatusCode.OK,
-            countSerializer,
-            ApiResponse.ok(mapOf("count" to service.count()))
-        )
+        val count = service.count()
+        val response = ApiResponse.ok(mapOf("count" to count))
+        call.respond(HttpStatusCode.OK, apiResponseMapSerializer, response)
     }
 
     // ==================== Hook ====================
 
-    protected open fun additionalRoutes(route: Route): Route = route
+    protected open fun additionalRoutes(route: Route): Route {
+        TODO()
+    }
 
     // ==================== Utilities ====================
 
     protected fun ApplicationCall.longParam(name: String): Long =
         parameters[name]?.toLongOrNull()
-            ?: throw BadRequestException("Invalid or missing path parameter '$name'")
+            ?: throw BadRequestException("Invalid or missing '$name'")
 
     protected fun ApplicationCall.queryParam(name: String): String =
         request.queryParameters[name]
             ?: throw BadRequestException("Missing query parameter '$name'")
 
-    protected fun ApplicationCall.optionalQueryParam(name: String): String? =
-        request.queryParameters[name]
+    /**
+     * Хелпер для additionalRoutes — respond с явным сериализатором для единичной entity.
+     */
+    protected suspend fun ApplicationCall.respondEntity(entity: E, status: HttpStatusCode = HttpStatusCode.OK) {
+        respond(status, singleResponseSerializer, ApiResponse.ok(entity))
+    }
+
+    /**
+     * Хелпер для additionalRoutes — respond со списком entities.
+     */
+    protected suspend fun ApplicationCall.respondEntityList(list: List<E>, status: HttpStatusCode = HttpStatusCode.OK) {
+        respond(status, listResponseSerializer, ApiResponse.ok(list))
+    }
+
+    /**
+     * Хелпер — respond с произвольным типом + его сериализатор.
+     */
+    protected suspend fun <R> ApplicationCall.respondTyped(
+        serializer: KSerializer<ApiResponse<R>>,
+        data: R,
+        message: String? = null,
+        status: HttpStatusCode = HttpStatusCode.OK
+    ) {
+        respond(status, serializer, ApiResponse.ok(data, message))
+    }
+}
+
+/**
+ * Extension для ApplicationCall — respond с явным сериализатором.
+ * Ktor из коробки имеет respond(status, message) но не respond(status, serializer, value).
+ */
+suspend fun <T> ApplicationCall.respond(
+    status: HttpStatusCode,
+    serializer: KSerializer<T>,
+    value: T
+) {
+    val text = AppJson.encodeToString(serializer, value)
+    respondText(text, ContentType.Application.Json, status)
 }

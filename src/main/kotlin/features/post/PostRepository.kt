@@ -8,43 +8,32 @@ import org.jetbrains.exposed.v1.core.like
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
-class PostRepository : BaseRepository<PostResponse, CreatePostRequest, UpdatePostRequest, PostsTable>(
+class PostRepository : BaseRepository<Post, PostsTable>(
     table = PostsTable,
-    entityClass = PostResponse::class
+    entityClass = Post::class
 ) {
     override val entityName = "Post"
 
-    fun findByAuthor(authorId: Long): List<PostResponse> = transaction {
+    fun findByAuthor(authorId: Long): List<Post> = transaction {
         table.selectAll()
             .where { table.authorId eq authorId }
             .orderBy(table.createdAt, SortOrder.DESC)
             .map(::toEntity)
     }
 
-    fun findPublished(): List<PostResponse> = transaction {
+    fun findPublished(): List<Post> = transaction {
         table.selectAll()
             .where { table.isPublished eq true }
             .orderBy(table.createdAt, SortOrder.DESC)
             .map(::toEntity)
     }
 
-    fun searchByTitle(keyword: String): List<PostResponse> = transaction {
-        table.selectAll()
-            .where { table.title like "%$keyword%" }
-            .map(::toEntity)
-    }
-
-    /**
-     * JOIN — маппинг вручную, т.к. две таблицы.
-     * Рефлексия работает для одной таблицы; JOIN'ы — нестандартные запросы.
-     */
-    fun findPublishedWithAuthors(): List<PostWithAuthorResponse> = transaction {
+    fun findPublishedWithAuthors(): List<PostWithAuthor> = transaction {
         (PostsTable innerJoin UsersTable)
             .selectAll()
             .where { PostsTable.isPublished eq true }
-            .orderBy(PostsTable.createdAt, SortOrder.DESC)
             .map { row ->
-                PostWithAuthorResponse(
+                PostWithAuthor(
                     id = row[PostsTable.id],
                     title = row[PostsTable.title],
                     content = row[PostsTable.content],
@@ -56,9 +45,5 @@ class PostRepository : BaseRepository<PostResponse, CreatePostRequest, UpdatePos
                     createdAt = row[PostsTable.createdAt].toString()
                 )
             }
-    }
-
-    fun countByAuthor(authorId: Long): Long = transaction {
-        table.selectAll().where { table.authorId eq authorId }.count()
     }
 }

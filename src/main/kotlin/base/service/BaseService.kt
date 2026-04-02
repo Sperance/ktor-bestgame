@@ -2,18 +2,17 @@ package base.service
 
 import base.exception.NotFoundException
 import base.model.BaseEntity
-import base.model.CreateRequest
 import base.model.PagedResponse
-import base.model.UpdateRequest
 import base.repository.BaseRepository
 import base.table.BaseTable
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Бизнес-логика поверх репозитория.
  * Хуки validateCreate / validateUpdate переопределяются в наследниках.
  */
-abstract class BaseService<E : BaseEntity, CQ : CreateRequest, UQ : UpdateRequest, T : BaseTable>(
-    protected val repository: BaseRepository<E, CQ, UQ, T>
+abstract class BaseService<E : BaseEntity, T : BaseTable>(
+    protected val repository: BaseRepository<E, T>
 ) {
 
     open fun findAll(): List<E> = repository.findAll()
@@ -23,23 +22,20 @@ abstract class BaseService<E : BaseEntity, CQ : CreateRequest, UQ : UpdateReques
     open fun getById(id: Long): E =
         findById(id) ?: throw NotFoundException("${entityName()} with id=$id not found")
 
-    open fun create(request: CQ): E {
-        validateCreate(request)
-        return repository.create(request)
-    }
-
-    open fun createBatch(requests: List<CQ>): List<E> {
-        requests.forEach(::validateCreate)
-        return repository.createBatch(requests)
+    /**
+     * Создание. Валидация вызывается до insert.
+     */
+    open fun create(json: JsonObject): E {
+        validateCreate(json)
+        return repository.create(json)
     }
 
     /**
-     * Optimistic-lock update.
-     * Если version не совпала — OptimisticLockException → HTTP 409.
+     * Обновление с optimistic locking.
      */
-    open fun update(id: Long, request: UQ): E {
-        validateUpdate(id, request)
-        return repository.update(id, request)
+    open fun update(id: Long, json: JsonObject): E {
+        validateUpdate(id, json)
+        return repository.update(id, json)
     }
 
     open fun delete(id: Long) {
@@ -54,7 +50,6 @@ abstract class BaseService<E : BaseEntity, CQ : CreateRequest, UQ : UpdateReques
     }
 
     open fun count(): Long = repository.count()
-
     open fun exists(id: Long): Boolean = repository.exists(id)
 
     open fun findPaged(page: Int, pageSize: Int = 20): PagedResponse<E> {
@@ -64,11 +59,9 @@ abstract class BaseService<E : BaseEntity, CQ : CreateRequest, UQ : UpdateReques
         return PagedResponse(items, page, pageSize, total, pages)
     }
 
-    // ========== Hooks ==========
+    // ========== Hooks — переопределяются в наследниках ==========
 
-    protected open fun validateCreate(request: CQ) {}
-    protected open fun validateUpdate(id: Long, request: UQ) {}
-
-    /** Имя сущности для сообщений об ошибках */
+    protected open fun validateCreate(json: JsonObject) {}
+    protected open fun validateUpdate(id: Long, json: JsonObject) {}
     protected open fun entityName(): String = "Entity"
 }
