@@ -2,6 +2,8 @@ package base.reflection
 
 import base.exception.BadRequestException
 import base.table.BaseTable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
@@ -20,6 +22,7 @@ import org.jetbrains.exposed.v1.core.LongColumnType
 import org.jetbrains.exposed.v1.core.ResultRow
 import org.jetbrains.exposed.v1.core.statements.InsertStatement
 import org.jetbrains.exposed.v1.core.statements.UpdateStatement
+import org.jetbrains.exposed.v1.json.JsonBColumnType
 import java.time.LocalDateTime
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
@@ -139,24 +142,39 @@ object ReflectiveMapper {
             val propName = desc.property.name
             val jsonElement = json[propName]
 
-            val value: Any? = when {
-                jsonElement != null && jsonElement !is JsonNull ->
-                    parseJsonValue(jsonElement, desc.column)
-
-                desc.defaultValue != null ->
-                    parseDefault(desc.defaultValue, desc.column)
-
-                desc.isRequired -> {
-                    missingRequired += propName
-                    continue
-                }
-
-                else -> null
+            // 1) Клиент прислал значение в JSON
+            if (jsonElement != null && jsonElement !is JsonNull) {
+                val value = parseJsonValue(jsonElement, desc.column)
+                (desc.column as Column<Any?>).let { col -> statement[col] = value }
+                continue
             }
 
-            (desc.column as Column<Any?>).let { col ->
-                statement[col] = value
+            // 2) Аннотация @DefaultValue
+            if (desc.defaultValue != null) {
+                val value = parseDefault(desc.defaultValue, desc.column)
+                (desc.column as Column<Any?>).let { col -> statement[col] = value }
+                continue
             }
+
+            // 3) Параметр конструктора имеет дефолт в Kotlin (isOptional) —
+            //    достаём реальное значение из закешированного defaultInstance.
+            //    Приоритет: класс (val isActive = false) > таблица (.default(true))
+            if (desc.constructorParam?.isOptional == true && meta.defaultInstance != null) {
+                @Suppress("UNCHECKED_CAST")
+                val prop = desc.property as KProperty1<Any, *>
+                val value = prop.get(meta.defaultInstance)
+                (desc.column as Column<Any?>).let { col -> statement[col] = value }
+                continue
+            }
+
+            // 4) Поле обязательное — ошибка
+            if (desc.isRequired) {
+                missingRequired += propName
+                continue
+            }
+
+            // 5) Nullable без дефолта — null
+            (desc.column as Column<Any?>).let { col -> statement[col] = null }
         }
 
         if (missingRequired.isNotEmpty()) {
@@ -251,8 +269,16 @@ object ReflectiveMapper {
      * @throws NumberFormatException Если строка не может быть преобразована в число
      */
     private fun parseJsonValue(element: JsonElement, column: Column<*>): Any {
-        val primitive = element.jsonPrimitive
         val colType = column.columnType
+
+        // Непримитивные элементы (JsonArray, JsonObject) — типично для JSONB-колонок.
+        // Конвертируем в строку и пропускаем через valueFromDB колонки,
+        // которая знает как десериализовать JSON в нужный Kotlin-тип.
+        if (element is JsonArray || element is JsonObject) {
+            return colType.valueFromDB(element.toString())!!
+        }
+
+        val primitive = element.jsonPrimitive
 
         return when {
             primitive.isString -> primitive.content

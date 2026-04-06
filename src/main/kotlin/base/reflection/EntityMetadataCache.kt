@@ -71,7 +71,9 @@ object EntityMetadataCache {
         val forConstructor: List<PropDescriptor>,
         val forCreate: List<PropDescriptor>,
         val forUpdate: List<PropDescriptor>,
-        val constructorParams: Map<String, KParameter>
+        val constructorParams: Map<String, KParameter>,
+        /** Экземпляр сущности, созданный с дефолтами конструктора. Используется для извлечения Kotlin-дефолтов. */
+        val defaultInstance: Any?
     )
 
     /**
@@ -148,12 +150,37 @@ object EntityMetadataCache {
             )
         }
 
+        // Создаём экземпляр класса, передавая только обязательные параметры как null/0/false.
+        // Нужен для извлечения Kotlin-дефолтов (isActive = false и т.п.)
+        val defaultInstance: Any? = try {
+            val args = constructor.parameters
+                .filter { !it.isOptional }
+                .associateWith { param ->
+                    if (param.type.isMarkedNullable) null
+                    else when (param.type.classifier) {
+                        String::class  -> ""
+                        Int::class     -> 0
+                        Long::class    -> 0L
+                        Double::class  -> 0.0
+                        Float::class   -> 0f
+                        Boolean::class -> false
+                        Short::class   -> 0.toShort()
+                        Byte::class    -> 0.toByte()
+                        else           -> null
+                    }
+                }
+            constructor.callBy(args)
+        } catch (_: Exception) {
+            null
+        }
+
         return Metadata(
             all = descriptors,
             forConstructor = descriptors.filter { it.constructorParam != null },
             forCreate = descriptors.filter { !it.isReadOnly },
             forUpdate = descriptors.filter { !it.isReadOnly && !it.isImmutable },
-            constructorParams = paramsByName
+            constructorParams = paramsByName,
+            defaultInstance = defaultInstance
         )
     }
 

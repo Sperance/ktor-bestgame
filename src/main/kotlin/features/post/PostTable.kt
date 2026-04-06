@@ -1,6 +1,5 @@
 package features.post
 
-import base.annotations.DefaultValue
 import base.annotations.Immutable
 import base.annotations.ReadOnly
 import base.model.BaseEntity
@@ -24,10 +23,9 @@ data class Post(
 
     val content: String,
 
-    @Immutable  // нельзя менять автора после создания
+    @Immutable
     val authorId: Long,
 
-    @DefaultValue("false")
     val isPublished: Boolean = false,
 
     @ReadOnly

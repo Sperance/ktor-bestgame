@@ -3,21 +3,17 @@ package features.post
 import base.exception.NotFoundException
 import base.service.BaseService
 import features.user.UserRepository
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.long
 
 class PostService(
     private val postRepo: PostRepository = PostRepository(),
     private val userRepo: UserRepository = UserRepository()
-) : BaseService<Post, PostsTable>(postRepo) {
+) : BaseService<Post, PostsTable>(postRepo, Post.serializer()) {
 
     override fun entityName() = "Post"
 
-    override fun validateCreate(json: JsonObject) {
-        val authorId = json["authorId"]?.jsonPrimitive?.long
-        authorId?.let {
-            if (!userRepo.exists(it)) throw NotFoundException("Author(id=$it) not found")
+    override fun validateCreate(entity: Post) {
+        if (!userRepo.exists(entity.authorId)) {
+            throw NotFoundException("Author(id=${entity.authorId}) not found")
         }
     }
 

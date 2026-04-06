@@ -1,6 +1,5 @@
 package features.user
 
-import base.annotations.DefaultValue
 import base.annotations.ReadOnly
 import base.model.BaseEntity
 import base.table.BaseTable
@@ -22,9 +21,8 @@ data class User(
 
     val email: String,
 
-    val age: Int? = null,
+    val age: Int?,
 
-    @DefaultValue("true")
     val isActive: Boolean = true,
 
     @ReadOnly

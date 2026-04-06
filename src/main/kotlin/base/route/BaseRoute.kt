@@ -479,7 +479,7 @@ abstract class BaseRoute<E : BaseEntity, T : BaseTable>(
      * ```
      */
     protected open fun additionalRoutes(route: Route): Route {
-        TODO("Implement additional routes or make open")
+        return route
     }
 
     // ==================== Utilities ====================

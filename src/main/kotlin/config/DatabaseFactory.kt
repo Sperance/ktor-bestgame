@@ -2,6 +2,7 @@ package config
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import features.characters.CharacterTable
 import features.post.PostsTable
 import features.user.UsersTable
 import org.jetbrains.exposed.v1.core.Table
@@ -116,7 +117,7 @@ object DatabaseFactory {
         url: String = "jdbc:postgresql://jouquemuprosa.beget.app:5432/descend_db?targetServerType=master&ssl=false&sslmode=disable",
         user: String = "descend",
         password: String = "Elbrinom666.",
-        tables: Array<Table> = arrayOf(UsersTable, PostsTable)
+        tables: Array<Table> = arrayOf(UsersTable, PostsTable, CharacterTable)
     ) {
         val dataSource = hikari(url, user, password)
         Database.connect(dataSource)

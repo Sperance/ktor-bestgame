@@ -1,5 +1,6 @@
 package server.addons
 
+import features.characters.CharacterRoute
 import features.post.PostRoute
 import features.user.UserRoute
 import io.ktor.openapi.OpenApiInfo
@@ -19,5 +20,6 @@ fun Application.configureRouting() {
         }
         UserRoute().register(this)
         PostRoute().register(this)
+        CharacterRoute().register(this)
     }
 }

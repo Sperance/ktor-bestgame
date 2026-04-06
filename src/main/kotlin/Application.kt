@@ -11,6 +11,7 @@ import server.addons.configureSerialization
 import config.DatabaseFactory
 import features.post.PostsTable
 import features.user.UsersTable
+import server.addons.configureStatusPages
 
 fun main() {
     printLog("Starting up")
@@ -31,6 +32,7 @@ fun main() {
 }
 
 fun Application.configureModules() {
+    configureStatusPages()
     configureMonitoring()
     configureSerialization()
     configureSecurity()
