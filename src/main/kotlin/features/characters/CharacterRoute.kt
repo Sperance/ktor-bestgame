@@ -1,12 +1,19 @@
 package features.characters
 
+import application.model.ItemStock
 import base.exception.NotFoundException
 import base.route.BaseRoute
+import features.items.ItemsService
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.request.receive
+import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
+import kotlinx.serialization.json.JsonObject
 
 class CharacterRoute(
-    val characterService: CharacterService = CharacterService()
+    val characterService: CharacterService = CharacterService(),
+    val itemService: ItemsService = ItemsService()
 ) : BaseRoute<Character, CharacterTable>(
     service = characterService,
     basePath = "/api/character",
@@ -14,17 +21,23 @@ class CharacterRoute(
 ) {
     override fun additionalRoutes(route: Route) = with(route) {
 
-        /** Получить статистику персонажа (создаёт пустую, если ещё нет) */
+        /** Добавить предмет в инвентарь персонажа */
         post("/inventory/{characterId}/add") {
 
             val charId = call.longParam("characterId")
+            val item = call.receive<ItemStock>()
 
-            val character = characterService.findById(charId)
-                ?: throw NotFoundException("Character with id $charId not found")
+            if (!characterService.exists(charId)) {
+                throw NotFoundException("character(id=${charId}) not found")
+            }
 
-//            character.inventory.add()
+            if (!itemService.exists(item.item_id)) {
+                throw NotFoundException("Item(id=${item.item_id}) not found")
+            }
 
-            call.respondEntity(character)
+            characterService.addItemToInventory(charId, item)
+
+            call.respond(HttpStatusCode.OK)
         }
     }
 }
