@@ -57,6 +57,8 @@ object EquipmentTable : BaseTable("equipment") {
      */
     val equippedSlot = enumerationByName("equipped_slot", 20, EnumEquipmentType::class).nullable()
 
+    val price = ulong("price")
+
     /**
      * Характеристики предмета (сила, ловкость, крит и т.д.)
      * Хранятся как JSONB: ["A1:1:10.0", "C0:2:5.0"]
@@ -121,6 +123,8 @@ data class Equipment(
 
     /** Слот, в котором надет. null = в инвентаре */
     val equippedSlot: EnumEquipmentType? = null,
+
+    val price: ULong = 0u,
 
     /** Основные характеристики предмета */
     val stats: MutableSet<ParamsStock> = mutableSetOf(),

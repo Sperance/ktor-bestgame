@@ -2,7 +2,7 @@ package server.addons
 
 import features.characters.CharacterRoute
 import features.equipment.EquipmentRoute
-import features.post.PostRoute
+import features.items.ItemsRoute
 import features.stats.CharacterStatsRoute
 import features.user.UserRoute
 import io.ktor.openapi.OpenApiInfo
@@ -21,9 +21,9 @@ fun Application.configureRouting() {
             }
         }
         UserRoute().register(this)
-        PostRoute().register(this)
         CharacterRoute().register(this)
         EquipmentRoute().register(this)
         CharacterStatsRoute().register(this)
+        ItemsRoute().register(this)
     }
 }

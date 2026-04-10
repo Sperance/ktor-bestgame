@@ -9,14 +9,24 @@ import server.addons.configureRouting
 import server.addons.configureSecurity
 import server.addons.configureSerialization
 import config.DatabaseFactory
-import features.post.PostsTable
+import config.DatabaseSeeder
+import features.characters.CharacterTable
+import features.equipment.EquipmentTable
+import features.items.ItemsTable
+import features.stats.CharacterStatsTable
 import features.user.UsersTable
 import server.addons.configureStatusPages
 
 fun main() {
     printLog("Starting up")
 
-    DatabaseFactory.init()
+    DatabaseFactory.init(tables = arrayOf(
+        UsersTable,
+        CharacterStatsTable,
+        EquipmentTable,
+        CharacterTable,
+        ItemsTable))
+    DatabaseSeeder.seed()
 
     embeddedServer(
         Netty,
