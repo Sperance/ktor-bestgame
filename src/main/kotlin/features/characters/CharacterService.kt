@@ -3,13 +3,13 @@ package features.characters
 import application.model.ItemStock
 import base.exception.NotFoundException
 import base.service.BaseService
-import extensions.printLog
 import features.items.ItemsRepository
 import features.user.UserRepository
 
 class CharacterService(
-    val characterRepo: CharacterRepository = CharacterRepository(),
+    private val characterRepo: CharacterRepository = CharacterRepository(),
     private val userRepo: UserRepository = UserRepository(),
+    private val itemsRepo: ItemsRepository = ItemsRepository(),
 ) : BaseService<Character, CharacterTable>(characterRepo, Character.serializer()) {
 
     override fun entityName() = "Character"
@@ -20,8 +20,15 @@ class CharacterService(
         }
     }
 
-    fun addItemToInventory(characterId: Long, item: ItemStock) {
-        val character = characterRepo.findById(characterId)!!
-        printLog("[${this::class.simpleName}] Adding $item to ${character.name}' inventory")
+    /**
+     * Добавляет предмет в инвентарь персонажа.
+     * Проверяет, что item существует в таблице Items.
+     */
+    fun addItemToInventory(characterId: Long, itemStock: ItemStock): Character {
+        // Проверяем, что такой предмет вообще существует
+        if (!itemsRepo.exists(itemStock.item_id)) {
+            throw NotFoundException("Item(id=${itemStock.item_id}) not found")
+        }
+        return characterRepo.addToInventory(characterId, itemStock)
     }
 }

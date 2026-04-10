@@ -8,7 +8,8 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-@Serializable(with = CompactItemStockSerializer::class)
+//@Serializable(with = CompactItemStockSerializer::class)
+@Serializable
 data class ItemStock(
     val item_id: Long,
     var quantity: Int
@@ -18,28 +19,28 @@ data class ItemStock(
     }
 }
 
-object CompactItemStockSerializer : KSerializer<ItemStock> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ItemStock", PrimitiveKind.STRING)
-
-    override fun serialize(encoder: Encoder, value: ItemStock) {
-        encoder.encodeString("${value.item_id}:${value.quantity}")
-    }
-
-    override fun deserialize(decoder: Decoder): ItemStock {
-        val stringValue = decoder.decodeString()
-
-        try {
-            val parts = stringValue.split(":", limit = 2)
-            if (parts.size != 2) {
-                throw IllegalArgumentException("Invalid Stat format: $stringValue. Expected 'type:quantity'")
-            }
-
-            val itemid = parts[0].toLong()
-            val quantity = parts[1].toInt()
-
-            return ItemStock(itemid, quantity)
-        } catch (e: NumberFormatException) {
-            throw IllegalArgumentException("Invalid number format in ItemStock: $stringValue", e)
-        }
-    }
-}
+//object CompactItemStockSerializer : KSerializer<ItemStock> {
+//    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ItemStock", PrimitiveKind.STRING)
+//
+//    override fun serialize(encoder: Encoder, value: ItemStock) {
+//        encoder.encodeString("${value.item_id}:${value.quantity}")
+//    }
+//
+//    override fun deserialize(decoder: Decoder): ItemStock {
+//        val stringValue = decoder.decodeString()
+//
+//        try {
+//            val parts = stringValue.split(":", limit = 2)
+//            if (parts.size != 2) {
+//                throw IllegalArgumentException("Invalid Stat format: $stringValue. Expected 'type:quantity'")
+//            }
+//
+//            val itemid = parts[0].toLong()
+//            val quantity = parts[1].toInt()
+//
+//            return ItemStock(itemid, quantity)
+//        } catch (e: NumberFormatException) {
+//            throw IllegalArgumentException("Invalid number format in ItemStock: $stringValue", e)
+//        }
+//    }
+//}
