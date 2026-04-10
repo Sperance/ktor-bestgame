@@ -3,6 +3,7 @@ package server.addons
 import features.characters.CharacterRoute
 import features.equipment.EquipmentRoute
 import features.post.PostRoute
+import features.stats.CharacterStatsRoute
 import features.user.UserRoute
 import io.ktor.openapi.OpenApiInfo
 import io.ktor.server.application.*
@@ -23,5 +24,6 @@ fun Application.configureRouting() {
         PostRoute().register(this)
         CharacterRoute().register(this)
         EquipmentRoute().register(this)
+        CharacterStatsRoute().register(this)
     }
 }
