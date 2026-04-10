@@ -1,16 +1,9 @@
 package features.user
 
 import base.exception.NotFoundException
-import base.model.ApiResponse
 import base.route.BaseRoute
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.ListSerializer
 
 class UserRoute(
     private val userService: UserService = UserService()

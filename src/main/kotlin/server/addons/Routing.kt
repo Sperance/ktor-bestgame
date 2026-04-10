@@ -1,6 +1,7 @@
 package server.addons
 
 import features.characters.CharacterRoute
+import features.equipment.EquipmentRoute
 import features.post.PostRoute
 import features.user.UserRoute
 import io.ktor.openapi.OpenApiInfo
@@ -13,7 +14,7 @@ import io.ktor.server.routing.routingRoot
 fun Application.configureRouting() {
     routing {
         openAPI(path = "openapi") {
-            info = OpenApiInfo("Best Game API", "0.0.1")
+            info = OpenApiInfo("Best Game API", "0.1.0")
             source = OpenApiDocSource.Routing {
                 routingRoot.descendants()
             }
@@ -21,5 +22,6 @@ fun Application.configureRouting() {
         UserRoute().register(this)
         PostRoute().register(this)
         CharacterRoute().register(this)
+        EquipmentRoute().register(this)
     }
 }

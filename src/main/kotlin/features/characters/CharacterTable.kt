@@ -1,6 +1,7 @@
 package features.characters
 
 import application.enums.EnumStatKey
+import application.model.ItemStock
 import application.model.ParamsStock
 import application.model.Stat
 import application.model.StatBool
@@ -37,6 +38,16 @@ object CharacterTable : BaseTable("character") {
     ).nullable()
 
     /**
+     * Инвентарь обычных предметов (золото, ресурсы, зелья).
+     * Хранится как JSONB: ["GOLD_BR:100", "ITEM_POTION_HEALTH:5"]
+     * Экипировка тут НЕ хранится — для неё отдельная таблица equipment.
+     */
+    val inventory = jsonb<MutableSet<ItemStock>>(
+        name = "inventory",
+        jsonConfig = Json
+    ).nullable()
+
+    /**
      * Получение начальных параметров нового персонажа
      * @return [MutableSet] из элементов [ParamsStock]
      */
@@ -58,9 +69,9 @@ data class Character(
     @ReadOnly
     override val id: Long? = null,
 
-    val name: String,
+    val name: String = "",
 
-    val description: String,
+    val description: String = "",
 
     val level: Short = 1,
 
@@ -72,8 +83,10 @@ data class Character(
 
     val bools: MutableSet<StatBool>? = null,
 
+    val inventory: MutableSet<ItemStock>? = null,
+
     @Immutable
-    val userId: Long,
+    val userId: Long = -1,
 
     @ReadOnly
     override val version: Long = 1,
