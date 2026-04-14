@@ -11,8 +11,6 @@ import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.double
 import kotlinx.serialization.json.doubleOrNull
-import kotlinx.serialization.json.int
-import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.long
 import kotlinx.serialization.json.longOrNull
@@ -87,16 +85,11 @@ object ReflectiveMapper {
         val meta = EntityMetadataCache.get(klass, table)
         val constructor = klass.primaryConstructor!!
 
-        val args = meta.forConstructor.mapNotNull { desc ->
-            if (desc.isWriteOnly && desc.constructorParam!!.isOptional) {
-                // @WriteOnly + has default → пропускаем, конструктор подставит дефолт
-                null
-            } else {
-                val rawValue = row[desc.column]
-                val converted = coerce(rawValue, desc.constructorParam!!.type.classifier as? KClass<*>)
-                desc.constructorParam to converted
-            }
-        }.toMap()
+        val args = meta.forConstructor.associate { desc ->
+            val rawValue = row[desc.column]
+            val converted = coerce(rawValue, desc.constructorParam!!.type.classifier as? KClass<*>)
+            desc.constructorParam to converted
+        }
 
         return constructor.callBy(args)
     }
@@ -109,12 +102,10 @@ object ReflectiveMapper {
      * **Поведение:**
      * - Использует только поля из категории `forCreate` (без ReadOnly и авто-генерируемых)
      * - Валидирует наличие всех обязательных (`required`) полей
-     * - Поддерживает значения по умолчанию через аннотацию `@Default`
      * - Автоматически конвертирует JSON-типы в типы колонок
      *
      * **Обработка различных случаев:**
      * - Поле присутствует в JSON → парсится и устанавливается
-     * - Поле отсутствует, но есть `@Default` → используется значение по умолчанию
      * - Поле отсутствует и помечено `@Required` → выбрасывается исключение
      * - Поле отсутствует и не required → устанавливается NULL
      *
@@ -157,10 +148,9 @@ object ReflectiveMapper {
                 continue
             }
 
-            // 2) Аннотация @DefaultValue
-            if (desc.defaultValue != null) {
-                val value = parseDefault(desc.defaultValue, desc.column)
-                (desc.column as Column<Any?>).let { col -> statement[col] = value }
+            // 2) Поле обязательное — ошибка
+            if (desc.isRequired) {
+                missingRequired += propName
                 continue
             }
 
@@ -175,13 +165,7 @@ object ReflectiveMapper {
                 continue
             }
 
-            // 4) Поле обязательное — ошибка
-            if (desc.isRequired) {
-                missingRequired += propName
-                continue
-            }
-
-            // 5) Nullable без дефолта — null
+            // 4) Nullable без дефолта — null
             (desc.column as Column<Any?>).let { col -> statement[col] = null }
         }
 
@@ -205,7 +189,7 @@ object ReflectiveMapper {
      * 1. Извлекает и валидирует поле `version` из JSON
      * 2. Проходит по всем полям категории `forUpdate`
      * 3. Если поле присутствует в JSON → устанавливает новое значение
-     * 4. Если поле отсутствует →, пропускает (не меняет существующее)
+     * 4. Если поле отсутствует → пропускает (не меняет существующее)
      * 5. Возвращает версию для последующей проверки в WHERE-условии
      *
      * @param statement SQL-оператор обновления (обычно из Exposed)
@@ -294,40 +278,13 @@ object ReflectiveMapper {
             primitive.longOrNull != null -> {
                 val l = primitive.long
                 when (colType) {
-                    is IntegerColumnType -> l.toInt()
-                    is ULongColumnType  -> l.toULong()
-                    else                -> l
+                    is IntegerColumnType    -> l.toInt()
+                    is ULongColumnType      -> l.toULong()
+                    else                    -> l
                 }
             }
             primitive.doubleOrNull != null -> primitive.double
             else -> primitive.content
-        }
-    }
-
-    /**
-     * Парсит строковое значение дефолта в тип, соответствующий колонке.
-     *
-     * Используется для аннотации `@Default`, где значение хранится в виде строки.
-     * Поддерживает базовые типы:
-     * - Boolean → `toBoolean()`
-     * - Integer → `toIntOrNull()`
-     * - Long → `toLongOrNull()`
-     * - Double → `toDoubleOrNull()`
-     * - String и остальные → возвращает исходную строку
-     *
-     * @param defaultStr Строковое значение из аннотации `@Default`
-     * @param column Колонка, определяющая целевой тип
-     * @return Преобразованное значение или `null` при невозможности преобразования
-     */
-    private fun parseDefault(defaultStr: String, column: Column<*>): Any? {
-        val colType = column.columnType
-        return when (colType) {
-            is BooleanColumnType -> defaultStr.toBoolean()
-            is IntegerColumnType -> defaultStr.toIntOrNull()
-            is LongColumnType -> defaultStr.toLongOrNull()
-            is DoubleColumnType -> defaultStr.toDoubleOrNull()
-            is ULongColumnType -> defaultStr.toULongOrNull()
-            else -> defaultStr
         }
     }
 

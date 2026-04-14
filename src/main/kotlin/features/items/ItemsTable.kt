@@ -1,6 +1,7 @@
 package features.items
 
 import base.annotations.ReadOnly
+import base.annotations.Required
 import base.model.BaseEntity
 import base.table.BaseTable
 import kotlinx.serialization.Serializable
@@ -24,13 +25,15 @@ data class Item(
     @ReadOnly
     override val id: Long? = null,
 
-    val name: String,
+    @Required
+    val name: String = "",
 
-    val description: String?,
+    val description: String? = null,
 
     val image: String? = null,
 
-    val price: ULong,
+    @Required
+    val price: ULong = 0u,
 
     @ReadOnly
     override val version: Long = 1,

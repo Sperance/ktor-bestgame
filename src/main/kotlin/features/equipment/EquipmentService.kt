@@ -1,5 +1,6 @@
 package features.equipment
 
+import application.enums.EnumEquipmentType
 import base.exception.BadRequestException
 import base.exception.ConflictException
 import base.exception.NotFoundException
@@ -16,6 +17,15 @@ class EquipmentService(
     override fun validateCreate(entity: Equipment) {
         if (!charRepo.exists(entity.characterId)) {
             throw NotFoundException("Character(id=${entity.characterId}) not found")
+        }
+        if (entity.equippedSlot == EnumEquipmentType.UNDEFINED) {
+            throw BadRequestException("Field 'equippedSlot' must be defined")
+        }
+    }
+
+    override fun validateUpdate(id: Long, entity: Equipment) {
+        if (entity.equippedSlot == EnumEquipmentType.UNDEFINED) {
+            throw BadRequestException("Field 'equippedSlot' must be defined")
         }
     }
 

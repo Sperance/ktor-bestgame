@@ -12,6 +12,14 @@ class UserRepository : BaseRepository<User, UsersTable>(
 ) {
     override val entityName = "User"
 
+    /**
+     * Очищает секретные поля перед отправкой клиенту.
+     */
+    override fun beforeResponse(entity: User) = entity.copy(
+        password = "",
+        salt = ""
+    )
+
     fun findByEmail(email: String): User? = transaction {
         table.selectAll()
             .where { table.email eq email }

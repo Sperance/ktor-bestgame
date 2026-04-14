@@ -4,9 +4,9 @@ import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.model.ParamsStock
 import application.model.Stat
-import base.annotations.DefaultValue
 import base.annotations.Immutable
 import base.annotations.ReadOnly
+import base.annotations.Required
 import base.model.BaseEntity
 import base.table.BaseTable
 import features.characters.CharacterTable
@@ -106,13 +106,15 @@ data class Equipment(
     @ReadOnly
     override val id: Long? = null,
 
-    val name: String,
+    @Required
+    val name: String = "",
 
-    /** Слот, для которого предназначен предмет */
-    val slot: EnumEquipmentType,
+    @Required
+    val slot: EnumEquipmentType = EnumEquipmentType.UNDEFINED,
 
     val rarity: EnumRarity = EnumRarity.COMMON,
 
+    @Required
     val itemLevel: Int = 1,
 
     val enhanceLevel: Int = 0,

@@ -96,6 +96,34 @@ abstract class BaseRepository<E : BaseEntity, T : BaseTable>(
     protected open fun toEntity(row: ResultRow): E =
         ReflectiveMapper.toEntity(entityClass, table, row)
 
+    /**
+     * Хук: подготовка сущности перед отправкой клиенту.
+     *
+     * Вызывается после `toEntity` во всех методах чтения (findAll, findById, findPaged, create, update).
+     * Позволяет очистить секретные поля, дополнить вычисляемые данные и т.д.
+     *
+     * По умолчанию возвращает сущность без изменений.
+     *
+     * ```kotlin
+     * override fun beforeResponse(entity: User) = entity.copy(
+     *     password = "",
+     *     salt = ""
+     * )
+     * ```
+     *
+     * @param entity Сущность, полученная из БД
+     * @return Сущность, готовая для отправки клиенту
+     */
+    protected open fun beforeResponse(entity: E): E = entity
+
+    /**
+     * Внутренний метод: toEntity + beforeResponse.
+     * Используется во всех местах, где результат уходит клиенту.
+     * Доступен наследникам для кастомных запросов.
+     */
+    protected fun toResponseEntity(row: ResultRow): E =
+        beforeResponse(toEntity(row))
+
     // ==================== READ ====================
 
     /**
@@ -114,7 +142,7 @@ abstract class BaseRepository<E : BaseEntity, T : BaseTable>(
     open fun findAll(): List<E> = transaction {
         table.selectAll()
             .orderBy(table.id, SortOrder.ASC)
-            .map(::toEntity)
+            .map(::toResponseEntity)
     }
 
     /**
@@ -132,7 +160,7 @@ abstract class BaseRepository<E : BaseEntity, T : BaseTable>(
         table.selectAll()
             .where { table.id eq id }
             .singleOrNull()
-            ?.let(::toEntity)
+            ?.let(::toResponseEntity)
     }
 
     /**
@@ -158,7 +186,7 @@ abstract class BaseRepository<E : BaseEntity, T : BaseTable>(
             .orderBy(table.id, SortOrder.ASC)
             .limit(pageSize)
             .offset(page.toLong() * pageSize)
-            .map(::toEntity)
+            .map(::toResponseEntity)
     }
 
     /**

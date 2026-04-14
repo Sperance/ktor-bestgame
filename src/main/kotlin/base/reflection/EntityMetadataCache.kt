@@ -1,12 +1,10 @@
 package base.reflection
 
 import base.annotations.ColumnName
-import base.annotations.DefaultValue
 import base.annotations.Immutable
 import base.annotations.ReadOnly
 import base.annotations.Required
 import base.annotations.Unmapped
-import base.annotations.WriteOnly
 import base.table.BaseTable
 import org.jetbrains.exposed.v1.core.Column
 import java.util.concurrent.ConcurrentHashMap
@@ -39,11 +37,8 @@ object EntityMetadataCache {
      *   Такие поля исключаются из INSERT и UPDATE (например, `created_at`, управляемый БД).
      * @property isImmutable `true`, если свойство помечено аннотацией [Immutable].
      *   Поле включается в INSERT, но исключается из UPDATE (например, внешний ключ-владелец).
-     * @property defaultValue Строковое значение из аннотации [DefaultValue],
-     *   или `null`, если аннотация не задана.
      * @property isRequired `true`, если поле обязательно для передачи при создании сущности:
-     *   явно помечено [Required], либо является ненулевым параметром конструктора
-     *   без значения по умолчанию и без [DefaultValue].
+     *   явно помечено [Required]
      */
     data class PropDescriptor(
         val property: KProperty1<out Any, *>,
@@ -51,8 +46,6 @@ object EntityMetadataCache {
         val constructorParam: KParameter?,
         val isReadOnly: Boolean,
         val isImmutable: Boolean,
-        val isWriteOnly: Boolean,
-        val defaultValue: String?,
         val isRequired: Boolean
     )
 
@@ -111,7 +104,7 @@ object EntityMetadataCache {
      * 3. Перебирает объявленные свойства сущности:
      *    - пропускает помеченные [Unmapped];
      *    - резолвит колонку через [resolveColumn] (пропускает, если не найдена);
-     *    - считывает аннотации [ReadOnly], [Immutable], [DefaultValue], [Required];
+     *    - считывает аннотации [ReadOnly], [Immutable], [Required];
      *    - вычисляет признак обязательности поля.
      * 4. Формирует срезы дескрипторов для конструктора, INSERT и UPDATE.
      *
@@ -136,10 +129,8 @@ object EntityMetadataCache {
 
             val isReadOnly = prop.hasAnnotation<ReadOnly>()
             val isImmutable = prop.hasAnnotation<Immutable>()
-            val isWriteOnly = prop.hasAnnotation<WriteOnly>()
-            val defaultStr = prop.findAnnotation<DefaultValue>()?.value
             val isRequired = prop.hasAnnotation<Required>() ||
-                    (!isReadOnly && paramsByName[prop.name]?.type?.isMarkedNullable == false && defaultStr == null
+                    (!isReadOnly && paramsByName[prop.name]?.type?.isMarkedNullable == false
                             && paramsByName[prop.name]?.isOptional == false)
 
             PropDescriptor(
@@ -148,8 +139,6 @@ object EntityMetadataCache {
                 constructorParam = paramsByName[prop.name],
                 isReadOnly = isReadOnly,
                 isImmutable = isImmutable,
-                isWriteOnly = isWriteOnly,
-                defaultValue = defaultStr,
                 isRequired = isRequired
             )
         }
@@ -170,6 +159,7 @@ object EntityMetadataCache {
                         Boolean::class -> false
                         Short::class   -> 0.toShort()
                         Byte::class    -> 0.toByte()
+                        ULong::class   -> 0u
                         else           -> null
                     }
                 }

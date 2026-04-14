@@ -1,12 +1,12 @@
 package features.user
 
 import application.enums.EnumUserRoles
-import base.annotations.Immutable
 import base.annotations.ReadOnly
-import base.annotations.WriteOnly
+import base.annotations.Required
 import base.model.BaseEntity
 import base.table.BaseTable
 import kotlinx.serialization.Serializable
+import org.jetbrains.exposed.v1.javatime.datetime
 
 object UsersTable : BaseTable("users") {
     val name = varchar("name", 255)
@@ -17,6 +17,7 @@ object UsersTable : BaseTable("users") {
     val age = integer("age").nullable()
     val isActive = bool("is_active").default(true)
     val role = enumerationByName("role", 20, EnumUserRoles::class).default(EnumUserRoles.USER)
+    val lastLoginDate = datetime("last_login_date").nullable()
 }
 
 @Serializable
@@ -24,17 +25,18 @@ data class User(
     @ReadOnly
     override val id: Long? = null,
 
-    val name: String,
+    @Required
+    val name: String = "",
 
-    val email: String,
+    @Required
+    val email: String = "",
 
-    val login: String,
+    @Required
+    val login: String = "",
 
-    @WriteOnly
-    val password: String,
+    @Required
+    val password: String = "",
 
-    @Immutable
-    @WriteOnly
     val salt: String = "",
 
     val age: Int? = null,
@@ -42,6 +44,9 @@ data class User(
     val isActive: Boolean = true,
 
     val role: EnumUserRoles = EnumUserRoles.USER,
+
+    @ReadOnly
+    val lastLoginDate: String? = null,
 
     @ReadOnly
     override val version: Long = 1,

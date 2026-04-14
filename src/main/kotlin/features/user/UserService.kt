@@ -16,11 +16,11 @@ class UserService(
     // ==================== Validation ====================
 
     override fun validateCreate(entity: User) {
-        repo.findByEmail(entity.email)?.let {
-            throw ConflictException("Email '${entity.email}' is already taken")
-        }
         if (entity.password.length < 6) {
             throw BadRequestException("Password must be at least 6 characters")
+        }
+        if (entity.salt != "") {
+            throw BadRequestException("Field 'salt' has blocked to modify")
         }
     }
 
