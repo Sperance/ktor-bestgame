@@ -6,6 +6,7 @@ import base.annotations.Immutable
 import base.annotations.ReadOnly
 import base.annotations.Required
 import base.annotations.Unmapped
+import base.annotations.WriteOnly
 import base.table.BaseTable
 import org.jetbrains.exposed.v1.core.Column
 import java.util.concurrent.ConcurrentHashMap
@@ -50,6 +51,7 @@ object EntityMetadataCache {
         val constructorParam: KParameter?,
         val isReadOnly: Boolean,
         val isImmutable: Boolean,
+        val isWriteOnly: Boolean,
         val defaultValue: String?,
         val isRequired: Boolean
     )
@@ -134,6 +136,7 @@ object EntityMetadataCache {
 
             val isReadOnly = prop.hasAnnotation<ReadOnly>()
             val isImmutable = prop.hasAnnotation<Immutable>()
+            val isWriteOnly = prop.hasAnnotation<WriteOnly>()
             val defaultStr = prop.findAnnotation<DefaultValue>()?.value
             val isRequired = prop.hasAnnotation<Required>() ||
                     (!isReadOnly && paramsByName[prop.name]?.type?.isMarkedNullable == false && defaultStr == null
@@ -145,6 +148,7 @@ object EntityMetadataCache {
                 constructorParam = paramsByName[prop.name],
                 isReadOnly = isReadOnly,
                 isImmutable = isImmutable,
+                isWriteOnly = isWriteOnly,
                 defaultValue = defaultStr,
                 isRequired = isRequired
             )

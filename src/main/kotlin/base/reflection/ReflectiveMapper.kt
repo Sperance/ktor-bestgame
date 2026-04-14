@@ -87,11 +87,16 @@ object ReflectiveMapper {
         val meta = EntityMetadataCache.get(klass, table)
         val constructor = klass.primaryConstructor!!
 
-        val args = meta.forConstructor.associate { desc ->
-            val rawValue = row[desc.column]
-            val converted = coerce(rawValue, desc.constructorParam!!.type.classifier as? KClass<*>)
-            desc.constructorParam to converted
-        }
+        val args = meta.forConstructor.mapNotNull { desc ->
+            if (desc.isWriteOnly && desc.constructorParam!!.isOptional) {
+                // @WriteOnly + has default → пропускаем, конструктор подставит дефолт
+                null
+            } else {
+                val rawValue = row[desc.column]
+                val converted = coerce(rawValue, desc.constructorParam!!.type.classifier as? KClass<*>)
+                desc.constructorParam to converted
+            }
+        }.toMap()
 
         return constructor.callBy(args)
     }

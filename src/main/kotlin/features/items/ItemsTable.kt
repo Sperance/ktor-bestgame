@@ -9,7 +9,7 @@ import org.jetbrains.exposed.v1.jdbc.insert
 object ItemsTable : BaseTable("items") {
 
     /** Название предмета (видимое игроку) */
-    val name = varchar("name", 100)
+    val name = varchar("name", 100).uniqueIndex()
 
     /** Текстовое описание / лор предмета */
     val description = varchar("description", 500).nullable()

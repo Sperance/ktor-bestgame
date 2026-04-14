@@ -16,11 +16,4 @@ class ItemsRepository : BaseRepository<Item, ItemsTable>(
     entityClass = Item::class
 ) {
     override val entityName = "Items"
-
-    fun findByName(name: String): Item? = transaction {
-        table.selectAll()
-            .where { table.name eq name }
-            .singleOrNull()
-            ?.let(::toEntity)
-    }
 }

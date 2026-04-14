@@ -92,7 +92,7 @@ data class ApiResponse<T>(
          * @param message Необязательное пояснение (по умолчанию `null`).
          * @return [ApiResponse] с `success = true` и переданными данными.
          */
-        fun <T> ok(data: T, message: String? = null) =
+        fun <T> ok(data: T?, message: String? = null) =
             ApiResponse(success = true, data = data, message = message)
 
         /**

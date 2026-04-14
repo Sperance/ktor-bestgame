@@ -545,7 +545,7 @@ abstract class BaseRoute<E : BaseEntity, T : BaseTable>(
      * }
      * ```
      */
-    protected suspend fun ApplicationCall.respondEntity(entity: E, status: HttpStatusCode = HttpStatusCode.OK) {
+    protected suspend fun ApplicationCall.respondEntity(entity: E?, status: HttpStatusCode = HttpStatusCode.OK) {
         respond(status, singleResponseSerializer, ApiResponse.ok(entity))
     }
 

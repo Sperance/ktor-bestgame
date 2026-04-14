@@ -10,11 +10,44 @@ import kotlinx.serialization.json.JsonObject
 import server.addons.AppJson
 
 /**
- * Абстрактный базовый сервис с типизированной валидацией.
+ * Абстрактный базовый сервис с типизированной валидацией и трансформацией.
  *
- * Хуки `validateCreate(entity)` и `validateUpdate(id, entity)` получают
- * десериализованный Kotlin-объект вместо сырого JsonObject, что позволяет
- * работать с полями напрямую: `entity.email`, `entity.userId` и т.д.
+ * **Жизненный цикл CREATE:**
+ * ```
+ * JSON от клиента
+ *   ↓
+ * deserialize(json) → entity
+ *   ↓
+ * validateCreate(entity)            // проверка бизнес-правил на оригинальных данных
+ *   ↓
+ * transformCreate(entity) → entity' // подмена/добавление полей через copy()
+ *   ↓
+ * applyTransform(json, diff)        // изменённые поля накладываются на оригинальный JSON
+ *   ↓
+ * repository.create(json')
+ * ```
+ *
+ * **Жизненный цикл UPDATE:**
+ * ```
+ * JSON от клиента
+ *   ↓
+ * deserialize(json) → entity
+ *   ↓
+ * validateUpdate(id, entity)
+ *   ↓
+ * transformUpdate(id, entity) → entity'
+ *   ↓
+ * applyTransform(json, diff)
+ *   ↓
+ * repository.update(id, json')
+ * ```
+ *
+ * **Почему diff, а не полная сериализация entity?**
+ * При update клиент присылает только изменённые поля (partial update).
+ * Если сериализовать весь entity обратно, в JSON попадут Kotlin-дефолты
+ * для полей, которые клиент не присылал, и перезатрут реальные значения в БД.
+ * Поэтому BaseService сравнивает entity до и после трансформации
+ * и накладывает на оригинальный JSON только те поля, которые `transform*` реально изменил.
  *
  * @param E Тип сущности (наследник `BaseEntity`)
  * @param T Тип таблицы (наследник `BaseTable`)
@@ -41,13 +74,17 @@ abstract class BaseService<E : BaseEntity, T : BaseTable>(
      * Создаёт новую запись.
      *
      * 1. Десериализует JSON в объект сущности E
-     * 2. Вызывает `validateCreate(entity)` с типизированным объектом
-     * 3. Передаёт оригинальный JSON
+     * 2. Вызывает `validateCreate(entity)` — валидация на оригинальных данных
+     * 3. Вызывает `transformCreate(entity)` — трансформация через типизированный объект
+     * 4. Вычисляет diff и накладывает изменения на оригинальный JSON
+     * 5. Передаёт результат в репозиторий
      */
     open fun create(json: JsonObject): E {
         val entity = deserialize(json)
         validateCreate(entity)
-        return repository.create(json)
+        val transformed = transformCreate(entity)
+        val finalJson = applyTransform(json, entity, transformed)
+        return repository.create(finalJson)
     }
 
     // ==================== UPDATE ====================
@@ -56,13 +93,17 @@ abstract class BaseService<E : BaseEntity, T : BaseTable>(
      * Обновляет запись с оптимистичной блокировкой.
      *
      * 1. Десериализует JSON в объект сущности E
-     * 2. Вызывает `validateUpdate(id, entity)` с типизированным объектом
-     * 3. Передаёт оригинальный JSON в репозиторий
+     * 2. Вызывает `validateUpdate(id, entity)` — валидация на оригинальных данных
+     * 3. Вызывает `transformUpdate(id, entity)` — трансформация через типизированный объект
+     * 4. Вычисляет diff и накладывает изменения на оригинальный JSON
+     * 5. Передаёт результат в репозиторий
      */
     open fun update(id: Long, json: JsonObject): E {
         val entity = deserialize(json)
         validateUpdate(id, entity)
-        return repository.update(id, json)
+        val transformed = transformUpdate(id, entity)
+        val finalJson = applyTransform(json, entity, transformed)
+        return repository.update(id, finalJson)
     }
 
     // ==================== DELETE ====================
@@ -91,15 +132,21 @@ abstract class BaseService<E : BaseEntity, T : BaseTable>(
         return PagedResponse(items, page, pageSize, total, pages)
     }
 
-    // ==================== HOOKS ====================
+    // ==================== HOOKS: Validation ====================
 
     /**
-     * Валидация перед созданием. Получает десериализованный объект.
+     * Валидация перед созданием. Получает десериализованный объект
+     * с **оригинальными** данными клиента (до трансформации).
+     *
+     * Бросайте исключение, если данные не проходят проверку.
      *
      * ```kotlin
      * override fun validateCreate(entity: User) {
      *     repo.findByEmail(entity.email)?.let {
      *         throw ConflictException("Email '${entity.email}' is already taken")
+     *     }
+     *     if (entity.password.length < 6) {
+     *         throw BadRequestException("Password must be at least 6 characters")
      *     }
      * }
      * ```
@@ -108,7 +155,8 @@ abstract class BaseService<E : BaseEntity, T : BaseTable>(
 
     /**
      * Валидация перед обновлением. Получает id и десериализованный объект
-     * с полями, которые клиент хочет обновить.
+     * с **оригинальными** данными клиента (до трансформации).
+     *
      * Поля, не присланные клиентом, будут заполнены Kotlin-дефолтами класса.
      *
      * ```kotlin
@@ -123,6 +171,67 @@ abstract class BaseService<E : BaseEntity, T : BaseTable>(
      */
     protected open fun validateUpdate(id: Long, entity: E) {}
 
+    // ==================== HOOKS: Transform ====================
+
+    /**
+     * Трансформация сущности **перед** записью в БД при создании.
+     * Вызывается **после** `validateCreate`, поэтому данные уже провалидированы.
+     *
+     * Получает типизированный объект — можно работать с полями напрямую
+     * и возвращать изменённую копию через `copy()`.
+     *
+     * BaseService автоматически вычислит, какие поля изменились,
+     * и применит только их к оригинальному JSON перед записью.
+     *
+     * По умолчанию возвращает объект без изменений.
+     *
+     * ```kotlin
+     * override fun transformCreate(entity: User): User {
+     *     val salt = generateSalt()
+     *     return entity.copy(
+     *         password = hashPassword(entity.password, salt),
+     *         salt = salt
+     *     )
+     * }
+     * ```
+     *
+     * @param entity Десериализованный объект с оригинальными данными клиента
+     * @return Трансформированный объект (изменённые поля будут применены к JSON)
+     */
+    protected open fun transformCreate(entity: E): E = entity
+
+    /**
+     * Трансформация сущности **перед** записью в БД при обновлении.
+     * Вызывается **после** `validateUpdate`, поэтому данные уже провалидированы.
+     *
+     * Получает типизированный объект — можно работать с полями напрямую.
+     * Поля, не присланные клиентом, заполнены Kotlin-дефолтами класса.
+     *
+     * BaseService автоматически вычислит diff и применит к оригинальному JSON
+     * только те поля, которые были реально изменены в `transform`.
+     * Поля, не тронутые трансформацией, останутся как есть в JSON клиента.
+     *
+     * По умолчанию возвращает объект без изменений.
+     *
+     * ```kotlin
+     * override fun transformUpdate(id: Long, entity: User): User {
+     *     if (entity.password.isEmpty()) return entity  // пароль не меняется
+     *     val salt = generateSalt()
+     *     return entity.copy(
+     *         password = hashPassword(entity.password, salt),
+     *         salt = salt
+     *     )
+     * }
+     * ```
+     *
+     * @param id Идентификатор обновляемой записи
+     * @param entity Десериализованный объект с оригинальными данными клиента
+     * @return Трансформированный объект (изменённые поля будут применены к JSON)
+     */
+    protected open fun transformUpdate(id: Long, entity: E): E = entity
+
+    // ==================== OTHER ====================
+
     /**
      * Имя сущности для сообщений об ошибках.
      */
@@ -132,9 +241,46 @@ abstract class BaseService<E : BaseEntity, T : BaseTable>(
 
     /**
      * Десериализует JsonObject в объект сущности E.
-     * Использует AppJson (ignoreUnknownKeys = true, encodeDefaults = true),
-     * поэтому отсутствующие поля заполняются Kotlin-дефолтами класса.
      */
     private fun deserialize(json: JsonObject): E =
         AppJson.decodeFromJsonElement(entitySerializer, json)
+
+    /**
+     * Сериализует объект сущности E в JsonObject.
+     */
+    private fun serialize(entity: E): JsonObject =
+        AppJson.encodeToJsonElement(entitySerializer, entity) as JsonObject
+
+    /**
+     * Вычисляет diff между [before] и [after], накладывает изменённые поля
+     * на [originalJson].
+     *
+     * Если transform не изменил объект (before === after или все поля совпадают),
+     * возвращает оригинальный JSON без изменений — быстрый путь без сериализации.
+     *
+     * @param originalJson JSON от клиента (partial — только присланные поля)
+     * @param before Объект до трансформации
+     * @param after Объект после трансформации
+     * @return JSON с наложенным diff
+     */
+    private fun applyTransform(originalJson: JsonObject, before: E, after: E): JsonObject {
+        // Быстрый путь: трансформация ничего не изменила
+        if (before === after) return originalJson
+
+        val beforeJson = serialize(before)
+        val afterJson = serialize(after)
+
+        // Ещё одна проверка: все поля совпадают
+        if (beforeJson == afterJson) return originalJson
+
+        // Накладываем на оригинальный JSON только изменённые поля
+        val result = originalJson.toMutableMap()
+        for ((key, newValue) in afterJson) {
+            if (beforeJson[key] != newValue) {
+                result[key] = newValue
+            }
+        }
+
+        return JsonObject(result)
+    }
 }

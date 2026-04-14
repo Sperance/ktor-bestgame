@@ -45,6 +45,7 @@ package base.exception
  * @see BadRequestException        Невалидный запрос клиента (400)
  * @see ConflictException          Конфликт состояния ресурса (409)
  * @see OptimisticLockException    Конфликт версий при конкурентном обновлении (409)
+ * @see UnauthorizedException      Неудачная аутентификация (401)
  */
 sealed class AppException(
     override val message: String,
@@ -158,7 +159,7 @@ class ConflictException(message: String) : AppException(message, 409)
  * 5. Сервер бросает [OptimisticLockException]
  * 6. Клиент A получает `409 Conflict` с инструкцией перечитать и повторить
  *
- * ## SQL, который генерируется в [BaseRepository]
+ * ## SQL, который генерируется в [base.repository.BaseRepository]
  *
  * ```sql
  * UPDATE users
@@ -205,3 +206,34 @@ class OptimisticLockException(
             "Expected version=$expectedVersion. Please re-fetch and retry.",
     httpCode = 409
 )
+
+/**
+ * Неудачная аутентификация.
+ *
+ * Бросается, когда клиент предоставил невалидные учётные данные
+ * (неверный логин, пароль, токен). Маппится на HTTP 401 Unauthorized.
+ *
+ * ## Типичные сценарии
+ *
+ * - Неверный login или password при входе
+ * - Истёкший или невалидный токен авторизации
+ * - Попытка доступа без учётных данных
+ *
+ * ## Пример использования
+ *
+ * ```kotlin
+ * fun authenticate(login: String, password: String): User {
+ *     val user = repo.findByLogin(login)
+ *         ?: throw UnauthorizedException("Invalid login or password")
+ *     if (!verifyPassword(password, user.salt, user.hash)) {
+ *         throw UnauthorizedException("Invalid login or password")
+ *     }
+ *     return user
+ * }
+ * ```
+ *
+ * @param message Описание причины отказа. **Не должно** раскрывать,
+ *                что именно неверно (логин или пароль), чтобы
+ *                не помогать при подборе учётных данных.
+ */
+class UnauthorizedException(message: String) : AppException(message, 401)

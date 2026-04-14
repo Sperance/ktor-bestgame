@@ -30,4 +30,26 @@ class UserRepository : BaseRepository<User, UsersTable>(
             .where { table.isActive eq true }
             .map(::toEntity)
     }
+
+    fun findByLogin(login: String): User? = transaction {
+        table.selectAll()
+            .where { table.login eq login }
+            .singleOrNull()
+            ?.let(::toEntity)
+    }
+
+    /**
+     * Возвращает (id, password_hash, salt) по login напрямую из БД,
+     * минуя toEntity (который маскирует @WriteOnly-поля).
+     *
+     * Используется для аутентификации.
+     */
+    fun findCredentialsByLogin(login: String): Triple<Long, String, String>? = transaction {
+        table.selectAll()
+            .where { table.login eq login }
+            .singleOrNull()
+            ?.let { row ->
+                Triple(row[table.id], row[table.password], row[table.salt])
+            }
+    }
 }

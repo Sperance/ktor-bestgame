@@ -4,6 +4,7 @@ import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.enums.EnumStatKey
 import application.enums.EnumStatType
+import application.enums.EnumUserRoles
 import application.model.ParamsStock
 import application.model.Stat
 import extensions.printLog
@@ -45,14 +46,22 @@ object DatabaseSeeder {
             it[name] = "Admin"
             it[email] = "admin@game.com"
             it[age] = 25
+            it[login] = "admin"
+            it[salt] = "${System.currentTimeMillis()}}"
+            it[password] = "pass1"
             it[isActive] = true
+            it[role] = EnumUserRoles.ADMIN
         }
 
         UsersTable.insert {
             it[name] = "TestPlayer"
             it[email] = "player@game.com"
             it[age] = 20
+            it[login] = "test1"
+            it[salt] = "${System.currentTimeMillis()}}"
+            it[password] = "pass1"
             it[isActive] = true
+            it[role] = EnumUserRoles.USER
         }
 
         printLog("  → 2 users created")
