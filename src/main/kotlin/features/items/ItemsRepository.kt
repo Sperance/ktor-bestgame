@@ -2,6 +2,7 @@ package features.items
 
 import base.repository.BaseRepository
 import application.enums.EnumEquipmentType
+import features.user.User
 import org.jetbrains.exposed.v1.core.SortOrder
 import org.jetbrains.exposed.v1.core.and
 import org.jetbrains.exposed.v1.core.eq
@@ -15,4 +16,11 @@ class ItemsRepository : BaseRepository<Item, ItemsTable>(
     entityClass = Item::class
 ) {
     override val entityName = "Items"
+
+    fun findByName(name: String): Item? = transaction {
+        table.selectAll()
+            .where { table.name eq name }
+            .singleOrNull()
+            ?.let(::toEntity)
+    }
 }

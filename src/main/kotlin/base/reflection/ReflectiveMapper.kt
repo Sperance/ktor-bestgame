@@ -11,6 +11,8 @@ import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.double
 import kotlinx.serialization.json.doubleOrNull
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.long
 import kotlinx.serialization.json.longOrNull
@@ -20,6 +22,7 @@ import org.jetbrains.exposed.v1.core.DoubleColumnType
 import org.jetbrains.exposed.v1.core.IntegerColumnType
 import org.jetbrains.exposed.v1.core.LongColumnType
 import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.core.ULongColumnType
 import org.jetbrains.exposed.v1.core.statements.InsertStatement
 import org.jetbrains.exposed.v1.core.statements.UpdateStatement
 import org.jetbrains.exposed.v1.json.JsonBColumnType
@@ -197,7 +200,7 @@ object ReflectiveMapper {
      * 1. Извлекает и валидирует поле `version` из JSON
      * 2. Проходит по всем полям категории `forUpdate`
      * 3. Если поле присутствует в JSON → устанавливает новое значение
-     * 4. Если поле отсутствует → пропускает (не меняет существующее)
+     * 4. Если поле отсутствует →, пропускает (не меняет существующее)
      * 5. Возвращает версию для последующей проверки в WHERE-условии
      *
      * @param statement SQL-оператор обновления (обычно из Exposed)
@@ -284,9 +287,12 @@ object ReflectiveMapper {
             primitive.isString -> primitive.content
             primitive.booleanOrNull != null -> primitive.boolean
             primitive.longOrNull != null -> {
-                // Int или Long — зависит от типа колонки
                 val l = primitive.long
-                if (colType is IntegerColumnType) l.toInt() else l
+                when (colType) {
+                    is IntegerColumnType -> l.toInt()
+                    is ULongColumnType  -> l.toULong()
+                    else                -> l
+                }
             }
             primitive.doubleOrNull != null -> primitive.double
             else -> primitive.content
@@ -315,6 +321,7 @@ object ReflectiveMapper {
             is IntegerColumnType -> defaultStr.toIntOrNull()
             is LongColumnType -> defaultStr.toLongOrNull()
             is DoubleColumnType -> defaultStr.toDoubleOrNull()
+            is ULongColumnType -> defaultStr.toULongOrNull()
             else -> defaultStr
         }
     }

@@ -26,7 +26,7 @@ data class Item(
 
     val name: String,
 
-    val description: String? = null,
+    val description: String?,
 
     val image: String? = null,
 

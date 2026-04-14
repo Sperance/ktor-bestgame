@@ -1,6 +1,7 @@
 package features.characters
 
 import application.model.ItemStock
+import base.exception.BadRequestException
 import base.exception.NotFoundException
 import base.exception.OptimisticLockException
 import base.repository.BaseRepository
@@ -29,11 +30,17 @@ class CharacterRepository : BaseRepository<Character, CharacterTable>(
 
             // Ищем существующий предмет в инвентаре
             val existing = inventory.find { it.item_id == itemStock.item_id }
+
             if (existing != null) {
+                if ((existing.quantity + itemStock.quantity) < 0) throw BadRequestException("Character(id=$characterId) not enough item $itemStock he have $existing")
                 existing.quantity += itemStock.quantity
             } else {
+                if (itemStock.quantity <= 0) throw BadRequestException("Character(id=$characterId) item $itemStock quantity must be positive")
                 inventory.add(itemStock)
             }
+
+            // Не должно быть элементов с нулевым количеством
+            inventory.removeAll { itm -> itm.quantity == 0 }
 
             // Обновляем JSONB-поле inventory
             val updated = CharacterTable.update({ (CharacterTable.id eq characterId) and (CharacterTable.version eq character.version) }) {
