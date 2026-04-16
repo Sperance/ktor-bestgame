@@ -6,6 +6,7 @@ import base.exception.UnauthorizedException
 import base.service.BaseService
 import java.security.MessageDigest
 import java.security.SecureRandom
+import java.time.LocalDateTime
 
 class UserService(
     private val repo: UserRepository = UserRepository()
@@ -83,7 +84,9 @@ class UserService(
             throw UnauthorizedException("Account is deactivated")
         }
 
-        return repo.touchLastLoginDate(userId, user.version)
+        return repo.updateFields(userId, user.version) { t ->
+            this[t.lastLoginDate] = LocalDateTime.now()
+        }
     }
 
     // ==================== Password utils ====================

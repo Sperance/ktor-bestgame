@@ -13,6 +13,7 @@ import org.jetbrains.exposed.v1.core.ResultRow
 import org.jetbrains.exposed.v1.core.SortOrder
 import org.jetbrains.exposed.v1.core.and
 import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.core.statements.UpdateStatement
 import org.jetbrains.exposed.v1.jdbc.deleteAll
 import org.jetbrains.exposed.v1.jdbc.deleteWhere
 import org.jetbrains.exposed.v1.jdbc.insert
@@ -395,6 +396,69 @@ abstract class BaseRepository<E : BaseEntity, T : BaseTable>(
      * ```
      */
     open fun deleteAll(): Int = transaction { table.deleteAll() }
+
+    /**
+     * Универсальное обновление произвольных полей с оптимистичной блокировкой.
+     *
+     * В отличие от [update], не требует JSON от клиента — принимает типобезопасную
+     * лямбду-билдер, в которой можно ссылаться на любые колонки таблицы напрямую.
+     *
+     * **Что делает автоматически:**
+     * - Проверяет `version` (WHERE id = :id AND version = :expectedVersion)
+     * - Инкрементирует `version` на +1
+     * - Обновляет `updatedAt = now()`
+     * - Бросает NotFoundException / OptimisticLockException при нуле затронутых строк
+     *
+     * **Когда использовать:** серверная бизнес-логика, где клиентский JSON неуместен
+     * (отметка последнего логина, смена статуса, инкремент счётчика, и т.п.).
+     *
+     * @param id Идентификатор обновляемой сущности
+     * @param expectedVersion Ожидаемая текущая версия записи
+     * @param block Лямбда, в которой устанавливаются значения нужных колонок.
+     *              `this` = UpdateStatement, параметр = таблица.
+     * @return Обновлённая сущность (прогнанная через beforeResponse)
+     *
+     * @throws NotFoundException если записи с таким id нет
+     * @throws OptimisticLockException если версия не совпала
+     *
+     * @sample
+     * ```kotlin
+     * // В UserService:
+     * repo.updateFields(userId, user.version) { t ->
+     *     this[t.lastLoginDate] = LocalDateTime.now()
+     * }
+     *
+     * // Смена нескольких полей:
+     * repo.updateFields(orderId, order.version) { t ->
+     *     this[t.status] = OrderStatus.PAID
+     *     this[t.paidAt] = LocalDateTime.now()
+     * }
+     * ```
+     */
+    open fun updateFields(
+        id: Long,
+        expectedVersion: Long,
+        block: UpdateStatement.(T) -> Unit
+    ): E {
+        val updated = transaction {
+            table.update({
+                (table.id eq id) and (table.version eq expectedVersion)
+            }) { stmt ->
+                // 1. Пользовательские поля
+                stmt.block(table)
+                // 2. Служебные — всегда последними, чтобы их нельзя было перетереть
+                stmt[table.version] = expectedVersion + 1
+                stmt[table.updatedAt] = LocalDateTime.now()
+            }
+        }
+
+        if (updated == 0) {
+            throwLockOrNotFound(id, expectedVersion)
+        }
+
+        log.debug("Updated $entityName(id=$id) fields: version $expectedVersion → ${expectedVersion + 1}")
+        return findById(id)!!
+    }
 
     // ==================== Internal ====================
 

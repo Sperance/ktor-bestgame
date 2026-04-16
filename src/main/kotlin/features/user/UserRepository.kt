@@ -65,28 +65,4 @@ class UserRepository : BaseRepository<User, UsersTable>(
                 Triple(row[table.id], row[table.password], row[table.salt])
             }
     }
-
-    /**
-     * Проставляет lastLoginDate = now() с соблюдением оптимистичной блокировки:
-     * проверяет version, инкрементирует её и обновляет updatedAt —
-     * ровно как BaseRepository.update().
-     */
-    fun touchLastLoginDate(id: Long, expectedVersion: Long): User {
-        val updated = transaction {
-            table.update({
-                (table.id eq id) and (table.version eq expectedVersion)
-            }) { stmt ->
-                stmt[table.lastLoginDate] = LocalDateTime.now()
-                stmt[table.version] = expectedVersion + 1
-                stmt[table.updatedAt] = LocalDateTime.now()
-            }
-        }
-
-        if (updated == 0) {
-            if (!exists(id)) throw NotFoundException("$entityName(id=$id) not found")
-            throw OptimisticLockException(entityName, id, expectedVersion)
-        }
-
-        return findById(id)!!
-    }
 }
