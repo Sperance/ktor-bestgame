@@ -1,4 +1,4 @@
-package features.items
+package features.property
 
 import base.annotations.ReadOnly
 import base.annotations.Required
@@ -6,33 +6,24 @@ import base.model.BaseEntity
 import base.table.BaseTable
 import kotlinx.serialization.Serializable
 
-object ItemsTable : BaseTable("items") {
-
-    /** Название предмета (видимое игроку) */
-    val name = varchar("name", 100).uniqueIndex()
-
-    /** Текстовое описание / лор предмета */
-    val description = varchar("description", 500).nullable()
-
+object PropertyTable : BaseTable("property") {
+    val code = varchar(name = "code", length = 32).uniqueIndex()
+    val name = varchar(name = "name", length = 64).uniqueIndex()
     val image = text("image").nullable()
-
-    val price = ulong("price")
 }
 
 @Serializable
-data class Item(
+data class Property(
     @ReadOnly
     override val id: Long = -1,
 
     @Required
-    val name: String = "",
-
-    val description: String? = null,
-
-    val image: String? = null,
+    val code: String = "",
 
     @Required
-    val price: ULong = 0u,
+    val name: String = "",
+
+    val image: String? = null,
 
     @ReadOnly
     override val version: Long = 1,

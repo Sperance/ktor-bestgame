@@ -12,8 +12,6 @@ class EquipmentService(
     private val charRepo: CharacterRepository = CharacterRepository()
 ) : BaseService<Equipment, EquipmentTable>(equipRepo, Equipment.serializer()) {
 
-    override fun entityName() = "Equipment"
-
     override fun validateCreate(entity: Equipment) {
         if (!charRepo.exists(entity.characterId)) {
             throw NotFoundException("Character(id=${entity.characterId}) not found")
@@ -71,7 +69,7 @@ class EquipmentService(
         // Надеваем новый
         val equipped = equipInternal(item)
 
-        val unequipped = previousItem?.let { equipRepo.findById(it.id!!) }
+        val unequipped = previousItem?.let { equipRepo.findById(it.id) }
         return equipped to unequipped
     }
 
@@ -101,7 +99,7 @@ class EquipmentService(
             "equippedSlot" to item.slot.name,
             "version" to item.version
         )
-        return equipRepo.update(item.id!!, json)
+        return equipRepo.update(item.id, json)
     }
 
     private fun unequipInternal(item: Equipment) {
@@ -109,7 +107,7 @@ class EquipmentService(
             "version" to item.version,
             nullField = "equippedSlot"
         )
-        equipRepo.update(item.id!!, json)
+        equipRepo.update(item.id, json)
     }
 
     /** Хелпер: создать JsonObject с простыми полями */

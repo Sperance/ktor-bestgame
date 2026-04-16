@@ -37,10 +37,10 @@ object EquipmentTable : BaseTable("equipment") {
     val name = varchar("name", 100)
 
     /** Слот, в который может быть надет предмет */
-    val slot = enumerationByName("slot", 20, EnumEquipmentType::class)
+    val slot = enumeration("slot", EnumEquipmentType::class)
 
     /** Редкость предмета */
-    val rarity = enumerationByName("rarity", 20, EnumRarity::class)
+    val rarity = enumeration("rarity", EnumRarity::class)
 
     /** Уровень предмета (влияет на базовые статы) */
     val itemLevel = integer("item_level").default(1)
@@ -55,7 +55,7 @@ object EquipmentTable : BaseTable("equipment") {
      * В каком слоте надет. null = лежит в инвентаре (не экипирован).
      * Позволяет быстро найти: "что надето в слоте HELMET у персонажа X?"
      */
-    val equippedSlot = enumerationByName("equipped_slot", 20, EnumEquipmentType::class).nullable()
+    val equippedSlot = enumeration("equipped_slot", EnumEquipmentType::class).nullable()
 
     val price = ulong("price")
 
@@ -104,7 +104,7 @@ object EquipmentTable : BaseTable("equipment") {
 @Serializable
 data class Equipment(
     @ReadOnly
-    override val id: Long? = null,
+    override val id: Long = -1,
 
     @Required
     val name: String = "",

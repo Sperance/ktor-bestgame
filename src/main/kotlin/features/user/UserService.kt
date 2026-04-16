@@ -11,8 +11,6 @@ class UserService(
     private val repo: UserRepository = UserRepository()
 ) : BaseService<User, UsersTable>(repo, User.serializer()) {
 
-    override fun entityName() = "User"
-
     // ==================== Validation ====================
 
     override fun validateCreate(entity: User) {
@@ -85,7 +83,7 @@ class UserService(
             throw UnauthorizedException("Account is deactivated")
         }
 
-        return user
+        return repo.touchLastLoginDate(userId, user.version)
     }
 
     // ==================== Password utils ====================

@@ -11,12 +11,12 @@ import kotlinx.serialization.encoding.Encoder
 
 /**
  * Запись рекорда: ключ + лучшее значение.
- * Компактная сериализация: "M1:9999.0" (код рекорда : значение)
+ * Компактная сериализация: "M1:9999" (код рекорда : значение)
  */
 @Serializable(with = CompactRecordEntrySerializer::class)
 data class RecordEntry(
     val key: EnumRecord,
-    var value: Double
+    var value: Int
 )
 
 object CompactRecordEntrySerializer : KSerializer<RecordEntry> {
@@ -33,7 +33,7 @@ object CompactRecordEntrySerializer : KSerializer<RecordEntry> {
 
         val key = EnumRecord.entries.find { it.code == parts[0] }
             ?: throw IllegalArgumentException("Unknown record code: ${parts[0]}")
-        val value = parts[1].toDoubleOrNull()
+        val value = parts[1].toIntOrNull()
             ?: throw IllegalArgumentException("Invalid number in RecordEntry: $str")
 
         return RecordEntry(key, value)

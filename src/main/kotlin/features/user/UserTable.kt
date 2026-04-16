@@ -16,14 +16,14 @@ object UsersTable : BaseTable("users") {
     val salt = varchar("salt", 256)
     val age = integer("age").nullable()
     val isActive = bool("is_active").default(true)
-    val role = enumerationByName("role", 20, EnumUserRoles::class).default(EnumUserRoles.USER)
+    val role = enumeration("role", EnumUserRoles::class).default(EnumUserRoles.USER)
     val lastLoginDate = datetime("last_login_date").nullable()
 }
 
 @Serializable
 data class User(
     @ReadOnly
-    override val id: Long? = null,
+    override val id: Long = -1,
 
     @Required
     val name: String = "",

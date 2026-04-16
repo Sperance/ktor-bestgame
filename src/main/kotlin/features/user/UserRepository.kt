@@ -1,10 +1,15 @@
 package features.user
 
+import base.exception.NotFoundException
+import base.exception.OptimisticLockException
 import base.repository.BaseRepository
+import org.jetbrains.exposed.v1.core.and
 import org.jetbrains.exposed.v1.core.eq
 import org.jetbrains.exposed.v1.core.like
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+import org.jetbrains.exposed.v1.jdbc.update
+import java.time.LocalDateTime
 
 class UserRepository : BaseRepository<User, UsersTable>(
     table = UsersTable,
@@ -59,5 +64,29 @@ class UserRepository : BaseRepository<User, UsersTable>(
             ?.let { row ->
                 Triple(row[table.id], row[table.password], row[table.salt])
             }
+    }
+
+    /**
+     * Проставляет lastLoginDate = now() с соблюдением оптимистичной блокировки:
+     * проверяет version, инкрементирует её и обновляет updatedAt —
+     * ровно как BaseRepository.update().
+     */
+    fun touchLastLoginDate(id: Long, expectedVersion: Long): User {
+        val updated = transaction {
+            table.update({
+                (table.id eq id) and (table.version eq expectedVersion)
+            }) { stmt ->
+                stmt[table.lastLoginDate] = LocalDateTime.now()
+                stmt[table.version] = expectedVersion + 1
+                stmt[table.updatedAt] = LocalDateTime.now()
+            }
+        }
+
+        if (updated == 0) {
+            if (!exists(id)) throw NotFoundException("$entityName(id=$id) not found")
+            throw OptimisticLockException(entityName, id, expectedVersion)
+        }
+
+        return findById(id)!!
     }
 }

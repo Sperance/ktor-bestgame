@@ -2,6 +2,8 @@ package base.reflection
 
 import base.exception.BadRequestException
 import base.table.BaseTable
+import extensions.printLog
+import kotlinx.datetime.toKotlinLocalDateTime
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
@@ -23,6 +25,7 @@ import org.jetbrains.exposed.v1.core.ResultRow
 import org.jetbrains.exposed.v1.core.ULongColumnType
 import org.jetbrains.exposed.v1.core.statements.InsertStatement
 import org.jetbrains.exposed.v1.core.statements.UpdateStatement
+import org.jetbrains.exposed.v1.javatime.JavaLocalDateTimeColumnType
 import org.jetbrains.exposed.v1.json.JsonBColumnType
 import java.time.LocalDateTime
 import kotlin.reflect.KClass

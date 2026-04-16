@@ -120,7 +120,7 @@ abstract class BaseTable(name: String) : Table(name) {
      *
      * **Значение по умолчанию:** 1L
      *
-     * @see OptimisticLockException
+     * @see base.exception.OptimisticLockException
      *
      * @sample
      * ```kotlin

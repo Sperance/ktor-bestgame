@@ -19,8 +19,6 @@ class CharacterStatsService(
     private val charRepo: CharacterRepository = CharacterRepository()
 ) : BaseService<CharacterStats, CharacterStatsTable>(statsRepo, CharacterStats.serializer()) {
 
-    override fun entityName() = "CharacterStats"
-
     // ==================== READ ====================
 
     /**
@@ -82,7 +80,7 @@ class CharacterStatsService(
      * ```
      * @return true если рекорд обновлён, false если текущий лучше
      */
-    fun updateRecord(characterId: Long, key: EnumRecord, value: Double): Boolean {
+    fun updateRecord(characterId: Long, key: EnumRecord, value: Int): Boolean {
         return updateRecords(characterId, mapOf(key to value)).isNotEmpty()
     }
 
@@ -91,13 +89,13 @@ class CharacterStatsService(
      *
      * ```kotlin
      * statsService.updateRecords(charId, mapOf(
-     *     EnumRecord.MAX_DAMAGE to 9999.0,
-     *     EnumRecord.MAX_KILL_STREAK to 15.0
+     *     EnumRecord.MAX_DAMAGE to 9999,
+     *     EnumRecord.MAX_KILL_STREAK to 15
      * ))
      * ```
      * @return список ключей, которые действительно обновились
      */
-    fun updateRecords(characterId: Long, candidates: Map<EnumRecord, Double>): List<EnumRecord> {
+    fun updateRecords(characterId: Long, candidates: Map<EnumRecord, Int>): List<EnumRecord> {
         val stats = getByCharacter(characterId)
         val records = stats.records.toMutableSet()
         val updated = mutableListOf<EnumRecord>()
@@ -144,7 +142,7 @@ class CharacterStatsService(
     fun afterBattle(
         characterId: Long,
         counters: Map<EnumCounter, Long> = emptyMap(),
-        records: Map<EnumRecord, Double> = emptyMap()
+        records: Map<EnumRecord, Int> = emptyMap()
     ): CharacterStats {
         val stats = getByCharacter(characterId)
 
@@ -204,6 +202,6 @@ class CharacterStatsService(
             "records" to recordsJson
         ))
 
-        return statsRepo.update(stats.id!!, json)
+        return statsRepo.update(stats.id, json)
     }
 }

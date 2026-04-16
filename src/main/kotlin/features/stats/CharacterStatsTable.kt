@@ -47,7 +47,7 @@ object CharacterStatsTable : BaseTable("character_stats") {
 @Serializable
 data class CharacterStats(
     @ReadOnly
-    override val id: Long? = null,
+    override val id: Long = -1,
 
     @Immutable
     val characterId: Long,

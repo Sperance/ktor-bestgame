@@ -13,6 +13,7 @@ import config.DatabaseSeeder
 import features.characters.CharacterTable
 import features.equipment.EquipmentTable
 import features.items.ItemsTable
+import features.property.PropertyTable
 import features.stats.CharacterStatsTable
 import features.user.UsersTable
 import server.addons.configureStatusPages
@@ -25,7 +26,8 @@ fun main() {
         CharacterStatsTable,
         EquipmentTable,
         CharacterTable,
-        ItemsTable))
+        ItemsTable,
+        PropertyTable))
     DatabaseSeeder.seed()
 
     embeddedServer(

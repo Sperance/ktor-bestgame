@@ -1,21 +1,19 @@
 package features.characters
 
-import application.enums.EnumStatBool
-import application.enums.EnumStatKey
 import application.model.ItemStock
 import application.model.ParamsStock
 import application.model.Stat
 import application.model.StatBool
 import base.annotations.Immutable
 import base.annotations.ReadOnly
+import base.annotations.Required
 import base.model.BaseEntity
 import base.table.BaseTable
+import features.property.PropertyCache
 import features.user.UsersTable
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.v1.json.jsonb
-import kotlin.collections.plusAssign
-import kotlin.compareTo
 
 object CharacterTable : BaseTable("character") {
     val name = varchar("name", 20)
@@ -58,13 +56,13 @@ object CharacterTable : BaseTable("character") {
      */
     fun getStockParams(): MutableSet<ParamsStock> {
         val stock = mutableSetOf<ParamsStock>()
-        stock.add(ParamsStock(EnumStatKey.LIFE, 100.0))
-        stock.add(ParamsStock(EnumStatKey.STR, 1.0))
-        stock.add(ParamsStock(EnumStatKey.DEX, 1.0))
-        stock.add(ParamsStock(EnumStatKey.INT, 1.0))
-        stock.add(ParamsStock(EnumStatKey.INVENTORY_SIZE, 10.0))
-        stock.add(ParamsStock(EnumStatKey.CRIT_DAMAGE, 200.0))
-        stock.add(ParamsStock(EnumStatKey.ATTACK_SPEED, 1.5))
+        stock.add(ParamsStock(PropertyCache.getFromCode("HEALTH")!!.id, 100.0))
+        stock.add(ParamsStock(PropertyCache.getFromCode("STR")!!.id, 1.0))
+        stock.add(ParamsStock(PropertyCache.getFromCode("AGI")!!.id, 1.0))
+        stock.add(ParamsStock(PropertyCache.getFromCode("INT")!!.id, 1.0))
+        stock.add(ParamsStock(PropertyCache.getFromCode("INV")!!.id, 10.0))
+        stock.add(ParamsStock(PropertyCache.getFromCode("CRIT")!!.id, 200.0))
+        stock.add(ParamsStock(PropertyCache.getFromCode("SPD")!!.id, 1.5))
         return stock
     }
 }
@@ -72,8 +70,9 @@ object CharacterTable : BaseTable("character") {
 @Serializable
 data class Character(
     @ReadOnly
-    override val id: Long? = null,
+    override val id: Long = -1,
 
+    @Required
     val name: String = "",
 
     val description: String = "",
