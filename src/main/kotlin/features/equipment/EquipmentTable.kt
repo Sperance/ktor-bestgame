@@ -2,7 +2,6 @@ package features.equipment
 
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
-import application.model.ParamsStock
 import application.model.Stat
 import base.annotations.Immutable
 import base.annotations.ReadOnly
@@ -64,7 +63,7 @@ object EquipmentTable : BaseTable("equipment") {
      * Хранятся как JSONB: ["A1:1:10.0", "C0:2:5.0"]
      * Каждый ParamsStock = ключ + тип (flat/percent) + значение
      */
-    val stats = jsonb<MutableSet<ParamsStock>>(
+    val stats = jsonb<MutableSet<Stat>>(
         name = "stats",
         jsonConfig = Json
     )
@@ -129,7 +128,7 @@ data class Equipment(
     val price: ULong = 0u,
 
     /** Основные характеристики предмета */
-    val stats: MutableSet<ParamsStock> = mutableSetOf(),
+    val stats: MutableSet<Stat> = mutableSetOf(),
 
     /** Баффы / зачарования / модификаторы */
     val buffs: MutableSet<Stat>? = null,

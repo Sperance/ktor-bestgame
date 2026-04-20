@@ -3,12 +3,10 @@ package config
 import application.enums.EnumCounter
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
-import application.enums.EnumRecord
+import application.enums.EnumStatHelper
 import application.enums.EnumStatType
 import application.enums.EnumUserRoles
 import application.model.CounterEntry
-import application.model.ParamsStock
-import application.model.RecordEntry
 import application.model.Stat
 import extensions.printLog
 import features.characters.CharacterRepository
@@ -110,9 +108,9 @@ object DatabaseSeeder {
             it[level] = 5
             it[experience] = 1200
             it[params] = mutableSetOf(
-                ParamsStock(PropertyCache.getFromCode("HEALTH")!!.id, 80.0),
-                ParamsStock(PropertyCache.getFromCode("STR")!!.id, 2.0),
-                ParamsStock(PropertyCache.getFromCode("INV")!!.id, 15.0),
+                Stat(PropertyCache.getFromCode("S_HEALTH")!!.id, EnumStatType.STOCK,80.0),
+                Stat(PropertyCache.getFromCode("S_STR")!!.id, EnumStatType.STOCK,2.0),
+                Stat(PropertyCache.getFromCode("S_INV")!!.id, EnumStatType.STOCK,15.0),
             )
         }
 
@@ -137,8 +135,8 @@ object DatabaseSeeder {
             it[characterId] = characterRepository.first().id
             it[equippedSlot] = EnumEquipmentType.HELMET  // надет
             it[stats] = mutableSetOf(
-                ParamsStock(PropertyCache.getFromCode("HEALTH")!!.id, 20.0),
-                ParamsStock(PropertyCache.getFromCode("AGI")!!.id, 3.0)
+                Stat(PropertyCache.getFromCode("S_HEALTH")!!.id, EnumStatType.STOCK,20.0),
+                Stat(PropertyCache.getFromCode("S_AGI")!!.id, EnumStatType.STOCK,3.0)
             )
             it[price] = 670u
         }
@@ -153,12 +151,12 @@ object DatabaseSeeder {
             it[characterId] = characterRepository.last().id
             it[equippedSlot] = null  // в сумке
             it[stats] = mutableSetOf(
-                ParamsStock(PropertyCache.getFromCode("HEALTH")!!.id, 50.0),
-                ParamsStock(PropertyCache.getFromCode("INT")!!.id, 8.0),
-                ParamsStock(PropertyCache.getFromCode("ARM")!!.id, 10.0)
+                Stat(PropertyCache.getFromCode("S_HEALTH")!!.id, EnumStatType.STOCK, 50.0),
+                Stat(PropertyCache.getFromCode("S_INT")!!.id, EnumStatType.STOCK,8.0),
+                Stat(PropertyCache.getFromCode("S_ARM")!!.id, EnumStatType.STOCK,10.0)
             )
             it[buffs] = mutableSetOf(
-                Stat(PropertyCache.getFromCode("SPD")!!.id, EnumStatType.PERCENT, 15.0)
+                Stat(PropertyCache.getFromCode("S_SPD")!!.id, EnumStatType.STOCK, 15.0)
             )
             it[price] = 8900u
         }
@@ -173,10 +171,10 @@ object DatabaseSeeder {
             it[characterId] = characterRepository.last().id
             it[equippedSlot] = EnumEquipmentType.RING  // надето
             it[stats] = mutableSetOf(
-                ParamsStock(PropertyCache.getFromCode("INT")!!.id, 15.0),
-                ParamsStock(PropertyCache.getFromCode("FATK")!!.id, 12.0),
-                ParamsStock(PropertyCache.getFromCode("CRIT_CH")!!.id, 5.0),
-                ParamsStock(PropertyCache.getFromCode("MANA")!!.id, 50.0)
+                Stat(PropertyCache.getFromCode("S_INT")!!.id, EnumStatType.STOCK,15.0),
+                Stat(PropertyCache.getFromCode("S_FATK")!!.id, EnumStatType.STOCK,12.0),
+                Stat(PropertyCache.getFromCode("S_CRIT_CH")!!.id, EnumStatType.STOCK,5.0),
+                Stat(PropertyCache.getFromCode("S_MANA")!!.id, EnumStatType.STOCK,50.0)
             )
             it[price] = 4670u
         }
@@ -227,7 +225,6 @@ object DatabaseSeeder {
                 CounterEntry(EnumCounter.POTIONS_USED, 2),
                 CounterEntry(EnumCounter.DEATHS, 1),
             )
-            it[records] = mutableSetOf()
         }
 
         CharacterStatsTable.insert {
@@ -235,7 +232,6 @@ object DatabaseSeeder {
             it[counters] = mutableSetOf(
                 CounterEntry(EnumCounter.DEATHS, 52),
             )
-            it[records] = mutableSetOf(RecordEntry(EnumRecord.HIGHEST_FLOOR, 14))
         }
 
         printLog("  → 2 stats created")
@@ -248,57 +244,12 @@ object DatabaseSeeder {
 
         printLog("Seeding property...")
 
-        PropertyTable.insert {
-            it[code] = "HEALTH"
-            it[name] = "Здоровье"
-        }
-        PropertyTable.insert {
-            it[code] = "MANA"
-            it[name] = "Мана"
-        }
-        PropertyTable.insert {
-            it[code] = "ENERGY"
-            it[name] = "Энергия"
-        }
-        PropertyTable.insert {
-            it[code] = "STR"
-            it[name] = "Сила"
-        }
-        PropertyTable.insert {
-            it[code] = "AGI"
-            it[name] = "Ловкость"
-        }
-        PropertyTable.insert {
-            it[code] = "INT"
-            it[name] = "Интеллект"
-        }
-        PropertyTable.insert {
-            it[code] = "INV"
-            it[name] = "Размер инвентаря"
-        }
-        PropertyTable.insert {
-            it[code] = "CRIT_CH"
-            it[name] = "Шанс критического удара"
-        }
-        PropertyTable.insert {
-            it[code] = "CRIT"
-            it[name] = "Урон критического удара"
-        }
-        PropertyTable.insert {
-            it[code] = "SPD"
-            it[name] = "Скорость атаки"
-        }
-        PropertyTable.insert {
-            it[code] = "ARM"
-            it[name] = "Броня"
-        }
-        PropertyTable.insert {
-            it[code] = "FATK"
-            it[name] = "Физический урон"
-        }
-        PropertyTable.insert {
-            it[code] = "MATK"
-            it[name] = "Магический урон"
+        EnumStatHelper.entries.forEach { stat ->
+            PropertyTable.insert {
+                it[code] = stat.code
+                it[name] = stat.nameRu
+                it[type] = stat.type
+            }
         }
     }
 }

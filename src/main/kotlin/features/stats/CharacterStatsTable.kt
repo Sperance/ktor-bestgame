@@ -1,9 +1,11 @@
 package features.stats
 
+import application.enums.EnumStatType
 import application.model.CounterEntry
 import application.model.RecordEntry
 import base.annotations.Immutable
 import base.annotations.ReadOnly
+import base.annotations.Required
 import base.model.BaseEntity
 import base.table.BaseTable
 import features.characters.CharacterTable
@@ -32,7 +34,7 @@ object CharacterStatsTable : BaseTable("character_stats") {
     val counters = jsonb<MutableSet<CounterEntry>>(
         name = "counters",
         jsonConfig = Json
-    )
+    ).default(mutableSetOf())
 
     /**
      * Рекорды: макс. урон, макс. серия, макс. уровень и т.д.
@@ -41,7 +43,7 @@ object CharacterStatsTable : BaseTable("character_stats") {
     val records = jsonb<MutableSet<RecordEntry>>(
         name = "records",
         jsonConfig = Json
-    )
+    ).default(mutableSetOf())
 }
 
 @Serializable
@@ -50,7 +52,7 @@ data class CharacterStats(
     override val id: Long = -1,
 
     @Immutable
-    val characterId: Long,
+    val characterId: Long = -1,
 
     val counters: MutableSet<CounterEntry> = mutableSetOf(),
 

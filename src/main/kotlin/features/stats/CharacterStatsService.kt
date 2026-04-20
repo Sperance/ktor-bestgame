@@ -1,7 +1,6 @@
 package features.stats
 
 import application.enums.EnumCounter
-import application.enums.EnumRecord
 import application.model.CounterEntry
 import application.model.RecordEntry
 import base.exception.NotFoundException
@@ -80,7 +79,7 @@ class CharacterStatsService(
      * ```
      * @return true если рекорд обновлён, false если текущий лучше
      */
-    fun updateRecord(characterId: Long, key: EnumRecord, value: Int): Boolean {
+    fun updateRecord(characterId: Long, key: Long, value: Int): Boolean {
         return updateRecords(characterId, mapOf(key to value)).isNotEmpty()
     }
 
@@ -95,10 +94,10 @@ class CharacterStatsService(
      * ```
      * @return список ключей, которые действительно обновились
      */
-    fun updateRecords(characterId: Long, candidates: Map<EnumRecord, Int>): List<EnumRecord> {
+    fun updateRecords(characterId: Long, candidates: Map<Long, Int>): List<Long> {
         val stats = getByCharacter(characterId)
         val records = stats.records.toMutableSet()
-        val updated = mutableListOf<EnumRecord>()
+        val updated = mutableListOf<Long>()
 
         for ((key, newValue) in candidates) {
             val existing = records.find { it.key == key }
@@ -142,7 +141,7 @@ class CharacterStatsService(
     fun afterBattle(
         characterId: Long,
         counters: Map<EnumCounter, Long> = emptyMap(),
-        records: Map<EnumRecord, Int> = emptyMap()
+        records: Map<Long, Int> = emptyMap()
     ): CharacterStats {
         val stats = getByCharacter(characterId)
 

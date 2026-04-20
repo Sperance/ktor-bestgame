@@ -1,6 +1,19 @@
 package application.enums
 
 enum class EnumStatType(val code: Int) {
-    FLAT(1),
-    PERCENT(2)
+
+    /**
+     * Основная характеристика для всей игры
+     */
+    STOCK(0),
+
+    /**
+     * Булевое значение для характеристки
+     */
+    BOOL(1),
+
+    /**
+     * Характеристика для статистики по персонажу
+     */
+    HISTORY(2),
 }

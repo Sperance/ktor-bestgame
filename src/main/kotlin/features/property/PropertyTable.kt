@@ -1,5 +1,6 @@
 package features.property
 
+import application.enums.EnumStatType
 import base.annotations.ReadOnly
 import base.annotations.Required
 import base.model.BaseEntity
@@ -9,6 +10,8 @@ import kotlinx.serialization.Serializable
 object PropertyTable : BaseTable("property") {
     val code = varchar(name = "code", length = 32).uniqueIndex()
     val name = varchar(name = "name", length = 64).uniqueIndex()
+    val description = varchar(name = "description", length = 256).default("")
+    val type = enumeration("type", EnumStatType::class)
     val image = text("image").nullable()
 }
 
@@ -22,6 +25,11 @@ data class Property(
 
     @Required
     val name: String = "",
+
+    val description: String = "",
+
+    @Required
+    val type: EnumStatType = EnumStatType.STOCK,
 
     val image: String? = null,
 
