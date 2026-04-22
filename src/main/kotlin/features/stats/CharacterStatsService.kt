@@ -1,6 +1,5 @@
 package features.stats
 
-import application.enums.EnumCounter
 import application.model.CounterEntry
 import application.model.RecordEntry
 import base.exception.NotFoundException
@@ -37,7 +36,7 @@ class CharacterStatsService(
      * statsService.incrementCounter(charId, EnumCounter.DAMAGE_DEALT, 1500)
      * ```
      */
-    fun incrementCounter(characterId: Long, key: EnumCounter, amount: Long = 1): CharacterStats {
+    fun incrementCounter(characterId: Long, key: Long, amount: Long = 1): CharacterStats {
         return incrementCounters(characterId, mapOf(key to amount))
     }
 
@@ -53,7 +52,7 @@ class CharacterStatsService(
      * ))
      * ```
      */
-    fun incrementCounters(characterId: Long, deltas: Map<EnumCounter, Long>): CharacterStats {
+    fun incrementCounters(characterId: Long, deltas: Map<Long, Long>): CharacterStats {
         val stats = getByCharacter(characterId)
         val counters = stats.counters.toMutableSet()
 
@@ -140,7 +139,7 @@ class CharacterStatsService(
      */
     fun afterBattle(
         characterId: Long,
-        counters: Map<EnumCounter, Long> = emptyMap(),
+        counters: Map<Long, Long> = emptyMap(),
         records: Map<Long, Int> = emptyMap()
     ): CharacterStats {
         val stats = getByCharacter(characterId)

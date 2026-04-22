@@ -1,6 +1,5 @@
 package application.model
 
-import application.enums.EnumCounter
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -15,7 +14,7 @@ import kotlinx.serialization.encoding.Encoder
  */
 @Serializable(with = CompactCounterEntrySerializer::class)
 data class CounterEntry(
-    val key: EnumCounter,
+    val key: Long,
     var value: Long
 )
 
@@ -23,7 +22,7 @@ object CompactCounterEntrySerializer : KSerializer<CounterEntry> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("CounterEntry", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: CounterEntry) {
-        encoder.encodeString("${value.key.code}:${value.value}")
+        encoder.encodeString("${value.key}:${value.value}")
     }
 
     override fun deserialize(decoder: Decoder): CounterEntry {
@@ -31,7 +30,7 @@ object CompactCounterEntrySerializer : KSerializer<CounterEntry> {
         val parts = str.split(":", limit = 2)
         if (parts.size != 2) throw IllegalArgumentException("Invalid CounterEntry: $str")
 
-        val key = EnumCounter.entries.find { it.code == parts[0] }
+        val key = parts[0].toLongOrNull()
             ?: throw IllegalArgumentException("Unknown counter code: ${parts[0]}")
         val value = parts[1].toLongOrNull()
             ?: throw IllegalArgumentException("Invalid number in CounterEntry: $str")

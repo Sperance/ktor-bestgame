@@ -1,5 +1,7 @@
 package features.property
 
+import application.enums.EnumStatHelper
+
 object PropertyCache {
     private var properties = listOf<Property>()
 
@@ -8,6 +10,5 @@ object PropertyCache {
     }
 
     fun getAll() = properties
-    fun getFromCode(code: String) = properties.find { it.code == code }
-    fun getFromName(name: String) = properties.find { it.name == name }
+    fun getIdFromEnum(enum: EnumStatHelper) = properties.find { it.code == enum.name }!!.id
 }

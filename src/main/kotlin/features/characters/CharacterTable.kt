@@ -1,5 +1,6 @@
 package features.characters
 
+import application.enums.EnumStatHelper
 import application.enums.EnumStatType
 import application.model.ItemStock
 import application.model.Stat
@@ -50,13 +51,13 @@ object CharacterTable : BaseTable("character") {
      */
     fun getStockParams(): MutableSet<Stat> {
         val stock = mutableSetOf<Stat>()
-        stock.add(Stat(PropertyCache.getFromCode("S_HEALTH")!!.id, EnumStatType.STOCK,100.0))
-        stock.add(Stat(PropertyCache.getFromCode("S_STR")!!.id, EnumStatType.STOCK,1.0))
-        stock.add(Stat(PropertyCache.getFromCode("S_AGI")!!.id, EnumStatType.STOCK,1.0))
-        stock.add(Stat(PropertyCache.getFromCode("S_INT")!!.id, EnumStatType.STOCK,1.0))
-        stock.add(Stat(PropertyCache.getFromCode("S_INV")!!.id, EnumStatType.STOCK,10.0))
-        stock.add(Stat(PropertyCache.getFromCode("S_CRIT")!!.id, EnumStatType.STOCK,200.0))
-        stock.add(Stat(PropertyCache.getFromCode("S_SPD")!!.id, EnumStatType.STOCK,1.5))
+        stock.add(Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK,100.0))
+        stock.add(Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_STRENGTH), EnumStatType.STOCK,1.0))
+        stock.add(Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_AGILITY), EnumStatType.STOCK,1.0))
+        stock.add(Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INTELLECT), EnumStatType.STOCK,1.0))
+        stock.add(Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INVENTORY_SIZE), EnumStatType.STOCK,10.0))
+        stock.add(Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_CRITICAL_DAMAGE), EnumStatType.STOCK,200.0))
+        stock.add(Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_ATTACK_SPEED), EnumStatType.STOCK,1.5))
         return stock
     }
 }
