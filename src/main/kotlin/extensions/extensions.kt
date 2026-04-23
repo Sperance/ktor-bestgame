@@ -1,17 +1,5 @@
 package extensions
 
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.request.httpMethod
-import io.ktor.server.request.uri
-import io.ktor.server.response.respond
-import io.ktor.server.util.toZonedDateTime
-import io.ktor.utils.io.InternalAPI
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toKotlinLocalDateTime
-import java.util.Date
-import kotlin.toString
-
 fun printLog(text: Any?) {
     println("[PRINTLOG] $text")
 }
@@ -31,16 +19,6 @@ fun Double.removePercent(value: Double) : Double {
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 fun Double.to1Digits() = String.format("%.1f", this).replace(",", ".").toDouble()
-
-fun generateMapError(call: ApplicationCall, errorPair: Pair<Int, String>): MutableMap<String, String> {
-    val map = mutableMapOf<String, String>()
-    map["errorCode"] = errorPair.first.toString()
-    map["errorDescription"] = errorPair.second
-    map["errorType"] = call.request.httpMethod.value
-    map["errorUri"] = call.request.uri
-    map["requestKey"] = call.response.headers["ERA-key"].toString()
-    return map
-}
 
 fun Any.haveField(name: String) = this::class.java.declaredFields.find { it.isAccessible = true ; it.name == name } != null
 fun Any.getField(name: String) = this::class.java.declaredFields.find { it.isAccessible = true ; it.name == name }?.get(this)
@@ -65,6 +43,3 @@ fun Number?.isNullOrZero() : Boolean {
     if (this == 0) return true
     return false
 }
-
-@OptIn(InternalAPI::class)
-fun LocalDateTime.Companion.currectDatetime(): LocalDateTime = Date().toZonedDateTime().toLocalDateTime().toKotlinLocalDateTime()

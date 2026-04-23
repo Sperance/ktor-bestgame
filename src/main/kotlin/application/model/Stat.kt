@@ -13,7 +13,7 @@ import application.enums.EnumStatType
 data class Stat(
     val key: Long,
     val type: EnumStatType,
-    var value: Double
+    val value: Double
 ) {
     override fun toString(): String {
         return "Stat(key=$key, type=$type, value=$value)"
