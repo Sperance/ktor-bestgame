@@ -96,7 +96,7 @@ fun Application.configureModifierRoutes() {
 
             val statEnumById = PropertyCache.getIdToEnumMap()
             val results = StatCalculationService.calculateCharacterStats(
-                characterParams = character.params ?: emptySet(),
+                characterParams = character.params,
                 equippedItems = equippedItems,
                 statEnumById = statEnumById
             )

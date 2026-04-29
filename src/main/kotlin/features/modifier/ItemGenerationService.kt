@@ -4,6 +4,7 @@ import application.enums.EnumEquipmentType
 import application.enums.EnumModifierCategory
 import application.enums.EnumModifierGroup
 import application.enums.EnumRarity
+import application.enums.EnumStatModifierHelper
 import application.model.StatModifier
 import extensions.RandomExt
 import features.equipment.Equipment
