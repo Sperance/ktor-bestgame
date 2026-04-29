@@ -14,21 +14,22 @@ import features.equipment.EquipmentTable
 import features.items.ItemsCache
 import features.items.ItemsRepository
 import features.items.ItemsTable
+import features.modifier.ItemGenerationService
 import features.property.PropertyCache
 import features.property.PropertyRepository
 import features.property.PropertyTable
 import features.stats.CharacterStatsTable
 import features.user.UserRepository
 import features.user.UsersTable
+import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.v1.jdbc.insert
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 /**
  * Заполнение БД начальными данными при старте сервера.
- *
  * Вызывать после DatabaseFactory.init().
- * Каждый блок проверяет, есть ли уже данные — повторный запуск безопасен.
+ * Каждый блок проверяет наличие данных — повторный запуск безопасен.
  */
 object DatabaseSeeder {
 
@@ -56,7 +57,6 @@ object DatabaseSeeder {
 
     private fun seedUsers() {
         if (UsersTable.selectAll().count() > 0) return
-
         printLog("Seeding users...")
 
         UsersTable.insert {
@@ -64,7 +64,7 @@ object DatabaseSeeder {
             it[email] = "admin@game.com"
             it[age] = 25
             it[login] = "admin"
-            it[salt] = "${System.currentTimeMillis()}}"
+            it[salt] = "${System.currentTimeMillis()}"
             it[password] = "pass1"
             it[isActive] = true
             it[role] = EnumUserRoles.ADMIN
@@ -75,7 +75,7 @@ object DatabaseSeeder {
             it[email] = "player@game.com"
             it[age] = 20
             it[login] = "test1"
-            it[salt] = "${System.currentTimeMillis()}}"
+            it[salt] = "${System.currentTimeMillis()}"
             it[password] = "pass1"
             it[isActive] = true
             it[role] = EnumUserRoles.USER
@@ -88,8 +88,8 @@ object DatabaseSeeder {
 
     private fun seedCharacters() {
         if (CharacterTable.selectAll().count() > 0) return
-
         printLog("Seeding characters...")
+
         val userRepoAll = UserRepository().findAll()
 
         CharacterTable.insert {
@@ -107,82 +107,80 @@ object DatabaseSeeder {
             it[level] = 5
             it[experience] = 1200
             it[params] = mutableSetOf(
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK,80.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_STRENGTH), EnumStatType.STOCK,2.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INVENTORY_SIZE), EnumStatType.STOCK,15.0),
+                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK, 80.0),
+                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_STRENGTH), EnumStatType.STOCK, 2.0),
+                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INTELLECT), EnumStatType.STOCK, 15.0),
+                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_MANA), EnumStatType.STOCK, 120.0),
+                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INVENTORY_SIZE), EnumStatType.STOCK, 15.0),
             )
         }
 
         printLog("  → 2 characters created")
     }
 
-    // ==================== Equipment ====================
+    // ==================== Equipment (сгенерированные через новую систему) ====================
 
     private fun seedEquipment() {
         if (EquipmentTable.selectAll().count() > 0) return
+        printLog("Seeding equipment (PoE-style generation)...")
 
-        printLog("Seeding equipment...")
-        val characterRepository = CharacterRepository().findAll()
+        val characters = CharacterRepository().findAll()
+        val warrior = characters.first()
+        val mage = characters.last()
 
-        EquipmentTable.insert {
-            it[name] = "Стальной шлем"
-            it[slot] = EnumEquipmentType.HELMET
-            it[rarity] = EnumRarity.COMMON
-            it[itemLevel] = 1
-            it[enhanceLevel] = 0
-            it[characterId] = characterRepository.first().id
-            it[equippedSlot] = EnumEquipmentType.HELMET
-            it[stats] = mutableSetOf(
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK,20.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_AGILITY), EnumStatType.STOCK,3.0)
-            )
-            it[price] = 670u
+        // Воин — шлем itemLevel 5 (UNCOMMON), кираса itemLevel 10 (RARE)
+        listOf(
+            Triple(warrior.id, EnumEquipmentType.HELMET, EnumRarity.UNCOMMON to 5),
+            Triple(warrior.id, EnumEquipmentType.BODY,   EnumRarity.RARE     to 10),
+            Triple(warrior.id, EnumEquipmentType.RING,   EnumRarity.COMMON   to 3),
+        ).forEach { (charId, slot, rarityAndLevel) ->
+            val (rarity, level) = rarityAndLevel
+            val equipment = ItemGenerationService.generate(slot, level, rarity, charId)
+            EquipmentTable.insert {
+                it[name] = equipment.name
+                it[EquipmentTable.slot] = equipment.slot
+                it[EquipmentTable.rarity] = equipment.rarity
+                it[itemLevel] = equipment.itemLevel
+                it[enhanceLevel] = equipment.enhanceLevel
+                it[characterId] = charId
+                it[equippedSlot] = null
+                it[price] = equipment.price
+                it[implicit] = equipment.implicit
+                it[modifiers] = equipment.modifiers
+                it[description] = equipment.description
+            }
         }
 
-        EquipmentTable.insert {
-            it[name] = "Кираса дракона"
-            it[slot] = EnumEquipmentType.BODY
-            it[rarity] = EnumRarity.RARE
-            it[itemLevel] = 5
-            it[enhanceLevel] = 2
-            it[characterId] = characterRepository.last().id
-            it[equippedSlot] = null
-            it[stats] = mutableSetOf(
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK, 50.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INTELLECT), EnumStatType.STOCK,8.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_ARMOR), EnumStatType.STOCK,10.0)
-            )
-            it[buffs] = mutableSetOf(
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_ATTACK_SPEED), EnumStatType.STOCK, 15.0)
-            )
-            it[price] = 8900u
+        // Маг — кольцо EPIC и сапоги RARE высокого уровня
+        listOf(
+            Triple(mage.id, EnumEquipmentType.RING,  EnumRarity.EPIC to 25),
+            Triple(mage.id, EnumEquipmentType.BOOTS, EnumRarity.RARE to 20),
+            Triple(mage.id, EnumEquipmentType.HELMET, EnumRarity.RARE to 15),
+        ).forEach { (charId, slot, rarityAndLevel) ->
+            val (rarity, level) = rarityAndLevel
+            val equipment = ItemGenerationService.generate(slot, level, rarity, charId)
+            EquipmentTable.insert {
+                it[name] = equipment.name
+                it[EquipmentTable.slot] = equipment.slot
+                it[EquipmentTable.rarity] = equipment.rarity
+                it[itemLevel] = equipment.itemLevel
+                it[enhanceLevel] = equipment.enhanceLevel
+                it[characterId] = charId
+                it[equippedSlot] = null
+                it[price] = equipment.price
+                it[implicit] = equipment.implicit
+                it[modifiers] = equipment.modifiers
+                it[description] = equipment.description
+            }
         }
 
-        EquipmentTable.insert {
-            it[name] = "Кольцо архимага"
-            it[slot] = EnumEquipmentType.RING
-            it[rarity] = EnumRarity.EPIC
-            it[itemLevel] = 10
-            it[enhanceLevel] = 0
-            it[characterId] = characterRepository.last().id
-            it[equippedSlot] = EnumEquipmentType.RING
-            it[stats] = mutableSetOf(
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INTELLECT), EnumStatType.STOCK,15.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_ATTACK_PHYSICAL), EnumStatType.STOCK,12.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_CRITICAL_CHANCE), EnumStatType.STOCK,5.0),
-                Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_MANA), EnumStatType.STOCK,50.0)
-            )
-            it[price] = 4670u
-        }
-
-        printLog("  → 3 equipment items created")
+        printLog("  → 6 equipment items generated and created")
     }
 
     // ==================== Items ====================
 
     private fun seedItems() {
         if (ItemsTable.selectAll().count() > 0) return
-
         printLog("Seeding items...")
 
         ItemsTable.insert {
@@ -190,13 +188,11 @@ object DatabaseSeeder {
             it[description] = "Кусок дерева (полено)"
             it[price] = 10u
         }
-
         ItemsTable.insert {
             it[name] = "Камень"
-            it[description] = "Кучка кала"
+            it[description] = "Кусок камня"
             it[price] = 15u
         }
-
         ItemsTable.insert {
             it[name] = "Зелье здоровья"
             it[description] = "Восстанавливает здоровье"
@@ -210,8 +206,8 @@ object DatabaseSeeder {
 
     private fun seedStats() {
         if (CharacterStatsTable.selectAll().count() > 0) return
-
         printLog("Seeding stats...")
+
         val characterRepo = CharacterRepository().findAll()
 
         CharacterStatsTable.insert {
@@ -229,14 +225,13 @@ object DatabaseSeeder {
             )
         }
 
-        printLog("  → 2 stats created")
+        printLog("  → 2 stats records created")
     }
 
     // ==================== Property ====================
 
     private fun seedProperty() {
         if (PropertyTable.selectAll().count() > 0) return
-
         printLog("Seeding property...")
 
         EnumStatHelper.entries.forEach { stat ->

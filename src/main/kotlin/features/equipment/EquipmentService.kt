@@ -1,11 +1,16 @@
 package features.equipment
 
 import application.enums.EnumEquipmentType
+import application.enums.EnumRarity
 import base.exception.BadRequestException
 import base.exception.ConflictException
 import base.exception.NotFoundException
 import base.service.BaseService
 import features.characters.CharacterRepository
+import features.modifier.ItemGenerationService
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 class EquipmentService(
     private val equipRepo: EquipmentRepository = EquipmentRepository(),
@@ -16,15 +21,54 @@ class EquipmentService(
         if (!charRepo.exists(entity.characterId)) {
             throw NotFoundException("Character(id=${entity.characterId}) not found")
         }
-        if (entity.equippedSlot == EnumEquipmentType.UNDEFINED) {
-            throw BadRequestException("Field 'equippedSlot' must be defined")
+        if (entity.slot == EnumEquipmentType.UNDEFINED) {
+            throw BadRequestException("Field 'slot' must not be UNDEFINED")
         }
     }
 
     override fun validateUpdate(id: Long, entity: Equipment) {
         if (entity.equippedSlot == EnumEquipmentType.UNDEFINED) {
-            throw BadRequestException("Field 'equippedSlot' must be defined")
+            throw BadRequestException("Field 'equippedSlot' must not be UNDEFINED")
         }
+    }
+
+    // ==================== Generation ====================
+
+    /**
+     * Сгенерировать предмет (PoE-стиль) и сохранить в БД.
+     *
+     * @param characterId  Владелец предмета
+     * @param slot         Слот экипировки
+     * @param itemLevel    Уровень предмета (1..100)
+     * @param rarity       Редкость
+     * @return Сохранённый предмет
+     */
+    fun generateAndSave(
+        characterId: Long,
+        slot: EnumEquipmentType,
+        itemLevel: Int,
+        rarity: EnumRarity
+    ): Equipment {
+        if (!charRepo.exists(characterId)) {
+            throw NotFoundException("Character(id=$characterId) not found")
+        }
+        if (slot == EnumEquipmentType.UNDEFINED) {
+            throw BadRequestException("Slot must not be UNDEFINED")
+        }
+        val itemLevel = itemLevel.coerceIn(1, 100)
+
+        val generated = ItemGenerationService.generate(
+            slot = slot,
+            itemLevel = itemLevel,
+            rarity = rarity,
+            characterId = characterId
+        )
+
+        val json = Equipment.serializer().let {
+            kotlinx.serialization.json.Json.encodeToJsonElement(it, generated)
+        } as JsonObject
+
+        return equipRepo.create(json)
     }
 
     // ==================== Inventory queries ====================
@@ -40,11 +84,10 @@ class EquipmentService(
     /**
      * Надеть предмет в слот.
      *
-     * Логика:
-     * 1. Проверяем, что предмет существует и принадлежит персонажу
+     * 1. Проверяем, что предмет принадлежит персонажу
      * 2. Предмет должен быть в сумке (equippedSlot == null)
-     * 3. Слот, в который надеваем, совпадает со слотом предмета (item.slot)
-     * 4. Если в слоте уже что-то надето — сначала снять
+     * 3. Слот предмета совпадает с item.slot
+     * 4. Если слот занят — сначала снять старый предмет
      *
      * @return Пара: (надетый предмет, снятый предмет или null)
      */
@@ -55,20 +98,14 @@ class EquipmentService(
         if (item.characterId != characterId) {
             throw BadRequestException("Equipment(id=$equipmentId) does not belong to Character(id=$characterId)")
         }
-
         if (item.equippedSlot != null) {
             throw ConflictException("Equipment(id=$equipmentId) is already equipped in slot ${item.equippedSlot}")
         }
 
-        // Снимаем текущий предмет из слота (если есть)
         val previousItem = equipRepo.findBySlot(characterId, item.slot)
-        if (previousItem != null) {
-            unequipInternal(previousItem)
-        }
+        if (previousItem != null) unequipInternal(previousItem)
 
-        // Надеваем новый
         val equipped = equipInternal(item)
-
         val unequipped = previousItem?.let { equipRepo.findById(it.id) }
         return equipped to unequipped
     }
@@ -83,7 +120,6 @@ class EquipmentService(
         if (item.characterId != characterId) {
             throw BadRequestException("Equipment(id=$equipmentId) does not belong to Character(id=$characterId)")
         }
-
         if (item.equippedSlot == null) {
             throw ConflictException("Equipment(id=$equipmentId) is not equipped")
         }
@@ -95,51 +131,38 @@ class EquipmentService(
     // ==================== Internal ====================
 
     private fun equipInternal(item: Equipment): Equipment {
-        val json = buildJsonObject(
-            "equippedSlot" to item.slot.name,
-            "version" to item.version
-        )
+        val json = jsonOf("equippedSlot" to item.slot.name, "version" to item.version)
         return equipRepo.update(item.id, json)
     }
 
     private fun unequipInternal(item: Equipment) {
-        val json = buildJsonObjectWithNull(
-            "version" to item.version,
-            nullField = "equippedSlot"
-        )
+        val json = jsonOfWithNull("version" to item.version, nullField = "equippedSlot")
         equipRepo.update(item.id, json)
     }
 
-    /** Хелпер: создать JsonObject с простыми полями */
-    private fun buildJsonObject(vararg pairs: Pair<String, Any>): kotlinx.serialization.json.JsonObject {
-        val map = pairs.associate { (k, v) ->
+    private fun jsonOf(vararg pairs: Pair<String, Any>): JsonObject =
+        JsonObject(pairs.associate { (k, v) ->
             k to when (v) {
-                is String -> kotlinx.serialization.json.JsonPrimitive(v)
-                is Long -> kotlinx.serialization.json.JsonPrimitive(v)
-                is Int -> kotlinx.serialization.json.JsonPrimitive(v)
-                is Boolean -> kotlinx.serialization.json.JsonPrimitive(v)
-                else -> kotlinx.serialization.json.JsonPrimitive(v.toString())
+                is String  -> JsonPrimitive(v)
+                is Long    -> JsonPrimitive(v)
+                is Int     -> JsonPrimitive(v)
+                is Boolean -> JsonPrimitive(v)
+                else       -> JsonPrimitive(v.toString())
             }
-        }
-        return kotlinx.serialization.json.JsonObject(map)
-    }
+        })
 
-    /** Хелпер: JsonObject с одним nullable-полем (для unequip) */
-    private fun buildJsonObjectWithNull(
-        vararg pairs: Pair<String, Any>,
-        nullField: String
-    ): kotlinx.serialization.json.JsonObject {
+    private fun jsonOfWithNull(vararg pairs: Pair<String, Any>, nullField: String): JsonObject {
         val map = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
         for ((k, v) in pairs) {
             map[k] = when (v) {
-                is String -> kotlinx.serialization.json.JsonPrimitive(v)
-                is Long -> kotlinx.serialization.json.JsonPrimitive(v)
-                is Int -> kotlinx.serialization.json.JsonPrimitive(v)
-                is Boolean -> kotlinx.serialization.json.JsonPrimitive(v)
-                else -> kotlinx.serialization.json.JsonPrimitive(v.toString())
+                is String  -> JsonPrimitive(v)
+                is Long    -> JsonPrimitive(v)
+                is Int     -> JsonPrimitive(v)
+                is Boolean -> JsonPrimitive(v)
+                else       -> JsonPrimitive(v.toString())
             }
         }
-        map[nullField] = kotlinx.serialization.json.JsonNull
-        return kotlinx.serialization.json.JsonObject(map)
+        map[nullField] = JsonNull
+        return JsonObject(map)
     }
 }

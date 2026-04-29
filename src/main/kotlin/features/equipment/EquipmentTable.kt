@@ -2,7 +2,7 @@ package features.equipment
 
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
-import application.model.Stat
+import application.model.StatModifier
 import base.annotations.Immutable
 import base.annotations.ReadOnly
 import base.annotations.Required
@@ -16,89 +16,57 @@ import org.jetbrains.exposed.v1.json.jsonb
 /**
  * Таблица экипировки.
  *
- * Каждая строка — уникальный экземпляр предмета со своим набором характеристик.
- * Два "одинаковых" шлема могут иметь разные статы, баффы, уровень улучшения и т.д.
+ * Каждая строка — уникальный экземпляр предмета со своим набором модификаторов.
+ *
+ * ## Система модификаторов (PoE-стиль)
+ * - [implicit]   — врождённые свойства базового типа предмета (не меняются крафтом)
+ * - [modifiers]  — явные аффиксы (PREFIX/SUFFIX/CRAFTED/ENCHANT)
  *
  * ## Связи
- * - `character_id` — владелец предмета (FK → character)
- * - `equipped_slot` — если надет, в каком слоте; null = в инвентаре
- *
- * ## Пример записи
- * ```
- * id=1, name="Стальной шлем", slot=HELMET, rarity=RARE,
- * characterId=5, equippedSlot=HELMET,
- * stats=[{STR, FLAT, 10}, {CRIT_CHANCE, PERCENT, 5}]
- * ```
+ * - `character_id`  — владелец (FK → character)
+ * - `equipped_slot` — в каком слоте надет; null = в инвентаре
  */
 object EquipmentTable : BaseTable("equipment") {
 
-    /** Название предмета (видимое игроку) */
     val name = varchar("name", 100)
-
-    /** Слот, в который может быть надет предмет */
     val slot = enumeration("slot", EnumEquipmentType::class)
-
-    /** Редкость предмета */
     val rarity = enumeration("rarity", EnumRarity::class)
-
-    /** Уровень предмета (влияет на базовые статы) */
     val itemLevel = integer("item_level").default(1)
-
-    /** Уровень улучшения (+0, +1, +2...) */
     val enhanceLevel = integer("enhance_level").default(0)
-
-    /** Владелец — персонаж */
     val characterId = long("character_id").references(CharacterTable.id)
-
-    /**
-     * В каком слоте надет. null = лежит в инвентаре (не экипирован).
-     * Позволяет быстро найти: "что надето в слоте HELMET у персонажа X?"
-     */
     val equippedSlot = enumeration("equipped_slot", EnumEquipmentType::class).nullable()
-
     val price = ulong("price")
 
     /**
-     * Характеристики предмета (сила, ловкость, крит и т.д.)
-     * Хранятся как JSONB: ["A1:1:10.0", "C0:2:5.0"]
-     * Каждый ParamsStock = ключ + тип (flat/percent) + значение
+     * Врождённые имплицитные статы — определяются базой предмета (слотом).
+     * Не изменяются перекаткой или крафтом.
+     * Формат: JSONB массив compact-строк StatModifier.
      */
-    val stats = jsonb<MutableSet<Stat>>(
-        name = "stats",
-        jsonConfig = Json
-    )
-
-    /**
-     * Дополнительные баффы/модификаторы (зачарования, гемы и т.д.)
-     * Отделены от основных stats, чтобы можно было снять/поменять баффы
-     * не затрагивая базовые характеристики предмета.
-     */
-    val buffs = jsonb<MutableSet<Stat>>(
-        name = "buffs",
+    val implicit = jsonb<MutableSet<StatModifier>>(
+        name = "implicit",
         jsonConfig = Json
     ).nullable()
 
-    /** Текстовое описание / лор предмета */
-    val description = varchar("description", 500).nullable()
+    /**
+     * Явные аффиксы (PREFIX / SUFFIX / CRAFTED / ENCHANT / CORRUPTED).
+     * Генерируются случайно при создании предмета. Перекатываются крафтом.
+     * Формат: JSONB массив compact-строк StatModifier.
+     */
+    val modifiers = jsonb<MutableSet<StatModifier>>(
+        name = "modifiers",
+        jsonConfig = Json
+    ).nullable()
+
+    val description = varchar("description", 1000).nullable()
 }
 
 /**
- * Экземпляр экипировки.
+ * Экземпляр предмета экипировки.
  *
- * Каждый предмет уникален — даже два "Стальных шлема" могут иметь разные статы.
+ * Каждый предмет уникален — два "одинаковых" шлема могут иметь разные моды и тиры.
  *
- * ```kotlin
- * val helmet = Equipment(
- *     name = "Стальной шлем",
- *     slot = EnumEquipmentType.HELMET,
- *     rarity = EnumRarity.RARE,
- *     characterId = 5,
- *     stats = mutableSetOf(
- *         Stat(EnumStatKey.STR, EnumStatType.FLAT, 10.0),
- *         Stat(EnumStatKey.CRIT_CHANCE, EnumStatType.PERCENT, 5.0)
- *     )
- * )
- * ```
+ * @param implicit   Имплицитные статы (врождённые для типа предмета)
+ * @param modifiers  Явные аффиксы (PREFIX / SUFFIX / CRAFTED и т.д.)
  */
 @Serializable
 data class Equipment(
@@ -118,20 +86,18 @@ data class Equipment(
 
     val enhanceLevel: Int = 0,
 
-    /** Владелец */
     @Immutable
-    val characterId: Long,
+    val characterId: Long = -1,
 
-    /** Слот, в котором надет. null = в инвентаре */
     val equippedSlot: EnumEquipmentType? = null,
 
     val price: ULong = 0u,
 
-    /** Основные характеристики предмета */
-    val stats: MutableSet<Stat> = mutableSetOf(),
+    /** Имплицитные моды (врождённые свойства) */
+    val implicit: MutableSet<StatModifier>? = null,
 
-    /** Баффы / зачарования / модификаторы */
-    val buffs: MutableSet<Stat>? = null,
+    /** Явные аффиксы (PREFIX / SUFFIX и т.д.) */
+    val modifiers: MutableSet<StatModifier>? = null,
 
     val description: String? = null,
 
@@ -143,4 +109,16 @@ data class Equipment(
 
     @ReadOnly
     val updatedAt: String? = null
-) : BaseEntity
+) : BaseEntity {
+
+    /** Все моды предмета (implicit + explicit) для расчёта статов */
+    fun allModifiers(): List<StatModifier> =
+        (implicit ?: emptySet<StatModifier>()).toList() +
+            (modifiers ?: emptySet<StatModifier>()).toList()
+
+    /** Количество PREFIX аффиксов */
+    fun prefixCount() = modifiers?.count { it.category.name == "PREFIX" } ?: 0
+
+    /** Количество SUFFIX аффиксов */
+    fun suffixCount() = modifiers?.count { it.category.name == "SUFFIX" } ?: 0
+}
