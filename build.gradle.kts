@@ -49,6 +49,10 @@ dependencies {
     implementation(libs.zaxxer.hikariCP)
     implementation(libs.postgresql.postgresql)
 
+    implementation("dev.opensavvy.ktmongo:driver-coroutines:0.30.0")
+//    implementation(libs.opensavvy.ktmongo)
+//    implementation(libs.ktmongo.serialization)
+
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }
