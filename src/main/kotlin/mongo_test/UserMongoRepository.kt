@@ -20,4 +20,9 @@ class UserRepositoryMongo(database: MongoDatabase) : BaseRepositoryMongo<UserMon
             )
         }
     }
+
+    override suspend fun validateBeforeInsert(entity: UserMongo) {
+        if (!entity.email.contains("@")) throw IllegalArgumentException("'${entity.name}' has invalid e-mail: ${entity.email}")
+        if (entity.age !in 12..120) throw IllegalArgumentException("'${entity.name}' has invalid age: ${entity.age}")
+    }
 }

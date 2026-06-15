@@ -153,4 +153,33 @@ class MongoTest {
         assert(findedObject != null)
         assert(findedObject!!.name == "user_61")
     }
+
+    @Test
+    fun test_drop_validate_age() {
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            runBlocking {
+                userRepo.insert(UserMongo(email = "em4@eme.ru", name = "error4 name", age = 4))
+            }
+        }
+        assert(exception.message.equals("'error4 name' has invalid age: 4")) {
+            "Need message: \"'error4 name' has invalid age: 4\"\nExpected message: \"${exception.message}\""
+        }
+    }
+
+    @Test
+    fun test_drop_validate_age_many() {
+        val exception = assertThrows(IllegalArgumentException::class.java) {
+            runBlocking {
+                val arrayItems = ArrayList<UserMongo>()
+                arrayItems.add(UserMongo(email = "ara1@eme.ru", name = "error ara name1", age = 25))
+                arrayItems.add(UserMongo(email = "ara2@eme.ru", name = "error ara name2", age = 43))
+                arrayItems.add(UserMongo(email = "ara3@eme.ru", name = "error ara name3", age = 3))
+                arrayItems.add(UserMongo(email = "ara4@eme.ru", name = "error ara name4", age = 86))
+                userRepo.insertMany(arrayItems)
+            }
+        }
+        assert(exception.message.equals("'error ara name3' has invalid age: 3")) {
+            "Need message: \"'error ara name3' has invalid age: 3\"\nExpected message: \"${exception.message}\""
+        }
+    }
 }

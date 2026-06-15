@@ -118,6 +118,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     suspend fun insert(entity: T): InsertOneResult {
         require(entity.version == 0) { "Новый entity должен иметь version = 0" }
 
+        validateBeforeInsert(entity)
+
         return try {
             collection.insertOne(entity).apply {
                 println("[ADDED::$collectionName] ${this.insertedId} object: $entity")
@@ -134,7 +136,10 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * Вставка нескольких документов (атомарно)
      */
     suspend fun insertMany(entities: List<T>): InsertManyResult {
-        entities.forEach { require(it.version == 0) { "Новые entity должны иметь version = 0" } }
+        entities.forEach {
+            require(it.version == 0) { "Новые entity должны иметь version = 0" }
+            validateBeforeInsert(it)
+        }
 
         return try {
             collection.insertMany(entities).apply {
@@ -465,5 +470,17 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         }
 
         return fields
+    }
+
+    /**
+     * Метод валидации перед вставкой.
+     * Переопределяется в конкретных репозиториях.
+     *
+     * @param entity Сущность для проверки
+     * @throws IllegalArgumentException если валидация не пройдена
+     */
+    protected open suspend fun validateBeforeInsert(entity: T) {
+        // Базовая реализация — ничего не проверяем
+        // Конкретные репозитории переопределяют этот метод
     }
 }
