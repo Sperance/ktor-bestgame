@@ -1,9 +1,12 @@
 package ru.descend
 
 import com.mongodb.MongoBulkWriteException
-import com.mongodb.kotlin.client.coroutine.MongoClient
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import mongo_test.DuplicateKeyException
+import mongo_test.MongoService.db
+import mongo_test.MongoService.transactionExecute
 import mongo_test.UserMongo
 import mongo_test.UserRepositoryMongo
 import org.junit.Assert.assertThrows
@@ -36,32 +39,36 @@ data class BaseStatMongo(
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MongoTest {
 
-    private val uri = "mongodb://localhost:27017/my_first_project"
-    private val client = MongoClient.create(uri)
-    private val db = client.getDatabase("my_first_project")
     private val userRepo = UserRepositoryMongo(db)
 
     @Test
     fun a_clear_repository() = runBlocking {
-        userRepo.deleteAll()
+        transactionExecute { session ->
+            userRepo.deleteAll(session)
+        }
         assert(userRepo.count() == 0L)
     }
 
     @Test
     fun b_insert_stock_data() = runBlocking {
-        repeat(100) { ind ->
-            userRepo.insert(UserMongo(email = "email$ind@domain.com", name="user_$ind", age = (10..60).random()))
+        transactionExecute { session ->
+            repeat(100) { ind ->
+                userRepo.insert(UserMongo(email = "email$ind@domain.com", name="user_$ind", age = (20..60).random()), session)
+            }
         }
     }
 
     @Test
     fun test_insert_simple() = runBlocking {
         val curtime = System.currentTimeMillis()
-        val res = userRepo.insert(UserMongo(
-            email = "newEmail@$curtime",
-            name = "newName1",
-            age = (15..40).random()
-        ))
+
+        val res = transactionExecute { session ->
+            userRepo.insert(UserMongo(
+                email = "newEmail@$curtime",
+                name = "newName1",
+                age = (15..40).random()
+            ), session)
+        }
 
         assertTrue("Insert should be acknowledged", res.wasAcknowledged())
         assertNotNull("Inserted ID should not be null", res.insertedId)
@@ -72,11 +79,15 @@ class MongoTest {
         val curtime = System.currentTimeMillis()
         val email = "newEmail@$curtime"
 
-        userRepo.insert(UserMongo(email = email, name = "newName$curtime", age = 44))
+        transactionExecute { session ->
+            userRepo.insert(UserMongo(email = email, name = "newName$curtime", age = 44), session)
+        }
 
         val exception = assertThrows(DuplicateKeyException::class.java) {
             runBlocking {
-                userRepo.insert(UserMongo(email = email, name = "newName$curtime", age = 55))
+                transactionExecute { session ->
+                    userRepo.insert(UserMongo(email = email, name = "newName$curtime", age = 55), session)
+                }
             }
         }
 
@@ -94,7 +105,9 @@ class MongoTest {
         }
 
         val sizeBefore = userRepo.count()
-        val res = userRepo.insertMany(arrayUsers)
+        val res = transactionExecute { session ->
+            userRepo.insertMany(arrayUsers, session)
+        }
         val sizeAfter = userRepo.count()
 
         assert(sizeBefore == (sizeAfter - needAddedCount))
@@ -114,7 +127,9 @@ class MongoTest {
 
         val exception = assertThrows(MongoBulkWriteException::class.java) {
             runBlocking {
-                userRepo.insertMany(arrayUsers)
+                transactionExecute { session ->
+                    userRepo.insertMany(arrayUsers, session)
+                }
             }
         }
         assert(exception.writeErrors.first().code == 11000)
@@ -158,7 +173,9 @@ class MongoTest {
     fun test_drop_validate_age() {
         val exception = assertThrows(IllegalArgumentException::class.java) {
             runBlocking {
-                userRepo.insert(UserMongo(email = "em4@eme.ru", name = "error4 name", age = 4))
+                transactionExecute { session ->
+                    userRepo.insert(UserMongo(email = "em4@eme.ru", name = "error4 name", age = 4), session)
+                }
             }
         }
         assert(exception.message.equals("'error4 name' has invalid age: 4")) {
@@ -175,11 +192,91 @@ class MongoTest {
                 arrayItems.add(UserMongo(email = "ara2@eme.ru", name = "error ara name2", age = 43))
                 arrayItems.add(UserMongo(email = "ara3@eme.ru", name = "error ara name3", age = 3))
                 arrayItems.add(UserMongo(email = "ara4@eme.ru", name = "error ara name4", age = 86))
-                userRepo.insertMany(arrayItems)
+                transactionExecute { session ->
+                    userRepo.insertMany(arrayItems, session)
+                }
             }
         }
         assert(exception.message.equals("'error ara name3' has invalid age: 3")) {
             "Need message: \"'error ara name3' has invalid age: 3\"\nExpected message: \"${exception.message}\""
         }
+    }
+
+//    @Test
+//    fun test_watch_items(): Unit = runBlocking {
+//        launch {
+//            userRepo.watchAll().collect {
+//                println("[${it.operationType}]: ${it.documentKey}")
+//            }
+//        }
+//        launch {
+//            transactionExecute { session ->
+//                repeat(5) { counter ->
+//                    delay(1000)
+//                    userRepo.insert(UserMongo(email = "_watch$counter@email.com", name = "name watch", age = 52), session)
+//                }
+//            }
+//        }.join()
+//        launch {
+//            userRepo.findByFilterFlow {
+//                UserMongo::name eq "name watch"
+//            }.collect { user ->
+//                launch {
+//                    delay(500)
+//                    userRepo.deleteById(user._id)
+//                }
+//            }
+//        }
+//    }
+
+    @Test
+    fun test_simple_transaction(): Unit = runBlocking {
+
+        transactionExecute { session ->
+            userRepo.findByFilterFlow {
+                UserMongo::name eq "test_simple_transaction"
+            }.collect {
+                userRepo.deleteById(it._id, session)
+            }
+        }
+
+        assertThrows(Exception::class.java) {
+            runBlocking {
+                transactionExecute { session ->
+                    userRepo.insert(UserMongo(email = "11ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
+                    userRepo.insert(UserMongo(email = "12ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
+                    userRepo.insert(UserMongo(email = "13ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
+
+                    if (true) {
+                        throw Exception("Error")
+                    }
+
+                    userRepo.insert(UserMongo(email = "14ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
+                    userRepo.insert(UserMongo(email = "15ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
+                }
+            }
+        }
+
+        val count = userRepo.findAll {
+            UserMongo::name eq "test_simple_transaction"
+        }.count()
+
+        assert(count == 0)
+    }
+
+    @Test
+    fun test_bulk_update(): Unit = runBlocking {
+        transactionExecute { session ->
+
+            val lastUsers = userRepo.findAll().takeLast(3)
+            lastUsers.forEach {
+                it.name += "asd"
+            }
+
+            userRepo.bulkUpdate(lastUsers, session)
+        }
+
+        val count = userRepo.findAll().takeLast(3).count { it.name.contains("asd") }
+        assert(count == 3)
     }
 }

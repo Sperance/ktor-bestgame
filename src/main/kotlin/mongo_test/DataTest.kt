@@ -9,7 +9,7 @@ data class UserMongo(
     @Contextual
     override val _id: ObjectId = ObjectId(),
     override var version: Int = 0,
-    val email: String,
-    val name: String,
-    val age: Int
+    var email: String,
+    var name: String,
+    var age: Int
 ) : VersionedEntity()

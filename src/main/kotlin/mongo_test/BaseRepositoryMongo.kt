@@ -4,10 +4,12 @@ import com.mongodb.MongoWriteException
 import com.mongodb.ReadConcern
 import com.mongodb.bulk.BulkWriteResult
 import com.mongodb.client.model.*
+import com.mongodb.client.model.changestream.ChangeStreamDocument
 import com.mongodb.client.result.DeleteResult
 import com.mongodb.client.result.InsertManyResult
 import com.mongodb.client.result.InsertOneResult
 import com.mongodb.client.result.UpdateResult
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.flow.Flow
@@ -46,7 +48,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     private val entityClass: KClass<T>
 ) {
     lateinit var collection: MongoCollection<T>
-    lateinit var collectionKT: JvmMongoCollection<T>
+    private val collectionKT: JvmMongoCollection<T>
+        get() = collection.asKtMongo(documentType = entityClass.starProjectedType)
 
     // Кэш для имен полей (для производительности)
     private val idFieldName = "_id"
@@ -60,7 +63,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun initialize(uniqueIndexes: List<UniqueIndexConfig> = emptyList()) {
         collection = database.getCollection(collectionName, entityClass.java)
-        collectionKT = collection.asKtMongo(documentType = entityClass.starProjectedType)
 
         // Создаём индексы
         setupUniqueIndexes(uniqueIndexes)
@@ -115,13 +117,13 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * Вставка одного документа
      * @throws DuplicateKeyException если нарушен уникальный индекс
      */
-    suspend fun insert(entity: T): InsertOneResult {
+    suspend fun insert(entity: T, session: ClientSession): InsertOneResult {
         require(entity.version == 0) { "Новый entity должен иметь version = 0" }
 
         validateBeforeInsert(entity)
 
         return try {
-            collection.insertOne(entity).apply {
+            collection.insertOne(session, entity).apply {
                 println("[ADDED::$collectionName] ${this.insertedId} object: $entity")
             }
         } catch (e: MongoWriteException) {
@@ -135,14 +137,14 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /**
      * Вставка нескольких документов (атомарно)
      */
-    suspend fun insertMany(entities: List<T>): InsertManyResult {
+    suspend fun insertMany(entities: List<T>, session: ClientSession): InsertManyResult {
         entities.forEach {
             require(it.version == 0) { "Новые entity должны иметь version = 0" }
             validateBeforeInsert(it)
         }
 
         return try {
-            collection.insertMany(entities).apply {
+            collection.insertMany(session, entities).apply {
                 println("[ADDED_MANY::$collectionName] size: ${this.insertedIds.size}")
                 this.insertedIds.forEach { id ->
                     println("\t[ADDED_MANY::$collectionName] ${id.value} object: ${entities[id.key]}")
@@ -188,8 +190,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         return collection.find().toList()
     }
 
-    fun findAllFlow(): Flow<T> {
-        return collectionKT.find().asFlow()
+    suspend fun findAll(filter: FilterQuery<T>.() -> Unit): List<T> {
+        return collectionKT.find(filter = filter).toList()
     }
 
     /**
@@ -211,8 +213,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /**
      * Поток всех изменений в коллекции (для реактивных приложений)
      */
-    fun watchAll(): Flow<T> {
-        return collection.watch().mapNotNull { it.fullDocument }
+    fun watchAll(): Flow<ChangeStreamDocument<T>> {
+        return collection.watch().mapNotNull { it }
     }
 
     // ==================== UPDATE (с оптимистичной блокировкой) ====================
@@ -221,7 +223,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * Обновление документа с проверкой version
      * @throws OptimisticLockException если version не совпал (race condition)
      */
-    suspend fun update(entity: T): UpdateResult {
+    suspend fun update(entity: T, session: ClientSession): UpdateResult {
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
@@ -240,7 +242,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             }.toTypedArray()
         )
 
-        val result = collection.updateOne(filter, update)
+        val result = collection.updateOne(session, filter, update)
 
         if (result.matchedCount == 0L) {
             // Проверяем, существует ли документ вообще
@@ -306,26 +308,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     }
 
     /**
-     * Обновление или вставка (upsert) с оптимистичной блокировкой
-     */
-    suspend fun upsert(entity: T): UpdateResult {
-        val filter = Filters.eq(idFieldName, entity._id)
-
-        val update = Updates.combine(
-            Updates.setOnInsert(versionFieldName, 0),
-            *getUpdateFields(entity).map { (field, value) ->
-                Updates.set(field, value)
-            }.toTypedArray()
-        )
-
-        val options = UpdateOptions().upsert(true)
-        return collection.updateOne(filter, update, options)
-    }
-
-    /**
      * Атомарное обновление через findOneAndUpdate (возвращает обновлённый документ)
      */
-    suspend fun updateAndReturn(entity: T): T? {
+    suspend fun updateAndReturn(entity: T, session: ClientSession): T? {
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
@@ -345,7 +330,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             .returnDocument(ReturnDocument.AFTER)
 
         return try {
-            val updated = collection.findOneAndUpdate(filter, update, options)
+            val updated = collection.findOneAndUpdate(session, filter, update, options)
             updated?.also { entity.version = newVersion }
         } catch (e: Exception) {
             if (findById(entity._id) == null) {
@@ -361,20 +346,20 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /**
      * Удаление по ID без проверки версии
      */
-    suspend fun deleteById(id: ObjectId): DeleteResult {
-        return collection.deleteOne(Filters.eq(idFieldName, id))
+    suspend fun deleteById(id: ObjectId, session: ClientSession): DeleteResult {
+        return collection.deleteOne(session, Filters.eq(idFieldName, id))
     }
 
     /**
      * Удаление с проверкой версии (безопасное удаление)
      */
-    suspend fun deleteWithVersion(entity: T): DeleteResult {
+    suspend fun deleteWithVersion(entity: T, session: ClientSession): DeleteResult {
         val filter = Filters.and(
             Filters.eq(idFieldName, entity._id),
             Filters.eq(versionFieldName, entity.version)
         )
 
-        val result = collection.deleteOne(filter)
+        val result = collection.deleteOne(session, filter)
 
         if (result.deletedCount == 0L) {
             val existing = findById(entity._id)
@@ -392,17 +377,17 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /**
      * Мягкое удаление (устанавливает флаг deleted)
      */
-    suspend fun softDelete(id: ObjectId): UpdateResult {
+    suspend fun softDelete(id: ObjectId, session: ClientSession): UpdateResult {
         val filter = Filters.eq(idFieldName, id)
         val update = Updates.set("deleted", true)
-        return collection.updateOne(filter, update)
+        return collection.updateOne(session, filter, update)
     }
 
     /**
      * Удаление всех документов (осторожно!)
      */
-    suspend fun deleteAll(): DeleteResult {
-        return collection.deleteMany(Filters.empty())
+    suspend fun deleteAll(session: ClientSession): DeleteResult {
+        return collection.deleteMany(session, Filters.empty())
     }
 
     // ==================== BULK OPERATIONS ====================
@@ -410,10 +395,10 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /**
      * Массовое обновление с optimistic locking
      */
-    suspend fun updateMany(entities: List<T>): List<UpdateResult> {
+    suspend fun updateMany(entities: List<T>, session: ClientSession): List<UpdateResult> {
         val results = mutableListOf<UpdateResult>()
         for (entity in entities) {
-            results.add(update(entity))
+            results.add(update(entity, session))
         }
         return results
     }
@@ -421,7 +406,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /**
      * Пакетная операция с использованием bulkWrite
      */
-    suspend fun bulkUpdate(entities: List<T>): BulkWriteResult {
+    suspend fun bulkUpdate(entities: List<T>, session: ClientSession): BulkWriteResult {
         val requests = entities.map { entity ->
             val filter = Filters.and(
                 Filters.eq(idFieldName, entity._id),
@@ -436,7 +421,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             UpdateOneModel<T>(filter, update)
         }
 
-        return collection.bulkWrite(requests)
+        return collection.bulkWrite(session, requests)
     }
 
     // ==================== HELPER METHODS ====================
