@@ -1,14 +1,13 @@
 package ru.descend
 
 import com.mongodb.MongoBulkWriteException
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import mongo_test.DuplicateKeyException
-import mongo_test.MongoService.db
-import mongo_test.MongoService.transactionExecute
+import config.MongoFactory.db
+import config.MongoFactory.transactionExecute
 import mongo_test.UserMongo
 import mongo_test.UserRepositoryMongo
+import org.bson.types.ObjectId
 import org.junit.Assert.assertThrows
 import org.junit.FixMethodOrder
 import org.junit.Test
@@ -43,9 +42,11 @@ class MongoTest {
 
     @Test
     fun a_clear_repository() = runBlocking {
-        transactionExecute { session ->
+        val allCounter = userRepo.count()
+        val res = transactionExecute { session ->
             userRepo.deleteAll(session)
         }
+        assert(res.deletedCount == allCounter)
         assert(userRepo.count() == 0L)
     }
 
@@ -56,6 +57,7 @@ class MongoTest {
                 userRepo.insert(UserMongo(email = "email$ind@domain.com", name="user_$ind", age = (20..60).random()), session)
             }
         }
+        assert(userRepo.count() == 100L)
     }
 
     @Test
@@ -139,18 +141,6 @@ class MongoTest {
     fun test_find_one() : Unit = runBlocking {
         val firstId = userRepo.findAll().first()
         val finded = userRepo.findById(firstId._id)
-        assert(finded != null)
-        assert(finded!!._id == firstId._id)
-        assert(finded == firstId)
-    }
-
-    @Test
-    fun test_find_one_concern(): Unit = runBlocking {
-        val firstId = userRepo.findAll().first()
-
-        //TODO Эмулировать несколько узлов
-        val finded = userRepo.findByIdForUpdate(firstId._id)
-
         assert(finded != null)
         assert(finded!!._id == firstId._id)
         assert(finded == firstId)
@@ -313,5 +303,36 @@ class MongoTest {
 
         assert(res != null)
         assert(res!!.name == "RETURNED_NAME")
+    }
+
+    @Test
+    fun test_delete_simple(): Unit = runBlocking {
+        val res = transactionExecute { session ->
+            val firstUser = userRepo.findAll().first()
+            userRepo.deleteById(firstUser, session)
+        }
+        assert(res.wasAcknowledged())
+        assert(res.deletedCount == 1L)
+    }
+
+    @Test
+    fun test_delete_soft(): Unit = runBlocking {
+        val res = transactionExecute { session ->
+            val firstUser = userRepo.findAll().first()
+            userRepo.softDelete(firstUser, session)
+        }
+        assert(res.wasAcknowledged())
+        assert(res.modifiedCount == 1L)
+    }
+
+    @Test
+    fun test_exists(): Unit = runBlocking {
+        val first = userRepo.findLimited(1).first()
+
+        val exists = userRepo.exists(first._id)
+        assert(exists)
+
+        val notExists = userRepo.exists(ObjectId("102032030212034212340051"))
+        assert(!notExists)
     }
 }

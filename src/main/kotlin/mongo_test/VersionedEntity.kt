@@ -7,4 +7,5 @@ import org.bson.types.ObjectId
 abstract class VersionedEntity {
     abstract val _id: ObjectId
     abstract var version: Int
+    abstract var deleted: Boolean
 }

@@ -1,7 +1,10 @@
 package extensions
 
 fun printLog(text: Any?) {
-    println("[PRINTLOG] $text")
+    if (text is String && (text.contains("TR::") || text.contains("*****")))
+        println(text)
+    else
+        println("\t$text")
 }
 
 fun Double.getPercent(value: Double) : Double {

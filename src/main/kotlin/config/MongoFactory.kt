@@ -1,27 +1,31 @@
-package mongo_test
+package config
 
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoClient
+import extensions.printLog
 
-object MongoService {
-    private const val uri = "mongodb://localhost:27017/my_first_project"
-    private val client = MongoClient.create(uri)
+object MongoFactory {
+    private val client = MongoClient.create("mongodb://localhost:27017/my_first_project")
     val db = client.getDatabase("my_first_project")
 
-    suspend fun <T> transactionExecute(body: suspend (ClientSession) -> T): T {
+    init {
+        printLog("***** MongoDB Connected! *****")
+    }
+
+    suspend fun <T> transactionExecute(transactionName: String = "", body: suspend (ClientSession) -> T): T {
         client.startSession().use { session ->
-            println("[TRANSACTION::STR] ${session.hashCode()}")
+            printLog("[TR::start] $transactionName ${session.hashCode()}")
             session.startTransaction()
             try {
                 val result = body(session)
                 if (session.hasActiveTransaction()) {
-                    println("[TRANSACTION::CMT] ${session.hashCode()}")
+                    printLog("[TR::commit] $transactionName ${session.hashCode()}")
                     session.commitTransaction()
                 }
                 return result
             } catch (e: Exception) {
                 if (session.hasActiveTransaction()) {
-                    println("[TRANSACTION::ABR] ${session.hashCode()}")
+                    printLog("[TR::abort] $transactionName ${session.hashCode()}")
                     session.abortTransaction()
                 }
                 throw e
