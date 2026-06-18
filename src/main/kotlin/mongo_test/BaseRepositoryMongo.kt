@@ -269,10 +269,13 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * Частичное обновление с оптимистичной блокировкой
      */
     suspend fun updateFields(
-        id: ObjectId,
-        expectedVersion: Int,
-        updates: Map<String, Any?>
+        entity: T,
+        updates: Map<String, Any?>,
+        session: ClientSession
     ): UpdateResult {
+        val expectedVersion = entity.version
+        val id = entity._id
+
         val newVersion = expectedVersion + 1
 
         val filter = Filters.and(
@@ -291,7 +294,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         }
 
         val update = Updates.combine(updatesList)
-        val result = collection.updateOne(filter, update)
+        val result = collection.updateOne(session, filter, update)
 
         if (result.matchedCount == 0L) {
             val existing = findById(id)
@@ -391,17 +394,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     }
 
     // ==================== BULK OPERATIONS ====================
-
-    /**
-     * Массовое обновление с optimistic locking
-     */
-    suspend fun updateMany(entities: List<T>, session: ClientSession): List<UpdateResult> {
-        val results = mutableListOf<UpdateResult>()
-        for (entity in entities) {
-            results.add(update(entity, session))
-        }
-        return results
-    }
 
     /**
      * Пакетная операция с использованием bulkWrite

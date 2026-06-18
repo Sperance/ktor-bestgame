@@ -279,4 +279,39 @@ class MongoTest {
         val count = userRepo.findAll().takeLast(3).count { it.name.contains("asd") }
         assert(count == 3)
     }
+
+    @Test
+    fun test_update_entity(): Unit = runBlocking {
+        transactionExecute { session ->
+            val firstUser = userRepo.findAll().first()
+            firstUser.name = "CHANGED_TEST"
+            userRepo.update(firstUser, session)
+        }
+
+        val firstUser = userRepo.findAll().first()
+        assert(firstUser.name == "CHANGED_TEST")
+    }
+
+    @Test
+    fun test_update_field(): Unit = runBlocking {
+        transactionExecute { session ->
+            val firstUser = userRepo.findAll().first()
+            userRepo.updateFields(firstUser, mapOf("name" to "UPDATED_TEST_NAME"), session)
+        }
+
+        val firstUser = userRepo.findAll().first()
+        assert(firstUser.name == "UPDATED_TEST_NAME")
+    }
+
+    @Test
+    fun test_update_return(): Unit = runBlocking {
+        val res = transactionExecute { session ->
+            val firstUser = userRepo.findAll().first()
+            firstUser.name = "RETURNED_NAME"
+            userRepo.updateAndReturn(firstUser, session)
+        }
+
+        assert(res != null)
+        assert(res!!.name == "RETURNED_NAME")
+    }
 }
