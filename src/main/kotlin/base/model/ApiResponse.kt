@@ -64,7 +64,8 @@ data class ApiResponse<T>(
     val success: Boolean,
     val data: T? = null,
     val message: String? = null,
-    val errors: List<String>? = null
+    val code: String? = null,
+    val errors: Map<String, String>? = null
 ) {
     companion object {
 
@@ -93,7 +94,7 @@ data class ApiResponse<T>(
          * @return [ApiResponse] с `success = true` и переданными данными.
          */
         fun <T> ok(data: T?, message: String? = null) =
-            ApiResponse(success = true, data = data, message = message)
+            ApiResponse(success = true, data = data, code = "200", message = message)
 
         /**
          * Формирует успешный ответ для операции создания.
@@ -113,7 +114,7 @@ data class ApiResponse<T>(
          * @return [ApiResponse] с `success = true`, данными и сообщением `"Created"`.
          */
         fun <T> created(data: T) =
-            ApiResponse(success = true, data = data, message = "Created")
+            ApiResponse(success = true, data = data, code = "201", message = "Created")
 
         /**
          * Формирует успешный ответ без данных — только текстовое сообщение.
@@ -136,7 +137,7 @@ data class ApiResponse<T>(
          * @return [ApiResponse]<[Unit]> с `success = true` и пустым `data`.
          */
         fun message(text: String) =
-            ApiResponse<Unit>(success = true, message = text)
+            ApiResponse<Unit>(success = true, code = "202", message = text)
 
         /**
          * Формирует ответ об ошибке.
@@ -164,8 +165,11 @@ data class ApiResponse<T>(
          *                (полезно при множественной валидации).
          * @return [ApiResponse]<[Unit]> с `success = false`.
          */
-        fun error(message: String, errors: List<String>? = null) =
-            ApiResponse<Unit>(success = false, message = message, errors = errors)
+        fun error(message: String, code: Int, errors: Map<String, String>? = null) =
+            ApiResponse<Unit>(success = false, message = message, code = code.toString(), errors = errors)
+
+        fun error(message: String, code: String, errors: Map<String, String>? = null) =
+            ApiResponse<Unit>(success = false, message = message, code = code, errors = errors)
     }
 }
 

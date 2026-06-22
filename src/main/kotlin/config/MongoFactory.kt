@@ -3,6 +3,9 @@ package config
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import extensions.printLog
+import features.user.UserRepository
+
+val repository_user = UserRepository()
 
 object MongoFactory {
     private val client = MongoClient.create("mongodb://localhost:27017/my_first_project")

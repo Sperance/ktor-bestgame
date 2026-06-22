@@ -1,7 +1,13 @@
 package server.addons
 
 import base.exception.AppException
+import base.exception.BadRequestException
+import base.exception.ExceptionForCode
+import base.exception.NotFoundException
+import base.exception.OptimisticLockException
 import base.model.ApiResponse
+import features.DuplicateKeyException
+import features.EntityNotFoundException
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -13,10 +19,15 @@ import java.sql.SQLException
 fun Application.configureStatusPages() {
     install(StatusPages) {
 
+        exception<ExceptionForCode> { call, cause ->
+            val status = HttpStatusCode.fromValue(cause.httpCode)
+            call.respond(status, ApiResponse.error(cause.message, code = cause.errorCode))
+        }
+
         // ── Бизнес-исключения приложения ──
         exception<AppException> { call, cause ->
             val status = HttpStatusCode.fromValue(cause.httpCode)
-            call.respond(status, ApiResponse.error(cause.message))
+            call.respond(status, ApiResponse.error(cause.message, code = cause.httpCode))
         }
 
         // ── SQL-исключения от Exposed / PostgreSQL ──
@@ -33,19 +44,98 @@ fun Application.configureStatusPages() {
                 )
             }
 
-            call.respond(status, ApiResponse.error(message))
+            call.respond(status, ApiResponse.error(message, code = sqlEx?.errorCode?:405))
         }
 
-        // ── Прочие исключения ──
+        // Обработка DuplicateKeyException
+        exception<DuplicateKeyException> { call, cause ->
+            call.respond(
+                status = HttpStatusCode.Conflict,
+                message = ApiResponse.error(
+                    message = cause.message ?: "Нарушение уникальности",
+                    errors = mapOf("duplicate" to cause.message!!.split("{").first()),
+                    code = HttpStatusCode.Conflict.value
+                )
+            )
+        }
+
+        // Обработка OptimisticLockException
+        exception<OptimisticLockException> { call, cause ->
+            call.respond(
+                status = HttpStatusCode.Forbidden,
+                message = ApiResponse.error(
+                    message = cause.message,
+                    errors = mapOf("version" to "Документ был изменен другим пользователем"),
+                    code = HttpStatusCode.Forbidden.value
+                )
+            )
+        }
+
+        // Обработка EntityNotFoundException
+        exception<EntityNotFoundException> { call, cause ->
+            call.respond(
+                status = HttpStatusCode.NotFound,  // 404
+                message = ApiResponse.error(
+                    message = cause.message ?: "Документ не найден",
+                    code = HttpStatusCode.NotFound.value
+                )
+            )
+        }
+
+        // Обработка NotFoundException (из вашего base.exception)
+        exception<NotFoundException> { call, cause ->
+            call.respond(
+                status = HttpStatusCode.NotFound,
+                message = ApiResponse.error(
+                    message = cause.message,
+                    code = HttpStatusCode.NotFound.value
+                ),
+            )
+        }
+
+        // Обработка BadRequestException
+        exception<BadRequestException> { call, cause ->
+            call.respond(
+                status = HttpStatusCode.BadRequest,
+                message = ApiResponse.error(
+                    message = cause.message,
+                    code = HttpStatusCode.BadRequest.value
+                )
+            )
+        }
+
+        // Обработка IllegalArgumentException
         exception<IllegalArgumentException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, ApiResponse.error(cause.message ?: "Validation error"))
+            call.respond(
+                status = HttpStatusCode.PreconditionFailed,
+                message = ApiResponse.error(
+                    message = cause.message ?: "Некорректный запрос",
+                    code = HttpStatusCode.PreconditionFailed.value
+                )
+            )
         }
+
+        // Обработка IllegalStateException
         exception<IllegalStateException> { call, cause ->
-            call.respond(HttpStatusCode.InternalServerError, ApiResponse.error(cause.message ?: "State error"))
+            call.respond(
+                status = HttpStatusCode.PreconditionFailed,
+                message = ApiResponse.error(
+                    message = cause.message ?: "Некорректный запрос",
+                    code = HttpStatusCode.PreconditionFailed.value
+                )
+            )
         }
+
+        // Общий обработчик (должен быть последним)
         exception<Throwable> { call, cause ->
             call.application.environment.log.error("Unhandled exception", cause)
-            call.respond(HttpStatusCode.InternalServerError, ApiResponse.error("Internal server error"))
+            call.respond(
+                status = HttpStatusCode.InternalServerError,
+                message = ApiResponse.error(
+                    message = "Внутренняя ошибка сервера",
+                    code = 500
+                )
+            )
         }
     }
 }

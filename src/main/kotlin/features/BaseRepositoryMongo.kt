@@ -1,5 +1,6 @@
-package mongo_test
+package features
 
+import base.exception.ExceptionForCode
 import com.mongodb.MongoWriteException
 import com.mongodb.ReadConcern
 import com.mongodb.bulk.BulkWriteResult
@@ -12,6 +13,7 @@ import com.mongodb.client.result.UpdateResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
+import config.repository_user
 import extensions.printLog
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -73,7 +75,7 @@ data class UniqueIndexConfig(
  */
 abstract class BaseRepositoryMongo<T : VersionedEntity>(
     private val database: MongoDatabase,
-    private val collectionName: String,
+    val collectionName: String,
     private val entityClass: KClass<T>
 ) {
 
@@ -170,8 +172,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * val result = repo.insert(UserMongo(email = "test@email.com", name = "Test", age = 25))
      * ```
      */
-    suspend fun insert(entity: T, session: ClientSession? = null): InsertOneResult {
-        require(entity.version == 0) { "Новый entity должен иметь version = 0" }
+    suspend fun insert(entity: T, session: ClientSession? = null): T {
+        require(entity.version == 0L) { "Новый entity должен иметь version = 0" }
         validateBeforeInsert(entity)
 
         return try {
@@ -180,11 +182,15 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             } else {
                 collection.insertOne(entity)
             }
+            if (!result.wasAcknowledged() || result.insertedId == null) {
+                throw ExceptionForCode("Invalid insertion attempt.", "BRM_INSERT_SET")
+            }
             printLog("[ADDED::$collectionName] ${result.insertedId} object: $entity")
-            result
+            entity._id = result.insertedId!!.asObjectId().value
+            entity
         } catch (e: MongoWriteException) {
             if (e.code == 11000) {
-                throw DuplicateKeyException("Нарушение уникальности при вставке: ${e.message}")
+                throw ExceptionForCode("Нарушение уникальности при вставке: ${e.message}", "BRM_INSERT_UNIQUE")
             }
             throw e
         }
@@ -200,7 +206,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun insertMany(entities: List<T>, session: ClientSession? = null): InsertManyResult {
         entities.forEach {
-            require(it.version == 0) { "Новые entity должны иметь version = 0" }
+            require(it.version == 0L) { "Новые entity должны иметь version = 0" }
             validateBeforeInsert(it)
         }
 
@@ -217,7 +223,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             result
         } catch (e: MongoWriteException) {
             if (e.code == 11000) {
-                throw DuplicateKeyException("Нарушение уникальности при массовой вставке")
+                throw ExceptionForCode("Нарушение уникальности при массовой вставке", "BRM_INSERTMANY_DUPLICATE")
             }
             throw e
         }
@@ -235,6 +241,10 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun findById(id: ObjectId): T? {
         return collection.find(Filters.eq(idFieldName, id)).firstOrNull()
+    }
+
+    suspend fun findById(id: String): T? {
+        return collection.find(Filters.eq(idFieldName, ObjectId(id))).firstOrNull()
     }
 
     /**
@@ -317,16 +327,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     }
 
     /**
-     * Поиск одного документа по Bson-фильтру.
-     *
-     * @param filter Bson-фильтр (через Filters)
-     * @return Первый найденный документ или null
-     */
-    suspend fun findOneByFilter(filter: Bson): T? {
-        return collection.find(filter).firstOrNull()
-    }
-
-    /**
      * Поиск одного документа по type-safe DSL-фильтру.
      *
      * @param filter DSL-фильтр
@@ -341,6 +341,10 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun findOneByFilter(filter: FilterQuery<T>.() -> Unit): T? {
         return collectionKT.find { filter(this) }.firstOrNull()
+    }
+
+    suspend fun findByFilter(filter: FilterQuery<T>.() -> Unit): List<T> {
+        return collectionKT.find { filter(this) }.toList()
     }
 
     /**
@@ -378,6 +382,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @throws EntityNotFoundException Если документ не найден
      */
     suspend fun update(entity: T, session: ClientSession? = null): UpdateResult {
+
+        validateBeforeUpdate(entity)
+
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
@@ -402,11 +409,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         if (result.matchedCount == 0L) {
             val existing = findById(entity._id)
             if (existing == null) {
-                throw EntityNotFoundException("Документ с id=${entity._id} не найден")
+                throw ExceptionForCode("Документ с id=${entity._id} не найден", "BRM_UPDATE_NOT_FOUND")
             } else {
-                throw OptimisticLockException(
-                    "Race condition при обновлении. Ожидалась версия $expectedVersion, текущая ${existing.version}"
-                )
+                throw ExceptionForCode("Race condition при обновлении. Ожидалась версия $expectedVersion, текущая ${existing.version}", "BRM_UPDATE_OPTIMISTIC_LOCK")
             }
         }
 
@@ -438,7 +443,10 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         entity: T,
         updates: Map<String, Any?>,
         session: ClientSession? = null
-    ): UpdateResult {
+    ): T {
+
+        validateBeforeUpdate(entity)
+
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
@@ -459,23 +467,20 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
         val update = Updates.combine(updatesList)
         val result = if (session != null) {
-            collection.updateOne(session, filter, update)
+            collection.findOneAndUpdate(session, filter, update)
         } else {
-            collection.updateOne(filter, update)
+            collection.findOneAndUpdate(filter, update)
         }
 
-        if (result.matchedCount == 0L) {
-            val existing = findById(entity._id)
-            if (existing == null) {
-                throw EntityNotFoundException("Документ с id=${entity._id} не найден")
-            } else {
-                throw OptimisticLockException(
-                    "Race condition: ожидалась версия $expectedVersion, текущая ${existing.version}"
-                )
-            }
+        if (result == null) {
+            throw ExceptionForCode("$collection UPDATING error not found", "BRM_UPDATEFIELDS_ERROR")
         }
 
         return result
+    }
+
+    suspend fun updateAndReturn(id: String, session: ClientSession): T? {
+        return updateAndReturn(findById(id), session)
     }
 
     /**
@@ -485,7 +490,14 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param session Сессия транзакции
      * @return Обновлённый документ или null
      */
-    suspend fun updateAndReturn(entity: T, session: ClientSession? = null): T? {
+    suspend fun updateAndReturn(entity: T?, session: ClientSession? = null): T? {
+
+        if (entity == null) {
+            throw ExceptionForCode("Ошибка обновления данных в БД.", "BRM_UPDATERETURN_NULL")
+        }
+
+        validateBeforeUpdate(entity)
+
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
@@ -501,8 +513,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             }.toTypedArray()
         )
 
-        val options = FindOneAndUpdateOptions()
-            .returnDocument(ReturnDocument.AFTER)
+        val options = FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER)
 
         return try {
             val updated = if (session != null) {
@@ -513,9 +524,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             updated?.also { entity.version = newVersion }
         } catch (e: Exception) {
             if (findById(entity._id) == null) {
-                throw EntityNotFoundException("Документ не найден")
+                throw ExceptionForCode("Документ не найден", "BRM_UPDATERETURN_NOTFOUND")
             } else {
-                throw OptimisticLockException("Race condition при обновлении")
+                throw ExceptionForCode("Race condition при обновлении", "BRM_UPDATERETURN_RACE")
             }
         }
     }
@@ -558,7 +569,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @throws OptimisticLockException Если версия изменилась
      * @return Результат удаления
      */
-    suspend fun deleteWithVersion(entity: T, session: ClientSession? = null): DeleteResult {
+    suspend fun deleteWithVersion(entity: T?, session: ClientSession? = null): DeleteResult {
+
+        if (entity == null) {
+            throw ExceptionForCode("Сущность не найдена", "BRM_DELETEVERSION_NULL")
+        }
+
         val filter = Filters.and(
             Filters.eq(idFieldName, entity._id),
             Filters.eq(versionFieldName, entity.version)
@@ -573,9 +589,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         if (result.deletedCount == 0L) {
             val existing = findById(entity._id)
             if (existing != null) {
-                throw OptimisticLockException(
-                    "Документ был изменён перед удалением. Версия ${existing.version} != ${entity.version}"
-                )
+                throw ExceptionForCode("Документ был изменён перед удалением. Версия ${existing.version} != ${entity.version}", "BRM_DELETEVERSION_NOT_FOUND")
             }
         }
 
@@ -807,6 +821,10 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * ```
      */
     protected open suspend fun validateBeforeInsert(entity: T) {
+        // Базовая реализация — ничего не проверяем
+    }
+
+    protected open suspend fun validateBeforeUpdate(entity: T) {
         // Базовая реализация — ничего не проверяем
     }
 }

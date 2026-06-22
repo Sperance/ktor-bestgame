@@ -2,11 +2,11 @@ package ru.descend
 
 import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
-import mongo_test.DuplicateKeyException
+import features.DuplicateKeyException
 import config.MongoFactory.db
 import config.MongoFactory.transactionExecute
 import mongo_test.UserMongo
-import mongo_test.UserRepositoryMongo
+import features.userMongo.UserRepositoryMongo
 import org.bson.types.ObjectId
 import org.junit.Assert.assertThrows
 import org.junit.FixMethodOrder
@@ -42,12 +42,14 @@ class MongoTest {
 
     @Test
     fun a_clear_repository() = runBlocking {
-        val allCounter = userRepo.count()
+        val allCounter = userRepo.count(withDeleted = true)
         val res = transactionExecute { session ->
             userRepo.deleteAll(session)
         }
-        assert(res.deletedCount == allCounter)
-        assert(userRepo.count() == 0L)
+        assert(res.deletedCount == allCounter) {
+            "Ожидалось $allCounter, удалили ${res.deletedCount}"
+        }
+        assert(userRepo.count(withDeleted = true) == 0L)
     }
 
     @Test
@@ -329,10 +331,10 @@ class MongoTest {
     fun test_exists(): Unit = runBlocking {
         val first = userRepo.findLimited(1).first()
 
-        val exists = userRepo.exists(first._id)
+        val exists = userRepo.exists(first._id, withDeleted = true)
         assert(exists)
 
-        val notExists = userRepo.exists(ObjectId("102032030212034212340051"))
+        val notExists = userRepo.exists(ObjectId("102032030212034212340051"), withDeleted = true)
         assert(!notExists)
     }
 }

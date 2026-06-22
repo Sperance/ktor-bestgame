@@ -6,6 +6,7 @@ import features.items.ItemsRoute
 import features.property.PropertyRoute
 import features.stats.CharacterStatsRoute
 import features.user.UserRoute
+import features.userMongo.UserMongoRoute
 import io.ktor.openapi.OpenApiInfo
 import io.ktor.server.application.*
 import io.ktor.server.plugins.openapi.openAPI
@@ -27,5 +28,9 @@ fun Application.configureRouting() {
         CharacterStatsRoute().register(this)
         ItemsRoute().register(this)
         PropertyRoute().register(this)
+
+        /* MONGO */
+
+        UserMongoRoute().register(this)
     }
 }

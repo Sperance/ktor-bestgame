@@ -1,11 +1,18 @@
 package extensions
 
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+
 fun printLog(text: Any?) {
     if (text is String && (text.contains("TR::") || text.contains("*****")))
         println(text)
     else
         println("\t$text")
 }
+
+fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime(TimeZone.UTC)
 
 fun Double.getPercent(value: Double) : Double {
     return ((this / 100.0) * value).to1Digits()

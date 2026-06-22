@@ -49,7 +49,8 @@ package base.exception
  */
 sealed class AppException(
     override val message: String,
-    val httpCode: Int
+    val httpCode: Int,
+    val errorCode: String = ""
 ) : RuntimeException(message)
 
 /**
@@ -237,3 +238,5 @@ class OptimisticLockException(
  *                не помогать при подборе учётных данных.
  */
 class UnauthorizedException(message: String) : AppException(message, 401)
+
+class ExceptionForCode(message: String, code: String): AppException(message, 401, code)
