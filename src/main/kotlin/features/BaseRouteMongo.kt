@@ -1,6 +1,5 @@
 package features
 
-import base.exception.BadRequestException
 import base.exception.ExceptionForCode
 import base.model.ApiResponse
 import base.model.PagedResponse
@@ -9,8 +8,8 @@ import base.model.apiResponseMapSerializer
 import base.model.apiResponsePagedSerializer
 import base.model.apiResponseSerializer
 import base.model.apiResponseUnitSerializer
-import base.service.BaseService
 import config.MongoFactory.transactionExecute
+import extensions.CONST_SYSTEM_FIELDS
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
@@ -27,10 +26,8 @@ import io.ktor.server.routing.route
 import io.ktor.utils.io.ExperimentalKtorApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.JsonObject
-import org.bson.types.ObjectId
 import server.addons.AppJson
 import kotlin.text.toIntOrNull
-import kotlin.text.toLongOrNull
 
 abstract class BaseRouteMongo<T : VersionedEntity>(
     protected val service: BaseServiceMongo<T>,
@@ -60,8 +57,8 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
     }
 
     private fun Route.getAllRoute() = get {
-        val id = call.request.queryParameters["id"]
-        if (id == null) {
+        val id = call.queryParam("id", "")
+        if (id == "") {
             val items = service.findAll()
             val response = ApiResponse.ok(items)
             call.respond(HttpStatusCode.OK, listResponseSerializer, response)
@@ -86,19 +83,25 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
     }
 
     private fun Route.updateRoute() = put {
-        val id = call.queryParam("id")
+        val id = call.idParam()
         val json = call.receive<JsonObject>()
-        val entity = AppJson.decodeFromJsonElement(entitySerializer, json)
-        entity._id = ObjectId(id)
-        val updated = transactionExecute("[${basePath}::updateRoute] $entity") { session ->
-            service.update(entity, session)
+
+        // Преобразуем JSON в Map, исключая служебные поля
+        val updates = json.entries
+            .filter { it.key !in CONST_SYSTEM_FIELDS }
+            .associate { it.key to it.value }
+
+        // Вызываем специальный метод для частичного обновления
+        val updated = transactionExecute("[${basePath}::updateRoute] $id") { session ->
+            service.updateFields(id, updates, session)
         }
+
         val response = ApiResponse.ok(updated, "Updated")
         call.respond(HttpStatusCode.OK, singleResponseSerializer, response)
     }
 
     private fun Route.deleteRoute() = delete {
-        service.delete(call.queryParam("id"))
+        service.delete(call.idParam())
         val response = ApiResponse.message("Deleted")
         call.respond(HttpStatusCode.OK, apiResponseUnitSerializer, response)
     }
@@ -121,15 +124,23 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
         return route
     }
 
-    protected fun ApplicationCall.longParam(name: String): Long =
-        parameters[name]?.toLongOrNull()
-            ?: throw BadRequestException("Invalid or missing '$name'")
-
     protected fun ApplicationCall.queryParam(name: String): String =
-        request.queryParameters[name] ?: throw BadRequestException("Missing query parameter '$name'")
+        request.queryParameters[name] ?: throw ExceptionForCode("Missing query parameter '$name'", "BRM_PARAM_MISSING")
 
-    protected fun ApplicationCall.queryParam(name: String, default: String = ""): String =
-        request.queryParameters[name] ?: default
+    protected fun <E> ApplicationCall.queryParam(name: String, default: E): E {
+        return (request.queryParameters[name] ?: default) as E
+    }
+
+    protected fun ApplicationCall.idParam(): String {
+        val id = request.queryParameters["id"]
+        if (id == null) {
+            throw ExceptionForCode("Invalid ID parameter", "BRM_PARAMID_INVALID")
+        }
+        if (id.length != 24) {
+            throw ExceptionForCode("Invalid ID parameter length: ${id.length} must be 24", "BRM_PARAMID_LENGTH")
+        }
+        return id
+    }
 
     protected suspend fun ApplicationCall.respondEntity(entity: T?, status: HttpStatusCode = HttpStatusCode.OK) {
         respond(status, singleResponseSerializer, ApiResponse.ok(entity))
@@ -137,15 +148,6 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
 
     protected suspend fun ApplicationCall.respondEntityList(list: List<T>, status: HttpStatusCode = HttpStatusCode.OK) {
         respond(status, listResponseSerializer, ApiResponse.ok(list))
-    }
-
-    protected suspend fun <R> ApplicationCall.respondTyped(
-        serializer: KSerializer<ApiResponse<R>>,
-        data: R,
-        message: String? = null,
-        status: HttpStatusCode = HttpStatusCode.OK
-    ) {
-        respond(status, serializer, ApiResponse.ok(data, message))
     }
 }
 

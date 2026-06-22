@@ -24,8 +24,8 @@ data class UserMongo(
     var isActive: Boolean = true,
     var role: EnumUserRoles = EnumUserRoles.USER,
     var lastLoginDate: String? = null,
-    val createdAt: String? = null,
-    val updatedAt: String? = null,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity() {
     fun id(): String = _id.toHexString()
 }

@@ -1,9 +1,6 @@
 package features.userMongo
 
-import base.exception.BadRequestException
-import base.exception.ConflictException
 import base.exception.UnauthorizedException
-import com.mongodb.session.ClientSession
 import config.MongoFactory.transactionExecute
 import features.BaseServiceMongo
 import java.security.MessageDigest

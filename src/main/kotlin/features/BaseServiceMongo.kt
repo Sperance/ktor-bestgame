@@ -4,6 +4,7 @@ import base.exception.NotFoundException
 import base.model.PagedResponse
 import com.mongodb.client.result.InsertOneResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
+import kotlinx.serialization.json.JsonElement
 import org.bson.types.ObjectId
 
 abstract class BaseServiceMongo<T : VersionedEntity>(
@@ -31,6 +32,8 @@ abstract class BaseServiceMongo<T : VersionedEntity>(
     open suspend fun update(id: String, session: ClientSession): T? {
         return repository.updateAndReturn(id, session)
     }
+
+    open suspend fun updateFields(id: String, fields: Map<String, JsonElement>, session: ClientSession) = repository.updateFields(id, fields, session)
 
     // ==================== DELETE ====================
 

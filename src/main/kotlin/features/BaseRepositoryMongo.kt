@@ -14,17 +14,25 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import config.repository_user
+import extensions.CONST_FIELD_DELETED
+import extensions.CONST_FIELD_ID
+import extensions.CONST_FIELD_VERSION
+import extensions.CONST_SYSTEM_FIELDS
 import extensions.printLog
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.toList
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.serializer
 import opensavvy.ktmongo.coroutines.JvmMongoCollection
 import opensavvy.ktmongo.coroutines.asKtMongo
 import opensavvy.ktmongo.dsl.query.FilterQuery
 import org.bson.conversions.Bson
 import org.bson.types.ObjectId
+import server.addons.AppJson
 import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.starProjectedType
 
@@ -88,11 +96,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     private val collectionKT: JvmMongoCollection<T>
         get() = collection.asKtMongo(documentType = entityClass.starProjectedType)
 
-    /** Имена служебных полей для оптимизации и кэширования */
-    private val idFieldName = "_id"
-    private val versionFieldName = "version"
-    private val deletedFieldName = "deleted"
-
     // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
     /**
@@ -150,7 +153,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     private suspend fun setupVersionIndex() {
         try {
-            collection.createIndex(Indexes.ascending(versionFieldName))
+            collection.createIndex(Indexes.ascending(CONST_FIELD_VERSION))
         } catch (e: Exception) {
             // Индекс уже существует - игнорируем
         }
@@ -240,11 +243,11 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @return Найденный документ или null
      */
     suspend fun findById(id: ObjectId): T? {
-        return collection.find(Filters.eq(idFieldName, id)).firstOrNull()
+        return collection.find(Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
     }
 
     suspend fun findById(id: String): T? {
-        return collection.find(Filters.eq(idFieldName, ObjectId(id))).firstOrNull()
+        return collection.find(Filters.eq(CONST_FIELD_ID, ObjectId(id))).firstOrNull()
     }
 
     /**
@@ -258,7 +261,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     suspend fun findByIdForUpdate(id: ObjectId): T? {
         return collection
             .withReadConcern(ReadConcern.MAJORITY)
-            .find(Filters.eq(idFieldName, id))
+            .find(Filters.eq(CONST_FIELD_ID, id))
             .firstOrNull()
     }
 
@@ -389,12 +392,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         val newVersion = expectedVersion + 1
 
         val filter = Filters.and(
-            Filters.eq(idFieldName, entity._id),
-            Filters.eq(versionFieldName, expectedVersion)
+            Filters.eq(CONST_FIELD_ID, entity._id),
+            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
         )
 
         val update = Updates.combine(
-            Updates.set(versionFieldName, newVersion),
+            Updates.set(CONST_FIELD_VERSION, newVersion),
             *getUpdateFields(entity).map { (field, value) ->
                 Updates.set(field, value)
             }.toTypedArray()
@@ -451,16 +454,16 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         val newVersion = expectedVersion + 1
 
         val filter = Filters.and(
-            Filters.eq(idFieldName, entity._id),
-            Filters.eq(versionFieldName, expectedVersion)
+            Filters.eq(CONST_FIELD_ID, entity._id),
+            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
         )
 
         val updatesList = mutableListOf<Bson>(
-            Updates.set(versionFieldName, newVersion)
+            Updates.set(CONST_FIELD_VERSION, newVersion)
         )
 
         updates.forEach { (field, value) ->
-            if (field != idFieldName && field != versionFieldName) {
+            if (field != CONST_FIELD_ID && field != CONST_FIELD_VERSION) {
                 updatesList.add(Updates.set(field, value))
             }
         }
@@ -477,6 +480,32 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         }
 
         return result
+    }
+
+    // В BaseServiceMongo
+    open suspend fun updateFields(
+        id: String,
+        fields: Map<String, JsonElement>,
+        session: ClientSession
+    ): T? {
+        val entity = findById(id) ?: throw ExceptionForCode("Entity not found", "BRM_UPDATEFIELDS_NULL")
+
+        // Обновляем только переданные поля
+        val entityFields = entity::class.memberProperties.associateBy { it.name }
+
+        fields.forEach { (fieldName, jsonValue) ->
+            entityFields[fieldName]?.let { property ->
+                if (property is KMutableProperty<*>) {
+                    val value = AppJson.decodeFromJsonElement(
+                        serializer(property.returnType),
+                        jsonValue
+                    )
+                    property.setter.call(entity, value)
+                }
+            }
+        }
+
+        return updateAndReturn(entity, session)
     }
 
     suspend fun updateAndReturn(id: String, session: ClientSession): T? {
@@ -502,12 +531,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         val newVersion = expectedVersion + 1
 
         val filter = Filters.and(
-            Filters.eq(idFieldName, entity._id),
-            Filters.eq(versionFieldName, expectedVersion)
+            Filters.eq(CONST_FIELD_ID, entity._id),
+            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
         )
 
         val update = Updates.combine(
-            Updates.set(versionFieldName, newVersion),
+            Updates.set(CONST_FIELD_VERSION, newVersion),
             *getUpdateFields(entity).map { (field, value) ->
                 Updates.set(field, value)
             }.toTypedArray()
@@ -543,9 +572,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     suspend fun deleteById(id: ObjectId, session: ClientSession? = null): DeleteResult {
         printLog("[DELETE::$collectionName] id: $id")
         return if (session != null) {
-            collection.deleteOne(session, Filters.eq(idFieldName, id))
+            collection.deleteOne(session, Filters.eq(CONST_FIELD_ID, id))
         } else {
-            collection.deleteOne(Filters.eq(idFieldName, id))
+            collection.deleteOne(Filters.eq(CONST_FIELD_ID, id))
         }
     }
 
@@ -576,8 +605,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         }
 
         val filter = Filters.and(
-            Filters.eq(idFieldName, entity._id),
-            Filters.eq(versionFieldName, entity.version)
+            Filters.eq(CONST_FIELD_ID, entity._id),
+            Filters.eq(CONST_FIELD_VERSION, entity.version)
         )
 
         val result = if (session != null) {
@@ -605,8 +634,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun softDelete(id: ObjectId, session: ClientSession? = null): UpdateResult {
         printLog("[SOFT_DELETE::$collectionName] id: $id")
-        val filter = Filters.eq(idFieldName, id)
-        val update = Updates.set(deletedFieldName, true)
+        val filter = Filters.eq(CONST_FIELD_ID, id)
+        val update = Updates.set(CONST_FIELD_DELETED, true)
         return if (session != null) {
             collection.updateOne(session, filter, update)
         } else {
@@ -631,8 +660,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun restore(id: ObjectId, session: ClientSession? = null): UpdateResult {
         printLog("[RESTORE::$collectionName] id: $id")
-        val filter = Filters.eq(idFieldName, id)
-        val update = Updates.set(deletedFieldName, false)
+        val filter = Filters.eq(CONST_FIELD_ID, id)
+        val update = Updates.set(CONST_FIELD_DELETED, false)
         return if (session != null) {
             collection.updateOne(session, filter, update)
         } else {
@@ -672,11 +701,11 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     suspend fun bulkUpdate(entities: List<T>, session: ClientSession? = null): BulkWriteResult {
         val requests = entities.map { entity ->
             val filter = Filters.and(
-                Filters.eq(idFieldName, entity._id),
-                Filters.eq(versionFieldName, entity.version)
+                Filters.eq(CONST_FIELD_ID, entity._id),
+                Filters.eq(CONST_FIELD_VERSION, entity.version)
             )
             val update = Updates.combine(
-                Updates.set(versionFieldName, entity.version + 1),
+                Updates.set(CONST_FIELD_VERSION, entity.version + 1),
                 *getUpdateFields(entity).map { (field, value) ->
                     Updates.set(field, value)
                 }.toTypedArray()
@@ -706,14 +735,10 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         withDeleted: Boolean = false,
         filter: Bson? = null
     ): Boolean {
-        val baseFilter = if (withDeleted) {
-            Filters.empty()
-        } else {
-            Filters.ne(deletedFieldName, true)
-        }
+        val baseFilter = Filters.ne(CONST_FIELD_DELETED, withDeleted)
 
         val finalFilter = listOfNotNull(
-            Filters.eq(idFieldName, id),
+            Filters.eq(CONST_FIELD_ID, id),
             baseFilter,
             filter
         )
@@ -756,11 +781,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         withDeleted: Boolean = false,
         filter: Bson? = null
     ): Long {
-        val baseFilter = if (withDeleted) {
-            Filters.empty()
-        } else {
-            Filters.ne(deletedFieldName, true)
-        }
+        val baseFilter = Filters.ne(CONST_FIELD_DELETED, withDeleted)
 
         val finalFilter = if (filter != null) {
             Filters.and(baseFilter, filter)
@@ -794,7 +815,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
         entityClass.memberProperties.forEach { property ->
             val fieldName = property.name
-            if (fieldName !in listOf("_id", "id", versionFieldName, deletedFieldName)) {
+            if (fieldName !in CONST_SYSTEM_FIELDS) {
                 val value = property.getter.call(entity)
                 fields[fieldName] = value
             }
