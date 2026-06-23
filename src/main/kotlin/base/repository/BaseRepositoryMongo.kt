@@ -1,6 +1,7 @@
-package features
+package base.repository
 
 import base.exception.ExceptionForCode
+import base.model.PagedResponse
 import com.mongodb.MongoWriteException
 import com.mongodb.ReadConcern
 import com.mongodb.bulk.BulkWriteResult
@@ -8,17 +9,16 @@ import com.mongodb.client.model.*
 import com.mongodb.client.model.changestream.ChangeStreamDocument
 import com.mongodb.client.result.DeleteResult
 import com.mongodb.client.result.InsertManyResult
-import com.mongodb.client.result.InsertOneResult
 import com.mongodb.client.result.UpdateResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import config.repository_user
 import extensions.CONST_FIELD_DELETED
 import extensions.CONST_FIELD_ID
 import extensions.CONST_FIELD_VERSION
 import extensions.CONST_SYSTEM_FIELDS
 import extensions.printLog
+import features.VersionedEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.mapNotNull
@@ -246,8 +246,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         return collection.find(Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
     }
 
-    suspend fun findById(id: String): T? {
-        return collection.find(Filters.eq(CONST_FIELD_ID, ObjectId(id))).firstOrNull()
+    open suspend fun findById(id: String): T? {
+        return findById(ObjectId(id))
     }
 
     /**
@@ -445,10 +445,11 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     suspend fun updateFields(
         entity: T,
         updates: Map<String, Any?>,
-        session: ClientSession? = null
+        session: ClientSession? = null,
+        validateBeforeUpdate: Boolean = true
     ): T {
-
-        validateBeforeUpdate(entity)
+        if (validateBeforeUpdate)
+            validateBeforeUpdate(entity)
 
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
@@ -468,11 +469,15 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             }
         }
 
+        // Добавляем опцию для возврата ОБНОВЛЕННОГО документа
+        val options = FindOneAndUpdateOptions()
+            .returnDocument(ReturnDocument.AFTER)
+
         val update = Updates.combine(updatesList)
         val result = if (session != null) {
-            collection.findOneAndUpdate(session, filter, update)
+            collection.findOneAndUpdate(session, filter, update, options)
         } else {
-            collection.findOneAndUpdate(filter, update)
+            collection.findOneAndUpdate(filter, update, options)
         }
 
         if (result == null) {
@@ -486,26 +491,11 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     open suspend fun updateFields(
         id: String,
         fields: Map<String, JsonElement>,
-        session: ClientSession
+        session: ClientSession,
+        validateBeforeUpdate: Boolean = true
     ): T? {
         val entity = findById(id) ?: throw ExceptionForCode("Entity not found", "BRM_UPDATEFIELDS_NULL")
-
-        // Обновляем только переданные поля
-        val entityFields = entity::class.memberProperties.associateBy { it.name }
-
-        fields.forEach { (fieldName, jsonValue) ->
-            entityFields[fieldName]?.let { property ->
-                if (property is KMutableProperty<*>) {
-                    val value = AppJson.decodeFromJsonElement(
-                        serializer(property.returnType),
-                        jsonValue
-                    )
-                    property.setter.call(entity, value)
-                }
-            }
-        }
-
-        return updateAndReturn(entity, session)
+        return updateFields(entity, fields, session, validateBeforeUpdate)
     }
 
     suspend fun updateAndReturn(id: String, session: ClientSession): T? {
@@ -571,11 +561,23 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun deleteById(id: ObjectId, session: ClientSession? = null): DeleteResult {
         printLog("[DELETE::$collectionName] id: $id")
-        return if (session != null) {
+        val result = if (session != null) {
             collection.deleteOne(session, Filters.eq(CONST_FIELD_ID, id))
         } else {
             collection.deleteOne(Filters.eq(CONST_FIELD_ID, id))
         }
+
+        // Проверяем, был ли удален документ
+        if (result.deletedCount == 0L) {
+            throw ExceptionForCode("Документ с id '$id' не найден в коллекции '$collectionName'", "BRM_DELETEID_NOTEXIST")
+        }
+
+        printLog("[DELETE::$collectionName] deletedCount: ${result.deletedCount}")
+        return result
+    }
+
+    suspend fun deleteById(id: String, session: ClientSession? = null): DeleteResult {
+        return deleteById(ObjectId(id), session)
     }
 
     /**
@@ -799,6 +801,13 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     @Deprecated("Используйте exists()")
     suspend fun existsById(id: ObjectId): Boolean {
         return exists(id)
+    }
+
+    suspend fun findPaged(page: Int, pageSize: Int = 20): PagedResponse<T> {
+        val items = findLimited(page, pageSize)
+        val total = count()
+        val pages = if (pageSize > 0) ((total + pageSize - 1) / pageSize).toInt() else 0
+        return PagedResponse(items, page, pageSize, total, pages)
     }
 
     // ==================== ПРИВАТНЫЕ МЕТОДЫ ====================

@@ -1,12 +1,15 @@
 package features.userMongo
 
-import base.exception.BadRequestException
-import base.exception.ConflictException
 import base.exception.ExceptionForCode
 import config.MongoFactory
-import features.BaseRepositoryMongo
-import features.UniqueIndexConfig
+import base.repository.BaseRepositoryMongo
+import base.repository.UniqueIndexConfig
+import config.MongoFactory.transactionExecute
+import extensions.printLog
 import kotlinx.coroutines.runBlocking
+import java.security.MessageDigest
+import java.security.SecureRandom
+import java.time.LocalDateTime
 
 class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
     database = MongoFactory.db,
@@ -33,6 +36,12 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         if (entity.salt != "") throw ExceptionForCode("Field 'salt' has blocked to modify", "UMR_VALIDATEINSERT_SALT")
         if (findByLogin(entity.login) != null) throw ExceptionForCode("Login is exists! Please choose another one.", "UMR_VALIDATEINSERT_LOGIN_DUPLICATE")
         if (findByEmail(entity.email) != null) throw ExceptionForCode("Email is exists! Please choose another one.", "UMR_VALIDATEINSERT_EMAIL_DUPLICATE")
+
+        entity.salt = generateSalt()
+        printLog("Password stock: ${entity.password}")
+        entity.password = hashPassword(entity.password, entity.salt)
+        printLog("Generated salt: ${entity.salt}")
+        printLog("Password hash: ${entity.password}")
     }
 
     override suspend fun validateBeforeUpdate(entity: UserMongo) {
@@ -68,6 +77,31 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         }
     }
 
+    suspend fun authenticate(login: String, password: String): UserMongoResponse {
+        val credentials = findCredentialsByLogin(login)
+            ?: throw ExceptionForCode("Invalid login or password", "UMR_AUTH_INVALID")
+
+        val (userId, storedHash, storedSalt) = credentials
+
+        if (hashPassword(password, storedSalt) != storedHash) {
+            throw ExceptionForCode("Invalid login or password", "UMR_AUTH_WRONG_PASSWORD")
+        }
+
+        val user = findById(userId)
+
+        if (user == null) {
+            throw ExceptionForCode("User not found", "UMR_AUTH_USER_NOT_FOUND")
+        }
+
+        if (!user.isActive) {
+            throw ExceptionForCode("Account is deactivated", "UMR_AUTH_DEACTIVATED")
+        }
+
+        return transactionExecute("User authenticate") { session ->
+            updateFields(user, mapOf("lastLoginDate" to LocalDateTime.now()), session, validateBeforeUpdate = false)
+        }.toResponse()
+    }
+
     /**
      * Возвращает (id, password_hash, salt) по login напрямую из БД,
      * минуя toEntity (который маскирует @WriteOnly-поля).
@@ -83,5 +117,21 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         if (result == null) return null
 
         return Triple(result.id(), result.password, result.salt)
+    }
+
+
+    // ==================== Password utils ====================
+
+    private fun generateSalt(length: Int = 32): String {
+        val bytes = ByteArray(length)
+        SecureRandom().nextBytes(bytes)
+        return bytes.joinToString("") { "%02x".format(it) }
+    }
+
+    private fun hashPassword(password: String, salt: String): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        val salted = "$salt:$password"
+        val hash = digest.digest(salted.toByteArray(Charsets.UTF_8))
+        return hash.joinToString("") { "%02x".format(it) }
     }
 }

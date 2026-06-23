@@ -9,11 +9,16 @@ import org.bson.codecs.EncoderContext
 
 class LocalDateTimeCodec : Codec<LocalDateTime> {
     override fun encode(writer: BsonWriter, value: LocalDateTime, encoderContext: EncoderContext) {
-        writer.writeString(value.toString())
+        // Сохраняем как BSON DateTime (миллисекунды с эпохи)
+        val instant = value.toInstant(TimeZone.UTC)
+        writer.writeDateTime(instant.toEpochMilliseconds())
     }
 
     override fun decode(reader: BsonReader, decoderContext: DecoderContext): LocalDateTime {
-        return LocalDateTime.parse(reader.readString())
+        // Читаем как BSON DateTime
+        val millis = reader.readDateTime()
+        val instant = Instant.fromEpochMilliseconds(millis)
+        return instant.toLocalDateTime(TimeZone.UTC)
     }
 
     override fun getEncoderClass(): Class<LocalDateTime> = LocalDateTime::class.java

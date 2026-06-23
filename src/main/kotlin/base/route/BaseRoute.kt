@@ -597,32 +597,6 @@ abstract class BaseRoute<E : BaseEntity, T : BaseTable>(
     }
 }
 
-/**
- * Расширение для `ApplicationCall`, добавляющее возможность ответа с явным сериализатором.
- *
- * **Проблема:** Ktor из коробки имеет `call.respond(status, message)`,
- * но не предоставляет `call.respond(status, serializer, value)` для явной сериализации.
- *
- * **Решение:** Это расширение позволяет использовать кастомные сериализаторы
- * для сложных generic-типов, где вывод типа недостаточен.
- *
- * @param T Тип сериализуемого объекта
- * @param status HTTP статус ответа
- * @param serializer Явный сериализатор для типа T
- * @param value Значение для сериализации и отправки
- *
- * @sample
- * ```kotlin
- * // Без расширения (ошибка)
- * call.respond(HttpStatusCode.OK, ApiResponse.ok(user)) // ❌ Нет сериализатора
- *
- * // С расширением
- * call.respond(HttpStatusCode.OK, userSerializer, ApiResponse.ok(user)) // ✅
- * ```
- *
- * @see ApplicationCall.respond
- * @see KSerializer
- */
 suspend fun <T> ApplicationCall.respond(
     status: HttpStatusCode,
     serializer: KSerializer<T>,

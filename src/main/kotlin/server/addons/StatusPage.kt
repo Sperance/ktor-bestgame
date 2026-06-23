@@ -6,8 +6,8 @@ import base.exception.ExceptionForCode
 import base.exception.NotFoundException
 import base.exception.OptimisticLockException
 import base.model.ApiResponse
-import features.DuplicateKeyException
-import features.EntityNotFoundException
+import base.repository.DuplicateKeyException
+import base.repository.EntityNotFoundException
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.install

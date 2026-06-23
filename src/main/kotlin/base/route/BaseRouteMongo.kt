@@ -1,19 +1,17 @@
-package features
+package base.route
 
 import base.exception.ExceptionForCode
-import base.model.ApiResponse
 import base.model.PagedResponse
-import base.model.apiResponseListSerializer
-import base.model.apiResponseMapSerializer
-import base.model.apiResponsePagedSerializer
-import base.model.apiResponseSerializer
-import base.model.apiResponseUnitSerializer
+import base.repository.BaseRepositoryMongo
 import config.MongoFactory.transactionExecute
 import extensions.CONST_SYSTEM_FIELDS
+import features.VersionedEntity
+import features.userMongo.UserMongo
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
+import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.Routing
@@ -25,24 +23,27 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 import io.ktor.utils.io.ExperimentalKtorApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.JsonObject
 import server.addons.AppJson
+import kotlin.reflect.typeOf
 import kotlin.text.toIntOrNull
 
-abstract class BaseRouteMongo<T : VersionedEntity>(
-    protected val service: BaseServiceMongo<T>,
+abstract class BaseRouteMongo<T : VersionedEntity, R>(
+    protected val repository: BaseRepositoryMongo<T>,
     protected val basePath: String,
-    val entitySerializer: KSerializer<T>
+    val entitySerializer: KSerializer<T>,
+    val responseSerializer: KSerializer<R>,
+    private val toResponse: (T) -> R
 ) {
-
-    private val singleResponseSerializer: KSerializer<ApiResponse<T>> = apiResponseSerializer(entitySerializer)
-    private val listResponseSerializer: KSerializer<ApiResponse<List<T>>> = apiResponseListSerializer(entitySerializer)
-    private val pagedResponseSerializer: KSerializer<ApiResponse<PagedResponse<T>>> = apiResponsePagedSerializer(entitySerializer)
+    private val apiResponseSerializer = ApiMongoResponse.serializer(responseSerializer)
+    private val apiResponseListSerializer = ApiMongoResponse.serializer(ListSerializer(responseSerializer))
+    private val apiResponsePagedSerializer = ApiMongoResponse.serializer(PagedResponse.serializer(responseSerializer))
 
     @OptIn(ExperimentalKtorApi::class)
     fun register(routing: Routing) {
         routing.route(basePath) {
-            // Кастомные маршруты ПЕРВЫМИ (до /{id})
             additionalRoutes(this)
 
             pagedRoute()
@@ -59,16 +60,16 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
     private fun Route.getAllRoute() = get {
         val id = call.queryParam("id", "")
         if (id == "") {
-            val items = service.findAll()
-            val response = ApiResponse.ok(items)
-            call.respond(HttpStatusCode.OK, listResponseSerializer, response)
+            val items = repository.findAll().map { toResponse(it) }
+            call.respond(apiResponseListSerializer, ApiMongoResponse.ok(items))
         } else {
             if (id.length != 24) {
                 throw ExceptionForCode("Неверный формат ID. Длина: ${id.length} Должна быть: 24", "BRM_GETALL_ID")
             }
-            val entity = service.findById(id)
-            val response = ApiResponse.ok(entity)
-            call.respond(HttpStatusCode.OK, singleResponseSerializer, response)
+
+            val entity = repository.findById(id)
+            val responseEntity = entity?.let(toResponse)
+            call.respond(apiResponseSerializer, ApiMongoResponse.ok(responseEntity))
         }
     }
 
@@ -76,10 +77,9 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
         val json = call.receive<JsonObject>()
         val entity = AppJson.decodeFromJsonElement(entitySerializer, json)
         val created = transactionExecute("[${basePath}::createRoute] $entity") { session ->
-            service.create(entity, session)
-        }
-        val response = ApiResponse.created(created)
-        call.respond(HttpStatusCode.Created, singleResponseSerializer, response)
+            repository.insert(entity, session)
+        }.run { toResponse(this) }
+        call.respond(apiResponseSerializer, ApiMongoResponse.ok(created))
     }
 
     private fun Route.updateRoute() = put {
@@ -93,31 +93,41 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
 
         // Вызываем специальный метод для частичного обновления
         val updated = transactionExecute("[${basePath}::updateRoute] $id") { session ->
-            service.updateFields(id, updates, session)
-        }
+            repository.updateFields(id, updates, session)
+        }?.run { toResponse(this) }
 
-        val response = ApiResponse.ok(updated, "Updated")
-        call.respond(HttpStatusCode.OK, singleResponseSerializer, response)
+        call.respond(apiResponseSerializer, ApiMongoResponse.ok(updated, "Updated"))
     }
 
     private fun Route.deleteRoute() = delete {
-        service.delete(call.idParam())
-        val response = ApiResponse.message("Deleted")
-        call.respond(HttpStatusCode.OK, apiResponseUnitSerializer, response)
+        val id = call.idParam()
+        transactionExecute("[${basePath}]::deleteRoute $id") { session ->
+            repository.deleteById(id, session)
+        }
+
+        call.respond(ApiMongoResponse.ok("Deleted"))
     }
 
     private fun Route.pagedRoute() = get("/paged") {
         val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 0
         val size = call.request.queryParameters["size"]?.toIntOrNull() ?: 20
-        val paged = service.findPaged(page, size)
-        val response = ApiResponse.ok(paged)
-        call.respond(HttpStatusCode.OK, pagedResponseSerializer, response)
+        val paged = repository.findPaged(page, size)
+
+        // Преобразуем элементы внутри PagedResponse из T в R
+        val responseItems = PagedResponse(
+            items = paged.items.map { toResponse(it) },
+            page = paged.page,
+            pageSize = paged.pageSize,
+            totalItems = paged.totalItems,
+            totalPages = paged.totalPages
+        )
+
+        call.respond(apiResponsePagedSerializer, ApiMongoResponse.ok(responseItems))
     }
 
     private fun Route.countRoute() = get("/count") {
-        val count = service.count()
-        val response = ApiResponse.ok(mapOf("count" to count))
-        call.respond(HttpStatusCode.OK, apiResponseMapSerializer, response)
+        val count = repository.count()
+        call.respond(ApiMongoResponse.ok(mapOf("count" to count)))
     }
 
     protected open fun additionalRoutes(route: Route): Route {
@@ -127,9 +137,9 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
     protected fun ApplicationCall.queryParam(name: String): String =
         request.queryParameters[name] ?: throw ExceptionForCode("Missing query parameter '$name'", "BRM_PARAM_MISSING")
 
-    protected fun <E> ApplicationCall.queryParam(name: String, default: E): E {
-        return (request.queryParameters[name] ?: default) as E
-    }
+    @SuppressWarnings("UNCHECKED_CAST")
+    protected fun <E> ApplicationCall.queryParam(name: String, default: E): E =
+        (request.queryParameters[name] ?: default) as E
 
     protected fun ApplicationCall.idParam(): String {
         val id = request.queryParameters["id"]
@@ -142,20 +152,24 @@ abstract class BaseRouteMongo<T : VersionedEntity>(
         return id
     }
 
-    protected suspend fun ApplicationCall.respondEntity(entity: T?, status: HttpStatusCode = HttpStatusCode.OK) {
-        respond(status, singleResponseSerializer, ApiResponse.ok(entity))
-    }
-
-    protected suspend fun ApplicationCall.respondEntityList(list: List<T>, status: HttpStatusCode = HttpStatusCode.OK) {
-        respond(status, listResponseSerializer, ApiResponse.ok(list))
+    protected suspend fun <T> ApplicationCall.respond(
+        serializer: KSerializer<T>,
+        value: T
+    ) {
+        val text = AppJson.encodeToString(serializer, value)
+        respondText(text, ContentType.Application.Json, HttpStatusCode.OK)
     }
 }
 
-suspend fun <T> ApplicationCall.respond(
-    status: HttpStatusCode,
-    serializer: KSerializer<T>,
-    value: T
+@Serializable
+data class ApiMongoResponse<T>(
+    val success: Boolean,
+    val data: T? = null,
+    val code: String? = null,
+    val errors: Map<String, String>? = null
 ) {
-    val text = AppJson.encodeToString(serializer, value)
-    respondText(text, ContentType.Application.Json, status)
+    companion object {
+        fun <T> ok(data: T?, message: String? = null) =
+            ApiMongoResponse(success = true, data = data, code = "200")
+    }
 }

@@ -1,16 +1,20 @@
 package features.userMongo
 
 import base.exception.NotFoundException
-import features.BaseRouteMongo
+import base.model.ApiResponse
+import base.route.BaseRouteMongo
+import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
 class UserMongoRoute(
-    private val userMongoService: UserMongoService = UserMongoService()
-) : BaseRouteMongo<UserMongo>(
-    service = userMongoService,
+    private val userMongoRepository: UserRepositoryMongo = UserRepositoryMongo()
+) : BaseRouteMongo<UserMongo, UserMongoResponse>(
+    repository = userMongoRepository,
     basePath = "/api/users_mongo",
-    entitySerializer = UserMongo.serializer()
+    entitySerializer = UserMongo.serializer(),
+    responseSerializer = UserMongoResponse.serializer(),
+    toResponse = { it.toResponse() }
 ) {
 
     override fun additionalRoutes(route: Route) = with(route) {
@@ -18,25 +22,25 @@ class UserMongoRoute(
         get("/login") {
             val login = call.queryParam("login")
             val password = call.queryParam("password")
-            val user = userMongoService.authenticate(login, password)
-            call.respondEntity(user)
+            val user = userMongoRepository.authenticate(login, password)
+            call.respond(ApiResponse.ok(user))
         }
 
         get("/search") {
             val name = call.queryParam("name")
-            val users = userMongoService.searchByName(name)
-            call.respondEntityList(users)
+            val users = userMongoRepository.searchByName(name)
+            call.respond(ApiResponse.ok(users))
         }
 
         get("/active") {
-            val users = userMongoService.findActive()
-            call.respondEntityList(users)
+            val users = userMongoRepository.findActive()
+            call.respond(ApiResponse.ok(users))
         }
 
         get("/by-email/{email}") {
             val email = call.parameters["email"]!!
-            val user = userMongoService.findByEmail(email) ?: throw NotFoundException("User with email '$email' not found")
-            call.respondEntity(user)
+            val user = userMongoRepository.findByEmail(email) ?: throw NotFoundException("User with email '$email' not found")
+            call.respond(ApiResponse.ok(user))
         }
     }
 }

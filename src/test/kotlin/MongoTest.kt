@@ -2,7 +2,7 @@ package ru.descend
 
 import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
-import features.DuplicateKeyException
+import base.repository.DuplicateKeyException
 import config.MongoFactory.db
 import config.MongoFactory.transactionExecute
 import mongo_test.UserMongo
