@@ -15,14 +15,17 @@ import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import extensions.CONST_FIELD_DELETED
 import extensions.CONST_FIELD_ID
+import extensions.CONST_FIELD_UPDATED
 import extensions.CONST_FIELD_VERSION
 import extensions.CONST_SYSTEM_FIELDS
+import extensions.now
 import extensions.printLog
 import features.VersionedEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.toList
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.serializer
 import opensavvy.ktmongo.coroutines.JvmMongoCollection
@@ -35,24 +38,6 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.starProjectedType
-
-/**
- * Исключение, выбрасываемое при оптимистичной блокировке (race condition).
- * Возникает, когда версия документа в БД не совпадает с ожидаемой.
- */
-class OptimisticLockException(message: String) : Exception(message)
-
-/**
- * Исключение, выбрасываемое при нарушении уникальности индекса.
- * Возникает при попытке вставить документ с уже существующим уникальным значением.
- */
-class DuplicateKeyException(message: String) : Exception(message)
-
-/**
- * Исключение, выбрасываемое когда документ не найден.
- * Возникает при попытке обновить или удалить несуществующий документ.
- */
-class EntityNotFoundException(message: String) : Exception(message)
 
 /**
  * Конфигурация уникального индекса.
@@ -168,7 +153,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param session Сессия транзакции (опционально)
      * @return Результат вставки с информацией об insertedId
      * @throws IllegalArgumentException Если version != 0
-     * @throws DuplicateKeyException При нарушении уникальности
      *
      * Пример:
      * ```
@@ -205,7 +189,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param entities Список сущностей для вставки
      * @param session Сессия транзакции
      * @return Результат массовой вставки
-     * @throws DuplicateKeyException При нарушении уникальности
      */
     suspend fun insertMany(entities: List<T>, session: ClientSession? = null): InsertManyResult {
         entities.forEach {
@@ -374,20 +357,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
     // ==================== UPDATE ОПЕРАЦИИ ====================
 
-    /**
-     * Обновление документа с оптимистичной блокировкой.
-     * Проверяет версию документа перед обновлением.
-     *
-     * @param entity Сущность с обновлёнными данными
-     * @param session Сессия транзакции
-     * @return Результат обновления
-     * @throws OptimisticLockException Если версия не совпадает (race condition)
-     * @throws EntityNotFoundException Если документ не найден
-     */
     suspend fun update(entity: T, session: ClientSession? = null): UpdateResult {
-
-        validateBeforeUpdate(entity)
-
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
@@ -398,6 +368,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
         val update = Updates.combine(
             Updates.set(CONST_FIELD_VERSION, newVersion),
+            Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now()),
             *getUpdateFields(entity).map { (field, value) ->
                 Updates.set(field, value)
             }.toTypedArray()
@@ -445,11 +416,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     suspend fun updateFields(
         entity: T,
         updates: Map<String, Any?>,
-        session: ClientSession? = null,
-        validateBeforeUpdate: Boolean = true
+        session: ClientSession
     ): T {
-        if (validateBeforeUpdate)
-            validateBeforeUpdate(entity)
+        validateBeforeUpdate(updates)
 
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
@@ -460,7 +429,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         )
 
         val updatesList = mutableListOf<Bson>(
-            Updates.set(CONST_FIELD_VERSION, newVersion)
+            Updates.set(CONST_FIELD_VERSION, newVersion),
+            Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now())
         )
 
         updates.forEach { (field, value) ->
@@ -474,11 +444,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             .returnDocument(ReturnDocument.AFTER)
 
         val update = Updates.combine(updatesList)
-        val result = if (session != null) {
-            collection.findOneAndUpdate(session, filter, update, options)
-        } else {
-            collection.findOneAndUpdate(filter, update, options)
-        }
+        val result = collection.findOneAndUpdate(session, filter, update, options)
 
         if (result == null) {
             throw ExceptionForCode("$collection UPDATING error not found", "BRM_UPDATEFIELDS_ERROR")
@@ -490,64 +456,11 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     // В BaseServiceMongo
     open suspend fun updateFields(
         id: String,
-        fields: Map<String, JsonElement>,
-        session: ClientSession,
-        validateBeforeUpdate: Boolean = true
+        fields: Map<String, Any?>,
+        session: ClientSession
     ): T? {
         val entity = findById(id) ?: throw ExceptionForCode("Entity not found", "BRM_UPDATEFIELDS_NULL")
-        return updateFields(entity, fields, session, validateBeforeUpdate)
-    }
-
-    suspend fun updateAndReturn(id: String, session: ClientSession): T? {
-        return updateAndReturn(findById(id), session)
-    }
-
-    /**
-     * Атомарное обновление с возвратом обновлённого документа.
-     *
-     * @param entity Сущность с обновлёнными данными
-     * @param session Сессия транзакции
-     * @return Обновлённый документ или null
-     */
-    suspend fun updateAndReturn(entity: T?, session: ClientSession? = null): T? {
-
-        if (entity == null) {
-            throw ExceptionForCode("Ошибка обновления данных в БД.", "BRM_UPDATERETURN_NULL")
-        }
-
-        validateBeforeUpdate(entity)
-
-        val expectedVersion = entity.version
-        val newVersion = expectedVersion + 1
-
-        val filter = Filters.and(
-            Filters.eq(CONST_FIELD_ID, entity._id),
-            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
-        )
-
-        val update = Updates.combine(
-            Updates.set(CONST_FIELD_VERSION, newVersion),
-            *getUpdateFields(entity).map { (field, value) ->
-                Updates.set(field, value)
-            }.toTypedArray()
-        )
-
-        val options = FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER)
-
-        return try {
-            val updated = if (session != null) {
-                collection.findOneAndUpdate(session, filter, update, options)
-            } else {
-                collection.findOneAndUpdate(filter, update, options)
-            }
-            updated?.also { entity.version = newVersion }
-        } catch (e: Exception) {
-            if (findById(entity._id) == null) {
-                throw ExceptionForCode("Документ не найден", "BRM_UPDATERETURN_NOTFOUND")
-            } else {
-                throw ExceptionForCode("Race condition при обновлении", "BRM_UPDATERETURN_RACE")
-            }
-        }
+        return updateFields(entity, fields, session)
     }
 
     // ==================== DELETE ОПЕРАЦИИ ====================
@@ -597,7 +510,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      *
      * @param entity Сущность с ID и версией для проверки
      * @param session Сессия транзакции
-     * @throws OptimisticLockException Если версия изменилась
      * @return Результат удаления
      */
     suspend fun deleteWithVersion(entity: T?, session: ClientSession? = null): DeleteResult {
@@ -835,26 +747,11 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
     // ==================== АБСТРАКТНЫЕ МЕТОДЫ ====================
 
-    /**
-     * Метод валидации перед вставкой.
-     * Переопределяется в конкретных репозиториях для бизнес-логики.
-     *
-     * @param entity Сущность для проверки
-     * @throws IllegalArgumentException если валидация не пройдена
-     *
-     * Пример:
-     * ```
-     * override suspend fun validateBeforeInsert(entity: UserMongo) {
-     *     require(entity.email.contains("@")) { "Некорректный email" }
-     *     require(entity.age in 18..120) { "Некорректный возраст" }
-     * }
-     * ```
-     */
     protected open suspend fun validateBeforeInsert(entity: T) {
         // Базовая реализация — ничего не проверяем
     }
 
-    protected open suspend fun validateBeforeUpdate(entity: T) {
+    protected open suspend fun validateBeforeUpdate(changes: Map<String, Any?>) {
         // Базовая реализация — ничего не проверяем
     }
 }

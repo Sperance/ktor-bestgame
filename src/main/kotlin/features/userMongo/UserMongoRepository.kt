@@ -1,6 +1,7 @@
 package features.userMongo
 
 import base.exception.ExceptionForCode
+import base.model.ApiResponse
 import config.MongoFactory
 import base.repository.BaseRepositoryMongo
 import base.repository.UniqueIndexConfig
@@ -37,18 +38,61 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         if (findByLogin(entity.login) != null) throw ExceptionForCode("Login is exists! Please choose another one.", "UMR_VALIDATEINSERT_LOGIN_DUPLICATE")
         if (findByEmail(entity.email) != null) throw ExceptionForCode("Email is exists! Please choose another one.", "UMR_VALIDATEINSERT_EMAIL_DUPLICATE")
 
-        entity.salt = generateSalt()
-        printLog("Password stock: ${entity.password}")
-        entity.password = hashPassword(entity.password, entity.salt)
-        printLog("Generated salt: ${entity.salt}")
-        printLog("Password hash: ${entity.password}")
+        checkPassword(entity.password)
+        generatePassword(entity)
     }
 
-    override suspend fun validateBeforeUpdate(entity: UserMongo) {
-        if (entity.email != "" && !entity.email.contains("@")) throw ExceptionForCode("'${entity.name}' has invalid e-mail: ${entity.email}", "UMR_VALIDATEINSERT_EMAIL")
-        if (entity.age != null && entity.age !in 12..120) throw ExceptionForCode("'${entity.name}' has invalid age: ${entity.age}", "UMR_VALIDATEINSERT_AGE")
-        if (entity.password != "" && entity.password.length < 6) throw ExceptionForCode("'${entity.name}' has invalid password length: ${entity.password.length}", "UMR_VALIDATEINSERT_PASSWORD")
-        if (entity.salt != "") throw ExceptionForCode("Field 'salt' has blocked to modify", "UMR_VALIDATEINSERT_SALT")
+    override suspend fun validateBeforeUpdate(changes: Map<String, Any?>) {
+        changes["email"]?.let { email ->
+            val emailStr = email as? String ?: ""
+            if (emailStr.isNotEmpty() && !emailStr.contains("@")) {
+                throw ExceptionForCode(
+                    "Invalid e-mail: $emailStr",
+                    "UMR_VALIDATEUPDATE_EMAIL"
+                )
+            }
+        }
+
+        changes["age"]?.let { age ->
+            val ageInt = when (age) {
+                is Int -> age
+                is Long -> age.toInt()
+                is String -> age.toIntOrNull()
+                else -> null
+            }
+            if (ageInt != null && ageInt !in 12..120) {
+                throw ExceptionForCode(
+                    "Invalid age: $ageInt",
+                    "UMR_VALIDATEUPDATE_AGE"
+                )
+            }
+        }
+
+        changes["password"]?.let { password ->
+            val passwordStr = password as? String ?: ""
+            if (passwordStr.isNotEmpty() && passwordStr.length < 6) {
+                throw ExceptionForCode(
+                    "Invalid password length: ${passwordStr.length}",
+                    "UMR_VALIDATEUPDATE_PASSWORD"
+                )
+            }
+        }
+
+        if (changes.containsKey("salt"))
+            throw ExceptionForCode("Field 'salt' has blocked to modify", "UMR_VALIDATEINSERT_SALT")
+    }
+
+    private fun generatePassword(entity: UserMongo) {
+        entity.salt = generateSalt()
+        entity.password = hashPassword(entity.password, entity.salt)
+    }
+
+    private fun checkPassword(password: String) {
+        if (password.isEmpty()) throw ExceptionForCode("Пароль не может быть пустым", "UMR_CHECKPASS_EMPTY")
+        if (password.length !in 6..64) throw ExceptionForCode("Пароль должен содержать не менее 6 и не более 64 символов", "UMR_CHECKPASS_LENGTH")
+        if (password.none { it.isDigit() }) throw ExceptionForCode("Пароль должен содержать хотя бы 1 цифру", "UMR_CHECKPASS_DIGIT")
+        if (password.none { it.isUpperCase() }) throw ExceptionForCode("Пароль должен содержать хотя бы 1 заглавную букву", "UMR_CHECKPASS_UPPERCASE")
+        if (password.contains(" ")) throw ExceptionForCode("Пароль не должен содержать пробелы", "UMR_CHECKPASS_PROBEL")
     }
 
     /**********/
@@ -98,7 +142,7 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         }
 
         return transactionExecute("User authenticate") { session ->
-            updateFields(user, mapOf("lastLoginDate" to LocalDateTime.now()), session, validateBeforeUpdate = false)
+            updateFields(user, mapOf("lastLoginDate" to LocalDateTime.now()), session)
         }.toResponse()
     }
 
@@ -119,6 +163,24 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         return Triple(result.id(), result.password, result.salt)
     }
 
+    suspend fun changePassword(id: String, password: String, newPassword: String): String {
+        val user = findById(id)
+        if (user == null) {
+            throw ExceptionForCode("Не найден пользователь с id $id", "UMR_CHANGEPASS_NOTUSER")
+        }
+
+        if (user.password != hashPassword(password, user.salt)) {
+            throw ExceptionForCode("Неверный пароль пользователя ${user.login}", "UMR_CHANGEPASS_PASSWORD")
+        }
+
+        checkPassword(newPassword)
+
+        val newHashedPass = hashPassword(newPassword, user.salt)
+        transactionExecute { session ->
+            updateFields(user, mapOf("password" to newHashedPass), session)
+        }
+        return "Success"
+    }
 
     // ==================== Password utils ====================
 

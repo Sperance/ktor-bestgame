@@ -6,8 +6,6 @@ import base.exception.ExceptionForCode
 import base.exception.NotFoundException
 import base.exception.OptimisticLockException
 import base.model.ApiResponse
-import base.repository.DuplicateKeyException
-import base.repository.EntityNotFoundException
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -47,18 +45,6 @@ fun Application.configureStatusPages() {
             call.respond(status, ApiResponse.error(message, code = sqlEx?.errorCode?:405))
         }
 
-        // Обработка DuplicateKeyException
-        exception<DuplicateKeyException> { call, cause ->
-            call.respond(
-                status = HttpStatusCode.Conflict,
-                message = ApiResponse.error(
-                    message = cause.message ?: "Нарушение уникальности",
-                    errors = mapOf("duplicate" to cause.message!!.split("{").first()),
-                    code = HttpStatusCode.Conflict.value
-                )
-            )
-        }
-
         // Обработка OptimisticLockException
         exception<OptimisticLockException> { call, cause ->
             call.respond(
@@ -67,17 +53,6 @@ fun Application.configureStatusPages() {
                     message = cause.message,
                     errors = mapOf("version" to "Документ был изменен другим пользователем"),
                     code = HttpStatusCode.Forbidden.value
-                )
-            )
-        }
-
-        // Обработка EntityNotFoundException
-        exception<EntityNotFoundException> { call, cause ->
-            call.respond(
-                status = HttpStatusCode.NotFound,  // 404
-                message = ApiResponse.error(
-                    message = cause.message ?: "Документ не найден",
-                    code = HttpStatusCode.NotFound.value
                 )
             )
         }

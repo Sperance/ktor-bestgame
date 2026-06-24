@@ -78,7 +78,7 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
         val entity = AppJson.decodeFromJsonElement(entitySerializer, json)
         val created = transactionExecute("[${basePath}::createRoute] $entity") { session ->
             repository.insert(entity, session)
-        }.run { toResponse(this) }
+        }.let { toResponse(it) }
         call.respond(apiResponseSerializer, ApiMongoResponse.ok(created))
     }
 
@@ -89,12 +89,12 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
         // Преобразуем JSON в Map, исключая служебные поля
         val updates = json.entries
             .filter { it.key !in CONST_SYSTEM_FIELDS }
-            .associate { it.key to it.value }
+            .associate { it.key to jsonElementToNative(it.value) }
 
         // Вызываем специальный метод для частичного обновления
         val updated = transactionExecute("[${basePath}::updateRoute] $id") { session ->
             repository.updateFields(id, updates, session)
-        }?.run { toResponse(this) }
+        }?.let { toResponse(it) }
 
         call.respond(apiResponseSerializer, ApiMongoResponse.ok(updated, "Updated"))
     }
@@ -150,6 +150,31 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
             throw ExceptionForCode("Invalid ID parameter length: ${id.length} must be 24", "BRM_PARAMID_LENGTH")
         }
         return id
+    }
+
+    // Функция преобразования JsonElement в нативные типы
+    private fun jsonElementToNative(element: kotlinx.serialization.json.JsonElement): Any? {
+        return when (element) {
+            is kotlinx.serialization.json.JsonNull -> null
+            is kotlinx.serialization.json.JsonPrimitive -> {
+                when {
+                    element.isString -> element.content
+                    element.content == "true" || element.content == "false" -> element.content.toBoolean()
+                    element.content.contains(".") -> element.content.toDoubleOrNull()
+                    else -> {
+                        element.content.toIntOrNull()
+                            ?: element.content.toLongOrNull()
+                            ?: element.content
+                    }
+                }
+            }
+            is kotlinx.serialization.json.JsonArray -> {
+                element.map { jsonElementToNative(it) }
+            }
+            is kotlinx.serialization.json.JsonObject -> {
+                element.mapValues { jsonElementToNative(it.value) }
+            }
+        }
     }
 
     protected suspend fun <T> ApplicationCall.respond(

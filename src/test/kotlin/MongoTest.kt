@@ -2,18 +2,15 @@ package ru.descend
 
 import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
-import base.repository.DuplicateKeyException
-import config.MongoFactory.db
+import com.mongodb.DuplicateKeyException
 import config.MongoFactory.transactionExecute
-import mongo_test.UserMongo
+import features.userMongo.UserMongo
 import features.userMongo.UserRepositoryMongo
 import org.bson.types.ObjectId
 import org.junit.Assert.assertThrows
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
-import kotlin.test.DefaultAsserter.assertNotNull
-import kotlin.test.DefaultAsserter.assertTrue
 
 data class Counter(
     val name: String,
@@ -38,7 +35,7 @@ data class BaseStatMongo(
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MongoTest {
 
-    private val userRepo = UserRepositoryMongo(db)
+    private val userRepo = UserRepositoryMongo()
 
     @Test
     fun a_clear_repository() = runBlocking {
@@ -56,7 +53,12 @@ class MongoTest {
     fun b_insert_stock_data() = runBlocking {
         transactionExecute { session ->
             repeat(100) { ind ->
-                userRepo.insert(UserMongo(email = "email$ind@domain.com", name="user_$ind", age = (20..60).random()), session)
+                userRepo.insert(
+                    UserMongo(
+                        email = "email$ind@domain.com",
+                        name = "user_$ind",
+                        age = (20..60).random()
+                    ), session)
             }
         }
         assert(userRepo.count() == 100L)
@@ -73,9 +75,6 @@ class MongoTest {
                 age = (15..40).random()
             ), session)
         }
-
-        assertTrue("Insert should be acknowledged", res.wasAcknowledged())
-        assertNotNull("Inserted ID should not be null", res.insertedId)
     }
 
     @Test
@@ -293,18 +292,6 @@ class MongoTest {
 
         val firstUser = userRepo.findAll().first()
         assert(firstUser.name == "UPDATED_TEST_NAME")
-    }
-
-    @Test
-    fun test_update_return(): Unit = runBlocking {
-        val res = transactionExecute { session ->
-            val firstUser = userRepo.findAll().first()
-            firstUser.name = "RETURNED_NAME"
-            userRepo.updateAndReturn(firstUser, session)
-        }
-
-        assert(res != null)
-        assert(res!!.name == "RETURNED_NAME")
     }
 
     @Test

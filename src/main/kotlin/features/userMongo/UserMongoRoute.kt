@@ -42,5 +42,12 @@ class UserMongoRoute(
             val user = userMongoRepository.findByEmail(email) ?: throw NotFoundException("User with email '$email' not found")
             call.respond(ApiResponse.ok(user))
         }
+
+        get("/changePassword") {
+            val id = call.idParam()
+            val password = call.queryParam("password")
+            val newPassword = call.queryParam("new_password")
+            call.respond(ApiResponse.ok(userMongoRepository.changePassword(id, password, newPassword)))
+        }
     }
 }
