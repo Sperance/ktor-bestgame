@@ -13,6 +13,7 @@ import com.mongodb.client.result.UpdateResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
+import config.MongoFactory
 import extensions.CONST_FIELD_DELETED
 import extensions.CONST_FIELD_ID
 import extensions.CONST_FIELD_UPDATED
@@ -25,6 +26,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.serializer
@@ -62,12 +64,10 @@ data class UniqueIndexConfig(
  * - Change streams для реактивного программирования
  *
  * @param T Тип сущности, должен наследовать VersionedEntity
- * @param database Экземпляр MongoDatabase
  * @param collectionName Имя коллекции в MongoDB
  * @param entityClass KClass сущности для рефлексии
  */
 abstract class BaseRepositoryMongo<T : VersionedEntity>(
-    private val database: MongoDatabase,
     val collectionName: String,
     private val entityClass: KClass<T>
 ) {
@@ -98,10 +98,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * )
      * ```
      */
-    suspend fun initialize(uniqueIndexes: List<UniqueIndexConfig> = emptyList()) {
-        collection = database.getCollection(collectionName, entityClass.java)
-        setupUniqueIndexes(uniqueIndexes)
-        setupVersionIndex()
+    fun initialize(uniqueIndexes: List<UniqueIndexConfig> = emptyList()) {
+        collection = MongoFactory.db.getCollection(collectionName, entityClass.java)
+        runBlocking {
+            setupUniqueIndexes(uniqueIndexes)
+            setupVersionIndex()
+        }
     }
 
     /**
@@ -624,16 +626,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         return exists(entity._id, withDeleted, filter)
     }
 
-    suspend fun count(withDeleted: Boolean = false, filter: Bson? = null): Long {
-        val baseFilter = Filters.ne(CONST_FIELD_DELETED, withDeleted)
+    suspend fun exists(id: String, withDeleted: Boolean = false, filter: Bson? = null): Boolean {
+        return exists(ObjectId(id), withDeleted, filter)
+    }
 
-        val finalFilter = if (filter != null) {
-            Filters.and(baseFilter, filter)
-        } else {
-            baseFilter
-        }
-
-        return collection.countDocuments(finalFilter)
+    suspend fun count(filter: FilterQuery<T>.() -> Unit = {}): Long {
+        return collectionKT.count { filter(this) }
     }
 
     /**

@@ -7,9 +7,11 @@ import application.enums.EnumStatType
 import application.enums.EnumUserRoles
 import application.model.CounterEntry
 import application.model.Stat
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import config.MongoFactory.transactionExecute
 import extensions.printLog
-import features.characters.CharacterRepository
-import features.characters.CharacterTable
+import features.characterMongo.CharacterMongo
+import features.characterMongo.CharacterMongoRepository
 import features.equipment.EquipmentTable
 import features.items.ItemsCache
 import features.items.ItemsRepository
@@ -18,8 +20,8 @@ import features.property.PropertyCache
 import features.property.PropertyRepository
 import features.property.PropertyTable
 import features.stats.CharacterStatsTable
-import features.user.UserRepository
-import features.user.UsersTable
+import features.userMongo.UserMongo
+import features.userMongo.UserRepositoryMongo
 import org.jetbrains.exposed.v1.jdbc.insert
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
@@ -32,7 +34,7 @@ import org.jetbrains.exposed.v1.jdbc.transactions.transaction
  */
 object DatabaseSeeder {
 
-    fun seed() {
+    suspend fun seed() {
         printLog("Database seeding started")
 
         transaction {
@@ -43,9 +45,12 @@ object DatabaseSeeder {
         ItemsCache.refresh(ItemsRepository())
         PropertyCache.refresh(PropertyRepository())
 
+        transactionExecute { session ->
+            seedUsers(session)
+            seedCharacters(session)
+        }
+
         transaction {
-            seedUsers()
-            seedCharacters()
             seedEquipment()
             seedStats()
         }
@@ -54,66 +59,63 @@ object DatabaseSeeder {
 
     // ==================== Users ====================
 
-    private fun seedUsers() {
-        if (UsersTable.selectAll().count() > 0) return
+    private suspend fun seedUsers(session: ClientSession) {
+        if (UserRepositoryMongo.count() > 0) return
 
-        printLog("Seeding users...")
+        printLog("Seeding users... Count: ${UserRepositoryMongo.count()}")
 
-        UsersTable.insert {
-            it[name] = "Admin"
-            it[email] = "admin@game.com"
-            it[age] = 25
-            it[login] = "admin"
-            it[salt] = "${System.currentTimeMillis()}}"
-            it[password] = "pass1"
-            it[isActive] = true
-            it[role] = EnumUserRoles.ADMIN
-        }
+        val listItems = arrayListOf<UserMongo>()
+        listItems.add(UserMongo(
+            name = "Admin",
+            email = "admin@game.com",
+            age = 25,
+            login = "admin",
+            password = "P32543254",
+            role = EnumUserRoles.ADMIN
+        ))
+        listItems.add(UserMongo(
+            name = "TestPlayer",
+            email = "player@game.com",
+            age = 22,
+            password = "P123456",
+            login = "test1"
+        ))
 
-        UsersTable.insert {
-            it[name] = "TestPlayer"
-            it[email] = "player@game.com"
-            it[age] = 20
-            it[login] = "test1"
-            it[salt] = "${System.currentTimeMillis()}}"
-            it[password] = "pass1"
-            it[isActive] = true
-            it[role] = EnumUserRoles.USER
-        }
+        UserRepositoryMongo.insertMany(listItems, session)
 
-        printLog("  → 2 users created")
+        printLog("  → ${listItems.size} users created")
     }
 
     // ==================== Characters ====================
 
-    private fun seedCharacters() {
-        if (CharacterTable.selectAll().count() > 0) return
+    private suspend fun seedCharacters(session: ClientSession) {
+        if (CharacterMongoRepository.count() > 0) return
 
-        printLog("Seeding characters...")
-        val userRepoAll = UserRepository().findAll()
+        printLog("Seeding characters... Count: ${CharacterMongoRepository.count()}")
+        val userRepoAll = UserRepositoryMongo.findAll()
 
-        CharacterTable.insert {
-            it[name] = "Warrior"
-            it[description] = "Могучий воин"
-            it[userId] = userRepoAll.first().id
-            it[level] = 1
-            it[experience] = 0
-        }
-
-        CharacterTable.insert {
-            it[name] = "Mage"
-            it[description] = "Мудрый маг"
-            it[userId] = userRepoAll.last().id
-            it[level] = 5
-            it[experience] = 1200
-            it[params] = mutableSetOf(
+        val listItems = arrayListOf<CharacterMongo>()
+        listItems.add(CharacterMongo(
+            name = "Warrior",
+            description = "STRONG pipster",
+            userId = userRepoAll.first().getId(),
+        ))
+        listItems.add(CharacterMongo(
+            name = "Mage",
+            description = "Мудрый pipster",
+            userId = userRepoAll.last().getId(),
+            level = 5,
+            experience = 1200,
+            params = mutableSetOf(
                 Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK,80.0),
                 Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_STRENGTH), EnumStatType.STOCK,2.0),
                 Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INVENTORY_SIZE), EnumStatType.STOCK,15.0),
             )
-        }
+        ))
 
-        printLog("  → 2 characters created")
+        CharacterMongoRepository.insertMany(listItems, session)
+
+        printLog("  → ${listItems.size} characters created")
     }
 
     // ==================== Equipment ====================
@@ -122,7 +124,6 @@ object DatabaseSeeder {
         if (EquipmentTable.selectAll().count() > 0) return
 
         printLog("Seeding equipment...")
-        val characterRepository = CharacterRepository().findAll()
 
         EquipmentTable.insert {
             it[name] = "Стальной шлем"
@@ -130,7 +131,6 @@ object DatabaseSeeder {
             it[rarity] = EnumRarity.COMMON
             it[itemLevel] = 1
             it[enhanceLevel] = 0
-            it[characterId] = characterRepository.first().id
             it[equippedSlot] = EnumEquipmentType.HELMET
             it[stats] = mutableSetOf(
                 Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK,20.0),
@@ -145,7 +145,6 @@ object DatabaseSeeder {
             it[rarity] = EnumRarity.RARE
             it[itemLevel] = 5
             it[enhanceLevel] = 2
-            it[characterId] = characterRepository.last().id
             it[equippedSlot] = null
             it[stats] = mutableSetOf(
                 Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_HEALTH), EnumStatType.STOCK, 50.0),
@@ -164,7 +163,6 @@ object DatabaseSeeder {
             it[rarity] = EnumRarity.EPIC
             it[itemLevel] = 10
             it[enhanceLevel] = 0
-            it[characterId] = characterRepository.last().id
             it[equippedSlot] = EnumEquipmentType.RING
             it[stats] = mutableSetOf(
                 Stat(PropertyCache.getIdFromEnum(EnumStatHelper.STOCK_INTELLECT), EnumStatType.STOCK,15.0),
@@ -212,10 +210,10 @@ object DatabaseSeeder {
         if (CharacterStatsTable.selectAll().count() > 0) return
 
         printLog("Seeding stats...")
-        val characterRepo = CharacterRepository().findAll()
+//        val characterRepo = CharacterRepository().findAll()
 
         CharacterStatsTable.insert {
-            it[characterId] = characterRepo.first().id
+//            it[characterId] = characterRepo.first().id
             it[counters] = mutableSetOf(
                 CounterEntry(PropertyCache.getIdFromEnum(EnumStatHelper.HISTORY_KILLS), 4),
                 CounterEntry(PropertyCache.getIdFromEnum(EnumStatHelper.HISTORY_CRITICAL_HITS), 25),
@@ -223,7 +221,7 @@ object DatabaseSeeder {
         }
 
         CharacterStatsTable.insert {
-            it[characterId] = characterRepo.last().id
+//            it[characterId] = characterRepo.last().id
             it[counters] = mutableSetOf(
                 CounterEntry(PropertyCache.getIdFromEnum(EnumStatHelper.HISTORY_GOLD_GAINED), 5200),
             )

@@ -5,20 +5,13 @@ import base.exception.BadRequestException
 import base.exception.ConflictException
 import base.exception.NotFoundException
 import base.service.BaseService
-import features.characters.CharacterRepository
 
 class EquipmentService(
-    private val equipRepo: EquipmentRepository = EquipmentRepository(),
-    private val charRepo: CharacterRepository = CharacterRepository()
+    private val equipRepo: EquipmentRepository = EquipmentRepository()
 ) : BaseService<Equipment, EquipmentTable>(equipRepo, Equipment.serializer()) {
 
     override fun validateCreate(entity: Equipment) {
-        if (!charRepo.exists(entity.characterId)) {
-            throw NotFoundException("Character(id=${entity.characterId}) not found")
-        }
-        if (entity.equippedSlot == EnumEquipmentType.UNDEFINED) {
-            throw BadRequestException("Field 'equippedSlot' must be defined")
-        }
+
     }
 
     override fun validateUpdate(id: Long, entity: Equipment) {

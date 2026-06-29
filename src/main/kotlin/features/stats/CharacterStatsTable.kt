@@ -1,14 +1,11 @@
 package features.stats
 
-import application.enums.EnumStatType
 import application.model.CounterEntry
 import application.model.RecordEntry
 import base.annotations.Immutable
 import base.annotations.ReadOnly
-import base.annotations.Required
 import base.model.BaseEntity
 import base.table.BaseTable
-import features.characters.CharacterTable
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.v1.json.jsonb
@@ -25,7 +22,7 @@ import org.jetbrains.exposed.v1.json.jsonb
 object CharacterStatsTable : BaseTable("character_stats") {
 
     /** Владелец статистики (1:1 с character) */
-    val characterId = long("character_id").references(CharacterTable.id).uniqueIndex()
+//    val characterId = long("character_id").references(CharacterTable.id).uniqueIndex()
 
     /**
      * Счётчики: убийства, смерти, урон, золото и т.д.

@@ -5,14 +5,15 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import extensions.LocalDateTimeCodec
 import extensions.printLog
-import features.user.UserRepository
 import org.bson.codecs.configuration.CodecRegistries
-
-val repository_user = UserRepository()
 
 object MongoFactory {
     private val client: MongoClient = createMongoClient()
     val db = client.getDatabase("my_first_project")
+
+    fun initialize() {
+        db
+    }
 
     init {
         printLog("***** MongoDB Connected! *****")

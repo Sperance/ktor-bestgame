@@ -13,7 +13,7 @@ class CharacterStatsRepository : BaseRepository<CharacterStats, CharacterStatsTa
 
     fun findByCharacter(characterId: Long): CharacterStats? = transaction {
         table.selectAll()
-            .where { table.characterId eq characterId }
+//            .where { table.characterId eq characterId }
             .singleOrNull()
             ?.let(::toEntity)
     }

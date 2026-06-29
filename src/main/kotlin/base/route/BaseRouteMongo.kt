@@ -83,6 +83,8 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
                 repository.insertMany(entity, session)
             }.map { toResponse(it) }
            call.respond(apiResponseListSerializer, ApiMongoResponse.ok(created))
+        } catch (e: ExceptionForCode) {
+            throw e
         } catch (e: Exception) {
             throw ExceptionForCode(e.message, "BRM_CREATE_EXCEPTION")
         }
@@ -104,6 +106,8 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
             }?.let { toResponse(it) }
 
             call.respond(apiResponseSerializer, ApiMongoResponse.ok(updated, "Updated"))
+        } catch (e: ExceptionForCode) {
+            throw e
         } catch (e: Exception) {
             throw ExceptionForCode(e.message, "BRM_UPDATE_EXCEPTION")
         }
@@ -117,6 +121,8 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
             }
 
             call.respond(ApiMongoResponse.ok("Deleted"))
+        } catch (e: ExceptionForCode) {
+            throw e
         } catch (e: Exception) {
             throw ExceptionForCode(e.message, "BRM_DELETE_EXCEPTION")
         }
@@ -138,6 +144,8 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
             )
 
             call.respond(apiResponsePagedSerializer, ApiMongoResponse.ok(responseItems))
+        } catch (e: ExceptionForCode) {
+            throw e
         } catch (e: Exception) {
             throw ExceptionForCode(e.message, "BRM_PAGED_EXCEPTION")
         }
@@ -155,9 +163,21 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
     protected fun ApplicationCall.queryParam(name: String): String =
         request.queryParameters[name] ?: throw ExceptionForCode("Missing query parameter '$name'", "BRM_PARAM_MISSING")
 
-    @SuppressWarnings("UNCHECKED_CAST")
-    protected fun <E> ApplicationCall.queryParam(name: String, default: E): E =
-        (request.queryParameters[name] ?: default) as E
+    inline fun <reified E> ApplicationCall.queryParam(name: String, default: E): E {
+        val value = request.queryParameters[name]
+        return if (value != null) {
+            when (E::class) {
+                String::class -> value as E
+                Int::class -> value.toIntOrNull() as? E ?: default
+                Long::class -> value.toLongOrNull() as? E ?: default
+                Double::class -> value.toDoubleOrNull() as? E ?: default
+                Boolean::class -> value.toBooleanStrictOrNull() as? E ?: default
+                else -> default
+            }
+        } else {
+            default
+        }
+    }
 
     protected fun ApplicationCall.idParam(): String {
         val id = request.queryParameters["id"]
@@ -186,10 +206,10 @@ abstract class BaseRouteMongo<T : VersionedEntity, R>(
                     }
                 }
             }
-            is kotlinx.serialization.json.JsonArray -> {
+            is JsonArray -> {
                 element.map { jsonElementToNative(it) }
             }
-            is kotlinx.serialization.json.JsonObject -> {
+            is JsonObject -> {
                 element.mapValues { jsonElementToNative(it.value) }
             }
         }

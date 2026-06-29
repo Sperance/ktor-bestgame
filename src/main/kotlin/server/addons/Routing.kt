@@ -1,11 +1,10 @@
 package server.addons
 
-import features.characters.CharacterRoute
+import features.characterMongo.CharacterMongoRoute
 import features.equipment.EquipmentRoute
 import features.items.ItemsRoute
 import features.property.PropertyRoute
 import features.stats.CharacterStatsRoute
-import features.user.UserRoute
 import features.userMongo.UserMongoRoute
 import io.ktor.openapi.OpenApiInfo
 import io.ktor.server.application.*
@@ -16,14 +15,6 @@ import io.ktor.server.routing.routingRoot
 
 fun Application.configureRouting() {
     routing {
-        openAPI(path = "openapi") {
-            info = OpenApiInfo("Best Game API", "0.1.0")
-            source = OpenApiDocSource.Routing {
-                routingRoot.descendants()
-            }
-        }
-        UserRoute().register(this)
-        CharacterRoute().register(this)
         EquipmentRoute().register(this)
         CharacterStatsRoute().register(this)
         ItemsRoute().register(this)
@@ -32,5 +23,13 @@ fun Application.configureRouting() {
         /* MONGO */
 
         UserMongoRoute().register(this)
+        CharacterMongoRoute().register(this)
+
+        openAPI(path = "swagger") {
+            info = OpenApiInfo("My API", "1.0.1")
+            source = OpenApiDocSource.Routing {
+                routingRoot.descendants()
+            }
+        }
     }
 }

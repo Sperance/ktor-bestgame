@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
@@ -48,10 +50,8 @@ dependencies {
 
     implementation(libs.zaxxer.hikariCP)
     implementation(libs.postgresql.postgresql)
-
-    implementation("dev.opensavvy.ktmongo:driver-coroutines:0.30.0")
-//    implementation(libs.opensavvy.ktmongo)
-//    implementation(libs.ktmongo.serialization)
+    implementation(libs.opensavvy.ktmongo)
+    implementation(libs.swagger.annotations)
 
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)

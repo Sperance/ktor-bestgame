@@ -4,6 +4,7 @@ import application.enums.EnumUserRoles
 import extensions.ObjectIdSerializer
 import extensions.now
 import features.VersionedEntity
+import io.swagger.v3.oas.annotations.media.Schema
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.KSerializer
@@ -12,10 +13,6 @@ import org.bson.types.ObjectId
 
 @Serializable
 data class UserMongo(
-    @Serializable(with = ObjectIdSerializer::class)
-    override var _id: ObjectId = ObjectId(),
-    override var version: Long = 0,
-    override var deleted: Boolean = false,
     var name: String = "",
     var email: String = "",
     var login: String = "",
@@ -25,8 +22,13 @@ data class UserMongo(
     var isActive: Boolean = true,
     var role: EnumUserRoles = EnumUserRoles.USER,
     var lastLoginDate: LocalDateTime? = null,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
+
+    @Serializable(with = ObjectIdSerializer::class)
+    override var _id: ObjectId = ObjectId(),
+    override var version: Long = 0,
+    override var deleted: Boolean = false,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity()
 
 @Serializable

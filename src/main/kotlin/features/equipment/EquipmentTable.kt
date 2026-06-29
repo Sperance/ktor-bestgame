@@ -8,7 +8,6 @@ import base.annotations.ReadOnly
 import base.annotations.Required
 import base.model.BaseEntity
 import base.table.BaseTable
-import features.characters.CharacterTable
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.v1.json.jsonb
@@ -46,9 +45,6 @@ object EquipmentTable : BaseTable("equipment") {
 
     /** Уровень улучшения (+0, +1, +2...) */
     val enhanceLevel = integer("enhance_level").default(0)
-
-    /** Владелец — персонаж */
-    val characterId = long("character_id").references(CharacterTable.id)
 
     /**
      * В каком слоте надет. null = лежит в инвентаре (не экипирован).

@@ -1,33 +1,31 @@
 package features.userMongo
 
 import base.exception.ExceptionForCode
-import base.model.ApiResponse
-import config.MongoFactory
 import base.repository.BaseRepositoryMongo
 import base.repository.UniqueIndexConfig
+import com.mongodb.client.model.Filters
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
-import extensions.printLog
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.firstOrNull
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.time.LocalDateTime
 
-class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
-    database = MongoFactory.db,
+object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
     collectionName = "UserMongo",
     entityClass = UserMongo::class
 ) {
     init {
-        runBlocking {
-            initialize(
-                uniqueIndexes = listOf(
-                    UniqueIndexConfig(
-                        indexName = "idx_unique_email",
-                        fields = listOf("email")
-                    )
-                )
+        initialize(uniqueIndexes = listOf(
+            UniqueIndexConfig(
+                indexName = "idx_unique_email",
+                fields = listOf("email")
+            ),
+            UniqueIndexConfig(
+                indexName = "idx_unique_login",
+                fields = listOf("login")
             )
-        }
+        ))
     }
 
     override suspend fun validateBeforeInsert(entity: UserMongo) {
@@ -112,7 +110,7 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         }
     }
 
-    suspend fun authenticate(login: String, password: String): UserMongoResponse {
+    suspend fun authenticate(login: String, password: String): UserMongo {
         val credentials = findCredentialsByLogin(login)
             ?: throw ExceptionForCode("Invalid login or password", "UMR_AUTH_INVALID")
 
@@ -134,7 +132,7 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
 
         return transactionExecute("User authenticate") { session ->
             updateFields(user, mapOf("lastLoginDate" to LocalDateTime.now()), session)
-        }.toResponse()
+        }
     }
 
     /**

@@ -4,7 +4,6 @@ import application.model.CounterEntry
 import application.model.RecordEntry
 import base.exception.NotFoundException
 import base.service.BaseService
-import features.characters.CharacterRepository
 import kotlinx.serialization.builtins.SetSerializer
 import application.model.CompactCounterEntrySerializer
 import application.model.CompactRecordEntrySerializer
@@ -13,8 +12,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 
 class CharacterStatsService(
-    private val statsRepo: CharacterStatsRepository = CharacterStatsRepository(),
-    private val charRepo: CharacterRepository = CharacterRepository()
+    private val statsRepo: CharacterStatsRepository = CharacterStatsRepository()
 ) : BaseService<CharacterStats, CharacterStatsTable>(statsRepo, CharacterStats.serializer()) {
 
     // ==================== READ ====================
@@ -169,9 +167,9 @@ class CharacterStatsService(
     // ==================== INTERNAL ====================
 
     private fun createEmpty(characterId: Long): CharacterStats {
-        if (!charRepo.exists(characterId)) {
-            throw NotFoundException("Character(id=$characterId) not found")
-        }
+//        if (!charRepo.exists(characterId)) {
+//            throw NotFoundException("Character(id=$characterId) not found")
+//        }
         val json = JsonObject(mapOf(
             "characterId" to JsonPrimitive(characterId)
         ))

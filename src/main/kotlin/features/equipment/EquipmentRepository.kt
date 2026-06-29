@@ -20,7 +20,7 @@ class EquipmentRepository : BaseRepository<Equipment, EquipmentTable>(
     /** Весь инвентарь экипировки персонажа (и надетое, и в сумке) */
     fun findByCharacter(characterId: Long): List<Equipment> = transaction {
         table.selectAll()
-            .where { table.characterId eq characterId }
+//            .where { table.characterId eq characterId }
             .orderBy(table.id, SortOrder.ASC)
             .map(::toEntity)
     }
@@ -28,7 +28,7 @@ class EquipmentRepository : BaseRepository<Equipment, EquipmentTable>(
     /** Только то, что надето */
     fun findEquipped(characterId: Long): List<Equipment> = transaction {
         table.selectAll()
-            .where { (table.characterId eq characterId) and (table.equippedSlot.isNotNull()) }
+//            .where { (table.characterId eq characterId) and (table.equippedSlot.isNotNull()) }
             .orderBy(table.slot, SortOrder.ASC)
             .map(::toEntity)
     }
@@ -36,7 +36,7 @@ class EquipmentRepository : BaseRepository<Equipment, EquipmentTable>(
     /** Только то, что в сумке (не надето) */
     fun findInBag(characterId: Long): List<Equipment> = transaction {
         table.selectAll()
-            .where { (table.characterId eq characterId) and (table.equippedSlot.isNull()) }
+//            .where { (table.characterId eq characterId) and (table.equippedSlot.isNull()) }
             .orderBy(table.id, SortOrder.ASC)
             .map(::toEntity)
     }
@@ -44,7 +44,7 @@ class EquipmentRepository : BaseRepository<Equipment, EquipmentTable>(
     /** Что надето в конкретном слоте */
     fun findBySlot(characterId: Long, slot: EnumEquipmentType): Equipment? = transaction {
         table.selectAll()
-            .where { (table.characterId eq characterId) and (table.equippedSlot eq slot) }
+//            .where { (table.characterId eq characterId) and (table.equippedSlot eq slot) }
             .singleOrNull()
             ?.let(::toEntity)
     }

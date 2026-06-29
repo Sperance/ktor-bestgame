@@ -10,25 +10,21 @@ import server.addons.configureSecurity
 import server.addons.configureSerialization
 import config.DatabaseFactory
 import config.DatabaseSeeder
-import features.characters.CharacterTable
+import config.MongoFactory
 import features.equipment.EquipmentTable
 import features.items.ItemsTable
 import features.property.PropertyTable
 import features.stats.CharacterStatsTable
-import features.user.UsersTable
 import server.addons.configureStatusPages
 
 fun main() {
     printLog("Starting up")
 
     DatabaseFactory.init(tables = arrayOf(
-        UsersTable,
         CharacterStatsTable,
         EquipmentTable,
-        CharacterTable,
         ItemsTable,
         PropertyTable))
-    DatabaseSeeder.seed()
 
     embeddedServer(
         Netty,
@@ -43,11 +39,16 @@ fun main() {
         }).start(wait = true)
 }
 
-fun Application.configureModules() {
+private suspend fun Application.configureModules() {
     configureStatusPages()
     configureMonitoring()
     configureSerialization()
     configureSecurity()
     configureHTTP()
+
+    MongoFactory.initialize()
+
     configureRouting()
+
+    DatabaseSeeder.seed()
 }
