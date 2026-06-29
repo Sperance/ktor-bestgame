@@ -27,9 +27,7 @@ data class UserMongo(
     var lastLoginDate: LocalDateTime? = null,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
-) : VersionedEntity() {
-    fun id(): String = _id.toHexString()
-}
+) : VersionedEntity()
 
 @Serializable
 data class UserMongoResponse(
@@ -48,7 +46,7 @@ data class UserMongoResponse(
 
 // Функция-расширение для маппинга
 fun UserMongo.toResponse(): UserMongoResponse = UserMongoResponse(
-    id = id(),
+    id = getId(),
     name = name,
     email = email,
     login = login,

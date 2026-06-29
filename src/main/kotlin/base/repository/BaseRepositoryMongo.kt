@@ -159,16 +159,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * val result = repo.insert(UserMongo(email = "test@email.com", name = "Test", age = 25))
      * ```
      */
-    suspend fun insert(entity: T, session: ClientSession? = null): T {
+    suspend fun insert(entity: T, session: ClientSession): T {
         require(entity.version == 0L) { "Новый entity должен иметь version = 0" }
         validateBeforeInsert(entity)
 
         return try {
-            val result = if (session != null) {
-                collection.insertOne(session, entity)
-            } else {
-                collection.insertOne(entity)
-            }
+            val result = collection.insertOne(session, entity)
             if (!result.wasAcknowledged() || result.insertedId == null) {
                 throw ExceptionForCode("Invalid insertion attempt.", "BRM_INSERT_SET")
             }
@@ -190,23 +186,25 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param session Сессия транзакции
      * @return Результат массовой вставки
      */
-    suspend fun insertMany(entities: List<T>, session: ClientSession? = null): InsertManyResult {
+    suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
         entities.forEach {
             require(it.version == 0L) { "Новые entity должны иметь version = 0" }
             validateBeforeInsert(it)
         }
 
         return try {
-            val result = if (session != null) {
-                collection.insertMany(session, entities)
-            } else {
-                collection.insertMany(entities)
-            }
+            val result = collection.insertMany(session, entities)
             printLog("[ADDED_MANY::$collectionName] size: ${result.insertedIds.size}")
-            result.insertedIds.forEach { entry ->
-                printLog("\t[ADDED_MANY::$collectionName] ${entry.value} object: ${entities[entry.key]}")
+
+            // Присваиваем сгенерированные ID объектам
+            entities.forEachIndexed { index, entity ->
+                result.insertedIds[index]?.let { bsonValue ->
+                    entity._id = bsonValue.asObjectId().value
+                    printLog("\t[ADDED_MANY::$collectionName] ${entity._id} object: $entity")
+                }
             }
-            result
+
+            entities  // ← возвращаем список объектов с присвоенными ID
         } catch (e: MongoWriteException) {
             if (e.code == 11000) {
                 throw ExceptionForCode("Нарушение уникальности при массовой вставке", "BRM_INSERTMANY_DUPLICATE")
@@ -357,7 +355,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
     // ==================== UPDATE ОПЕРАЦИИ ====================
 
-    suspend fun update(entity: T, session: ClientSession? = null): UpdateResult {
+    suspend fun update(entity: T, session: ClientSession): UpdateResult {
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
@@ -374,11 +372,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             }.toTypedArray()
         )
 
-        val result = if (session != null) {
-            collection.updateOne(session, filter, update)
-        } else {
-            collection.updateOne(filter, update)
-        }
+        val result = collection.updateOne(session, filter, update)
 
         if (result.matchedCount == 0L) {
             val existing = findById(entity._id)
@@ -418,21 +412,25 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         updates: Map<String, Any?>,
         session: ClientSession
     ): T {
+        //Проверки Мапы новых полей
         validateBeforeUpdate(updates)
 
         val expectedVersion = entity.version
         val newVersion = expectedVersion + 1
 
+        //Фильтр для поиска нужного объекта по ID и version
         val filter = Filters.and(
             Filters.eq(CONST_FIELD_ID, entity._id),
             Filters.eq(CONST_FIELD_VERSION, expectedVersion)
         )
 
+        //Вручную указываем поля, которые нужно обновить
         val updatesList = mutableListOf<Bson>(
             Updates.set(CONST_FIELD_VERSION, newVersion),
             Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now())
         )
 
+        //Заполняем поля которые нужно изменять в конечном объекте
         updates.forEach { (field, value) ->
             if (field != CONST_FIELD_ID && field != CONST_FIELD_VERSION) {
                 updatesList.add(Updates.set(field, value))
@@ -444,7 +442,13 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             .returnDocument(ReturnDocument.AFTER)
 
         val update = Updates.combine(updatesList)
-        val result = collection.findOneAndUpdate(session, filter, update, options)
+        printLog("[UPDATE::$collectionName] id: ${entity._id}")
+
+        val result = try {
+            collection.findOneAndUpdate(session, filter, update, options)
+        } catch (e: Exception) {
+            throw ExceptionForCode(e.message, "BRM_UPDATEFIELDS_EXCEPTION")
+        }
 
         if (result == null) {
             throw ExceptionForCode("$collection UPDATING error not found", "BRM_UPDATEFIELDS_ERROR")
@@ -472,13 +476,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param session Сессия транзакции
      * @return Результат удаления
      */
-    suspend fun deleteById(id: ObjectId, session: ClientSession? = null): DeleteResult {
+    suspend fun deleteById(id: ObjectId, session: ClientSession): DeleteResult {
         printLog("[DELETE::$collectionName] id: $id")
-        val result = if (session != null) {
-            collection.deleteOne(session, Filters.eq(CONST_FIELD_ID, id))
-        } else {
-            collection.deleteOne(Filters.eq(CONST_FIELD_ID, id))
-        }
+        val result = collection.deleteOne(session, Filters.eq(CONST_FIELD_ID, id))
 
         // Проверяем, был ли удален документ
         if (result.deletedCount == 0L) {
@@ -489,30 +489,15 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         return result
     }
 
-    suspend fun deleteById(id: String, session: ClientSession? = null): DeleteResult {
+    suspend fun deleteById(id: String, session: ClientSession): DeleteResult {
         return deleteById(ObjectId(id), session)
     }
 
-    /**
-     * Удаление документа по сущности.
-     *
-     * @param entity Сущность для удаления
-     * @param session Сессия транзакции
-     * @return Результат удаления
-     */
-    suspend fun deleteById(entity: T, session: ClientSession? = null): DeleteResult {
-        printLog("[DELETE::$collectionName] id: ${entity._id} obj: $entity")
+    suspend fun deleteById(entity: T, session: ClientSession): DeleteResult {
         return deleteById(entity._id, session)
     }
 
-    /**
-     * Удаление документа с проверкой версии (безопасное удаление).
-     *
-     * @param entity Сущность с ID и версией для проверки
-     * @param session Сессия транзакции
-     * @return Результат удаления
-     */
-    suspend fun deleteWithVersion(entity: T?, session: ClientSession? = null): DeleteResult {
+    suspend fun deleteWithVersion(entity: T?, session: ClientSession): DeleteResult {
 
         if (entity == null) {
             throw ExceptionForCode("Сущность не найдена", "BRM_DELETEVERSION_NULL")
@@ -523,11 +508,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             Filters.eq(CONST_FIELD_VERSION, entity.version)
         )
 
-        val result = if (session != null) {
-            collection.deleteOne(session, filter)
-        } else {
-            collection.deleteOne(filter)
-        }
+        val result = collection.deleteOne(session, filter)
 
         if (result.deletedCount == 0L) {
             val existing = findById(entity._id)
@@ -546,22 +527,17 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param session Сессия транзакции
      * @return Результат обновления
      */
-    suspend fun softDelete(id: ObjectId, session: ClientSession? = null): UpdateResult {
+    suspend fun softDelete(id: ObjectId, session: ClientSession): UpdateResult {
         printLog("[SOFT_DELETE::$collectionName] id: $id")
         val filter = Filters.eq(CONST_FIELD_ID, id)
         val update = Updates.set(CONST_FIELD_DELETED, true)
-        return if (session != null) {
-            collection.updateOne(session, filter, update)
-        } else {
-            collection.updateOne(filter, update)
-        }
+        return collection.updateOne(session, filter, update)
     }
 
     /**
      * Мягкое удаление документа по сущности.
      */
-    suspend fun softDelete(entity: T, session: ClientSession? = null): UpdateResult {
-        printLog("[SOFT_DELETE::$collectionName] id: ${entity._id} obj: $entity")
+    suspend fun softDelete(entity: T, session: ClientSession): UpdateResult {
         return softDelete(entity._id, session)
     }
 
@@ -572,35 +548,26 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param session Сессия транзакции
      * @return Результат обновления
      */
-    suspend fun restore(id: ObjectId, session: ClientSession? = null): UpdateResult {
+    suspend fun restore(id: ObjectId, session: ClientSession): UpdateResult {
         printLog("[RESTORE::$collectionName] id: $id")
         val filter = Filters.eq(CONST_FIELD_ID, id)
         val update = Updates.set(CONST_FIELD_DELETED, false)
-        return if (session != null) {
-            collection.updateOne(session, filter, update)
-        } else {
-            collection.updateOne(filter, update)
-        }
+        return collection.updateOne(session, filter, update)
     }
 
     /**
      * Восстановление мягко удалённого документа по сущности.
      */
-    suspend fun restore(entity: T, session: ClientSession? = null): UpdateResult {
-        printLog("[RESTORE::$collectionName] id: ${entity._id} obj: $entity")
+    suspend fun restore(entity: T, session: ClientSession): UpdateResult {
         return restore(entity._id, session)
     }
 
     /**
      * Удаление всех документов в коллекции (безвозвратно!).
      */
-    suspend fun deleteAll(session: ClientSession? = null): DeleteResult {
+    suspend fun deleteAll(session: ClientSession): DeleteResult {
         printLog("[ALL_DELETE::$collectionName]")
-        return if (session != null) {
-            collection.deleteMany(session, Filters.empty())
-        } else {
-            collection.deleteMany(Filters.empty())
-        }
+        return collection.deleteMany(session, Filters.empty())
     }
 
     // ==================== BULK ОПЕРАЦИИ ====================
@@ -612,7 +579,7 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @param session Сессия транзакции
      * @return Результат массовой операции
      */
-    suspend fun bulkUpdate(entities: List<T>, session: ClientSession? = null): BulkWriteResult {
+    suspend fun bulkUpdate(entities: List<T>, session: ClientSession): BulkWriteResult {
         val requests = entities.map { entity ->
             val filter = Filters.and(
                 Filters.eq(CONST_FIELD_ID, entity._id),
@@ -627,28 +594,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             UpdateOneModel<T>(filter, update)
         }
 
-        return if (session != null) {
-            collection.bulkWrite(session, requests)
-        } else {
-            collection.bulkWrite(requests)
-        }
+        return collection.bulkWrite(session, requests)
     }
 
     // ==================== HELPER МЕТОДЫ ====================
 
-    /**
-     * Проверка существования документа по ID.
-     *
-     * @param id ID документа
-     * @param withDeleted Если true, проверяет все документы, включая мягко удалённые
-     * @param filter Дополнительный фильтр
-     * @return true если документ существует
-     */
-    suspend fun exists(
-        id: ObjectId,
-        withDeleted: Boolean = false,
-        filter: Bson? = null
-    ): Boolean {
+    suspend fun exists(id: ObjectId, withDeleted: Boolean = false, filter: Bson? = null): Boolean {
         val baseFilter = Filters.ne(CONST_FIELD_DELETED, withDeleted)
 
         val finalFilter = listOfNotNull(
@@ -669,32 +620,11 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /**
      * Проверка существования документа по сущности.
      */
-    suspend fun exists(
-        entity: T,
-        withDeleted: Boolean = false,
-        filter: Bson? = null
-    ): Boolean {
+    suspend fun exists(entity: T, withDeleted: Boolean = false, filter: Bson? = null): Boolean {
         return exists(entity._id, withDeleted, filter)
     }
 
-    /**
-     * Подсчёт количества документов в коллекции.
-     *
-     * @param withDeleted Если true, считает все документы
-     * @param filter Дополнительный фильтр
-     * @return Количество документов
-     *
-     * Пример:
-     * ```
-     * val total = repo.count()           // только активные
-     * val all = repo.count(true)         // все, включая удалённые
-     * val adults = repo.count(filter = Filters.gt("age", 18)) // активные старше 18
-     * ```
-     */
-    suspend fun count(
-        withDeleted: Boolean = false,
-        filter: Bson? = null
-    ): Long {
+    suspend fun count(withDeleted: Boolean = false, filter: Bson? = null): Long {
         val baseFilter = Filters.ne(CONST_FIELD_DELETED, withDeleted)
 
         val finalFilter = if (filter != null) {

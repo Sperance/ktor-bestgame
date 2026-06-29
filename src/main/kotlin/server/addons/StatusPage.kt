@@ -45,18 +45,6 @@ fun Application.configureStatusPages() {
             call.respond(status, ApiResponse.error(message, code = sqlEx?.errorCode?:405))
         }
 
-        // Обработка OptimisticLockException
-        exception<OptimisticLockException> { call, cause ->
-            call.respond(
-                status = HttpStatusCode.Forbidden,
-                message = ApiResponse.error(
-                    message = cause.message,
-                    errors = mapOf("version" to "Документ был изменен другим пользователем"),
-                    code = HttpStatusCode.Forbidden.value
-                )
-            )
-        }
-
         // Обработка NotFoundException (из вашего base.exception)
         exception<NotFoundException> { call, cause ->
             call.respond(

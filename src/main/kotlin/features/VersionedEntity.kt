@@ -8,4 +8,9 @@ abstract class VersionedEntity {
     abstract var _id: ObjectId
     abstract var version: Long
     abstract var deleted: Boolean
+
+    fun getId(): String = _id.toHexString()
+    fun setId(id: String) {
+        _id = ObjectId(id)
+    }
 }

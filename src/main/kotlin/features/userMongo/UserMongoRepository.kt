@@ -46,10 +46,7 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         changes["email"]?.let { email ->
             val emailStr = email as? String ?: ""
             if (emailStr.isNotEmpty() && !emailStr.contains("@")) {
-                throw ExceptionForCode(
-                    "Invalid e-mail: $emailStr",
-                    "UMR_VALIDATEUPDATE_EMAIL"
-                )
+                throw ExceptionForCode("Invalid e-mail: $emailStr", "UMR_VALIDATEUPDATE_EMAIL")
             }
         }
 
@@ -61,20 +58,14 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
                 else -> null
             }
             if (ageInt != null && ageInt !in 12..120) {
-                throw ExceptionForCode(
-                    "Invalid age: $ageInt",
-                    "UMR_VALIDATEUPDATE_AGE"
-                )
+                throw ExceptionForCode("Invalid age: $ageInt", "UMR_VALIDATEUPDATE_AGE")
             }
         }
 
         changes["password"]?.let { password ->
             val passwordStr = password as? String ?: ""
             if (passwordStr.isNotEmpty() && passwordStr.length < 6) {
-                throw ExceptionForCode(
-                    "Invalid password length: ${passwordStr.length}",
-                    "UMR_VALIDATEUPDATE_PASSWORD"
-                )
+                throw ExceptionForCode("Invalid password length: ${passwordStr.length}", "UMR_VALIDATEUPDATE_PASSWORD")
             }
         }
 
@@ -160,7 +151,7 @@ class UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
 
         if (result == null) return null
 
-        return Triple(result.id(), result.password, result.salt)
+        return Triple(result.getId(), result.password, result.salt)
     }
 
     suspend fun changePassword(id: String, password: String, newPassword: String): String {

@@ -11,8 +11,7 @@ data class ApiResponse<T>(
     val success: Boolean,
     val data: T? = null,
     val message: String? = null,
-    val code: String? = null,
-    val errors: Map<String, String>? = null
+    val code: String? = null
 ) {
     companion object {
 
@@ -25,11 +24,11 @@ data class ApiResponse<T>(
         fun message(text: String) =
             ApiResponse<Unit>(success = true, code = "202", message = text)
 
-        fun error(message: String, code: Int, errors: Map<String, String>? = null) =
-            ApiResponse<Unit>(success = false, message = message, code = code.toString(), errors = errors)
+        fun error(message: String?, code: Int) =
+            ApiResponse<Unit>(success = false, message = message, code = code.toString())
 
-        fun error(message: String, code: String, errors: Map<String, String>? = null) =
-            ApiResponse<Unit>(success = false, message = message, code = code, errors = errors)
+        fun error(message: String?, code: String) =
+            ApiResponse<Unit>(success = false, message = message, code = code)
     }
 }
 

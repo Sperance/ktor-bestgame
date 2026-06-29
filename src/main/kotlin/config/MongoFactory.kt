@@ -34,18 +34,18 @@ object MongoFactory {
 
     suspend fun <T> transactionExecute(transactionName: String = "", body: suspend (ClientSession) -> T): T {
         client.startSession().use { session ->
-            printLog("[TR::start] $transactionName ${session.hashCode()}")
+            printLog("[TR::start::${session.hashCode()}] $transactionName ")
             session.startTransaction()
             try {
                 val result = body(session)
                 if (session.hasActiveTransaction()) {
-                    printLog("[TR::commit] $transactionName ${session.hashCode()}")
+                    printLog("[TR::commit${session.hashCode()}] $transactionName ")
                     session.commitTransaction()
                 }
                 return result
             } catch (e: Exception) {
                 if (session.hasActiveTransaction()) {
-                    printLog("[TR::abort] $transactionName ${session.hashCode()}")
+                    printLog("[TR::abort${session.hashCode()}] $transactionName ")
                     session.abortTransaction()
                 }
                 throw e

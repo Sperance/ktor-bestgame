@@ -48,7 +48,7 @@ package base.exception
  * @see UnauthorizedException      Неудачная аутентификация (401)
  */
 sealed class AppException(
-    override val message: String,
+    override val message: String?,
     val httpCode: Int,
     val errorCode: String = ""
 ) : RuntimeException(message)
@@ -239,4 +239,4 @@ class OptimisticLockException(
  */
 class UnauthorizedException(message: String) : AppException(message, 401)
 
-class ExceptionForCode(message: String, code: String): AppException(message, 401, code)
+class ExceptionForCode(message: String?, code: String): AppException(message, 401, code)
