@@ -11,14 +11,6 @@ object MongoFactory {
     private val client: MongoClient = createMongoClient()
     val db = client.getDatabase("my_first_project")
 
-    fun initialize() {
-        db
-    }
-
-    init {
-        printLog("***** MongoDB Connected! *****")
-    }
-
     private fun createMongoClient(connectionString: String = "mongodb://localhost:27017/my_first_project"): MongoClient {
         val codecRegistry = CodecRegistries.fromRegistries(
             CodecRegistries.fromCodecs(LocalDateTimeCodec()),

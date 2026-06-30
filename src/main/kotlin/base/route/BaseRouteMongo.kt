@@ -6,12 +6,10 @@ import base.repository.BaseRepositoryMongo
 import config.MongoFactory.transactionExecute
 import extensions.CONST_SYSTEM_FIELDS
 import features.VersionedEntity
-import features.userMongo.UserMongo
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
-import io.ktor.server.request.receiveMultipart
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
@@ -29,7 +27,6 @@ import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import server.addons.AppJson
-import kotlin.reflect.typeOf
 import kotlin.text.toIntOrNull
 
 abstract class BaseRouteMongo<T : VersionedEntity, R>(

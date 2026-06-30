@@ -7,7 +7,6 @@ import application.enums.EnumStatType
 import application.enums.EnumUserRoles
 import application.model.CounterEntry
 import application.model.Stat
-import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.characterMongo.CharacterMongo
@@ -45,11 +44,8 @@ object DatabaseSeeder {
         ItemsCache.refresh(ItemsRepository())
         PropertyCache.refresh(PropertyRepository())
 
-        printLog("COUNT1: ${UserRepositoryMongo.count()} ${UserRepositoryMongo.findAll().size}")
         seedUsers()
-        printLog("COUNT2: ${UserRepositoryMongo.count()} ${UserRepositoryMongo.findAll().size}")
         seedCharacters()
-        printLog("COUNT3: ${UserRepositoryMongo.count()} ${UserRepositoryMongo.findAll().size}")
 
         transaction {
             seedEquipment()

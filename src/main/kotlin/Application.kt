@@ -39,15 +39,12 @@ fun main() {
         }).start(wait = true)
 }
 
-private suspend fun Application.configureModules() {
+suspend fun Application.configureModules() {
     configureStatusPages()
     configureMonitoring()
     configureSerialization()
     configureSecurity()
     configureHTTP()
-
-    MongoFactory.initialize()
-
     configureRouting()
 
     DatabaseSeeder.seed()

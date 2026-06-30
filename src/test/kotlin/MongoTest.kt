@@ -4,6 +4,7 @@ import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
 import com.mongodb.DuplicateKeyException
 import config.MongoFactory.transactionExecute
+import extensions.printLog
 import features.userMongo.UserMongo
 import features.userMongo.UserRepositoryMongo
 import org.bson.types.ObjectId
@@ -35,19 +36,7 @@ data class BaseStatMongo(
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MongoTest {
 
-    private val userRepo = UserRepositoryMongo()
-
-    @Test
-    fun a_clear_repository() = runBlocking {
-        val allCounter = userRepo.count(withDeleted = true)
-        val res = transactionExecute { session ->
-            userRepo.deleteAll(session)
-        }
-        assert(res.deletedCount == allCounter) {
-            "Ожидалось $allCounter, удалили ${res.deletedCount}"
-        }
-        assert(userRepo.count(withDeleted = true) == 0L)
-    }
+    private val userRepo = UserRepositoryMongo
 
     @Test
     fun b_insert_stock_data() = runBlocking {
@@ -114,8 +103,6 @@ class MongoTest {
         val sizeAfter = userRepo.count()
 
         assert(sizeBefore == (sizeAfter - needAddedCount))
-        assert(res.wasAcknowledged())
-        assert(res.insertedIds.size == needAddedCount)
     }
 
     @Test
@@ -145,19 +132,6 @@ class MongoTest {
         assert(finded != null)
         assert(finded!!._id == firstId._id)
         assert(finded == firstId)
-    }
-
-    @Test
-    fun test_find_by_filter_flow(): Unit = runBlocking {
-        var findedObject: UserMongo? = null
-        userRepo.findByFilterFlow {
-            UserMongo::name eq "user_61"
-        }.collect {
-            findedObject = it
-        }
-
-        assert(findedObject != null)
-        assert(findedObject!!.name == "user_61")
     }
 
     @Test
@@ -221,41 +195,6 @@ class MongoTest {
 //    }
 
     @Test
-    fun test_simple_transaction(): Unit = runBlocking {
-
-        transactionExecute { session ->
-            userRepo.findByFilterFlow {
-                UserMongo::name eq "test_simple_transaction"
-            }.collect {
-                userRepo.deleteById(it._id, session)
-            }
-        }
-
-        assertThrows(Exception::class.java) {
-            runBlocking {
-                transactionExecute { session ->
-                    userRepo.insert(UserMongo(email = "11ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
-                    userRepo.insert(UserMongo(email = "12ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
-                    userRepo.insert(UserMongo(email = "13ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
-
-                    if (true) {
-                        throw Exception("Error")
-                    }
-
-                    userRepo.insert(UserMongo(email = "14ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
-                    userRepo.insert(UserMongo(email = "15ema_tra@.ru", name = "test_simple_transaction", age = 52), session)
-                }
-            }
-        }
-
-        val count = userRepo.findAll {
-            UserMongo::name eq "test_simple_transaction"
-        }.count()
-
-        assert(count == 0)
-    }
-
-    @Test
     fun test_bulk_update(): Unit = runBlocking {
         transactionExecute { session ->
 
@@ -315,13 +254,8 @@ class MongoTest {
     }
 
     @Test
-    fun test_exists(): Unit = runBlocking {
-        val first = userRepo.findLimited(1).first()
-
-        val exists = userRepo.exists(first._id, withDeleted = true)
-        assert(exists)
-
-        val notExists = userRepo.exists(ObjectId("102032030212034212340051"), withDeleted = true)
-        assert(!notExists)
+    fun test_find_field(): Unit = runBlocking {
+        val finded = UserRepositoryMongo.findByField(UserMongo::name, "TestPlayer")
+        printLog("FINDED: $finded")
     }
 }

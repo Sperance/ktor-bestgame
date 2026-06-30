@@ -1,13 +1,10 @@
 package features.userMongo
 
 import application.enums.EnumUserRoles
-import extensions.ObjectIdSerializer
 import extensions.now
 import features.VersionedEntity
-import io.swagger.v3.oas.annotations.media.Schema
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Contextual
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -25,7 +22,7 @@ data class UserMongo(
 
     var countCharacters: Int = 0,
 
-    @Serializable(with = ObjectIdSerializer::class)
+    @Contextual
     override var _id: ObjectId = ObjectId(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

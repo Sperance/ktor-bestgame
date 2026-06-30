@@ -8,11 +8,9 @@ import com.mongodb.bulk.BulkWriteResult
 import com.mongodb.client.model.*
 import com.mongodb.client.model.changestream.ChangeStreamDocument
 import com.mongodb.client.result.DeleteResult
-import com.mongodb.client.result.InsertManyResult
 import com.mongodb.client.result.UpdateResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
-import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import config.MongoFactory
 import extensions.CONST_FIELD_DELETED
 import extensions.CONST_FIELD_ID
@@ -28,18 +26,11 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.serializer
-import opensavvy.ktmongo.coroutines.JvmMongoCollection
-import opensavvy.ktmongo.coroutines.asKtMongo
-import opensavvy.ktmongo.dsl.query.FilterQuery
 import org.bson.conversions.Bson
 import org.bson.types.ObjectId
-import server.addons.AppJson
 import kotlin.reflect.KClass
-import kotlin.reflect.KMutableProperty
+import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.full.memberProperties
-import kotlin.reflect.full.starProjectedType
 
 /**
  * Конфигурация уникального индекса.
@@ -67,10 +58,9 @@ data class UniqueIndexConfig(
  * @param collectionName Имя коллекции в MongoDB
  * @param entityClass KClass сущности для рефлексии
  */
-abstract class BaseRepositoryMongo<T : VersionedEntity>(
-    val collectionName: String,
-    private val entityClass: KClass<T>
-) {
+abstract class BaseRepositoryMongo<T : VersionedEntity>(private val entityClass: KClass<T>) {
+
+    private val collectionName = entityClass.simpleName!!
 
     // ==================== ПОЛЯ ====================
 
@@ -296,21 +286,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         return collection.find(filter)
     }
 
-    /**
-     * Поиск одного документа по type-safe DSL-фильтру.
-     *
-     * @param filter DSL-фильтр
-     * @return Первый найденный документ или null
-     *
-     * Пример:
-     * ```
-     * val user = repo.findOneByFilter {
-     *     UserMongo::email eq "test@email.com"
-     * }
-     * ```
-     */
-    suspend fun findOneByFilter(filter: Bson): T? {
-        return collection.find(filter).firstOrNull()
+    suspend fun <S> findByField(field: KMutableProperty1<T, S>, value: S): T? {
+        return collection.find(Filters.eq(field.name, value)).firstOrNull()
+    }
+
+    suspend fun <S> findByFieldList(field: KMutableProperty1<T, S>, value: S): List<T> {
+        return collection.find(Filters.eq(field.name, value)).toList()
     }
 
     suspend fun findByFilter(filter: Bson): List<T> {
@@ -551,14 +532,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun restore(entity: T, session: ClientSession): UpdateResult {
         return restore(entity._id, session)
-    }
-
-    /**
-     * Удаление всех документов в коллекции (безвозвратно!).
-     */
-    suspend fun deleteAll(session: ClientSession): DeleteResult {
-        printLog("[ALL_DELETE::$collectionName]")
-        return collection.deleteMany(session, Filters.empty())
     }
 
     // ==================== BULK ОПЕРАЦИИ ====================

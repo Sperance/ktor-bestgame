@@ -5,20 +5,28 @@ import application.enums.EnumStatType
 import application.model.Stat
 import base.exception.ExceptionForCode
 import base.repository.BaseRepositoryMongo
+import base.repository.UniqueIndexConfig
+import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import extensions.CONST_USER_MAX_CHARACTERS
 import features.property.PropertyCache
 import features.userMongo.UserRepositoryMongo
 
 object CharacterMongoRepository : BaseRepositoryMongo<CharacterMongo>(
-    collectionName = "CharacterMongo",
     entityClass = CharacterMongo::class
 ) {
     init {
-        initialize()
+        initialize(uniqueIndexes = listOf(
+            UniqueIndexConfig(
+                indexName = "idx_unique_name",
+                fields = listOf("name")
+            )
+        ))
     }
 
     override suspend fun validateBeforeInsert(entity: CharacterMongo) {
+        if (entity.name.isEmpty()) throw ExceptionForCode("Нужно указать имя для нового персонажа", "CMR_VALIDINSERT_NAME")
+        if (findByField(CharacterMongo::name, entity.name) != null) throw ExceptionForCode("Персонаж с указанным именем существует", "CMR_VALIDATEINSERT_DUPLICATE")
         val findedUser = UserRepositoryMongo.findById(entity.userId)
         if (findedUser == null) throw ExceptionForCode("Не найден пользователь с ID ${entity.userId}", "CMR_VALIDATEINSERT_USER")
         if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw ExceptionForCode("У пользователя уже есть максимальное количество персонажей", "CMR_VALIDATEINSERT_MAX_CHARACTERS")

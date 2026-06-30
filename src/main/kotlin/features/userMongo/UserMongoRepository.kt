@@ -6,14 +6,13 @@ import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
+import features.characterMongo.CharacterMongo
 import features.characterMongo.CharacterMongoRepository
-import kotlinx.coroutines.flow.firstOrNull
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.time.LocalDateTime
 
 object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
-    collectionName = "UserMongo",
     entityClass = UserMongo::class
 ) {
     init {
@@ -73,7 +72,7 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
     }
 
     override suspend fun validateAfterDelete(entity: UserMongo, session: ClientSession, softDelete: Boolean) {
-        val characters = CharacterMongoRepository.findByFilter(Filters.eq("userId", entity.getId()))
+        val characters = CharacterMongoRepository.findByFieldList(CharacterMongo::userId, entity.getId())
         characters.forEach { char ->
             if (softDelete) {
                 CharacterMongoRepository.softDelete(char, session)
@@ -99,19 +98,19 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
     /**********/
 
     suspend fun findByEmail(email: String): UserMongo? {
-        return findOneByFilter(Filters.eq("email", email))
+        return findByField(UserMongo::email, email)
     }
 
     suspend fun searchByName(name: String): List<UserMongo> {
-        return findByFilter(Filters.eq("name", name))
+        return findByFieldList(UserMongo::name, name)
     }
 
     suspend fun findActive(): List<UserMongo> {
-        return findByFilter(Filters.eq("isActive", true))
+        return findByFieldList(UserMongo::isActive, true)
     }
 
     suspend fun findByLogin(login: String): UserMongo? {
-        return findOneByFilter(Filters.eq("login", login))
+        return findByField(UserMongo::login, login)
     }
 
     suspend fun authenticate(login: String, password: String): UserMongo {
