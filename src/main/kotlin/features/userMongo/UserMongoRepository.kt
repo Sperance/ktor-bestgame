@@ -6,6 +6,7 @@ import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
+import features.characterMongo.CharacterMongoRepository
 import kotlinx.coroutines.flow.firstOrNull
 import java.security.MessageDigest
 import java.security.SecureRandom
@@ -71,6 +72,17 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
             throw ExceptionForCode("Field 'salt' has blocked to modify", "UMR_VALIDATEINSERT_SALT")
     }
 
+    override suspend fun validateAfterDelete(entity: UserMongo, session: ClientSession, softDelete: Boolean) {
+        val characters = CharacterMongoRepository.findByFilter(Filters.eq("userId", entity.getId()))
+        characters.forEach { char ->
+            if (softDelete) {
+                CharacterMongoRepository.softDelete(char, session)
+            } else {
+                CharacterMongoRepository.deleteById(char, session)
+            }
+        }
+    }
+
     private fun generatePassword(entity: UserMongo) {
         entity.salt = generateSalt()
         entity.password = hashPassword(entity.password, entity.salt)
@@ -87,27 +99,19 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
     /**********/
 
     suspend fun findByEmail(email: String): UserMongo? {
-        return findOneByFilter {
-            UserMongo::email eq email
-        }
+        return findOneByFilter(Filters.eq("email", email))
     }
 
     suspend fun searchByName(name: String): List<UserMongo> {
-        return findByFilter {
-            UserMongo::name eq name
-        }
+        return findByFilter(Filters.eq("name", name))
     }
 
     suspend fun findActive(): List<UserMongo> {
-        return findByFilter {
-            UserMongo::isActive eq true
-        }
+        return findByFilter(Filters.eq("isActive", true))
     }
 
     suspend fun findByLogin(login: String): UserMongo? {
-        return findOneByFilter {
-            UserMongo::login eq login
-        }
+        return findOneByFilter(Filters.eq("login", login))
     }
 
     suspend fun authenticate(login: String, password: String): UserMongo {
@@ -143,9 +147,7 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
      */
     suspend fun findCredentialsByLogin(login: String): Triple<String, String, String>? {
 
-        val result = findOneByFilter {
-            UserMongo::login eq login
-        }
+        val result = findByLogin(login)
 
         if (result == null) return null
 

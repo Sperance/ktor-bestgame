@@ -23,6 +23,8 @@ data class UserMongo(
     var role: EnumUserRoles = EnumUserRoles.USER,
     var lastLoginDate: LocalDateTime? = null,
 
+    var countCharacters: Int = 0,
+
     @Serializable(with = ObjectIdSerializer::class)
     override var _id: ObjectId = ObjectId(),
     override var version: Long = 0,
@@ -42,6 +44,7 @@ data class UserMongoResponse(
     val isActive: Boolean,
     val role: EnumUserRoles,
     val lastLoginDate: LocalDateTime?,
+    var countCharacters: Int,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )
@@ -58,5 +61,6 @@ fun UserMongo.toResponse(): UserMongoResponse = UserMongoResponse(
     lastLoginDate = lastLoginDate,
     createdAt = createdAt,
     updatedAt = updatedAt,
-    version = version
+    version = version,
+    countCharacters = countCharacters
 )

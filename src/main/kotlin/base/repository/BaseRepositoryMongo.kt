@@ -77,10 +77,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     /** Коллекция официального драйвера MongoDB для низкоуровневых операций */
     lateinit var collection: MongoCollection<T>
 
-    /** Type-safe обёртка KtMongo для DSL-запросов. Создаётся при каждом обращении */
-    private val collectionKT: JvmMongoCollection<T>
-        get() = collection.asKtMongo(documentType = entityClass.starProjectedType)
-
     // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
     /**
@@ -172,6 +168,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             }
             printLog("[ADDED::$collectionName] ${result.insertedId} object: $entity")
             entity._id = result.insertedId!!.asObjectId().value
+
+            validateAfterInsert(entity, session)
+
             entity
         } catch (e: MongoWriteException) {
             if (e.code == 11000) {
@@ -202,6 +201,9 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
             entities.forEachIndexed { index, entity ->
                 result.insertedIds[index]?.let { bsonValue ->
                     entity._id = bsonValue.asObjectId().value
+
+                    validateAfterInsert(entity, session)
+
                     printLog("\t[ADDED_MANY::$collectionName] ${entity._id} object: $entity")
                 }
             }
@@ -259,24 +261,6 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     }
 
     /**
-     * Поиск всех документов с type-safe DSL фильтром.
-     *
-     * @param filter DSL-фильтр в стиле KtMongo
-     * @return Список найденных документов
-     *
-     * Пример:
-     * ```
-     * val users = repo.findAll {
-     *     UserMongo::age gt 18
-     *     UserMongo::deleted ne true
-     * }
-     * ```
-     */
-    suspend fun findAll(filter: FilterQuery<T>.() -> Unit): List<T> {
-        return collectionKT.find(filter = filter).toList()
-    }
-
-    /**
      * Поиск документов с пагинацией.
      *
      * @param limit Максимальное количество документов
@@ -308,8 +292,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      *     .collect { user -> println(user) }
      * ```
      */
-    fun findByFilterFlow(filter: FilterQuery<T>.() -> Unit): Flow<T> {
-        return collectionKT.find { filter(this) }.asFlow()
+    fun findByFilterFlow(filter: Bson): Flow<T> {
+        return collection.find(filter)
     }
 
     /**
@@ -325,12 +309,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * }
      * ```
      */
-    suspend fun findOneByFilter(filter: FilterQuery<T>.() -> Unit): T? {
-        return collectionKT.find { filter(this) }.firstOrNull()
+    suspend fun findOneByFilter(filter: Bson): T? {
+        return collection.find(filter).firstOrNull()
     }
 
-    suspend fun findByFilter(filter: FilterQuery<T>.() -> Unit): List<T> {
-        return collectionKT.find { filter(this) }.toList()
+    suspend fun findByFilter(filter: Bson): List<T> {
+        return collection.find(filter).toList()
     }
 
     /**
@@ -479,16 +463,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      * @return Результат удаления
      */
     suspend fun deleteById(id: ObjectId, session: ClientSession): DeleteResult {
-        printLog("[DELETE::$collectionName] id: $id")
-        val result = collection.deleteOne(session, Filters.eq(CONST_FIELD_ID, id))
-
-        // Проверяем, был ли удален документ
-        if (result.deletedCount == 0L) {
-            throw ExceptionForCode("Документ с id '$id' не найден в коллекции '$collectionName'", "BRM_DELETEID_NOTEXIST")
+        val findedObj = findById(id)
+        if (findedObj == null) {
+            throw ExceptionForCode("Не найден объект с id $id", "BRM_DELETE_NOTFOUND")
         }
 
-        printLog("[DELETE::$collectionName] deletedCount: ${result.deletedCount}")
-        return result
+        return deleteWithVersion(findedObj, session)
     }
 
     suspend fun deleteById(id: String, session: ClientSession): DeleteResult {
@@ -496,11 +476,12 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
     }
 
     suspend fun deleteById(entity: T, session: ClientSession): DeleteResult {
-        return deleteById(entity._id, session)
+        return  deleteWithVersion(entity, session)
     }
 
     suspend fun deleteWithVersion(entity: T?, session: ClientSession): DeleteResult {
 
+        printLog("[DELETE::$collectionName] id: ${entity?._id}")
         if (entity == null) {
             throw ExceptionForCode("Сущность не найдена", "BRM_DELETEVERSION_NULL")
         }
@@ -511,6 +492,8 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
         )
 
         val result = collection.deleteOne(session, filter)
+
+        validateAfterDelete(entity, session, false)
 
         if (result.deletedCount == 0L) {
             val existing = findById(entity._id)
@@ -531,9 +514,15 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
      */
     suspend fun softDelete(id: ObjectId, session: ClientSession): UpdateResult {
         printLog("[SOFT_DELETE::$collectionName] id: $id")
+        val findedObj = findById(id)
+        if (findedObj == null) {
+            throw ExceptionForCode("Не найден документ для удаления с id $id", "BRM_SOFTDEL_NOTFOUND")
+        }
         val filter = Filters.eq(CONST_FIELD_ID, id)
         val update = Updates.set(CONST_FIELD_DELETED, true)
-        return collection.updateOne(session, filter, update)
+        val result = collection.updateOne(session, filter, update)
+        validateAfterDelete(findedObj, session, true)
+        return result
     }
 
     /**
@@ -601,46 +590,22 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
     // ==================== HELPER МЕТОДЫ ====================
 
-    suspend fun exists(id: ObjectId, withDeleted: Boolean = false, filter: Bson? = null): Boolean {
-        val baseFilter = Filters.ne(CONST_FIELD_DELETED, withDeleted)
+    suspend fun exists(id: String, withDeleted: Boolean = false): Boolean {
+        return try {
+            val objectId = ObjectId(id)
+            val filter = Filters.and(
+                Filters.eq("_id", objectId),
+                Filters.eq("deleted", withDeleted)
+            )
 
-        val finalFilter = listOfNotNull(
-            Filters.eq(CONST_FIELD_ID, id),
-            baseFilter,
-            filter
-        )
-
-        val combinedFilter = if (finalFilter.size == 1) {
-            finalFilter.first()
-        } else {
-            Filters.and(*finalFilter.toTypedArray())
+            collection.find(filter).firstOrNull() != null
+        } catch (e: ExceptionForCode) {
+            throw e
         }
-
-        return collection.countDocuments(combinedFilter) > 0
     }
 
-    /**
-     * Проверка существования документа по сущности.
-     */
-    suspend fun exists(entity: T, withDeleted: Boolean = false, filter: Bson? = null): Boolean {
-        return exists(entity._id, withDeleted, filter)
-    }
-
-    suspend fun exists(id: String, withDeleted: Boolean = false, filter: Bson? = null): Boolean {
-        return exists(ObjectId(id), withDeleted, filter)
-    }
-
-    suspend fun count(filter: FilterQuery<T>.() -> Unit = {}): Long {
-        return collectionKT.count { filter(this) }
-    }
-
-    /**
-     * Проверка существования документа по ID с использованием count.
-     * @deprecated Используйте exists()
-     */
-    @Deprecated("Используйте exists()")
-    suspend fun existsById(id: ObjectId): Boolean {
-        return exists(id)
+    suspend fun count(filter: Bson = Filters.empty()): Long {
+        return collection.countDocuments(filter)
     }
 
     suspend fun findPaged(page: Int, pageSize: Int = 20): PagedResponse<T> {
@@ -681,5 +646,13 @@ abstract class BaseRepositoryMongo<T : VersionedEntity>(
 
     protected open suspend fun validateBeforeUpdate(changes: Map<String, Any?>) {
         // Базовая реализация — ничего не проверяем
+    }
+
+    protected open suspend fun validateAfterInsert(entity: T, session: ClientSession) {
+
+    }
+
+    protected open suspend fun validateAfterDelete(entity: T, session: ClientSession, softDelete: Boolean) {
+
     }
 }

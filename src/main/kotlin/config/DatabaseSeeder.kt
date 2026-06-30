@@ -45,10 +45,11 @@ object DatabaseSeeder {
         ItemsCache.refresh(ItemsRepository())
         PropertyCache.refresh(PropertyRepository())
 
-        transactionExecute { session ->
-            seedUsers(session)
-            seedCharacters(session)
-        }
+        printLog("COUNT1: ${UserRepositoryMongo.count()} ${UserRepositoryMongo.findAll().size}")
+        seedUsers()
+        printLog("COUNT2: ${UserRepositoryMongo.count()} ${UserRepositoryMongo.findAll().size}")
+        seedCharacters()
+        printLog("COUNT3: ${UserRepositoryMongo.count()} ${UserRepositoryMongo.findAll().size}")
 
         transaction {
             seedEquipment()
@@ -59,10 +60,10 @@ object DatabaseSeeder {
 
     // ==================== Users ====================
 
-    private suspend fun seedUsers(session: ClientSession) {
+    private suspend fun seedUsers() {
         if (UserRepositoryMongo.count() > 0) return
 
-        printLog("Seeding users... Count: ${UserRepositoryMongo.count()}")
+        printLog("Seeding users...")
 
         val listItems = arrayListOf<UserMongo>()
         listItems.add(UserMongo(
@@ -81,17 +82,19 @@ object DatabaseSeeder {
             login = "test1"
         ))
 
-        UserRepositoryMongo.insertMany(listItems, session)
+        transactionExecute { session ->
+            UserRepositoryMongo.insertMany(listItems, session)
+        }
 
         printLog("  → ${listItems.size} users created")
     }
 
     // ==================== Characters ====================
 
-    private suspend fun seedCharacters(session: ClientSession) {
+    private suspend fun seedCharacters() {
         if (CharacterMongoRepository.count() > 0) return
 
-        printLog("Seeding characters... Count: ${CharacterMongoRepository.count()}")
+        printLog("Seeding characters...")
         val userRepoAll = UserRepositoryMongo.findAll()
 
         val listItems = arrayListOf<CharacterMongo>()
@@ -113,7 +116,9 @@ object DatabaseSeeder {
             )
         ))
 
-        CharacterMongoRepository.insertMany(listItems, session)
+        transactionExecute { session ->
+            CharacterMongoRepository.insertMany(listItems, session)
+        }
 
         printLog("  → ${listItems.size} characters created")
     }
