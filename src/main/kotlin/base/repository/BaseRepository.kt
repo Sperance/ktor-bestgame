@@ -1,495 +1,631 @@
 package base.repository
 
-import base.exception.BadRequestException
-import base.exception.NotFoundException
-import base.exception.OptimisticLockException
-import base.model.BaseEntity
-import base.reflection.ReflectiveMapper
-import base.table.BaseTable
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.longOrNull
-import org.jetbrains.exposed.v1.core.ResultRow
-import org.jetbrains.exposed.v1.core.SortOrder
-import org.jetbrains.exposed.v1.core.and
-import org.jetbrains.exposed.v1.core.eq
-import org.jetbrains.exposed.v1.core.statements.UpdateStatement
-import org.jetbrains.exposed.v1.jdbc.deleteAll
-import org.jetbrains.exposed.v1.jdbc.deleteWhere
-import org.jetbrains.exposed.v1.jdbc.insert
-import org.jetbrains.exposed.v1.jdbc.selectAll
-import org.jetbrains.exposed.v1.jdbc.transactions.transaction
-import org.jetbrains.exposed.v1.jdbc.update
-import org.slf4j.LoggerFactory
-import java.time.LocalDateTime
+import base.exception.ExceptionForCode
+import base.route.PagedMongoResponse
+import com.mongodb.MongoWriteException
+import com.mongodb.ReadConcern
+import com.mongodb.bulk.BulkWriteResult
+import com.mongodb.client.model.*
+import com.mongodb.client.model.changestream.ChangeStreamDocument
+import com.mongodb.client.result.DeleteResult
+import com.mongodb.client.result.UpdateResult
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import com.mongodb.kotlin.client.coroutine.MongoCollection
+import config.MongoFactory
+import extensions.CONST_FIELD_DELETED
+import extensions.CONST_FIELD_ID
+import extensions.CONST_FIELD_UPDATED
+import extensions.CONST_FIELD_VERSION
+import extensions.CONST_SYSTEM_FIELDS
+import extensions.now
+import extensions.printLog
+import base.entity.VersionedEntity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.LocalDateTime
+import org.bson.conversions.Bson
+import org.bson.types.ObjectId
 import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.full.memberProperties
 
 /**
- * Абстрактный базовый репозиторий, предоставляющий стандартный CRUD-функционал с поддержкой оптимистичной блокировки.
- *
- * **Основная идея:** Унифицированный доступ к данным для всех сущностей проекта.
- * Репозиторий работает напрямую с сырым `JsonObject` от клиента, что исключает необходимость
- * создавать отдельные DTO-классы (CreateRequest, UpdateRequest) для каждой сущности.
- *
- * **Ключевые особенности:**
- * - Полная поддержка оптимистичной блокировки через поле `version`
- * - Автоматическая установка `createdAt` и `updatedAt` при создании/обновлении
- * - Сквозная работа с JSON от клиента до БД
- * - Рефлексивный маппинг через `ReflectiveMapper`
- * - Безопасная работа с транзакциями Exposed
- *
- * **Требования к сущностям:**
- * - Должны наследоваться от `BaseEntity` (содержит поля id, version, createdAt, updatedAt)
- * - Должны иметь primary-конструктор с параметрами, соответствующими колонкам таблицы
- *
- * **Требования к таблицам:**
- * - Должны наследоваться от `BaseTable` (содержит колонки id, version, createdAt, updatedAt)
- * - Должны определять связь с сущностью через generic-параметр
- *
- * @param E Тип сущности (наследник `BaseEntity`)
- * @param T Тип таблицы (наследник `BaseTable`)
- * @property table Экземпляр таблицы базы данных (например, `UsersTable`)
- * @property entityClass KClass сущности (например, `User::class`)
- *
- * @author ORM Team
- * @since 1.0
- * @see BaseEntity
- * @see BaseTable
- * @see ReflectiveMapper
- * @see OptimisticLockException
+ * Конфигурация уникального индекса.
+ * @property indexName Уникальное имя индекса
+ * @property fields Список полей для индексации
+ * @property sparse Если true, индексирует только документы, содержащие указанные поля
  */
-abstract class BaseRepository<E : BaseEntity, T : BaseTable>(
-    protected val table: T,
-    protected val entityClass: KClass<E>
-) {
+data class UniqueIndexConfig(
+    val indexName: String,
+    val fields: List<String>,
+    val sparse: Boolean = false
+)
 
-    private val log = LoggerFactory.getLogger(this::class.java)
+/**
+ * Базовый репозиторий для работы с MongoDB.
+ * Предоставляет CRUD операции с поддержкой:
+ * - Уникальных индексов
+ * - Оптимистичной блокировки через поле version
+ * - Мягкого удаления через поле deleted
+ * - Транзакций через ClientSession
+ * - Type-safe DSL через KtMongo
+ * - Change streams для реактивного программирования
+ *
+ * @param T Тип сущности, должен наследовать VersionedEntity
+ * @param collectionName Имя коллекции в MongoDB
+ * @param entityClass KClass сущности для рефлексии
+ */
+abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KClass<T>) {
+
+    private val collectionName = entityClass.simpleName!!
+
+    // ==================== ПОЛЯ ====================
+
+    /** Коллекция официального драйвера MongoDB для низкоуровневых операций */
+    lateinit var collection: MongoCollection<T>
+
+    // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
     /**
-     * Имя сущности для логирования и сообщений об ошибках.
-     * По умолчанию используется простое имя класса.
-     * Может быть переопределено в наследниках для кастомизации.
-     */
-    protected open val entityName: String = entityClass.simpleName ?: "Entity"
-
-    // ==================== Row → Entity ====================
-
-    /**
-     * Преобразует строку результата SQL-запроса в экземпляр сущности.
+     * Инициализирует репозиторий: создаёт коллекцию и индексы.
+     * Должен быть вызван перед использованием репозитория.
      *
-     * **Зачем переопределять:** Если требуется специальная логика маппинга
-     * (например, трансформация вложенных объектов или агрегатов).
+     * @param uniqueIndexes Список уникальных индексов для создания
      *
-     * **Стандартное поведение:** Делегирует работу `ReflectiveMapper`.
-     *
-     * @param row Строка результата из Exposed
-     * @return Созданный экземпляр сущности
-     *
-     * @sample
-     * ```kotlin
-     * override fun toEntity(row: ResultRow): User {
-     *     val user = super.toEntity(row)
-     *     user.roles = loadRoles(user.id)
-     *     return user
-     * }
+     * Пример:
      * ```
-     */
-    protected open fun toEntity(row: ResultRow): E =
-        ReflectiveMapper.toEntity(entityClass, table, row)
-
-    /**
-     * Хук: подготовка сущности перед отправкой клиенту.
-     *
-     * Вызывается после `toEntity` во всех методах чтения (findAll, findById, findPaged, create, update).
-     * Позволяет очистить секретные поля, дополнить вычисляемые данные и т.д.
-     *
-     * По умолчанию возвращает сущность без изменений.
-     *
-     * ```kotlin
-     * override fun beforeResponse(entity: User) = entity.copy(
-     *     password = "",
-     *     salt = ""
+     * repo.initialize(
+     *     uniqueIndexes = listOf(
+     *         UniqueIndexConfig("unique_email", listOf("email"))
+     *     )
      * )
      * ```
-     *
-     * @param entity Сущность, полученная из БД
-     * @return Сущность, готовая для отправки клиенту
      */
-    protected open fun beforeResponse(entity: E): E = entity
-
-    /**
-     * Внутренний метод: toEntity + beforeResponse.
-     * Используется во всех местах, где результат уходит клиенту.
-     * Доступен наследникам для кастомных запросов.
-     */
-    protected fun toResponseEntity(row: ResultRow): E =
-        beforeResponse(toEntity(row))
-
-    // ==================== READ ====================
-
-    /**
-     * Возвращает все записи из таблицы, отсортированные по id по возрастанию.
-     *
-     * **Производительность:** При большом количестве записей может быть проблематично.
-     * Для production-сценариев рекомендуется использовать пагинацию (`findPaged`).
-     *
-     * @return Список всех сущностей (может быть пустым)
-     *
-     * @sample
-     * ```kotlin
-     * val allUsers = userRepository.findAll()
-     * ```
-     */
-    open fun findAll(): List<E> = transaction {
-        table.selectAll()
-            .orderBy(table.id, SortOrder.ASC)
-            .map(::toResponseEntity)
+    fun initialize(uniqueIndexes: List<UniqueIndexConfig> = emptyList()) {
+        collection = MongoFactory.db.getCollection(collectionName, entityClass.java)
+        runBlocking {
+            setupUniqueIndexes(uniqueIndexes)
+            setupVersionIndex()
+        }
     }
 
     /**
-     * Находит сущность по её первичному ключу.
-     *
-     * @param id Идентификатор сущности (первичный ключ)
-     * @return Сущность или `null`, если не найдена
-     *
-     * @sample
-     * ```kotlin
-     * val user = userRepository.findById(1) ?: throw NotFoundException("User not found")
-     * ```
+     * Создаёт уникальные индексы для указанных полей.
+     * Если индекс уже существует, сообщает об этом и продолжает работу.
      */
-    open fun findById(id: Long): E? = transaction {
-        table.selectAll()
-            .where { table.id eq id }
-            .singleOrNull()
-            ?.let(::toResponseEntity)
-    }
+    private suspend fun setupUniqueIndexes(indexes: List<UniqueIndexConfig>) {
+        indexes.forEach { config ->
+            try {
+                val indexOptions = IndexOptions()
+                    .unique(true)
+                    .name(config.indexName)
+                    .apply {
+                        if (config.sparse) sparse(true)
+                    }
 
-    /**
-     * Возвращает страницу записей с поддержкой пагинации.
-     *
-     * **Важно:** Страницы нумеруются с 0 (ноль — первая страница).
-     *
-     * @param page Номер страницы (начиная с 0)
-     * @param pageSize Количество записей на странице
-     * @return Список сущностей на запрошенной странице
-     *
-     * @sample
-     * ```kotlin
-     * // Первые 20 записей
-     * val firstPage = repository.findPaged(0, 20)
-     *
-     * // Вторая страница (записи 21-40)
-     * val secondPage = repository.findPaged(1, 20)
-     * ```
-     */
-    open fun findPaged(page: Int, pageSize: Int): List<E> = transaction {
-        table.selectAll()
-            .orderBy(table.id, SortOrder.ASC)
-            .limit(pageSize)
-            .offset(page.toLong() * pageSize)
-            .map(::toResponseEntity)
-    }
-
-    /**
-     * Возвращает общее количество записей в таблице.
-     *
-     * @return Количество строк
-     *
-     * @sample
-     * ```kotlin
-     * val totalUsers = userRepository.count()
-     * ```
-     */
-    open fun count(): Long = transaction { table.selectAll().count() }
-
-    /**
-     * Проверяет существование записи с указанным ID.
-     *
-     * @param id Идентификатор для проверки
-     * @return `true` если запись существует, иначе `false`
-     */
-    open fun exists(id: Long): Boolean = transaction {
-        table.selectAll().where { table.id eq id }.count() > 0
-    }
-
-    // ==================== CREATE ====================
-
-    /**
-     * Создаёт новую запись в БД на основе JSON-данных от клиента.
-     *
-     * **Процесс создания:**
-     * 1. Логирует входящий JSON
-     * 2. Заполняет INSERT-оператор через `ReflectiveMapper.insertFromJson`
-     * 3. Автоматически устанавливает:
-     *    - `version = 1` (начальная версия для оптимистичной блокировки)
-     *    - `createdAt = текущее время`
-     *    - `updatedAt = текущее время`
-     * 4. Выполняет вставку и получает сгенерированный ID
-     * 5. Загружает и возвращает созданную сущность
-     *
-     * **Обработка ошибок:**
-     * - `BadRequestException` — если отсутствуют обязательные поля
-     * - Другие исключения от `ReflectiveMapper` и Exposed
-     *
-     * @param json JSON-объект с данными для создания (должен содержать все required-поля)
-     * @return Созданная сущность (с заполненными id, version, createdAt, updatedAt)
-     *
-     * @throws BadRequestException При валидационных ошибках
-     *
-     * @sample
-     * ```kotlin
-     * val json = JsonObject(mapOf(
-     *     "name" to JsonPrimitive("John Doe"),
-     *     "email" to JsonPrimitive("john@example.com")
-     * ))
-     * val newUser = userRepository.create(json)
-     * println("Created user with id: ${newUser.id}")
-     * ```
-     */
-    open fun create(json: JsonObject): E = transaction {
-        log.debug("Creating {} from JSON: {}", entityName, json)
-
-        val insertedId = table.insert { stmt ->
-            ReflectiveMapper.insertFromJson(stmt, table, json, entityClass)
-            stmt[table.version] = 1L
-            stmt[table.createdAt] = LocalDateTime.now()
-            stmt[table.updatedAt] = LocalDateTime.now()
-        } get table.id
-
-        findById(insertedId)!!
-    }
-
-    // ==================== UPDATE (Optimistic Locking) ====================
-
-    /**
-     * Обновляет существующую запись с использованием оптимистичной блокировки.
-     *
-     * **Алгоритм работы с оптимистичной блокировкой:**
-     * 1. Извлекает поле `version` из JSON-объекта
-     * 2. Формирует UPDATE-запрос с условием: `id = :id AND version = :expectedVersion`
-     * 3. Выполняет обновление через `ReflectiveMapper.updateFromJson`
-     * 4. Инкрементирует версию: `newVersion = oldVersion + 1`
-     * 5. Обновляет поле `updatedAt`
-     * 6. Если затронуто 0 строк — проверяет причину:
-     *    - Запись не существует → `NotFoundException`
-     *    - Версия не совпадает → `OptimisticLockException`
-     *
-     * **Важно:** Клиент **обязан** передавать текущую версию сущности в JSON.
-     * Без этого обновление невозможно (выбрасывается `BadRequestException`).
-     *
-     * **Требования к JSON:**
-     * - Поле `version` — обязательно (Long)
-     * - Остальные поля — опциональны (partial update)
-     *
-     * @param id Идентификатор обновляемой сущности
-     * @param json JSON-объект с полями для обновления (должен содержать `version`)
-     * @return Обновлённая сущность (с новой версией и updatedAt)
-     *
-     * @throws BadRequestException Если отсутствует или некорректно поле `version`
-     * @throws NotFoundException Если сущность с указанным id не существует
-     * @throws OptimisticLockException Если версия не совпадает (конкурентное обновление)
-     *
-     * @sample
-     * ```kotlin
-     * // Клиент получил сущность с version=1, меняет email
-     * val json = JsonObject(mapOf(
-     *     "version" to JsonPrimitive(1),
-     *     "email" to JsonPrimitive("new@example.com")
-     * ))
-     * val updatedUser = userRepository.update(1, json)
-     * // Теперь version=2
-     * ```
-     */
-    open fun update(id: Long, json: JsonObject): E {
-        var expectedVersion: Long = -1
-
-        val updatedRows = transaction {
-            table.update({
-                // Сначала парсим version из json внутри update-лямбды
-                // Но нам нужен version до построения WHERE... Делаем в два шага:
-                expectedVersion = extractVersion(json)
-                (table.id eq id) and (table.version eq expectedVersion)
-            }) { stmt ->
-                ReflectiveMapper.updateFromJson(stmt, table, json, entityClass)
-                stmt[table.version] = expectedVersion + 1
-                stmt[table.updatedAt] = LocalDateTime.now()
+                val indexName = collection.createIndex(
+                    Indexes.ascending(*config.fields.toTypedArray()),
+                    indexOptions
+                )
+                printLog("✅ Уникальный индекс создан: $indexName на полях ${config.fields}")
+            } catch (e: MongoWriteException) {
+                if (e.code == 85) { // IndexAlreadyExists
+                    printLog("ℹ️ Индекс ${config.indexName} уже существует")
+                } else {
+                    throw e
+                }
             }
         }
-
-        if (updatedRows == 0) {
-            throwLockOrNotFound(id, expectedVersion)
-        }
-
-        log.debug("Updated $entityName(id=$id): version $expectedVersion → ${expectedVersion + 1}")
-        return findById(id)!!
     }
 
-    // ==================== DELETE ====================
+    /**
+     * Создаёт индекс для поля version для ускорения проверок при обновлении.
+     */
+    private suspend fun setupVersionIndex() {
+        try {
+            collection.createIndex(Indexes.ascending(CONST_FIELD_VERSION))
+        } catch (e: Exception) {
+            // Индекс уже существует - игнорируем
+        }
+    }
+
+    // ==================== CREATE ОПЕРАЦИИ ====================
 
     /**
-     * Удаляет запись по идентификатору (без проверки версии).
+     * Вставляет один документ в коллекцию.
      *
-     * **Когда использовать:** Когда оптимистичная блокировка не требуется
-     * или вы уверены, что запись не изменится во время удаления.
+     * @param entity Сущность для вставки
+     * @param session Сессия транзакции (опционально)
+     * @return Результат вставки с информацией об insertedId
+     * @throws IllegalArgumentException Если version != 0
      *
-     * **Безопасность:** Операция всегда успешна, даже если запись уже удалена
-     * (просто вернёт `false`).
+     * Пример:
+     * ```
+     * val result = repo.insert(UserMongo(email = "test@email.com", name = "Test", age = 25))
+     * ```
+     */
+    suspend fun insert(entity: T, session: ClientSession): T {
+        require(entity.version == 0L) { "Новый entity должен иметь version = 0" }
+        validateBeforeInsert(entity)
+
+        return try {
+            val result = collection.insertOne(session, entity)
+            if (!result.wasAcknowledged() || result.insertedId == null) {
+                throw ExceptionForCode("Invalid insertion attempt.", "BRM_INSERT_SET")
+            }
+            printLog("[ADDED::$collectionName] ${result.insertedId} object: $entity")
+            entity._id = result.insertedId!!.asObjectId().value
+
+            validateAfterInsert(entity, session)
+
+            entity
+        } catch (e: MongoWriteException) {
+            if (e.code == 11000) {
+                throw ExceptionForCode("Нарушение уникальности при вставке: ${e.message}", "BRM_INSERT_UNIQUE")
+            }
+            throw e
+        }
+    }
+
+    /**
+     * Вставляет несколько документов в коллекцию атомарно.
      *
-     * @param id Идентификатор удаляемой записи
-     * @return `true` если запись была удалена, `false` если не существовала
+     * @param entities Список сущностей для вставки
+     * @param session Сессия транзакции
+     * @return Результат массовой вставки
+     */
+    suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
+        entities.forEach {
+            require(it.version == 0L) { "Новые entity должны иметь version = 0" }
+            validateBeforeInsert(it)
+        }
+
+        return try {
+            val result = collection.insertMany(session, entities)
+            printLog("[ADDED_MANY::$collectionName] size: ${result.insertedIds.size}")
+
+            // Присваиваем сгенерированные ID объектам
+            entities.forEachIndexed { index, entity ->
+                result.insertedIds[index]?.let { bsonValue ->
+                    entity._id = bsonValue.asObjectId().value
+
+                    validateAfterInsert(entity, session)
+
+                    printLog("\t[ADDED_MANY::$collectionName] ${entity._id} object: $entity")
+                }
+            }
+
+            entities  // ← возвращаем список объектов с присвоенными ID
+        } catch (e: MongoWriteException) {
+            if (e.code == 11000) {
+                throw ExceptionForCode("Нарушение уникальности при массовой вставке", "BRM_INSERTMANY_DUPLICATE")
+            }
+            throw e
+        }
+    }
+
+    // ==================== READ ОПЕРАЦИИ ====================
+
+    /**
+     * Поиск документа по ID.
+     * Использует readConcern LOCAL (быстро, но может вернуть неподтверждённые данные).
+     * Подходит для обычных чтений, где не критична абсолютная свежесть.
      *
-     * @sample
-     * ```kotlin
-     * if (userRepository.delete(1)) {
-     *     println("User deleted")
+     * @param id ID документа
+     * @return Найденный документ или null
+     */
+    suspend fun findById(id: ObjectId): T? {
+        return collection.find(Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
+    }
+
+    open suspend fun findById(id: String): T? {
+        return findById(ObjectId(id))
+    }
+
+    /**
+     * Поиск документа по ID с readConcern MAJORITY.
+     * Возвращает данные, подтверждённые большинством узлов реплика-сета.
+     * Используйте перед операциями обновления для гарантии консистентности.
+     *
+     * @param id ID документа
+     * @return Найденный документ или null
+     */
+    suspend fun findByIdForUpdate(id: ObjectId): T? {
+        return collection
+            .withReadConcern(ReadConcern.MAJORITY)
+            .find(Filters.eq(CONST_FIELD_ID, id))
+            .firstOrNull()
+    }
+
+    /**
+     * Возвращает все документы коллекции.
+     * Для больших коллекций рекомендуется использовать findByFilterFlow().
+     *
+     * @return Список всех документов
+     */
+    suspend fun findAll(): List<T> {
+        return collection.find().toList()
+    }
+
+    /**
+     * Поиск документов с пагинацией.
+     *
+     * @param limit Максимальное количество документов
+     * @param skip Количество пропускаемых документов
+     * @return Список найденных документов
+     *
+     * Пример:
+     * ```
+     * val firstPage = repo.findLimited(10)      // первые 10
+     * val secondPage = repo.findLimited(10, 10) // следующие 10
+     * ```
+     */
+    suspend fun findLimited(limit: Int, skip: Int = 0): List<T> {
+        return collection.find()
+            .skip(skip)
+            .limit(limit)
+            .toList()
+    }
+
+    /**
+     * Поиск с фильтром в виде Flow для реактивной обработки.
+     *
+     * @param filter DSL-фильтр
+     * @return Flow найденных документов
+     *
+     * Пример:
+     * ```
+     * repo.findByFilterFlow { UserMongo::age gt 18 }
+     *     .collect { user -> println(user) }
+     * ```
+     */
+    fun findByFilterFlow(filter: Bson): Flow<T> {
+        return collection.find(filter)
+    }
+
+    suspend fun <S> findByField(field: KMutableProperty1<T, S>, value: S): T? {
+        return collection.find(Filters.eq(field.name, value)).firstOrNull()
+    }
+
+    suspend fun <S> findByFieldList(field: KMutableProperty1<T, S>, value: S): List<T> {
+        return collection.find(Filters.eq(field.name, value)).toList()
+    }
+
+    suspend fun findByFilter(filter: Bson): List<T> {
+        return collection.find(filter).toList()
+    }
+
+    /**
+     * Поток изменений в коллекции (Change Stream).
+     * Позволяет отслеживать все изменения (INSERT, UPDATE, DELETE) в реальном времени.
+     * Требует, чтобы MongoDB был запущен как реплика-сет.
+     *
+     * @return Flow событий изменений
+     *
+     * Пример:
+     * ```
+     * repo.watchAll().collect { change ->
+     *     when (change.operationType) {
+     *         OperationType.INSERT -> println("Добавлен: ${change.fullDocument}")
+     *         OperationType.UPDATE -> println("Обновлён: ${change.documentKey}")
+     *         OperationType.DELETE -> println("Удалён: ${change.documentKey}")
+     *     }
      * }
      * ```
      */
-    open fun delete(id: Long): Boolean = transaction {
-        table.deleteWhere { table.id eq id } > 0
+    fun watchAll(): Flow<ChangeStreamDocument<T>> {
+        return collection.watch().mapNotNull { it }
     }
 
-    /**
-     * Удаляет запись с проверкой версии (оптимистичная блокировка).
-     *
-     * **Алгоритм:**
-     * - Удаляет запись с условием `id = :id AND version = :expectedVersion`
-     * - Если затронуто 0 строк — проверяет причину конфликта
-     *
-     * **Когда использовать:** Когда важно убедиться, что вы удаляете именно ту версию,
-     * которую получили клиентом (предотвращает случайное удаление после чужих изменений).
-     *
-     * @param id Идентификатор удаляемой записи
-     * @param expectedVersion Ожидаемая версия записи
-     * @return `true` если запись удалена (всегда, если не выброшено исключение)
-     * @throws NotFoundException Если запись не существует
-     * @throws OptimisticLockException Если версия не совпадает
-     *
-     * @sample
-     * ```kotlin
-     * // Клиент получил версию 2, хочет удалить
-     * userRepository.deleteWithVersion(1, 2)
-     * ```
-     */
-    open fun deleteWithVersion(id: Long, expectedVersion: Long): Boolean {
-        val deleted = transaction {
-            table.deleteWhere {
-                (table.id eq id) and (table.version eq expectedVersion)
-            }
-        }
-        if (deleted == 0) throwLockOrNotFound(id, expectedVersion)
-        return true
-    }
+    // ==================== UPDATE ОПЕРАЦИИ ====================
 
-    /**
-     * Удаляет **все** записи из таблицы.
-     *
-     * **⚠️ ОПАСНО:** Эта операция необратима и удаляет все данные.
-     * Использовать только в тестах или административных скриптах!
-     *
-     * @return Количество удалённых записей
-     *
-     * @sample
-     * ```kotlin
-     * // Только для тестов!
-     * val deletedCount = repository.deleteAll()
-     * ```
-     */
-    open fun deleteAll(): Int = transaction { table.deleteAll() }
+    suspend fun update(entity: T, session: ClientSession): UpdateResult {
+        val expectedVersion = entity.version
+        val newVersion = expectedVersion + 1
 
-    /**
-     * Универсальное обновление произвольных полей с оптимистичной блокировкой.
-     *
-     * В отличие от [update], не требует JSON от клиента — принимает типобезопасную
-     * лямбду-билдер, в которой можно ссылаться на любые колонки таблицы напрямую.
-     *
-     * **Что делает автоматически:**
-     * - Проверяет `version` (WHERE id = :id AND version = :expectedVersion)
-     * - Инкрементирует `version` на +1
-     * - Обновляет `updatedAt = now()`
-     * - Бросает NotFoundException / OptimisticLockException при нуле затронутых строк
-     *
-     * **Когда использовать:** серверная бизнес-логика, где клиентский JSON неуместен
-     * (отметка последнего логина, смена статуса, инкремент счётчика, и т.п.).
-     *
-     * @param id Идентификатор обновляемой сущности
-     * @param expectedVersion Ожидаемая текущая версия записи
-     * @param block Лямбда, в которой устанавливаются значения нужных колонок.
-     *              `this` = UpdateStatement, параметр = таблица.
-     * @return Обновлённая сущность (прогнанная через beforeResponse)
-     *
-     * @throws NotFoundException если записи с таким id нет
-     * @throws OptimisticLockException если версия не совпала
-     *
-     * @sample
-     * ```kotlin
-     * // В UserService:
-     * repo.updateFields(userId, user.version) { t ->
-     *     this[t.lastLoginDate] = LocalDateTime.now()
-     * }
-     *
-     * // Смена нескольких полей:
-     * repo.updateFields(orderId, order.version) { t ->
-     *     this[t.status] = OrderStatus.PAID
-     *     this[t.paidAt] = LocalDateTime.now()
-     * }
-     * ```
-     */
-    open fun updateFields(
-        id: Long,
-        expectedVersion: Long,
-        block: UpdateStatement.(T) -> Unit
-    ): E {
-        val updated = transaction {
-            table.update({
-                (table.id eq id) and (table.version eq expectedVersion)
-            }) { stmt ->
-                // 1. Пользовательские поля
-                stmt.block(table)
-                // 2. Служебные — всегда последними, чтобы их нельзя было перетереть
-                stmt[table.version] = expectedVersion + 1
-                stmt[table.updatedAt] = LocalDateTime.now()
+        val filter = Filters.and(
+            Filters.eq(CONST_FIELD_ID, entity._id),
+            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
+        )
+
+        val update = Updates.combine(
+            Updates.set(CONST_FIELD_VERSION, newVersion),
+            Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now()),
+            *getUpdateFields(entity).map { (field, value) ->
+                Updates.set(field, value)
+            }.toTypedArray()
+        )
+
+        val result = collection.updateOne(session, filter, update)
+
+        if (result.matchedCount == 0L) {
+            val existing = findById(entity._id)
+            if (existing == null) {
+                throw ExceptionForCode("Документ с id=${entity._id} не найден", "BRM_UPDATE_NOT_FOUND")
+            } else {
+                throw ExceptionForCode("Race condition при обновлении. Ожидалась версия $expectedVersion, текущая ${existing.version}", "BRM_UPDATE_OPTIMISTIC_LOCK")
             }
         }
 
-        if (updated == 0) {
-            throwLockOrNotFound(id, expectedVersion)
+        if (result.wasAcknowledged() && result.modifiedCount > 0) {
+            entity.version = newVersion
         }
 
-        log.debug("Updated $entityName(id=$id) fields: version $expectedVersion → ${expectedVersion + 1}")
-        return findById(id)!!
-    }
-
-    // ==================== Internal ====================
-
-    /**
-     * Извлекает и валидирует поле `version` из JSON-объекта.
-     *
-     * @param json JSON от клиента
-     * @return Значение версии как Long
-     * @throws BadRequestException Если поле отсутствует или не является числом
-     */
-    private fun extractVersion(json: JsonObject): Long {
-        val element = json["version"]
-            ?: throw BadRequestException("'version' is required for update")
-        return element.jsonPrimitive.longOrNull
-            ?: throw BadRequestException("'version' must be a number")
+        return result
     }
 
     /**
-     * Определяет причину неудачного обновления/удаления и выбрасывает соответствующее исключение.
+     * Частичное обновление документа с оптимистичной блокировкой.
+     * Обновляет только указанные поля.
      *
-     * **Логика:**
-     * - Если запись с указанным id не существует → `NotFoundException`
-     * - Если существует, но версия не совпала → `OptimisticLockException`
+     * @param entity Сущность с ID и версией для проверки
+     * @param updates Map полей и новых значений
+     * @param session Сессия транзакции
+     * @return Результат обновления
      *
-     * @param id Идентификатор сущности
-     * @param expectedVersion Ожидаемая версия
-     * @throws NotFoundException Если сущность не найдена
-     * @throws OptimisticLockException Если найдена, но с другой версией
+     * Пример:
+     * ```
+     * repo.updateFields(
+     *     entity = user,
+     *     updates = mapOf("name" to "New Name", "age" to 30)
+     * )
+     * ```
      */
-    private fun throwLockOrNotFound(id: Long, expectedVersion: Long): Nothing {
-        if (!exists(id)) throw NotFoundException("$entityName(id=$id) not found")
-        throw OptimisticLockException(entityName, id, expectedVersion)
+    suspend fun updateFields(
+        entity: T,
+        updates: Map<String, Any?>,
+        session: ClientSession
+    ): T {
+        //Проверки Мапы новых полей
+        validateBeforeUpdate(updates)
+
+        val expectedVersion = entity.version
+        val newVersion = expectedVersion + 1
+
+        //Фильтр для поиска нужного объекта по ID и version
+        val filter = Filters.and(
+            Filters.eq(CONST_FIELD_ID, entity._id),
+            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
+        )
+
+        //Вручную указываем поля, которые нужно обновить
+        val updatesList = mutableListOf<Bson>(
+            Updates.set(CONST_FIELD_VERSION, newVersion),
+            Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now())
+        )
+
+        //Заполняем поля которые нужно изменять в конечном объекте
+        updates.forEach { (field, value) ->
+            if (field != CONST_FIELD_ID && field != CONST_FIELD_VERSION) {
+                updatesList.add(Updates.set(field, value))
+            }
+        }
+
+        // Добавляем опцию для возврата ОБНОВЛЕННОГО документа
+        val options = FindOneAndUpdateOptions()
+            .returnDocument(ReturnDocument.AFTER)
+
+        val update = Updates.combine(updatesList)
+        printLog("[UPDATE::$collectionName] id: ${entity._id}")
+
+        val result = try {
+            collection.findOneAndUpdate(session, filter, update, options)
+        } catch (e: Exception) {
+            throw ExceptionForCode(e.message, "BRM_UPDATEFIELDS_EXCEPTION")
+        }
+
+        if (result == null) {
+            throw ExceptionForCode("$collection UPDATING error not found", "BRM_UPDATEFIELDS_ERROR")
+        }
+
+        return result
+    }
+
+    // В BaseServiceMongo
+    open suspend fun updateFields(
+        id: String,
+        fields: Map<String, Any?>,
+        session: ClientSession
+    ): T? {
+        val entity = findById(id) ?: throw ExceptionForCode("Entity not found", "BRM_UPDATEFIELDS_NULL")
+        return updateFields(entity, fields, session)
+    }
+
+    // ==================== DELETE ОПЕРАЦИИ ====================
+
+    /**
+     * Удаление документа по ID.
+     *
+     * @param id ID документа
+     * @param session Сессия транзакции
+     * @return Результат удаления
+     */
+    suspend fun deleteById(id: ObjectId, session: ClientSession): DeleteResult {
+        val findedObj = findById(id)
+        if (findedObj == null) {
+            throw ExceptionForCode("Не найден объект с id $id", "BRM_DELETE_NOTFOUND")
+        }
+
+        return deleteWithVersion(findedObj, session)
+    }
+
+    suspend fun deleteById(id: String, session: ClientSession): DeleteResult {
+        return deleteById(ObjectId(id), session)
+    }
+
+    suspend fun deleteById(entity: T, session: ClientSession): DeleteResult {
+        return  deleteWithVersion(entity, session)
+    }
+
+    suspend fun deleteWithVersion(entity: T?, session: ClientSession): DeleteResult {
+
+        printLog("[DELETE::$collectionName] id: ${entity?._id}")
+        if (entity == null) {
+            throw ExceptionForCode("Сущность не найдена", "BRM_DELETEVERSION_NULL")
+        }
+
+        val filter = Filters.and(
+            Filters.eq(CONST_FIELD_ID, entity._id),
+            Filters.eq(CONST_FIELD_VERSION, entity.version)
+        )
+
+        val result = collection.deleteOne(session, filter)
+
+        validateAfterDelete(entity, session, false)
+
+        if (result.deletedCount == 0L) {
+            val existing = findById(entity._id)
+            if (existing != null) {
+                throw ExceptionForCode("Документ был изменён перед удалением. Версия ${existing.version} != ${entity.version}", "BRM_DELETEVERSION_NOT_FOUND")
+            }
+        }
+
+        return result
+    }
+
+    /**
+     * Мягкое удаление документа (устанавливает поле deleted = true).
+     *
+     * @param id ID документа
+     * @param session Сессия транзакции
+     * @return Результат обновления
+     */
+    suspend fun softDelete(id: ObjectId, session: ClientSession): UpdateResult {
+        printLog("[SOFT_DELETE::$collectionName] id: $id")
+        val findedObj = findById(id)
+        if (findedObj == null) {
+            throw ExceptionForCode("Не найден документ для удаления с id $id", "BRM_SOFTDEL_NOTFOUND")
+        }
+        val filter = Filters.eq(CONST_FIELD_ID, id)
+        val update = Updates.set(CONST_FIELD_DELETED, true)
+        val result = collection.updateOne(session, filter, update)
+        validateAfterDelete(findedObj, session, true)
+        return result
+    }
+
+    /**
+     * Мягкое удаление документа по сущности.
+     */
+    suspend fun softDelete(entity: T, session: ClientSession): UpdateResult {
+        return softDelete(entity._id, session)
+    }
+
+    /**
+     * Восстановление мягко удалённого документа (устанавливает deleted = false).
+     *
+     * @param id ID документа
+     * @param session Сессия транзакции
+     * @return Результат обновления
+     */
+    suspend fun restore(id: ObjectId, session: ClientSession): UpdateResult {
+        printLog("[RESTORE::$collectionName] id: $id")
+        val filter = Filters.eq(CONST_FIELD_ID, id)
+        val update = Updates.set(CONST_FIELD_DELETED, false)
+        return collection.updateOne(session, filter, update)
+    }
+
+    /**
+     * Восстановление мягко удалённого документа по сущности.
+     */
+    suspend fun restore(entity: T, session: ClientSession): UpdateResult {
+        return restore(entity._id, session)
+    }
+
+    // ==================== BULK ОПЕРАЦИИ ====================
+
+    /**
+     * Массовое обновление нескольких документов с оптимистичной блокировкой.
+     *
+     * @param entities Список сущностей для обновления
+     * @param session Сессия транзакции
+     * @return Результат массовой операции
+     */
+    suspend fun bulkUpdate(entities: List<T>, session: ClientSession): BulkWriteResult {
+        val requests = entities.map { entity ->
+            val filter = Filters.and(
+                Filters.eq(CONST_FIELD_ID, entity._id),
+                Filters.eq(CONST_FIELD_VERSION, entity.version)
+            )
+            val update = Updates.combine(
+                Updates.set(CONST_FIELD_VERSION, entity.version + 1),
+                *getUpdateFields(entity).map { (field, value) ->
+                    Updates.set(field, value)
+                }.toTypedArray()
+            )
+            UpdateOneModel<T>(filter, update)
+        }
+
+        return collection.bulkWrite(session, requests)
+    }
+
+    // ==================== HELPER МЕТОДЫ ====================
+
+    suspend fun exists(id: String, withDeleted: Boolean = false): Boolean {
+        return try {
+            val objectId = ObjectId(id)
+            val filter = Filters.and(
+                Filters.eq("_id", objectId),
+                Filters.eq("deleted", withDeleted)
+            )
+
+            collection.find(filter).firstOrNull() != null
+        } catch (e: ExceptionForCode) {
+            throw e
+        }
+    }
+
+    suspend fun count(filter: Bson = Filters.empty()): Long {
+        return collection.countDocuments(filter)
+    }
+
+    suspend fun findPaged(page: Int, pageSize: Int = 20): PagedMongoResponse<T> {
+        val items = findLimited(page, pageSize)
+        val total = count()
+        val pages = if (pageSize > 0) ((total + pageSize - 1) / pageSize).toInt() else 0
+        return PagedMongoResponse(items, page, pageSize, total, pages)
+    }
+
+    // ==================== ПРИВАТНЫЕ МЕТОДЫ ====================
+
+    /**
+     * Получение всех полей сущности для обновления.
+     * Исключает служебные поля: id, version, deleted.
+     *
+     * @param entity Сущность
+     * @return Map полей и значений
+     */
+    private fun getUpdateFields(entity: T): Map<String, Any?> {
+        val fields = mutableMapOf<String, Any?>()
+
+        entityClass.memberProperties.forEach { property ->
+            val fieldName = property.name
+            if (fieldName !in CONST_SYSTEM_FIELDS) {
+                val value = property.getter.call(entity)
+                fields[fieldName] = value
+            }
+        }
+
+        return fields
+    }
+
+    // ==================== АБСТРАКТНЫЕ МЕТОДЫ ====================
+
+    protected open suspend fun validateBeforeInsert(entity: T) {
+        // Базовая реализация — ничего не проверяем
+    }
+
+    protected open suspend fun validateBeforeUpdate(changes: Map<String, Any?>) {
+        // Базовая реализация — ничего не проверяем
+    }
+
+    protected open suspend fun validateAfterInsert(entity: T, session: ClientSession) {
+
+    }
+
+    protected open suspend fun validateAfterDelete(entity: T, session: ClientSession, softDelete: Boolean) {
+
     }
 }

@@ -1,15 +1,15 @@
-package features.characterMongo
+package features.character
 
 import application.model.Stat
 import extensions.now
-import features.VersionedEntity
+import base.entity.VersionedEntity
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 @Serializable
-data class CharacterMongo(
+data class Character(
     var userId: String,
 
     var name: String,

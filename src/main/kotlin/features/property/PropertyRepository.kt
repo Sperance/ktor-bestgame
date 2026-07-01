@@ -1,14 +1,17 @@
 package features.property
 
 import base.repository.BaseRepository
+import base.repository.UniqueIndexConfig
 
-class PropertyRepository : BaseRepository<Property, PropertyTable>(
-    table = PropertyTable,
+object PropertyRepository : BaseRepository<Property>(
     entityClass = Property::class
 ) {
-    override val entityName = "Property"
-
     init {
-        PropertyCache.refresh(this)
+        initialize(uniqueIndexes = listOf(
+            UniqueIndexConfig(
+                indexName = "idx_unique_code",
+                fields = listOf("code")
+            )
+        ))
     }
 }

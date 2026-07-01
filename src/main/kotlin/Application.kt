@@ -8,23 +8,11 @@ import server.addons.configureMonitoring
 import server.addons.configureRouting
 import server.addons.configureSecurity
 import server.addons.configureSerialization
-import config.DatabaseFactory
 import config.DatabaseSeeder
-import config.MongoFactory
-import features.equipment.EquipmentTable
-import features.items.ItemsTable
-import features.property.PropertyTable
-import features.stats.CharacterStatsTable
 import server.addons.configureStatusPages
 
 fun main() {
     printLog("Starting up")
-
-    DatabaseFactory.init(tables = arrayOf(
-        CharacterStatsTable,
-        EquipmentTable,
-        ItemsTable,
-        PropertyTable))
 
     embeddedServer(
         Netty,

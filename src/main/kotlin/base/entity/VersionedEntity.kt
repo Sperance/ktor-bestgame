@@ -1,4 +1,4 @@
-package features
+package base.entity
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable

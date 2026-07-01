@@ -1,15 +1,15 @@
-package features.userMongo
+package features.user
 
 import application.enums.EnumUserRoles
 import extensions.now
-import features.VersionedEntity
+import base.entity.VersionedEntity
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 @Serializable
-data class UserMongo(
+data class User(
     var name: String = "",
     var email: String = "",
     var login: String = "",
@@ -31,7 +31,7 @@ data class UserMongo(
 ) : VersionedEntity()
 
 @Serializable
-data class UserMongoResponse(
+data class UserResponse(
     val id: String,
     val version: Long,
     val name: String,
@@ -47,7 +47,7 @@ data class UserMongoResponse(
 )
 
 // Функция-расширение для маппинга
-fun UserMongo.toResponse(): UserMongoResponse = UserMongoResponse(
+fun User.toResponse(): UserResponse = UserResponse(
     id = getId(),
     name = name,
     email = email,

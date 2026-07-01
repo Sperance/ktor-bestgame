@@ -1,14 +1,17 @@
 package features.items
 
 import base.repository.BaseRepository
+import base.repository.UniqueIndexConfig
 
-class ItemsRepository : BaseRepository<Item, ItemsTable>(
-    table = ItemsTable,
-    entityClass = Item::class
+object ItemsRepository : BaseRepository<Items>(
+    entityClass = Items::class
 ) {
-    override val entityName = "Items"
-
     init {
-        ItemsCache.refresh(this)
+        initialize(uniqueIndexes = listOf(
+            UniqueIndexConfig(
+                indexName = "idx_unique_name",
+                fields = listOf("name")
+            )
+        ))
     }
 }

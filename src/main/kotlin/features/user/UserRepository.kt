@@ -1,19 +1,18 @@
-package features.userMongo
+package features.user
 
 import base.exception.ExceptionForCode
-import base.repository.BaseRepositoryMongo
+import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
-import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
-import features.characterMongo.CharacterMongo
-import features.characterMongo.CharacterMongoRepository
+import features.character.Character
+import features.character.CharacterRepository
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.time.LocalDateTime
 
-object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
-    entityClass = UserMongo::class
+object UserRepositoryMongo : BaseRepository<User>(
+    entityClass = User::class
 ) {
     init {
         initialize(uniqueIndexes = listOf(
@@ -28,7 +27,7 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
         ))
     }
 
-    override suspend fun validateBeforeInsert(entity: UserMongo) {
+    override suspend fun validateBeforeInsert(entity: User) {
         if (!entity.email.contains("@")) throw ExceptionForCode("'${entity.name}' has invalid e-mail: ${entity.email}", "UMR_VALIDATEINSERT_EMAIL")
         if (entity.age !in 12..120) throw ExceptionForCode("'${entity.name}' has invalid age: ${entity.age}", "UMR_VALIDATEINSERT_AGE")
         if (entity.password.length < 6) throw ExceptionForCode("'${entity.name}' has invalid password length: ${entity.password.length}", "UMR_VALIDATEINSERT_PASSWORD")
@@ -71,18 +70,18 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
             throw ExceptionForCode("Field 'salt' has blocked to modify", "UMR_VALIDATEINSERT_SALT")
     }
 
-    override suspend fun validateAfterDelete(entity: UserMongo, session: ClientSession, softDelete: Boolean) {
-        val characters = CharacterMongoRepository.findByFieldList(CharacterMongo::userId, entity.getId())
+    override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
+        val characters = CharacterRepository.findByFieldList(Character::userId, entity.getId())
         characters.forEach { char ->
             if (softDelete) {
-                CharacterMongoRepository.softDelete(char, session)
+                CharacterRepository.softDelete(char, session)
             } else {
-                CharacterMongoRepository.deleteById(char, session)
+                CharacterRepository.deleteById(char, session)
             }
         }
     }
 
-    private fun generatePassword(entity: UserMongo) {
+    private fun generatePassword(entity: User) {
         entity.salt = generateSalt()
         entity.password = hashPassword(entity.password, entity.salt)
     }
@@ -97,23 +96,23 @@ object UserRepositoryMongo : BaseRepositoryMongo<UserMongo>(
 
     /**********/
 
-    suspend fun findByEmail(email: String): UserMongo? {
-        return findByField(UserMongo::email, email)
+    suspend fun findByEmail(email: String): User? {
+        return findByField(User::email, email)
     }
 
-    suspend fun searchByName(name: String): List<UserMongo> {
-        return findByFieldList(UserMongo::name, name)
+    suspend fun searchByName(name: String): List<User> {
+        return findByFieldList(User::name, name)
     }
 
-    suspend fun findActive(): List<UserMongo> {
-        return findByFieldList(UserMongo::isActive, true)
+    suspend fun findActive(): List<User> {
+        return findByFieldList(User::isActive, true)
     }
 
-    suspend fun findByLogin(login: String): UserMongo? {
-        return findByField(UserMongo::login, login)
+    suspend fun findByLogin(login: String): User? {
+        return findByField(User::login, login)
     }
 
-    suspend fun authenticate(login: String, password: String): UserMongo {
+    suspend fun authenticate(login: String, password: String): User {
         val credentials = findCredentialsByLogin(login)
             ?: throw ExceptionForCode("Invalid login or password", "UMR_AUTH_INVALID")
 

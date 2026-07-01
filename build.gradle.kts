@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
@@ -42,14 +40,6 @@ dependencies {
     implementation(libs.ktor.server.config.yaml)
     implementation(libs.kotlinx.datetime)
 
-    implementation(libs.exposed.core)
-    implementation(libs.exposed.dao)
-    implementation(libs.exposed.jdbc)
-    implementation(libs.exposed.json)
-    implementation(libs.exposed.java.time)
-
-    implementation(libs.zaxxer.hikariCP)
-    implementation(libs.postgresql.postgresql)
     implementation(libs.opensavvy.ktmongo)
     implementation(libs.swagger.annotations)
 

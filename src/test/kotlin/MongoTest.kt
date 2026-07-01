@@ -5,9 +5,8 @@ import kotlinx.coroutines.runBlocking
 import com.mongodb.DuplicateKeyException
 import config.MongoFactory.transactionExecute
 import extensions.printLog
-import features.userMongo.UserMongo
-import features.userMongo.UserRepositoryMongo
-import org.bson.types.ObjectId
+import features.user.User
+import features.user.UserRepositoryMongo
 import org.junit.Assert.assertThrows
 import org.junit.FixMethodOrder
 import org.junit.Test
@@ -43,7 +42,7 @@ class MongoTest {
         transactionExecute { session ->
             repeat(100) { ind ->
                 userRepo.insert(
-                    UserMongo(
+                    User(
                         email = "email$ind@domain.com",
                         name = "user_$ind",
                         age = (20..60).random()
@@ -58,7 +57,7 @@ class MongoTest {
         val curtime = System.currentTimeMillis()
 
         val res = transactionExecute { session ->
-            userRepo.insert(UserMongo(
+            userRepo.insert(User(
                 email = "newEmail@$curtime",
                 name = "newName1",
                 age = (15..40).random()
@@ -72,13 +71,13 @@ class MongoTest {
         val email = "newEmail@$curtime"
 
         transactionExecute { session ->
-            userRepo.insert(UserMongo(email = email, name = "newName$curtime", age = 44), session)
+            userRepo.insert(User(email = email, name = "newName$curtime", age = 44), session)
         }
 
         val exception = assertThrows(DuplicateKeyException::class.java) {
             runBlocking {
                 transactionExecute { session ->
-                    userRepo.insert(UserMongo(email = email, name = "newName$curtime", age = 55), session)
+                    userRepo.insert(User(email = email, name = "newName$curtime", age = 55), session)
                 }
             }
         }
@@ -91,9 +90,9 @@ class MongoTest {
         val curtime = System.currentTimeMillis()
         val needAddedCount = 3
 
-        val arrayUsers = arrayListOf<UserMongo>()
+        val arrayUsers = arrayListOf<User>()
         repeat(needAddedCount) { ind ->
-            arrayUsers.add(UserMongo(email = "${ind}email@${curtime}.com", name = "user_name_$ind", age = 26))
+            arrayUsers.add(User(email = "${ind}email@${curtime}.com", name = "user_name_$ind", age = 26))
         }
 
         val sizeBefore = userRepo.count()
@@ -110,9 +109,9 @@ class MongoTest {
         val curtime = System.currentTimeMillis()
         val needAddedCount = 3
 
-        val arrayUsers = arrayListOf<UserMongo>()
+        val arrayUsers = arrayListOf<User>()
         repeat(needAddedCount) { ind ->
-            arrayUsers.add(UserMongo(email = "ail@${curtime}.com", name = "user_name_", age = 26))
+            arrayUsers.add(User(email = "ail@${curtime}.com", name = "user_name_", age = 26))
         }
 
         val exception = assertThrows(MongoBulkWriteException::class.java) {
@@ -139,7 +138,7 @@ class MongoTest {
         val exception = assertThrows(IllegalArgumentException::class.java) {
             runBlocking {
                 transactionExecute { session ->
-                    userRepo.insert(UserMongo(email = "em4@eme.ru", name = "error4 name", age = 4), session)
+                    userRepo.insert(User(email = "em4@eme.ru", name = "error4 name", age = 4), session)
                 }
             }
         }
@@ -152,11 +151,11 @@ class MongoTest {
     fun test_drop_validate_age_many() {
         val exception = assertThrows(IllegalArgumentException::class.java) {
             runBlocking {
-                val arrayItems = ArrayList<UserMongo>()
-                arrayItems.add(UserMongo(email = "ara1@eme.ru", name = "error ara name1", age = 25))
-                arrayItems.add(UserMongo(email = "ara2@eme.ru", name = "error ara name2", age = 43))
-                arrayItems.add(UserMongo(email = "ara3@eme.ru", name = "error ara name3", age = 3))
-                arrayItems.add(UserMongo(email = "ara4@eme.ru", name = "error ara name4", age = 86))
+                val arrayItems = ArrayList<User>()
+                arrayItems.add(User(email = "ara1@eme.ru", name = "error ara name1", age = 25))
+                arrayItems.add(User(email = "ara2@eme.ru", name = "error ara name2", age = 43))
+                arrayItems.add(User(email = "ara3@eme.ru", name = "error ara name3", age = 3))
+                arrayItems.add(User(email = "ara4@eme.ru", name = "error ara name4", age = 86))
                 transactionExecute { session ->
                     userRepo.insertMany(arrayItems, session)
                 }
@@ -255,7 +254,7 @@ class MongoTest {
 
     @Test
     fun test_find_field(): Unit = runBlocking {
-        val finded = UserRepositoryMongo.findByField(UserMongo::name, "TestPlayer")
+        val finded = UserRepositoryMongo.findByField(User::name, "TestPlayer")
         printLog("FINDED: $finded")
     }
 }
