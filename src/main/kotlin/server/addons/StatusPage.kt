@@ -1,7 +1,7 @@
 package server.addons
 
 import base.exception.AppException
-import base.exception.ExceptionForCode
+import base.exception.BaseException
 import base.route.ApiMongoResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -17,10 +17,7 @@ fun Application.configureStatusPages() {
         status(HttpStatusCode.NotFound) { call, status ->
             call.respond(
                 HttpStatusCode.NotFound,
-                ApiMongoResponse.error(
-                    message = "Запрашиваемый ресурс не найден: ${call.request.uri.substringBefore("?")}",
-                    code = HttpStatusCode.NotFound.value
-                )
+                ApiMongoResponse.error(BaseException("Not find endpoint ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_001"))
             )
         }
 
@@ -28,44 +25,18 @@ fun Application.configureStatusPages() {
         status(HttpStatusCode.MethodNotAllowed) { call, status ->
             call.respond(
                 HttpStatusCode.MethodNotAllowed,
-                ApiMongoResponse.error(
-                    message = "Метод не поддерживается для ${call.request.uri.substringBefore("?")}",
-                    code = HttpStatusCode.MethodNotAllowed.value
-                )
+                ApiMongoResponse.error(BaseException("Unsupported method ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_002"))
             )
         }
 
-        exception<ExceptionForCode> { call, cause ->
-            val status = HttpStatusCode.fromValue(cause.httpCode)
-            call.respond(status, ApiMongoResponse.error(cause.message, code = cause.errorCode))
+        // ── Бизнес-исключения приложения ──
+        exception<BaseException> { call, cause ->
+            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
         }
 
         // ── Бизнес-исключения приложения ──
         exception<AppException> { call, cause ->
-            val status = HttpStatusCode.fromValue(cause.httpCode)
-            call.respond(status, ApiMongoResponse.error(cause.message, code = cause.httpCode))
-        }
-
-        // Обработка IllegalArgumentException
-        exception<IllegalArgumentException> { call, cause ->
-            call.respond(
-                status = HttpStatusCode.PreconditionFailed,
-                message = ApiMongoResponse.error(
-                    message = cause.message ?: "Некорректный запрос",
-                    code = HttpStatusCode.PreconditionFailed.value
-                )
-            )
-        }
-
-        // Обработка IllegalStateException
-        exception<IllegalStateException> { call, cause ->
-            call.respond(
-                status = HttpStatusCode.PreconditionFailed,
-                message = ApiMongoResponse.error(
-                    message = cause.message ?: "Некорректный запрос",
-                    code = HttpStatusCode.PreconditionFailed.value
-                )
-            )
+            call.respond(HttpStatusCode.Forbidden, ApiMongoResponse.error(cause.httpCode, cause.message))
         }
 
         // Общий обработчик (должен быть последним)

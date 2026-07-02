@@ -1,6 +1,5 @@
 package features.character
 
-import base.exception.ExceptionForCode
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.kotlin.client.coroutine.ClientSession
@@ -20,18 +19,18 @@ object CharacterRepository : BaseRepository<Character>(
     }
 
     override suspend fun validateBeforeInsert(entity: Character) {
-        if (entity.name.isEmpty()) throw ExceptionForCode("Нужно указать имя для нового персонажа", "CMR_VALIDINSERT_NAME")
-        if (findByField(Character::name, entity.name) != null) throw ExceptionForCode("Персонаж с указанным именем существует", "CMR_VALIDATEINSERT_DUPLICATE")
+        if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
+        if (findByField(Character::name, entity.name) != null) throw CharacterExceptions.funExceptionNameDuplicate("validateBeforeInsert", entity.name)
         val findedUser = UserRepositoryMongo.findById(entity.userId)
-        if (findedUser == null) throw ExceptionForCode("Не найден пользователь с ID ${entity.userId}", "CMR_VALIDATEINSERT_USER")
-        if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw ExceptionForCode("У пользователя уже есть максимальное количество персонажей", "CMR_VALIDATEINSERT_MAX_CHARACTERS")
+        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId)
+        if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateBeforeInsert")
     }
 
     override suspend fun validateAfterInsert(entity: Character, session: ClientSession) {
         val findedUser = UserRepositoryMongo.findById(entity.userId)
-        if (findedUser == null) throw ExceptionForCode("Не найден пользователь с ID ${entity.userId}", "CMR_VALIDATEINSERT_USER")
+        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateAfterInsert", entity.userId)
         findedUser.countCharacters++
-        if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw ExceptionForCode("У пользователя уже есть максимальное количество персонажей", "CMR_VALIDATEINSERT_MAX_CHARACTERS")
+        if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert")
         UserRepositoryMongo.update(findedUser, session)
     }
 }

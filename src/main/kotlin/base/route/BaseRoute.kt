@@ -1,10 +1,10 @@
 package base.route
 
-import base.exception.ExceptionForCode
 import base.repository.BaseRepository
 import config.MongoFactory.transactionExecute
 import extensions.CONST_SYSTEM_FIELDS
 import base.entity.VersionedEntity
+import base.exception.BaseException
 import extensions.CONST_API_VERSION
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -63,7 +63,7 @@ abstract class BaseRoute<T : VersionedEntity, R>(
             call.respond(apiResponseListSerializer, ApiMongoResponse.ok(items))
         } else {
             if (id.length != 24) {
-                throw ExceptionForCode("Неверный формат ID. Длина: ${id.length} Должна быть: 24", "BRM_GETALL_ID")
+                throw BaseRouteExceptions.funExceptionFormatId("getAllRoute", id)
             }
 
             val entity = repository.findById(id)
@@ -80,10 +80,10 @@ abstract class BaseRoute<T : VersionedEntity, R>(
                 repository.insertMany(entity, session)
             }.map { toResponse(it) }
            call.respond(apiResponseListSerializer, ApiMongoResponse.ok(created))
-        } catch (e: ExceptionForCode) {
+        } catch (e: BaseException) {
             throw e
         } catch (e: Exception) {
-            throw ExceptionForCode(e.message, "BRM_CREATE_EXCEPTION")
+            throw BaseRouteExceptions.funException("createRoute", e.message)
         }
     }
 
@@ -103,10 +103,10 @@ abstract class BaseRoute<T : VersionedEntity, R>(
             }?.let { toResponse(it) }
 
             call.respond(apiResponseSerializer, ApiMongoResponse.ok(updated, "Updated"))
-        } catch (e: ExceptionForCode) {
+        } catch (e: BaseException) {
             throw e
         } catch (e: Exception) {
-            throw ExceptionForCode(e.message, "BRM_UPDATE_EXCEPTION")
+            throw BaseRouteExceptions.funException("updateRoute", e.message)
         }
     }
 
@@ -118,17 +118,17 @@ abstract class BaseRoute<T : VersionedEntity, R>(
             }
 
             call.respond(ApiMongoResponse.ok("Deleted"))
-        } catch (e: ExceptionForCode) {
+        } catch (e: BaseException) {
             throw e
         } catch (e: Exception) {
-            throw ExceptionForCode(e.message, "BRM_DELETE_EXCEPTION")
+            throw BaseRouteExceptions.funException("deleteRoute", e.message)
         }
     }
 
     private fun Route.pagedRoute() = get("/paged") {
         try {
-            val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 0
-            val size = call.request.queryParameters["size"]?.toIntOrNull() ?: 20
+            val page = call.queryParam("page", 0)
+            val size = call.queryParam("size", 20)
             val paged = repository.findPaged(page, size)
 
             // Преобразуем элементы внутри PagedResponse из T в R
@@ -141,10 +141,10 @@ abstract class BaseRoute<T : VersionedEntity, R>(
             )
 
             call.respond(apiResponsePagedSerializer, ApiMongoResponse.ok(responseItems))
-        } catch (e: ExceptionForCode) {
+        } catch (e: BaseException) {
             throw e
         } catch (e: Exception) {
-            throw ExceptionForCode(e.message, "BRM_PAGED_EXCEPTION")
+            throw BaseRouteExceptions.funException("pagedRoute", e.message)
         }
     }
 
@@ -158,7 +158,7 @@ abstract class BaseRoute<T : VersionedEntity, R>(
     }
 
     protected fun ApplicationCall.queryParam(name: String): String =
-        request.queryParameters[name] ?: throw ExceptionForCode("Missing query parameter '$name'", "BRM_PARAM_MISSING")
+        request.queryParameters[name] ?: throw BaseRouteExceptions.funExceptionQuery("queryParam", name)
 
     inline fun <reified E> ApplicationCall.queryParam(name: String, default: E): E {
         val value = request.queryParameters[name]
@@ -179,10 +179,10 @@ abstract class BaseRoute<T : VersionedEntity, R>(
     protected fun ApplicationCall.idParam(): String {
         val id = request.queryParameters["id"]
         if (id == null) {
-            throw ExceptionForCode("Invalid ID parameter", "BRM_PARAMID_INVALID")
+            throw BaseRouteExceptions.funExceptionFormatId("idParam", "<NULL>")
         }
         if (id.length != 24) {
-            throw ExceptionForCode("Invalid ID parameter length: ${id.length} must be 24", "BRM_PARAMID_LENGTH")
+            throw BaseRouteExceptions.funExceptionFormatId("idParam", id)
         }
         return id
     }
@@ -226,17 +226,20 @@ data class ApiMongoResponse<T>(
     val success: Boolean,
     val data: T? = null,
     val code: String? = null,
-    val errors: Map<String, String>? = null
+    val error: BaseException? = null
 ) {
     companion object {
         fun <T> ok(data: T?, message: String? = null) =
             ApiMongoResponse(success = true, data = data, code = "200")
 
-        fun error(message: String?, code: String) =
-            ApiMongoResponse(success = false, data = message, code = code)
+        fun error(code: String, message: String?, exception: BaseException? = null) =
+            ApiMongoResponse(success = false, data = message, code = code, error = exception)
 
-        fun error(message: String?, code: Int) =
-            ApiMongoResponse(success = false, data = message, code = code.toString())
+        fun error(code: Int, message: String?, exception: BaseException? = null) =
+            ApiMongoResponse(success = false, data = message, code = code.toString(), error = exception)
+
+        fun error(exception: BaseException) =
+            ApiMongoResponse(success = false, data = exception.message, code = exception.errorCode, error = exception)
     }
 }
 

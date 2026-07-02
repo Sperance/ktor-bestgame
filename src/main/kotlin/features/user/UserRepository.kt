@@ -1,6 +1,5 @@
 package features.user
 
-import base.exception.ExceptionForCode
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.kotlin.client.coroutine.ClientSession
@@ -28,12 +27,12 @@ object UserRepositoryMongo : BaseRepository<User>(
     }
 
     override suspend fun validateBeforeInsert(entity: User) {
-        if (!entity.email.contains("@")) throw ExceptionForCode("'${entity.name}' has invalid e-mail: ${entity.email}", "UMR_VALIDATEINSERT_EMAIL")
-        if (entity.age !in 12..120) throw ExceptionForCode("'${entity.name}' has invalid age: ${entity.age}", "UMR_VALIDATEINSERT_AGE")
-        if (entity.password.length < 6) throw ExceptionForCode("'${entity.name}' has invalid password length: ${entity.password.length}", "UMR_VALIDATEINSERT_PASSWORD")
-        if (entity.salt != "") throw ExceptionForCode("Field 'salt' has blocked to modify", "UMR_VALIDATEINSERT_SALT")
-        if (findByLogin(entity.login) != null) throw ExceptionForCode("Login is exists! Please choose another one.", "UMR_VALIDATEINSERT_LOGIN_DUPLICATE")
-        if (findByEmail(entity.email) != null) throw ExceptionForCode("Email is exists! Please choose another one.", "UMR_VALIDATEINSERT_EMAIL_DUPLICATE")
+        if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
+        if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
+        if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert", entity.password)
+        if (entity.salt != "") throw UserExceptions.funExceptionSalt("validateBeforeInsert")
+        if (findByLogin(entity.login) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)
+        if (findByEmail(entity.email) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.email)
 
         checkPassword(entity.password)
         generatePassword(entity)
@@ -43,7 +42,7 @@ object UserRepositoryMongo : BaseRepository<User>(
         changes["email"]?.let { email ->
             val emailStr = email as? String ?: ""
             if (emailStr.isNotEmpty() && !emailStr.contains("@")) {
-                throw ExceptionForCode("Invalid e-mail: $emailStr", "UMR_VALIDATEUPDATE_EMAIL")
+                throw UserExceptions.funExceptionInvalidEmail("validateBeforeUpdate", email.toString())
             }
         }
 
@@ -54,20 +53,20 @@ object UserRepositoryMongo : BaseRepository<User>(
                 is String -> age.toIntOrNull()
                 else -> null
             }
-            if (ageInt != null && ageInt !in 12..120) {
-                throw ExceptionForCode("Invalid age: $ageInt", "UMR_VALIDATEUPDATE_AGE")
+            if (ageInt == null || ageInt !in 12..120) {
+                throw UserExceptions.funExceptionInvalidAge("validateBeforeUpdate", age.toString())
             }
         }
 
         changes["password"]?.let { password ->
             val passwordStr = password as? String ?: ""
             if (passwordStr.isNotEmpty() && passwordStr.length < 6) {
-                throw ExceptionForCode("Invalid password length: ${passwordStr.length}", "UMR_VALIDATEUPDATE_PASSWORD")
+                throw UserExceptions.funExceptionPasswordCheck("validateBeforeUpdate", password.toString())
             }
         }
 
         if (changes.containsKey("salt"))
-            throw ExceptionForCode("Field 'salt' has blocked to modify", "UMR_VALIDATEINSERT_SALT")
+            throw UserExceptions.funExceptionSalt("validateBeforeUpdate")
     }
 
     override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
@@ -87,11 +86,11 @@ object UserRepositoryMongo : BaseRepository<User>(
     }
 
     private fun checkPassword(password: String) {
-        if (password.isEmpty()) throw ExceptionForCode("Пароль не может быть пустым", "UMR_CHECKPASS_EMPTY")
-        if (password.length !in 6..64) throw ExceptionForCode("Пароль должен содержать не менее 6 и не более 64 символов", "UMR_CHECKPASS_LENGTH")
-        if (password.none { it.isDigit() }) throw ExceptionForCode("Пароль должен содержать хотя бы 1 цифру", "UMR_CHECKPASS_DIGIT")
-        if (password.none { it.isUpperCase() }) throw ExceptionForCode("Пароль должен содержать хотя бы 1 заглавную букву", "UMR_CHECKPASS_UPPERCASE")
-        if (password.contains(" ")) throw ExceptionForCode("Пароль не должен содержать пробелы", "UMR_CHECKPASS_PROBEL")
+        if (password.isEmpty()) throw UserExceptions.funExceptionPasswordEmpty("checkPassword")
+        if (password.length !in 6..64) throw UserExceptions.funExceptionPasswordLength("checkPassword")
+        if (password.none { it.isDigit() }) throw UserExceptions.funExceptionPasswordOneDigit("checkPassword")
+        if (password.none { it.isUpperCase() }) throw UserExceptions.funExceptionPasswordOneUppercase("checkPassword")
+        if (password.contains(" ")) throw UserExceptions.funExceptionPasswordWhitespace("checkPassword")
     }
 
     /**********/
@@ -114,22 +113,22 @@ object UserRepositoryMongo : BaseRepository<User>(
 
     suspend fun authenticate(login: String, password: String): User {
         val credentials = findCredentialsByLogin(login)
-            ?: throw ExceptionForCode("Invalid login or password", "UMR_AUTH_INVALID")
+            ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
 
         val (userId, storedHash, storedSalt) = credentials
 
         if (hashPassword(password, storedSalt) != storedHash) {
-            throw ExceptionForCode("Invalid login or password", "UMR_AUTH_WRONG_PASSWORD")
+            throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
         }
 
         val user = findById(userId)
 
         if (user == null) {
-            throw ExceptionForCode("User not found", "UMR_AUTH_USER_NOT_FOUND")
+            throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
         }
 
         if (!user.isActive) {
-            throw ExceptionForCode("Account is deactivated", "UMR_AUTH_DEACTIVATED")
+            throw UserExceptions.funExceptionInactive("authenticate", user.login)
         }
 
         return transactionExecute("User authenticate") { session ->
@@ -155,11 +154,11 @@ object UserRepositoryMongo : BaseRepository<User>(
     suspend fun changePassword(id: String, password: String, newPassword: String): String {
         val user = findById(id)
         if (user == null) {
-            throw ExceptionForCode("Не найден пользователь с id $id", "UMR_CHANGEPASS_NOTUSER")
+            throw UserExceptions.funExceptionFoundUserId("changePassword", id)
         }
 
         if (user.password != hashPassword(password, user.salt)) {
-            throw ExceptionForCode("Неверный пароль пользователя ${user.login}", "UMR_CHANGEPASS_PASSWORD")
+            throw UserExceptions.funExceptionPasswordLoginPass("changePassword", user.login)
         }
 
         checkPassword(newPassword)

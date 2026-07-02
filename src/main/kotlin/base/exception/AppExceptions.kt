@@ -1,9 +1,20 @@
 package base.exception
 
-sealed class AppException(
+import kotlinx.serialization.Serializable
+
+@Serializable
+open class AppException(
     override val message: String?,
     val httpCode: Int,
+    val errorClass: String,
+    val errorMethod: String?,
     val errorCode: String = ""
 ) : RuntimeException(message)
 
-class ExceptionForCode(message: String?, code: String): AppException(message, 401, code)
+@Serializable
+open class BaseException(
+    override val message: String?,
+    val errorClass: String,
+    val errorMethod: String?,
+    val errorCode: String
+) : RuntimeException(message)

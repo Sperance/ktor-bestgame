@@ -1,6 +1,5 @@
 package base.repository
 
-import base.exception.ExceptionForCode
 import base.route.PagedMongoResponse
 import com.mongodb.MongoWriteException
 import com.mongodb.ReadConcern
@@ -115,7 +114,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
                 if (e.code == 85) { // IndexAlreadyExists
                     printLog("ℹ️ Индекс ${config.indexName} уже существует")
                 } else {
-                    throw e
+                    throw BaseRepositoryExceptions.funException("setupUniqueIndexes", e.message)
                 }
             }
         }
@@ -148,25 +147,27 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
      * ```
      */
     suspend fun insert(entity: T, session: ClientSession): T {
-        require(entity.version == 0L) { "Новый entity должен иметь version = 0" }
+        if (entity.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insert", entity.version.toString())
         validateBeforeInsert(entity)
 
         return try {
             val result = collection.insertOne(session, entity)
             if (!result.wasAcknowledged() || result.insertedId == null) {
-                throw ExceptionForCode("Invalid insertion attempt.", "BRM_INSERT_SET")
+                throw BaseRepositoryExceptions.funExceptionInsertInvalid("insert")
             }
             printLog("[ADDED::$collectionName] ${result.insertedId} object: $entity")
-            entity._id = result.insertedId!!.asObjectId().value
+            entity.setId(result.insertedId!!.asObjectId().value.toHexString())
 
             validateAfterInsert(entity, session)
 
             entity
         } catch (e: MongoWriteException) {
             if (e.code == 11000) {
-                throw ExceptionForCode("Нарушение уникальности при вставке: ${e.message}", "BRM_INSERT_UNIQUE")
+                throw BaseRepositoryExceptions.funExceptionRace("insert", e.message)
             }
-            throw e
+            throw BaseRepositoryExceptions.funException("insert", e.message)
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("insert", e.message)
         }
     }
 
@@ -179,7 +180,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
      */
     suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
         entities.forEach {
-            require(it.version == 0L) { "Новые entity должны иметь version = 0" }
+            if (it.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insertMany", it.version.toString())
             validateBeforeInsert(it)
         }
 
@@ -201,9 +202,11 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
             entities  // ← возвращаем список объектов с присвоенными ID
         } catch (e: MongoWriteException) {
             if (e.code == 11000) {
-                throw ExceptionForCode("Нарушение уникальности при массовой вставке", "BRM_INSERTMANY_DUPLICATE")
+                throw BaseRepositoryExceptions.funExceptionRace("insertMany", e.message)
             }
-            throw e
+            throw BaseRepositoryExceptions.funException("insertMany", e.message)
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("insertMany", e.message)
         }
     }
 
@@ -339,14 +342,18 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
             }.toTypedArray()
         )
 
-        val result = collection.updateOne(session, filter, update)
+        val result = try {
+            collection.updateOne(session, filter, update)
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("update", e.message)
+        }
 
         if (result.matchedCount == 0L) {
             val existing = findById(entity._id)
             if (existing == null) {
-                throw ExceptionForCode("Документ с id=${entity._id} не найден", "BRM_UPDATE_NOT_FOUND")
+                throw BaseRepositoryExceptions.funExceptionFindId("update", entity.getId())
             } else {
-                throw ExceptionForCode("Race condition при обновлении. Ожидалась версия $expectedVersion, текущая ${existing.version}", "BRM_UPDATE_OPTIMISTIC_LOCK")
+                throw BaseRepositoryExceptions.funExceptionRace("update", "current: ${existing.version} need: $expectedVersion")
             }
         }
 
@@ -414,11 +421,11 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
         val result = try {
             collection.findOneAndUpdate(session, filter, update, options)
         } catch (e: Exception) {
-            throw ExceptionForCode(e.message, "BRM_UPDATEFIELDS_EXCEPTION")
+            throw BaseRepositoryExceptions.funException("updateFields", e.message)
         }
 
         if (result == null) {
-            throw ExceptionForCode("$collection UPDATING error not found", "BRM_UPDATEFIELDS_ERROR")
+            throw BaseRepositoryExceptions.funException("updateFields", "Not found object with id ${entity.getId()} after update")
         }
 
         return result
@@ -430,7 +437,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
         fields: Map<String, Any?>,
         session: ClientSession
     ): T? {
-        val entity = findById(id) ?: throw ExceptionForCode("Entity not found", "BRM_UPDATEFIELDS_NULL")
+        val entity = findById(id) ?: throw BaseRepositoryExceptions.funExceptionFindId("updateFields", id)
         return updateFields(entity, fields, session)
     }
 
@@ -445,10 +452,6 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
      */
     suspend fun deleteById(id: ObjectId, session: ClientSession): DeleteResult {
         val findedObj = findById(id)
-        if (findedObj == null) {
-            throw ExceptionForCode("Не найден объект с id $id", "BRM_DELETE_NOTFOUND")
-        }
-
         return deleteWithVersion(findedObj, session)
     }
 
@@ -457,14 +460,13 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
     }
 
     suspend fun deleteById(entity: T, session: ClientSession): DeleteResult {
-        return  deleteWithVersion(entity, session)
+        return deleteWithVersion(entity, session)
     }
 
     suspend fun deleteWithVersion(entity: T?, session: ClientSession): DeleteResult {
-
         printLog("[DELETE::$collectionName] id: ${entity?._id}")
         if (entity == null) {
-            throw ExceptionForCode("Сущность не найдена", "BRM_DELETEVERSION_NULL")
+            throw BaseRepositoryExceptions.funExceptionEntityNull("deleteWithVersion")
         }
 
         val filter = Filters.and(
@@ -472,14 +474,18 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
             Filters.eq(CONST_FIELD_VERSION, entity.version)
         )
 
-        val result = collection.deleteOne(session, filter)
+        val result = try {
+            collection.deleteOne(session, filter)
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("deleteWithVersion", e.message)
+        }
 
         validateAfterDelete(entity, session, false)
 
         if (result.deletedCount == 0L) {
             val existing = findById(entity._id)
             if (existing != null) {
-                throw ExceptionForCode("Документ был изменён перед удалением. Версия ${existing.version} != ${entity.version}", "BRM_DELETEVERSION_NOT_FOUND")
+                throw BaseRepositoryExceptions.funExceptionRace("deleteWithVersion", "Entity version mismatch.  Current: ${entity.version} need: ${existing.version}")
             }
         }
 
@@ -495,14 +501,22 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
      */
     suspend fun softDelete(id: ObjectId, session: ClientSession): UpdateResult {
         printLog("[SOFT_DELETE::$collectionName] id: $id")
+
         val findedObj = findById(id)
         if (findedObj == null) {
-            throw ExceptionForCode("Не найден документ для удаления с id $id", "BRM_SOFTDEL_NOTFOUND")
+            throw BaseRepositoryExceptions.funExceptionFindId("softDelete", id.toHexString())
         }
+
         val filter = Filters.eq(CONST_FIELD_ID, id)
         val update = Updates.set(CONST_FIELD_DELETED, true)
-        val result = collection.updateOne(session, filter, update)
+
+        val result = try {
+            collection.updateOne(session, filter, update)
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("softDelete", e.message)
+        }
         validateAfterDelete(findedObj, session, true)
+
         return result
     }
 
@@ -524,7 +538,12 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
         printLog("[RESTORE::$collectionName] id: $id")
         val filter = Filters.eq(CONST_FIELD_ID, id)
         val update = Updates.set(CONST_FIELD_DELETED, false)
-        return collection.updateOne(session, filter, update)
+        val result = try {
+            collection.updateOne(session, filter, update)
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("restore", e.message)
+        }
+        return result
     }
 
     /**
@@ -558,7 +577,13 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
             UpdateOneModel<T>(filter, update)
         }
 
-        return collection.bulkWrite(session, requests)
+        val result = try {
+            collection.bulkWrite(session, requests)
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("bulkUpdate", e.message)
+        }
+
+        return result
     }
 
     // ==================== HELPER МЕТОДЫ ====================
@@ -572,8 +597,8 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
             )
 
             collection.find(filter).firstOrNull() != null
-        } catch (e: ExceptionForCode) {
-            throw e
+        } catch (e: Exception) {
+            throw BaseRepositoryExceptions.funException("exists", e.message)
         }
     }
 

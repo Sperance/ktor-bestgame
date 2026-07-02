@@ -1,5 +1,6 @@
 package ru.descend
 
+import base.route.BaseRouteExceptions
 import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
 import com.mongodb.DuplicateKeyException
@@ -11,6 +12,8 @@ import org.junit.Assert.assertThrows
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
+import kotlin.reflect.KFunction
+import kotlin.reflect.full.declaredMembers
 
 data class Counter(
     val name: String,
@@ -256,5 +259,28 @@ class MongoTest {
     fun test_find_field(): Unit = runBlocking {
         val finded = UserRepositoryMongo.findByField(User::name, "TestPlayer")
         printLog("FINDED: $finded")
+    }
+
+    @Test
+    fun test_exception_files() = run {
+        val classs = BaseRouteExceptions::class
+
+        classs.declaredMembers
+            .filterIsInstance<KFunction<*>>()
+            .filter { it.name.startsWith("funException") }
+            .forEach { func ->
+                try {
+                    val result = func.callBy(
+                        mapOf(
+                            func.parameters[0] to BaseRouteExceptions,
+                            func.parameters[1] to "<INFO>"
+                        )
+                    ) as BaseRouteExceptions.BaseRouteException
+
+                    println(result)
+                } catch (e: Exception) {
+                    println("❌ ${func.name}: ${e.message}")
+                }
+            }
     }
 }
