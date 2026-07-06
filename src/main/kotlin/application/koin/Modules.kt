@@ -12,8 +12,8 @@ import org.koin.dsl.module
 
 // di/RepositoryModule.kt
 val repositoryModule = module {
-    single { UserRepository(lazy { get() }) }
-    single { CharacterRepository(lazy { get() }) }
+    single { UserRepository() }
+    single { CharacterRepository() }
     single { ItemsRepository() }
     single { PropertyRepository() }
 }

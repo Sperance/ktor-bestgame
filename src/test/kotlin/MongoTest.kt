@@ -1,5 +1,6 @@
 package ru.descend
 
+import application.koin.allModules
 import base.route.BaseRouteExceptions
 import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
@@ -8,37 +9,43 @@ import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.user.User
 import features.user.UserRepository
+import org.junit.After
 import org.junit.Assert.assertThrows
+import org.junit.Before
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
+import org.koin.core.context.GlobalContext.startKoin
+import org.koin.mp.KoinPlatform.stopKoin
+import org.koin.test.inject
+import org.koin.test.KoinTest
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.declaredMembers
 
-data class Counter(
-    val name: String,
-    val value: Int,
-    val inner: InnerCounter,
-)
-
-data class InnerCounter(
-    val count: Int,
-    val message: String,
-)
-
-open class StockStatMongo(
-    val name: String,
-    val value: Double
-)
-
-data class BaseStatMongo(
-    val description: String
-): StockStatMongo("", 1.0)
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class MongoTest {
+class MongoTest: KoinTest {
 
-    private val userRepo = UserRepository
+    private val userRepo: UserRepository by inject()
+
+    @Before
+    fun setup() {
+        // Останавливаем Koin если уже запущен
+        try {
+            stopKoin()
+        } catch (_: Exception) {
+            // Игнорируем
+        }
+
+        // Запускаем Koin с модулями
+        startKoin {
+            modules(allModules)  // Ваши модули
+        }
+    }
+
+    @After
+    fun tearDown() {
+        stopKoin()
+    }
 
     @Test
     fun b_insert_stock_data() = runBlocking {
@@ -257,7 +264,7 @@ class MongoTest {
 
     @Test
     fun test_find_field(): Unit = runBlocking {
-        val finded = UserRepository.findByField(User::name, "TestPlayer")
+        val finded = userRepo.findByField(User::name, "TestPlayer")
         printLog("FINDED: $finded")
     }
 

@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.descend"
-version = "0.0.1"
+version = "0.5.2"
 
 application {
     mainClass = "io.ktor.server.netty.EngineMain"
@@ -23,8 +23,6 @@ ktor {
         onlyCommented = false
     }
 }
-
-val koin_version = "4.2.2"
 
 dependencies {
     implementation(libs.ktor.server.call.logging)
@@ -49,4 +47,6 @@ dependencies {
 
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
 }

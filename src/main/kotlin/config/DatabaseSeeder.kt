@@ -12,7 +12,9 @@ import features.property.Property
 import features.property.PropertyRepository
 import features.user.User
 import features.user.UserRepository
-import org.koin.mp.KoinPlatform.getKoin
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import kotlin.getValue
 
 /**
  * Заполнение БД начальными данными при старте сервера.
@@ -20,14 +22,22 @@ import org.koin.mp.KoinPlatform.getKoin
  * Вызывать после DatabaseFactory.init().
  * Каждый блок проверяет, есть ли уже данные — повторный запуск безопасен.
  */
-object DatabaseSeeder {
+object DatabaseSeeder : KoinComponent {
 
-    val userRepository: UserRepository = getKoin().get()
-    val characterRepository: CharacterRepository = getKoin().get()
-    val itemsRepository: ItemsRepository = getKoin().get()
-    val propertyRepository: PropertyRepository = getKoin().get()
+    val userRepository: UserRepository by inject()
+    val characterRepository: CharacterRepository by inject()
+    val itemsRepository: ItemsRepository by inject()
+    val propertyRepository: PropertyRepository by inject()
 
     suspend fun seed() {
+
+        try {
+            getKoin()
+        } catch (e: Exception) {
+            printLog("❌ Koin not initialized! Call startKoin first.")
+            return
+        }
+
         printLog("Database seeding started")
 
         seedUsers()

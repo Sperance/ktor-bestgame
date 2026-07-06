@@ -28,8 +28,11 @@ ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref 
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 opensavvy-ktmongo = { module = "dev.opensavvy.ktmongo:driver-coroutines", version.ref = "ktmongo"}
 swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger"}
-koin-core= { module = "io.insert-koin:koin-core", version.ref = "koin_version"}
-koin-ktor= { module = "io.insert-koin:koin-ktor", version.ref = "koin_version"}
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin_version"}
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin_version"}
+
+koin-test= { module = "io.insert-koin:koin-test", version.ref = "koin_version"}
+koin-test-junit4= { module = "io.insert-koin:koin-test-junit4", version.ref = "koin_version"}
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

@@ -6,15 +6,18 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import features.character.Character
 import features.character.CharacterRepository
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.time.LocalDateTime
+import kotlin.getValue
 
-class UserRepository(
-    private val characterRepository: Lazy<CharacterRepository>
-) : BaseRepository<User>(
+class UserRepository : BaseRepository<User>(
     entityClass = User::class
-) {
+), KoinComponent {
+    val characterRepository: CharacterRepository by inject()
+
     init {
         initialize(uniqueIndexes = listOf(
             UniqueIndexConfig(
@@ -72,12 +75,12 @@ class UserRepository(
     }
 
     override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
-        val characters = characterRepository.value.findByFieldList(Character::userId, entity.getId())
+        val characters = characterRepository.findByFieldList(Character::userId, entity.getId())
         characters.forEach { char ->
             if (softDelete) {
-                characterRepository.value.softDelete(char, session)
+                characterRepository.softDelete(char, session)
             } else {
-                characterRepository.value.deleteById(char, session)
+                characterRepository.deleteById(char, session)
             }
         }
     }
