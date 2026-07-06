@@ -3,7 +3,7 @@ package features.property
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 
-object PropertyRepository : BaseRepository<Property>(
+class PropertyRepository : BaseRepository<Property>(
     entityClass = Property::class
 ) {
     init {

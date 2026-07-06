@@ -7,7 +7,7 @@ import com.mongodb.DuplicateKeyException
 import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.user.User
-import features.user.UserRepositoryMongo
+import features.user.UserRepository
 import org.junit.Assert.assertThrows
 import org.junit.FixMethodOrder
 import org.junit.Test
@@ -38,7 +38,7 @@ data class BaseStatMongo(
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MongoTest {
 
-    private val userRepo = UserRepositoryMongo
+    private val userRepo = UserRepository
 
     @Test
     fun b_insert_stock_data() = runBlocking {
@@ -257,7 +257,7 @@ class MongoTest {
 
     @Test
     fun test_find_field(): Unit = runBlocking {
-        val finded = UserRepositoryMongo.findByField(User::name, "TestPlayer")
+        val finded = UserRepository.findByField(User::name, "TestPlayer")
         printLog("FINDED: $finded")
     }
 

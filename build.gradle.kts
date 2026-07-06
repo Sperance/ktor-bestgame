@@ -24,6 +24,8 @@ ktor {
     }
 }
 
+val koin_version = "4.2.2"
+
 dependencies {
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.serialization.kotlinx.json)
@@ -42,6 +44,8 @@ dependencies {
 
     implementation(libs.opensavvy.ktmongo)
     implementation(libs.swagger.annotations)
+    implementation(libs.koin.core)
+    implementation(libs.koin.ktor)
 
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)

@@ -11,7 +11,8 @@ import features.items.ItemsRepository
 import features.property.Property
 import features.property.PropertyRepository
 import features.user.User
-import features.user.UserRepositoryMongo
+import features.user.UserRepository
+import org.koin.mp.KoinPlatform.getKoin
 
 /**
  * Заполнение БД начальными данными при старте сервера.
@@ -20,6 +21,11 @@ import features.user.UserRepositoryMongo
  * Каждый блок проверяет, есть ли уже данные — повторный запуск безопасен.
  */
 object DatabaseSeeder {
+
+    val userRepository: UserRepository = getKoin().get()
+    val characterRepository: CharacterRepository = getKoin().get()
+    val itemsRepository: ItemsRepository = getKoin().get()
+    val propertyRepository: PropertyRepository = getKoin().get()
 
     suspend fun seed() {
         printLog("Database seeding started")
@@ -35,7 +41,7 @@ object DatabaseSeeder {
     // ==================== Users ====================
 
     private suspend fun seedUsers() {
-        if (UserRepositoryMongo.count() > 0) return
+        if (userRepository.count() > 0) return
 
         printLog("Seeding users...")
 
@@ -57,7 +63,7 @@ object DatabaseSeeder {
         ))
 
         transactionExecute { session ->
-            UserRepositoryMongo.insertMany(listItems, session)
+            userRepository.insertMany(listItems, session)
         }
 
         printLog("  → ${listItems.size} users created")
@@ -66,10 +72,10 @@ object DatabaseSeeder {
     // ==================== Characters ====================
 
     private suspend fun seedCharacters() {
-        if (CharacterRepository.count() > 0) return
+        if (characterRepository.count() > 0) return
 
         printLog("Seeding characters...")
-        val userRepoAll = UserRepositoryMongo.findAll()
+        val userRepoAll = userRepository.findAll()
 
         val listItems = arrayListOf<Character>()
         listItems.add(Character(
@@ -86,7 +92,7 @@ object DatabaseSeeder {
         ))
 
         transactionExecute { session ->
-            CharacterRepository.insertMany(listItems, session)
+            characterRepository.insertMany(listItems, session)
         }
 
         printLog("  → ${listItems.size} characters created")
@@ -153,7 +159,7 @@ object DatabaseSeeder {
     // ==================== Items ====================
 
     private suspend fun seedItems() {
-        if (ItemsRepository.count() > 0) return
+        if (itemsRepository.count() > 0) return
 
         printLog("Seeding items...")
         val listItems = ArrayList<Items>()
@@ -174,7 +180,7 @@ object DatabaseSeeder {
         ))
 
         transactionExecute { session ->
-            ItemsRepository.insertMany(listItems, session)
+            itemsRepository.insertMany(listItems, session)
         }
 
         printLog("  → ${listItems.size} items created")
@@ -183,7 +189,7 @@ object DatabaseSeeder {
     // ==================== Property ====================
 
     private suspend fun seedProperty() {
-        if (PropertyRepository.count() > 0) return
+        if (propertyRepository.count() > 0) return
 
         printLog("Seeding property...")
 
@@ -197,7 +203,7 @@ object DatabaseSeeder {
         }
 
         transactionExecute { session ->
-            PropertyRepository.insertMany(listItems, session)
+            propertyRepository.insertMany(listItems, session)
         }
 
         printLog("  → ${listItems.size} property created")

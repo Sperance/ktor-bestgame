@@ -10,7 +10,9 @@ import java.security.MessageDigest
 import java.security.SecureRandom
 import java.time.LocalDateTime
 
-object UserRepositoryMongo : BaseRepository<User>(
+class UserRepository(
+    private val characterRepository: Lazy<CharacterRepository>
+) : BaseRepository<User>(
     entityClass = User::class
 ) {
     init {
@@ -70,12 +72,12 @@ object UserRepositoryMongo : BaseRepository<User>(
     }
 
     override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
-        val characters = CharacterRepository.findByFieldList(Character::userId, entity.getId())
+        val characters = characterRepository.value.findByFieldList(Character::userId, entity.getId())
         characters.forEach { char ->
             if (softDelete) {
-                CharacterRepository.softDelete(char, session)
+                characterRepository.value.softDelete(char, session)
             } else {
-                CharacterRepository.deleteById(char, session)
+                characterRepository.value.deleteById(char, session)
             }
         }
     }

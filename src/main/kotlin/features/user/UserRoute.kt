@@ -7,8 +7,10 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 
-class UserRoute : BaseRoute<User, UserResponse>(
-    repository = UserRepositoryMongo,
+class UserRoute(
+    val repo: UserRepository
+) : BaseRoute<User, UserResponse>(
+    repository = repo,
     entitySerializer = User.serializer(),
     responseSerializer = UserResponse.serializer(),
     toResponse = { it.toResponse() }
@@ -19,23 +21,23 @@ class UserRoute : BaseRoute<User, UserResponse>(
         get("/login") {
             val login = call.queryParam("login")
             val password = call.queryParam("password")
-            val user = UserRepositoryMongo.authenticate(login, password).toResponse()
+            val user = repo.authenticate(login, password).toResponse()
             call.respond(ApiMongoResponse.ok(user))
         }
 
         route("/search") {
             get("/active") {
-                val users = UserRepositoryMongo.findActive().map { it.toResponse() }
+                val users = repo.findActive().map { it.toResponse() }
                 call.respond(ApiMongoResponse.ok(users))
             }
             get("/name") {
                 val name = call.queryParam("name")
-                val users = UserRepositoryMongo.searchByName(name).map { it.toResponse() }
+                val users = repo.searchByName(name).map { it.toResponse() }
                 call.respond(ApiMongoResponse.ok(users))
             }
             get("/email") {
                 val email = call.queryParam("email")
-                val user = UserRepositoryMongo.findByEmail(email)?.toResponse()
+                val user = repo.findByEmail(email)?.toResponse()
                 call.respond(ApiMongoResponse.ok(user))
             }
         }
@@ -44,7 +46,7 @@ class UserRoute : BaseRoute<User, UserResponse>(
             val id = call.idParam()
             val password = call.queryParam("password")
             val newPassword = call.queryParam("new_password")
-            call.respond(ApiMongoResponse.ok(UserRepositoryMongo.changePassword(id, password, newPassword)))
+            call.respond(ApiMongoResponse.ok(repo.changePassword(id, password, newPassword)))
         }
     }
 }

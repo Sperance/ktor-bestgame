@@ -1,3 +1,4 @@
+import application.koin.allModules
 import extensions.printLog
 import io.ktor.server.application.Application
 import io.ktor.server.engine.connector
@@ -9,6 +10,7 @@ import server.addons.configureRouting
 import server.addons.configureSecurity
 import server.addons.configureSerialization
 import config.DatabaseSeeder
+import org.koin.core.context.startKoin
 import server.addons.configureStatusPages
 
 fun main() {
@@ -23,6 +25,9 @@ fun main() {
             }
         },
         module = {
+            startKoin {
+                modules(allModules)
+            }
             configureModules()
         }).start(wait = true)
 }
