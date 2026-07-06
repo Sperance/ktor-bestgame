@@ -1,25 +1,29 @@
-package features.character
+package features.equipment
 
+import application.enums.EnumEquipmentType
+import application.enums.EnumRarity
 import application.model.Stat
-import extensions.now
 import base.entity.VersionedEntity
+import extensions.now
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 @Serializable
-data class Character(
-    var userId: String,
+data class Equipment(
+    var characterId: String,
+    var slot: EnumEquipmentType,
+    var equipped: Boolean = false,
 
-    var name: String,
-    var description: String = "",
-    var level: Short = 1,
-    var experience: Int = 0,
-    var money: Long = 0,
-    var params: MutableSet<Stat> = mutableSetOf(),
+    var name: String = "",
+    var rarity: EnumRarity = EnumRarity.COMMON,
+    var itemLevel: Int = 1,
+    var enhanceLevel: Int = 0,
+    var price: Long = 0,
+    var stats: MutableSet<Stat> = mutableSetOf(),
     var buffs: MutableSet<Stat> = mutableSetOf(),
-    var equipments: MutableSet<String> = mutableSetOf(),
+    var description: String = "",
 
     @Contextual
     override var _id: ObjectId = ObjectId(),

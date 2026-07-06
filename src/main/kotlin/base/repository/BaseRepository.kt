@@ -109,7 +109,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
                     Indexes.ascending(*config.fields.toTypedArray()),
                     indexOptions
                 )
-                printLog("✅ Уникальный индекс создан: $indexName на полях ${config.fields}")
+                printLog("✅ [$collectionName] Уникальный индекс создан: $indexName на полях ${config.fields}")
             } catch (e: MongoWriteException) {
                 if (e.code == 85) { // IndexAlreadyExists
                     printLog("ℹ️ Индекс ${config.indexName} уже существует")

@@ -1,11 +1,14 @@
 package config
 
+import application.enums.EnumEquipmentType
 import application.enums.EnumStatHelper
 import application.enums.EnumUserRoles
 import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.character.Character
 import features.character.CharacterRepository
+import features.equipment.Equipment
+import features.equipment.EquipmentRepository
 import features.items.Items
 import features.items.ItemsRepository
 import features.property.Property
@@ -19,15 +22,15 @@ import kotlin.getValue
 /**
  * Заполнение БД начальными данными при старте сервера.
  *
- * Вызывать после DatabaseFactory.init().
  * Каждый блок проверяет, есть ли уже данные — повторный запуск безопасен.
  */
 object DatabaseSeeder : KoinComponent {
 
-    val userRepository: UserRepository by inject()
-    val characterRepository: CharacterRepository by inject()
-    val itemsRepository: ItemsRepository by inject()
-    val propertyRepository: PropertyRepository by inject()
+    private val userRepository: UserRepository by inject()
+    private val characterRepository: CharacterRepository by inject()
+    private val itemsRepository: ItemsRepository by inject()
+    private val propertyRepository: PropertyRepository by inject()
+    private val equipmentRepository: EquipmentRepository by inject()
 
     suspend fun seed() {
 
@@ -41,6 +44,7 @@ object DatabaseSeeder : KoinComponent {
         printLog("Database seeding started")
 
         seedUsers()
+        seedEquipment()
         seedCharacters()
         seedItems()
         seedProperty()
@@ -79,6 +83,40 @@ object DatabaseSeeder : KoinComponent {
         printLog("  → ${listItems.size} users created")
     }
 
+
+    private suspend fun seedEquipment() {
+        if (equipmentRepository.count() > 0) return
+
+        printLog("Seeding equipment...")
+        val userRepoAll = userRepository.findAll()
+
+        val listItems = arrayListOf<Equipment>()
+        listItems.add(Equipment(
+            characterId = userRepoAll.last().getId(),
+            slot = EnumEquipmentType.BODY,
+            name = "Body of THORN",
+            itemLevel = 10
+        ))
+        listItems.add(Equipment(
+            characterId = userRepoAll.last().getId(),
+            slot = EnumEquipmentType.RING,
+            name = "Ring of THORN",
+            itemLevel = 4
+        ))
+        listItems.add(Equipment(
+            characterId = userRepoAll.last().getId(),
+            slot = EnumEquipmentType.RING,
+            name = "Ring of PUSSY",
+            itemLevel = 6
+        ))
+
+        transactionExecute { session ->
+            equipmentRepository.insertMany(listItems, session)
+        }
+
+        printLog("  → ${listItems.size} equipments created")
+    }
+
     // ==================== Characters ====================
 
     private suspend fun seedCharacters() {
@@ -86,6 +124,7 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Seeding characters...")
         val userRepoAll = userRepository.findAll()
+        val eqipmentAll = equipmentRepository.findAll()
 
         val listItems = arrayListOf<Character>()
         listItems.add(Character(
@@ -98,7 +137,8 @@ object DatabaseSeeder : KoinComponent {
             description = "Мудрый pipster",
             userId = userRepoAll.last().getId(),
             level = 5,
-            experience = 1200
+            experience = 1200,
+            equipments = mutableSetOf(eqipmentAll.first().getId())
         ))
 
         transactionExecute { session ->

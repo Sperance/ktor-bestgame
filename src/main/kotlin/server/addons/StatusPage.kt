@@ -1,6 +1,5 @@
 package server.addons
 
-import base.exception.AppException
 import base.exception.BaseException
 import base.route.ApiMongoResponse
 import io.ktor.http.HttpStatusCode
@@ -34,20 +33,12 @@ fun Application.configureStatusPages() {
             call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
         }
 
-        // ── Бизнес-исключения приложения ──
-        exception<AppException> { call, cause ->
-            call.respond(HttpStatusCode.Forbidden, ApiMongoResponse.error(cause.httpCode, cause.message))
-        }
-
         // Общий обработчик (должен быть последним)
         exception<Throwable> { call, cause ->
             call.application.environment.log.error("Unhandled exception", cause)
             call.respond(
                 status = HttpStatusCode.InternalServerError,
-                message = ApiMongoResponse.error(
-                    message = "Внутренняя ошибка сервера",
-                    code = 500
-                )
+                message = ApiMongoResponse.error(BaseException("Internal Server Error", "StatusPage", null, "SP_500"))
             )
         }
     }

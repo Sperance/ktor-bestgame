@@ -29,19 +29,23 @@ import kotlinx.serialization.json.JsonObject
 import server.addons.AppJson
 import kotlin.text.toIntOrNull
 
+interface RouteRegistrar {
+    fun register(routing: Routing)
+}
+
 abstract class BaseRoute<T : VersionedEntity, R>(
     protected val repository: BaseRepository<T>,
     val entitySerializer: KSerializer<T>,
     val responseSerializer: KSerializer<R>,
     private val toResponse: (T) -> R
-) {
+) : RouteRegistrar {
     private val basePath = "/api/v${CONST_API_VERSION}/${entitySerializer.descriptor.serialName.lowercase().substringAfterLast(".")}"
     private val apiResponseSerializer = ApiMongoResponse.serializer(responseSerializer)
     private val apiResponseListSerializer = ApiMongoResponse.serializer(ListSerializer(responseSerializer))
     private val apiResponsePagedSerializer = ApiMongoResponse.serializer(PagedMongoResponse.serializer(responseSerializer))
 
     @OptIn(ExperimentalKtorApi::class)
-    fun register(routing: Routing) {
+    override fun register(routing: Routing) {
         routing.route(basePath) {
             additionalRoutes(this)
 
@@ -225,21 +229,14 @@ abstract class BaseRoute<T : VersionedEntity, R>(
 data class ApiMongoResponse<T>(
     val success: Boolean,
     val data: T? = null,
-    val code: String? = null,
     val error: BaseException? = null
 ) {
     companion object {
         fun <T> ok(data: T?, message: String? = null) =
-            ApiMongoResponse(success = true, data = data, code = "200")
-
-        fun error(code: String, message: String?, exception: BaseException? = null) =
-            ApiMongoResponse(success = false, data = message, code = code, error = exception)
-
-        fun error(code: Int, message: String?, exception: BaseException? = null) =
-            ApiMongoResponse(success = false, data = message, code = code.toString(), error = exception)
+            ApiMongoResponse(success = true, data = data)
 
         fun error(exception: BaseException) =
-            ApiMongoResponse(success = false, data = exception.message, code = exception.errorCode, error = exception)
+            ApiMongoResponse(success = false, data = exception.message, error = exception)
     }
 }
 

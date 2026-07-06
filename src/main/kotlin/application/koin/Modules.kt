@@ -1,7 +1,10 @@
 package application.koin
 
+import base.route.RouteRegistry
 import features.character.CharacterRepository
 import features.character.CharacterRoute
+import features.equipment.EquipmentRepository
+import features.equipment.EquipmentRoute
 import features.items.ItemsRepository
 import features.items.ItemsRoute
 import features.property.PropertyRepository
@@ -10,23 +13,28 @@ import features.user.UserRepository
 import features.user.UserRoute
 import org.koin.dsl.module
 
-// di/RepositoryModule.kt
 val repositoryModule = module {
     single { UserRepository() }
     single { CharacterRepository() }
     single { ItemsRepository() }
     single { PropertyRepository() }
+    single { EquipmentRepository() }
 }
 
-// di/RouteModule.kt
 val routeModule = module {
-    single { UserRoute(get()) }
-    single { CharacterRoute(get()) }
-    single { ItemsRoute(get()) }
-    single { PropertyRoute(get()) }
+    single {
+        RouteRegistry(
+            listOf(
+                UserRoute(get()),
+                CharacterRoute(get()),
+                ItemsRoute(get()),
+                PropertyRoute(get()),
+                EquipmentRoute(get())
+            )
+        )
+    }
 }
 
-// di/AppModules.kt
 val allModules = listOf(
     repositoryModule,
     routeModule,
