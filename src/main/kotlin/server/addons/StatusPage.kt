@@ -3,6 +3,7 @@ package server.addons
 import base.exception.BaseException
 import base.route.ApiMongoResponse
 import io.ktor.http.HttpStatusCode
+import io.ktor.serialization.JsonConvertException
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.plugins.statuspages.StatusPages
@@ -23,8 +24,15 @@ fun Application.configureStatusPages() {
         // Обработка неразрешённых методов (Method Not Allowed)
         status(HttpStatusCode.MethodNotAllowed) { call, status ->
             call.respond(
-                HttpStatusCode.MethodNotAllowed,
+                status,
                 ApiMongoResponse.error(BaseException("Unsupported method ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_002"))
+            )
+        }
+
+        status(HttpStatusCode.Unauthorized) { call, status ->
+            call.respond(
+                status,
+                ApiMongoResponse.error(BaseException("Unathorized ${call.request.uri.substringBefore("?")}. Please login", "StatusPage", null, "SP_003"))
             )
         }
 
@@ -33,13 +41,13 @@ fun Application.configureStatusPages() {
             call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
         }
 
+        exception<JsonConvertException> { call, cause ->
+            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_004")))
+        }
+
         // Общий обработчик (должен быть последним)
         exception<Throwable> { call, cause ->
-            call.application.environment.log.error("Unhandled exception", cause)
-            call.respond(
-                status = HttpStatusCode.InternalServerError,
-                message = ApiMongoResponse.error(BaseException("Internal Server Error", "StatusPage", null, "SP_500"))
-            )
+            call.respond(HttpStatusCode.InternalServerError, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_500")))
         }
     }
 }

@@ -14,7 +14,6 @@ import org.bson.types.ObjectId
 data class Equipment(
     var characterId: String,
     var slot: EnumEquipmentType,
-    var equipped: Boolean = false,
 
     var name: String = "",
     var rarity: EnumRarity = EnumRarity.COMMON,

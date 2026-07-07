@@ -11,6 +11,7 @@ import server.addons.configureSecurity
 import server.addons.configureSerialization
 import config.DatabaseSeeder
 import org.koin.core.context.startKoin
+import server.addons.configureCrypto
 import server.addons.configureStatusPages
 
 fun main() {
@@ -39,6 +40,7 @@ suspend fun Application.configureModules() {
     configureSecurity()
     configureHTTP()
     configureRouting()
+    configureCrypto()
 
     DatabaseSeeder.seed()
 }

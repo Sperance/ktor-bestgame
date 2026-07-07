@@ -19,7 +19,7 @@ data class Character(
     var money: Long = 0,
     var params: MutableSet<Stat> = mutableSetOf(),
     var buffs: MutableSet<Stat> = mutableSetOf(),
-    var equipments: MutableSet<String> = mutableSetOf(),
+    var equipments: MutableSet<CharacterEquipments> = mutableSetOf(),
 
     @Contextual
     override var _id: ObjectId = ObjectId(),
@@ -28,3 +28,9 @@ data class Character(
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity()
+
+@Serializable
+data class CharacterEquipments(
+    var equipmentId: String,
+    var enabled: Boolean = true,
+)

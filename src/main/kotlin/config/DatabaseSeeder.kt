@@ -6,6 +6,7 @@ import application.enums.EnumUserRoles
 import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.character.Character
+import features.character.CharacterEquipments
 import features.character.CharacterRepository
 import features.equipment.Equipment
 import features.equipment.EquipmentRepository
@@ -44,8 +45,8 @@ object DatabaseSeeder : KoinComponent {
         printLog("Database seeding started")
 
         seedUsers()
-        seedEquipment()
         seedCharacters()
+        seedEquipment()
         seedItems()
         seedProperty()
 
@@ -88,7 +89,7 @@ object DatabaseSeeder : KoinComponent {
         if (equipmentRepository.count() > 0) return
 
         printLog("Seeding equipment...")
-        val userRepoAll = userRepository.findAll()
+        val userRepoAll = characterRepository.findAll()
 
         val listItems = arrayListOf<Equipment>()
         listItems.add(Equipment(
@@ -124,7 +125,6 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Seeding characters...")
         val userRepoAll = userRepository.findAll()
-        val eqipmentAll = equipmentRepository.findAll()
 
         val listItems = arrayListOf<Character>()
         listItems.add(Character(
@@ -138,7 +138,6 @@ object DatabaseSeeder : KoinComponent {
             userId = userRepoAll.last().getId(),
             level = 5,
             experience = 1200,
-            equipments = mutableSetOf(eqipmentAll.first().getId())
         ))
 
         transactionExecute { session ->

@@ -236,7 +236,7 @@ data class ApiMongoResponse<T>(
             ApiMongoResponse(success = true, data = data)
 
         fun error(exception: BaseException) =
-            ApiMongoResponse(success = false, data = exception.message, error = exception)
+            ApiMongoResponse(success = false, data = null, error = exception)
     }
 }
 
