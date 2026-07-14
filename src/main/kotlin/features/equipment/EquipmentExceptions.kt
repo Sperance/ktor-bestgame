@@ -9,6 +9,6 @@ object EquipmentExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "IllegalStateException") = EquipmentException(value, errorMethod, "EQ_001")
+    fun funException(errorMethod: String, value: String? = "") = EquipmentException(value, errorMethod, "EQ_001")
     fun funExceptionType(errorMethod: String, value: String? = "") = EquipmentException("Equipment type is not supported", errorMethod, "EQ_002")
 }

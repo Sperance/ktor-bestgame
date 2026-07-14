@@ -1,13 +1,19 @@
 package ru.descend
 
 import application.koin.allModules
+import base.repository.BaseRepositoryExceptions
 import base.route.BaseRouteExceptions
 import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
 import com.mongodb.DuplicateKeyException
 import config.MongoFactory.transactionExecute
 import extensions.printLog
+import features.character.CharacterExceptions
+import features.equipment.EquipmentExceptions
+import features.items.ItemsExceptions
+import features.property.PropertyExceptions
 import features.user.User
+import features.user.UserExceptions
 import features.user.UserRepository
 import org.junit.After
 import org.junit.Assert.assertThrows
@@ -19,8 +25,12 @@ import org.koin.core.context.GlobalContext.startKoin
 import org.koin.mp.KoinPlatform.stopKoin
 import org.koin.test.inject
 import org.koin.test.KoinTest
+import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
+import kotlin.reflect.KParameter
+import kotlin.reflect.full.companionObjectInstance
 import kotlin.reflect.full.declaredMembers
+import kotlin.reflect.jvm.javaMethod
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MongoTest: KoinTest {
@@ -270,24 +280,58 @@ class MongoTest: KoinTest {
 
     @Test
     fun test_exception_files() = run {
-        val classs = BaseRouteExceptions::class
+        val arrayClasses = listOf(
+            BaseRepositoryExceptions::class,
+            BaseRouteExceptions::class,
+            CharacterExceptions::class,
+            EquipmentExceptions::class,
+            ItemsExceptions::class,
+            PropertyExceptions::class,
+            UserExceptions::class
+        )
 
-        classs.declaredMembers
-            .filterIsInstance<KFunction<*>>()
-            .filter { it.name.startsWith("funException") }
-            .forEach { func ->
+        arrayClasses.forEach { cls ->
+            val instance = cls.objectInstance ?: run {
                 try {
-                    val result = func.callBy(
-                        mapOf(
-                            func.parameters[0] to BaseRouteExceptions,
-                            func.parameters[1] to "<INFO>"
-                        )
-                    ) as BaseRouteExceptions.BaseRouteException
-
-                    println(result)
+                    cls.constructors.firstOrNull { it.parameters.isEmpty() }?.call()
                 } catch (e: Exception) {
-                    println("❌ ${func.name}: ${e.message}")
+                    null
                 }
             }
+
+            if (instance == null) {
+                println("⚠️[${cls.simpleName}] Не удалось получить экземпляр")
+                return@forEach
+            }
+
+            cls.declaredMembers
+                .filterIsInstance<KFunction<*>>()
+                .filter { it.name.startsWith("funException") }
+                .forEach { func ->
+                    try {
+                        val args = mutableMapOf<KParameter, Any?>()
+
+                        func.parameters.forEachIndexed { index, param ->
+                            // Пропускаем receiver (индекс 0 если это метод класса)
+                            if (index == 0 && param.type.classifier == cls) {
+                                args[param] = instance
+                                return@forEachIndexed
+                            }
+
+                            // Проверяем, есть ли значение по умолчанию для этого параметра
+                            val defaultValue = "<NULL>"
+
+                            // Используем значение по умолчанию
+                            args[param] = defaultValue
+                        }
+
+                        val result = func.callBy(args)
+                        println("✅[${cls.simpleName}] ${func.name}: $result")
+
+                    } catch (e: Exception) {
+                        println("❌[${cls.simpleName}] ${func.name}: ${e.message}")
+                    }
+                }
+        }
     }
 }

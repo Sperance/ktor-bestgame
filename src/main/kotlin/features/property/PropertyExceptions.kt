@@ -9,5 +9,5 @@ object PropertyExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "IllegalStateException") = PropertyException(value, errorMethod, "PR_001")
+    fun funException(errorMethod: String, value: String? = "") = PropertyException(value, errorMethod, "PR_001")
 }

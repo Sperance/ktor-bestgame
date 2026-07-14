@@ -9,5 +9,5 @@ object ItemsExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "IllegalStateException") = ItemsException(value, errorMethod, "IT_001")
+    fun funException(errorMethod: String, value: String? = "") = ItemsException(value, errorMethod, "IT_001")
 }
