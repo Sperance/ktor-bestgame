@@ -1,4 +1,4 @@
-package features.equipment
+package features.data.equipment
 
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
@@ -12,7 +12,6 @@ import org.bson.types.ObjectId
 
 @Serializable
 data class Equipment(
-    var characterId: String,
     var slot: EnumEquipmentType,
 
     var name: String = "",

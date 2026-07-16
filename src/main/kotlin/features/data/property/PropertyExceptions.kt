@@ -1,4 +1,4 @@
-package features.property
+package features.data.property
 
 import base.exception.BaseException
 

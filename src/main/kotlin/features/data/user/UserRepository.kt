@@ -1,11 +1,11 @@
-package features.user
+package features.data.user
 
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
-import features.character.Character
-import features.character.CharacterRepository
+import features.data.character.Character
+import features.data.character.CharacterRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.security.MessageDigest

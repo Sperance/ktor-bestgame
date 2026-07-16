@@ -1,5 +1,6 @@
 package ru.descend
 
+import application.enums.EnumRarity
 import application.koin.allModules
 import base.repository.BaseRepositoryExceptions
 import base.route.BaseRouteExceptions
@@ -8,13 +9,15 @@ import kotlinx.coroutines.runBlocking
 import com.mongodb.DuplicateKeyException
 import config.MongoFactory.transactionExecute
 import extensions.printLog
-import features.character.CharacterExceptions
-import features.equipment.EquipmentExceptions
-import features.items.ItemsExceptions
-import features.property.PropertyExceptions
-import features.user.User
-import features.user.UserExceptions
-import features.user.UserRepository
+import features.data.character.CharacterExceptions
+import features.data.character.CharacterRepository
+import features.data.equipment.EquipmentExceptions
+import features.data.items.ItemsExceptions
+import features.data.property.PropertyExceptions
+import features.data.user.User
+import features.data.user.UserExceptions
+import features.data.user.UserRepository
+import features.logic.ObjectGenerator
 import org.junit.After
 import org.junit.Assert.assertThrows
 import org.junit.Before
@@ -25,17 +28,18 @@ import org.koin.core.context.GlobalContext.startKoin
 import org.koin.mp.KoinPlatform.stopKoin
 import org.koin.test.inject
 import org.koin.test.KoinTest
-import kotlin.reflect.KClass
+import kotlin.getValue
+import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
-import kotlin.reflect.full.companionObjectInstance
 import kotlin.reflect.full.declaredMembers
-import kotlin.reflect.jvm.javaMethod
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MongoTest: KoinTest {
 
     private val userRepo: UserRepository by inject()
+    private val charRepo: CharacterRepository by inject()
 
     @Before
     fun setup() {
@@ -334,4 +338,26 @@ class MongoTest: KoinTest {
                 }
         }
     }
+
+    @Test
+    fun test_generate_items(): Unit = runBlocking {
+        val generator = ObjectGenerator()
+        val allCounter = 1000000
+
+        val char = charRepo.findAll().first()
+        val counter = mutableMapOf<EnumRarity, Int>()
+        repeat(allCounter) {
+            val item = generator.generateEquipment(char)
+            counter[item.rarity] = (counter[item.rarity] ?: 0) + 1
+        }
+        val sorted = counter.toSortedMap()
+        sorted.forEach { (rarity, i) ->
+            printLog("$rarity: $i (${(i.toDouble() / allCounter.toDouble() * 100).roundTo(5)}%)")
+        }
+    }
+}
+
+fun Double.roundTo(decimals: Int): Double {
+    val factor = 10.0.pow(decimals)
+    return (this * factor).roundToInt() / factor
 }

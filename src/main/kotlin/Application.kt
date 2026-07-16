@@ -11,6 +11,7 @@ import server.addons.configureSecurity
 import server.addons.configureSerialization
 import config.DatabaseSeeder
 import org.koin.core.context.startKoin
+import server.addons.configureCaches
 import server.addons.configureCrypto
 import server.addons.configureStatusPages
 
@@ -43,4 +44,5 @@ suspend fun Application.configureModules() {
     configureCrypto()
 
     DatabaseSeeder.seed()
+    configureCaches()
 }

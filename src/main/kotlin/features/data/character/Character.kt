@@ -1,4 +1,4 @@
-package features.character
+package features.data.character
 
 import application.model.Stat
 import extensions.now
@@ -33,4 +33,7 @@ data class Character(
 data class CharacterEquipments(
     var equipmentId: String,
     var enabled: Boolean = true,
+
+    @Contextual
+    var uuid: ObjectId = ObjectId(),
 )

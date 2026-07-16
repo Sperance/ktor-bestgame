@@ -1,7 +1,8 @@
-package features.items
+package features.data.items
 
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
+import com.mongodb.kotlin.client.coroutine.ClientSession
 
 class ItemsRepository : BaseRepository<Items>(
     entityClass = Items::class
@@ -13,5 +14,9 @@ class ItemsRepository : BaseRepository<Items>(
                 fields = listOf("name")
             )
         ))
+    }
+
+    override suspend fun validateAfterInsert(entity: Items, session: ClientSession) {
+        ItemsCache.addItemToCache(entity)
     }
 }

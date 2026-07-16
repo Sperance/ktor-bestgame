@@ -1,4 +1,4 @@
-package features.character
+package features.data.character
 
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
@@ -8,9 +8,9 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.CONST_FIELD_ID
 import extensions.CONST_USER_MAX_CHARACTERS
-import features.equipment.Equipment
-import features.equipment.EquipmentRepository
-import features.user.UserRepository
+import features.data.equipment.Equipment
+import features.data.equipment.EquipmentRepository
+import features.data.user.UserRepository
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -71,22 +71,14 @@ class CharacterRepository : BaseRepository<Character>(
     /**
      * Добавление нового предмета в инвентарь персонажа. Создание предмета
      */
-    suspend fun itemCreateToInventory(item: Equipment): String {
-        if (findById(item.characterId) == null) throw CharacterExceptions.funExceptionNotFound("itemCreateToInventory", item.characterId)
-        transactionExecute { session ->
-            equipmentRepository.insert(item, session)
-        }
-        return "Success"
-    }
+    suspend fun itemToInventory(characterId: String, item: CharacterEquipments): String {
+        val character = findById(characterId)
+        if (character == null) throw CharacterExceptions.funExceptionNotFound("itemToInventory", characterId)
+        if (equipmentRepository.findById(item.equipmentId) == null) throw CharacterExceptions.funExceptionItemNotFound("itemToInventory", item.equipmentId)
 
-    /**
-     * Добавление существующего предмета в инвентарь персонажа
-     */
-    suspend fun itemAddToInventory(characterId: String, itemId: String): String {
-        val findedItem = equipmentRepository.findById(itemId)
-        if (findedItem == null) throw CharacterExceptions.funExceptionItemNotFound("itemAddToInventory", itemId)
+        character.equipments.add(item)
         transactionExecute { session ->
-            equipmentRepository.updateFields(itemId, mapOf("characterId" to characterId), session)
+            update(character, session)
         }
         return "Success"
     }

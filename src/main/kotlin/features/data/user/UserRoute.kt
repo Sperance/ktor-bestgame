@@ -1,4 +1,4 @@
-package features.user
+package features.data.user
 
 import base.route.ApiMongoResponse
 import base.route.BaseRoute

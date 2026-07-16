@@ -1,4 +1,4 @@
-package features.user
+package features.data.user
 
 import application.enums.EnumUserRoles
 import extensions.now

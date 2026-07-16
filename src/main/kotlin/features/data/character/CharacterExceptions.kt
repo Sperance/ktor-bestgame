@@ -1,4 +1,4 @@
-package features.character
+package features.data.character
 
 import base.exception.BaseException
 import extensions.CONST_USER_MAX_CHARACTERS

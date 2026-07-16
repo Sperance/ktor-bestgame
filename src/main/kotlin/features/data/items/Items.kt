@@ -1,4 +1,4 @@
-package features.items
+package features.data.items
 
 import extensions.now
 import base.entity.VersionedEntity

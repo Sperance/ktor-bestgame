@@ -1,16 +1,16 @@
 package application.koin
 
 import base.route.RouteRegistry
-import features.character.CharacterRepository
-import features.character.CharacterRoute
-import features.equipment.EquipmentRepository
-import features.equipment.EquipmentRoute
-import features.items.ItemsRepository
-import features.items.ItemsRoute
-import features.property.PropertyRepository
-import features.property.PropertyRoute
-import features.user.UserRepository
-import features.user.UserRoute
+import features.data.character.CharacterRepository
+import features.data.character.CharacterRoute
+import features.data.equipment.EquipmentRepository
+import features.data.equipment.EquipmentRoute
+import features.data.items.ItemsRepository
+import features.data.items.ItemsRoute
+import features.data.property.PropertyRepository
+import features.data.property.PropertyRoute
+import features.data.user.UserRepository
+import features.data.user.UserRoute
 import org.koin.dsl.module
 
 val repositoryModule = module {
