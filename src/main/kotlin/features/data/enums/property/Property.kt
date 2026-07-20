@@ -1,9 +1,7 @@
-package features.data.property
+package features.data.enums.property
 
 import application.enums.EnumStatType
-import extensions.now
-import base.entity.VersionedEntity
-import kotlinx.datetime.LocalDateTime
+import base.entity.StockEntity
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
@@ -18,8 +16,4 @@ data class Property(
 
     @Contextual
     override var _id: ObjectId = ObjectId(),
-    override var version: Long = 0,
-    override var deleted: Boolean = false,
-    override val createdAt: LocalDateTime = LocalDateTime.now(),
-    override val updatedAt: LocalDateTime = LocalDateTime.now(),
-) : VersionedEntity()
+) : StockEntity

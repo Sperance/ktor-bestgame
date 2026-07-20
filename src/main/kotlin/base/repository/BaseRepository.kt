@@ -1,5 +1,6 @@
 package base.repository
 
+import base.entity.StockEntity
 import base.route.PagedMongoResponse
 import com.mongodb.MongoWriteException
 import com.mongodb.ReadConcern
@@ -21,7 +22,7 @@ import extensions.printLog
 import base.entity.VersionedEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
@@ -31,40 +32,20 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.full.memberProperties
 
-/**
- * Конфигурация уникального индекса.
- * @property indexName Уникальное имя индекса
- * @property fields Список полей для индексации
- * @property sparse Если true, индексирует только документы, содержащие указанные поля
- */
 data class UniqueIndexConfig(
     val indexName: String,
     val fields: List<String>,
     val sparse: Boolean = false
 )
 
-/**
- * Базовый репозиторий для работы с MongoDB.
- * Предоставляет CRUD операции с поддержкой:
- * - Уникальных индексов
- * - Оптимистичной блокировки через поле version
- * - Мягкого удаления через поле deleted
- * - Транзакций через ClientSession
- * - Type-safe DSL через KtMongo
- * - Change streams для реактивного программирования
- *
- * @param T Тип сущности, должен наследовать VersionedEntity
- * @param collectionName Имя коллекции в MongoDB
- * @param entityClass KClass сущности для рефлексии
- */
-abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KClass<T>) {
+abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T>) {
 
     private val collectionName = entityClass.simpleName!!
 
     // ==================== ПОЛЯ ====================
 
     /** Коллекция официального драйвера MongoDB для низкоуровневых операций */
-    lateinit var collection: MongoCollection<T>
+    var collection: MongoCollection<T> = MongoFactory.db.getCollection(collectionName, entityClass.java)
 
     // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
@@ -84,7 +65,6 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
      * ```
      */
     fun initialize(uniqueIndexes: List<UniqueIndexConfig> = emptyList()) {
-        collection = MongoFactory.db.getCollection(collectionName, entityClass.java)
         runBlocking {
             setupUniqueIndexes(uniqueIndexes)
             setupVersionIndex()
@@ -147,7 +127,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
      * ```
      */
     suspend fun insert(entity: T, session: ClientSession): T {
-        if (entity.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insert", entity.version.toString())
+        if (entity is VersionedEntity && entity.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insert", entity.version.toString())
         validateBeforeInsert(entity)
 
         return try {
@@ -180,7 +160,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
      */
     suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
         entities.forEach {
-            if (it.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insertMany", it.version.toString())
+            if (it is VersionedEntity && it.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insertMany", it.version.toString())
             validateBeforeInsert(it)
         }
 
@@ -301,32 +281,14 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
         return collection.find(filter).toList()
     }
 
-    /**
-     * Поток изменений в коллекции (Change Stream).
-     * Позволяет отслеживать все изменения (INSERT, UPDATE, DELETE) в реальном времени.
-     * Требует, чтобы MongoDB был запущен как реплика-сет.
-     *
-     * @return Flow событий изменений
-     *
-     * Пример:
-     * ```
-     * repo.watchAll().collect { change ->
-     *     when (change.operationType) {
-     *         OperationType.INSERT -> println("Добавлен: ${change.fullDocument}")
-     *         OperationType.UPDATE -> println("Обновлён: ${change.documentKey}")
-     *         OperationType.DELETE -> println("Удалён: ${change.documentKey}")
-     *     }
-     * }
-     * ```
-     */
     fun watchAll(): Flow<ChangeStreamDocument<T>> {
-        return collection.watch().mapNotNull { it }
+        return collection.watch().map { it }
     }
 
     // ==================== UPDATE ОПЕРАЦИИ ====================
 
     suspend fun update(entity: T, session: ClientSession): UpdateResult {
-        val expectedVersion = entity.version
+        val expectedVersion = if (entity is VersionedEntity) entity.version else 0L
         val newVersion = expectedVersion + 1
 
         val filter = Filters.and(
@@ -353,12 +315,14 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
             if (existing == null) {
                 throw BaseRepositoryExceptions.funExceptionFindId("update", entity.getId())
             } else {
-                throw BaseRepositoryExceptions.funExceptionRace("update", "current: ${existing.version} need: $expectedVersion")
+                throw BaseRepositoryExceptions.funExceptionRace("update", "current: ${if (existing is VersionedEntity) existing.version else 0L} need: $expectedVersion")
             }
         }
 
-        if (result.wasAcknowledged() && result.modifiedCount > 0) {
-            entity.version = newVersion
+        if (entity is VersionedEntity) {
+            if (result.wasAcknowledged() && result.modifiedCount > 0) {
+                entity.version = newVersion
+            }
         }
 
         return result
@@ -389,7 +353,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
         //Проверки Мапы новых полей
         validateBeforeUpdate(updates)
 
-        val expectedVersion = entity.version
+        val expectedVersion = if (entity is VersionedEntity) entity.version else 0L
         val newVersion = expectedVersion + 1
 
         //Фильтр для поиска нужного объекта по ID и version
@@ -471,7 +435,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
 
         val filter = Filters.and(
             Filters.eq(CONST_FIELD_ID, entity._id),
-            Filters.eq(CONST_FIELD_VERSION, entity.version)
+            Filters.eq(CONST_FIELD_VERSION, if (entity is VersionedEntity) entity.version else 0L)
         )
 
         val result = try {
@@ -485,7 +449,7 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
         if (result.deletedCount == 0L) {
             val existing = findById(entity._id)
             if (existing != null) {
-                throw BaseRepositoryExceptions.funExceptionRace("deleteWithVersion", "Entity version mismatch.  Current: ${entity.version} need: ${existing.version}")
+                throw BaseRepositoryExceptions.funExceptionRace("deleteWithVersion", "Entity version mismatch.  Current: ${if (entity is VersionedEntity) entity.version else 0L} need: ${if (existing is VersionedEntity) existing.version else 0L}")
             }
         }
 
@@ -566,14 +530,23 @@ abstract class BaseRepository<T : VersionedEntity>(private val entityClass: KCla
         val requests = entities.map { entity ->
             val filter = Filters.and(
                 Filters.eq(CONST_FIELD_ID, entity._id),
-                Filters.eq(CONST_FIELD_VERSION, entity.version)
+                Filters.eq(CONST_FIELD_VERSION, if (entity is VersionedEntity) entity.version else 0L)
             )
-            val update = Updates.combine(
-                Updates.set(CONST_FIELD_VERSION, entity.version + 1),
-                *getUpdateFields(entity).map { (field, value) ->
-                    Updates.set(field, value)
-                }.toTypedArray()
-            )
+            val update = if (entity is VersionedEntity) {
+                Updates.combine(
+                    Updates.set(CONST_FIELD_VERSION, entity.version + 1),
+                    *getUpdateFields(entity).map { (field, value) ->
+                        Updates.set(field, value)
+                    }.toTypedArray()
+                )
+            } else {
+                Updates.combine(
+                    *getUpdateFields(entity).map { (field, value) ->
+                        Updates.set(field, value)
+                    }.toTypedArray()
+                )
+            }
+
             UpdateOneModel<T>(filter, update)
         }
 

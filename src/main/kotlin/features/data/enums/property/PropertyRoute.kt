@@ -1,4 +1,4 @@
-package features.data.property
+package features.data.enums.property
 
 import base.route.BaseRoute
 

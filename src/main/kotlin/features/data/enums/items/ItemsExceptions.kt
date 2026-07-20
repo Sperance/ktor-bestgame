@@ -1,4 +1,4 @@
-package features.data.items
+package features.data.enums.items
 
 import base.exception.BaseException
 

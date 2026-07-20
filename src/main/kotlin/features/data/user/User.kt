@@ -28,7 +28,7 @@ data class User(
     override var deleted: Boolean = false,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override val updatedAt: LocalDateTime = LocalDateTime.now(),
-) : VersionedEntity()
+) : VersionedEntity
 
 @Serializable
 data class UserResponse(

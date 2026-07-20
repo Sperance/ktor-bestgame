@@ -1,11 +1,9 @@
-package features.data.equipment
+package features.data.enums.equipment
 
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.model.Stat
-import base.entity.VersionedEntity
-import extensions.now
-import kotlinx.datetime.LocalDateTime
+import base.entity.StockEntity
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
@@ -25,8 +23,4 @@ data class Equipment(
 
     @Contextual
     override var _id: ObjectId = ObjectId(),
-    override var version: Long = 0,
-    override var deleted: Boolean = false,
-    override val createdAt: LocalDateTime = LocalDateTime.now(),
-    override val updatedAt: LocalDateTime = LocalDateTime.now(),
-) : VersionedEntity()
+) : StockEntity

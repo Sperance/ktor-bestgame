@@ -1,22 +1,22 @@
-package features.data.items
+package features.data.enums.property
 
 import extensions.printLog
 
-object ItemsCache {
-    private val items = ArrayList<Items>()
+object PropertyCache {
+    private val items = ArrayList<Property>()
 
-    suspend fun initializeCache(repo: ItemsRepository) {
+    suspend fun initializeCache(repo: PropertyRepository) {
         val data = repo.findAll()
         loadToCache(data)
     }
 
-    fun loadToCache(data: Collection<Items>){
+    fun loadToCache(data: Collection<Property>){
         clearCache()
         items.addAll(data)
         printLog("[${javaClass.simpleName}] initialized cache size: ${items.size}")
     }
 
-    fun addItemToCache(item: Items) = items.add(item)
+    fun addItemToCache(item: Property) = items.add(item)
 
     fun clearCache() = items.clear()
 

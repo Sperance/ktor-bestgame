@@ -1,5 +1,6 @@
 package base.route
 
+import base.entity.StockEntity
 import base.repository.BaseRepository
 import config.MongoFactory.transactionExecute
 import extensions.CONST_SYSTEM_FIELDS
@@ -33,7 +34,7 @@ interface RouteRegistrar {
     fun register(routing: Routing)
 }
 
-abstract class BaseRoute<T : VersionedEntity, R>(
+abstract class BaseRoute<T : StockEntity, R>(
     protected val repository: BaseRepository<T>,
     val entitySerializer: KSerializer<T>,
     val responseSerializer: KSerializer<R>,

@@ -2,14 +2,13 @@ package features.data.character
 
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
-import base.route.ApiMongoResponse
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.CONST_FIELD_ID
 import extensions.CONST_USER_MAX_CHARACTERS
-import features.data.equipment.Equipment
-import features.data.equipment.EquipmentRepository
+import features.data.enums.equipment.Equipment
+import features.data.enums.equipment.EquipmentRepository
 import features.data.user.UserRepository
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent

@@ -3,7 +3,7 @@ package features.logic
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import features.data.character.Character
-import features.data.equipment.Equipment
+import features.data.enums.equipment.Equipment
 import org.bson.types.ObjectId
 import kotlin.random.Random
 
