@@ -1,5 +1,6 @@
 package features.data.enums.equipment
 
+import application.enums.EnumEquipmentType
 import base.exception.BaseException
 
 object EquipmentExceptions {
@@ -11,4 +12,11 @@ object EquipmentExceptions {
 
     fun funException(errorMethod: String, value: String? = "") = EquipmentException(value, errorMethod, "EQ_001")
     fun funExceptionType(errorMethod: String, value: String? = "") = EquipmentException("Equipment type is not supported", errorMethod, "EQ_002")
+    
+    // Валидация типов предметов
+    fun funExceptionInvalidSlot(errorMethod: String, slot: EnumEquipmentType, equipmentType: String) = 
+        EquipmentException("Invalid slot $slot for equipment type $equipmentType", errorMethod, "EQ_003")
+    
+    fun funExceptionMissingData(errorMethod: String, missingField: String) = 
+        EquipmentException("Missing required data: $missingField", errorMethod, "EQ_004")
 }

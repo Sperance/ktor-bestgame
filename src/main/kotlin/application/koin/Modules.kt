@@ -4,7 +4,8 @@ import base.route.RouteRegistry
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
 import features.data.enums.equipment.EquipmentRepository
-import features.data.enums.equipment.EquipmentRoute
+import features.data.enums.equipmentName.EquipmentNameRepository
+import features.data.enums.equipmentName.EquipmentNameRoute
 import features.data.enums.items.ItemsRepository
 import features.data.enums.items.ItemsRoute
 import features.data.enums.property.PropertyRepository
@@ -19,6 +20,7 @@ val repositoryModule = module {
     single { ItemsRepository() }
     single { PropertyRepository() }
     single { EquipmentRepository() }
+    single { EquipmentNameRepository() }
 }
 
 val routeModule = module {
@@ -29,7 +31,7 @@ val routeModule = module {
                 CharacterRoute(get()),
                 ItemsRoute(get()),
                 PropertyRoute(get()),
-                EquipmentRoute(get())
+                EquipmentNameRoute(get()),
             )
         )
     }

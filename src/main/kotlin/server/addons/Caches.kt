@@ -2,6 +2,8 @@ package server.addons
 
 import features.data.enums.equipment.EquipmentCache
 import features.data.enums.equipment.EquipmentRepository
+import features.data.enums.equipmentName.EquipmentNameCache
+import features.data.enums.equipmentName.EquipmentNameRepository
 import features.data.enums.items.ItemsCache
 import features.data.enums.items.ItemsRepository
 import features.data.enums.property.PropertyCache
@@ -19,4 +21,7 @@ suspend fun Application.configureCaches() {
 
     val equipmentRepository: EquipmentRepository by inject()
     EquipmentCache.initializeCache(equipmentRepository)
+
+    val equipmentNameRepository: EquipmentNameRepository by inject()
+    EquipmentNameCache.initializeCache(equipmentNameRepository)
 }

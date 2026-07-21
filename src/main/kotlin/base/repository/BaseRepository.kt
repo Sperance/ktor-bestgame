@@ -293,11 +293,11 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
         val filter = Filters.and(
             Filters.eq(CONST_FIELD_ID, entity._id),
-            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
+            if (entity is VersionedEntity) Filters.eq(CONST_FIELD_VERSION, expectedVersion) else Filters.empty(),
         )
 
         val update = Updates.combine(
-            Updates.set(CONST_FIELD_VERSION, newVersion),
+            if (entity is VersionedEntity) Updates.set(CONST_FIELD_VERSION, newVersion) else Filters.empty(),
             Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now()),
             *getUpdateFields(entity).map { (field, value) ->
                 Updates.set(field, value)
@@ -359,14 +359,16 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         //Фильтр для поиска нужного объекта по ID и version
         val filter = Filters.and(
             Filters.eq(CONST_FIELD_ID, entity._id),
-            Filters.eq(CONST_FIELD_VERSION, expectedVersion)
+            if (entity is VersionedEntity) Filters.eq(CONST_FIELD_VERSION, expectedVersion) else Filters.empty()
         )
 
         //Вручную указываем поля, которые нужно обновить
-        val updatesList = mutableListOf<Bson>(
-            Updates.set(CONST_FIELD_VERSION, newVersion),
-            Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now())
-        )
+        val updatesList = mutableListOf<Bson>()
+
+        if (entity is VersionedEntity) {
+            updatesList.add(Updates.set(CONST_FIELD_VERSION, newVersion))
+            updatesList.add(Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now()))
+        }
 
         //Заполняем поля которые нужно изменять в конечном объекте
         updates.forEach { (field, value) ->
@@ -435,7 +437,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
         val filter = Filters.and(
             Filters.eq(CONST_FIELD_ID, entity._id),
-            Filters.eq(CONST_FIELD_VERSION, if (entity is VersionedEntity) entity.version else 0L)
+            if (entity is VersionedEntity) Filters.eq(CONST_FIELD_VERSION, entity.version) else Filters.empty()
         )
 
         val result = try {
@@ -449,7 +451,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         if (result.deletedCount == 0L) {
             val existing = findById(entity._id)
             if (existing != null) {
-                throw BaseRepositoryExceptions.funExceptionRace("deleteWithVersion", "Entity version mismatch.  Current: ${if (entity is VersionedEntity) entity.version else 0L} need: ${if (existing is VersionedEntity) existing.version else 0L}")
+                throw BaseRepositoryExceptions.funExceptionRace("deleteWithVersion", "Entity version mismatch. Current: ${if (entity is VersionedEntity) entity.version else 0L} need: ${if (existing is VersionedEntity) existing.version else 0L}")
             }
         }
 
@@ -469,6 +471,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         val findedObj = findById(id)
         if (findedObj == null) {
             throw BaseRepositoryExceptions.funExceptionFindId("softDelete", id.toHexString())
+        }
+
+        if (findedObj !is VersionedEntity) {
+            throw BaseRepositoryExceptions.funExceptionVersioned("softDelete", findedObj::class.simpleName)
         }
 
         val filter = Filters.eq(CONST_FIELD_ID, id)
@@ -530,22 +536,14 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         val requests = entities.map { entity ->
             val filter = Filters.and(
                 Filters.eq(CONST_FIELD_ID, entity._id),
-                Filters.eq(CONST_FIELD_VERSION, if (entity is VersionedEntity) entity.version else 0L)
+                if (entity is VersionedEntity) Filters.eq(CONST_FIELD_VERSION, entity.version) else Filters.empty()
             )
-            val update = if (entity is VersionedEntity) {
-                Updates.combine(
-                    Updates.set(CONST_FIELD_VERSION, entity.version + 1),
-                    *getUpdateFields(entity).map { (field, value) ->
-                        Updates.set(field, value)
-                    }.toTypedArray()
-                )
-            } else {
-                Updates.combine(
-                    *getUpdateFields(entity).map { (field, value) ->
-                        Updates.set(field, value)
-                    }.toTypedArray()
-                )
-            }
+            val update = Updates.combine(
+                if (entity is VersionedEntity) Updates.set(CONST_FIELD_VERSION, entity.version + 1) else Filters.empty(),
+                *getUpdateFields(entity).map { (field, value) ->
+                    Updates.set(field, value)
+                }.toTypedArray()
+            )
 
             UpdateOneModel<T>(filter, update)
         }
@@ -598,7 +596,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     private fun getUpdateFields(entity: T): Map<String, Any?> {
         val fields = mutableMapOf<String, Any?>()
 
-        entityClass.memberProperties.forEach { property ->
+        entity::class.java.kotlin.memberProperties.forEach { property ->
             val fieldName = property.name
             if (fieldName !in CONST_SYSTEM_FIELDS) {
                 val value = property.getter.call(entity)
@@ -607,6 +605,11 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         }
 
         return fields
+    }
+
+    suspend fun deleteAll() {
+        printLog("[DELETE_All::$collectionName]")
+        collection.drop()
     }
 
     // ==================== АБСТРАКТНЫЕ МЕТОДЫ ====================

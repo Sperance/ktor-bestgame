@@ -11,13 +11,20 @@ import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.data.character.CharacterExceptions
 import features.data.character.CharacterRepository
+import features.data.character.Modification
+import features.data.character.ModificationValue
+import features.data.enums.equipment.Armor
 import features.data.enums.equipment.EquipmentExceptions
+import features.data.enums.equipment.EquipmentRepository
+import features.data.enums.equipment.Weapon
+import features.data.enums.equipmentName.EquipmentNameCache
+import features.data.enums.equipmentName.EquipmentNameRepository
 import features.data.enums.items.ItemsExceptions
 import features.data.enums.property.PropertyExceptions
 import features.data.user.User
 import features.data.user.UserExceptions
 import features.data.user.UserRepository
-import features.logic.ObjectGenerator
+import features.logic.EquipmentGenerator
 import org.junit.After
 import org.junit.Assert.assertThrows
 import org.junit.Before
@@ -40,6 +47,8 @@ class MongoTest: KoinTest {
 
     private val userRepo: UserRepository by inject()
     private val charRepo: CharacterRepository by inject()
+    private val equipmentNameRepo: EquipmentNameRepository by inject()
+    private val equipmentRepository: EquipmentRepository by inject()
 
     @Before
     fun setup() {
@@ -340,14 +349,44 @@ class MongoTest: KoinTest {
     }
 
     @Test
+    fun test_get_equip(): Unit = runBlocking {
+        val items = equipmentRepository.findAll()
+        items.forEach {
+            printLog(it)
+
+            when(it) {
+                is Weapon -> {
+                    it.params.clear()
+                    it.damage = 333
+                }
+                is Armor -> {
+                    it.defense = 444
+                }
+            }
+        }
+
+        items.forEach {
+            printLog(it)
+        }
+
+        transactionExecute { session ->
+            equipmentRepository.bulkUpdate(items, session)
+        }
+    }
+
+    @Test
     fun test_generate_items(): Unit = runBlocking {
-        val generator = ObjectGenerator()
-        val allCounter = 1000000
+
+        EquipmentNameCache.initializeCache(equipmentNameRepo)
+
+        val generator = EquipmentGenerator()
+        val allCounter = 100
 
         val char = charRepo.findAll().first()
         val counter = mutableMapOf<EnumRarity, Int>()
         repeat(allCounter) {
             val item = generator.generateEquipment(char)
+            printLog("ITEM: $item")
             counter[item.rarity] = (counter[item.rarity] ?: 0) + 1
         }
         val sorted = counter.toSortedMap()

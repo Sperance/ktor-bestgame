@@ -50,4 +50,6 @@ dependencies {
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
+
+    implementation("org.mongodb:bson-kotlinx:5.9.0")  // Используйте актуальную версию
 }

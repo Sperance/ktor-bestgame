@@ -8,11 +8,12 @@ import org.bson.types.ObjectId
 
 @Serializable
 data class Property(
-    val code: String = "",
-    val name: String = "",
-    val description: String = "",
-    val type: EnumStatType = EnumStatType.STOCK,
-    val image: String? = null,
+    var code: String = "",
+    var name: String = "",
+    var description: String = "",
+    var type: EnumStatType = EnumStatType.STOCK,
+    var image: String? = null,
+    var step: Byte,
 
     @Contextual
     override var _id: ObjectId = ObjectId(),
