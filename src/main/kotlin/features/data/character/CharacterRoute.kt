@@ -37,7 +37,7 @@ class CharacterRoute(
             }
             post("/addItem") {
                 val characterId = call.queryParam("characterId")
-                val itemObj = call.receive<CharacterItems>()
+                val itemObj = call.receive<List<CharacterItems>>()
                 val data = repo.addItem(characterId, itemObj)
                 call.respond(ApiMongoResponse.ok(data))
             }

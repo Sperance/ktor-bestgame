@@ -9,6 +9,7 @@ import extensions.CONST_FIELD_ID
 import extensions.CONST_USER_MAX_CHARACTERS
 import features.data.enums.equipment.Equipment
 import features.data.enums.equipment.EquipmentRepository
+import features.data.enums.items.ItemsCache
 import features.data.enums.items.ItemsRepository
 import features.data.user.UserRepository
 import org.bson.types.ObjectId
@@ -84,23 +85,37 @@ class CharacterRepository : BaseRepository<Character>(
         return "Success"
     }
 
-    suspend fun addItem(characterId: String, itemObj: CharacterItems): String {
+    /**
+     * Добавление\удаление предмета из инвентаря персонажа
+     */
+    suspend fun addItem(characterId: String, itemObj: List<CharacterItems>): String {
         val character = findById(characterId)
         if (character == null) throw CharacterExceptions.funExceptionNotFound("addItem", characterId)
 
-        if (itemObj.amount == 0L) return "Success. Nothing to add."
+        val allItems = ItemsCache.getCache()
 
-        val item = itemsRepository.findById(itemObj.itemId)
-        if (item == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itemObj.toString())
+        var isChanged = false
+        itemObj.forEach { itm ->
+            if (itm.amount == 0L) return@forEach
+            if (itm.amount > 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
+            if (itm.amount < 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
+            if (allItems.find { it.getId() == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itm.toString())
 
-        val findedItem = character.items.find { it.itemId == itemObj.itemId }
-        if (findedItem != null) {
-            findedItem.amount += itemObj.amount
-            if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itemObj.toString())
+            val findedItem = character.items.find { it.itemId == itm.itemId }
+            if (findedItem != null) {
+                findedItem.amount += itm.amount
+                if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
+            }
+            else {
+                if (itm.amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
+                character.items.add(CharacterItems(itm.itemId, itm.amount))
+            }
+
+            isChanged = true
         }
-        else {
-            if (itemObj.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itemObj.toString())
-            character.items.add(CharacterItems(itemObj.itemId, itemObj.amount))
+
+        if (!isChanged) {
+            return "Success. No changes"
         }
 
         //Зачем хранить id предмета без кол-ва
