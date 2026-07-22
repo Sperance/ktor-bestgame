@@ -1,6 +1,6 @@
 package server.addons
 
-import extensions.ObjectIdSerializer
+import server.serializers.ObjectIdSerializer
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation

@@ -1,16 +1,15 @@
 package features.data.character
 
+import base.exception.model.CharacterExceptions
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
-import extensions.CONST_FIELD_ID
-import extensions.CONST_USER_MAX_CHARACTERS
-import features.data.enums.equipment.Equipment
-import features.data.enums.equipment.EquipmentRepository
-import features.data.enums.items.ItemsCache
-import features.data.enums.items.ItemsRepository
+import CONST_FIELD_ID
+import CONST_USER_MAX_CHARACTERS
+import features.caches.ItemsCache
+import features.data.equipment.Equipment
 import features.data.user.UserRepository
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
@@ -21,8 +20,8 @@ class CharacterRepository : BaseRepository<Character>(
     entityClass = Character::class
 ), KoinComponent {
     val userRepository: UserRepository by inject()
-    val equipmentRepository: EquipmentRepository by inject()
-    val itemsRepository: ItemsRepository by inject()
+    val equipmentRepository: features.data.equipment.EquipmentRepository by inject()
+    val itemsRepository: features.data.items.ItemsRepository by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -49,8 +48,6 @@ class CharacterRepository : BaseRepository<Character>(
         userRepository.update(findedUser, session)
     }
 
-    /*****/
-
     suspend fun getEquipmentsData(characterId: String): List<Equipment> {
         return equipmentRepository.findByFilter(Filters.eq("characterId", characterId))
     }
@@ -67,8 +64,6 @@ class CharacterRepository : BaseRepository<Character>(
             )
         )
     }
-
-    /*****/
 
     /**
      * Добавление нового предмета в инвентарь персонажа. Создание предмета

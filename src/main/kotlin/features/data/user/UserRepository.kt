@@ -1,5 +1,6 @@
 package features.data.user
 
+import base.exception.model.UserExceptions
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.kotlin.client.coroutine.ClientSession
@@ -97,8 +98,6 @@ class UserRepository : BaseRepository<User>(
         if (password.none { it.isUpperCase() }) throw UserExceptions.funExceptionPasswordOneUppercase("checkPassword")
         if (password.contains(" ")) throw UserExceptions.funExceptionPasswordWhitespace("checkPassword")
     }
-
-    /**********/
 
     suspend fun findByEmail(email: String): User? {
         return findByField(User::email, email)

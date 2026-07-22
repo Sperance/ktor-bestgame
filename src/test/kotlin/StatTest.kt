@@ -18,7 +18,6 @@ class StatTest {
     fun testStats() {
 
         val mod = EnumStatModifierHelper.MOD_HEALTH
-        printLog("*****")
 
         // Создаём персонажа с базовым физическим уроном 10
         val physDmg = CharacterStat(EnumStatHelper.STOCK_ATTACK_PHYSICAL, baseValue = 10.0)

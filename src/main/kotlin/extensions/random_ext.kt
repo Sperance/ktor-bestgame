@@ -39,7 +39,6 @@ fun LongRange.randomExt(): Long {
 }
 
 fun <T> Collection<T>.randomExt(): T {
-    if (isEmpty())
-        throw NoSuchElementException("Collection is empty.")
-    return elementAt(RandomExt.randomInt(0..<size))
+    if (isEmpty()) throw NoSuchElementException("Collection is empty.")
+    return elementAt(RandomExt.randomInt(indices))
 }

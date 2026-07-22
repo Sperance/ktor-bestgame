@@ -2,27 +2,21 @@ package ru.descend
 
 import application.enums.EnumRarity
 import application.koin.allModules
-import base.repository.BaseRepositoryExceptions
-import base.route.BaseRouteExceptions
+import base.exception.BaseRepositoryExceptions
+import base.exception.BaseRouteExceptions
 import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.runBlocking
 import com.mongodb.DuplicateKeyException
 import config.MongoFactory.transactionExecute
 import extensions.printLog
-import features.data.character.CharacterExceptions
+import base.exception.model.CharacterExceptions
 import features.data.character.CharacterRepository
-import features.data.character.ModificationValue
-import features.data.enums.equipment.Armor
-import features.data.enums.equipment.Accessory
-import features.data.enums.equipment.EquipmentExceptions
-import features.data.enums.equipment.EquipmentRepository
-import features.data.enums.equipment.Weapon
-import features.data.enums.equipmentName.EquipmentNameCache
-import features.data.enums.equipmentName.EquipmentNameRepository
-import features.data.enums.items.ItemsExceptions
-import features.data.enums.property.PropertyExceptions
+import base.exception.model.EquipmentExceptions
+import features.caches.EquipmentNameCache
+import base.exception.model.ItemsExceptions
+import base.exception.model.PropertyExceptions
 import features.data.user.User
-import features.data.user.UserExceptions
+import base.exception.model.UserExceptions
 import features.data.user.UserRepository
 import features.logic.EquipmentGenerator
 import org.junit.After
@@ -47,8 +41,8 @@ class MongoTest: KoinTest {
 
     private val userRepo: UserRepository by inject()
     private val charRepo: CharacterRepository by inject()
-    private val equipmentNameRepo: EquipmentNameRepository by inject()
-    private val equipmentRepository: EquipmentRepository by inject()
+    private val equipmentNameRepo: features.data.equipmentName.EquipmentNameRepository by inject()
+    private val equipmentRepository: features.data.equipment.EquipmentRepository by inject()
 
     @Before
     fun setup() {
@@ -355,14 +349,14 @@ class MongoTest: KoinTest {
             printLog(it)
 
             when(it) {
-                is Weapon -> {
+                is features.data.equipment.Weapon -> {
                     it.params.clear()
                     it.damage = 333
                 }
-                is Armor -> {
+                is features.data.equipment.Armor -> {
                     it.defense = 444
                 }
-                is Accessory -> {
+                is features.data.equipment.Accessory -> {
                     // Accessory handling
                 }
             }

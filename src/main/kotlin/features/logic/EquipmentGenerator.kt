@@ -7,12 +7,12 @@ import application.enums.EnumStatType
 import extensions.RandomExt
 import features.data.character.Character
 import features.data.character.ModificationValue
-import features.data.enums.equipment.Accessory
-import features.data.enums.equipment.Armor
-import features.data.enums.equipment.Equipment
-import features.data.enums.equipment.Weapon
-import features.data.enums.equipmentName.EquipmentNameCache
-import features.data.enums.property.PropertyCache
+import features.data.equipment.Accessory
+import features.data.equipment.Armor
+import features.data.equipment.Equipment
+import features.data.equipment.Weapon
+import features.caches.EquipmentNameCache
+import features.caches.PropertyCache
 import kotlin.random.Random
 
 class EquipmentGenerator {
@@ -53,7 +53,7 @@ class EquipmentGenerator {
     fun generateEquipment(character: Character?): Equipment {
         val slot = randomizeSlot()
         val rarity = randomizeRarity()
-        val itemLevel = randomizeItemLevel(character?.level?:1)
+        val itemLevel = randomizeItemLevel(character?.level ?: 1)
         val enhanceLevel = randomizeEnhanceLevel(rarity)
         val name = randomizeName(slot, rarity)
         val price = calculatePrice(rarity, itemLevel, enhanceLevel)
@@ -64,7 +64,8 @@ class EquipmentGenerator {
                 val weaponType = randomizeWeaponType(slot)!!
                 val damage = calculateDamage(rarity, itemLevel, weaponType)
                 val attackSpeed = calculateAttackSpeed(weaponType)
-                
+                val durability = calculateDurability(rarity, itemLevel)
+
                 Weapon(
                     slot = slot,
                     weaponType = weaponType,
@@ -75,23 +76,20 @@ class EquipmentGenerator {
                     itemLevel = itemLevel,
                     enhanceLevel = enhanceLevel,
                     price = price,
-                    description = description
+                    description = description,
+                    durability = durability
                 ).apply {
                     params = generateModifiers(rarity, itemLevel)
                 }
             }
-            
-            EnumEquipmentType.HELMET, EnumEquipmentType.BODY, EnumEquipmentType.GLOVES, 
+
+            EnumEquipmentType.HELMET, EnumEquipmentType.BODY, EnumEquipmentType.GLOVES,
             EnumEquipmentType.BOOTS, EnumEquipmentType.SHIELD -> {
                 val defense = calculateDefense(rarity, itemLevel)
-                val durability = calculateDurability(rarity, itemLevel)
-                val weight = calculateWeight(slot, rarity)
-                
+
                 Armor(
                     slot = slot,
                     defense = defense,
-//                    durability = durability,
-//                    weight = weight,
                     name = name,
                     rarity = rarity,
                     itemLevel = itemLevel,
@@ -102,6 +100,7 @@ class EquipmentGenerator {
                     params = generateModifiers(rarity, itemLevel)
                 }
             }
+
             else -> {
                 Accessory(
                     slot = slot,
@@ -167,17 +166,25 @@ class EquipmentGenerator {
     }
 
     private fun randomizeName(slot: EnumEquipmentType, rarity: EnumRarity): String {
-        return EquipmentNameCache.getCache().filter { it.rarity == rarity && it.type == slot }.shuffled(RandomExt.random).first().name
+        return EquipmentNameCache.getCache()
+            .filter { it.rarity == rarity && it.type == slot }.shuffled(RandomExt.random)
+            .first().name
     }
 
     private fun randomizeWeaponType(slot: EnumEquipmentType): EnumEquipmentWeapon? {
-        if (slot == EnumEquipmentType.WEAPON_1H) return EnumEquipmentWeapon.entries.filter { !it.twoHanded }.random(RandomExt.random)
-        if (slot == EnumEquipmentType.WEAPON_2H) return EnumEquipmentWeapon.entries.filter { it.twoHanded }.random(RandomExt.random)
+        if (slot == EnumEquipmentType.WEAPON_1H) return EnumEquipmentWeapon.entries.filter { !it.twoHanded }
+            .random(RandomExt.random)
+        if (slot == EnumEquipmentType.WEAPON_2H) return EnumEquipmentWeapon.entries.filter { it.twoHanded }
+            .random(RandomExt.random)
 
         return null
     }
 
-    private fun calculateDamage(rarity: EnumRarity, itemLevel: Int, weaponType: EnumEquipmentWeapon): Int {
+    private fun calculateDamage(
+        rarity: EnumRarity,
+        itemLevel: Int,
+        weaponType: EnumEquipmentWeapon
+    ): Int {
         val baseDamage = baseDamageValues[rarity] ?: 10
         val weaponMultiplier = when (weaponType) {
             EnumEquipmentWeapon.SWORD -> 1.0
@@ -189,10 +196,10 @@ class EquipmentGenerator {
             EnumEquipmentWeapon.DOUBLESWORD -> 1.25
             EnumEquipmentWeapon.BLADE -> 1.05
         }
-        
+
         // Урон растет с уровнем
         val levelMultiplier = 1 + (itemLevel - 1) * 0.1
-        
+
         return (baseDamage * weaponMultiplier * levelMultiplier).toInt()
     }
 
@@ -213,7 +220,7 @@ class EquipmentGenerator {
     private fun calculateDefense(rarity: EnumRarity, itemLevel: Int): Int {
         val baseDefense = baseDefenseValues[rarity] ?: 5
         val levelMultiplier = 1 + (itemLevel - 1) * 0.1
-        
+
         return (baseDefense * levelMultiplier).toInt()
     }
 
@@ -226,10 +233,10 @@ class EquipmentGenerator {
             EnumRarity.LEGENDARY -> 500
             EnumRarity.MYTHICAL -> 1000
         }
-        
+
         val levelMultiplier = 1 + (itemLevel - 1) * 0.1
         val enhanceMultiplier = 1 + itemLevel * 0.05
-        
+
         return (baseDurability * levelMultiplier * enhanceMultiplier).toInt()
     }
 
@@ -242,7 +249,7 @@ class EquipmentGenerator {
             EnumEquipmentType.SHIELD -> 15
             else -> 2
         }
-        
+
         val rarityMultiplier = when (rarity) {
             EnumRarity.COMMON -> 1.0
             EnumRarity.UNCOMMON -> 1.1
@@ -251,7 +258,7 @@ class EquipmentGenerator {
             EnumRarity.LEGENDARY -> 1.5
             EnumRarity.MYTHICAL -> 1.8
         }
-        
+
         return (baseWeight * rarityMultiplier).toInt()
     }
 
@@ -270,10 +277,13 @@ class EquipmentGenerator {
         return rarityText
     }
 
-    private fun generateModifiers(rarity: EnumRarity, itemLevel: Int): ArrayList<ModificationValue> {
+    private fun generateModifiers(
+        rarity: EnumRarity,
+        itemLevel: Int
+    ): ArrayList<ModificationValue> {
         val stock = ArrayList<ModificationValue>()
 
-        val countModifiers = when(rarity) {
+        val countModifiers = when (rarity) {
             EnumRarity.COMMON -> 0..1
             EnumRarity.UNCOMMON -> 1..2
             EnumRarity.RARE -> 2..3
@@ -282,9 +292,10 @@ class EquipmentGenerator {
             EnumRarity.MYTHICAL -> 3..6
         }.random(RandomExt.random)
 
-        val cachedProperties = PropertyCache.getCache().filter { it.type == EnumStatType.STOCK }
+        val cachedProperties = PropertyCache.getCache()
+            .filter { it.type == EnumStatType.STOCK }
 
-        for(i in 1..countModifiers) {
+        for (i in 1..countModifiers) {
             val property = cachedProperties.random(RandomExt.random)
             stock.add(ModificationValue(property.getId(), itemLevel.toByte(), 100.0))
         }
@@ -292,7 +303,10 @@ class EquipmentGenerator {
         return stock
     }
 
-    fun generateMultipleEquipment(character: Character?, count: Int): List<Equipment> {
+    fun generateMultipleEquipment(
+        character: Character?,
+        count: Int
+    ): List<Equipment> {
         return (1..count).map { generateEquipment(character) }
     }
 }

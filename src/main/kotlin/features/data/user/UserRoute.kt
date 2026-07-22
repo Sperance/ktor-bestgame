@@ -7,24 +7,19 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 
-class UserRoute(
-    val repo: UserRepository
-) : BaseRoute<User, UserResponse>(
+class UserRoute(val repo: UserRepository) : BaseRoute<User, UserResponse>(
     repository = repo,
     entitySerializer = User.serializer(),
     responseSerializer = UserResponse.serializer(),
     toResponse = { it.toResponse() }
 ) {
-
     override fun additionalRoutes(route: Route) = with(route) {
-
         get("/login") {
             val login = call.queryParam("login")
             val password = call.queryParam("password")
             val user = repo.authenticate(login, password).toResponse()
             call.respond(ApiMongoResponse.ok(user))
         }
-
         route("/search") {
             get("/active") {
                 val users = repo.findActive().map { it.toResponse() }
@@ -41,7 +36,6 @@ class UserRoute(
                 call.respond(ApiMongoResponse.ok(user))
             }
         }
-
         get("/changePassword") {
             val id = call.idParam()
             val password = call.queryParam("password")
