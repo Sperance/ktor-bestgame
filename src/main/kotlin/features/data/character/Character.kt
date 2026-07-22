@@ -17,15 +17,22 @@ data class Character(
     var experience: Int = 0,
     var money: Long = 0,
     var params: ArrayList<ModificationValue> = arrayListOf(),
-    var equipments: MutableSet<CharacterEquipments> = mutableSetOf(),
+    var equipments: ArrayList<CharacterEquipments> = arrayListOf(),
+    var items: ArrayList<CharacterItems> = arrayListOf(),
 
     @Contextual
     override var _id: ObjectId = ObjectId(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
-    override val updatedAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity
+
+@Serializable
+data class CharacterItems(
+    var itemId: String,
+    var amount: Long
+)
 
 @Serializable
 data class CharacterEquipments(
@@ -38,12 +45,6 @@ data class CharacterEquipments(
     var uuid: ObjectId = ObjectId(),
 )
 
-//@Serializable
-//data class Modification(
-//    var name: String,
-//    var stats: ArrayList<ModificationValue>,
-//)
-//
 @Serializable
 data class ModificationValue(
     var property_id: String,

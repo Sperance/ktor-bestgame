@@ -3,7 +3,6 @@ package config
 import com.mongodb.MongoClientSettings
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoClient
-import extensions.LocalDateTimeCodec
 import extensions.printLog
 import org.bson.codecs.configuration.CodecRegistries
 
@@ -13,7 +12,6 @@ object MongoFactory {
 
     private fun createMongoClient(connectionString: String = "mongodb://localhost:27017/my_first_project"): MongoClient {
         val codecRegistry = CodecRegistries.fromRegistries(
-            CodecRegistries.fromCodecs(LocalDateTimeCodec()),
             MongoClientSettings.getDefaultCodecRegistry()
         )
 

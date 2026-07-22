@@ -16,5 +16,7 @@ object CharacterExceptions {
     fun funExceptionUserNotFound(errorMethod: String, value: String? = "") = CharacterException("User with id $value not found", errorMethod, "CH_004")
     fun funExceptionMaxChars(errorMethod: String, value: String? = "") = CharacterException("User already has maximum amount of characters $CONST_USER_MAX_CHARACTERS", errorMethod, "CH_005")
     fun funExceptionNotFound(errorMethod: String, value: String? = "") = CharacterException("Character with id $value not found", errorMethod, "CH_006")
-    fun funExceptionItemNotFound(errorMethod: String, value: String? = "") = CharacterException("Equipment with id $value not found", errorMethod, "CH_007")
+    fun funExceptionEquipmentNotFound(errorMethod: String, value: String? = "") = CharacterException("Equipment with id $value not found", errorMethod, "CH_007")
+    fun funExceptionItemNotFound(errorMethod: String, value: String? = "") = CharacterException("Item with id $value not found", errorMethod, "CH_008")
+    fun funExceptionItemLowZero(errorMethod: String, value: String? = "") = CharacterException("Amount of item $value is less than zero", errorMethod, "CH_009")
 }

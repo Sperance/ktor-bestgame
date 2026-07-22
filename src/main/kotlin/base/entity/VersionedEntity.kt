@@ -6,5 +6,5 @@ interface VersionedEntity : StockEntity {
     var version: Long
     var deleted: Boolean
     val createdAt: LocalDateTime
-    val updatedAt: LocalDateTime
+    var updatedAt: LocalDateTime
 }

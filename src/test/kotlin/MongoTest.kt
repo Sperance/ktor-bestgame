@@ -11,9 +11,9 @@ import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.data.character.CharacterExceptions
 import features.data.character.CharacterRepository
-import features.data.character.Modification
 import features.data.character.ModificationValue
 import features.data.enums.equipment.Armor
+import features.data.enums.equipment.Accessory
 import features.data.enums.equipment.EquipmentExceptions
 import features.data.enums.equipment.EquipmentRepository
 import features.data.enums.equipment.Weapon
@@ -361,6 +361,9 @@ class MongoTest: KoinTest {
                 }
                 is Armor -> {
                     it.defense = 444
+                }
+                is Accessory -> {
+                    // Accessory handling
                 }
             }
         }

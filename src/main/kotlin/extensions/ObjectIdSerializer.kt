@@ -28,16 +28,3 @@ object ObjectIdSerializer : KSerializer<ObjectId> {
         return ObjectId(decoder.decodeString())
     }
 }
-
-// Кодек для BSON, который знает, как работать с ObjectId
-class ObjectIdCodec : Codec<ObjectId> {
-    override fun encode(writer: BsonWriter, value: ObjectId, encoderContext: EncoderContext) {
-        writer.writeObjectId(value)
-    }
-
-    override fun decode(reader: BsonReader, decoderContext: DecoderContext): ObjectId {
-        return reader.readObjectId()
-    }
-
-    override fun getEncoderClass(): Class<ObjectId> = ObjectId::class.java
-}

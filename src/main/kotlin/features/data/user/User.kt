@@ -27,7 +27,7 @@ data class User(
     override var version: Long = 0,
     override var deleted: Boolean = false,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
-    override val updatedAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity
 
 @Serializable
@@ -43,7 +43,7 @@ data class UserResponse(
     val lastLoginDate: LocalDateTime?,
     var countCharacters: Int,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    var updatedAt: LocalDateTime,
 )
 
 // Функция-расширение для маппинга

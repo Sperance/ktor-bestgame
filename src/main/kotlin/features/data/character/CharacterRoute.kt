@@ -35,12 +35,12 @@ class CharacterRoute(
                 val data = repo.itemToInventory(characterId, itemObj)
                 call.respond(ApiMongoResponse.ok(data))
             }
-//            post("/itemAddToInventory") {
-//                val characterId = call.queryParam("characterId")
-//                val itemId = call.queryParam("itemId")
-//                val data = repo.itemAddToInventory(characterId, itemId)
-//                call.respond(ApiMongoResponse.ok(data))
-//            }
+            post("/addItem") {
+                val characterId = call.queryParam("characterId")
+                val itemObj = call.receive<CharacterItems>()
+                val data = repo.addItem(characterId, itemObj)
+                call.respond(ApiMongoResponse.ok(data))
+            }
         }
     }
 }

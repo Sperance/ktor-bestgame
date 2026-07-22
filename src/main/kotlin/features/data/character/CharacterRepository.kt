@@ -9,6 +9,7 @@ import extensions.CONST_FIELD_ID
 import extensions.CONST_USER_MAX_CHARACTERS
 import features.data.enums.equipment.Equipment
 import features.data.enums.equipment.EquipmentRepository
+import features.data.enums.items.ItemsRepository
 import features.data.user.UserRepository
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
@@ -20,6 +21,7 @@ class CharacterRepository : BaseRepository<Character>(
 ), KoinComponent {
     val userRepository: UserRepository by inject()
     val equipmentRepository: EquipmentRepository by inject()
+    val itemsRepository: ItemsRepository by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -76,7 +78,35 @@ class CharacterRepository : BaseRepository<Character>(
         if (equipmentRepository.findById(item.equipmentId) == null) throw CharacterExceptions.funExceptionItemNotFound("itemToInventory", item.equipmentId)
 
         character.equipments.add(item)
-        transactionExecute { session ->
+        transactionExecute("itemToInventory") { session ->
+            update(character, session)
+        }
+        return "Success"
+    }
+
+    suspend fun addItem(characterId: String, itemObj: CharacterItems): String {
+        val character = findById(characterId)
+        if (character == null) throw CharacterExceptions.funExceptionNotFound("addItem", characterId)
+
+        if (itemObj.amount == 0L) return "Success. Nothing to add."
+
+        val item = itemsRepository.findById(itemObj.itemId)
+        if (item == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itemObj.toString())
+
+        val findedItem = character.items.find { it.itemId == itemObj.itemId }
+        if (findedItem != null) {
+            findedItem.amount += itemObj.amount
+            if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itemObj.toString())
+        }
+        else {
+            if (itemObj.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itemObj.toString())
+            character.items.add(CharacterItems(itemObj.itemId, itemObj.amount))
+        }
+
+        //Зачем хранить id предмета без кол-ва
+        character.items.removeAll { it.amount == 0L }
+
+        transactionExecute("addItem") { session ->
             update(character, session)
         }
         return "Success"
