@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.descend"
-version = "0.5.2"
+version = "0.6.*"
 
 application {
     mainClass = "io.ktor.server.netty.EngineMain"
@@ -45,11 +45,10 @@ dependencies {
     implementation(libs.swagger.annotations)
     implementation(libs.koin.core)
     implementation(libs.koin.ktor)
+    implementation(libs.mongo.bson)
 
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
-
-    implementation("org.mongodb:bson-kotlinx:5.9.0")  // Используйте актуальную версию
 }

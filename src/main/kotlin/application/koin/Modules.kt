@@ -4,6 +4,7 @@ import base.route.RouteRegistry
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
 import features.data.equipment.EquipmentRepository
+import features.data.equipment.EquipmentRoute
 import features.data.equipmentName.EquipmentNameRepository
 import features.data.equipmentName.EquipmentNameRoute
 import features.data.items.ItemsRepository
@@ -31,6 +32,7 @@ val routeModule = module {
                 CharacterRoute(get()),
                 ItemsRoute(get()),
                 PropertyRoute(get()),
+                EquipmentRoute(get()),
                 EquipmentNameRoute(get()),
             )
         )

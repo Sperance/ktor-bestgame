@@ -1,21 +1,21 @@
-package features.data.equipmentName
+package features.data.equipment
 
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
-import features.caches.EquipmentNameCache
+import features.caches.EquipmentCache
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 
-class EquipmentNameRoute(repo: EquipmentNameRepository) : BaseRoute<EquipmentName, EquipmentName>(
+class EquipmentRoute(repo: EquipmentRepository) : BaseRoute<Equipment, Equipment>(
     repository = repo,
-    entitySerializer = EquipmentName.serializer(),
-    responseSerializer = EquipmentName.serializer(),
+    entitySerializer = Equipment.serializer(),
+    responseSerializer = Equipment.serializer(),
     toResponse = { it }
 ) {
     override fun additionalRoutes(route: Route) = with(route) {
         get("/cache/hash") {
-            val data = EquipmentNameCache.getCacheHash()
+            val data = EquipmentCache.getCacheHash()
             call.respond(ApiMongoResponse.ok(data))
         }
     }
