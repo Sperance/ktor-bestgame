@@ -7,8 +7,8 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-fun printLog(text: Any?) {
-    if (text is String && (text.contains("TR::") || text.contains("*****") || text.contains("[HTTP]")))
+fun printLog(text: Any? = "", system: Boolean = false) {
+    if (text is String && system)
         LogManager.log(text)
     else
         LogManager.log("\t$text")

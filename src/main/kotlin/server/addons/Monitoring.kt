@@ -37,7 +37,7 @@ fun Application.configureMonitoring() {
                 append("| UA: ${userAgent.take(50)} ") // ограничиваем длину
                 append("| Size: ${contentLength}B")
             }
-            printLog(res)
+            printLog(res, true)
 
             res
         }

@@ -36,13 +36,21 @@ fun Application.configureStatusPages() {
             )
         }
 
+        status(HttpStatusCode.TooManyRequests) { call, status ->
+            val retryAfter = call.response.headers["Retry-After"]
+            call.respond(
+                status,
+                ApiMongoResponse.error(BaseException("Too many rquests, please try again in $retryAfter seconds. ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_004"))
+            )
+        }
+
         // ── Бизнес-исключения приложения ──
         exception<BaseException> { call, cause ->
             call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
         }
 
         exception<JsonConvertException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_004")))
+            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_100")))
         }
 
         // Общий обработчик (должен быть последним)

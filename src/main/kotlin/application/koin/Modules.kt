@@ -1,6 +1,7 @@
 package application.koin
 
 import base.route.RouteRegistry
+import config.MongoBackupManager
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
 import features.data.equipment.EquipmentRepository
@@ -39,7 +40,20 @@ val routeModule = module {
     }
 }
 
+val backupModule = module {
+    single(createdAtStart = true) {
+        MongoBackupManager(
+            maxDays = 7,
+            maxBackupsCount = 5,
+            compress = true
+        ).apply {
+            start()
+        }
+    }
+}
+
 val allModules = listOf(
     repositoryModule,
     routeModule,
+    backupModule
 )

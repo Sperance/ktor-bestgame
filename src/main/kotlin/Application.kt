@@ -11,7 +11,9 @@ import server.addons.configureRouting
 import server.addons.configureSecurity
 import server.addons.configureSerialization
 import config.DatabaseSeeder
-import io.ktor.client.request.request
+import config.DatabaseSeeder.getKoin
+import config.LogManager
+import config.MongoBackupManager
 import io.ktor.server.engine.EmbeddedServer
 import io.ktor.server.response.respond
 import io.ktor.server.routing.get
@@ -22,15 +24,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import server.addons.configureCaches
 import server.addons.configureCrypto
+import server.addons.configureRateLimit
 import server.addons.configureStatusPages
 import kotlin.time.Duration.Companion.seconds
 
 lateinit var server: EmbeddedServer<*, *>
 
 fun main() {
-    printLog("\n\n***** Starting up")
+    printLog("\n\n***** Starting up", true)
 
     server = embeddedServer(Netty,
         configure = {
@@ -43,7 +47,14 @@ fun main() {
     )
 
     Runtime.getRuntime().addShutdownHook(Thread {
-        printLog("***** Server stopped")
+        try {
+            val backupManager: MongoBackupManager = getKoin().get()
+            backupManager.shutdown()
+        } catch (e: Exception) {
+            println("Error stopping backup manager: ${e.message}")
+        }
+        LogManager.shutdown()
+        printLog("\n\n***** Server stopped", true)
     })
 
     server.start(wait = true)
@@ -56,6 +67,7 @@ suspend fun Application.configureModules() {
     configureSecurity()
     configureHTTP()
     configureRouting()
+    configureRateLimit()
     configureSystem()
     configureCrypto()
 

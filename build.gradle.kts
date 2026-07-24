@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.openapi)
     implementation(libs.ktor.server.status.pages)
+    implementation(libs.ktor.server.rate)
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
     implementation(libs.kotlinx.datetime)
