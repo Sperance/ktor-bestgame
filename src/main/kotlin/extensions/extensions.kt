@@ -1,15 +1,17 @@
 package extensions
 
+import config.LogManager
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Clock
+import kotlin.time.Instant
 
 fun printLog(text: Any?) {
-    if (text is String && (text.contains("TR::") || text.contains("*****")))
-        println(text)
+    if (text is String && (text.contains("TR::") || text.contains("*****") || text.contains("[HTTP]")))
+        LogManager.log(text)
     else
-        println("\t$text")
+        LogManager.log("\t$text")
 }
 
 fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime(TimeZone.UTC)
@@ -52,4 +54,15 @@ fun Number?.isNullOrZero() : Boolean {
     if (this == null) return true
     if (this == 0) return true
     return false
+}
+
+fun formatTimestamp(timestamp: Long): String {
+    // Преобразуем Long в Instant
+    val instant = Instant.fromEpochMilliseconds(timestamp)
+
+    // Конвертируем в LocalDateTime с указанием часового пояса
+    val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+
+    // Форматируем в строку
+    return dateTime.toString() // "2026-07-24T10:15:32.123"
 }

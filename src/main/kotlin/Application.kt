@@ -30,7 +30,7 @@ import kotlin.time.Duration.Companion.seconds
 lateinit var server: EmbeddedServer<*, *>
 
 fun main() {
-    printLog("***** Starting up")
+    printLog("\n\n***** Starting up")
 
     server = embeddedServer(Netty,
         configure = {
