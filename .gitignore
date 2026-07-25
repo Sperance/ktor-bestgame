@@ -34,3 +34,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Runtime logs ###
+logs/
+logs_archive/
+backups/
