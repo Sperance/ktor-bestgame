@@ -88,7 +88,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * Имя коллекции автоматически берется из имени класса сущности.
      * Например, для класса UserMongo будет создана коллекция "UserMongo".
      */
-    var collection: MongoCollection<T> = MongoFactory.db.getCollection(collectionName, entityClass.java)
+    var collection: MongoCollection<T> = MongoFactory.getDatabase().getCollection(collectionName, entityClass.java)
 
     // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 

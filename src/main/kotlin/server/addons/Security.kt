@@ -15,6 +15,7 @@ import io.ktor.server.sessions.*
 import io.ktor.utils.io.ExperimentalKtorApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
+import kotlin.time.Duration.Companion.hours
 
 @OptIn(ExperimentalKtorApi::class)
 fun Application.configureSecurity() {
@@ -46,7 +47,7 @@ fun Application.configureSecurity() {
             cookie.path = "/"
             cookie.httpOnly = true
             cookie.secure = true
-            cookie.maxAgeInSeconds = 86400 // 24 часа
+            cookie.maxAge = 24.hours // 24 часа
 
             // Шифрование через JWT
             transform(
