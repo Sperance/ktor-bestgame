@@ -5,6 +5,7 @@ import application.enums.EnumRarity
 import application.enums.EnumStatHelper
 import application.enums.EnumUserRoles
 import config.MongoFactory.transactionExecute
+import extensions.now
 import extensions.printLog
 import features.data.character.Character
 import features.data.character.CharacterRepository
@@ -16,10 +17,13 @@ import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.data.property.Property
 import features.caches.PropertyCache
+import features.data.blockList.BlockList
+import features.data.blockList.BlockListRepository
 import features.data.property.PropertyRepository
 import features.data.user.User
 import features.data.user.UserRepository
 import features.logic.EquipmentGenerator
+import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -36,6 +40,7 @@ object DatabaseSeeder : KoinComponent {
     private val propertyRepository: PropertyRepository by inject()
     private val equipmentRepository: EquipmentRepository by inject()
     private val equipmentNameRepository: EquipmentNameRepository by inject()
+    private val blockListRepository: BlockListRepository by inject()
 
     suspend fun seed() {
 
@@ -60,6 +65,7 @@ object DatabaseSeeder : KoinComponent {
         )
 
         seedEquipment()
+        seedBlockList()
 
         printLog("Database seeding completed")
     }
@@ -113,6 +119,33 @@ object DatabaseSeeder : KoinComponent {
         }
 
         printLog("  → ${listItems.size} equipments created")
+    }
+
+    private suspend fun seedBlockList() {
+        blockListRepository.deleteAll()
+//        if (blockListRepository.count() > 0) return
+//
+//        printLog("Seeding block list...")
+//
+//        val listItems = ArrayList<BlockList>()
+//        listItems.add(
+//            BlockList(
+//                address = "127.0.0.1",
+//                expiredAt = LocalDateTime.now()
+//            )
+//        )
+//        listItems.add(
+//            BlockList(
+//                address = "view-localhost",
+//                expiredAt = LocalDateTime.now()
+//            )
+//        )
+//
+//        transactionExecute { session ->
+//            blockListRepository.insertMany(listItems, session)
+//        }
+//
+//        printLog("  → ${listItems.size} block list created")
     }
 
     // ==================== Characters ====================

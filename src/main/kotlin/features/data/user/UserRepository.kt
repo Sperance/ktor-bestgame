@@ -5,13 +5,14 @@ import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
+import extensions.now
 import features.data.character.Character
 import features.data.character.CharacterRepository
+import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.security.MessageDigest
 import java.security.SecureRandom
-import java.time.LocalDateTime
 import kotlin.getValue
 
 class UserRepository : BaseRepository<User>(

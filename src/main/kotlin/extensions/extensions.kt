@@ -1,9 +1,12 @@
 package extensions
 
 import config.LogManager
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.path
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
 import kotlin.time.Clock
 import kotlin.time.Instant
 
@@ -65,4 +68,28 @@ fun formatTimestamp(timestamp: Long): String {
 
     // Форматируем в строку
     return dateTime.toString() // "2026-07-24T10:15:32.123"
+}
+
+val ALL_ROUTES = mutableSetOf<RouteInfo>()
+fun Route.saveChildren(depth: Int = 0) {
+    fun traverse(route: Route, currentDepth: Int) {
+        if (route.children.count() == 0) {
+            val method = route.selector?.toString()?.replace("method:", "") ?: "UNKNOWN"
+
+            if (route.path.contains("/swagger/")) return
+
+            ALL_ROUTES.add(
+                RouteInfo(
+                    path = route.path,
+                    method = method
+                )
+            )
+        } else {
+            route.children.forEach { child ->
+                traverse(child, currentDepth + 1)
+            }
+        }
+    }
+
+    traverse(this, depth)
 }

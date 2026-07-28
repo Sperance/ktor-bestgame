@@ -2,6 +2,7 @@ package server.addons
 
 import base.route.ApiMongoResponse
 import config.MongoBackupManager
+import extensions.saveChildren
 import io.ktor.server.application.Application
 import io.ktor.server.response.respond
 import io.ktor.server.routing.get
@@ -23,5 +24,5 @@ fun Application.configureBackups() {
             val backups = backupManager.getAllBackups()
             call.respond(backups)
         }
-    }
+    }.saveChildren()
 }

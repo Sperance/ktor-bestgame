@@ -1,5 +1,6 @@
 package server.addons
 
+import extensions.saveChildren
 import io.ktor.server.application.Application
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -39,5 +40,5 @@ fun Application.configureCrypto() {
 
             call.respond(ServerExchangeResponse(encryptedResponse))
         }
-    }
+    }.saveChildren()
 }

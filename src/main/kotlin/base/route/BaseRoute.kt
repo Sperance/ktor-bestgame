@@ -7,6 +7,7 @@ import CONST_SYSTEM_FIELDS
 import base.exception.BaseException
 import base.exception.BaseRouteExceptions
 import CONST_API_VERSION
+import extensions.saveChildren
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
@@ -58,7 +59,7 @@ abstract class BaseRoute<T : StockEntity, R>(
             deleteRoute()
         }.describe {
             tag(this@BaseRoute.basePath.substringAfterLast("/"))
-        }
+        }.saveChildren()
     }
 
     private fun Route.getAllRoute() = get {

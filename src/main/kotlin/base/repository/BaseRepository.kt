@@ -600,8 +600,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * )
      * println("Updated name: ${updatedUser.name}")
      * ```
-     * 
-     * @throws BaseRepositoryExceptions.funExceptionFindId: если после обновления документ не найден
+     *
      */
     suspend fun updateFields(
         entity: T,

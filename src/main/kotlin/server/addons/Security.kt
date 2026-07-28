@@ -3,6 +3,7 @@ package server.addons
 import application.enums.EnumUserRoles
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import extensions.saveChildren
 import io.ktor.server.application.*
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.authenticate
@@ -93,7 +94,7 @@ fun Application.configureSecurity() {
                 }
             }.hide()
         }
-    }
+    }.saveChildren()
 }
 
 @Serializable

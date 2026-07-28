@@ -2,6 +2,8 @@ package application.koin
 
 import base.route.RouteRegistry
 import config.MongoBackupManager
+import features.data.blockList.BlockListRepository
+import features.data.blockList.BlockListRoute
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
 import features.data.equipment.EquipmentRepository
@@ -23,6 +25,7 @@ val repositoryModule = module {
     single { PropertyRepository() }
     single { EquipmentRepository() }
     single { EquipmentNameRepository() }
+    single { BlockListRepository() }
 }
 
 val routeModule = module {
@@ -35,6 +38,7 @@ val routeModule = module {
                 PropertyRoute(get()),
                 EquipmentRoute(get()),
                 EquipmentNameRoute(get()),
+                BlockListRoute(get()),
             )
         )
     }
