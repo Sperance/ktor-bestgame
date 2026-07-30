@@ -3,4 +3,4 @@ package features.caches
 import features.data.equipment.Equipment
 import features.data.equipment.EquipmentRepository
 
-object EquipmentCache : MongoCache<Equipment, EquipmentRepository>()
+class EquipmentCache(repository: EquipmentRepository) : MongoCache<Equipment, EquipmentRepository>(repository)

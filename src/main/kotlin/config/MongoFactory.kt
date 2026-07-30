@@ -4,11 +4,6 @@ import MONGO_DB
 import MONGO_URI
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
-import com.mongodb.event.ConnectionCheckOutFailedEvent
-import com.mongodb.event.ConnectionCheckOutStartedEvent
-import com.mongodb.event.ConnectionCheckedOutEvent
-import com.mongodb.event.ConnectionClosedEvent
-import com.mongodb.event.ConnectionPoolListener
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
@@ -20,7 +15,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
-import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.milliseconds
 
 object MongoFactory {
@@ -46,18 +40,6 @@ object MongoFactory {
         val settings = MongoClientSettings.builder()
             .applyConnectionString(ConnectionString(connectionString))
             .codecRegistry(codecRegistry)
-            .applyToConnectionPoolSettings { builder ->
-                builder
-                    .maxSize(100)
-                    .minSize(10)
-                    .maxWaitTime(5000, TimeUnit.MILLISECONDS)
-                    .maxConnectionLifeTime(30, TimeUnit.MINUTES)
-                    .maxConnectionIdleTime(10, TimeUnit.MINUTES)
-            }
-            .applyToClusterSettings { builder ->
-                builder
-                    .serverSelectionTimeout(5000, TimeUnit.MILLISECONDS)
-            }
             .build()
 
         return MongoClient.create(settings)

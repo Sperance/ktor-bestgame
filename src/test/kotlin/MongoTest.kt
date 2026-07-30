@@ -12,7 +12,7 @@ import extensions.printLog
 import base.exception.model.CharacterExceptions
 import features.data.character.CharacterRepository
 import base.exception.model.EquipmentExceptions
-import features.caches.EquipmentNameCache
+
 import base.exception.model.ItemsExceptions
 import base.exception.model.PropertyExceptions
 import features.data.user.User
@@ -43,6 +43,7 @@ class MongoTest: KoinTest {
     private val charRepo: CharacterRepository by inject()
     private val equipmentNameRepo: features.data.equipmentName.EquipmentNameRepository by inject()
     private val equipmentRepository: features.data.equipment.EquipmentRepository by inject()
+    private val equipmentNameCache: features.caches.EquipmentNameCache by inject()
 
     @Before
     fun setup() {
@@ -374,7 +375,7 @@ class MongoTest: KoinTest {
     @Test
     fun test_generate_items(): Unit = runBlocking {
 
-        EquipmentNameCache.initializeCache(equipmentNameRepo)
+        equipmentNameCache.initializeCache()
 
         val generator = EquipmentGenerator()
         val allCounter = 100

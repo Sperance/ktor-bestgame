@@ -201,7 +201,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      */
     suspend fun insert(entity: T, session: ClientSession): T {
         if (entity is VersionedEntity && entity.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insert", entity.version.toString())
-        validateBeforeInsert(entity)
+        validateBeforeInsert(entity, session)
 
         return try {
             val result = collection.insertOne(session, entity)
@@ -257,7 +257,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
         entities.forEach {
             if (it is VersionedEntity && it.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insertMany", it.version.toString())
-            validateBeforeInsert(it)
+            validateBeforeInsert(it, session)
         }
 
         return try {
@@ -303,6 +303,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         return collection.find(Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
     }
 
+    suspend fun findById(id: ObjectId, session: ClientSession): T? {
+        return collection.find(session, Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
+    }
+
     /**
      * Поиск документа по ID, преобразуя строковое представление в ObjectId.
      * 
@@ -313,6 +317,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      */
     open suspend fun findById(id: String): T? {
         return findById(ObjectId(id))
+    }
+
+    open suspend fun findById(id: String, session: ClientSession): T? {
+        return findById(ObjectId(id), session)
     }
 
     /**
@@ -346,6 +354,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      */
     suspend fun findAll(): List<T> {
         return collection.find().toList()
+    }
+
+    suspend fun findAll(session: ClientSession): List<T> {
+        return collection.find(session).toList()
     }
 
     /**
@@ -969,6 +981,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         return collection.countDocuments(filter)
     }
 
+    suspend fun count(session: ClientSession, filter: Bson = Filters.empty()): Long {
+        return collection.countDocuments(session, filter)
+    }
+
     /**
      * Поиск с пагинацией и возвратом результатов в формате PagedMongoResponse.
      * 
@@ -1070,7 +1086,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * }
      * ```
      */
-    protected open suspend fun validateBeforeInsert(entity: T) {
+    protected open suspend fun validateBeforeInsert(entity: T, session: ClientSession) {
         // Базовая реализация — ничего не проверяем
     }
 

@@ -2,6 +2,12 @@ package application.koin
 
 import base.route.RouteRegistry
 import config.MongoBackupManager
+import config.SystemMonitor
+import features.caches.BlockListCache
+import features.caches.EquipmentCache
+import features.caches.EquipmentNameCache
+import features.caches.ItemsCache
+import features.caches.PropertyCache
 import features.data.blockList.BlockListRepository
 import features.data.blockList.BlockListRoute
 import features.data.character.CharacterRepository
@@ -26,6 +32,14 @@ val repositoryModule = module {
     single { EquipmentRepository() }
     single { EquipmentNameRepository() }
     single { BlockListRepository() }
+}
+
+val cacheModule = module {
+    single { BlockListCache(get()) }
+    single { EquipmentCache(get()) }
+    single { EquipmentNameCache(get()) }
+    single { ItemsCache(get()) }
+    single { PropertyCache(get()) }
 }
 
 val routeModule = module {
@@ -56,8 +70,18 @@ val backupModule = module {
     }
 }
 
+val systemMonitorModule = module {
+    single(createdAtStart = true) {
+        SystemMonitor.apply {
+            start(intervalHours = 1)
+        }
+    }
+}
+
 val allModules = listOf(
     repositoryModule,
+    cacheModule,
     routeModule,
-    backupModule
+    backupModule,
+    systemMonitorModule
 )

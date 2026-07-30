@@ -22,6 +22,7 @@ class CharacterRepository : BaseRepository<Character>(
     val userRepository: UserRepository by inject()
     val equipmentRepository: features.data.equipment.EquipmentRepository by inject()
     val itemsRepository: features.data.items.ItemsRepository by inject()
+    val itemsCache: features.caches.ItemsCache by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -32,16 +33,16 @@ class CharacterRepository : BaseRepository<Character>(
         ))
     }
 
-    override suspend fun validateBeforeInsert(entity: Character) {
+    override suspend fun validateBeforeInsert(entity: Character, session: ClientSession) {
         if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
         if (findByField(Character::name, entity.name) != null) throw CharacterExceptions.funExceptionNameDuplicate("validateBeforeInsert", entity.name)
-        val findedUser = userRepository.findById(entity.userId)
+        val findedUser = userRepository.findById(entity.userId, session)
         if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId)
         if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateBeforeInsert")
     }
 
     override suspend fun validateAfterInsert(entity: Character, session: ClientSession) {
-        val findedUser = userRepository.findById(entity.userId)
+        val findedUser = userRepository.findById(entity.userId, session)
         if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateAfterInsert", entity.userId)
         findedUser.countCharacters++
         if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert")
@@ -87,7 +88,7 @@ class CharacterRepository : BaseRepository<Character>(
         val character = findById(characterId)
         if (character == null) throw CharacterExceptions.funExceptionNotFound("addItem", characterId)
 
-        val allItems = ItemsCache.getCache()
+        val allItems = itemsCache.getCache()
 
         var isChanged = false
         itemObj.forEach { itm ->

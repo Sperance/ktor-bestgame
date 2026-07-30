@@ -4,6 +4,7 @@ import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.enums.EnumStatHelper
 import application.enums.EnumUserRoles
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.now
 import extensions.printLog
@@ -41,6 +42,8 @@ object DatabaseSeeder : KoinComponent {
     private val equipmentRepository: EquipmentRepository by inject()
     private val equipmentNameRepository: EquipmentNameRepository by inject()
     private val blockListRepository: BlockListRepository by inject()
+    private val propertyCache: PropertyCache by inject()
+    private val equipmentNameCache: EquipmentNameCache by inject()
 
     suspend fun seed() {
 
@@ -53,26 +56,26 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Database seeding started")
 
-        seedUsers()
-        seedCharacters()
-        seedItems()
-        seedProperty()
-        seedEquipmentName()
+        transactionExecute { session ->
+            seedUsers(session)
+            seedCharacters(session)
+            seedItems(session)
+            seedProperty(session)
+            seedEquipmentName(session)
 
-        PropertyCache.initializeCache(propertyRepository)
-        EquipmentNameCache.initializeCache(
-            equipmentNameRepository
-        )
+            propertyCache.initializeCache(session)
+            equipmentNameCache.initializeCache(session)
 
-        seedEquipment()
-        seedBlockList()
+            seedEquipment(session)
+            seedBlockList(session)
+        }
 
         printLog("Database seeding completed")
     }
 
     // ==================== Users ====================
 
-    private suspend fun seedUsers() {
+    private suspend fun seedUsers(session: ClientSession) {
         if (userRepository.count() > 0) return
 
         printLog("Seeding users...")
@@ -98,14 +101,12 @@ object DatabaseSeeder : KoinComponent {
             )
         )
 
-        transactionExecute { session ->
-            userRepository.insertMany(listItems, session)
-        }
+        userRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} users created")
     }
 
-    private suspend fun seedEquipment() {
+    private suspend fun seedEquipment(session: ClientSession) {
         equipmentRepository.deleteAll()
         if (equipmentRepository.count() > 0) return
 
@@ -114,14 +115,12 @@ object DatabaseSeeder : KoinComponent {
         val generator = EquipmentGenerator()
         val listItems = generator.generateMultipleEquipment(null, 5)
 
-        transactionExecute { session ->
-            equipmentRepository.insertMany(listItems, session)
-        }
+        equipmentRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} equipments created")
     }
 
-    private suspend fun seedBlockList() {
+    private suspend fun seedBlockList(session: ClientSession) {
         blockListRepository.deleteAll()
 //        if (blockListRepository.count() > 0) return
 //
@@ -141,20 +140,18 @@ object DatabaseSeeder : KoinComponent {
 //            )
 //        )
 //
-//        transactionExecute { session ->
-//            blockListRepository.insertMany(listItems, session)
-//        }
+//        blockListRepository.insertMany(listItems, session)
 //
 //        printLog("  → ${listItems.size} block list created")
     }
 
     // ==================== Characters ====================
 
-    private suspend fun seedCharacters() {
+    private suspend fun seedCharacters(session: ClientSession) {
         if (characterRepository.count() > 0) return
 
         printLog("Seeding characters...")
-        val userRepoAll = userRepository.findAll()
+        val userRepoAll = userRepository.findAll(session)
 
         val listItems = arrayListOf<Character>()
         listItems.add(
@@ -174,16 +171,14 @@ object DatabaseSeeder : KoinComponent {
             )
         )
 
-        transactionExecute { session ->
-            characterRepository.insertMany(listItems, session)
-        }
+        characterRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} characters created")
     }
 
     // ==================== Items ====================
 
-    private suspend fun seedItems() {
+    private suspend fun seedItems(session: ClientSession) {
         if (itemsRepository.count() > 0) return
 
         printLog("Seeding items...")
@@ -204,16 +199,14 @@ object DatabaseSeeder : KoinComponent {
             )
         )
 
-        transactionExecute { session ->
-            itemsRepository.insertMany(listItems, session)
-        }
+        itemsRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} items created")
     }
 
     // ==================== Property ====================
 
-    private suspend fun seedProperty() {
+    private suspend fun seedProperty(session: ClientSession) {
         if (propertyRepository.count() > 0) return
 
         printLog("Seeding property...")
@@ -227,14 +220,12 @@ object DatabaseSeeder : KoinComponent {
             )
         }
 
-        transactionExecute { session ->
-            propertyRepository.insertMany(listItems, session)
-        }
+        propertyRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} property created")
     }
 
-    private suspend fun seedEquipmentName() {
+    private suspend fun seedEquipmentName(session: ClientSession) {
         if (equipmentNameRepository.count() > 0) return
 
         printLog("Seeding EquipmentName...")
@@ -1465,9 +1456,7 @@ object DatabaseSeeder : KoinComponent {
             )
         )
 
-        transactionExecute { session ->
-            equipmentNameRepository.insertMany(listItems, session)
-        }
+        equipmentNameRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} EquipmentName created")
     }

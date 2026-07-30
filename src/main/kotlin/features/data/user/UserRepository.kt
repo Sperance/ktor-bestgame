@@ -33,13 +33,13 @@ class UserRepository : BaseRepository<User>(
         ))
     }
 
-    override suspend fun validateBeforeInsert(entity: User) {
+    override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
         if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
         if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert", entity.password)
         if (entity.salt != "") throw UserExceptions.funExceptionSalt("validateBeforeInsert")
         if (findByLogin(entity.login) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)
-        if (findByEmail(entity.email) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.email)
+        if (findByEmail(entity.email) != null) throw UserExceptions.funExceptionEmailExists("validateBeforeInsert", entity.email)
 
         checkPassword(entity.password)
         generatePassword(entity)

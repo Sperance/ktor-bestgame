@@ -13,9 +13,13 @@ import features.data.equipment.Equipment
 import features.data.equipment.Weapon
 import features.caches.EquipmentNameCache
 import features.caches.PropertyCache
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import kotlin.random.Random
 
-class EquipmentGenerator {
+class EquipmentGenerator : KoinComponent {
+    private val equipmentNameCache: EquipmentNameCache by inject()
+    private val propertyCache: PropertyCache by inject()
 
     // Базовые цены в зависимости от редкости
     private val basePrices = mapOf(
@@ -166,7 +170,7 @@ class EquipmentGenerator {
     }
 
     private fun randomizeName(slot: EnumEquipmentType, rarity: EnumRarity): String {
-        return EquipmentNameCache.getCache()
+        return equipmentNameCache.getCache()
             .filter { it.rarity == rarity && it.type == slot }.shuffled(RandomExt.random)
             .first().name
     }
@@ -292,7 +296,7 @@ class EquipmentGenerator {
             EnumRarity.MYTHICAL -> 3..6
         }.random(RandomExt.random)
 
-        val cachedProperties = PropertyCache.getCache()
+        val cachedProperties = propertyCache.getCache()
             .filter { it.type == EnumStatType.STOCK }
 
         for (i in 1..countModifiers) {

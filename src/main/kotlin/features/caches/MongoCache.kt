@@ -2,14 +2,21 @@ package features.caches
 
 import base.entity.StockEntity
 import base.repository.BaseRepository
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import extensions.printLog
 
-abstract class MongoCache<T: StockEntity, R: BaseRepository<T>> {
-
+abstract class MongoCache<T: StockEntity, R: BaseRepository<T>>(
+    val repository: R
+) {
     private val items: ArrayList<T> = arrayListOf()
 
-    suspend fun initializeCache(repo: R) {
-        val data = repo.findAll()
+    suspend fun initializeCache() {
+        val data = repository.findAll()
+        loadToCache(data)
+    }
+
+    suspend fun initializeCache(session: ClientSession) {
+        val data = repository.findAll(session)
         loadToCache(data)
     }
 

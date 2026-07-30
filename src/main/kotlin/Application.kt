@@ -13,9 +13,9 @@ import config.DatabaseSeeder
 import config.DatabaseSeeder.getKoin
 import config.LogManager
 import config.MongoBackupManager
+import config.SystemMonitor
 import io.ktor.server.engine.EmbeddedServer
 import org.koin.core.context.startKoin
-import server.addons.configureCaches
 import server.addons.configureCrypto
 import server.addons.configureIpBlocking
 import server.addons.configureRateLimit
@@ -37,13 +37,14 @@ fun main() {
     )
 
     Runtime.getRuntime().addShutdownHook(Thread {
+        val backupManager: MongoBackupManager = getKoin().get()
         try {
-            val backupManager: MongoBackupManager = getKoin().get()
             backupManager.shutdown()
+            LogManager.shutdown()
+            SystemMonitor.stop()
         } catch (e: Exception) {
-            println("Error stopping backup manager: ${e.message}")
+            printLog("Error stopping: ${e.message}")
         }
-        LogManager.shutdown()
         printLog("\n\n***** Server stopped", true)
     })
 
@@ -62,5 +63,4 @@ suspend fun Application.configureModules() {
     configureCrypto()
 
     DatabaseSeeder.seed()
-    configureCaches()
 }
