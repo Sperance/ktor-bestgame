@@ -2,8 +2,8 @@ package config
 
 import extensions.printLog
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import java.io.File
 import java.io.FileWriter
 import java.io.BufferedWriter
@@ -32,7 +32,7 @@ object LogManager {
     private var currentDate: LocalDate = LocalDate.now()
     @Volatile
     private var writer: BufferedWriter? = null
-    private val logChannel = Channel<String>(UNLIMITED)
+    private val logChannel = Channel<String>(capacity = 1000, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var isRunning = true
 

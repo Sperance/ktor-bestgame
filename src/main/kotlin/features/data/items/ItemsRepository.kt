@@ -10,6 +10,14 @@ class ItemsRepository : BaseRepository<Items>(entityClass = Items::class), KoinC
     private val itemsCache: ItemsCache by inject()
 
     override suspend fun validateAfterInsert(entity: Items, session: ClientSession) {
-        itemsCache.addItemToCache(entity)
+        itemsCache.addItem(entity)
+    }
+
+    override suspend fun validateAfterDelete(entity: Items, session: ClientSession, softDelete: Boolean) {
+        itemsCache.removeItem(entity)
+    }
+
+    override suspend fun validateAfterUpdate(entity: Items, session: ClientSession) {
+        itemsCache.updateItem(entity)
     }
 }

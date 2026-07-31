@@ -22,5 +22,5 @@ interface EquipmentInterface {
 sealed class Equipment(
     @Contextual
     override var _id: ObjectId = ObjectId(),
-    var params: ArrayList<ModificationValue> = arrayListOf(),
+    var params: MutableList<ModificationValue> = mutableListOf(),
 ) : StockEntity, EquipmentInterface

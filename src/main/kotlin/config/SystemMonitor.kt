@@ -70,23 +70,20 @@ object SystemMonitor {
     /**
      * Сбор метрик и вывод в лог
      */
-    private suspend fun collectAndLogMetrics() {
+    private fun collectAndLogMetrics() {
         val timestamp = LocalDateTime.now().format(formatter)
-        val metrics = collectMetrics()
 
         val logMessage = buildString {
             appendLine()
             appendLine("=".repeat(80))
             appendLine("📊 SYSTEM METRICS [$timestamp]")
             appendLine("=".repeat(80))
-            appendLine()
 
             // Процесс
             appendLine("🔹 PROCESS:")
             appendLine("  • PID: ${getProcessId()}")
             appendLine("  • Uptime: ${formatUptime(runtimeMXBean.uptime)}")
             appendLine("  • Thread count: ${Thread.activeCount()}")
-            appendLine()
 
             // Память JVM
             appendLine("🔹 JVM MEMORY:")
@@ -94,41 +91,11 @@ object SystemMonitor {
             appendLine("  • Used heap: ${formatBytes(memoryMXBean.heapMemoryUsage.used)}")
             appendLine("  • Max heap: ${formatBytes(memoryMXBean.heapMemoryUsage.max)}")
             appendLine("  • Heap usage: ${memoryMXBean.heapMemoryUsage.used * 100 / memoryMXBean.heapMemoryUsage.max}%")
-            appendLine()
 
             // Non-heap memory
             appendLine("  • Non-heap used: ${formatBytes(memoryMXBean.nonHeapMemoryUsage.used)}")
             appendLine("  • Non-heap max: ${formatBytes(memoryMXBean.nonHeapMemoryUsage.max)}")
-            appendLine()
 
-            // Система
-            appendLine("🔹 SYSTEM:")
-            appendLine("  • OS: ${osMXBean.name} (${osMXBean.arch})")
-            appendLine("  • CPU cores: ${osMXBean.availableProcessors}")
-            appendLine("  • System load avg: ${"%.2f".format(osMXBean.systemLoadAverage)}")
-
-            // Дополнительные метрики (если доступны)
-            try {
-                val totalMemory = getTotalSystemMemory()
-                val freeMemory = getFreeSystemMemory()
-                if (totalMemory > 0) {
-                    appendLine("  • Total system memory: ${formatBytes(totalMemory)}")
-                    appendLine("  • Free system memory: ${formatBytes(freeMemory)}")
-                    appendLine("  • Memory usage: ${(totalMemory - freeMemory) * 100 / totalMemory}%")
-                }
-            } catch (e: Exception) {
-                // Игнорируем, если метрики недоступны
-            }
-
-            // GC
-            appendLine()
-            appendLine("🔹 GARBAGE COLLECTION:")
-            val gcBeans = ManagementFactory.getGarbageCollectorMXBeans()
-            gcBeans.forEach { gc ->
-                appendLine("  • ${gc.name}: ${gc.collectionCount} collections, ${gc.collectionTime}ms")
-            }
-
-            appendLine()
             appendLine("=".repeat(80))
         }
 

@@ -75,7 +75,7 @@ data class UniqueIndexConfig(
  * )
  * ```
  */
-abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T>) {
+abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
 
     private val collectionName = entityClass.simpleName!!
 
@@ -581,6 +581,8 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
             }
         }
 
+        validateAfterUpdate(entity, session)
+
         return result
     }
 
@@ -662,6 +664,8 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         if (result == null) {
             throw BaseRepositoryExceptions.funException("updateFields", "Not found object with id ${entity.getId()} after update")
         }
+
+        validateAfterUpdate(result, session)
 
         return result
     }
@@ -1087,7 +1091,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * ```
      */
     protected open suspend fun validateBeforeInsert(entity: T, session: ClientSession) {
-        // Базовая реализация — ничего не проверяем
+
     }
 
     /**
@@ -1108,7 +1112,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * ```
      */
     protected open suspend fun validateBeforeUpdate(changes: Map<String, Any?>) {
-        // Базовая реализация — ничего не проверяем
+    }
+
+    protected open suspend fun validateAfterUpdate(entity: T, session: ClientSession) {
+
     }
 
     /**

@@ -17,6 +17,9 @@ import base.exception.model.ItemsExceptions
 import base.exception.model.PropertyExceptions
 import features.data.user.User
 import base.exception.model.UserExceptions
+import features.caches.EquipmentNameCache
+import features.data.equipment.EquipmentRepository
+import features.data.equipmentName.EquipmentNameRepository
 import features.data.user.UserRepository
 import features.logic.EquipmentGenerator
 import org.junit.After
@@ -41,9 +44,9 @@ class MongoTest: KoinTest {
 
     private val userRepo: UserRepository by inject()
     private val charRepo: CharacterRepository by inject()
-    private val equipmentNameRepo: features.data.equipmentName.EquipmentNameRepository by inject()
-    private val equipmentRepository: features.data.equipment.EquipmentRepository by inject()
-    private val equipmentNameCache: features.caches.EquipmentNameCache by inject()
+    private val equipmentNameRepo: EquipmentNameRepository by inject()
+    private val equipmentRepository: EquipmentRepository by inject()
+    private val equipmentNameCache: EquipmentNameCache by inject()
 
     @Before
     fun setup() {
@@ -374,8 +377,6 @@ class MongoTest: KoinTest {
 
     @Test
     fun test_generate_items(): Unit = runBlocking {
-
-        equipmentNameCache.initializeCache()
 
         val generator = EquipmentGenerator()
         val allCounter = 100

@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
@@ -53,30 +54,22 @@ object MongoFactory {
             try {
                 printLog("[MongoFactory] Attempting to reconnect to MongoDB...", true)
 
-                // Закрываем старый клиент
                 try {
                     mongoClient.close()
-                } catch (_: Exception) {
-                    // игнорируем
-                }
+                } catch (_: Exception) {}
 
-                // Создаём новый клиент
                 val newClient = createMongoClient()
-
-                // Проверяем подключение
                 newClient.getDatabase("admin").runCommand(Document("ping", 1))
 
                 printLog("[MongoFactory] ✅ Reconnected to MongoDB successfully", true)
-
                 mongoClient = newClient
 
             } catch (e: Exception) {
                 e.printStackTrace()
                 printLog("[MongoFactory] Failed to reconnect to MongoDB", true)
 
-                // Пробуем снова через 5 секунд
-                delay(5000.milliseconds)
-                reconnect()
+                if (isActive) delay(5000.milliseconds)
+                if (isActive) reconnect()
             } finally {
                 isReconnecting = false
             }

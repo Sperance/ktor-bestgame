@@ -16,9 +16,9 @@ data class Character(
     var level: Short = 1,
     var experience: Int = 0,
     var money: Long = 0,
-    var params: ArrayList<ModificationValue> = arrayListOf(),
-    var equipments: ArrayList<CharacterEquipments> = arrayListOf(),
-    var items: ArrayList<CharacterItems> = arrayListOf(),
+    var params: MutableList<ModificationValue> = mutableListOf(),
+    var equipments: MutableList<CharacterEquipments> = mutableListOf(),
+    var items: MutableList<CharacterItems> = mutableListOf(),
 
     @Contextual
     override var _id: ObjectId = ObjectId(),
@@ -38,7 +38,7 @@ data class CharacterItems(
 data class CharacterEquipments(
     var equipmentId: String,
     var equipmentType: String, // "weapon", "armor", "accessory"
-    var params: ArrayList<ModificationValue> = arrayListOf(),
+    var params: MutableList<ModificationValue> = mutableListOf(),
     var enabled: Boolean = true,
 
     @Contextual

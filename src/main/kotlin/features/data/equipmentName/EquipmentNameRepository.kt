@@ -10,6 +10,14 @@ class EquipmentNameRepository : BaseRepository<EquipmentName>(entityClass = Equi
     private val equipmentNameCache: EquipmentNameCache by inject()
 
     override suspend fun validateAfterInsert(entity: EquipmentName, session: ClientSession) {
-        equipmentNameCache.addItemToCache(entity)
+        equipmentNameCache.addItem(entity)
+    }
+
+    override suspend fun validateAfterDelete(entity: EquipmentName, session: ClientSession, softDelete: Boolean) {
+        equipmentNameCache.removeItem(entity)
+    }
+
+    override suspend fun validateAfterUpdate(entity: EquipmentName, session: ClientSession) {
+        equipmentNameCache.updateItem(entity)
     }
 }

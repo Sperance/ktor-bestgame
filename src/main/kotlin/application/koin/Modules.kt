@@ -9,13 +9,11 @@ import features.caches.EquipmentNameCache
 import features.caches.ItemsCache
 import features.caches.PropertyCache
 import features.data.blockList.BlockListRepository
-import features.data.blockList.BlockListRoute
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
 import features.data.equipment.EquipmentRepository
 import features.data.equipment.EquipmentRoute
 import features.data.equipmentName.EquipmentNameRepository
-import features.data.equipmentName.EquipmentNameRoute
 import features.data.items.ItemsRepository
 import features.data.items.ItemsRoute
 import features.data.property.PropertyRepository
@@ -35,11 +33,11 @@ val repositoryModule = module {
 }
 
 val cacheModule = module {
-    single { BlockListCache(get()) }
-    single { EquipmentCache(get()) }
-    single { EquipmentNameCache(get()) }
-    single { ItemsCache(get()) }
-    single { PropertyCache(get()) }
+    single(createdAtStart = true) { BlockListCache(get()).apply { initializeCache() } }
+    single(createdAtStart = true) { EquipmentCache(get()).apply { initializeCache() } }
+    single(createdAtStart = true) { EquipmentNameCache(get()).apply { initializeCache() } }
+    single(createdAtStart = true) { ItemsCache(get()).apply { initializeCache() } }
+    single(createdAtStart = true) { PropertyCache(get()).apply { initializeCache() } }
 }
 
 val routeModule = module {
@@ -51,8 +49,6 @@ val routeModule = module {
                 ItemsRoute(get()),
                 PropertyRoute(get()),
                 EquipmentRoute(get()),
-                EquipmentNameRoute(get()),
-                BlockListRoute(get()),
             )
         )
     }
