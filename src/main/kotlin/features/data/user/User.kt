@@ -19,6 +19,7 @@ data class User(
     var isActive: Boolean = true,
     var role: EnumUserRoles = EnumUserRoles.USER,
     var lastLoginDate: LocalDateTime? = null,
+    var device_id: String = "",
 
     var countCharacters: Int = 0,
 
@@ -41,6 +42,7 @@ data class UserResponse(
     val isActive: Boolean,
     val role: EnumUserRoles,
     val lastLoginDate: LocalDateTime?,
+    val device_id: String,
     var countCharacters: Int,
     val createdAt: LocalDateTime,
     var updatedAt: LocalDateTime,
@@ -56,6 +58,7 @@ fun User.toResponse(): UserResponse = UserResponse(
     isActive = isActive,
     role = role,
     lastLoginDate = lastLoginDate,
+    device_id = device_id,
     createdAt = createdAt,
     updatedAt = updatedAt,
     version = version,

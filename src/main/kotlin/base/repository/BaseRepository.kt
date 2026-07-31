@@ -199,9 +199,9 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * println("ID: ${result._id}")
      * ```
      */
-    suspend fun insert(entity: T, session: ClientSession): T {
+    suspend fun insert(entity: T, session: ClientSession, validation: Boolean = true): T {
         if (entity is VersionedEntity && entity.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insert", entity.version.toString())
-        validateBeforeInsert(entity, session)
+        if (validation) validateBeforeInsert(entity, session)
 
         return try {
             val result = collection.insertOne(session, entity)
@@ -211,7 +211,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
             printLog("[ADDED::$collectionName] ${result.insertedId} object: $entity")
             entity.setId(result.insertedId!!.asObjectId().value.toHexString())
 
-            validateAfterInsert(entity, session)
+            if (validation) validateAfterInsert(entity, session)
 
             entity
         } catch (e: MongoWriteException) {

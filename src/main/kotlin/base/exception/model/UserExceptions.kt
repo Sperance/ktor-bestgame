@@ -27,4 +27,7 @@ object UserExceptions {
     fun funExceptionPasswordLoginPass(errorMethod: String, value: String? = "") = UserException("Invalid login or password", errorMethod, "US_010")
     fun funExceptionInactive(errorMethod: String, value: String? = "") = UserException("Account with login $value is inactive", errorMethod, "US_011")
     fun funExceptionFoundUserId(errorMethod: String, value: String? = "") = UserException("User with id $value not found", errorMethod, "US_012")
+    fun funExceptionDoubleDevice(errorMethod: String, value: String? = "") = UserException("User with device $value already exists", errorMethod, "US_013")
+    fun funExceptionEmptyDevice(errorMethod: String, value: String? = "") = UserException("Field `deviceId` is empty", errorMethod, "US_014")
+    fun funExceptionDeviceNotFound(errorMethod: String, value: String? = "") = UserException("User with deviceId $value not found", errorMethod, "US_015")
 }

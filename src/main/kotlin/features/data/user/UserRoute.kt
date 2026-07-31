@@ -5,6 +5,7 @@ import base.route.BaseRoute
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
+import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
 class UserRoute(val repo: UserRepository) : BaseRoute<User, UserResponse>(
@@ -18,6 +19,16 @@ class UserRoute(val repo: UserRepository) : BaseRoute<User, UserResponse>(
             val login = call.queryParam("login")
             val password = call.queryParam("password")
             val user = repo.authenticate(login, password).toResponse()
+            call.respond(ApiMongoResponse.ok(user))
+        }
+        post("/byDeviceId") {
+            val deviceId = call.queryParam("deviceId")
+            val user = repo.createByDevice(deviceId).toResponse()
+            call.respond(ApiMongoResponse.ok(user))
+        }
+        get("/login/byDeviceId") {
+            val deviceId = call.queryParam("deviceId")
+            val user = repo.findByDeviceId(deviceId).toResponse()
             call.respond(ApiMongoResponse.ok(user))
         }
         route("/search") {

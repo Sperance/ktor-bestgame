@@ -116,6 +116,34 @@ class UserRepository : BaseRepository<User>(
         return findByField(User::login, login)
     }
 
+    suspend fun createByDevice(deviceId: String): User {
+        if (deviceId.trim().isEmpty()) throw UserExceptions.funExceptionEmptyDevice("createByDevice")
+
+        val findedUser = findByField(User::device_id, deviceId)
+        if (findedUser != null) throw UserExceptions.funExceptionDoubleDevice("createByDevice", deviceId)
+
+        val newUser = User()
+        newUser.device_id = deviceId
+
+        return transactionExecute("Create by Device_id") { session ->
+            insert(newUser, session, false)
+        }
+    }
+
+    suspend fun findByDeviceId(deviceId: String): User {
+        if (deviceId.trim().isEmpty()) throw UserExceptions.funExceptionEmptyDevice("createByDevice")
+
+        val user = findByField(User::device_id, deviceId)
+        if (user == null) throw UserExceptions.funExceptionDeviceNotFound("createByDevice", deviceId)
+
+        user.lastLoginDate = LocalDateTime.now()
+        transactionExecute("Correct login date from DeviceId") { session ->
+            update(user, session)
+        }
+
+        return user
+    }
+
     suspend fun authenticate(login: String, password: String): User {
         val credentials = findCredentialsByLogin(login)
             ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
