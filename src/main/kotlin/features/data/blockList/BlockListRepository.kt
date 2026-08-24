@@ -2,7 +2,6 @@ package features.data.blockList
 
 import base.repository.BaseRepository
 import com.mongodb.kotlin.client.coroutine.ClientSession
-import config.MongoFactory.transactionExecute
 import features.caches.BlockListCache
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -20,11 +19,5 @@ class BlockListRepository : BaseRepository<BlockList>(entityClass = BlockList::c
 
     override suspend fun validateAfterUpdate(entity: BlockList, session: ClientSession) {
         blockListCache.updateItem(entity)
-    }
-
-    suspend fun addObject(block: BlockList): BlockList {
-        return transactionExecute { session ->
-            insert(block, session)
-        }
     }
 }

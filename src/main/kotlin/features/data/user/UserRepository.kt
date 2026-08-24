@@ -77,7 +77,7 @@ class UserRepository : BaseRepository<User>(
     }
 
     override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
-        val characters = characterRepository.findByFieldList(Character::userId, entity.getId())
+        val characters = characterRepository.findByFieldList(Character::userId, entity._id)
         characters.forEach { char ->
             if (softDelete) {
                 characterRepository.softDelete(char, session)

@@ -17,11 +17,15 @@ import base.exception.model.ItemsExceptions
 import base.exception.model.PropertyExceptions
 import features.data.user.User
 import base.exception.model.UserExceptions
+import config.MongoFactory
 import features.caches.EquipmentNameCache
 import features.data.equipment.EquipmentRepository
 import features.data.equipmentName.EquipmentNameRepository
 import features.data.user.UserRepository
 import features.logic.EquipmentGenerator
+import kotlinx.coroutines.flow.forEach
+import kotlinx.serialization.Serializable
+import org.bson.types.ObjectId
 import org.junit.After
 import org.junit.Assert.assertThrows
 import org.junit.Before

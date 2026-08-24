@@ -8,6 +8,7 @@ import features.caches.EquipmentCache
 import features.caches.EquipmentNameCache
 import features.caches.ItemsCache
 import features.caches.PropertyCache
+import features.caches.RecipeCache
 import features.data.blockList.BlockListRepository
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
@@ -18,6 +19,8 @@ import features.data.items.ItemsRepository
 import features.data.items.ItemsRoute
 import features.data.property.PropertyRepository
 import features.data.property.PropertyRoute
+import features.data.recipe.RecipeRepository
+import features.data.recipe.RecipeRoute
 import features.data.user.UserRepository
 import features.data.user.UserRoute
 import org.koin.dsl.module
@@ -30,6 +33,7 @@ val repositoryModule = module {
     single { EquipmentRepository() }
     single { EquipmentNameRepository() }
     single { BlockListRepository() }
+    single { RecipeRepository() }
 }
 
 val cacheModule = module {
@@ -38,6 +42,7 @@ val cacheModule = module {
     single(createdAtStart = true) { EquipmentNameCache(get()).apply { initializeCache() } }
     single(createdAtStart = true) { ItemsCache(get()).apply { initializeCache() } }
     single(createdAtStart = true) { PropertyCache(get()).apply { initializeCache() } }
+    single(createdAtStart = true) { RecipeCache(get()).apply { initializeCache() } }
 }
 
 val routeModule = module {
@@ -49,6 +54,7 @@ val routeModule = module {
                 ItemsRoute(get()),
                 PropertyRoute(get()),
                 EquipmentRoute(get()),
+                RecipeRoute(get()),
             )
         )
     }

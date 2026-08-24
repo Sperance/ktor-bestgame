@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.descend"
-version = "0.6.*"
+version = "0.7.6"
 
 application {
     mainClass = "io.ktor.server.netty.EngineMain"

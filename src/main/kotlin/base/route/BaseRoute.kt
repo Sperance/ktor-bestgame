@@ -8,8 +8,13 @@ import base.exception.BaseException
 import base.exception.BaseRouteExceptions
 import CONST_API_VERSION
 import extensions.saveChildren
+import features.data.recipe.Recipe
+import io.ktor.client.request.request
+import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.openapi.JsonSchema
+import io.ktor.openapi.jsonSchema
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -35,6 +40,7 @@ interface RouteRegistrar {
     fun register(routing: Routing)
 }
 
+@OptIn(ExperimentalKtorApi::class)
 abstract class BaseRoute<T : StockEntity, R>(
     protected val repository: BaseRepository<T>,
     val entitySerializer: KSerializer<T>,
@@ -53,7 +59,7 @@ abstract class BaseRoute<T : StockEntity, R>(
 
             pagedRoute()
             countRoute()
-            getAllRoute()
+            getAllRoute(this)
             createRoute()
             updateRoute()
             deleteRoute()
@@ -62,19 +68,21 @@ abstract class BaseRoute<T : StockEntity, R>(
         }.saveChildren()
     }
 
-    private fun Route.getAllRoute() = get {
-        val id = call.queryParam("id", "")
-        if (id == "") {
-            val items = repository.findAll().map { toResponse(it) }
-            call.respond(apiResponseListSerializer, ApiMongoResponse.ok(items))
-        } else {
-            if (id.length != 24) {
-                throw BaseRouteExceptions.funExceptionFormatId("getAllRoute", id)
-            }
+    open fun getAllRoute(route: Route): Route {
+        return route.get {
+            val id = call.queryParam("id", "")
+            if (id == "") {
+                val items = repository.findAll().map { toResponse(it) }
+                call.respond(apiResponseListSerializer, ApiMongoResponse.ok(items))
+            } else {
+                if (id.length != 24) {
+                    throw BaseRouteExceptions.funExceptionFormatId("getAllRoute", id)
+                }
 
-            val entity = repository.findById(id)
-            val responseEntity = entity?.let(toResponse)
-            call.respond(apiResponseSerializer, ApiMongoResponse.ok(responseEntity))
+                val entity = repository.findById(id)
+                val responseEntity = entity?.let(toResponse)
+                call.respond(apiResponseSerializer, ApiMongoResponse.ok(responseEntity))
+            }
         }
     }
 

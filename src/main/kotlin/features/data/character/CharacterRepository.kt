@@ -37,13 +37,13 @@ class CharacterRepository : BaseRepository<Character>(
         if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
         if (findByField(Character::name, entity.name) != null) throw CharacterExceptions.funExceptionNameDuplicate("validateBeforeInsert", entity.name)
         val findedUser = userRepository.findById(entity.userId, session)
-        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId)
+        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId.toHexString())
         if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateBeforeInsert")
     }
 
     override suspend fun validateAfterInsert(entity: Character, session: ClientSession) {
         val findedUser = userRepository.findById(entity.userId, session)
-        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateAfterInsert", entity.userId)
+        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateAfterInsert", entity.userId.toHexString())
         findedUser.countCharacters++
         if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert")
         userRepository.update(findedUser, session)

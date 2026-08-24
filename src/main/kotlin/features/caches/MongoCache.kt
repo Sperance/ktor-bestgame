@@ -27,7 +27,7 @@ abstract class MongoCache<T: StockEntity, R: BaseRepository<T>>(val repository: 
 
     fun addItem(item: T) = items.add(item)
 
-    fun removeItem(item: T) = items.removeIf { it.getId() == item.getId() }
+    fun removeItem(item: T) = items.removeIf { it._id == item._id }
 
     fun updateItem(item: T) {
         removeItem(item)

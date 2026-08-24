@@ -6,6 +6,7 @@ import io.ktor.server.routing.path
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.bson.types.ObjectId
 import kotlin.time.Clock
 import kotlin.time.Instant
 
@@ -15,6 +16,8 @@ fun printLog(text: Any? = "", system: Boolean = false) {
     else
         LogManager.log("\t$text")
 }
+
+fun String.toObjectId() = ObjectId(this)
 
 fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime(TimeZone.UTC)
 

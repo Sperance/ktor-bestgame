@@ -11,14 +11,14 @@ import features.data.character.Character
 import features.data.character.CharacterRepository
 import features.data.equipment.EquipmentRepository
 import features.data.equipmentName.EquipmentName
-import features.caches.EquipmentNameCache
 import features.data.equipmentName.EquipmentNameRepository
 import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.data.property.Property
-import features.caches.PropertyCache
 import features.data.blockList.BlockListRepository
 import features.data.property.PropertyRepository
+import features.data.recipe.Recipe
+import features.data.recipe.RecipeRepository
 import features.data.user.User
 import features.data.user.UserRepository
 import features.logic.EquipmentGenerator
@@ -39,8 +39,7 @@ object DatabaseSeeder : KoinComponent {
     private val equipmentRepository: EquipmentRepository by inject()
     private val equipmentNameRepository: EquipmentNameRepository by inject()
     private val blockListRepository: BlockListRepository by inject()
-    private val propertyCache: PropertyCache by inject()
-    private val equipmentNameCache: EquipmentNameCache by inject()
+    private val recipeRepository: RecipeRepository by inject()
 
     suspend fun seed() {
 
@@ -125,14 +124,14 @@ object DatabaseSeeder : KoinComponent {
             Character(
                 name = "Warrior",
                 description = "STRONG pipster",
-                userId = userRepoAll.first().getId(),
+                userId = userRepoAll.first()._id,
             )
         )
         listItems.add(
             Character(
                 name = "Mage",
                 description = "Мудрый pipster",
-                userId = userRepoAll.last().getId(),
+                userId = userRepoAll.last()._id,
                 level = 5,
                 experience = 1200,
             )
