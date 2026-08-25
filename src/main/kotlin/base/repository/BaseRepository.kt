@@ -21,6 +21,7 @@ import extensions.now
 import extensions.printLog
 import base.entity.VersionedEntity
 import base.exception.BaseRepositoryExceptions
+import com.mongodb.MongoBulkWriteException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -209,7 +210,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
                 throw BaseRepositoryExceptions.funExceptionInsertInvalid("insert")
             }
             printLog("[ADDED::$collectionName] ${result.insertedId} object: $entity")
-            entity.setId(result.insertedId!!.asObjectId().value.toHexString())
+            entity._id = result.insertedId!!.asString().value
 
             if (validation) validateAfterInsert(entity, session)
 
@@ -256,7 +257,8 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      */
     suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
         entities.forEach {
-            if (it is VersionedEntity && it.version != 0L) throw BaseRepositoryExceptions.funExceptionInsertVersion("insertMany", it.version.toString())
+            if (it is VersionedEntity && it.version != 0L)
+                throw BaseRepositoryExceptions.funExceptionInsertVersion("insertMany", it.version.toString())
             validateBeforeInsert(it, session)
         }
 
@@ -267,7 +269,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
             // Присваиваем сгенерированные ID объектам
             entities.forEachIndexed { index, entity ->
                 result.insertedIds[index]?.let { bsonValue ->
-                    entity._id = bsonValue.asObjectId().value
+                    entity._id = bsonValue.asString().value
 
                     validateAfterInsert(entity, session)
 
@@ -281,6 +283,8 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
                 throw BaseRepositoryExceptions.funExceptionRace("insertMany", e.message)
             }
             throw BaseRepositoryExceptions.funException("insertMany", e.message)
+        } catch (e: MongoBulkWriteException) {
+            throw BaseRepositoryExceptions.funException("insertMany", e.writeErrors.firstOrNull()?.message?:e.message)
         } catch (e: Exception) {
             throw BaseRepositoryExceptions.funException("insertMany", e.message)
         }
@@ -444,6 +448,10 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         return collection.find(Filters.eq(field.name, value)).firstOrNull()
     }
 
+    suspend fun <S> findByField(field: KMutableProperty1<T, S>, value: S, session: ClientSession): T? {
+        return collection.find(session, Filters.eq(field.name, value)).firstOrNull()
+    }
+
     /**
      * Поиск списка документов по значению конкретного поля.
      * 
@@ -569,7 +577,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         if (result.matchedCount == 0L) {
             val existing = findById(entity._id)
             if (existing == null) {
-                throw BaseRepositoryExceptions.funExceptionFindId("update", entity.getId())
+                throw BaseRepositoryExceptions.funExceptionFindId("update", entity._id)
             } else {
                 throw BaseRepositoryExceptions.funExceptionRace("update", "current: ${if (existing is VersionedEntity) existing.version else 0L} need: $expectedVersion")
             }
@@ -662,7 +670,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         }
 
         if (result == null) {
-            throw BaseRepositoryExceptions.funException("updateFields", "Not found object with id ${entity.getId()} after update")
+            throw BaseRepositoryExceptions.funException("updateFields", "Not found object with id ${entity._id} after update")
         }
 
         validateAfterUpdate(result, session)
@@ -813,12 +821,12 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * repo.softDelete(userId, session)
      * ```
      */
-    suspend fun softDelete(id: ObjectId, session: ClientSession): UpdateResult {
+    suspend fun softDelete(id: String, session: ClientSession): UpdateResult {
         printLog("[SOFT_DELETE::$collectionName] id: $id")
 
         val findedObj = findById(id)
         if (findedObj == null) {
-            throw BaseRepositoryExceptions.funExceptionFindId("softDelete", id.toHexString())
+            throw BaseRepositoryExceptions.funExceptionFindId("softDelete", id)
         }
 
         if (findedObj !is VersionedEntity) {
@@ -872,7 +880,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * val activeUsers = repo.collection.find(activeFilter).toList()
      * ```
      */
-    suspend fun restore(id: ObjectId, session: ClientSession): UpdateResult {
+    suspend fun restore(id: String, session: ClientSession): UpdateResult {
         printLog("[RESTORE::$collectionName] id: $id")
         val filter = Filters.eq(CONST_FIELD_ID, id)
         val update = Updates.set(CONST_FIELD_DELETED, false)

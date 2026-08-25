@@ -8,8 +8,10 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import CONST_FIELD_ID
 import CONST_USER_MAX_CHARACTERS
+import extensions.printLog
 import features.caches.ItemsCache
 import features.data.equipment.Equipment
+import features.data.user.User
 import features.data.user.UserRepository
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
@@ -36,14 +38,14 @@ class CharacterRepository : BaseRepository<Character>(
     override suspend fun validateBeforeInsert(entity: Character, session: ClientSession) {
         if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
         if (findByField(Character::name, entity.name) != null) throw CharacterExceptions.funExceptionNameDuplicate("validateBeforeInsert", entity.name)
-        val findedUser = userRepository.findById(entity.userId, session)
-        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId.toHexString())
+        val findedUser = userRepository.findByField(User::_id, entity.userId, session)
+        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId)
         if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateBeforeInsert")
     }
 
     override suspend fun validateAfterInsert(entity: Character, session: ClientSession) {
-        val findedUser = userRepository.findById(entity.userId, session)
-        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateAfterInsert", entity.userId.toHexString())
+        val findedUser = userRepository.findByField(User::_id, entity.userId, session)
+        if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateAfterInsert", entity.userId)
         findedUser.countCharacters++
         if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert")
         userRepository.update(findedUser, session)
@@ -60,7 +62,7 @@ class CharacterRepository : BaseRepository<Character>(
         if (mapIdEquipments.isEmpty()) return emptyList()
         return equipmentRepository.findByFilter(
             Filters.and(
-                Filters.`in`(CONST_FIELD_ID, mapIdEquipments.map { ObjectId(it) }),
+                Filters.`in`(CONST_FIELD_ID, mapIdEquipments),
                 Filters.eq("characterId", characterId)
             )
         )
@@ -95,7 +97,7 @@ class CharacterRepository : BaseRepository<Character>(
             if (itm.amount == 0L) return@forEach
             if (itm.amount > 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
             if (itm.amount < 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
-            if (allItems.find { it.getId() == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itm.toString())
+            if (allItems.find { it._id == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itm.toString())
 
             val findedItem = character.items.find { it.itemId == itm.itemId }
             if (findedItem != null) {

@@ -15,6 +15,5 @@ data class Property(
     var image: String? = null,
     var step: Byte,
 
-    @Contextual
-    override var _id: ObjectId = ObjectId(),
+    override var _id: String = ObjectId().toHexString(),
 ) : StockEntity

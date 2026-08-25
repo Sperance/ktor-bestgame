@@ -301,7 +301,7 @@ class EquipmentGenerator : KoinComponent {
 
         for (i in 1..countModifiers) {
             val property = cachedProperties.random(RandomExt.random)
-            stock.add(ModificationValue(property.getId(), itemLevel.toByte(), 100.0))
+            stock.add(ModificationValue(property._id, itemLevel.toByte(), 100.0))
         }
 
         return stock

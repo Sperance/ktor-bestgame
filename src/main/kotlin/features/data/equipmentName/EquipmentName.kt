@@ -3,7 +3,6 @@ package features.data.equipmentName
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import base.entity.StockEntity
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -13,6 +12,5 @@ data class EquipmentName(
     var type: EnumEquipmentType,
     var rarity: EnumRarity,
 
-    @Contextual
-    override var _id: ObjectId = ObjectId(),
+    override var _id: String = ObjectId().toHexString(),
 ) : StockEntity

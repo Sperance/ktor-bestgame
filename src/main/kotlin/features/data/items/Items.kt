@@ -12,6 +12,5 @@ data class Items(
     val image: String? = null,
     val price: Long = 0,
 
-    @Contextual
-    override var _id: ObjectId = ObjectId(),
+    override var _id: String = ObjectId().toHexString(),
 ) : StockEntity

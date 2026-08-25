@@ -17,8 +17,6 @@ fun printLog(text: Any? = "", system: Boolean = false) {
         LogManager.log("\t$text")
 }
 
-fun String.toObjectId() = ObjectId(this)
-
 fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime(TimeZone.UTC)
 
 fun Double.getPercent(value: Double) : Double {

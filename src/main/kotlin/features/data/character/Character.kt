@@ -9,7 +9,7 @@ import org.bson.types.ObjectId
 
 @Serializable
 data class Character(
-    @Contextual var userId: ObjectId,
+    var userId: String,
 
     var name: String,
     var description: String = "",
@@ -20,7 +20,7 @@ data class Character(
     var equipments: MutableList<CharacterEquipments> = mutableListOf(),
     var items: MutableList<CharacterItems> = mutableListOf(),
 
-    @Contextual override var _id: ObjectId = ObjectId(),
+    override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
@@ -40,8 +40,7 @@ data class CharacterEquipments(
     var params: MutableList<ModificationValue> = mutableListOf(),
     var enabled: Boolean = true,
 
-    @Contextual
-    var uuid: ObjectId = ObjectId(),
+    var uuid: String = ObjectId().toHexString(),
 )
 
 @Serializable

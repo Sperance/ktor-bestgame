@@ -5,10 +5,8 @@ import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
-import extensions.toObjectId
 import features.caches.RecipeCache
 import features.data.items.ItemsRepository
-import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -19,24 +17,21 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
     init {
         initialize(uniqueIndexes = listOf(
             UniqueIndexConfig(
-                indexName = "idx_unique_all",
-                fields = listOf("name", "arrayIn", "arrayOut")
+                indexName = "idx_unique_name",
+                fields = listOf("name")
             ),
         ))
     }
 
     override suspend fun validateBeforeInsert(entity: Recipe, session: ClientSession) {
-        val listItemsID = mutableSetOf<ObjectId>()
-        listItemsID.addAll(entity.arrayIn.map { it.item.toObjectId() })
-        listItemsID.addAll(entity.arrayOut.map { it.item.toObjectId() })
+        val listItemsID = mutableSetOf<String>()
+        listItemsID.addAll(entity.arrayIn.map { it.item })
+        listItemsID.addAll(entity.arrayOut.map { it.item })
         val items = repoItems.findByFilter(Filters.`in`("_id", listItemsID))
         val foundIds = items.map { it._id }.toSet()
         val missingIds = listItemsID - foundIds
         if (missingIds.isNotEmpty())
             throw RecipeExceptions.funExceptionItemNotFound("validateBeforeInsert", missingIds.toString())
-
-        if (findByField(Recipe::name, entity.name) != null)
-            throw RecipeExceptions.funExceptionDuplicateName("validateBeforeInsert", entity.name)
     }
 
     override suspend fun validateAfterInsert(entity: Recipe, session: ClientSession) {

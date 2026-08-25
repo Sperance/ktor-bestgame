@@ -7,7 +7,7 @@ object BaseRouteExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = BaseRouteException(value, errorMethod, "BR_001")
-    fun funExceptionFormatId(errorMethod: String, value: String? = "") = BaseRouteException("Invalid format of ID '$value'", errorMethod, "BR_002")
-    fun funExceptionQuery(errorMethod: String, value: String? = "") = BaseRouteException("Missing query parameter '$value'", errorMethod, "BR_003")
+    fun funException(errorMethod: String, value: String? = "") = BaseRouteException(value, errorMethod, "BRT_001")
+    fun funExceptionFormatId(errorMethod: String, value: String? = "") = BaseRouteException("Invalid format of ID '$value'", errorMethod, "BRT_002")
+    fun funExceptionQuery(errorMethod: String, value: String? = "") = BaseRouteException("Missing query parameter '$value'", errorMethod, "BRT_003")
 }

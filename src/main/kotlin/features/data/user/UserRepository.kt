@@ -181,7 +181,7 @@ class UserRepository : BaseRepository<User>(
 
         if (result == null) return null
 
-        return Triple(result.getId(), result.password, result.salt)
+        return Triple(result._id, result.password, result.salt)
     }
 
     suspend fun changePassword(id: String, password: String, newPassword: String): String {

@@ -20,7 +20,6 @@ interface EquipmentInterface {
 
 @Serializable
 sealed class Equipment(
-    @Contextual
-    override var _id: ObjectId = ObjectId(),
+    override var _id: String = ObjectId().toHexString(),
     var params: MutableList<ModificationValue> = mutableListOf(),
 ) : StockEntity, EquipmentInterface

@@ -4,7 +4,6 @@ import application.enums.EnumUserRoles
 import extensions.now
 import base.entity.VersionedEntity
 import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -23,8 +22,7 @@ data class User(
 
     var countCharacters: Int = 0,
 
-    @Contextual
-    override var _id: ObjectId = ObjectId(),
+    override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
@@ -50,7 +48,7 @@ data class UserResponse(
 
 // Функция-расширение для маппинга
 fun User.toResponse(): UserResponse = UserResponse(
-    id = getId(),
+    id = _id,
     name = name,
     email = email,
     login = login,

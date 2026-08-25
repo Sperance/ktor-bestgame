@@ -3,7 +3,6 @@ package features.data.blockList
 import base.entity.VersionedEntity
 import extensions.now
 import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -14,8 +13,7 @@ data class BlockList(
     var user_id: String? = null,
     var expiredAt: LocalDateTime,
 
-    @Contextual
-    override var _id: ObjectId = ObjectId(),
+    override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
