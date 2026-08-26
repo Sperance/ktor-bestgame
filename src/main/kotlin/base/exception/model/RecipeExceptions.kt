@@ -14,4 +14,5 @@ object RecipeExceptions {
     fun funExceptionItemOutNull(errorMethod: String, value: String? = "") = RecipeException("Request have a NULL OUT item value", errorMethod, "RC_003")
     fun funExceptionItemNotFound(errorMethod: String, value: String? = "") = RecipeException("Not found item with ID: $value", errorMethod, "RC_004")
     fun funExceptionDuplicateName(errorMethod: String, value: String? = "") = RecipeException("Recipe with name '$value' already exists", errorMethod, "RC_005")
+    fun funExceptionOutIncorrect(errorMethod: String, value: String? = "") = RecipeException("Out items are incorrect", errorMethod, "RC_006")
 }

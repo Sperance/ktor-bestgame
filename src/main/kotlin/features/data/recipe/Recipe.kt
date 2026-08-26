@@ -1,6 +1,7 @@
 package features.data.recipe
 
 import base.entity.StockEntity
+import features.data.items.ItemType
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -16,6 +17,6 @@ data class Recipe(
 
 @Serializable
 data class RecipeParam(
-    val item: String,
+    val itemType: ItemType,
     val amount: Double,
 )

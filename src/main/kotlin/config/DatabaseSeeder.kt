@@ -16,6 +16,7 @@ import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.data.property.Property
 import features.data.blockList.BlockListRepository
+import features.data.items.ItemType
 import features.data.property.PropertyRepository
 import features.data.recipe.Recipe
 import features.data.recipe.RecipeRepository
@@ -151,17 +152,22 @@ object DatabaseSeeder : KoinComponent {
         val listItems = ArrayList<Items>()
         listItems.add(
             Items(
-                name = "Дерево", description = "Кусок дерева (полено)", price = 10
+                type = ItemType("WOOD_STOCK", "LOG", "WOOD"), description = "Кусок дерева (полено)", price = 10
             )
         )
         listItems.add(
             Items(
-                name = "Камень", description = "Кучка кала", price = 12
+                type = ItemType("STONE_STOCK", "STONE", "BULIZNIK"), description = "Кучка кала", price = 12
             )
         )
         listItems.add(
             Items(
-                name = "Зелье здоровья", description = "Восстанавливает здоровье", price = 80
+                type = ItemType("STONE_STOCK", "STONE", "GRANIT"), description = "Кучка кала 2", price = 22
+            )
+        )
+        listItems.add(
+            Items(
+                type = ItemType("CONSUMABLE", "HEALTH", "Zelie"), description = "Восстанавливает здоровье", price = 80
             )
         )
 

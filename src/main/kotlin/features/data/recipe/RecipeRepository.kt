@@ -24,14 +24,55 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
     }
 
     override suspend fun validateBeforeInsert(entity: Recipe, session: ClientSession) {
-        val listItemsID = mutableSetOf<String>()
-        listItemsID.addAll(entity.arrayIn.map { it.item })
-        listItemsID.addAll(entity.arrayOut.map { it.item })
-        val items = repoItems.findByFilter(Filters.`in`("_id", listItemsID))
-        val foundIds = items.map { it._id }.toSet()
-        val missingIds = listItemsID - foundIds
-        if (missingIds.isNotEmpty())
-            throw RecipeExceptions.funExceptionItemNotFound("validateBeforeInsert", missingIds.toString())
+        // 1. Проверки на null
+        if (entity.arrayIn.any { it.itemType.getFirstCorrect() == null })
+            throw RecipeExceptions.funExceptionItemInNull("validateBeforeInsert")
+        if (entity.arrayOut.any { it.itemType.getFirstCorrect() == null })
+            throw RecipeExceptions.funExceptionItemOutNull("validateBeforeInsert")
+        if (entity.arrayOut.any { it.itemType.name == null })
+            throw RecipeExceptions.funExceptionOutIncorrect("validateBeforeInsert")
+
+        // 2. Собираем условия (поле → значение) для каждого RecipeParam
+        val conditions = mutableListOf<Pair<String, String>>()
+
+        fun addConditions(params: List<RecipeParam>) {
+            params.forEach { param ->
+                val type = param.itemType
+                val value = type.getFirstCorrect()!! // уже проверено на null
+                val field = when {
+                    type.name != null -> "name"
+                    type.subCategory != null -> "subCategory"
+                    else -> "category"
+                }
+                conditions.add(field to value)
+            }
+        }
+
+        addConditions(entity.arrayIn)
+        addConditions(entity.arrayOut)
+
+        // 3. Строим OR-запрос по всем условиям
+        val filters = conditions.map { (field, value) ->
+            Filters.eq("type.$field", value)
+        }
+        val items = repoItems.findByFilter(Filters.or(filters))
+
+        // 4. Проверяем, что для КАЖДОГО условия есть документ с таким полем и значением
+        val missing = conditions.filter { (field, value) ->
+            items.none { item ->
+                when (field) {
+                    "name" -> item.type.name == value
+                    "subCategory" -> item.type.subCategory == value
+                    "category" -> item.type.category == value
+                    else -> false
+                }
+            }
+        }
+
+        if (missing.isNotEmpty()) {
+            val details = missing.joinToString { "${it.first}=${it.second}" }
+            throw RecipeExceptions.funExceptionItemNotFound("validateBeforeInsert", details)
+        }
     }
 
     override suspend fun validateAfterInsert(entity: Recipe, session: ClientSession) {
