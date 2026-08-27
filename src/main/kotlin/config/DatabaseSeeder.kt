@@ -152,22 +152,22 @@ object DatabaseSeeder : KoinComponent {
         val listItems = ArrayList<Items>()
         listItems.add(
             Items(
-                type = ItemType("WOOD_STOCK", "LOG", "WOOD"), description = "Кусок дерева (полено)", price = 10
+                category = ItemType("WOOD_STOCK", "LOG"), description = "Кусок дерева (полено)", price = 10, name = "Дрееово жыжы"
             )
         )
         listItems.add(
             Items(
-                type = ItemType("STONE_STOCK", "STONE", "BULIZNIK"), description = "Кучка кала", price = 12
+                category = ItemType("STONE_STOCK", "STONE"), description = "Кучка кала", price = 12, name = "Кал"
             )
         )
         listItems.add(
             Items(
-                type = ItemType("STONE_STOCK", "STONE", "GRANIT"), description = "Кучка кала 2", price = 22
+                category = ItemType("STONE_STOCK", "STONE"), description = "Кучка кала 2", price = 22, name = "Кал23"
             )
         )
         listItems.add(
             Items(
-                type = ItemType("CONSUMABLE", "HEALTH", "Zelie"), description = "Восстанавливает здоровье", price = 80
+                category = ItemType("CONSUMABLE", "HEALTH"), description = "Восстанавливает здоровье", price = 80, name = "Зелье"
             )
         )
 

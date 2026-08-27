@@ -7,6 +7,7 @@ import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.caches.RecipeCache
 import features.data.items.ItemsRepository
+import org.bson.conversions.Bson
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -24,54 +25,64 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
     }
 
     override suspend fun validateBeforeInsert(entity: Recipe, session: ClientSession) {
-        // 1. Проверки на null
-        if (entity.arrayIn.any { it.itemType.getFirstCorrect() == null })
+        if (entity.arrayIn.any { it.countCorrect() == 0 })
             throw RecipeExceptions.funExceptionItemInNull("validateBeforeInsert")
-        if (entity.arrayOut.any { it.itemType.getFirstCorrect() == null })
-            throw RecipeExceptions.funExceptionItemOutNull("validateBeforeInsert")
-        if (entity.arrayOut.any { it.itemType.name == null })
-            throw RecipeExceptions.funExceptionOutIncorrect("validateBeforeInsert")
+        if (entity.arrayIn.any { it.countCorrect() > 1 })
+            throw RecipeExceptions.funExceptionInMany("validateBeforeInsert")
 
-        // 2. Собираем условия (поле → значение) для каждого RecipeParam
-        val conditions = mutableListOf<Pair<String, String>>()
-
-        fun addConditions(params: List<RecipeParam>) {
-            params.forEach { param ->
-                val type = param.itemType
-                val value = type.getFirstCorrect()!! // уже проверено на null
-                val field = when {
-                    type.name != null -> "name"
-                    type.subCategory != null -> "subCategory"
-                    else -> "category"
-                }
-                conditions.add(field to value)
+        // ---------- Проверка arrayOut (только itemId) ----------
+        val outIds = entity.arrayOut.map { it.itemId }.toSet()
+        if (outIds.isNotEmpty()) {
+            val foundOut = repoItems.findByFilter(Filters.`in`("_id", outIds))
+            val foundOutIds = foundOut.map { it._id }.toSet()
+            val missingOut = outIds - foundOutIds
+            if (missingOut.isNotEmpty()) {
+                throw RecipeExceptions.funExceptionItemNotFound(
+                    "validateBeforeInsert",
+                    "Missing out items: $missingOut"
+                )
             }
         }
 
-        addConditions(entity.arrayIn)
-        addConditions(entity.arrayOut)
+        // ---------- Проверка arrayIn (category + subCategory + itemId) ----------
+        if (entity.arrayIn.isNotEmpty()) {
+            // Строим список условий (OR) для каждой комбинации
+            val inConditions = entity.arrayIn.map { param ->
+                val filters = mutableListOf<Bson>()
+                // Если itemId не null, добавляем условие по _id (преобразуем в ObjectId)
+                param.itemId?.let { id ->
+                    filters.add(Filters.eq("_id", id))
+                }
+                // Добавляем условия по категориям, если они не null
+                param.category?.let { cat ->
+                    filters.add(Filters.eq("category.category", cat))
+                }
+                param.subCategory?.let { sub ->
+                    filters.add(Filters.eq("category.subCategory", sub))
+                }
+                // Если фильтров нет (все null) – такое условие означает "все документы",
+                // но это исключительная ситуация, можно выбросить ошибку.
+                if (filters.isEmpty()) {
+                    throw RecipeExceptions.funExceptionItemInNull("validateBeforeInsert: all fields are null")
+                }
+                Filters.and(filters)
+            }
 
-        // 3. Строим OR-запрос по всем условиям
-        val filters = conditions.map { (field, value) ->
-            Filters.eq("type.$field", value)
-        }
-        val items = repoItems.findByFilter(Filters.or(filters))
+            // Выполняем запрос с OR по всем условиям
+            val foundIn = repoItems.findByFilter(Filters.or(inConditions))
 
-        // 4. Проверяем, что для КАЖДОГО условия есть документ с таким полем и значением
-        val missing = conditions.filter { (field, value) ->
-            items.none { item ->
-                when (field) {
-                    "name" -> item.type.name == value
-                    "subCategory" -> item.type.subCategory == value
-                    "category" -> item.type.category == value
-                    else -> false
+            // Проверяем, что для каждого параметра есть совпадение среди найденных
+            entity.arrayIn.forEach { param ->
+                val exists = foundIn.any { item ->
+                    // Сравниваем с учётом null (если поле null, то не проверяем)
+                    (param.itemId == null || item._id == param.itemId) &&
+                            (param.category == null || item.category.category == param.category) &&
+                            (param.subCategory == null || item.category.subCategory == param.subCategory)
+                }
+                if (!exists) {
+                    throw RecipeExceptions.funExceptionItemNotFound("validateBeforeInsert", "Item not found: id=${param.itemId}, category=${param.category}, subCategory=${param.subCategory}")
                 }
             }
-        }
-
-        if (missing.isNotEmpty()) {
-            val details = missing.joinToString { "${it.first}=${it.second}" }
-            throw RecipeExceptions.funExceptionItemNotFound("validateBeforeInsert", details)
         }
     }
 
