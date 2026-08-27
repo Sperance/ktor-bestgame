@@ -1,5 +1,6 @@
 package features.data.recipe
 
+import application.enums.EnumCharacterSkills
 import base.entity.StockEntity
 import features.data.items.ItemType
 import kotlinx.serialization.Serializable
@@ -10,7 +11,9 @@ data class Recipe(
     val name: String,
     val arrayIn: List<RecipeParamIn> = listOf(),
     val arrayOut: List<RecipeParamOut> = listOf(),
+    val requirement: List<RecipeRequirement> = listOf(),
     val timeWork: Long = 1L,
+    val needOpenRecipe: Boolean = false,
 
     override var _id: String = ObjectId().toHexString(),
 ) : StockEntity
@@ -35,4 +38,10 @@ data class RecipeParamIn(
 data class RecipeParamOut(
     val itemId: String,
     val amount: Double = 1.0,
+)
+
+@Serializable
+data class RecipeRequirement(
+    val stat: EnumCharacterSkills,
+    val level: Byte
 )

@@ -4,7 +4,6 @@ import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import base.entity.StockEntity
 import features.data.character.ModificationValue
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -21,5 +20,5 @@ interface EquipmentInterface {
 @Serializable
 sealed class Equipment(
     override var _id: String = ObjectId().toHexString(),
-    var params: MutableList<ModificationValue> = mutableListOf(),
+    var params: List<ModificationValue> = listOf(),
 ) : StockEntity, EquipmentInterface

@@ -8,12 +8,13 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import CONST_FIELD_ID
 import CONST_USER_MAX_CHARACTERS
-import extensions.printLog
+import application.enums.EnumCharacterSkills
 import features.caches.ItemsCache
 import features.data.equipment.Equipment
+import features.data.equipment.EquipmentRepository
+import features.data.items.ItemsRepository
 import features.data.user.User
 import features.data.user.UserRepository
-import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue
@@ -22,9 +23,9 @@ class CharacterRepository : BaseRepository<Character>(
     entityClass = Character::class
 ), KoinComponent {
     val userRepository: UserRepository by inject()
-    val equipmentRepository: features.data.equipment.EquipmentRepository by inject()
-    val itemsRepository: features.data.items.ItemsRepository by inject()
-    val itemsCache: features.caches.ItemsCache by inject()
+    val equipmentRepository: EquipmentRepository by inject()
+    val itemsRepository: ItemsRepository by inject()
+    val itemsCache: ItemsCache by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
