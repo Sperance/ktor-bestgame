@@ -100,7 +100,7 @@ class CharacterRepository : BaseRepository<Character>(
         itemObj.forEach { itm ->
             if (itm.amount == 0L) return@forEach
             if (itm.amount > 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
-            if (itm.amount < 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
+            if (itm.amount < -100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
             if (allItems.find { it._id == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itm.toString())
 
             val findedItem = character.items.find { it.itemId == itm.itemId }
