@@ -21,6 +21,8 @@ import features.data.property.PropertyRepository
 import features.data.property.PropertyRoute
 import features.data.recipe.RecipeRepository
 import features.data.recipe.RecipeRoute
+import features.data.redemptionCodes.RedemptionCodesRepository
+import features.data.redemptionCodes.RedemptionCodesRoute
 import features.data.user.UserRepository
 import features.data.user.UserRoute
 import org.koin.dsl.module
@@ -34,6 +36,7 @@ val repositoryModule = module {
     single { EquipmentNameRepository() }
     single { BlockListRepository() }
     single { RecipeRepository() }
+    single { RedemptionCodesRepository() }
 }
 
 val cacheModule = module {
@@ -55,6 +58,7 @@ val routeModule = module {
                 PropertyRoute(get()),
                 EquipmentRoute(get()),
                 RecipeRoute(get()),
+                RedemptionCodesRoute(get()),
             )
         )
     }

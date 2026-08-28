@@ -38,6 +38,7 @@ data class RecipeParamIn(
 data class RecipeParamOut(
     val itemId: String,
     val amount: Double = 1.0,
+    val chance: Double = 1.0
 )
 
 @Serializable

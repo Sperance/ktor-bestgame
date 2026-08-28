@@ -13,6 +13,8 @@ import features.caches.ItemsCache
 import features.data.equipment.Equipment
 import features.data.equipment.EquipmentRepository
 import features.data.items.ItemsRepository
+import features.data.redemptionCodes.RedemptionCodes
+import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
 import org.koin.core.component.KoinComponent
@@ -25,6 +27,7 @@ class CharacterRepository : BaseRepository<Character>(
     val userRepository: UserRepository by inject()
     val equipmentRepository: EquipmentRepository by inject()
     val itemsRepository: ItemsRepository by inject()
+    val redemptionCodesRepository: RedemptionCodesRepository by inject()
     val itemsCache: ItemsCache by inject()
 
     init {

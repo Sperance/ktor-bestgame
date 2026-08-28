@@ -21,6 +21,7 @@ data class Character(
     var items: MutableList<CharacterItems> = mutableListOf(),
     var professionSkills: MutableList<CharacterProfessionSkill> = mutableListOf(),
     var recipeAccess: MutableList<String> = mutableListOf(),
+    var gainedRedemptionCodes: MutableList<GainedRedemtionCodes> = mutableListOf(),
 
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
@@ -32,6 +33,12 @@ data class Character(
         return professionSkills.find { it.stat == skill } ?: CharacterProfessionSkill(skill, 0)
     }
 }
+
+@Serializable
+data class GainedRedemtionCodes(
+    val redemptionCodeId: String,
+    val dateGained: LocalDateTime
+)
 
 @Serializable
 data class CharacterProfessionSkill(

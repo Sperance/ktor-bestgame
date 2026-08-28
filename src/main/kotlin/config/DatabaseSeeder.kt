@@ -20,6 +20,8 @@ import features.data.items.ItemType
 import features.data.property.PropertyRepository
 import features.data.recipe.Recipe
 import features.data.recipe.RecipeRepository
+import features.data.redemptionCodes.RedemptionCodes
+import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
 import features.logic.EquipmentGenerator
@@ -41,6 +43,7 @@ object DatabaseSeeder : KoinComponent {
     private val equipmentNameRepository: EquipmentNameRepository by inject()
     private val blockListRepository: BlockListRepository by inject()
     private val recipeRepository: RecipeRepository by inject()
+    private val redemptionCodesRepository: RedemptionCodesRepository by inject()
 
     suspend fun seed() {
 
@@ -60,6 +63,7 @@ object DatabaseSeeder : KoinComponent {
             seedProperty(session)
             seedEquipmentName(session)
             seedEquipment(session)
+            seedRedemptionCodes(session)
         }
 
         printLog("Database seeding completed")
@@ -1431,5 +1435,20 @@ object DatabaseSeeder : KoinComponent {
         equipmentNameRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} EquipmentName created")
+    }
+
+    private suspend fun seedRedemptionCodes(session: ClientSession) {
+        if (redemptionCodesRepository.count() > 0) return
+
+        printLog("Seeding RedemptionCodes...")
+
+        val listItems = arrayListOf<RedemptionCodes>()
+        listItems.add(
+            RedemptionCodes("ALFA_BETA_GAMMA", listOf(), "")
+        )
+
+        redemptionCodesRepository.insertMany(listItems, session)
+
+        printLog("  → ${listItems.size} RedemptionCodes created")
     }
 }

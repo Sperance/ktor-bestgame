@@ -32,6 +32,7 @@ import org.bson.conversions.Bson
 import org.bson.types.ObjectId
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 
 /**
@@ -444,11 +445,11 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * }
      * ```
      */
-    suspend fun <S> findByField(field: KMutableProperty1<T, S>, value: S): T? {
+    suspend fun <S> findByField(field: KProperty1<T, S>, value: S): T? {
         return collection.find(Filters.eq(field.name, value)).firstOrNull()
     }
 
-    suspend fun <S> findByField(field: KMutableProperty1<T, S>, value: S, session: ClientSession): T? {
+    suspend fun <S> findByField(field: KProperty1<T, S>, value: S, session: ClientSession): T? {
         return collection.find(session, Filters.eq(field.name, value)).firstOrNull()
     }
 
