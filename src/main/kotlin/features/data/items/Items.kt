@@ -7,16 +7,11 @@ import org.bson.types.ObjectId
 @Serializable
 data class Items(
     val name: String,
-    val category: ItemType,
-    val description: String? = null,
+    val category: String,
+    val subCategory: String,
+    val description: String = "",
     val image: String? = null,
     val price: Long = 0,
 
     override var _id: String = ObjectId().toHexString(),
 ) : StockEntity
-
-@Serializable
-data class ItemType(
-    val category: String? = null,
-    val subCategory: String? = null,
-)

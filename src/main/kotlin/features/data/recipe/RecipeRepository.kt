@@ -55,10 +55,10 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
                 }
                 // Добавляем условия по категориям, если они не null
                 param.category?.let { cat ->
-                    filters.add(Filters.eq("category.category", cat))
+                    filters.add(Filters.eq("category", cat))
                 }
                 param.subCategory?.let { sub ->
-                    filters.add(Filters.eq("category.subCategory", sub))
+                    filters.add(Filters.eq("subCategory", sub))
                 }
                 // Если фильтров нет (все null) – такое условие означает "все документы",
                 // но это исключительная ситуация, можно выбросить ошибку.
@@ -76,8 +76,8 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
                 val exists = foundIn.any { item ->
                     // Сравниваем с учётом null (если поле null, то не проверяем)
                     (param.itemId == null || item._id == param.itemId) &&
-                            (param.category == null || item.category.category == param.category) &&
-                            (param.subCategory == null || item.category.subCategory == param.subCategory)
+                            (param.category == null || item.category == param.category) &&
+                            (param.subCategory == null || item.subCategory == param.subCategory)
                 }
                 if (!exists) {
                     throw RecipeExceptions.funExceptionItemNotFound("validateBeforeInsert", "Item not found: id=${param.itemId}, category=${param.category}, subCategory=${param.subCategory}")

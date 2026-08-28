@@ -16,9 +16,7 @@ import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.data.property.Property
 import features.data.blockList.BlockListRepository
-import features.data.items.ItemType
 import features.data.property.PropertyRepository
-import features.data.recipe.Recipe
 import features.data.recipe.RecipeRepository
 import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
@@ -156,22 +154,38 @@ object DatabaseSeeder : KoinComponent {
         val listItems = ArrayList<Items>()
         listItems.add(
             Items(
-                category = ItemType("WOOD_STOCK", "LOG"), description = "Кусок дерева (полено)", price = 10, name = "Дрееово жыжы"
+                category = "WOOD_STOCK",
+                subCategory =  "LOG",
+                description = "Кусок дерева (полено)",
+                price = 10,
+                name = "Дрееово жыжы"
             )
         )
         listItems.add(
             Items(
-                category = ItemType("STONE_STOCK", "STONE"), description = "Кучка кала", price = 12, name = "Кал"
+                category = "STONE_STOCK",
+                subCategory = "STONE",
+                description = "Кучка кала",
+                price = 12,
+                name = "Кал"
             )
         )
         listItems.add(
             Items(
-                category = ItemType("STONE_STOCK", "STONE"), description = "Кучка кала 2", price = 22, name = "Кал23"
+                category = "STONE_STOCK",
+                subCategory = "STONE",
+                description = "Кучка кала 2",
+                price = 22,
+                name = "Кал23"
             )
         )
         listItems.add(
             Items(
-                category = ItemType("CONSUMABLE", "HEALTH"), description = "Восстанавливает здоровье", price = 80, name = "Зелье"
+                category = "CONSUMABLE",
+                subCategory = "HEALTH",
+                description = "Восстанавливает здоровье",
+                price = 80,
+                name = "Зелье"
             )
         )
 

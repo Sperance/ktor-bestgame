@@ -12,6 +12,4 @@ data class Armor(
     override var rarity: EnumRarity = EnumRarity.COMMON,
     override var itemLevel: Int = 1,
     override var enhanceLevel: Int = 0,
-    override var price: Long = 0,
-    override var description: String = "",
 ) : Equipment()

@@ -3,6 +3,7 @@ package features.data.character
 import application.enums.EnumCharacterSkills
 import extensions.now
 import base.entity.VersionedEntity
+import features.logic.modifiers.Modifier
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
@@ -16,7 +17,7 @@ data class Character(
     var level: Short = 1,
     var experience: Int = 0,
     var money: Long = 0,
-    var params: MutableList<ModificationValue> = mutableListOf(),
+    var params: MutableList<Modifier> = mutableListOf(),
     var equipments: MutableList<CharacterEquipments> = mutableListOf(),
     var items: MutableList<CharacterItems> = mutableListOf(),
     var professionSkills: MutableList<CharacterProfessionSkill> = mutableListOf(),
@@ -57,14 +58,7 @@ data class CharacterItems(
 data class CharacterEquipments(
     var equipmentId: String,
     var equipmentType: String, // "weapon", "armor", "accessory"
-    var params: List<ModificationValue> = listOf(),
+    var params: MutableList<Modifier> = mutableListOf(),
 
     var uuid: String = ObjectId().toHexString(),
-)
-
-@Serializable
-data class ModificationValue(
-    var property_id: String,
-    var level: Byte,
-    var power: Double
 )

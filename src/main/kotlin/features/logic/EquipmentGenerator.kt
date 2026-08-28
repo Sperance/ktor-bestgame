@@ -3,16 +3,15 @@ package features.logic
 import application.enums.EnumEquipmentType
 import application.enums.EnumEquipmentWeapon
 import application.enums.EnumRarity
-import application.enums.EnumStatType
 import extensions.RandomExt
 import features.data.character.Character
-import features.data.character.ModificationValue
 import features.data.equipment.Accessory
 import features.data.equipment.Armor
 import features.data.equipment.Equipment
 import features.data.equipment.Weapon
 import features.caches.EquipmentNameCache
 import features.caches.PropertyCache
+import features.logic.modifiers.Modifier
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.random.Random
@@ -73,17 +72,18 @@ class EquipmentGenerator : KoinComponent {
                 Weapon(
                     slot = slot,
                     weaponType = weaponType,
-                    damage = damage,
+                    damage_min = damage,
+                    damage_max = damage,
                     attackSpeed = attackSpeed,
                     name = name,
                     rarity = rarity,
                     itemLevel = itemLevel,
                     enhanceLevel = enhanceLevel,
-                    price = price,
-                    description = description,
-                    durability = durability
+                    durability = durability,
                 ).apply {
-                    params = generateModifiers(rarity, itemLevel)
+                    this.price = price
+                    this.description = description
+                    this.modifiers = generateModifiers(rarity, itemLevel)
                 }
             }
 
@@ -98,10 +98,10 @@ class EquipmentGenerator : KoinComponent {
                     rarity = rarity,
                     itemLevel = itemLevel,
                     enhanceLevel = enhanceLevel,
-                    price = price,
-                    description = description
                 ).apply {
-                    params = generateModifiers(rarity, itemLevel)
+                    this.price = price
+                    this.description = description
+                    this.modifiers = generateModifiers(rarity, itemLevel)
                 }
             }
 
@@ -112,10 +112,10 @@ class EquipmentGenerator : KoinComponent {
                     rarity = rarity,
                     itemLevel = itemLevel,
                     enhanceLevel = enhanceLevel,
-                    price = price,
-                    description = description
                 ).apply {
-                    params = generateModifiers(rarity, itemLevel)
+                    this.price = price
+                    this.description = description
+                    this.modifiers = generateModifiers(rarity, itemLevel)
                 }
             }
         }
@@ -188,7 +188,7 @@ class EquipmentGenerator : KoinComponent {
         rarity: EnumRarity,
         itemLevel: Int,
         weaponType: EnumEquipmentWeapon
-    ): Int {
+    ): Double {
         val baseDamage = baseDamageValues[rarity] ?: 10
         val weaponMultiplier = when (weaponType) {
             EnumEquipmentWeapon.SWORD -> 1.0
@@ -204,7 +204,7 @@ class EquipmentGenerator : KoinComponent {
         // Урон растет с уровнем
         val levelMultiplier = 1 + (itemLevel - 1) * 0.1
 
-        return (baseDamage * weaponMultiplier * levelMultiplier).toInt()
+        return (baseDamage * weaponMultiplier * levelMultiplier)
     }
 
     private fun calculateAttackSpeed(weaponType: EnumEquipmentWeapon): Double {
@@ -284,8 +284,8 @@ class EquipmentGenerator : KoinComponent {
     private fun generateModifiers(
         rarity: EnumRarity,
         itemLevel: Int
-    ): ArrayList<ModificationValue> {
-        val stock = ArrayList<ModificationValue>()
+    ): ArrayList<Modifier> {
+        val stock = ArrayList<Modifier>()
 
         val countModifiers = when (rarity) {
             EnumRarity.COMMON -> 0..1
@@ -295,14 +295,6 @@ class EquipmentGenerator : KoinComponent {
             EnumRarity.LEGENDARY -> 2..5
             EnumRarity.MYTHICAL -> 3..6
         }.random(RandomExt.random)
-
-        val cachedProperties = propertyCache.getCache()
-            .filter { it.type == EnumStatType.STOCK }
-
-        for (i in 1..countModifiers) {
-            val property = cachedProperties.random(RandomExt.random)
-            stock.add(ModificationValue(property._id, itemLevel.toByte(), 100.0))
-        }
 
         return stock
     }

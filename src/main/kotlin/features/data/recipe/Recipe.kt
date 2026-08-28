@@ -2,7 +2,6 @@ package features.data.recipe
 
 import application.enums.EnumCharacterSkills
 import base.entity.StockEntity
-import features.data.items.ItemType
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -11,7 +10,7 @@ data class Recipe(
     val name: String,
     val arrayIn: List<RecipeParamIn> = listOf(),
     val arrayOut: List<RecipeParamOut> = listOf(),
-    val requirement: List<RecipeRequirement> = listOf(),
+    val requirement: List<RecipeRequirement>? = null,
     val timeWork: Long = 1L,
     val needOpenRecipe: Boolean = false,
 
