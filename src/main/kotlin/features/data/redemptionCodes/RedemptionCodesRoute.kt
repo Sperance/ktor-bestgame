@@ -17,7 +17,7 @@ class RedemptionCodesRoute(val repo: RedemptionCodesRepository) : BaseRoute<Rede
         post("useRedeptionCode") {
             val characterId = call.queryParam("characterId")
             val redemptionCode = call.queryParam("redemptionCode")
-            val data = repo.useCaracterRedemptionCode(characterId, redemptionCode)
+            val data = repo.useCharacterRedemptionCode(characterId, redemptionCode)
             call.respond(ApiMongoResponse.ok(data))
         }
     }

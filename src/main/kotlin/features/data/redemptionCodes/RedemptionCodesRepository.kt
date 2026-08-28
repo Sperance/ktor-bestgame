@@ -14,18 +14,18 @@ import org.koin.core.component.inject
 class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = RedemptionCodes::class), KoinComponent {
     private val characterRepository: CharacterRepository by inject()
 
-    suspend fun useCaracterRedemptionCode(characterId: String, redemptionCode: String): String {
+    suspend fun useCharacterRedemptionCode(characterId: String, redemptionCode: String): String {
         val character = characterRepository.findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("useCaracterRedemptionCode", characterId)
+        if (character == null) throw CharacterExceptions.funExceptionNotFound("useCharacterRedemptionCode", characterId)
 
         val redemption = findByField(RedemptionCodes::code, redemptionCode)
-        if (redemption == null) throw RedemptionCodesExceptions.funExceptionNotFoundRedemption("useCaracterRedemptionCode", redemptionCode)
+        if (redemption == null) throw RedemptionCodesExceptions.funExceptionNotFoundRedemption("useCharacterRedemptionCode", redemptionCode)
 
         if (character.gainedRedemptionCodes.find { it.redemptionCodeId == redemption._id } != null)
-            throw RedemptionCodesExceptions.funExceptionRedemptionAlreadyUser("useCaracterRedemptionCode", redemptionCode)
+            throw RedemptionCodesExceptions.funExceptionRedemptionAlreadyUser("useCharacterRedemptionCode", redemptionCode)
 
         if (redemption.expiredAt != null && redemption.expiredAt!! < LocalDateTime.now())
-            throw RedemptionCodesExceptions.funExceptionRedemptionExpired("useCaracterRedemptionCode", redemptionCode)
+            throw RedemptionCodesExceptions.funExceptionRedemptionExpired("useCharacterRedemptionCode", redemptionCode)
 
         redemption.used++
 

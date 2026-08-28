@@ -295,37 +295,21 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
 
     /**
      * Поиск документа по ObjectId.
-     * 
+     *
      * Использует readConcern LOCAL:
      * - Быстрое чтение с любого узла реплика-сета
      * - Может вернуть неподтверждённые данные
      * - Подходит для обычных чтений, где не критична абсолютная свежесть
-     * 
+     *
      * @param id ID документа
      * @return Найденный документ или null, если не найден
      */
-    suspend fun findById(id: ObjectId): T? {
+    suspend fun findById(id: String): T? {
         return collection.find(Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
     }
 
-    suspend fun findById(id: ObjectId, session: ClientSession): T? {
+    suspend fun findById(id: String, session: ClientSession): T? {
         return collection.find(session, Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
-    }
-
-    /**
-     * Поиск документа по ID, преобразуя строковое представление в ObjectId.
-     * 
-     * Открытый метод для удобства - вызывает findById(ObjectId) внутренне.
-     * 
-     * @param id Строковое представление ObjectId (24-символьная hex-строка)
-     * @return Найденный документ или null
-     */
-    open suspend fun findById(id: String): T? {
-        return findById(ObjectId(id))
-    }
-
-    open suspend fun findById(id: String, session: ClientSession): T? {
-        return findById(ObjectId(id), session)
     }
 
     /**
@@ -711,22 +695,9 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * @param session Сессия транзакции
      * @return DeleteResult с информацией о результате операции
      */
-    suspend fun deleteById(id: ObjectId, session: ClientSession): DeleteResult {
+    suspend fun deleteById(id: String, session: ClientSession): DeleteResult {
         val findedObj = findById(id)
         return deleteWithVersion(findedObj, session)
-    }
-
-    /**
-     * Удаляет документ по строковому ID (удобный метод).
-     * 
-     * Преобразует строку в ObjectId и вызывает deleteById(ObjectId, session).
-     * 
-     * @param id Строковое представление ObjectId
-     * @param session Сессия транзакции
-     * @return DeleteResult
-     */
-    suspend fun deleteById(id: String, session: ClientSession): DeleteResult {
-        return deleteById(ObjectId(id), session)
     }
 
     /**

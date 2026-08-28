@@ -45,3 +45,9 @@ data class RecipeRequirement(
     val stat: EnumCharacterSkills,
     val level: Byte
 )
+
+@Serializable
+data class RecipeUse(
+    val ingridientsId: List<String>,
+    val amount: Long
+)

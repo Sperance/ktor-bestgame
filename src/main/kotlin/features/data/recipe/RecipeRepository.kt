@@ -1,11 +1,13 @@
 package features.data.recipe
 
+import base.exception.model.CharacterExceptions
 import base.exception.model.RecipeExceptions
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.caches.RecipeCache
+import features.data.character.CharacterRepository
 import features.data.items.ItemsRepository
 import org.bson.conversions.Bson
 import org.koin.core.component.KoinComponent
@@ -14,6 +16,7 @@ import org.koin.core.component.inject
 class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), KoinComponent {
     private val cache: RecipeCache by inject()
     private val repoItems: ItemsRepository by inject()
+    private val repoCharacters: CharacterRepository by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -24,11 +27,23 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
         ))
     }
 
+    private fun validateNoDuplicatesInArrayIn(entity: Recipe) {
+        val seen = mutableSetOf<Triple<String?, String?, String?>>()
+        entity.arrayIn.forEach { param ->
+            val key = Triple(param.category, param.subCategory, param.itemId)
+            if (!seen.add(key)) {
+                throw RecipeExceptions.funExceptionDuplicateInArrayIn("validateNoDuplicatesInArrayIn", "Duplicate entry: category=${param.category}, subCategory=${param.subCategory}, itemId=${param.itemId}")
+            }
+        }
+    }
+
     override suspend fun validateBeforeInsert(entity: Recipe, session: ClientSession) {
         if (entity.arrayIn.any { it.countCorrect() == 0 })
             throw RecipeExceptions.funExceptionItemInNull("validateBeforeInsert")
         if (entity.arrayIn.any { it.countCorrect() > 1 })
             throw RecipeExceptions.funExceptionInMany("validateBeforeInsert")
+
+        validateNoDuplicatesInArrayIn(entity)
 
         // ---------- Проверка arrayOut (только itemId) ----------
         val outIds = entity.arrayOut.map { it.itemId }.toSet()
@@ -37,10 +52,7 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
             val foundOutIds = foundOut.map { it._id }.toSet()
             val missingOut = outIds - foundOutIds
             if (missingOut.isNotEmpty()) {
-                throw RecipeExceptions.funExceptionItemNotFound(
-                    "validateBeforeInsert",
-                    "Missing out items: $missingOut"
-                )
+                throw RecipeExceptions.funExceptionItemNotFound("validateBeforeInsert", "Missing out items: $missingOut")
             }
         }
 
@@ -96,5 +108,24 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
 
     override suspend fun validateAfterUpdate(entity: Recipe, session: ClientSession) {
         cache.updateItem(entity)
+    }
+
+    suspend fun useRecipe(characterId: String, recipeId: String, recipeUse: RecipeUse): String {
+        val character = repoCharacters.findById(characterId)
+        if (character == null) throw CharacterExceptions.funExceptionNotFound("useRecipe", characterId)
+
+        val recipe = findById(recipeId)
+        if (recipe == null) throw RecipeExceptions.funExceptionRecipeNotFound("useRecipe", recipeId)
+
+        if (recipe.needOpenRecipe && !character.recipeAccess.contains(recipeId))
+            throw RecipeExceptions.funExceptionRecipeNotAllowed("useRecipe", recipeId)
+
+        val checkItems = repoItems.findByFilter(Filters.`in`("_id", recipeUse.ingridientsId))
+        if (checkItems.size != recipeUse.ingridientsId.size)
+            throw RecipeExceptions.funExceptionItemNotFound("useRecipe", (recipeUse.ingridientsId - checkItems.map { it._id }.toSet()).toString())
+
+        //TODO Проверка что у персонажа достаточно ингредиентов
+
+        return "Success"
     }
 }
