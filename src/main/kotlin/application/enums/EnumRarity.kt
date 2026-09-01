@@ -1,10 +1,10 @@
 package application.enums
 
-enum class EnumRarity(val text: String) {
-    COMMON("Обычный"),
-    UNCOMMON("Необычный"),
-    RARE("Редкий"),
-    EPIC("Эпический"),
-    LEGENDARY("Легендарный"),
-    MYTHICAL("Мифический")
+enum class EnumRarity {
+    COMMON,
+    UNCOMMON,
+    RARE,
+    EPIC,
+    LEGENDARY,
+    MYTHICAL
 }

@@ -19,4 +19,5 @@ object RecipeExceptions {
     fun funExceptionRecipeNotFound(errorMethod: String, value: String? = "") = RecipeException("Recipe with id $value not found", errorMethod, "RC_008")
     fun funExceptionRecipeNotAllowed(errorMethod: String, value: String? = "") = RecipeException("Recipe with id $value not allowed to Character", errorMethod, "RC_009")
     fun funExceptionDuplicateInArrayIn(errorMethod: String, value: String? = "") = RecipeException("Duplicate params in IN array: $value", errorMethod, "RC_010")
+    fun funExceptionManyUses(errorMethod: String, value: String? = "") = RecipeException("Field 'globalUses' must be 0/ Now: $value", errorMethod, "RC_011")
 }

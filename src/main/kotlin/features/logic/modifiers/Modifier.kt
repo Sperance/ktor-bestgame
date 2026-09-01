@@ -2,7 +2,7 @@ package features.logic.modifiers
 
 import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
-import application.enums.EnumStatHelper
+import application.enums.IntEnumStat
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -24,7 +24,7 @@ data class Modifier(
      * Дублируем из definition специально,
      * чтобы предмет можно было считать без lookup definition.
      */
-    val stat: EnumStatHelper,
+    val stat: IntEnumStat,
 
     /**
      * Операция.
@@ -40,11 +40,6 @@ data class Modifier(
      * Источник модификатора.
      */
     val source: EnumModifierSource,
-
-    /**
-     * Tier.
-     */
-    val tier: Int = 1,
 
     /**
      * Уникальный ID самого roll.

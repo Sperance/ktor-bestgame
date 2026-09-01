@@ -2,6 +2,8 @@ package features.data.character
 
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
+import features.data.character.character_data.CharacterEquipments
+import features.data.character.character_data.CharacterItems
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route

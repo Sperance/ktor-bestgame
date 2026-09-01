@@ -12,28 +12,25 @@ interface EquipmentInterface {
     var name: String
     var rarity: EnumRarity
     var itemLevel: Int
-    var enhanceLevel: Int
-    var price: Long
     var description: String
+    var image: String?
+    var implicitModifiers: ArrayList<Modifier>?
+    var modifiers: ArrayList<Modifier>?
 }
 
 @Serializable
 sealed class Equipment(
     override var _id: String = ObjectId().toHexString(),
 
-    /**
-     * Встроенные модификаторы базового предмета.
-     */
-    open var implicitModifiers: ArrayList<Modifier> = arrayListOf(),
+    var price: Long = 1L
 
-    /**
-     * Явные модификаторы предмета.
-     *
-     * PREFIX + SUFFIX + UNIQUE и т.д.
-     */
-    open var modifiers: ArrayList<Modifier> = arrayListOf(),
-
-    override var price: Long = 1L,
-    override var description: String = ""
-
-) : StockEntity, EquipmentInterface
+) : StockEntity, EquipmentInterface {
+    open fun calculatePrice(): Long {
+        var result = 0L
+        result += (itemLevel * 50)
+        result += ((implicitModifiers?.size ?: (0 * 100)))
+        result += ((modifiers?.size ?: (0 * 150)))
+        result += ((rarity.ordinal + 1) * 300)
+        return result
+    }
+}

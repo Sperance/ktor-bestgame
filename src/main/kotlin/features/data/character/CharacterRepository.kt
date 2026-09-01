@@ -8,12 +8,12 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import CONST_FIELD_ID
 import CONST_USER_MAX_CHARACTERS
-import application.enums.EnumCharacterSkills
 import features.caches.ItemsCache
+import features.data.character.character_data.CharacterEquipments
+import features.data.character.character_data.CharacterItems
 import features.data.equipment.Equipment
 import features.data.equipment.EquipmentRepository
 import features.data.items.ItemsRepository
-import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository

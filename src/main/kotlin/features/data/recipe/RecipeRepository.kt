@@ -6,6 +6,7 @@ import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
+import config.MongoFactory.transactionExecute
 import features.caches.RecipeCache
 import features.data.character.CharacterRepository
 import features.data.items.ItemsRepository
@@ -42,6 +43,9 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
             throw RecipeExceptions.funExceptionItemInNull("validateBeforeInsert")
         if (entity.arrayIn.any { it.countCorrect() > 1 })
             throw RecipeExceptions.funExceptionInMany("validateBeforeInsert")
+
+        if (entity.globalUses != 0L)
+            throw RecipeExceptions.funExceptionManyUses("validateBeforeInsert", entity.globalUses.toString())
 
         validateNoDuplicatesInArrayIn(entity)
 
@@ -125,6 +129,11 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
             throw RecipeExceptions.funExceptionItemNotFound("useRecipe", (recipeUse.ingridientsId - checkItems.map { it._id }.toSet()).toString())
 
         //TODO Проверка что у персонажа достаточно ингредиентов
+
+        recipe.globalUses++
+        transactionExecute { session ->
+            update(recipe, session)
+        }
 
         return "Success"
     }

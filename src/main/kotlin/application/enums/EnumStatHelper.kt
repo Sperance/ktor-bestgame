@@ -1,80 +1,131 @@
 package application.enums
 
-enum class EnumStatHelper(val nameRu: String, val description: String, val type: EnumStatType, val step: Byte) {
+import kotlinx.serialization.Serializable
+import server.serializers.IntEnumStatSerializer
+
+@Serializable(with = IntEnumStatSerializer::class)
+interface IntEnumStat
+
+enum class EnumStatStock : IntEnumStat {
     // ========== STOCK - Основные характеристики ==========
-    STOCK_HEALTH("Здоровье", "", EnumStatType.STOCK, 10),
-    STOCK_MANA("Мана", "", EnumStatType.STOCK, 5),
-    STOCK_ENERGY("Энергия", "", EnumStatType.STOCK, 5),
-    STOCK_STRENGTH("Сила", "", EnumStatType.STOCK, 2),
-    STOCK_AGILITY("Ловкость", "", EnumStatType.STOCK, 2),
-    STOCK_INTELLECT("Интеллект", "", EnumStatType.STOCK, 2),
-    STOCK_CONSTITUTION("Телосложение", "", EnumStatType.STOCK, 2),
+    STOCK_HEALTH,
+    STOCK_MANA,
+    STOCK_ENERGY,
+    STOCK_STRENGTH,
+    STOCK_AGILITY,
+    STOCK_INTELLECT,
+    STOCK_CONSTITUTION,
 
     // ========== STOCK - Боевые характеристики ==========
-    STOCK_ATTACK_PHYSICAL("Физический урон", "Базовый физический урон", EnumStatType.STOCK, 15),
-    STOCK_ATTACK_MAGICAL("Магический урон", "Базовый магический урон", EnumStatType.STOCK, 10),
-    STOCK_ATTACK_FIRE("Огненный урон", "Дополнительный урон огнём", EnumStatType.STOCK, 8),
-    STOCK_ATTACK_COLD("Ледяной урон", "Дополнительный урон льдом", EnumStatType.STOCK, 8),
-    STOCK_ATTACK_LIGHTNING("Электрический урон", "Дополнительный урон электричеством", EnumStatType.STOCK, 8),
-    STOCK_ATTACK_CHAOS("Хаотический урон", "Игнорирует щиты", EnumStatType.STOCK, 5),
+    STOCK_ATTACK_PHYSICAL,
+    STOCK_ATTACK_MAGICAL,
+    STOCK_ATTACK_FIRE,
+    STOCK_ATTACK_COLD,
+    STOCK_ATTACK_LIGHTNING,
+    STOCK_ATTACK_CHAOS,
 
     // ========== STOCK - Защита ==========
-    STOCK_ARMOR("Броня", "Уменьшает физический урон", EnumStatType.STOCK, 10),
-    STOCK_EVASION("Уклонение", "Шанс уклониться от атаки", EnumStatType.STOCK, 8),
-    STOCK_ENERGY_SHIELD("Энергетический щит", "Поглощает урон до истощения", EnumStatType.STOCK, 7),
-    STOCK_BLOCK_CHANCE("Шанс блока", "Шанс заблокировать атаку щитом", EnumStatType.STOCK, 4),
+    STOCK_ARMOR,
+    STOCK_EVASION,
+    STOCK_ENERGY_SHIELD,
+    STOCK_BLOCK_CHANCE,
 
     // ========== STOCK - Критические характеристики ==========
-    STOCK_CRITICAL_CHANCE("Шанс крита", "Вероятность критического удара", EnumStatType.STOCK, 2),
-    STOCK_CRITICAL_DAMAGE("Критический урон", "Множитель урона при крите", EnumStatType.STOCK, 10),
-    STOCK_CRITICAL_MULTIPLIER("Множитель крита", "Дополнительный % к крит. урону", EnumStatType.STOCK, 15),
+    STOCK_CRITICAL_CHANCE,
+    STOCK_CRITICAL_DAMAGE,
+    STOCK_CRITICAL_MULTIPLIER,
+    STOCK_CRITICAL_VAMPIRE,
 
     // ========== STOCK - Скорость ==========
-    STOCK_ATTACK_SPEED("Скорость атаки", "Атак в секунду", EnumStatType.STOCK, 5),
-    STOCK_CAST_SPEED("Скорость заклинаний", "Заклинаний в секунду", EnumStatType.STOCK, 3),
-    STOCK_MOVEMENT_SPEED("Скорость передвижения", "Юнитов в секунду", EnumStatType.STOCK, 4),
+    STOCK_ATTACK_SPEED,
+    STOCK_CAST_SPEED,
+    STOCK_MOVEMENT_SPEED,
 
     // ========== STOCK - Сопротивления ==========
-    STOCK_RESIST_FIRE("Сопротивление огню", "% сопротивления огненному урону", EnumStatType.STOCK, 5),
-    STOCK_RESIST_COLD("Сопротивление льду", "% сопротивления ледяному урону", EnumStatType.STOCK, 5),
-    STOCK_RESIST_LIGHTNING("Сопротивление электричеству", "% сопротивления электричеству", EnumStatType.STOCK, 5),
-    STOCK_RESIST_CHAOS("Сопротивление хаосу", "% сопротивления хаотическому урону", EnumStatType.STOCK, 3),
-    STOCK_RESIST_ALL("Все сопротивления", "Базовое сопротивление всем стихиям", EnumStatType.STOCK, 4),
+    STOCK_RESIST_FIRE,
+    STOCK_RESIST_COLD,
+    STOCK_RESIST_LIGHTNING,
+    STOCK_RESIST_CHAOS,
+    STOCK_RESIST_ALL,
 
     // ========== STOCK - Регенерация ==========
-    STOCK_HEALTH_REGEN("Регенерация здоровья", "Здоровья в секунду", EnumStatType.STOCK, 2),
-    STOCK_MANA_REGEN("Регенерация маны", "Маны в секунду", EnumStatType.STOCK, 1),
-    STOCK_ENERGY_REGEN("Регенерация энергии", "Энергии в секунду", EnumStatType.STOCK, 1),
-    STOCK_LEECH_PHYSICAL("Вампиризм физ.", "% физического урона в здоровье", EnumStatType.STOCK, 3),
-    STOCK_LEECH_MAGICAL("Вампиризм маг.", "% магического урона в здоровье", EnumStatType.STOCK, 3),
-    STOCK_LEECH_ALL("Вампиризм общ.", "% всего урона в здоровье", EnumStatType.STOCK, 2),
+    STOCK_HEALTH_REGEN,
+    STOCK_MANA_REGEN,
+    STOCK_ENERGY_REGEN,
+    STOCK_LEECH_PHYSICAL,
+    STOCK_LEECH_MAGICAL,
+    STOCK_LEECH_ALL,
 
     // ========== STOCK - Инвентарь и ресурсы ==========
-    STOCK_INVENTORY_SIZE("Размер инвентаря", "Количество слотов", EnumStatType.STOCK, 1),
-    STOCK_GOLD("Золото", "Текущее золото", EnumStatType.STOCK, 1),
-    STOCK_EXPERIENCE("Опыт", "Текущий опыт", EnumStatType.STOCK, 1),
+    STOCK_INVENTORY_SIZE,
+    STOCK_GOLD,
+    STOCK_EXPERIENCE,
 
     // ========== STOCK - Особые статы ==========
-    STOCK_RARITY("Редкость находок", "Шанс найти редкие предметы", EnumStatType.STOCK, 2),
-    STOCK_QUANTITY("Количество находок", "Больше предметов с монстров", EnumStatType.STOCK, 2),
-    STOCK_STUN_THRESHOLD("Порог оглушения", "Сложнее оглушить", EnumStatType.STOCK, 3),
-    STOCK_AURA_EFFECT("Эффективность аур", "Увеличение силы аур", EnumStatType.STOCK, 4),
-    STOCK_CURSE_EFFECT("Эффективность проклятий", "Увеличение силы проклятий", EnumStatType.STOCK, 3),
-    STOCK_CAST_STRENGTH("Сила заклинаний", "Увеличение силы заклинаний", EnumStatType.STOCK, 5),
+    STOCK_RARITY,
+    STOCK_QUANTITY,
+    STOCK_STUN_THRESHOLD,
+    STOCK_AURA_EFFECT,
+    STOCK_CURSE_EFFECT,
+    STOCK_CAST_STRENGTH,
+}
 
-    // ========== BOOL - Состояния персонажа ==========
-    BOOL_ALIVE("Живой", "Персонаж жив", EnumStatType.BOOL, 0),
-    BOOL_BANNED("Заблокирован", "Персонаж заблокирован", EnumStatType.BOOL, 0),
-    BOOL_IN_COMBAT("В бою", "Находится в режиме боя", EnumStatType.BOOL, 0),
-    BOOL_STUNNED("Оглушён", "Не может действовать", EnumStatType.BOOL, 0),
-    BOOL_FROZEN("Заморожен", "Не может двигаться или атаковать", EnumStatType.BOOL, 0),
-    BOOL_BURNING("Горит", "Получает периодический урон", EnumStatType.BOOL, 0),
-    BOOL_POISONED("Отравлен", "Получает урон ядом", EnumStatType.BOOL, 0),
-    BOOL_BLEEDING("Кровотечение", "Получает урон при движении", EnumStatType.BOOL, 0),
-    BOOL_SHOCKED("Шок", "Получает увеличенный урон", EnumStatType.BOOL, 0),
-    BOOL_CHILLED("Охлаждён", "Замедлен", EnumStatType.BOOL, 0),
-    BOOL_CURSED("Проклят", "Под действием проклятия", EnumStatType.BOOL, 0),
-    BOOL_INVISIBLE("Невидим", "Невидим для врагов", EnumStatType.BOOL, 0),
-    BOOL_INVINCIBLE("Неуязвим", "Не получает урон", EnumStatType.BOOL, 0),
-    BOOL_CONCENTRATING("Концентрация", "Кастует заклинание", EnumStatType.BOOL, 0),
+enum class EnumStatBool : IntEnumStat {
+    BOOL_ALIVE,
+    BOOL_BANNED,
+    BOOL_IN_COMBAT,
+    BOOL_STUNNED,
+    BOOL_FROZEN,
+    BOOL_BURNING,
+    BOOL_POISONED,
+    BOOL_BLEEDING,
+    BOOL_SHOCKED,
+    BOOL_CHILLED,
+    BOOL_CURSED,
+    BOOL_INVISIBLE,
+    BOOL_INVINCIBLE,
+    BOOL_CONCENTRATING,
+}
+
+enum class EnumStatProfession : IntEnumStat {
+    PROFESSION_LUMBERJACK,
+    PROFESSION_STONEMASON,
+    PROFESSION_ALCHEMY,
+    PROFESSION_BLACKSMITH,
+    PROFESSION_BUILDER,
+    PROFESSION_TAILOR,
+    PROFESSION_ENCHANTER,
+    PROFESSION_JEWELER,
+    PROFESSION_COOK,
+    PROFESSION_FISHERMAN,
+    PROFESSION_MINER,
+    PROFESSION_FARMER,
+    PROFESSION_HERBALIST,
+    PROFESSION_CARPENTER,
+    PROFESSION_CARTOGRAPHER,
+    PROFESSION_HUNTER,
+}
+
+enum class EnumStatBattle : IntEnumStat {
+    BATTLE_MELEE_COMBAT,
+    BATTLE_SWORDSMANSHIP,
+    BATTLE_AXE_COMBAT,
+    BATTLE_POLEARM_COMBAT,
+    BATTLE_UNARMED_COMBAT,
+    BATTLE_DUAL_WIELDING,
+    BATTLE_TWO_HANDED_WEAPON,
+    BATTLE_RANGE_COMBAT,
+    BATTLE_ARCHERY,
+    BATTLE_CROSSBOW,
+    BATTLE_THROWING,
+    BATTLE_MAGIC_COMBAT,
+    BATTLE_FIRE_MAGIC,
+    BATTLE_WATER_MAGIC,
+    BATTLE_EARTH_MAGIC,
+    BATTLE_AIR_MAGIC,
+    BATTLE_ELECTRIC_MAGIC,
+    BATTLE_DARK_MAGIC,
+    BATTLE_LIGHT_MAGIC,
+    BATTLE_CHAOS_MAGIC,
+    BATTLE_SUMMONING,
 }

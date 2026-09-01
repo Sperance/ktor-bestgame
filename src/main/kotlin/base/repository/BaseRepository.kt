@@ -257,6 +257,9 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * ```
      */
     suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
+
+        if (entities.isEmpty()) return emptyList()
+
         entities.forEach {
             if (it is VersionedEntity && it.version != 0L)
                 throw BaseRepositoryExceptions.funExceptionInsertVersion("insertMany", it.version.toString())

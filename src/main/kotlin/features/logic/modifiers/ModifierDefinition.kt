@@ -2,8 +2,7 @@ package features.logic.modifiers
 
 import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
-import application.enums.EnumStatHelper
-import base.entity.StockEntity
+import application.enums.IntEnumStat
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -39,7 +38,7 @@ data class ModifierDefinition(
     /**
      * Стат, который изменяется.
      */
-    val stat: EnumStatHelper,
+    val stat: IntEnumStat,
 
     /**
      * Способ применения значения.
