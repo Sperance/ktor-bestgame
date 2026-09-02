@@ -1,5 +1,6 @@
 package config
 
+import application.enums.EnumRarity
 import application.enums.EnumUserRoles
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
@@ -10,8 +11,7 @@ import features.data.equipment.EquipmentRepository
 import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.data.blockList.BlockListRepository
-import features.data.equipment.Equipment
-import features.data.equipment.EquipmentSeeder
+import features.data.character.character_data.CharacterEquipments
 import features.data.recipe.RecipeRepository
 import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
@@ -52,6 +52,7 @@ object DatabaseSeeder : KoinComponent {
             seedItems(session)
             seedEquipment(session)
             seedRedemptionCodes(session)
+            seedEqipmentCharacters(session)
         }
 
         printLog("Database seeding completed")
@@ -196,5 +197,17 @@ object DatabaseSeeder : KoinComponent {
         redemptionCodesRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} RedemptionCodes created")
+    }
+
+    private suspend fun seedEqipmentCharacters(session: ClientSession) {
+        val characters = characterRepository.findAll(session)
+        val equipments = equipmentRepository.findAll(session)
+
+        characters.forEach { char ->
+            char.equipments.add(CharacterEquipments.fromEquipment(equipments.filter { it.rarity == EnumRarity.COMMON }.random()))
+            char.equipments.add(CharacterEquipments.fromEquipment(equipments.filter { it.rarity == EnumRarity.LEGENDARY }.random()))
+        }
+
+        characterRepository.bulkUpdate(characters, session)
     }
 }

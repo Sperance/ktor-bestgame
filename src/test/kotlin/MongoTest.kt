@@ -18,6 +18,9 @@ import base.exception.model.PropertyExceptions
 import features.data.user.User
 import base.exception.model.UserExceptions
 import features.data.equipment.EquipmentRepository
+import features.data.equipment.equipment_data.Accessory
+import features.data.equipment.equipment_data.Armor
+import features.data.equipment.equipment_data.Weapon
 import features.data.equipmentName.EquipmentNameRepository
 import features.data.user.UserRepository
 import org.junit.After
@@ -351,14 +354,14 @@ class MongoTest: KoinTest {
             printLog(it)
 
             when(it) {
-                is features.data.equipment.Weapon -> {
+                is Weapon -> {
                     it.params.clear()
                     it.damage = 333
                 }
-                is features.data.equipment.Armor -> {
+                is Armor -> {
                     it.defense = 444
                 }
-                is features.data.equipment.Accessory -> {
+                is Accessory -> {
                     // Accessory handling
                 }
             }

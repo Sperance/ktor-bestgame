@@ -7,6 +7,7 @@ val CONST_SYSTEM_FIELDS = listOf("_id", "id", "version", "deleted", "createdAt",
 
 const val CONST_USER_MAX_CHARACTERS = 3
 const val CONST_API_VERSION = 1
+const val CONST_TIER_FLOOR = 3
 
 const val MONGO_URI = "mongodb://localhost:27017"
 const val MONGO_DB = "mongobase"

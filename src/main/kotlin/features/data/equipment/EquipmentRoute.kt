@@ -3,6 +3,7 @@ package features.data.equipment
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
 import features.caches.EquipmentCache
+import features.data.equipment.equipment_data.Equipment
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get

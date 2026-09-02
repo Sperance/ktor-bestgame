@@ -11,7 +11,7 @@ import CONST_USER_MAX_CHARACTERS
 import features.caches.ItemsCache
 import features.data.character.character_data.CharacterEquipments
 import features.data.character.character_data.CharacterItems
-import features.data.equipment.Equipment
+import features.data.equipment.equipment_data.Equipment
 import features.data.equipment.EquipmentRepository
 import features.data.items.ItemsRepository
 import features.data.redemptionCodes.RedemptionCodesRepository

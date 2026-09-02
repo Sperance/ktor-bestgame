@@ -23,17 +23,9 @@ import org.bson.types.ObjectId
 data class ModifierDefinition(
 
     /**
-     * Уникальный код модификатора.
-     *
-     * Например:
-     * strength_t3
-     */
-    val code: String,
-
-    /**
      * Отображаемое имя.
      */
-    val name: String,
+    val name: String? = null,
 
     /**
      * Стат, который изменяется.
@@ -51,39 +43,23 @@ data class ModifierDefinition(
     val source: EnumModifierSource,
 
     /**
-     * Tier модификатора.
+     * MAX Tier модификатора.
      */
-    val tier: Int = 1,
+    val tierMax: Int = 8,
 
     /**
-     * Минимальный item level.
+     * Минимальный требуемый item level.
      */
     val minItemLevel: Int = 1,
 
-    /**
-     * Минимальное значение roll.
-     */
-    val minValue: Double = 0.0,
+    val stepValue: Double = 1.0,
 
-    /**
-     * Максимальное значение roll.
-     */
-    val maxValue: Double = 0.0,
-
-    /**
-     * Вес при случайной генерации.
-     */
-    val weight: Int = 100,
+    val constValue: Double? = null,
 
     /**
      * Дополнительные теги.
-     *
-     * Например:
-     * attack
-     * physical
-     * melee
      */
-    val tags: Set<String> = emptySet(),
+    val tags: MutableList<String>? = null,
 
     var _id: String = ObjectId().toHexString()
 )
