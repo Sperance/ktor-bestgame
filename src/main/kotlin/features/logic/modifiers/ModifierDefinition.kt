@@ -1,65 +1,99 @@
 package features.logic.modifiers
 
-import application.enums.EnumModifierOperation
-import application.enums.EnumModifierSource
-import application.enums.IntEnumStat
+import base.entity.StockEntity
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 /**
- * Описание возможного модификатора.
+ * Описание modifier.
  *
- * Это НЕ модификатор конкретного предмета.
+ * Это НЕ modifier конкретного предмета.
  *
- * Например:
+ * Это шаблон, из которого создаются конкретные
+ * rolled modifiers.
  *
- * "Strength Tier 3"
- * 25..39 Strength
+ * Definition можно хранить:
  *
- * Именно ModifierDefinition используется
- * при генерации предмета.
+ * - MongoDB
+ * - JSON
+ * - YAML
+ * - memory registry
+ *
+ * без изменения Kotlin-кода.
  */
 @Serializable
 data class ModifierDefinition(
 
     /**
+     * Уникальный ID.
+     *
+     * Например:
+     *
+     * life
+     * fire_resistance
+     * increased_physical_damage
+     */
+    val id: String,
+
+    /**
      * Отображаемое имя.
      */
-    val name: String? = null,
+    val name: String,
 
     /**
-     * Стат, который изменяется.
+     * Источник modifier.
      */
-    val stat: IntEnumStat,
+    val source: ModifierSource,
 
     /**
-     * Способ применения значения.
+     * Область действия.
      */
-    val operation: EnumModifierOperation,
+    val scope: ModifierScope = ModifierScope.ITEM,
 
     /**
-     * Откуда модификатор появился.
+     * Тип affix.
+     *
+     * PREFIX / SUFFIX / null.
      */
-    val source: EnumModifierSource,
+    val affixType: AffixType? = null,
 
     /**
-     * MAX Tier модификатора.
+     * Tier-ы.
      */
-    val tierMax: Int = 8,
+    val tiers: List<ModifierTier> = emptyList(),
 
     /**
-     * Минимальный требуемый item level.
+     * Теги.
      */
-    val minItemLevel: Int = 1,
-
-    val stepValue: Double = 1.0,
-
-    val constValue: Double? = null,
+    val tags: Set<ModifierTag> = emptySet(),
 
     /**
-     * Дополнительные теги.
+     * Условия.
      */
-    val tags: MutableList<String>? = null,
+    val conditions: List<ModifierCondition> = emptyList(),
 
-    var _id: String = ObjectId().toHexString()
-)
+    /**
+     * Эффекты.
+     *
+     * Один modifier может изменять
+     * сразу несколько характеристик.
+     */
+    val effects: List<ModifierEffect> = emptyList(),
+
+    /**
+     * Приоритет применения.
+     */
+    val priority: Int = 0,
+
+    /**
+     * Можно ли получить modifier случайной генерацией.
+     */
+    val rollable: Boolean = true,
+
+    /**
+     * Можно ли иметь несколько одинаковых modifier.
+     */
+    val stackable: Boolean = false,
+
+    override var _id: String = ObjectId().toHexString()
+) : StockEntity

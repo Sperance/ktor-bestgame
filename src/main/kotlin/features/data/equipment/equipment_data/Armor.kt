@@ -1,7 +1,6 @@
 package features.data.equipment.equipment_data
 
 import application.enums.EnumEquipmentType
-import application.enums.EnumModifierDefinitions
 import application.enums.EnumRarity
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
@@ -17,8 +16,8 @@ data class Armor(
     override var image: String? = null,
     override var description: String = "",
     override var modifiers: ArrayList<Modifier>? = null,
-    override var modifierDefinitions: List<EnumModifierDefinitions>? = null,
-    override var modifierDefinitionsStock: List<EnumModifierDefinitions>? = null,
+    override var modifierDefinitions: List<ModifierDefinition>? = null,
+    override var modifierDefinitionsStock: List<ModifierDefinition>? = null
 ) : Equipment() {
 
     init {
@@ -26,7 +25,7 @@ data class Armor(
     }
 
     override fun calculatePrice(): Long {
-        val newPrice = defense * 15
+        val newPrice = defense * 15L
         return super.calculatePrice() + newPrice
     }
 }

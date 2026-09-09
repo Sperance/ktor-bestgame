@@ -998,10 +998,16 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * ```
      */
     suspend fun findPaged(page: Int, pageSize: Int = 20): PagedMongoResponse<T> {
-        val items = findLimited(page, pageSize)
+        var currentPage = page
+        var currentPageSize = pageSize
+        if (currentPage <= 0) {
+            currentPage = 0
+            currentPageSize = 0
+        }
+        val items = findLimited(currentPage, currentPageSize)
         val total = count()
-        val pages = if (pageSize > 0) ((total + pageSize - 1) / pageSize).toInt() else 0
-        return PagedMongoResponse(items, page, pageSize, total, pages)
+        val pages = if (currentPageSize > 0) ((total + currentPageSize - 1) / currentPageSize).toInt() else 0
+        return PagedMongoResponse(items, currentPage, currentPageSize, total, pages)
     }
 
     // ==================== ПРИВАТНЫЕ МЕТОДЫ ====================

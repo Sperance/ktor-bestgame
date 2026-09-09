@@ -5,6 +5,7 @@ import features.data.equipment.equipment_data.Equipment
 import features.data.equipment.equipment_data.Accessory
 import features.data.equipment.equipment_data.Weapon
 import features.logic.modifiers.Modifier
+import features.logic.modifiers.WeightedModifierGenerator
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.bson.types.ObjectId
@@ -26,21 +27,21 @@ data class CharacterEquipments(
          */
         fun fromEquipment(equipment: Equipment): CharacterEquipments {
             val rolledMods = mutableListOf<Modifier>()
-
+            val generator = WeightedModifierGenerator()
             // Роллим случайные модификаторы в зависимости от типа предмета
             when (equipment) {
                 is Armor -> {
-                    equipment.rollModifiers(forceNew = true).let {
+                    equipment.rollModifiers(generator, forceNew = true).let {
                         rolledMods.addAll(it)
                     }
                 }
                 is Weapon -> {
-                    equipment.rollModifiers(forceNew = true).let {
+                    equipment.rollModifiers(generator, forceNew = true).let {
                         rolledMods.addAll(it)
                     }
                 }
                 is Accessory -> {
-                    equipment.rollModifiers(forceNew = true).let {
+                    equipment.rollModifiers(generator, forceNew = true).let {
                         rolledMods.addAll(it)
                     }
                 }

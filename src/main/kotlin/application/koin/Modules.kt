@@ -20,6 +20,7 @@ import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.redemptionCodes.RedemptionCodesRoute
 import features.data.user.UserRepository
 import features.data.user.UserRoute
+import features.logic.modifiers.ModifierDefinitionRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -30,6 +31,7 @@ val repositoryModule = module {
     single { BlockListRepository() }
     single { RecipeRepository() }
     single { RedemptionCodesRepository() }
+    single { ModifierDefinitionRepository() }
 }
 
 val cacheModule = module {

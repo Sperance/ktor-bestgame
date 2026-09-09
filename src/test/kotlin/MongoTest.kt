@@ -21,7 +21,6 @@ import features.data.equipment.EquipmentRepository
 import features.data.equipment.equipment_data.Accessory
 import features.data.equipment.equipment_data.Armor
 import features.data.equipment.equipment_data.Weapon
-import features.data.equipmentName.EquipmentNameRepository
 import features.data.user.UserRepository
 import org.junit.After
 import org.junit.Assert.assertThrows
@@ -45,9 +44,7 @@ class MongoTest: KoinTest {
 
     private val userRepo: UserRepository by inject()
     private val charRepo: CharacterRepository by inject()
-    private val equipmentNameRepo: EquipmentNameRepository by inject()
     private val equipmentRepository: EquipmentRepository by inject()
-    private val equipmentNameCache: EquipmentNameCache by inject()
 
     @Before
     fun setup() {
@@ -344,54 +341,6 @@ class MongoTest: KoinTest {
                         println("❌[${cls.simpleName}] ${func.name}: ${e.message}")
                     }
                 }
-        }
-    }
-
-    @Test
-    fun test_get_equip(): Unit = runBlocking {
-        val items = equipmentRepository.findAll()
-        items.forEach {
-            printLog(it)
-
-            when(it) {
-                is Weapon -> {
-                    it.params.clear()
-                    it.damage = 333
-                }
-                is Armor -> {
-                    it.defense = 444
-                }
-                is Accessory -> {
-                    // Accessory handling
-                }
-            }
-        }
-
-        items.forEach {
-            printLog(it)
-        }
-
-        transactionExecute { session ->
-            equipmentRepository.bulkUpdate(items, session)
-        }
-    }
-
-    @Test
-    fun test_generate_items(): Unit = runBlocking {
-
-        val generator = EquipmentGenerator()
-        val allCounter = 100
-
-        val char = charRepo.findAll().first()
-        val counter = mutableMapOf<EnumRarity, Int>()
-        repeat(allCounter) {
-            val item = generator.generateEquipment(char)
-            printLog("ITEM: $item")
-            counter[item.rarity] = (counter[item.rarity] ?: 0) + 1
-        }
-        val sorted = counter.toSortedMap()
-        sorted.forEach { (rarity, i) ->
-            printLog("$rarity: $i (${(i.toDouble() / allCounter.toDouble() * 100).roundTo(5)}%)")
         }
     }
 }

@@ -1,7 +1,6 @@
 package features.data.equipment.equipment_data
 
 import application.enums.EnumEquipmentType
-import application.enums.EnumModifierDefinitions
 import application.enums.EnumRarity
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
@@ -16,8 +15,8 @@ data class Accessory(
     override var image: String? = null,
     override var description: String = "",
     override var modifiers: ArrayList<Modifier>? = null,
-    override var modifierDefinitions: List<EnumModifierDefinitions>? = null,
-    override var modifierDefinitionsStock: List<EnumModifierDefinitions>? = null,
+    override var modifierDefinitions: List<ModifierDefinition>? = null,
+    override var modifierDefinitionsStock: List<ModifierDefinition>? = null
 ) : Equipment() {
     init {
         price = calculatePrice()

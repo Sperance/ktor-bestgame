@@ -205,7 +205,6 @@ object DatabaseSeeder : KoinComponent {
 
         characters.forEach { char ->
             char.equipments.add(CharacterEquipments.fromEquipment(equipments.filter { it.rarity == EnumRarity.COMMON }.random()))
-            char.equipments.add(CharacterEquipments.fromEquipment(equipments.filter { it.rarity == EnumRarity.LEGENDARY }.random()))
         }
 
         characterRepository.bulkUpdate(characters, session)
