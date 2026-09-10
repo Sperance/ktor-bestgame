@@ -31,6 +31,7 @@ object GameJwt {
 @Serializable data class TokenRequest(val login: String, val password: String)
 @Serializable data class TokenResponse(val token: String, val expiresIn: Int = 3600)
 @Serializable data class CatalogPage(val items: List<PoeRecord>, val page: Int, val size: Int, val total: Int)
+@Serializable data class InventoryResponse(val version: Long, val equipment: List<features.data.character.character_data.CharacterEquipments>)
 @Serializable data class CurrencyOption(val id: PoeCurrency, val name: String, val itemId: String)
 
 fun Route.poeRoutes() {
@@ -69,6 +70,14 @@ fun Route.poeRoutes() {
             call.respond(ApiMongoResponse.ok(PoeCurrency.entries.map { CurrencyOption(it, it.displayName, inventory.currencyId(it)) }))
         }
         authenticate("jwt-auth") {
+            get("/characters/{characterId}/inventory") {
+                val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
+                val character = characters.findById(requireNotNull(call.parameters["characterId"]))
+                if (character == null || character.deleted || character.userId != owner) {
+                    call.respond(HttpStatusCode.NotFound); return@get
+                }
+                call.respond(ApiMongoResponse.ok(InventoryResponse(character.version, character.equipments)))
+            }
             post("/characters/{characterId}/craft") {
                 val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
                 try {

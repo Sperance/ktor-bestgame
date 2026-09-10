@@ -35,7 +35,7 @@ class PoeMongoTest {
         koin.get<CharacterRepository>().collection.insertOne(character)
         return character to CraftRequest("request_${ObjectId().toHexString()}", item.uuid, PoeCurrency.ALCHEMY, 0)
     }
-    @Test fun commitAndReplayDoNotDoubleSpend() = runBlocking {
+    @Test fun commitAndReplayDoNotDoubleSpend(): Unit = runBlocking {
         val (character, request) = fixture()
         val repo = koin.get<CharacterRepository>()
         val service = PoeService(repo, koin.get())

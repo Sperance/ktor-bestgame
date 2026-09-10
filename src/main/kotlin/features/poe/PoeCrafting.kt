@@ -44,7 +44,7 @@ class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = 
     fun eligible(item: PoeItem): Map<String, Double> {
         val base = catalog.base(item.baseId)
         val tags = base.strings("tags").toMutableSet()
-        item.explicits.forEach { tags += catalog.mod(it.id).strings("adds_tags") }
+        (item.implicits + item.explicits).forEach { tags += catalog.mod(it.id).strings("adds_tags") }
         // Influenced state is rejected by validate until class-specific influence tags are implemented.
         val groups = item.explicits.flatMap { catalog.mod(it.id).strings("groups") }.toSet()
         val cap = if (item.rarity == PoeRarity.MAGIC) 1 else 3

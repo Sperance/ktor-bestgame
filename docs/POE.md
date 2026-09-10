@@ -99,6 +99,7 @@ All responses use the existing `success/data/error` envelope.
 - `GET /api/v1/poe/capabilities` reports explicit coverage and probability policy.
 - `GET /api/v1/poe/currencies` returns supported IDs, names and inventory `itemId` values.
 - `POST /api/v1/poe/token` with `{"login":"...","password":"..."}` returns a one-hour JWT.
+- `GET /api/v1/poe/characters/{characterId}/inventory`, with owner JWT, returns version and persisted instances.
 - `POST /api/v1/poe/characters/{characterId}/craft`, with `Authorization: Bearer TOKEN`:
 
 ```json

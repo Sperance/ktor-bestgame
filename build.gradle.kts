@@ -76,4 +76,5 @@ tasks.register<Test>("poeMongoTest") {
     classpath = sourceSets.test.get().runtimeClasspath
     maxHeapSize = "2g"
     filter { includeTestsMatching("features.poe.PoeMongoTest") }
+    testLogging { exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL }
 }
