@@ -2,65 +2,25 @@ package features.logic.modifiers
 
 import kotlin.random.Random
 
-class WeightedModifierGenerator : ModifierGenerator {
+/** Legacy definitions. PoE spawn/group rules are implemented by PoeCrafting. */
+class WeightedModifierGenerator(private val random: Random = Random.Default) : ModifierGenerator {
     override fun generate(definitions: Collection<ModifierDefinition>, itemLevel: Int, count: Int): List<Modifier> {
-
-        if (count <= 0) return emptyList()
-
-        val available =
-            definitions.filter { it.rollable }
-                .filter { definition -> definition.tiers.any { it.minItemLevel <= itemLevel } }
-
-        if (available.isEmpty()) return emptyList()
-
+        require(count in 0..1000) { "Invalid modifier count" }
+        val candidates = definitions.filter { it.rollable && it.enabled }.flatMap { definition ->
+            definition.tiers.filter { it.minItemLevel <= itemLevel && it.weight > 0 }.map { definition to it }
+        }
         val result = mutableListOf<Modifier>()
-
         repeat(count) {
-            val definition = selectDefinition(available, result) ?: return@repeat
-            val tier = selectTier(definition, itemLevel) ?: return@repeat
-            val values = tier.values.map { ModifierValue(value = it.roll()) }
-
-            result += Modifier(
-                definitionId = definition.id,
-                values = values,
-                tier = tier.tier,
-                source = definition.source,
-                tags = definition.tags
-            )
+            val available = candidates.filter { (d, _) -> d.stackable || result.none { it.definitionId == d.id } }
+            val total = available.sumOf { it.second.weight.toLong() }
+            if (total == 0L) return result
+            var ticket = random.nextLong(total)
+            val (definition, tier) = available.first { ticket -= it.second.weight; ticket < 0 }
+            result += Modifier(definition.id, tier.values.map {
+                require(it.min.isFinite() && it.max.isFinite())
+                ModifierValue(if (it.min == it.max) it.min else kotlin.math.round(random.nextDouble(it.min, it.max) * 10) / 10)
+            }, tier.tier, definition.source, definition.tags, definition.revision)
         }
-
         return result
-    }
-
-    private fun selectDefinition(definitions: List<ModifierDefinition>, alreadySelected: List<Modifier>): ModifierDefinition? {
-
-        val candidates = definitions.filter { definition -> definition.stackable || alreadySelected.none { it.definitionId == definition.id } }
-        if (candidates.isEmpty()) return null
-
-        val weighted =
-            candidates.flatMap { definition ->
-                val weight = definition.tiers.sumOf { it.weight }
-                List(weight.coerceAtLeast(1)) { definition } }
-
-        return weighted.randomOrNull()
-    }
-
-    private fun selectTier(definition: ModifierDefinition, itemLevel: Int): ModifierTier? {
-
-        val tiers = definition.tiers.filter { it.minItemLevel <= itemLevel }
-        if (tiers.isEmpty()) return null
-
-        val totalWeight = tiers.sumOf { it.weight }
-
-        if (totalWeight <= 0) return tiers.maxByOrNull { it.tier }
-
-        var roll = Random.nextInt(totalWeight)
-
-        for (tier in tiers) {
-            roll -= tier.weight
-            if (roll < 0) return tier
-        }
-
-        return tiers.last()
     }
 }

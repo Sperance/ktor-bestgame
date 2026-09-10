@@ -19,5 +19,7 @@ data class ResolvedModifier(
 
     val effects: List<ModifierEffect>,
 
-    val priority: Int
+    val priority: Int,
+    val rolledModifier: Modifier? = null,
+    val scope: ModifierScope = ModifierScope.ITEM
 )

@@ -14,8 +14,9 @@ class DefaultModifierResolver(
             .mapNotNull { modifier ->
 
                 val definition =
-                    definitions.find(modifier.definitionId)
-                        ?: return@mapNotNull null
+                    requireNotNull(definitions.find(modifier.definitionId, modifier.definitionRevision)) {
+                        "Missing modifier definition: ${modifier.definitionId}@${modifier.definitionRevision}"
+                    }
 
                 val conditionsPassed =
                     definition.conditions.all {
@@ -34,7 +35,9 @@ class DefaultModifierResolver(
                     tier = modifier.tier,
                     source = modifier.source,
                     effects = definition.effects,
-                    priority = definition.priority
+                    priority = definition.priority,
+                    rolledModifier = modifier,
+                    scope = definition.scope
                 )
             }
             .sortedBy {

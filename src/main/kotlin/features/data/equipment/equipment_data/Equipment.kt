@@ -36,7 +36,10 @@ interface EquipmentInterface {
 @Serializable
 sealed class Equipment(
     override var _id: String = ObjectId().toHexString(),
-    var price: Long = 1L
+    var price: Long = 1L,
+    var poeBaseId: String? = null,
+    var modifierDefinitionRefs: List<features.logic.modifiers.ModifierRef> = emptyList(),
+    var stockModifierDefinitionRefs: List<features.logic.modifiers.ModifierRef> = emptyList()
 ) : StockEntity, EquipmentInterface {
 
     open fun calculatePrice(): Long {

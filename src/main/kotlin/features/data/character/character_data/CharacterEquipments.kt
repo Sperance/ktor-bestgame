@@ -19,38 +19,28 @@ data class CharacterEquipments(
     var rolledModifiers: MutableList<Modifier> = mutableListOf(),
 
     var uuid: String = ObjectId().toHexString(),
+    var poe: features.poe.PoeItem? = null,
 ) {
     companion object {
         /**
          * Создаёт CharacterEquipments из Equipment с автоматическим роллом модификаторов.
          * Как в POE - при получении предмета сразу роллятся случайные модификаторы из диапазона.
          */
-        fun fromEquipment(equipment: Equipment): CharacterEquipments {
-            val rolledMods = mutableListOf<Modifier>()
-            val generator = WeightedModifierGenerator()
-            // Роллим случайные модификаторы в зависимости от типа предмета
-            when (equipment) {
-                is Armor -> {
-                    equipment.rollModifiers(generator, forceNew = true).let {
-                        rolledMods.addAll(it)
-                    }
-                }
-                is Weapon -> {
-                    equipment.rollModifiers(generator, forceNew = true).let {
-                        rolledMods.addAll(it)
-                    }
-                }
-                is Accessory -> {
-                    equipment.rollModifiers(generator, forceNew = true).let {
-                        rolledMods.addAll(it)
-                    }
-                }
+        fun fromEquipment(equipment: Equipment, catalog: features.poe.PoeCatalog? = null, definitions: List<features.logic.modifiers.ModifierDefinition> = emptyList()): CharacterEquipments {
+            equipment.poeBaseId?.let { baseId ->
+                val catalog = requireNotNull(catalog) { "PoE grants require a MongoDB catalog snapshot" }
+                val crafting = features.poe.PoeCrafting(catalog)
+                return features.poe.PoeInventory(catalog, crafting).fromState(
+                    crafting.generate(baseId, equipment.itemLevel, features.poe.PoeRarity.NORMAL, equipment.stockModifierDefinitionRefs))
             }
-
-            return CharacterEquipments(
-                equipmentId = equipment._id,
-                params = rolledMods
-            )
+            // Serialize a copy: never roll into the shared cache/template instance.
+            val json = server.addons.AppJson
+            val copy = json.decodeFromString(Equipment.serializer(), json.encodeToString(Equipment.serializer(), equipment))
+            val byRef = definitions.associateBy { features.logic.modifiers.ModifierRef(it.id, it.revision) }
+            copy.modifierDefinitions = equipment.modifierDefinitionRefs.map { requireNotNull(byRef[it]) { "Missing definition: $it" } }
+            copy.modifierDefinitionsStock = equipment.stockModifierDefinitionRefs.map { requireNotNull(byRef[it]) { "Missing stock definition: $it" } }
+            return CharacterEquipments(equipmentId = equipment._id,
+                params = copy.rollModifiers(WeightedModifierGenerator(), forceNew = true).toMutableList())
         }
     }
 

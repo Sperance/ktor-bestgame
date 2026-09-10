@@ -1,5 +1,17 @@
 # ktor-bestgame
 
+## PoE catalog and crafting branch
+
+See [PoE API, seeding, supported currencies and coverage](docs/POE.md).
+Modifier definitions now live exclusively in MongoDB; see [revisioned references, migration and admin API](docs/MODIFIER_STORAGE.md).
+The pinned 3.29.3.3 export contains 5,461 base records and 40,355 modifier records.
+Seeder adds 1,018 wearable templates and 4,365 other released item records, without
+deleting existing data or granting starter equipment again. Thirteen currency operations
+act on persisted character-owned instances. This is not full PoE combat/unique crafting coverage.
+
+Build requires JDK 21 and Python 3. Run `./gradlew poeTest jar`; MongoDB transaction tests
+use the dedicated replica set configuration documented above.
+
 This project was created using the [Ktor Project Generator](https://start.ktor.io).
 
 Here are some useful links to get you started:

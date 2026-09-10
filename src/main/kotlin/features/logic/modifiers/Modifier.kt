@@ -49,7 +49,8 @@ data class Modifier(
     /**
      * Дополнительные runtime tags.
      */
-    val tags: Set<ModifierTag> = emptySet()
+    val tags: Set<ModifierTag> = emptySet(),
+    val definitionRevision: Int = 1
 ) {
 
     /**

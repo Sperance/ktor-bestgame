@@ -1,0 +1,14 @@
+{
+  "repository": "repoe-fork/repoe-fork.github.io",
+  "commit": "e2bd511a0133bbe6c1ab548ef1285cb99f3cf0e9",
+  "version": "3.29.3.3",
+  "files": {
+    "base_items.json": "48afb07a5f40eb51552f90c17d53186469db282a2e759dab7b46e7f9d2a0f58b",
+    "mods.json": "defbba31b60f9191080c78197278057f834f7f927c1a2a080a7ca6ed3ea686b5"
+  },
+  "counts": {
+    "base_items.json": 5461,
+    "mods.json": 40355
+  },
+  "note": "Full exported base/mod records; not a complete combat implementation or unique drop table. Game data copyright Grinding Gear Games."
+}

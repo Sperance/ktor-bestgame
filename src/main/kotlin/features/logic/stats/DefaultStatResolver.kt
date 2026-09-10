@@ -28,7 +28,7 @@ class DefaultStatResolver(
                     continue
                 }
 
-                val value = expressionEvaluator.evaluate(expression = effect.value, context = modifierContext)
+                val value = expressionEvaluator.evaluate(expression = effect.value, context = modifierContext, modifier = modifier.rolledModifier)
 
                 calculation = apply(calculation, effect.operation, value)
             }
@@ -71,9 +71,9 @@ class DefaultStatResolver(
 
             ModifierOperation.SET -> calculation.copy(set = value)
 
-            ModifierOperation.MIN -> calculation.copy(base = maxOf(calculation.base, value))
+            ModifierOperation.MIN -> calculation.copy(minimum = maxOf(calculation.minimum ?: Double.NEGATIVE_INFINITY, value))
 
-            ModifierOperation.MAX -> calculation.copy(base = minOf(calculation.base, value))
+            ModifierOperation.MAX -> calculation.copy(maximum = minOf(calculation.maximum ?: Double.POSITIVE_INFINITY, value))
         }
     }
 }
