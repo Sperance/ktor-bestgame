@@ -27,4 +27,16 @@ class ModifierRegressionTest {
         assertEquals(1, result.size)
         assertEquals(3.0, result.single().value)
     }
+    @Test fun resolverUsesPinnedRevisionAndRejectsDanglingReferences() {
+        val first = ModifierDefinition("versioned", "First", ModifierSource.PREFIX,
+            effects = listOf(ModifierEffect.Stat(StatId("life"), ModifierOperation.FLAT, ValueExpression.Constant(5.0))))
+        val latest = first.copy(revision = 2,
+            effects = listOf(ModifierEffect.Stat(StatId("life"), ModifierOperation.FLAT, ValueExpression.Constant(999.0))))
+        val resolver = DefaultModifierResolver(InMemoryModifierDefinitionRegistry(listOf(first, latest)), DefaultConditionEvaluator())
+        val rolled = Modifier("versioned", emptyList(), 1, ModifierSource.PREFIX, definitionRevision = 1)
+        val resolved = resolver.resolve(listOf(rolled), ModifierContext())
+        assertEquals(5.0, DefaultStatResolver(resolved, ValueExpressionEvaluator()).resolve(StatId("life"), StatContext()))
+        assertFailsWith<IllegalArgumentException> { resolver.resolve(listOf(rolled.copy(definitionRevision = 3)), ModifierContext()) }
+    }
+
 }

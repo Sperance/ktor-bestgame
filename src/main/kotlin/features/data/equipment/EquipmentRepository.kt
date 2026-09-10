@@ -26,7 +26,7 @@ class EquipmentRepository : BaseRepository<Equipment>(entityClass = Equipment::c
                 require(changes[key] == null || changes[key] == emptyList<Any>()) { "Embedded definitions are no longer accepted" }
             }
             if (key.startsWith("modifierDefinitionRefs.") || key.startsWith("stockModifierDefinitionRefs.")) {
-                error("Replace the reference list as a whole")
+                throw IllegalArgumentException("Replace the reference list as a whole")
             }
         }
         listOf("modifierDefinitionRefs", "stockModifierDefinitionRefs").forEach { field ->
@@ -35,7 +35,8 @@ class EquipmentRepository : BaseRepository<Equipment>(entityClass = Equipment::c
                 value.forEach { entry ->
                     val ref = if (entry is features.logic.modifiers.ModifierRef) entry else {
                         require(entry is Map<*, *>)
-                        val id = entry["definitionId"] as? String ?: error("Missing definitionId")
+                        val id = entry["definitionId"] as? String ?: throw IllegalArgumentException("Missing definitionId")
+                        require("revision" !in entry || entry["revision"] is Number) { "Expected integer revision" }
                         val revision = entry["revision"] as? Number
                         require(revision == null || revision.toDouble() == revision.toInt().toDouble())
                         features.logic.modifiers.ModifierRef(id, revision?.toInt() ?: 1)

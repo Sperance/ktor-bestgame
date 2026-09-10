@@ -113,7 +113,7 @@ class PoeMongoTest {
         val changed = engine.apply(oldState, PoeCurrency.DIVINE)
         assertEquals(1, changed.explicits.single().revision)
         assertTrue(changed.explicits.single().values.single() in 8..12)
-        assertEquals(raw(8, 12), definitions.resolve(ModifierRef(id, 1))!!.poe)
+        assertEquals(raw(8, 12).canonicalDefinitionJson(), definitions.resolve(ModifierRef(id, 1))!!.poe!!.canonicalDefinitionJson())
         definitions.publish(first.copy(enabled = false, poe = raw(100, 200)), 2)
         catalogs.invalidate()
         val disabled = PoeCrafting(catalogs.snapshot().catalog)
@@ -172,6 +172,16 @@ class PoeMongoTest {
         template.modifierDefinitions = null
         template.modifierDefinitionRefs = listOf(ModifierRef("missing_${ObjectId().toHexString()}"))
         assertFailsWith<IllegalArgumentException> { MongoFactory.transactionExecute { equipment.insert(template, it) } }
+    }
+
+    @Test fun malformedPoeRangesCannotBePublished(): Unit = runBlocking {
+        val definitions = koin.get<ModifierDefinitionRepository>()
+        val id = "invalid_${ObjectId().toHexString()}"
+        val raw = JsonObject(PoeCatalog.bundled.mod("Strength1") + ("stats" to buildJsonArray {
+            add(buildJsonObject { put("id", "additional_strength"); put("min", "not_a_number"); put("max", 100) })
+        }))
+        assertFailsWith<IllegalArgumentException> { definitions.publish(ModifierDefinition(id, "Invalid", ModifierSource.SUFFIX, poe = raw), 0) }
+        assertNull(definitions.latest(id))
     }
 
 }

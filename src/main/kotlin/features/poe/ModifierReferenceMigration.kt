@@ -26,7 +26,7 @@ class ModifierReferenceMigration(private val equipment: EquipmentRepository,
             for (definition in embedded) {
                 var target = definition
                 val existing = definitions.resolve(ModifierRef(definition.id, definition.revision), session)
-                val same = existing == null || if (definition.poe != null) existing.poe == definition.poe
+                val same = existing == null || if (definition.poe != null) existing.poe?.canonicalDefinitionJson() == definition.poe.canonicalDefinitionJson()
                     else existing.copy(_id = "") == definition.copy(_id = "")
                 if (!same) target = definition.copy(id = "legacy/${item._id}/${definition.id}")
                 val ref = ModifierRef(target.id, target.revision)

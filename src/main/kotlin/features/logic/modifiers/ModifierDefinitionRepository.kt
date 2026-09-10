@@ -11,6 +11,7 @@ import features.poe.objects
 import features.poe.int
 import features.poe.string
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.serialization.json.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -43,11 +44,32 @@ class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(Modifier
         definition.tiers.forEach { tier -> tier.values.forEach { require(it.min.isFinite() && it.max.isFinite() && it.min <= it.max) } }
         definition.poe?.let { raw ->
             require(raw.string("domain").isNotBlank() && raw.string("generation_type").isNotBlank())
-            require(raw["stats"] is kotlinx.serialization.json.JsonArray)
-            raw.objects("stats").forEach { stat ->
-                require(stat.string("id").isNotBlank() && stat.int("min") <= stat.int("max"))
+            fun number(obj: JsonObject, key: String): Int {
+                val value = obj[key] as? JsonPrimitive
+                require(value != null && !value.isString && value.intOrNull != null) { "Expected integer: $key" }
+                return value.int
             }
-            (raw.objects("spawn_weights") + raw.objects("generation_weights")).forEach { require(it.int("weight") >= 0) }
+            val stats = raw["stats"] as? JsonArray ?: throw IllegalArgumentException("Expected stats array")
+            require(stats.size <= 256)
+            stats.forEach { value ->
+                val stat = value as? JsonObject ?: throw IllegalArgumentException("Expected stat object")
+                require(stat.string("id").isNotBlank() && number(stat, "min") <= number(stat, "max"))
+            }
+            require(number(raw, "required_level") >= 0)
+            listOf("spawn_weights", "generation_weights").forEach { key ->
+                raw[key]?.let { value ->
+                    require(value is JsonArray) { "Expected weight array" }
+                    value.forEach { row ->
+                        val weight = row as? JsonObject ?: throw IllegalArgumentException("Expected weight object")
+                        require(weight.string("tag").isNotBlank() && number(weight, "weight") >= 0)
+                    }
+                }
+            }
+            listOf("groups", "adds_tags", "implicit_tags").forEach { key ->
+                raw[key]?.let { value ->
+                    require(value is JsonArray && value.all { it is JsonPrimitive && it.isString && it.content.isNotBlank() }) { "Expected string array: $key" }
+                }
+            }
         }
         val revision = expectedRevision + 1
         val saved = definition.copy(revision = revision, _id = PoeCatalog.stableId("modifier:${definition.id}:$revision"))

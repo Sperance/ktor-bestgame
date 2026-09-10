@@ -26,6 +26,7 @@ API не перезаписывает и не удаляет историчес�
 
 ## Чтение и публикация
 
+`GET /api/v1/poe/modifier-definitions?page=0&size=50&q=life` — поиск всех определений, включая пользовательские.
 `GET /api/v1/poe/modifier-definition?id=Strength1` — последняя версия.
 `GET /api/v1/poe/modifier-definition?id=Strength1&revision=1` — конкретная версия.
 `GET /api/v1/poe/catalog?type=modifiers` читает актуальные PoE-определения из MongoDB.

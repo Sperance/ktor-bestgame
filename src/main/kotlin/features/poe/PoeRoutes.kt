@@ -28,6 +28,7 @@ object GameJwt {
         .withSubject(userId).withIssuedAt(Date()).withExpiresAt(Date(System.currentTimeMillis() + 3600000))
         .sign(Algorithm.HMAC256(secret))
 }
+@Serializable data class ModifierDefinitionPage(val items: List<features.logic.modifiers.ModifierDefinition>, val page: Int, val size: Int, val total: Int)
 @Serializable data class PublishModifierRequest(val definition: features.logic.modifiers.ModifierDefinition, val expectedRevision: Int)
 @Serializable data class TokenRequest(val login: String, val password: String)
 @Serializable data class TokenResponse(val token: String, val expiresIn: Int = 3600)
@@ -63,6 +64,15 @@ fun Route.poeRoutes() {
             call.respond(ApiMongoResponse.ok(CatalogPage(data.entries.drop(page * size).take(size).map { PoeRecord(it.key, it.value) }, page, size, data.size)))
         }
         get("/capabilities") { call.respond(ApiMongoResponse.ok(PoeCapabilities())) }
+        get("/modifier-definitions") {
+            val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 0
+            val size = call.request.queryParameters["size"]?.toIntOrNull() ?: 50
+            if (page !in 0..100000 || size !in 1..100) { call.respond(HttpStatusCode.BadRequest); return@get }
+            val query = call.request.queryParameters["q"].orEmpty().take(200)
+            val latest = catalogs.snapshot().definitions.values.groupBy { it.id }.values.map { revisions -> revisions.maxBy { it.revision } }
+                .filter { query.isBlank() || it.id.contains(query, true) || it.name.contains(query, true) }.sortedBy { it.id }
+            call.respond(ApiMongoResponse.ok(ModifierDefinitionPage(latest.drop(page * size).take(size), page, size, latest.size)))
+        }
         get("/modifier-definition") {
             val id = call.request.queryParameters["id"]
             if (id == null) { call.respond(HttpStatusCode.BadRequest); return@get }

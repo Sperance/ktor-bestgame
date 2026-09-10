@@ -12,8 +12,22 @@ import java.util.zip.GZIPInputStream
 @Serializable
 data class PoeRecord(val id: String, val data: JsonObject)
 
+/** BSON omits null-valued object members. Keep array positions significant. */
+internal fun JsonElement.canonicalDefinitionJson(): JsonElement = when (this) {
+    is JsonObject -> JsonObject(filterValues { it != JsonNull }.mapValues { it.value.canonicalDefinitionJson() })
+    is JsonArray -> JsonArray(map { it.canonicalDefinitionJson() })
+    else -> this
+}
+
 internal fun JsonObject.string(key: String) = this[key]?.jsonPrimitive?.contentOrNull.orEmpty()
 internal fun JsonObject.int(key: String, default: Int = 0) = this[key]?.jsonPrimitive?.intOrNull ?: default
+/** BSON omits null-valued object members. Keep array positions significant. */
+internal fun JsonElement.canonicalDefinitionJson(): JsonElement = when (this) {
+    is JsonObject -> JsonObject(filterValues { it != JsonNull }.mapValues { it.value.canonicalDefinitionJson() })
+    is JsonArray -> JsonArray(map { it.canonicalDefinitionJson() })
+    else -> this
+}
+
 internal fun JsonObject.strings(key: String) = (this[key] as? JsonArray)?.map { it.jsonPrimitive.content }.orEmpty()
 internal fun JsonObject.objects(key: String) = (this[key] as? JsonArray)?.map { it.jsonObject }.orEmpty()
 
@@ -54,7 +68,7 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
     fun base(id: String) = requireNotNull(bases[id]) { "Unknown base: $id" }
     fun revision(id: String): Int = heads[id] ?: 1
     fun enabled(id: String) = id !in disabled
-    fun mod(id: String, revision: Int = revision(id)): JsonObject =
+    fun mod(id: String, revision: Int = this.revision(id)): JsonObject =
         requireNotNull(history[id to revision] ?: mods[id]?.takeIf { revision == this.revision(id) }) { "Missing modifier revision: $id@$revision" }
     fun hasRevision(id: String, revision: Int) = history.containsKey(id to revision) || (id in mods && revision == this.revision(id))
     fun wearable(base: JsonObject) = base.string("item_class") in slots || base.string("item_class") in weaponClasses
