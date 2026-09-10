@@ -58,6 +58,12 @@ fun Route.poeRoutes() {
             }
             call.respond(ApiMongoResponse.ok(CatalogPage(data.entries.drop(page * size).take(size).map { PoeRecord(it.key, it.value) }, page, size, data.size)))
         }
+        get("/capabilities") { call.respond(ApiMongoResponse.ok(PoeCapabilities())) }
+        get("/modifier-definition") {
+            val id = call.request.queryParameters["id"]
+            if (id == null || id !in PoeCatalog.bundled.mods) { call.respond(HttpStatusCode.NotFound); return@get }
+            call.respond(ApiMongoResponse.ok(PoeCatalog.bundled.definition(id)))
+        }
         get("/currencies") {
             val inventory = PoeInventory(PoeCatalog.bundled, PoeCrafting(PoeCatalog.bundled))
             call.respond(ApiMongoResponse.ok(PoeCurrency.entries.map { CurrencyOption(it, it.displayName, inventory.currencyId(it)) }))

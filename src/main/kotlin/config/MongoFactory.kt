@@ -35,7 +35,7 @@ object MongoFactory {
         }
     }
 
-    private fun createMongoClient(connectionString: String = "$MONGO_URI/$MONGO_DB"): MongoClient {
+    private fun createMongoClient(connectionString: String = MONGO_URI): MongoClient {
         val codecRegistry = CodecRegistries.fromRegistries(
             MongoClientSettings.getDefaultCodecRegistry()
         )

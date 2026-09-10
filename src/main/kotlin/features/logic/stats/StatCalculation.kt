@@ -10,19 +10,16 @@ data class StatCalculation(
     val reduced: Double = 0.0,
     val more: Double = 1.0,
     val less: Double = 1.0,
-    val set: Double? = null
+    val set: Double? = null,
+    val minimum: Double? = null,
+    val maximum: Double? = null
 ) {
 
     fun calculate(): Double {
 
-        val baseValue = set ?: (base + flat)
-
-        val increasedValue = baseValue * (1.0 + increased)
-
-        val reducedValue = increasedValue * (1.0 - reduced)
-
-        val moreValue = reducedValue * more
-
-        return moreValue * less
+        // INCREASED and REDUCED are additive in one bucket. MORE/LESS multiply.
+        val value = set ?: ((base + flat) * (1.0 + increased - reduced) * more * less)
+        require(minimum == null || maximum == null || minimum <= maximum) { "Conflicting stat bounds" }
+        return value.coerceIn(minimum ?: Double.NEGATIVE_INFINITY, maximum ?: Double.POSITIVE_INFINITY)
     }
 }

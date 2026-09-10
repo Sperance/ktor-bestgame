@@ -34,7 +34,9 @@ class DefaultModifierResolver(
                     tier = modifier.tier,
                     source = modifier.source,
                     effects = definition.effects,
-                    priority = definition.priority
+                    priority = definition.priority,
+                    rolledModifier = modifier,
+                    scope = definition.scope
                 )
             }
             .sortedBy {

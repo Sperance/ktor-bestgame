@@ -9,5 +9,5 @@ const val CONST_USER_MAX_CHARACTERS = 3
 const val CONST_API_VERSION = 1
 const val CONST_TIER_FLOOR = 3
 
-const val MONGO_URI = "mongodb://localhost:27017"
-const val MONGO_DB = "mongobase"
+val MONGO_URI = System.getenv("MONGO_URI") ?: "mongodb://localhost:27017"
+val MONGO_DB = System.getenv("MONGO_DB") ?: "mongobase"

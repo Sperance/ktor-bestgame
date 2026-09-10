@@ -78,7 +78,11 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
             tiers = listOf(ModifierTier(1, raw.int("required_level", 1).coerceAtLeast(1), 100,
                 raw.objects("stats").map { ValueRange(it.int("min").toDouble(), it.int("max").toDouble()) })),
             tags = raw.strings("implicit_tags").map(::ModifierTag).toSet(),
-            // Raw records are exposed separately; do not claim that unknown stats are evaluated.
+            effects = PoeEffectRegistry().effects(raw),
+            scope = ModifierScope.CHARACTER,
+            // Unsupported effects remain explicit in the catalog capability report.
+            runtimeSupported = PoeEffectRegistry().fullySupported(raw),
+            unsupportedStats = PoeEffectRegistry().unsupported(raw),
             rollable = false, poe = raw, _id = stableId("modifier:$id"))
     }
     fun equipment(id: String): Equipment {

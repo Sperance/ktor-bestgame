@@ -16,7 +16,23 @@ jobs:
           python-version: '3.12'
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew
-      - run: ./gradlew poeTest jar --stacktrace
+      - name: Start isolated MongoDB replica set
+        run: |
+          docker run -d --name poe-mongo -p 27017:27017 mongo:8 --replSet rs0 --bind_ip_all
+          for attempt in $(seq 1 30); do
+            if docker exec poe-mongo mongosh --quiet --eval 'db.adminCommand({ping:1}).ok' >/dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          docker exec poe-mongo mongosh --quiet --eval 'rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]})'
+          for attempt in $(seq 1 30); do
+            if docker exec poe-mongo mongosh --quiet --eval 'if (!db.hello().isWritablePrimary) quit(1)' >/dev/null 2>&1; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - run: ./gradlew poeTest poeMongoTest jar --stacktrace
+        env:
+          MONGO_URI: mongodb://localhost:27017/?replicaSet=rs0
+          MONGO_DB: poe_integration_test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -24,4 +40,6 @@ jobs:
           path: |
             build/reports/tests/poeTest
             build/test-results/poeTest
+            build/reports/tests/poeMongoTest
+            build/test-results/poeMongoTest
             build/libs/*.jar

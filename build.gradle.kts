@@ -65,5 +65,15 @@ tasks.register<Test>("poeTest") {
     description = "Deterministic PoE domain tests; no external MongoDB required"
     testClassesDirs = sourceSets.test.get().output.classesDirs
     classpath = sourceSets.test.get().runtimeClasspath
-    filter { includeTestsMatching("features.poe.*") }
+    maxHeapSize = "2g"
+    filter { includeTestsMatching("features.poe.*"); excludeTestsMatching("features.poe.PoeMongoTest") }
+}
+
+
+tasks.register<Test>("poeMongoTest") {
+    description = "PoE transactions against a dedicated MongoDB replica set"
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    maxHeapSize = "2g"
+    filter { includeTestsMatching("features.poe.PoeMongoTest") }
 }
