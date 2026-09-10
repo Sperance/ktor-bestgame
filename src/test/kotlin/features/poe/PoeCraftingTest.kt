@@ -157,4 +157,11 @@ class PoeCraftingTest {
         assertNull(template.modifiers)
     }
 
+    @Test fun talismansRemainCorruptedEvenWhenGrantedAdministratively() {
+        val base = catalog.releasedWearables().keys.first { it.contains("/Talismans/") }
+        val item = engine.generate(base, 85, PoeRarity.NORMAL)
+        assertTrue(item.corrupted)
+        assertFailsWith<IllegalArgumentException> { engine.apply(item, PoeCurrency.ALCHEMY) }
+    }
+
 }

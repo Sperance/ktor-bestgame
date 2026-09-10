@@ -16,7 +16,8 @@ class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = 
         require(catalog.wearable(base) && base.string("release_state") == "released") { "Base is not released wearable equipment" }
         require(itemLevel in base.int("drop_level", 1).coerceAtLeast(1)..100) { "Invalid drop item level" }
         require(rarity != PoeRarity.UNIQUE) { "Unique items require a curated unique definition, not random affixes" }
-        val item = PoeItem(baseId, itemLevel, rarity, base.strings("implicits").map(::roll))
+        val item = PoeItem(baseId, itemLevel, rarity, base.strings("implicits").map(::roll),
+            corrupted = baseId.contains("/Talismans/"))
         return when (rarity) {
             PoeRarity.MAGIC -> fill(item, random.nextInt(1, 3))
             PoeRarity.RARE -> fill(item, rareCount())
