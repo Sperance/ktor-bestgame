@@ -30,7 +30,8 @@ class EquipmentRepository : BaseRepository<Equipment>(entityClass = Equipment::c
             }
         }
         listOf("modifierDefinitionRefs", "stockModifierDefinitionRefs").forEach { field ->
-            changes[field]?.let { value ->
+            if (field in changes) {
+                val value = changes[field]
                 require(value is List<*>) { "Expected a list of references" }
                 value.forEach { entry ->
                     val ref = if (entry is features.logic.modifiers.ModifierRef) entry else {

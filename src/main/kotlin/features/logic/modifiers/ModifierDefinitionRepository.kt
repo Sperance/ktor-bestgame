@@ -1,6 +1,7 @@
 package features.logic.modifiers
 
-import base.repository.BaseRepository
+import config.MongoFactory
+import kotlinx.coroutines.flow.toList
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Indexes
 import com.mongodb.client.model.IndexOptions
@@ -16,7 +17,21 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 /** Definitions are immutable revisions. Never update/delete a revision referenced by an item. */
-class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(ModifierDefinition::class) {
+class ModifierDefinitionRepository {
+    private val collection = MongoFactory.getDatabase().getCollection("ModifierDefinition", ModifierDefinition::class.java)
+    suspend fun findAll(): List<ModifierDefinition> = collection.find().toList()
+    suspend fun count(): Long = collection.countDocuments()
+
+    // Only migrations/seeding may import already-numbered revisions. No update/delete API.
+    internal suspend fun insert(definition: ModifierDefinition, session: ClientSession) {
+        require(definition.revision > 0 && definition.id.isNotBlank())
+        collection.insertOne(session, definition)
+    }
+    internal suspend fun insertMany(definitions: List<ModifierDefinition>, session: ClientSession) {
+        require(definitions.all { it.revision > 0 && it.id.isNotBlank() })
+        if (definitions.isNotEmpty()) collection.insertMany(session, definitions)
+    }
+
     private val indexLock = Mutex()
     @Volatile private var ready = false
     suspend fun ensureRevisionIndex() = indexLock.withLock {

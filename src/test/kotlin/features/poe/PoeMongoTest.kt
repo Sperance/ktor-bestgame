@@ -175,6 +175,12 @@ class PoeMongoTest {
         template.modifierDefinitions = null
         template.modifierDefinitionRefs = listOf(ModifierRef("missing_${ObjectId().toHexString()}"))
         assertFailsWith<IllegalArgumentException> { MongoFactory.transactionExecute { equipment.insert(template, it) } }
+        template.modifierDefinitionRefs = emptyList()
+        MongoFactory.transactionExecute { equipment.insert(template, it) }
+        assertFailsWith<IllegalArgumentException> {
+            MongoFactory.transactionExecute { equipment.updateFields(template._id, mapOf("stockModifierDefinitionRefs" to null), it) }
+        }
+        assertTrue(equipment.findById(template._id)!!.stockModifierDefinitionRefs.isEmpty())
     }
 
     @Test fun malformedPoeRangesCannotBePublished(): Unit = runBlocking {
