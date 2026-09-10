@@ -1,5 +1,9 @@
 # PoE catalog and inventory crafting
 
+Modifier storage has been normalized: see [MongoDB revisions and migration](MODIFIER_STORAGE.md).
+Runtime modifier rules come from MongoDB; bundled modifier data is now seed input only.
+Equipment templates hold references instead of embedded definitions.
+
 This branch targets **PoE 1, export 3.29.3.3**, without item sockets or skill gems in equipment.
 It is an implementation of the catalog, ordinary wearable item generation and the listed currency rules,
 **not a complete implementation of every Path of Exile combat mechanic**.

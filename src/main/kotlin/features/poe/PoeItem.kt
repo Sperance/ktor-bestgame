@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 enum class PoeRarity { NORMAL, MAGIC, RARE, UNIQUE }
 
 @Serializable
-data class PoeRoll(val id: String, val values: List<Int>, val fractured: Boolean = false)
+data class PoeRoll(val id: String, val values: List<Int>, val fractured: Boolean = false, val revision: Int = 1)
 
 /** Persisted state of ONE item, never of the shared equipment template. */
 @Serializable

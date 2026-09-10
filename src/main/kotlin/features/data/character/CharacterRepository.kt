@@ -29,6 +29,7 @@ class CharacterRepository : BaseRepository<Character>(
     val itemsRepository: ItemsRepository by inject()
     val redemptionCodesRepository: RedemptionCodesRepository by inject()
     val itemsCache: ItemsCache by inject()
+    private val modifierCatalogs: features.poe.MongoModifierCatalog by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -82,7 +83,9 @@ class CharacterRepository : BaseRepository<Character>(
             ?: throw CharacterExceptions.funExceptionItemNotFound("itemToInventory", item.equipmentId)
 
         // PoE instances are created by the server; callers cannot inject a crafted snapshot.
-        val instance = if (template.poeBaseId != null) CharacterEquipments.fromEquipment(template) else item
+        val snapshot = modifierCatalogs.snapshot(template.modifierDefinitionRefs + template.stockModifierDefinitionRefs)
+        val instance = CharacterEquipments.fromEquipment(template, snapshot.catalog,
+            (template.modifierDefinitionRefs + template.stockModifierDefinitionRefs).map(snapshot::resolve))
         require(character.equipments.none { it.uuid == instance.uuid }) { "Duplicate equipment UUID" }
         character.equipments.add(instance)
         transactionExecute("itemToInventory") { session ->

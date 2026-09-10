@@ -149,8 +149,8 @@ class PoeCraftingTest {
 
     @Test fun legacyGrantCreatesIndependentPoeInstanceWithStockModifiers() {
         val template = catalog.equipment(baseId)
-        val first = features.data.character.character_data.CharacterEquipments.fromEquipment(template)
-        val second = features.data.character.character_data.CharacterEquipments.fromEquipment(template)
+        val first = features.data.character.character_data.CharacterEquipments.fromEquipment(template, catalog)
+        val second = features.data.character.character_data.CharacterEquipments.fromEquipment(template, catalog)
         assertNotEquals(first.uuid, second.uuid)
         assertNotNull(first.poe)
         assertEquals(catalog.base(baseId).strings("implicits"), first.poe!!.implicits.map { it.id })

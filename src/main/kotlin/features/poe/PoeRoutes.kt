@@ -28,6 +28,7 @@ object GameJwt {
         .withSubject(userId).withIssuedAt(Date()).withExpiresAt(Date(System.currentTimeMillis() + 3600000))
         .sign(Algorithm.HMAC256(secret))
 }
+@Serializable data class PublishModifierRequest(val definition: features.logic.modifiers.ModifierDefinition, val expectedRevision: Int)
 @Serializable data class TokenRequest(val login: String, val password: String)
 @Serializable data class TokenResponse(val token: String, val expiresIn: Int = 3600)
 @Serializable data class CatalogPage(val items: List<PoeRecord>, val page: Int, val size: Int, val total: Int)
@@ -38,7 +39,9 @@ fun Route.poeRoutes() {
     val characters by inject<CharacterRepository>()
     val equipment by inject<EquipmentRepository>()
     val users by inject<UserRepository>()
-    val service by lazy { PoeService(characters, equipment) }
+    val catalogs by inject<MongoModifierCatalog>()
+    val definitions by inject<features.logic.modifiers.ModifierDefinitionRepository>()
+    val service by lazy { PoeService(characters, equipment, catalogs) }
     route("/api/v1/poe") {
         post("/token") {
             val request = call.receive<TokenRequest>()
@@ -46,7 +49,7 @@ fun Route.poeRoutes() {
             call.respond(ApiMongoResponse.ok(TokenResponse(GameJwt.issue(user._id))))
         }
         get("/catalog") {
-            val catalog = PoeCatalog.bundled
+            val catalog = catalogs.snapshot().catalog
             val type = call.request.queryParameters["type"] ?: "bases"
             if (type !in setOf("bases", "modifiers")) { call.respond(HttpStatusCode.BadRequest); return@get }
             val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 0
@@ -62,14 +65,34 @@ fun Route.poeRoutes() {
         get("/capabilities") { call.respond(ApiMongoResponse.ok(PoeCapabilities())) }
         get("/modifier-definition") {
             val id = call.request.queryParameters["id"]
-            if (id == null || id !in PoeCatalog.bundled.mods) { call.respond(HttpStatusCode.NotFound); return@get }
-            call.respond(ApiMongoResponse.ok(PoeCatalog.bundled.definition(id)))
+            if (id == null) { call.respond(HttpStatusCode.BadRequest); return@get }
+            definitions.ensureRevisionIndex()
+            val revision = call.request.queryParameters["revision"]?.toIntOrNull()
+            val definition = if (revision == null) definitions.latest(id) else if (revision > 0) definitions.resolve(features.logic.modifiers.ModifierRef(id, revision)) else null
+            if (definition == null) { call.respond(HttpStatusCode.NotFound); return@get }
+            call.respond(ApiMongoResponse.ok(definition))
         }
         get("/currencies") {
-            val inventory = PoeInventory(PoeCatalog.bundled, PoeCrafting(PoeCatalog.bundled))
+            val catalog = catalogs.snapshot().catalog
+            val inventory = PoeInventory(catalog, PoeCrafting(catalog))
             call.respond(ApiMongoResponse.ok(PoeCurrency.entries.map { CurrencyOption(it, it.displayName, inventory.currencyId(it)) }))
         }
         authenticate("jwt-auth") {
+            post("/modifier-definitions") {
+                val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
+                if (users.findById(owner)?.role != EnumUserRoles.ADMIN) { call.respond(HttpStatusCode.Forbidden); return@post }
+                try {
+                    val request = call.receive<PublishModifierRequest>()
+                    val definition = definitions.publish(request.definition, request.expectedRevision)
+                    catalogs.invalidate()
+                    call.respond(HttpStatusCode.Created, ApiMongoResponse.ok(definition))
+                } catch (e: com.mongodb.MongoWriteException) {
+                    if (e.error.code != 11000) throw e
+                    call.respond(HttpStatusCode.Conflict, ApiMongoResponse.error(BaseException("Revision already published", "Modifiers", null, "MOD_CONFLICT")))
+                } catch (e: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(e.message, "Modifiers", null, "MOD_INVALID")))
+                }
+            }
             get("/characters/{characterId}/inventory") {
                 val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
                 val character = characters.findById(requireNotNull(call.parameters["characterId"]))

@@ -95,6 +95,8 @@ data class ModifierDefinition(
      */
     val stackable: Boolean = false,
 
+    val revision: Int = 1,
+    val enabled: Boolean = true,
     val runtimeSupported: Boolean = true,
     val unsupportedStats: List<String> = emptyList(),
     val poe: kotlinx.serialization.json.JsonObject? = null,

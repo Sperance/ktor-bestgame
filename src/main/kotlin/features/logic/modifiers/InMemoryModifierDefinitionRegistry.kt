@@ -4,8 +4,11 @@ class InMemoryModifierDefinitionRegistry(
     definitions: Collection<ModifierDefinition>
 ) : ModifierDefinitionRegistry {
 
+    private val byRevision = definitions.sortedBy { it.revision }.associateBy { it.id to it.revision }
+    override fun find(id: String, revision: Int) = byRevision[id to revision]
+
     private val definitionsById =
-        definitions.associateBy {
+        definitions.sortedBy { it.revision }.associateBy {
             it.id
         }
 

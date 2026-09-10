@@ -14,7 +14,7 @@ class DefaultModifierResolver(
             .mapNotNull { modifier ->
 
                 val definition =
-                    definitions.find(modifier.definitionId)
+                    definitions.find(modifier.definitionId, modifier.definitionRevision)
                         ?: return@mapNotNull null
 
                 val conditionsPassed =

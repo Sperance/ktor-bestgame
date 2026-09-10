@@ -6,7 +6,7 @@ import kotlin.random.Random
 class WeightedModifierGenerator(private val random: Random = Random.Default) : ModifierGenerator {
     override fun generate(definitions: Collection<ModifierDefinition>, itemLevel: Int, count: Int): List<Modifier> {
         require(count in 0..1000) { "Invalid modifier count" }
-        val candidates = definitions.filter { it.rollable }.flatMap { definition ->
+        val candidates = definitions.filter { it.rollable && it.enabled }.flatMap { definition ->
             definition.tiers.filter { it.minItemLevel <= itemLevel && it.weight > 0 }.map { definition to it }
         }
         val result = mutableListOf<Modifier>()
@@ -19,7 +19,7 @@ class WeightedModifierGenerator(private val random: Random = Random.Default) : M
             result += Modifier(definition.id, tier.values.map {
                 require(it.min.isFinite() && it.max.isFinite())
                 ModifierValue(if (it.min == it.max) it.min else kotlin.math.round(random.nextDouble(it.min, it.max) * 10) / 10)
-            }, tier.tier, definition.source, definition.tags)
+            }, tier.tier, definition.source, definition.tags, definition.revision)
         }
         return result
     }

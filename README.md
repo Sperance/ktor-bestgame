@@ -3,6 +3,7 @@
 ## PoE catalog and crafting branch
 
 See [PoE API, seeding, supported currencies and coverage](docs/POE.md).
+Modifier definitions now live exclusively in MongoDB; see [revisioned references, migration and admin API](docs/MODIFIER_STORAGE.md).
 The pinned 3.29.3.3 export contains 5,461 base records and 40,355 modifier records.
 Seeder adds 1,018 wearable templates and 4,365 other released item records, without
 deleting existing data or granting starter equipment again. Thirteen currency operations

@@ -15,10 +15,8 @@ data class PoeReceipt(override var _id: String, val payload: String, val result:
 private class ReceiptRepository : BaseRepository<PoeReceipt>(PoeReceipt::class)
 
 class PoeService(private val characters: CharacterRepository, private val equipment: EquipmentRepository,
-    private val catalog: PoeCatalog = PoeCatalog.bundled) {
+    private val catalogs: MongoModifierCatalog) {
     private val receipts = ReceiptRepository()
-    private val crafting = PoeCrafting(catalog)
-    private val inventory = PoeInventory(catalog, crafting)
 
     suspend fun craft(characterId: String, ownerId: String, request: CraftRequest): PoeResult =
         transactionExecute("poe.craft") { session ->
@@ -30,6 +28,11 @@ class PoeService(private val characters: CharacterRepository, private val equipm
                 require(it.payload == payload) { "requestId has already been used for a different request" }
                 return@transactionExecute it.result
             }
+            val required = character.equipments.flatMap { instance ->
+                instance.poe?.let { state -> (state.implicits + state.explicits).map { features.logic.modifiers.ModifierRef(it.id, it.revision) } }.orEmpty()
+            }
+            val catalog = catalogs.snapshot(required).catalog
+            val inventory = PoeInventory(catalog, PoeCrafting(catalog))
             val (next, result) = inventory.craft(character, ownerId, request)
             // CAS on the character version covers both the item and the currency stack.
             characters.update(next, session)
@@ -50,11 +53,14 @@ class PoeService(private val characters: CharacterRepository, private val equipm
                 return@transactionExecute it.result
             }
             require(character.version == request.expectedVersion) { "Stale character version; reload inventory" }
+            val catalog = catalogs.snapshot().catalog
+            val crafting = PoeCrafting(catalog)
+            val inventory = PoeInventory(catalog, crafting)
             val level = character.level.toInt().coerceIn(1, 100)
             val baseId = catalog.bases.filterValues { catalog.ordinaryDrop(it) && it.int("drop_level", 1) <= level }.keys.random()
-            requireNotNull(equipment.findById(PoeCatalog.stableId("base:$baseId"), session)) { "Base not seeded" }
+            val template = requireNotNull(equipment.findById(PoeCatalog.stableId("base:$baseId"), session)) { "Base not seeded" }
             val rarity = when (Random.nextInt(100)) { in 0..49 -> PoeRarity.NORMAL; in 50..84 -> PoeRarity.MAGIC; else -> PoeRarity.RARE }
-            val instance = inventory.fromState(crafting.generate(baseId, level, rarity))
+            val instance = inventory.fromState(crafting.generate(baseId, level, rarity, template.stockModifierDefinitionRefs))
             val next = character.copy(equipments = (character.equipments + instance).toMutableList())
             characters.update(next, session)
             val result = PoeResult(request.requestId, next.version, instance)

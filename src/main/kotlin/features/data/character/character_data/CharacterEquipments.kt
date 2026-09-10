@@ -26,16 +26,19 @@ data class CharacterEquipments(
          * Создаёт CharacterEquipments из Equipment с автоматическим роллом модификаторов.
          * Как в POE - при получении предмета сразу роллятся случайные модификаторы из диапазона.
          */
-        fun fromEquipment(equipment: Equipment): CharacterEquipments {
+        fun fromEquipment(equipment: Equipment, catalog: features.poe.PoeCatalog? = null, definitions: List<features.logic.modifiers.ModifierDefinition> = emptyList()): CharacterEquipments {
             equipment.poeBaseId?.let { baseId ->
-                val catalog = features.poe.PoeCatalog.bundled
+                val catalog = requireNotNull(catalog) { "PoE grants require a MongoDB catalog snapshot" }
                 val crafting = features.poe.PoeCrafting(catalog)
                 return features.poe.PoeInventory(catalog, crafting).fromState(
-                    crafting.generate(baseId, equipment.itemLevel, features.poe.PoeRarity.NORMAL))
+                    crafting.generate(baseId, equipment.itemLevel, features.poe.PoeRarity.NORMAL, equipment.stockModifierDefinitionRefs))
             }
             // Serialize a copy: never roll into the shared cache/template instance.
             val json = server.addons.AppJson
             val copy = json.decodeFromString(Equipment.serializer(), json.encodeToString(Equipment.serializer(), equipment))
+            val byRef = definitions.associateBy { features.logic.modifiers.ModifierRef(it.id, it.revision) }
+            copy.modifierDefinitions = equipment.modifierDefinitionRefs.map { requireNotNull(byRef[it]) { "Missing definition: $it" } }
+            copy.modifierDefinitionsStock = equipment.stockModifierDefinitionRefs.map { requireNotNull(byRef[it]) { "Missing stock definition: $it" } }
             return CharacterEquipments(equipmentId = equipment._id,
                 params = copy.rollModifiers(WeightedModifierGenerator(), forceNew = true).toMutableList())
         }

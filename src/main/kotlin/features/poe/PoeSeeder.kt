@@ -17,6 +17,12 @@ object PoeSeeder : KoinComponent {
     private val modifiers: ModifierDefinitionRepository by inject()
     suspend fun seed() {
         val catalog = PoeCatalog.bundled
+        modifiers.ensureRevisionIndex()
+        val existingMods = modifiers.findAll().map { features.logic.modifiers.ModifierRef(it.id, it.revision) }.toSet()
+        catalog.mods.keys.sorted().filter { features.logic.modifiers.ModifierRef(it, 1) !in existingMods }.chunked(100).forEach { batch ->
+            transactionExecute("poe.seed.modifiers") { session -> modifiers.insertMany(batch.map(catalog::definition), session) }
+        }
+        ModifierReferenceMigration(equipment, getKoin().get(), modifiers).migrate()
         val existingEquipment = equipment.findAll().map { it._id }.toSet()
         catalog.releasedWearables().keys.sorted().filter { PoeCatalog.stableId("base:$it") !in existingEquipment }.chunked(100).forEach { batch ->
             transactionExecute("poe.seed.equipment") { session -> equipment.insertMany(batch.map(catalog::equipment), session) }
@@ -29,9 +35,6 @@ object PoeSeeder : KoinComponent {
                         description = "Catalog record; release state does not imply ordinary drop eligibility", poeBaseId = id, _id = PoeCatalog.stableId("base:$id")) }, session)
                 }
             }
-        val existingMods = modifiers.findAll().map { it._id }.toSet()
-        catalog.mods.keys.sorted().filter { PoeCatalog.stableId("modifier:$it") !in existingMods }.chunked(100).forEach { batch ->
-            transactionExecute("poe.seed.modifiers") { session -> modifiers.insertMany(batch.map(catalog::definition), session) }
-        }
+
     }
 }

@@ -32,6 +32,7 @@ val repositoryModule = module {
     single { RecipeRepository() }
     single { RedemptionCodesRepository() }
     single { ModifierDefinitionRepository() }
+    single { features.poe.MongoModifierCatalog(get()) }
 }
 
 val cacheModule = module {

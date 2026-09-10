@@ -5,18 +5,19 @@ import kotlin.random.Random
 
 /** Pure engine: all changes are computed before any inventory mutation or currency debit. */
 class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = Random.Default) {
-    private val affixes = catalog.mods.filterValues { it.string("domain") == "item" && it.string("generation_type") in setOf("prefix", "suffix") }
+    private val affixes = catalog.mods.filterKeys(catalog::enabled).filterValues { it.string("domain") == "item" && it.string("generation_type") in setOf("prefix", "suffix") }
 
-    fun roll(id: String): PoeRoll = PoeRoll(id, catalog.mod(id).objects("stats").map {
+    fun roll(id: String, revision: Int = catalog.revision(id)): PoeRoll = PoeRoll(id, catalog.mod(id, revision).objects("stats").map {
         random.nextLong(it.int("min").toLong(), it.int("max").toLong() + 1).toInt()
-    })
+    }, revision = revision)
 
-    fun generate(baseId: String, itemLevel: Int, rarity: PoeRarity): PoeItem {
+    fun generate(baseId: String, itemLevel: Int, rarity: PoeRarity, stockReferences: List<features.logic.modifiers.ModifierRef>? = null): PoeItem {
         val base = catalog.base(baseId)
         require(catalog.wearable(base) && base.string("release_state") == "released") { "Base is not released wearable equipment" }
         require(itemLevel in base.int("drop_level", 1).coerceAtLeast(1)..100) { "Invalid drop item level" }
         require(rarity != PoeRarity.UNIQUE) { "Unique items require a curated unique definition, not random affixes" }
-        val item = PoeItem(baseId, itemLevel, rarity, base.strings("implicits").map(::roll),
+        val item = PoeItem(baseId, itemLevel, rarity, (stockReferences ?: base.strings("implicits").map { features.logic.modifiers.ModifierRef(it, catalog.revision(it)) }).map {
+            require(catalog.enabled(it.definitionId)) { "Disabled implicit: ${it.definitionId}" }; roll(it.definitionId, it.revision) },
             corrupted = baseId.contains("/Talismans/"))
         return when (rarity) {
             PoeRarity.MAGIC -> fill(item, random.nextInt(1, 3))
@@ -27,9 +28,9 @@ class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = 
 
     // Server balance weights, explicitly not claimed to reproduce undisclosed GGG probabilities.
     private fun rareCount(): Int = when (random.nextInt(12)) { in 0..7 -> 4; in 8..10 -> 5; else -> 6 }
-    private fun kind(roll: PoeRoll) = catalog.mod(roll.id).string("generation_type")
+    private fun kind(roll: PoeRoll) = catalog.mod(roll.id, roll.revision).string("generation_type")
     private fun stat(item: PoeItem, id: String) = item.explicits.any { r ->
-        catalog.mod(r.id).objects("stats").withIndex().any { (index, s) -> s.string("id") == id && r.values.getOrElse(index) { 0 } != 0 }
+        catalog.mod(r.id, r.revision).objects("stats").withIndex().any { (index, s) -> s.string("id") == id && r.values.getOrElse(index) { 0 } != 0 }
     }
     private fun protected(item: PoeItem, roll: PoeRoll): Boolean = roll.fractured ||
         (kind(roll) == "prefix" && stat(item, "item_generation_cannot_change_prefixes")) ||
@@ -45,9 +46,9 @@ class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = 
     fun eligible(item: PoeItem): Map<String, Double> {
         val base = catalog.base(item.baseId)
         val tags = base.strings("tags").toMutableSet()
-        (item.implicits + item.explicits).forEach { tags += catalog.mod(it.id).strings("adds_tags") }
+        (item.implicits + item.explicits).forEach { tags += catalog.mod(it.id, it.revision).strings("adds_tags") }
         // Influenced state is rejected by validate until class-specific influence tags are implemented.
-        val groups = item.explicits.flatMap { catalog.mod(it.id).strings("groups") }.toSet()
+        val groups = item.explicits.flatMap { catalog.mod(it.id, it.revision).strings("groups") }.toSet()
         val cap = if (item.rarity == PoeRarity.MAGIC) 1 else 3
         val counts = item.explicits.groupingBy(::kind).eachCount()
         val noAttack = stat(item, "item_generation_cannot_roll_attack_affixes")
@@ -83,10 +84,10 @@ class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = 
         require(item.explicits.all { kind(it) in setOf("prefix", "suffix") }) { "Unsupported explicit generation type" }
         val cap = when(item.rarity) { PoeRarity.NORMAL -> 0; PoeRarity.MAGIC -> 1; else -> 3 }
         require(item.explicits.groupingBy(::kind).eachCount().values.all { it <= cap }) { "Invalid affix count" }
-        val groups = item.explicits.flatMap { catalog.mod(it.id).strings("groups") }
+        val groups = item.explicits.flatMap { catalog.mod(it.id, it.revision).strings("groups") }
         require(groups.size == groups.toSet().size) { "Conflicting modifier groups" }
         (item.implicits + item.explicits).forEach { r ->
-            val stats = catalog.mod(r.id).objects("stats")
+            val stats = catalog.mod(r.id, r.revision).objects("stats")
             require(r.values.size == stats.size && stats.indices.all { r.values[it] in stats[it].int("min")..stats[it].int("max") }) { "Invalid roll: ${r.id}" }
         }
     }
@@ -121,11 +122,11 @@ class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = 
             PoeCurrency.DIVINE -> {
                 rarity(PoeRarity.MAGIC, PoeRarity.RARE)
                 require(item.explicits.any { !protected(item, it) && variable(it) }) { "No rerollable explicit values" }
-                item.copy(explicits = item.explicits.map { if (protected(item, it)) it else roll(it.id) })
+                item.copy(explicits = item.explicits.map { if (protected(item, it)) it else roll(it.id, it.revision) })
             }
             PoeCurrency.BLESSED -> {
                 require(item.implicits.any(::variable)) { "No rerollable implicit values" }
-                item.copy(implicits = item.implicits.map { roll(it.id) })
+                item.copy(implicits = item.implicits.map { roll(it.id, it.revision) })
             }
             PoeCurrency.FRACTURING -> {
                 rarity(PoeRarity.RARE)
@@ -138,5 +139,5 @@ class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = 
         validate(result)
         return result
     }
-    private fun variable(roll: PoeRoll) = catalog.mod(roll.id).objects("stats").any { it.int("min") != it.int("max") }
+    private fun variable(roll: PoeRoll) = catalog.mod(roll.id, roll.revision).objects("stats").any { it.int("min") != it.int("max") }
 }

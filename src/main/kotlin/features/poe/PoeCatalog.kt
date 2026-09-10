@@ -19,7 +19,10 @@ internal fun JsonObject.objects(key: String) = (this[key] as? JsonArray)?.map { 
 
 /** Open stat IDs and original records are retained, including unsupported combat effects.
  * No heuristic translation of a raw PoE stat into a combat formula is performed. */
-class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonObject>) {
+class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonObject>,
+    private val history: Map<Pair<String, Int>, JsonObject> = emptyMap(),
+    private val heads: Map<String, Int> = emptyMap(),
+    private val disabled: Set<String> = emptySet()) {
     companion object {
         val bundled: PoeCatalog by lazy {
             fun read(name: String): Map<String, JsonObject> {
@@ -49,7 +52,11 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
         }
     }
     fun base(id: String) = requireNotNull(bases[id]) { "Unknown base: $id" }
-    fun mod(id: String) = requireNotNull(mods[id]) { "Unknown modifier: $id" }
+    fun revision(id: String): Int = heads[id] ?: 1
+    fun enabled(id: String) = id !in disabled
+    fun mod(id: String, revision: Int = revision(id)): JsonObject =
+        requireNotNull(history[id to revision] ?: mods[id]?.takeIf { revision == this.revision(id) }) { "Missing modifier revision: $id@$revision" }
+    fun hasRevision(id: String, revision: Int) = history.containsKey(id to revision) || (id in mods && revision == this.revision(id))
     fun wearable(base: JsonObject) = base.string("item_class") in slots || base.string("item_class") in weaponClasses
     fun releasedWearables() = bases.filterValues { wearable(it) && it.string("release_state") == "released" }
     fun ordinaryDrop(base: JsonObject): Boolean = wearable(base) && base.string("release_state") == "released" &&
@@ -57,10 +64,10 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
         !base.string("name").contains("Talisman")
 
     fun legacyModifier(roll: PoeRoll, implicit: Boolean = false): Modifier {
-        val definition = mod(roll.id)
+        val definition = mod(roll.id, roll.revision)
         return Modifier(roll.id, roll.values.map { ModifierValue(it.toDouble()) }, 1,
             if (implicit) ModifierSource.BASE_ITEM else if (definition.string("generation_type") == "prefix") ModifierSource.PREFIX else ModifierSource.SUFFIX,
-            definition.strings("implicit_tags").map(::ModifierTag).toSet())
+            definition.strings("implicit_tags").map(::ModifierTag).toSet(), definitionRevision = roll.revision)
     }
     fun definition(id: String): ModifierDefinition {
         val raw = mod(id)
@@ -120,7 +127,7 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
         equipment.name = b.string("name")
         equipment.itemLevel = b.int("drop_level", 1).coerceAtLeast(1)
         equipment.description = "PoE ${b.string("item_class")}; base properties and modifiers: /api/v1/poe/catalog"
-        equipment.modifierDefinitionsStock = b.strings("implicits").map(::definition)
+        equipment.stockModifierDefinitionRefs = b.strings("implicits").map { ModifierRef(it, revision(it)) }
         equipment.price = equipment.calculatePrice()
         return equipment
     }
