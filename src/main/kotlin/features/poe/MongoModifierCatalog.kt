@@ -17,7 +17,7 @@ class MongoModifierCatalog(private val repository: ModifierDefinitionRepository,
     private val lock = Mutex()
     @Volatile private var cached: Snapshot? = null
     @Volatile private var loadedAt = 0L
-    fun invalidate() { loadedAt = 0L }
+    suspend fun invalidate() = lock.withLock { loadedAt = 0L }
     suspend fun snapshot(required: Collection<ModifierRef> = emptyList()): Snapshot = lock.withLock {
         val now = System.nanoTime()
         cached?.let { current ->
@@ -36,7 +36,7 @@ class MongoModifierCatalog(private val repository: ModifierDefinitionRepository,
         val result = Snapshot(catalog, byRef)
         required.forEach(result::resolve)
         cached = result
-        loadedAt = now
+        loadedAt = System.nanoTime()
         result
     }
 }

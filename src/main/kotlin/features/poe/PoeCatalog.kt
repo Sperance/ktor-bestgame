@@ -21,13 +21,6 @@ internal fun JsonElement.canonicalDefinitionJson(): JsonElement = when (this) {
 
 internal fun JsonObject.string(key: String) = this[key]?.jsonPrimitive?.contentOrNull.orEmpty()
 internal fun JsonObject.int(key: String, default: Int = 0) = this[key]?.jsonPrimitive?.intOrNull ?: default
-/** BSON omits null-valued object members. Keep array positions significant. */
-internal fun JsonElement.canonicalDefinitionJson(): JsonElement = when (this) {
-    is JsonObject -> JsonObject(filterValues { it != JsonNull }.mapValues { it.value.canonicalDefinitionJson() })
-    is JsonArray -> JsonArray(map { it.canonicalDefinitionJson() })
-    else -> this
-}
-
 internal fun JsonObject.strings(key: String) = (this[key] as? JsonArray)?.map { it.jsonPrimitive.content }.orEmpty()
 internal fun JsonObject.objects(key: String) = (this[key] as? JsonArray)?.map { it.jsonObject }.orEmpty()
 
@@ -55,6 +48,29 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
             "Ring" to EnumEquipmentType.RING, "Amulet" to EnumEquipmentType.AMULET,
             "Belt" to EnumEquipmentType.BELT, "Quiver" to EnumEquipmentType.QUIVER)
         fun stableId(key: String): String = MessageDigest.getInstance("SHA-256").digest(key.toByteArray()).take(12).joinToString("") { "%02x".format(it) }
+        fun definitionFromRaw(id: String, raw: JsonObject): ModifierDefinition {
+            val generation = raw.string("generation_type")
+            val source = when (generation) {
+                "prefix" -> ModifierSource.PREFIX
+                "suffix" -> ModifierSource.SUFFIX
+                "corrupted" -> ModifierSource.CORRUPTION
+                "unique" -> ModifierSource.UNIQUE
+                "enchantment" -> ModifierSource.ENCHANTMENT
+                else -> ModifierSource.BASE_ITEM
+            }
+            return ModifierDefinition(id = id, name = raw.string("text").ifBlank { raw.string("name").ifBlank { id } },
+                source = source, affixType = when(generation) { "prefix" -> AffixType.PREFIX; "suffix" -> AffixType.SUFFIX; else -> null },
+                tiers = listOf(ModifierTier(1, raw.int("required_level", 1).coerceAtLeast(1), 100,
+                    raw.objects("stats").map { ValueRange(it.int("min").toDouble(), it.int("max").toDouble()) })),
+                tags = raw.strings("implicit_tags").map(::ModifierTag).toSet(),
+                effects = PoeEffectRegistry().effects(raw),
+                scope = ModifierScope.CHARACTER,
+                // Unsupported effects remain explicit in the catalog capability report.
+                runtimeSupported = PoeEffectRegistry().fullySupported(raw),
+                unsupportedStats = PoeEffectRegistry().unsupported(raw),
+                rollable = false, poe = raw, _id = stableId("modifier:$id"))
+        }
+
     }
     init {
         require(bases.isNotEmpty() && mods.isNotEmpty())
@@ -83,29 +99,7 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
             if (implicit) ModifierSource.BASE_ITEM else if (definition.string("generation_type") == "prefix") ModifierSource.PREFIX else ModifierSource.SUFFIX,
             definition.strings("implicit_tags").map(::ModifierTag).toSet(), definitionRevision = roll.revision)
     }
-    fun definition(id: String): ModifierDefinition {
-        val raw = mod(id)
-        val generation = raw.string("generation_type")
-        val source = when (generation) {
-            "prefix" -> ModifierSource.PREFIX
-            "suffix" -> ModifierSource.SUFFIX
-            "corrupted" -> ModifierSource.CORRUPTION
-            "unique" -> ModifierSource.UNIQUE
-            "enchantment" -> ModifierSource.ENCHANTMENT
-            else -> ModifierSource.BASE_ITEM
-        }
-        return ModifierDefinition(id = id, name = raw.string("text").ifBlank { raw.string("name").ifBlank { id } },
-            source = source, affixType = when(generation) { "prefix" -> AffixType.PREFIX; "suffix" -> AffixType.SUFFIX; else -> null },
-            tiers = listOf(ModifierTier(1, raw.int("required_level", 1).coerceAtLeast(1), 100,
-                raw.objects("stats").map { ValueRange(it.int("min").toDouble(), it.int("max").toDouble()) })),
-            tags = raw.strings("implicit_tags").map(::ModifierTag).toSet(),
-            effects = PoeEffectRegistry().effects(raw),
-            scope = ModifierScope.CHARACTER,
-            // Unsupported effects remain explicit in the catalog capability report.
-            runtimeSupported = PoeEffectRegistry().fullySupported(raw),
-            unsupportedStats = PoeEffectRegistry().unsupported(raw),
-            rollable = false, poe = raw, _id = stableId("modifier:$id"))
-    }
+    fun definition(id: String): ModifierDefinition = definitionFromRaw(id, mod(id))
     fun equipment(id: String): Equipment {
         val b = base(id)
         require(wearable(b))

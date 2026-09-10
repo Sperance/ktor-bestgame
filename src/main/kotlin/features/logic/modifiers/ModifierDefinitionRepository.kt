@@ -40,7 +40,9 @@ class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(Modifier
         require(expectedRevision >= 0 && expectedRevision < Int.MAX_VALUE)
         require(definition.id.matches(Regex("[A-Za-z0-9_./:#-]{1,240}"))) { "Invalid modifier ID" }
         require(definition.name.isNotBlank())
-        require((latest(definition.id)?.revision ?: 0) == expectedRevision) { "Definition changed; reload its latest revision" }
+        val previous = latest(definition.id)
+        require(previous == null || (previous.poe == null) == (definition.poe == null)) { "Cannot switch a modifier ID between PoE and custom definitions" }
+        require((previous?.revision ?: 0) == expectedRevision) { "Definition changed; reload its latest revision" }
         definition.tiers.forEach { tier -> tier.values.forEach { require(it.min.isFinite() && it.max.isFinite() && it.min <= it.max) } }
         definition.poe?.let { raw ->
             require(raw.string("domain").isNotBlank() && raw.string("generation_type").isNotBlank())
@@ -71,8 +73,11 @@ class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(Modifier
                 }
             }
         }
+        val normalized = definition.poe?.let { raw ->
+            PoeCatalog.definitionFromRaw(definition.id, raw).copy(name = definition.name, enabled = definition.enabled)
+        } ?: definition
         val revision = expectedRevision + 1
-        val saved = definition.copy(revision = revision, _id = PoeCatalog.stableId("modifier:${definition.id}:$revision"))
+        val saved = normalized.copy(revision = revision, _id = PoeCatalog.stableId("modifier:${definition.id}:$revision"))
         collection.insertOne(saved)
         return saved
     }

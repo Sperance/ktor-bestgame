@@ -98,7 +98,10 @@ class PoeMongoTest {
         fun raw(min: Int, max: Int) = JsonObject(PoeCatalog.bundled.mod("Strength1") + ("stats" to buildJsonArray {
             add(buildJsonObject { put("id", "additional_strength"); put("min", min); put("max", max) })
         }))
-        val first = definitions.publish(ModifierDefinition(id, "Test strength", ModifierSource.SUFFIX, poe = raw(8, 12)), 0)
+        val first = definitions.publish(ModifierDefinition(id, "Test strength", ModifierSource.PREFIX, poe = raw(8, 12)), 0)
+        assertEquals(ModifierSource.SUFFIX, first.source)
+        assertEquals(8.0, first.tiers.single().values.single().min)
+        assertFailsWith<IllegalArgumentException> { definitions.publish(first.copy(poe = null), 1) }
         catalogs.invalidate()
         val oldCatalog = catalogs.snapshot().catalog
         val baseId = oldCatalog.bases.entries.first { it.value.string("name") == "Iron Ring" && it.value.string("release_state") == "released" }.key
