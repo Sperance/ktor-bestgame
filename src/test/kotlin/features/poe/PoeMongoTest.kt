@@ -193,4 +193,17 @@ class PoeMongoTest {
         assertNull(definitions.latest(id))
     }
 
+    @Test fun catalogReloadsOnlyAfterCommittedPublication(): Unit = runBlocking {
+        val definitions = koin.get<ModifierDefinitionRepository>()
+        val reader = MongoModifierCatalog(definitions, checkIntervalNanos = 0)
+        val first = reader.snapshot()
+        assertSame(first, reader.snapshot())
+        val id = "clock_${ObjectId().toHexString()}"
+        definitions.publish(ModifierDefinition(id, "Clock", ModifierSource.PREFIX), 0)
+        val changed = reader.snapshot() // another process need not call invalidate()
+        assertNotSame(first, changed)
+        assertEquals(id, changed.resolve(ModifierRef(id, 1)).id)
+        assertSame(changed, reader.snapshot())
+    }
+
 }

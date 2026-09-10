@@ -19,6 +19,17 @@ import kotlinx.coroutines.sync.withLock
 /** Definitions are immutable revisions. Never update/delete a revision referenced by an item. */
 class ModifierDefinitionRepository {
     private val collection = MongoFactory.getDatabase().getCollection("ModifierDefinition", ModifierDefinition::class.java)
+    private val clock = MongoFactory.getDatabase().getCollection("ModifierCatalogState", org.bson.Document::class.java)
+    private val clockId = Filters.eq("_id", "modifiers")
+    private suspend fun changed(session: ClientSession) {
+        val result = clock.updateOne(session, clockId, Updates.inc("generation", 1L))
+        check(result.matchedCount == 1L) { "Modifier catalog clock is missing" }
+    }
+    suspend fun generation(): Long {
+        ensureRevisionIndex()
+        val value = clock.find(clockId).firstOrNull()?.get("generation") as? Number
+        return requireNotNull(value) { "Modifier catalog clock is missing" }.toLong()
+    }
     suspend fun findAll(): List<ModifierDefinition> = collection.find().toList()
     suspend fun count(): Long = collection.countDocuments()
 
@@ -26,10 +37,14 @@ class ModifierDefinitionRepository {
     internal suspend fun insert(definition: ModifierDefinition, session: ClientSession) {
         require(definition.revision > 0 && definition.id.isNotBlank())
         collection.insertOne(session, definition)
+        changed(session)
     }
     internal suspend fun insertMany(definitions: List<ModifierDefinition>, session: ClientSession) {
         require(definitions.all { it.revision > 0 && it.id.isNotBlank() })
-        if (definitions.isNotEmpty()) collection.insertMany(session, definitions)
+        if (definitions.isNotEmpty()) {
+            collection.insertMany(session, definitions)
+            changed(session)
+        }
     }
 
     private val indexLock = Mutex()
@@ -39,6 +54,7 @@ class ModifierDefinitionRepository {
             collection.updateMany(Filters.exists("revision", false), Updates.set("revision", 1))
             collection.createIndex(Indexes.compoundIndex(Indexes.ascending("id"), Indexes.ascending("revision")),
                 IndexOptions().unique(true).name("modifier_id_revision"))
+            clock.updateOne(clockId, Updates.setOnInsert("generation", 0L), com.mongodb.client.model.UpdateOptions().upsert(true))
             ready = true
         }
     }
@@ -93,7 +109,10 @@ class ModifierDefinitionRepository {
         } ?: definition
         val revision = expectedRevision + 1
         val saved = normalized.copy(revision = revision, _id = PoeCatalog.stableId("modifier:${definition.id}:$revision"))
-        collection.insertOne(saved)
+        MongoFactory.transactionExecute("modifier.publish") { session ->
+            collection.insertOne(session, saved)
+            changed(session)
+        }
         return saved
     }
 }
