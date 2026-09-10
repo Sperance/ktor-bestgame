@@ -56,7 +56,10 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     suspend fun getEquipmentsData(characterId: String): List<Equipment> {
-        return equipmentRepository.findByFilter(Filters.eq("characterId", characterId))
+        val character = findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound("getEquipmentsData", characterId)
+        val ids = character.equipments.map { it.equipmentId }
+        return if (ids.isEmpty()) emptyList() else equipmentRepository.findByFilter(Filters.`in`(CONST_FIELD_ID, ids))
     }
 
     suspend fun getEquippedData(characterId: String): List<Equipment> {
@@ -65,10 +68,7 @@ class CharacterRepository : BaseRepository<Character>(
         val mapIdEquipments = character.equipments.map { it.equipmentId }
         if (mapIdEquipments.isEmpty()) return emptyList()
         return equipmentRepository.findByFilter(
-            Filters.and(
-                Filters.`in`(CONST_FIELD_ID, mapIdEquipments),
-                Filters.eq("characterId", characterId)
-            )
+            Filters.`in`(CONST_FIELD_ID, mapIdEquipments)
         )
     }
 
@@ -78,9 +78,13 @@ class CharacterRepository : BaseRepository<Character>(
     suspend fun itemToInventory(characterId: String, item: CharacterEquipments): String {
         val character = findById(characterId)
         if (character == null) throw CharacterExceptions.funExceptionNotFound("itemToInventory", characterId)
-        if (equipmentRepository.findById(item.equipmentId) == null) throw CharacterExceptions.funExceptionItemNotFound("itemToInventory", item.equipmentId)
+        val template = equipmentRepository.findById(item.equipmentId)
+            ?: throw CharacterExceptions.funExceptionItemNotFound("itemToInventory", item.equipmentId)
 
-        character.equipments.add(item)
+        // PoE instances are created by the server; callers cannot inject a crafted snapshot.
+        val instance = if (template.poeBaseId != null) CharacterEquipments.fromEquipment(template) else item
+        require(character.equipments.none { it.uuid == instance.uuid }) { "Duplicate equipment UUID" }
+        character.equipments.add(instance)
         transactionExecute("itemToInventory") { session ->
             update(character, session)
         }

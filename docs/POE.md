@@ -33,7 +33,9 @@ Each CharacterEquipments has an optional `poe` snapshot: base ID, item level, Po
 explicits with independently rolled integer values, fractured flags, quality, corruption, mirrored
 state and catalog version. `params` mirrors these rolls for existing clients. Its `uuid` identifies
 an individual item; `equipmentId` identifies the shared template. Legacy items are retained and
-cannot be crafted until explicitly migrated. Old rarity enums are not reinterpreted as PoE rarity.
+cannot be crafted until explicitly migrated. Grants of newly seeded PoE bases through the legacy
+`itemToInventory` path are generated server-side with a fresh UUID and normal-rarity PoE state;
+submitted crafted snapshots are not trusted. Old rarity enums are not reinterpreted as PoE rarity.
 
 Original base properties (armour, evasion, ES, ward, requirements, etc.) remain in the base catalog.
 The old `defense` scalar is only a compatibility projection and is not a complete PoE defence model.

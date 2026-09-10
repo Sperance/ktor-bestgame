@@ -2,6 +2,7 @@ package features.poe
 
 import features.data.character.Character
 import features.data.character.character_data.CharacterItems
+import kotlinx.serialization.json.*
 import kotlin.random.Random
 import kotlin.test.*
 
@@ -117,4 +118,43 @@ class PoeCraftingTest {
         val serializer = features.data.character.character_data.CharacterEquipments.serializer()
         assertEquals(item, json.decodeFromString(serializer, json.encodeToString(serializer, item)))
     }
+    @Test fun zeroFirstMatchOverridesLaterPositiveSpawnWeight() {
+        val modified = JsonObject(catalog.mod("Strength1") + ("spawn_weights" to buildJsonArray {
+            add(buildJsonObject { put("tag", "default"); put("weight", 0) })
+            add(buildJsonObject { put("tag", "ring"); put("weight", 1000) })
+        }))
+        val changedCatalog = PoeCatalog(catalog.bases, catalog.mods + ("Strength1" to modified))
+        assertFalse("Strength1" in PoeCrafting(changedCatalog).eligible(normal().copy(rarity = PoeRarity.RARE)))
+    }
+    @Test fun rerollPreservesModifierGroupUniqueness() {
+        repeat(30) {
+            val item = engine.apply(rare(), PoeCurrency.CHAOS)
+            val groups = item.explicits.flatMap { catalog.mod(it.id).strings("groups") }
+            assertEquals(groups.size, groups.toSet().size)
+            assertTrue(item.explicits.all { catalog.mod(it.id).int("required_level") <= item.itemLevel })
+        }
+    }
+    @Test fun augmentationFillsMissingSideAndRejectsFullMagic() {
+        var item = engine.apply(normal(), PoeCurrency.TRANSMUTATION)
+        if (item.explicits.size == 1) item = engine.apply(item, PoeCurrency.AUGMENTATION)
+        assertEquals(setOf("prefix", "suffix"), item.explicits.map { catalog.mod(it.id).string("generation_type") }.toSet())
+        assertFailsWith<IllegalArgumentException> { engine.apply(item, PoeCurrency.AUGMENTATION) }
+    }
+    @Test fun explicitEffectsCarryCoverageAndKnownStatValues() {
+        val definition = catalog.definition("Strength1")
+        assertTrue(definition.runtimeSupported)
+        assertTrue(definition.effects.isNotEmpty())
+        assertTrue(catalog.mods.values.any { !PoeEffectRegistry().fullySupported(it) })
+    }
+
+    @Test fun legacyGrantCreatesIndependentPoeInstanceWithStockModifiers() {
+        val template = catalog.equipment(baseId)
+        val first = features.data.character.character_data.CharacterEquipments.fromEquipment(template)
+        val second = features.data.character.character_data.CharacterEquipments.fromEquipment(template)
+        assertNotEquals(first.uuid, second.uuid)
+        assertNotNull(first.poe)
+        assertEquals(catalog.base(baseId).strings("implicits"), first.poe!!.implicits.map { it.id })
+        assertNull(template.modifiers)
+    }
+
 }

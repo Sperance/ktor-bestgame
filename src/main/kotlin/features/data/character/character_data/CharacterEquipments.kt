@@ -27,6 +27,12 @@ data class CharacterEquipments(
          * Как в POE - при получении предмета сразу роллятся случайные модификаторы из диапазона.
          */
         fun fromEquipment(equipment: Equipment): CharacterEquipments {
+            equipment.poeBaseId?.let { baseId ->
+                val catalog = features.poe.PoeCatalog.bundled
+                val crafting = features.poe.PoeCrafting(catalog)
+                return features.poe.PoeInventory(catalog, crafting).fromState(
+                    crafting.generate(baseId, equipment.itemLevel, features.poe.PoeRarity.NORMAL))
+            }
             // Serialize a copy: never roll into the shared cache/template instance.
             val json = server.addons.AppJson
             val copy = json.decodeFromString(Equipment.serializer(), json.encodeToString(Equipment.serializer(), equipment))
