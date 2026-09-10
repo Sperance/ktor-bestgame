@@ -95,5 +95,7 @@ data class ModifierDefinition(
      */
     val stackable: Boolean = false,
 
+    val poe: kotlinx.serialization.json.JsonObject? = null,
+
     override var _id: String = ObjectId().toHexString()
 ) : StockEntity

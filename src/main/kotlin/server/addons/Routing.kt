@@ -1,5 +1,6 @@
 package server.addons
 
+import features.poe.poeRoutes
 import base.exception.ApplicationExceptions
 import base.exception.BaseRepositoryExceptions
 import base.exception.BaseRouteExceptions
@@ -41,6 +42,7 @@ fun Application.configureRouting() {
 
     routing {
         routeRegistry.registerAll(this)
+        poeRoutes()
 
         openAPI(path = "swagger") {
             info = OpenApiInfo("My API", "1.0.1")

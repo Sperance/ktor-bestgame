@@ -21,7 +21,7 @@ import kotlin.time.Duration.Companion.hours
 @OptIn(ExperimentalKtorApi::class)
 fun Application.configureSecurity() {
 
-    val secret = "your-secret-key-12345"
+    val secret = features.poe.GameJwt.secret
     val secretEncryptKey = "00112233445566778899aabbccddeeff".hexToByteArray()
     val secretSignKey = "6819b57a326945c1968f45236589".hexToByteArray()
 
@@ -34,7 +34,7 @@ fun Application.configureSecurity() {
                     .build()
             )
             validate { credential ->
-                if (credential.payload.audience.contains("ktor-client")) {
+                if (credential.payload.audience.contains("ktor-client") && !credential.payload.subject.isNullOrBlank()) {
                     JWTPrincipal(credential.payload)
                 } else {
                     null

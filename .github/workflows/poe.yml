@@ -1,0 +1,27 @@
+name: PoE catalog and crafting
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew
+      - run: ./gradlew poeTest jar --stacktrace
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: poe-verification
+          path: |
+            build/reports/tests/poeTest
+            build/test-results/poeTest
+            build/libs/*.jar

@@ -13,5 +13,6 @@ data class Items(
     val image: String? = null,
     val price: Long = 0,
 
+    val poeBaseId: String? = null,
     override var _id: String = ObjectId().toHexString(),
 ) : StockEntity

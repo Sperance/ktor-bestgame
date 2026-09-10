@@ -50,10 +50,10 @@ object DatabaseSeeder : KoinComponent {
             seedUsers(session)
             seedCharacters(session)
             seedItems(session)
-            seedEquipment(session)
             seedRedemptionCodes(session)
-            seedEqipmentCharacters(session)
         }
+
+        features.poe.PoeSeeder.seed()
 
         printLog("Database seeding completed")
     }
@@ -89,19 +89,6 @@ object DatabaseSeeder : KoinComponent {
         userRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} users created")
-    }
-
-    private suspend fun seedEquipment(session: ClientSession) {
-        equipmentRepository.deleteAll()
-        if (equipmentRepository.count() > 0) return
-
-        printLog("Seeding equipment...")
-
-        val listItems = EquipmentSeeder.seed()
-
-        equipmentRepository.insertMany(listItems, session)
-
-        printLog("  → ${listItems.size} equipments created")
     }
 
     // ==================== Characters ====================
@@ -199,14 +186,4 @@ object DatabaseSeeder : KoinComponent {
         printLog("  → ${listItems.size} RedemptionCodes created")
     }
 
-    private suspend fun seedEqipmentCharacters(session: ClientSession) {
-        val characters = characterRepository.findAll(session)
-        val equipments = equipmentRepository.findAll(session)
-
-        characters.forEach { char ->
-            char.equipments.add(CharacterEquipments.fromEquipment(equipments.filter { it.rarity == EnumRarity.COMMON }.random()))
-        }
-
-        characterRepository.bulkUpdate(characters, session)
-    }
 }

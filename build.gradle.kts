@@ -52,3 +52,18 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
 }
+// Pinned data is verified at build time and packaged in the JAR. No runtime downloads.
+val preparePoeCatalog by tasks.registering(Exec::class) {
+    inputs.files("scripts/prepare_poe.py", "data/poe.lock.json")
+    outputs.dir(layout.buildDirectory.dir("generated-poe"))
+    commandLine("python3", "scripts/prepare_poe.py")
+}
+sourceSets.main { resources.srcDir(layout.buildDirectory.dir("generated-poe")) }
+tasks.processResources { dependsOn(preparePoeCatalog) }
+
+tasks.register<Test>("poeTest") {
+    description = "Deterministic PoE domain tests; no external MongoDB required"
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    filter { includeTestsMatching("features.poe.*") }
+}

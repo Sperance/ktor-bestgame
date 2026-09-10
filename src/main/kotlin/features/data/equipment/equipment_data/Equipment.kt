@@ -36,7 +36,8 @@ interface EquipmentInterface {
 @Serializable
 sealed class Equipment(
     override var _id: String = ObjectId().toHexString(),
-    var price: Long = 1L
+    var price: Long = 1L,
+    var poeBaseId: String? = null
 ) : StockEntity, EquipmentInterface {
 
     open fun calculatePrice(): Long {
