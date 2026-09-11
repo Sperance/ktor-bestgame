@@ -47,6 +47,22 @@ class ModifierDefinitionRepository {
         }
     }
 
+    /** A short, restartable import transaction. The catalog clock serializes concurrent imports. */
+    internal suspend fun seedMissingBatch(definitions: List<ModifierDefinition>) {
+        require(definitions.size <= 100) { "Seed batch must contain at most 100 definitions" }
+        require(definitions.all { it.revision == 1 && it.id.isNotBlank() })
+        if (definitions.isEmpty()) return
+        ensureRevisionIndex()
+        MongoFactory.transactionExecute("poe.seed.modifiers", retryTransientErrors = true) { session ->
+            // Acquire the shared write first, before establishing the read snapshot for this batch.
+            changed(session)
+            val existing = collection.find(session, Filters.and(Filters.`in`("id", definitions.map { it.id }), Filters.eq("revision", 1)))
+                .toList().map { it.id }.toSet()
+            val missing = definitions.filter { it.id !in existing }.distinctBy { it.id }
+            if (missing.isNotEmpty()) collection.insertMany(session, missing)
+        }
+    }
+
     private val indexLock = Mutex()
     @Volatile private var ready = false
     suspend fun ensureRevisionIndex() = indexLock.withLock {

@@ -10,6 +10,7 @@ import features.data.equipment.EquipmentRepository
 import features.logic.modifiers.*
 import kotlinx.serialization.json.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.firstOrNull
 import org.junit.After
 import org.junit.Before
 import org.koin.core.context.startKoin
@@ -28,6 +29,38 @@ class PoeMongoTest {
         }
     }
     @After fun tearDown() { stopKoin() }
+    @Test fun retriesARealMongoWriteConflictFromFreshSnapshot(): Unit = runBlocking {
+        val collection = MongoFactory.getDatabase().getCollection("RetryProbe", org.bson.Document::class.java)
+        val id = ObjectId().toHexString()
+        val filter = com.mongodb.client.model.Filters.eq("_id", id)
+        collection.insertOne(org.bson.Document("_id", id).append("value", 0))
+        var attempts = 0
+        try {
+            MongoFactory.transactionExecute("test.writeConflict", retryTransientErrors = true) { session ->
+                attempts++
+                val old = collection.find(session, filter).firstOrNull()!!.getInteger("value")
+                if (attempts == 1) collection.updateOne(filter, com.mongodb.client.model.Updates.inc("value", 10))
+                collection.updateOne(session, filter, com.mongodb.client.model.Updates.set("value", old + 1))
+            }
+            assertEquals(2, attempts)
+            assertEquals(11, collection.find(filter).firstOrNull()!!.getInteger("value"))
+        } finally { collection.deleteOne(filter) }
+    }
+    @Test fun seedBatchesResumeAndConcurrentImportsPreserveDefinitions(): Unit = runBlocking {
+        val repo = koin.get<ModifierDefinitionRepository>()
+        val id = "seed_test_${ObjectId().toHexString()}"
+        val first = ModifierDefinition(id, "First", ModifierSource.SYSTEM)
+        repo.seedMissingBatch(listOf(first))
+        val second = first.copy(id = id + "_second", _id = ObjectId().toHexString())
+        coroutineScope {
+            listOf(async { repo.seedMissingBatch(listOf(first.copy(name = "Must not overwrite"), second)) },
+                async { repo.seedMissingBatch(listOf(first, second)) }).awaitAll()
+        }
+        assertEquals("First", repo.resolve(ModifierRef(id, 1))!!.name)
+        assertNotNull(repo.resolve(ModifierRef(second.id, 1)))
+        assertEquals(2, repo.findAll().count { it.id in setOf(id, second.id) })
+        assertFailsWith<IllegalArgumentException> { repo.seedMissingBatch(List(101) { first }) }
+    }
     private suspend fun fixture(): Pair<Character, CraftRequest> {
         val catalog = PoeCatalog.bundled
         val engine = PoeCrafting(catalog)

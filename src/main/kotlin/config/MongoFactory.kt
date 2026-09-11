@@ -78,24 +78,25 @@ object MongoFactory {
         }
     }
 
-    suspend fun <T> transactionExecute(transactionName: String = "", body: suspend (ClientSession) -> T): T {
-        mongoClient.startSession().use { session ->
-            printLog("[TR::start::${session.hashCode()}] $transactionName ", true)
-            session.startTransaction()
-            try {
-                val result = body(session)
-                if (session.hasActiveTransaction()) {
-                    printLog("[TR::commit${session.hashCode()}] $transactionName ", true)
-                    session.commitTransaction()
-                }
-                return result
-            } catch (e: Exception) {
-                if (session.hasActiveTransaction()) {
-                    printLog("[TR::abort${session.hashCode()}] $transactionName ", true)
-                    session.abortTransaction()
-                }
-                throw e
-            }
-        }
+    /** Enable body retries only when reads and mutable entities are rebuilt inside [body]. */
+    suspend fun <T> transactionExecute(
+        transactionName: String = "",
+        retryTransientErrors: Boolean = false,
+        body: suspend (ClientSession) -> T
+    ): T = mongoClient.startSession().use { session ->
+        runTransaction(
+            start = {
+                printLog("[TR::start::${session.hashCode()}] $transactionName", true)
+                session.startTransaction()
+            },
+            active = { session.hasActiveTransaction() },
+            commit = {
+                session.commitTransaction()
+                printLog("[TR::committed::${session.hashCode()}] $transactionName", true)
+            },
+            abort = { session.abortTransaction() },
+            maxAttempts = if (retryTransientErrors) 5 else 1,
+            body = { body(session) }
+        )
     }
 }
