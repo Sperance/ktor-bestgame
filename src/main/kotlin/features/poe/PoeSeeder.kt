@@ -19,22 +19,24 @@ object PoeSeeder : KoinComponent {
         val catalog = PoeCatalog.bundled
         modifiers.ensureRevisionIndex()
         val existingMods = modifiers.findAll().map { features.logic.modifiers.ModifierRef(it.id, it.revision) }.toSet()
+        transactionExecute("poe.seed.modifiers") { session ->
         catalog.mods.keys.sorted().filter { features.logic.modifiers.ModifierRef(it, 1) !in existingMods }.chunked(100).forEach { batch ->
-            transactionExecute("poe.seed.modifiers") { session -> modifiers.insertMany(batch.map(catalog::definition), session) }
+             modifiers.insertMany(batch.map(catalog::definition), session) }
         }
+
         ModifierReferenceMigration(equipment, getKoin().get(), modifiers).migrate()
         val existingEquipment = equipment.findAll().map { it._id }.toSet()
+        transactionExecute("poe.seed.equipment") { session ->
         catalog.releasedWearables().keys.sorted().filter { PoeCatalog.stableId("base:$it") !in existingEquipment }.chunked(100).forEach { batch ->
-            transactionExecute("poe.seed.equipment") { session -> equipment.insertMany(batch.map(catalog::equipment), session) }
+            equipment.insertMany(batch.map(catalog::equipment), session) }
         }
         val existingItems = items.findAll().map { it._id }.toSet()
+        transactionExecute("poe.seed.items") { session ->
         catalog.bases.filterValues { !catalog.wearable(it) && it.string("release_state") == "released" }
             .filterKeys { PoeCatalog.stableId("base:$it") !in existingItems }.entries.chunked(100).forEach { batch ->
-                transactionExecute("poe.seed.items") { session ->
                     items.insertMany(batch.map { (id, b) -> Items(name = b.string("name"), category = "POE", subCategory = b.string("item_class"),
                         description = "Catalog record; release state does not imply ordinary drop eligibility", poeBaseId = id, _id = PoeCatalog.stableId("base:$id")) }, session)
                 }
             }
-
     }
 }

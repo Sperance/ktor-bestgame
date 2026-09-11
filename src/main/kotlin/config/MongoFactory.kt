@@ -16,8 +16,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
-import org.bson.codecs.configuration.CodecRegistry
-import server.addons.AppJson
+import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.milliseconds
 
 object MongoFactory {
@@ -43,6 +42,7 @@ object MongoFactory {
         val settings = MongoClientSettings.builder()
             .applyConnectionString(ConnectionString(connectionString))
             .codecRegistry(codecRegistry)
+            .timeout(10, TimeUnit.MINUTES)
             .build()
 
         return MongoClient.create(settings)
