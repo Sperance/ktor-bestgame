@@ -3,6 +3,7 @@ package ru.descend
 import io.ktor.client.request.*
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
+import io.ktor.server.config.MapApplicationConfig
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.*
@@ -18,6 +19,7 @@ import ru.descend.infrastructure.http.configureSerialization
 /** Exercises the real JSON plugin and the legacy polymorphic discriminator used by ExileForge. */
 class ApplicationTest {
     @Test fun equipmentWireTypesSurvivePackageMigration() = testApplication {
+        environment { config = MapApplicationConfig() }
         application {
             configureSerialization()
             routing { post("/contract") { call.respond(call.receive<Equipment>()) } }

@@ -106,6 +106,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
                 )
                 printLog("✅ [$collectionName] Уникальный индекс создан: $indexName на полях ${config.fields}")
             } catch (e: MongoWriteException) {
+            if (e.hasErrorLabel("TransientTransactionError")) throw e
                 if (e.code == 85) { // IndexAlreadyExists
                     printLog("ℹ️ Индекс ${config.indexName} уже существует")
                 } else {
@@ -139,6 +140,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
 
             entity
         } catch (e: MongoWriteException) {
+            if (e.hasErrorLabel("TransientTransactionError")) throw e
             if (e.code == 11000) {
                 throw BaseRepositoryExceptions.funExceptionRace("insert", e.message)
             }
@@ -176,11 +178,13 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
 
             entities  // ← возвращаем список объектов с присвоенными ID
         } catch (e: MongoWriteException) {
+            if (e.hasErrorLabel("TransientTransactionError")) throw e
             if (e.code == 11000) {
                 throw BaseRepositoryExceptions.funExceptionRace("insertMany", e.message)
             }
             throw BaseRepositoryExceptions.funException("insertMany", e.message)
         } catch (e: MongoBulkWriteException) {
+            if (e.hasErrorLabel("TransientTransactionError")) throw e
             throw BaseRepositoryExceptions.funException("insertMany", e.writeErrors.firstOrNull()?.message?:e.message)
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException || e is com.mongodb.MongoException && e.hasErrorLabel("TransientTransactionError")) throw e
