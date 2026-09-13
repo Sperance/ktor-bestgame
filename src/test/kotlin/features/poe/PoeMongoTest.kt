@@ -125,7 +125,7 @@ class PoeMongoTest {
         val (character, request) = fixture()
         val repo = koin.get<CharacterRepository>()
         val service = PoeService(repo, koin.get(), koin.get(), koin.get())
-        assertFailsWith<IllegalArgumentException> { service.craft(character._id, character.userId, request.copy(expectedVersion = 22)) }
+        assertFailsWith<ru.descend.shared.http.ApiFailure> { service.craft(character._id, character.userId, request.copy(expectedVersion = 22)) }
         val stored = repo.findById(character._id)!!
         assertEquals(0L, stored.version)
         assertEquals(character.items, stored.items)

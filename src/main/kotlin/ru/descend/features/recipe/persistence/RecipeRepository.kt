@@ -116,27 +116,6 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
         cache.updateItem(entity)
     }
 
-    suspend fun useRecipe(characterId: String, recipeId: String, recipeUse: RecipeUse): String {
-        val character = repoCharacters.findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("useRecipe", characterId)
-
-        val recipe = findById(recipeId)
-        if (recipe == null) throw RecipeExceptions.funExceptionRecipeNotFound("useRecipe", recipeId)
-
-        if (recipe.needOpenRecipe && !character.recipeAccess.contains(recipeId))
-            throw RecipeExceptions.funExceptionRecipeNotAllowed("useRecipe", recipeId)
-
-        val checkItems = repoItems.findByFilter(Filters.`in`("_id", recipeUse.ingridientsId))
-        if (checkItems.size != recipeUse.ingridientsId.size)
-            throw RecipeExceptions.funExceptionItemNotFound("useRecipe", (recipeUse.ingridientsId - checkItems.map { it._id }.toSet()).toString())
-
-        //TODO Проверка что у персонажа достаточно ингредиентов
-
-        recipe.globalUses++
-        transactionExecute { session ->
-            update(recipe, session)
-        }
-
-        return "Success"
-    }
+    @Deprecated("Use the versioned recipe command")
+    suspend fun useRecipe(characterId: String, recipeId: String, recipeUse: RecipeUse): String = ru.descend.shared.http.invalid("Use the versioned recipe command")
 }

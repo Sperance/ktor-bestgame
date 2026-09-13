@@ -89,8 +89,8 @@ class UserRepository : BaseRepository<User>(
         }
     }
 
-    private fun generatePassword(entity: User) {
-        entity.password = ru.descend.infrastructure.security.PasswordHasher.hash(entity.password)
+    private suspend fun generatePassword(entity: User) {
+        entity.password = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { ru.descend.infrastructure.security.PasswordHasher.hash(entity.password) }
         entity.salt = ""
     }
     private fun checkPassword(password: String) = ru.descend.infrastructure.security.PasswordHasher.validate(password)

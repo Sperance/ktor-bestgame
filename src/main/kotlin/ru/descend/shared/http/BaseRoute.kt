@@ -111,6 +111,7 @@ abstract class BaseRoute<T : StockEntity, R>(
                 delete {
                     val actor = call.actor(); val id = call.idParam(); val command = call.receiveCommand<DeleteCommand>()
                     if (kind != "character") actor.requireAdmin()
+                    if (kind == "user" && id == actor.id) invalid("Administrators cannot delete their own account")
                     transactionExecute("api.$kind.delete") { session ->
                         val entity = authorized(id, actor, session) as? VersionedEntity ?: invalid("Entity does not support revisions")
                         checkVersion(entity.version, command.expectedVersion)

@@ -27,6 +27,7 @@ class CharacterStatsCalculator {
             val base = item.poe?.baseId?.let { catalog.bases[it] }
             val properties = base?.get("properties") as? JsonObject
             if (item.poe != null) {
+                if (base == null) unsupported += "base:${item.poe!!.baseId}"
                 val state = item.poe!!
                 (state.implicits + state.explicits).forEach { roll ->
                     val mod = catalog.mod(roll.id, roll.revision)

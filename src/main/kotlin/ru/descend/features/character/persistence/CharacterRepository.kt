@@ -64,75 +64,20 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     suspend fun getEquippedData(characterId: String): List<Equipment> {
-        val character = findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("getEquippedData", characterId)
-        val mapIdEquipments = character.equipments.map { it.equipmentId }
-        if (mapIdEquipments.isEmpty()) return emptyList()
-        return equipmentRepository.findByFilter(
-            Filters.`in`(CONST_FIELD_ID, mapIdEquipments)
-        )
+        val character = findById(characterId) ?: ru.descend.shared.http.missing()
+        return character.equipments.filter { it.uuid in character.equipped.values }.map {
+            it.baseSnapshot ?: equipmentRepository.findById(it.equipmentId) ?: ru.descend.shared.http.missing()
+        }
     }
 
     /**
      * Добавление нового предмета в инвентарь персонажа. Создание предмета
      */
-    suspend fun itemToInventory(characterId: String, item: CharacterEquipments): String {
-        val character = findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("itemToInventory", characterId)
-        val template = equipmentRepository.findById(item.equipmentId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("itemToInventory", item.equipmentId)
+    @Deprecated("Use EquipmentService.grant with Actor and expectedVersion")
+    suspend fun itemToInventory(characterId: String, item: CharacterEquipments): String =
+        ru.descend.shared.http.invalid("Use the authenticated grant command")
 
-        // PoE instances are created by the server; callers cannot inject a crafted snapshot.
-        val snapshot = modifierCatalogs.snapshot(template.modifierDefinitionRefs + template.stockModifierDefinitionRefs)
-        val instance = CharacterEquipments.fromEquipment(template, snapshot.catalog,
-            (template.modifierDefinitionRefs + template.stockModifierDefinitionRefs).map(snapshot::resolve))
-        require(character.equipments.none { it.uuid == instance.uuid }) { "Duplicate equipment UUID" }
-        character.equipments.add(instance)
-        transactionExecute("itemToInventory") { session ->
-            update(character, session)
-        }
-        return "Success"
-    }
-
-    /**
-     * Добавление\удаление предмета из инвентаря персонажа
-     */
-    suspend fun addItem(characterId: String, itemObj: List<CharacterItems>): String {
-        val character = findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("addItem", characterId)
-
-        val allItems = itemsCache.getCache()
-
-        var isChanged = false
-        itemObj.forEach { itm ->
-            if (itm.amount == 0L) return@forEach
-            if (itm.amount > 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
-            if (itm.amount < -100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
-            if (allItems.find { it._id == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itm.toString())
-
-            val findedItem = character.items.find { it.itemId == itm.itemId }
-            if (findedItem != null) {
-                findedItem.amount += itm.amount
-                if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
-            }
-            else {
-                if (itm.amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
-                character.items.add(CharacterItems(itm.itemId, itm.amount))
-            }
-
-            isChanged = true
-        }
-
-        if (!isChanged) {
-            return "Success. No changes"
-        }
-
-        //Зачем хранить id предмета без кол-ва
-        character.items.removeAll { it.amount == 0L }
-
-        transactionExecute("addItem") { session ->
-            update(character, session)
-        }
-        return "Success"
-    }
+    @Deprecated("Use InventoryCommandService.adjust with Actor and expectedVersion")
+    suspend fun addItem(characterId: String, itemObj: List<CharacterItems>): String =
+        ru.descend.shared.http.invalid("Use the authenticated inventory command")
 }

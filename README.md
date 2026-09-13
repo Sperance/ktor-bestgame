@@ -1,7 +1,11 @@
 # ktor-bestgame — compact RPG server
 
 Kotlin/Ktor server with MongoDB, a small tiered PoE item catalog and character-owned crafting.
-Version **0.8.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+Version **0.9.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+
+## Security and equipment update
+
+Read [API audit and client migration](docs/API_SECURITY_AUDIT.md) and [character commands / calculation rules](docs/CHARACTER_COMMANDS.md) before updating ExileForge. Writes now require authentication, allowlisted DTO fields and expectedVersion. Old password-in-GET/device-login prototypes are removed.
 
 ## Run
 
@@ -51,7 +55,7 @@ MongoDB/BSON, ktmongo, kotlinx.serialization, kotlinx.datetime, Logback, Swagger
 Existing integrations remain in the project; this change does not replace the database or dependency stack.
 
 Mongo collection names, IDs, existing modifier revisions and polymorphic JSON discriminator strings are retained.
-ExileForge's CRUD, catalog, token, inventory, drop and craft paths remain available. The default catalog listing
+Catalog and PoE paths remain available; protected CRUD and inventory bodies follow the new versioned command contract. The default catalog listing
 is smaller. Old equipment outside the compact base set remains stored and readable, but cannot be crafted
 until its base is deliberately added to the active catalog. No automatic destructive cleanup is performed.
 Existing custom modifiers can be reactivated through publication; new custom publications participate in the active catalog.
