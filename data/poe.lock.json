@@ -3,12 +3,50 @@
   "commit": "e2bd511a0133bbe6c1ab548ef1285cb99f3cf0e9",
   "version": "3.29.3.3",
   "files": {
+    "base_items.json": "2579f674352e4170b0b2d72b7635ac7a79b361da4c94ec31d19974607d6f89ec",
+    "tiers.json": "4dbb6583c052477c8c431f4dc8eb6a2a974ead9e15c40c2524cc08db570a1f03",
+    "mods.json": "aef4ab4b61560b1b9e0fab32019c7965cb143381410be72824572bcaa1db4e49"
+  },
+  "counts": {
+    "base_items.json": 50,
+    "mods.json": 234,
+    "tiers.json": 208
+  },
+  "note": "Compact curated subset; original modifier IDs, values and weights retained. Tiers ranked within selected families. Unique compositions sourced from pinned Path of Building; game data copyright Grinding Gear Games.",
+  "profile": "compact-v1",
+  "upstreamFiles": {
     "base_items.json": "48afb07a5f40eb51552f90c17d53186469db282a2e759dab7b46e7f9d2a0f58b",
     "mods.json": "defbba31b60f9191080c78197278057f834f7f927c1a2a080a7ca6ed3ea686b5"
   },
-  "counts": {
-    "base_items.json": 5461,
-    "mods.json": 40355
-  },
-  "note": "Full exported base/mod records; not a complete combat implementation or unique drop table. Game data copyright Grinding Gear Games."
+  "selection": {
+    "families": [
+      "LocalIncreasedPhysicalDamageReductionRating",
+      "LocalIncreasedPhysicalDamageReductionRatingPercent",
+      "SpellDamageOnWeapon",
+      "Strength",
+      "Dexterity",
+      "Intelligence",
+      "IncreasedLife",
+      "IncreasedMana",
+      "FireResist",
+      "ColdResist",
+      "LightningResist",
+      "ChaosResist",
+      "MovementVelocity",
+      "LocalIncreasedPhysicalDamagePercent",
+      "LocalAddedPhysicalDamage",
+      "LocalIncreasedAttackSpeed",
+      "LocalIncreasedEnergyShield",
+      "LocalIncreasedEvasionRating",
+      "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+      "AddedFireDamage",
+      "AddedColdDamage",
+      "AddedLightningDamage",
+      "ManaRegeneration",
+      "CriticalStrikeChance"
+    ],
+    "wearables": 35,
+    "currencies": 13,
+    "uniques": 2
+  }
 }

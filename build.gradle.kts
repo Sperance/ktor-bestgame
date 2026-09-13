@@ -6,10 +6,10 @@ plugins {
 }
 
 group = "ru.descend"
-version = "0.7.6"
+version = "0.8.0"
 
 application {
-    mainClass = "io.ktor.server.netty.EngineMain"
+    mainClass = "ru.descend.bootstrap.ApplicationKt"
 }
 
 kotlin {
@@ -55,6 +55,7 @@ dependencies {
 // Pinned data is verified at build time and packaged in the JAR. No runtime downloads.
 val preparePoeCatalog by tasks.registering(Exec::class) {
     inputs.files("scripts/prepare_poe.py", "data/poe.lock.json")
+    inputs.dir("data/poe/compact")
     outputs.dir(layout.buildDirectory.dir("generated-poe"))
     commandLine("python3", "scripts/prepare_poe.py")
 }

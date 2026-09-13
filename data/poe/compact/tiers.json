@@ -1,0 +1,834 @@
+{
+  "AddedColdDamage1": {
+    "family": "AddedColdDamage",
+    "tier": 9
+  },
+  "AddedColdDamage2": {
+    "family": "AddedColdDamage",
+    "tier": 8
+  },
+  "AddedColdDamage3": {
+    "family": "AddedColdDamage",
+    "tier": 7
+  },
+  "AddedColdDamage4": {
+    "family": "AddedColdDamage",
+    "tier": 6
+  },
+  "AddedColdDamage5": {
+    "family": "AddedColdDamage",
+    "tier": 5
+  },
+  "AddedColdDamage6": {
+    "family": "AddedColdDamage",
+    "tier": 4
+  },
+  "AddedColdDamage7": {
+    "family": "AddedColdDamage",
+    "tier": 3
+  },
+  "AddedColdDamage8": {
+    "family": "AddedColdDamage",
+    "tier": 2
+  },
+  "AddedColdDamage9": {
+    "family": "AddedColdDamage",
+    "tier": 1
+  },
+  "AddedFireDamage1": {
+    "family": "AddedFireDamage",
+    "tier": 9
+  },
+  "AddedFireDamage2": {
+    "family": "AddedFireDamage",
+    "tier": 8
+  },
+  "AddedFireDamage3": {
+    "family": "AddedFireDamage",
+    "tier": 7
+  },
+  "AddedFireDamage4": {
+    "family": "AddedFireDamage",
+    "tier": 6
+  },
+  "AddedFireDamage5": {
+    "family": "AddedFireDamage",
+    "tier": 5
+  },
+  "AddedFireDamage6": {
+    "family": "AddedFireDamage",
+    "tier": 4
+  },
+  "AddedFireDamage7": {
+    "family": "AddedFireDamage",
+    "tier": 3
+  },
+  "AddedFireDamage8": {
+    "family": "AddedFireDamage",
+    "tier": 2
+  },
+  "AddedFireDamage9": {
+    "family": "AddedFireDamage",
+    "tier": 1
+  },
+  "AddedLightningDamage1": {
+    "family": "AddedLightningDamage",
+    "tier": 9
+  },
+  "AddedLightningDamage2": {
+    "family": "AddedLightningDamage",
+    "tier": 8
+  },
+  "AddedLightningDamage3": {
+    "family": "AddedLightningDamage",
+    "tier": 7
+  },
+  "AddedLightningDamage4": {
+    "family": "AddedLightningDamage",
+    "tier": 6
+  },
+  "AddedLightningDamage5": {
+    "family": "AddedLightningDamage",
+    "tier": 5
+  },
+  "AddedLightningDamage6": {
+    "family": "AddedLightningDamage",
+    "tier": 4
+  },
+  "AddedLightningDamage7": {
+    "family": "AddedLightningDamage",
+    "tier": 3
+  },
+  "AddedLightningDamage8": {
+    "family": "AddedLightningDamage",
+    "tier": 2
+  },
+  "AddedLightningDamage9": {
+    "family": "AddedLightningDamage",
+    "tier": 1
+  },
+  "ChaosResist1": {
+    "family": "ChaosResist",
+    "tier": 6
+  },
+  "ChaosResist2": {
+    "family": "ChaosResist",
+    "tier": 5
+  },
+  "ChaosResist3": {
+    "family": "ChaosResist",
+    "tier": 4
+  },
+  "ChaosResist4": {
+    "family": "ChaosResist",
+    "tier": 3
+  },
+  "ChaosResist5": {
+    "family": "ChaosResist",
+    "tier": 2
+  },
+  "ChaosResist6": {
+    "family": "ChaosResist",
+    "tier": 1
+  },
+  "ColdResist1": {
+    "family": "ColdResist",
+    "tier": 8
+  },
+  "ColdResist2": {
+    "family": "ColdResist",
+    "tier": 7
+  },
+  "ColdResist3": {
+    "family": "ColdResist",
+    "tier": 6
+  },
+  "ColdResist4": {
+    "family": "ColdResist",
+    "tier": 5
+  },
+  "ColdResist5": {
+    "family": "ColdResist",
+    "tier": 4
+  },
+  "ColdResist6": {
+    "family": "ColdResist",
+    "tier": 3
+  },
+  "ColdResist7": {
+    "family": "ColdResist",
+    "tier": 2
+  },
+  "ColdResist8": {
+    "family": "ColdResist",
+    "tier": 1
+  },
+  "CriticalStrikeChance1": {
+    "family": "CriticalStrikeChance",
+    "tier": 7
+  },
+  "CriticalStrikeChance2": {
+    "family": "CriticalStrikeChance",
+    "tier": 6
+  },
+  "CriticalStrikeChance3": {
+    "family": "CriticalStrikeChance",
+    "tier": 5
+  },
+  "CriticalStrikeChance4": {
+    "family": "CriticalStrikeChance",
+    "tier": 4
+  },
+  "CriticalStrikeChance5": {
+    "family": "CriticalStrikeChance",
+    "tier": 3
+  },
+  "CriticalStrikeChance6": {
+    "family": "CriticalStrikeChance",
+    "tier": 2
+  },
+  "CriticalStrikeChance7": {
+    "family": "CriticalStrikeChance",
+    "tier": 1
+  },
+  "Dexterity1": {
+    "family": "Dexterity",
+    "tier": 10
+  },
+  "Dexterity10": {
+    "family": "Dexterity",
+    "tier": 1
+  },
+  "Dexterity2": {
+    "family": "Dexterity",
+    "tier": 9
+  },
+  "Dexterity3": {
+    "family": "Dexterity",
+    "tier": 8
+  },
+  "Dexterity4": {
+    "family": "Dexterity",
+    "tier": 7
+  },
+  "Dexterity5": {
+    "family": "Dexterity",
+    "tier": 6
+  },
+  "Dexterity6": {
+    "family": "Dexterity",
+    "tier": 5
+  },
+  "Dexterity7": {
+    "family": "Dexterity",
+    "tier": 4
+  },
+  "Dexterity8": {
+    "family": "Dexterity",
+    "tier": 3
+  },
+  "Dexterity9": {
+    "family": "Dexterity",
+    "tier": 2
+  },
+  "FireResist1": {
+    "family": "FireResist",
+    "tier": 8
+  },
+  "FireResist2": {
+    "family": "FireResist",
+    "tier": 7
+  },
+  "FireResist3": {
+    "family": "FireResist",
+    "tier": 6
+  },
+  "FireResist4": {
+    "family": "FireResist",
+    "tier": 5
+  },
+  "FireResist5": {
+    "family": "FireResist",
+    "tier": 4
+  },
+  "FireResist6": {
+    "family": "FireResist",
+    "tier": 3
+  },
+  "FireResist7": {
+    "family": "FireResist",
+    "tier": 2
+  },
+  "FireResist8": {
+    "family": "FireResist",
+    "tier": 1
+  },
+  "IncreasedLife0": {
+    "family": "IncreasedLife",
+    "tier": 13
+  },
+  "IncreasedLife1": {
+    "family": "IncreasedLife",
+    "tier": 12
+  },
+  "IncreasedLife10": {
+    "family": "IncreasedLife",
+    "tier": 3
+  },
+  "IncreasedLife11": {
+    "family": "IncreasedLife",
+    "tier": 2
+  },
+  "IncreasedLife12": {
+    "family": "IncreasedLife",
+    "tier": 1
+  },
+  "IncreasedLife2": {
+    "family": "IncreasedLife",
+    "tier": 11
+  },
+  "IncreasedLife3": {
+    "family": "IncreasedLife",
+    "tier": 10
+  },
+  "IncreasedLife4": {
+    "family": "IncreasedLife",
+    "tier": 9
+  },
+  "IncreasedLife5": {
+    "family": "IncreasedLife",
+    "tier": 8
+  },
+  "IncreasedLife6": {
+    "family": "IncreasedLife",
+    "tier": 7
+  },
+  "IncreasedLife7": {
+    "family": "IncreasedLife",
+    "tier": 6
+  },
+  "IncreasedLife8": {
+    "family": "IncreasedLife",
+    "tier": 5
+  },
+  "IncreasedLife9": {
+    "family": "IncreasedLife",
+    "tier": 4
+  },
+  "IncreasedMana1": {
+    "family": "IncreasedMana",
+    "tier": 13
+  },
+  "IncreasedMana10": {
+    "family": "IncreasedMana",
+    "tier": 4
+  },
+  "IncreasedMana11": {
+    "family": "IncreasedMana",
+    "tier": 3
+  },
+  "IncreasedMana12": {
+    "family": "IncreasedMana",
+    "tier": 2
+  },
+  "IncreasedMana13": {
+    "family": "IncreasedMana",
+    "tier": 1
+  },
+  "IncreasedMana2": {
+    "family": "IncreasedMana",
+    "tier": 12
+  },
+  "IncreasedMana3": {
+    "family": "IncreasedMana",
+    "tier": 11
+  },
+  "IncreasedMana4": {
+    "family": "IncreasedMana",
+    "tier": 10
+  },
+  "IncreasedMana5": {
+    "family": "IncreasedMana",
+    "tier": 9
+  },
+  "IncreasedMana6": {
+    "family": "IncreasedMana",
+    "tier": 8
+  },
+  "IncreasedMana7": {
+    "family": "IncreasedMana",
+    "tier": 7
+  },
+  "IncreasedMana8": {
+    "family": "IncreasedMana",
+    "tier": 6
+  },
+  "IncreasedMana9": {
+    "family": "IncreasedMana",
+    "tier": 5
+  },
+  "Intelligence1": {
+    "family": "Intelligence",
+    "tier": 10
+  },
+  "Intelligence10": {
+    "family": "Intelligence",
+    "tier": 1
+  },
+  "Intelligence2": {
+    "family": "Intelligence",
+    "tier": 9
+  },
+  "Intelligence3": {
+    "family": "Intelligence",
+    "tier": 8
+  },
+  "Intelligence4": {
+    "family": "Intelligence",
+    "tier": 7
+  },
+  "Intelligence5": {
+    "family": "Intelligence",
+    "tier": 6
+  },
+  "Intelligence6": {
+    "family": "Intelligence",
+    "tier": 5
+  },
+  "Intelligence7": {
+    "family": "Intelligence",
+    "tier": 4
+  },
+  "Intelligence8": {
+    "family": "Intelligence",
+    "tier": 3
+  },
+  "Intelligence9": {
+    "family": "Intelligence",
+    "tier": 2
+  },
+  "LightningResist1": {
+    "family": "LightningResist",
+    "tier": 8
+  },
+  "LightningResist2": {
+    "family": "LightningResist",
+    "tier": 7
+  },
+  "LightningResist3": {
+    "family": "LightningResist",
+    "tier": 6
+  },
+  "LightningResist4": {
+    "family": "LightningResist",
+    "tier": 5
+  },
+  "LightningResist5": {
+    "family": "LightningResist",
+    "tier": 4
+  },
+  "LightningResist6": {
+    "family": "LightningResist",
+    "tier": 3
+  },
+  "LightningResist7": {
+    "family": "LightningResist",
+    "tier": 2
+  },
+  "LightningResist8": {
+    "family": "LightningResist",
+    "tier": 1
+  },
+  "LocalAddedPhysicalDamage1": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 9
+  },
+  "LocalAddedPhysicalDamage2": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 8
+  },
+  "LocalAddedPhysicalDamage3": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 7
+  },
+  "LocalAddedPhysicalDamage4": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 6
+  },
+  "LocalAddedPhysicalDamage5": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 5
+  },
+  "LocalAddedPhysicalDamage6": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 4
+  },
+  "LocalAddedPhysicalDamage7": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 3
+  },
+  "LocalAddedPhysicalDamage8": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 2
+  },
+  "LocalAddedPhysicalDamage9": {
+    "family": "LocalAddedPhysicalDamage",
+    "tier": 1
+  },
+  "LocalIncreasedAttackSpeed1": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 8
+  },
+  "LocalIncreasedAttackSpeed2": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 7
+  },
+  "LocalIncreasedAttackSpeed3": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 6
+  },
+  "LocalIncreasedAttackSpeed4": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 5
+  },
+  "LocalIncreasedAttackSpeed5": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 4
+  },
+  "LocalIncreasedAttackSpeed6": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 3
+  },
+  "LocalIncreasedAttackSpeed7": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 2
+  },
+  "LocalIncreasedAttackSpeed8": {
+    "family": "LocalIncreasedAttackSpeed",
+    "tier": 1
+  },
+  "LocalIncreasedEnergyShield1": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 11
+  },
+  "LocalIncreasedEnergyShield10": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 2
+  },
+  "LocalIncreasedEnergyShield11": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 1
+  },
+  "LocalIncreasedEnergyShield2": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 10
+  },
+  "LocalIncreasedEnergyShield3": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 9
+  },
+  "LocalIncreasedEnergyShield4": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 8
+  },
+  "LocalIncreasedEnergyShield5": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 7
+  },
+  "LocalIncreasedEnergyShield6": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 6
+  },
+  "LocalIncreasedEnergyShield7": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 5
+  },
+  "LocalIncreasedEnergyShield8": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 4
+  },
+  "LocalIncreasedEnergyShield9": {
+    "family": "LocalIncreasedEnergyShield",
+    "tier": 3
+  },
+  "LocalIncreasedEvasionRating1": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 9
+  },
+  "LocalIncreasedEvasionRating10": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 2
+  },
+  "LocalIncreasedEvasionRating11": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 1
+  },
+  "LocalIncreasedEvasionRating2": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 8
+  },
+  "LocalIncreasedEvasionRating3": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 7
+  },
+  "LocalIncreasedEvasionRating4": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 6
+  },
+  "LocalIncreasedEvasionRating5": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 5
+  },
+  "LocalIncreasedEvasionRating6": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 4
+  },
+  "LocalIncreasedEvasionRating8": {
+    "family": "LocalIncreasedEvasionRating",
+    "tier": 3
+  },
+  "LocalIncreasedPhysicalDamagePercent1": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 8
+  },
+  "LocalIncreasedPhysicalDamagePercent2": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 7
+  },
+  "LocalIncreasedPhysicalDamagePercent3": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 6
+  },
+  "LocalIncreasedPhysicalDamagePercent4": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 5
+  },
+  "LocalIncreasedPhysicalDamagePercent5": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 4
+  },
+  "LocalIncreasedPhysicalDamagePercent6": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 3
+  },
+  "LocalIncreasedPhysicalDamagePercent7": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 2
+  },
+  "LocalIncreasedPhysicalDamagePercent8": {
+    "family": "LocalIncreasedPhysicalDamagePercent",
+    "tier": 1
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating1": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 8
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating2": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 7
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating3": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 6
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating4": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 5
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating5": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 4
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating6": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 3
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating7": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 2
+  },
+  "LocalIncreasedPhysicalDamagePercentAndAccuracyRating8": {
+    "family": "LocalIncreasedPhysicalDamagePercentAndAccuracyRating",
+    "tier": 1
+  },
+  "LocalIncreasedPhysicalDamageReductionRating1": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 9
+  },
+  "LocalIncreasedPhysicalDamageReductionRating10": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 2
+  },
+  "LocalIncreasedPhysicalDamageReductionRating11": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 1
+  },
+  "LocalIncreasedPhysicalDamageReductionRating2": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 8
+  },
+  "LocalIncreasedPhysicalDamageReductionRating3": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 7
+  },
+  "LocalIncreasedPhysicalDamageReductionRating4": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 6
+  },
+  "LocalIncreasedPhysicalDamageReductionRating5": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 5
+  },
+  "LocalIncreasedPhysicalDamageReductionRating6": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 4
+  },
+  "LocalIncreasedPhysicalDamageReductionRating8": {
+    "family": "LocalIncreasedPhysicalDamageReductionRating",
+    "tier": 3
+  },
+  "LocalIncreasedPhysicalDamageReductionRatingPercent1": {
+    "family": "LocalIncreasedPhysicalDamageReductionRatingPercent",
+    "tier": 7
+  },
+  "LocalIncreasedPhysicalDamageReductionRatingPercent2": {
+    "family": "LocalIncreasedPhysicalDamageReductionRatingPercent",
+    "tier": 6
+  },
+  "LocalIncreasedPhysicalDamageReductionRatingPercent3": {
+    "family": "LocalIncreasedPhysicalDamageReductionRatingPercent",
+    "tier": 5
+  },
+  "LocalIncreasedPhysicalDamageReductionRatingPercent4": {
+    "family": "LocalIncreasedPhysicalDamageReductionRatingPercent",
+    "tier": 4
+  },
+  "LocalIncreasedPhysicalDamageReductionRatingPercent5": {
+    "family": "LocalIncreasedPhysicalDamageReductionRatingPercent",
+    "tier": 3
+  },
+  "LocalIncreasedPhysicalDamageReductionRatingPercent6": {
+    "family": "LocalIncreasedPhysicalDamageReductionRatingPercent",
+    "tier": 2
+  },
+  "LocalIncreasedPhysicalDamageReductionRatingPercent7": {
+    "family": "LocalIncreasedPhysicalDamageReductionRatingPercent",
+    "tier": 1
+  },
+  "ManaRegeneration1": {
+    "family": "ManaRegeneration",
+    "tier": 6
+  },
+  "ManaRegeneration2": {
+    "family": "ManaRegeneration",
+    "tier": 5
+  },
+  "ManaRegeneration3": {
+    "family": "ManaRegeneration",
+    "tier": 4
+  },
+  "ManaRegeneration4": {
+    "family": "ManaRegeneration",
+    "tier": 3
+  },
+  "ManaRegeneration5": {
+    "family": "ManaRegeneration",
+    "tier": 2
+  },
+  "ManaRegeneration6": {
+    "family": "ManaRegeneration",
+    "tier": 1
+  },
+  "MovementVelocity1": {
+    "family": "MovementVelocity",
+    "tier": 6
+  },
+  "MovementVelocity2": {
+    "family": "MovementVelocity",
+    "tier": 5
+  },
+  "MovementVelocity3": {
+    "family": "MovementVelocity",
+    "tier": 4
+  },
+  "MovementVelocity4": {
+    "family": "MovementVelocity",
+    "tier": 3
+  },
+  "MovementVelocity5": {
+    "family": "MovementVelocity",
+    "tier": 2
+  },
+  "MovementVelocity6": {
+    "family": "MovementVelocity",
+    "tier": 1
+  },
+  "SpellDamageOnWeapon1": {
+    "family": "SpellDamageOnWeapon",
+    "tier": 7
+  },
+  "SpellDamageOnWeapon2": {
+    "family": "SpellDamageOnWeapon",
+    "tier": 6
+  },
+  "SpellDamageOnWeapon3": {
+    "family": "SpellDamageOnWeapon",
+    "tier": 5
+  },
+  "SpellDamageOnWeapon4": {
+    "family": "SpellDamageOnWeapon",
+    "tier": 4
+  },
+  "SpellDamageOnWeapon5": {
+    "family": "SpellDamageOnWeapon",
+    "tier": 3
+  },
+  "SpellDamageOnWeapon6": {
+    "family": "SpellDamageOnWeapon",
+    "tier": 2
+  },
+  "SpellDamageOnWeapon7": {
+    "family": "SpellDamageOnWeapon",
+    "tier": 1
+  },
+  "Strength1": {
+    "family": "Strength",
+    "tier": 10
+  },
+  "Strength10": {
+    "family": "Strength",
+    "tier": 1
+  },
+  "Strength2": {
+    "family": "Strength",
+    "tier": 9
+  },
+  "Strength3": {
+    "family": "Strength",
+    "tier": 8
+  },
+  "Strength4": {
+    "family": "Strength",
+    "tier": 7
+  },
+  "Strength5": {
+    "family": "Strength",
+    "tier": 6
+  },
+  "Strength6": {
+    "family": "Strength",
+    "tier": 5
+  },
+  "Strength7": {
+    "family": "Strength",
+    "tier": 4
+  },
+  "Strength8": {
+    "family": "Strength",
+    "tier": 3
+  },
+  "Strength9": {
+    "family": "Strength",
+    "tier": 2
+  }
+}

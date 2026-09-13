@@ -1,28 +1,22 @@
 #!/usr/bin/env python3
-"""Reproducible build-time import. Server startup never downloads mutable game data."""
-import argparse, gzip, hashlib, json, pathlib, urllib.request
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-parser = argparse.ArgumentParser()
-parser.add_argument('--source-dir', type=pathlib.Path)
-args = parser.parse_args()
+"""Verify and package the checked-in compact catalog. No network access is used."""
+import gzip
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 lock = json.loads((ROOT / 'data/poe.lock.json').read_text())
+source = ROOT / 'data/poe/compact'
 out = ROOT / 'build/generated-poe/poe'
 out.mkdir(parents=True, exist_ok=True)
 for name, expected in lock['files'].items():
-    target = out / (name + '.gz')
-    if target.exists() and hashlib.sha256(gzip.decompress(target.read_bytes())).hexdigest() == expected:
-        continue
-    if args.source_dir:
-        content = (args.source_dir / name).read_bytes()
-    else:
-        url = f"https://raw.githubusercontent.com/{lock['repository']}/{lock['commit']}/data/{name}"
-        with urllib.request.urlopen(url, timeout=120) as response:
-            content = response.read()
+    content = (source / name).read_bytes()
     if hashlib.sha256(content).hexdigest() != expected:
-        raise SystemExit(f'Checksum mismatch: {name}; refusing unreviewed game data')
+        raise SystemExit(f'Checksum mismatch: {name}; review catalog and update lock')
     data = json.loads(content)
-    if not isinstance(data, dict) or not data:
+    if not isinstance(data, dict) or len(data) != lock['counts'][name]:
         raise SystemExit(f'Invalid catalog: {name}')
-    target.write_bytes(gzip.compress(content, mtime=0))
-(out / 'manifest.json').write_text(json.dumps(lock, ensure_ascii=False, indent=2) + '\n')
-print('PoE catalog verified:', lock['version'], lock['counts'])
+    (out / (name + '.gz')).write_bytes(gzip.compress(content, mtime=0))
+(out / 'manifest.json').write_text(json.dumps(lock, indent=2) + '\n')
+print('PoE compact catalog verified:', lock['profile'], lock['counts'])

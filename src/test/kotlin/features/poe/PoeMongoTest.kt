@@ -1,13 +1,43 @@
 package features.poe
 
-import application.koin.repositoryModule
-import application.koin.cacheModule
-import config.MongoFactory
-import features.data.character.Character
-import features.data.character.CharacterRepository
-import features.data.character.character_data.CharacterItems
-import features.data.equipment.EquipmentRepository
-import features.logic.modifiers.*
+import ru.descend.shared.MONGO_DB
+
+import ru.descend.features.poe.application.PoeService
+
+import ru.descend.features.poe.catalog.PoeCatalog
+import ru.descend.features.poe.catalog.canonicalDefinitionJson
+
+import ru.descend.features.poe.catalog.string
+import ru.descend.features.poe.domain.CraftRequest
+import ru.descend.features.poe.domain.PoeCrafting
+import ru.descend.features.poe.domain.PoeCurrency
+import ru.descend.features.poe.domain.PoeInventory
+import ru.descend.features.poe.domain.PoeRarity
+import ru.descend.features.poe.domain.PoeRoll
+
+import ru.descend.features.poe.migration.ModifierReferenceMigration
+
+import ru.descend.features.poe.persistence.MongoModifierCatalog
+
+import ru.descend.features.poe.seed.PoeSeeder
+
+import ru.descend.bootstrap.di.repositoryModule
+import ru.descend.bootstrap.di.cacheModule
+import ru.descend.infrastructure.mongo.MongoFactory
+import ru.descend.features.character.model.Character
+import ru.descend.features.character.persistence.CharacterRepository
+import ru.descend.features.character.model.CharacterItems
+import ru.descend.features.equipment.persistence.EquipmentRepository
+import ru.descend.domain.modifiers.Modifier
+import ru.descend.domain.modifiers.ModifierDefinition
+import ru.descend.domain.modifiers.ModifierRef
+import ru.descend.domain.modifiers.ModifierSource
+import ru.descend.domain.modifiers.ModifierTier
+import ru.descend.domain.modifiers.ModifierValue
+import ru.descend.domain.modifiers.ValueRange
+
+import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
+
 import kotlinx.serialization.json.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.firstOrNull
@@ -122,7 +152,7 @@ class PoeMongoTest {
         assertEquals(count, repo.count())
         assertEquals("ADMIN CUSTOM NAME", repo.findById(first._id)!!.name)
         assertEquals(character.equipments, koin.get<CharacterRepository>().findById(character._id)!!.equipments)
-        assertTrue(koin.get<ModifierDefinitionRepository>().count() >= 40355L)
+        assertTrue(koin.get<ModifierDefinitionRepository>().count() >= PoeCatalog.bundled.mods.size.toLong())
     }
     @Test fun mongoRevisionChangesNewRollsButNotExistingItems(): Unit = runBlocking {
         val definitions = koin.get<ModifierDefinitionRepository>()
@@ -177,10 +207,10 @@ class PoeMongoTest {
         val canonical = ModifierDefinition(id, "Canonical", ModifierSource.PREFIX, tiers = listOf(ModifierTier(1, values = listOf(ValueRange(1.0, 2.0)))))
         definitions.publish(canonical, 0)
         val embedded = canonical.copy(name = "Item-local", tiers = listOf(ModifierTier(1, values = listOf(ValueRange(7.0, 9.0)))))
-        val template = features.data.equipment.equipment_data.Armor(application.enums.EnumEquipmentType.HELMET, 1,
+        val template = ru.descend.features.equipment.model.Armor(ru.descend.domain.enums.EnumEquipmentType.HELMET, 1,
             modifierDefinitions = listOf(embedded))
         equipment.collection.insertOne(template) // simulate data written by the old schema
-        val instance = features.data.character.character_data.CharacterEquipments(template._id,
+        val instance = ru.descend.features.character.model.CharacterEquipments(template._id,
             params = mutableListOf(Modifier(id, listOf(ModifierValue(8.0)), 1, ModifierSource.PREFIX)))
         val owner = Character(ObjectId().toHexString(), "migration_${ObjectId().toHexString()}", equipments = mutableListOf(instance))
         characters.collection.insertOne(owner)
@@ -202,7 +232,7 @@ class PoeMongoTest {
 
     @Test fun newEquipmentRejectsEmbeddedDefinitionsAndDanglingReferences(): Unit = runBlocking {
         val equipment = koin.get<EquipmentRepository>()
-        val template = features.data.equipment.equipment_data.Armor(application.enums.EnumEquipmentType.HELMET, 1,
+        val template = ru.descend.features.equipment.model.Armor(ru.descend.domain.enums.EnumEquipmentType.HELMET, 1,
             modifierDefinitions = listOf(ModifierDefinition("inline", "Inline", ModifierSource.PREFIX)))
         assertFailsWith<IllegalArgumentException> { MongoFactory.transactionExecute { equipment.insert(template, it) } }
         template.modifierDefinitions = null

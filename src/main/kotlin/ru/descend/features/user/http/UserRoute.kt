@@ -1,0 +1,63 @@
+package ru.descend.features.user.http
+
+import ru.descend.features.user.model.User
+import ru.descend.features.user.model.UserResponse
+
+import ru.descend.features.user.model.toResponse
+import ru.descend.features.user.persistence.UserRepository
+
+import ru.descend.shared.http.ApiMongoResponse
+import ru.descend.shared.http.BaseRoute
+import io.ktor.server.response.respond
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.get
+import io.ktor.server.routing.post
+import io.ktor.server.routing.route
+
+class UserRoute(val repo: UserRepository) : BaseRoute<User, UserResponse>(
+    repository = repo,
+    entitySerializer = User.serializer(),
+    responseSerializer = UserResponse.serializer(),
+    toResponse = { it.toResponse() }
+) {
+    override fun additionalRoutes(route: Route) = with(route) {
+        get("/login") {
+            val login = call.queryParam("login")
+            val password = call.queryParam("password")
+            val user = repo.authenticate(login, password).toResponse()
+            call.respond(ApiMongoResponse.ok(user))
+        }
+        post("/byDeviceId") {
+            val deviceId = call.queryParam("deviceId")
+            val user = repo.createByDevice(deviceId).toResponse()
+            call.respond(ApiMongoResponse.ok(user))
+        }
+        get("/login/byDeviceId") {
+            val deviceId = call.queryParam("deviceId")
+            val user = repo.findByDeviceId(deviceId).toResponse()
+            call.respond(ApiMongoResponse.ok(user))
+        }
+        route("/search") {
+            get("/active") {
+                val users = repo.findActive().map { it.toResponse() }
+                call.respond(ApiMongoResponse.ok(users))
+            }
+            get("/name") {
+                val name = call.queryParam("name")
+                val users = repo.searchByName(name).map { it.toResponse() }
+                call.respond(ApiMongoResponse.ok(users))
+            }
+            get("/email") {
+                val email = call.queryParam("email")
+                val user = repo.findByEmail(email)?.toResponse()
+                call.respond(ApiMongoResponse.ok(user))
+            }
+        }
+        get("/changePassword") {
+            val id = call.idParam()
+            val password = call.queryParam("password")
+            val newPassword = call.queryParam("new_password")
+            call.respond(ApiMongoResponse.ok(repo.changePassword(id, password, newPassword)))
+        }
+    }
+}

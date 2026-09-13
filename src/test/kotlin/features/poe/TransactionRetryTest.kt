@@ -1,7 +1,7 @@
 package features.poe
 
 import com.mongodb.MongoException
-import config.runTransaction
+import ru.descend.infrastructure.mongo.runTransaction
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
