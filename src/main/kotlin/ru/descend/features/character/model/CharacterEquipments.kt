@@ -17,6 +17,7 @@ data class CharacterEquipments(
     var rolledModifiers: MutableList<Modifier> = mutableListOf(),
 
     var uuid: String = ObjectId().toHexString(),
+    var baseSnapshot: Equipment? = null,
     var poe: ru.descend.features.poe.domain.PoeItem? = null,
 ) {
     companion object {
@@ -38,7 +39,7 @@ data class CharacterEquipments(
             copy.modifierDefinitions = equipment.modifierDefinitionRefs.map { requireNotNull(byRef[it]) { "Missing definition: $it" } }
             copy.modifierDefinitionsStock = equipment.stockModifierDefinitionRefs.map { requireNotNull(byRef[it]) { "Missing stock definition: $it" } }
             return CharacterEquipments(equipmentId = equipment._id,
-                params = copy.rollModifiers(WeightedModifierGenerator(), forceNew = true).toMutableList())
+                params = copy.rollModifiers(WeightedModifierGenerator(), forceNew = true).toMutableList(), baseSnapshot = copy)
         }
     }
 

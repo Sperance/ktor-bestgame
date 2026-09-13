@@ -3,7 +3,9 @@ package ru.descend.features.recipe.model
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 import ru.descend.domain.enums.IntEnumStat
-import ru.descend.shared.model.StockEntity
+import ru.descend.shared.model.VersionedEntity
+import kotlinx.datetime.LocalDateTime
+import ru.descend.shared.extensions.now
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.recipe.Recipe")
@@ -17,7 +19,11 @@ data class Recipe(
     var globalUses: Long = 0L,
 
     override var _id: String = ObjectId().toHexString(),
-) : StockEntity
+    override var version: Long = 0,
+    override var deleted: Boolean = false,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime = LocalDateTime.now(),
+) : VersionedEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.recipe.RecipeParamIn")

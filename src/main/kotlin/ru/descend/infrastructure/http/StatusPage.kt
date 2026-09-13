@@ -1,61 +1,24 @@
 package ru.descend.infrastructure.http
 
+import com.mongodb.MongoException
 import io.ktor.http.HttpStatusCode
-import io.ktor.serialization.JsonConvertException
-import io.ktor.server.application.Application
-import io.ktor.server.application.install
+import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.request.uri
 import io.ktor.server.response.respond
+import kotlinx.coroutines.CancellationException
 import ru.descend.shared.error.BaseException
-import ru.descend.shared.http.ApiMongoResponse
+import ru.descend.shared.http.*
 
 fun Application.configureStatusPages() {
     install(StatusPages) {
-
-        // Обработка несуществующих эндпоинтов
-        status(HttpStatusCode.NotFound) { call, status ->
-            call.respond(
-                HttpStatusCode.NotFound,
-                ApiMongoResponse.error(BaseException("Not find endpoint ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_001"))
-            )
-        }
-
-        // Обработка неразрешённых методов (Method Not Allowed)
-        status(HttpStatusCode.MethodNotAllowed) { call, status ->
-            call.respond(
-                status,
-                ApiMongoResponse.error(BaseException("Unsupported method ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_002"))
-            )
-        }
-
-        status(HttpStatusCode.Unauthorized) { call, status ->
-            call.respond(
-                status,
-                ApiMongoResponse.error(BaseException("Unathorized ${call.request.uri.substringBefore("?")}. Please login", "StatusPage", null, "SP_003"))
-            )
-        }
-
-        status(HttpStatusCode.TooManyRequests) { call, status ->
-            val retryAfter = call.response.headers["Retry-After"]
-            call.respond(
-                status,
-                ApiMongoResponse.error(BaseException("Too many rquests, please try again in $retryAfter seconds. ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_004"))
-            )
-        }
-
-        // ── Бизнес-исключения приложения ──
-        exception<BaseException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
-        }
-
-        exception<JsonConvertException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_100")))
-        }
-
-        // Общий обработчик (должен быть последним)
-        exception<Throwable> { call, cause ->
-            call.respond(HttpStatusCode.InternalServerError, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_500")))
+        exception<ApiFailure> { call, e -> call.respond(e.status, ApiMongoResponse.error(BaseException(e.message, "API", null, e.code))) }
+        exception<BaseException> { call, _ -> call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException("Request rejected by validation", "API", null, "VALIDATION_FAILED"))) }
+        exception<IllegalArgumentException> { call, _ -> call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException("Invalid request", "API", null, "INVALID_REQUEST"))) }
+        exception<Throwable> { call, e ->
+            if (e is CancellationException) throw e
+            val status = if (e is MongoException && (e.hasErrorLabel("TransientTransactionError") || e.code == 11000)) HttpStatusCode.Conflict else HttpStatusCode.InternalServerError
+            // Never return raw exception/driver/serialization messages: they may contain submitted secrets.
+            call.respond(status, ApiMongoResponse.error(BaseException(if (status == HttpStatusCode.Conflict) "Concurrent update; reload before retrying" else "Request could not be completed", "API", null, "REQUEST_FAILED")))
         }
     }
 }

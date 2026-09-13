@@ -3,7 +3,8 @@ package ru.descend.features.redemptioncodes.model
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
-import ru.descend.shared.model.StockEntity
+import ru.descend.shared.model.VersionedEntity
+import ru.descend.shared.extensions.now
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.redemptionCodes.RedemptionCodes")
@@ -15,7 +16,11 @@ data class RedemptionCodes(
     var expiredAt: LocalDateTime? = null,
 
     override var _id: String = ObjectId().toHexString(),
-) : StockEntity
+    override var version: Long = 0,
+    override var deleted: Boolean = false,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime = LocalDateTime.now(),
+) : VersionedEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.redemptionCodes.RedemptionItem")

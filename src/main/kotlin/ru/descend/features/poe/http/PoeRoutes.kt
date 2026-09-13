@@ -1,5 +1,7 @@
 package ru.descend.features.poe.http
 
+import ru.descend.shared.http.receiveCommand
+import ru.descend.infrastructure.security.actor
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.jwt.JWTPrincipal
@@ -32,9 +34,9 @@ fun Route.poeRoutes() {
     val service by inject<PoeService>()
     route("/api/v1/poe") {
         post("/token") {
-            val request = call.receive<TokenRequest>()
+            val request = call.receiveCommand<TokenRequest>()
             val user = users.authenticate(request.login, request.password)
-            call.respond(ApiMongoResponse.ok(TokenResponse(GameJwt.issue(user._id))))
+            call.respond(ApiMongoResponse.ok(TokenResponse(GameJwt.issue(user._id, user.authVersion))))
         }
         get("/catalog") {
             val catalog = catalogs.snapshot().catalog
@@ -77,10 +79,11 @@ fun Route.poeRoutes() {
         }
         authenticate("jwt-auth") {
             post("/modifier-definitions") {
-                val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
-                if (users.findById(owner)?.role != EnumUserRoles.ADMIN) { call.respond(HttpStatusCode.Forbidden); return@post }
+                val actor = call.actor()
+                val owner = actor.id
+                if (!actor.admin) { call.respond(HttpStatusCode.Forbidden); return@post }
                 try {
-                    val request = call.receive<PublishModifierRequest>()
+                    val request = call.receiveCommand<PublishModifierRequest>()
                     val definition = definitions.publish(request.definition, request.expectedRevision)
                     catalogs.invalidate()
                     call.respond(HttpStatusCode.Created, ApiMongoResponse.ok(definition))
@@ -88,11 +91,12 @@ fun Route.poeRoutes() {
                     if (e.error.code != 11000) throw e
                     call.respond(HttpStatusCode.Conflict, ApiMongoResponse.error(BaseException("Revision already published", "Modifiers", null, "MOD_CONFLICT")))
                 } catch (e: IllegalArgumentException) {
-                    call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(e.message, "Modifiers", null, "MOD_INVALID")))
+                    call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException("Invalid modifier definition", "Modifiers", null, "MOD_INVALID")))
                 }
             }
             get("/characters/{characterId}/inventory") {
-                val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
+                val actor = call.actor()
+                val owner = actor.id
                 val character = characters.findById(requireNotNull(call.parameters["characterId"]))
                 if (character == null || character.deleted || character.userId != owner) {
                     call.respond(HttpStatusCode.NotFound); return@get
@@ -100,22 +104,24 @@ fun Route.poeRoutes() {
                 call.respond(ApiMongoResponse.ok(InventoryResponse(character.version, character.equipments)))
             }
             post("/characters/{characterId}/craft") {
-                val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
+                val actor = call.actor()
+                val owner = actor.id
                 try {
-                    call.respond(ApiMongoResponse.ok(service.craft(requireNotNull(call.parameters["characterId"]), owner, call.receive())))
+                    call.respond(ApiMongoResponse.ok(service.craft(requireNotNull(call.parameters["characterId"]), owner, call.receiveCommand())))
                 } catch (e: IllegalArgumentException) {
-                    call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(e.message, "PoeCraft", null, "POE_INVALID")))
+                    call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException("Invalid craft request", "PoeCraft", null, "POE_INVALID")))
                 }
             }
             post("/characters/{characterId}/drop") {
-                val owner = requireNotNull(call.principal<JWTPrincipal>()?.payload?.subject)
-                if (users.findById(owner)?.role != EnumUserRoles.ADMIN) {
+                val actor = call.actor()
+                val owner = actor.id
+                if (!actor.admin) {
                     call.respond(HttpStatusCode.Forbidden); return@post
                 }
                 try {
-                    call.respond(ApiMongoResponse.ok(service.drop(requireNotNull(call.parameters["characterId"]), owner, call.receive())))
+                    call.respond(ApiMongoResponse.ok(service.drop(requireNotNull(call.parameters["characterId"]), owner, call.receiveCommand())))
                 } catch (e: IllegalArgumentException) {
-                    call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(e.message, "PoeDrop", null, "POE_INVALID")))
+                    call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException("Invalid drop request", "PoeDrop", null, "POE_INVALID")))
                 }
             }
         }

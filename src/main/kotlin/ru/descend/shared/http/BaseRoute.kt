@@ -1,234 +1,177 @@
 package ru.descend.shared.http
 
-import io.ktor.client.request.request
-import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Sorts
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import io.ktor.http.*
 import io.ktor.server.application.ApplicationCall
-import io.ktor.server.request.receive
+import io.ktor.server.auth.authenticate
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
-import io.ktor.server.routing.Route
-import io.ktor.server.routing.Routing
-import io.ktor.server.routing.delete
-import io.ktor.server.routing.get
-import io.ktor.server.routing.openapi.describe
-import io.ktor.server.routing.post
-import io.ktor.server.routing.put
-import io.ktor.server.routing.route
-import io.ktor.utils.io.ExperimentalKtorApi
-import kotlin.text.toIntOrNull
+import io.ktor.server.routing.*
+import kotlinx.coroutines.flow.toList
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.*
+import org.bson.conversions.Bson
+import ru.descend.features.character.model.Character
+import ru.descend.features.user.model.User
 import ru.descend.infrastructure.http.AppJson
 import ru.descend.infrastructure.mongo.BaseRepository
 import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
-import ru.descend.shared.CONST_API_VERSION
-import ru.descend.shared.CONST_SYSTEM_FIELDS
-import ru.descend.shared.error.BaseException
-import ru.descend.shared.error.BaseRouteExceptions
-import ru.descend.shared.extensions.saveChildren
+import ru.descend.infrastructure.security.Actor
+import ru.descend.infrastructure.security.actor
+import ru.descend.shared.http.commands.*
 import ru.descend.shared.model.StockEntity
+import ru.descend.shared.model.VersionedEntity
 
-interface RouteRegistrar {
-    fun register(routing: Routing)
-}
+interface RouteRegistrar { fun register(routing: Routing) }
 
-@OptIn(ExperimentalKtorApi::class)
+/** Authenticated facade: scoped reads, explicit editable fields, typed decoding and client CAS. */
 abstract class BaseRoute<T : StockEntity, R>(
     protected val repository: BaseRepository<T>,
     val entitySerializer: KSerializer<T>,
     val responseSerializer: KSerializer<R>,
     private val toResponse: (T) -> R
 ) : RouteRegistrar {
-    private val basePath = "/api/v${CONST_API_VERSION}/${entitySerializer.descriptor.serialName.lowercase().substringAfterLast(".")}"
-    private val apiResponseSerializer = ApiMongoResponse.serializer(responseSerializer)
-    private val apiResponseListSerializer = ApiMongoResponse.serializer(ListSerializer(responseSerializer))
-    private val apiResponsePagedSerializer = ApiMongoResponse.serializer(PagedMongoResponse.serializer(responseSerializer))
-
-    @OptIn(ExperimentalKtorApi::class)
+    private val kind = entitySerializer.descriptor.serialName.substringAfterLast(".").lowercase()
+    private val basePath = "/api/v1/$kind"
+    private val editable: Set<String> get() = when (kind) {
+        "user" -> setOf("name", "email", "age")
+        "character" -> setOf("name", "description")
+        "equipment" -> setOf("name", "description", "image", "slot", "rarity", "itemLevel", "weaponType", "damage_min", "damage_max", "attackSpeed", "durability", "defense", "price", "poeBaseId", "modifierDefinitionRefs", "stockModifierDefinitionRefs")
+        "items" -> setOf("name", "category", "subCategory", "description", "image", "price", "poeBaseId")
+        "recipe" -> setOf("name", "arrayIn", "arrayOut", "requirement", "timeWork", "needOpenRecipe")
+        "redemptioncodes" -> setOf("code", "treasure", "description", "expiredAt")
+        else -> emptySet()
+    }
     override fun register(routing: Routing) {
-        routing.route(basePath) {
-            additionalRoutes(this)
-
-            pagedRoute()
-            countRoute()
-            getAllRoute(this)
-            createRoute()
-            updateRoute()
-            deleteRoute()
-        }.describe {
-            tag(this@BaseRoute.basePath.substringAfterLast("/"))
-        }.saveChildren()
-    }
-
-    open fun getAllRoute(route: Route): Route {
-        return route.get {
-            val id = call.queryParam("id", "")
-            if (id == "") {
-                val items = repository.findAll().map { toResponse(it) }
-                call.respond(apiResponseListSerializer, ApiMongoResponse.ok(items))
-            } else {
-                if (id.length != 24) {
-                    throw BaseRouteExceptions.funExceptionFormatId("getAllRoute", id)
+        routing.authenticate("jwt-auth") {
+            route(basePath) {
+                additionalRoutes(this)
+                getAllRoute(this)
+                get("/paged") {
+                    val actor = call.actor(); val page = call.queryParam("page", 0); val size = call.queryParam("size", 20)
+                    if (page !in 0..100000 || size !in 1..100) invalid("Invalid pagination")
+                    val filter = scope(actor)
+                    val data = repository.collection.find(filter).sort(Sorts.ascending("_id")).skip(page * size).limit(size).toList()
+                    val total = repository.collection.countDocuments(filter)
+                    call.respondJson(ApiMongoResponse.serializer(PagedMongoResponse.serializer(responseSerializer)), ApiMongoResponse.ok(PagedMongoResponse(data.map(toResponse), page, size, total, (total + size - 1) / size)))
                 }
-
-                val entity = repository.findById(id)
-                val responseEntity = entity?.let(toResponse)
-                call.respond(apiResponseSerializer, ApiMongoResponse.ok(responseEntity))
-            }
-        }
-    }
-
-    private fun Route.createRoute() = post {
-       try {
-            val jsonList = call.receive<JsonArray>()
-            val entity = AppJson.decodeFromJsonElement(ListSerializer(entitySerializer), jsonList)
-            val created = transactionExecute("[${basePath}::createRoute] $entity") { session ->
-                repository.insertMany(entity, session)
-            }.map { toResponse(it) }
-           call.respond(apiResponseListSerializer, ApiMongoResponse.ok(created))
-        } catch (e: BaseException) {
-            throw e
-        } catch (e: Exception) {
-            throw BaseRouteExceptions.funException("createRoute", e.message)
-        }
-    }
-
-    private fun Route.updateRoute() = put {
-        try {
-            val id = call.idParam()
-            val json = call.receive<JsonObject>()
-
-            // Преобразуем JSON в Map, исключая служебные поля
-            val updates = json.entries
-                .filter { it.key !in CONST_SYSTEM_FIELDS }
-                .associate { it.key to jsonElementToNative(it.value) }
-
-            // Вызываем специальный метод для частичного обновления
-            val updated = transactionExecute("[${basePath}::updateRoute] $id") { session ->
-                repository.updateFields(id, updates, session)
-            }?.let { toResponse(it) }
-
-            call.respond(apiResponseSerializer, ApiMongoResponse.ok(updated, "Updated"))
-        } catch (e: BaseException) {
-            throw e
-        } catch (e: Exception) {
-            throw BaseRouteExceptions.funException("updateRoute", e.message)
-        }
-    }
-
-    private fun Route.deleteRoute() = delete {
-        try {
-            val id = call.idParam()
-            transactionExecute("[${basePath}]::deleteRoute $id") { session ->
-                repository.deleteById(id, session)
-            }
-
-            call.respond(ApiMongoResponse.ok("Deleted"))
-        } catch (e: BaseException) {
-            throw e
-        } catch (e: Exception) {
-            throw BaseRouteExceptions.funException("deleteRoute", e.message)
-        }
-    }
-
-    private fun Route.pagedRoute() = get("/paged") {
-        try {
-            val page = call.queryParam("page", 0)
-            val size = call.queryParam("size", 20)
-            val paged = repository.findPaged(page, size)
-
-            // Преобразуем элементы внутри PagedResponse из T в R
-            val responseItems = PagedMongoResponse(
-                items = paged.items.map { toResponse(it) },
-                page = paged.page,
-                pageSize = paged.pageSize,
-                totalItems = paged.totalItems,
-                totalPages = paged.totalPages
-            )
-
-            call.respond(apiResponsePagedSerializer, ApiMongoResponse.ok(responseItems))
-        } catch (e: BaseException) {
-            throw e
-        } catch (e: Exception) {
-            throw BaseRouteExceptions.funException("pagedRoute", e.message)
-        }
-    }
-
-    private fun Route.countRoute() = get("/count") {
-        val count = repository.count()
-        call.respond(ApiMongoResponse.ok(mapOf("count" to count)))
-    }
-
-    protected open fun additionalRoutes(route: Route): Route {
-        return route
-    }
-
-    protected fun ApplicationCall.queryParam(name: String): String =
-        request.queryParameters[name] ?: throw BaseRouteExceptions.funExceptionQuery("queryParam", name)
-
-    inline fun <reified E> ApplicationCall.queryParam(name: String, default: E): E {
-        val value = request.queryParameters[name]
-        return if (value != null) {
-            when (E::class) {
-                String::class -> value as E
-                Int::class -> value.toIntOrNull() as? E ?: default
-                Long::class -> value.toLongOrNull() as? E ?: default
-                Double::class -> value.toDoubleOrNull() as? E ?: default
-                Boolean::class -> value.toBooleanStrictOrNull() as? E ?: default
-                else -> default
-            }
-        } else {
-            default
-        }
-    }
-
-    protected fun ApplicationCall.idParam(): String {
-        val id = request.queryParameters["id"]
-        if (id == null) {
-            throw BaseRouteExceptions.funExceptionFormatId("idParam", "<NULL>")
-        }
-        if (id.length != 24) {
-            throw BaseRouteExceptions.funExceptionFormatId("idParam", id)
-        }
-        return id
-    }
-
-    // Функция преобразования JsonElement в нативные типы
-    private fun jsonElementToNative(element: kotlinx.serialization.json.JsonElement): Any? {
-        return when (element) {
-            is kotlinx.serialization.json.JsonNull -> null
-            is kotlinx.serialization.json.JsonPrimitive -> {
-                when {
-                    element.isString -> element.content
-                    element.content == "true" || element.content == "false" -> element.content.toBoolean()
-                    element.content.contains(".") -> element.content.toDoubleOrNull()
-                    else -> {
-                        element.content.toIntOrNull()
-                            ?: element.content.toLongOrNull()
-                            ?: element.content
+                get("/count") { call.respond(ApiMongoResponse.ok(mapOf("count" to repository.collection.countDocuments(scope(call.actor()))))) }
+                post {
+                    val actor = call.actor()
+                    if (kind != "character") actor.requireAdmin()
+                    val input = call.receiveCommand<JsonArray>()
+                    if (input.isEmpty() || input.size > 50) invalid("Expected 1 to 50 objects")
+                    val entities = input.map { value ->
+                        val obj = value as? JsonObject ?: invalid("Expected object")
+                        val entity: T = when (kind) {
+                            "character" -> {
+                                val dto = decode(CreateCharacterCommand.serializer(), obj)
+                                @Suppress("UNCHECKED_CAST")
+                                (Character(actor.id, dto.name, dto.description) as T)
+                            }
+                            "user" -> {
+                                val dto = decode(CreateUserCommand.serializer(), obj)
+                                @Suppress("UNCHECKED_CAST")
+                                (User(name = dto.name, email = dto.email, login = dto.login, password = dto.password, age = dto.age) as T)
+                            }
+                            else -> {
+                                if ((obj.keys - editable - setOf("type")).isNotEmpty()) invalid("Field is not creatable")
+                                decode(entitySerializer, obj)
+                            }
+                        }
+                        validate(entity)
+                        entity
                     }
+                    val created = transactionExecute("api.$kind.create") { repository.insertMany(entities, it) }
+                    call.respondJson(ApiMongoResponse.serializer(ListSerializer(responseSerializer)), ApiMongoResponse.ok(created.map(toResponse)))
                 }
-            }
-            is JsonArray -> {
-                element.map { jsonElementToNative(it) }
-            }
-            is JsonObject -> {
-                element.mapValues { jsonElementToNative(it.value) }
+                put {
+                    val actor = call.actor(); val id = call.idParam(); val command = call.receiveCommand<UpdateCommand>()
+                    if (kind !in setOf("user", "character")) actor.requireAdmin()
+                    if ("poeBaseId" in command.changes) invalid("Base binding is immutable")
+                    if (command.changes.isEmpty() || (command.changes.keys - editable).isNotEmpty()) invalid("Field is not editable")
+                    val result = transactionExecute("api.$kind.update") { session ->
+                        val old = authorized(id, actor, session)
+                        val versioned = old as? VersionedEntity ?: invalid("Entity does not support revisions")
+                        checkVersion(versioned.version, command.expectedVersion)
+                        val json = AppJson.encodeToJsonElement(entitySerializer, old).jsonObject
+                        val next = decode(entitySerializer, JsonObject(json + command.changes))
+                        validate(next)
+                        repository.validateApiUpdate(command.changes.mapValues { (_, v) -> native(v) })
+                        repository.update(next, session)
+                        next
+                    }
+                    call.respondJson(ApiMongoResponse.serializer(responseSerializer), ApiMongoResponse.ok(toResponse(result)))
+                }
+                delete {
+                    val actor = call.actor(); val id = call.idParam(); val command = call.receiveCommand<DeleteCommand>()
+                    if (kind != "character") actor.requireAdmin()
+                    transactionExecute("api.$kind.delete") { session ->
+                        val entity = authorized(id, actor, session) as? VersionedEntity ?: invalid("Entity does not support revisions")
+                        checkVersion(entity.version, command.expectedVersion)
+                        // Soft deletion keeps references and prevents an old version matching a recreated ID.
+                        entity.deleted = true
+                        @Suppress("UNCHECKED_CAST")
+                        repository.update(entity as T, session)
+                    }
+                    call.respond(ApiMongoResponse.ok("Deleted"))
+                }
             }
         }
     }
-
-    protected suspend fun <T> ApplicationCall.respond(
-        serializer: KSerializer<T>,
-        value: T
-    ) {
-        val text = AppJson.encodeToString(serializer, value)
-        respondText(text, ContentType.Application.Json, HttpStatusCode.OK)
+    private fun scope(actor: Actor): Bson {
+        if (kind == "redemptioncodes") actor.requireAdmin()
+        val own = when {
+            actor.admin -> Filters.empty()
+            kind == "user" -> Filters.eq("_id", actor.id)
+            kind == "character" -> Filters.eq("userId", actor.id)
+            else -> Filters.empty()
+        }
+        return Filters.and(Filters.ne("deleted", true), own)
     }
+    private suspend fun authorized(id: String, actor: Actor, session: ClientSession? = null): T {
+        val filter = Filters.and(scope(actor), Filters.eq("_id", id))
+        val rows = if (session == null) repository.collection.find(filter) else repository.collection.find(session, filter)
+        return rows.limit(1).toList().firstOrNull() ?: missing()
+    }
+    open fun getAllRoute(route: Route): Route = route.get {
+        val actor = call.actor(); val id = call.request.queryParameters["id"]
+        if (id != null) {
+            val item = authorized(checkedId(id), actor)
+            call.respondJson(ApiMongoResponse.serializer(responseSerializer), ApiMongoResponse.ok(toResponse(item)))
+        } else {
+            val list = repository.collection.find(scope(actor)).sort(Sorts.ascending("_id")).limit(100).toList()
+            call.respondJson(ApiMongoResponse.serializer(ListSerializer(responseSerializer)), ApiMongoResponse.ok(list.map(toResponse)))
+        }
+    }
+    private fun native(value: JsonElement): Any? = when (value) {
+        JsonNull -> null
+        is JsonObject -> value.mapValues { native(it.value) }
+        is JsonArray -> value.map(::native)
+        is JsonPrimitive -> if (value.isString) value.content else value.booleanOrNull ?: value.longOrNull ?: value.doubleOrNull
+    }
+    private fun validate(entity: T) {
+        val obj = AppJson.encodeToJsonElement(entitySerializer, entity).jsonObject
+        obj["name"]?.jsonPrimitive?.content?.let { if (it.isBlank() || it.length > 100) invalid("Name must contain 1 to 100 characters") }
+        obj["description"]?.jsonPrimitive?.contentOrNull?.let { if (it.length > 2000) invalid("Description is too long") }
+        for (key in listOf("price", "damage_min", "damage_max", "attackSpeed", "durability", "defense")) {
+            obj[key]?.jsonPrimitive?.doubleOrNull?.let { if (!it.isFinite() || it < 0) invalid("Invalid numeric property") }
+        }
+        if (obj["itemLevel"]?.jsonPrimitive?.intOrNull?.let { it !in 1..100 } == true) invalid("Invalid item level")
+    }
+    private fun <V> decode(serializer: KSerializer<V>, value: JsonObject): V = try { CommandJson.decodeFromJsonElement(serializer, value) } catch (e: kotlinx.serialization.SerializationException) { invalid("Invalid fields or types") }
+    protected open fun additionalRoutes(route: Route): Route = route
+    protected fun ApplicationCall.queryParam(name: String): String = request.queryParameters[name] ?: invalid("Missing parameter: $name")
+    inline fun <reified E> ApplicationCall.queryParam(name: String, default: E): E {
+        val value = request.queryParameters[name] ?: return default
+        return when (E::class) { Int::class -> (value.toIntOrNull() ?: invalid("Invalid $name")) as E; String::class -> value as E; else -> invalid("Unsupported query type") }
+    }
+    protected fun ApplicationCall.idParam() = checkedId(request.queryParameters["id"])
+    private suspend fun <V> ApplicationCall.respondJson(serializer: KSerializer<V>, value: V) = respondText(AppJson.encodeToString(serializer, value), ContentType.Application.Json)
 }
 
 @Serializable

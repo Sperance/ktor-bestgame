@@ -1,50 +1,27 @@
 package ru.descend.features.character.http
 
-import io.ktor.server.request.receive
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
-import io.ktor.server.routing.get
-import io.ktor.server.routing.post
-import io.ktor.server.routing.route
+import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
 import ru.descend.features.character.model.Character
-import ru.descend.features.character.model.CharacterEquipments
-import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.character.persistence.CharacterRepository
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.shared.http.BaseRoute
+import ru.descend.features.character.application.*
+import ru.descend.infrastructure.security.actor
+import ru.descend.shared.http.*
 
-class CharacterRoute(
-    val repo: CharacterRepository
-) : BaseRoute<Character, Character>(
-    repository = repo,
-    entitySerializer = Character.serializer(),
-    responseSerializer = Character.serializer(),
-    toResponse = { it }
-) {
+class CharacterRoute(val repo: CharacterRepository) : BaseRoute<Character, Character>(repo, Character.serializer(), Character.serializer(), { it }) {
     override fun additionalRoutes(route: Route) = with(route) {
-        route("/inventory") {
-            get("/equipments") {
-                val characterId = call.queryParam("characterId")
-                val data = repo.getEquipmentsData(characterId)
-                call.respond(ApiMongoResponse.ok(data))
-            }
-            get("/equipped") {
-                val characterId = call.queryParam("characterId")
-                val data = repo.getEquippedData(characterId)
-                call.respond(ApiMongoResponse.ok(data))
-            }
-            post("/itemToInventory") {
-                val characterId = call.queryParam("characterId")
-                val itemObj = call.receive<CharacterEquipments>()
-                val data = repo.itemToInventory(characterId, itemObj)
-                call.respond(ApiMongoResponse.ok(data))
-            }
-            post("/addItem") {
-                val characterId = call.queryParam("characterId")
-                val itemObj = call.receive<List<CharacterItems>>()
-                val data = repo.addItem(characterId, itemObj)
-                call.respond(ApiMongoResponse.ok(data))
-            }
-        }
+        val service by inject<EquipmentService>()
+        val rewards by inject<InventoryCommandService>()
+        get("/inventory/equipments") { call.respond(ApiMongoResponse.ok(service.view(call.queryParam("characterId"), call.actor()))) }
+        get("/inventory/equipped") { val view = service.view(call.queryParam("characterId"), call.actor()); call.respond(ApiMongoResponse.ok(view.inventory.filter { it.uuid in view.equipped.values })) }
+        get("/{id}/stats") { call.respond(ApiMongoResponse.ok(service.view(checkedId(call.parameters["id"]), call.actor()).stats)) }
+        get("/{id}/equipment") { call.respond(ApiMongoResponse.ok(service.view(checkedId(call.parameters["id"]), call.actor()))) }
+        post("/{id}/equip") { call.respond(ApiMongoResponse.ok(service.equip(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
+        post("/{id}/unequip") { call.respond(ApiMongoResponse.ok(service.unequip(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
+        post("/inventory/itemToInventory") { call.respond(ApiMongoResponse.ok(service.grant(call.queryParam("characterId"), call.actor(), call.receiveCommand()))) }
+        post("/inventory/addItem") { call.respond(ApiMongoResponse.ok(rewards.adjust(call.queryParam("characterId"), call.actor(), call.receiveCommand()))) }
+        post("/{id}/redeem") { call.respond(ApiMongoResponse.ok(rewards.redeem(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
+        post("/{id}/useRecipe") { call.respond(ApiMongoResponse.ok(rewards.recipe(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
     }
 }

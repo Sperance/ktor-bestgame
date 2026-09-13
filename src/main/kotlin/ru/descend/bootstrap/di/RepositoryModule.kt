@@ -11,6 +11,8 @@ import ru.descend.features.redemptioncodes.persistence.RedemptionCodesRepository
 import ru.descend.features.user.persistence.UserRepository
 
 val repositoryModule = module {
+    single { ru.descend.features.character.application.EquipmentService(get(), get(), get()) }
+    single { ru.descend.features.character.application.InventoryCommandService(get(), get(), get(), get()) }
     single { UserRepository() }
     single { CharacterRepository() }
     single { ItemsRepository() }

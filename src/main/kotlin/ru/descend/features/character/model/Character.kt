@@ -30,6 +30,7 @@ data class Character(
     var money: Long = 0,
     var params: MutableList<Modifier> = mutableListOf(),
     var equipments: MutableList<CharacterEquipments> = mutableListOf(),
+    var equipped: Map<EquipmentSlot, String> = emptyMap(),
     var items: MutableList<CharacterItems> = mutableListOf(),
     var professionSkills: MutableList<CharacterProfessionSkill> = mutableListOf(),
     var stockSkills: MutableList<CharacterStockSkill> = mutableListOf(),

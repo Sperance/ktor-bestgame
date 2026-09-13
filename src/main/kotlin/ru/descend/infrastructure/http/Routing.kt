@@ -1,5 +1,7 @@
 package ru.descend.infrastructure.http
 
+import io.ktor.server.auth.authenticate
+import ru.descend.infrastructure.security.actor
 import io.ktor.openapi.OpenApiInfo
 import io.ktor.server.application.*
 import io.ktor.server.plugins.openapi.openAPI
@@ -51,24 +53,10 @@ fun Application.configureRouting() {
         }
 
         route("/system") {
-            get("/exceptions") {
+            authenticate("jwt-auth") { get("/exceptions") {
+                call.actor().requireAdmin()
                 call.respond(ApiMongoResponse.ok(exceptionFiles()))
-            }
-            get("/shutdown") {
-
-                val key = call.queryParameters["key"]
-                if (key == null || key != System.getenv("SYSTEM_SHUTDOWN_KEY") || key.length < 32) {
-                    call.respond(ApiMongoResponse.ok("Access denied"))
-                    return@get
-                }
-
-                call.respond(ApiMongoResponse.ok("Success"))
-
-                GlobalScope.launch {
-                    delay(2.seconds)
-                    call.application.engine.stop()
-                }
-            }
+            } }
             get("/health") {
                 try {
                     val ping = MongoFactory.getDatabase().runCommand(Document("ping", 1))
@@ -86,10 +74,11 @@ fun Application.configureRouting() {
                     call.respond(ApiMongoResponse.error(ApplicationExceptions.funExceptionError("/health")))
                 }
             }
-            get("/routes") {
+            authenticate("jwt-auth") { get("/routes") {
+                call.actor().requireAdmin()
                 val result = ALL_ROUTES.sortedBy { it.path }
                 call.respond(ApiMongoResponse.ok(result))
-            }
+            } }
         }
     }.saveChildren()
 }

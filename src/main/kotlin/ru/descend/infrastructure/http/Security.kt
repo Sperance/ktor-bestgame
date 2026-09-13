@@ -22,8 +22,8 @@ import ru.descend.shared.extensions.saveChildren
 fun Application.configureSecurity() {
 
     val secret = ru.descend.features.poe.http.GameJwt.secret
-    val secretEncryptKey = "00112233445566778899aabbccddeeff".hexToByteArray()
-    val secretSignKey = "6819b57a326945c1968f45236589".hexToByteArray()
+    val secretEncryptKey = java.security.MessageDigest.getInstance("SHA-256").digest((secret + ":cookie-encryption").toByteArray())
+    val secretSignKey = java.security.MessageDigest.getInstance("SHA-256").digest((secret + ":cookie-signing").toByteArray())
 
     install(Authentication) {
         jwt("jwt-auth") {
@@ -34,7 +34,10 @@ fun Application.configureSecurity() {
                     .build()
             )
             validate { credential ->
-                if (credential.payload.audience.contains("ktor-client") && !credential.payload.subject.isNullOrBlank()) {
+                if (credential.payload.audience.contains("ktor-client") && !credential.payload.subject.isNullOrBlank() &&
+                    org.koin.core.context.GlobalContext.get().get<ru.descend.features.user.persistence.UserRepository>().findById(credential.payload.subject)?.let {
+                        !it.deleted && it.isActive && credential.payload.getClaim("authVersion").asLong() == it.authVersion
+                    } == true) {
                     JWTPrincipal(credential.payload)
                 } else {
                     null
@@ -60,41 +63,6 @@ fun Application.configureSecurity() {
         }
     }
 
-    routing {
-        get("/login") {
-            // Создаем сессию при логине
-            call.sessions.set(UserSession(userId = UUID.randomUUID().toString(), username = "alex", role = EnumUserRoles.USER))
-            call.respondText("Вы вошли в систему!")
-        }.hide()
-
-        get("/profile") {
-            // Получаем данные из сессии
-            val session = call.sessions.get<UserSession>()
-            if (session != null) {
-                call.respondText("Привет, $session!")
-            } else {
-                call.respondText("Вы не авторизованы")
-            }
-        }.hide()
-
-        get("/logout") {
-            // Завершаем сессию
-            call.sessions.clear<UserSession>()
-            call.respondText("Вы вышли из системы")
-        }.hide()
-
-        authenticate("jwt-auth") {
-            get("/session/profile") {
-                // Получаем данные из сессии
-                val session = call.sessions.get<UserSession>()
-                if (session != null) {
-                    call.respondText("Привет, $session!")
-                } else {
-                    call.respondText("Вы не авторизованы")
-                }
-            }.hide()
-        }
-    }.saveChildren()
 }
 
 @Serializable

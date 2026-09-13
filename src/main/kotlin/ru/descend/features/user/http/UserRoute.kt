@@ -1,61 +1,42 @@
 package ru.descend.features.user.http
 
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
-import io.ktor.server.routing.get
-import io.ktor.server.routing.post
-import io.ktor.server.routing.route
-import ru.descend.features.user.model.User
-import ru.descend.features.user.model.UserResponse
-import ru.descend.features.user.model.toResponse
+import io.ktor.server.routing.*
+import ru.descend.features.user.model.*
 import ru.descend.features.user.persistence.UserRepository
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.shared.http.BaseRoute
+import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
+import ru.descend.infrastructure.security.*
+import ru.descend.shared.http.*
+import ru.descend.shared.http.commands.*
 
-class UserRoute(val repo: UserRepository) : BaseRoute<User, UserResponse>(
-    repository = repo,
-    entitySerializer = User.serializer(),
-    responseSerializer = UserResponse.serializer(),
-    toResponse = { it.toResponse() }
-) {
+class UserRoute(val repo: UserRepository) : BaseRoute<User, UserResponse>(repo, User.serializer(), UserResponse.serializer(), { it.toResponse() }) {
     override fun additionalRoutes(route: Route) = with(route) {
-        get("/login") {
-            val login = call.queryParam("login")
-            val password = call.queryParam("password")
-            val user = repo.authenticate(login, password).toResponse()
-            call.respond(ApiMongoResponse.ok(user))
-        }
-        post("/byDeviceId") {
-            val deviceId = call.queryParam("deviceId")
-            val user = repo.createByDevice(deviceId).toResponse()
-            call.respond(ApiMongoResponse.ok(user))
-        }
-        get("/login/byDeviceId") {
-            val deviceId = call.queryParam("deviceId")
-            val user = repo.findByDeviceId(deviceId).toResponse()
-            call.respond(ApiMongoResponse.ok(user))
-        }
-        route("/search") {
-            get("/active") {
-                val users = repo.findActive().map { it.toResponse() }
-                call.respond(ApiMongoResponse.ok(users))
+        post("/changePassword") {
+            val actor = call.actor(); val command = call.receiveCommand<ChangePasswordCommand>()
+            PasswordHasher.validate(command.newPassword)
+            val result = transactionExecute("user.changePassword") { session ->
+                val user = repo.findById(actor.id, session) ?: missing()
+                checkVersion(user.version, command.expectedVersion)
+                if (!PasswordHasher.verify(command.currentPassword, user.password, user.salt)) forbidden()
+                user.password = PasswordHasher.hash(command.newPassword); user.salt = ""; user.authVersion++
+                repo.update(user, session)
+                user.toResponse()
             }
-            get("/name") {
-                val name = call.queryParam("name")
-                val users = repo.searchByName(name).map { it.toResponse() }
-                call.respond(ApiMongoResponse.ok(users))
-            }
-            get("/email") {
-                val email = call.queryParam("email")
-                val user = repo.findByEmail(email)?.toResponse()
-                call.respond(ApiMongoResponse.ok(user))
-            }
+            call.respond(ApiMongoResponse.ok(result))
         }
-        get("/changePassword") {
-            val id = call.idParam()
-            val password = call.queryParam("password")
-            val newPassword = call.queryParam("new_password")
-            call.respond(ApiMongoResponse.ok(repo.changePassword(id, password, newPassword)))
+        post("/changeRole") {
+            val actor = call.actor(); actor.requireAdmin()
+            val id = checkedId(call.request.queryParameters["id"])
+            if (id == actor.id) invalid("Administrators cannot change their own role")
+            val command = call.receiveCommand<ChangeRoleCommand>()
+            val result = transactionExecute("user.changeRole") { session ->
+                val user = repo.findById(id, session)?.takeUnless { it.deleted } ?: missing()
+                checkVersion(user.version, command.expectedVersion)
+                user.role = command.role; user.authVersion++
+                repo.update(user, session); user.toResponse()
+            }
+            call.respond(ApiMongoResponse.ok(result))
         }
+        // Passwords in GET parameters and device-ID authentication deliberately have no route.
     }
 }

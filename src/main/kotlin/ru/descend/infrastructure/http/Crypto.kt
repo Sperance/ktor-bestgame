@@ -1,5 +1,7 @@
 package ru.descend.infrastructure.http
 
+import io.ktor.server.auth.authenticate
+import ru.descend.infrastructure.security.actor
 import io.ktor.server.application.Application
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -24,7 +26,8 @@ fun Application.configureCrypto() {
             call.respond(PublicKeyResponse(publicKeyBase64))
         }
 
-        post("/secure-exchange") {
+        authenticate("jwt-auth") { post("/secure-exchange") {
+            call.actor()
             val request = call.receive<ClientExchangeRequest>()
 
             // Восстанавливаем клиентский публичный ключ
@@ -32,13 +35,13 @@ fun Application.configureCrypto() {
 
             // Расшифровываем сообщение от клиента СЕРВЕРНЫМ приватным ключом
             val decryptedFromClient = CryptoUtils.decrypt(request.encryptedMessage, serverPrivateKey)
-            println("[Сервер] Расшифрованное сообщение от клиента: $decryptedFromClient")
+
 
             // Формируем ответ и шифруем его КЛИЕНТСКИМ публичным ключом
             val responseText = "Привет, клиент! Твоё сообщение '$decryptedFromClient' получено."
             val encryptedResponse = CryptoUtils.encrypt(responseText, clientPublicKey)
 
             call.respond(ServerExchangeResponse(encryptedResponse))
-        }
+        } }
     }.saveChildren()
 }

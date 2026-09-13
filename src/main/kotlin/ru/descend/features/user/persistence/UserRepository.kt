@@ -36,7 +36,7 @@ class UserRepository : BaseRepository<User>(
     override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
         if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
-        if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert", entity.password)
+        checkPassword(entity.password)
         if (entity.salt != "") throw UserExceptions.funExceptionSalt("validateBeforeInsert")
         if (findByLogin(entity.login) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)
         if (findByEmail(entity.email) != null) throw UserExceptions.funExceptionEmailExists("validateBeforeInsert", entity.email)
@@ -68,7 +68,7 @@ class UserRepository : BaseRepository<User>(
         changes["password"]?.let { password ->
             val passwordStr = password as? String ?: ""
             if (passwordStr.isNotEmpty() && passwordStr.length < 6) {
-                throw UserExceptions.funExceptionPasswordCheck("validateBeforeUpdate", password.toString())
+                throw UserExceptions.funExceptionPasswordCheck("validateBeforeUpdate", "[redacted]")
             }
         }
 
@@ -88,17 +88,10 @@ class UserRepository : BaseRepository<User>(
     }
 
     private fun generatePassword(entity: User) {
-        entity.salt = generateSalt()
-        entity.password = hashPassword(entity.password, entity.salt)
+        entity.password = ru.descend.infrastructure.security.PasswordHasher.hash(entity.password)
+        entity.salt = ""
     }
-
-    private fun checkPassword(password: String) {
-        if (password.isEmpty()) throw UserExceptions.funExceptionPasswordEmpty("checkPassword")
-        if (password.length !in 6..64) throw UserExceptions.funExceptionPasswordLength("checkPassword")
-        if (password.none { it.isDigit() }) throw UserExceptions.funExceptionPasswordOneDigit("checkPassword")
-        if (password.none { it.isUpperCase() }) throw UserExceptions.funExceptionPasswordOneUppercase("checkPassword")
-        if (password.contains(" ")) throw UserExceptions.funExceptionPasswordWhitespace("checkPassword")
-    }
+    private fun checkPassword(password: String) = ru.descend.infrastructure.security.PasswordHasher.validate(password)
 
     suspend fun findByEmail(email: String): User? {
         return findByField(User::email, email)
@@ -145,28 +138,16 @@ class UserRepository : BaseRepository<User>(
     }
 
     suspend fun authenticate(login: String, password: String): User {
-        val credentials = findCredentialsByLogin(login)
-            ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
-
-        val (userId, storedHash, storedSalt) = credentials
-
-        if (hashPassword(password, storedSalt) != storedHash) {
-            throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
+        if (login.length !in 1..100 || password.length !in 1..128) throw ru.descend.shared.http.ApiFailure(io.ktor.http.HttpStatusCode.Unauthorized, "INVALID_CREDENTIALS", "Invalid credentials")
+        val user = findByLogin(login)
+        if (user == null || user.deleted || !user.isActive || !ru.descend.infrastructure.security.PasswordHasher.verify(password, user.password, user.salt))
+            throw ru.descend.shared.http.ApiFailure(io.ktor.http.HttpStatusCode.Unauthorized, "INVALID_CREDENTIALS", "Invalid credentials")
+        if (!user.password.startsWith("pbkdf2-sha256$")) {
+            user.password = ru.descend.infrastructure.security.PasswordHasher.upgrade(password)
+            user.salt = ""
+            transactionExecute("password.migrate") { update(user, it) }
         }
-
-        val user = findById(userId)
-
-        if (user == null) {
-            throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
-        }
-
-        if (!user.isActive) {
-            throw UserExceptions.funExceptionInactive("authenticate", user.login)
-        }
-
-        return transactionExecute("User authenticate") { session ->
-            updateFields(user, mapOf("lastLoginDate" to LocalDateTime.now()), session)
-        }
+        return user
     }
 
     /**
@@ -185,36 +166,6 @@ class UserRepository : BaseRepository<User>(
     }
 
     suspend fun changePassword(id: String, password: String, newPassword: String): String {
-        val user = findById(id)
-        if (user == null) {
-            throw UserExceptions.funExceptionFoundUserId("changePassword", id)
-        }
-
-        if (user.password != hashPassword(password, user.salt)) {
-            throw UserExceptions.funExceptionPasswordLoginPass("changePassword", user.login)
-        }
-
-        checkPassword(newPassword)
-
-        val newHashedPass = hashPassword(newPassword, user.salt)
-        transactionExecute { session ->
-            updateFields(user, mapOf("password" to newHashedPass), session)
-        }
-        return "Success"
-    }
-
-    // ==================== Password utils ====================
-
-    private fun generateSalt(length: Int = 32): String {
-        val bytes = ByteArray(length)
-        SecureRandom().nextBytes(bytes)
-        return bytes.joinToString("") { "%02x".format(it) }
-    }
-
-    private fun hashPassword(password: String, salt: String): String {
-        val digest = MessageDigest.getInstance("SHA-256")
-        val salted = "$salt:$password"
-        val hash = digest.digest(salted.toByteArray(Charsets.UTF_8))
-        return hash.joinToString("") { "%02x".format(it) }
+        ru.descend.shared.http.invalid("Use the authenticated password command with expectedVersion")
     }
 }

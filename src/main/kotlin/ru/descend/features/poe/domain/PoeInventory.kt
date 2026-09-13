@@ -11,7 +11,7 @@ import ru.descend.features.poe.catalog.string
 class PoeInventory(private val catalog: PoeCatalog, private val crafting: PoeCrafting) {
     fun craft(character: Character, ownerId: String, request: CraftRequest): Pair<Character, PoeResult> {
         require(character.userId == ownerId && !character.deleted) { "Character does not belong to the authenticated user" }
-        require(character.version == request.expectedVersion) { "Stale character version; reload inventory" }
+        ru.descend.shared.http.checkVersion(character.version, request.expectedVersion)
         require(request.requestId.matches(Regex("[A-Za-z0-9_-]{8,80}"))) { "Invalid requestId" }
         val instance = requireNotNull(character.equipments.singleOrNull { it.uuid == request.equipmentUuid }) { "Equipment UUID is not in this character's inventory" }
         val oldState = requireNotNull(instance.poe) { "Legacy equipment has no PoE state; explicit migration is required" }
@@ -19,7 +19,7 @@ class PoeInventory(private val catalog: PoeCatalog, private val crafting: PoeCra
         val currencyId = currencyId(request.currency)
         val currencyStack = requireNotNull(character.items.singleOrNull { it.itemId == currencyId && it.amount > 0 }) { "Not enough ${request.currency.displayName}" }
         val state = crafting.apply(oldState, request.currency)
-        val updated = fromState(state, if (request.currency == PoeCurrency.MIRROR) ObjectId().toHexString() else instance.uuid)
+        val updated = fromState(state, if (request.currency == PoeCurrency.MIRROR) ObjectId().toHexString() else instance.uuid).copy(baseSnapshot = instance.baseSnapshot ?: catalog.equipment(state.baseId))
         val equipments = character.equipments.toMutableList()
         if (request.currency == PoeCurrency.MIRROR) equipments += updated
         else equipments[equipments.indexOf(instance)] = updated
@@ -32,7 +32,7 @@ class PoeInventory(private val catalog: PoeCatalog, private val crafting: PoeCra
     fun fromState(state: PoeItem, uuid: String = ObjectId().toHexString()) = CharacterEquipments(
         equipmentId = PoeCatalog.stableId("base:${state.baseId}"),
         params = (state.implicits.map { catalog.legacyModifier(it, true) } + state.explicits.map { catalog.legacyModifier(it) }).toMutableList(),
-        uuid = uuid, poe = state)
+        uuid = uuid, poe = state, baseSnapshot = catalog.equipment(state.baseId))
     fun currencyId(currency: PoeCurrency): String {
         val id = requireNotNull(catalog.bases.entries.firstOrNull { it.value.string("name") == currency.displayName && it.value.string("item_class") == "StackableCurrency" }) { "Currency missing from catalog" }.key
         return PoeCatalog.stableId("base:$id")

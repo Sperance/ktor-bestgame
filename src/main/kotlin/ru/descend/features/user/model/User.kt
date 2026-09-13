@@ -18,6 +18,7 @@ data class User(
     var age: Int? = null,
     var isActive: Boolean = true,
     var role: EnumUserRoles = EnumUserRoles.USER,
+    var authVersion: Long = 0,
     var lastLoginDate: LocalDateTime? = null,
     var device_id: String = "",
 

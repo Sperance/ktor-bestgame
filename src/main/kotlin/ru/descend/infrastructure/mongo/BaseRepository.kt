@@ -246,13 +246,19 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         return collection.watch().map { it }
     }
 
+    private fun versionFilter(expected: Long): org.bson.conversions.Bson = if (expected == 0L)
+        Filters.or(Filters.eq(CONST_FIELD_VERSION, 0L), Filters.exists(CONST_FIELD_VERSION, false))
+        else Filters.eq(CONST_FIELD_VERSION, expected)
+
+    suspend fun validateApiUpdate(fields: Map<String, Any?>) = validateBeforeUpdate(fields)
+
     suspend fun update(entity: T, session: ClientSession): UpdateResult {
         val expectedVersion = if (entity is VersionedEntity) entity.version else 0L
         val newVersion = expectedVersion + 1
 
         val filter = Filters.and(
             Filters.eq(CONST_FIELD_ID, entity._id),
-            if (entity is VersionedEntity) Filters.eq(CONST_FIELD_VERSION, expectedVersion) else Filters.empty(),
+            if (entity is VersionedEntity) versionFilter(expectedVersion) else Filters.empty(),
         )
 
         val update = Updates.combine(
@@ -275,7 +281,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
             if (existing == null) {
                 throw BaseRepositoryExceptions.funExceptionFindId("update", entity._id)
             } else {
-                throw BaseRepositoryExceptions.funExceptionRace("update", "current: ${if (existing is VersionedEntity) existing.version else 0L} need: $expectedVersion")
+                ru.descend.shared.http.conflict()
             }
         }
 
@@ -304,7 +310,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         //Фильтр для поиска нужного объекта по ID и version
         val filter = Filters.and(
             Filters.eq(CONST_FIELD_ID, entity._id),
-            if (entity is VersionedEntity) Filters.eq(CONST_FIELD_VERSION, expectedVersion) else Filters.empty()
+            if (entity is VersionedEntity) versionFilter(expectedVersion) else Filters.empty()
         )
 
         //Вручную указываем поля, которые нужно обновить

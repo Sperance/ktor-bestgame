@@ -39,6 +39,7 @@ class PoeService(private val characters: CharacterRepository, private val equipm
             val inventory = PoeInventory(catalog, PoeCrafting(catalog))
             val (next, result) = inventory.craft(character, ownerId, request)
             // CAS on the character version covers both the item and the currency stack.
+            ru.descend.features.character.application.EquipmentService(characters, equipment, catalogs).validate(next)
             characters.update(next, session)
             receipts.insert(PoeReceipt(key, payload, result), session)
             result
@@ -56,7 +57,7 @@ class PoeService(private val characters: CharacterRepository, private val equipm
                 require(it.payload == payload) { "requestId has already been used for a different request" }
                 return@transactionExecute it.result
             }
-            require(character.version == request.expectedVersion) { "Stale character version; reload inventory" }
+            ru.descend.shared.http.checkVersion(character.version, request.expectedVersion)
             val catalog = catalogs.snapshot().catalog
             val crafting = PoeCrafting(catalog)
             val inventory = PoeInventory(catalog, crafting)
@@ -64,8 +65,10 @@ class PoeService(private val characters: CharacterRepository, private val equipm
             val baseId = catalog.bases.filterValues { catalog.ordinaryDrop(it) && it.int("drop_level", 1) <= level }.keys.random()
             val template = requireNotNull(equipment.findById(PoeCatalog.stableId("base:$baseId"), session)) { "Base not seeded" }
             val rarity = if (catalog.unique(catalog.base(baseId))) PoeRarity.UNIQUE else when (Random.nextInt(100)) { in 0..49 -> PoeRarity.NORMAL; in 50..84 -> PoeRarity.MAGIC; else -> PoeRarity.RARE }
+            require(character.equipments.size < 500) { "Inventory is full" }
             val instance = inventory.fromState(crafting.generate(baseId, level, rarity, template.stockModifierDefinitionRefs))
             val next = character.copy(equipments = (character.equipments + instance).toMutableList())
+            ru.descend.features.character.application.EquipmentService(characters, equipment, catalogs).validate(next)
             characters.update(next, session)
             val result = PoeResult(request.requestId, next.version, instance)
             receipts.insert(PoeReceipt(key, payload, result), session)

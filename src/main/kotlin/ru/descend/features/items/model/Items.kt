@@ -2,7 +2,9 @@ package ru.descend.features.items.model
 
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
-import ru.descend.shared.model.StockEntity
+import ru.descend.shared.model.VersionedEntity
+import kotlinx.datetime.LocalDateTime
+import ru.descend.shared.extensions.now
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.items.Items")
@@ -16,4 +18,8 @@ data class Items(
 
     val poeBaseId: String? = null,
     override var _id: String = ObjectId().toHexString(),
-) : StockEntity
+    override var version: Long = 0,
+    override var deleted: Boolean = false,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime = LocalDateTime.now(),
+) : VersionedEntity

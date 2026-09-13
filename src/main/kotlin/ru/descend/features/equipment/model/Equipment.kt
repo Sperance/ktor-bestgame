@@ -8,7 +8,9 @@ import ru.descend.domain.modifiers.AffixType
 import ru.descend.domain.modifiers.Modifier
 import ru.descend.domain.modifiers.ModifierDefinition
 import ru.descend.domain.modifiers.ModifierGenerator
-import ru.descend.shared.model.StockEntity
+import ru.descend.shared.model.VersionedEntity
+import kotlinx.datetime.LocalDateTime
+import ru.descend.shared.extensions.now
 
 interface EquipmentInterface {
     var slot: EnumEquipmentType
@@ -37,11 +39,15 @@ interface EquipmentInterface {
 @kotlinx.serialization.SerialName("features.data.equipment.equipment_data.Equipment")
 sealed class Equipment(
     override var _id: String = ObjectId().toHexString(),
+    override var version: Long = 0,
+    override var deleted: Boolean = false,
+    override val createdAt: LocalDateTime = LocalDateTime.now(),
+    override var updatedAt: LocalDateTime = LocalDateTime.now(),
     var price: Long = 1L,
     var poeBaseId: String? = null,
     var modifierDefinitionRefs: List<ru.descend.domain.modifiers.ModifierRef> = emptyList(),
     var stockModifierDefinitionRefs: List<ru.descend.domain.modifiers.ModifierRef> = emptyList()
-) : StockEntity, EquipmentInterface {
+) : VersionedEntity, EquipmentInterface {
 
     open fun calculatePrice(): Long {
         var result = 0L
