@@ -23,6 +23,7 @@ import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 import ru.descend.infrastructure.security.Actor
 import ru.descend.infrastructure.security.actor
 import ru.descend.shared.http.commands.*
+import ru.descend.shared.error.BaseException
 import ru.descend.shared.model.StockEntity
 import ru.descend.shared.model.VersionedEntity
 
@@ -57,7 +58,7 @@ abstract class BaseRoute<T : StockEntity, R>(
                     val filter = scope(actor)
                     val data = repository.collection.find(filter).sort(Sorts.ascending("_id")).skip(page * size).limit(size).toList()
                     val total = repository.collection.countDocuments(filter)
-                    call.respondJson(ApiMongoResponse.serializer(PagedMongoResponse.serializer(responseSerializer)), ApiMongoResponse.ok(PagedMongoResponse(data.map(toResponse), page, size, total, (total + size - 1) / size)))
+                    call.respondJson(ApiMongoResponse.serializer(PagedMongoResponse.serializer(responseSerializer)), ApiMongoResponse.ok(PagedMongoResponse(data.map(toResponse), page, size, total, ((total + size - 1) / size).toInt())))
                 }
                 get("/count") { call.respond(ApiMongoResponse.ok(mapOf("count" to repository.collection.countDocuments(scope(call.actor()))))) }
                 post {
@@ -117,6 +118,12 @@ abstract class BaseRoute<T : StockEntity, R>(
                         entity.deleted = true
                         @Suppress("UNCHECKED_CAST")
                         repository.update(entity as T, session)
+                        if (entity is Character) {
+                            val chars = repository as ru.descend.features.character.persistence.CharacterRepository
+                            val owner = chars.userRepository.findById(entity.userId, session) ?: missing()
+                            owner.countCharacters = (owner.countCharacters - 1).coerceAtLeast(0)
+                            chars.userRepository.update(owner, session)
+                        }
                     }
                     call.respond(ApiMongoResponse.ok("Deleted"))
                 }

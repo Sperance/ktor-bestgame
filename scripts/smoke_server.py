@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 import subprocess
 import time
+import secrets
+from security_smoke import run as security_checks
 import urllib.error
 import urllib.request
 
@@ -18,9 +20,11 @@ def get(path):
         assert body['success'], body
         return body['data']
 
+admin_password = secrets.token_urlsafe(24)
+server_env = dict(os.environ, SEED_DEMO_DATA="true", SEED_ADMIN_PASSWORD=admin_password)
 for attempt in range(2):
     with (ROOT / f'build/startup-{attempt}.log').open('w') as log:
-        process = subprocess.Popen([str(ROOT / 'build/install/ktor-bestgame/bin/ktor-bestgame')], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
+        process = subprocess.Popen([str(ROOT / 'build/install/ktor-bestgame/bin/ktor-bestgame')], cwd=ROOT, env=server_env, stdout=log, stderr=subprocess.STDOUT)
         try:
             deadline = time.monotonic() + 90
             while True:
@@ -40,6 +44,7 @@ for attempt in range(2):
             assert get('/api/v1/poe/catalog?type=bases')['total'] == 50
             assert get('/api/v1/poe/modifier-definitions')['total'] == 234
             get('/system/health')
+            if attempt == 0: security_checks(admin_password)
             print(f'Startup {attempt + 1}: catalog, MongoDB definitions, currencies and health passed')
         finally:
             process.terminate()

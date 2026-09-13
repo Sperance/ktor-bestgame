@@ -99,7 +99,7 @@ class PoeCraftingTest {
         assertEquals(item.uuid, result.equipment.uuid)
         assertEquals(1L, result.characterVersion)
         assertFailsWith<IllegalArgumentException> { inventory.craft(character, "intruder", request) }
-        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", request.copy(expectedVersion = 1)) }
+        assertFailsWith<ru.descend.shared.http.ApiFailure> { inventory.craft(character, "owner", request.copy(expectedVersion = 1)) }
         assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", request.copy(equipmentUuid = "foreign")) }
     }
     @Test fun invalidCraftDoesNotDebitOrMutate() {

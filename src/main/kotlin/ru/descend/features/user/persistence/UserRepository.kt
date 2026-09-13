@@ -34,6 +34,8 @@ class UserRepository : BaseRepository<User>(
     }
 
     override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
+        if (!entity.login.matches(Regex("[A-Za-z0-9_.-]{3,64}"))) ru.descend.shared.http.invalid("Invalid login")
+        if (entity.email.length > 254) ru.descend.shared.http.invalid("Invalid email")
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
         if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
         checkPassword(entity.password)
