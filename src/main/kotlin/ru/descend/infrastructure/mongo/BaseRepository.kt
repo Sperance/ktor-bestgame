@@ -263,6 +263,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
 
         val update = Updates.combine(
             if (entity is VersionedEntity) Updates.set(CONST_FIELD_VERSION, newVersion) else Filters.empty(),
+            if (entity is VersionedEntity) Updates.set(CONST_FIELD_DELETED, entity.deleted) else Filters.empty(),
             if (entity is VersionedEntity) Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now()) else Filters.empty(),
             *getUpdateFields(entity).map { (field, value) ->
                 Updates.set(field, value)
