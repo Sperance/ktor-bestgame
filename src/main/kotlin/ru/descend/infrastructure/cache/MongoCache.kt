@@ -1,10 +1,10 @@
 package ru.descend.infrastructure.cache
 
-import ru.descend.shared.model.StockEntity
-import ru.descend.infrastructure.mongo.BaseRepository
 import com.mongodb.kotlin.client.coroutine.ClientSession
-import ru.descend.shared.extensions.printLog
 import kotlinx.coroutines.runBlocking
+import ru.descend.infrastructure.mongo.BaseRepository
+import ru.descend.shared.extensions.printLog
+import ru.descend.shared.model.StockEntity
 
 abstract class MongoCache<T: StockEntity, R: BaseRepository<T>>(val repository: R) {
     @Volatile private var items: List<T> = emptyList()

@@ -1,8 +1,8 @@
 package ru.descend.features.items.model
 
-import ru.descend.shared.model.StockEntity
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
+import ru.descend.shared.model.StockEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.items.Items")

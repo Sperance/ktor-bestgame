@@ -1,7 +1,5 @@
 package ru.descend.infrastructure.http
 
-import ru.descend.shared.error.BaseException
-import ru.descend.shared.http.ApiMongoResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.JsonConvertException
 import io.ktor.server.application.Application
@@ -9,6 +7,8 @@ import io.ktor.server.application.install
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.request.uri
 import io.ktor.server.response.respond
+import ru.descend.shared.error.BaseException
+import ru.descend.shared.http.ApiMongoResponse
 
 fun Application.configureStatusPages() {
     install(StatusPages) {

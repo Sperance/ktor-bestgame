@@ -1,11 +1,11 @@
 package ru.descend.features.user.model
 
-import ru.descend.domain.enums.EnumUserRoles
-import ru.descend.shared.extensions.now
-import ru.descend.shared.model.VersionedEntity
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
+import ru.descend.domain.enums.EnumUserRoles
+import ru.descend.shared.extensions.now
+import ru.descend.shared.model.VersionedEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.user.User")

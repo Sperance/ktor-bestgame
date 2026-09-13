@@ -1,10 +1,10 @@
 package ru.descend.domain.modifiers
 
-import ru.descend.shared.extensions.to1Digits
-import kotlinx.serialization.Serializable
 import kotlin.math.pow
 import kotlin.math.round
 import kotlin.random.Random
+import kotlinx.serialization.Serializable
+import ru.descend.shared.extensions.to1Digits
 
 @Serializable
 @kotlinx.serialization.SerialName("features.logic.modifiers.ValueRange")

@@ -8,7 +8,6 @@ import org.koin.core.context.stopKoin
 import ru.descend.bootstrap.di.allModules
 import ru.descend.bootstrap.seed.DatabaseSeeder
 import ru.descend.infrastructure.backup.MongoBackupManager
-
 import ru.descend.infrastructure.http.configureCrypto
 import ru.descend.infrastructure.http.configureHTTP
 import ru.descend.infrastructure.http.configureIpBlocking

@@ -1,14 +1,13 @@
 package ru.descend.shared.extensions
 
-import ru.descend.infrastructure.monitoring.LogManager
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.path
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import org.bson.types.ObjectId
-import kotlin.time.Clock
-import kotlin.time.Instant
+import ru.descend.infrastructure.monitoring.LogManager
 
 fun printLog(text: Any? = "", system: Boolean = false) {
     if (text is String && system)

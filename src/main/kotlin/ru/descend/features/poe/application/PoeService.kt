@@ -1,36 +1,26 @@
 package ru.descend.features.poe.application
 
+import kotlin.random.Random
+import kotlinx.serialization.encodeToString
+import ru.descend.features.character.persistence.CharacterRepository
+import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.poe.catalog.PoeCatalog
-
 import ru.descend.features.poe.catalog.int
-
 import ru.descend.features.poe.domain.CraftRequest
 import ru.descend.features.poe.domain.DropRequest
 import ru.descend.features.poe.domain.PoeCrafting
 import ru.descend.features.poe.domain.PoeInventory
 import ru.descend.features.poe.domain.PoeRarity
 import ru.descend.features.poe.domain.PoeResult
-
 import ru.descend.features.poe.persistence.MongoModifierCatalog
-
-import ru.descend.shared.model.StockEntity
-import ru.descend.infrastructure.mongo.BaseRepository
-import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
-import ru.descend.features.character.persistence.CharacterRepository
-import ru.descend.features.equipment.persistence.EquipmentRepository
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
+import ru.descend.features.poe.persistence.PoeReceipt
+import ru.descend.features.poe.persistence.ReceiptRepository
 import ru.descend.infrastructure.http.AppJson
-import kotlin.random.Random
-
-@Serializable
-@kotlinx.serialization.SerialName("features.poe.PoeReceipt")
-data class PoeReceipt(override var _id: String, val payload: String, val result: PoeResult) : StockEntity
-private class ReceiptRepository : BaseRepository<PoeReceipt>(PoeReceipt::class)
+import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 
 class PoeService(private val characters: CharacterRepository, private val equipment: EquipmentRepository,
-    private val catalogs: MongoModifierCatalog) {
-    private val receipts = ReceiptRepository()
+    private val catalogs: MongoModifierCatalog,
+    private val receipts: ReceiptRepository) {
 
     suspend fun craft(characterId: String, ownerId: String, request: CraftRequest): PoeResult =
         transactionExecute("poe.craft") { session ->

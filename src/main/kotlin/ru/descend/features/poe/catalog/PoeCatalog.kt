@@ -1,15 +1,11 @@
 package ru.descend.features.poe.catalog
 
-import ru.descend.features.poe.domain.PoeEffectRegistry
-import ru.descend.features.poe.domain.PoeRoll
-
+import java.security.MessageDigest
+import java.util.zip.GZIPInputStream
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.*
 import ru.descend.domain.enums.EnumEquipmentType
 import ru.descend.domain.enums.EnumEquipmentWeapon
-import ru.descend.features.equipment.model.Accessory
-import ru.descend.features.equipment.model.Armor
-import ru.descend.features.equipment.model.Equipment
-import ru.descend.features.equipment.model.Weapon
-
 import ru.descend.domain.modifiers.AffixType
 import ru.descend.domain.modifiers.Modifier
 import ru.descend.domain.modifiers.ModifierDefinition
@@ -20,11 +16,12 @@ import ru.descend.domain.modifiers.ModifierTag
 import ru.descend.domain.modifiers.ModifierTier
 import ru.descend.domain.modifiers.ModifierValue
 import ru.descend.domain.modifiers.ValueRange
-
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.*
-import java.security.MessageDigest
-import java.util.zip.GZIPInputStream
+import ru.descend.features.equipment.model.Accessory
+import ru.descend.features.equipment.model.Armor
+import ru.descend.features.equipment.model.Equipment
+import ru.descend.features.equipment.model.Weapon
+import ru.descend.features.poe.domain.PoeEffectRegistry
+import ru.descend.features.poe.domain.PoeRoll
 
 @Serializable
 @kotlinx.serialization.SerialName("features.poe.PoeRecord")

@@ -1,10 +1,10 @@
 package ru.descend.infrastructure.security
 
-import kotlinx.serialization.Serializable
 import java.security.*
 import java.security.spec.X509EncodedKeySpec
-import javax.crypto.Cipher
 import java.util.Base64
+import javax.crypto.Cipher
+import kotlinx.serialization.Serializable
 
 @Serializable
 @kotlinx.serialization.SerialName("server.crypto.PublicKeyResponse")

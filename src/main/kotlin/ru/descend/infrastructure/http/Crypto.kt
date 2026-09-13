@@ -1,6 +1,5 @@
 package ru.descend.infrastructure.http
 
-import ru.descend.shared.extensions.saveChildren
 import io.ktor.server.application.Application
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -11,6 +10,7 @@ import ru.descend.infrastructure.security.ClientExchangeRequest
 import ru.descend.infrastructure.security.CryptoUtils
 import ru.descend.infrastructure.security.PublicKeyResponse
 import ru.descend.infrastructure.security.ServerExchangeResponse
+import ru.descend.shared.extensions.saveChildren
 
 fun Application.configureCrypto() {
 

@@ -1,19 +1,15 @@
 package ru.descend.features.poe.migration
 
-import ru.descend.features.poe.catalog.PoeCatalog
-import ru.descend.features.poe.catalog.canonicalDefinitionJson
-
 import com.mongodb.client.model.Filters
-import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
-import ru.descend.features.character.persistence.CharacterRepository
-import ru.descend.features.equipment.persistence.EquipmentRepository
-
+import kotlinx.coroutines.flow.toList
 import ru.descend.domain.modifiers.Modifier
 import ru.descend.domain.modifiers.ModifierRef
-
+import ru.descend.features.character.persistence.CharacterRepository
+import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
-
-import kotlinx.coroutines.flow.toList
+import ru.descend.features.poe.catalog.PoeCatalog
+import ru.descend.features.poe.catalog.canonicalDefinitionJson
+import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 
 /** Add references only after their definitions exist. Each template and its legacy instances
  * migrate atomically. Conflicting item-local IDs are preserved under an item namespace. */

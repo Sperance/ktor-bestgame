@@ -79,3 +79,18 @@ tasks.register<Test>("poeMongoTest") {
     filter { includeTestsMatching("features.poe.PoeMongoTest") }
     testLogging { exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL }
 }
+
+// The legacy manual MongoTest modifies shared fixtures; run it explicitly against a disposable DB.
+// The dedicated transactional suite has its own guarded task and replica set.
+tasks.test {
+    exclude("ru/descend/MongoTest.class", "features/poe/PoeMongoTest.class")
+    maxHeapSize = "2g"
+}
+
+tasks.register<Test>("legacyMongoTest") {
+    description = "Opt-in legacy database fixtures; use only a disposable database"
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    filter { includeTestsMatching("ru.descend.MongoTest") }
+    doFirst { require(System.getenv("MONGO_DB") == "legacy_integration_test") }
+}

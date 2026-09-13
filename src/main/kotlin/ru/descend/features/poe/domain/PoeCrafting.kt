@@ -1,16 +1,12 @@
 package ru.descend.features.poe.domain
 
+import kotlin.random.Random
+import kotlinx.serialization.json.*
 import ru.descend.features.poe.catalog.PoeCatalog
-
 import ru.descend.features.poe.catalog.int
-
 import ru.descend.features.poe.catalog.objects
-
 import ru.descend.features.poe.catalog.string
 import ru.descend.features.poe.catalog.strings
-
-import kotlinx.serialization.json.*
-import kotlin.random.Random
 
 /** Pure engine: all changes are computed before any inventory mutation or currency debit. */
 class PoeCrafting(private val catalog: PoeCatalog, private val random: Random = Random.Default) {

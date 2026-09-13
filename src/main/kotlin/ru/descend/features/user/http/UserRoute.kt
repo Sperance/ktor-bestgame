@@ -1,18 +1,16 @@
 package ru.descend.features.user.http
 
-import ru.descend.features.user.model.User
-import ru.descend.features.user.model.UserResponse
-
-import ru.descend.features.user.model.toResponse
-import ru.descend.features.user.persistence.UserRepository
-
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.shared.http.BaseRoute
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
+import ru.descend.features.user.model.User
+import ru.descend.features.user.model.UserResponse
+import ru.descend.features.user.model.toResponse
+import ru.descend.features.user.persistence.UserRepository
+import ru.descend.shared.http.ApiMongoResponse
+import ru.descend.shared.http.BaseRoute
 
 class UserRoute(val repo: UserRepository) : BaseRoute<User, UserResponse>(
     repository = repo,

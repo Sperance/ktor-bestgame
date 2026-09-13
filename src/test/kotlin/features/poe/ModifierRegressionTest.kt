@@ -1,5 +1,7 @@
 package features.poe
 
+import kotlin.random.Random
+import kotlin.test.*
 import ru.descend.domain.modifiers.DefaultConditionEvaluator
 import ru.descend.domain.modifiers.DefaultModifierResolver
 import ru.descend.domain.modifiers.InMemoryModifierDefinitionRegistry
@@ -12,19 +14,14 @@ import ru.descend.domain.modifiers.ModifierSource
 import ru.descend.domain.modifiers.ModifierTier
 import ru.descend.domain.modifiers.ModifierValue
 import ru.descend.domain.modifiers.ResolvedModifier
-
 import ru.descend.domain.modifiers.ValueExpression
 import ru.descend.domain.modifiers.ValueExpressionEvaluator
 import ru.descend.domain.modifiers.ValueRange
 import ru.descend.domain.modifiers.WeightedModifierGenerator
-
 import ru.descend.domain.stats.DefaultStatResolver
 import ru.descend.domain.stats.StatCalculation
 import ru.descend.domain.stats.StatContext
 import ru.descend.domain.stats.StatId
-
-import kotlin.random.Random
-import kotlin.test.*
 
 class ModifierRegressionTest {
     @Test fun rolledValueReachesStatResolver() {

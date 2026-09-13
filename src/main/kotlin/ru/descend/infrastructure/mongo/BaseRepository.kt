@@ -1,17 +1,6 @@
 package ru.descend.infrastructure.mongo
 
-import ru.descend.shared.CONST_FIELD_ID
-
-import ru.descend.shared.CONST_SYSTEM_FIELDS
-
-import ru.descend.shared.CONST_FIELD_VERSION
-
-import ru.descend.shared.CONST_FIELD_DELETED
-
-import ru.descend.shared.CONST_FIELD_UPDATED
-
-import ru.descend.shared.model.StockEntity
-import ru.descend.shared.http.PagedMongoResponse
+import com.mongodb.MongoBulkWriteException
 import com.mongodb.MongoWriteException
 import com.mongodb.ReadConcern
 import com.mongodb.bulk.BulkWriteResult
@@ -21,12 +10,10 @@ import com.mongodb.client.result.DeleteResult
 import com.mongodb.client.result.UpdateResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
-import ru.descend.infrastructure.mongo.MongoFactory
-import ru.descend.shared.extensions.now
-import ru.descend.shared.extensions.printLog
-import ru.descend.shared.model.VersionedEntity
-import ru.descend.shared.error.BaseRepositoryExceptions
-import com.mongodb.MongoBulkWriteException
+import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.KProperty1
+import kotlin.reflect.full.memberProperties
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -35,10 +22,18 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
 import org.bson.conversions.Bson
 import org.bson.types.ObjectId
-import kotlin.reflect.KClass
-import kotlin.reflect.KMutableProperty1
-import kotlin.reflect.KProperty1
-import kotlin.reflect.full.memberProperties
+import ru.descend.infrastructure.mongo.MongoFactory
+import ru.descend.shared.CONST_FIELD_DELETED
+import ru.descend.shared.CONST_FIELD_ID
+import ru.descend.shared.CONST_FIELD_UPDATED
+import ru.descend.shared.CONST_FIELD_VERSION
+import ru.descend.shared.CONST_SYSTEM_FIELDS
+import ru.descend.shared.error.BaseRepositoryExceptions
+import ru.descend.shared.extensions.now
+import ru.descend.shared.extensions.printLog
+import ru.descend.shared.http.PagedMongoResponse
+import ru.descend.shared.model.StockEntity
+import ru.descend.shared.model.VersionedEntity
 
 /**
  * Конфигурация уникального индекса для MongoDB.

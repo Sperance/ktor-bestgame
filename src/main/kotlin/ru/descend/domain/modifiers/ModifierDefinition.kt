@@ -1,8 +1,8 @@
 package ru.descend.domain.modifiers
 
-import ru.descend.shared.model.StockEntity
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
+import ru.descend.shared.model.StockEntity
 
 /**
  * Описание modifier.
@@ -96,6 +96,8 @@ data class ModifierDefinition(
      */
     val stackable: Boolean = false,
 
+    /** Null marks legacy data; published custom definitions opt in to the active catalog. */
+    val catalogProfile: String? = null,
     val revision: Int = 1,
     val enabled: Boolean = true,
     val runtimeSupported: Boolean = true,

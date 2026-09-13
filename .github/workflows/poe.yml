@@ -29,17 +29,32 @@ jobs:
             sleep 1
           done
           exit 1
-      - run: ./gradlew poeTest poeMongoTest jar --stacktrace
+      - run: ./gradlew test poeMongoTest installDist --stacktrace
         env:
           MONGO_URI: mongodb://localhost:27017/?replicaSet=rs0
           MONGO_DB: poe_integration_test
+      - name: Summarize test results
+        run: |
+          python3 - <<'PYTEST'
+          import pathlib, xml.etree.ElementTree as ET
+          for task in ['test', 'poeMongoTest']:
+              suites = [ET.parse(p).getroot() for p in pathlib.Path('build/test-results', task).glob('TEST-*.xml')]
+              assert suites, task
+              print(task, {key: sum(int(s.get(key, 0)) for s in suites) for key in ['tests', 'failures', 'errors', 'skipped']})
+          PYTEST
+      - name: Verify packaged startup and restart
+        run: python3 scripts/smoke_server.py
+        env:
+          MONGO_URI: mongodb://localhost:27017/?replicaSet=rs0
+          MONGO_DB: poe_startup_test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: poe-verification
           path: |
-            build/reports/tests/poeTest
-            build/test-results/poeTest
+            build/reports/tests/test
+            build/test-results/test
             build/reports/tests/poeMongoTest
             build/test-results/poeMongoTest
             build/libs/*.jar
+            build/startup-*.log

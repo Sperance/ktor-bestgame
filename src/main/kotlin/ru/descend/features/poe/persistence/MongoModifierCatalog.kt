@@ -1,12 +1,11 @@
 package ru.descend.features.poe.persistence
 
-import ru.descend.features.poe.catalog.PoeCatalog
-
-import ru.descend.domain.modifiers.ModifierDefinition
-import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
-import ru.descend.domain.modifiers.ModifierRef
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import ru.descend.domain.modifiers.ModifierDefinition
+import ru.descend.domain.modifiers.ModifierRef
+import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
+import ru.descend.features.poe.catalog.PoeCatalog
 
 /** One immutable snapshot per operation. No per-affix database calls or JSON fallback.
  * Local publication invalidates immediately; other processes refresh within five seconds.
@@ -35,7 +34,7 @@ class MongoModifierCatalog(private val repository: ModifierDefinitionRepository,
                 return@withLock current
             }
         }
-        val definitions = repository.findAll()
+        val definitions = repository.findForCatalog(required)
         require(definitions.isNotEmpty()) { "Modifier collection is empty; seed MongoDB before serving requests" }
         val byRef = definitions.associateBy { ModifierRef(it.id, it.revision) }
         require(byRef.size == definitions.size) { "Duplicate modifier revisions" }
@@ -43,7 +42,7 @@ class MongoModifierCatalog(private val repository: ModifierDefinitionRepository,
         val heads = poeDefinitions.groupBy { it.id }.mapValues { (_, values) -> values.maxBy { it.revision } }
         val catalog = PoeCatalog(bases, heads.mapValues { it.value.poe!! },
             poeDefinitions.associate { (it.id to it.revision) to it.poe!! },
-            heads.mapValues { it.value.revision }, heads.filterValues { !it.enabled || (it.id !in PoeCatalog.bundled.mods && it._id == PoeCatalog.stableId("modifier:${it.id}")) }.keys)
+            heads.mapValues { it.value.revision }, heads.filterValues { !it.enabled || (it.id !in PoeCatalog.bundled.mods && it.catalogProfile != "custom") }.keys)
         val result = Snapshot(catalog, byRef)
         required.forEach(result::resolve)
         cached = result

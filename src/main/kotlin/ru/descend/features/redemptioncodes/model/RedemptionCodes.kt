@@ -1,9 +1,9 @@
 package ru.descend.features.redemptioncodes.model
 
-import ru.descend.shared.model.StockEntity
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
+import ru.descend.shared.model.StockEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.redemptionCodes.RedemptionCodes")

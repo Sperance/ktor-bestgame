@@ -1,17 +1,17 @@
 package ru.descend.infrastructure.serialization
 
-import ru.descend.domain.enums.EnumStatBattle
-import ru.descend.domain.enums.EnumStatBool
-import ru.descend.domain.enums.EnumStatProfession
-import ru.descend.domain.enums.EnumStatStock
-import ru.descend.domain.enums.IntEnumStat
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.SerializationException
+import ru.descend.domain.enums.EnumStatBattle
+import ru.descend.domain.enums.EnumStatBool
+import ru.descend.domain.enums.EnumStatProfession
+import ru.descend.domain.enums.EnumStatStock
+import ru.descend.domain.enums.IntEnumStat
 
 object IntEnumStatSerializer : KSerializer<IntEnumStat> {
     override val descriptor: SerialDescriptor =

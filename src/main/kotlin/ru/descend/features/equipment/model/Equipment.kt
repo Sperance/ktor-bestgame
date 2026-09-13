@@ -1,14 +1,14 @@
 package ru.descend.features.equipment.model
 
+import kotlinx.serialization.Serializable
+import org.bson.types.ObjectId
 import ru.descend.domain.enums.EnumEquipmentType
 import ru.descend.domain.enums.EnumRarity
-import ru.descend.shared.model.StockEntity
 import ru.descend.domain.modifiers.AffixType
 import ru.descend.domain.modifiers.Modifier
 import ru.descend.domain.modifiers.ModifierDefinition
 import ru.descend.domain.modifiers.ModifierGenerator
-import kotlinx.serialization.Serializable
-import org.bson.types.ObjectId
+import ru.descend.shared.model.StockEntity
 
 interface EquipmentInterface {
     var slot: EnumEquipmentType

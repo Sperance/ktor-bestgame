@@ -1,14 +1,11 @@
 package ru.descend.features.poe.domain
 
-import ru.descend.features.poe.catalog.PoeCatalog
-
-import ru.descend.features.poe.catalog.string
-
+import org.bson.types.ObjectId
 import ru.descend.features.character.model.Character
 import ru.descend.features.character.model.CharacterEquipments
 import ru.descend.features.character.model.CharacterItems
-import kotlinx.serialization.Serializable
-import org.bson.types.ObjectId
+import ru.descend.features.poe.catalog.PoeCatalog
+import ru.descend.features.poe.catalog.string
 
 /** Immutable transition, shared by HTTP persistence and tests. */
 class PoeInventory(private val catalog: PoeCatalog, private val crafting: PoeCrafting) {

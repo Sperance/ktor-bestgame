@@ -1,9 +1,9 @@
 package ru.descend.features.recipe.model
 
-import ru.descend.domain.enums.IntEnumStat
-import ru.descend.shared.model.StockEntity
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
+import ru.descend.domain.enums.IntEnumStat
+import ru.descend.shared.model.StockEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.recipe.Recipe")

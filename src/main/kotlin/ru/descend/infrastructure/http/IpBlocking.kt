@@ -1,13 +1,13 @@
 package ru.descend.infrastructure.http
 
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.infrastructure.cache.BlockListCache
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCallPipeline
 import io.ktor.server.application.call
 import io.ktor.server.plugins.origin
 import io.ktor.server.response.respond
 import org.koin.mp.KoinPlatform.getKoin
+import ru.descend.infrastructure.cache.BlockListCache
+import ru.descend.shared.http.ApiMongoResponse
 
 fun Application.configureIpBlocking() {
 

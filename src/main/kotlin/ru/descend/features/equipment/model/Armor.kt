@@ -1,10 +1,10 @@
 package ru.descend.features.equipment.model
 
+import kotlinx.serialization.Serializable
 import ru.descend.domain.enums.EnumEquipmentType
 import ru.descend.domain.enums.EnumRarity
 import ru.descend.domain.modifiers.Modifier
 import ru.descend.domain.modifiers.ModifierDefinition
-import kotlinx.serialization.Serializable
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.equipment.equipment_data.Armor")

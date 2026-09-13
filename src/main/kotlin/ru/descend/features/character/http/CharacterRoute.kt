@@ -1,19 +1,17 @@
 package ru.descend.features.character.http
 
-import ru.descend.features.character.model.Character
-import ru.descend.features.character.model.CharacterEquipments
-import ru.descend.features.character.model.CharacterItems
-
-import ru.descend.features.character.persistence.CharacterRepository
-
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.shared.http.BaseRoute
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
+import ru.descend.features.character.model.Character
+import ru.descend.features.character.model.CharacterEquipments
+import ru.descend.features.character.model.CharacterItems
+import ru.descend.features.character.persistence.CharacterRepository
+import ru.descend.shared.http.ApiMongoResponse
+import ru.descend.shared.http.BaseRoute
 
 class CharacterRoute(
     val repo: CharacterRepository

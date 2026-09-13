@@ -1,9 +1,7 @@
 package ru.descend.infrastructure.http
 
-import ru.descend.domain.enums.EnumUserRoles
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import ru.descend.shared.extensions.saveChildren
 import io.ktor.server.application.*
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.authenticate
@@ -14,9 +12,11 @@ import io.ktor.server.routing.*
 import io.ktor.server.routing.openapi.hide
 import io.ktor.server.sessions.*
 import io.ktor.utils.io.ExperimentalKtorApi
-import kotlinx.serialization.Serializable
 import java.util.UUID
 import kotlin.time.Duration.Companion.hours
+import kotlinx.serialization.Serializable
+import ru.descend.domain.enums.EnumUserRoles
+import ru.descend.shared.extensions.saveChildren
 
 @OptIn(ExperimentalKtorApi::class)
 fun Application.configureSecurity() {

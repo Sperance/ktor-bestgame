@@ -1,14 +1,11 @@
 package ru.descend.features.character.model
 
-import ru.descend.features.equipment.model.Armor
-import ru.descend.features.equipment.model.Equipment
-import ru.descend.features.equipment.model.Accessory
-import ru.descend.features.equipment.model.Weapon
-import ru.descend.domain.modifiers.Modifier
-import ru.descend.domain.modifiers.WeightedModifierGenerator
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.bson.types.ObjectId
+import ru.descend.domain.modifiers.Modifier
+import ru.descend.domain.modifiers.WeightedModifierGenerator
+import ru.descend.features.equipment.model.Equipment
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.character.character_data.CharacterEquipments")

@@ -1,14 +1,13 @@
 package ru.descend.features.redemptioncodes.http
 
-import ru.descend.features.redemptioncodes.model.RedemptionCodes
-import ru.descend.features.redemptioncodes.persistence.RedemptionCodesRepository
-
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.shared.http.BaseRoute
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import org.koin.core.component.KoinComponent
+import ru.descend.features.redemptioncodes.model.RedemptionCodes
+import ru.descend.features.redemptioncodes.persistence.RedemptionCodesRepository
+import ru.descend.shared.http.ApiMongoResponse
+import ru.descend.shared.http.BaseRoute
 
 class RedemptionCodesRoute(val repo: RedemptionCodesRepository) : BaseRoute<RedemptionCodes, RedemptionCodes>(
     repository = repo,

@@ -1,6 +1,5 @@
 package ru.descend.shared.error.model
 
-import ru.descend.domain.enums.EnumEquipmentType
 import ru.descend.shared.error.BaseException
 
 object EquipmentExceptions {

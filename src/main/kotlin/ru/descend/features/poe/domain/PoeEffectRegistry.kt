@@ -1,20 +1,16 @@
 package ru.descend.features.poe.domain
 
-import ru.descend.features.poe.catalog.PoeCatalog
-
-import ru.descend.features.poe.catalog.objects
-import ru.descend.features.poe.catalog.string
-import ru.descend.features.poe.catalog.strings
-
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 import ru.descend.domain.modifiers.ModifierEffect
 import ru.descend.domain.modifiers.ModifierOperation
 import ru.descend.domain.modifiers.ModifierValue
-
 import ru.descend.domain.modifiers.ValueExpression
-
 import ru.descend.domain.stats.StatId
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonObject
+import ru.descend.features.poe.catalog.PoeCatalog
+import ru.descend.features.poe.catalog.objects
+import ru.descend.features.poe.catalog.string
+import ru.descend.features.poe.catalog.strings
 
 /** Explicit adapters only. Unknown PoE mechanics stay visible, never silently become generic +stats.
  * Extend this registry with tested handlers when implementing the corresponding combat subsystem. */

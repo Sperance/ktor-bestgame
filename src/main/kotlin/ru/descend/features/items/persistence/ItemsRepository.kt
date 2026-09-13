@@ -1,11 +1,11 @@
 package ru.descend.features.items.persistence
 
-import ru.descend.features.items.model.Items
-import ru.descend.infrastructure.mongo.BaseRepository
 import com.mongodb.kotlin.client.coroutine.ClientSession
-import ru.descend.infrastructure.cache.ItemsCache
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import ru.descend.features.items.model.Items
+import ru.descend.infrastructure.cache.ItemsCache
+import ru.descend.infrastructure.mongo.BaseRepository
 
 class ItemsRepository : BaseRepository<Items>(entityClass = Items::class), KoinComponent {
     private val itemsCache: ItemsCache by inject()

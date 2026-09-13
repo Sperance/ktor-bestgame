@@ -1,7 +1,7 @@
 package ru.descend.features.character.model
 
-import ru.descend.domain.enums.EnumStatBattle
 import kotlinx.serialization.Serializable
+import ru.descend.domain.enums.EnumStatBattle
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.character.character_data.CharacterBattleSkill")

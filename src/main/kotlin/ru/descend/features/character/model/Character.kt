@@ -1,11 +1,13 @@
 package ru.descend.features.character.model
 
+import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
+import org.bson.types.ObjectId
 import ru.descend.domain.enums.EnumStatBattle
 import ru.descend.domain.enums.EnumStatBool
 import ru.descend.domain.enums.EnumStatProfession
 import ru.descend.domain.enums.EnumStatStock
-import ru.descend.shared.extensions.now
-import ru.descend.shared.model.VersionedEntity
+import ru.descend.domain.modifiers.Modifier
 import ru.descend.features.character.model.CharacterBattleSkill
 import ru.descend.features.character.model.CharacterBoolSkill
 import ru.descend.features.character.model.CharacterEquipments
@@ -13,10 +15,8 @@ import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.character.model.CharacterProfessionSkill
 import ru.descend.features.character.model.CharacterStockSkill
 import ru.descend.features.character.model.GainedRedemtionCodes
-import ru.descend.domain.modifiers.Modifier
-import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.Serializable
-import org.bson.types.ObjectId
+import ru.descend.shared.extensions.now
+import ru.descend.shared.model.VersionedEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.character.Character")

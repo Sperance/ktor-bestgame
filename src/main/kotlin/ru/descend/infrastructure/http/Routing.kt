@@ -1,20 +1,5 @@
 package ru.descend.infrastructure.http
 
-import ru.descend.features.poe.http.poeRoutes
-import ru.descend.shared.error.ApplicationExceptions
-import ru.descend.shared.error.BaseRepositoryExceptions
-import ru.descend.shared.error.BaseRouteExceptions
-import ru.descend.shared.error.model.CharacterExceptions
-import ru.descend.shared.error.model.EquipmentExceptions
-import ru.descend.shared.error.model.ItemsExceptions
-import ru.descend.shared.error.model.PropertyExceptions
-import ru.descend.shared.error.model.UserExceptions
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.shared.http.RouteRegistry
-import ru.descend.infrastructure.mongo.MongoFactory
-import ru.descend.shared.extensions.ALL_ROUTES
-import ru.descend.shared.extensions.printLog
-import ru.descend.shared.extensions.saveChildren
 import io.ktor.openapi.OpenApiInfo
 import io.ktor.server.application.*
 import io.ktor.server.plugins.openapi.openAPI
@@ -24,16 +9,31 @@ import io.ktor.server.routing.openapi.OpenApiDocSource
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 import io.ktor.server.routing.routingRoot
+import kotlin.reflect.KFunction
+import kotlin.reflect.KParameter
+import kotlin.reflect.full.declaredMembers
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.bson.Document
 import org.koin.ktor.ext.inject
-import kotlin.reflect.KFunction
-import kotlin.reflect.KParameter
-import kotlin.reflect.full.declaredMembers
-import kotlin.time.Duration.Companion.seconds
+import ru.descend.features.poe.http.poeRoutes
+import ru.descend.infrastructure.mongo.MongoFactory
+import ru.descend.shared.error.ApplicationExceptions
+import ru.descend.shared.error.BaseRepositoryExceptions
+import ru.descend.shared.error.BaseRouteExceptions
+import ru.descend.shared.error.model.CharacterExceptions
+import ru.descend.shared.error.model.EquipmentExceptions
+import ru.descend.shared.error.model.ItemsExceptions
+import ru.descend.shared.error.model.PropertyExceptions
+import ru.descend.shared.error.model.UserExceptions
+import ru.descend.shared.extensions.ALL_ROUTES
+import ru.descend.shared.extensions.printLog
+import ru.descend.shared.extensions.saveChildren
+import ru.descend.shared.http.ApiMongoResponse
+import ru.descend.shared.http.RouteRegistry
 
 @OptIn(DelicateCoroutinesApi::class)
 fun Application.configureRouting() {
@@ -57,7 +57,7 @@ fun Application.configureRouting() {
             get("/shutdown") {
 
                 val key = call.queryParameters["key"]
-                if (key == null || key != "32543254") {
+                if (key == null || key != System.getenv("SYSTEM_SHUTDOWN_KEY") || key.length < 32) {
                     call.respond(ApiMongoResponse.ok("Access denied"))
                     return@get
                 }

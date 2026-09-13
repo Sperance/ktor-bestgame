@@ -1,9 +1,12 @@
 package features.poe
 
+import kotlin.random.Random
+import kotlin.test.*
+import kotlinx.serialization.json.*
+import ru.descend.features.character.model.Character
+import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.poe.catalog.PoeCatalog
-
 import ru.descend.features.poe.catalog.int
-
 import ru.descend.features.poe.catalog.string
 import ru.descend.features.poe.catalog.strings
 import ru.descend.features.poe.domain.CraftRequest
@@ -12,12 +15,6 @@ import ru.descend.features.poe.domain.PoeCurrency
 import ru.descend.features.poe.domain.PoeEffectRegistry
 import ru.descend.features.poe.domain.PoeInventory
 import ru.descend.features.poe.domain.PoeRarity
-
-import ru.descend.features.character.model.Character
-import ru.descend.features.character.model.CharacterItems
-import kotlinx.serialization.json.*
-import kotlin.random.Random
-import kotlin.test.*
 
 class PoeCraftingTest {
     private val catalog = PoeCatalog.bundled

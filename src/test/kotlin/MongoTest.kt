@@ -1,27 +1,13 @@
 package ru.descend
 
-import ru.descend.domain.enums.EnumRarity
-import ru.descend.bootstrap.di.allModules
-import ru.descend.shared.error.BaseRepositoryExceptions
-import ru.descend.shared.error.BaseRouteExceptions
-import com.mongodb.MongoBulkWriteException
-import kotlinx.coroutines.runBlocking
 import com.mongodb.DuplicateKeyException
-import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
-import ru.descend.shared.extensions.printLog
-import ru.descend.shared.error.model.CharacterExceptions
-import ru.descend.features.character.persistence.CharacterRepository
-import ru.descend.shared.error.model.EquipmentExceptions
-
-import ru.descend.shared.error.model.ItemsExceptions
-import ru.descend.shared.error.model.PropertyExceptions
-import ru.descend.features.user.model.User
-import ru.descend.shared.error.model.UserExceptions
-import ru.descend.features.equipment.persistence.EquipmentRepository
-import ru.descend.features.equipment.model.Accessory
-import ru.descend.features.equipment.model.Armor
-import ru.descend.features.equipment.model.Weapon
-import ru.descend.features.user.persistence.UserRepository
+import com.mongodb.MongoBulkWriteException
+import kotlin.math.pow
+import kotlin.math.roundToInt
+import kotlin.reflect.KFunction
+import kotlin.reflect.KParameter
+import kotlin.reflect.full.declaredMembers
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertThrows
 import org.junit.Before
@@ -30,14 +16,22 @@ import org.junit.Test
 import org.junit.runners.MethodSorters
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.mp.KoinPlatform.stopKoin
-import org.koin.test.inject
 import org.koin.test.KoinTest
-import kotlin.getValue
-import kotlin.math.pow
-import kotlin.math.roundToInt
-import kotlin.reflect.KFunction
-import kotlin.reflect.KParameter
-import kotlin.reflect.full.declaredMembers
+import org.koin.test.inject
+import ru.descend.bootstrap.di.allModules
+import ru.descend.features.character.persistence.CharacterRepository
+import ru.descend.features.equipment.persistence.EquipmentRepository
+import ru.descend.features.user.model.User
+import ru.descend.features.user.persistence.UserRepository
+import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
+import ru.descend.shared.error.BaseRepositoryExceptions
+import ru.descend.shared.error.BaseRouteExceptions
+import ru.descend.shared.error.model.CharacterExceptions
+import ru.descend.shared.error.model.EquipmentExceptions
+import ru.descend.shared.error.model.ItemsExceptions
+import ru.descend.shared.error.model.PropertyExceptions
+import ru.descend.shared.error.model.UserExceptions
+import ru.descend.shared.extensions.printLog
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MongoTest: KoinTest {

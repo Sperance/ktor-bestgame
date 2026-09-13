@@ -1,14 +1,14 @@
 package ru.descend.infrastructure.monitoring
 
-import ru.descend.shared.extensions.printLog
-import kotlinx.coroutines.*
 import java.lang.management.ManagementFactory
-import java.lang.management.OperatingSystemMXBean
 import java.lang.management.MemoryMXBean
+import java.lang.management.OperatingSystemMXBean
 import java.lang.management.RuntimeMXBean
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.*
+import ru.descend.shared.extensions.printLog
 
 object SystemMonitor {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())

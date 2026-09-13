@@ -1,58 +1,71 @@
-# ktor-bestgame
+# ktor-bestgame — compact RPG server
 
-## PoE catalog and crafting branch
+Kotlin/Ktor server with MongoDB, a small tiered PoE item catalog and character-owned crafting.
+Version **0.8.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
 
-See [PoE API, seeding, supported currencies and coverage](docs/POE.md).
-Modifier definitions now live exclusively in MongoDB; see [revisioned references, migration and admin API](docs/MODIFIER_STORAGE.md).
-The pinned 3.29.3.3 export contains 5,461 base records and 40,355 modifier records.
-Seeder adds 1,018 wearable templates and 4,365 other released item records, without
-deleting existing data or granting starter equipment again. Thirteen currency operations
-act on persisted character-owned instances. This is not full PoE combat/unique crafting coverage.
+## Run
 
-Build requires JDK 21 and Python 3. Run `./gradlew poeTest jar`; MongoDB transaction tests
-use the dedicated replica set configuration documented above.
+Requirements: JDK 21, Python 3, MongoDB replica set (transactions are required).
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
-
-Here are some useful links to get you started:
-
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
-
-## Features
-
-Here's a list of features included in this project:
-
-| Name                                                                   | Description                                                                        |
-| ------------------------------------------------------------------------|------------------------------------------------------------------------------------ |
-| [Call Logging](https://start.ktor.io/p/call-logging)                   | Logs client requests                                                               |
-| [kotlinx.serialization](https://start.ktor.io/p/kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library                     |
-| [Content Negotiation](https://start.ktor.io/p/content-negotiation)     | Provides automatic content conversion according to Content-Type and Accept headers |
-| [Routing](https://start.ktor.io/p/routing)                             | Provides a structured routing DSL                                                  |
-| [Sessions](https://start.ktor.io/p/ktor-sessions)                      | Adds support for persistent sessions through cookies or headers                    |
-| [Default Headers](https://start.ktor.io/p/default-headers)             | Adds a default set of headers to HTTP responses                                    |
-| [CORS](https://start.ktor.io/p/cors)                                   | Enables Cross-Origin Resource Sharing (CORS)                                       |
-| [Authentication](https://start.ktor.io/p/auth)                         | Provides extension point for handling the Authorization header                     |
-
-## Building & Running
-
-To build or run the project, use one of the following tasks:
-
-| Task                                    | Description                                                          |
-| -----------------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`                        | Run the tests                                                        |
-| `./gradlew build`                       | Build everything                                                     |
-| `./gradlew buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `./gradlew buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `./gradlew publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `./gradlew run`                         | Run the server                                                       |
-| `./gradlew runDocker`                   | Run using the local docker image                                     |
-
-If the server starts successfully, you'll see the following output:
-
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
+```bash
+export MONGO_URI='mongodb://localhost:27017/?replicaSet=rs0'
+export MONGO_DB='bestgame_compact'
+export JWT_SECRET='<your-random-secret-at-least-32-characters>'
+./gradlew run
 ```
 
+On Windows use `gradlew.bat run` and set the same environment variables in PowerShell.
+Ktor reads `src/main/resources/application.yaml`; the default port is 8080.
+`./gradlew installDist` produces a runnable distribution under `build/install/ktor-bestgame`.
+
+Seeding is additive and restartable. It does not delete existing data or grant duplicate items.
+For an optional development administrator and one character, set `SEED_DEMO_DATA=true` and
+`SEED_ADMIN_PASSWORD` (at least 12 characters) **before the first startup of an empty database**.
+Existing accounts/passwords are never overwritten. Default credentials are not embedded in the server.
+
+## Compact catalog
+
+| Content | Count |
+| --- | ---: |
+| Ordinary equipment bases | 35 |
+| Curated unique equipment | 2 |
+| Supported currency item templates | 13 |
+| Basic affix families | 24 |
+| Tier records in those families | 208 |
+| Total modifier definitions, including implicits and unique properties | 234 |
+
+The ordinary set covers early, middle and late equipment progression. Jewellery is deliberately limited.
+The unique set is **Blackheart** and **Le Heup of All**, with fixed explicit property sets and rolled values.
+Unique instances accept Divine and Blessed Orbs; ordinary rarity-changing currencies and Mirror are rejected.
+There are no sockets or skill gems. Imported effect ranges are preserved; unsupported combat effects are
+reported through `runtimeSupported` / `unsupportedStats`, not silently treated as implemented mechanics.
+
+Data is checked in under `data/poe/compact`, with SHA-256 checksums in `data/poe.lock.json`.
+Building and starting the server do not download the full PoE export. See [catalog maintenance](docs/COMPACT_CATALOG.md).
+
+## Architecture and compatibility
+
+All Kotlin production packages are under `ru.descend`. See [architecture and migration](docs/ARCHITECTURE.md).
+The versions and declarations in `gradle/libs.versions.toml` are preserved: Ktor plugins, Netty, Koin,
+MongoDB/BSON, ktmongo, kotlinx.serialization, kotlinx.datetime, Logback, Swagger annotations and Dokka.
+Existing integrations remain in the project; this change does not replace the database or dependency stack.
+
+Mongo collection names, IDs, existing modifier revisions and polymorphic JSON discriminator strings are retained.
+ExileForge's CRUD, catalog, token, inventory, drop and craft paths remain available. The default catalog listing
+is smaller. Old equipment outside the compact base set remains stored and readable, but cannot be crafted
+until its base is deliberately added to the active catalog. No automatic destructive cleanup is performed.
+Existing custom modifiers can be reactivated through publication; new custom publications participate in the active catalog.
+
+## Verify
+
+```bash
+./gradlew test
+MONGO_URI='mongodb://localhost:27017/?replicaSet=rs0' MONGO_DB=poe_integration_test ./gradlew poeMongoTest
+./gradlew installDist
+MONGO_URI='mongodb://localhost:27017/?replicaSet=rs0' MONGO_DB=poe_startup_test python3 scripts/smoke_server.py
+```
+
+CI uses disposable MongoDB databases. It checks unit/HTTP serialization contracts, transactional crafting,
+seed restart/concurrency, then starts the packaged server twice and checks its real HTTP API.
+The old manual `MongoTest` is excluded from the default test task; it is retained as an opt-in legacy test.
+API details: [PoE routes](docs/POE.md), [modifier revision storage](docs/MODIFIER_STORAGE.md).

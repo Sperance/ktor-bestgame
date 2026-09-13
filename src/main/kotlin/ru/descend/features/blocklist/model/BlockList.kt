@@ -1,10 +1,10 @@
 package ru.descend.features.blocklist.model
 
-import ru.descend.shared.model.VersionedEntity
-import ru.descend.shared.extensions.now
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
+import ru.descend.shared.extensions.now
+import ru.descend.shared.model.VersionedEntity
 
 @Serializable
 @kotlinx.serialization.SerialName("features.data.blockList.BlockList")

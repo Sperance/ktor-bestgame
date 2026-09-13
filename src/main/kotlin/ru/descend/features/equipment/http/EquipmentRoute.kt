@@ -1,16 +1,15 @@
 package ru.descend.features.equipment.http
 
-import ru.descend.features.equipment.persistence.EquipmentRepository
-
-import ru.descend.shared.http.ApiMongoResponse
-import ru.descend.shared.http.BaseRoute
-import ru.descend.infrastructure.cache.EquipmentCache
-import ru.descend.features.equipment.model.Equipment
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import ru.descend.features.equipment.model.Equipment
+import ru.descend.features.equipment.persistence.EquipmentRepository
+import ru.descend.infrastructure.cache.EquipmentCache
+import ru.descend.shared.http.ApiMongoResponse
+import ru.descend.shared.http.BaseRoute
 
 class EquipmentRoute(repo: EquipmentRepository) : BaseRoute<Equipment, Equipment>(
     repository = repo,

@@ -1,19 +1,16 @@
 package ru.descend.features.poe.seed
 
-import ru.descend.features.poe.catalog.PoeCatalog
-
-import ru.descend.features.poe.catalog.string
-
-import ru.descend.features.poe.migration.ModifierReferenceMigration
-
-import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 import kotlinx.coroutines.flow.toList
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.items.model.Items
 import ru.descend.features.items.persistence.ItemsRepository
 import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import ru.descend.features.poe.catalog.PoeCatalog
+import ru.descend.features.poe.catalog.string
+import ru.descend.features.poe.migration.ModifierReferenceMigration
+import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 
 /** Add missing, stable IDs in bounded transactions; never delete or rewrite player/catalog data.
  * Export includes legacy and non-drop data: only released wearables become Equipment templates.
@@ -25,7 +22,7 @@ object PoeSeeder : KoinComponent {
     suspend fun seed() {
         val catalog = PoeCatalog.bundled
         modifiers.ensureRevisionIndex()
-        val existingMods = modifiers.findAll().map { ru.descend.domain.modifiers.ModifierRef(it.id, it.revision) }.toSet()
+        val existingMods = modifiers.findForCatalog().map { ru.descend.domain.modifiers.ModifierRef(it.id, it.revision) }.toSet()
         catalog.mods.keys.sorted()
             .filter { ru.descend.domain.modifiers.ModifierRef(it, 1) !in existingMods }
             .chunked(100).forEach { batch -> modifiers.seedMissingBatch(batch.map(catalog::definition)) }

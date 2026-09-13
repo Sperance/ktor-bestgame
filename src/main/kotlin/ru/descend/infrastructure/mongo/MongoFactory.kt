@@ -1,15 +1,12 @@
 package ru.descend.infrastructure.mongo
 
-import ru.descend.shared.MONGO_DB
-
-import ru.descend.shared.MONGO_URI
-
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import ru.descend.shared.extensions.printLog
+import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,8 +15,9 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
-import java.util.concurrent.TimeUnit
-import kotlin.time.Duration.Companion.milliseconds
+import ru.descend.shared.MONGO_DB
+import ru.descend.shared.MONGO_URI
+import ru.descend.shared.extensions.printLog
 
 object MongoFactory {
     private var mongoClient = createMongoClient()

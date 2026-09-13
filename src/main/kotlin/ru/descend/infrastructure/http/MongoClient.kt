@@ -1,8 +1,8 @@
 package ru.descend.infrastructure.http
 
+import org.bson.Document
 import ru.descend.infrastructure.mongo.MongoFactory
 import ru.descend.shared.extensions.printLog
-import org.bson.Document
 
 suspend fun configureMongoClient() {
     try {

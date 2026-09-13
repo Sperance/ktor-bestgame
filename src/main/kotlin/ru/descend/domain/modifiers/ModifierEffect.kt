@@ -1,8 +1,8 @@
 package ru.descend.domain.modifiers
 
-import ru.descend.domain.stats.StatId
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import ru.descend.domain.stats.StatId
 
 /**
  * Семантический эффект modifier.

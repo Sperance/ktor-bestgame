@@ -1,3 +1,5 @@
+> **0.8.0 compact profile:** see [current catalog and counts](COMPACT_CATALOG.md) and [migration notes](ARCHITECTURE.md). Older full-export counts and import instructions below describe the historical profile; current builds package only checked-in compact data.
+
 # PoE catalog and inventory crafting
 
 Modifier storage has been normalized: see [MongoDB revisions and migration](MODIFIER_STORAGE.md).

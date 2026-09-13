@@ -1,24 +1,22 @@
 package ru.descend.features.modifiers.persistence
 
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.IndexOptions
+import com.mongodb.client.model.Indexes
+import com.mongodb.client.model.Updates
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.json.*
 import ru.descend.domain.modifiers.Modifier
 import ru.descend.domain.modifiers.ModifierDefinition
 import ru.descend.domain.modifiers.ModifierRef
-
-import ru.descend.infrastructure.mongo.MongoFactory
-import kotlinx.coroutines.flow.toList
-import com.mongodb.client.model.Filters
-import com.mongodb.client.model.Indexes
-import com.mongodb.client.model.IndexOptions
-import com.mongodb.client.model.Updates
-import com.mongodb.kotlin.client.coroutine.ClientSession
 import ru.descend.features.poe.catalog.PoeCatalog
-import ru.descend.features.poe.catalog.objects
 import ru.descend.features.poe.catalog.int
 import ru.descend.features.poe.catalog.string
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.serialization.json.*
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import ru.descend.infrastructure.mongo.MongoFactory
 
 /** Definitions are immutable revisions. Never update/delete a revision referenced by an item. */
 class ModifierDefinitionRepository {
@@ -35,6 +33,15 @@ class ModifierDefinitionRepository {
         return requireNotNull(value) { "Modifier catalog clock is missing" }.toLong()
     }
     suspend fun findAll(): List<ModifierDefinition> = collection.find().toList()
+    /** Load the active subset plus exact historic references; never load the entire old export. */
+    suspend fun findForCatalog(required: Collection<ModifierRef> = emptyList()): List<ModifierDefinition> {
+        val filters = mutableListOf<org.bson.conversions.Bson>(
+            Filters.`in`("id", PoeCatalog.bundled.mods.keys),
+            Filters.eq("catalogProfile", "custom")
+        )
+        required.forEach { filters += Filters.and(Filters.eq("id", it.definitionId), Filters.eq("revision", it.revision)) }
+        return collection.find(Filters.or(filters)).toList()
+    }
     suspend fun count(): Long = collection.countDocuments()
 
     // Only migrations/seeding may import already-numbered revisions. No update/delete API.
@@ -128,7 +135,7 @@ class ModifierDefinitionRepository {
             PoeCatalog.definitionFromRaw(definition.id, raw).copy(name = definition.name, enabled = definition.enabled)
         } ?: definition
         val revision = expectedRevision + 1
-        val saved = normalized.copy(revision = revision, _id = PoeCatalog.stableId("modifier:${definition.id}:$revision"))
+        val saved = normalized.copy(catalogProfile = "custom", revision = revision, _id = PoeCatalog.stableId("modifier:${definition.id}:$revision"))
         MongoFactory.transactionExecute("modifier.publish") { session ->
             collection.insertOne(session, saved)
             changed(session)

@@ -1,11 +1,11 @@
 package features.poe
 
 import com.mongodb.MongoException
-import ru.descend.infrastructure.mongo.runTransaction
+import kotlin.test.*
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import kotlin.test.*
+import ru.descend.infrastructure.mongo.runTransaction
 
 class TransactionRetryTest {
     private fun failure(label: String) = MongoException(112, label).apply { addLabel(label) }

@@ -1,7 +1,6 @@
 package ru.descend.shared.error.model
 
 import ru.descend.shared.CONST_USER_MAX_CHARACTERS
-
 import ru.descend.shared.error.BaseException
 
 object CharacterExceptions {

@@ -1,29 +1,25 @@
 package ru.descend.features.character.persistence
 
-import ru.descend.shared.CONST_FIELD_ID
-
-import ru.descend.shared.CONST_USER_MAX_CHARACTERS
-
+import com.mongodb.client.model.Filters
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import ru.descend.features.character.model.Character
 import ru.descend.features.character.model.CharacterEquipments
 import ru.descend.features.character.model.CharacterItems
-
-import ru.descend.shared.error.model.CharacterExceptions
-import ru.descend.infrastructure.mongo.BaseRepository
-import ru.descend.infrastructure.mongo.UniqueIndexConfig
-import com.mongodb.client.model.Filters
-import com.mongodb.kotlin.client.coroutine.ClientSession
-import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
-import ru.descend.infrastructure.cache.ItemsCache
 import ru.descend.features.equipment.model.Equipment
 import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.items.persistence.ItemsRepository
 import ru.descend.features.redemptioncodes.persistence.RedemptionCodesRepository
 import ru.descend.features.user.model.User
 import ru.descend.features.user.persistence.UserRepository
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import kotlin.getValue
+import ru.descend.infrastructure.cache.ItemsCache
+import ru.descend.infrastructure.mongo.BaseRepository
+import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
+import ru.descend.infrastructure.mongo.UniqueIndexConfig
+import ru.descend.shared.CONST_FIELD_ID
+import ru.descend.shared.CONST_USER_MAX_CHARACTERS
+import ru.descend.shared.error.model.CharacterExceptions
 
 class CharacterRepository : BaseRepository<Character>(
     entityClass = Character::class

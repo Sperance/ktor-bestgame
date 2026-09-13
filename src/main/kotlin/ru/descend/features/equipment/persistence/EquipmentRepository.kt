@@ -1,11 +1,11 @@
 package ru.descend.features.equipment.persistence
 
-import ru.descend.infrastructure.mongo.BaseRepository
 import com.mongodb.kotlin.client.coroutine.ClientSession
-import ru.descend.infrastructure.cache.EquipmentCache
-import ru.descend.features.equipment.model.Equipment
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import ru.descend.features.equipment.model.Equipment
+import ru.descend.infrastructure.cache.EquipmentCache
+import ru.descend.infrastructure.mongo.BaseRepository
 
 class EquipmentRepository : BaseRepository<Equipment>(entityClass = Equipment::class), KoinComponent {
     private val definitions: ru.descend.features.modifiers.persistence.ModifierDefinitionRepository by inject()

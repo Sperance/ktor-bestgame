@@ -1,7 +1,5 @@
 package ru.descend.infrastructure.http
 
-import ru.descend.shared.extensions.formatTimestamp
-import ru.descend.shared.extensions.printLog
 import io.ktor.server.application.*
 import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.origin
@@ -9,6 +7,8 @@ import io.ktor.server.request.*
 import io.ktor.server.sessions.sessionId
 import io.ktor.util.AttributeKey
 import org.slf4j.event.*
+import ru.descend.shared.extensions.formatTimestamp
+import ru.descend.shared.extensions.printLog
 
 fun Application.configureMonitoring() {
     install(CallLogging) {
