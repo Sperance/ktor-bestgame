@@ -503,6 +503,21 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         return PagedMongoResponse(items, page, pageSize, total, pages)
     }
 
+    // Updates.set uses the driver's generic Map codec, not the entity serializer.
+    // BSON document keys must be strings even when the domain map uses enum keys.
+    private fun mongoUpdateValue(value: Any?): Any? = when (value) {
+        is Map<*, *> -> value.entries.associate { (key, item) ->
+            val name = when (key) {
+                is String -> key
+                is Enum<*> -> key.name
+                else -> error("Unsupported MongoDB map key")
+            }
+            name to mongoUpdateValue(item)
+        }
+        is List<*> -> value.map(::mongoUpdateValue)
+        else -> value
+    }
+
     private fun getUpdateFields(entity: T): Map<String, Any?> {
         val fields = mutableMapOf<String, Any?>()
 
@@ -510,7 +525,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
             val fieldName = property.name
             if (fieldName !in CONST_SYSTEM_FIELDS) {
                 val value = property.getter.call(entity)
-                fields[fieldName] = value
+                fields[fieldName] = mongoUpdateValue(value)
             }
         }
 
