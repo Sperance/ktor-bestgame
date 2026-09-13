@@ -37,8 +37,7 @@ New contracts and Koin modules have additionally been extracted into their own f
 
 The composition root starts Koin, configures HTTP plugins, seeds, and installs routes before serving requests.
 Application shutdown stops backup and monitoring workers and closes Koin. Demo identities are opt-in and receive a supplied password.
-The legacy `/system/shutdown` key is no longer hardcoded: it requires `SYSTEM_SHUTDOWN_KEY` of at least 32 characters.
-Other legacy administrative/CRUD authorization policies are retained; this refactor does not claim to redesign all access control.
+Version 0.9 removes the legacy query-key shutdown route. CRUD and diagnostics require JWT authentication with current database account state. Ownership, field allowlists and versioned commands replace the legacy access policies; see [API security audit](API_SECURITY_AUDIT.md) and [character commands](CHARACTER_COMMANDS.md).
 
 Shared cache collections publish immutable list snapshots atomically; callers get a list copy.
 Cached entity objects retain their existing mutable model API: this is container safety, not deep immutability.

@@ -91,6 +91,31 @@ def run(admin_password):
     request('POST', '/api/v1/user/changeRole?id=' + user['id'], {'expectedVersion': profile['version'], 'role': 'ADMIN'}, renewed, 403)
     request('POST', '/api/v1/user/changeRole?id=' + user['id'], {'expectedVersion': profile['version'], 'role': 'ADMIN'}, admin)
     request('GET', '/api/v1/user', token=renewed, expected=401)
+    # Concurrent writes must not silently overwrite each other.
+    def compete(n):
+        try:
+            request('PUT', '/api/v1/character?id=' + other_id, {'expectedVersion': 0, 'changes': {'description': 'race-' + str(n)}}, other_token)
+            return 200
+        except AssertionError as error:
+            assert error.args[0][2] == 409, error
+            return 409
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        assert sorted(pool.map(compete, range(2))) == [200, 409]
+    currency = request('GET', '/api/v1/items', token=admin)['data'][0]
+    item_id = currency['_id']
+    code = request('POST', '/api/v1/redemptioncodes', [{'code': 'reward-' + suffix, 'treasure': [{'itemId': item_id, 'amount': 3}]}], admin)['data'][0]
+    view = request('POST', '/api/v1/character/' + other_id + '/redeem', {'expectedVersion': 1, 'code': code['code']}, other_token)['data']
+    assert next(x['amount'] for x in view['items'] if x['itemId'] == item_id) == 3
+    request('POST', '/api/v1/character/' + other_id + '/redeem', {'expectedVersion': 2, 'code': code['code']}, other_token, 400)
+    recipe = request('POST', '/api/v1/recipe', [{'name': 'recipe-' + suffix, 'timeWork': 0, 'arrayIn': [{'itemId': item_id, 'amount': 2}], 'arrayOut': [{'itemId': item_id, 'amount': 1}]}], admin)['data'][0]
+    command = {'expectedVersion': 2, 'recipeId': recipe['_id'], 'recipeVersion': recipe['version'], 'ingredientIds': [item_id], 'amount': 1}
+    view = request('POST', '/api/v1/character/' + other_id + '/useRecipe', command, other_token)['data']
+    assert next(x['amount'] for x in view['items'] if x['itemId'] == item_id) == 2
+    request('POST', '/api/v1/character/' + other_id + '/useRecipe', dict(command, expectedVersion=3), other_token, 409)
+    request('POST', '/api/v1/character/' + other_id + '/useRecipe', dict(command, expectedVersion=3, recipeVersion=1, amount=2), other_token, 400)
+    unchanged = request('GET', '/api/v1/character/' + other_id + '/equipment', token=other_token)['data']
+    assert unchanged['characterVersion'] == 3
+    assert next(x['amount'] for x in unchanged['items'] if x['itemId'] == item_id) == 2
     # Malformed password requests cannot echo submitted secret values in decoder errors.
     secret = 'should-never-appear-in-errors'
     result = request('POST', '/api/v1/poe/token', {'login': name, 'password': {'secret': secret}}, expected=400)
