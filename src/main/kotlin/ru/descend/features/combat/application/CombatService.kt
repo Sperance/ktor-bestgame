@@ -26,7 +26,7 @@ class CombatService(private val characters: CharacterRepository, private val equ
     suspend fun current(id: String, actor: Actor): BattleView {
         val c = characters.findById(checkedId(id)) ?: missing()
         own(c, actor)
-        return BattleView(c.version, c.battle, c.zoneKills)
+        return BattleView(c.version, c.battle, c.zoneKills, c.level.toInt(), c.experience, c.money)
     }
     suspend fun start(id: String, actor: Actor, command: StartBattleCommand): BattleView {
         val world = catalog()
@@ -80,7 +80,7 @@ class CombatService(private val characters: CharacterRepository, private val equ
             checkVersion(old.version, expected)
             val next = transition(old)
             characters.update(next, session)
-            val result = BattleView(next.version, next.battle, next.zoneKills)
+            val result = BattleView(next.version, next.battle, next.zoneKills, next.level.toInt(), next.experience, next.money)
             receipts.insert(BattleReceipt(key, payload, result), session)
             result
         }

@@ -1,7 +1,11 @@
 # ktor-bestgame — compact RPG server
 
 Kotlin/Ktor server with MongoDB, a small tiered PoE item catalog and character-owned crafting.
-Version **0.9.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+Version **0.11.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+
+## Text combat
+
+Three zones, normal monsters, bosses, weighted loot, persisted turn-based battles and atomic rewards. Read [combat rules and HTTP contract](docs/COMBAT.md). World definitions live in MongoDB; existing catalogs are preserved.
 
 ## Security and equipment update
 

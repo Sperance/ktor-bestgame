@@ -31,6 +31,6 @@ import kotlinx.serialization.Serializable
     val log: List<String> = emptyList(), val rewards: List<BattleReward> = emptyList(),
     val lootTable: LootTable, val unsupportedStats: List<String> = emptyList()
 )
-@Serializable data class BattleView(val characterVersion: Long, val battle: Battle? = null, val zoneKills: Map<String, Int> = emptyMap())
+@Serializable data class BattleView(val characterVersion: Long, val battle: Battle? = null, val zoneKills: Map<String, Int> = emptyMap(), val characterLevel: Int = 1, val experience: Double = 0.0, val gold: Long = 0)
 @Serializable data class StartBattleCommand(val expectedVersion: Long, val requestId: String, val zoneId: String, val boss: Boolean = false)
 @Serializable data class BattleActionCommand(val expectedVersion: Long, val requestId: String, val battleId: String, val action: BattleAction)
