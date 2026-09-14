@@ -36,6 +36,41 @@ class EquipmentService(private val characters: CharacterRepository, private val 
         val (templates, snapshot) = context(character)
         return EquipmentView(character.version, character.equipped, character.equipments, character.items, CharacterStatsCalculator().calculate(character, templates, snapshot.catalog, snapshot.definitions))
     }
+    suspend fun compare(id: String, actor: Actor, command: EquipCommand): EquipmentComparison {
+        val old = characters.findById(checkedId(id)) ?: missing(); actor.own(old)
+        checkVersion(old.version, command.expectedVersion)
+        if(old.equipments.none { it.uuid == command.equipmentUuid }) missing()
+        val next = old.copy(equipped = old.equipped.filterValues { it != command.equipmentUuid } + (command.slot to command.equipmentUuid))
+        val (templates, snapshot) = context(old)
+        fun calculate(c: Character) = CharacterStatsCalculator().calculate(c, templates, snapshot.catalog, snapshot.definitions)
+        val before = calculate(old)
+        return try {
+            EquipmentRules.validate(next, templates, snapshot.catalog, ::calculate)
+            EquipmentComparison(old.version, true, before = before, after = calculate(next))
+        } catch(e: ApiFailure) {
+            if(e.status != io.ktor.http.HttpStatusCode.BadRequest) throw e
+            EquipmentComparison(old.version, false, e.message, before)
+        }
+    }
+    suspend fun craftOptions(id: String, actor: Actor, uuid: String): CraftOptions {
+        val character = characters.findById(checkedId(id)) ?: missing(); actor.own(character)
+        val item = character.equipments.singleOrNull { it.uuid == uuid } ?: missing()
+        val (_, snapshot) = context(character)
+        val engine = ru.descend.features.poe.domain.PoeCrafting(snapshot.catalog, kotlin.random.Random(0))
+        val inventory = ru.descend.features.poe.domain.PoeInventory(snapshot.catalog, engine)
+        val options = ru.descend.features.poe.domain.PoeCurrency.entries.map { currency ->
+            val currencyId = inventory.currencyId(currency)
+            val amount = character.items.filter { it.itemId == currencyId }.sumOf { it.amount }
+            val reason = when {
+                character.userId != actor.id -> "Only the owner can craft this item"
+                amount <= 0 -> "Not enough currency"
+                item.poe == null -> "Legacy equipment requires migration"
+                else -> try { engine.apply(item.poe!!, currency); null } catch(e: IllegalArgumentException) { e.message ?: "Currency is unavailable" }
+            }
+            CraftOption(currency.name, currency.displayName, currencyId, amount, reason == null, reason)
+        }
+        return CraftOptions(character.version, options)
+    }
     suspend fun equip(id: String, actor: Actor, command: EquipCommand): EquipmentView = change(id, actor, command.expectedVersion) { character, _ ->
         if (character.equipments.none { it.uuid == command.equipmentUuid }) missing()
         character.copy(equipped = character.equipped.filterValues { it != command.equipmentUuid } + (command.slot to command.equipmentUuid))

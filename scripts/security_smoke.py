@@ -62,6 +62,19 @@ def run(admin_password):
     request('POST', '/api/v1/character/inventory/itemToInventory?characterId=' + cid, {'expectedVersion': 1, 'equipmentId': ring['_id']}, token, 403)
     view = request('POST', '/api/v1/character/inventory/itemToInventory?characterId=' + cid, {'expectedVersion': 1, 'equipmentId': ring['_id']}, admin)['data']
     uuid_item = view['inventory'][0]['uuid']; baseline = view['stats']['values']['maximum_life']
+    before_preview = request('GET', '/api/v1/character/' + cid + '/equipment', token=token)['data']
+    preview = request('POST', '/api/v1/character/' + cid + '/compareEquipment', {'expectedVersion': 2, 'equipmentUuid': uuid_item, 'slot': 'RING_LEFT'}, token)['data']
+    assert preview['allowed'] and preview['after']['values']['maximum_life'] > preview['before']['values']['maximum_life']
+    blocked = request('POST', '/api/v1/character/' + cid + '/compareEquipment', {'expectedVersion': 2, 'equipmentUuid': uuid_item, 'slot': 'HELMET'}, token)['data']
+    assert not blocked['allowed']
+    request('POST', '/api/v1/character/' + other_id + '/compareEquipment', {'expectedVersion': 0, 'equipmentUuid': uuid_item, 'slot': 'RING_LEFT'}, token, 404)
+    options = request('GET', '/api/v1/character/' + cid + '/craftOptions?equipmentUuid=' + uuid_item, token=token)['data']
+    assert all(not x['available'] for x in options['options'])
+    assert request('GET', '/api/v1/character/' + cid + '/equipment', token=token)['data'] == before_preview
+    filtered = request('GET', '/api/v1/equipment/paged?q=Coral&slot=RING&size=1', token=token)['data']
+    assert filtered['totalItems'] == 1 and filtered['items'][0]['_id'] == ring['_id']
+    assert request('GET', '/api/v1/character/paged?q=hero_', token=token)['data']['totalItems'] == 1
+    request('GET', '/api/v1/equipment/paged?stat=$where&minStat=0', token=token, expected=400)
     view = request('POST', '/api/v1/character/' + cid + '/equip', {'expectedVersion': 2, 'equipmentUuid': uuid_item, 'slot': 'RING_LEFT'}, token)['data']
     assert view['stats']['values']['maximum_life'] > baseline
     request('POST', '/api/v1/character/' + cid + '/equip', {'expectedVersion': 2, 'equipmentUuid': uuid_item, 'slot': 'RING_RIGHT'}, token, 409)

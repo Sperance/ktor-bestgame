@@ -55,12 +55,12 @@ abstract class BaseRoute<T : StockEntity, R>(
                 get("/paged") {
                     val actor = call.actor(); val page = call.queryParam("page", 0); val size = call.queryParam("size", 20)
                     if (page !in 0..100000 || size !in 1..100) invalid("Invalid pagination")
-                    val filter = scope(actor)
+                    val filter = Filters.and(scope(actor), CatalogQuery.filter(call.request.queryParameters, kind))
                     val data = repository.collection.find(filter).sort(Sorts.ascending("_id")).skip(page * size).limit(size).toList()
                     val total = repository.collection.countDocuments(filter)
                     call.respondJson(ApiMongoResponse.serializer(PagedMongoResponse.serializer(responseSerializer)), ApiMongoResponse.ok(PagedMongoResponse(data.map(toResponse), page, size, total, ((total + size - 1) / size).toInt())))
                 }
-                get("/count") { call.respond(ApiMongoResponse.ok(mapOf("count" to repository.collection.countDocuments(scope(call.actor()))))) }
+                get("/count") { call.respond(ApiMongoResponse.ok(mapOf("count" to repository.collection.countDocuments(Filters.and(scope(call.actor()), CatalogQuery.filter(call.request.queryParameters, kind)))))) }
                 post {
                     val actor = call.actor()
                     if (kind != "character") actor.requireAdmin()

@@ -17,6 +17,8 @@ class CharacterRoute(val repo: CharacterRepository) : BaseRoute<Character, Chara
         get("/inventory/equipped") { val view = service.view(call.queryParam("characterId"), call.actor()); call.respond(ApiMongoResponse.ok(view.inventory.filter { it.uuid in view.equipped.values })) }
         get("/{id}/stats") { call.respond(ApiMongoResponse.ok(service.view(checkedId(call.parameters["id"]), call.actor()).stats)) }
         get("/{id}/equipment") { call.respond(ApiMongoResponse.ok(service.view(checkedId(call.parameters["id"]), call.actor()))) }
+        post("/{id}/compareEquipment") { call.respond(ApiMongoResponse.ok(service.compare(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
+        get("/{id}/craftOptions") { call.respond(ApiMongoResponse.ok(service.craftOptions(checkedId(call.parameters["id"]), call.actor(), call.queryParam("equipmentUuid")))) }
         post("/{id}/equip") { call.respond(ApiMongoResponse.ok(service.equip(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
         post("/{id}/unequip") { call.respond(ApiMongoResponse.ok(service.unequip(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
         post("/inventory/itemToInventory") { call.respond(ApiMongoResponse.ok(service.grant(call.queryParam("characterId"), call.actor(), call.receiveCommand()))) }
