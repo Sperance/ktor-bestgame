@@ -16,7 +16,7 @@ import ru.descend.infrastructure.security.Actor
 import ru.descend.shared.http.*
 
 @Serializable data class EquipmentView(val characterVersion: Long, val equipped: Map<EquipmentSlot, String>, val inventory: List<CharacterEquipments>, val items: List<CharacterItems>, val stats: CharacterStats)
-class EquipmentService(private val characters: CharacterRepository, private val equipment: EquipmentRepository, private val catalogs: MongoModifierCatalog) {
+class EquipmentService(private val characters: CharacterRepository, private val equipment: EquipmentRepository, private val catalogs: MongoModifierCatalog, private val passiveTrees: ru.descend.features.passives.persistence.PassiveTreeRepository = ru.descend.features.passives.persistence.PassiveTreeRepository()) {
     suspend fun context(character: Character): Pair<Map<String, Equipment>, MongoModifierCatalog.Snapshot> {
         val refs = character.params.map { ModifierRef(it.definitionId, it.definitionRevision) } + character.equipments.flatMap { item ->
             item.poe?.let { p -> (p.implicits + p.explicits).map { ModifierRef(it.id, it.revision) } } ?: item.params.map { ModifierRef(it.definitionId, it.definitionRevision) }
@@ -26,7 +26,8 @@ class EquipmentService(private val characters: CharacterRepository, private val 
     }
     suspend fun validate(character: Character) {
         val (templates, snapshot) = context(character)
-        EquipmentRules.validate(character, templates, snapshot.catalog) { c -> CharacterStatsCalculator().calculate(c, templates, snapshot.catalog, snapshot.definitions) }
+        val passiveTree = passiveTrees.definition(character.passiveTreeRevision)
+        EquipmentRules.validate(character, templates, snapshot.catalog) { c -> CharacterStatsCalculator().calculate(c, templates, snapshot.catalog, snapshot.definitions, passiveTree) }
     }
     suspend fun view(characterId: String, actor: Actor): EquipmentView {
         val character = characters.findById(checkedId(characterId)) ?: missing(); actor.own(character)
@@ -34,7 +35,8 @@ class EquipmentService(private val characters: CharacterRepository, private val 
     }
     suspend fun view(character: Character): EquipmentView {
         val (templates, snapshot) = context(character)
-        return EquipmentView(character.version, character.equipped, character.equipments, character.items, CharacterStatsCalculator().calculate(character, templates, snapshot.catalog, snapshot.definitions))
+        val passiveTree = passiveTrees.definition(character.passiveTreeRevision)
+        return EquipmentView(character.version, character.equipped, character.equipments, character.items, CharacterStatsCalculator().calculate(character, templates, snapshot.catalog, snapshot.definitions, passiveTree))
     }
     suspend fun compare(id: String, actor: Actor, command: EquipCommand): EquipmentComparison {
         val old = characters.findById(checkedId(id)) ?: missing(); actor.own(old)
@@ -42,7 +44,8 @@ class EquipmentService(private val characters: CharacterRepository, private val 
         if(old.equipments.none { it.uuid == command.equipmentUuid }) missing()
         val next = old.copy(equipped = old.equipped.filterValues { it != command.equipmentUuid } + (command.slot to command.equipmentUuid))
         val (templates, snapshot) = context(old)
-        fun calculate(c: Character) = CharacterStatsCalculator().calculate(c, templates, snapshot.catalog, snapshot.definitions)
+        val passiveTree = passiveTrees.definition(old.passiveTreeRevision)
+        fun calculate(c: Character) = CharacterStatsCalculator().calculate(c, templates, snapshot.catalog, snapshot.definitions, passiveTree)
         val before = calculate(old)
         return try {
             EquipmentRules.validate(next, templates, snapshot.catalog, ::calculate)

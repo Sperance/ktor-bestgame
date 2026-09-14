@@ -44,6 +44,7 @@ data class PoeCapabilities(
     val modifierRecords: Int = PoeCatalog.bundled.mods.size,
     val profile: String = "compact-v1",
     val apiRevision: Int = 3,
+    val passiveTree: Boolean = true,
     val combat: Boolean = true,
     val combatRuleset: String = "text-combat-v1",
     val equipmentComparison: Boolean = true,

@@ -135,4 +135,6 @@ def run(admin_password):
     assert secret not in json.dumps(result)
     from combat_smoke import run as combat_checks
     combat_checks(request, other_token, admin, other_id)
+    from passives_smoke import run as passive_checks
+    passive_checks(request, other_token, admin, other_id)
     print('HTTP security and equipment checks passed:', count)

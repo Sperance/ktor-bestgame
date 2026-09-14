@@ -10,6 +10,7 @@ object DatabaseSeeder : KoinComponent {
     suspend fun seed() {
         printLog("Database seeding started")
         PoeSeeder.seed()
+        get<ru.descend.features.passives.persistence.PassiveTreeRepository>().seed()
         if (System.getenv("SEED_DEMO_DATA") == "true") {
             DemoSeeder(get(), get()).seed(requireNotNull(System.getenv("SEED_ADMIN_PASSWORD")) {
                 "SEED_ADMIN_PASSWORD is required when SEED_DEMO_DATA=true"

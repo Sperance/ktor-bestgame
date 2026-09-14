@@ -15,10 +15,18 @@ import ru.descend.shared.http.invalid
 /** One calculation path for reads and equipment validation. Raw local stats never become global. */
 class CharacterStatsCalculator {
     fun calculate(character: Character, templates: Map<String, Equipment>, catalog: PoeCatalog,
-        definitions: Map<ModifierRef, ModifierDefinition> = emptyMap()): CharacterStats {
+        definitions: Map<ModifierRef, ModifierDefinition> = emptyMap(),
+        passiveTree: ru.descend.features.passives.model.PassiveTree = ru.descend.features.passives.domain.PassiveTreeSeed.tree): CharacterStats {
+        require(passiveTree.revision == character.passiveTreeRevision) { "Passive tree revision mismatch" }
+        val passiveRules = ru.descend.features.passives.domain.PassiveRules(passiveTree)
+        passiveRules.validate(character.passiveNodes, character.level.toInt())
+        val passives = passiveRules.modifiers(character.passiveNodes)
         val raw = mutableMapOf<String, Double>(); val unsupported = sortedSetOf<String>()
         val weaponRows = mutableMapOf<EquipmentSlot, Triple<Map<String, Double>, Equipment, JsonObject?>>()
         val flat = mutableMapOf("strength" to 20.0, "dexterity" to 20.0, "intelligence" to 20.0, "armour" to 0.0, "evasion" to 0.0, "energy_shield" to 0.0)
+        flat["attack_damage_multiplier"] = 1.0
+        flat["attack_speed_multiplier"] = 1.0
+        flat["critical_chance_multiplier"] = 1.0
         val allModifiers = character.params.toMutableList()
         character.equipped.forEach { (slot, uuid) ->
             val item = character.equipments.singleOrNull { it.uuid == uuid } ?: invalid("Equipped item is missing")
@@ -61,7 +69,7 @@ class CharacterStatsCalculator {
                 if (!d.conditions.all { DefaultConditionEvaluator().evaluate(it, context) }) return@mapNotNull null
                 ResolvedModifier(d.id, modifier.tier, modifier.source, d.effects, d.priority, modifier, d.scope)
             }.sortedBy { it.priority }
-            return DefaultStatResolver(resolved, ValueExpressionEvaluator()).resolveAll(StatContext(context.stats, context)).mapKeys { it.key.value }
+            return DefaultStatResolver(resolved + passives, ValueExpressionEvaluator()).resolveAll(StatContext(context.stats, context)).mapKeys { it.key.value }
         }
         val attrs = resolve(flat)
         flat["maximum_life"] = (flat["maximum_life"] ?: 0.0) + 50 + (character.level - 1).coerceAtLeast(0) * 12 + attrs.getValue("strength") / 2 + amount("base_maximum_life")
@@ -79,22 +87,23 @@ class CharacterStatsCalculator {
             val key = element + "_resistance"; result[key + "_uncapped"] = result[key] ?: 0.0
             result[key] = result.getValue(key + "_uncapped").coerceIn(-200.0, 75.0)
         }
+        result["unarmed_dps"] = (6 + result.getValue("strength") * .2) * result.getValue("attack_damage_multiplier") * result.getValue("attack_speed_multiplier")
         val weapons = weaponRows.mapValues { (_, row) ->
             val (local, template, props) = row; val weapon = template as Weapon
             fun damage(key: String, fallback: Double) = props?.get(key)?.jsonPrimitive?.doubleOrNull ?: fallback
             val inc = (local["local_physical_damage_+%"] ?: 0.0) / 100 + (local["quality"] ?: 0.0)
             val min = StatCalculation(base = damage("physical_damage_min", weapon.damage_min), flat = local["local_minimum_added_physical_damage"] ?: 0.0, increased = inc).calculate() + amount("attack_minimum_added_physical_damage")
             val max = StatCalculation(base = damage("physical_damage_max", weapon.damage_max), flat = local["local_maximum_added_physical_damage"] ?: 0.0, increased = inc).calculate() + amount("attack_maximum_added_physical_damage")
-            val speed = (1000 / damage("attack_time", 1000 / weapon.attackSpeed.coerceAtLeast(0.01))) * (1 + (local["local_attack_speed_+%"] ?: 0.0) / 100)
+            val speed = (1000 / damage("attack_time", 1000 / weapon.attackSpeed.coerceAtLeast(0.01))) * (1 + (local["local_attack_speed_+%"] ?: 0.0) / 100) * result.getValue("attack_speed_multiplier")
             var elemental = 0.0
             for (element in listOf("fire", "cold", "lightning", "chaos")) {
                 val added = (amount("attack_minimum_added_${element}_damage") + amount("attack_maximum_added_${element}_damage")) / 2
                 elemental += added * if (element == "chaos") 1.0 else (1 + amount("elemental_damage_with_attack_skills_+%") / 100)
             }
             elemental += (amount("spell_and_attack_minimum_added_lightning_damage") + amount("spell_and_attack_maximum_added_lightning_damage")) / 2 * (1 + amount("elemental_damage_with_attack_skills_+%") / 100)
-            val multiplier = 1 + amount("damage_+%") / 100
+            val multiplier = (1 + amount("damage_+%") / 100) * result.getValue("attack_damage_multiplier")
             val avg = ((min + max) / 2 + elemental) * multiplier
-            WeaponStats(min * multiplier, max * multiplier, speed, (damage("critical_strike_chance", 500.0) / 100 * (1 + amount("critical_strike_chance_+%") / 100)).coerceIn(0.0, 100.0), result.getValue("accuracy") + (local["local_accuracy_rating"] ?: 0.0) * (1 + amount("accuracy_rating_+%") / 100), avg, avg * speed)
+            WeaponStats(min * multiplier, max * multiplier, speed, (damage("critical_strike_chance", 500.0) / 100 * (1 + amount("critical_strike_chance_+%") / 100) * result.getValue("critical_chance_multiplier")).coerceIn(0.0, 100.0), result.getValue("accuracy") + (local["local_accuracy_rating"] ?: 0.0) * (1 + amount("accuracy_rating_+%") / 100), avg, avg * speed)
         }
         require(result.values.all { it.isFinite() } && weapons.values.all { it.dps.isFinite() }) { "Non-finite character stats" }
         return CharacterStats(character.version, result.toSortedMap(), weapons, unsupported.toList())

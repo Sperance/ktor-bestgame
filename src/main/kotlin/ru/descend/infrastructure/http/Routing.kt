@@ -37,6 +37,7 @@ import ru.descend.shared.extensions.saveChildren
 import ru.descend.shared.http.ApiMongoResponse
 import ru.descend.shared.http.RouteRegistry
 import ru.descend.features.combat.http.combatRoutes
+import ru.descend.features.passives.http.passiveRoutes
 
 @OptIn(DelicateCoroutinesApi::class)
 fun Application.configureRouting() {
@@ -46,6 +47,7 @@ fun Application.configureRouting() {
         routeRegistry.registerAll(this)
         poeRoutes()
         combatRoutes()
+        passiveRoutes()
 
         openAPI(path = "swagger") {
             info = OpenApiInfo("My API", "1.0.1")

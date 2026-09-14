@@ -1,7 +1,11 @@
 # ktor-bestgame — compact RPG server
 
 Kotlin/Ktor server with MongoDB, a small tiered PoE item catalog and character-owned crafting.
-Version **0.11.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+Version **0.12.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+
+## Shared passive tree
+
+[Passive tree API and rules](docs/PASSIVES.md): 115 shared nodes, independent hero allocations, level-earned points, connected paths, notables and keystones.
 
 ## Text combat
 

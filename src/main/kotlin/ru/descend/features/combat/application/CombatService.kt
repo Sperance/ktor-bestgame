@@ -42,9 +42,9 @@ class CombatService(private val characters: CharacterRepository, private val equ
             val weapon = stats.weapons.values.maxByOrNull { it.dps }
             val hero = Combatant(c.name, value("maximum_life", 60.0), value("maximum_life", 60.0),
                 value("maximum_mana"), value("maximum_mana"), value("energy_shield"),
-                (weapon?.dps ?: (6 + value("strength") * 0.2)).coerceAtLeast(1.0),
+                (weapon?.dps ?: value("unarmed_dps", 10.0)).coerceAtLeast(1.0),
                 value("armour"), value("evasion"), weapon?.accuracy ?: value("accuracy", 40.0),
-                weapon?.criticalChance ?: 5.0, value("life_regeneration"), value("mana_regeneration"),
+                weapon?.criticalChance ?: (5.0 * value("critical_chance_multiplier", 1.0)), value("life_regeneration"), value("mana_regeneration"),
                 listOf("fire", "cold", "lightning", "chaos").associateWith { stats.values[it + "_resistance"] ?: 0.0 })
             val enemy = Combatant(monster.name, monster.life, monster.life, damage = monster.damage,
                 armour = monster.armour, evasion = monster.evasion, accuracy = 40.0 + zone.level * 8)

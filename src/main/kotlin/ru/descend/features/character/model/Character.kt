@@ -36,6 +36,8 @@ data class Character(
     var stockSkills: MutableList<CharacterStockSkill> = mutableListOf(),
     var battleSkills: MutableList<CharacterBattleSkill> = mutableListOf(),
     var boolSkills: MutableList<CharacterBoolSkill> = mutableListOf(),
+    var passiveTreeRevision: Int = 1,
+    var passiveNodes: Set<String> = emptySet(),
     var battle: ru.descend.features.combat.domain.Battle? = null,
     var zoneKills: Map<String, Int> = emptyMap(),
     var recipeAccess: MutableList<String> = mutableListOf(),
