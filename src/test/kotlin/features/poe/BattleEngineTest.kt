@@ -53,6 +53,7 @@ class BattleEngineTest {
         CombatWorld.validate(CombatWorld.initial)
         assertFailsWith<IllegalArgumentException> { CombatWorld.validate(CombatWorld.initial.copy(lootTables = emptyList())) }
         val zone = CombatWorld.initial.zones.first()
-        assertFailsWith<IllegalArgumentException> { CombatWorld.validate(CombatWorld.initial.copy(zones = listOf(zone.copy(monsters = listOf(zone.monsters.first().copy(damage = Double.NaN))))))) }
+        val broken = zone.copy(monsters = listOf(zone.monsters.first().copy(damage = Double.NaN)))
+        assertFailsWith<IllegalArgumentException> { CombatWorld.validate(CombatWorld.initial.copy(zones = listOf(broken))) }
     }
 }
