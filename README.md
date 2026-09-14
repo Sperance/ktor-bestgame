@@ -73,3 +73,7 @@ CI uses disposable MongoDB databases. It checks unit/HTTP serialization contract
 seed restart/concurrency, then starts the packaged server twice and checks its real HTTP API.
 The old manual `MongoTest` is excluded from the default test task; it is retained as an opt-in legacy test.
 API details: [PoE routes](docs/POE.md), [modifier revision storage](docs/MODIFIER_STORAGE.md).
+
+## ExileForge workbench API (0.10.0)
+
+Read-only equipment comparison, craft eligibility and scoped catalog search are documented in [WORKBENCH_API.md](docs/WORKBENCH_API.md). Existing mutation preconditions remain mandatory.
