@@ -133,4 +133,6 @@ def run(admin_password):
     secret = 'should-never-appear-in-errors'
     result = request('POST', '/api/v1/poe/token', {'login': name, 'password': {'secret': secret}}, expected=400)
     assert secret not in json.dumps(result)
+    from combat_smoke import run as combat_checks
+    combat_checks(request, other_token, admin, other_id)
     print('HTTP security and equipment checks passed:', count)
