@@ -27,8 +27,26 @@ export JWT_SECRET='<your-random-secret-at-least-32-characters>'
 ```
 
 On Windows use `gradlew.bat run` and set the same environment variables in PowerShell.
-Ktor reads `src/main/resources/application.yaml`; the default port is 8080.
+Ktor reads `src/main/resources/application.yaml`; the port is 8080 unless `PORT` is set.
 `./gradlew installDist` produces a runnable distribution under `build/install/ktor-bestgame`.
+
+A disposable local replica set, matching the one CI uses:
+
+```bash
+docker run -d --name bestgame-mongo -p 27017:27017 mongo:8 --replSet rs0 --bind_ip_all
+docker exec bestgame-mongo mongosh --quiet --eval 'rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]})'
+```
+
+### If the server does not start
+
+| Message | Cause and fix |
+| --- | --- |
+| `./gradlew: Permission denied` | The wrapper lost its executable bit; run `chmod +x gradlew` (it is stored as executable in git). |
+| `Python 3 is required to verify the pinned PoE catalog` | The build verifies `data/poe/compact` before packaging it. Install Python 3 so that `python3`, `python` or `py` is on PATH. On Windows the Microsoft Store `python3` stub is skipped automatically. |
+| `MongoDB at ... is unreachable` | Nothing is listening on `MONGO_URI`. Start MongoDB, or point `MONGO_URI` at the right host. |
+| `MongoDB at ... is a standalone server` | Seeding and every write run in transactions, which a standalone `mongod` cannot serve. Start a replica set and use `?replicaSet=rs0`. |
+| `Address already in use` | Port 8080 is taken; start with `PORT=8081`. |
+| `JWT_SECRET must have at least 32 characters` | Use a longer secret. Leaving `JWT_SECRET` unset generates a random one, which invalidates every issued token on restart. |
 
 Seeding is additive and restartable. It does not delete existing data or grant duplicate items.
 For an optional development administrator and one character, set `SEED_DEMO_DATA=true` and

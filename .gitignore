@@ -39,3 +39,5 @@ out/
 logs/
 logs_archive/
 backups/
+### Local tooling ###
+local.properties

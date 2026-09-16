@@ -17,6 +17,7 @@ import ru.descend.infrastructure.http.configureRouting
 import ru.descend.infrastructure.http.configureSecurity
 import ru.descend.infrastructure.http.configureSerialization
 import ru.descend.infrastructure.http.configureStatusPages
+import ru.descend.infrastructure.http.verifyMongoConnection
 import ru.descend.infrastructure.monitoring.LogManager
 import ru.descend.infrastructure.monitoring.SystemMonitor
 
@@ -24,6 +25,8 @@ import ru.descend.infrastructure.monitoring.SystemMonitor
 fun main(args: Array<String>) = EngineMain.main(args)
 
 suspend fun Application.module() {
+    // Eager Koin caches read from MongoDB, so connectivity is verified before the graph is built.
+    verifyMongoConnection()
     val koin = startKoin { modules(allModules) }.koin
     monitor.subscribe(ApplicationStopped) {
         try { koin.get<MongoBackupManager>().shutdown() }

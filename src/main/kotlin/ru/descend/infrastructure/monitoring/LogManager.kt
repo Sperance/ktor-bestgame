@@ -3,7 +3,7 @@ package ru.descend.infrastructure.monitoring
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileOutputStream
-import java.io.FileWriter
+import java.io.OutputStreamWriter
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -73,7 +73,7 @@ object LogManager {
         try {
             writer?.close()
             val logFile = getLogFile()
-            writer = BufferedWriter(FileWriter(logFile, true))
+            writer = BufferedWriter(OutputStreamWriter(FileOutputStream(logFile, true), Charsets.UTF_8))
             currentDate = LocalDate.now()
         } catch (e: Exception) {
             printLog("Failed to initialize log writer: ${e.message}")

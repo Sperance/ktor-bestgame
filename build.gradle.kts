@@ -10,6 +10,8 @@ version = "0.12.0"
 
 application {
     mainClass = "ru.descend.bootstrap.ApplicationKt"
+    // Startup diagnostics and Russian log messages must survive non-UTF-8 default consoles.
+    applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8", "-Dstdout.encoding=UTF-8", "-Dstderr.encoding=UTF-8")
 }
 
 kotlin {
@@ -53,11 +55,23 @@ dependencies {
     testImplementation(libs.koin.test.junit4)
 }
 // Pinned data is verified at build time and packaged in the JAR. No runtime downloads.
+// Windows ships no `python3` launcher, so the interpreter is resolved from PATH when the task runs.
+fun resolvePythonCommand(): List<String> = listOf(listOf("python3"), listOf("python"), listOf("py", "-3"))
+    .firstOrNull { candidate ->
+        runCatching {
+            val probe = ProcessBuilder(candidate + "--version").redirectErrorStream(true).start()
+            probe.inputStream.readBytes()
+            probe.waitFor() == 0
+        }.getOrDefault(false)
+    } ?: error("Python 3 is required to verify the pinned PoE catalog. Install it and make python3, python or py available on PATH.")
+
 val preparePoeCatalog by tasks.registering(Exec::class) {
     inputs.files("scripts/prepare_poe.py", "data/poe.lock.json")
     inputs.dir("data/poe/compact")
     outputs.dir(layout.buildDirectory.dir("generated-poe"))
+    workingDir = projectDir
     commandLine("python3", "scripts/prepare_poe.py")
+    doFirst { commandLine(resolvePythonCommand() + "scripts/prepare_poe.py") }
 }
 sourceSets.main { resources.srcDir(layout.buildDirectory.dir("generated-poe")) }
 tasks.processResources { dependsOn(preparePoeCatalog) }
