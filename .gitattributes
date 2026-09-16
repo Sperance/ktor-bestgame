@@ -1,0 +1,12 @@
+# The pinned catalog is verified by sha256, so it must check out byte for byte on
+# every platform. Without this, Windows checkouts with core.autocrlf=true rewrite
+# every newline and preparePoeCatalog fails with a checksum mismatch.
+data/poe/compact/*.json -text
+data/poe.lock.json -text
+
+# The wrapper is read by sh; its .bat counterpart is read by cmd.
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+*.jar binary
+*.exe binary

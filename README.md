@@ -42,6 +42,7 @@ docker exec bestgame-mongo mongosh --quiet --eval 'rs.initiate({_id:"rs0",member
 | Message | Cause and fix |
 | --- | --- |
 | `./gradlew: Permission denied` | The wrapper lost its executable bit; run `chmod +x gradlew` (it is stored as executable in git). |
+| `Checksum mismatch: base_items.json` | The checkout rewrote the pinned catalog, normally Git on Windows with `core.autocrlf=true`. `.gitattributes` prevents it, and the build repairs newline-only damage in place. If the catalog was edited on purpose, re-pin it with `python3 scripts/prepare_poe.py --update-lock`. |
 | `Python 3 is required to verify the pinned PoE catalog` | The build verifies `data/poe/compact` before packaging it. Install Python 3 so that `python3`, `python` or `py` is on PATH. On Windows the Microsoft Store `python3` stub is skipped automatically. |
 | `MongoDB at ... is unreachable` | Nothing is listening on `MONGO_URI`. Start MongoDB, or point `MONGO_URI` at the right host. |
 | `MongoDB at ... is a standalone server` | Seeding and every write run in transactions, which a standalone `mongod` cannot serve. Start a replica set and use `?replicaSet=rs0`. |
