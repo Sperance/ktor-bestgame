@@ -1,0 +1,26 @@
+package ru.descend.domain.modifiers
+
+import kotlinx.serialization.Serializable
+
+/**
+ * Modifier после resolution.
+ *
+ * Definition + rolled values + conditions
+ * превращаются в конкретные effects.
+ */
+@Serializable
+@kotlinx.serialization.SerialName("features.logic.modifiers.ResolvedModifier")
+data class ResolvedModifier(
+
+    val definitionId: String,
+
+    val tier: Int,
+
+    val source: ModifierSource,
+
+    val effects: List<ModifierEffect>,
+
+    val priority: Int,
+    val rolledModifier: Modifier? = null,
+    val scope: ModifierScope = ModifierScope.ITEM
+)

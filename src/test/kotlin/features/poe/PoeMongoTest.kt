@@ -1,23 +1,44 @@
 package features.poe
 
-import application.koin.repositoryModule
-import application.koin.cacheModule
-import config.MongoFactory
-import features.data.character.Character
-import features.data.character.CharacterRepository
-import features.data.character.character_data.CharacterItems
-import features.data.equipment.EquipmentRepository
-import features.logic.modifiers.*
-import kotlinx.serialization.json.*
+import kotlin.test.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.serialization.json.*
+import org.bson.types.ObjectId
 import org.junit.After
 import org.junit.Before
+import org.koin.core.Koin
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.core.Koin
-import org.bson.types.ObjectId
-import kotlin.test.*
+import ru.descend.bootstrap.di.cacheModule
+import ru.descend.bootstrap.di.repositoryModule
+import ru.descend.domain.modifiers.Modifier
+import ru.descend.domain.modifiers.ModifierDefinition
+import ru.descend.domain.modifiers.ModifierRef
+import ru.descend.domain.modifiers.ModifierSource
+import ru.descend.domain.modifiers.ModifierTier
+import ru.descend.domain.modifiers.ModifierValue
+import ru.descend.domain.modifiers.ValueRange
+import ru.descend.features.character.model.Character
+import ru.descend.features.character.model.CharacterItems
+import ru.descend.features.character.persistence.CharacterRepository
+import ru.descend.features.equipment.persistence.EquipmentRepository
+import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
+import ru.descend.features.poe.application.PoeService
+import ru.descend.features.poe.catalog.PoeCatalog
+import ru.descend.features.poe.catalog.canonicalDefinitionJson
+import ru.descend.features.poe.catalog.string
+import ru.descend.features.poe.domain.CraftRequest
+import ru.descend.features.poe.domain.PoeCrafting
+import ru.descend.features.poe.domain.PoeCurrency
+import ru.descend.features.poe.domain.PoeInventory
+import ru.descend.features.poe.domain.PoeRarity
+import ru.descend.features.poe.domain.PoeRoll
+import ru.descend.features.poe.migration.ModifierReferenceMigration
+import ru.descend.features.poe.persistence.MongoModifierCatalog
+import ru.descend.features.poe.seed.PoeSeeder
+import ru.descend.infrastructure.mongo.MongoFactory
+import ru.descend.shared.MONGO_DB
 
 class PoeMongoTest {
     private lateinit var koin: Koin
@@ -75,7 +96,7 @@ class PoeMongoTest {
     @Test fun commitAndReplayDoNotDoubleSpend(): Unit = runBlocking {
         val (character, request) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get())
         val first = service.craft(character._id, character.userId, request)
         val replay = service.craft(character._id, character.userId, request)
         assertEquals(first, replay)
@@ -89,7 +110,7 @@ class PoeMongoTest {
     @Test fun competingRequestsOnlyCommitOneDebit() = runBlocking {
         val (character, request) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get())
         val results = coroutineScope {
             (1..2).map { n -> async(Dispatchers.Default) {
                 runCatching { service.craft(character._id, character.userId, request.copy(requestId = request.requestId + n)) }
@@ -103,8 +124,8 @@ class PoeMongoTest {
     @Test fun invalidOperationLeavesDatabaseUnchanged() = runBlocking {
         val (character, request) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get())
-        assertFailsWith<IllegalArgumentException> { service.craft(character._id, character.userId, request.copy(expectedVersion = 22)) }
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get())
+        assertFailsWith<ru.descend.shared.http.ApiFailure> { service.craft(character._id, character.userId, request.copy(expectedVersion = 22)) }
         val stored = repo.findById(character._id)!!
         assertEquals(0L, stored.version)
         assertEquals(character.items, stored.items)
@@ -122,7 +143,7 @@ class PoeMongoTest {
         assertEquals(count, repo.count())
         assertEquals("ADMIN CUSTOM NAME", repo.findById(first._id)!!.name)
         assertEquals(character.equipments, koin.get<CharacterRepository>().findById(character._id)!!.equipments)
-        assertTrue(koin.get<ModifierDefinitionRepository>().count() >= 40355L)
+        assertTrue(koin.get<ModifierDefinitionRepository>().count() >= PoeCatalog.bundled.mods.size.toLong())
     }
     @Test fun mongoRevisionChangesNewRollsButNotExistingItems(): Unit = runBlocking {
         val definitions = koin.get<ModifierDefinitionRepository>()
@@ -177,10 +198,10 @@ class PoeMongoTest {
         val canonical = ModifierDefinition(id, "Canonical", ModifierSource.PREFIX, tiers = listOf(ModifierTier(1, values = listOf(ValueRange(1.0, 2.0)))))
         definitions.publish(canonical, 0)
         val embedded = canonical.copy(name = "Item-local", tiers = listOf(ModifierTier(1, values = listOf(ValueRange(7.0, 9.0)))))
-        val template = features.data.equipment.equipment_data.Armor(application.enums.EnumEquipmentType.HELMET, 1,
+        val template = ru.descend.features.equipment.model.Armor(ru.descend.domain.enums.EnumEquipmentType.HELMET, 1,
             modifierDefinitions = listOf(embedded))
         equipment.collection.insertOne(template) // simulate data written by the old schema
-        val instance = features.data.character.character_data.CharacterEquipments(template._id,
+        val instance = ru.descend.features.character.model.CharacterEquipments(template._id,
             params = mutableListOf(Modifier(id, listOf(ModifierValue(8.0)), 1, ModifierSource.PREFIX)))
         val owner = Character(ObjectId().toHexString(), "migration_${ObjectId().toHexString()}", equipments = mutableListOf(instance))
         characters.collection.insertOne(owner)
@@ -202,7 +223,7 @@ class PoeMongoTest {
 
     @Test fun newEquipmentRejectsEmbeddedDefinitionsAndDanglingReferences(): Unit = runBlocking {
         val equipment = koin.get<EquipmentRepository>()
-        val template = features.data.equipment.equipment_data.Armor(application.enums.EnumEquipmentType.HELMET, 1,
+        val template = ru.descend.features.equipment.model.Armor(ru.descend.domain.enums.EnumEquipmentType.HELMET, 1,
             modifierDefinitions = listOf(ModifierDefinition("inline", "Inline", ModifierSource.PREFIX)))
         assertFailsWith<IllegalArgumentException> { MongoFactory.transactionExecute { equipment.insert(template, it) } }
         template.modifierDefinitions = null
@@ -239,4 +260,32 @@ class PoeMongoTest {
         assertSame(changed, reader.snapshot())
     }
 
+    @Test fun compactSnapshotsLoadOldDefinitionsOnlyWhenReferenced(): Unit = runBlocking {
+        val repo = koin.get<ModifierDefinitionRepository>()
+        val id = "archived_${ObjectId().toHexString()}"
+        val old = PoeCatalog.definitionFromRaw(id, PoeCatalog.bundled.mod("Strength1"))
+        repo.seedMissingBatch(listOf(old))
+        val reader = MongoModifierCatalog(repo)
+        assertFalse(ModifierRef(id, 1) in reader.snapshot().definitions)
+        val historical = reader.snapshot(listOf(ModifierRef(id, 1)))
+        assertEquals(old.poe!!.canonicalDefinitionJson(), historical.resolve(ModifierRef(id, 1)).poe!!.canonicalDefinitionJson())
+        assertFalse(historical.catalog.enabled(id))
+        val published = repo.publish(old, 1)
+        reader.invalidate()
+        assertTrue(reader.snapshot().catalog.enabled(id))
+        assertEquals(2, published.revision)
+    }
+
+    @Test fun paginationAndStringIdLookupsMatchMongoStorage(): Unit = runBlocking {
+        val (character, _) = fixture()
+        val repo = koin.get<CharacterRepository>()
+        assertTrue(repo.exists(character._id))
+        assertEquals(character._id, repo.findByIdForUpdate(ObjectId(character._id))!!._id)
+        val page = repo.findPaged(0, 1)
+        assertEquals(1, page.items.size)
+        assertEquals(1, page.pageSize)
+        assertTrue(page.totalItems >= 1)
+        assertFailsWith<IllegalArgumentException> { repo.findPaged(-1, 10) }
+        assertFailsWith<IllegalArgumentException> { repo.findPaged(0, 0) }
+    }
 }

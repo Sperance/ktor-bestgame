@@ -1,10 +1,20 @@
 package features.poe
 
-import features.data.character.Character
-import features.data.character.character_data.CharacterItems
-import kotlinx.serialization.json.*
 import kotlin.random.Random
 import kotlin.test.*
+import kotlinx.serialization.json.*
+import ru.descend.features.character.model.Character
+import ru.descend.features.character.model.CharacterItems
+import ru.descend.features.poe.catalog.PoeCatalog
+import ru.descend.features.poe.catalog.int
+import ru.descend.features.poe.catalog.string
+import ru.descend.features.poe.catalog.strings
+import ru.descend.features.poe.domain.CraftRequest
+import ru.descend.features.poe.domain.PoeCrafting
+import ru.descend.features.poe.domain.PoeCurrency
+import ru.descend.features.poe.domain.PoeEffectRegistry
+import ru.descend.features.poe.domain.PoeInventory
+import ru.descend.features.poe.domain.PoeRarity
 
 class PoeCraftingTest {
     private val catalog = PoeCatalog.bundled
@@ -13,10 +23,10 @@ class PoeCraftingTest {
     private fun normal() = engine.generate(baseId, 85, PoeRarity.NORMAL)
     private fun rare() = engine.apply(normal(), PoeCurrency.ALCHEMY)
 
-    @Test fun catalogIncludesCompletePinnedExport() {
-        assertEquals(5461, catalog.bases.size)
-        assertEquals(40355, catalog.mods.size)
-        assertTrue(catalog.releasedWearables().size > 700)
+    @Test fun catalogContainsOnlyReviewedCompactSubset() {
+        assertEquals(50, catalog.bases.size)
+        assertEquals(234, catalog.mods.size)
+        assertEquals(37, catalog.releasedWearables().size)
         assertEquals(catalog.equipment(baseId)._id, catalog.equipment(baseId)._id)
         assertEquals(catalog.base(baseId).strings("implicits"), normal().implicits.map { it.id })
     }
@@ -89,7 +99,7 @@ class PoeCraftingTest {
         assertEquals(item.uuid, result.equipment.uuid)
         assertEquals(1L, result.characterVersion)
         assertFailsWith<IllegalArgumentException> { inventory.craft(character, "intruder", request) }
-        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", request.copy(expectedVersion = 1)) }
+        assertFailsWith<ru.descend.shared.http.ApiFailure> { inventory.craft(character, "owner", request.copy(expectedVersion = 1)) }
         assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", request.copy(equipmentUuid = "foreign")) }
     }
     @Test fun invalidCraftDoesNotDebitOrMutate() {
@@ -114,8 +124,8 @@ class PoeCraftingTest {
     @Test fun serializationRoundTripPreservesIndividualState() {
         val inventory = PoeInventory(catalog, engine)
         val item = inventory.fromState(engine.apply(rare(), PoeCurrency.FRACTURING))
-        val json = server.addons.AppJson
-        val serializer = features.data.character.character_data.CharacterEquipments.serializer()
+        val json = ru.descend.infrastructure.http.AppJson
+        val serializer = ru.descend.features.character.model.CharacterEquipments.serializer()
         assertEquals(item, json.decodeFromString(serializer, json.encodeToString(serializer, item)))
     }
     @Test fun zeroFirstMatchOverridesLaterPositiveSpawnWeight() {
@@ -149,19 +159,49 @@ class PoeCraftingTest {
 
     @Test fun legacyGrantCreatesIndependentPoeInstanceWithStockModifiers() {
         val template = catalog.equipment(baseId)
-        val first = features.data.character.character_data.CharacterEquipments.fromEquipment(template, catalog)
-        val second = features.data.character.character_data.CharacterEquipments.fromEquipment(template, catalog)
+        val first = ru.descend.features.character.model.CharacterEquipments.fromEquipment(template, catalog)
+        val second = ru.descend.features.character.model.CharacterEquipments.fromEquipment(template, catalog)
         assertNotEquals(first.uuid, second.uuid)
         assertNotNull(first.poe)
         assertEquals(catalog.base(baseId).strings("implicits"), first.poe!!.implicits.map { it.id })
         assertNull(template.modifiers)
     }
 
-    @Test fun talismansRemainCorruptedEvenWhenGrantedAdministratively() {
-        val base = catalog.releasedWearables().keys.first { it.contains("/Talismans/") }
-        val item = engine.generate(base, 85, PoeRarity.NORMAL)
-        assertTrue(item.corrupted)
-        assertFailsWith<IllegalArgumentException> { engine.apply(item, PoeCurrency.ALCHEMY) }
+    @Test fun compactProfileDoesNotIncludeTalismans() {
+        assertTrue(catalog.releasedWearables().keys.none { it.contains("/Talismans/") })
     }
 
+    @Test fun allCompactBasesGenerateAtEveryLegalLevel() {
+        catalog.releasedWearables().forEach { (id, base) ->
+            val rarities = if (catalog.unique(base)) listOf(PoeRarity.UNIQUE) else listOf(PoeRarity.NORMAL, PoeRarity.MAGIC, PoeRarity.RARE)
+            for (level in base.int("drop_level", 1).coerceAtLeast(1)..100) {
+                rarities.forEach { rarity -> engine.validate(engine.generate(id, level, rarity)) }
+            }
+        }
+    }
+
+    @Test fun uniquePropertiesAreFixedAndRerollsStayWithinRanges() {
+        catalog.releasedWearables().filterValues(catalog::unique).forEach { (id, base) ->
+            val item = engine.generate(id, 85, PoeRarity.UNIQUE)
+            assertEquals(base.strings("unique_mods"), item.explicits.map { it.id })
+            repeat(20) {
+                val changed = engine.apply(item, PoeCurrency.DIVINE)
+                engine.validate(changed)
+                assertEquals(item.explicits.map { it.id }, changed.explicits.map { it.id })
+            }
+            listOf(PoeCurrency.CHAOS, PoeCurrency.SCOURING, PoeCurrency.MIRROR, PoeCurrency.FRACTURING).forEach {
+                assertFailsWith<IllegalArgumentException> { engine.apply(item, it) }
+            }
+            assertFailsWith<IllegalArgumentException> { engine.generate(id, 85, PoeRarity.RARE) }
+        }
+    }
+
+    @Test fun selectedFamiliesHaveContiguousTierRanks() {
+        PoeCatalog.tierMetadata.entries.groupBy { it.value.string("family") }.values.forEach { rows ->
+            assertEquals((1..rows.size).toList(), rows.map { it.value.int("tier") }.sorted())
+            rows.forEach { (id, metadata) ->
+                assertEquals(metadata.int("tier"), catalog.definition(id).tiers.single().tier)
+            }
+        }
+    }
 }

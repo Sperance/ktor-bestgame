@@ -1,9 +1,27 @@
 package features.poe
 
-import features.logic.modifiers.*
-import features.logic.stats.*
 import kotlin.random.Random
 import kotlin.test.*
+import ru.descend.domain.modifiers.DefaultConditionEvaluator
+import ru.descend.domain.modifiers.DefaultModifierResolver
+import ru.descend.domain.modifiers.InMemoryModifierDefinitionRegistry
+import ru.descend.domain.modifiers.Modifier
+import ru.descend.domain.modifiers.ModifierContext
+import ru.descend.domain.modifiers.ModifierDefinition
+import ru.descend.domain.modifiers.ModifierEffect
+import ru.descend.domain.modifiers.ModifierOperation
+import ru.descend.domain.modifiers.ModifierSource
+import ru.descend.domain.modifiers.ModifierTier
+import ru.descend.domain.modifiers.ModifierValue
+import ru.descend.domain.modifiers.ResolvedModifier
+import ru.descend.domain.modifiers.ValueExpression
+import ru.descend.domain.modifiers.ValueExpressionEvaluator
+import ru.descend.domain.modifiers.ValueRange
+import ru.descend.domain.modifiers.WeightedModifierGenerator
+import ru.descend.domain.stats.DefaultStatResolver
+import ru.descend.domain.stats.StatCalculation
+import ru.descend.domain.stats.StatContext
+import ru.descend.domain.stats.StatId
 
 class ModifierRegressionTest {
     @Test fun rolledValueReachesStatResolver() {

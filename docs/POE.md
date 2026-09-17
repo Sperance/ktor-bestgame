@@ -1,3 +1,5 @@
+> **0.8.0 compact profile:** see [current catalog and counts](COMPACT_CATALOG.md) and [migration notes](ARCHITECTURE.md). Older full-export counts and import instructions below describe the historical profile; current builds package only checked-in compact data.
+
 # PoE catalog and inventory crafting
 
 Modifier storage has been normalized: see [MongoDB revisions and migration](MODIFIER_STORAGE.md).
@@ -99,11 +101,15 @@ that engine take fractions (0.20 = 20%); resistance FLAT adapters use percentage
 All responses use the existing `success/data/error` envelope.
 
 - `GET /api/v1/poe/catalog?type=bases|modifiers&page=0&size=50&q=Strength`
-  returns `{items:[{id,data}],page,size,total}`. `id` retrieves an exact original ID. Size ≤200.
+  returns `{items:[{id,data,icon}],page,size,total}`. `id` retrieves an exact original ID. Size ≤200.
+  `icon` is an id of the server icon set; the picture is `/api/v1/icons/{icon}.svg`. See [ICONS.md](ICONS.md).
 - `GET /api/v1/poe/modifier-definition?id=Strength1` returns the compatibility definition,
   original `poe` record and runtime coverage flags.
 - `GET /api/v1/poe/capabilities` reports explicit coverage and probability policy.
-- `GET /api/v1/poe/currencies` returns supported IDs, names and inventory `itemId` values.
+- `GET /api/v1/poe/currencies` returns supported IDs, names, inventory `itemId` values and `icon`.
+- `GET /api/v1/poe/modifier-definitions` additionally returns `icons`: `definitionId` to icon id.
+- `GET /api/v1/icons`, `/api/v1/icons/bindings`, `/api/v1/icons/{id}.svg`, `/api/v1/icons/sprite.svg` —
+  the drawn set itself, public and cacheable. Contract: [ICONS.md](ICONS.md).
 - `POST /api/v1/poe/token` with `{"login":"...","password":"..."}` returns a one-hour JWT.
 - `GET /api/v1/poe/characters/{characterId}/inventory`, with owner JWT, returns version and persisted instances.
 - `POST /api/v1/poe/characters/{characterId}/craft`, with `Authorization: Bearer TOKEN`:

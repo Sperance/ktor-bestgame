@@ -1,58 +1,113 @@
-# ktor-bestgame
+# ktor-bestgame — compact RPG server
 
-## PoE catalog and crafting branch
+Kotlin/Ktor server with MongoDB, a small tiered PoE item catalog and character-owned crafting.
+Version **0.13.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
 
-See [PoE API, seeding, supported currencies and coverage](docs/POE.md).
-Modifier definitions now live exclusively in MongoDB; see [revisioned references, migration and admin API](docs/MODIFIER_STORAGE.md).
-The pinned 3.29.3.3 export contains 5,461 base records and 40,355 modifier records.
-Seeder adds 1,018 wearable templates and 4,365 other released item records, without
-deleting existing data or granting starter equipment again. Thirteen currency operations
-act on persisted character-owned instances. This is not full PoE combat/unique crafting coverage.
+## Icons
 
-Build requires JDK 21 and Python 3. Run `./gradlew poeTest jar`; MongoDB transaction tests
-use the dedicated replica set configuration documented above.
+[Drawn icon set and its API](docs/ICONS.md): 120 original vector icons for every modifier, weapon, armour piece,
+currency orb, passive node, monster and character stat. The server renders them to SVG and serves them at
+`/api/v1/icons` without authentication; existing responses now carry the icon id of their entity. Clients no
+longer need to bundle their own pictures. `./gradlew iconPreview` writes the whole set and a preview page to `build/icons`.
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
+## Shared passive tree
 
-Here are some useful links to get you started:
+[Passive tree API and rules](docs/PASSIVES.md): 115 shared nodes, independent hero allocations, level-earned points, connected paths, notables and keystones.
 
-- [Ktor Documentation](https://ktor.io/docs/home.html)
-- [Ktor GitHub page](https://github.com/ktorio/ktor)
-- The [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). You'll need to [request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) to join.
+## Text combat
 
-## Features
+Three zones, normal monsters, bosses, weighted loot, persisted turn-based battles and atomic rewards. Read [combat rules and HTTP contract](docs/COMBAT.md). World definitions live in MongoDB; existing catalogs are preserved.
 
-Here's a list of features included in this project:
+## Security and equipment update
 
-| Name                                                                   | Description                                                                        |
-| ------------------------------------------------------------------------|------------------------------------------------------------------------------------ |
-| [Call Logging](https://start.ktor.io/p/call-logging)                   | Logs client requests                                                               |
-| [kotlinx.serialization](https://start.ktor.io/p/kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library                     |
-| [Content Negotiation](https://start.ktor.io/p/content-negotiation)     | Provides automatic content conversion according to Content-Type and Accept headers |
-| [Routing](https://start.ktor.io/p/routing)                             | Provides a structured routing DSL                                                  |
-| [Sessions](https://start.ktor.io/p/ktor-sessions)                      | Adds support for persistent sessions through cookies or headers                    |
-| [Default Headers](https://start.ktor.io/p/default-headers)             | Adds a default set of headers to HTTP responses                                    |
-| [CORS](https://start.ktor.io/p/cors)                                   | Enables Cross-Origin Resource Sharing (CORS)                                       |
-| [Authentication](https://start.ktor.io/p/auth)                         | Provides extension point for handling the Authorization header                     |
+Read [API audit and client migration](docs/API_SECURITY_AUDIT.md) and [character commands / calculation rules](docs/CHARACTER_COMMANDS.md) before updating ExileForge. Writes now require authentication, allowlisted DTO fields and expectedVersion. Old password-in-GET/device-login prototypes are removed.
 
-## Building & Running
+## Run
 
-To build or run the project, use one of the following tasks:
+Requirements: JDK 21, Python 3, MongoDB replica set (transactions are required).
 
-| Task                                    | Description                                                          |
-| -----------------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`                        | Run the tests                                                        |
-| `./gradlew build`                       | Build everything                                                     |
-| `./gradlew buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
-| `./gradlew buildImage`                  | Build the docker image to use with the fat JAR                       |
-| `./gradlew publishImageToLocalRegistry` | Publish the docker image locally                                     |
-| `./gradlew run`                         | Run the server                                                       |
-| `./gradlew runDocker`                   | Run using the local docker image                                     |
-
-If the server starts successfully, you'll see the following output:
-
-```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
+```bash
+export MONGO_URI='mongodb://localhost:27017/?replicaSet=rs0'
+export MONGO_DB='bestgame_compact'
+export JWT_SECRET='<your-random-secret-at-least-32-characters>'
+./gradlew run
 ```
 
+On Windows use `gradlew.bat run` and set the same environment variables in PowerShell.
+Ktor reads `src/main/resources/application.yaml`; the port is 8080 unless `PORT` is set.
+`./gradlew installDist` produces a runnable distribution under `build/install/ktor-bestgame`.
+
+A disposable local replica set, matching the one CI uses:
+
+```bash
+docker run -d --name bestgame-mongo -p 27017:27017 mongo:8 --replSet rs0 --bind_ip_all
+docker exec bestgame-mongo mongosh --quiet --eval 'rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]})'
+```
+
+### If the server does not start
+
+| Message | Cause and fix |
+| --- | --- |
+| `./gradlew: Permission denied` | The wrapper lost its executable bit; run `chmod +x gradlew` (it is stored as executable in git). |
+| `Checksum mismatch: base_items.json` | The checkout rewrote the pinned catalog, normally Git on Windows with `core.autocrlf=true`. `.gitattributes` prevents it, and the build repairs newline-only damage in place. If the catalog was edited on purpose, re-pin it with `python3 scripts/prepare_poe.py --update-lock`. |
+| `Python 3 is required to verify the pinned PoE catalog` | The build verifies `data/poe/compact` before packaging it. Install Python 3 so that `python3`, `python` or `py` is on PATH. On Windows the Microsoft Store `python3` stub is skipped automatically. |
+| `MongoDB at ... is unreachable` | Nothing is listening on `MONGO_URI`. Start MongoDB, or point `MONGO_URI` at the right host. |
+| `MongoDB at ... is a standalone server` | Seeding and every write run in transactions, which a standalone `mongod` cannot serve. Start a replica set and use `?replicaSet=rs0`. |
+| `Address already in use` | Port 8080 is taken; start with `PORT=8081`. |
+| `JWT_SECRET must have at least 32 characters` | Use a longer secret. Leaving `JWT_SECRET` unset generates a random one, which invalidates every issued token on restart. |
+
+Seeding is additive and restartable. It does not delete existing data or grant duplicate items.
+For an optional development administrator and one character, set `SEED_DEMO_DATA=true` and
+`SEED_ADMIN_PASSWORD` (at least 12 characters) **before the first startup of an empty database**.
+Existing accounts/passwords are never overwritten. Default credentials are not embedded in the server.
+
+## Compact catalog
+
+| Content | Count |
+| --- | ---: |
+| Ordinary equipment bases | 35 |
+| Curated unique equipment | 2 |
+| Supported currency item templates | 13 |
+| Basic affix families | 24 |
+| Tier records in those families | 208 |
+| Total modifier definitions, including implicits and unique properties | 234 |
+
+The ordinary set covers early, middle and late equipment progression. Jewellery is deliberately limited.
+The unique set is **Blackheart** and **Le Heup of All**, with fixed explicit property sets and rolled values.
+Unique instances accept Divine and Blessed Orbs; ordinary rarity-changing currencies and Mirror are rejected.
+There are no sockets or skill gems. Imported effect ranges are preserved; unsupported combat effects are
+reported through `runtimeSupported` / `unsupportedStats`, not silently treated as implemented mechanics.
+
+Data is checked in under `data/poe/compact`, with SHA-256 checksums in `data/poe.lock.json`.
+Building and starting the server do not download the full PoE export. See [catalog maintenance](docs/COMPACT_CATALOG.md).
+
+## Architecture and compatibility
+
+All Kotlin production packages are under `ru.descend`. See [architecture and migration](docs/ARCHITECTURE.md).
+The versions and declarations in `gradle/libs.versions.toml` are preserved: Ktor plugins, Netty, Koin,
+MongoDB/BSON, ktmongo, kotlinx.serialization, kotlinx.datetime, Logback, Swagger annotations and Dokka.
+Existing integrations remain in the project; this change does not replace the database or dependency stack.
+
+Mongo collection names, IDs, existing modifier revisions and polymorphic JSON discriminator strings are retained.
+Catalog and PoE paths remain available; protected CRUD and inventory bodies follow the new versioned command contract. The default catalog listing
+is smaller. Old equipment outside the compact base set remains stored and readable, but cannot be crafted
+until its base is deliberately added to the active catalog. No automatic destructive cleanup is performed.
+Existing custom modifiers can be reactivated through publication; new custom publications participate in the active catalog.
+
+## Verify
+
+```bash
+./gradlew test
+MONGO_URI='mongodb://localhost:27017/?replicaSet=rs0' MONGO_DB=poe_integration_test ./gradlew poeMongoTest
+./gradlew installDist
+MONGO_URI='mongodb://localhost:27017/?replicaSet=rs0' MONGO_DB=poe_startup_test python3 scripts/smoke_server.py
+```
+
+CI uses disposable MongoDB databases. It checks unit/HTTP serialization contracts, transactional crafting,
+seed restart/concurrency, then starts the packaged server twice and checks its real HTTP API.
+The old manual `MongoTest` is excluded from the default test task; it is retained as an opt-in legacy test.
+API details: [PoE routes](docs/POE.md), [modifier revision storage](docs/MODIFIER_STORAGE.md).
+
+## ExileForge workbench API (0.10.0)
+
+Read-only equipment comparison, craft eligibility and scoped catalog search are documented in [WORKBENCH_API.md](docs/WORKBENCH_API.md). Existing mutation preconditions remain mandatory.
