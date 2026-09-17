@@ -3,6 +3,7 @@ package ru.descend.features.character.application
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import kotlinx.datetime.LocalDateTime
 import ru.descend.features.character.model.*
+import ru.descend.features.character.persistence.CharacterInventoryRepository
 import ru.descend.features.items.persistence.ItemsRepository
 import ru.descend.features.recipe.persistence.RecipeRepository
 import ru.descend.features.redemptioncodes.persistence.RedemptionCodesRepository
@@ -11,25 +12,35 @@ import ru.descend.shared.extensions.now
 import ru.descend.shared.http.*
 import kotlin.random.Random
 
+/**
+ * Предметы персонажа хранятся без стаков: каждая единица — свой документ. Поэтому «изменить
+ * количество» здесь не пересчёт поля `amount`, а вставка или удаление нужного числа документов
+ * в той же транзакции, что и bump версии персонажа.
+ */
 class InventoryCommandService(private val equipment: EquipmentService, private val items: ItemsRepository,
-    private val recipes: RecipeRepository, private val redemptions: RedemptionCodesRepository) {
+    private val recipes: RecipeRepository, private val redemptions: RedemptionCodesRepository,
+    private val inventory: CharacterInventoryRepository) {
     private fun quantity(value: Double): Long {
-        if (!value.isFinite() || value < 1 || value > 1_000_000_000 || value != value.toLong().toDouble()) invalid("Expected a positive whole item quantity")
+        if (!value.isFinite() || value < 1 || value > CharacterInventoryRepository.MAX_UNITS_PER_COMMAND || value != value.toLong().toDouble())
+            invalid("Expected a whole item quantity of 1 to ${CharacterInventoryRepository.MAX_UNITS_PER_COMMAND}")
         return value.toLong()
     }
-    private suspend fun adjust(character: Character, deltas: List<CharacterItems>, session: ClientSession): Character {
+    private suspend fun adjust(character: Character, deltas: List<ItemDelta>, session: ClientSession): Character {
         if (deltas.size !in 1..100 || deltas.map { it.itemId }.toSet().size != deltas.size) invalid("Invalid or duplicate item list")
-        if (character.items.map { it.itemId }.toSet().size != character.items.size) invalid("Inventory contains duplicate stacks")
-        val stacks = character.items.associate { it.itemId to it.amount }.toMutableMap()
-        for (delta in deltas) {
-            items.findById(checkedId(delta.itemId), session)?.takeUnless { it.deleted } ?: missing()
-            if (delta.amount !in -1_000_000_000L..1_000_000_000L) invalid("Invalid item quantity")
-            val next = Math.addExact(stacks[delta.itemId] ?: 0, delta.amount)
-            if (next < 0) invalid("Not enough items")
-            stacks[delta.itemId] = next
+        // Сначала полная проверка, потом записи: неизвестный предмет не должен оставить после себя
+        // вставок, которые придётся откатывать транзакцией.
+        deltas.forEach {
+            if (it.amount == 0L) invalid("Invalid item quantity")
+            items.findById(checkedId(it.itemId), session)?.takeUnless { item -> item.deleted } ?: missing()
         }
-        if (stacks.size > 500) invalid("Inventory is full")
-        return character.copy(items = stacks.filterValues { it > 0 }.map { CharacterItems(it.key, it.value) }.toMutableList())
+        // Единицы — это документы, и все они пишутся одной транзакцией: ограничение общее на команду.
+        inventory.checkedAmount(deltas.fold(0L) { sum, delta -> Math.addExact(sum, Math.abs(delta.amount)) })
+        for (delta in deltas) {
+            // Отрицательная дельта списывает ровно столько единиц, положительная — столько создаёт.
+            if (delta.amount > 0) inventory.grant(character._id, delta.itemId, delta.amount, session)
+            else inventory.consume(character._id, delta.itemId, -delta.amount, session)
+        }
+        return character
     }
     suspend fun adjust(id: String, actor: Actor, command: AdjustItemsCommand): EquipmentView {
         actor.requireAdmin()
@@ -40,7 +51,7 @@ class InventoryCommandService(private val equipment: EquipmentService, private v
         val redemption = redemptions.findByField(ru.descend.features.redemptioncodes.model.RedemptionCodes::code, command.code, s)?.takeUnless { it.deleted } ?: missing()
         if (redemption.expiredAt?.let { it < LocalDateTime.now() } == true) invalid("Code expired")
         if (c.gainedRedemptionCodes.any { it.redemptionCodeId == redemption._id }) invalid("Code already redeemed")
-        val deltas = redemption.treasure.groupBy { it.itemId }.map { (itemId, rewards) -> CharacterItems(itemId, rewards.fold(0L) { sum, r -> Math.addExact(sum, quantity(r.amount)) }) }
+        val deltas = redemption.treasure.groupBy { it.itemId }.map { (itemId, rewards) -> ItemDelta(itemId, rewards.fold(0L) { sum, r -> Math.addExact(sum, quantity(r.amount)) }) }
         val next = if (deltas.isEmpty()) c else adjust(c, deltas, s)
         redemption.used = Math.addExact(redemption.used, 1)
         redemptions.update(redemption, s)
@@ -64,7 +75,7 @@ class InventoryCommandService(private val equipment: EquipmentService, private v
         }
         if (changes.keys != command.ingredientIds.toSet()) invalid("Unexpected ingredients")
         // Validate/debit inputs first, even if the recipe returns the same item.
-        val debited = if (changes.isEmpty()) c else adjust(c, changes.map { CharacterItems(it.key, it.value) }, s)
+        val debited = if (changes.isEmpty()) c else adjust(c, changes.map { ItemDelta(it.key, it.value) }, s)
         val rewards = mutableMapOf<String, Long>()
         for (output in recipe.arrayOut) {
             if (!output.chance.isFinite() || output.chance !in 0.0..1.0) invalid("Invalid output chance")
@@ -72,7 +83,7 @@ class InventoryCommandService(private val equipment: EquipmentService, private v
                 if (Random.nextDouble() < output.chance) rewards[output.itemId] = Math.addExact(rewards[output.itemId] ?: 0, quantity(output.amount))
             }
         }
-        val next = if (rewards.isEmpty()) debited else adjust(debited, rewards.map { CharacterItems(it.key, it.value) }, s)
+        val next = if (rewards.isEmpty()) debited else adjust(debited, rewards.map { ItemDelta(it.key, it.value) }, s)
         recipe.globalUses = Math.addExact(recipe.globalUses, command.amount)
         recipes.update(recipe, s)
         next

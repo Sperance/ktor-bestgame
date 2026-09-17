@@ -30,6 +30,7 @@ class CharacterStorageTest {
             equipped = mapOf(EquipmentSlot.RING_LEFT to ring.uuid))
         val json = AppJson.encodeToString(Character.serializer(), character)
         assertFalse(json.contains("\"equipments\""), "Инвентарь не должен попадать в документ персонажа")
+        assertFalse(json.contains("\"items\""), "Стаков предметов в документе персонажа больше нет")
         assertTrue(json.contains("\"equipped\""))
         assertFalse(json.contains("baseSnapshot"), "Снимок базы предмета остаётся в его собственном документе")
         val restored = AppJson.decodeFromString(Character.serializer(), json)
@@ -44,12 +45,21 @@ class CharacterStorageTest {
             property.javaField?.annotations?.any { it is kotlinx.serialization.Transient } == true)
     }
 
-    @Test fun decodingIgnoresTheLegacyEmbeddedArray() {
+    @Test fun decodingIgnoresTheLegacyEmbeddedArrays() {
         val ring = item()
         val legacy = AppJson.encodeToString(Character.serializer(), Character("owner", "hero"))
-            .replaceFirst("{", "{\"equipments\":[" + AppJson.encodeToString(CharacterEquipments.serializer(), ring) + "],")
+            .replaceFirst("{", "{\"equipments\":[" + AppJson.encodeToString(CharacterEquipments.serializer(), ring) + "]," +
+                "\"items\":[{\"itemId\":\"deadbeefdeadbeefdeadbeef\",\"amount\":7}],")
         val restored = AppJson.decodeFromString(Character.serializer(), legacy)
         assertTrue(restored.equipments.isEmpty(), "Старый массив читается, но больше не заполняет рабочий набор")
         assertEquals("hero", restored.name)
+    }
+
+    /** Поля количества в модели принадлежащих предметов нет — это и означает отказ от стаков. */
+    @Test fun ownedItemCarriesNoAmount() {
+        val fields = ru.descend.features.character.model.CharacterInventoryItem.serializer().descriptor
+        val names = (0 until fields.elementsCount).map { fields.getElementName(it) }
+        assertTrue("itemId" in names && "characterId" in names)
+        assertFalse("amount" in names, "Единица предмета не должна нести количество")
     }
 }

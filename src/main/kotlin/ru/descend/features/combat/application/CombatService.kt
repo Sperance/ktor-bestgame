@@ -3,7 +3,6 @@ package ru.descend.features.combat.application
 import kotlin.random.Random
 import kotlinx.serialization.encodeToString
 import ru.descend.features.character.model.Character
-import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.character.application.EquipmentService
 import ru.descend.features.character.persistence.CharacterRepository
 import ru.descend.features.combat.domain.*
@@ -19,7 +18,8 @@ import ru.descend.shared.http.*
 class CombatService(private val characters: CharacterRepository, private val equipment: EquipmentService,
     private val catalogs: MongoModifierCatalog, private val worlds: CombatWorldRepository,
     private val receipts: BattleReceiptRepository,
-    private val equipmentItems: ru.descend.features.character.persistence.CharacterEquipmentRepository) {
+    private val equipmentItems: ru.descend.features.character.persistence.CharacterEquipmentRepository,
+    private val inventoryItems: ru.descend.features.character.persistence.CharacterInventoryRepository) {
     suspend fun catalog() = worlds.catalog()
     private fun own(character: Character, actor: Actor) {
         if (character.deleted || character.userId != actor.id) missing()
@@ -93,7 +93,8 @@ class CombatService(private val characters: CharacterRepository, private val equ
         val inventory = PoeInventory(catalog, crafting)
         // Выпавшая экипировка уходит отдельными документами, поэтому лимита на инвентарь нет.
         val granted = mutableListOf<ru.descend.features.character.model.CharacterEquipments>()
-        val items = c.items.map { it.copy() }.toMutableList()
+        // Валюта не стакается: копим, сколько единиц каждого типа выдать, и вставляем их документами.
+        val units = mutableMapOf<String, Long>()
         val rewards = mutableListOf(BattleReward("Опыт", battle.monster.experience.toLong()), BattleReward("Золото", battle.monster.gold.toLong()))
         repeat(battle.lootTable.rolls) {
             var ticket = Random.nextInt(battle.lootTable.entries.sumOf { it.weight })
@@ -118,9 +119,7 @@ class CombatService(private val characters: CharacterRepository, private val equ
                 else -> {
                     val currency = PoeCurrency.valueOf(entry.kind)
                     val itemId = inventory.currencyId(currency)
-                    val existing = items.singleOrNull { it.itemId == itemId }
-                    if (existing == null) items += CharacterItems(itemId, entry.amount.toLong())
-                    else existing.amount = Math.addExact(existing.amount, entry.amount.toLong())
+                    units[itemId] = Math.addExact(units[itemId] ?: 0L, entry.amount.toLong())
                     rewards += BattleReward(currency.displayName, entry.amount.toLong(), itemId)
                 }
             }
@@ -130,7 +129,8 @@ class CombatService(private val characters: CharacterRepository, private val equ
         while (level < 100 && experience >= 50.0 * level * (level + 1)) level++
         val kills = c.zoneKills + (battle.zoneId to if (battle.monster.boss) 0 else ((c.zoneKills[battle.zoneId] ?: 0) + 1).coerceAtMost(100))
         equipmentItems.addAll(c._id, granted, session)
-        return c.copy(battle = battle.copy(rewards = rewards), zoneKills = kills, items = items,
+        units.forEach { (itemId, amount) -> inventoryItems.grant(c._id, itemId, amount, session) }
+        return c.copy(battle = battle.copy(rewards = rewards), zoneKills = kills,
             money = Math.addExact(c.money, battle.monster.gold.toLong()), experience = experience, level = level.toShort())
     }
 }

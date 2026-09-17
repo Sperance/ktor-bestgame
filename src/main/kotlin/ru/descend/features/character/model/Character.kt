@@ -11,7 +11,6 @@ import ru.descend.domain.modifiers.Modifier
 import ru.descend.features.character.model.CharacterBattleSkill
 import ru.descend.features.character.model.CharacterBoolSkill
 import ru.descend.features.character.model.CharacterEquipments
-import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.character.model.CharacterProfessionSkill
 import ru.descend.features.character.model.CharacterStockSkill
 import ru.descend.features.character.model.GainedRedemtionCodes
@@ -45,7 +44,6 @@ data class Character(
 
     /** Слотов не больше, чем в [EquipmentSlot]: карта остаётся в документе персонажа. */
     var equipped: Map<EquipmentSlot, String> = emptyMap(),
-    var items: MutableList<CharacterItems> = mutableListOf(),
     var professionSkills: MutableList<CharacterProfessionSkill> = mutableListOf(),
     var stockSkills: MutableList<CharacterStockSkill> = mutableListOf(),
     var battleSkills: MutableList<CharacterBattleSkill> = mutableListOf(),

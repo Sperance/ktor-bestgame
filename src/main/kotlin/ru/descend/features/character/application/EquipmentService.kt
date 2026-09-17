@@ -8,6 +8,7 @@ import ru.descend.domain.modifiers.ModifierRef
 import ru.descend.features.character.model.*
 import ru.descend.features.character.domain.*
 import ru.descend.features.character.persistence.CharacterEquipmentRepository
+import ru.descend.features.character.persistence.CharacterInventoryRepository
 import ru.descend.features.character.persistence.CharacterRepository
 import ru.descend.features.equipment.model.Equipment
 import ru.descend.features.equipment.persistence.EquipmentRepository
@@ -22,9 +23,16 @@ import ru.descend.shared.http.*
  */
 @Serializable data class InventoryPage(val items: List<CharacterEquipments>, val size: Int, val total: Long, val next: String? = null)
 
+/**
+ * Одна принадлежащая единица предмета. Поля `amount` нет: стаков не существует,
+ * тысяча орбов — это тысяча таких записей. Сколько чего есть — `GET /{id}/itemTotals`.
+ */
+@Serializable data class OwnedItem(val id: String, val itemId: String)
+@Serializable data class OwnedItemsPage(val items: List<OwnedItem>, val size: Int, val total: Long, val next: String? = null)
+
 @Serializable data class EquipmentView(val characterVersion: Long, val equipped: Map<EquipmentSlot, String>,
     val equippedItems: List<CharacterEquipments>, val inventory: InventoryPage,
-    val items: List<CharacterItems>, val stats: CharacterStats)
+    val items: OwnedItemsPage, val stats: CharacterStats)
 
 /**
  * Экипировка живёт в собственной коллекции, поэтому сервис никогда не поднимает инвентарь целиком:
@@ -33,6 +41,7 @@ import ru.descend.shared.http.*
  */
 class EquipmentService(private val characters: CharacterRepository, private val equipment: EquipmentRepository,
     private val catalogs: MongoModifierCatalog, private val inventory: CharacterEquipmentRepository,
+    private val ownedItems: CharacterInventoryRepository,
     private val passiveTrees: ru.descend.features.passives.persistence.PassiveTreeRepository = ru.descend.features.passives.persistence.PassiveTreeRepository()) {
 
     /**
@@ -72,6 +81,25 @@ class EquipmentService(private val characters: CharacterRepository, private val 
     /** Надетое читается по uuid из [Character.equipped] — инвентарь при этом не перебирается. */
     suspend fun equipped(characterId: String, actor: Actor): List<CharacterEquipments> =
         hydrate(character(characterId, actor)).equipments
+
+    private suspend fun ownedItemsPage(characterId: String, size: Int, after: String? = null): OwnedItemsPage {
+        val page = ownedItems.page(characterId, size, after)
+        return OwnedItemsPage(page.map { OwnedItem(it._id, it.itemId) }, size, ownedItems.total(characterId),
+            if (page.size < size) null else page.last()._id)
+    }
+    /** Страница принадлежащих единиц предметов: без стаков список ограничен только объёмом коллекции. */
+    suspend fun items(characterId: String, actor: Actor, size: Int = CharacterInventoryRepository.DEFAULT_PAGE_SIZE,
+        after: String? = null): OwnedItemsPage {
+        if (size !in 1..CharacterInventoryRepository.MAX_PAGE_SIZE) invalid("Invalid inventory page size")
+        return ownedItemsPage(character(characterId, actor)._id, size, after)
+    }
+    /**
+     * Сколько единиц каждого типа есть у персонажа. Значение вычисляется по принадлежащим
+     * единицам, а не хранится: стаков в модели нет, поэтому запрос стоит тем дороже, чем
+     * больше предметов у персонажа. Для команд крафта хватает [craftOptions].
+     */
+    suspend fun itemTotals(characterId: String, actor: Actor): Map<String, Long> =
+        ownedItems.totals(character(characterId, actor)._id)
     suspend fun view(characterId: String, actor: Actor, size: Int = CharacterEquipmentRepository.DEFAULT_PAGE_SIZE, after: String? = null): EquipmentView =
         view(character(characterId, actor), size, after)
     suspend fun view(character: Character, size: Int = CharacterEquipmentRepository.DEFAULT_PAGE_SIZE, after: String? = null): EquipmentView {
@@ -81,7 +109,7 @@ class EquipmentService(private val characters: CharacterRepository, private val 
         return EquipmentView(hydrated.version, hydrated.equipped,
             hydrated.equipments.filter { it.uuid in hydrated.equipped.values },
             InventoryPage(page, size, inventory.count(hydrated._id), if (page.size < size) null else page.last().uuid),
-            hydrated.items, stats(hydrated))
+            ownedItemsPage(hydrated._id, size), stats(hydrated))
     }
     suspend fun compare(id: String, actor: Actor, command: EquipCommand): EquipmentComparison {
         val loaded = characters.findById(checkedId(id)) ?: missing(); actor.own(loaded)
@@ -108,9 +136,11 @@ class EquipmentService(private val characters: CharacterRepository, private val 
         val (_, snapshot) = context(character)
         val engine = ru.descend.features.poe.domain.PoeCrafting(snapshot.catalog, kotlin.random.Random(0))
         val poeInventory = ru.descend.features.poe.domain.PoeInventory(snapshot.catalog, engine)
+        // Без стаков «сколько валюты есть» — это число принадлежащих единиц, считаем один раз.
+        val totals = ownedItems.totals(character._id)
         val options = ru.descend.features.poe.domain.PoeCurrency.entries.map { currency ->
             val currencyId = poeInventory.currencyId(currency)
-            val amount = character.items.filter { it.itemId == currencyId }.sumOf { it.amount }
+            val amount = totals[currencyId] ?: 0L
             val reason = when {
                 character.userId != actor.id -> "Only the owner can craft this item"
                 amount <= 0 -> "Not enough currency"

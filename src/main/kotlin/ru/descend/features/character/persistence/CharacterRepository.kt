@@ -5,8 +5,6 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.descend.features.character.model.Character
-import ru.descend.features.character.model.CharacterEquipments
-import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.equipment.model.Equipment
 import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.items.persistence.ItemsRepository
@@ -75,15 +73,4 @@ class CharacterRepository : BaseRepository<Character>(
             it.baseSnapshot ?: equipmentRepository.findById(it.equipmentId) ?: ru.descend.shared.http.missing()
         }
     }
-
-    /**
-     * Добавление нового предмета в инвентарь персонажа. Создание предмета
-     */
-    @Deprecated("Use EquipmentService.grant with Actor and expectedVersion")
-    suspend fun itemToInventory(characterId: String, item: CharacterEquipments): String =
-        ru.descend.shared.http.invalid("Use the authenticated grant command")
-
-    @Deprecated("Use InventoryCommandService.adjust with Actor and expectedVersion")
-    suspend fun addItem(characterId: String, itemObj: List<CharacterItems>): String =
-        ru.descend.shared.http.invalid("Use the authenticated inventory command")
 }

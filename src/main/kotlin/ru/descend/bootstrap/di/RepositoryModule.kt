@@ -16,12 +16,13 @@ val repositoryModule = module {
     single { ru.descend.features.passives.application.PassiveService(get(), get(), get(), get()) }
     single { ru.descend.features.combat.persistence.CombatWorldRepository() }
     single { ru.descend.features.combat.persistence.BattleReceiptRepository() }
-    single { ru.descend.features.combat.application.CombatService(get(), get(), get(), get(), get(), get()) }
-    single { ru.descend.features.character.application.EquipmentService(get(), get(), get(), get(), get()) }
-    single { ru.descend.features.character.application.InventoryCommandService(get(), get(), get(), get()) }
+    single { ru.descend.features.combat.application.CombatService(get(), get(), get(), get(), get(), get(), get()) }
+    single { ru.descend.features.character.application.EquipmentService(get(), get(), get(), get(), get(), get()) }
+    single { ru.descend.features.character.application.InventoryCommandService(get(), get(), get(), get(), get()) }
     single { UserRepository() }
     single { CharacterRepository() }
     single { ru.descend.features.character.persistence.CharacterEquipmentRepository() }
+    single { ru.descend.features.character.persistence.CharacterInventoryRepository() }
     single { ItemsRepository() }
     single { EquipmentRepository() }
     single { BlockListRepository() }
@@ -30,6 +31,6 @@ val repositoryModule = module {
     single { ModifierDefinitionRepository() }
     single { ru.descend.features.poe.persistence.MongoModifierCatalog(get()) }
     single { ru.descend.features.poe.persistence.ReceiptRepository() }
-    single { ru.descend.features.poe.application.PoeService(get(), get(), get(), get(), get(), get()) }
+    single { ru.descend.features.poe.application.PoeService(get(), get(), get(), get(), get(), get(), get()) }
 }
 

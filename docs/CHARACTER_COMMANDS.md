@@ -13,7 +13,7 @@ All commands require a current bearer token. `{id}` is the character ID; equipme
 | POST `/api/v1/user/changePassword` | `{"expectedVersion":2,"currentPassword":"…","newPassword":"…"}` |
 | POST `/api/v1/user/changeRole?id=…` (admin) | `{"expectedVersion":2,"role":"USER"}` |
 
-Commands return EquipmentView (version, equipped items, one inventory page, currency/items, slots, calculated stats), except user commands, which return a safe UserResponse.
+Commands return EquipmentView (version, equipped items, one equipment page, one page of owned item units, slots, calculated stats), except user commands, which return a safe UserResponse.
 GET `/api/v1/character/{id}/equipment?size=&after=` returns the view; GET `/api/v1/character/{id}/stats` returns only CharacterStats and reads no inventory at all.
 Equipment instances are stored one document per item, so the inventory has no length limit and is always read as a cursor page (`size` 1..200, default 50; `after` is the previous page's last UUID, `next == null` ends the list). See [equipment storage](EQUIPMENT_STORAGE.md).
 The character's version covers equipment selection, inventory and currencies together. Replaying a successful non-craft command with its old expectedVersion returns 409, preventing duplicate mutations. PoE crafting retains its requestId receipt mechanism.
@@ -48,4 +48,4 @@ This completes equipment selection and a shared **character sheet** for the comp
 
 Redemption checks expiry, prior use and ownership, adds rewards, records redemption and updates the code counter in the same transaction.
 Instantaneous recipes (`timeWork=0`, no skill requirements) validate recipeVersion, unlock state, ingredient selectors and integer quantities, debit inputs before adding outputs, and atomically update usage counters. Fractions, negative quantities and unsupported timed/skill-gated recipes fail without consuming items. Timed jobs and skill-gated recipe execution are outside this release.
-Administrative stack adjustments reject unknown/deleted items, duplicates, overflow, negative balances and excessive inventory size.
+Administrative item adjustments reject unknown/deleted items, duplicates, overflow and insufficient balances. There are no stacks: `amount` says how many units to create (>0) or destroy (<0), and one command may touch at most 10 000 units in total, because each unit is its own document written in the same transaction. Balances are counted, not stored: `GET /api/v1/character/{id}/itemTotals`; the units themselves page through `GET /api/v1/character/{id}/items?size=&after=`. See [equipment storage](EQUIPMENT_STORAGE.md).

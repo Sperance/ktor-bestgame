@@ -26,7 +26,8 @@ class PoeService(private val characters: CharacterRepository, private val equipm
     private val catalogs: MongoModifierCatalog,
     private val receipts: ReceiptRepository,
     private val equipmentService: ru.descend.features.character.application.EquipmentService,
-    private val equipmentItems: ru.descend.features.character.persistence.CharacterEquipmentRepository) {
+    private val equipmentItems: ru.descend.features.character.persistence.CharacterEquipmentRepository,
+    private val inventoryItems: ru.descend.features.character.persistence.CharacterInventoryRepository) {
 
     suspend fun craft(characterId: String, ownerId: String, request: CraftRequest): PoeResult =
         transactionExecute("poe.craft") { session ->
@@ -45,12 +46,18 @@ class PoeService(private val characters: CharacterRepository, private val equipm
             }
             val catalog = catalogs.snapshot(required).catalog
             val inventory = PoeInventory(catalog, PoeCrafting(catalog))
-            val (next, result) = inventory.craft(loaded, ownerId, request)
-            // CAS on the character version covers both the item and the currency stack.
+            // Валюта не стакается: «сколько есть» — это число принадлежащих единиц.
+            val currencyId = inventory.currencyId(request.currency)
+            val units = inventoryItems.count(character._id, currencyId, session)
+            val transition = inventory.craft(loaded, ownerId, request, units)
+            val next = transition.character
+            val result = transition.result
+            // CAS on the character version covers both the item and the currency unit.
             equipmentService.validate(next, session)
             // Mirror копирует предмет в новый документ, остальные валюты меняют его на месте.
             if (request.currency == ru.descend.features.poe.domain.PoeCurrency.MIRROR) equipmentItems.add(character._id, result.equipment, session)
             else equipmentItems.replace(character._id, result.equipment, session)
+            inventoryItems.consume(character._id, transition.currencyId, 1, session)
             characters.update(next, session)
             receipts.insert(PoeReceipt(key, payload, result), session)
             result

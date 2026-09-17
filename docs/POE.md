@@ -128,7 +128,10 @@ All responses use the existing `success/data/error` envelope.
 
 Drop is an administrative testing endpoint. Gameplay should grant loot from a verified server-side
 reward event. It is deliberately not an unlimited loot faucet for regular player tokens.
-Read the character through the existing GET route to obtain `version`, equipment UUIDs and currency.
+Read the character through the existing GET route to obtain `version` and equipment UUIDs; currency
+balances come from `GET /api/v1/character/{id}/itemTotals` or `craftOptions`. Currency does not stack:
+every orb is its own document, so a craft deletes exactly one of them and `currencyRemaining` is the
+count that is left. See [equipment storage](EQUIPMENT_STORAGE.md).
 Responses include the resulting equipment, character version and (for crafting) remaining currency.
 
 The item update, currency debit, version increment and permanent request receipt commit in one MongoDB

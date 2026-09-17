@@ -20,8 +20,8 @@ import ru.descend.domain.modifiers.ModifierTier
 import ru.descend.domain.modifiers.ModifierValue
 import ru.descend.domain.modifiers.ValueRange
 import ru.descend.features.character.model.Character
-import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.character.persistence.CharacterEquipmentRepository
+import ru.descend.features.character.persistence.CharacterInventoryRepository
 import ru.descend.features.character.persistence.CharacterRepository
 import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
@@ -84,6 +84,7 @@ class PoeMongoTest {
         assertFailsWith<IllegalArgumentException> { repo.seedMissingBatch(List(101) { first }) }
     }
     private fun items() = koin.get<CharacterEquipmentRepository>()
+    private fun owned() = koin.get<CharacterInventoryRepository>()
     private fun ring() = PoeCatalog.bundled.bases.entries
         .first { it.value.string("name") == "Iron Ring" && it.value.string("release_state") == "released" }.key
     /** Экипировка хранится отдельной коллекцией, поэтому предмет вставляется самостоятельным документом. */
@@ -92,22 +93,23 @@ class PoeMongoTest {
         val engine = PoeCrafting(catalog)
         val inventory = PoeInventory(catalog, engine)
         val item = inventory.fromState(engine.generate(ring(), 85, PoeRarity.NORMAL))
-        val character = Character(ObjectId().toHexString(), "test_${ObjectId().toHexString()}",
-            items = mutableListOf(CharacterItems(inventory.currencyId(PoeCurrency.ALCHEMY), 3)))
+        val character = Character(ObjectId().toHexString(), "test_${ObjectId().toHexString()}")
         koin.get<CharacterRepository>().collection.insertOne(character)
         MongoFactory.transactionExecute { items().add(character._id, item, it) }
+        // Валюта без стаков: три орба — три документа.
+        MongoFactory.transactionExecute { owned().grant(character._id, inventory.currencyId(PoeCurrency.ALCHEMY), 3, it) }
         return Triple(character, CraftRequest("request_${ObjectId().toHexString()}", item.uuid, PoeCurrency.ALCHEMY, 0), item)
     }
     @Test fun commitAndReplayDoNotDoubleSpend(): Unit = runBlocking {
         val (character, request, item) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
         val first = service.craft(character._id, character.userId, request)
         val replay = service.craft(character._id, character.userId, request)
         assertEquals(first, replay)
         val stored = repo.findById(character._id)!!
         assertEquals(1L, stored.version)
-        assertEquals(2L, stored.items.single().amount)
+        assertEquals(2L, owned().total(character._id))
         // Крафт меняет предмет на месте: uuid прежний, документ персонажа предметов не хранит.
         assertEquals(first.equipment, items().byUuid(character._id, item.uuid))
         assertEquals(1L, items().count(character._id))
@@ -117,7 +119,7 @@ class PoeMongoTest {
     @Test fun competingRequestsOnlyCommitOneDebit() = runBlocking {
         val (character, request, _) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
         val results = coroutineScope {
             (1..2).map { n -> async(Dispatchers.Default) {
                 runCatching { service.craft(character._id, character.userId, request.copy(requestId = request.requestId + n)) }
@@ -125,17 +127,17 @@ class PoeMongoTest {
         }
         assertEquals(1, results.count { it.isSuccess })
         val stored = repo.findById(character._id)!!
-        assertEquals(2L, stored.items.single().amount)
+        assertEquals(2L, owned().total(character._id))
         assertEquals(1L, stored.version)
     }
     @Test fun invalidOperationLeavesDatabaseUnchanged() = runBlocking {
         val (character, request, item) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
         assertFailsWith<ru.descend.shared.http.ApiFailure> { service.craft(character._id, character.userId, request.copy(expectedVersion = 22)) }
         val stored = repo.findById(character._id)!!
         assertEquals(0L, stored.version)
-        assertEquals(character.items, stored.items)
+        assertEquals(3L, owned().total(character._id))
         assertEquals(listOf(item), items().page(character._id, 10))
     }
     @Test fun seederIsAdditiveAndDoesNotGrantItemsAgain() = runBlocking {
@@ -235,6 +237,63 @@ class PoeMongoTest {
         assertEquals(1L, items().count(owner._id))
         assertEquals(stored, items().byUuid(owner._id, instance.uuid))
         assertEquals("Canonical", definitions.resolve(ModifierRef(id, 1))!!.name)
+    }
+
+    /** Стаков нет: каждая единица — документ, «сколько есть» считается по документам. */
+    @Test fun itemsAreStoredOneDocumentPerUnit(): Unit = runBlocking {
+        val (character, _, _) = fixture()
+        val alchemy = PoeInventory(PoeCatalog.bundled, PoeCrafting(PoeCatalog.bundled)).currencyId(PoeCurrency.ALCHEMY)
+        val other = ObjectId().toHexString()
+        MongoFactory.transactionExecute { owned().grant(character._id, other, 5, it) }
+        assertEquals(3L, owned().count(character._id, alchemy))
+        assertEquals(5L, owned().count(character._id, other))
+        assertEquals(8L, owned().total(character._id))
+        assertEquals(mapOf(alchemy to 3L, other to 5L), owned().totals(character._id))
+        // Документ персонажа количеств не хранит вовсе.
+        val raw = MongoFactory.getDatabase().getCollection("Character", org.bson.Document::class.java)
+            .find(com.mongodb.client.model.Filters.eq("_id", character._id)).firstOrNull()!!
+        assertFalse(raw.containsKey("items"))
+
+        MongoFactory.transactionExecute { owned().consume(character._id, other, 2, it) }
+        assertEquals(3L, owned().count(character._id, other))
+        // Нехватка отклоняет операцию целиком: частичного списания не бывает.
+        assertFailsWith<ru.descend.shared.http.ApiFailure> {
+            MongoFactory.transactionExecute { owned().consume(character._id, other, 4, it) }
+        }
+        assertEquals(3L, owned().count(character._id, other))
+        assertFailsWith<ru.descend.shared.http.ApiFailure> {
+            MongoFactory.transactionExecute { owned().grant(character._id, other, CharacterInventoryRepository.MAX_UNITS_PER_COMMAND + 1, it) }
+        }
+
+        // Курсорный обход видит каждую единицу ровно один раз.
+        val seen = mutableSetOf<String>()
+        var after: String? = null
+        while (true) {
+            val page = owned().page(character._id, 2, after)
+            if (page.isEmpty()) break
+            page.forEach { assertTrue(seen.add(it._id)) }
+            after = page.last()._id
+        }
+        assertEquals(6, seen.size)
+    }
+
+    /** Старый стак `{itemId, amount}` разворачивается в отдельные документы и больше не хранится. */
+    @Test fun legacyStacksExpandIntoIndividualUnits(): Unit = runBlocking {
+        val characters = koin.get<CharacterRepository>()
+        val owner = Character(ObjectId().toHexString(), "stacks_${ObjectId().toHexString()}")
+        characters.collection.insertOne(owner)
+        val itemId = ObjectId().toHexString()
+        characters.collection.updateOne(com.mongodb.client.model.Filters.eq("_id", owner._id),
+            com.mongodb.client.model.Updates.set("items",
+                listOf(org.bson.Document("itemId", itemId).append("amount", 4L))))
+        val migration = ru.descend.features.character.migration.CharacterItemsMigration(characters, owned())
+        migration.migrate()
+        assertEquals(4L, owned().count(owner._id, itemId))
+        val raw = MongoFactory.getDatabase().getCollection("Character", org.bson.Document::class.java)
+            .find(com.mongodb.client.model.Filters.eq("_id", owner._id)).firstOrNull()!!
+        assertFalse(raw.containsKey("items"))
+        migration.migrate()
+        assertEquals(4L, owned().count(owner._id, itemId), "Повторный запуск не дублирует единицы")
     }
 
     /** Ради чего всё затевалось: размер документа персонажа не зависит от количества предметов. */

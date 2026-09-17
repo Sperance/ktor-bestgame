@@ -29,7 +29,7 @@ New contracts and Koin modules have additionally been extracted into their own f
 
 - Keep dependency declarations/versions and existing plugin installation paths. Ktor's EngineMain now reaches the actual application module.
 - Keep Mongo collections based on entity **simple names** and all existing `_id` derivations.
-- Equipment instances live in their own `CharacterEquipmentItem` collection keyed by the instance UUID, so a character document no longer grows with its inventory; see [equipment storage](EQUIPMENT_STORAGE.md).
+- Equipment instances live in their own `CharacterEquipmentItem` collection keyed by the instance UUID, and owned items live in `CharacterInventoryItem` with one document per unit and no stacks, so a character document no longer grows with its inventory; see [equipment storage](EQUIPMENT_STORAGE.md).
 - Explicit `@SerialName` pins old serialized type names, especially `features.data.equipment.equipment_data.Weapon`, `Armor`, `Accessory`.
 - Keep paths and envelopes used by ExileForge. Contract tests post real Equipment JSON through Ktor ContentNegotiation after package moves.
 - Keep immutable modifier revisions, character version CAS, transaction receipts, owner checks, and currency debit in the same transaction as the equipment update.

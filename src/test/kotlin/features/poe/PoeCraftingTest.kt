@@ -4,7 +4,6 @@ import kotlin.random.Random
 import kotlin.test.*
 import kotlinx.serialization.json.*
 import ru.descend.features.character.model.Character
-import ru.descend.features.character.model.CharacterItems
 import ru.descend.features.poe.catalog.PoeCatalog
 import ru.descend.features.poe.catalog.int
 import ru.descend.features.poe.catalog.string
@@ -89,37 +88,41 @@ class PoeCraftingTest {
         val inventory = PoeInventory(catalog, engine)
         val item = inventory.fromState(normal())
         val currencyId = inventory.currencyId(PoeCurrency.ALCHEMY)
-        val character = Character("owner", "test", equipments = mutableListOf(item), items = mutableListOf(CharacterItems(currencyId, 2)))
+        val character = Character("owner", "test", equipments = mutableListOf(item))
         val request = CraftRequest("request_123", item.uuid, PoeCurrency.ALCHEMY, 0)
-        val (next, result) = inventory.craft(character, "owner", request)
-        assertEquals(1L, next.items.single().amount)
-        assertEquals(2L, character.items.single().amount)
+        // Стаков нет: переход получает число принадлежащих единиц и сообщает, что списать.
+        val transition = inventory.craft(character, "owner", request, 2)
+        val result = transition.result
+        assertEquals(currencyId, transition.currencyId)
+        assertEquals(1L, result.currencyRemaining)
         assertEquals(PoeRarity.NORMAL, character.equipments.single().poe!!.rarity)
         assertEquals(PoeRarity.RARE, result.equipment.poe!!.rarity)
         assertEquals(item.uuid, result.equipment.uuid)
         assertEquals(1L, result.characterVersion)
-        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "intruder", request) }
-        assertFailsWith<ru.descend.shared.http.ApiFailure> { inventory.craft(character, "owner", request.copy(expectedVersion = 1)) }
-        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", request.copy(equipmentUuid = "foreign")) }
+        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "intruder", request, 2) }
+        assertFailsWith<ru.descend.shared.http.ApiFailure> { inventory.craft(character, "owner", request.copy(expectedVersion = 1), 2) }
+        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", request.copy(equipmentUuid = "foreign"), 2) }
+        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", request, 0) }
     }
     @Test fun invalidCraftDoesNotDebitOrMutate() {
         val inventory = PoeInventory(catalog, engine)
         val item = inventory.fromState(normal())
-        val character = Character("owner", "test", equipments = mutableListOf(item), items = mutableListOf(CharacterItems(inventory.currencyId(PoeCurrency.CHAOS), 2)))
-        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", CraftRequest("request_123", item.uuid, PoeCurrency.CHAOS, 0)) }
-        assertEquals(2L, character.items.single().amount)
+        val character = Character("owner", "test", equipments = mutableListOf(item))
+        assertFailsWith<IllegalArgumentException> { inventory.craft(character, "owner", CraftRequest("request_123", item.uuid, PoeCurrency.CHAOS, 0), 2) }
         assertEquals(PoeRarity.NORMAL, item.poe!!.rarity)
     }
     @Test fun mirrorCreatesNewUuidAndPreservesOriginal() {
         val inventory = PoeInventory(catalog, engine)
         val item = inventory.fromState(rare())
-        val character = Character("owner", "test", equipments = mutableListOf(item), items = mutableListOf(CharacterItems(inventory.currencyId(PoeCurrency.MIRROR), 1)))
-        val (next, result) = inventory.craft(character, "owner", CraftRequest("request_123", item.uuid, PoeCurrency.MIRROR, 0))
+        val character = Character("owner", "test", equipments = mutableListOf(item))
+        val transition = inventory.craft(character, "owner", CraftRequest("request_123", item.uuid, PoeCurrency.MIRROR, 0), 1)
+        val next = transition.character
+        val result = transition.result
         assertEquals(2, next.equipments.size)
         assertEquals(item, next.equipments.first())
         assertNotEquals(item.uuid, result.equipment.uuid)
         assertTrue(result.equipment.poe!!.mirrored)
-        assertTrue(next.items.isEmpty())
+        assertEquals(0L, result.currencyRemaining)
     }
     @Test fun serializationRoundTripPreservesIndividualState() {
         val inventory = PoeInventory(catalog, engine)

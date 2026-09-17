@@ -19,7 +19,7 @@ This release deliberately changes unsafe write contracts. Existing ExileForge bu
 | Profile / character edit | 401 | Own editable fields | Editable fields |
 | Character deletion | 401 | Own, with expectedVersion | Allowed with expectedVersion |
 | User deletion | 401 | 403 | Allowed except own account |
-| Grant equipment / adjust item stacks | 401 | 403 | Explicit versioned commands |
+| Grant equipment / adjust item counts | 401 | 403 | Explicit versioned commands |
 | Equip/unequip/stats/redeem/instant recipe | 401 | Own character | Permitted administration |
 | PoE craft/inventory | 401 | Own character | Own character |
 | Administrative PoE drop / modifier publication | 401 | 403 | Allowed (drop targets own character) |
@@ -61,6 +61,6 @@ No live user database is deleted or reset by this migration. Existing items begi
 5. A successful write returns the new version. On 409 reload and let the user review changes; do not automatically resend with a newly fetched version.
 6. User/character POST still accepts an array, now containing explicit CreateUserCommand/CreateCharacterCommand fields. The server supplies owner and system fields. User creation is administrative.
 7. Replace old inventory request bodies with the commands documented in CHARACTER_COMMANDS.md.
-8. `GET /character/inventory/equipments` now returns EquipmentView with instances, slots, item stacks and computed stats. `/inventory/equipped` returns only equipped instances.
+8. `GET /character/inventory/equipments` now returns EquipmentView with one page of instances, slots, one page of owned item units and computed stats. `/inventory/equipped` returns only equipped instances.
 
 The branch includes unit/Mongo tests plus black-box checks against the actual packaged server. Test credentials are generated at runtime, not committed.
