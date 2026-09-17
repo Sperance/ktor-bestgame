@@ -13,10 +13,11 @@ class CharacterRoute(val repo: CharacterRepository) : BaseRoute<Character, Chara
     override fun additionalRoutes(route: Route) = with(route) {
         val service by inject<EquipmentService>()
         val rewards by inject<InventoryCommandService>()
-        get("/inventory/equipments") { call.respond(ApiMongoResponse.ok(service.view(call.queryParam("characterId"), call.actor()))) }
-        get("/inventory/equipped") { val view = service.view(call.queryParam("characterId"), call.actor()); call.respond(ApiMongoResponse.ok(view.inventory.filter { it.uuid in view.equipped.values })) }
-        get("/{id}/stats") { call.respond(ApiMongoResponse.ok(service.view(checkedId(call.parameters["id"]), call.actor()).stats)) }
-        get("/{id}/equipment") { call.respond(ApiMongoResponse.ok(service.view(checkedId(call.parameters["id"]), call.actor()))) }
+        // Инвентарь не ограничен по размеру, поэтому читается страницами: size + курсор after.
+        get("/inventory/equipments") { call.respond(ApiMongoResponse.ok(service.view(call.queryParam("characterId"), call.actor(), call.pageSize(), call.after()))) }
+        get("/inventory/equipped") { call.respond(ApiMongoResponse.ok(service.equipped(call.queryParam("characterId"), call.actor()))) }
+        get("/{id}/stats") { call.respond(ApiMongoResponse.ok(service.stats(service.character(checkedId(call.parameters["id"]), call.actor())))) }
+        get("/{id}/equipment") { call.respond(ApiMongoResponse.ok(service.view(checkedId(call.parameters["id"]), call.actor(), call.pageSize(), call.after()))) }
         post("/{id}/compareEquipment") { call.respond(ApiMongoResponse.ok(service.compare(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
         get("/{id}/craftOptions") { call.respond(ApiMongoResponse.ok(service.craftOptions(checkedId(call.parameters["id"]), call.actor(), call.queryParam("equipmentUuid")))) }
         post("/{id}/equip") { call.respond(ApiMongoResponse.ok(service.equip(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
@@ -26,4 +27,12 @@ class CharacterRoute(val repo: CharacterRepository) : BaseRoute<Character, Chara
         post("/{id}/redeem") { call.respond(ApiMongoResponse.ok(rewards.redeem(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
         post("/{id}/useRecipe") { call.respond(ApiMongoResponse.ok(rewards.recipe(checkedId(call.parameters["id"]), call.actor(), call.receiveCommand()))) }
     }
+
+    private fun io.ktor.server.application.ApplicationCall.pageSize(): Int {
+        val size = request.queryParameters["size"]?.toIntOrNull() ?: ru.descend.features.character.persistence.CharacterEquipmentRepository.DEFAULT_PAGE_SIZE
+        if (size !in 1..ru.descend.features.character.persistence.CharacterEquipmentRepository.MAX_PAGE_SIZE) invalid("Invalid inventory page size")
+        return size
+    }
+
+    private fun io.ktor.server.application.ApplicationCall.after(): String? = request.queryParameters["after"]?.let(::checkedId)
 }

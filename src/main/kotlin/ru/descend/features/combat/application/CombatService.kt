@@ -18,7 +18,8 @@ import ru.descend.shared.http.*
 
 class CombatService(private val characters: CharacterRepository, private val equipment: EquipmentService,
     private val catalogs: MongoModifierCatalog, private val worlds: CombatWorldRepository,
-    private val receipts: BattleReceiptRepository) {
+    private val receipts: BattleReceiptRepository,
+    private val equipmentItems: ru.descend.features.character.persistence.CharacterEquipmentRepository) {
     suspend fun catalog() = worlds.catalog()
     private fun own(character: Character, actor: Actor) {
         if (character.deleted || character.userId != actor.id) missing()
@@ -30,14 +31,14 @@ class CombatService(private val characters: CharacterRepository, private val equ
     }
     suspend fun start(id: String, actor: Actor, command: StartBattleCommand): BattleView {
         val world = catalog()
-        return execute(id, actor, command.expectedVersion, command.requestId, "start:" + AppJson.encodeToString(command)) { c ->
+        return execute(id, actor, command.expectedVersion, command.requestId, "start:" + AppJson.encodeToString(command)) { c, session ->
             if (c.battle?.status == BattleStatus.ACTIVE) invalid("Finish the current battle first")
             val zone = world.zones.singleOrNull { it.id == command.zoneId } ?: invalid("Unknown zone")
             if (c.level < zone.level) invalid("Character level is too low")
-            if (c.equipments.size > 498) invalid("Reserve two inventory slots for rewards")
+            // Добыча больше не конкурирует за место в документе персонажа: слоты резервировать незачем.
             if (command.boss && (c.zoneKills[zone.id] ?: 0) < zone.killsForBoss) invalid("Defeat more monsters to unlock the boss")
             val monster = if (command.boss) zone.boss else zone.monsters.random()
-            val stats = equipment.view(c).stats
+            val stats = equipment.stats(c, session)
             fun value(key: String, fallback: Double = 0.0) = (stats.values[key] ?: fallback).coerceAtLeast(0.0)
             val weapon = stats.weapons.values.maxByOrNull { it.dps }
             val hero = Combatant(c.name, value("maximum_life", 60.0), value("maximum_life", 60.0),
@@ -54,7 +55,7 @@ class CombatService(private val characters: CharacterRepository, private val equ
         }
     }
     suspend fun act(id: String, actor: Actor, request: BattleActionCommand): BattleView =
-        execute(id, actor, request.expectedVersion, request.requestId, "act:" + AppJson.encodeToString(request)) { c ->
+        execute(id, actor, request.expectedVersion, request.requestId, "act:" + AppJson.encodeToString(request)) { c, session ->
             val old = c.battle ?: invalid("No battle")
             if (old.id != request.battleId) conflict()
             if (old.status != BattleStatus.ACTIVE) invalid("Battle has ended")
@@ -62,11 +63,11 @@ class CombatService(private val characters: CharacterRepository, private val equ
             if (request.action == BattleAction.POTION && old.potions <= 0) invalid("No potions left")
             val battle = BattleEngine().act(old, request.action)
             val next = c.copy(battle = battle)
-            if (battle.status == BattleStatus.VICTORY) reward(next, battle) else next
+            if (battle.status == BattleStatus.VICTORY) reward(next, battle, session) else next
         }
 
     private suspend fun execute(id: String, actor: Actor, expected: Long, requestId: String, payload: String,
-        transition: suspend (Character) -> Character): BattleView {
+        transition: suspend (Character, com.mongodb.kotlin.client.coroutine.ClientSession) -> Character): BattleView {
         checkedId(id)
         if (!requestId.matches(Regex("[A-Za-z0-9_-]{8,80}"))) invalid("Invalid requestId")
         return transactionExecute("combat.command", retryTransientErrors = true) { session ->
@@ -78,7 +79,7 @@ class CombatService(private val characters: CharacterRepository, private val equ
                 return@transactionExecute it.result
             }
             checkVersion(old.version, expected)
-            val next = transition(old)
+            val next = transition(equipment.hydrate(old, session = session), session)
             characters.update(next, session)
             val result = BattleView(next.version, next.battle, next.zoneKills, next.level.toInt(), next.experience, next.money)
             receipts.insert(BattleReceipt(key, payload, result), session)
@@ -86,11 +87,12 @@ class CombatService(private val characters: CharacterRepository, private val equ
         }
     }
 
-    private suspend fun reward(c: Character, battle: Battle): Character {
+    private suspend fun reward(c: Character, battle: Battle, session: com.mongodb.kotlin.client.coroutine.ClientSession): Character {
         val catalog = catalogs.snapshot().catalog
         val crafting = PoeCrafting(catalog)
         val inventory = PoeInventory(catalog, crafting)
-        val equipment = c.equipments.toMutableList()
+        // Выпавшая экипировка уходит отдельными документами, поэтому лимита на инвентарь нет.
+        val granted = mutableListOf<ru.descend.features.character.model.CharacterEquipments>()
         val items = c.items.map { it.copy() }.toMutableList()
         val rewards = mutableListOf(BattleReward("Опыт", battle.monster.experience.toLong()), BattleReward("Золото", battle.monster.gold.toLong()))
         repeat(battle.lootTable.rolls) {
@@ -99,7 +101,6 @@ class CombatService(private val characters: CharacterRepository, private val equ
             when (entry.kind) {
                 "NONE" -> Unit
                 "NORMAL", "MAGIC", "RARE", "UNIQUE" -> {
-                    if (equipment.size >= 500) invalid("Inventory is full; free a slot and retry this action")
                     val unique = entry.kind == "UNIQUE"
                     var pool = catalog.bases.filterValues { catalog.ordinaryDrop(it) && it.int("drop_level", 1) <= battle.level && catalog.unique(it) == unique }
                     // If no eligible unique exists at this level, explicitly fall back to rare.
@@ -111,7 +112,7 @@ class CombatService(private val characters: CharacterRepository, private val equ
                     val base = pool.keys.random()
                     val template = catalog.equipment(base)
                     val item = inventory.fromState(crafting.generate(base, battle.level, rarity, template.stockModifierDefinitionRefs))
-                    equipment += item
+                    granted += item
                     rewards += BattleReward("${template.name} · ${rarity.name}", 1, item.equipmentId, item.uuid)
                 }
                 else -> {
@@ -128,7 +129,8 @@ class CombatService(private val characters: CharacterRepository, private val equ
         var level = c.level.toInt()
         while (level < 100 && experience >= 50.0 * level * (level + 1)) level++
         val kills = c.zoneKills + (battle.zoneId to if (battle.monster.boss) 0 else ((c.zoneKills[battle.zoneId] ?: 0) + 1).coerceAtMost(100))
-        return c.copy(battle = battle.copy(rewards = rewards), zoneKills = kills, equipments = equipment, items = items,
+        equipmentItems.addAll(c._id, granted, session)
+        return c.copy(battle = battle.copy(rewards = rewards), zoneKills = kills, items = items,
             money = Math.addExact(c.money, battle.monster.gold.toLong()), experience = experience, level = level.toShort())
     }
 }

@@ -22,14 +22,14 @@ class PassiveService(private val characters: CharacterRepository, private val eq
         val c = characters.findById(checkedId(id)) ?: missing(); own(c, actor)
         return state(c)
     }
-    private suspend fun state(c: Character): PassiveState {
+    private suspend fun state(c: Character, session: com.mongodb.kotlin.client.coroutine.ClientSession? = null): PassiveState {
         val rules = PassiveRules(tree(c.passiveTreeRevision))
         rules.validate(c.passiveNodes, c.level.toInt())
         val locked = if (c.battle?.status == BattleStatus.ACTIVE) "Завершите текущий бой" else null
         val spent = rules.cost(c.passiveNodes); val total = rules.budget(c.level.toInt())
         return PassiveState(c.version, c.passiveTreeRevision, c.passiveNodes, total, spent, total - spent,
             if (locked == null) rules.allocatable(c.passiveNodes, c.level.toInt()) else emptySet(),
-            if (locked == null) rules.refundable(c.passiveNodes) else emptySet(), equipment.view(c).stats, locked)
+            if (locked == null) rules.refundable(c.passiveNodes) else emptySet(), equipment.stats(c, session), locked)
     }
     suspend fun change(id: String, actor: Actor, command: PassiveCommand): PassiveState {
         checkedId(id)
@@ -48,9 +48,9 @@ class PassiveService(private val characters: CharacterRepository, private val eq
             val rules = PassiveRules(tree(old.passiveTreeRevision))
             val next = old.copy(passiveNodes = rules.transition(old.passiveNodes, old.level.toInt(), command.action, command.nodeId))
             // Refunding attributes must not leave equipped items with unsatisfied requirements.
-            equipment.validate(next)
+            equipment.validate(next, session)
             characters.update(next, session)
-            val result = state(next)
+            val result = state(next, session)
             receipts.insert(PassiveReceipt(key, payload, result), session)
             result
         }

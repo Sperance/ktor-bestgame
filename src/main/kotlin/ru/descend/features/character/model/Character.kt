@@ -29,7 +29,21 @@ data class Character(
     var experience: Double = 0.0,
     var money: Long = 0,
     var params: MutableList<Modifier> = mutableListOf(),
+
+    /**
+     * Рабочий набор предметов, подгруженный под конкретную операцию, а НЕ весь инвентарь.
+     *
+     * Экипировка хранится отдельной коллекцией ([ru.descend.features.character.model.CharacterEquipmentItem]),
+     * поэтому поле помечено `@Transient` и никогда не пишется в документ персонажа: размер Character
+     * больше не растёт вместе с инвентарём, а сам инвентарь ограничен только объёмом коллекции.
+     *
+     * Заполняется через `EquipmentService.hydrate` надетыми предметами плюс теми uuid, которых
+     * требует команда. Логика модификаторов читает его ровно так же, как раньше читала массив.
+     */
+    @kotlinx.serialization.Transient
     var equipments: MutableList<CharacterEquipments> = mutableListOf(),
+
+    /** Слотов не больше, чем в [EquipmentSlot]: карта остаётся в документе персонажа. */
     var equipped: Map<EquipmentSlot, String> = emptyMap(),
     var items: MutableList<CharacterItems> = mutableListOf(),
     var professionSkills: MutableList<CharacterProfessionSkill> = mutableListOf(),

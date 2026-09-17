@@ -4,7 +4,6 @@ import com.mongodb.client.model.Filters
 import kotlinx.coroutines.flow.toList
 import ru.descend.domain.modifiers.Modifier
 import ru.descend.domain.modifiers.ModifierRef
-import ru.descend.features.character.persistence.CharacterRepository
 import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
 import ru.descend.features.poe.catalog.PoeCatalog
@@ -14,7 +13,10 @@ import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 /** Add references only after their definitions exist. Each template and its legacy instances
  * migrate atomically. Conflicting item-local IDs are preserved under an item namespace. */
 class ModifierReferenceMigration(private val equipment: EquipmentRepository,
-    private val characters: CharacterRepository, private val definitions: ModifierDefinitionRepository) {
+    private val definitions: ModifierDefinitionRepository,
+    private val equipmentItems: ru.descend.features.character.persistence.CharacterEquipmentRepository) {
+    private companion object { const val BATCH = 200 }
+
     suspend fun migrate() {
         definitions.ensureRevisionIndex()
         val candidates = equipment.findAll().filter {
@@ -47,12 +49,21 @@ class ModifierReferenceMigration(private val equipment: EquipmentRepository,
             item.modifierDefinitions = null
             item.modifierDefinitionsStock = null
             item.modifiers = item.modifiers?.map(::remap)?.let { ArrayList(it) }
-            val owners = characters.collection.find(session, Filters.eq("equipments.equipmentId", item._id)).toList()
-            owners.forEach { owner ->
-                val next = owner.copy(equipments = owner.equipments.map { instance ->
-                    if (instance.equipmentId == item._id && instance.poe == null) instance.copy(params = instance.params.map(::remap).toMutableList()) else instance
-                }.toMutableList())
-                if (next.equipments != owner.equipments) characters.update(next, session)
+            // Экипировка живёт отдельными документами, поэтому экземпляры шаблона обходятся страницами
+            // по _id: миграция не зависит от размера инвентаря отдельного персонажа.
+            var after: String? = null
+            while (true) {
+                val filter = Filters.and(Filters.eq("item.equipmentId", item._id),
+                    if (after == null) Filters.empty() else Filters.gt("_id", after))
+                val batch = equipmentItems.collection.find(session, filter)
+                    .sort(com.mongodb.client.model.Sorts.ascending("_id")).limit(BATCH).toList()
+                if (batch.isEmpty()) break
+                batch.filter { it.item.poe == null }.forEach { row ->
+                    val next = row.item.copy(params = row.item.params.map(::remap).toMutableList())
+                    if (next != row.item) equipmentItems.replace(row.characterId, next, session)
+                }
+                if (batch.size < BATCH) break
+                after = batch.last()._id
             }
             equipment.update(item, session)
         }

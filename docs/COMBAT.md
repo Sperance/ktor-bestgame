@@ -24,7 +24,7 @@ CombatWorldDocument/default stores the entire small world catalog in MongoDB. Fi
 BattleReceipt stores each command payload and result. All actions, character CAS, reward generation and receipt insertion share one retryable Mongo transaction. Duplicate request IDs return the original response even after another battle; reuse with a changed payload is rejected. Receipts are retained; no TTL that could reopen reward duplication.
 Reads and mutations enforce owner before receipt access. Competing commands cannot both advance the same version.
 Only victory invokes loot generation: ordinary monsters get one weighted roll, bosses two. Gold and XP are guaranteed. Equipment uses the current compact PoE catalog, eligible item level and existing generation/modifier pipeline. If UNIQUE has no eligible base, it falls back to RARE. Currency stacks and equipment UUIDs enter the actual inventory.
-Reserve two inventory slots before entering. If another command fills the inventory during combat, the finishing action rolls back; free space and retry. Total XP promotes level when XP >= 50*level*(level+1), up to 100.
+Loot needs no free inventory slots: equipment is stored one document per item, so the inventory has no capacity limit. Rewards are inserted in the same transaction as the character update. Total XP promotes level when XP >= 50*level*(level+1), up to 100.
 No sockets or skill gems.
 
 ## Verification

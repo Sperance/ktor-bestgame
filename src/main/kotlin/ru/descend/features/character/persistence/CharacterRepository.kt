@@ -26,6 +26,7 @@ class CharacterRepository : BaseRepository<Character>(
 ), KoinComponent {
     val userRepository: UserRepository by inject()
     val equipmentRepository: EquipmentRepository by inject()
+    val equipmentItems: CharacterEquipmentRepository by inject()
     val itemsRepository: ItemsRepository by inject()
     val redemptionCodesRepository: RedemptionCodesRepository by inject()
     val itemsCache: ItemsCache by inject()
@@ -56,16 +57,21 @@ class CharacterRepository : BaseRepository<Character>(
         userRepository.update(findedUser, session)
     }
 
-    suspend fun getEquipmentsData(characterId: String): List<Equipment> {
-        val character = findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("getEquipmentsData", characterId)
-        val ids = character.equipments.map { it.equipmentId }
+    /**
+     * Базы предметов одной страницы инвентаря. Инвентарь не ограничен по размеру,
+     * поэтому выборка всегда постраничная — целиком его никто не поднимает.
+     */
+    suspend fun getEquipmentsData(characterId: String, size: Int = CharacterEquipmentRepository.DEFAULT_PAGE_SIZE,
+        after: String? = null): List<Equipment> {
+        findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound("getEquipmentsData", characterId)
+        val ids = equipmentItems.page(characterId, size, after).map { it.equipmentId }.distinct()
         return if (ids.isEmpty()) emptyList() else equipmentRepository.findByFilter(Filters.`in`(CONST_FIELD_ID, ids))
     }
 
+    /** Надетых предметов не больше числа слотов, поэтому читаются они точечно по uuid. */
     suspend fun getEquippedData(characterId: String): List<Equipment> {
         val character = findById(characterId) ?: ru.descend.shared.http.missing()
-        return character.equipments.filter { it.uuid in character.equipped.values }.map {
+        return equipmentItems.byUuids(characterId, character.equipped.values.toSet()).map {
             it.baseSnapshot ?: equipmentRepository.findById(it.equipmentId) ?: ru.descend.shared.http.missing()
         }
     }

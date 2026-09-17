@@ -11,6 +11,7 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 import ru.descend.domain.enums.EnumUserRoles
+import ru.descend.features.character.persistence.CharacterEquipmentRepository
 import ru.descend.features.character.persistence.CharacterRepository
 import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.domain.icons.IconResolver
@@ -29,6 +30,7 @@ import ru.descend.shared.http.ApiMongoResponse
 
 fun Route.poeRoutes() {
     val characters by inject<CharacterRepository>()
+    val equipmentItems by inject<CharacterEquipmentRepository>()
     val equipment by inject<EquipmentRepository>()
     val users by inject<UserRepository>()
     val catalogs by inject<MongoModifierCatalog>()
@@ -111,7 +113,12 @@ fun Route.poeRoutes() {
                 if (character == null || character.deleted || character.userId != owner) {
                     call.respond(HttpStatusCode.NotFound); return@get
                 }
-                call.respond(ApiMongoResponse.ok(InventoryResponse(character.version, character.equipments)))
+                val size = call.request.queryParameters["size"]?.toIntOrNull() ?: CharacterEquipmentRepository.DEFAULT_PAGE_SIZE
+                if (size !in 1..CharacterEquipmentRepository.MAX_PAGE_SIZE) { call.respond(HttpStatusCode.BadRequest); return@get }
+                val after = call.request.queryParameters["after"]
+                val page = equipmentItems.page(character._id, size, after)
+                call.respond(ApiMongoResponse.ok(InventoryResponse(character.version, page,
+                    equipmentItems.count(character._id), size, if (page.size < size) null else page.last().uuid)))
             }
             post("/characters/{characterId}/craft") {
                 val actor = call.actor()

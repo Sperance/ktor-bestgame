@@ -21,6 +21,7 @@ import ru.descend.domain.modifiers.ModifierValue
 import ru.descend.domain.modifiers.ValueRange
 import ru.descend.features.character.model.Character
 import ru.descend.features.character.model.CharacterItems
+import ru.descend.features.character.persistence.CharacterEquipmentRepository
 import ru.descend.features.character.persistence.CharacterRepository
 import ru.descend.features.equipment.persistence.EquipmentRepository
 import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
@@ -82,35 +83,41 @@ class PoeMongoTest {
         assertEquals(2, repo.findAll().count { it.id in setOf(id, second.id) })
         assertFailsWith<IllegalArgumentException> { repo.seedMissingBatch(List(101) { first }) }
     }
-    private suspend fun fixture(): Pair<Character, CraftRequest> {
+    private fun items() = koin.get<CharacterEquipmentRepository>()
+    private fun ring() = PoeCatalog.bundled.bases.entries
+        .first { it.value.string("name") == "Iron Ring" && it.value.string("release_state") == "released" }.key
+    /** Экипировка хранится отдельной коллекцией, поэтому предмет вставляется самостоятельным документом. */
+    private suspend fun fixture(): Triple<Character, CraftRequest, ru.descend.features.character.model.CharacterEquipments> {
         val catalog = PoeCatalog.bundled
         val engine = PoeCrafting(catalog)
         val inventory = PoeInventory(catalog, engine)
-        val baseId = catalog.bases.entries.first { it.value.string("name") == "Iron Ring" && it.value.string("release_state") == "released" }.key
-        val item = inventory.fromState(engine.generate(baseId, 85, PoeRarity.NORMAL))
-        val character = Character(ObjectId().toHexString(), "test_${ObjectId().toHexString()}", equipments = mutableListOf(item),
+        val item = inventory.fromState(engine.generate(ring(), 85, PoeRarity.NORMAL))
+        val character = Character(ObjectId().toHexString(), "test_${ObjectId().toHexString()}",
             items = mutableListOf(CharacterItems(inventory.currencyId(PoeCurrency.ALCHEMY), 3)))
         koin.get<CharacterRepository>().collection.insertOne(character)
-        return character to CraftRequest("request_${ObjectId().toHexString()}", item.uuid, PoeCurrency.ALCHEMY, 0)
+        MongoFactory.transactionExecute { items().add(character._id, item, it) }
+        return Triple(character, CraftRequest("request_${ObjectId().toHexString()}", item.uuid, PoeCurrency.ALCHEMY, 0), item)
     }
     @Test fun commitAndReplayDoNotDoubleSpend(): Unit = runBlocking {
-        val (character, request) = fixture()
+        val (character, request, item) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
         val first = service.craft(character._id, character.userId, request)
         val replay = service.craft(character._id, character.userId, request)
         assertEquals(first, replay)
         val stored = repo.findById(character._id)!!
         assertEquals(1L, stored.version)
         assertEquals(2L, stored.items.single().amount)
-        assertEquals(first.equipment, stored.equipments.single())
+        // Крафт меняет предмет на месте: uuid прежний, документ персонажа предметов не хранит.
+        assertEquals(first.equipment, items().byUuid(character._id, item.uuid))
+        assertEquals(1L, items().count(character._id))
         assertFailsWith<IllegalArgumentException> { service.craft(character._id, character.userId, request.copy(currency = PoeCurrency.CHAOS)) }
         assertFailsWith<IllegalArgumentException> { service.craft(character._id, "intruder", request) }
     }
     @Test fun competingRequestsOnlyCommitOneDebit() = runBlocking {
-        val (character, request) = fixture()
+        val (character, request, _) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
         val results = coroutineScope {
             (1..2).map { n -> async(Dispatchers.Default) {
                 runCatching { service.craft(character._id, character.userId, request.copy(requestId = request.requestId + n)) }
@@ -122,17 +129,17 @@ class PoeMongoTest {
         assertEquals(1L, stored.version)
     }
     @Test fun invalidOperationLeavesDatabaseUnchanged() = runBlocking {
-        val (character, request) = fixture()
+        val (character, request, item) = fixture()
         val repo = koin.get<CharacterRepository>()
-        val service = PoeService(repo, koin.get(), koin.get(), koin.get())
+        val service = PoeService(repo, koin.get(), koin.get(), koin.get(), koin.get(), koin.get())
         assertFailsWith<ru.descend.shared.http.ApiFailure> { service.craft(character._id, character.userId, request.copy(expectedVersion = 22)) }
         val stored = repo.findById(character._id)!!
         assertEquals(0L, stored.version)
         assertEquals(character.items, stored.items)
-        assertEquals(character.equipments, stored.equipments)
+        assertEquals(listOf(item), items().page(character._id, 10))
     }
     @Test fun seederIsAdditiveAndDoesNotGrantItemsAgain() = runBlocking {
-        val (character, _) = fixture()
+        val (character, _, item) = fixture()
         PoeSeeder.seed()
         val repo = koin.get<EquipmentRepository>()
         val count = repo.count()
@@ -142,7 +149,7 @@ class PoeMongoTest {
         PoeSeeder.seed()
         assertEquals(count, repo.count())
         assertEquals("ADMIN CUSTOM NAME", repo.findById(first._id)!!.name)
-        assertEquals(character.equipments, koin.get<CharacterRepository>().findById(character._id)!!.equipments)
+        assertEquals(listOf(item), items().page(character._id, 10))
         assertTrue(koin.get<ModifierDefinitionRepository>().count() >= PoeCatalog.bundled.mods.size.toLong())
     }
     @Test fun mongoRevisionChangesNewRollsButNotExistingItems(): Unit = runBlocking {
@@ -203,22 +210,64 @@ class PoeMongoTest {
         equipment.collection.insertOne(template) // simulate data written by the old schema
         val instance = ru.descend.features.character.model.CharacterEquipments(template._id,
             params = mutableListOf(Modifier(id, listOf(ModifierValue(8.0)), 1, ModifierSource.PREFIX)))
-        val owner = Character(ObjectId().toHexString(), "migration_${ObjectId().toHexString()}", equipments = mutableListOf(instance))
+        val owner = Character(ObjectId().toHexString(), "migration_${ObjectId().toHexString()}")
         characters.collection.insertOne(owner)
-        val migration = ModifierReferenceMigration(equipment, characters, definitions)
+        // Старая схема: инвентарь массивом внутри документа персонажа.
+        characters.collection.updateOne(com.mongodb.client.model.Filters.eq("_id", owner._id),
+            com.mongodb.client.model.Updates.set("equipments", listOf(instance)))
+        val storage = ru.descend.features.character.migration.CharacterEquipmentMigration(characters, items())
+        val migration = ModifierReferenceMigration(equipment, definitions, items())
+        storage.migrate()
         migration.migrate()
         val migrated = equipment.findById(template._id)!!
         assertNull(migrated.modifierDefinitions)
         val ref = migrated.modifierDefinitionRefs.single()
         assertNotEquals(id, ref.definitionId)
         assertEquals("Item-local", definitions.resolve(ref)!!.name)
-        val stored = characters.findById(owner._id)!!
-        assertEquals(instance.uuid, stored.equipments.single().uuid)
-        assertEquals(8.0, stored.equipments.single().params.single().value)
-        assertEquals(ref.definitionId, stored.equipments.single().params.single().definitionId)
-        migration.migrate()
-        assertEquals(stored.version, characters.findById(owner._id)!!.version)
+        val stored = assertNotNull(items().byUuid(owner._id, instance.uuid))
+        assertEquals(8.0, stored.params.single().value)
+        assertEquals(ref.definitionId, stored.params.single().definitionId)
+        // Массив снят с персонажа: его документ больше не растёт вместе с инвентарём.
+        val raw = MongoFactory.getDatabase().getCollection("Character", org.bson.Document::class.java)
+            .find(com.mongodb.client.model.Filters.eq("_id", owner._id)).firstOrNull()!!
+        assertFalse(raw.containsKey("equipments"))
+        storage.migrate(); migration.migrate()
+        assertEquals(1L, items().count(owner._id))
+        assertEquals(stored, items().byUuid(owner._id, instance.uuid))
         assertEquals("Canonical", definitions.resolve(ModifierRef(id, 1))!!.name)
+    }
+
+    /** Ради чего всё затевалось: размер документа персонажа не зависит от количества предметов. */
+    @Test fun inventoryGrowsWithoutInflatingTheCharacterDocument(): Unit = runBlocking {
+        val (character, _, seed) = fixture()
+        val engine = PoeCrafting(PoeCatalog.bundled)
+        val inventory = PoeInventory(PoeCatalog.bundled, engine)
+        val added = (1..600).map { inventory.fromState(engine.generate(ring(), 85, PoeRarity.NORMAL)) }
+        added.chunked(100).forEach { batch -> MongoFactory.transactionExecute { items().addAll(character._id, batch, it) } }
+        assertEquals(601L, items().count(character._id))
+        val raw = MongoFactory.getDatabase().getCollection("Character", org.bson.Document::class.java)
+            .find(com.mongodb.client.model.Filters.eq("_id", character._id)).firstOrNull()!!
+        assertFalse(raw.containsKey("equipments"))
+        // Один предмет старой схемы весил больше килобайта, весь документ персонажа теперь — меньше.
+        assertTrue(raw.toBsonDocument().toString().length < 4096, "Character document must not grow with the inventory")
+
+        // Курсорный обход доходит до конца и не повторяет предметы.
+        val seen = mutableSetOf<String>()
+        var after: String? = null
+        while (true) {
+            val page = items().page(character._id, 200, after)
+            if (page.isEmpty()) break
+            page.forEach { assertTrue(seen.add(it.uuid), "Курсор вернул предмет повторно") }
+            after = page.last().uuid
+        }
+        assertEquals((added.map { it.uuid } + seed.uuid).toSet(), seen)
+
+        // Надетый предмет и характеристики читаются точечно, инвентарь при этом не перебирается.
+        val service = koin.get<ru.descend.features.character.application.EquipmentService>()
+        val equipped = character.copy(equipped = mapOf(ru.descend.features.character.model.EquipmentSlot.RING_LEFT to seed.uuid))
+        val hydrated = service.hydrate(equipped)
+        assertEquals(listOf(seed), hydrated.equipments)
+        assertTrue(service.stats(equipped).values.getValue("maximum_life") > 0.0)
     }
 
     @Test fun newEquipmentRejectsEmbeddedDefinitionsAndDanglingReferences(): Unit = runBlocking {
@@ -277,7 +326,7 @@ class PoeMongoTest {
     }
 
     @Test fun paginationAndStringIdLookupsMatchMongoStorage(): Unit = runBlocking {
-        val (character, _) = fixture()
+        val (character, _, _) = fixture()
         val repo = koin.get<CharacterRepository>()
         assertTrue(repo.exists(character._id))
         assertEquals(character._id, repo.findByIdForUpdate(ObjectId(character._id))!!._id)

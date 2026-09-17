@@ -28,7 +28,9 @@ object PoeSeeder : KoinComponent {
             .filter { ru.descend.domain.modifiers.ModifierRef(it, 1) !in existingMods }
             .chunked(100).forEach { batch -> modifiers.seedMissingBatch(batch.map(catalog::definition)) }
 
-        ModifierReferenceMigration(equipment, getKoin().get(), modifiers).migrate()
+        // Сначала инвентарь переезжает в свою коллекцию, затем по нему идёт миграция ссылок.
+        ru.descend.features.character.migration.CharacterEquipmentMigration(getKoin().get(), getKoin().get()).migrate()
+        ModifierReferenceMigration(equipment, modifiers, getKoin().get()).migrate()
         val existingEquipment = equipment.findAll().map { it._id }.toSet()
         catalog.releasedWearables().keys.sorted()
             .filter { PoeCatalog.stableId("base:$it") !in existingEquipment }.chunked(100).forEach { batch ->

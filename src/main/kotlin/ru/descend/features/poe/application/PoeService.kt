@@ -18,9 +18,15 @@ import ru.descend.features.poe.persistence.ReceiptRepository
 import ru.descend.infrastructure.http.AppJson
 import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 
+/**
+ * Крафт и дроп пишут предмет отдельным документом, а персонажа обновляют только ради CAS по version.
+ * Обе записи идут в одной транзакции, поэтому атомарность списания валюты и изменения предмета сохранена.
+ */
 class PoeService(private val characters: CharacterRepository, private val equipment: EquipmentRepository,
     private val catalogs: MongoModifierCatalog,
-    private val receipts: ReceiptRepository) {
+    private val receipts: ReceiptRepository,
+    private val equipmentService: ru.descend.features.character.application.EquipmentService,
+    private val equipmentItems: ru.descend.features.character.persistence.CharacterEquipmentRepository) {
 
     suspend fun craft(characterId: String, ownerId: String, request: CraftRequest): PoeResult =
         transactionExecute("poe.craft") { session ->
@@ -32,14 +38,19 @@ class PoeService(private val characters: CharacterRepository, private val equipm
                 require(it.payload == payload) { "requestId has already been used for a different request" }
                 return@transactionExecute it.result
             }
-            val required = character.equipments.flatMap { instance ->
+            // Поднимается только рабочий набор: надетое плюс сам крафтимый предмет.
+            val loaded = equipmentService.hydrate(character, listOf(request.equipmentUuid), session)
+            val required = loaded.equipments.flatMap { instance ->
                 instance.poe?.let { state -> (state.implicits + state.explicits).map { ru.descend.domain.modifiers.ModifierRef(it.id, it.revision) } }.orEmpty()
             }
             val catalog = catalogs.snapshot(required).catalog
             val inventory = PoeInventory(catalog, PoeCrafting(catalog))
-            val (next, result) = inventory.craft(character, ownerId, request)
+            val (next, result) = inventory.craft(loaded, ownerId, request)
             // CAS on the character version covers both the item and the currency stack.
-            ru.descend.features.character.application.EquipmentService(characters, equipment, catalogs).validate(next)
+            equipmentService.validate(next, session)
+            // Mirror копирует предмет в новый документ, остальные валюты меняют его на месте.
+            if (request.currency == ru.descend.features.poe.domain.PoeCurrency.MIRROR) equipmentItems.add(character._id, result.equipment, session)
+            else equipmentItems.replace(character._id, result.equipment, session)
             characters.update(next, session)
             receipts.insert(PoeReceipt(key, payload, result), session)
             result
@@ -65,10 +76,11 @@ class PoeService(private val characters: CharacterRepository, private val equipm
             val baseId = catalog.bases.filterValues { catalog.ordinaryDrop(it) && it.int("drop_level", 1) <= level }.keys.random()
             val template = requireNotNull(equipment.findById(PoeCatalog.stableId("base:$baseId"), session)) { "Base not seeded" }
             val rarity = if (catalog.unique(catalog.base(baseId))) PoeRarity.UNIQUE else when (Random.nextInt(100)) { in 0..49 -> PoeRarity.NORMAL; in 50..84 -> PoeRarity.MAGIC; else -> PoeRarity.RARE }
-            require(character.equipments.size < 500) { "Inventory is full" }
             val instance = inventory.fromState(crafting.generate(baseId, level, rarity, template.stockModifierDefinitionRefs))
-            val next = character.copy(equipments = (character.equipments + instance).toMutableList())
-            ru.descend.features.character.application.EquipmentService(characters, equipment, catalogs).validate(next)
+            // Инвентарь не ограничен: новый предмет — это новый документ коллекции.
+            equipmentItems.add(character._id, instance, session)
+            val next = equipmentService.hydrate(character, session = session)
+            equipmentService.validate(next, session)
             characters.update(next, session)
             val result = PoeResult(request.requestId, next.version, instance)
             receipts.insert(PoeReceipt(key, payload, result), session)

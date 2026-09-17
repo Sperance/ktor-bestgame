@@ -14,6 +14,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.javaField
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -519,12 +520,18 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         else -> value
     }
 
+    // @Transient — это рабочие данные в памяти (например, подгруженный срез инвентаря).
+    // Кодек сущности их не сериализует, поэтому и точечный update не должен их записывать.
+    private fun transient(property: KProperty1<out T, *>): Boolean =
+        property.annotations.any { it is kotlinx.serialization.Transient } ||
+            property.javaField?.annotations?.any { it is kotlinx.serialization.Transient } == true
+
     private fun getUpdateFields(entity: T): Map<String, Any?> {
         val fields = mutableMapOf<String, Any?>()
 
         entity::class.java.kotlin.memberProperties.forEach { property ->
             val fieldName = property.name
-            if (fieldName !in CONST_SYSTEM_FIELDS) {
+            if (fieldName !in CONST_SYSTEM_FIELDS && !transient(property)) {
                 val value = property.getter.call(entity)
                 fields[fieldName] = mongoUpdateValue(value)
             }

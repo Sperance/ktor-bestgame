@@ -13,8 +13,9 @@ All commands require a current bearer token. `{id}` is the character ID; equipme
 | POST `/api/v1/user/changePassword` | `{"expectedVersion":2,"currentPassword":"…","newPassword":"…"}` |
 | POST `/api/v1/user/changeRole?id=…` (admin) | `{"expectedVersion":2,"role":"USER"}` |
 
-Commands return EquipmentView (version, inventory, currency/items, slots, calculated stats), except user commands, which return a safe UserResponse.
-GET `/api/v1/character/{id}/equipment` returns the view; GET `/api/v1/character/{id}/stats` returns only CharacterStats.
+Commands return EquipmentView (version, equipped items, one inventory page, currency/items, slots, calculated stats), except user commands, which return a safe UserResponse.
+GET `/api/v1/character/{id}/equipment?size=&after=` returns the view; GET `/api/v1/character/{id}/stats` returns only CharacterStats and reads no inventory at all.
+Equipment instances are stored one document per item, so the inventory has no length limit and is always read as a cursor page (`size` 1..200, default 50; `after` is the previous page's last UUID, `next == null` ends the list). See [equipment storage](EQUIPMENT_STORAGE.md).
 The character's version covers equipment selection, inventory and currencies together. Replaying a successful non-craft command with its old expectedVersion returns 409, preventing duplicate mutations. PoE crafting retains its requestId receipt mechanism.
 
 ## Equipment
@@ -25,6 +26,7 @@ Two-handed weapons block the off-hand, except bow + quiver. A quiver requires a 
 Level and base attribute requirements are validated. A candidate's own bonuses do not satisfy its requirements.
 After any equipment/craft transition, the whole loadout is validated. Unequipping a supporting item is rejected if it would invalidate another equipped item's requirements; unequip dependants first.
 New instances snapshot their base template. Administrators editing the catalog no longer change those already-issued snapshots.
+Only equipped items and the UUID a command addresses are loaded per request, so stat calculation and validation cost the same whether a character owns ten items or a million.
 Only selected equipped items contribute stats. Inventory items and previewed templates do not grant bonuses.
 
 ## Calculation contract: compact-character-v1

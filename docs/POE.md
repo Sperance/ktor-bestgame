@@ -111,7 +111,9 @@ All responses use the existing `success/data/error` envelope.
 - `GET /api/v1/icons`, `/api/v1/icons/bindings`, `/api/v1/icons/{id}.svg`, `/api/v1/icons/sprite.svg` —
   the drawn set itself, public and cacheable. Contract: [ICONS.md](ICONS.md).
 - `POST /api/v1/poe/token` with `{"login":"...","password":"..."}` returns a one-hour JWT.
-- `GET /api/v1/poe/characters/{characterId}/inventory`, with owner JWT, returns version and persisted instances.
+- `GET /api/v1/poe/characters/{characterId}/inventory?size=&after=`, with owner JWT, returns version,
+  one page of persisted instances, the total count and the `next` cursor. The inventory is stored one
+  document per item and has no length limit; see [equipment storage](EQUIPMENT_STORAGE.md).
 - `POST /api/v1/poe/characters/{characterId}/craft`, with `Authorization: Bearer TOKEN`:
 
 ```json
