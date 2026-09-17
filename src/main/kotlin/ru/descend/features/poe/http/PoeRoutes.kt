@@ -13,6 +13,8 @@ import org.koin.ktor.ext.inject
 import ru.descend.domain.enums.EnumUserRoles
 import ru.descend.features.character.persistence.CharacterRepository
 import ru.descend.features.equipment.persistence.EquipmentRepository
+import ru.descend.domain.icons.IconResolver
+import ru.descend.features.icons.IconBindings
 import ru.descend.features.poe.application.PoeService
 import ru.descend.features.poe.catalog.PoeRecord
 import ru.descend.features.poe.catalog.string
@@ -50,7 +52,11 @@ fun Route.poeRoutes() {
             val data = (if (type == "bases") catalog.bases else catalog.mods.filterKeys(catalog::enabled)).filter { (key, value) ->
                 (id == null || key == id) && (query.isBlank() || key.contains(query, true) || value.string("name").contains(query, true) || value.string("text").contains(query, true))
             }
-            call.respond(ApiMongoResponse.ok(CatalogPage(data.entries.drop(page * size).take(size).map { PoeRecord(it.key, it.value) }, page, size, data.size)))
+            val records = data.entries.drop(page * size).take(size).map { (key, value) ->
+                // Каждая запись каталога приходит со своей иконкой: клиенту не нужен второй запрос.
+                PoeRecord(key, value, if (type == "bases") IconBindings.forBase(value) else IconBindings.forRawModifier(key, value))
+            }
+            call.respond(ApiMongoResponse.ok(CatalogPage(records, page, size, data.size)))
         }
         get("/capabilities") { call.respond(ApiMongoResponse.ok(PoeCapabilities())) }
         get("/modifier-definitions") {
@@ -61,7 +67,9 @@ fun Route.poeRoutes() {
             val snapshot = catalogs.snapshot()
             val latest = snapshot.definitions.values.groupBy { it.id }.values.map { revisions -> revisions.maxBy { it.revision } }
                 .filter { (it.poe == null || snapshot.catalog.enabled(it.id)) && (query.isBlank() || it.id.contains(query, true) || it.name.contains(query, true)) }.sortedBy { it.id }
-            call.respond(ApiMongoResponse.ok(ModifierDefinitionPage(latest.drop(page * size).take(size), page, size, latest.size)))
+            val items = latest.drop(page * size).take(size)
+            call.respond(ApiMongoResponse.ok(ModifierDefinitionPage(items, page, size, latest.size,
+                icons = items.associate { it.id to IconResolver.forDefinition(it) })))
         }
         get("/modifier-definition") {
             val id = call.request.queryParameters["id"]
@@ -75,7 +83,9 @@ fun Route.poeRoutes() {
         get("/currencies") {
             val catalog = catalogs.snapshot().catalog
             val inventory = PoeInventory(catalog, PoeCrafting(catalog))
-            call.respond(ApiMongoResponse.ok(PoeCurrency.entries.map { CurrencyOption(it, it.displayName, inventory.currencyId(it)) }))
+            call.respond(ApiMongoResponse.ok(PoeCurrency.entries.map {
+                CurrencyOption(it, it.displayName, inventory.currencyId(it), IconBindings.currencies.getValue(it))
+            }))
         }
         authenticate("jwt-auth") {
             post("/modifier-definitions") {

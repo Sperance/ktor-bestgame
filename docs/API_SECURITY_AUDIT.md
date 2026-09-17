@@ -9,6 +9,7 @@ This release deliberately changes unsafe write contracts. Existing ExileForge bu
 | --- | --- | --- | --- |
 | POST `/api/v1/poe/token` | Credentials only | Credentials only | Credentials only |
 | PoE catalog, currencies, capabilities, modifier lookup; public key; health; Swagger | Public read | Read | Read |
+| Icon set: manifest, bindings, SVG, sprite (`/api/v1/icons/**`) | Public read | Read | Read |
 | User list / count / paged / GET by ID | 401 | Own profile only | All active profiles |
 | Character list / count / paged / GET by ID | 401 | Own active characters only | All active characters |
 | Equipment/items/recipes read, cache hashes | 401 | Read | Read |

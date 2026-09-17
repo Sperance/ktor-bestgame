@@ -21,6 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.bson.Document
 import org.koin.ktor.ext.inject
+import ru.descend.features.icons.http.iconRoutes
 import ru.descend.features.poe.http.poeRoutes
 import ru.descend.infrastructure.mongo.MongoFactory
 import ru.descend.shared.error.ApplicationExceptions
@@ -48,6 +49,7 @@ fun Application.configureRouting() {
         poeRoutes()
         combatRoutes()
         passiveRoutes()
+        iconRoutes()
 
         openAPI(path = "swagger") {
             info = OpenApiInfo("My API", "1.0.1")

@@ -45,6 +45,8 @@ sealed class Equipment(
     override var updatedAt: LocalDateTime = LocalDateTime.now(),
     var price: Long = 1L,
     var poeBaseId: String? = null,
+    /** Идентификатор иконки набора, например `weapon-sword`. Картинка: /api/v1/icons/{icon}.svg */
+    var icon: String? = null,
     var modifierDefinitionRefs: List<ru.descend.domain.modifiers.ModifierRef> = emptyList(),
     var stockModifierDefinitionRefs: List<ru.descend.domain.modifiers.ModifierRef> = emptyList()
 ) : VersionedEntity, EquipmentInterface {

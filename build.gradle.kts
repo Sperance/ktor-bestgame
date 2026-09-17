@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.descend"
-version = "0.12.0"
+version = "0.13.0"
 
 application {
     mainClass = "ru.descend.bootstrap.ApplicationKt"
@@ -75,6 +75,15 @@ val preparePoeCatalog by tasks.registering(Exec::class) {
 }
 sourceSets.main { resources.srcDir(layout.buildDirectory.dir("generated-poe")) }
 tasks.processResources { dependsOn(preparePoeCatalog) }
+
+// Просмотр набора иконок при правке рисунков: отдельные SVG, спрайт и страница предпросмотра.
+val iconPreview by tasks.registering(JavaExec::class) {
+    group = "documentation"
+    description = "Exports the icon set to build/icons (svg files, sprite and a preview page)"
+    mainClass = "ru.descend.domain.icons.IconExport"
+    classpath = sourceSets.main.get().runtimeClasspath
+    args(layout.buildDirectory.dir("icons").get().asFile.absolutePath)
+}
 
 tasks.register<Test>("poeTest") {
     description = "Deterministic PoE domain tests; no external MongoDB required"

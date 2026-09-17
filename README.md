@@ -1,7 +1,14 @@
 # ktor-bestgame — compact RPG server
 
 Kotlin/Ktor server with MongoDB, a small tiered PoE item catalog and character-owned crafting.
-Version **0.12.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+Version **0.13.0**. This restructuring lives only on `refactor/compact-rpg-architecture`.
+
+## Icons
+
+[Drawn icon set and its API](docs/ICONS.md): 120 original vector icons for every modifier, weapon, armour piece,
+currency orb, passive node, monster and character stat. The server renders them to SVG and serves them at
+`/api/v1/icons` without authentication; existing responses now carry the icon id of their entity. Clients no
+longer need to bundle their own pictures. `./gradlew iconPreview` writes the whole set and a preview page to `build/icons`.
 
 ## Shared passive tree
 

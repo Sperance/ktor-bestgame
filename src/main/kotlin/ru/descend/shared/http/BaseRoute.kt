@@ -41,8 +41,8 @@ abstract class BaseRoute<T : StockEntity, R>(
     private val editable: Set<String> get() = when (kind) {
         "user" -> setOf("name", "email", "age")
         "character" -> setOf("name", "description")
-        "equipment" -> setOf("name", "description", "image", "slot", "rarity", "itemLevel", "weaponType", "damage_min", "damage_max", "attackSpeed", "durability", "defense", "price", "poeBaseId", "modifierDefinitionRefs", "stockModifierDefinitionRefs")
-        "items" -> setOf("name", "category", "subCategory", "description", "image", "price", "poeBaseId")
+        "equipment" -> setOf("name", "description", "image", "icon", "slot", "rarity", "itemLevel", "weaponType", "damage_min", "damage_max", "attackSpeed", "durability", "defense", "price", "poeBaseId", "modifierDefinitionRefs", "stockModifierDefinitionRefs")
+        "items" -> setOf("name", "category", "subCategory", "description", "image", "icon", "price", "poeBaseId")
         "recipe" -> setOf("name", "arrayIn", "arrayOut", "requirement", "timeWork", "needOpenRecipe")
         "redemptioncodes" -> setOf("code", "treasure", "description", "expiredAt")
         else -> emptySet()
@@ -170,6 +170,8 @@ abstract class BaseRoute<T : StockEntity, R>(
             obj[key]?.jsonPrimitive?.doubleOrNull?.let { if (!it.isFinite() || it < 0) invalid("Invalid numeric property") }
         }
         if (obj["itemLevel"]?.jsonPrimitive?.intOrNull?.let { it !in 1..100 } == true) invalid("Invalid item level")
+        // Иконка — ссылка на набор сервера, а не произвольная строка или чужой URL.
+        obj["icon"]?.jsonPrimitive?.contentOrNull?.let { if (!ru.descend.domain.icons.IconCatalog.exists(it)) invalid("Unknown icon id") }
     }
     private fun <V> decode(serializer: KSerializer<V>, value: JsonObject): V = try { CommandJson.decodeFromJsonElement(serializer, value) } catch (e: kotlinx.serialization.SerializationException) { invalid("Invalid fields or types") }
     protected open fun additionalRoutes(route: Route): Route = route

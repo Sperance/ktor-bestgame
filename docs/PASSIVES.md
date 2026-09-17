@@ -9,7 +9,8 @@ Allocation requires an affordable adjacent node on a connected path from the pai
 
 ## HTTP
 All routes require JWT. Character routes require the actual owner, including administrators.
-- GET `/api/v1/passives/tree?revision=1` — common graph, coordinates, edges and effects.
+- GET `/api/v1/passives/tree?revision=1` — common graph, coordinates, edges and effects. Every node also carries `icon`:
+  keystones, notables and the origin have their own shape, a small node uses the icon of the stat it grants. See [ICONS.md](ICONS.md).
 - GET `/api/v1/passives/characters/{id}` — allocations, earned/spent/free points, allocatable/refundable IDs, character version and calculated stats.
 - POST `/api/v1/passives/characters/{id}` — `{expectedVersion,treeRevision,requestId,action,nodeId}`; action ALLOCATE, REFUND or RESET. RESET uses null/omitted nodeId.
 - Capabilities include `passiveTree:true`. Generic character CRUD cannot write allocations or revision.

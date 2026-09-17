@@ -25,7 +25,7 @@ import ru.descend.features.poe.domain.PoeRoll
 
 @Serializable
 @kotlinx.serialization.SerialName("features.poe.PoeRecord")
-data class PoeRecord(val id: String, val data: JsonObject)
+data class PoeRecord(val id: String, val data: JsonObject, val icon: String? = null)
 
 /** BSON omits null-valued object members. Keep array positions significant. */
 internal fun JsonElement.canonicalDefinitionJson(): JsonElement = when (this) {
@@ -153,6 +153,7 @@ class PoeCatalog(val bases: Map<String, JsonObject>, val mods: Map<String, JsonO
         equipment._id = stableId("base:$id")
         equipment.poeBaseId = id
         equipment.name = b.string("name")
+        equipment.icon = ru.descend.domain.icons.IconResolver.forBaseItem(klass, b.string("name"), b.strings("tags"))
         if (unique(b)) equipment.rarity = ru.descend.domain.enums.EnumRarity.LEGENDARY
         equipment.itemLevel = b.int("drop_level", 1).coerceAtLeast(1)
         equipment.description = "PoE ${b.string("item_class")}; base properties and modifiers: /api/v1/poe/catalog"

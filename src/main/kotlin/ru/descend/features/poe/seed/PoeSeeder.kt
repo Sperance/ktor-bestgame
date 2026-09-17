@@ -9,6 +9,7 @@ import ru.descend.features.items.persistence.ItemsRepository
 import ru.descend.features.modifiers.persistence.ModifierDefinitionRepository
 import ru.descend.features.poe.catalog.PoeCatalog
 import ru.descend.features.poe.catalog.string
+import ru.descend.features.poe.catalog.strings
 import ru.descend.features.poe.migration.ModifierReferenceMigration
 import ru.descend.infrastructure.mongo.MongoFactory.transactionExecute
 
@@ -49,6 +50,7 @@ object PoeSeeder : KoinComponent {
                     val missing = batch.filter { PoeCatalog.stableId("base:${it.key}") !in existing }.map { (id, b) ->
                         Items(name = b.string("name"), category = "POE", subCategory = b.string("item_class"),
                             description = "Catalog record; release state does not imply ordinary drop eligibility",
+                            icon = ru.descend.domain.icons.IconResolver.forBaseItem(b.string("item_class"), b.string("name"), b.strings("tags")),
                             poeBaseId = id, _id = PoeCatalog.stableId("base:$id"))
                     }
                     if (missing.isNotEmpty()) items.insertMany(missing, session)

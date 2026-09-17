@@ -14,6 +14,8 @@ data class Items(
     val subCategory: String,
     val description: String = "",
     val image: String? = null,
+    /** Идентификатор иконки набора. Картинка: /api/v1/icons/{icon}.svg */
+    val icon: String? = null,
     val price: Long = 0,
 
     val poeBaseId: String? = null,

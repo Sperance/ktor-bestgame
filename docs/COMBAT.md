@@ -2,7 +2,8 @@
 
 Routes require a current JWT. Gameplay only accepts the character's actual owner, including for administrators.
 
-- GET /api/v1/combat/catalog — zones, monsters, bosses and weighted loot tables.
+- GET /api/v1/combat/catalog — zones, monsters, bosses and weighted loot tables. Zones and monsters carry `icon`
+  (bosses their own, ordinary monsters by damage element); it is added on response, never stored. See [ICONS.md](ICONS.md).
 - GET /api/v1/combat/characters/{id} — current/last encounter and boss progress.
 - POST /api/v1/combat/characters/{id}/start — {expectedVersion, requestId, zoneId, boss:false}.
 - POST /api/v1/combat/characters/{id}/act — {expectedVersion, requestId, battleId, action}.
