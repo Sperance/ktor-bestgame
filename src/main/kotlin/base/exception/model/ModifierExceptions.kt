@@ -15,4 +15,5 @@ object ModifierExceptions {
     fun funExceptionCodeNotFound(errorMethod: String, value: String? = "") = ModifierException("ModifierDefinition with code $value not found", errorMethod, "MD_004")
     fun funExceptionTier(errorMethod: String, value: String? = "") = ModifierException("Modifier tier $value must be greater than zero", errorMethod, "MD_005")
     fun funExceptionTierRange(errorMethod: String, value: String? = "") = ModifierException("Modifier tier has invalid value range $value", errorMethod, "MD_006")
+    fun funExceptionTierEffects(errorMethod: String, value: String? = "") = ModifierException("Modifier tier value count does not match effect count ($value)", errorMethod, "MD_007")
 }

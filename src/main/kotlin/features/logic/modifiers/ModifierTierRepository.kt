@@ -32,12 +32,22 @@ class ModifierTierRepository : BaseRepository<ModifierTier>(
     override suspend fun validateBeforeInsert(entity: ModifierTier, session: ClientSession) {
         if (entity.tier <= 0)
             throw ModifierExceptions.funExceptionTier("validateBeforeInsert", entity.tier.toString())
-        if (entity.valueMin > entity.valueMax)
-            throw ModifierExceptions.funExceptionTierRange("validateBeforeInsert", "${entity.valueMin}..${entity.valueMax}")
+        if (entity.values.isEmpty())
+            throw ModifierExceptions.funExceptionTierRange("validateBeforeInsert", "no values")
+        entity.values.firstOrNull { it.valueMin > it.valueMax }?.let {
+            throw ModifierExceptions.funExceptionTierRange("validateBeforeInsert", "${it.valueMin}..${it.valueMax}")
+        }
 
-        val exists = definitionCache.findById(entity.modifierId) != null
-                || definitionRepository.findById(entity.modifierId, session) != null
-        if (!exists) throw ModifierExceptions.funExceptionNotFound("validateBeforeInsert", entity.modifierId)
+        val definition = definitionCache.findById(entity.modifierId)
+            ?: definitionRepository.findById(entity.modifierId, session)
+            ?: throw ModifierExceptions.funExceptionNotFound("validateBeforeInsert", entity.modifierId)
+
+        // У составного модификатора на каждый эффект должен быть свой диапазон
+        if (definition.effects.size != entity.values.size)
+            throw ModifierExceptions.funExceptionTierEffects(
+                "validateBeforeInsert",
+                "${definition.code}: ${definition.effects.size} effects, ${entity.values.size} values"
+            )
     }
 
     override suspend fun validateAfterInsert(entity: ModifierTier, session: ClientSession) {

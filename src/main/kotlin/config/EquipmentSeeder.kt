@@ -7,9 +7,8 @@ import base.exception.model.EquipmentExceptions
 import base.exception.model.ModifierExceptions
 import features.data.equipment.equipment_data.Equipment
 import features.data.equipment.equipment_data.Armor
+import extensions.toStableObjectId
 import features.logic.modifiers.ModifierDefinition
-import org.bson.types.ObjectId
-import java.security.MessageDigest
 
 /**
  * Начальные данные коллекции `Equipment`.
@@ -19,6 +18,8 @@ import java.security.MessageDigest
  *
  * Пул модификаторов, как в POE, задаётся классом предмета, а не конкретной
  * базой: любой шлем может выролить любой шлемный модификатор.
+ * Уникальные предметы живут в [UniqueEquipmentSeeder]: у них пула нет,
+ * вместо него закреплённый набор модификаторов.
  *
  * @param definitions документы коллекции `ModifierDefinition`
  */
@@ -60,6 +61,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
         val list = ArrayList<Equipment>()
 
         seedHelmets(list)
+        list.addAll(UniqueEquipmentSeeder.seedEquipment(::mod))
 
         // Имя - натуральный ключ шаблона, дубликаты сломали бы стабильный _id
         val duplicates = list.groupBy { it.name }.filterValues { it.size > 1 }.keys
@@ -68,16 +70,10 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
 
         // Шаблоны пересеваются на каждом старте, поэтому _id должен быть
         // стабильным: иначе инвентарь персонажей потеряет ссылки на них.
-        list.forEach { it._id = stableId(it.name) }
+        list.forEach { it._id = it.name.toStableObjectId() }
 
         return list
     }
-
-    /**
-     * Детерминированный ObjectId шаблона, выведенный из его имени.
-     */
-    private fun stableId(name: String): String =
-        ObjectId(MessageDigest.getInstance("MD5").digest(name.toByteArray()).copyOf(12)).toHexString()
 
     private fun seedHelmets(list: ArrayList<Equipment>) {
         // ==================== COMMON HELMETS ====================
@@ -284,13 +280,13 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 modifierIds = helmetModifiers()
             ).apply { this.description = "Grants clarity of mind and body." })
 
-        // ==================== LEGENDARY HELMETS ====================
+        // ==================== MYTHICAL HELMETS ====================
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 defense = 138,
                 name = "Azure Crown",
-                rarity = EnumRarity.UNIQUE,
+                rarity = EnumRarity.MYTHICAL,
                 itemLevel = 4,
                 modifierIds = helmetModifiers(),
             ).apply {
@@ -302,7 +298,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 150,
                 name = "Helm of the Titan",
-                rarity = EnumRarity.UNIQUE,
+                rarity = EnumRarity.MYTHICAL,
                 itemLevel = 16,
                 modifierIds = helmetModifiers(),
             ).apply {
@@ -314,7 +310,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 162,
                 name = "Dragonlord's Helm",
-                rarity = EnumRarity.UNIQUE,
+                rarity = EnumRarity.MYTHICAL,
                 itemLevel = 72,
                 modifierIds = helmetModifiers(),
             ).apply {
@@ -326,7 +322,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 174,
                 name = "Helm of Immortality",
-                rarity = EnumRarity.UNIQUE,
+                rarity = EnumRarity.MYTHICAL,
                 itemLevel = 44,
                 modifierIds = helmetModifiers("IMPLICIT_ADD_ARMOUR"),
             ).apply {
@@ -338,7 +334,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 186,
                 name = "Legendary Casque",
-                rarity = EnumRarity.UNIQUE,
+                rarity = EnumRarity.MYTHICAL,
                 itemLevel = 90,
                 modifierIds = helmetModifiers(),
             ).apply {

@@ -63,7 +63,7 @@ object ModifierRoller : KoinComponent {
             modifierId = definition._id,
             tierId = tier._id,
             tier = tier.tier,
-            value = tier.rollValue()
+            values = tier.roll()
         )
     }
 }

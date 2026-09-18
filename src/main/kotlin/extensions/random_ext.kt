@@ -24,6 +24,11 @@ object RandomExt {
 
     fun randomDouble(min: Double, max: Double) = random.nextDouble(min, max)
 
+    /**
+     * Качество ролла в диапазоне [0.0, 1.0): 0 - минимум диапазона, ближе к 1 - максимум.
+     */
+    fun randomProgress() = random.nextDouble()
+
     /* LONG */
 
     fun randomLong(min: Long, max: Long) = random.nextLong(min, max)

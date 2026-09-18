@@ -113,4 +113,17 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      */
     suspend fun deleteByMissingEquipment(equipmentIds: Collection<String>, session: ClientSession): Long =
         collection.deleteMany(session, Filters.nin("equipmentId", equipmentIds)).deletedCount
+
+    /**
+     * Удаляет предметы с модификаторами старого формата - одиночным полем `value`
+     * вместо списка `values`, появившегося вместе с составными модификаторами.
+     *
+     * Такие документы уже не читаются драйвером, поэтому вычистить их можно
+     * только фильтром по сырому полю. Совместимость разовая: когда база
+     * пересеяна, метод перестаёт что-либо находить и его можно убрать.
+     *
+     * @return количество удалённых документов
+     */
+    suspend fun deleteLegacyParams(session: ClientSession): Long =
+        collection.deleteMany(session, Filters.exists("params.value", true)).deletedCount
 }

@@ -11,6 +11,8 @@ import features.data.equipment.EquipmentRepository
 import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.caches.EquipmentCache
+import features.caches.ModifierDefinitionCache
+import features.caches.ModifierTierCache
 import features.data.blockList.BlockListRepository
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.recipe.RecipeRepository
@@ -42,6 +44,8 @@ object DatabaseSeeder : KoinComponent {
     private val modifierDefinitionRepository: ModifierDefinitionRepository by inject()
     private val modifierTierRepository: ModifierTierRepository by inject()
     private val equipmentCache: EquipmentCache by inject()
+    private val modifierDefinitionCache: ModifierDefinitionCache by inject()
+    private val modifierTierCache: ModifierTierCache by inject()
 
     suspend fun seed() {
 
@@ -130,17 +134,29 @@ object DatabaseSeeder : KoinComponent {
     /**
      * Описания модификаторов и их тиры - две отдельные коллекции Mongo.
      *
-     * @return актуальные описания модификаторов (существующие или только что созданные)
+     * Справочник пересобирается на каждом старте, чтобы правки в таблицах
+     * модификаторов сразу попадали в базу. _id выводятся из кода модификатора
+     * и стабильны, поэтому зароленные модификаторы предметов переживают пересев.
+     *
+     * @return актуальные описания модификаторов
      */
     private suspend fun seedModifiers(session: ClientSession): List<ModifierDefinition> {
-        if (modifierDefinitionRepository.count(session) > 0) {
-            return modifierDefinitionRepository.findAll(session)
-        }
-
         printLog("Seeding modifiers...")
 
-        val definitions = modifierDefinitionRepository.insertMany(ModifierSeeder.seedDefinitions(), session)
-        val tiers = modifierTierRepository.insertMany(ModifierSeeder.seedTiers(definitions), session)
+        modifierTierRepository.deleteAll(session)
+        modifierDefinitionRepository.deleteAll(session)
+
+        val definitions = modifierDefinitionRepository.insertMany(
+            ModifierSeeder.seedDefinitions() + UniqueEquipmentSeeder.seedDefinitions(),
+            session
+        )
+        val tiers = modifierTierRepository.insertMany(
+            ModifierSeeder.seedTiers(definitions) + UniqueEquipmentSeeder.seedTiers(definitions),
+            session
+        )
+
+        modifierDefinitionCache.initializeCache(session)
+        modifierTierCache.initializeCache(session)
 
         printLog("  → ${definitions.size} modifier definitions created")
         printLog("  → ${tiers.size} modifier tiers created")
@@ -285,10 +301,12 @@ object DatabaseSeeder : KoinComponent {
             return
         }
 
-        // Шаблоны пересоздаются на каждом старте, поэтому инвентарь,
-        // ссылающийся на уже несуществующий шаблон, чистим.
+        // Инвентарь, ссылающийся на уже несуществующий шаблон, чистим
         val dropped = characterEquipmentRepository.deleteByMissingEquipment(equipmentIds, session)
         if (dropped > 0) printLog("  → $dropped outdated character equipments removed")
+
+        val legacy = characterEquipmentRepository.deleteLegacyParams(session)
+        if (legacy > 0) printLog("  → $legacy character equipments with legacy modifiers removed")
 
         var created = 0
         characters.forEach { char ->

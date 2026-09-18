@@ -7,6 +7,23 @@ import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 /**
+ * Диапазон значений одного эффекта модификатора внутри тира.
+ */
+@Serializable
+data class ModifierTierValue(
+
+    /**
+     * Нижняя граница значения (включительно).
+     */
+    val valueMin: Double,
+
+    /**
+     * Верхняя граница значения (включительно).
+     */
+    val valueMax: Double,
+)
+
+/**
  * Тир модификатора. Отдельная коллекция Mongo `ModifierTier`.
  *
  * Один документ = один тир одного [ModifierDefinition]:
@@ -15,6 +32,9 @@ import org.bson.types.ObjectId
  *
  * Нумерация как в POE: тир 1 - лучший, он даёт максимальные значения
  * и требует самый высокий item level, дальше тиры слабеют.
+ *
+ * У составного модификатора в [values] лежит по диапазону на каждый
+ * эффект описания, в том же порядке.
  */
 @Serializable
 data class ModifierTier(
@@ -30,14 +50,9 @@ data class ModifierTier(
     val tier: Int,
 
     /**
-     * Нижняя граница значения (включительно).
+     * Диапазоны значений, по одному на каждый эффект описания.
      */
-    val valueMin: Double,
-
-    /**
-     * Верхняя граница значения (включительно).
-     */
-    val valueMax: Double,
+    val values: List<ModifierTierValue>,
 
     /**
      * Минимальный item level предмета, на котором тир может выпасть.
@@ -54,9 +69,14 @@ data class ModifierTier(
 ) : StockEntity {
 
     /**
-     * Роллит конкретное значение внутри диапазона тира.
+     * Роллит значения тира - по одному на каждый эффект описания.
+     *
+     * Качество ролла общее для всех эффектов: составной модификатор
+     * не может выпасть максимумом по здоровью и минимумом по мане.
      */
-    fun rollValue(): Double =
-        if (valueMin >= valueMax) valueMax.to1Digits()
-        else RandomExt.randomDouble(valueMin, valueMax).to1Digits()
+    fun roll(): List<Double> {
+        val progress = RandomExt.randomProgress()
+        return values.map { it.valueMin + (it.valueMax - it.valueMin) * progress }
+            .map { it.to1Digits() }
+    }
 }

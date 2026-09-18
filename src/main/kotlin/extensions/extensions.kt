@@ -7,6 +7,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.bson.types.ObjectId
+import java.security.MessageDigest
 import kotlin.time.Clock
 import kotlin.time.Instant
 
@@ -30,6 +31,14 @@ fun Double.addPercent(value: Double) : Double {
 fun Double.removePercent(value: Double) : Double {
     return (this - getPercent(value)).to1Digits()
 }
+
+/**
+ * Детерминированный ObjectId, выведенный из строки.
+ *
+ * Нужен сидерам: пересев справочника не должен ломать ссылки на его записи.
+ */
+fun String.toStableObjectId(): String =
+    ObjectId(MessageDigest.getInstance("MD5").digest(toByteArray()).copyOf(12)).toHexString()
 
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 

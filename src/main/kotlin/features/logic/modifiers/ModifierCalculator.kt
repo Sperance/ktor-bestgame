@@ -31,9 +31,12 @@ object ModifierCalculator : KoinComponent {
      * @param modifiers все модификаторы, влияющие на персонажа
      */
     fun calculate(stat: IntEnumStat, base: Double, modifiers: Collection<Modifier>): Double {
-        val affecting = modifiers.mapNotNull { modifier ->
-            val definition = definitionCache.findById(modifier.modifierId) ?: return@mapNotNull null
-            if (definition.stat != stat) null else definition.operation to modifier.value
+        val affecting = mutableListOf<Pair<EnumModifierOperation, Double>>()
+
+        modifiers.forEach { modifier ->
+            forEachEffect(modifier) { effect, value ->
+                if (effect.stat == stat) affecting.add(effect.operation to value)
+            }
         }
 
         return apply(base, affecting)
@@ -52,14 +55,27 @@ object ModifierCalculator : KoinComponent {
         val grouped = mutableMapOf<IntEnumStat, MutableList<Pair<EnumModifierOperation, Double>>>()
 
         modifiers.forEach { modifier ->
-            val definition = definitionCache.findById(modifier.modifierId) ?: return@forEach
-            grouped.getOrPut(definition.stat) { mutableListOf() }
-                .add(definition.operation to modifier.value)
+            forEachEffect(modifier) { effect, value ->
+                grouped.getOrPut(effect.stat) { mutableListOf() }.add(effect.operation to value)
+            }
         }
 
         val stats = grouped.keys + base.keys
         return stats.associateWith { stat ->
             apply(base[stat] ?: 0.0, grouped[stat] ?: emptyList())
+        }
+    }
+
+    /**
+     * Разбирает зароленный модификатор на пары "эффект - выпавшее значение".
+     *
+     * У составного модификатора эффектов несколько, и значения идут
+     * в том же порядке, что и эффекты описания.
+     */
+    private inline fun forEachEffect(modifier: Modifier, action: (ModifierEffect, Double) -> Unit) {
+        val definition = definitionCache.findById(modifier.modifierId) ?: return
+        definition.effects.forEachIndexed { index, effect ->
+            action(effect, modifier.values.getOrNull(index) ?: return@forEachIndexed)
         }
     }
 
