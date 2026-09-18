@@ -15,6 +15,6 @@ enum class EnumRarity(
     UNCOMMON(1, 1),
     RARE(1, 1),
     EPIC(2, 1),
-    LEGENDARY(2, 2),
+    UNIQUE(0, 0),
     MYTHICAL(3, 3);
 }

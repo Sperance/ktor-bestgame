@@ -290,7 +290,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 138,
                 name = "Azure Crown",
-                rarity = EnumRarity.LEGENDARY,
+                rarity = EnumRarity.UNIQUE,
                 itemLevel = 4,
                 modifierIds = helmetModifiers(),
             ).apply {
@@ -302,7 +302,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 150,
                 name = "Helm of the Titan",
-                rarity = EnumRarity.LEGENDARY,
+                rarity = EnumRarity.UNIQUE,
                 itemLevel = 16,
                 modifierIds = helmetModifiers(),
             ).apply {
@@ -314,7 +314,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 162,
                 name = "Dragonlord's Helm",
-                rarity = EnumRarity.LEGENDARY,
+                rarity = EnumRarity.UNIQUE,
                 itemLevel = 72,
                 modifierIds = helmetModifiers(),
             ).apply {
@@ -326,7 +326,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 174,
                 name = "Helm of Immortality",
-                rarity = EnumRarity.LEGENDARY,
+                rarity = EnumRarity.UNIQUE,
                 itemLevel = 44,
                 modifierIds = helmetModifiers("IMPLICIT_ADD_ARMOUR"),
             ).apply {
@@ -338,7 +338,7 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
                 slot = EnumEquipmentType.HELMET,
                 defense = 186,
                 name = "Legendary Casque",
-                rarity = EnumRarity.LEGENDARY,
+                rarity = EnumRarity.UNIQUE,
                 itemLevel = 90,
                 modifierIds = helmetModifiers(),
             ).apply {

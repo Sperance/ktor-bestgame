@@ -278,7 +278,7 @@ object DatabaseSeeder : KoinComponent {
         val characters = characterRepository.findAll(session)
         val equipments = equipmentRepository.findAll(session)
         val equipmentIds = equipments.map { it._id }.toSet()
-        val startRarities = listOf(EnumRarity.COMMON, EnumRarity.LEGENDARY)
+        val startRarities = listOf(EnumRarity.COMMON, EnumRarity.UNIQUE)
 
         if (equipmentIds.isEmpty()) {
             printLog("  → no equipment templates, inventory seeding skipped")
