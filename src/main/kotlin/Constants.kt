@@ -9,5 +9,18 @@ const val CONST_USER_MAX_CHARACTERS = 3
 const val CONST_API_VERSION = 1
 const val CONST_TIER_FLOOR = 3
 
+/**
+ * Разделитель простого предмета в инвентаре персонажа.
+ *
+ * Простые предметы хранятся плоским массивом строк вида "chaos_orb:50",
+ * где слева id предмета, справа его количество.
+ */
+const val CONST_ITEM_SEPARATOR = ":"
+
+/**
+ * Максимальное количество одного простого предмета в инвентаре.
+ */
+const val CONST_ITEM_MAX_AMOUNT = 100_000_000L
+
 const val MONGO_URI = "mongodb://localhost:27017"
 const val MONGO_DB = "mongobase"

@@ -1,22 +1,24 @@
 package features.data.character
 
+import application.enums.IntEnumStat
 import base.exception.model.CharacterExceptions
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
-import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
-import CONST_FIELD_ID
+import CONST_ITEM_MAX_AMOUNT
 import CONST_USER_MAX_CHARACTERS
 import features.caches.ItemsCache
-import features.data.character.character_data.CharacterEquipments
 import features.data.character.character_data.CharacterItems
-import features.data.equipment.equipment_data.Equipment
+import features.data.character.character_data.toStorage
 import features.data.equipment.EquipmentRepository
+import features.data.inventory.CharacterEquipment
+import features.data.inventory.CharacterEquipmentRepository
 import features.data.items.ItemsRepository
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
+import features.logic.modifiers.ModifierCalculator
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue
@@ -26,6 +28,7 @@ class CharacterRepository : BaseRepository<Character>(
 ), KoinComponent {
     val userRepository: UserRepository by inject()
     val equipmentRepository: EquipmentRepository by inject()
+    val characterEquipmentRepository: CharacterEquipmentRepository by inject()
     val itemsRepository: ItemsRepository by inject()
     val redemptionCodesRepository: RedemptionCodesRepository by inject()
     val itemsCache: ItemsCache by inject()
@@ -55,62 +58,87 @@ class CharacterRepository : BaseRepository<Character>(
         userRepository.update(findedUser, session)
     }
 
-    suspend fun getEquipmentsData(characterId: String): List<Equipment> {
-        return equipmentRepository.findByFilter(Filters.eq("characterId", characterId))
-    }
-
-    suspend fun getEquippedData(characterId: String): List<Equipment> {
-        val character = findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("getEquippedData", characterId)
-        val mapIdEquipments = character.equipments.map { it.equipmentId }
-        if (mapIdEquipments.isEmpty()) return emptyList()
-        return equipmentRepository.findByFilter(
-            Filters.and(
-                Filters.`in`(CONST_FIELD_ID, mapIdEquipments),
-                Filters.eq("characterId", characterId)
-            )
-        )
+    override suspend fun validateAfterDelete(entity: Character, session: ClientSession, softDelete: Boolean) {
+        if (softDelete) return
+        characterEquipmentRepository.deleteByCharacter(entity._id, session)
     }
 
     /**
-     * Добавление нового предмета в инвентарь персонажа. Создание предмета
+     * Весь инвентарь экипировки персонажа - отдельные документы коллекции `CharacterEquipment`.
      */
-    suspend fun itemToInventory(characterId: String, item: CharacterEquipments): String {
-        val character = findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("itemToInventory", characterId)
-        if (equipmentRepository.findById(item.equipmentId) == null) throw CharacterExceptions.funExceptionItemNotFound("itemToInventory", item.equipmentId)
-
-        character.equipments.add(item)
-        transactionExecute("itemToInventory") { session ->
-            update(character, session)
-        }
-        return "Success"
+    suspend fun getEquipmentsData(characterId: String): List<CharacterEquipment> {
+        if (findById(characterId) == null) throw CharacterExceptions.funExceptionNotFound("getEquipmentsData", characterId)
+        return characterEquipmentRepository.findByCharacter(characterId)
     }
 
     /**
-     * Добавление\удаление предмета из инвентаря персонажа
+     * Надетая экипировка персонажа.
+     */
+    suspend fun getEquippedData(characterId: String): List<CharacterEquipment> {
+        if (findById(characterId) == null) throw CharacterExceptions.funExceptionNotFound("getEquippedData", characterId)
+        return characterEquipmentRepository.findEquipped(characterId)
+    }
+
+    /**
+     * Итоговые характеристики персонажа с учётом надетой экипировки.
+     *
+     * База берётся из stockSkills персонажа, поверх неё сводятся модификаторы
+     * самого персонажа и всех надетых предметов по правилам [ModifierCalculator].
+     */
+    suspend fun calculateStats(characterId: String): Map<IntEnumStat, Double> {
+        val character = findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound("calculateStats", characterId)
+
+        val equipped = characterEquipmentRepository.findEquipped(characterId)
+        val modifiers = character.params + equipped.flatMap { it.params }
+        val base = character.stockSkills.associate { it.stat as IntEnumStat to it.value.toDouble() }
+
+        return ModifierCalculator.calculate(modifiers, base)
+    }
+
+    /**
+     * Добавление нового предмета экипировки в инвентарь персонажа.
+     *
+     * Создаёт отдельный документ инвентаря с зароленными под шаблон модификаторами.
+     */
+    suspend fun itemToInventory(characterId: String, equipmentId: String): CharacterEquipment {
+        if (findById(characterId) == null) throw CharacterExceptions.funExceptionNotFound("itemToInventory", characterId)
+        val equipment = equipmentRepository.findById(equipmentId)
+            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("itemToInventory", equipmentId)
+
+        return transactionExecute("itemToInventory") { session ->
+            characterEquipmentRepository.addFromEquipment(characterId, equipment, session)
+        }
+    }
+
+    /**
+     * Добавление\удаление простого предмета из инвентаря персонажа.
+     *
+     * Простые предметы лежат плоским массивом строк "itemId:amount",
+     * поэтому изменения применяются к разобранному списку и сворачиваются обратно.
      */
     suspend fun addItem(characterId: String, itemObj: List<CharacterItems>): String {
         val character = findById(characterId)
         if (character == null) throw CharacterExceptions.funExceptionNotFound("addItem", characterId)
 
         val allItems = itemsCache.getCache()
+        val currentItems = character.parseItems()
 
         var isChanged = false
         itemObj.forEach { itm ->
             if (itm.amount == 0L) return@forEach
-            if (itm.amount > 100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
-            if (itm.amount < -100000000L) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
+            if (itm.amount > CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
+            if (itm.amount < -CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
             if (allItems.find { it._id == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itm.toString())
 
-            val findedItem = character.items.find { it.itemId == itm.itemId }
+            val findedItem = currentItems.find { it.itemId == itm.itemId }
             if (findedItem != null) {
                 findedItem.amount += itm.amount
                 if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
             }
             else {
                 if (itm.amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
-                character.items.add(CharacterItems(itm.itemId, itm.amount))
+                currentItems.add(CharacterItems(itm.itemId, itm.amount))
             }
 
             isChanged = true
@@ -121,7 +149,8 @@ class CharacterRepository : BaseRepository<Character>(
         }
 
         //Зачем хранить id предмета без кол-ва
-        character.items.removeAll { it.amount == 0L }
+        currentItems.removeAll { it.amount == 0L }
+        character.items = currentItems.toStorage()
 
         transactionExecute("addItem") { session ->
             update(character, session)

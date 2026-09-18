@@ -3,29 +3,29 @@ package features.logic.modifiers
 import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
 import application.enums.IntEnumStat
+import base.entity.StockEntity
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
 /**
- * Описание возможного модификатора.
+ * Описание возможного модификатора. Отдельная коллекция Mongo `ModifierDefinition`.
  *
- * Это НЕ модификатор конкретного предмета.
+ * Это НЕ модификатор конкретного предмета: здесь нет ни значения, ни тира —
+ * только то, ЧТО модификатор делает. Диапазоны значений вынесены в
+ * коллекцию [ModifierTier], по одному документу на тир.
  *
  * Например:
  *
- * "Strength Tier 3"
- * 25..39 Strength
- *
- * Именно ModifierDefinition используется
- * при генерации предмета.
+ * "Strength" (PREFIX, ADD) + тиры 1..8 с диапазонами значений.
  */
 @Serializable
 data class ModifierDefinition(
 
     /**
-     * Отображаемое имя.
+     * Стабильный код модификатора. Уникален в пределах коллекции,
+     * используется сидером и внешними инструментами вместо _id.
      */
-    val name: String? = null,
+    val code: String,
 
     /**
      * Стат, который изменяется.
@@ -43,23 +43,14 @@ data class ModifierDefinition(
     val source: EnumModifierSource,
 
     /**
-     * MAX Tier модификатора.
+     * Отображаемое имя.
      */
-    val tierMax: Int = 8,
-
-    /**
-     * Минимальный требуемый item level.
-     */
-    val minItemLevel: Int = 1,
-
-    val stepValue: Double = 1.0,
-
-    val constValue: Double? = null,
+    val name: String? = null,
 
     /**
      * Дополнительные теги.
      */
     val tags: MutableList<String>? = null,
 
-    var _id: String = ObjectId().toHexString()
-)
+    override var _id: String = ObjectId().toHexString()
+) : StockEntity

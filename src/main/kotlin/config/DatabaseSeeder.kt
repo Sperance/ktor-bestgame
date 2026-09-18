@@ -10,13 +10,17 @@ import features.data.character.CharacterRepository
 import features.data.equipment.EquipmentRepository
 import features.data.items.Items
 import features.data.items.ItemsRepository
+import features.caches.EquipmentCache
 import features.data.blockList.BlockListRepository
-import features.data.character.character_data.CharacterEquipments
+import features.data.inventory.CharacterEquipmentRepository
 import features.data.recipe.RecipeRepository
 import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
+import features.logic.modifiers.ModifierDefinition
+import features.logic.modifiers.ModifierDefinitionRepository
+import features.logic.modifiers.ModifierTierRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -34,6 +38,10 @@ object DatabaseSeeder : KoinComponent {
     private val blockListRepository: BlockListRepository by inject()
     private val recipeRepository: RecipeRepository by inject()
     private val redemptionCodesRepository: RedemptionCodesRepository by inject()
+    private val characterEquipmentRepository: CharacterEquipmentRepository by inject()
+    private val modifierDefinitionRepository: ModifierDefinitionRepository by inject()
+    private val modifierTierRepository: ModifierTierRepository by inject()
+    private val equipmentCache: EquipmentCache by inject()
 
     suspend fun seed() {
 
@@ -50,7 +58,8 @@ object DatabaseSeeder : KoinComponent {
             seedUsers(session)
             seedCharacters(session)
             seedItems(session)
-            seedEquipment(session)
+            val definitions = seedModifiers(session)
+            seedEquipment(session, definitions)
             seedRedemptionCodes(session)
             seedEqipmentCharacters(session)
         }
@@ -91,15 +100,40 @@ object DatabaseSeeder : KoinComponent {
         printLog("  → ${listItems.size} users created")
     }
 
-    private suspend fun seedEquipment(session: ClientSession) {
+    // ==================== Modifiers ====================
+
+    /**
+     * Описания модификаторов и их тиры - две отдельные коллекции Mongo.
+     *
+     * @return актуальные описания модификаторов (существующие или только что созданные)
+     */
+    private suspend fun seedModifiers(session: ClientSession): List<ModifierDefinition> {
+        if (modifierDefinitionRepository.count(session) > 0) {
+            return modifierDefinitionRepository.findAll(session)
+        }
+
+        printLog("Seeding modifiers...")
+
+        val definitions = modifierDefinitionRepository.insertMany(ModifierSeeder.seedDefinitions(), session)
+        val tiers = modifierTierRepository.insertMany(ModifierSeeder.seedTiers(definitions), session)
+
+        printLog("  → ${definitions.size} modifier definitions created")
+        printLog("  → ${tiers.size} modifier tiers created")
+
+        return definitions
+    }
+
+    private suspend fun seedEquipment(session: ClientSession, definitions: List<ModifierDefinition>) {
         equipmentRepository.deleteAll()
         if (equipmentRepository.count() > 0) return
 
         printLog("Seeding equipment...")
 
-        val listItems = EquipmentSeeder.seed()
+        val listItems = EquipmentSeeder(definitions).seed()
 
         equipmentRepository.insertMany(listItems, session)
+        // Коллекция была пересоздана - в кэше остались шаблоны с мёртвыми _id
+        equipmentCache.initializeCache(session)
 
         printLog("  → ${listItems.size} equipments created")
     }
@@ -199,15 +233,43 @@ object DatabaseSeeder : KoinComponent {
         printLog("  → ${listItems.size} RedemptionCodes created")
     }
 
+    // ==================== Inventory ====================
+
+    /**
+     * Стартовая экипировка персонажей.
+     *
+     * Каждый предмет инвентаря - отдельный документ коллекции `CharacterEquipment`
+     * со своими зароленными модификаторами.
+     */
     private suspend fun seedEqipmentCharacters(session: ClientSession) {
+        printLog("Seeding character inventory...")
+
         val characters = characterRepository.findAll(session)
         val equipments = equipmentRepository.findAll(session)
+        val equipmentIds = equipments.map { it._id }.toSet()
+        val startRarities = listOf(EnumRarity.COMMON, EnumRarity.LEGENDARY)
 
-        characters.forEach { char ->
-            char.equipments.add(CharacterEquipments.fromEquipment(equipments.filter { it.rarity == EnumRarity.COMMON }.random()))
-            char.equipments.add(CharacterEquipments.fromEquipment(equipments.filter { it.rarity == EnumRarity.LEGENDARY }.random()))
+        if (equipmentIds.isEmpty()) {
+            printLog("  → no equipment templates, inventory seeding skipped")
+            return
         }
 
-        characterRepository.bulkUpdate(characters, session)
+        // Шаблоны пересоздаются на каждом старте, поэтому инвентарь,
+        // ссылающийся на уже несуществующий шаблон, чистим.
+        val dropped = characterEquipmentRepository.deleteByMissingEquipment(equipmentIds, session)
+        if (dropped > 0) printLog("  → $dropped outdated character equipments removed")
+
+        var created = 0
+        characters.forEach { char ->
+            if (characterEquipmentRepository.countByCharacter(char._id, session) > 0) return@forEach
+
+            startRarities.forEach { rarity ->
+                val template = equipments.filter { it.rarity == rarity }.randomOrNull() ?: return@forEach
+                characterEquipmentRepository.addFromEquipment(char._id, template, session)
+                created++
+            }
+        }
+
+        printLog("  → $created character equipments created")
     }
 }

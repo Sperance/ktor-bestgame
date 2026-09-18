@@ -1,10 +1,20 @@
 package application.enums
 
-enum class EnumRarity {
-    COMMON,
-    UNCOMMON,
-    RARE,
-    EPIC,
-    LEGENDARY,
-    MYTHICAL
+enum class EnumRarity(
+    /**
+     * Количество префиксов, которое роллится на предмете этой редкости.
+     */
+    val prefixCount: Int,
+
+    /**
+     * Количество суффиксов, которое роллится на предмете этой редкости.
+     */
+    val suffixCount: Int
+) {
+    COMMON(1, 1),
+    UNCOMMON(1, 1),
+    RARE(1, 1),
+    EPIC(2, 1),
+    LEGENDARY(2, 2),
+    MYTHICAL(3, 3);
 }

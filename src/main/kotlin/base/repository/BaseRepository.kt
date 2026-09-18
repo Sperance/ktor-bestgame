@@ -104,6 +104,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * Выполняется в контексте runBlocking, поэтому не должен вызываться из корутины.
      * 
      * @param uniqueIndexes Список конфигураций уникальных индексов для создания
+     * @param indexedFields Список полей, для которых создаются обычные индексы
      * 
      * Пример:
      * ```
@@ -115,10 +116,33 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * )
      * ```
      */
-    fun initialize(uniqueIndexes: List<UniqueIndexConfig> = emptyList()) {
+    fun initialize(
+        uniqueIndexes: List<UniqueIndexConfig> = emptyList(),
+        indexedFields: List<String> = emptyList()
+    ) {
         runBlocking {
             setupUniqueIndexes(uniqueIndexes)
+            setupIndexedFields(indexedFields)
             setupVersionIndex()
+        }
+    }
+
+    /**
+     * Создаёт обычные (неуникальные) индексы по указанным полям.
+     *
+     * Нужен для полей-ссылок, по которым идут постоянные выборки:
+     * например characterId в коллекции инвентаря.
+     *
+     * @param fields Список полей, по каждому создаётся отдельный индекс
+     */
+    private suspend fun setupIndexedFields(fields: List<String>) {
+        fields.forEach { field ->
+            try {
+                collection.createIndex(Indexes.ascending(field))
+                printLog("✅ [$collectionName] Индекс создан на поле $field")
+            } catch (_: Exception) {
+                // Индекс уже существует - игнорируем
+            }
         }
     }
 

@@ -2,7 +2,6 @@ package features.data.character
 
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
-import features.data.character.character_data.CharacterEquipments
 import features.data.character.character_data.CharacterItems
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -33,9 +32,19 @@ class CharacterRoute(
             }
             post("/itemToInventory") {
                 val characterId = call.queryParam("characterId")
-                val itemObj = call.receive<CharacterEquipments>()
-                val data = repo.itemToInventory(characterId, itemObj)
+                val equipmentId = call.queryParam("equipmentId")
+                val data = repo.itemToInventory(characterId, equipmentId)
                 call.respond(ApiMongoResponse.ok(data))
+            }
+            get("/stats") {
+                val characterId = call.queryParam("characterId")
+                val data = repo.calculateStats(characterId)
+                call.respond(ApiMongoResponse.ok(data))
+            }
+            get("/items") {
+                val characterId = call.queryParam("characterId")
+                val character = repo.findById(characterId)
+                call.respond(ApiMongoResponse.ok(character?.parseItems()))
             }
             post("/addItem") {
                 val characterId = call.queryParam("characterId")

@@ -42,3 +42,22 @@ fun <T> Collection<T>.randomExt(): T {
     if (isEmpty()) throw NoSuchElementException("Collection is empty.")
     return elementAt(RandomExt.randomInt(indices))
 }
+
+/**
+ * Взвешенный случайный выбор элемента коллекции.
+ *
+ * Элементы с неположительным весом игнорируются.
+ * Возвращает null, если подходящих элементов нет.
+ */
+fun <T> Collection<T>.weightedRandomExt(weight: (T) -> Int): T? {
+    val candidates = filter { weight(it) > 0 }
+    if (candidates.isEmpty()) return null
+
+    val totalWeight = candidates.sumOf { weight(it) }
+    var point = RandomExt.randomInt(1..totalWeight)
+    candidates.forEach { item ->
+        point -= weight(item)
+        if (point <= 0) return item
+    }
+    return candidates.last()
+}

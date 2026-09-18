@@ -36,6 +36,8 @@ abstract class MongoCache<T: StockEntity, R: BaseRepository<T>>(val repository: 
 
     fun clearCache() = items.clear()
 
+    fun findById(id: String) = items.find { it._id == id }
+
     fun getCache() = items
 
     fun getCacheHash() = items.hashCode()

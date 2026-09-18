@@ -8,8 +8,8 @@ import extensions.now
 import base.entity.VersionedEntity
 import features.data.character.character_data.CharacterBattleSkill
 import features.data.character.character_data.CharacterBoolSkill
-import features.data.character.character_data.CharacterEquipments
 import features.data.character.character_data.CharacterItems
+import features.data.character.character_data.toCharacterItems
 import features.data.character.character_data.CharacterProfessionSkill
 import features.data.character.character_data.CharacterStockSkill
 import features.data.character.character_data.GainedRedemtionCodes
@@ -28,8 +28,15 @@ data class Character(
     var experience: Double = 0.0,
     var money: Long = 0,
     var params: MutableList<Modifier> = mutableListOf(),
-    var equipments: MutableList<CharacterEquipments> = mutableListOf(),
-    var items: MutableList<CharacterItems> = mutableListOf(),
+
+    /**
+     * Простые (стакающиеся) предметы плоским массивом строк "itemId:amount",
+     * например "chaos_orb:50".
+     *
+     * Экипировка здесь не хранится - каждый её экземпляр это отдельный
+     * документ коллекции `CharacterEquipment`.
+     */
+    var items: MutableList<String> = mutableListOf(),
     var professionSkills: MutableList<CharacterProfessionSkill> = mutableListOf(),
     var stockSkills: MutableList<CharacterStockSkill> = mutableListOf(),
     var battleSkills: MutableList<CharacterBattleSkill> = mutableListOf(),
@@ -55,4 +62,9 @@ data class Character(
     fun getBoolSkill(skill: EnumStatBool) : CharacterBoolSkill {
         return boolSkills.find { it.stat == skill } ?: CharacterBoolSkill(skill, null)
     }
+
+    /**
+     * Простые предметы, разобранные из плоского массива хранения.
+     */
+    fun parseItems(): MutableList<CharacterItems> = items.toCharacterItems()
 }
