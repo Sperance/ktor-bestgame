@@ -1065,12 +1065,31 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * - Удаляет все индексы
      * - Возвращает MongoDB в состояние "как после создания"
      * 
+     * ⚠️ Меняет каталог MongoDB, поэтому НЕ должна вызываться, пока открыта
+     * транзакция: она получит WriteConflict "due to catalog changes".
+     * Внутри транзакции используйте deleteAll(session).
+     * 
      * Используется для тестирования или полной очистки данных.
      * Вызывает drop() из драйвера MongoDB.
      */
     suspend fun deleteAll() {
         printLog("[DELETE_All::$collectionName]")
         collection.drop()
+    }
+
+    /**
+     * Удаляет все документы коллекции в рамках транзакции.
+     * 
+     * В отличие от deleteAll() не трогает саму коллекцию и её индексы,
+     * поэтому безопасна внутри открытой транзакции.
+     * 
+     * @param session Сессия транзакции
+     * @return Количество удалённых документов
+     */
+    suspend fun deleteAll(session: ClientSession): Long {
+        val deleted = collection.deleteMany(session, Filters.empty()).deletedCount
+        printLog("[DELETE_All::$collectionName] deleted: $deleted")
+        return deleted
     }
 
     // ==================== АБСТРАКТНЫЕ МЕТОДЫ ====================
