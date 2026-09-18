@@ -54,6 +54,8 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Database seeding started")
 
+        initializeRepositories()
+
         transactionExecute { session ->
             seedUsers(session)
             seedCharacters(session)
@@ -65,6 +67,29 @@ object DatabaseSeeder : KoinComponent {
         }
 
         printLog("Database seeding completed")
+    }
+
+    /**
+     * Прогрев репозиториев до старта транзакции.
+     *
+     * Репозиторий создаёт свои индексы при первом обращении, а создание индекса -
+     * это изменение каталога MongoDB. Если оно случится при уже открытой транзакции,
+     * та упадёт с WriteConflict "due to catalog changes".
+     */
+    private fun initializeRepositories() {
+        val repositories = listOf(
+            userRepository,
+            characterRepository,
+            characterEquipmentRepository,
+            itemsRepository,
+            equipmentRepository,
+            blockListRepository,
+            recipeRepository,
+            redemptionCodesRepository,
+            modifierDefinitionRepository,
+            modifierTierRepository
+        )
+        printLog("  → ${repositories.size} repositories initialized")
     }
 
     // ==================== Users ====================
@@ -123,16 +148,22 @@ object DatabaseSeeder : KoinComponent {
         return definitions
     }
 
+    /**
+     * Шаблоны экипировки пересобираются на каждом старте, чтобы правки
+     * в EquipmentSeeder сразу попадали в базу.
+     *
+     * Чистим именно deleteAll(session), а не drop: drop меняет каталог и рвёт
+     * открытую транзакцию. _id шаблонов стабильны, поэтому ссылки из инвентаря
+     * переживают пересев.
+     */
     private suspend fun seedEquipment(session: ClientSession, definitions: List<ModifierDefinition>) {
-        equipmentRepository.deleteAll()
-        if (equipmentRepository.count() > 0) return
-
         printLog("Seeding equipment...")
+
+        equipmentRepository.deleteAll(session)
 
         val listItems = EquipmentSeeder(definitions).seed()
 
         equipmentRepository.insertMany(listItems, session)
-        // Коллекция была пересоздана - в кэше остались шаблоны с мёртвыми _id
         equipmentCache.initializeCache(session)
 
         printLog("  → ${listItems.size} equipments created")

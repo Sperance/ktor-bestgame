@@ -3,10 +3,13 @@ package config
 import application.enums.EnumEquipmentType
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
+import base.exception.model.EquipmentExceptions
 import base.exception.model.ModifierExceptions
 import features.data.equipment.equipment_data.Equipment
 import features.data.equipment.equipment_data.Armor
 import features.logic.modifiers.ModifierDefinition
+import org.bson.types.ObjectId
+import java.security.MessageDigest
 
 /**
  * Начальные данные коллекции `Equipment`.
@@ -58,8 +61,23 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
 
         seedHelmets(list)
 
+        // Имя - натуральный ключ шаблона, дубликаты сломали бы стабильный _id
+        val duplicates = list.groupBy { it.name }.filterValues { it.size > 1 }.keys
+        if (duplicates.isNotEmpty())
+            throw EquipmentExceptions.funException("seed", "Duplicate equipment names: $duplicates")
+
+        // Шаблоны пересеваются на каждом старте, поэтому _id должен быть
+        // стабильным: иначе инвентарь персонажей потеряет ссылки на них.
+        list.forEach { it._id = stableId(it.name) }
+
         return list
     }
+
+    /**
+     * Детерминированный ObjectId шаблона, выведенный из его имени.
+     */
+    private fun stableId(name: String): String =
+        ObjectId(MessageDigest.getInstance("MD5").digest(name.toByteArray()).copyOf(12)).toHexString()
 
     private fun seedHelmets(list: ArrayList<Equipment>) {
         // ==================== COMMON HELMETS ====================
