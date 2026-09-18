@@ -398,7 +398,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * val thirdPage = repo.findLimited(limit = 10, skip = 20)      // следующие 10
      * ```
      */
-    suspend fun findLimited(limit: Int, skip: Int = 0): List<T> {
+    suspend fun findLimited(skip: Int, limit: Int): List<T> {
         return collection.find()
             .skip(skip)
             .limit(limit)
