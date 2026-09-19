@@ -1,6 +1,7 @@
 package features.data.inventory
 
 import application.enums.EnumEquipmentType
+import application.enums.EnumRarity
 import base.entity.VersionedEntity
 import extensions.now
 import features.data.equipment.equipment_data.Equipment
@@ -38,6 +39,19 @@ data class CharacterEquipment(
     var params: MutableList<Modifier> = mutableListOf(),
 
     /**
+     * Редкость именно этой копии предмета.
+     *
+     * При получении берётся из шаблона, дальше её меняют сферы:
+     * шаблон задаёт лишь то, с чем предмет падает.
+     */
+    var rarity: EnumRarity = EnumRarity.COMMON,
+
+    /**
+     * Порченый предмет. Как в POE, дальше его изменить уже нельзя.
+     */
+    var corrupted: Boolean = false,
+
+    /**
      * Слот, в котором предмет надет. null - предмет лежит в инвентаре.
      */
     var equippedSlot: EnumEquipmentType? = null,
@@ -60,7 +74,8 @@ data class CharacterEquipment(
             CharacterEquipment(
                 characterId = characterId,
                 equipmentId = equipment._id,
-                params = ModifierRoller.roll(equipment)
+                params = ModifierRoller.roll(equipment),
+                rarity = equipment.rarity
             )
     }
 }

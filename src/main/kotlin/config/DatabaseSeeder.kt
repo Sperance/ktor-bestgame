@@ -1,16 +1,21 @@
 package config
 
+import CONST_SEED_ORBS_AMOUNT
+import application.enums.EnumCurrencyOrb
 import application.enums.EnumRarity
 import application.enums.EnumUserRoles
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.data.character.Character
+import features.data.character.character_data.CharacterItems
+import features.data.character.character_data.toStorage
 import features.data.character.CharacterRepository
 import features.data.equipment.EquipmentRepository
 import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.caches.EquipmentCache
+import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
 import features.data.blockList.BlockListRepository
@@ -46,6 +51,7 @@ object DatabaseSeeder : KoinComponent {
     private val equipmentCache: EquipmentCache by inject()
     private val modifierDefinitionCache: ModifierDefinitionCache by inject()
     private val modifierTierCache: ModifierTierCache by inject()
+    private val itemsCache: ItemsCache by inject()
 
     suspend fun seed() {
 
@@ -66,8 +72,10 @@ object DatabaseSeeder : KoinComponent {
             seedItems(session)
             val definitions = seedModifiers(session)
             seedEquipment(session, definitions)
+            seedCurrency(session)
             seedRedemptionCodes(session)
             seedEqipmentCharacters(session)
+            seedCurrencyToCharacters(session)
         }
 
         printLog("Database seeding completed")
@@ -265,6 +273,46 @@ object DatabaseSeeder : KoinComponent {
         printLog("  → ${listItems.size} items created")
     }
 
+    // ==================== Currency ====================
+
+    /**
+     * Валютные сферы в коллекции `Items`.
+     *
+     * Категория пересевается на каждом старте, остальные предметы не трогаем.
+     * _id сфер стабильны, поэтому запасы персонажей переживают пересев.
+     */
+    private suspend fun seedCurrency(session: ClientSession) {
+        printLog("Seeding currency...")
+
+        itemsRepository.deleteByCategory(EnumCurrencyOrb.CATEGORY, session)
+
+        val listItems = CurrencySeeder.seed()
+        itemsRepository.insertMany(listItems, session)
+        itemsCache.initializeCache(session)
+
+        printLog("  → ${listItems.size} currency orbs created")
+    }
+
+    /**
+     * Стартовый запас сфер персонажам, у которых ещё нет простых предметов.
+     */
+    private suspend fun seedCurrencyToCharacters(session: ClientSession) {
+        val orbs = itemsCache.getCache().filter { it.category == EnumCurrencyOrb.CATEGORY }
+        if (orbs.isEmpty()) return
+
+        val characters = characterRepository.findAll(session).filter { it.items.isEmpty() }
+        if (characters.isEmpty()) return
+
+        printLog("Seeding starting currency...")
+
+        characters.forEach { character ->
+            character.items = orbs.map { CharacterItems(it._id, CONST_SEED_ORBS_AMOUNT) }.toStorage()
+            characterRepository.update(character, session)
+        }
+
+        printLog("  → ${characters.size} characters got $CONST_SEED_ORBS_AMOUNT of each orb")
+    }
+
     private suspend fun seedRedemptionCodes(session: ClientSession) {
         if (redemptionCodesRepository.count() > 0) return
 
@@ -307,6 +355,13 @@ object DatabaseSeeder : KoinComponent {
 
         val legacy = characterEquipmentRepository.deleteLegacyParams(session)
         if (legacy > 0) printLog("  → $legacy character equipments with legacy modifiers removed")
+
+        // Редкость переехала на экземпляр предмета, у старых документов её нет
+        var backfilled = 0L
+        equipments.groupBy { it.rarity }.forEach { (rarity, templates) ->
+            backfilled += characterEquipmentRepository.backfillRarity(templates.map { it._id }, rarity, session)
+        }
+        if (backfilled > 0) printLog("  → $backfilled character equipments got their rarity")
 
         var created = 0
         characters.forEach { char ->

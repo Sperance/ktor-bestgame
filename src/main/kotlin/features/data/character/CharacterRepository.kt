@@ -80,6 +80,29 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     /**
+     * Списывает у персонажа простые предметы в рамках уже открытой транзакции.
+     *
+     * Нужен операциям, которые тратят предмет и тут же меняют что-то ещё -
+     * например применению валютной сферы.
+     *
+     * @throws CharacterExceptions.CharacterException если предмета не хватает
+     */
+    suspend fun spendItem(character: Character, itemId: String, amount: Long, session: ClientSession) {
+        if (amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("spendItem", "$itemId:$amount")
+
+        val items = character.parseItems()
+        val owned = items.find { it.itemId == itemId }
+        if (owned == null || owned.amount < amount)
+            throw CharacterExceptions.funExceptionItemLowZero("spendItem", "$itemId:${owned?.amount ?: 0}")
+
+        owned.amount -= amount
+        items.removeAll { it.amount == 0L }
+        character.items = items.toStorage()
+
+        update(character, session)
+    }
+
+    /**
      * Итоговые характеристики персонажа с учётом надетой экипировки.
      *
      * База берётся из stockSkills персонажа, поверх неё сводятся модификаторы

@@ -21,5 +21,10 @@ const val CONST_ITEM_SEPARATOR = ":"
  */
 const val CONST_ITEM_MAX_AMOUNT = 100_000_000_000L
 
+/**
+ * Сколько сфер каждого вида выдаётся персонажу при первом сиде.
+ */
+const val CONST_SEED_ORBS_AMOUNT = 20L
+
 const val MONGO_URI = "mongodb://localhost:27017"
 const val MONGO_DB = "mongobase"
