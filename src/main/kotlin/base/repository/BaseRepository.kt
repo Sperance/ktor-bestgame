@@ -1021,6 +1021,29 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * val nextPage = repo.findPaged(page = 1, pageSize = 20)
      * ```
      */
+    /**
+     * Постраничный поиск по фильтру.
+     *
+     * @param filter DSL-фильтр MongoDB
+     * @param page Номер страницы, начиная с нуля
+     * @param pageSize Размер страницы
+     * @return Страница найденных документов и общее их количество
+     */
+    suspend fun findPaged(filter: Bson, page: Int, pageSize: Int = 20): PagedMongoResponse<T> {
+        val safeSize = pageSize.coerceIn(1, 100)
+        val safePage = page.coerceAtLeast(0)
+
+        val items = collection.find(filter)
+            .skip(safePage * safeSize)
+            .limit(safeSize)
+            .toList()
+
+        val total = count(filter)
+        val pages = ((total + safeSize - 1) / safeSize).toInt()
+
+        return PagedMongoResponse(items, safePage, safeSize, total, pages)
+    }
+
     suspend fun findPaged(page: Int, pageSize: Int = 20): PagedMongoResponse<T> {
         val items = findLimited(page, pageSize)
         val total = count()

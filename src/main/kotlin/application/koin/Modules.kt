@@ -12,6 +12,8 @@ import features.caches.RecipeCache
 import features.caches.CharacterClassCache
 import features.caches.ExperienceLevelCache
 import features.caches.SkillTreeCache
+import features.data.auction.AuctionLotRepository
+import features.data.auction.AuctionLotRoute
 import features.data.blockList.BlockListRepository
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
@@ -43,6 +45,7 @@ val repositoryModule = module {
     single { UserRepository() }
     single { CharacterRepository() }
     single { CharacterEquipmentRepository() }
+    single { AuctionLotRepository() }
     single { ItemsRepository() }
     single { EquipmentRepository() }
     single { BlockListRepository() }
@@ -77,6 +80,7 @@ val routeModule = module {
                 UserRoute(get()),
                 CharacterRoute(get()),
                 CharacterEquipmentRoute(get()),
+                AuctionLotRoute(get()),
                 ItemsRoute(get()),
                 EquipmentRoute(get()),
                 RecipeRoute(get()),

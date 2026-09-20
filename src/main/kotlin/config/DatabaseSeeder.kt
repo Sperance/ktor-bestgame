@@ -23,6 +23,7 @@ import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
 import features.caches.RecipeCache
 import features.caches.SkillTreeCache
+import features.data.auction.AuctionLotRepository
 import features.data.blockList.BlockListRepository
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.recipe.RecipeRepository
@@ -54,6 +55,7 @@ object DatabaseSeeder : KoinComponent {
     private val recipeRepository: RecipeRepository by inject()
     private val redemptionCodesRepository: RedemptionCodesRepository by inject()
     private val characterEquipmentRepository: CharacterEquipmentRepository by inject()
+    private val auctionLotRepository: AuctionLotRepository by inject()
     private val modifierDefinitionRepository: ModifierDefinitionRepository by inject()
     private val modifierTierRepository: ModifierTierRepository by inject()
     private val equipmentCache: EquipmentCache by inject()
@@ -116,6 +118,7 @@ object DatabaseSeeder : KoinComponent {
             userRepository,
             characterRepository,
             characterEquipmentRepository,
+            auctionLotRepository,
             itemsRepository,
             equipmentRepository,
             blockListRepository,

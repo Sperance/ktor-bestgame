@@ -124,6 +124,36 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     /**
+     * Выдаёт персонажу простые предметы в рамках уже открытой транзакции.
+     *
+     * Обратная сторона [spendItem]: нужна операциям, которые перекладывают
+     * предметы между персонажами и обязаны уложиться в одну транзакцию -
+     * например покупке на аукционе.
+     *
+     * @throws CharacterExceptions.CharacterException если предмета нет в справочнике
+     * или его станет больше допустимого
+     */
+    suspend fun earnItem(character: Character, itemId: String, amount: Long, session: ClientSession) {
+        if (amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("earnItem", "$itemId:$amount")
+        if (itemsCache.findById(itemId) == null) throw CharacterExceptions.funExceptionItemNotFound("earnItem", itemId)
+
+        val items = character.parseItems()
+        val owned = items.find { it.itemId == itemId }
+
+        if (owned == null) {
+            items.add(CharacterItems(itemId, amount))
+        } else {
+            owned.amount += amount
+            if (owned.amount > CONST_ITEM_MAX_AMOUNT)
+                throw CharacterExceptions.funExceptionItemOverAmount("earnItem", "$itemId:${owned.amount}")
+        }
+
+        character.items = items.toStorage()
+
+        update(character, session)
+    }
+
+    /**
      * Итоговые характеристики персонажа: база класса на его уровне,
      * дерево навыков и работающая экипировка.
      *

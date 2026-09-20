@@ -26,5 +26,10 @@ const val CONST_ITEM_MAX_AMOUNT = 100_000_000_000L
  */
 const val CONST_SEED_ORBS_AMOUNT = 20L
 
+/**
+ * Уровень, с которого персонажу открывается аукцион игроков.
+ */
+const val CONST_AUCTION_MIN_LEVEL = 10
+
 const val MONGO_URI = "mongodb://localhost:27017"
 const val MONGO_DB = "mongobase"
