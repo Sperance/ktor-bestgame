@@ -9,6 +9,7 @@ import application.enums.EnumModifierSource
 import application.enums.EnumModifierSource.CORRUPTION
 import application.enums.EnumModifierSource.ENCHANTMENT
 import application.enums.EnumModifierSource.IMPLICIT
+import application.enums.EnumModifierSource.PASSIVE
 import application.enums.EnumModifierSource.PREFIX
 import application.enums.EnumModifierSource.SUFFIX
 import application.enums.EnumStatStock.STOCK_AGILITY
@@ -41,6 +42,7 @@ import application.enums.EnumStatStock.STOCK_RESIST_COLD
 import application.enums.EnumStatStock.STOCK_RESIST_FIRE
 import application.enums.EnumStatStock.STOCK_RESIST_LIGHTNING
 import application.enums.EnumStatStock.STOCK_STRENGTH
+import application.enums.EnumStatStock.STOCK_STUN_THRESHOLD
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierTier
 
@@ -563,6 +565,89 @@ object ModifierSeeder {
             effects = listOf(effect(STOCK_ATTACK_PHYSICAL, MORE, best = 12.0..15.0, worst = 5.0..8.0)),
             tierCount = 2, bestItemLevel = 68
         ),
+        // ---------- PASSIVE: то, что даёт только дерево навыков ----------
+        // Значения приходят от узла дерева, тир здесь чисто формальный.
+        ModifierTemplate(
+            code = "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
+            name = "Your Critical Strike Chance is #%",
+            source = PASSIVE,
+            tags = listOf("critical", "passive"),
+            effects = listOf(effect(STOCK_CRITICAL_CHANCE, SET, best = 0.0..0.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_SET_MAXIMUM_LIFE",
+            name = "Your Maximum Life is #",
+            source = PASSIVE,
+            tags = listOf("life", "passive"),
+            effects = listOf(effect(STOCK_HEALTH, SET, best = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_SET_MAXIMUM_MANA",
+            name = "Your Maximum Mana is #",
+            source = PASSIVE,
+            tags = listOf("mana", "passive"),
+            effects = listOf(effect(STOCK_MANA, SET, best = 0.0..0.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_SET_EVASION_RATING",
+            name = "Your Evasion Rating is #",
+            source = PASSIVE,
+            tags = listOf("evasion", "defences", "passive"),
+            effects = listOf(effect(STOCK_EVASION, SET, best = 0.0..0.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_SET_CHAOS_RESISTANCE",
+            name = "Your Chaos Resistance is #%",
+            source = PASSIVE,
+            tags = listOf("resistance", "chaos", "passive"),
+            effects = listOf(effect(STOCK_RESIST_CHAOS, SET, best = 100.0..100.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_MORE_ARMOUR",
+            name = "#% more Armour",
+            source = PASSIVE,
+            tags = listOf("armour", "defences", "passive"),
+            effects = listOf(effect(STOCK_ARMOR, MORE, best = 100.0..100.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_MORE_EVASION_RATING",
+            name = "#% more Evasion Rating",
+            source = PASSIVE,
+            tags = listOf("evasion", "defences", "passive"),
+            effects = listOf(effect(STOCK_EVASION, MORE, best = 30.0..30.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_MORE_MAXIMUM_LIFE",
+            name = "#% more maximum Life",
+            source = PASSIVE,
+            tags = listOf("life", "passive"),
+            effects = listOf(effect(STOCK_HEALTH, MORE, best = 20.0..20.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_MORE_PHYSICAL_DAMAGE",
+            name = "#% more Physical Damage",
+            source = PASSIVE,
+            tags = listOf("physical", "damage", "passive"),
+            effects = listOf(effect(STOCK_ATTACK_PHYSICAL, MORE, best = 20.0..20.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_MORE_STUN_THRESHOLD",
+            name = "#% more Stun Threshold",
+            source = PASSIVE,
+            tags = listOf("defences", "passive"),
+            effects = listOf(effect(STOCK_STUN_THRESHOLD, MORE, best = 100.0..100.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+
         ModifierTemplate(
             code = "CORRUPTED_SET_CRITICAL_STRIKE_CHANCE",
             name = "Your Critical Strike Chance is #%",

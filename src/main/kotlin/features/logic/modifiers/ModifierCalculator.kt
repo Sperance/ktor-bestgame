@@ -2,22 +2,15 @@ package features.logic.modifiers
 
 import application.enums.EnumModifierOperation
 import application.enums.IntEnumStat
-import extensions.to1Digits
 import features.caches.ModifierDefinitionCache
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 /**
- * Свод модификаторов в итоговые значения статов по формуле POE.
+ * Свод модификаторов в итоговые значения статов.
  *
- * Порядок применения задаёт [EnumModifierOperation]:
- *
- * `итог = (база + Σ ADD) * (1 + Σ INCREASED / 100) * Π (1 + MORE / 100)`
- *
- * - ADD складываются между собой;
- * - INCREASED складываются между собой и применяются одним множителем;
- * - MORE перемножаются, поэтому каждый такой модификатор ценнее предыдущего;
- * - SET заменяет базовое значение, остальные модификаторы считаются уже от него.
+ * Разбирает модификаторы по их описаниям из справочника и группирует
+ * по статам, а саму арифметику POE считает [ModifierMath].
  */
 object ModifierCalculator : KoinComponent {
 
@@ -79,21 +72,6 @@ object ModifierCalculator : KoinComponent {
         }
     }
 
-    private fun apply(base: Double, operations: Collection<Pair<EnumModifierOperation, Double>>): Double {
-        var result = operations
-            .lastOrNull { it.first == EnumModifierOperation.SET }
-            ?.second
-            ?: base
-
-        result += operations.filter { it.first == EnumModifierOperation.ADD }.sumOf { it.second }
-
-        val increased = operations.filter { it.first == EnumModifierOperation.INCREASED }.sumOf { it.second }
-        result *= (1.0 + increased / 100.0)
-
-        operations.filter { it.first == EnumModifierOperation.MORE }.forEach { (_, value) ->
-            result *= (1.0 + value / 100.0)
-        }
-
-        return result.to1Digits()
-    }
+    private fun apply(base: Double, operations: Collection<Pair<EnumModifierOperation, Double>>): Double =
+        ModifierMath.apply(base, operations)
 }

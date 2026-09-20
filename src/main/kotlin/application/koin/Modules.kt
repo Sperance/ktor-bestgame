@@ -9,6 +9,7 @@ import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
 import features.caches.RecipeCache
+import features.caches.SkillTreeCache
 import features.data.blockList.BlockListRepository
 import features.data.character.CharacterRepository
 import features.data.character.CharacterRoute
@@ -17,6 +18,8 @@ import features.data.equipment.EquipmentRoute
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.inventory.CharacterEquipmentRoute
 import features.data.items.ItemsRepository
+import features.data.skilltree.CharacterSkillNodeRepository
+import features.data.skilltree.CharacterSkillNodeRoute
 import features.data.items.ItemsRoute
 import features.data.recipe.RecipeRepository
 import features.data.recipe.RecipeRoute
@@ -28,6 +31,8 @@ import features.logic.modifiers.ModifierDefinitionRepository
 import features.logic.modifiers.ModifierDefinitionRoute
 import features.logic.modifiers.ModifierTierRepository
 import features.logic.modifiers.ModifierTierRoute
+import features.logic.skilltree.SkillTreeNodeRepository
+import features.logic.skilltree.SkillTreeNodeRoute
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -41,12 +46,15 @@ val repositoryModule = module {
     single { RedemptionCodesRepository() }
     single { ModifierDefinitionRepository() }
     single { ModifierTierRepository() }
+    single { SkillTreeNodeRepository() }
+    single { CharacterSkillNodeRepository() }
 }
 
 val cacheModule = module {
     single(createdAtStart = true) { BlockListCache(get()).apply { initializeCache() } }
     single(createdAtStart = true) { ModifierDefinitionCache(get()).apply { initializeCache() } }
     single(createdAtStart = true) { ModifierTierCache(get()).apply { initializeCache() } }
+    single(createdAtStart = true) { SkillTreeCache(get()).apply { initializeCache() } }
     single(createdAtStart = true) { EquipmentCache(get()).apply { initializeCache() } }
     single(createdAtStart = true) { ItemsCache(get()).apply { initializeCache() } }
     single(createdAtStart = true) { RecipeCache(get()).apply { initializeCache() } }
@@ -65,6 +73,8 @@ val routeModule = module {
                 RedemptionCodesRoute(get()),
                 ModifierDefinitionRoute(get()),
                 ModifierTierRoute(get()),
+                SkillTreeNodeRoute(get()),
+                CharacterSkillNodeRoute(get()),
             )
         )
     }

@@ -18,8 +18,10 @@ import features.caches.EquipmentCache
 import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
+import features.caches.SkillTreeCache
 import features.data.blockList.BlockListRepository
 import features.data.inventory.CharacterEquipmentRepository
+import features.data.skilltree.CharacterSkillNodeRepository
 import features.data.recipe.RecipeRepository
 import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
@@ -28,6 +30,7 @@ import features.data.user.UserRepository
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierDefinitionRepository
 import features.logic.modifiers.ModifierTierRepository
+import features.logic.skilltree.SkillTreeNodeRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -52,6 +55,9 @@ object DatabaseSeeder : KoinComponent {
     private val modifierDefinitionCache: ModifierDefinitionCache by inject()
     private val modifierTierCache: ModifierTierCache by inject()
     private val itemsCache: ItemsCache by inject()
+    private val skillTreeCache: SkillTreeCache by inject()
+    private val skillTreeNodeRepository: SkillTreeNodeRepository by inject()
+    private val characterSkillNodeRepository: CharacterSkillNodeRepository by inject()
 
     suspend fun seed() {
 
@@ -73,6 +79,7 @@ object DatabaseSeeder : KoinComponent {
             val definitions = seedModifiers(session)
             seedEquipment(session, definitions)
             seedCurrency(session)
+            seedSkillTree(session, definitions)
             seedRedemptionCodes(session)
             seedEqipmentCharacters(session)
             seedCurrencyToCharacters(session)
@@ -99,7 +106,9 @@ object DatabaseSeeder : KoinComponent {
             recipeRepository,
             redemptionCodesRepository,
             modifierDefinitionRepository,
-            modifierTierRepository
+            modifierTierRepository,
+            skillTreeNodeRepository,
+            characterSkillNodeRepository
         )
         printLog("  → ${repositories.size} repositories initialized")
     }
@@ -326,6 +335,30 @@ object DatabaseSeeder : KoinComponent {
         redemptionCodesRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} RedemptionCodes created")
+    }
+
+    // ==================== Skill tree ====================
+
+    /**
+     * Дерево навыков. Пересевается на каждом старте, _id узлов стабильны.
+     *
+     * Взятые персонажами узлы при этом не трогаются: бонусы они хранят
+     * снимком, поэтому перебалансировка дерева задевает только новых
+     * персонажей. Удаляются лишь ссылки на узлы, которых в дереве не осталось.
+     */
+    private suspend fun seedSkillTree(session: ClientSession, definitions: List<ModifierDefinition>) {
+        printLog("Seeding skill tree...")
+
+        skillTreeNodeRepository.deleteAll(session)
+
+        val listItems = SkillTreeSeeder.seed(definitions)
+        skillTreeNodeRepository.insertMany(listItems, session)
+        skillTreeCache.initializeCache(session)
+
+        val dropped = characterSkillNodeRepository.deleteByMissingNode(listItems.map { it.code }, session)
+        if (dropped > 0) printLog("  → $dropped taken nodes removed: no longer in the tree")
+
+        printLog("  → ${listItems.size} skill tree nodes created")
     }
 
     // ==================== Inventory ====================

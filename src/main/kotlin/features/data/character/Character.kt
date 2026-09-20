@@ -1,5 +1,7 @@
 package features.data.character
 
+import CONST_SKILL_POINTS_BASE
+import CONST_SKILL_POINTS_PER_LEVEL
 import application.enums.EnumStatBattle
 import application.enums.EnumStatBool
 import application.enums.EnumStatProfession
@@ -67,4 +69,9 @@ data class Character(
      * Простые предметы, разобранные из плоского массива хранения.
      */
     fun parseItems(): MutableList<CharacterItems> = items.toCharacterItems()
+
+    /**
+     * Сколько очков дерева навыков доступно персонажу на его уровне.
+     */
+    fun skillPointsTotal(): Int = CONST_SKILL_POINTS_BASE + (level - 1) * CONST_SKILL_POINTS_PER_LEVEL
 }

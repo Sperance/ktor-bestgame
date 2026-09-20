@@ -15,9 +15,11 @@ import features.data.equipment.EquipmentRepository
 import features.data.inventory.CharacterEquipment
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.items.ItemsRepository
+import features.data.skilltree.CharacterSkillNodeRepository
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
+import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierCalculator
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -29,6 +31,7 @@ class CharacterRepository : BaseRepository<Character>(
     val userRepository: UserRepository by inject()
     val equipmentRepository: EquipmentRepository by inject()
     val characterEquipmentRepository: CharacterEquipmentRepository by inject()
+    val characterSkillNodeRepository: CharacterSkillNodeRepository by inject()
     val itemsRepository: ItemsRepository by inject()
     val redemptionCodesRepository: RedemptionCodesRepository by inject()
     val itemsCache: ItemsCache by inject()
@@ -61,6 +64,7 @@ class CharacterRepository : BaseRepository<Character>(
     override suspend fun validateAfterDelete(entity: Character, session: ClientSession, softDelete: Boolean) {
         if (softDelete) return
         characterEquipmentRepository.deleteByCharacter(entity._id, session)
+        characterSkillNodeRepository.deleteByCharacter(entity._id, session)
     }
 
     /**
@@ -112,11 +116,32 @@ class CharacterRepository : BaseRepository<Character>(
         val character = findById(characterId)
             ?: throw CharacterExceptions.funExceptionNotFound("calculateStats", characterId)
 
-        val equipped = characterEquipmentRepository.findEquipped(characterId)
-        val modifiers = character.params + equipped.flatMap { it.params }
         val base = character.stockSkills.associate { it.stat as IntEnumStat to it.value.toDouble() }
 
-        return ModifierCalculator.calculate(modifiers, base)
+        return ModifierCalculator.calculate(collectModifiers(character), base)
+    }
+
+    /**
+     * Все модификаторы, влияющие на персонажа: его собственные, надетая
+     * экипировка и взятые узлы дерева навыков.
+     *
+     * Единая точка сбора - боёвка и любые другие расчёты должны брать
+     * модификаторы отсюда, чтобы ничей источник не потерялся.
+     */
+    suspend fun collectModifiers(character: Character): List<Modifier> {
+        val equipped = characterEquipmentRepository.findEquipped(character._id)
+        val skillNodes = characterSkillNodeRepository.findByCharacter(character._id)
+
+        return character.params + equipped.flatMap { it.params } + skillNodes.flatMap { it.params }
+    }
+
+    /**
+     * То же самое по id персонажа.
+     */
+    suspend fun collectModifiers(characterId: String): List<Modifier> {
+        val character = findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound("collectModifiers", characterId)
+        return collectModifiers(character)
     }
 
     /**

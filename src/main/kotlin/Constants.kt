@@ -26,5 +26,15 @@ const val CONST_ITEM_MAX_AMOUNT = 100_000_000_000L
  */
 const val CONST_SEED_ORBS_AMOUNT = 20L
 
+/**
+ * Сколько очков дерева навыков персонаж получает за каждый уровень после первого.
+ */
+const val CONST_SKILL_POINTS_PER_LEVEL = 1
+
+/**
+ * Сколько очков дерева навыков персонаж имеет с самого начала.
+ */
+const val CONST_SKILL_POINTS_BASE = 2
+
 const val MONGO_URI = "mongodb://localhost:27017"
 const val MONGO_DB = "mongobase"
