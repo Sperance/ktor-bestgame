@@ -1,12 +1,13 @@
 import application.enums.EnumModifierOperation
 import application.enums.EnumSkillNodeType
+import base.exception.model.SkillTreeExceptions
 import config.ModifierSeeder
 import config.ProgressionSeeder
 import config.SkillTreeSeeder
 import config.UniqueEquipmentSeeder
+import features.data.character.character_data.CharacterSkillNode
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierMath
-import base.exception.model.SkillTreeExceptions
 import features.logic.skilltree.SkillTreeAllocation
 import features.logic.skilltree.SkillTreeGraph
 import features.logic.skilltree.SkillTreeNode
@@ -290,11 +291,33 @@ class SkillTreeTest {
         }
     }
 
+    // ==================== Снимок взятого узла ====================
+
     @Test
-    fun spending_counts_only_nodes_that_are_still_in_the_tree() {
-        // Стартовый узел бесплатен, малый стоит очко, пропавший из дерева - ничего
-        val spent = SkillTreeAllocation.spent(tree, listOf("STR_START", "STR_MIGHT_1", "GONE_FROM_THE_TREE"))
-        assert(spent == 1) { "got $spent" }
+    fun a_taken_node_copies_everything_that_can_differ_between_characters() {
+        val node = byCode.getValue("STR_MIGHT_NOTABLE")
+        val taken = CharacterSkillNode.fromNode(node)
+
+        assert(taken.code == node.code) { "got ${taken.code}" }
+        assert(taken.name == node.name) { "got ${taken.name}" }
+        assert(taken.type == node.type) { "got ${taken.type}" }
+        assert(taken.cost == node.cost) { "got ${taken.cost}" }
+        assert(taken.description == node.description) { "got ${taken.description}" }
+        assert(taken.params == node.params) { "снимок не повторяет бонусы узла" }
+    }
+
+    @Test
+    fun a_characters_own_values_do_not_reach_the_tree() {
+        val node = byCode.getValue("STR_MIGHT_NOTABLE")
+        val taken = CharacterSkillNode.fromNode(node)
+        val before = node.params.map { it.values }
+
+        // Ради этого снимок и делается: правка значений одного героя
+        taken.params[0] = taken.params[0].copy(values = listOf(999.0))
+
+        assert(taken.params[0].values == listOf(999.0)) { "правка не применилась к снимку" }
+        assert(node.params.map { it.values } == before) { "правка героя достала до дерева" }
+        assert(taken.params.size == node.params.size) { "снимок потерял бонус" }
     }
 
     private fun ringCodes(): Set<String> = tree.filter { it.code.startsWith("RING_") }.map { it.code }.toSet()

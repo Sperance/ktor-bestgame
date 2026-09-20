@@ -2,6 +2,7 @@ package features.logic.skilltree
 
 import application.enums.EnumSkillNodeType
 import base.exception.model.SkillTreeExceptions
+import features.data.character.character_data.CharacterSkillNode
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,7 +10,7 @@ import kotlinx.serialization.Serializable
  *
  * @property total сколько очков персонажу доступно на его уровне
  * @property spent сколько уже потрачено
- * @property nodes взятые узлы - такими, какие они в дереве прямо сейчас
+ * @property nodes взятые узлы - снимками, то есть с личными значениями героя
  */
 @Serializable
 data class CharacterSkillTreeState(
@@ -17,7 +18,7 @@ data class CharacterSkillTreeState(
     val total: Int,
     val spent: Int,
     val available: Int,
-    val nodes: List<SkillTreeNode>,
+    val nodes: List<CharacterSkillNode>,
 )
 
 /**
@@ -88,15 +89,5 @@ object SkillTreeAllocation {
 
         if (!SkillTreeGraph.isConnected(nodes, taken.filterNot { it == node.code }))
             throw SkillTreeExceptions.funExceptionWouldDetach("refund", node.code)
-    }
-
-    /**
-     * Сколько очков стоят взятые узлы.
-     *
-     * Коды, которых в дереве уже нет, не считаются: за них платить не с чего.
-     */
-    fun spent(nodes: Collection<SkillTreeNode>, taken: Collection<String>): Int {
-        val byCode = nodes.associateBy { it.code }
-        return taken.sumOf { byCode[it]?.cost ?: 0 }
     }
 }

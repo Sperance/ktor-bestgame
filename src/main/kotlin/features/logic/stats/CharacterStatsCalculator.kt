@@ -3,11 +3,11 @@ package features.logic.stats
 import application.enums.IntEnumStat
 import features.caches.EquipmentCache
 import features.data.character.Character
+import features.data.character.character_data.CharacterSkillNode
 import features.data.inventory.CharacterEquipment
 import features.logic.modifiers.ModifierCalculator
 import features.logic.modifiers.StatOperation
 import features.logic.progression.CharacterClass
-import features.logic.skilltree.SkillTreeNode
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -58,7 +58,7 @@ object CharacterStatsCalculator : KoinComponent {
     fun calculate(
         character: Character,
         characterClass: CharacterClass,
-        skillNodes: Collection<SkillTreeNode>,
+        skillNodes: Collection<CharacterSkillNode>,
         equipped: Collection<CharacterEquipment>,
     ): CharacterStats {
         val level = character.level.toInt()

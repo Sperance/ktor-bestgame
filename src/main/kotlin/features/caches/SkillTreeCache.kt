@@ -14,8 +14,6 @@ class SkillTreeCache(
 
     fun findByCode(code: String): SkillTreeNode? = getCache().find { it.code == code }
 
-    fun findAllByCode(codes: Collection<String>): List<SkillTreeNode> = codes.mapNotNull { findByCode(it) }
-
     /**
      * Стартовые узлы дерева - точки, с которых персонаж может начать.
      */

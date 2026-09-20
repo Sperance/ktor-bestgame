@@ -10,6 +10,7 @@ import features.data.character.character_data.CharacterBoolSkill
 import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.toCharacterItems
 import features.data.character.character_data.CharacterProfessionSkill
+import features.data.character.character_data.CharacterSkillNode
 import features.data.character.character_data.GainedRedemtionCodes
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
@@ -35,16 +36,15 @@ data class Character(
     var classId: String = "",
 
     /**
-     * Взятые узлы дерева навыков - коды узлов коллекции `SkillTreeNode`.
+     * Взятые узлы дерева навыков - снимки узлов на момент взятия.
      *
-     * Хранятся ссылкой, а не снимком: дерево это константа мира, и его
-     * перебалансировка должна доезжать до всех сразу - как в POE, где
-     * значения пассивок никогда не бывают легаси. Снимок в проекте делается
-     * там, где игроку выпал случайный результат: на ролле предмета.
+     * Снимок, а не ссылка: так бонусы конкретного узла можно править
+     * конкретному герою, не трогая дерево и остальных персонажей.
+     * Форма дерева при этом общая для всех, см. [CharacterSkillNode].
      *
      * Стартовый узел класса лежит здесь с момента создания персонажа.
      */
-    var skillNodes: MutableList<String> = mutableListOf(),
+    var skillNodes: MutableList<CharacterSkillNode> = mutableListOf(),
 
     /**
      * Простые (стакающиеся) предметы плоским массивом строк "itemId:amount",

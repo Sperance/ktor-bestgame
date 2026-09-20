@@ -15,6 +15,7 @@ import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
 import features.caches.SkillTreeCache
 import features.data.character.character_data.CharacterItems
+import features.data.character.character_data.CharacterSkillNode
 import features.data.character.character_data.toStorage
 import features.data.equipment.EquipmentRepository
 import features.data.inventory.CharacterEquipment
@@ -67,7 +68,7 @@ class CharacterRepository : BaseRepository<Character>(
 
         // Стартовый узел дерева ставится сразу: в POE класс приходит в дерево
         // со своей точки входа, она бесплатна и отдельного выбора не требует
-        if (entity.skillNodes.isEmpty()) entity.skillNodes.add(requireClass(entity).startNodeCode)
+        if (entity.skillNodes.isEmpty()) entity.skillNodes.add(startNodeOf(entity, "validateBeforeInsert"))
     }
 
     override suspend fun validateAfterInsert(entity: Character, session: ClientSession) {
@@ -136,7 +137,7 @@ class CharacterRepository : BaseRepository<Character>(
         return CharacterStatsCalculator.calculate(
             character = character,
             characterClass = requireClass(character),
-            skillNodes = skillTreeCache.findAllByCode(character.skillNodes),
+            skillNodes = character.skillNodes,
             equipped = characterEquipmentRepository.findEquipped(characterId)
         )
     }
@@ -176,12 +177,12 @@ class CharacterRepository : BaseRepository<Character>(
         SkillTreeAllocation.requireAllocatable(
             nodes = skillTreeCache.getCache(),
             node = node,
-            taken = character.skillNodes,
+            taken = character.skillNodes.map { it.code },
             startNodeCode = requireClass(character).startNodeCode,
             available = available
         )
 
-        character.skillNodes.add(node.code)
+        character.skillNodes.add(CharacterSkillNode.fromNode(node))
         transactionExecute("allocateSkillNode $nodeCode") { session -> update(character, session) }
 
         return stateOf(character)
@@ -199,9 +200,9 @@ class CharacterRepository : BaseRepository<Character>(
         val character = requireCharacter(characterId, "refundSkillNode")
         val node = requireNode(nodeCode, "refundSkillNode")
 
-        SkillTreeAllocation.requireRefundable(skillTreeCache.getCache(), node, character.skillNodes)
+        SkillTreeAllocation.requireRefundable(skillTreeCache.getCache(), node, character.skillNodes.map { it.code })
 
-        character.skillNodes.remove(node.code)
+        character.skillNodes.removeAll { it.code == node.code }
         transactionExecute("refundSkillNode $nodeCode") { session -> update(character, session) }
 
         return stateOf(character)
@@ -214,7 +215,7 @@ class CharacterRepository : BaseRepository<Character>(
     suspend fun resetSkillTree(characterId: String): CharacterSkillTreeState {
         val character = requireCharacter(characterId, "resetSkillTree")
 
-        character.skillNodes = mutableListOf(requireClass(character).startNodeCode)
+        character.skillNodes = mutableListOf(startNodeOf(character, "resetSkillTree"))
         transactionExecute("resetSkillTree") { session -> update(character, session) }
 
         return stateOf(character)
@@ -232,7 +233,7 @@ class CharacterRepository : BaseRepository<Character>(
         val orphans = findAll(session).filter { it.skillNodes.isEmpty() }
 
         orphans.forEach { character ->
-            character.skillNodes.add(requireClass(character).startNodeCode)
+            character.skillNodes.add(startNodeOf(character, "ensureStartNodes"))
             update(character, session)
         }
 
@@ -251,25 +252,34 @@ class CharacterRepository : BaseRepository<Character>(
     suspend fun pruneMissingSkillNodes(nodeCodes: Collection<String>, session: ClientSession): Long {
         if (nodeCodes.isEmpty()) return 0
 
-        // $pull по каждому элементу массива: modifiedCount посчитает
+        // $pull по коду каждого снимка: modifiedCount посчитает
         // только тех персонажей, у кого действительно что-то убралось
-        val pull = Document("\$pull", Document("skillNodes", Document("\$nin", nodeCodes.toList())))
+        val stale = Document("code", Document("\$nin", nodeCodes.toList()))
+        val pull = Document("\$pull", Document("skillNodes", stale))
 
         return collection.updateMany(session, Filters.empty(), pull).modifiedCount
     }
 
     private fun stateOf(character: Character): CharacterSkillTreeState {
         val total = skillPointsTotal(character)
-        val spent = SkillTreeAllocation.spent(skillTreeCache.getCache(), character.skillNodes)
+        // Стоимость берётся из снимка: именно столько персонаж за узел заплатил
+        val spent = character.skillNodes.sumOf { it.cost }
 
         return CharacterSkillTreeState(
             characterId = character._id,
             total = total,
             spent = spent,
             available = total - spent,
-            nodes = skillTreeCache.findAllByCode(character.skillNodes)
+            // Копия: состояние - это ответ наружу, а не окно в документ персонажа
+            nodes = character.skillNodes.toList()
         )
     }
+
+    /**
+     * Снимок стартового узла класса персонажа.
+     */
+    private fun startNodeOf(character: Character, method: String): CharacterSkillNode =
+        CharacterSkillNode.fromNode(requireNode(requireClass(character).startNodeCode, method))
 
     private suspend fun requireCharacter(characterId: String, method: String): Character =
         findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
