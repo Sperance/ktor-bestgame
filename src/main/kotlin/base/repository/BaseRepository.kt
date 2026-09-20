@@ -16,6 +16,8 @@ import CONST_FIELD_DELETED
 import CONST_FIELD_ID
 import CONST_FIELD_UPDATED
 import CONST_FIELD_VERSION
+import CONST_PAGE_SIZE_DEFAULT
+import CONST_PAGE_SIZE_MAX
 import CONST_SYSTEM_FIELDS
 import extensions.now
 import extensions.printLog
@@ -377,30 +379,29 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
     }
 
     /**
-     * Поиск документов с пагинацией (pagination).
-     * 
-     * Реализует классическую пагинацию с offset и limit:
-     * - first page:  skip=0, limit=10 → документы 0-9
-     * - second page: skip=10, limit=10 → документы 10-19
-     * 
-     * ⚠️ ВНИМАНИЕ: Для больших значений skip производительность может снижаться,
-     * так как MongoDB must scan through skipped documents.
-     * Для высоконагруженных систем рекомендуется использовать cursor-based pagination.
-     * 
-     * @param limit Максимальное количество документов для возврата
+     * Низкоуровневая выборка через offset и limit.
+     *
+     * Порядок документов не задан, поэтому для постраничного вывода нужен
+     * [findPaged]: он и считает skip по номеру страницы, и сортирует.
+     *
+     * ⚠️ ВНИМАНИЕ: Для больших значений skip производительность падает -
+     * MongoDB вычитывает и отбрасывает всё, что пропускается.
+     * Для высоконагруженных систем нужна cursor-based pagination.
+     *
      * @param skip Количество документов, которые нужно пропустить (offset)
-     * @return Список найденных документов (может быть меньше limit на последней странице)
-     * 
+     * @param limit Максимальное количество документов для возврата
+     * @return Список найденных документов
+     *
      * Пример:
      * ```
-     * val firstPage = repo.findLimited(limit = 10, skip = 0)      // первые 10
-     * val secondPage = repo.findLimited(limit = 10, skip = 10)     // следующие 10
-     * val thirdPage = repo.findLimited(limit = 10, skip = 20)      // следующие 10
+     * val firstTen = repo.findLimited(skip = 0, limit = 10)   // документы 0-9
+     * val nextTen = repo.findLimited(skip = 10, limit = 10)   // документы 10-19
      * ```
      */
     suspend fun findLimited(skip: Int, limit: Int): List<T> {
         return collection.find()
-            .skip(skip)
+            // Отрицательный offset драйвер не принимает
+            .skip(skip.coerceAtLeast(0))
             .limit(limit)
             .toList()
     }
@@ -997,59 +998,61 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
     }
 
     /**
-     * Поиск с пагинацией и возвратом результатов в формате PagedMongoResponse.
-     * 
-     * Вычисляет:
-     * - items: текущая страница данных
-     * - page: номер текущей страницы
-     * - pageSize: размер страницы
-     * - total: общее количество документов
-     * - pages: общее количество страниц
-     * 
-     * @param page Номер страницы (начиная с 0)
-     * @param pageSize Размер страницы (количество документов на странице)
-     * @return PagedMongoResponse с информацией о пагинации
-     * 
-     * Пример:
-     * ```
-     * val response = repo.findPaged(page = 0, pageSize = 20)
-     * println("Всего документов: ${response.total}")
-     * println("Всего страниц: ${response.pages}")
-     * println("На странице: ${response.items.size}")
-     * 
-     * // Переход на следующую страницу
-     * val nextPage = repo.findPaged(page = 1, pageSize = 20)
-     * ```
-     */
-    /**
      * Постраничный поиск по фильтру.
+     *
+     * Страницы нумеруются с нуля, документы пропускаются по `page * pageSize`.
+     * Запрошенные значения приводятся к допустимым через [PageRequest], а
+     * применённые возвращаются в ответе.
+     *
+     * Порядок задан явно и по умолчанию идёт по _id: без сортировки MongoDB
+     * не обещает одинаковый порядок между запросами, и один документ мог бы
+     * попасть на две страницы сразу, а другой - ни на одну.
      *
      * @param filter DSL-фильтр MongoDB
      * @param page Номер страницы, начиная с нуля
-     * @param pageSize Размер страницы
-     * @return Страница найденных документов и общее их количество
+     * @param pageSize Размер страницы, не больше [CONST_PAGE_SIZE_MAX]
+     * @param sort Порядок документов
+     * @return Страница документов, их общее количество и количество страниц
+     *
+     * Пример:
+     * ```
+     * val first = repo.findPaged(Filters.eq("category", "CURRENCY"), page = 0, pageSize = 20)
+     * val next = repo.findPaged(Filters.eq("category", "CURRENCY"), page = 1, pageSize = 20)
+     * ```
      */
-    suspend fun findPaged(filter: Bson, page: Int, pageSize: Int = 20): PagedMongoResponse<T> {
-        val safeSize = pageSize.coerceIn(1, 100)
-        val safePage = page.coerceAtLeast(0)
+    suspend fun findPaged(
+        filter: Bson,
+        page: Int,
+        pageSize: Int = CONST_PAGE_SIZE_DEFAULT,
+        sort: Bson = Sorts.ascending(CONST_FIELD_ID)
+    ): PagedMongoResponse<T> {
+        val request = PageRequest.of(page, pageSize)
 
         val items = collection.find(filter)
-            .skip(safePage * safeSize)
-            .limit(safeSize)
+            .sort(sort)
+            .skip(request.skip)
+            .limit(request.size)
             .toList()
 
-        val total = count(filter)
-        val pages = ((total + safeSize - 1) / safeSize).toInt()
+        val totalItems = count(filter)
 
-        return PagedMongoResponse(items, safePage, safeSize, total, pages)
+        return PagedMongoResponse(
+            items = items,
+            page = request.page,
+            pageSize = request.size,
+            totalItems = totalItems,
+            totalPages = request.totalPages(totalItems)
+        )
     }
 
-    suspend fun findPaged(page: Int, pageSize: Int = 20): PagedMongoResponse<T> {
-        val items = findLimited(page, pageSize)
-        val total = count()
-        val pages = if (pageSize > 0) ((total + pageSize - 1) / pageSize).toInt() else 0
-        return PagedMongoResponse(items, page, pageSize, total, pages)
-    }
+    /**
+     * Постраничный поиск по всей коллекции.
+     *
+     * @param page Номер страницы, начиная с нуля
+     * @param pageSize Размер страницы, не больше [CONST_PAGE_SIZE_MAX]
+     */
+    suspend fun findPaged(page: Int, pageSize: Int = CONST_PAGE_SIZE_DEFAULT): PagedMongoResponse<T> =
+        findPaged(Filters.empty(), page, pageSize)
 
     // ==================== ПРИВАТНЫЕ МЕТОДЫ ====================
 

@@ -7,6 +7,7 @@ import CONST_SYSTEM_FIELDS
 import base.exception.BaseException
 import base.exception.BaseRouteExceptions
 import CONST_API_VERSION
+import CONST_PAGE_SIZE_DEFAULT
 import extensions.saveChildren
 import features.data.recipe.Recipe
 import io.ktor.client.request.request
@@ -142,7 +143,7 @@ abstract class BaseRoute<T : StockEntity, R>(
     private fun Route.pagedRoute() = get("/paged") {
         try {
             val page = call.queryParam("page", 0)
-            val size = call.queryParam("size", 20)
+            val size = call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)
             val paged = repository.findPaged(page, size)
 
             // Преобразуем элементы внутри PagedResponse из T в R

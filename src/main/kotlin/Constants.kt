@@ -31,5 +31,19 @@ const val CONST_SEED_ORBS_AMOUNT = 20L
  */
 const val CONST_AUCTION_MIN_LEVEL = 10
 
+/**
+ * Размер страницы по умолчанию, если запрос его не задал.
+ */
+const val CONST_PAGE_SIZE_DEFAULT = 20
+
+/**
+ * Максимальный размер страницы.
+ *
+ * Потолок нужен, чтобы одним запросом нельзя было вычитать всю коллекцию.
+ * Запрошенный размер сверх него урезается, и применённый размер возвращается
+ * клиенту в ответе - подмены втихую не происходит.
+ */
+const val CONST_PAGE_SIZE_MAX = 100
+
 const val MONGO_URI = "mongodb://localhost:27017"
 const val MONGO_DB = "mongobase"
