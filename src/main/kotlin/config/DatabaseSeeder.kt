@@ -84,10 +84,6 @@ object DatabaseSeeder : KoinComponent {
 
         initializeRepositories()
 
-        // Чистка несовместимых данных идёт до всего остального и вне транзакции:
-        // drop меняет каталог MongoDB и внутри открытой транзакции недопустим
-        SchemaMigrator.migrate()
-
         transactionExecute { session ->
             // Справочники первыми: на них ссылается всё остальное
             val definitions = seedModifiers(session)
