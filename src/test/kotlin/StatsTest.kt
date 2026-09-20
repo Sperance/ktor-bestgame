@@ -198,10 +198,30 @@ class StatsTest {
     fun experience_table_grows_and_hands_out_points() {
         val levels = ProgressionSeeder.seedLevels().sortedBy { it.level }
 
-        assert(levels.first().level == 1 && levels.first().experience == 0.0) { "level 1 must start at zero" }
+        assert(levels.size == 100) { "expected 100 levels, got ${levels.size}" }
+        assert(levels.map { it.level } == (1..100).toList()) { "levels are not consecutive" }
         levels.zipWithNext { lower, higher ->
             assert(higher.experience > lower.experience) { "level ${higher.level} is not harder than ${lower.level}" }
         }
-        assert(levels.sumOf { it.skillPoints } == levels.size + 1) { "each level past the first gives one point" }
+        // 99 очков за уровни, как в POE: первый уровень очков не даёт
+        assert(levels.sumOf { it.skillPoints } == 99) { "got ${levels.sumOf { it.skillPoints }}" }
+    }
+
+    @Test
+    fun experience_table_matches_path_of_exile() {
+        val byLevel = ProgressionSeeder.seedLevels().associate { it.level to it.experience }
+
+        // Опорные значения из игры: если таблицу когда-нибудь заденут, тест это поймает
+        mapOf(
+            1 to 0.0,
+            2 to 525.0,
+            3 to 1760.0,
+            10 to 61693.0,
+            50 to 54607467.0,
+            90 to 1934009687.0,
+            100 to 4250334444.0,
+        ).forEach { (level, expected) ->
+            assert(byLevel[level] == expected) { "level $level: expected $expected, got ${byLevel[level]}" }
+        }
     }
 }

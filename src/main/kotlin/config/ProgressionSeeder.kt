@@ -13,8 +13,6 @@ import features.logic.modifiers.ModifierDefinition
 import features.logic.progression.CharacterClass
 import features.logic.progression.ExperienceLevel
 import features.logic.progression.StatValue
-import kotlin.math.pow
-import kotlin.math.roundToLong
 
 /**
  * Начальные данные прогрессии: классы персонажей и таблица уровней.
@@ -26,14 +24,34 @@ import kotlin.math.roundToLong
 object ProgressionSeeder {
 
     /**
-     * До какого уровня разворачивается таблица опыта.
+     * Накопленный опыт для достижения каждого уровня - таблица из Path of Exile.
+     * Индекс равен уровню минус один, последний уровень сотый.
+     *
+     * Числа взяты из игры как есть, а не выведены формулой: в POE эта таблица
+     * задана вручную и никакой формулой точно не описывается.
      */
-    private const val MAX_LEVEL = 100
-
-    /**
-     * Очки дерева, которые персонаж имеет с самого начала.
-     */
-    private const val START_SKILL_POINTS = 2
+    private val experienceTable = longArrayOf(
+        // 1..10
+        0L, 525L, 1760L, 3781L, 7184L, 12186L, 19324L, 29377L, 43181L, 61693L,
+        // 11..20
+        85990L, 117506L, 157384L, 207736L, 269997L, 346462L, 439268L, 551295L, 685171L, 843709L,
+        // 21..30
+        1030734L, 1249629L, 1504995L, 1800847L, 2142652L, 2535122L, 2984677L, 3496798L, 4080655L, 4742836L,
+        // 31..40
+        5490247L, 6334393L, 7283446L, 8384398L, 9541110L, 10874351L, 12361842L, 14018289L, 15859432L, 17905634L,
+        // 41..50
+        20171471L, 22679999L, 25456123L, 28517857L, 31897771L, 35621447L, 39721017L, 44225461L, 49176560L, 54607467L,
+        // 51..60
+        60565335L, 67094245L, 74247659L, 82075627L, 90631041L, 99984974L, 110197515L, 121340161L, 133497202L, 146749362L,
+        // 61..70
+        161191120L, 176922628L, 194049893L, 212684946L, 232956711L, 255001620L, 278952403L, 304972236L, 333233648L, 363906163L,
+        // 71..80
+        397194041L, 433312945L, 472476370L, 514937180L, 560961898L, 610815862L, 664824416L, 723298169L, 786612664L, 855129128L,
+        // 81..90
+        929261318L, 1009443795L, 1096169525L, 1189918242L, 1291270350L, 1400795257L, 1519130326L, 1646943474L, 1784977296L, 1934009687L,
+        // 91..100
+        2094900291L, 2268549086L, 2455921256L, 2658074992L, 2876116901L, 3111280300L, 3364828162L, 3638186694L, 3932818530L, 4250334444L,
+    )
 
     /**
      * Конверсии, общие для всех классов - как в POE, где атрибуты дают
@@ -138,17 +156,17 @@ object ProgressionSeeder {
     /**
      * Документы коллекции `ExperienceLevel`.
      *
-     * Кривая опыта степенная: первые уровни берутся быстро, последние долго.
+     * Очки дерева выдаются как в POE: по одному за каждый уровень после первого,
+     * то есть 99 за всю прокачку. Ещё 22 очка POE даёт за квесты - этой механики
+     * в проекте нет, поэтому и очков за неё не начисляется.
      */
-    fun seedLevels(): List<ExperienceLevel> = (1..MAX_LEVEL).map { level ->
+    fun seedLevels(): List<ExperienceLevel> = experienceTable.mapIndexed { index, experience ->
+        val level = index + 1
         ExperienceLevel(
             level = level,
-            experience = experienceFor(level),
-            skillPoints = if (level == 1) START_SKILL_POINTS else 1,
+            experience = experience.toDouble(),
+            skillPoints = if (level == 1) 0 else 1,
             _id = "LEVEL_$level".toStableObjectId()
         )
     }
-
-    private fun experienceFor(level: Int): Double =
-        ((level - 1).toDouble().pow(2.6) * 100.0).roundToLong().toDouble()
 }
