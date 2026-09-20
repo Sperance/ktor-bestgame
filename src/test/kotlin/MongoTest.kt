@@ -352,7 +352,7 @@ class MongoTest: KoinTest {
 
             when(it) {
                 is Armor -> {
-                    it.defense = 444
+                    it.itemLevel = 44
                 }
                 is Accessory -> {
                     // Accessory handling

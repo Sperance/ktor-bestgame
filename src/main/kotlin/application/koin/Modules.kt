@@ -9,6 +9,8 @@ import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
 import features.caches.RecipeCache
+import features.caches.CharacterClassCache
+import features.caches.ExperienceLevelCache
 import features.caches.SkillTreeCache
 import features.data.blockList.BlockListRepository
 import features.data.character.CharacterRepository
@@ -31,6 +33,10 @@ import features.logic.modifiers.ModifierDefinitionRepository
 import features.logic.modifiers.ModifierDefinitionRoute
 import features.logic.modifiers.ModifierTierRepository
 import features.logic.modifiers.ModifierTierRoute
+import features.logic.progression.CharacterClassRepository
+import features.logic.progression.CharacterClassRoute
+import features.logic.progression.ExperienceLevelRepository
+import features.logic.progression.ExperienceLevelRoute
 import features.logic.skilltree.SkillTreeNodeRepository
 import features.logic.skilltree.SkillTreeNodeRoute
 import org.koin.dsl.module
@@ -48,16 +54,23 @@ val repositoryModule = module {
     single { ModifierTierRepository() }
     single { SkillTreeNodeRepository() }
     single { CharacterSkillNodeRepository() }
+    single { CharacterClassRepository() }
+    single { ExperienceLevelRepository() }
 }
 
 val cacheModule = module {
-    single(createdAtStart = true) { BlockListCache(get()).apply { initializeCache() } }
-    single(createdAtStart = true) { ModifierDefinitionCache(get()).apply { initializeCache() } }
-    single(createdAtStart = true) { ModifierTierCache(get()).apply { initializeCache() } }
-    single(createdAtStart = true) { SkillTreeCache(get()).apply { initializeCache() } }
-    single(createdAtStart = true) { EquipmentCache(get()).apply { initializeCache() } }
-    single(createdAtStart = true) { ItemsCache(get()).apply { initializeCache() } }
-    single(createdAtStart = true) { RecipeCache(get()).apply { initializeCache() } }
+    // Кэши создаются пустыми и наполняются в конце DatabaseSeeder.
+    // Грузить их при старте Koin нельзя: они поднимались бы раньше сидера
+    // и падали на документах старого формата.
+    single { BlockListCache(get()) }
+    single { ModifierDefinitionCache(get()) }
+    single { ModifierTierCache(get()) }
+    single { CharacterClassCache(get()) }
+    single { ExperienceLevelCache(get()) }
+    single { SkillTreeCache(get()) }
+    single { EquipmentCache(get()) }
+    single { ItemsCache(get()) }
+    single { RecipeCache(get()) }
 }
 
 val routeModule = module {
@@ -75,6 +88,8 @@ val routeModule = module {
                 ModifierTierRoute(get()),
                 SkillTreeNodeRoute(get()),
                 CharacterSkillNodeRoute(get()),
+                CharacterClassRoute(get()),
+                ExperienceLevelRoute(get()),
             )
         )
     }

@@ -18,6 +18,7 @@ object SkillTreeExceptions {
     fun funExceptionNotConnected(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not connected to any taken node", errorMethod, "ST_007")
     fun funExceptionNoPoints(errorMethod: String, value: String? = "") = SkillTreeException("Character has not enough skill points ($value)", errorMethod, "ST_008")
     fun funExceptionStartTaken(errorMethod: String, value: String? = "") = SkillTreeException("Character already started the tree from $value", errorMethod, "ST_009")
+    fun funExceptionWrongStart(errorMethod: String, value: String? = "") = SkillTreeException("Character must start the tree from its own class node ($value)", errorMethod, "ST_013")
     fun funExceptionNoStart(errorMethod: String, value: String? = "") = SkillTreeException("Character must take a START node first", errorMethod, "ST_010")
     fun funExceptionWouldDetach(errorMethod: String, value: String? = "") = SkillTreeException("Refunding $value would detach other taken nodes from the start", errorMethod, "ST_011")
     fun funExceptionStartRefund(errorMethod: String, value: String? = "") = SkillTreeException("START node $value can only be refunded by a full reset", errorMethod, "ST_012")

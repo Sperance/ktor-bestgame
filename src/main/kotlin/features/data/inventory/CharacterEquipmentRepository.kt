@@ -15,6 +15,7 @@ import features.data.character.CharacterRepository
 import features.data.equipment.equipment_data.Equipment
 import features.logic.currency.CurrencyApplier
 import features.logic.currency.CurrencyOutcome
+import features.logic.stats.EquipmentRequirements
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -71,6 +72,16 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
 
         val template = equipmentCache.findById(item.equipmentId)
             ?: throw CharacterExceptions.funExceptionEquipmentNotFound("equip", item.equipmentId)
+
+        // Надеть предмет с невыполненными требованиями нельзя. Уже надетый
+        // при их потере не слетает - он просто перестаёт работать, см. CharacterStatsCalculator
+        val stats = characterRepository.calculateStats(characterId)
+        val unmet = EquipmentRequirements.unmet(template, stats.level, stats.stats)
+        if (unmet.isNotEmpty())
+            throw CharacterExceptions.funExceptionRequirements(
+                "equip",
+                "${template.name}: " + unmet.joinToString { "${it.name} ${it.actual}/${it.required}" }
+            )
 
         return transactionExecute("equip") { session ->
             findEquipped(characterId)

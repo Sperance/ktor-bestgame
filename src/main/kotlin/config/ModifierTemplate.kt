@@ -22,6 +22,16 @@ data class EffectTemplate(
     val operation: EnumModifierOperation,
     val best: ClosedFloatingPointRange<Double>,
     val worst: ClosedFloatingPointRange<Double> = best,
+
+    /**
+     * Стат-источник конверсии, см. [ModifierEffect.perStat].
+     */
+    val perStat: IntEnumStat? = null,
+
+    /**
+     * Сколько единиц источника дают одно значение эффекта.
+     */
+    val perAmount: Double = 1.0,
 )
 
 fun effect(
@@ -30,6 +40,20 @@ fun effect(
     best: ClosedFloatingPointRange<Double>,
     worst: ClosedFloatingPointRange<Double> = best,
 ) = EffectTemplate(stat, operation, best, worst)
+
+/**
+ * Эффект-конверсия: "[value] к [stat] за каждые [perAmount] единиц [perStat]".
+ *
+ * Значение фиксировано - у конверсии меняется не оно, а стат-источник,
+ * поэтому тиров у такого эффекта не бывает.
+ */
+fun conversion(
+    stat: IntEnumStat,
+    operation: EnumModifierOperation,
+    perStat: IntEnumStat,
+    perAmount: Double,
+    value: Double = 1.0,
+) = EffectTemplate(stat, operation, value..value, value..value, perStat, perAmount)
 
 /**
  * Шаблон модификатора для сидера: описание плюс границы его тиров.
@@ -46,12 +70,19 @@ data class ModifierTemplate(
     val bestItemLevel: Int,
     val worstItemLevel: Int = 1,
     val tags: List<String> = emptyList(),
+
+    /**
+     * Локальный модификатор считается внутри своего предмета,
+     * см. [ModifierDefinition.isLocal].
+     */
+    val isLocal: Boolean = false,
 ) {
 
     fun toDefinition() = ModifierDefinition(
         code = code,
-        effects = effects.map { ModifierEffect(it.stat, it.operation) },
+        effects = effects.map { ModifierEffect(it.stat, it.operation, it.perStat, it.perAmount) },
         source = source,
+        isLocal = isLocal,
         name = name,
         tags = tags.toMutableList(),
         // Справочник пересевается на каждом старте, поэтому _id должен быть

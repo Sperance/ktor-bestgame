@@ -56,6 +56,8 @@ import features.data.equipment.equipment_data.Accessory
 import features.data.equipment.equipment_data.Armor
 import features.data.equipment.equipment_data.Equipment
 import features.data.equipment.equipment_data.Weapon
+import extensions.to1Digits
+import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierTier
 
@@ -531,41 +533,84 @@ object UniqueEquipmentSeeder {
         val modifierIds = template.modifiers.indices
             .mapTo(mutableListOf()) { resolve(modifierCode(template.name, it)) }
 
-        template.toEquipment(modifierIds)
+        template.toEquipment(modifierIds, resolve)
     }
 
-    private fun UniqueTemplate.toEquipment(modifierIds: MutableList<String>): Equipment = when (slot) {
-        WEAPON_1H, WEAPON_2H -> Weapon(
-            slot = slot,
-            weaponType = weaponType ?: BLADE,
-            damage_min = damageMin,
-            damage_max = damageMax,
-            attackSpeed = attackSpeed,
-            durability = durability,
-            name = name,
-            rarity = EnumRarity.UNIQUE,
-            itemLevel = itemLevel,
-            description = description,
-            modifierIds = modifierIds
-        )
+    /**
+     * База предмета фиксированными модификаторами: броня, урон, скорость атаки.
+     */
+    private fun UniqueTemplate.baseParams(resolve: (String) -> String): MutableList<Modifier> {
+        val result = mutableListOf<Modifier>()
 
-        RING, AMULET, BELT, QUIVER -> Accessory(
-            slot = slot,
-            name = name,
-            rarity = EnumRarity.UNIQUE,
-            itemLevel = itemLevel,
-            description = description,
-            modifierIds = modifierIds
-        )
+        if (defense > 0) result.add(Modifier.passive(resolve("IMPLICIT_ARMOUR_BASE"), listOf(defense.toDouble())))
+        if (damageMax > 0.0) {
+            val average = ((damageMin + damageMax) / 2.0).to1Digits()
+            result.add(Modifier.passive(resolve("IMPLICIT_PHYSICAL_DAMAGE_BASE"), listOf(average)))
+            result.add(Modifier.passive(resolve("IMPLICIT_ATTACK_SPEED_BASE"), listOf(attackSpeed)))
+        }
 
-        else -> Armor(
-            slot = slot,
-            defense = defense,
-            name = name,
-            rarity = EnumRarity.UNIQUE,
-            itemLevel = itemLevel,
-            description = description,
-            modifierIds = modifierIds
-        )
+        return result
+    }
+
+    /**
+     * Требования уникалки выводятся из её уровня: слот решает, какой атрибут нужен.
+     */
+    private fun UniqueTemplate.requirement(vararg attributeSlots: EnumEquipmentType): Int =
+        if (slot in attributeSlots) itemLevel * 2 else 0
+
+    private fun UniqueTemplate.toEquipment(
+        modifierIds: MutableList<String>,
+        resolve: (String) -> String
+    ): Equipment {
+        val base = baseParams(resolve)
+        val strength = requirement(HELMET, BODY, SHIELD, BELT, WEAPON_2H)
+        val dexterity = requirement(BOOTS, GLOVES, QUIVER, WEAPON_1H)
+        val intelligence = requirement(RING, AMULET, WINGS)
+
+        return when (slot) {
+            WEAPON_1H, WEAPON_2H -> Weapon(
+                slot = slot,
+                weaponType = weaponType ?: BLADE,
+                durability = durability,
+                name = name,
+                rarity = EnumRarity.UNIQUE,
+                itemLevel = itemLevel,
+                description = description,
+                modifierIds = modifierIds,
+                baseParams = base,
+                requiredLevel = itemLevel,
+                requiredStrength = strength,
+                requiredDexterity = dexterity,
+                requiredIntelligence = intelligence
+            )
+
+            RING, AMULET, BELT, QUIVER -> Accessory(
+                slot = slot,
+                name = name,
+                rarity = EnumRarity.UNIQUE,
+                itemLevel = itemLevel,
+                description = description,
+                modifierIds = modifierIds,
+                baseParams = base,
+                requiredLevel = itemLevel,
+                requiredStrength = strength,
+                requiredDexterity = dexterity,
+                requiredIntelligence = intelligence
+            )
+
+            else -> Armor(
+                slot = slot,
+                name = name,
+                rarity = EnumRarity.UNIQUE,
+                itemLevel = itemLevel,
+                description = description,
+                modifierIds = modifierIds,
+                baseParams = base,
+                requiredLevel = itemLevel,
+                requiredStrength = strength,
+                requiredDexterity = dexterity,
+                requiredIntelligence = intelligence
+            )
+        }
     }
 }

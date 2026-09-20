@@ -84,7 +84,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "ADD_ENERGY_SHIELD",
             name = "+# to maximum Energy Shield",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("energy_shield", "defences"),
             effects = listOf(effect(STOCK_ENERGY_SHIELD, ADD, best = 65.0..71.0, worst = 3.0..5.0)),
             tierCount = 8, bestItemLevel = 86
@@ -94,7 +94,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "ADD_ARMOUR",
             name = "+# to Armour",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("armour", "defences"),
             effects = listOf(effect(STOCK_ARMOR, ADD, best = 380.0..440.0, worst = 8.0..15.0)),
             tierCount = 8, bestItemLevel = 84
@@ -102,7 +102,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_ARMOUR",
             name = "#% increased Armour",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("armour", "defences"),
             effects = listOf(effect(STOCK_ARMOR, INCREASED, best = 100.0..109.0, worst = 6.0..13.0)),
             tierCount = 8, bestItemLevel = 84
@@ -110,7 +110,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "ADD_EVASION_RATING",
             name = "+# to Evasion Rating",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("evasion", "defences"),
             effects = listOf(effect(STOCK_EVASION, ADD, best = 380.0..440.0, worst = 8.0..15.0)),
             tierCount = 8, bestItemLevel = 84
@@ -118,7 +118,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_EVASION_RATING",
             name = "#% increased Evasion Rating",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("evasion", "defences"),
             effects = listOf(effect(STOCK_EVASION, INCREASED, best = 100.0..109.0, worst = 6.0..13.0)),
             tierCount = 8, bestItemLevel = 84
@@ -126,7 +126,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_ENERGY_SHIELD",
             name = "#% increased maximum Energy Shield",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("energy_shield", "defences"),
             effects = listOf(effect(STOCK_ENERGY_SHIELD, INCREASED, best = 100.0..109.0, worst = 6.0..13.0)),
             tierCount = 8, bestItemLevel = 84
@@ -136,7 +136,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "ADD_PHYSICAL_DAMAGE",
             name = "Adds # Physical Damage",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("physical", "damage", "attack"),
             effects = listOf(effect(STOCK_ATTACK_PHYSICAL, ADD, best = 25.0..45.0, worst = 1.0..3.0)),
             tierCount = 8, bestItemLevel = 77
@@ -144,7 +144,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_PHYSICAL_DAMAGE",
             name = "#% increased Physical Damage",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("physical", "damage", "attack"),
             effects = listOf(effect(STOCK_ATTACK_PHYSICAL, INCREASED, best = 170.0..179.0, worst = 40.0..49.0)),
             tierCount = 8, bestItemLevel = 81
@@ -205,7 +205,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_ARMOUR_AND_EVASION",
             name = "#% increased Armour and Evasion",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("armour", "evasion", "defences", "hybrid"),
             effects = listOf(
                 effect(STOCK_ARMOR, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
@@ -216,7 +216,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
             name = "#% increased Armour and Energy Shield",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("armour", "energy_shield", "defences", "hybrid"),
             effects = listOf(
                 effect(STOCK_ARMOR, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
@@ -227,7 +227,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_EVASION_AND_ENERGY_SHIELD",
             name = "#% increased Evasion and Energy Shield",
-            source = PREFIX,
+            source = PASSIVE,
             tags = listOf("evasion", "energy_shield", "defences", "hybrid"),
             effects = listOf(
                 effect(STOCK_EVASION, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
@@ -412,7 +412,7 @@ object ModifierSeeder {
         ModifierTemplate(
             code = "INCREASED_ATTACK_SPEED",
             name = "#% increased Attack Speed",
-            source = SUFFIX,
+            source = PASSIVE,
             tags = listOf("speed", "attack"),
             effects = listOf(effect(STOCK_ATTACK_SPEED, INCREASED, best = 25.0..27.0, worst = 5.0..7.0)),
             tierCount = 7, bestItemLevel = 77
@@ -565,6 +565,210 @@ object ModifierSeeder {
             effects = listOf(effect(STOCK_ATTACK_PHYSICAL, MORE, best = 12.0..15.0, worst = 5.0..8.0)),
             tierCount = 2, bestItemLevel = 68
         ),
+        // ---------- LOCAL: база предметов и её проценты ----------
+        // Как в POE, эти модификаторы считаются внутри своего предмета:
+        // процент брони на нагруднике умножает броню нагрудника, а не персонажа.
+        ModifierTemplate(
+            code = "IMPLICIT_ARMOUR_BASE",
+            name = "+# to Armour",
+            source = IMPLICIT, isLocal = true,
+            tags = listOf("armour", "defences", "implicit", "base"),
+            effects = listOf(effect(STOCK_ARMOR, ADD, best = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_EVASION_BASE",
+            name = "+# to Evasion Rating",
+            source = IMPLICIT, isLocal = true,
+            tags = listOf("evasion", "defences", "implicit", "base"),
+            effects = listOf(effect(STOCK_EVASION, ADD, best = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ENERGY_SHIELD_BASE",
+            name = "+# to maximum Energy Shield",
+            source = IMPLICIT, isLocal = true,
+            tags = listOf("energy_shield", "defences", "implicit", "base"),
+            effects = listOf(effect(STOCK_ENERGY_SHIELD, ADD, best = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+            name = "Adds # Physical Damage",
+            source = IMPLICIT, isLocal = true,
+            tags = listOf("physical", "damage", "attack", "implicit", "base"),
+            effects = listOf(effect(STOCK_ATTACK_PHYSICAL, ADD, best = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ATTACK_SPEED_BASE",
+            name = "Attacks per Second: #",
+            source = IMPLICIT, isLocal = true,
+            tags = listOf("speed", "attack", "implicit", "base"),
+            effects = listOf(effect(STOCK_ATTACK_SPEED, ADD, best = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+
+        ModifierTemplate(
+            code = "LOCAL_ADD_ARMOUR",
+            name = "+# to Armour",
+            source = PREFIX, isLocal = true,
+            tags = listOf("armour", "defences"),
+            effects = listOf(effect(STOCK_ARMOR, ADD, best = 380.0..440.0, worst = 8.0..15.0)),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_ARMOUR",
+            name = "#% increased Armour",
+            source = PREFIX, isLocal = true,
+            tags = listOf("armour", "defences"),
+            effects = listOf(effect(STOCK_ARMOR, INCREASED, best = 100.0..109.0, worst = 6.0..13.0)),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_ADD_EVASION_RATING",
+            name = "+# to Evasion Rating",
+            source = PREFIX, isLocal = true,
+            tags = listOf("evasion", "defences"),
+            effects = listOf(effect(STOCK_EVASION, ADD, best = 380.0..440.0, worst = 8.0..15.0)),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_EVASION_RATING",
+            name = "#% increased Evasion Rating",
+            source = PREFIX, isLocal = true,
+            tags = listOf("evasion", "defences"),
+            effects = listOf(effect(STOCK_EVASION, INCREASED, best = 100.0..109.0, worst = 6.0..13.0)),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_ADD_ENERGY_SHIELD",
+            name = "+# to maximum Energy Shield",
+            source = PREFIX, isLocal = true,
+            tags = listOf("energy_shield", "defences"),
+            effects = listOf(effect(STOCK_ENERGY_SHIELD, ADD, best = 65.0..71.0, worst = 3.0..5.0)),
+            tierCount = 8, bestItemLevel = 86
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_ENERGY_SHIELD",
+            name = "#% increased maximum Energy Shield",
+            source = PREFIX, isLocal = true,
+            tags = listOf("energy_shield", "defences"),
+            effects = listOf(effect(STOCK_ENERGY_SHIELD, INCREASED, best = 100.0..109.0, worst = 6.0..13.0)),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_ARMOUR_AND_EVASION",
+            name = "#% increased Armour and Evasion",
+            source = PREFIX, isLocal = true,
+            tags = listOf("armour", "evasion", "defences", "hybrid"),
+            effects = listOf(
+                effect(STOCK_ARMOR, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
+                effect(STOCK_EVASION, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
+            ),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+            name = "#% increased Armour and Energy Shield",
+            source = PREFIX, isLocal = true,
+            tags = listOf("armour", "energy_shield", "defences", "hybrid"),
+            effects = listOf(
+                effect(STOCK_ARMOR, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
+                effect(STOCK_ENERGY_SHIELD, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
+            ),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_EVASION_AND_ENERGY_SHIELD",
+            name = "#% increased Evasion and Energy Shield",
+            source = PREFIX, isLocal = true,
+            tags = listOf("evasion", "energy_shield", "defences", "hybrid"),
+            effects = listOf(
+                effect(STOCK_EVASION, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
+                effect(STOCK_ENERGY_SHIELD, INCREASED, best = 82.0..90.0, worst = 6.0..13.0),
+            ),
+            tierCount = 8, bestItemLevel = 84
+        ),
+        ModifierTemplate(
+            code = "LOCAL_ADD_PHYSICAL_DAMAGE",
+            name = "Adds # Physical Damage",
+            source = PREFIX, isLocal = true,
+            tags = listOf("physical", "damage", "attack"),
+            effects = listOf(effect(STOCK_ATTACK_PHYSICAL, ADD, best = 25.0..45.0, worst = 1.0..3.0)),
+            tierCount = 8, bestItemLevel = 77
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_PHYSICAL_DAMAGE",
+            name = "#% increased Physical Damage",
+            source = PREFIX, isLocal = true,
+            tags = listOf("physical", "damage", "attack"),
+            effects = listOf(effect(STOCK_ATTACK_PHYSICAL, INCREASED, best = 170.0..179.0, worst = 40.0..49.0)),
+            tierCount = 8, bestItemLevel = 81
+        ),
+        ModifierTemplate(
+            code = "LOCAL_INCREASED_ATTACK_SPEED",
+            name = "#% increased Attack Speed",
+            source = SUFFIX, isLocal = true,
+            tags = listOf("speed", "attack"),
+            effects = listOf(effect(STOCK_ATTACK_SPEED, INCREASED, best = 25.0..27.0, worst = 5.0..7.0)),
+            tierCount = 7, bestItemLevel = 77
+        ),
+
+        // ---------- CONVERSION: атрибуты в производные характеристики ----------
+        // Источник конверсии обязан иметь меньший order, чем приёмник,
+        // поэтому цикл здесь невыразим.
+        ModifierTemplate(
+            code = "CONVERT_STRENGTH_TO_LIFE",
+            name = "+# to maximum Life per # Strength",
+            source = PASSIVE,
+            tags = listOf("life", "attribute", "conversion"),
+            effects = listOf(
+                conversion(STOCK_HEALTH, ADD, perStat = STOCK_STRENGTH, perAmount = 2.0)
+            ),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "CONVERT_DEXTERITY_TO_EVASION",
+            name = "+# to Evasion Rating per # Dexterity",
+            source = PASSIVE,
+            tags = listOf("evasion", "attribute", "conversion"),
+            effects = listOf(
+                conversion(STOCK_EVASION, ADD, perStat = STOCK_AGILITY, perAmount = 1.0)
+            ),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "CONVERT_INTELLIGENCE_TO_MANA",
+            name = "+# to maximum Mana per # Intelligence",
+            source = PASSIVE,
+            tags = listOf("mana", "attribute", "conversion"),
+            effects = listOf(
+                conversion(STOCK_MANA, ADD, perStat = STOCK_INTELLECT, perAmount = 2.0)
+            ),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "CONVERT_INTELLIGENCE_TO_ENERGY_SHIELD",
+            name = "#% increased Energy Shield per # Intelligence",
+            source = PASSIVE,
+            tags = listOf("energy_shield", "attribute", "conversion"),
+            effects = listOf(
+                conversion(STOCK_ENERGY_SHIELD, INCREASED, perStat = STOCK_INTELLECT, perAmount = 5.0)
+            ),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "CONVERT_STRENGTH_TO_PHYSICAL_DAMAGE",
+            name = "#% increased Physical Damage per # Strength",
+            source = PASSIVE,
+            tags = listOf("physical", "damage", "attribute", "conversion"),
+            effects = listOf(
+                conversion(STOCK_ATTACK_PHYSICAL, INCREASED, perStat = STOCK_STRENGTH, perAmount = 5.0)
+            ),
+            tierCount = 1, bestItemLevel = 1
+        ),
+
         // ---------- PASSIVE: то, что даёт только дерево навыков ----------
         // Значения приходят от узла дерева, тир здесь чисто формальный.
         ModifierTemplate(

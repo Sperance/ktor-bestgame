@@ -1,13 +1,15 @@
 package features.data.character
 
-import application.enums.IntEnumStat
 import base.exception.model.CharacterExceptions
+import base.exception.model.ProgressionExceptions
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import CONST_ITEM_MAX_AMOUNT
 import CONST_USER_MAX_CHARACTERS
+import features.caches.CharacterClassCache
+import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
 import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.toStorage
@@ -19,8 +21,9 @@ import features.data.skilltree.CharacterSkillNodeRepository
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
-import features.logic.modifiers.Modifier
-import features.logic.modifiers.ModifierCalculator
+import features.logic.progression.CharacterClass
+import features.logic.stats.CharacterStats
+import features.logic.stats.CharacterStatsCalculator
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue
@@ -35,6 +38,8 @@ class CharacterRepository : BaseRepository<Character>(
     val itemsRepository: ItemsRepository by inject()
     val redemptionCodesRepository: RedemptionCodesRepository by inject()
     val itemsCache: ItemsCache by inject()
+    val characterClassCache: CharacterClassCache by inject()
+    val experienceLevelCache: ExperienceLevelCache by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -47,6 +52,8 @@ class CharacterRepository : BaseRepository<Character>(
 
     override suspend fun validateBeforeInsert(entity: Character, session: ClientSession) {
         if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
+        if (characterClassCache.findById(entity.classId) == null)
+            throw ProgressionExceptions.funExceptionClassNotFound("validateBeforeInsert", entity.classId)
         if (findByField(Character::name, entity.name) != null) throw CharacterExceptions.funExceptionNameDuplicate("validateBeforeInsert", entity.name)
         val findedUser = userRepository.findByField(User::_id, entity.userId, session)
         if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId)
@@ -107,41 +114,58 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     /**
-     * Итоговые характеристики персонажа с учётом надетой экипировки.
+     * Итоговые характеристики персонажа: база класса на его уровне,
+     * дерево навыков и работающая экипировка.
      *
-     * База берётся из stockSkills персонажа, поверх неё сводятся модификаторы
-     * самого персонажа и всех надетых предметов по правилам [ModifierCalculator].
+     * Единственная точка расчёта - боёвка и любые другие механики должны
+     * брать характеристики отсюда, иначе потеряется чей-нибудь источник
+     * или будет учтён предмет, который на самом деле не работает.
      */
-    suspend fun calculateStats(characterId: String): Map<IntEnumStat, Double> {
+    suspend fun calculateStats(characterId: String): CharacterStats {
         val character = findById(characterId)
             ?: throw CharacterExceptions.funExceptionNotFound("calculateStats", characterId)
 
-        val base = character.stockSkills.associate { it.stat as IntEnumStat to it.value.toDouble() }
-
-        return ModifierCalculator.calculate(collectModifiers(character), base)
+        return CharacterStatsCalculator.calculate(
+            character = character,
+            characterClass = requireClass(character),
+            skillNodes = characterSkillNodeRepository.findByCharacter(characterId),
+            equipped = characterEquipmentRepository.findEquipped(characterId)
+        )
     }
 
     /**
-     * Все модификаторы, влияющие на персонажа: его собственные, надетая
-     * экипировка и взятые узлы дерева навыков.
+     * Класс персонажа из справочника.
+     */
+    fun requireClass(character: Character): CharacterClass =
+        characterClassCache.findById(character.classId)
+            ?: throw ProgressionExceptions.funExceptionClassNotFound("requireClass", character.classId)
+
+    /**
+     * Сколько очков дерева навыков персонаж накопил к своему уровню.
+     */
+    fun skillPointsTotal(character: Character): Int =
+        experienceLevelCache.skillPointsUpTo(character.level.toInt())
+
+    /**
+     * Начисляет опыт и поднимает уровень, если пройден очередной порог.
      *
-     * Единая точка сбора - боёвка и любые другие расчёты должны брать
-     * модификаторы отсюда, чтобы ничей источник не потерялся.
+     * Уровень только растёт: потеря опыта не должна забирать уже
+     * вложенные очки дерева.
      */
-    suspend fun collectModifiers(character: Character): List<Modifier> {
-        val equipped = characterEquipmentRepository.findEquipped(character._id)
-        val skillNodes = characterSkillNodeRepository.findByCharacter(character._id)
-
-        return character.params + equipped.flatMap { it.params } + skillNodes.flatMap { it.params }
-    }
-
-    /**
-     * То же самое по id персонажа.
-     */
-    suspend fun collectModifiers(characterId: String): List<Modifier> {
+    suspend fun addExperience(characterId: String, amount: Double): Character {
         val character = findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("collectModifiers", characterId)
-        return collectModifiers(character)
+            ?: throw CharacterExceptions.funExceptionNotFound("addExperience", characterId)
+        if (amount < 0) throw CharacterExceptions.funExceptionExperience("addExperience", amount.toString())
+        if (experienceLevelCache.isEmpty()) throw ProgressionExceptions.funExceptionNoLevels("addExperience")
+
+        character.experience += amount
+        val reached = experienceLevelCache.levelOf(character.experience)
+        if (reached > character.level) character.level = reached.toShort()
+
+        transactionExecute("addExperience") { session ->
+            update(character, session)
+        }
+        return character
     }
 
     /**

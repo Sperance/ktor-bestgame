@@ -24,6 +24,22 @@ class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(
 
     override suspend fun validateBeforeInsert(entity: ModifierDefinition, session: ClientSession) {
         if (entity.code.isBlank()) throw ModifierExceptions.funExceptionCode("validateBeforeInsert", entity.code)
+        if (entity.effects.isEmpty()) throw ModifierExceptions.funExceptionNoEffects("validateBeforeInsert", entity.code)
+
+        entity.effects.forEach { effect ->
+            val source = effect.perStat ?: return@forEach
+
+            // Единственное, что делает циклы конверсий невыразимыми
+            if (source.order >= effect.stat.order)
+                throw ModifierExceptions.funExceptionConversionOrder(
+                    "validateBeforeInsert",
+                    "${entity.code}: $source(${source.order}) -> ${effect.stat}(${effect.stat.order})"
+                )
+            if (effect.perAmount <= 0.0)
+                throw ModifierExceptions.funExceptionConversionAmount("validateBeforeInsert", "${entity.code}: ${effect.perAmount}")
+            if (entity.isLocal)
+                throw ModifierExceptions.funExceptionLocalConversion("validateBeforeInsert", entity.code)
+        }
     }
 
     override suspend fun validateAfterInsert(entity: ModifierDefinition, session: ClientSession) {

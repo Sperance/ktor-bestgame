@@ -9,69 +9,107 @@ import org.koin.core.component.inject
 /**
  * Свод модификаторов в итоговые значения статов.
  *
- * Разбирает модификаторы по их описаниям из справочника и группирует
- * по статам, а саму арифметику POE считает [ModifierMath].
+ * Разворачивает модификаторы в плоские [StatOperation] по их описаниям,
+ * раскладывает по статам и считает каждый стат в порядке [IntEnumStat.order].
+ * Порядок гарантирует, что стат-источник конверсии уже посчитан к моменту,
+ * когда до неё доходит очередь - поэтому отдельная топологическая сортировка
+ * не нужна, а цикл конверсий невыразим.
+ *
+ * Саму арифметику POE считает [ModifierMath].
  */
 object ModifierCalculator : KoinComponent {
 
     private val definitionCache: ModifierDefinitionCache by inject()
 
     /**
-     * Итоговое значение одного стата.
-     *
-     * @param stat стат, который считаем
-     * @param base базовое значение персонажа без экипировки
-     * @param modifiers все модификаторы, влияющие на персонажа
-     */
-    fun calculate(stat: IntEnumStat, base: Double, modifiers: Collection<Modifier>): Double {
-        val affecting = mutableListOf<Pair<EnumModifierOperation, Double>>()
-
-        modifiers.forEach { modifier ->
-            forEachEffect(modifier) { effect, value ->
-                if (effect.stat == stat) affecting.add(effect.operation to value)
-            }
-        }
-
-        return apply(base, affecting)
-    }
-
-    /**
      * Итоговые значения всех статов, которых касаются переданные модификаторы.
      *
-     * @param modifiers все модификаторы, влияющие на персонажа
+     * @param modifiers модификаторы, влияющие на персонажа
      * @param base базовые значения статов, для отсутствующих берётся 0
      */
     fun calculate(
         modifiers: Collection<Modifier>,
         base: Map<IntEnumStat, Double> = emptyMap()
+    ): Map<IntEnumStat, Double> = compute(base, expand(modifiers))
+
+    /**
+     * Итоговое значение одного стата.
+     *
+     * Считается всё равно целиком: конверсии могут тянуть значение
+     * из других статов, поэтому посчитать один в отрыве нельзя.
+     */
+    fun calculate(stat: IntEnumStat, base: Double, modifiers: Collection<Modifier>): Double =
+        calculate(modifiers, mapOf(stat to base))[stat] ?: base
+
+    /**
+     * Считает статы по уже развёрнутым операциям.
+     *
+     * @param base базовые значения статов
+     * @param operations плоские операции - от модификаторов, базы класса или свёрнутых предметов
+     */
+    fun compute(
+        base: Map<IntEnumStat, Double>,
+        operations: Collection<StatOperation>
     ): Map<IntEnumStat, Double> {
-        val grouped = mutableMapOf<IntEnumStat, MutableList<Pair<EnumModifierOperation, Double>>>()
+        val byStat = operations.groupBy { it.stat }
+        val result = mutableMapOf<IntEnumStat, Double>()
 
-        modifiers.forEach { modifier ->
-            forEachEffect(modifier) { effect, value ->
-                grouped.getOrPut(effect.stat) { mutableListOf() }.add(effect.operation to value)
+        // Порядок статов и есть порядок вычисления: источник конверсии
+        // всегда объявлен раньше своего приёмника
+        (byStat.keys + base.keys).sortedBy { it.order }.forEach { stat ->
+            val applied = byStat[stat].orEmpty().map { operation ->
+                val source = operation.perStat?.let { result[it] ?: 0.0 } ?: 0.0
+                operation.operation to operation.resolve(source)
             }
+            result[stat] = ModifierMath.apply(base[stat] ?: 0.0, applied)
         }
 
-        val stats = grouped.keys + base.keys
-        return stats.associateWith { stat ->
-            apply(base[stat] ?: 0.0, grouped[stat] ?: emptyList())
-        }
+        return result
     }
 
     /**
-     * Разбирает зароленный модификатор на пары "эффект - выпавшее значение".
+     * Разворачивает модификаторы в плоские операции по их описаниям.
      *
      * У составного модификатора эффектов несколько, и значения идут
      * в том же порядке, что и эффекты описания.
      */
-    private inline fun forEachEffect(modifier: Modifier, action: (ModifierEffect, Double) -> Unit) {
-        val definition = definitionCache.findById(modifier.modifierId) ?: return
-        definition.effects.forEachIndexed { index, effect ->
-            action(effect, modifier.values.getOrNull(index) ?: return@forEachIndexed)
+    fun expand(modifiers: Collection<Modifier>): List<StatOperation> =
+        modifiers.flatMap { modifier ->
+            val definition = definitionCache.findById(modifier.modifierId) ?: return@flatMap emptyList()
+
+            definition.effects.mapIndexedNotNull { index, effect ->
+                val value = modifier.values.getOrNull(index) ?: return@mapIndexedNotNull null
+                StatOperation(
+                    stat = effect.stat,
+                    operation = effect.operation,
+                    value = value,
+                    perStat = effect.perStat,
+                    perAmount = effect.perAmount
+                )
+            }
         }
+
+    /**
+     * Сворачивает модификаторы одного предмета в операции над персонажем.
+     *
+     * Локальные считаются внутри предмета от нулевой базы и отдают наружу
+     * готовую прибавку: "#% increased Armour" на нагруднике умножает броню
+     * этого нагрудника, а не всю броню персонажа. Глобальные проходят как есть.
+     */
+    fun foldItem(modifiers: Collection<Modifier>): List<StatOperation> {
+        val (local, global) = modifiers.partition { isLocal(it) }
+        if (local.isEmpty()) return expand(global)
+
+        val folded = compute(emptyMap(), expand(local))
+            .filterValues { it != 0.0 }
+            .map { (stat, value) -> StatOperation(stat, EnumModifierOperation.ADD, value) }
+
+        return folded + expand(global)
     }
 
-    private fun apply(base: Double, operations: Collection<Pair<EnumModifierOperation, Double>>): Double =
-        ModifierMath.apply(base, operations)
+    /**
+     * Локальный ли модификатор - то есть считается ли он внутри своего предмета.
+     */
+    fun isLocal(modifier: Modifier): Boolean =
+        definitionCache.findById(modifier.modifierId)?.isLocal == true
 }

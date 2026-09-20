@@ -4,6 +4,7 @@ import application.enums.EnumEquipmentType
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import base.entity.StockEntity
+import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
@@ -23,8 +24,39 @@ interface EquipmentInterface {
      * самого описания: PREFIX и SUFFIX роллятся случайно и в количестве,
      * которое задаёт редкость, остальные (IMPLICIT, ENCHANTMENT, CORRUPTION,
      * UNIQUE) попадают на каждый экземпляр предмета.
+     *
      */
     var modifierIds: MutableList<String>
+
+    /**
+     * База предмета - броня, урон, скорость атаки - готовыми модификаторами
+     * с фиксированными значениями.
+     *
+     * Отдельных полей под базу нет: расчёт характеристик знает ровно один
+     * способ получить значение. В отличие от [modifierIds] здесь ничего
+     * не роллится - база базового типа в POE тоже не случайна.
+     */
+    var baseParams: MutableList<Modifier>
+
+    /**
+     * Уровень, с которого предмет можно надеть.
+     */
+    var requiredLevel: Int
+
+    /**
+     * Сила, необходимая чтобы надеть предмет.
+     */
+    var requiredStrength: Int
+
+    /**
+     * Ловкость, необходимая чтобы надеть предмет.
+     */
+    var requiredDexterity: Int
+
+    /**
+     * Интеллект, необходимый чтобы надеть предмет.
+     */
+    var requiredIntelligence: Int
 }
 
 /**

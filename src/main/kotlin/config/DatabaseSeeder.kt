@@ -14,10 +14,14 @@ import features.data.character.CharacterRepository
 import features.data.equipment.EquipmentRepository
 import features.data.items.Items
 import features.data.items.ItemsRepository
+import features.caches.BlockListCache
+import features.caches.CharacterClassCache
 import features.caches.EquipmentCache
+import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
+import features.caches.RecipeCache
 import features.caches.SkillTreeCache
 import features.data.blockList.BlockListRepository
 import features.data.inventory.CharacterEquipmentRepository
@@ -30,6 +34,8 @@ import features.data.user.UserRepository
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierDefinitionRepository
 import features.logic.modifiers.ModifierTierRepository
+import features.logic.progression.CharacterClassRepository
+import features.logic.progression.ExperienceLevelRepository
 import features.logic.skilltree.SkillTreeNodeRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -58,6 +64,12 @@ object DatabaseSeeder : KoinComponent {
     private val skillTreeCache: SkillTreeCache by inject()
     private val skillTreeNodeRepository: SkillTreeNodeRepository by inject()
     private val characterSkillNodeRepository: CharacterSkillNodeRepository by inject()
+    private val characterClassRepository: CharacterClassRepository by inject()
+    private val experienceLevelRepository: ExperienceLevelRepository by inject()
+    private val characterClassCache: CharacterClassCache by inject()
+    private val experienceLevelCache: ExperienceLevelCache by inject()
+    private val blockListCache: BlockListCache by inject()
+    private val recipeCache: RecipeCache by inject()
 
     suspend fun seed() {
 
@@ -72,18 +84,27 @@ object DatabaseSeeder : KoinComponent {
 
         initializeRepositories()
 
+        // Чистка несовместимых данных идёт до всего остального и вне транзакции:
+        // drop меняет каталог MongoDB и внутри открытой транзакции недопустим
+        SchemaMigrator.migrate()
+
         transactionExecute { session ->
+            // Справочники первыми: на них ссылается всё остальное
+            val definitions = seedModifiers(session)
+            seedProgression(session, definitions)
+            seedEquipment(session, definitions)
+            seedSkillTree(session, definitions)
+
             seedUsers(session)
             seedCharacters(session)
             seedItems(session)
-            val definitions = seedModifiers(session)
-            seedEquipment(session, definitions)
             seedCurrency(session)
-            seedSkillTree(session, definitions)
             seedRedemptionCodes(session)
             seedEqipmentCharacters(session)
             seedCurrencyToCharacters(session)
         }
+
+        initializeCaches()
 
         printLog("Database seeding completed")
     }
@@ -108,9 +129,48 @@ object DatabaseSeeder : KoinComponent {
             modifierDefinitionRepository,
             modifierTierRepository,
             skillTreeNodeRepository,
-            characterSkillNodeRepository
+            characterSkillNodeRepository,
+            characterClassRepository,
+            experienceLevelRepository
         )
         printLog("  → ${repositories.size} repositories initialized")
+    }
+
+    /**
+     * Загрузка кэшей после сидинга.
+     *
+     * Кэши намеренно не грузятся при старте Koin: они поднимались бы раньше
+     * сидера и падали на документах старого формата - то есть раньше, чем
+     * пересев успевал бы их починить.
+     */
+    private suspend fun initializeCaches() {
+        listOf(
+            modifierDefinitionCache, modifierTierCache, characterClassCache, experienceLevelCache,
+            equipmentCache, skillTreeCache, itemsCache, recipeCache, blockListCache
+        ).forEach { it.initializeCache() }
+
+        printLog("  → caches loaded")
+    }
+
+    // ==================== Progression ====================
+
+    /**
+     * Классы персонажей и таблица уровней. Пересевается на каждом старте,
+     * _id стабильны - персонажи ссылаются на класс, а не хранят его снимок.
+     */
+    private suspend fun seedProgression(session: ClientSession, definitions: List<ModifierDefinition>) {
+        printLog("Seeding progression...")
+
+        characterClassRepository.deleteAll(session)
+        experienceLevelRepository.deleteAll(session)
+
+        val classes = characterClassRepository.insertMany(ProgressionSeeder.seedClasses(definitions), session)
+        val levels = experienceLevelRepository.insertMany(ProgressionSeeder.seedLevels(), session)
+
+        characterClassCache.initializeCache(session)
+        experienceLevelCache.initializeCache(session)
+
+        printLog("  → ${classes.size} classes, ${levels.size} levels created")
     }
 
     // ==================== Users ====================
@@ -210,12 +270,20 @@ object DatabaseSeeder : KoinComponent {
         printLog("Seeding characters...")
         val userRepoAll = userRepository.findAll(session)
 
+        val marauder = characterClassCache.findByCode("MARAUDER")
+        val witch = characterClassCache.findByCode("WITCH")
+        if (marauder == null || witch == null) {
+            printLog("  → no character classes, characters seeding skipped")
+            return
+        }
+
         val listItems = arrayListOf<Character>()
         listItems.add(
             Character(
                 name = "Warrior",
                 description = "STRONG pipster",
                 userId = userRepoAll.first()._id,
+                classId = marauder._id,
             )
         )
         listItems.add(
@@ -223,6 +291,7 @@ object DatabaseSeeder : KoinComponent {
                 name = "Mage",
                 description = "Мудрый pipster",
                 userId = userRepoAll.last()._id,
+                classId = witch._id,
                 level = 5,
                 experience = 1200.0,
             )

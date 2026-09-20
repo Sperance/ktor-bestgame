@@ -46,9 +46,9 @@ class CharacterSkillNodeRepository : BaseRepository<CharacterSkillNode>(
 
         return CharacterSkillTreeState(
             characterId = characterId,
-            total = character.skillPointsTotal(),
+            total = characterRepository.skillPointsTotal(character),
             spent = spent,
-            available = character.skillPointsTotal() - spent,
+            available = characterRepository.skillPointsTotal(character) - spent,
             nodes = nodes
         )
     }
@@ -71,6 +71,11 @@ class CharacterSkillNodeRepository : BaseRepository<CharacterSkillNode>(
         if (node.type == EnumSkillNodeType.START) {
             if (takenCodes.isNotEmpty())
                 throw SkillTreeExceptions.funExceptionStartTaken("allocate", takenCodes.first())
+
+            // Начать можно только со стартового узла своего класса
+            val startNodeCode = characterRepository.requireClass(character).startNodeCode
+            if (node.code != startNodeCode)
+                throw SkillTreeExceptions.funExceptionWrongStart("allocate", "${node.code}, class starts at $startNodeCode")
         } else {
             if (takenCodes.isEmpty())
                 throw SkillTreeExceptions.funExceptionNoStart("allocate", nodeCode)
@@ -78,7 +83,7 @@ class CharacterSkillNodeRepository : BaseRepository<CharacterSkillNode>(
                 throw SkillTreeExceptions.funExceptionNotConnected("allocate", nodeCode)
         }
 
-        val available = character.skillPointsTotal() - taken.sumOf { it.cost }
+        val available = characterRepository.skillPointsTotal(character) - taken.sumOf { it.cost }
         if (node.cost > available)
             throw SkillTreeExceptions.funExceptionNoPoints("allocate", "need ${node.cost}, available $available")
 

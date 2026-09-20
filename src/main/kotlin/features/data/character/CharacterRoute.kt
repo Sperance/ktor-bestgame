@@ -41,6 +41,12 @@ class CharacterRoute(
                 val data = repo.calculateStats(characterId)
                 call.respond(ApiMongoResponse.ok(data))
             }
+            post("/experience") {
+                val characterId = call.queryParam("characterId")
+                val amount = call.queryParam("amount", 0.0)
+                val data = repo.addExperience(characterId, amount)
+                call.respond(ApiMongoResponse.ok(data))
+            }
             get("/items") {
                 val characterId = call.queryParam("characterId")
                 val character = repo.findById(characterId)

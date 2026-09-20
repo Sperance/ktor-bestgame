@@ -38,13 +38,14 @@ object ModifierRoller : KoinComponent {
     /**
      * Роллит полный набор модификаторов для нового экземпляра предмета.
      *
-     * Пул предмета разбирается по [EnumModifierSource]: количество префиксов
-     * и суффиксов задаёт редкость, остальные источники попадают на предмет всегда.
+     * База предмета переносится как есть, пул разбирается по [EnumModifierSource]:
+     * количество префиксов и суффиксов задаёт редкость, остальные источники
+     * попадают на предмет всегда.
      *
      * @param rarity редкость, под которую роллим - у экземпляра она своя и её меняют сферы
      */
     fun roll(equipment: Equipment, rarity: EnumRarity = equipment.rarity): MutableList<Modifier> =
-        (rollPermanent(equipment) + rollAffixes(equipment, rarity)).toMutableList()
+        (equipment.baseParams + rollPermanent(equipment) + rollAffixes(equipment, rarity)).toMutableList()
 
     /**
      * Постоянные модификаторы предмета: implicit, энчанты, порча, модификаторы уникалок.

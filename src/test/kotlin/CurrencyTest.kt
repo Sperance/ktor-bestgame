@@ -18,7 +18,6 @@ class CurrencyTest {
 
     private fun template(rarity: EnumRarity = EnumRarity.COMMON) = Armor(
         slot = EnumEquipmentType.HELMET,
-        defense = 20,
         name = "Test Helm",
         rarity = rarity,
         itemLevel = 50

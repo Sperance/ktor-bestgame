@@ -20,5 +20,7 @@ object CharacterExceptions {
     fun funExceptionItemNotFound(errorMethod: String, value: String? = "") = CharacterException("Item with id $value not found", errorMethod, "CH_008")
     fun funExceptionItemLowZero(errorMethod: String, value: String? = "") = CharacterException("Amount of item $value is less than zero", errorMethod, "CH_009")
     fun funExceptionItemOverAmount(errorMethod: String, value: String? = "") = CharacterException("Very big amount of item $value", errorMethod, "CH_010")
+    fun funExceptionRequirements(errorMethod: String, value: String? = "") = CharacterException("Equipment requirements are not met ($value)", errorMethod, "CH_013")
+    fun funExceptionExperience(errorMethod: String, value: String? = "") = CharacterException("Experience amount $value must not be negative", errorMethod, "CH_012")
     fun funExceptionItemFormat(errorMethod: String, value: String? = "") = CharacterException("Item '$value' has invalid storage format, expected 'itemId:amount'", errorMethod, "CH_011")
 }
