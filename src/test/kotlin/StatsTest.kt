@@ -248,8 +248,12 @@ class StatsTest {
         levels.zipWithNext { lower, higher ->
             assert(higher.experience > lower.experience) { "level ${higher.level} is not harder than ${lower.level}" }
         }
-        // 99 очков за уровни, как в POE: первый уровень очков не даёт
-        assert(levels.sumOf { it.skillPoints } == 99) { "got ${levels.sumOf { it.skillPoints }}" }
+        // Первый уровень очков не даёт, каждый десятый даёт два: 99 + 10 = 109
+        assert(levels.first().skillPoints == 0) { "level 1 must not hand out points" }
+        assert(levels.filter { it.skillPoints == 2 }.map { it.level } == (10..100 step 10).toList()) {
+            "double points are not on the round levels: ${levels.filter { it.skillPoints == 2 }.map { it.level }}"
+        }
+        assert(levels.sumOf { it.skillPoints } == 109) { "got ${levels.sumOf { it.skillPoints }}" }
     }
 
     @Test
