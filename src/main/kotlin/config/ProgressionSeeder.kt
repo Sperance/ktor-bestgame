@@ -165,7 +165,7 @@ object ProgressionSeeder {
         ExperienceLevel(
             level = level,
             experience = experience.toDouble(),
-            skillPoints = if (level == 1) 0 else 1,
+            skillPoints = if (level == 1) 0 else if (level % 10 == 0) 2 else 1,
             _id = "LEVEL_$level".toStableObjectId()
         )
     }
