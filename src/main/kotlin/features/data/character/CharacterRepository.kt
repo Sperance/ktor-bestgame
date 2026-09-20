@@ -2,8 +2,10 @@ package features.data.character
 
 import base.exception.model.CharacterExceptions
 import base.exception.model.ProgressionExceptions
+import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
+import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import CONST_ITEM_MAX_AMOUNT
@@ -11,19 +13,23 @@ import CONST_USER_MAX_CHARACTERS
 import features.caches.CharacterClassCache
 import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
+import features.caches.SkillTreeCache
 import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.toStorage
 import features.data.equipment.EquipmentRepository
 import features.data.inventory.CharacterEquipment
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.items.ItemsRepository
-import features.data.skilltree.CharacterSkillNodeRepository
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
 import features.logic.progression.CharacterClass
+import features.logic.skilltree.CharacterSkillTreeState
+import features.logic.skilltree.SkillTreeAllocation
+import features.logic.skilltree.SkillTreeNode
 import features.logic.stats.CharacterStats
 import features.logic.stats.CharacterStatsCalculator
+import org.bson.Document
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue
@@ -34,11 +40,11 @@ class CharacterRepository : BaseRepository<Character>(
     val userRepository: UserRepository by inject()
     val equipmentRepository: EquipmentRepository by inject()
     val characterEquipmentRepository: CharacterEquipmentRepository by inject()
-    val characterSkillNodeRepository: CharacterSkillNodeRepository by inject()
     val itemsRepository: ItemsRepository by inject()
     val redemptionCodesRepository: RedemptionCodesRepository by inject()
     val itemsCache: ItemsCache by inject()
     val characterClassCache: CharacterClassCache by inject()
+    val skillTreeCache: SkillTreeCache by inject()
     val experienceLevelCache: ExperienceLevelCache by inject()
 
     init {
@@ -58,6 +64,10 @@ class CharacterRepository : BaseRepository<Character>(
         val findedUser = userRepository.findByField(User::_id, entity.userId, session)
         if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId)
         if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateBeforeInsert")
+
+        // Стартовый узел дерева ставится сразу: в POE класс приходит в дерево
+        // со своей точки входа, она бесплатна и отдельного выбора не требует
+        if (entity.skillNodes.isEmpty()) entity.skillNodes.add(requireClass(entity).startNodeCode)
     }
 
     override suspend fun validateAfterInsert(entity: Character, session: ClientSession) {
@@ -66,16 +76,11 @@ class CharacterRepository : BaseRepository<Character>(
         findedUser.countCharacters++
         if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert")
         userRepository.update(findedUser, session)
-
-        // Стартовый узел дерева выдаётся сразу: в POE класс приходит в дерево
-        // со своей точки входа, она бесплатна и отдельного выбора не требует
-        characterSkillNodeRepository.allocateStart(entity, requireClass(entity), session)
     }
 
     override suspend fun validateAfterDelete(entity: Character, session: ClientSession, softDelete: Boolean) {
         if (softDelete) return
         characterEquipmentRepository.deleteByCharacter(entity._id, session)
-        characterSkillNodeRepository.deleteByCharacter(entity._id, session)
     }
 
     /**
@@ -126,13 +131,12 @@ class CharacterRepository : BaseRepository<Character>(
      * или будет учтён предмет, который на самом деле не работает.
      */
     suspend fun calculateStats(characterId: String): CharacterStats {
-        val character = findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("calculateStats", characterId)
+        val character = requireCharacter(characterId, "calculateStats")
 
         return CharacterStatsCalculator.calculate(
             character = character,
             characterClass = requireClass(character),
-            skillNodes = characterSkillNodeRepository.findByCharacter(characterId),
+            skillNodes = skillTreeCache.findAllByCode(character.skillNodes),
             equipped = characterEquipmentRepository.findEquipped(characterId)
         )
     }
@@ -150,6 +154,130 @@ class CharacterRepository : BaseRepository<Character>(
     fun skillPointsTotal(character: Character): Int =
         experienceLevelCache.skillPointsUpTo(character.level.toInt())
 
+    // ==================== Дерево навыков ====================
+
+    /**
+     * Состояние дерева навыков персонажа: взятые узлы и баланс очков.
+     */
+    suspend fun skillTreeState(characterId: String): CharacterSkillTreeState =
+        stateOf(requireCharacter(characterId, "skillTreeState"))
+
+    /**
+     * Берёт узел дерева.
+     *
+     * @throws SkillTreeExceptions.SkillTreeException если узел брать нельзя
+     */
+    suspend fun allocateSkillNode(characterId: String, nodeCode: String): CharacterSkillTreeState {
+        val character = requireCharacter(characterId, "allocateSkillNode")
+        val node = requireNode(nodeCode, "allocateSkillNode")
+
+        val available = stateOf(character).available
+
+        SkillTreeAllocation.requireAllocatable(
+            nodes = skillTreeCache.getCache(),
+            node = node,
+            taken = character.skillNodes,
+            startNodeCode = requireClass(character).startNodeCode,
+            available = available
+        )
+
+        character.skillNodes.add(node.code)
+        transactionExecute("allocateSkillNode $nodeCode") { session -> update(character, session) }
+
+        return stateOf(character)
+    }
+
+    /**
+     * Откатывает узел и возвращает очки.
+     *
+     * Стартовый узел откатывается только полным сбросом: без него дерево
+     * теряет корень.
+     *
+     * @throws SkillTreeExceptions.SkillTreeException если узел откатить нельзя
+     */
+    suspend fun refundSkillNode(characterId: String, nodeCode: String): CharacterSkillTreeState {
+        val character = requireCharacter(characterId, "refundSkillNode")
+        val node = requireNode(nodeCode, "refundSkillNode")
+
+        SkillTreeAllocation.requireRefundable(skillTreeCache.getCache(), node, character.skillNodes)
+
+        character.skillNodes.remove(node.code)
+        transactionExecute("refundSkillNode $nodeCode") { session -> update(character, session) }
+
+        return stateOf(character)
+    }
+
+    /**
+     * Полный сброс дерева: все очки возвращаются, персонаж остаётся на
+     * стартовом узле своего класса - как после респека в POE.
+     */
+    suspend fun resetSkillTree(characterId: String): CharacterSkillTreeState {
+        val character = requireCharacter(characterId, "resetSkillTree")
+
+        character.skillNodes = mutableListOf(requireClass(character).startNodeCode)
+        transactionExecute("resetSkillTree") { session -> update(character, session) }
+
+        return stateOf(character)
+    }
+
+    /**
+     * Выдаёт стартовый узел класса тем персонажам, у которых дерево пустое.
+     *
+     * Новым узел ставится при создании, этот шаг чинит созданных раньше и тех,
+     * у кого узлы вычистила перебалансировка дерева.
+     *
+     * @return сколько персонажей получили стартовый узел
+     */
+    suspend fun ensureStartNodes(session: ClientSession): Int {
+        val orphans = findAll(session).filter { it.skillNodes.isEmpty() }
+
+        orphans.forEach { character ->
+            character.skillNodes.add(requireClass(character).startNodeCode)
+            update(character, session)
+        }
+
+        return orphans.size
+    }
+
+    /**
+     * Убирает у всех персонажей узлы, которых в дереве больше нет.
+     *
+     * Очки за них возвращаются сами: они считаются от уровня персонажа,
+     * а не хранятся отдельно.
+     *
+     * @param nodeCodes коды всех существующих узлов дерева
+     * @return сколько персонажей потеряли хотя бы один узел
+     */
+    suspend fun pruneMissingSkillNodes(nodeCodes: Collection<String>, session: ClientSession): Long {
+        if (nodeCodes.isEmpty()) return 0
+
+        // $pull по каждому элементу массива: modifiedCount посчитает
+        // только тех персонажей, у кого действительно что-то убралось
+        val pull = Document("\$pull", Document("skillNodes", Document("\$nin", nodeCodes.toList())))
+
+        return collection.updateMany(session, Filters.empty(), pull).modifiedCount
+    }
+
+    private fun stateOf(character: Character): CharacterSkillTreeState {
+        val total = skillPointsTotal(character)
+        val spent = SkillTreeAllocation.spent(skillTreeCache.getCache(), character.skillNodes)
+
+        return CharacterSkillTreeState(
+            characterId = character._id,
+            total = total,
+            spent = spent,
+            available = total - spent,
+            nodes = skillTreeCache.findAllByCode(character.skillNodes)
+        )
+    }
+
+    private suspend fun requireCharacter(characterId: String, method: String): Character =
+        findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
+
+    private fun requireNode(nodeCode: String, method: String): SkillTreeNode =
+        skillTreeCache.findByCode(nodeCode)
+            ?: throw SkillTreeExceptions.funExceptionNodeNotFound(method, nodeCode)
+
     /**
      * Начисляет опыт и поднимает уровень, если пройден очередной порог.
      *
@@ -157,8 +285,7 @@ class CharacterRepository : BaseRepository<Character>(
      * вложенные очки дерева.
      */
     suspend fun addExperience(characterId: String, amount: Double): Character {
-        val character = findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("addExperience", characterId)
+        val character = requireCharacter(characterId, "addExperience")
         if (amount < 0) throw CharacterExceptions.funExceptionExperience("addExperience", amount.toString())
         if (experienceLevelCache.isEmpty()) throw ProgressionExceptions.funExceptionNoLevels("addExperience")
 

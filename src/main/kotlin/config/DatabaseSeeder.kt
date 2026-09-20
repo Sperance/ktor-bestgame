@@ -25,7 +25,6 @@ import features.caches.RecipeCache
 import features.caches.SkillTreeCache
 import features.data.blockList.BlockListRepository
 import features.data.inventory.CharacterEquipmentRepository
-import features.data.skilltree.CharacterSkillNodeRepository
 import features.data.recipe.RecipeRepository
 import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
@@ -63,7 +62,6 @@ object DatabaseSeeder : KoinComponent {
     private val itemsCache: ItemsCache by inject()
     private val skillTreeCache: SkillTreeCache by inject()
     private val skillTreeNodeRepository: SkillTreeNodeRepository by inject()
-    private val characterSkillNodeRepository: CharacterSkillNodeRepository by inject()
     private val characterClassRepository: CharacterClassRepository by inject()
     private val experienceLevelRepository: ExperienceLevelRepository by inject()
     private val characterClassCache: CharacterClassCache by inject()
@@ -126,7 +124,6 @@ object DatabaseSeeder : KoinComponent {
             modifierDefinitionRepository,
             modifierTierRepository,
             skillTreeNodeRepository,
-            characterSkillNodeRepository,
             characterClassRepository,
             experienceLevelRepository
         )
@@ -306,7 +303,7 @@ object DatabaseSeeder : KoinComponent {
      * а этот шаг чинит уже существующих.
      */
     private suspend fun seedStartNodes(session: ClientSession) {
-        val created = characterSkillNodeRepository.ensureStartNodes(characterRepository.findAll(session), session)
+        val created = characterRepository.ensureStartNodes(session)
         if (created > 0) printLog("  → $created characters got their class start node")
     }
 
@@ -419,9 +416,9 @@ object DatabaseSeeder : KoinComponent {
     /**
      * Дерево навыков. Пересевается на каждом старте, _id узлов стабильны.
      *
-     * Взятые персонажами узлы при этом не трогаются: бонусы они хранят
-     * снимком, поэтому перебалансировка дерева задевает только новых
-     * персонажей. Удаляются лишь ссылки на узлы, которых в дереве не осталось.
+     * Персонажи хранят только коды взятых узлов, поэтому перебалансировка
+     * доезжает до всех сразу - как в POE, где значения пассивок не бывают
+     * легаси. Чистятся лишь ссылки на узлы, которых в дереве не осталось.
      */
     private suspend fun seedSkillTree(session: ClientSession, definitions: List<ModifierDefinition>) {
         printLog("Seeding skill tree...")
@@ -432,8 +429,8 @@ object DatabaseSeeder : KoinComponent {
         skillTreeNodeRepository.insertMany(listItems, session)
         skillTreeCache.initializeCache(session)
 
-        val dropped = characterSkillNodeRepository.deleteByMissingNode(listItems.map { it.code }, session)
-        if (dropped > 0) printLog("  → $dropped taken nodes removed: no longer in the tree")
+        val touched = characterRepository.pruneMissingSkillNodes(listItems.map { it.code }, session)
+        if (touched > 0) printLog("  → $touched characters lost nodes that are no longer in the tree")
 
         printLog("  → ${listItems.size} skill tree nodes created")
     }

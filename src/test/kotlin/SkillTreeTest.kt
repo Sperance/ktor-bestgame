@@ -6,8 +6,11 @@ import config.SkillTreeSeeder
 import config.UniqueEquipmentSeeder
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierMath
+import base.exception.model.SkillTreeExceptions
+import features.logic.skilltree.SkillTreeAllocation
 import features.logic.skilltree.SkillTreeGraph
 import features.logic.skilltree.SkillTreeNode
+import org.junit.Assert.assertThrows
 import org.junit.Test
 
 /**
@@ -218,6 +221,80 @@ class SkillTreeTest {
         val points = ProgressionSeeder.seedLevels().sumOf { it.skillPoints }
 
         assert(total > points) { "the whole tree costs $total and a character gets $points: there is nothing to choose" }
+    }
+
+    // ==================== Правила прокачки ====================
+
+    private fun allocate(code: String, taken: List<String>, start: String = "STR_START", available: Int = 10) =
+        SkillTreeAllocation.requireAllocatable(tree, byCode.getValue(code), taken, start, available)
+
+    private fun refund(code: String, taken: List<String>) =
+        SkillTreeAllocation.requireRefundable(tree, byCode.getValue(code), taken)
+
+    @Test
+    fun a_neighbour_of_a_taken_node_can_be_taken() {
+        allocate("STR_MIGHT_1", listOf("STR_START"))
+        allocate("STR_MIGHT_2", listOf("STR_START", "STR_MIGHT_1"))
+    }
+
+    @Test
+    fun a_node_away_from_the_taken_ones_cannot_be_taken() {
+        assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
+            allocate("STR_MIGHT_3", listOf("STR_START"))
+        }
+    }
+
+    @Test
+    fun a_node_already_taken_cannot_be_taken_twice() {
+        assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
+            allocate("STR_MIGHT_1", listOf("STR_START", "STR_MIGHT_1"))
+        }
+    }
+
+    @Test
+    fun a_node_cannot_be_taken_without_points() {
+        assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
+            allocate("STR_MIGHT_1", listOf("STR_START"), available = 0)
+        }
+    }
+
+    @Test
+    fun a_character_cannot_start_from_a_foreign_class() {
+        assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
+            allocate("DEX_START", taken = emptyList())
+        }
+    }
+
+    @Test
+    fun a_second_start_node_cannot_be_taken() {
+        // Стартовый узел уже есть с момента создания персонажа
+        assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
+            allocate("DEX_START", listOf("STR_START"))
+        }
+    }
+
+    @Test
+    fun a_leaf_is_refunded_and_a_middle_node_is_not() {
+        val taken = listOf("STR_START", "STR_MIGHT_1", "STR_MIGHT_2")
+
+        refund("STR_MIGHT_2", taken)
+        assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
+            refund("STR_MIGHT_1", taken)
+        }
+    }
+
+    @Test
+    fun the_start_node_is_refunded_only_by_a_full_reset() {
+        assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
+            refund("STR_START", listOf("STR_START", "STR_MIGHT_1"))
+        }
+    }
+
+    @Test
+    fun spending_counts_only_nodes_that_are_still_in_the_tree() {
+        // Стартовый узел бесплатен, малый стоит очко, пропавший из дерева - ничего
+        val spent = SkillTreeAllocation.spent(tree, listOf("STR_START", "STR_MIGHT_1", "GONE_FROM_THE_TREE"))
+        assert(spent == 1) { "got $spent" }
     }
 
     private fun ringCodes(): Set<String> = tree.filter { it.code.startsWith("RING_") }.map { it.code }.toSet()

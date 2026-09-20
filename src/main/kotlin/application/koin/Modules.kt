@@ -20,8 +20,6 @@ import features.data.equipment.EquipmentRoute
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.inventory.CharacterEquipmentRoute
 import features.data.items.ItemsRepository
-import features.data.skilltree.CharacterSkillNodeRepository
-import features.data.skilltree.CharacterSkillNodeRoute
 import features.data.items.ItemsRoute
 import features.data.recipe.RecipeRepository
 import features.data.recipe.RecipeRoute
@@ -53,7 +51,6 @@ val repositoryModule = module {
     single { ModifierDefinitionRepository() }
     single { ModifierTierRepository() }
     single { SkillTreeNodeRepository() }
-    single { CharacterSkillNodeRepository() }
     single { CharacterClassRepository() }
     single { ExperienceLevelRepository() }
 }
@@ -87,7 +84,6 @@ val routeModule = module {
                 ModifierDefinitionRoute(get()),
                 ModifierTierRoute(get()),
                 SkillTreeNodeRoute(get()),
-                CharacterSkillNodeRoute(get()),
                 CharacterClassRoute(get()),
                 ExperienceLevelRoute(get()),
             )

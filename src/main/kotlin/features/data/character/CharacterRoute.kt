@@ -59,5 +59,30 @@ class CharacterRoute(
                 call.respond(ApiMongoResponse.ok(data))
             }
         }
+
+        route("/skilltree") {
+            get("/state") {
+                val characterId = call.queryParam("characterId")
+                val data = repo.skillTreeState(characterId)
+                call.respond(ApiMongoResponse.ok(data))
+            }
+            post("/allocate") {
+                val characterId = call.queryParam("characterId")
+                val nodeCode = call.queryParam("nodeCode")
+                val data = repo.allocateSkillNode(characterId, nodeCode)
+                call.respond(ApiMongoResponse.ok(data))
+            }
+            post("/refund") {
+                val characterId = call.queryParam("characterId")
+                val nodeCode = call.queryParam("nodeCode")
+                val data = repo.refundSkillNode(characterId, nodeCode)
+                call.respond(ApiMongoResponse.ok(data))
+            }
+            post("/reset") {
+                val characterId = call.queryParam("characterId")
+                val data = repo.resetSkillTree(characterId)
+                call.respond(ApiMongoResponse.ok(data))
+            }
+        }
     }
 }
