@@ -61,7 +61,8 @@ class CharacterRepository : BaseRepository<Character>(
         if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
         if (characterClassCache.findById(entity.classId) == null)
             throw ProgressionExceptions.funExceptionClassNotFound("validateBeforeInsert", entity.classId)
-        if (findByField(Character::name, entity.name) != null) throw CharacterExceptions.funExceptionNameDuplicate("validateBeforeInsert", entity.name)
+        // Имя уникально в индексе, поэтому занятым считается и имя мягко удалённого персонажа
+        if (findByField(Character::name, entity.name, includeDeleted = true) != null) throw CharacterExceptions.funExceptionNameDuplicate("validateBeforeInsert", entity.name)
         val findedUser = userRepository.findByField(User::_id, entity.userId, session)
         if (findedUser == null) throw CharacterExceptions.funExceptionUserNotFound("validateBeforeInsert", entity.userId)
         if (findedUser.countCharacters >= CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateBeforeInsert")

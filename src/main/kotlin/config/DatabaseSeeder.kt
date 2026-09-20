@@ -173,7 +173,9 @@ object DatabaseSeeder : KoinComponent {
     // ==================== Users ====================
 
     private suspend fun seedUsers(session: ClientSession) {
-        if (userRepository.count() > 0) return
+        // Считаем и мягко удалённых: их логины и почты остались занятыми,
+        // пересев упёрся бы в уникальный индекс
+        if (userRepository.count(includeDeleted = true) > 0) return
 
         printLog("Seeding users...")
 
@@ -262,7 +264,8 @@ object DatabaseSeeder : KoinComponent {
     // ==================== Characters ====================
 
     private suspend fun seedCharacters(session: ClientSession) {
-        if (characterRepository.count() > 0) return
+        // Считаем и мягко удалённых: их имена остались занятыми в уникальном индексе
+        if (characterRepository.count(includeDeleted = true) > 0) return
 
         printLog("Seeding characters...")
         val userRepoAll = userRepository.findAll(session)

@@ -31,7 +31,6 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
 import org.bson.conversions.Bson
-import org.bson.types.ObjectId
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty1
@@ -93,6 +92,24 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * Например, для класса UserMongo будет создана коллекция "UserMongo".
      */
     var collection: MongoCollection<T> = MongoFactory.getDatabase().getCollection(collectionName, entityClass.java)
+
+    // ==================== МЯГКОЕ УДАЛЕНИЕ ====================
+
+    /**
+     * Фильтр обычного чтения, см. [SoftDelete.readFilter].
+     *
+     * Через него идут все выборки репозитория, поэтому мягко удалённый
+     * документ не виден нигде: ни в поиске, ни в счётчиках, ни на страницах.
+     * Достать его можно только явно, попросив includeDeleted.
+     *
+     * Нужен и наследникам: репозиторий, который лезет в [collection] напрямую,
+     * обязан применить его сам, иначе мягкое удаление для него не работает.
+     *
+     * @param filter Собственный фильтр запроса, null - без фильтра
+     * @param includeDeleted true - вернуть и мягко удалённые документы
+     */
+    protected fun readFilter(filter: Bson? = null, includeDeleted: Boolean = false): Bson =
+        SoftDelete.readFilter(filter, includeDeleted)
 
     // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
@@ -322,8 +339,16 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
 
     // ==================== READ ОПЕРАЦИИ ====================
 
+    /*
+     * Все чтения ниже скрывают мягко удалённые документы: они идут через
+     * readFilter и потому не попадают ни в выборки, ни в счётчики, ни на
+     * страницы. У каждого метода есть параметр includeDeleted - он и есть
+     * единственный способ достать удалённое, например для восстановления
+     * или для проверки занятости уникального поля.
+     */
+
     /**
-     * Поиск документа по ObjectId.
+     * Поиск документа по ID.
      *
      * Использует readConcern LOCAL:
      * - Быстрое чтение с любого узла реплика-сета
@@ -333,12 +358,12 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * @param id ID документа
      * @return Найденный документ или null, если не найден
      */
-    suspend fun findById(id: String): T? {
-        return collection.find(Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
+    suspend fun findById(id: String, includeDeleted: Boolean = false): T? {
+        return collection.find(readFilter(Filters.eq(CONST_FIELD_ID, id), includeDeleted)).firstOrNull()
     }
 
-    suspend fun findById(id: String, session: ClientSession): T? {
-        return collection.find(session, Filters.eq(CONST_FIELD_ID, id)).firstOrNull()
+    suspend fun findById(id: String, session: ClientSession, includeDeleted: Boolean = false): T? {
+        return collection.find(session, readFilter(Filters.eq(CONST_FIELD_ID, id), includeDeleted)).firstOrNull()
     }
 
     /**
@@ -355,10 +380,10 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * @param id ID документа
      * @return Найденный документ или null, если не найден
      */
-    suspend fun findByIdForUpdate(id: ObjectId): T? {
+    suspend fun findByIdForUpdate(id: String, includeDeleted: Boolean = false): T? {
         return collection
             .withReadConcern(ReadConcern.MAJORITY)
-            .find(Filters.eq(CONST_FIELD_ID, id))
+            .find(readFilter(Filters.eq(CONST_FIELD_ID, id), includeDeleted))
             .firstOrNull()
     }
 
@@ -370,12 +395,12 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * 
      * @return Список всех документов (пустой список, если документов нет)
      */
-    suspend fun findAll(): List<T> {
-        return collection.find().toList()
+    suspend fun findAll(includeDeleted: Boolean = false): List<T> {
+        return collection.find(readFilter(includeDeleted = includeDeleted)).toList()
     }
 
-    suspend fun findAll(session: ClientSession): List<T> {
-        return collection.find(session).toList()
+    suspend fun findAll(session: ClientSession, includeDeleted: Boolean = false): List<T> {
+        return collection.find(session, readFilter(includeDeleted = includeDeleted)).toList()
     }
 
     /**
@@ -398,8 +423,8 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * val nextTen = repo.findLimited(skip = 10, limit = 10)   // документы 10-19
      * ```
      */
-    suspend fun findLimited(skip: Int, limit: Int): List<T> {
-        return collection.find()
+    suspend fun findLimited(skip: Int, limit: Int, includeDeleted: Boolean = false): List<T> {
+        return collection.find(readFilter(includeDeleted = includeDeleted))
             // Отрицательный offset драйвер не принимает
             .skip(skip.coerceAtLeast(0))
             .limit(limit)
@@ -436,8 +461,8 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * repo.findByFilterFlow(filter).toList()
      * ```
      */
-    fun findByFilterFlow(filter: Bson): Flow<T> {
-        return collection.find(filter)
+    fun findByFilterFlow(filter: Bson, includeDeleted: Boolean = false): Flow<T> {
+        return collection.find(readFilter(filter, includeDeleted))
     }
 
     /**
@@ -457,12 +482,17 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * }
      * ```
      */
-    suspend fun <S> findByField(field: KProperty1<T, S>, value: S): T? {
-        return collection.find(Filters.eq(field.name, value)).firstOrNull()
+    suspend fun <S> findByField(field: KProperty1<T, S>, value: S, includeDeleted: Boolean = false): T? {
+        return collection.find(readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()
     }
 
-    suspend fun <S> findByField(field: KProperty1<T, S>, value: S, session: ClientSession): T? {
-        return collection.find(session, Filters.eq(field.name, value)).firstOrNull()
+    suspend fun <S> findByField(
+        field: KProperty1<T, S>,
+        value: S,
+        session: ClientSession,
+        includeDeleted: Boolean = false
+    ): T? {
+        return collection.find(session, readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()
     }
 
     /**
@@ -480,8 +510,12 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * println("Найдено ${adults.size} пользователей возрастом 25")
      * ```
      */
-    suspend fun <S> findByFieldList(field: KMutableProperty1<T, S>, value: S): List<T> {
-        return collection.find(Filters.eq(field.name, value)).toList()
+    suspend fun <S> findByFieldList(
+        field: KMutableProperty1<T, S>,
+        value: S,
+        includeDeleted: Boolean = false
+    ): List<T> {
+        return collection.find(readFilter(Filters.eq(field.name, value), includeDeleted)).toList()
     }
 
     /**
@@ -492,8 +526,8 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * @param filter DSL-фильтр MongoDB
      * @return Список найденных документов
      */
-    suspend fun findByFilter(filter: Bson): List<T> {
-        return collection.find(filter).toList()
+    suspend fun findByFilter(filter: Bson, includeDeleted: Boolean = false): List<T> {
+        return collection.find(readFilter(filter, includeDeleted)).toList()
     }
 
     /**
@@ -824,7 +858,9 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
     suspend fun softDelete(id: String, session: ClientSession): UpdateResult {
         printLog("[SOFT_DELETE::$collectionName] id: $id")
 
-        val findedObj = findById(id)
+        // Ищем и среди уже удалённых: иначе повторный вызов соврал бы,
+        // что документа не существует
+        val findedObj = findById(id, includeDeleted = true)
         if (findedObj == null) {
             throw BaseRepositoryExceptions.funExceptionFindId("softDelete", id)
         }
@@ -958,23 +994,13 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
 
     /**
      * Проверка существования документа по ID.
-     * 
+     *
      * @param id ID документа
-     * @param withDeleted Если true, ищет даже среди удалённых документов (deleted = true)
+     * @param includeDeleted true - считать существующим и мягко удалённый документ
      * @return true, если документ существует, false иначе
      */
-    suspend fun exists(id: String, withDeleted: Boolean = false): Boolean {
-        return try {
-            val objectId = ObjectId(id)
-            val filter = Filters.and(
-                Filters.eq("_id", objectId),
-                Filters.eq("deleted", withDeleted)
-            )
-
-            collection.find(filter).firstOrNull() != null
-        } catch (e: Exception) {
-            throw BaseRepositoryExceptions.funException("exists", e.message)
-        }
+    suspend fun exists(id: String, includeDeleted: Boolean = false): Boolean {
+        return findById(id, includeDeleted) != null
     }
 
     /**
@@ -989,12 +1015,16 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * val adults = repo.count { UserMongo::age gt 18 } // только взрослые
      * ```
      */
-    suspend fun count(filter: Bson = Filters.empty()): Long {
-        return collection.countDocuments(filter)
+    suspend fun count(filter: Bson = Filters.empty(), includeDeleted: Boolean = false): Long {
+        return collection.countDocuments(readFilter(filter, includeDeleted))
     }
 
-    suspend fun count(session: ClientSession, filter: Bson = Filters.empty()): Long {
-        return collection.countDocuments(session, filter)
+    suspend fun count(
+        session: ClientSession,
+        filter: Bson = Filters.empty(),
+        includeDeleted: Boolean = false
+    ): Long {
+        return collection.countDocuments(session, readFilter(filter, includeDeleted))
     }
 
     /**
@@ -1024,17 +1054,19 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
         filter: Bson,
         page: Int,
         pageSize: Int = CONST_PAGE_SIZE_DEFAULT,
-        sort: Bson = Sorts.ascending(CONST_FIELD_ID)
+        sort: Bson = Sorts.ascending(CONST_FIELD_ID),
+        includeDeleted: Boolean = false
     ): PagedMongoResponse<T> {
         val request = PageRequest.of(page, pageSize)
+        val query = readFilter(filter, includeDeleted)
 
-        val items = collection.find(filter)
+        val items = collection.find(query)
             .sort(sort)
             .skip(request.skip)
             .limit(request.size)
             .toList()
 
-        val totalItems = count(filter)
+        val totalItems = collection.countDocuments(query)
 
         return PagedMongoResponse(
             items = items,
@@ -1051,8 +1083,12 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * @param page Номер страницы, начиная с нуля
      * @param pageSize Размер страницы, не больше [CONST_PAGE_SIZE_MAX]
      */
-    suspend fun findPaged(page: Int, pageSize: Int = CONST_PAGE_SIZE_DEFAULT): PagedMongoResponse<T> =
-        findPaged(Filters.empty(), page, pageSize)
+    suspend fun findPaged(
+        page: Int,
+        pageSize: Int = CONST_PAGE_SIZE_DEFAULT,
+        includeDeleted: Boolean = false
+    ): PagedMongoResponse<T> =
+        findPaged(Filters.empty(), page, pageSize, includeDeleted = includeDeleted)
 
     // ==================== ПРИВАТНЫЕ МЕТОДЫ ====================
 

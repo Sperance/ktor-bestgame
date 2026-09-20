@@ -38,8 +38,10 @@ class UserRepository : BaseRepository<User>(
         if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
         if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert", entity.password)
         if (entity.salt != "") throw UserExceptions.funExceptionSalt("validateBeforeInsert")
-        if (findByLogin(entity.login) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)
-        if (findByEmail(entity.email) != null) throw UserExceptions.funExceptionEmailExists("validateBeforeInsert", entity.email)
+        // Уникальность проверяется и по мягко удалённым: их документы никуда
+        // не делись, и уникальный индекс всё равно не даст занять логин или почту
+        if (findByLogin(entity.login, includeDeleted = true) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)
+        if (findByEmail(entity.email, includeDeleted = true) != null) throw UserExceptions.funExceptionEmailExists("validateBeforeInsert", entity.email)
 
         checkPassword(entity.password)
         generatePassword(entity)
@@ -77,7 +79,9 @@ class UserRepository : BaseRepository<User>(
     }
 
     override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
-        val characters = characterRepository.findByFieldList(Character::userId, entity._id)
+        // Включая мягко удалённых: при жёстком удалении пользователя
+        // его персонажи не должны пережить его в базе
+        val characters = characterRepository.findByFieldList(Character::userId, entity._id, includeDeleted = true)
         characters.forEach { char ->
             if (softDelete) {
                 characterRepository.softDelete(char, session)
@@ -100,8 +104,11 @@ class UserRepository : BaseRepository<User>(
         if (password.contains(" ")) throw UserExceptions.funExceptionPasswordWhitespace("checkPassword")
     }
 
-    suspend fun findByEmail(email: String): User? {
-        return findByField(User::email, email)
+    /**
+     * @param includeDeleted true - найдётся и мягко удалённый пользователь
+     */
+    suspend fun findByEmail(email: String, includeDeleted: Boolean = false): User? {
+        return findByField(User::email, email, includeDeleted)
     }
 
     suspend fun searchByName(name: String): List<User> {
@@ -112,8 +119,11 @@ class UserRepository : BaseRepository<User>(
         return findByFieldList(User::isActive, true)
     }
 
-    suspend fun findByLogin(login: String): User? {
-        return findByField(User::login, login)
+    /**
+     * @param includeDeleted true - найдётся и мягко удалённый пользователь
+     */
+    suspend fun findByLogin(login: String, includeDeleted: Boolean = false): User? {
+        return findByField(User::login, login, includeDeleted)
     }
 
     suspend fun createByDevice(deviceId: String): User {
