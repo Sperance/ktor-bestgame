@@ -75,6 +75,14 @@ object ProgressionSeeder {
         val intelligence: Double,
     )
 
+    /**
+     * Семь классов Path of Exile с их настоящими базовыми атрибутами.
+     *
+     * Числа взяты из RePoE (`characters.min.json`, поле `base_stats`) - это
+     * распакованные данные самой игры. Три чистых класса получают 32 единицы
+     * своего атрибута и по 14 остальных, три гибридных - по 23 своих и 14
+     * третьего, Скион как универсал имеет ровно по 20 каждого.
+     */
     private val templates = listOf(
         ClassTemplate(
             code = "MARAUDER",
@@ -97,18 +105,49 @@ object ProgressionSeeder {
             description = "Интеллект: мана, энергощит и заклинания",
             strength = 14.0, dexterity = 14.0, intelligence = 32.0
         ),
+        ClassTemplate(
+            code = "DUELIST",
+            name = "Duelist",
+            startNodeCode = "STR_DEX_START",
+            description = "Сила и ловкость: ближний бой, блок и скорость атаки",
+            strength = 23.0, dexterity = 23.0, intelligence = 14.0
+        ),
+        ClassTemplate(
+            code = "TEMPLAR",
+            name = "Templar",
+            startNodeCode = "STR_INT_START",
+            description = "Сила и интеллект: броня, энергощит и стихии",
+            strength = 23.0, dexterity = 14.0, intelligence = 23.0
+        ),
+        ClassTemplate(
+            code = "SHADOW",
+            name = "Shadow",
+            startNodeCode = "DEX_INT_START",
+            description = "Ловкость и интеллект: криты, уклонение и хаос",
+            strength = 14.0, dexterity = 23.0, intelligence = 23.0
+        ),
+        ClassTemplate(
+            code = "SCION",
+            name = "Scion",
+            startNodeCode = "SCION_START",
+            description = "Универсал: ровно по двадцать каждого атрибута и выход в любую ветку дерева",
+            strength = 20.0, dexterity = 20.0, intelligence = 20.0
+        ),
     )
 
     /**
      * База, одинаковая для всех классов на первом уровне.
+     *
+     * Здоровье и мана в POE от класса не зависят, различия дают только
+     * атрибуты и их конверсии. Значения из RePoE: life 38, mana 34.
      */
     private val sharedBase = listOf(
-        STOCK_HEALTH to 50.0,
-        STOCK_MANA to 40.0,
+        STOCK_HEALTH to 38.0,
+        STOCK_MANA to 34.0,
     )
 
     /**
-     * Прирост базы за каждый уровень после первого.
+     * Прирост базы за каждый уровень после первого - как в POE.
      */
     private val sharedGrowth = listOf(
         STOCK_HEALTH to 12.0,

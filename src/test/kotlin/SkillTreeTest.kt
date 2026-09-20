@@ -1,6 +1,7 @@
 import application.enums.EnumModifierOperation
 import application.enums.EnumSkillNodeType
 import config.ModifierSeeder
+import config.ProgressionSeeder
 import config.SkillTreeSeeder
 import config.UniqueEquipmentSeeder
 import features.logic.modifiers.ModifierDefinition
@@ -81,6 +82,12 @@ class SkillTreeTest {
         }
     }
 
+    @Test
+    fun nodes_do_not_stand_on_top_of_each_other() {
+        val places = tree.groupBy { it.positionX to it.positionY }.filterValues { it.size > 1 }
+        assert(places.isEmpty()) { "Nodes share a position: ${places.values.map { group -> group.map { it.code } }}" }
+    }
+
     // ==================== Граф ====================
 
     @Test
@@ -151,12 +158,91 @@ class SkillTreeTest {
     }
 
     @Test
-    fun the_three_starts_are_linked_through_the_ring() {
-        val ring = listOf(
-            "STR_START", "RING_STR_DEX", "KEYSTONE_IRON_REFLEXES", "DEX_START",
-            "RING_DEX_INT", "INT_START", "RING_INT_STR"
+    fun every_class_has_its_own_start_node() {
+        val starts = tree.filter { it.type == EnumSkillNodeType.START }
+        val expected = ProgressionSeeder.seedClasses(definitions).map { it.startNodeCode }.toSet()
+
+        assert(starts.size == 7) { "expected seven starts, got ${starts.map { it.code }}" }
+        assert(starts.map { it.code }.toSet() == expected) {
+            "tree starts ${starts.map { it.code }} do not match class starts $expected"
+        }
+    }
+
+    @Test
+    fun the_ring_links_every_class_area() {
+        val ring = tree.filter { it.code.startsWith("RING_") }.map { it.code }
+        assert(ring.size == 6) { "expected six ring nodes, got $ring" }
+
+        // Шесть областей стоят по кругу и держатся за кольцо напрямую
+        val outer = tree
+            .filter { it.type == EnumSkillNodeType.START && it.code != "SCION_START" }
+            .map { it.code }
+        assert(outer.size == 6) { "expected six outer starts, got $outer" }
+        assert(SkillTreeGraph.isConnected(tree, ring + outer)) { "the ring does not link the class areas" }
+
+        // Скион стоит в центре круга и выходит на кольцо своей веткой
+        val scionPath = listOf(
+            "SCION_START", "SCION_HUNTER_1", "SCION_HUNTER_2", "SCION_HUNTER_NOTABLE", "RING_DEX_INT_DEX"
         )
-        assert(SkillTreeGraph.isConnected(tree, ring)) { "The ring does not link the three starts" }
+        assert(SkillTreeGraph.isConnected(tree, scionPath)) { "the Scion cannot reach the ring" }
+    }
+
+    @Test
+    fun a_class_cannot_walk_into_a_foreign_area_without_the_ring() {
+        // Единственный путь в чужую область - через кольцо: стартовый узел
+        // другого класса взять нельзя. Закрываем кольцо и проверяем,
+        // что область Мародёра замыкается на себе
+        val reachable = reachableFrom("STR_START", blocked = ringCodes())
+
+        assert("STR_MIGHT_NOTABLE" in reachable) { "the Marauder cannot reach its own notable" }
+        assert("DEX_SWIFT_1" !in reachable) { "the Marauder reached the Ranger area without the ring" }
+    }
+
+    @Test
+    fun the_scion_reaches_every_class_area_from_the_centre() {
+        // Скион стоит в центре: через кольцо ему должны быть доступны
+        // ветки всех шести областей, кроме их стартовых узлов
+        val reachable = reachableFrom("SCION_START")
+
+        listOf(
+            "STR_MIGHT_1", "DEX_SWIFT_1", "INT_ARCANE_1",
+            "STR_DEX_ARENA_1", "STR_INT_DEVOTION_1", "DEX_INT_TRICKERY_1"
+        ).forEach { code ->
+            assert(code in reachable) { "the Scion cannot reach $code" }
+        }
+    }
+
+    @Test
+    fun the_tree_costs_more_than_a_character_can_ever_spend() {
+        val total = tree.sumOf { it.cost }
+        val points = ProgressionSeeder.seedLevels().sumOf { it.skillPoints }
+
+        assert(total > points) { "the whole tree costs $total and a character gets $points: there is nothing to choose" }
+    }
+
+    private fun ringCodes(): Set<String> = tree.filter { it.code.startsWith("RING_") }.map { it.code }.toSet()
+
+    /**
+     * Куда персонаж может дойти от своего старта.
+     *
+     * Чужие стартовые узлы непроходимы: взять их нельзя, а значит и пройти
+     * сквозь них тоже. Через [blocked] закрываются и другие узлы.
+     */
+    private fun reachableFrom(start: String, blocked: Set<String> = emptySet()): Set<String> {
+        val closed = blocked + tree
+            .filter { it.type == EnumSkillNodeType.START && it.code != start }
+            .map { it.code }
+
+        val seen = mutableSetOf(start)
+        val queue = ArrayDeque(listOf(start))
+
+        while (queue.isNotEmpty()) {
+            SkillTreeGraph.neighbours(tree, queue.removeFirst())
+                .filter { it !in closed && seen.add(it) }
+                .forEach { queue.addLast(it) }
+        }
+
+        return seen
     }
 }
 

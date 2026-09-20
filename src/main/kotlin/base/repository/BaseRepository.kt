@@ -496,6 +496,19 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
     }
 
     /**
+     * Поиск документов по произвольному фильтру внутри открытой транзакции.
+     *
+     * Видит записи, сделанные в той же сессии, - в отличие от версии без сессии.
+     *
+     * @param session Сессия MongoDB
+     * @param filter DSL-фильтр MongoDB
+     * @return Список найденных документов
+     */
+    suspend fun findByFilter(session: ClientSession, filter: Bson): List<T> {
+        return collection.find(session, filter).toList()
+    }
+
+    /**
      * Отслеживание всех изменений в коллекции (Change Stream).
      * 
      * Возвращает Flow ChangeStreamDocument, который генерирует события:

@@ -93,6 +93,7 @@ object DatabaseSeeder : KoinComponent {
 
             seedUsers(session)
             seedCharacters(session)
+            seedStartNodes(session)
             seedItems(session)
             seedCurrency(session)
             seedRedemptionCodes(session)
@@ -296,6 +297,17 @@ object DatabaseSeeder : KoinComponent {
         characterRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} characters created")
+    }
+
+    /**
+     * Стартовые узлы дерева персонажам, созданным до автовыдачи.
+     *
+     * Новым персонажам узел выдаётся прямо в транзакции создания,
+     * а этот шаг чинит уже существующих.
+     */
+    private suspend fun seedStartNodes(session: ClientSession) {
+        val created = characterSkillNodeRepository.ensureStartNodes(characterRepository.findAll(session), session)
+        if (created > 0) printLog("  → $created characters got their class start node")
     }
 
     // ==================== Items ====================

@@ -66,6 +66,10 @@ class CharacterRepository : BaseRepository<Character>(
         findedUser.countCharacters++
         if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert")
         userRepository.update(findedUser, session)
+
+        // Стартовый узел дерева выдаётся сразу: в POE класс приходит в дерево
+        // со своей точки входа, она бесплатна и отдельного выбора не требует
+        characterSkillNodeRepository.allocateStart(entity, requireClass(entity), session)
     }
 
     override suspend fun validateAfterDelete(entity: Character, session: ClientSession, softDelete: Boolean) {

@@ -25,6 +25,7 @@ import application.enums.EnumStatStock.STOCK_AURA_EFFECT
 import application.enums.EnumStatStock.STOCK_BLOCK_CHANCE
 import application.enums.EnumStatStock.STOCK_CAST_SPEED
 import application.enums.EnumStatStock.STOCK_CRITICAL_CHANCE
+import application.enums.EnumStatStock.STOCK_CRITICAL_DAMAGE
 import application.enums.EnumStatStock.STOCK_CRITICAL_MULTIPLIER
 import application.enums.EnumStatStock.STOCK_ENERGY_SHIELD
 import application.enums.EnumStatStock.STOCK_EVASION
@@ -849,6 +850,93 @@ object ModifierSeeder {
             source = PASSIVE,
             tags = listOf("defences", "passive"),
             effects = listOf(effect(STOCK_STUN_THRESHOLD, MORE, best = 100.0..100.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+
+        // ---------- PASSIVE: проценты, которые бывают только на дереве ----------
+        // На предметах таких модификаторов в POE нет, поэтому источник PASSIVE:
+        // в пулы роллов они не попадают.
+        ModifierTemplate(
+            code = "INCREASED_MAXIMUM_LIFE",
+            name = "#% increased maximum Life",
+            source = PASSIVE,
+            tags = listOf("life", "passive"),
+            effects = listOf(effect(STOCK_HEALTH, INCREASED, best = 10.0..10.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "INCREASED_MAXIMUM_MANA",
+            name = "#% increased maximum Mana",
+            source = PASSIVE,
+            tags = listOf("mana", "passive"),
+            effects = listOf(effect(STOCK_MANA, INCREASED, best = 16.0..16.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "INCREASED_STUN_THRESHOLD",
+            name = "#% increased Stun Threshold",
+            source = PASSIVE,
+            tags = listOf("defences", "passive"),
+            effects = listOf(effect(STOCK_STUN_THRESHOLD, INCREASED, best = 20.0..20.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "INCREASED_ATTACK_AND_CAST_SPEED",
+            name = "#% increased Attack and Cast Speed",
+            source = PASSIVE,
+            tags = listOf("speed", "attack", "caster", "hybrid", "passive"),
+            effects = listOf(
+                effect(STOCK_ATTACK_SPEED, INCREASED, best = 5.0..5.0),
+                effect(STOCK_CAST_SPEED, INCREASED, best = 5.0..5.0),
+            ),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "INCREASED_ELEMENTAL_DAMAGE",
+            name = "#% increased Elemental Damage",
+            source = PASSIVE,
+            tags = listOf("elemental", "fire", "cold", "lightning", "damage", "hybrid", "passive"),
+            effects = listOf(
+                effect(STOCK_ATTACK_FIRE, INCREASED, best = 30.0..30.0),
+                effect(STOCK_ATTACK_COLD, INCREASED, best = 30.0..30.0),
+                effect(STOCK_ATTACK_LIGHTNING, INCREASED, best = 30.0..30.0),
+            ),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_SET_LIFE_REGENERATION",
+            name = "Life Regeneration has no effect",
+            source = PASSIVE,
+            tags = listOf("life", "regen", "passive"),
+            effects = listOf(effect(STOCK_HEALTH_REGEN, SET, best = 0.0..0.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_MORE_LIFE_LEECH",
+            name = "#% more total Recovery per second from Life Leech",
+            source = PASSIVE,
+            tags = listOf("leech", "life", "passive"),
+            effects = listOf(effect(STOCK_LEECH_PHYSICAL, MORE, best = 100.0..100.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_SET_CRITICAL_DAMAGE",
+            name = "Critical Strikes deal no Damage",
+            source = PASSIVE,
+            tags = listOf("critical", "damage", "passive"),
+            effects = listOf(effect(STOCK_CRITICAL_DAMAGE, SET, best = 0.0..0.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "PASSIVE_MORE_ELEMENTAL_DAMAGE",
+            name = "#% more Elemental Damage",
+            source = PASSIVE,
+            tags = listOf("elemental", "damage", "hybrid", "passive"),
+            effects = listOf(
+                effect(STOCK_ATTACK_FIRE, MORE, best = 40.0..40.0),
+                effect(STOCK_ATTACK_COLD, MORE, best = 40.0..40.0),
+                effect(STOCK_ATTACK_LIGHTNING, MORE, best = 40.0..40.0),
+            ),
             tierCount = 1, bestItemLevel = 1
         ),
 

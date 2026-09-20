@@ -10,6 +10,7 @@ import config.MongoFactory.transactionExecute
 import features.caches.SkillTreeCache
 import features.data.character.Character
 import features.data.character.CharacterRepository
+import features.logic.progression.CharacterClass
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -123,15 +124,70 @@ class CharacterSkillNodeRepository : BaseRepository<CharacterSkillNode>(
 
     /**
      * Полный сброс дерева: все очки возвращаются персонажу.
+     *
+     * Стартовый узел класса выдаётся заново - как в POE, где полный
+     * респек возвращает персонажа в точку старта его класса, а не
+     * оставляет дерево вообще без корня.
      */
     suspend fun reset(characterId: String): CharacterSkillTreeState {
-        requireCharacter(characterId, "reset")
+        val character = requireCharacter(characterId, "reset")
 
         transactionExecute("reset skill tree") { session ->
             deleteByCharacter(characterId, session)
+            allocateStart(character, characterRepository.requireClass(character), session)
         }
 
         return stateOf(characterId)
+    }
+
+    /**
+     * Выдаёт персонажу стартовый узел его класса.
+     *
+     * В POE стартовый узел уже выделен в момент создания персонажа: он ничего
+     * не стоит и служит корнем, от которого растёт всё остальное дерево.
+     * Поэтому узел выдаётся прямо в транзакции создания персонажа, а не
+     * отдельным запросом от клиента.
+     *
+     * @throws SkillTreeExceptions.SkillTreeException если узла нет в дереве
+     */
+    suspend fun allocateStart(
+        character: Character,
+        characterClass: CharacterClass,
+        session: ClientSession
+    ): CharacterSkillNode {
+        val node = treeCache.findByCode(characterClass.startNodeCode)
+            ?: throw SkillTreeExceptions.funExceptionNodeNotFound("allocateStart", characterClass.startNodeCode)
+
+        if (node.type != EnumSkillNodeType.START)
+            throw SkillTreeExceptions.funExceptionWrongStart("allocateStart", node.code)
+
+        return insert(CharacterSkillNode.fromNode(character._id, node), session)
+    }
+
+    /**
+     * Выдаёт стартовые узлы тем персонажам, у которых их ещё нет.
+     *
+     * Нужно созданным до появления автовыдачи: без корня дерево не растёт.
+     *
+     * @return сколько персонажей получили стартовый узел
+     */
+    suspend fun ensureStartNodes(characters: List<Character>, session: ClientSession): Int {
+        if (characters.isEmpty()) return 0
+
+        val startCodes = treeCache.startNodes().map { it.code }.toSet()
+        if (startCodes.isEmpty()) return 0
+
+        val withStart = findByFilter(session, Filters.`in`("nodeCode", startCodes))
+            .map { it.characterId }
+            .toSet()
+
+        var created = 0
+        characters.filterNot { it._id in withStart }.forEach { character ->
+            allocateStart(character, characterRepository.requireClass(character), session)
+            created++
+        }
+
+        return created
     }
 
     /**

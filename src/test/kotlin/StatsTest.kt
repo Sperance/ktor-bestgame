@@ -5,11 +5,14 @@ import application.enums.EnumStatStock.STOCK_ARMOR
 import application.enums.EnumStatStock.STOCK_EVASION
 import application.enums.EnumStatStock.STOCK_HEALTH
 import application.enums.EnumStatStock.STOCK_INTELLECT
+import application.enums.EnumStatStock.STOCK_MANA
 import application.enums.EnumStatStock.STOCK_STRENGTH
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import config.ModifierSeeder
+import application.enums.EnumSkillNodeType
 import config.ProgressionSeeder
+import config.SkillTreeSeeder
 import config.UniqueEquipmentSeeder
 import features.data.equipment.equipment_data.Armor
 import features.logic.modifiers.ModifierCalculator
@@ -187,10 +190,52 @@ class StatsTest {
         val classes = ProgressionSeeder.seedClasses(definitions)
         val byId = definitions.associateBy { it._id }
 
-        assert(classes.size == 3) { "expected three classes, got ${classes.size}" }
+        assert(classes.size == 7) { "expected seven classes, got ${classes.size}" }
         classes.forEach { characterClass ->
             val conversions = characterClass.params.count { byId.getValue(it.modifierId).effects.any { e -> e.isConversion() } }
             assert(conversions > 0) { "${characterClass.code} has no attribute conversions" }
+        }
+    }
+
+    @Test
+    fun class_base_stats_match_path_of_exile() {
+        val byCode = ProgressionSeeder.seedClasses(definitions).associateBy { it.code }
+
+        // Данные RePoE (characters.min.json): сила, ловкость, интеллект.
+        // Здоровье и мана в POE одинаковы у всех семи классов - 38 и 34
+        mapOf(
+            "MARAUDER" to Triple(32.0, 14.0, 14.0),
+            "RANGER" to Triple(14.0, 32.0, 14.0),
+            "WITCH" to Triple(14.0, 14.0, 32.0),
+            "DUELIST" to Triple(23.0, 23.0, 14.0),
+            "TEMPLAR" to Triple(23.0, 14.0, 23.0),
+            "SHADOW" to Triple(14.0, 23.0, 23.0),
+            "SCION" to Triple(20.0, 20.0, 20.0),
+        ).forEach { (code, expected) ->
+            val base = byCode.getValue(code).baseOn(1)
+            val (strength, dexterity, intelligence) = expected
+
+            assert(base[STOCK_STRENGTH] == strength) { "$code strength: expected $strength, got ${base[STOCK_STRENGTH]}" }
+            assert(base[STOCK_AGILITY] == dexterity) { "$code dexterity: expected $dexterity, got ${base[STOCK_AGILITY]}" }
+            assert(base[STOCK_INTELLECT] == intelligence) { "$code intelligence: expected $intelligence, got ${base[STOCK_INTELLECT]}" }
+            assert(base[STOCK_HEALTH] == 38.0) { "$code life: expected 38.0, got ${base[STOCK_HEALTH]}" }
+            assert(base[STOCK_MANA] == 34.0) { "$code mana: expected 34.0, got ${base[STOCK_MANA]}" }
+        }
+    }
+
+    @Test
+    fun every_class_starts_at_its_own_node_of_the_tree() {
+        val classes = ProgressionSeeder.seedClasses(definitions)
+        val tree = SkillTreeSeeder.seed(definitions).associateBy { it.code }
+
+        val starts = classes.map { it.startNodeCode }
+        assert(starts.toSet().size == classes.size) { "two classes share a start node: $starts" }
+
+        classes.forEach { characterClass ->
+            val node = tree[characterClass.startNodeCode]
+            assert(node != null) { "${characterClass.code} starts at an unknown node ${characterClass.startNodeCode}" }
+            assert(node!!.type == EnumSkillNodeType.START) { "${node.code} is not a START node" }
+            assert(node.cost == 0) { "${node.code} costs ${node.cost}: a class start must be free" }
         }
     }
 
