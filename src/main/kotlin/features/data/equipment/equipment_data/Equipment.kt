@@ -22,7 +22,6 @@ interface EquipmentInterface {
 
     var rarity: EnumRarity
     var itemLevel: Int
-    var image: String?
 
     /**
      * Пул модификаторов предмета - ссылки на [ModifierDefinition._id].

@@ -15,7 +15,6 @@ data class Items(
 
     val category: String,
     val subCategory: String,
-    val image: String? = null,
     val price: Long = 0,
 
     override var _id: String = ObjectId().toHexString(),
