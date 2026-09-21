@@ -17,7 +17,7 @@ fun Application.configureBackups() {
     routing {
         post("/admin/backup") {
             backupManager.createBackupNow()
-            call.respond(ApiMongoResponse.ok("Success"))
+            call.respond(ApiMongoResponse.ok("system.success"))
         }
 
         get("/admin/backups") {

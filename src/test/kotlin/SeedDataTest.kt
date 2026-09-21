@@ -112,18 +112,18 @@ class SeedDataTest {
     }
 
     @Test
-    fun equipment_names_are_unique() {
-        val duplicates = equipment.groupBy { it.name }.filterValues { it.size > 1 }.keys
-        assert(duplicates.isEmpty()) { "Duplicate equipment names: $duplicates" }
+    fun equipment_codes_are_unique() {
+        val duplicates = equipment.groupBy { it.code }.filterValues { it.size > 1 }.keys
+        assert(duplicates.isEmpty()) { "Duplicate equipment codes: $duplicates" }
     }
 
     @Test
     fun equipment_ids_are_stable_between_seeds() {
         val second = EquipmentSeeder(definitions).seed()
-        val first = equipment.associate { it.name to it._id }
+        val first = equipment.associate { it.code to it._id }
 
         second.forEach { item ->
-            assert(first[item.name] == item._id) { "${item.name} got a different _id between seeds" }
+            assert(first[item.code] == item._id) { "${item.code} got a different _id between seeds" }
         }
     }
 
@@ -133,7 +133,7 @@ class SeedDataTest {
 
         EnumEquipmentType.entries.forEach { slot ->
             val items = bySlot[slot].orEmpty()
-            assert(items.size == 3) { "$slot has ${items.size} uniques: ${items.map { it.name }}" }
+            assert(items.size == 3) { "$slot has ${items.size} uniques: ${items.map { it.code }}" }
         }
     }
 
@@ -142,13 +142,13 @@ class SeedDataTest {
         val definitionsById = definitions.associateBy { it._id }
 
         equipment.filter { it.rarity == EnumRarity.UNIQUE }.forEach { item ->
-            assert(item.modifierIds.isNotEmpty()) { "${item.name} has no modifiers" }
+            assert(item.modifierIds.isNotEmpty()) { "${item.code} has no modifiers" }
 
             item.modifierIds.forEach { id ->
                 val definition = definitionsById[id]
-                assert(definition != null) { "${item.name} references unknown modifier $id" }
+                assert(definition != null) { "${item.code} references unknown modifier $id" }
                 assert(definition!!.source == EnumModifierSource.UNIQUE) {
-                    "${item.name} carries a rollable modifier ${definition.code}"
+                    "${item.code} carries a rollable modifier ${definition.code}"
                 }
             }
         }
@@ -160,8 +160,8 @@ class SeedDataTest {
 
         equipment.filter { it.rarity != EnumRarity.UNIQUE }.forEach { item ->
             val sources = item.modifierIds.mapNotNull { definitionsById[it]?.source }
-            assert(sources.contains(EnumModifierSource.PREFIX)) { "${item.name} has no prefixes to roll" }
-            assert(sources.contains(EnumModifierSource.SUFFIX)) { "${item.name} has no suffixes to roll" }
+            assert(sources.contains(EnumModifierSource.PREFIX)) { "${item.code} has no prefixes to roll" }
+            assert(sources.contains(EnumModifierSource.SUFFIX)) { "${item.code} has no suffixes to roll" }
         }
     }
 }

@@ -151,7 +151,7 @@ class StatsTest {
 
     private fun helm(level: Int, strength: Int) = Armor(
         slot = EnumEquipmentType.HELMET,
-        name = "Test Helm",
+        code = "TEST_HELM",
         rarity = EnumRarity.COMMON,
         itemLevel = level,
         requiredLevel = level,

@@ -80,15 +80,26 @@ class AuctionTest {
     }
 
     @Test
-    fun a_search_by_title_cannot_smuggle_a_regular_expression() {
-        // Игрок присылает текст, а не шаблон: спецсимволы должны быть экранированы
-        val pattern = conditionsOn(AuctionSearch(title = "Helm.*"), "title")
+    fun a_search_by_name_comes_in_already_resolved_into_codes() {
+        // Названий в лотах нет: текст игрока превращает в коды тот,
+        // у кого есть словарь, а в Mongo уходит обычное вхождение в список
+        val codes = conditionsOn(AuctionSearch(itemCodes = listOf("IRON_SKULLCAP", "STEEL_HELM")), "itemCode")
             .single()
-            .asRegularExpression()
+            .asDocument()
+            .getArray("\$in")
+            .map { it.asString().value }
 
-        assert(pattern.options.contains("i")) { "search must ignore case, got '${pattern.options}'" }
-        assert(!pattern.pattern.endsWith(".*")) { "the pattern went in raw: ${pattern.pattern}" }
-        assert(pattern.pattern.contains("Helm.*")) { "the text was lost: ${pattern.pattern}" }
+        assert(codes == listOf("IRON_SKULLCAP", "STEEL_HELM")) { "got $codes" }
+    }
+
+    @Test
+    fun a_search_that_matched_nothing_shows_an_empty_showcase() {
+        val codes = conditionsOn(AuctionSearch(itemCodes = emptyList()), "itemCode")
+            .single()
+            .asDocument()
+            .getArray("\$in")
+
+        assert(codes.isEmpty()) { "got $codes" }
     }
 
     @Test
@@ -106,7 +117,7 @@ class AuctionTest {
 
     private fun helm() = Armor(
         slot = EnumEquipmentType.HELMET,
-        name = "Test Helm",
+        code = "TEST_HELM",
         rarity = EnumRarity.COMMON,
         itemLevel = 74
     )
@@ -137,7 +148,7 @@ class AuctionTest {
         val lot = AuctionLot.forEquipment(seller, item, template, priceOrbId = "orb", price = 50)
 
         assert(lot.kind == EnumAuctionLotKind.EQUIPMENT) { "got ${lot.kind}" }
-        assert(lot.title == "Test Helm") { "got ${lot.title}" }
+        assert(lot.itemCode == "TEST_HELM") { "got ${lot.itemCode}" }
         assert(lot.slot == EnumEquipmentType.HELMET) { "got ${lot.slot}" }
         assert(lot.rarity == EnumRarity.RARE) { "rarity must come from the instance, got ${lot.rarity}" }
         assert(lot.itemLevel == 74) { "got ${lot.itemLevel}" }
@@ -148,12 +159,13 @@ class AuctionTest {
 
     @Test
     fun a_stack_lot_keeps_its_amount_and_has_no_slot() {
-        val orb = Items(name = "Chaos Orb", category = "CURRENCY", subCategory = "CHAOS_ORB", _id = "chaos")
+        val orb = Items(code = "CHAOS_ORB", category = "CURRENCY", subCategory = "CHAOS_ORB", _id = "chaos")
 
         val lot = AuctionLot.forItem(seller, orb, amount = 30, priceOrbId = "divine", price = 2)
 
         assert(lot.kind == EnumAuctionLotKind.ITEM) { "got ${lot.kind}" }
         assert(lot.itemId == "chaos") { "got ${lot.itemId}" }
+        assert(lot.itemCode == "CHAOS_ORB") { "got ${lot.itemCode}" }
         assert(lot.amount == 30L) { "got ${lot.amount}" }
         assert(lot.equipment == null) { "a stack lot must carry no equipment" }
         assert(lot.slot == null && lot.rarity == null) { "a stack lot has no slot or rarity" }

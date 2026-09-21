@@ -81,17 +81,15 @@ object UniqueEquipmentSeeder {
      * Несколько эффектов = составной модификатор ("+# to all Attributes").
      */
     private data class UniqueModifier(
-        val name: String,
         val effects: List<EffectTemplate>,
     )
 
-    private fun line(name: String, vararg effects: EffectTemplate) = UniqueModifier(name, effects.toList())
+    private fun line(vararg effects: EffectTemplate) = UniqueModifier(effects.toList())
 
     private data class UniqueTemplate(
-        val name: String,
+        val code: String,
         val slot: EnumEquipmentType,
         val itemLevel: Int,
-        val description: String,
         val modifiers: List<UniqueModifier>,
 
         /**
@@ -112,94 +110,81 @@ object UniqueEquipmentSeeder {
 
         // ---------- HELMET ----------
         UniqueTemplate(
-            name = "Goldrim", slot = HELMET, itemLevel = 1, defense = 27,
-            description = "No metal slips from the hands of the greedy.",
+            code = "GOLDRIM", slot = HELMET, itemLevel = 1, defense = 27,
             modifiers = listOf(
-                line("+#% to all Elemental Resistances", effect(STOCK_RESIST_ALL, ADD, 30.0..40.0)),
-                line("#% increased Rarity of Items found", effect(STOCK_RARITY, INCREASED, 6.0..15.0)),
-                line("+# to Evasion Rating", effect(STOCK_EVASION, ADD, 30.0..30.0)),
+                line(effect(STOCK_RESIST_ALL, ADD, 30.0..40.0)),
+                line(effect(STOCK_RARITY, INCREASED, 6.0..15.0)),
+                line(effect(STOCK_EVASION, ADD, 30.0..30.0)),
             )
         ),
         UniqueTemplate(
-            name = "Starkonja's Head", slot = HELMET, itemLevel = 60, defense = 288,
-            description = "The greatest of the Karui warriors never left the battlefield.",
+            code = "STARKONJA_S_HEAD", slot = HELMET, itemLevel = 60, defense = 288,
             modifiers = listOf(
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 50.0..50.0)),
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 60.0..80.0)),
-                line("#% increased Evasion Rating", effect(STOCK_EVASION, INCREASED, 100.0..150.0)),
-                line("#% increased Critical Strike Chance", effect(STOCK_CRITICAL_CHANCE, INCREASED, 25.0..25.0)),
+                line(effect(STOCK_AGILITY, ADD, 50.0..50.0)),
+                line(effect(STOCK_HEALTH, ADD, 60.0..80.0)),
+                line(effect(STOCK_EVASION, INCREASED, 100.0..150.0)),
+                line(effect(STOCK_CRITICAL_CHANCE, INCREASED, 25.0..25.0)),
             )
         ),
         UniqueTemplate(
-            name = "Devoto's Devotion", slot = HELMET, itemLevel = 62, defense = 296,
-            description = "A lifetime of service, ended in a moment of doubt.",
+            code = "DEVOTO_S_DEVOTION", slot = HELMET, itemLevel = 62, defense = 296,
             modifiers = listOf(
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 60.0..65.0)),
-                line("#% increased Attack Speed", effect(STOCK_ATTACK_SPEED, INCREASED, 10.0..10.0)),
-                line("#% increased Movement Speed", effect(STOCK_MOVEMENT_SPEED, INCREASED, 16.0..16.0)),
-                line("+#% to Chaos Resistance", effect(STOCK_RESIST_CHAOS, ADD, 20.0..30.0)),
+                line(effect(STOCK_AGILITY, ADD, 60.0..65.0)),
+                line(effect(STOCK_ATTACK_SPEED, INCREASED, 10.0..10.0)),
+                line(effect(STOCK_MOVEMENT_SPEED, INCREASED, 16.0..16.0)),
+                line(effect(STOCK_RESIST_CHAOS, ADD, 20.0..30.0)),
             )
         ),
 
         // ---------- BODY ----------
         UniqueTemplate(
-            name = "Belly of the Beast", slot = BODY, itemLevel = 50, defense = 500,
-            description = "Swallowed whole, digested slowly.",
+            code = "BELLY_OF_THE_BEAST", slot = BODY, itemLevel = 50, defense = 500,
             modifiers = listOf(
-                line("#% increased maximum Life", effect(STOCK_HEALTH, INCREASED, 30.0..40.0)),
-                line("+#% to all Elemental Resistances", effect(STOCK_RESIST_ALL, ADD, 20.0..30.0)),
-                line("#% increased Armour", effect(STOCK_ARMOR, INCREASED, 100.0..150.0)),
+                line(effect(STOCK_HEALTH, INCREASED, 30.0..40.0)),
+                line(effect(STOCK_RESIST_ALL, ADD, 20.0..30.0)),
+                line(effect(STOCK_ARMOR, INCREASED, 100.0..150.0)),
             )
         ),
         UniqueTemplate(
-            name = "Kaom's Heart", slot = BODY, itemLevel = 68, defense = 500,
-            description = "Ten thousand lives for ten thousand nails.",
+            code = "KAOM_S_HEART", slot = BODY, itemLevel = 68, defense = 500,
             modifiers = listOf(
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 500.0..500.0)),
-                line("#% more Fire Damage", effect(STOCK_ATTACK_FIRE, MORE, 20.0..40.0)),
+                line(effect(STOCK_HEALTH, ADD, 500.0..500.0)),
+                line(effect(STOCK_ATTACK_FIRE, MORE, 20.0..40.0)),
             )
         ),
         UniqueTemplate(
-            name = "Carcass Jack", slot = BODY, itemLevel = 62, defense = 350,
-            description = "A patchwork of the fallen, stitched by the living.",
+            code = "CARCASS_JACK", slot = BODY, itemLevel = 62, defense = 350,
             modifiers = listOf(
-                line(
-                    "#% increased Evasion and Energy Shield",
-                    effect(STOCK_EVASION, INCREASED, 120.0..150.0),
+                line(effect(STOCK_EVASION, INCREASED, 120.0..150.0),
                     effect(STOCK_ENERGY_SHIELD, INCREASED, 120.0..150.0),
                 ),
-                line("+#% to all Elemental Resistances", effect(STOCK_RESIST_ALL, ADD, 12.0..16.0)),
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 50.0..70.0)),
+                line(effect(STOCK_RESIST_ALL, ADD, 12.0..16.0)),
+                line(effect(STOCK_HEALTH, ADD, 50.0..70.0)),
             )
         ),
 
         // ---------- GLOVES ----------
         UniqueTemplate(
-            name = "Facebreaker", slot = GLOVES, itemLevel = 16, defense = 0,
-            description = "Who needs a weapon when you have knuckles?",
+            code = "FACEBREAKER", slot = GLOVES, itemLevel = 16, defense = 0,
             modifiers = listOf(
-                line("#% increased Physical Damage", effect(STOCK_ATTACK_PHYSICAL, INCREASED, 600.0..800.0)),
-                line("+#% to Chaos Resistance", effect(STOCK_RESIST_CHAOS, ADD, 2.0..4.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 600.0..800.0)),
+                line(effect(STOCK_RESIST_CHAOS, ADD, 2.0..4.0)),
             )
         ),
         UniqueTemplate(
-            name = "Maligaro's Virtuosity", slot = GLOVES, itemLevel = 21, defense = 40,
-            description = "The pain of others was his only art.",
+            code = "MALIGARO_S_VIRTUOSITY", slot = GLOVES, itemLevel = 21, defense = 40,
             modifiers = listOf(
-                line("+#% to Critical Strike Multiplier", effect(STOCK_CRITICAL_MULTIPLIER, ADD, 20.0..30.0)),
-                line("#% increased Critical Strike Chance", effect(STOCK_CRITICAL_CHANCE, INCREASED, 20.0..30.0)),
-                line("#% increased Attack Speed", effect(STOCK_ATTACK_SPEED, INCREASED, 10.0..16.0)),
+                line(effect(STOCK_CRITICAL_MULTIPLIER, ADD, 20.0..30.0)),
+                line(effect(STOCK_CRITICAL_CHANCE, INCREASED, 20.0..30.0)),
+                line(effect(STOCK_ATTACK_SPEED, INCREASED, 10.0..16.0)),
             )
         ),
         UniqueTemplate(
-            name = "Atziri's Acuity", slot = GLOVES, itemLevel = 68, defense = 350,
-            description = "Her touch was precise, and always fatal.",
+            code = "ATZIRI_S_ACUITY", slot = GLOVES, itemLevel = 68, defense = 350,
             modifiers = listOf(
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 40.0..50.0)),
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 60.0..80.0)),
-                line(
-                    "#% increased Armour and Evasion",
-                    effect(STOCK_ARMOR, INCREASED, 150.0..200.0),
+                line(effect(STOCK_AGILITY, ADD, 40.0..50.0)),
+                line(effect(STOCK_HEALTH, ADD, 60.0..80.0)),
+                line(effect(STOCK_ARMOR, INCREASED, 150.0..200.0),
                     effect(STOCK_EVASION, INCREASED, 150.0..200.0),
                 ),
             )
@@ -207,57 +192,49 @@ object UniqueEquipmentSeeder {
 
         // ---------- BOOTS ----------
         UniqueTemplate(
-            name = "Wanderlust", slot = BOOTS, itemLevel = 1, defense = 0,
-            description = "The journey matters more than the destination.",
+            code = "WANDERLUST", slot = BOOTS, itemLevel = 1, defense = 0,
             modifiers = listOf(
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 5.0..10.0)),
-                line("+# to maximum Mana", effect(STOCK_MANA, ADD, 20.0..30.0)),
-                line("#% increased Movement Speed", effect(STOCK_MOVEMENT_SPEED, INCREASED, 20.0..20.0)),
+                line(effect(STOCK_AGILITY, ADD, 5.0..10.0)),
+                line(effect(STOCK_MANA, ADD, 20.0..30.0)),
+                line(effect(STOCK_MOVEMENT_SPEED, INCREASED, 20.0..20.0)),
             )
         ),
         UniqueTemplate(
-            name = "Seven-League Step", slot = BOOTS, itemLevel = 20, defense = 0,
-            description = "Some go far. Some go fast. A few do both.",
+            code = "SEVEN_LEAGUE_STEP", slot = BOOTS, itemLevel = 20, defense = 0,
             modifiers = listOf(
-                line("#% increased Movement Speed", effect(STOCK_MOVEMENT_SPEED, INCREASED, 50.0..50.0)),
+                line(effect(STOCK_MOVEMENT_SPEED, INCREASED, 50.0..50.0)),
             )
         ),
         UniqueTemplate(
-            name = "Goldwyrm", slot = BOOTS, itemLevel = 40, defense = 60,
-            description = "Wealth burns brighter than any flame.",
+            code = "GOLDWYRM", slot = BOOTS, itemLevel = 40, defense = 60,
             modifiers = listOf(
-                line("+# to maximum Mana", effect(STOCK_MANA, ADD, 20.0..30.0)),
-                line("+#% to Fire Resistance", effect(STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
-                line("#% increased Movement Speed", effect(STOCK_MOVEMENT_SPEED, INCREASED, 20.0..20.0)),
-                line("#% increased Rarity of Items found", effect(STOCK_RARITY, INCREASED, 30.0..40.0)),
+                line(effect(STOCK_MANA, ADD, 20.0..30.0)),
+                line(effect(STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
+                line(effect(STOCK_MOVEMENT_SPEED, INCREASED, 20.0..20.0)),
+                line(effect(STOCK_RARITY, INCREASED, 30.0..40.0)),
             )
         ),
 
         // ---------- WINGS (слота нет в POE, предметы придуманы в его стиле) ----------
         UniqueTemplate(
-            name = "Wings of Vastiri", slot = WINGS, itemLevel = 40, defense = 80,
-            description = "The desert wind never asked permission to pass.",
+            code = "WINGS_OF_VASTIRI", slot = WINGS, itemLevel = 40, defense = 80,
             modifiers = listOf(
-                line("#% increased Movement Speed", effect(STOCK_MOVEMENT_SPEED, INCREASED, 10.0..15.0)),
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 20.0..30.0)),
+                line(effect(STOCK_MOVEMENT_SPEED, INCREASED, 10.0..15.0)),
+                line(effect(STOCK_AGILITY, ADD, 20.0..30.0)),
             )
         ),
         UniqueTemplate(
-            name = "Shroud of the Seventh", slot = WINGS, itemLevel = 60, defense = 120,
-            description = "Six fell before it. The seventh learned to fly.",
+            code = "SHROUD_OF_THE_SEVENTH", slot = WINGS, itemLevel = 60, defense = 120,
             modifiers = listOf(
-                line("+# to maximum Energy Shield", effect(STOCK_ENERGY_SHIELD, ADD, 60.0..80.0)),
-                line("+#% to all Elemental Resistances", effect(STOCK_RESIST_ALL, ADD, 10.0..15.0)),
+                line(effect(STOCK_ENERGY_SHIELD, ADD, 60.0..80.0)),
+                line(effect(STOCK_RESIST_ALL, ADD, 10.0..15.0)),
             )
         ),
         UniqueTemplate(
-            name = "Pinion of the Maw", slot = WINGS, itemLevel = 70, defense = 150,
-            description = "Torn from something that should not have had wings.",
+            code = "PINION_OF_THE_MAW", slot = WINGS, itemLevel = 70, defense = 150,
             modifiers = listOf(
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 60.0..80.0)),
-                line(
-                    "#% increased Armour and Evasion",
-                    effect(STOCK_ARMOR, INCREASED, 80.0..120.0),
+                line(effect(STOCK_HEALTH, ADD, 60.0..80.0)),
+                line(effect(STOCK_ARMOR, INCREASED, 80.0..120.0),
                     effect(STOCK_EVASION, INCREASED, 80.0..120.0),
                 ),
             )
@@ -265,230 +242,199 @@ object UniqueEquipmentSeeder {
 
         // ---------- BELT ----------
         UniqueTemplate(
-            name = "Meginord's Girdle", slot = BELT, itemLevel = 20,
-            description = "The strength of the Karui is measured in iron.",
+            code = "MEGINORD_S_GIRDLE", slot = BELT, itemLevel = 20,
             modifiers = listOf(
-                line("+# to Strength", effect(STOCK_STRENGTH, ADD, 25.0..30.0)),
-                line("Adds # Physical Damage", effect(STOCK_ATTACK_PHYSICAL, ADD, 5.0..7.0)),
-                line("+#% to Cold Resistance", effect(STOCK_RESIST_COLD, ADD, 20.0..30.0)),
-                line("Regenerate # Life per second", effect(STOCK_HEALTH_REGEN, ADD, 8.0..12.0)),
+                line(effect(STOCK_STRENGTH, ADD, 25.0..30.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, ADD, 5.0..7.0)),
+                line(effect(STOCK_RESIST_COLD, ADD, 20.0..30.0)),
+                line(effect(STOCK_HEALTH_REGEN, ADD, 8.0..12.0)),
             )
         ),
         UniqueTemplate(
-            name = "Headhunter", slot = BELT, itemLevel = 40,
-            description = "Beneath the belt, a hundred names. Above it, one.",
+            code = "HEADHUNTER", slot = BELT, itemLevel = 40,
             modifiers = listOf(
-                line(
-                    "+# to Strength and Dexterity",
-                    effect(STOCK_STRENGTH, ADD, 40.0..55.0),
+                line(effect(STOCK_STRENGTH, ADD, 40.0..55.0),
                     effect(STOCK_AGILITY, ADD, 40.0..55.0),
                 ),
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 50.0..70.0)),
+                line(effect(STOCK_HEALTH, ADD, 50.0..70.0)),
             )
         ),
         UniqueTemplate(
-            name = "The Magnate", slot = BELT, itemLevel = 20,
-            description = "Gold buys strength. Strength keeps gold.",
+            code = "THE_MAGNATE", slot = BELT, itemLevel = 20,
             modifiers = listOf(
-                line("+# to Strength", effect(STOCK_STRENGTH, ADD, 25.0..40.0)),
-                line("+#% to Fire Resistance", effect(STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
-                line("#% increased Rarity of Items found", effect(STOCK_RARITY, INCREASED, 10.0..20.0)),
+                line(effect(STOCK_STRENGTH, ADD, 25.0..40.0)),
+                line(effect(STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
+                line(effect(STOCK_RARITY, INCREASED, 10.0..20.0)),
             )
         ),
 
         // ---------- RING ----------
         UniqueTemplate(
-            name = "Berek's Grip", slot = RING, itemLevel = 20,
-            description = "Berek held the storm, and the storm held Berek.",
+            code = "BEREK_S_GRIP", slot = RING, itemLevel = 20,
             modifiers = listOf(
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 20.0..30.0)),
-                line(
-                    "+#% to Cold and Lightning Resistances",
-                    effect(STOCK_RESIST_COLD, ADD, 20.0..30.0),
+                line(effect(STOCK_HEALTH, ADD, 20.0..30.0)),
+                line(effect(STOCK_RESIST_COLD, ADD, 20.0..30.0),
                     effect(STOCK_RESIST_LIGHTNING, ADD, 20.0..30.0),
                 ),
-                line("#% of Physical Attack Damage Leeched as Life", effect(STOCK_LEECH_PHYSICAL, ADD, 0.4..0.8)),
+                line(effect(STOCK_LEECH_PHYSICAL, ADD, 0.4..0.8)),
             )
         ),
         UniqueTemplate(
-            name = "Ventor's Gamble", slot = RING, itemLevel = 65,
-            description = "Fortune favours those who can afford to lose.",
+            code = "VENTOR_S_GAMBLE", slot = RING, itemLevel = 65,
             modifiers = listOf(
-                line("#% increased Rarity of Items found", effect(STOCK_RARITY, INCREASED, 20.0..50.0)),
-                line("#% increased Quantity of Items found", effect(STOCK_QUANTITY, INCREASED, 10.0..20.0)),
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 10.0..20.0)),
-                line("+#% to all Elemental Resistances", effect(STOCK_RESIST_ALL, ADD, 10.0..30.0)),
+                line(effect(STOCK_RARITY, INCREASED, 20.0..50.0)),
+                line(effect(STOCK_QUANTITY, INCREASED, 10.0..20.0)),
+                line(effect(STOCK_HEALTH, ADD, 10.0..20.0)),
+                line(effect(STOCK_RESIST_ALL, ADD, 10.0..30.0)),
             )
         ),
         UniqueTemplate(
-            name = "Kaom's Sign", slot = RING, itemLevel = 40,
-            description = "A ring of iron for a king of ash.",
+            code = "KAOM_S_SIGN", slot = RING, itemLevel = 40,
             modifiers = listOf(
-                line("+# to Strength", effect(STOCK_STRENGTH, ADD, 15.0..25.0)),
-                line("+#% to Fire Resistance", effect(STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
-                line("Regenerate # Life per second", effect(STOCK_HEALTH_REGEN, ADD, 5.0..10.0)),
+                line(effect(STOCK_STRENGTH, ADD, 15.0..25.0)),
+                line(effect(STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
+                line(effect(STOCK_HEALTH_REGEN, ADD, 5.0..10.0)),
             )
         ),
 
         // ---------- AMULET ----------
         UniqueTemplate(
-            name = "Astramentis", slot = AMULET, itemLevel = 30,
-            description = "The stars gave freely, and asked for everything.",
+            code = "ASTRAMENTIS", slot = AMULET, itemLevel = 30,
             modifiers = listOf(
-                line(
-                    "+# to all Attributes",
-                    effect(STOCK_STRENGTH, ADD, 80.0..100.0),
+                line(effect(STOCK_STRENGTH, ADD, 80.0..100.0),
                     effect(STOCK_AGILITY, ADD, 80.0..100.0),
                     effect(STOCK_INTELLECT, ADD, 80.0..100.0),
                 ),
             )
         ),
         UniqueTemplate(
-            name = "Carnage Heart", slot = AMULET, itemLevel = 40,
-            description = "It still beats, and it still hungers.",
+            code = "CARNAGE_HEART", slot = AMULET, itemLevel = 40,
             modifiers = listOf(
-                line(
-                    "+# to all Attributes",
-                    effect(STOCK_STRENGTH, ADD, 20.0..30.0),
+                line(effect(STOCK_STRENGTH, ADD, 20.0..30.0),
                     effect(STOCK_AGILITY, ADD, 20.0..30.0),
                     effect(STOCK_INTELLECT, ADD, 20.0..30.0),
                 ),
-                line("#% of Physical Attack Damage Leeched as Life", effect(STOCK_LEECH_PHYSICAL, ADD, 0.6..1.0)),
-                line("+#% to all Elemental Resistances", effect(STOCK_RESIST_ALL, ADD, 8.0..14.0)),
+                line(effect(STOCK_LEECH_PHYSICAL, ADD, 0.6..1.0)),
+                line(effect(STOCK_RESIST_ALL, ADD, 8.0..14.0)),
             )
         ),
         UniqueTemplate(
-            name = "Bisco's Collar", slot = AMULET, itemLevel = 50,
-            description = "A good dog always brings something back.",
+            code = "BISCO_S_COLLAR", slot = AMULET, itemLevel = 50,
             modifiers = listOf(
-                line("#% increased Rarity of Items found", effect(STOCK_RARITY, INCREASED, 50.0..100.0)),
-                line("#% increased Quantity of Items found", effect(STOCK_QUANTITY, INCREASED, 20.0..30.0)),
+                line(effect(STOCK_RARITY, INCREASED, 50.0..100.0)),
+                line(effect(STOCK_QUANTITY, INCREASED, 20.0..30.0)),
             )
         ),
 
         // ---------- SHIELD ----------
         UniqueTemplate(
-            name = "Lioneye's Remorse", slot = SHIELD, itemLevel = 45, defense = 800,
-            description = "Marceus stood his ground, and the ground gave way.",
+            code = "LIONEYE_S_REMORSE", slot = SHIELD, itemLevel = 45, defense = 800,
             modifiers = listOf(
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 100.0..120.0)),
-                line("#% increased Armour", effect(STOCK_ARMOR, INCREASED, 200.0..250.0)),
-                line("+#% Chance to Block", effect(STOCK_BLOCK_CHANCE, ADD, 5.0..8.0)),
+                line(effect(STOCK_HEALTH, ADD, 100.0..120.0)),
+                line(effect(STOCK_ARMOR, INCREASED, 200.0..250.0)),
+                line(effect(STOCK_BLOCK_CHANCE, ADD, 5.0..8.0)),
             )
         ),
         UniqueTemplate(
-            name = "Rise of the Phoenix", slot = SHIELD, itemLevel = 60, defense = 400,
-            description = "From the ashes, again and again and again.",
+            code = "RISE_OF_THE_PHOENIX", slot = SHIELD, itemLevel = 60, defense = 400,
             modifiers = listOf(
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 60.0..80.0)),
-                line("+#% to Fire Resistance", effect(STOCK_RESIST_FIRE, ADD, 40.0..50.0)),
-                line("#% increased Armour", effect(STOCK_ARMOR, INCREASED, 150.0..200.0)),
-                line("Regenerate # Life per second", effect(STOCK_HEALTH_REGEN, ADD, 10.0..20.0)),
+                line(effect(STOCK_HEALTH, ADD, 60.0..80.0)),
+                line(effect(STOCK_RESIST_FIRE, ADD, 40.0..50.0)),
+                line(effect(STOCK_ARMOR, INCREASED, 150.0..200.0)),
+                line(effect(STOCK_HEALTH_REGEN, ADD, 10.0..20.0)),
             )
         ),
         UniqueTemplate(
-            name = "Saffell's Frame", slot = SHIELD, itemLevel = 45, defense = 120,
-            description = "The finest defence is one the enemy never reaches.",
+            code = "SAFFELL_S_FRAME", slot = SHIELD, itemLevel = 45, defense = 120,
             modifiers = listOf(
-                line("+#% to all Elemental Resistances", effect(STOCK_RESIST_ALL, ADD, 20.0..25.0)),
-                line("#% increased Spell Damage", effect(STOCK_ATTACK_MAGICAL, INCREASED, 20.0..40.0)),
-                line("+#% Chance to Block", effect(STOCK_BLOCK_CHANCE, ADD, 5.0..8.0)),
+                line(effect(STOCK_RESIST_ALL, ADD, 20.0..25.0)),
+                line(effect(STOCK_ATTACK_MAGICAL, INCREASED, 20.0..40.0)),
+                line(effect(STOCK_BLOCK_CHANCE, ADD, 5.0..8.0)),
             )
         ),
 
         // ---------- QUIVER ----------
         UniqueTemplate(
-            name = "Drillneck", slot = QUIVER, itemLevel = 40,
-            description = "Armour is just another thing to go through.",
+            code = "DRILLNECK", slot = QUIVER, itemLevel = 40,
             modifiers = listOf(
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 20.0..30.0)),
-                line("#% increased Attack Speed", effect(STOCK_ATTACK_SPEED, INCREASED, 8.0..12.0)),
-                line("#% increased Physical Damage", effect(STOCK_ATTACK_PHYSICAL, INCREASED, 20.0..40.0)),
+                line(effect(STOCK_AGILITY, ADD, 20.0..30.0)),
+                line(effect(STOCK_ATTACK_SPEED, INCREASED, 8.0..12.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 20.0..40.0)),
             )
         ),
         UniqueTemplate(
-            name = "Rearguard", slot = QUIVER, itemLevel = 30,
-            description = "The last line, carried on your own back.",
+            code = "REARGUARD", slot = QUIVER, itemLevel = 30,
             modifiers = listOf(
-                line("+# to maximum Energy Shield", effect(STOCK_ENERGY_SHIELD, ADD, 30.0..50.0)),
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 40.0..60.0)),
-                line("+#% Chance to Block", effect(STOCK_BLOCK_CHANCE, ADD, 3.0..5.0)),
+                line(effect(STOCK_ENERGY_SHIELD, ADD, 30.0..50.0)),
+                line(effect(STOCK_HEALTH, ADD, 40.0..60.0)),
+                line(effect(STOCK_BLOCK_CHANCE, ADD, 3.0..5.0)),
             )
         ),
         UniqueTemplate(
-            name = "Hyrri's Bite", slot = QUIVER, itemLevel = 45,
-            description = "Cold arrows for a colder heart.",
+            code = "HYRRI_S_BITE", slot = QUIVER, itemLevel = 45,
             modifiers = listOf(
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 20.0..30.0)),
-                line("Adds # Cold Damage", effect(STOCK_ATTACK_COLD, ADD, 15.0..25.0)),
-                line("#% of Physical Attack Damage Leeched as Life", effect(STOCK_LEECH_PHYSICAL, ADD, 0.4..0.8)),
+                line(effect(STOCK_AGILITY, ADD, 20.0..30.0)),
+                line(effect(STOCK_ATTACK_COLD, ADD, 15.0..25.0)),
+                line(effect(STOCK_LEECH_PHYSICAL, ADD, 0.4..0.8)),
             )
         ),
 
         // ---------- WEAPON_1H ----------
         UniqueTemplate(
-            name = "Bino's Kitchen Knife", slot = WEAPON_1H, itemLevel = 50,
+            code = "BINO_S_KITCHEN_KNIFE", slot = WEAPON_1H, itemLevel = 50,
             weaponType = BLADE, damageMin = 40.0, damageMax = 90.0, attackSpeed = 1.4, durability = 120,
-            description = "Bino always kept his kitchen spotless.",
             modifiers = listOf(
-                line("#% increased Critical Strike Chance", effect(STOCK_CRITICAL_CHANCE, INCREASED, 30.0..40.0)),
-                line("+# to maximum Life", effect(STOCK_HEALTH, ADD, 20.0..30.0)),
-                line("#% increased Physical Damage", effect(STOCK_ATTACK_PHYSICAL, INCREASED, 50.0..70.0)),
+                line(effect(STOCK_CRITICAL_CHANCE, INCREASED, 30.0..40.0)),
+                line(effect(STOCK_HEALTH, ADD, 20.0..30.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 50.0..70.0)),
             )
         ),
         UniqueTemplate(
-            name = "Doryani's Catalyst", slot = WEAPON_1H, itemLevel = 60,
+            code = "DORYANI_S_CATALYST", slot = WEAPON_1H, itemLevel = 60,
             weaponType = WAND, damageMin = 30.0, damageMax = 70.0, attackSpeed = 1.4, durability = 100,
-            description = "The Vaal reached for power, and it reached back.",
             modifiers = listOf(
-                line("Adds # Lightning Damage", effect(STOCK_ATTACK_LIGHTNING, ADD, 10.0..80.0)),
-                line("#% increased Spell Damage", effect(STOCK_ATTACK_MAGICAL, INCREASED, 40.0..60.0)),
-                line("#% of Physical Attack Damage Leeched as Life", effect(STOCK_LEECH_PHYSICAL, ADD, 0.4..0.8)),
+                line(effect(STOCK_ATTACK_LIGHTNING, ADD, 10.0..80.0)),
+                line(effect(STOCK_ATTACK_MAGICAL, INCREASED, 40.0..60.0)),
+                line(effect(STOCK_LEECH_PHYSICAL, ADD, 0.4..0.8)),
             )
         ),
         UniqueTemplate(
-            name = "Lioneye's Glare", slot = WEAPON_1H, itemLevel = 70,
+            code = "LIONEYE_S_GLARE", slot = WEAPON_1H, itemLevel = 70,
             weaponType = BOW, damageMin = 120.0, damageMax = 250.0, attackSpeed = 1.4, durability = 140,
-            description = "Every arrow finds its mark, whether it deserves to or not.",
             modifiers = listOf(
-                line("#% increased Physical Damage", effect(STOCK_ATTACK_PHYSICAL, INCREASED, 150.0..200.0)),
-                line("#% increased Attack Speed", effect(STOCK_ATTACK_SPEED, INCREASED, 10.0..14.0)),
-                line("+# to Dexterity", effect(STOCK_AGILITY, ADD, 30.0..40.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 150.0..200.0)),
+                line(effect(STOCK_ATTACK_SPEED, INCREASED, 10.0..14.0)),
+                line(effect(STOCK_AGILITY, ADD, 30.0..40.0)),
             )
         ),
 
         // ---------- WEAPON_2H ----------
         UniqueTemplate(
-            name = "Marohi Erqi", slot = WEAPON_2H, itemLevel = 50,
+            code = "MAROHI_ERQI", slot = WEAPON_2H, itemLevel = 50,
             weaponType = DOUBLEAXE, damageMin = 150.0, damageMax = 400.0, attackSpeed = 0.8, durability = 200,
-            description = "It does not swing quickly. It does not need to.",
             modifiers = listOf(
-                line("#% increased Physical Damage", effect(STOCK_ATTACK_PHYSICAL, INCREASED, 250.0..300.0)),
-                line("+# to Strength", effect(STOCK_STRENGTH, ADD, 30.0..40.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 250.0..300.0)),
+                line(effect(STOCK_STRENGTH, ADD, 30.0..40.0)),
             )
         ),
         UniqueTemplate(
-            name = "Starforge", slot = WEAPON_2H, itemLevel = 75,
+            code = "STARFORGE", slot = WEAPON_2H, itemLevel = 75,
             weaponType = DOUBLESWORD, damageMin = 200.0, damageMax = 400.0, attackSpeed = 1.3, durability = 220,
-            description = "Forged where stars are born, and where they die.",
             modifiers = listOf(
-                line("#% increased Physical Damage", effect(STOCK_ATTACK_PHYSICAL, INCREASED, 300.0..400.0)),
-                line("+# to Strength", effect(STOCK_STRENGTH, ADD, 40.0..50.0)),
-                line("#% more Physical Damage", effect(STOCK_ATTACK_PHYSICAL, MORE, 10.0..15.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 300.0..400.0)),
+                line(effect(STOCK_STRENGTH, ADD, 40.0..50.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, MORE, 10.0..15.0)),
             )
         ),
         UniqueTemplate(
-            name = "Hegemony's Era", slot = WEAPON_2H, itemLevel = 65,
+            code = "HEGEMONY_S_ERA", slot = WEAPON_2H, itemLevel = 65,
             weaponType = LONGSWORD, damageMin = 140.0, damageMax = 300.0, attackSpeed = 1.2, durability = 180,
-            description = "An age ends the moment someone decides it should.",
             modifiers = listOf(
-                line(
-                    "+# to Strength and Dexterity",
-                    effect(STOCK_STRENGTH, ADD, 20.0..30.0),
+                line(effect(STOCK_STRENGTH, ADD, 20.0..30.0),
                     effect(STOCK_AGILITY, ADD, 20.0..30.0),
                 ),
-                line("#% increased Physical Damage", effect(STOCK_ATTACK_PHYSICAL, INCREASED, 150.0..200.0)),
-                line("+#% to Critical Strike Multiplier", effect(STOCK_CRITICAL_MULTIPLIER, ADD, 20.0..30.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 150.0..200.0)),
+                line(effect(STOCK_CRITICAL_MULTIPLIER, ADD, 20.0..30.0)),
             )
         ),
     )
@@ -498,8 +444,7 @@ object UniqueEquipmentSeeder {
     private fun UniqueTemplate.modifierTemplates(): List<ModifierTemplate> =
         modifiers.mapIndexed { index, modifier ->
             ModifierTemplate(
-                code = modifierCode(name, index),
-                name = modifier.name,
+                code = modifierCode(code, index),
                 source = EnumModifierSource.UNIQUE,
                 effects = modifier.effects,
                 // У уникалки один тир: диапазон фиксирован самим предметом
@@ -509,8 +454,7 @@ object UniqueEquipmentSeeder {
             )
         }
 
-    private fun modifierCode(itemName: String, index: Int): String =
-        "UNIQUE_${itemName.uppercase().replace(Regex("[^A-Z0-9]+"), "_").trim('_')}_$index"
+    private fun modifierCode(itemCode: String, index: Int): String = "UNIQUE_${itemCode}_$index"
 
     private val modifierTemplates: List<ModifierTemplate> = templates.flatMap { it.modifierTemplates() }
 
@@ -531,7 +475,7 @@ object UniqueEquipmentSeeder {
      */
     fun seedEquipment(resolve: (String) -> String): List<Equipment> = templates.map { template ->
         val modifierIds = template.modifiers.indices
-            .mapTo(mutableListOf()) { resolve(modifierCode(template.name, it)) }
+            .mapTo(mutableListOf()) { resolve(modifierCode(template.code, it)) }
 
         template.toEquipment(modifierIds, resolve)
     }
@@ -572,10 +516,9 @@ object UniqueEquipmentSeeder {
                 slot = slot,
                 weaponType = weaponType ?: BLADE,
                 durability = durability,
-                name = name,
+                code = code,
                 rarity = EnumRarity.UNIQUE,
                 itemLevel = itemLevel,
-                description = description,
                 modifierIds = modifierIds,
                 baseParams = base,
                 requiredLevel = itemLevel,
@@ -586,10 +529,9 @@ object UniqueEquipmentSeeder {
 
             RING, AMULET, BELT, QUIVER -> Accessory(
                 slot = slot,
-                name = name,
+                code = code,
                 rarity = EnumRarity.UNIQUE,
                 itemLevel = itemLevel,
-                description = description,
                 modifierIds = modifierIds,
                 baseParams = base,
                 requiredLevel = itemLevel,
@@ -600,10 +542,9 @@ object UniqueEquipmentSeeder {
 
             else -> Armor(
                 slot = slot,
-                name = name,
+                code = code,
                 rarity = EnumRarity.UNIQUE,
                 itemLevel = itemLevel,
-                description = description,
                 modifierIds = modifierIds,
                 baseParams = base,
                 requiredLevel = itemLevel,

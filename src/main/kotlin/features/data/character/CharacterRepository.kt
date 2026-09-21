@@ -389,7 +389,7 @@ class CharacterRepository : BaseRepository<Character>(
         }
 
         if (!isChanged) {
-            return "Success. No changes"
+            return "system.no_changes"
         }
 
         //Зачем хранить id предмета без кол-ва
@@ -399,6 +399,6 @@ class CharacterRepository : BaseRepository<Character>(
         transactionExecute("addItem") { session ->
             update(character, session)
         }
-        return "Success"
+        return "system.success"
     }
 }

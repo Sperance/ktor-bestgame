@@ -11,10 +11,17 @@ import org.bson.types.ObjectId
 
 interface EquipmentInterface {
     var slot: EnumEquipmentType
-    var name: String
+
+    /**
+     * Стабильный код шаблона. Им предмет ссылается на свой текст
+     * в файлах локализации: equipment.<code>.name и .description.
+     *
+     * Названия и описания в документе не хранятся - см. locale/ru.json.
+     */
+    var code: String
+
     var rarity: EnumRarity
     var itemLevel: Int
-    var description: String
     var image: String?
 
     /**

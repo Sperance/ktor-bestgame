@@ -80,7 +80,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         if (unmet.isNotEmpty())
             throw CharacterExceptions.funExceptionRequirements(
                 "equip",
-                "${template.name}: " + unmet.joinToString { "${it.name} ${it.actual}/${it.required}" }
+                "${template.code}: " + unmet.joinToString { "${it.name} ${it.actual}/${it.required}" }
             )
 
         return transactionExecute("equip") { session ->
@@ -134,7 +134,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
             ?: throw CharacterExceptions.funExceptionItemNotFound("applyOrb", orbItemId)
         val orb = orbItem.takeIf { it.category == EnumCurrencyOrb.CATEGORY }
             ?.let { EnumCurrencyOrb.byCode(it.subCategory) }
-            ?: throw CurrencyExceptions.funExceptionNotCurrency("applyOrb", orbItem.name)
+            ?: throw CurrencyExceptions.funExceptionNotCurrency("applyOrb", orbItem.code)
 
         val character = characterRepository.findById(characterId)
             ?: throw CharacterExceptions.funExceptionNotFound("applyOrb", characterId)

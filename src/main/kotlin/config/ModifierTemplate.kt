@@ -63,7 +63,6 @@ fun conversion(
  */
 data class ModifierTemplate(
     val code: String,
-    val name: String,
     val source: EnumModifierSource,
     val effects: List<EffectTemplate>,
     val tierCount: Int,
@@ -83,7 +82,6 @@ data class ModifierTemplate(
         effects = effects.map { ModifierEffect(it.stat, it.operation, it.perStat, it.perAmount) },
         source = source,
         isLocal = isLocal,
-        name = name,
         tags = tags.toMutableList(),
         // Справочник пересевается на каждом старте, поэтому _id должен быть
         // стабильным: иначе зароленные модификаторы предметов потеряют ссылки

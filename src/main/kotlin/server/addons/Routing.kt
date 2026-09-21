@@ -15,7 +15,9 @@ import extensions.ALL_ROUTES
 import extensions.printLog
 import extensions.saveChildren
 import io.ktor.openapi.OpenApiInfo
+import features.logic.locale.LocaleCache
 import io.ktor.server.application.*
+import io.ktor.server.http.content.staticResources
 import io.ktor.server.plugins.openapi.openAPI
 import io.ktor.server.response.respond
 import io.ktor.server.routing.get
@@ -40,6 +42,10 @@ fun Application.configureRouting() {
     val routeRegistry by inject<RouteRegistry>()
 
     routing {
+        // Файлы локализации раздаются как есть: клиент читает манифест
+        // locale/index.json, сверяет отпечаток и качает нужный словарь
+        staticResources("/${LocaleCache.FOLDER}", LocaleCache.FOLDER)
+
         routeRegistry.registerAll(this)
 
         openAPI(path = "swagger") {
@@ -57,11 +63,11 @@ fun Application.configureRouting() {
 
                 val key = call.queryParameters["key"]
                 if (key == null || key != "32543254") {
-                    call.respond(ApiMongoResponse.ok("Access denied"))
+                    call.respond(ApiMongoResponse.ok("system.access_denied"))
                     return@get
                 }
 
-                call.respond(ApiMongoResponse.ok("Success"))
+                call.respond(ApiMongoResponse.ok("system.success"))
 
                 GlobalScope.launch {
                     delay(2.seconds)

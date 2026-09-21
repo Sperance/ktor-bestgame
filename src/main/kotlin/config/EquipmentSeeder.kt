@@ -70,14 +70,15 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
         seedHelmets(list)
         list.addAll(UniqueEquipmentSeeder.seedEquipment(::mod))
 
-        // Имя - натуральный ключ шаблона, дубликаты сломали бы стабильный _id
-        val duplicates = list.groupBy { it.name }.filterValues { it.size > 1 }.keys
+        // Код - натуральный ключ шаблона, дубликаты сломали бы стабильный _id
+        // и склеили бы двум предметам один текст локализации
+        val duplicates = list.groupBy { it.code }.filterValues { it.size > 1 }.keys
         if (duplicates.isNotEmpty())
-            throw EquipmentExceptions.funException("seed", "Duplicate equipment names: $duplicates")
+            throw EquipmentExceptions.funException("seed", "Duplicate equipment codes: $duplicates")
 
         // Шаблоны пересеваются на каждом старте, поэтому _id должен быть
         // стабильным: иначе инвентарь персонажей потеряет ссылки на них.
-        list.forEach { it._id = it.name.toStableObjectId() }
+        list.forEach { it._id = it.code.toStableObjectId() }
 
         return list
     }
@@ -88,314 +89,304 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(12.0),
-                name = "Leather Cap",
+                code = "LEATHER_CAP",
                 rarity = EnumRarity.COMMON,
                 itemLevel = 1,
                 requiredLevel = 1,
                 requiredStrength = 2,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "A simple leather headguard." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(15.0),
-                name = "Iron Skullcap",
+                code = "IRON_SKULLCAP",
                 rarity = EnumRarity.COMMON,
                 itemLevel = 5,
                 requiredLevel = 5,
                 requiredStrength = 10,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Light iron cap for basic protection." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(18.0),
-                name = "Hide Helm",
+                code = "HIDE_HELM",
                 rarity = EnumRarity.COMMON,
                 itemLevel = 10,
                 requiredLevel = 10,
                 requiredStrength = 20,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Reinforced hide headgear." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(20.0),
-                name = "Chain Coif",
+                code = "CHAIN_COIF",
                 rarity = EnumRarity.COMMON,
                 itemLevel = 15,
                 requiredLevel = 15,
                 requiredStrength = 30,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Basic chainmail hood." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(22.0),
-                name = "Sallet",
+                code = "SALLET",
                 rarity = EnumRarity.COMMON,
                 itemLevel = 20,
                 requiredLevel = 20,
                 requiredStrength = 40,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Standard military helmet." })
+            ))
 
         // ==================== UNCOMMON HELMETS ====================
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(28.0),
-                name = "Steel Helm",
+                code = "STEEL_HELM",
                 rarity = EnumRarity.UNCOMMON,
                 itemLevel = 25,
                 requiredLevel = 25,
                 requiredStrength = 50,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Sturdy steel helmet." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(32.0),
-                name = "Knight's Casque",
+                code = "KNIGHT_S_CASQUE",
                 rarity = EnumRarity.UNCOMMON,
                 itemLevel = 30,
                 requiredLevel = 30,
                 requiredStrength = 60,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Full-face knight helmet." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(36.0),
-                name = "Bronze Greathelm",
+                code = "BRONZE_GREATHELM",
                 rarity = EnumRarity.UNCOMMON,
                 itemLevel = 35,
                 requiredLevel = 35,
                 requiredStrength = 70,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Heavy bronze great helm." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(40.0),
-                name = "Visored Helm",
+                code = "VISORED_HELM",
                 rarity = EnumRarity.UNCOMMON,
                 itemLevel = 40,
                 requiredLevel = 40,
                 requiredStrength = 80,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Helm with protective visor." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(44.0),
-                name = "Warden's Crown",
+                code = "WARDEN_S_CROWN",
                 rarity = EnumRarity.UNCOMMON,
                 itemLevel = 45,
                 requiredLevel = 45,
                 requiredStrength = 90,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Guardian's protective crown." })
+            ))
 
         // ==================== RARE HELMETS ====================
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(52.0),
-                name = "Helm of Valor",
+                code = "HELM_OF_VALOR",
                 rarity = EnumRarity.RARE,
                 itemLevel = 50,
                 requiredLevel = 50,
                 requiredStrength = 100,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Forged for brave warriors." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(58.0),
-                name = "Battle Mask",
+                code = "BATTLE_MASK",
                 rarity = EnumRarity.RARE,
                 itemLevel = 55,
                 requiredLevel = 55,
                 requiredStrength = 110,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Intimidating battle mask." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(64.0),
-                name = "Aegis Helm",
+                code = "AEGIS_HELM",
                 rarity = EnumRarity.RARE,
                 itemLevel = 60,
                 requiredLevel = 60,
                 requiredStrength = 120,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Shield-protected helm." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(70.0),
-                name = "Fury's Visage",
+                code = "FURY_S_VISAGE",
                 rarity = EnumRarity.RARE,
                 itemLevel = 65,
                 requiredLevel = 65,
                 requiredStrength = 130,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Mask of the raging warrior." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(76.0),
-                name = "Warrior's Sallet",
+                code = "WARRIOR_S_SALLET",
                 rarity = EnumRarity.RARE,
                 itemLevel = 70,
                 requiredLevel = 70,
                 requiredStrength = 140,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Elite warrior's sallet." })
+            ))
 
         // ==================== EPIC HELMETS ====================
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(88.0),
-                name = "Helm of Justice",
+                code = "HELM_OF_JUSTICE",
                 rarity = EnumRarity.EPIC,
                 itemLevel = 75,
                 requiredLevel = 75,
                 requiredStrength = 150,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Blessed helm of righteous warriors." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(96.0),
-                name = "Crown of Glory",
+                code = "CROWN_OF_GLORY",
                 rarity = EnumRarity.EPIC,
                 itemLevel = 80,
                 requiredLevel = 80,
                 requiredStrength = 160,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Crown worn by legendary champions." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(104.0),
-                name = "Helm of the Martyr",
+                code = "HELM_OF_THE_MARTYR",
                 rarity = EnumRarity.EPIC,
                 itemLevel = 85,
                 requiredLevel = 85,
                 requiredStrength = 170,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Forged in sacrifice and pain." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(112.0),
-                name = "Radiant Casque",
+                code = "RADIANT_CASQUE",
                 rarity = EnumRarity.EPIC,
                 itemLevel = 90,
                 requiredLevel = 90,
                 requiredStrength = 180,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Shining with inner light." })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(120.0),
-                name = "Helm of Enlightenment",
+                code = "HELM_OF_ENLIGHTENMENT",
                 rarity = EnumRarity.EPIC,
                 itemLevel = 95,
                 requiredLevel = 95,
                 requiredStrength = 190,
                 modifierIds = helmetModifiers()
-            ).apply { this.description = "Grants clarity of mind and body." })
+            ))
 
         // ==================== MYTHICAL HELMETS ====================
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(138.0),
-                name = "Azure Crown",
+                code = "AZURE_CROWN",
                 rarity = EnumRarity.MYTHICAL,
                 itemLevel = 4,
                 requiredLevel = 4,
                 requiredStrength = 8,
                 modifierIds = helmetModifiers(),
-            ).apply {
-            this.description = "Crown of the azure kings."
-        })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(150.0),
-                name = "Helm of the Titan",
+                code = "HELM_OF_THE_TITAN",
                 rarity = EnumRarity.MYTHICAL,
                 itemLevel = 16,
                 requiredLevel = 16,
                 requiredStrength = 32,
                 modifierIds = helmetModifiers(),
-            ).apply {
-            this.description = "Forged in the heart of a mountain."
-        })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(162.0),
-                name = "Dragonlord's Helm",
+                code = "DRAGONLORD_S_HELM",
                 rarity = EnumRarity.MYTHICAL,
                 itemLevel = 72,
                 requiredLevel = 72,
                 requiredStrength = 144,
                 modifierIds = helmetModifiers(),
-            ).apply {
-            this.description = "Worn by dragon masters."
-        })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(174.0),
-                name = "Helm of Immortality",
+                code = "HELM_OF_IMMORTALITY",
                 rarity = EnumRarity.MYTHICAL,
                 itemLevel = 44,
                 requiredLevel = 44,
                 requiredStrength = 88,
                 modifierIds = helmetModifiers("IMPLICIT_ADD_ARMOUR"),
-            ).apply {
-            this.description = "Grants eternal vitality."
-        })
+            ))
 
         list.add(
             Armor(
                 slot = EnumEquipmentType.HELMET,
                 baseParams = helmetBase(186.0),
-                name = "Legendary Casque",
+                code = "LEGENDARY_CASQUE",
                 rarity = EnumRarity.MYTHICAL,
                 itemLevel = 90,
                 requiredLevel = 90,
                 requiredStrength = 180,
                 modifierIds = helmetModifiers(),
-            ).apply {
-            this.description = "The ultimate head protection."
-        })
+            ))
     }
 }

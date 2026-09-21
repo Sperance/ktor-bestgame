@@ -37,11 +37,6 @@ data class CharacterSkillNode(
     var params: MutableList<Modifier> = mutableListOf(),
 
     /**
-     * Снимок названия узла.
-     */
-    var name: String = "",
-
-    /**
      * Снимок вида узла.
      */
     var type: EnumSkillNodeType = EnumSkillNodeType.SMALL,
@@ -51,11 +46,6 @@ data class CharacterSkillNode(
      * и именно столько вернёт при откате.
      */
     var cost: Int = 1,
-
-    /**
-     * Снимок описания узла.
-     */
-    var description: String? = null,
 ) {
 
     companion object {
@@ -66,10 +56,8 @@ data class CharacterSkillNode(
             code = node.code,
             // Modifier неизменяем, поэтому хватает копии списка
             params = node.params.toMutableList(),
-            name = node.name,
             type = node.type,
-            cost = node.cost,
-            description = node.description
+            cost = node.cost
         )
     }
 }

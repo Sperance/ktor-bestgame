@@ -18,6 +18,8 @@ import features.data.character.Character
 import features.data.character.CharacterRepository
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.items.Items
+import features.logic.locale.LocaleCache
+import features.logic.locale.LocaleKey
 import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -42,7 +44,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
     private val itemsCache: ItemsCache by inject()
 
     init {
-        initialize(indexedFields = listOf("sellerId", "status", "title"))
+        initialize(indexedFields = listOf("sellerId", "status", "itemCode"))
     }
 
     // ==================== Витрина ====================
@@ -53,6 +55,22 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
     suspend fun search(characterId: String, search: AuctionSearch, page: Int, size: Int): PagedMongoResponse<AuctionLot> {
         requireTrader(characterId, "search")
         return findPaged(search.toFilter(), page, size)
+    }
+
+    /**
+     * Превращает поисковый текст в коды предметов, чьи названия ему подходят.
+     *
+     * Названий в лотах нет, поэтому текст разрешается по словарю выбранного
+     * языка - и уже коды уходят в фильтр Mongo. Так поиск остаётся на сервере
+     * и честно работает с пагинацией.
+     *
+     * @param language язык, на котором игрок видит витрину
+     * @throws LocaleExceptions.LocaleException если языка нет в манифесте
+     */
+    fun codesMatching(language: String, text: String): List<String> {
+        val bundle = LocaleCache.bundle(language)
+
+        return bundle.codesMatching(LocaleKey.EQUIPMENT, text) + bundle.codesMatching(LocaleKey.ITEM, text)
     }
 
     /**
@@ -234,7 +252,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
             ?: throw CharacterExceptions.funExceptionItemNotFound(method, itemId)
 
         if (item.category != EnumCurrencyOrb.CATEGORY)
-            throw AuctionExceptions.funExceptionPriceNotOrb(method, item.name)
+            throw AuctionExceptions.funExceptionPriceNotOrb(method, item.code)
 
         return item
     }

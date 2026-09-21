@@ -36,7 +36,8 @@ class CharacterEquipmentRoute(
             call.respond(
                 ApiMongoResponse.ok(
                     CurrencyApplyResponse(
-                        message = outcome.message,
+                        messageKey = outcome.messageKey,
+                        messageArgs = outcome.messageArgs,
                         item = outcome.item,
                         created = outcome.created
                     )
@@ -55,11 +56,15 @@ class CharacterEquipmentRoute(
 /**
  * Ответ на применение валютной сферы.
  *
+ * Текста здесь нет: клиент собирает фразу сам по [messageKey] и [messageArgs],
+ * см. [features.logic.currency.CurrencyOutcome].
+ *
  * @property created предмет, который сфера создала (Mirror of Kalandra)
  */
 @Serializable
 data class CurrencyApplyResponse(
-    val message: String,
+    val messageKey: String,
+    val messageArgs: List<String>,
     val item: CharacterEquipment,
     val created: CharacterEquipment? = null,
 )

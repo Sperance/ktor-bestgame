@@ -67,9 +67,7 @@ object ProgressionSeeder {
 
     private data class ClassTemplate(
         val code: String,
-        val name: String,
         val startNodeCode: String,
-        val description: String,
         val strength: Double,
         val dexterity: Double,
         val intelligence: Double,
@@ -86,51 +84,37 @@ object ProgressionSeeder {
     private val templates = listOf(
         ClassTemplate(
             code = "MARAUDER",
-            name = "Marauder",
             startNodeCode = "STR_START",
-            description = "Сила: больше здоровья и физического урона",
             strength = 32.0, dexterity = 14.0, intelligence = 14.0
         ),
         ClassTemplate(
             code = "RANGER",
-            name = "Ranger",
             startNodeCode = "DEX_START",
-            description = "Ловкость: уклонение и скорость",
             strength = 14.0, dexterity = 32.0, intelligence = 14.0
         ),
         ClassTemplate(
             code = "WITCH",
-            name = "Witch",
             startNodeCode = "INT_START",
-            description = "Интеллект: мана, энергощит и заклинания",
             strength = 14.0, dexterity = 14.0, intelligence = 32.0
         ),
         ClassTemplate(
             code = "DUELIST",
-            name = "Duelist",
             startNodeCode = "STR_DEX_START",
-            description = "Сила и ловкость: ближний бой, блок и скорость атаки",
             strength = 23.0, dexterity = 23.0, intelligence = 14.0
         ),
         ClassTemplate(
             code = "TEMPLAR",
-            name = "Templar",
             startNodeCode = "STR_INT_START",
-            description = "Сила и интеллект: броня, энергощит и стихии",
             strength = 23.0, dexterity = 14.0, intelligence = 23.0
         ),
         ClassTemplate(
             code = "SHADOW",
-            name = "Shadow",
             startNodeCode = "DEX_INT_START",
-            description = "Ловкость и интеллект: криты, уклонение и хаос",
             strength = 14.0, dexterity = 23.0, intelligence = 23.0
         ),
         ClassTemplate(
             code = "SCION",
-            name = "Scion",
             startNodeCode = "SCION_START",
-            description = "Универсал: ровно по двадцать каждого атрибута и выход в любую ветку дерева",
             strength = 20.0, dexterity = 20.0, intelligence = 20.0
         ),
     )
@@ -171,9 +155,7 @@ object ProgressionSeeder {
         return templates.map { template ->
             CharacterClass(
                 code = template.code,
-                name = template.name,
                 startNodeCode = template.startNodeCode,
-                description = template.description,
                 baseStats = buildBase(template),
                 perLevelStats = sharedGrowth.mapTo(mutableListOf()) { StatValue(it.first, it.second) },
                 params = sharedConversions.mapTo(mutableListOf()) { conversion(it) },

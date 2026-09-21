@@ -18,7 +18,7 @@ fun Application.configureIpBlocking() {
         val cacheBlocking = blockListCache.getCache()
         val blocked = cacheBlocking.find { it.address ==  clientIp }
         if (blocked != null) {
-            call.respond(ApiMongoResponse.ok("You are blocked"))
+            call.respond(ApiMongoResponse.ok("system.blocked"))
             finish()
         }
     }

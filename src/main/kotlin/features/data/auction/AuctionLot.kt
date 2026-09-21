@@ -25,9 +25,12 @@ import org.bson.types.ObjectId
  * Цена назначается только в валютных сферах: [priceOrbId] ссылается
  * на предмет категории `CURRENCY` в справочнике `Items`.
  *
- * Поля витрины ([title], [slot], [rarity], [itemLevel]) - снимок предмета
+ * Поля витрины ([itemCode], [slot], [rarity], [itemLevel]) - снимок предмета
  * на момент выставления. Они лежат прямо здесь, чтобы фильтр аукциона
  * работал одним запросом к Mongo, без похода в справочники.
+ *
+ * Название лота не хранится: [itemCode] - это код предмета, по которому
+ * и клиент, и поиск берут текст из файлов локализации.
  */
 @Serializable
 data class AuctionLot(
@@ -78,9 +81,9 @@ data class AuctionLot(
     // ==================== Снимок для витрины и фильтра ====================
 
     /**
-     * Название предмета.
+     * Код предмета - ключ его текста в локализации.
      */
-    var title: String = "",
+    var itemCode: String = "",
 
     /**
      * Слот экипировки. null у простых предметов.
@@ -148,7 +151,7 @@ data class AuctionLot(
                 amount = 1,
                 priceOrbId = priceOrbId,
                 price = price,
-                title = template.name,
+                itemCode = template.code,
                 slot = template.slot,
                 rarity = item.rarity,
                 itemLevel = template.itemLevel
@@ -172,7 +175,7 @@ data class AuctionLot(
             amount = amount,
             priceOrbId = priceOrbId,
             price = price,
-            title = item.name
+            itemCode = item.code
         )
     }
 }

@@ -210,7 +210,7 @@ class UserRepository : BaseRepository<User>(
         transactionExecute { session ->
             updateFields(user, mapOf("password" to newHashedPass), session)
         }
-        return "Success"
+        return "system.success"
     }
 
     // ==================== Password utils ====================

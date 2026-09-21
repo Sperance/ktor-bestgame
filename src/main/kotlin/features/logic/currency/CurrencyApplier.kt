@@ -26,6 +26,7 @@ import features.data.equipment.equipment_data.Equipment
 import features.data.inventory.CharacterEquipment
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
+import features.logic.locale.LocaleKey
 import features.logic.modifiers.ModifierRoller
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
@@ -34,14 +35,23 @@ import org.koin.core.component.inject
 /**
  * Результат применения сферы.
  *
+ * Текста здесь нет: сервер отдаёт ключ сообщения и его аргументы,
+ * а собирает фразу клиент по своему файлу локализации.
+ *
+ * Аргумент, который сам является ключом (код предмета, значение
+ * перечисления), клиент переводит; всё остальное - числа - подставляет
+ * как есть. Правило одно: нашлось в словаре - перевести, нет - вставить.
+ *
  * @property item предмет после применения
  * @property created новый предмет, если сфера его создала (Mirror of Kalandra)
- * @property message что именно произошло
+ * @property messageKey ключ сообщения в локализации
+ * @property messageArgs значения для {0}, {1}... в шаблоне сообщения
  */
 data class CurrencyOutcome(
     val item: CharacterEquipment,
     val created: CharacterEquipment? = null,
-    val message: String,
+    val messageKey: String,
+    val messageArgs: List<String> = emptyList(),
 )
 
 /**
@@ -78,7 +88,7 @@ object CurrencyApplier : KoinComponent {
      * @throws CurrencyExceptions.CurrencyException если сфера к предмету неприменима
      */
     fun apply(orb: EnumCurrencyOrb, item: CharacterEquipment, template: Equipment): CurrencyOutcome {
-        if (item.corrupted) throw CurrencyExceptions.funExceptionCorrupted("apply", template.name)
+        if (item.corrupted) throw CurrencyExceptions.funExceptionCorrupted("apply", template.code)
 
         return when (orb) {
             ORB_OF_TRANSMUTATION -> upgrade(item, template, from = EnumRarity.COMMON, to = EnumRarity.UNCOMMON)
@@ -98,6 +108,20 @@ object CurrencyApplier : KoinComponent {
         }
     }
 
+    /**
+     * Результат с ключом сообщения: первым аргументом всегда идёт сам предмет.
+     */
+    private fun outcome(
+        item: CharacterEquipment,
+        template: Equipment,
+        messageKey: String,
+        vararg args: String
+    ) = CurrencyOutcome(
+        item = item,
+        messageKey = messageKey,
+        messageArgs = listOf(LocaleKey.equipmentName(template.code)) + args
+    )
+
     // ==================== Правила сфер ====================
 
     /**
@@ -114,7 +138,7 @@ object CurrencyApplier : KoinComponent {
         item.rarity = to
         item.params = (permanent(item) + ModifierRoller.rollAffixes(template, to)).toMutableList()
 
-        return CurrencyOutcome(item, message = "${template.name} is now $to with ${affixes(item).size} affixes")
+        return outcome(item, template, "currency.upgraded", LocaleKey.rarity(to), affixes(item).size.toString())
     }
 
     /**
@@ -125,7 +149,7 @@ object CurrencyApplier : KoinComponent {
 
         item.params = (permanent(item) + ModifierRoller.rollAffixes(template, item.rarity)).toMutableList()
 
-        return CurrencyOutcome(item, message = "${template.name} rerolled into ${affixes(item).size} new affixes")
+        return outcome(item, template, "currency.rerolled", affixes(item).size.toString())
     }
 
     /**
@@ -135,11 +159,11 @@ object CurrencyApplier : KoinComponent {
         requireRarity(item, template, required)
 
         val added = ModifierRoller.rollExtraAffix(template, item.rarity, item.params)
-            ?: throw CurrencyExceptions.funExceptionNoFreeAffix("augment", template.name)
+            ?: throw CurrencyExceptions.funExceptionNoFreeAffix("augment", template.code)
 
         item.params.add(added)
 
-        return CurrencyOutcome(item, message = "${template.name} gained a new affix")
+        return outcome(item, template, "currency.augmented")
     }
 
     /**
@@ -151,7 +175,7 @@ object CurrencyApplier : KoinComponent {
         item.rarity = EnumRarity.RARE
         ModifierRoller.rollExtraAffix(template, item.rarity, item.params)?.let { item.params.add(it) }
 
-        return CurrencyOutcome(item, message = "${template.name} is now RARE with ${affixes(item).size} affixes")
+        return outcome(item, template, "currency.regal", affixes(item).size.toString())
     }
 
     /**
@@ -168,11 +192,11 @@ object CurrencyApplier : KoinComponent {
             }
 
         val count = ModifierRoller.definitions(item.params).count(rerollable)
-        if (count == 0) throw CurrencyExceptions.funExceptionNoAffixes("divine", template.name)
+        if (count == 0) throw CurrencyExceptions.funExceptionNoAffixes("divine", template.code)
 
         item.params = ModifierRoller.rerollValues(item.params, rerollable)
 
-        return CurrencyOutcome(item, message = "${template.name}: $count modifier values rerolled")
+        return outcome(item, template, "currency.divine", count.toString())
     }
 
     /**
@@ -180,11 +204,11 @@ object CurrencyApplier : KoinComponent {
      */
     private fun blessed(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         val implicits = ModifierRoller.definitions(item.params).count { it.source == EnumModifierSource.IMPLICIT }
-        if (implicits == 0) throw CurrencyExceptions.funExceptionNoImplicits("blessed", template.name)
+        if (implicits == 0) throw CurrencyExceptions.funExceptionNoImplicits("blessed", template.code)
 
         item.params = ModifierRoller.rerollValues(item.params) { it.source == EnumModifierSource.IMPLICIT }
 
-        return CurrencyOutcome(item, message = "${template.name} implicit values rerolled")
+        return outcome(item, template, "currency.blessed")
     }
 
     /**
@@ -192,12 +216,12 @@ object CurrencyApplier : KoinComponent {
      */
     private fun annul(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         val current = affixes(item)
-        if (current.isEmpty()) throw CurrencyExceptions.funExceptionNoAffixes("annul", template.name)
+        if (current.isEmpty()) throw CurrencyExceptions.funExceptionNoAffixes("annul", template.code)
 
         val removed = current.randomExt()
         item.params.remove(removed)
 
-        return CurrencyOutcome(item, message = "${template.name} lost one affix, ${affixes(item).size} left")
+        return outcome(item, template, "currency.annulled", affixes(item).size.toString())
     }
 
     /**
@@ -205,14 +229,14 @@ object CurrencyApplier : KoinComponent {
      */
     private fun scour(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         if (item.rarity == EnumRarity.COMMON && affixes(item).isEmpty())
-            throw CurrencyExceptions.funExceptionNoAffixes("scour", template.name)
+            throw CurrencyExceptions.funExceptionNoAffixes("scour", template.code)
         if (item.rarity == EnumRarity.UNIQUE)
             throw CurrencyExceptions.funExceptionRarity("scour", item.rarity.name)
 
         item.rarity = EnumRarity.COMMON
         item.params = permanent(item).toMutableList()
 
-        return CurrencyOutcome(item, message = "${template.name} stripped back to COMMON")
+        return outcome(item, template, "currency.scoured")
     }
 
     /**
@@ -224,8 +248,8 @@ object CurrencyApplier : KoinComponent {
         val corruption = ModifierRoller.rollCorruption(template.itemLevel)
         if (corruption != null) item.params.add(corruption)
 
-        val what = if (corruption != null) "gained a corrupted modifier" else "was corrupted with no effect"
-        return CurrencyOutcome(item, message = "${template.name} $what")
+        val key = if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing"
+        return outcome(item, template, key)
     }
 
     /**
@@ -244,14 +268,14 @@ object CurrencyApplier : KoinComponent {
             item.rarity = EnumRarity.UNIQUE
             item.params = ModifierRoller.roll(unique, EnumRarity.UNIQUE)
 
-            return CurrencyOutcome(item, message = "${template.name} turned into ${unique.name}")
+            return outcome(item, template, "currency.chance_unique", LocaleKey.equipmentName(unique.code))
         }
 
         val rarity = chanceRarities.weightedRandomExt { it.second }?.first ?: EnumRarity.COMMON
         item.rarity = rarity
         item.params = (permanent(item) + ModifierRoller.rollAffixes(template, rarity)).toMutableList()
 
-        return CurrencyOutcome(item, message = "${template.name} turned into $rarity")
+        return outcome(item, template, "currency.chance_rarity", LocaleKey.rarity(rarity))
     }
 
     /**
@@ -266,14 +290,14 @@ object CurrencyApplier : KoinComponent {
             corrupted = true
         )
 
-        return CurrencyOutcome(item, created = copy, message = "${template.name} was mirrored")
+        return CurrencyOutcome(item, copy, "currency.mirrored", listOf(LocaleKey.equipmentName(template.code)))
     }
 
     // ==================== Вспомогательное ====================
 
     private fun requireRarity(item: CharacterEquipment, template: Equipment, required: EnumRarity) {
         if (item.rarity != required)
-            throw CurrencyExceptions.funExceptionRarity("requireRarity", "${template.name}: ${item.rarity}, need $required")
+            throw CurrencyExceptions.funExceptionRarity("requireRarity", "${template.code}: ${item.rarity}, need $required")
     }
 
     /**

@@ -33,8 +33,6 @@ data class CharacterClass(
      */
     val code: String,
 
-    val name: String,
-
     /**
      * Код стартового узла дерева навыков, с которого класс начинает прокачку.
      */
@@ -57,8 +55,6 @@ data class CharacterClass(
      * Значения фиксированы справочником, как у узлов дерева: тира у них нет.
      */
     val params: MutableList<Modifier> = mutableListOf(),
-
-    val description: String? = null,
 
     override var _id: String = ObjectId().toHexString()
 ) : StockEntity {

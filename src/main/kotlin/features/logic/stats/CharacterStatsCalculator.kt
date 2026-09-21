@@ -18,7 +18,12 @@ import org.koin.core.component.inject
 @Serializable
 data class InactiveEquipment(
     val inventoryId: String,
-    val name: String,
+
+    /**
+     * Код шаблона предмета - название клиент возьмёт из локализации.
+     */
+    val code: String,
+
     val reasons: List<String>,
 )
 
@@ -81,7 +86,7 @@ object CharacterStatsCalculator : KoinComponent {
                 inactive.add(
                     InactiveEquipment(
                         inventoryId = item._id,
-                        name = template.name,
+                        code = template.code,
                         reasons = unmet.map { "${it.name}: need ${it.required}, have ${it.actual}" }
                     )
                 )

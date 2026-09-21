@@ -6,10 +6,15 @@ import org.bson.types.ObjectId
 
 @Serializable
 data class Items(
-    val name: String,
+
+    /**
+     * Стабильный код предмета. Им предмет ссылается на свой текст
+     * в файлах локализации: item.<code>.name и .description.
+     */
+    val code: String,
+
     val category: String,
     val subCategory: String,
-    val description: String = "",
     val image: String? = null,
     val price: Long = 0,
 

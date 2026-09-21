@@ -7,7 +7,6 @@ import application.enums.EnumRarity
 import com.mongodb.client.model.Filters
 import kotlinx.serialization.Serializable
 import org.bson.conversions.Bson
-import java.util.regex.Pattern
 
 /**
  * Фильтр витрины аукциона.
@@ -27,9 +26,13 @@ data class AuctionSearch(
     val kind: EnumAuctionLotKind? = null,
 
     /**
-     * Часть названия предмета, регистр не важен.
+     * Коды предметов, подходящих под поисковый текст.
+     *
+     * Названий в лотах нет, поэтому текст игрока превращает в коды
+     * тот, кто держит словари локализации, - см. AuctionLotRepository.
+     * Пустой список означает "ничего не нашлось" и отсекает всю витрину.
      */
-    val title: String? = null,
+    val itemCodes: List<String>? = null,
 
     val slot: EnumEquipmentType? = null,
 
@@ -82,11 +85,8 @@ data class AuctionSearch(
         minItemLevel?.let { conditions.add(Filters.gte("itemLevel", it)) }
         maxItemLevel?.let { conditions.add(Filters.lte("itemLevel", it)) }
 
-        // Поиск по части названия: спецсимволы экранируются, иначе
-        // игрок мог бы прислать своё регулярное выражение
-        title?.takeIf { it.isNotBlank() }?.let {
-            conditions.add(Filters.regex("title", Pattern.quote(it), "i"))
-        }
+        // Поиск по названию пришёл уже разрешённым в коды
+        itemCodes?.let { conditions.add(Filters.`in`("itemCode", it)) }
 
         return Filters.and(conditions)
     }

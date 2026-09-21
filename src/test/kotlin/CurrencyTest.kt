@@ -18,7 +18,7 @@ class CurrencyTest {
 
     private fun template(rarity: EnumRarity = EnumRarity.COMMON) = Armor(
         slot = EnumEquipmentType.HELMET,
-        name = "Test Helm",
+        code = "TEST_HELM",
         rarity = rarity,
         itemLevel = 50
     )
@@ -44,7 +44,7 @@ class CurrencyTest {
     fun orb_items_are_currency_with_unique_stable_ids() {
         assert(orbs.all { it.category == EnumCurrencyOrb.CATEGORY }) { "Some orbs are not in the currency category" }
         assert(orbs.map { it._id }.toSet().size == orbs.size) { "Duplicate orb ids" }
-        assert(orbs.map { it.name }.toSet().size == orbs.size) { "Duplicate orb names" }
+        assert(orbs.map { it.code }.toSet().size == orbs.size) { "Duplicate orb codes" }
         assert(orbs.all { it.price > 0 }) { "Some orbs have no price" }
 
         val again = CurrencySeeder.seed().associate { it.subCategory to it._id }

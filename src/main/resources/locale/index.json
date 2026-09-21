@@ -1,0 +1,15 @@
+{
+  "default": "en",
+  "languages": [
+    {
+      "code": "en",
+      "label": "English",
+      "hash": "c2e138e361580fde"
+    },
+    {
+      "code": "ru",
+      "label": "Русский",
+      "hash": "628b47a2a5381950"
+    }
+  ]
+}

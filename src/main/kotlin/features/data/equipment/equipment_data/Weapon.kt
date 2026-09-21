@@ -20,11 +20,10 @@ data class Weapon(
      */
     var durability: Int = 100,
 
-    override var name: String = "",
+    override var code: String = "",
     override var rarity: EnumRarity = EnumRarity.COMMON,
     override var itemLevel: Int = 1,
     override var image: String? = null,
-    override var description: String = "",
     override var modifierIds: MutableList<String> = mutableListOf(),
     override var baseParams: MutableList<Modifier> = mutableListOf(),
     override var requiredLevel: Int = 1,

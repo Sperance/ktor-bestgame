@@ -34,6 +34,6 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = 
             update(redemption, session)
         }
 
-        return "Success"
+        return "system.success"
     }
 }

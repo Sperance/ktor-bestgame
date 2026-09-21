@@ -24,8 +24,6 @@ data class SkillTreeNode(
      */
     val code: String,
 
-    val name: String,
-
     val type: EnumSkillNodeType,
 
     /**
@@ -46,8 +44,6 @@ data class SkillTreeNode(
 
     val positionX: Int = 0,
     val positionY: Int = 0,
-
-    val description: String? = null,
 
     override var _id: String = ObjectId().toHexString()
 ) : StockEntity

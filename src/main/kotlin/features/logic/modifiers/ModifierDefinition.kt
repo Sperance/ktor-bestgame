@@ -96,7 +96,7 @@ data class ModifierDefinition(
     /**
      * Отображаемое имя.
      */
-    val name: String? = null,
+
 
     /**
      * Дополнительные теги.

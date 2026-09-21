@@ -299,10 +299,8 @@ class SkillTreeTest {
         val taken = CharacterSkillNode.fromNode(node)
 
         assert(taken.code == node.code) { "got ${taken.code}" }
-        assert(taken.name == node.name) { "got ${taken.name}" }
         assert(taken.type == node.type) { "got ${taken.type}" }
         assert(taken.cost == node.cost) { "got ${taken.cost}" }
-        assert(taken.description == node.description) { "got ${taken.description}" }
         assert(taken.params == node.params) { "снимок не повторяет бонусы узла" }
     }
 

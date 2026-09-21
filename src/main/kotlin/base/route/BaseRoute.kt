@@ -117,7 +117,7 @@ abstract class BaseRoute<T : StockEntity, R>(
                 repository.updateFields(id, updates, session)
             }?.let { toResponse(it) }
 
-            call.respond(apiResponseSerializer, ApiMongoResponse.ok(updated, "Updated"))
+            call.respond(apiResponseSerializer, ApiMongoResponse.ok(updated))
         } catch (e: BaseException) {
             throw e
         } catch (e: Exception) {
@@ -132,7 +132,7 @@ abstract class BaseRoute<T : StockEntity, R>(
                 repository.deleteById(id, session)
             }
 
-            call.respond(ApiMongoResponse.ok("Deleted"))
+            call.respond(ApiMongoResponse.ok("system.deleted"))
         } catch (e: BaseException) {
             throw e
         } catch (e: Exception) {

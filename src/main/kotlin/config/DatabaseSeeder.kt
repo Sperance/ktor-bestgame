@@ -12,7 +12,6 @@ import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.toStorage
 import features.data.character.CharacterRepository
 import features.data.equipment.EquipmentRepository
-import features.data.items.Items
 import features.data.items.ItemsRepository
 import features.caches.BlockListCache
 import features.caches.CharacterClassCache
@@ -319,43 +318,7 @@ object DatabaseSeeder : KoinComponent {
         if (itemsRepository.count() > 0) return
 
         printLog("Seeding items...")
-        val listItems = ArrayList<Items>()
-        listItems.add(
-            Items(
-                category = "WOOD_STOCK",
-                subCategory =  "LOG",
-                description = "Кусок дерева (полено)",
-                price = 10,
-                name = "Дрееово жыжы"
-            )
-        )
-        listItems.add(
-            Items(
-                category = "STONE_STOCK",
-                subCategory = "STONE",
-                description = "Кучка кала",
-                price = 12,
-                name = "Кал"
-            )
-        )
-        listItems.add(
-            Items(
-                category = "STONE_STOCK",
-                subCategory = "STONE",
-                description = "Кучка кала 2",
-                price = 22,
-                name = "Кал23"
-            )
-        )
-        listItems.add(
-            Items(
-                category = "CONSUMABLE",
-                subCategory = "HEALTH",
-                description = "Восстанавливает здоровье",
-                price = 80,
-                name = "Зелье"
-            )
-        )
+        val listItems = ItemsSeeder.seed()
 
         itemsRepository.insertMany(listItems, session)
 

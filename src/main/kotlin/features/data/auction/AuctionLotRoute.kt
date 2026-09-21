@@ -6,6 +6,7 @@ import application.enums.EnumRarity
 import base.exception.BaseRouteExceptions
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
+import features.logic.locale.LocaleCache
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
@@ -73,6 +74,7 @@ class AuctionLotRoute(
      */
     private fun searchFrom(call: ApplicationCall): AuctionSearch {
         val params = call.request.queryParameters
+        val language = params["lang"]?.takeIf { it.isNotBlank() } ?: LocaleCache.defaultLanguage()
 
         fun text(name: String): String? = params[name]?.takeIf { it.isNotBlank() }
 
@@ -86,7 +88,8 @@ class AuctionLotRoute(
 
         return AuctionSearch(
             kind = enum("kind", EnumAuctionLotKind.entries),
-            title = text("title"),
+            // Поиск по названию разрешается в коды по словарю выбранного языка
+            itemCodes = text("title")?.let { repo.codesMatching(language, it) },
             slot = enum("slot", EnumEquipmentType.entries),
             rarity = enum("rarity", EnumRarity.entries),
             minItemLevel = text("minItemLevel")?.toIntOrNull(),

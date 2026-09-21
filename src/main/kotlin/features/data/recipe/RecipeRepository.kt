@@ -135,6 +135,6 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
             update(recipe, session)
         }
 
-        return "Success"
+        return "system.success"
     }
 }
