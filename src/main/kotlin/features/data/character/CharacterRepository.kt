@@ -86,6 +86,20 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     /**
+     * Персонажи одного игрока - то, из чего он выбирает при входе.
+     *
+     * Их не больше [CONST_USER_MAX_CHARACTERS], поэтому запрос отдаёт список целиком,
+     * без страниц. Игрок не должен вычитывать коллекцию целиком ради своих трёх:
+     * чужие персонажи за пределы сервера не уезжают.
+     */
+    suspend fun findByUser(userId: String): List<Character> {
+        if (userRepository.findByField(User::_id, userId) == null)
+            throw CharacterExceptions.funExceptionUserNotFound("findByUser", userId)
+
+        return findByFilter(Filters.eq("userId", userId))
+    }
+
+    /**
      * Весь инвентарь экипировки персонажа - отдельные документы коллекции `CharacterEquipment`.
      */
     suspend fun getEquipmentsData(characterId: String): List<CharacterEquipment> {

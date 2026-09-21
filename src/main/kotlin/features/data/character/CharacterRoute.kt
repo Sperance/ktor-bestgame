@@ -19,6 +19,13 @@ class CharacterRoute(
     toResponse = { it }
 ) {
     override fun additionalRoutes(route: Route) = with(route) {
+        // Персонажи одного игрока: экран выбора при входе читает только их.
+        get("/byUser") {
+            val userId = call.queryParam("userId")
+            val data = repo.findByUser(userId)
+            call.respond(ApiMongoResponse.ok(data))
+        }
+
         route("/inventory") {
             get("/equipments") {
                 val characterId = call.queryParam("characterId")
