@@ -1,0 +1,67 @@
+# CLAUDE.md
+
+Guidance for AI assistants working in this repository.
+
+This is **ktor-bestgame**, the Ktor + MongoDB + Koin RPG server. Its client is a separate
+repository, **ExileForge** (Android Compose), whose own `CLAUDE.md` carries the full contract
+between the two. The client is deliberately thin: this server owns items, stats, modifier rolls,
+prices and inventory, and the client only renders what it is told.
+
+## Standing rules (never skip, whatever the task)
+
+These two were set by the owner of the project and outrank convenience. They apply to every
+change, here and in the client, whether or not the task mentions them.
+
+1. **Anything with a name is born translated.** Adding an item, a piece of equipment, a class, a
+   currency orb, a tree node, a modifier, an enum value or an error code means adding its strings
+   to **every** language served today — `src/main/resources/locale/ru.json` and `en.json`, and
+   whatever `locale/index.json` lists tomorrow. A code without a name in all of them is an
+   unfinished change, not a change with a follow-up.
+
+   Keys are `<section>.<CODE>.<field>`, built by `LocaleKey` on both sides; never hand-write one,
+   because the client computes the same string and a drift shows up as a raw key on screen.
+
+   `LocalizationTest` is what catches a miss, and it is stricter than it looks: every dictionary
+   must cover every key the code asks for and carry no extras, the languages must hold identical
+   key sets, no string may be empty, a placeholder must survive translation, and a composite
+   modifier needs a placeholder per effect. Run it before calling such a change done.
+
+2. **Every finished change ends with a changelog and a version.** Once the checks have passed and
+   the branches are pushed, report what changed as a list, under a version number, **for the
+   application and for the server separately** — even when only one of them moved, say so. The
+   server's number is `SERVER_VERSION`, pinned in the client's `core/.../contract/Contract.kt`
+   together with `SERVER_COMMIT` and `SERVER_BRANCH`; bump it as part of the change rather than
+   leaving it for later. This is the last step of the work, not a courtesy: a change that is
+   pushed but not written up is not delivered.
+
+## Where names and numbers live
+
+- `src/main/resources/locale/{index,ru,en}.json` — every string in the game. No document in Mongo
+  has carried text since 0.14.0; entities store a `code`.
+- `src/main/resources/content/{equipment,items,currency}.json` — the catalogues, read by the
+  seeders. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
+  which is a rule rather than data.
+- `src/main/resources/skilltree/tree.json` — the passive tree, 299 nodes. `SkillTreeSeeder` only
+  reads and validates it.
+- `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level
+  table, in code because they are rules.
+- `src/main/resources/icons/` — outline path data, no raster images.
+
+A code derives its `_id` through `toStableObjectId()`, so reseeding never breaks a reference that
+a character already holds.
+
+## Build and verification
+
+```bash
+bash gradlew build          # compiles and runs the test suite
+bash gradlew installDist    # what the client's CI job boots
+```
+
+`gradlew` is committed without the executable bit, so invoke it as `bash gradlew`.
+
+Tests that need a live MongoDB (`MongoTest`, `AuctionTest`, `CurrencyTest`, `StatsTest`,
+`PagingTest`, `SoftDeleteTest`) **fail** without one rather than skipping — in a bare container
+that is expected, and is not a signal that the change broke something. `LocalizationTest`,
+`SkillTreeTest` and `SeedDataTest` read resources only and must pass everywhere, which is why
+they are the ones rule 1 leans on. Run a single one with
+`bash gradlew test --tests LocalizationTest`.
