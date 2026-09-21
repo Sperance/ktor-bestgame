@@ -283,6 +283,8 @@ object DatabaseSeeder : KoinComponent {
                 description = "STRONG pipster",
                 userId = userRepoAll.first()._id,
                 classId = marauder._id,
+                level = 10,
+                experience = 61693.0,
             )
         )
         listItems.add(
@@ -291,8 +293,8 @@ object DatabaseSeeder : KoinComponent {
                 description = "Мудрый pipster",
                 userId = userRepoAll.last()._id,
                 classId = witch._id,
-                level = 5,
-                experience = 1200.0,
+                level = 10,
+                experience = 61693.0,
             )
         )
 
