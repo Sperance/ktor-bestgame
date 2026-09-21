@@ -18,8 +18,8 @@ import io.ktor.openapi.OpenApiInfo
 import features.logic.icons.IconCache
 import features.logic.icons.IconManifest
 import features.logic.locale.LocaleCache
+import features.logic.locale.LocaleManifest
 import io.ktor.server.application.*
-import io.ktor.server.http.content.staticResources
 import io.ktor.server.plugins.openapi.openAPI
 import io.ktor.server.response.respond
 import io.ktor.http.ContentType
@@ -48,8 +48,18 @@ fun Application.configureRouting() {
 
     routing {
         // Файлы локализации раздаются как есть: клиент читает манифест
-        // locale/index.json, сверяет отпечаток и качает нужный словарь
-        staticResources("/${LocaleCache.FOLDER}", LocaleCache.FOLDER)
+        // locale/index.json, сверяет отпечаток и качает нужный словарь. Манифест собирает
+        // сервер, как и у иконок: отпечаток считается из файла и забыть его нельзя.
+        route("/${LocaleCache.FOLDER}") {
+            get("/${LocaleCache.MANIFEST}") {
+                call.respondText(Json.encodeToString(LocaleManifest.serializer(), LocaleCache.manifest()), ContentType.Application.Json)
+            }
+            get("/{language}.json") {
+                val language = call.parameters["language"].orEmpty()
+                LocaleCache.bundle(language)
+                call.respondText(LocaleCache.document(language), ContentType.Application.Json)
+            }
+        }
 
         // Иконки устроены так же, но манифест собирает сервер: отпечаток
         // считается из самого файла, и забыть его обновить нельзя

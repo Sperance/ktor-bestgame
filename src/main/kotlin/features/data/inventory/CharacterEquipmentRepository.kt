@@ -1,9 +1,12 @@
 package features.data.inventory
 
 import application.enums.EnumCurrencyOrb
+import application.enums.EnumEquipmentType
+import application.enums.EnumSkillNodeType
 import application.enums.EnumRarity
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
+import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
@@ -11,6 +14,7 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import features.caches.EquipmentCache
 import features.caches.ItemsCache
+import features.caches.SkillTreeCache
 import features.data.character.CharacterRepository
 import features.data.equipment.equipment_data.Equipment
 import features.logic.currency.CurrencyApplier
@@ -25,6 +29,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     private val equipmentCache: EquipmentCache by inject()
     private val itemsCache: ItemsCache by inject()
     private val characterRepository: CharacterRepository by inject()
+    private val skillTreeCache: SkillTreeCache by inject()
 
     init {
         initialize(indexedFields = listOf("characterId", "equipmentId"))
@@ -60,6 +65,66 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         equipment: Equipment,
         session: ClientSession
     ): CharacterEquipment = insert(CharacterEquipment.fromEquipment(characterId, equipment), session)
+
+    /**
+     * Вставляет самоцвет в гнездо дерева навыков.
+     *
+     * Самоцвет - обычный экземпляр экипировки со слотом [EnumEquipmentType.JEWEL],
+     * поэтому роллы, редкость, сферы и аукцион достались ему даром. Отличается он
+     * тем, куда надевается: гнёзд на дереве много, и какое занято, говорит
+     * [CharacterEquipment.socketCode], а не слот.
+     *
+     * Гнездо должно быть взято персонажем и свободно: вставлять камень в узел,
+     * которого у игрока нет, значило бы дать бонус за невзятое.
+     */
+    suspend fun socket(characterId: String, inventoryId: String, nodeCode: String): CharacterEquipment {
+        val item = findById(inventoryId)
+            ?: throw CharacterExceptions.funExceptionItemNotFound("socket", inventoryId)
+        if (item.characterId != characterId)
+            throw CharacterExceptions.funExceptionItemNotFound("socket", inventoryId)
+
+        val template = equipmentCache.findById(item.equipmentId)
+            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("socket", item.equipmentId)
+        if (template.slot != EnumEquipmentType.JEWEL)
+            throw SkillTreeExceptions.funExceptionNotJewel("socket", template.code)
+
+        val node = skillTreeCache.getCache().find { it.code == nodeCode }
+            ?: throw SkillTreeExceptions.funExceptionNodeNotFound("socket", nodeCode)
+        if (node.type != EnumSkillNodeType.JEWEL_SOCKET)
+            throw SkillTreeExceptions.funExceptionNotSocket("socket", nodeCode)
+
+        val character = characterRepository.findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound("socket", characterId)
+        if (character.skillNodes.none { it.code == nodeCode })
+            throw SkillTreeExceptions.funExceptionNotTaken("socket", nodeCode)
+
+        if (findByCharacter(characterId).any { it.socketCode == nodeCode && it._id != item._id })
+            throw SkillTreeExceptions.funExceptionSocketBusy("socket", nodeCode)
+
+        return transactionExecute("socket") { session ->
+            item.equippedSlot = EnumEquipmentType.JEWEL
+            item.socketCode = nodeCode
+            update(item, session)
+            item
+        }
+    }
+
+    /**
+     * Вынимает самоцвет из гнезда: он возвращается в арсенал и перестаёт считаться.
+     */
+    suspend fun unsocket(characterId: String, inventoryId: String): CharacterEquipment {
+        val item = findById(inventoryId)
+            ?: throw CharacterExceptions.funExceptionItemNotFound("unsocket", inventoryId)
+        if (item.characterId != characterId)
+            throw CharacterExceptions.funExceptionItemNotFound("unsocket", inventoryId)
+
+        return transactionExecute("unsocket") { session ->
+            item.equippedSlot = null
+            item.socketCode = null
+            update(item, session)
+            item
+        }
+    }
 
     /**
      * Надевает предмет в его слот, снимая предмет, который уже занимает этот слот.

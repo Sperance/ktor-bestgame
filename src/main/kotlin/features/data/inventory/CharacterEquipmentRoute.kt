@@ -44,6 +44,19 @@ class CharacterEquipmentRoute(
                 )
             )
         }
+        post("/socket") {
+            val characterId = call.queryParam("characterId")
+            val inventoryId = call.queryParam("inventoryId")
+            val nodeCode = call.queryParam("nodeCode")
+            val data = repo.socket(characterId, inventoryId, nodeCode)
+            call.respond(ApiMongoResponse.ok(data))
+        }
+        post("/unsocket") {
+            val characterId = call.queryParam("characterId")
+            val inventoryId = call.queryParam("inventoryId")
+            val data = repo.unsocket(characterId, inventoryId)
+            call.respond(ApiMongoResponse.ok(data))
+        }
         post("/unequip") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")

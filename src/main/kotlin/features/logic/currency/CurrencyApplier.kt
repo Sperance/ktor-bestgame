@@ -11,6 +11,7 @@ import application.enums.EnumCurrencyOrb.ORB_OF_ALTERATION
 import application.enums.EnumCurrencyOrb.ORB_OF_ANNULMENT
 import application.enums.EnumCurrencyOrb.ORB_OF_AUGMENTATION
 import application.enums.EnumCurrencyOrb.ORB_OF_CHANCE
+import application.enums.EnumCurrencyOrb.ORB_OF_REGRET
 import application.enums.EnumCurrencyOrb.ORB_OF_SCOURING
 import application.enums.EnumCurrencyOrb.ORB_OF_TRANSMUTATION
 import application.enums.EnumCurrencyOrb.REGAL_ORB
@@ -105,6 +106,9 @@ object CurrencyApplier : KoinComponent {
             VAAL_ORB -> vaal(item, template)
             ORB_OF_CHANCE -> chance(item, template)
             MIRROR_OF_KALANDRA -> mirror(item, template)
+            // Единственная сфера, которую тратит не предмет: её списывает дерево навыков
+            // за возврат узла, см. CharacterSkillTreeRepository.
+            ORB_OF_REGRET -> throw CurrencyExceptions.funExceptionNotForItem("apply", orb.name)
         }
     }
 

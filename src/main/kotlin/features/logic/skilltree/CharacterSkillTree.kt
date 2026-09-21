@@ -1,6 +1,7 @@
 package features.logic.skilltree
 
 import application.enums.EnumSkillNodeType
+import application.enums.IntEnumStat
 import base.exception.model.SkillTreeExceptions
 import features.data.character.character_data.CharacterSkillNode
 import kotlinx.serialization.Serializable
@@ -19,6 +20,16 @@ data class CharacterSkillTreeState(
     val spent: Int,
     val available: Int,
     val nodes: List<CharacterSkillNode>,
+
+    /**
+     * Что дерево даёт в сумме - по характеристике на строку.
+     *
+     * Считает сервер, а не клиент, и не потому что так строже: у модификаторов
+     * есть операции, и два INCREASED складываются, а два MORE перемножаются.
+     * Простое сложение снимков на клиенте врало бы ровно там, где игрок решает,
+     * стоит ли узел очка.
+     */
+    val totals: Map<IntEnumStat, Double> = emptyMap(),
 )
 
 /**
@@ -89,5 +100,20 @@ object SkillTreeAllocation {
 
         if (!SkillTreeGraph.isConnected(nodes, taken.filterNot { it == node.code }))
             throw SkillTreeExceptions.funExceptionWouldDetach("refund", node.code)
+    }
+
+    /**
+     * Проверяет, что гнездо пусто.
+     *
+     * Вернуть гнездо с самоцветом внутри нельзя: иначе камень остался бы висеть
+     * в узле, которого у персонажа больше нет. Сервер его не вынимает сам -
+     * это вещь игрока, и решать, куда её деть, ему.
+     *
+     * @param socketed коды гнёзд, в которых сейчас сидят самоцветы
+     * @throws SkillTreeExceptions.SkillTreeException если гнездо занято
+     */
+    fun requireSocketEmpty(node: SkillTreeNode, socketed: Collection<String>) {
+        if (node.type == EnumSkillNodeType.JEWEL_SOCKET && node.code in socketed)
+            throw SkillTreeExceptions.funExceptionSocketBusy("refund", node.code)
     }
 }

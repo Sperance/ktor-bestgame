@@ -78,8 +78,24 @@ object CharacterStatsCalculator : KoinComponent {
         val active = mutableListOf<String>()
         val inactive = mutableListOf<InactiveEquipment>()
 
+        val takenNodes = skillNodes.mapTo(mutableSetOf()) { it.code }
+
         equipped.sortedBy { it.equippedSlot?.ordinal ?: Int.MAX_VALUE }.forEach { item ->
             val template = equipmentCache.findById(item.equipmentId) ?: return@forEach
+
+            // Самоцвет работает, только пока взято гнездо, в котором он сидит:
+            // вернули узел - самоцвет остался на месте, но считаться перестал.
+            val socket = item.socketCode
+            if (socket != null && socket !in takenNodes) {
+                inactive.add(
+                    InactiveEquipment(
+                        inventoryId = item._id,
+                        code = template.code,
+                        reasons = listOf("socket: need $socket, have none")
+                    )
+                )
+                return@forEach
+            }
 
             val unmet = EquipmentRequirements.unmet(template, level, stats)
             if (unmet.isNotEmpty()) {
@@ -94,7 +110,9 @@ object CharacterStatsCalculator : KoinComponent {
             }
 
             active.add(item._id)
-            itemOperations.addAll(ModifierCalculator.foldItem(item.params))
+            // База приходит из шаблона: экземпляр её не хранит, чтобы одно и то же
+            // число не лежало в базе данных дважды и перебалансировка доезжала до копий.
+            itemOperations.addAll(ModifierCalculator.foldItem(template.baseParams + item.params))
             stats = ModifierCalculator.compute(base, treeOperations + itemOperations)
         }
 

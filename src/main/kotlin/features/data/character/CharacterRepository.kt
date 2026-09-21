@@ -1,5 +1,7 @@
 package features.data.character
 
+import application.enums.EnumCurrencyOrb
+import application.enums.EnumSkillNodeType
 import base.exception.model.CharacterExceptions
 import base.exception.model.ProgressionExceptions
 import base.exception.model.SkillTreeExceptions
@@ -8,6 +10,7 @@ import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
+import extensions.toStableObjectId
 import CONST_ITEM_MAX_AMOUNT
 import CONST_USER_MAX_CHARACTERS
 import features.caches.CharacterClassCache
@@ -29,6 +32,7 @@ import features.logic.skilltree.CharacterSkillTreeState
 import features.logic.skilltree.SkillTreeAllocation
 import features.logic.skilltree.SkillTreeNode
 import features.logic.stats.CharacterStats
+import features.logic.modifiers.ModifierCalculator
 import features.logic.stats.CharacterStatsCalculator
 import org.bson.Document
 import org.koin.core.component.KoinComponent
@@ -246,6 +250,11 @@ class CharacterRepository : BaseRepository<Character>(
         val node = requireNode(nodeCode, "refundSkillNode")
 
         SkillTreeAllocation.requireRefundable(skillTreeCache.getCache(), node, character.skillNodes.map { it.code })
+        SkillTreeAllocation.requireSocketEmpty(node, socketedNodes(characterId))
+
+        // Возврат стоит сферу сожаления. Списание и сам возврат идут одной
+        // транзакцией: иначе неудачная запись оставила бы игрока без сферы и с узлом.
+        spendRegret(character, count = 1, method = "refundSkillNode")
 
         character.skillNodes.removeAll { it.code == node.code }
         transactionExecute("refundSkillNode $nodeCode") { session -> update(character, session) }
@@ -260,10 +269,51 @@ class CharacterRepository : BaseRepository<Character>(
     suspend fun resetSkillTree(characterId: String): CharacterSkillTreeState {
         val character = requireCharacter(characterId, "resetSkillTree")
 
+        // Ни одно гнездо не должно остаться занятым: камень повис бы в узле,
+        // которого у персонажа после сброса нет.
+        val socketed = socketedNodes(characterId)
+        skillTreeCache.getCache()
+            .filter { it.code in character.skillNodes.map { taken -> taken.code } }
+            .forEach { SkillTreeAllocation.requireSocketEmpty(it, socketed) }
+
+        // Сброс стоит по сфере за каждый возвращаемый узел: стартовый бесплатен,
+        // потому что он и не возвращается. Так полный сброс не дешевле поузлового,
+        // и выбор между ними остаётся выбором удобства, а не цены.
+        val returned = character.skillNodes.count { it.type != EnumSkillNodeType.START }
+        if (returned > 0) spendRegret(character, count = returned, method = "resetSkillTree")
+
         character.skillNodes = mutableListOf(startNodeOf(character, "resetSkillTree"))
         transactionExecute("resetSkillTree") { session -> update(character, session) }
 
         return stateOf(character)
+    }
+
+    /**
+     * Коды гнёзд, в которых у персонажа сейчас сидят самоцветы.
+     */
+    private suspend fun socketedNodes(characterId: String): Set<String> =
+        characterEquipmentRepository.findByCharacter(characterId)
+            .mapNotNullTo(mutableSetOf()) { it.socketCode }
+
+    /**
+     * Списывает сферы сожаления из сумки персонажа.
+     *
+     * Сумка меняется здесь же, в документе персонажа: дерево и сумка - поля одного
+     * документа, поэтому одна запись закрывает и то, и другое.
+     *
+     * @throws SkillTreeExceptions.SkillTreeException если сфер не хватает
+     */
+    private fun spendRegret(character: Character, count: Int, method: String) {
+        val orbId = EnumCurrencyOrb.ORB_OF_REGRET.name.toStableObjectId()
+        val items = character.parseItems()
+        val owned = items.find { it.itemId == orbId }
+
+        if (owned == null || owned.amount < count)
+            throw SkillTreeExceptions.funExceptionNoRegret(method, "$count, have ${owned?.amount ?: 0}")
+
+        owned.amount -= count
+        items.removeAll { it.amount <= 0L }
+        character.items = items.toStorage()
     }
 
     /**
@@ -316,7 +366,13 @@ class CharacterRepository : BaseRepository<Character>(
             spent = spent,
             available = total - spent,
             // Копия: состояние - это ответ наружу, а не окно в документ персонажа
-            nodes = character.skillNodes.toList()
+            nodes = character.skillNodes.toList(),
+            // Сумма по всему дереву, посчитанная теми же правилами, что и характеристики:
+            // операции модификаторов складываются не одинаково, и на клиенте это врало бы.
+            totals = ModifierCalculator.compute(
+                emptyMap(),
+                ModifierCalculator.expand(character.skillNodes.flatMap { it.params })
+            ).filterValues { it != 0.0 }
         )
     }
 

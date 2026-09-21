@@ -1,11 +1,15 @@
 package config
 
+import base.exception.model.ItemsExceptions
 import extensions.toStableObjectId
 import features.data.items.Items
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 /**
  * Начальные данные обычных предметов в коллекции `Items`.
  *
+ * Сами строки лежат в `resources/content/items.json` - см. [ContentResource].
  * Валютные сферы живут отдельно, в [CurrencySeeder]: у них своя категория
  * и своё поведение. Здесь всё остальное - сырьё и расходники.
  *
@@ -14,33 +18,42 @@ import features.data.items.Items
  */
 object ItemsSeeder {
 
-    private data class ItemTemplate(
+    const val FILE = "items.json"
+
+    private val json = Json { ignoreUnknownKeys = true }
+
+    @Serializable
+    private data class ItemRecord(
         val code: String,
         val category: String,
         val subCategory: String,
         val price: Long,
     )
 
-    private val templates = listOf(
-        ItemTemplate("WOOD_LOG", category = "WOOD_STOCK", subCategory = "LOG", price = 10),
-        ItemTemplate("STONE_ROUGH", category = "STONE_STOCK", subCategory = "STONE", price = 12),
-        ItemTemplate("STONE_POLISHED", category = "STONE_STOCK", subCategory = "STONE", price = 22),
-        ItemTemplate("POTION_HEALTH", category = "CONSUMABLE", subCategory = "HEALTH", price = 80),
-    )
+    @Serializable
+    private data class ItemsDocument(val items: List<ItemRecord> = emptyList())
 
     /**
      * Документы обычных предметов.
      *
      * _id выводится из кода и стабилен, поэтому пересев не ломает ссылки
-     * из инвентарей персонажей.
+     * из инвентарей персонажей - а дубликат кода склеил бы двум предметам один _id.
      */
-    fun seed(): List<Items> = templates.map { template ->
-        Items(
-            code = template.code,
-            category = template.category,
-            subCategory = template.subCategory,
-            price = template.price,
-            _id = template.code.toStableObjectId()
-        )
+    fun seed(): List<Items> {
+        val records = json.decodeFromString(ItemsDocument.serializer(), ContentResource.read(FILE)).items
+
+        val duplicates = records.groupBy { it.code }.filterValues { it.size > 1 }.keys
+        if (duplicates.isNotEmpty())
+            throw ItemsExceptions.funException("seed", "Duplicate item codes: $duplicates")
+
+        return records.map { record ->
+            Items(
+                code = record.code,
+                category = record.category,
+                subCategory = record.subCategory,
+                price = record.price,
+                _id = record.code.toStableObjectId()
+            )
+        }
     }
 }

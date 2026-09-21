@@ -22,4 +22,8 @@ object SkillTreeExceptions {
     fun funExceptionNoStart(errorMethod: String, value: String? = "") = SkillTreeException("Character must take a START node first", errorMethod, "ST_010")
     fun funExceptionWouldDetach(errorMethod: String, value: String? = "") = SkillTreeException("Refunding $value would detach other taken nodes from the start", errorMethod, "ST_011")
     fun funExceptionStartRefund(errorMethod: String, value: String? = "") = SkillTreeException("START node $value can only be refunded by a full reset", errorMethod, "ST_012")
+    fun funExceptionSocketBusy(errorMethod: String, value: String? = "") = SkillTreeException("Jewel socket $value is not empty", errorMethod, "ST_014")
+    fun funExceptionNoRegret(errorMethod: String, value: String? = "") = SkillTreeException("Character has no Orb of Regret left (need $value)", errorMethod, "ST_015")
+    fun funExceptionNotSocket(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not a jewel socket", errorMethod, "ST_016")
+    fun funExceptionNotJewel(errorMethod: String, value: String? = "") = SkillTreeException("Item $value is not a jewel", errorMethod, "ST_017")
 }

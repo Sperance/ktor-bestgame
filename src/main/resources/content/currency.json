@@ -1,0 +1,64 @@
+{
+  "currency": [
+    {
+      "orb": "ORB_OF_TRANSMUTATION",
+      "price": 10
+    },
+    {
+      "orb": "ORB_OF_AUGMENTATION",
+      "price": 20
+    },
+    {
+      "orb": "ORB_OF_ALTERATION",
+      "price": 40
+    },
+    {
+      "orb": "ORB_OF_ALCHEMY",
+      "price": 120
+    },
+    {
+      "orb": "REGAL_ORB",
+      "price": 350
+    },
+    {
+      "orb": "CHAOS_ORB",
+      "price": 300
+    },
+    {
+      "orb": "EXALTED_ORB",
+      "price": 25000
+    },
+    {
+      "orb": "DIVINE_ORB",
+      "price": 6000
+    },
+    {
+      "orb": "ORB_OF_ANNULMENT",
+      "price": 4000
+    },
+    {
+      "orb": "ORB_OF_SCOURING",
+      "price": 200
+    },
+    {
+      "orb": "BLESSED_ORB",
+      "price": 500
+    },
+    {
+      "orb": "VAAL_ORB",
+      "price": 800
+    },
+    {
+      "orb": "ORB_OF_CHANCE",
+      "price": 60
+    },
+    {
+      "orb": "MIRROR_OF_KALANDRA",
+      "price": 10000000
+    },
+    {
+      "orb": "ORB_OF_REGRET",
+      "price": 150
+    }
+  ]
+}

@@ -1,0 +1,573 @@
+{
+  "equipment": [
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "LEATHER_CAP",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 2,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "IRON_SKULLCAP",
+      "rarity": "COMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 10,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HIDE_HELM",
+      "rarity": "COMMON",
+      "itemLevel": 10,
+      "requiredLevel": 10,
+      "requiredStrength": 20,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "CHAIN_COIF",
+      "rarity": "COMMON",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 30,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "SALLET",
+      "rarity": "COMMON",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 40,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "STEEL_HELM",
+      "rarity": "UNCOMMON",
+      "itemLevel": 25,
+      "requiredLevel": 25,
+      "requiredStrength": 50,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            28.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "KNIGHT_S_CASQUE",
+      "rarity": "UNCOMMON",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 60,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            32.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "BRONZE_GREATHELM",
+      "rarity": "UNCOMMON",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 70,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            36.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "VISORED_HELM",
+      "rarity": "UNCOMMON",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 80,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            40.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "WARDEN_S_CROWN",
+      "rarity": "UNCOMMON",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 90,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            44.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HELM_OF_VALOR",
+      "rarity": "RARE",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 100,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            52.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "BATTLE_MASK",
+      "rarity": "RARE",
+      "itemLevel": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 110,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            58.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "AEGIS_HELM",
+      "rarity": "RARE",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 120,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            64.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "FURY_S_VISAGE",
+      "rarity": "RARE",
+      "itemLevel": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 130,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            70.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "WARRIOR_S_SALLET",
+      "rarity": "RARE",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 140,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            76.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HELM_OF_JUSTICE",
+      "rarity": "EPIC",
+      "itemLevel": 75,
+      "requiredLevel": 75,
+      "requiredStrength": 150,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            88.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "CROWN_OF_GLORY",
+      "rarity": "EPIC",
+      "itemLevel": 80,
+      "requiredLevel": 80,
+      "requiredStrength": 160,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            96.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HELM_OF_THE_MARTYR",
+      "rarity": "EPIC",
+      "itemLevel": 85,
+      "requiredLevel": 85,
+      "requiredStrength": 170,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            104.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "RADIANT_CASQUE",
+      "rarity": "EPIC",
+      "itemLevel": 90,
+      "requiredLevel": 90,
+      "requiredStrength": 180,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            112.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HELM_OF_ENLIGHTENMENT",
+      "rarity": "EPIC",
+      "itemLevel": 95,
+      "requiredLevel": 95,
+      "requiredStrength": 190,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            120.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "AZURE_CROWN",
+      "rarity": "MYTHICAL",
+      "itemLevel": 4,
+      "requiredLevel": 4,
+      "requiredStrength": 8,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            138.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HELM_OF_THE_TITAN",
+      "rarity": "MYTHICAL",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 32,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            150.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "DRAGONLORD_S_HELM",
+      "rarity": "MYTHICAL",
+      "itemLevel": 72,
+      "requiredLevel": 72,
+      "requiredStrength": 144,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            162.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HELM_OF_IMMORTALITY",
+      "rarity": "MYTHICAL",
+      "itemLevel": 44,
+      "requiredLevel": 44,
+      "requiredStrength": 88,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            174.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": [
+        "IMPLICIT_ADD_ARMOUR"
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "LEGENDARY_CASQUE",
+      "rarity": "MYTHICAL",
+      "itemLevel": 90,
+      "requiredLevel": 90,
+      "requiredStrength": 180,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            186.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "accessory",
+      "slot": "JEWEL",
+      "code": "CRIMSON_JEWEL",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "jewel",
+      "extraModifiers": []
+    },
+    {
+      "type": "accessory",
+      "slot": "JEWEL",
+      "code": "VIRIDIAN_JEWEL",
+      "rarity": "UNCOMMON",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "jewel",
+      "extraModifiers": []
+    },
+    {
+      "type": "accessory",
+      "slot": "JEWEL",
+      "code": "COBALT_JEWEL",
+      "rarity": "RARE",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "jewel",
+      "extraModifiers": []
+    }
+  ]
+}

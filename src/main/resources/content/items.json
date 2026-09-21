@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "code": "WOOD_LOG",
+      "category": "WOOD_STOCK",
+      "subCategory": "LOG",
+      "price": 10
+    },
+    {
+      "code": "STONE_ROUGH",
+      "category": "STONE_STOCK",
+      "subCategory": "STONE",
+      "price": 12
+    },
+    {
+      "code": "STONE_POLISHED",
+      "category": "STONE_STOCK",
+      "subCategory": "STONE",
+      "price": 22
+    },
+    {
+      "code": "POTION_HEALTH",
+      "category": "CONSUMABLE",
+      "subCategory": "HEALTH",
+      "price": 80
+    }
+  ]
+}

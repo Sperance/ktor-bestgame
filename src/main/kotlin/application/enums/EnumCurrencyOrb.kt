@@ -10,7 +10,8 @@ package application.enums
  *
  * Сферы POE, которых здесь нет, завязаны на механики, которых нет в проекте:
  * сокеты и связи (Jeweller's, Fusing, Chromatic), качество (Whetstone, Scrap,
- * Bauble), карты, дерево пассивок (Orb of Regret) и крафт на верстаке.
+ * Bauble), карты и крафт на верстаке. Дерево пассивок появилось, поэтому
+ * [ORB_OF_REGRET] здесь есть - но тратит её дерево, а не CurrencyApplier.
  */
 enum class EnumCurrencyOrb {
 
@@ -83,7 +84,15 @@ enum class EnumCurrencyOrb {
     /**
      * Создаёт копию предмета. Как в POE, копия неизменяема.
      */
-    MIRROR_OF_KALANDRA;
+    MIRROR_OF_KALANDRA,
+
+    /**
+     * Сфера сожаления: возвращает один взятый узел дерева навыков.
+     *
+     * Единственная сфера, которая тратится не на предмет, а на персонажа,
+     * поэтому её ветки в CurrencyApplier нет - её списывает дерево навыков.
+     */
+    ORB_OF_REGRET;
 
     companion object {
         /**

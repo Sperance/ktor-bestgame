@@ -131,7 +131,9 @@ class SeedDataTest {
     fun every_slot_has_three_uniques() {
         val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE }.groupBy { it.slot }
 
-        EnumEquipmentType.entries.forEach { slot ->
+        // Самоцвет носится не на теле, а в гнезде дерева, и уникальных самоцветов
+        // пока нет: их сила должна считаться вместе с деревом, а не отдельно от него.
+        EnumEquipmentType.entries.filterNot { it == EnumEquipmentType.JEWEL }.forEach { slot ->
             val items = bySlot[slot].orEmpty()
             assert(items.size == 3) { "$slot has ${items.size} uniques: ${items.map { it.code }}" }
         }

@@ -17,4 +17,5 @@ object CurrencyExceptions {
     fun funExceptionNoAffixes(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no affixes to change", errorMethod, "CR_006")
     fun funExceptionNoFreeAffix(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no free affix slot", errorMethod, "CR_007")
     fun funExceptionNoImplicits(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no implicit modifiers", errorMethod, "CR_008")
+    fun funExceptionNotForItem(errorMethod: String, value: String? = "") = CurrencyException("Orb $value is not applied to an item", errorMethod, "CR_009")
 }

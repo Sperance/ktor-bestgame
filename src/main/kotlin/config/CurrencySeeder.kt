@@ -1,12 +1,16 @@
 package config
 
 import application.enums.EnumCurrencyOrb
+import base.exception.model.ItemsExceptions
 import extensions.toStableObjectId
 import features.data.items.Items
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 /**
  * Начальные данные валютных сфер в коллекции `Items`.
  *
+ * Список и цены лежат в `resources/content/currency.json` - см. [ContentResource].
  * Сфера - обычный предмет инвентаря: лежит в плоском массиве персонажа
  * строкой "itemId:amount". От прочих предметов её отличает категория
  * [EnumCurrencyOrb.CATEGORY], а подкатегория связывает документ
@@ -14,27 +18,15 @@ import features.data.items.Items
  */
 object CurrencySeeder {
 
-    private data class OrbTemplate(
-        val orb: EnumCurrencyOrb,
-        val price: Long,
-    )
+    const val FILE = "currency.json"
 
-    private val templates = listOf(
-        OrbTemplate(EnumCurrencyOrb.ORB_OF_TRANSMUTATION, price = 10),
-        OrbTemplate(EnumCurrencyOrb.ORB_OF_AUGMENTATION, price = 20),
-        OrbTemplate(EnumCurrencyOrb.ORB_OF_ALTERATION, price = 40),
-        OrbTemplate(EnumCurrencyOrb.ORB_OF_ALCHEMY, price = 120),
-        OrbTemplate(EnumCurrencyOrb.REGAL_ORB, price = 350),
-        OrbTemplate(EnumCurrencyOrb.CHAOS_ORB, price = 300),
-        OrbTemplate(EnumCurrencyOrb.EXALTED_ORB, price = 25000),
-        OrbTemplate(EnumCurrencyOrb.DIVINE_ORB, price = 6000),
-        OrbTemplate(EnumCurrencyOrb.ORB_OF_ANNULMENT, price = 4000),
-        OrbTemplate(EnumCurrencyOrb.ORB_OF_SCOURING, price = 200),
-        OrbTemplate(EnumCurrencyOrb.BLESSED_ORB, price = 500),
-        OrbTemplate(EnumCurrencyOrb.VAAL_ORB, price = 800),
-        OrbTemplate(EnumCurrencyOrb.ORB_OF_CHANCE, price = 60),
-        OrbTemplate(EnumCurrencyOrb.MIRROR_OF_KALANDRA, price = 10_000_000),
-    )
+    private val json = Json { ignoreUnknownKeys = true }
+
+    @Serializable
+    private data class OrbRecord(val orb: EnumCurrencyOrb, val price: Long)
+
+    @Serializable
+    private data class CurrencyDocument(val currency: List<OrbRecord> = emptyList())
 
     /**
      * Документы сфер для коллекции `Items`.
@@ -42,13 +34,21 @@ object CurrencySeeder {
      * _id выводится из кода сферы и стабилен, поэтому пересев валюты
      * не ломает ссылки из инвентарей персонажей.
      */
-    fun seed(): List<Items> = templates.map { template ->
-        Items(
-            code = template.orb.name,
-            category = EnumCurrencyOrb.CATEGORY,
-            subCategory = template.orb.name,
-            price = template.price,
-            _id = template.orb.name.toStableObjectId()
-        )
+    fun seed(): List<Items> {
+        val records = json.decodeFromString(CurrencyDocument.serializer(), ContentResource.read(FILE)).currency
+
+        val duplicates = records.groupBy { it.orb }.filterValues { it.size > 1 }.keys
+        if (duplicates.isNotEmpty())
+            throw ItemsExceptions.funException("seed", "Duplicate currency orbs: $duplicates")
+
+        return records.map { record ->
+            Items(
+                code = record.orb.name,
+                category = EnumCurrencyOrb.CATEGORY,
+                subCategory = record.orb.name,
+                price = record.price,
+                _id = record.orb.name.toStableObjectId()
+            )
+        }
     }
 }

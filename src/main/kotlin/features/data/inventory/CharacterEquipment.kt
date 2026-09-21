@@ -56,6 +56,15 @@ data class CharacterEquipment(
      */
     var equippedSlot: EnumEquipmentType? = null,
 
+    /**
+     * Код узла-гнезда, в которое вставлен самоцвет. null у всего остального.
+     *
+     * Слот [EnumEquipmentType.JEWEL] сам по себе не говорит, куда предмет вставлен:
+     * гнёзд на дереве много и занять можно каждое, поэтому слот отвечает "чем это
+     * надето", а это поле - "куда". Самоцвет считается, только пока его гнездо взято.
+     */
+    var socketCode: String? = null,
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

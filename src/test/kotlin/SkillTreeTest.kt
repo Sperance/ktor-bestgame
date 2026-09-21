@@ -27,6 +27,31 @@ class SkillTreeTest {
 
     private val byCode = tree.associateBy { it.code }
 
+
+    /**
+     * Цепочка узлов от стартового: первый сосед, его следующий сосед и так далее.
+     *
+     * Коды узлов лежат в файле дерева и меняются вместе с ним, поэтому тесты их
+     * не называют, а находят: проверять надо правило обхода, а не чью-то опечатку.
+     */
+    private fun chainFrom(start: String, length: Int): List<String> {
+        val path = mutableListOf(start)
+        repeat(length) {
+            val next = SkillTreeGraph.neighbours(tree, path.last())
+                .filterNot { it in path }
+                .firstOrNull { byCode.getValue(it).type != EnumSkillNodeType.START }
+                ?: error("the tree has no chain of $length from $start")
+            path.add(next)
+        }
+        return path
+    }
+
+    /** Область класса: всё, куда он дотягивается, не входя в чужую. */
+    private fun ownArea(start: String): Set<String> {
+        val foreignStarts = tree.filter { it.type == EnumSkillNodeType.START && it.code != start }.map { it.code }
+        return reachableFrom(start, blocked = foreignStarts.toSet())
+    }
+
     // ==================== Данные ====================
 
     @Test
@@ -62,7 +87,9 @@ class SkillTreeTest {
                 assert(node.params.isEmpty()) { "${node.code} is a START node but grants bonuses" }
             } else {
                 assert(node.cost > 0) { "${node.code} costs nothing" }
-                assert(node.params.isNotEmpty()) { "${node.code} grants nothing" }
+                // Гнездо - единственный платный узел без бонусов: даёт не оно, а камень в нём
+                if (node.type != EnumSkillNodeType.JEWEL_SOCKET)
+                    assert(node.params.isNotEmpty()) { "${node.code} grants nothing" }
             }
         }
     }
@@ -126,14 +153,14 @@ class SkillTreeTest {
 
     @Test
     fun a_node_can_only_be_taken_next_to_a_taken_one() {
-        val start = "STR_START"
-        val taken = mutableListOf(start)
+        val chain = chainFrom("STR_START", 3)
+        val taken = mutableListOf(chain.first())
 
-        assert(!SkillTreeGraph.isAdjacentTo(tree, "STR_MIGHT_3", taken)) {
+        assert(!SkillTreeGraph.isAdjacentTo(tree, chain.last(), taken)) {
             "A node three steps away was reachable from the start alone"
         }
 
-        listOf("STR_MIGHT_1", "STR_MIGHT_2", "STR_MIGHT_3").forEach { code ->
+        chain.drop(1).forEach { code ->
             assert(SkillTreeGraph.isAdjacentTo(tree, code, taken)) { "$code was not adjacent to $taken" }
             taken.add(code)
         }
@@ -141,21 +168,21 @@ class SkillTreeTest {
 
     @Test
     fun refunding_a_middle_node_would_detach_the_branch() {
-        val path = listOf("STR_START", "STR_MIGHT_1", "STR_MIGHT_2", "STR_MIGHT_3")
+        val path = chainFrom("STR_START", 3)
         assert(SkillTreeGraph.isConnected(tree, path)) { "A straight path is not connected" }
 
-        val withoutMiddle = path.filterNot { it == "STR_MIGHT_2" }
+        val withoutMiddle = path.filterNot { it == path[2] }
         assert(!SkillTreeGraph.isConnected(tree, withoutMiddle)) {
             "Removing a middle node left the branch connected"
         }
 
-        val withoutLeaf = path.filterNot { it == "STR_MIGHT_3" }
+        val withoutLeaf = path.filterNot { it == path.last() }
         assert(SkillTreeGraph.isConnected(tree, withoutLeaf)) { "Removing a leaf broke the branch" }
     }
 
     @Test
     fun a_set_without_a_start_is_never_connected() {
-        assert(!SkillTreeGraph.isConnected(tree, listOf("STR_MIGHT_1", "STR_MIGHT_2"))) {
+        assert(!SkillTreeGraph.isConnected(tree, chainFrom("STR_START", 2).drop(1))) {
             "A branch with no start counted as connected"
         }
         assert(SkillTreeGraph.isConnected(tree, emptyList())) { "An empty tree must be connected" }
@@ -173,46 +200,42 @@ class SkillTreeTest {
     }
 
     @Test
-    fun the_ring_links_every_class_area() {
-        val ring = tree.filter { it.code.startsWith("RING_") }.map { it.code }
-        assert(ring.size == 6) { "expected six ring nodes, got $ring" }
+    fun neighbouring_areas_meet_through_their_own_nodes() {
+        // Общего кольца безликих узлов у дерева нет: соседние области смыкаются
+        // ветками, которые принадлежат им самим. Проверяем, что стык есть и что
+        // он идёт не через чужой стартовый узел - взять его нельзя.
+        val starts = tree.filter { it.type == EnumSkillNodeType.START }.map { it.code }
+        assert(starts.size == 7) { "expected seven starts, got $starts" }
 
-        // Шесть областей стоят по кругу и держатся за кольцо напрямую
-        val outer = tree
-            .filter { it.type == EnumSkillNodeType.START && it.code != "SCION_START" }
-            .map { it.code }
-        assert(outer.size == 6) { "expected six outer starts, got $outer" }
-        assert(SkillTreeGraph.isConnected(tree, ring + outer)) { "the ring does not link the class areas" }
-
-        // Скион стоит в центре круга и выходит на кольцо своей веткой
-        val scionPath = listOf(
-            "SCION_START", "SCION_HUNTER_1", "SCION_HUNTER_2", "SCION_HUNTER_NOTABLE", "RING_DEX_INT_DEX"
-        )
-        assert(SkillTreeGraph.isConnected(tree, scionPath)) { "the Scion cannot reach the ring" }
+        starts.filter { it != "SCION_START" }.forEach { start ->
+            val area = ownArea(start)
+            val foreign = starts.filter { it != start && it != "SCION_START" }
+            val met = foreign.count { other -> ownArea(other).any { it in area } }
+            assert(met >= 2) { "$start meets only $met other areas" }
+        }
     }
 
     @Test
-    fun a_class_cannot_walk_into_a_foreign_area_without_the_ring() {
-        // Единственный путь в чужую область - через кольцо: стартовый узел
-        // другого класса взять нельзя. Закрываем кольцо и проверяем,
-        // что область Мародёра замыкается на себе
-        val reachable = reachableFrom("STR_START", blocked = ringCodes())
+    fun a_class_never_walks_through_a_foreign_start_node() {
+        // Стартовый узел чужого класса взять нельзя, поэтому путь в чужую область
+        // обязан обходиться без него. Закрываем все чужие старты и смотрим, что
+        // область соседа всё равно достижима.
+        val reachable = ownArea("STR_START")
 
-        assert("STR_MIGHT_NOTABLE" in reachable) { "the Marauder cannot reach its own notable" }
-        assert("DEX_SWIFT_1" !in reachable) { "the Marauder reached the Ranger area without the ring" }
+        assert(reachable.size > 40) { "the Marauder reached only ${reachable.size} nodes" }
+        assert(reachable.any { it.startsWith("SHA_") || it.startsWith("DUE_") }) {
+            "the Marauder cannot reach a neighbouring area without a foreign start node"
+        }
     }
 
     @Test
     fun the_scion_reaches_every_class_area_from_the_centre() {
-        // Скион стоит в центре: через кольцо ему должны быть доступны
-        // ветки всех шести областей, кроме их стартовых узлов
-        val reachable = reachableFrom("SCION_START")
+        // Скион стоит в центре: его ветки выходят на стыки областей, поэтому
+        // ему должны быть доступны узлы всех шести классов
+        val reachable = ownArea("SCION_START")
 
-        listOf(
-            "STR_MIGHT_1", "DEX_SWIFT_1", "INT_ARCANE_1",
-            "STR_DEX_ARENA_1", "STR_INT_DEVOTION_1", "DEX_INT_TRICKERY_1"
-        ).forEach { code ->
-            assert(code in reachable) { "the Scion cannot reach $code" }
+        listOf("MAR_", "RAN_", "WIT_", "DUE_", "TEM_", "SHA_").forEach { prefix ->
+            assert(reachable.any { it.startsWith(prefix) }) { "the Scion cannot reach the $prefix area" }
         }
     }
 
@@ -234,28 +257,32 @@ class SkillTreeTest {
 
     @Test
     fun a_neighbour_of_a_taken_node_can_be_taken() {
-        allocate("STR_MIGHT_1", listOf("STR_START"))
-        allocate("STR_MIGHT_2", listOf("STR_START", "STR_MIGHT_1"))
+        val chain = chainFrom("STR_START", 2)
+        allocate(chain[1], listOf(chain[0]))
+        allocate(chain[2], chain.take(2))
     }
 
     @Test
     fun a_node_away_from_the_taken_ones_cannot_be_taken() {
+        val chain = chainFrom("STR_START", 3)
         assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
-            allocate("STR_MIGHT_3", listOf("STR_START"))
+            allocate(chain[3], listOf(chain[0]))
         }
     }
 
     @Test
     fun a_node_already_taken_cannot_be_taken_twice() {
+        val chain = chainFrom("STR_START", 1)
         assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
-            allocate("STR_MIGHT_1", listOf("STR_START", "STR_MIGHT_1"))
+            allocate(chain[1], chain)
         }
     }
 
     @Test
     fun a_node_cannot_be_taken_without_points() {
+        val chain = chainFrom("STR_START", 1)
         assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
-            allocate("STR_MIGHT_1", listOf("STR_START"), available = 0)
+            allocate(chain[1], listOf(chain[0]), available = 0)
         }
     }
 
@@ -276,18 +303,18 @@ class SkillTreeTest {
 
     @Test
     fun a_leaf_is_refunded_and_a_middle_node_is_not() {
-        val taken = listOf("STR_START", "STR_MIGHT_1", "STR_MIGHT_2")
+        val taken = chainFrom("STR_START", 2)
 
-        refund("STR_MIGHT_2", taken)
+        refund(taken[2], taken)
         assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
-            refund("STR_MIGHT_1", taken)
+            refund(taken[1], taken)
         }
     }
 
     @Test
     fun the_start_node_is_refunded_only_by_a_full_reset() {
         assertThrows(SkillTreeExceptions.SkillTreeException::class.java) {
-            refund("STR_START", listOf("STR_START", "STR_MIGHT_1"))
+            refund("STR_START", chainFrom("STR_START", 1))
         }
     }
 
@@ -295,7 +322,7 @@ class SkillTreeTest {
 
     @Test
     fun a_taken_node_copies_everything_that_can_differ_between_characters() {
-        val node = byCode.getValue("STR_MIGHT_NOTABLE")
+        val node = tree.first { it.type == EnumSkillNodeType.NOTABLE && it.params.isNotEmpty() }
         val taken = CharacterSkillNode.fromNode(node)
 
         assert(taken.code == node.code) { "got ${taken.code}" }
@@ -306,7 +333,7 @@ class SkillTreeTest {
 
     @Test
     fun a_characters_own_values_do_not_reach_the_tree() {
-        val node = byCode.getValue("STR_MIGHT_NOTABLE")
+        val node = tree.first { it.type == EnumSkillNodeType.NOTABLE && it.params.isNotEmpty() }
         val taken = CharacterSkillNode.fromNode(node)
         val before = node.params.map { it.values }
 
@@ -317,8 +344,6 @@ class SkillTreeTest {
         assert(node.params.map { it.values } == before) { "правка героя достала до дерева" }
         assert(taken.params.size == node.params.size) { "снимок потерял бонус" }
     }
-
-    private fun ringCodes(): Set<String> = tree.filter { it.code.startsWith("RING_") }.map { it.code }.toSet()
 
     /**
      * Куда персонаж может дойти от своего старта.

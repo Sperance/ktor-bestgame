@@ -1,0 +1,5918 @@
+{
+  "nodes": [
+    {
+      "code": "DEX_INT_START",
+      "type": "START",
+      "cost": 0,
+      "positionX": 180,
+      "positionY": -312,
+      "connections": [
+        "SHA_CCW_1",
+        "SHA_CW_1",
+        "SHA_L0_1",
+        "SHA_L1_1",
+        "SHA_L2_1",
+        "SHA_L3_1",
+        "SHA_L4_1"
+      ],
+      "params": []
+    },
+    {
+      "code": "DEX_START",
+      "type": "START",
+      "cost": 0,
+      "positionX": 180,
+      "positionY": 312,
+      "connections": [
+        "RAN_CCW_1",
+        "RAN_CW_1",
+        "RAN_L0_1",
+        "RAN_L1_1",
+        "RAN_L2_1",
+        "RAN_L3_1",
+        "RAN_L4_1"
+      ],
+      "params": []
+    },
+    {
+      "code": "DUE_CCW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -269,
+      "positionY": 109,
+      "connections": [
+        "DUE_CCW_2",
+        "STR_DEX_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_CCW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -204,
+      "positionY": 82,
+      "connections": [
+        "DUE_CCW_1",
+        "DUE_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_CCW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -139,
+      "positionY": 56,
+      "connections": [
+        "DUE_CCW_2",
+        "WIT_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_CW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -269,
+      "positionY": -109,
+      "connections": [
+        "DUE_CW_2",
+        "STR_DEX_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_CW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -204,
+      "positionY": -82,
+      "connections": [
+        "DUE_CW_1",
+        "DUE_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_CW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -139,
+      "positionY": -56,
+      "connections": [
+        "DUE_CW_2",
+        "TEM_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -440,
+      "positionY": 119,
+      "connections": [
+        "DUE_L0_2",
+        "STR_DEX_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -533,
+      "positionY": 144,
+      "connections": [
+        "DUE_L0_1",
+        "DUE_L0_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -626,
+      "positionY": 169,
+      "connections": [
+        "DUE_L0_2",
+        "DUE_L0_4",
+        "DUE_L0_5",
+        "DUE_L0_6",
+        "DUE_L0_7",
+        "DUE_L0_8",
+        "DUE_L0_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -580,
+      "positionY": 169,
+      "connections": [
+        "DUE_L0_3",
+        "DUE_L0_5",
+        "DUE_L0_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -612,
+      "positionY": 213,
+      "connections": [
+        "DUE_L0_3",
+        "DUE_L0_4",
+        "DUE_L0_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -663,
+      "positionY": 196,
+      "connections": [
+        "DUE_L0_3",
+        "DUE_L0_5",
+        "DUE_L0_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -663,
+      "positionY": 142,
+      "connections": [
+        "DUE_L0_3",
+        "DUE_L0_6",
+        "DUE_L0_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -612,
+      "positionY": 125,
+      "connections": [
+        "DUE_L0_3",
+        "DUE_L0_4",
+        "DUE_L0_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L0_9",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": -718,
+      "positionY": 194,
+      "connections": [
+        "DUE_L0_3"
+      ],
+      "params": []
+    },
+    {
+      "code": "DUE_L1_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -455,
+      "positionY": 34,
+      "connections": [
+        "DUE_L1_2",
+        "STR_DEX_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -550,
+      "positionY": 42,
+      "connections": [
+        "DUE_L1_1",
+        "DUE_L1_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -646,
+      "positionY": 49,
+      "connections": [
+        "DUE_L1_2",
+        "DUE_L1_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -742,
+      "positionY": 56,
+      "connections": [
+        "DUE_L1_3",
+        "DUE_L1_5",
+        "DUE_L1_6",
+        "DUE_L1_7",
+        "DUE_L1_8",
+        "DUE_L1_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -696,
+      "positionY": 56,
+      "connections": [
+        "DUE_L1_4",
+        "DUE_L1_6",
+        "DUE_L1_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -742,
+      "positionY": 102,
+      "connections": [
+        "DUE_L1_4",
+        "DUE_L1_5",
+        "DUE_L1_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -788,
+      "positionY": 56,
+      "connections": [
+        "DUE_L1_4",
+        "DUE_L1_6",
+        "DUE_L1_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -742,
+      "positionY": 10,
+      "connections": [
+        "DUE_L1_4",
+        "DUE_L1_5",
+        "DUE_L1_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_PHYSICAL_LIFE_LEECH",
+          "values": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L1_9",
+      "type": "KEYSTONE",
+      "cost": 1,
+      "positionX": -838,
+      "positionY": 63,
+      "connections": [
+        "DUE_L1_4"
+      ],
+      "params": [
+        {
+          "code": "PASSIVE_MORE_LIFE_LEECH",
+          "values": [
+            60.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L2_1",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -453,
+      "positionY": -51,
+      "connections": [
+        "DUE_L2_2",
+        "DUE_L2_3",
+        "DUE_L2_4",
+        "DUE_L2_5",
+        "DUE_L2_6",
+        "DUE_L2_7",
+        "STR_DEX_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L2_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -407,
+      "positionY": -51,
+      "connections": [
+        "DUE_L2_1",
+        "DUE_L2_3",
+        "DUE_L2_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L2_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -430,
+      "positionY": -11,
+      "connections": [
+        "DUE_L2_1",
+        "DUE_L2_2",
+        "DUE_L2_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L2_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -476,
+      "positionY": -11,
+      "connections": [
+        "DUE_L2_1",
+        "DUE_L2_3",
+        "DUE_L2_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L2_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -499,
+      "positionY": -51,
+      "connections": [
+        "DUE_L2_1",
+        "DUE_L2_4",
+        "DUE_L2_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L2_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -476,
+      "positionY": -91,
+      "connections": [
+        "DUE_L2_1",
+        "DUE_L2_5",
+        "DUE_L2_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L2_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -430,
+      "positionY": -91,
+      "connections": [
+        "DUE_L2_1",
+        "DUE_L2_2",
+        "DUE_L2_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -435,
+      "positionY": -135,
+      "connections": [
+        "DUE_L3_2",
+        "STR_DEX_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -527,
+      "positionY": -164,
+      "connections": [
+        "DUE_L3_1",
+        "DUE_L3_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -619,
+      "positionY": -192,
+      "connections": [
+        "DUE_L3_2",
+        "DUE_L3_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -710,
+      "positionY": -221,
+      "connections": [
+        "DUE_L3_3",
+        "DUE_L3_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_5",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -802,
+      "positionY": -250,
+      "connections": [
+        "DUE_L3_4",
+        "DUE_L3_6",
+        "DUE_L3_7",
+        "DUE_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -756,
+      "positionY": -250,
+      "connections": [
+        "DUE_L3_5",
+        "DUE_L3_7",
+        "DUE_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -825,
+      "positionY": -210,
+      "connections": [
+        "DUE_L3_5",
+        "DUE_L3_6",
+        "DUE_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L3_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -825,
+      "positionY": -290,
+      "connections": [
+        "DUE_L3_5",
+        "DUE_L3_6",
+        "DUE_L3_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L4_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -406,
+      "positionY": -207,
+      "connections": [
+        "DUE_L4_2",
+        "STR_DEX_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L4_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -492,
+      "positionY": -251,
+      "connections": [
+        "DUE_L4_1",
+        "DUE_L4_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L4_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -577,
+      "positionY": -294,
+      "connections": [
+        "DUE_L4_2",
+        "DUE_L4_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L4_4",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": -663,
+      "positionY": -338,
+      "connections": [
+        "DUE_L4_3",
+        "DUE_L4_5"
+      ],
+      "params": []
+    },
+    {
+      "code": "DUE_L4_5",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -748,
+      "positionY": -381,
+      "connections": [
+        "DUE_L4_4",
+        "DUE_L4_6",
+        "DUE_L4_7",
+        "DUE_L4_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L4_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -702,
+      "positionY": -381,
+      "connections": [
+        "DUE_L4_5",
+        "DUE_L4_7",
+        "DUE_L4_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L4_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -771,
+      "positionY": -341,
+      "connections": [
+        "DUE_L4_5",
+        "DUE_L4_6",
+        "DUE_L4_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_L4_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -771,
+      "positionY": -421,
+      "connections": [
+        "DUE_L4_5",
+        "DUE_L4_6",
+        "DUE_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "INT_START",
+      "type": "START",
+      "cost": 0,
+      "positionX": -180,
+      "positionY": 312,
+      "connections": [
+        "WIT_CCW_1",
+        "WIT_CW_1",
+        "WIT_L0_1",
+        "WIT_L1_1",
+        "WIT_L2_1",
+        "WIT_L3_1",
+        "WIT_L4_1",
+        "WIT_L5_1"
+      ],
+      "params": []
+    },
+    {
+      "code": "MAR_CCW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 269,
+      "positionY": -109,
+      "connections": [
+        "MAR_CCW_2",
+        "STR_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_CCW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 204,
+      "positionY": -82,
+      "connections": [
+        "MAR_CCW_1",
+        "MAR_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_CCW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 139,
+      "positionY": -56,
+      "connections": [
+        "MAR_CCW_2",
+        "SCI_L0_3",
+        "SHA_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_CW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 269,
+      "positionY": 109,
+      "connections": [
+        "MAR_CW_2",
+        "STR_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_CW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 204,
+      "positionY": 82,
+      "connections": [
+        "MAR_CW_1",
+        "MAR_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_CW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 139,
+      "positionY": 56,
+      "connections": [
+        "MAR_CW_2",
+        "RAN_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 430,
+      "positionY": -151,
+      "connections": [
+        "MAR_L0_2",
+        "STR_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_10",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 793,
+      "positionY": -277,
+      "connections": [
+        "MAR_L0_11",
+        "MAR_L0_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_11",
+      "type": "KEYSTONE",
+      "cost": 1,
+      "positionX": 883,
+      "positionY": -309,
+      "connections": [
+        "MAR_L0_10"
+      ],
+      "params": [
+        {
+          "code": "PASSIVE_MORE_MAXIMUM_LIFE",
+          "values": [
+            25.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 521,
+      "positionY": -182,
+      "connections": [
+        "MAR_L0_1",
+        "MAR_L0_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 612,
+      "positionY": -214,
+      "connections": [
+        "MAR_L0_2",
+        "MAR_L0_4",
+        "MAR_L0_5",
+        "MAR_L0_6",
+        "MAR_L0_7",
+        "MAR_L0_8",
+        "MAR_L0_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            36
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 658,
+      "positionY": -214,
+      "connections": [
+        "MAR_L0_3",
+        "MAR_L0_5",
+        "MAR_L0_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 626,
+      "positionY": -170,
+      "connections": [
+        "MAR_L0_3",
+        "MAR_L0_4",
+        "MAR_L0_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 575,
+      "positionY": -187,
+      "connections": [
+        "MAR_L0_3",
+        "MAR_L0_5",
+        "MAR_L0_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 575,
+      "positionY": -241,
+      "connections": [
+        "MAR_L0_3",
+        "MAR_L0_6",
+        "MAR_L0_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 626,
+      "positionY": -258,
+      "connections": [
+        "MAR_L0_3",
+        "MAR_L0_4",
+        "MAR_L0_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L0_9",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 702,
+      "positionY": -246,
+      "connections": [
+        "MAR_L0_10",
+        "MAR_L0_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L1_1",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 452,
+      "positionY": -61,
+      "connections": [
+        "MAR_L1_2",
+        "MAR_L1_3",
+        "MAR_L1_4",
+        "MAR_L1_5",
+        "MAR_L1_6",
+        "MAR_L1_7",
+        "STR_START"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            54
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L1_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 498,
+      "positionY": -61,
+      "connections": [
+        "MAR_L1_1",
+        "MAR_L1_3",
+        "MAR_L1_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L1_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 475,
+      "positionY": -21,
+      "connections": [
+        "MAR_L1_1",
+        "MAR_L1_2",
+        "MAR_L1_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L1_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 429,
+      "positionY": -21,
+      "connections": [
+        "MAR_L1_1",
+        "MAR_L1_3",
+        "MAR_L1_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L1_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 406,
+      "positionY": -61,
+      "connections": [
+        "MAR_L1_1",
+        "MAR_L1_4",
+        "MAR_L1_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L1_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 429,
+      "positionY": -101,
+      "connections": [
+        "MAR_L1_1",
+        "MAR_L1_5",
+        "MAR_L1_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L1_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 475,
+      "positionY": -101,
+      "connections": [
+        "MAR_L1_1",
+        "MAR_L1_2",
+        "MAR_L1_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 455,
+      "positionY": 31,
+      "connections": [
+        "MAR_L2_2",
+        "STR_START"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_10",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 1007,
+      "positionY": 29,
+      "connections": [
+        "MAR_L2_7",
+        "MAR_L2_8",
+        "MAR_L2_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 551,
+      "positionY": 37,
+      "connections": [
+        "MAR_L2_1",
+        "MAR_L2_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 647,
+      "positionY": 44,
+      "connections": [
+        "MAR_L2_2",
+        "MAR_L2_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_4",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": 742,
+      "positionY": 50,
+      "connections": [
+        "MAR_L2_3",
+        "MAR_L2_5"
+      ],
+      "params": []
+    },
+    {
+      "code": "MAR_L2_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 838,
+      "positionY": 57,
+      "connections": [
+        "MAR_L2_4",
+        "MAR_L2_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 934,
+      "positionY": 63,
+      "connections": [
+        "MAR_L2_5",
+        "MAR_L2_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_7",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 1030,
+      "positionY": 69,
+      "connections": [
+        "MAR_L2_10",
+        "MAR_L2_6",
+        "MAR_L2_8",
+        "MAR_L2_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 1076,
+      "positionY": 69,
+      "connections": [
+        "MAR_L2_10",
+        "MAR_L2_7",
+        "MAR_L2_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L2_9",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 1007,
+      "positionY": 109,
+      "connections": [
+        "MAR_L2_10",
+        "MAR_L2_7",
+        "MAR_L2_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L3_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 440,
+      "positionY": 121,
+      "connections": [
+        "MAR_L3_2",
+        "STR_START"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L3_2",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 532,
+      "positionY": 147,
+      "connections": [
+        "MAR_L3_1",
+        "MAR_L3_3",
+        "MAR_L3_4",
+        "MAR_L3_5",
+        "MAR_L3_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L3_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 578,
+      "positionY": 147,
+      "connections": [
+        "MAR_L3_2",
+        "MAR_L3_4",
+        "MAR_L3_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L3_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 532,
+      "positionY": 193,
+      "connections": [
+        "MAR_L3_2",
+        "MAR_L3_3",
+        "MAR_L3_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L3_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 486,
+      "positionY": 147,
+      "connections": [
+        "MAR_L3_2",
+        "MAR_L3_4",
+        "MAR_L3_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L3_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 532,
+      "positionY": 101,
+      "connections": [
+        "MAR_L3_2",
+        "MAR_L3_3",
+        "MAR_L3_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 406,
+      "positionY": 207,
+      "connections": [
+        "MAR_L4_2",
+        "STR_START"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_10",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 897,
+      "positionY": 429,
+      "connections": [
+        "MAR_L4_7",
+        "MAR_L4_8",
+        "MAR_L4_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 492,
+      "positionY": 251,
+      "connections": [
+        "MAR_L4_1",
+        "MAR_L4_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 577,
+      "positionY": 294,
+      "connections": [
+        "MAR_L4_2",
+        "MAR_L4_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 663,
+      "positionY": 338,
+      "connections": [
+        "MAR_L4_3",
+        "MAR_L4_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 748,
+      "positionY": 381,
+      "connections": [
+        "MAR_L4_4",
+        "MAR_L4_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_6",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": 834,
+      "positionY": 425,
+      "connections": [
+        "MAR_L4_5",
+        "MAR_L4_7"
+      ],
+      "params": []
+    },
+    {
+      "code": "MAR_L4_7",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 920,
+      "positionY": 469,
+      "connections": [
+        "MAR_L4_10",
+        "MAR_L4_6",
+        "MAR_L4_8",
+        "MAR_L4_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 966,
+      "positionY": 469,
+      "connections": [
+        "MAR_L4_10",
+        "MAR_L4_7",
+        "MAR_L4_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_L4_9",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 897,
+      "positionY": 509,
+      "connections": [
+        "MAR_L4_10",
+        "MAR_L4_7",
+        "MAR_L4_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_CCW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 229,
+      "positionY": 179,
+      "connections": [
+        "DEX_START",
+        "RAN_CCW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_CCW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 173,
+      "positionY": 135,
+      "connections": [
+        "RAN_CCW_1",
+        "RAN_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_CCW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 118,
+      "positionY": 92,
+      "connections": [
+        "MAR_CW_3",
+        "RAN_CCW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_CW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 40,
+      "positionY": 287,
+      "connections": [
+        "DEX_START",
+        "RAN_CW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_CW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 31,
+      "positionY": 218,
+      "connections": [
+        "RAN_CW_1",
+        "RAN_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_CW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 21,
+      "positionY": 149,
+      "connections": [
+        "RAN_CW_2",
+        "WIT_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 331,
+      "positionY": 313,
+      "connections": [
+        "DEX_START",
+        "RAN_L0_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_10",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": 610,
+      "positionY": 577,
+      "connections": [
+        "RAN_L0_4"
+      ],
+      "params": []
+    },
+    {
+      "code": "RAN_L0_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 401,
+      "positionY": 379,
+      "connections": [
+        "RAN_L0_1",
+        "RAN_L0_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 471,
+      "positionY": 445,
+      "connections": [
+        "RAN_L0_2",
+        "RAN_L0_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 541,
+      "positionY": 511,
+      "connections": [
+        "RAN_L0_10",
+        "RAN_L0_3",
+        "RAN_L0_5",
+        "RAN_L0_6",
+        "RAN_L0_7",
+        "RAN_L0_8",
+        "RAN_L0_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            54
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 587,
+      "positionY": 511,
+      "connections": [
+        "RAN_L0_4",
+        "RAN_L0_6",
+        "RAN_L0_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 555,
+      "positionY": 555,
+      "connections": [
+        "RAN_L0_4",
+        "RAN_L0_5",
+        "RAN_L0_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 504,
+      "positionY": 538,
+      "connections": [
+        "RAN_L0_4",
+        "RAN_L0_6",
+        "RAN_L0_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 504,
+      "positionY": 484,
+      "connections": [
+        "RAN_L0_4",
+        "RAN_L0_7",
+        "RAN_L0_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L0_9",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 555,
+      "positionY": 467,
+      "connections": [
+        "RAN_L0_4",
+        "RAN_L0_5",
+        "RAN_L0_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_1",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 263,
+      "positionY": 373,
+      "connections": [
+        "DEX_START",
+        "RAN_L1_2",
+        "RAN_L1_3",
+        "RAN_L1_4",
+        "RAN_L1_5",
+        "RAN_L1_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 309,
+      "positionY": 373,
+      "connections": [
+        "RAN_L1_1",
+        "RAN_L1_3",
+        "RAN_L1_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 263,
+      "positionY": 419,
+      "connections": [
+        "RAN_L1_1",
+        "RAN_L1_2",
+        "RAN_L1_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 217,
+      "positionY": 373,
+      "connections": [
+        "RAN_L1_1",
+        "RAN_L1_3",
+        "RAN_L1_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 263,
+      "positionY": 327,
+      "connections": [
+        "RAN_L1_1",
+        "RAN_L1_2",
+        "RAN_L1_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 318,
+      "positionY": 451,
+      "connections": [
+        "RAN_L1_1",
+        "RAN_L1_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 373,
+      "positionY": 530,
+      "connections": [
+        "RAN_L1_6",
+        "RAN_L1_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L1_8",
+      "type": "KEYSTONE",
+      "cost": 1,
+      "positionX": 429,
+      "positionY": 608,
+      "connections": [
+        "RAN_L1_7"
+      ],
+      "params": [
+        {
+          "code": "PASSIVE_SET_EVASION_RATING",
+          "values": [
+            2000.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 184,
+      "positionY": 417,
+      "connections": [
+        "DEX_START",
+        "RAN_L2_2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_10",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 300,
+      "positionY": 681,
+      "connections": [
+        "RAN_L2_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 222,
+      "positionY": 505,
+      "connections": [
+        "RAN_L2_1",
+        "RAN_L2_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 261,
+      "positionY": 593,
+      "connections": [
+        "RAN_L2_10",
+        "RAN_L2_2",
+        "RAN_L2_4",
+        "RAN_L2_5",
+        "RAN_L2_6",
+        "RAN_L2_7",
+        "RAN_L2_8",
+        "RAN_L2_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+          "values": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 307,
+      "positionY": 593,
+      "connections": [
+        "RAN_L2_3",
+        "RAN_L2_5",
+        "RAN_L2_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 284,
+      "positionY": 633,
+      "connections": [
+        "RAN_L2_3",
+        "RAN_L2_4",
+        "RAN_L2_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 238,
+      "positionY": 633,
+      "connections": [
+        "RAN_L2_3",
+        "RAN_L2_5",
+        "RAN_L2_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 215,
+      "positionY": 593,
+      "connections": [
+        "RAN_L2_3",
+        "RAN_L2_6",
+        "RAN_L2_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 238,
+      "positionY": 553,
+      "connections": [
+        "RAN_L2_3",
+        "RAN_L2_7",
+        "RAN_L2_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L2_9",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 284,
+      "positionY": 553,
+      "connections": [
+        "RAN_L2_3",
+        "RAN_L2_4",
+        "RAN_L2_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 98,
+      "positionY": 445,
+      "connections": [
+        "DEX_START",
+        "RAN_L3_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 118,
+      "positionY": 539,
+      "connections": [
+        "RAN_L3_1",
+        "RAN_L3_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 139,
+      "positionY": 633,
+      "connections": [
+        "RAN_L3_2",
+        "RAN_L3_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 159,
+      "positionY": 727,
+      "connections": [
+        "RAN_L3_3",
+        "RAN_L3_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 180,
+      "positionY": 821,
+      "connections": [
+        "RAN_L3_4",
+        "RAN_L3_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_6",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 200,
+      "positionY": 914,
+      "connections": [
+        "RAN_L3_5",
+        "RAN_L3_7",
+        "RAN_L3_8",
+        "RAN_L3_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 246,
+      "positionY": 914,
+      "connections": [
+        "RAN_L3_6",
+        "RAN_L3_8",
+        "RAN_L3_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 177,
+      "positionY": 954,
+      "connections": [
+        "RAN_L3_6",
+        "RAN_L3_7",
+        "RAN_L3_9"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L3_9",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 177,
+      "positionY": 874,
+      "connections": [
+        "RAN_L3_6",
+        "RAN_L3_7",
+        "RAN_L3_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L4_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 24,
+      "positionY": 455,
+      "connections": [
+        "DEX_START",
+        "RAN_L4_2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L4_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 29,
+      "positionY": 551,
+      "connections": [
+        "RAN_L4_1",
+        "RAN_L4_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L4_3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 34,
+      "positionY": 647,
+      "connections": [
+        "RAN_L4_2",
+        "RAN_L4_4",
+        "RAN_L4_5",
+        "RAN_L4_6",
+        "RAN_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L4_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 80,
+      "positionY": 647,
+      "connections": [
+        "RAN_L4_3",
+        "RAN_L4_5",
+        "RAN_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L4_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 34,
+      "positionY": 693,
+      "connections": [
+        "RAN_L4_3",
+        "RAN_L4_4",
+        "RAN_L4_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L4_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -12,
+      "positionY": 647,
+      "connections": [
+        "RAN_L4_3",
+        "RAN_L4_5",
+        "RAN_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_L4_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 34,
+      "positionY": 601,
+      "connections": [
+        "RAN_L4_3",
+        "RAN_L4_4",
+        "RAN_L4_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCION_START",
+      "type": "START",
+      "cost": 0,
+      "positionX": 0,
+      "positionY": 0,
+      "connections": [
+        "SCI_J1",
+        "SCI_L0_1",
+        "SCI_L1_1",
+        "SCI_L2_1",
+        "SCI_R1",
+        "SCI_R2",
+        "SCI_R3"
+      ],
+      "params": []
+    },
+    {
+      "code": "SCI_J1",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": 0,
+      "positionY": 195,
+      "connections": [
+        "SCION_START"
+      ],
+      "params": []
+    },
+    {
+      "code": "SCI_L0_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 35,
+      "positionY": -14,
+      "connections": [
+        "SCION_START",
+        "SCI_L0_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L0_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 70,
+      "positionY": -28,
+      "connections": [
+        "SCI_L0_1",
+        "SCI_L0_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L0_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 104,
+      "positionY": -42,
+      "connections": [
+        "MAR_CCW_3",
+        "SCI_L0_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L1_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -5,
+      "positionY": 37,
+      "connections": [
+        "SCION_START",
+        "SCI_L1_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L1_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -10,
+      "positionY": 74,
+      "connections": [
+        "SCI_L1_1",
+        "SCI_L1_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L1_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -16,
+      "positionY": 112,
+      "connections": [
+        "SCI_L1_2",
+        "WIT_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L2_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -30,
+      "positionY": -23,
+      "connections": [
+        "SCION_START",
+        "SCI_L2_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L2_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -59,
+      "positionY": -46,
+      "connections": [
+        "SCI_L2_1",
+        "SCI_L2_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_L2_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -88,
+      "positionY": -69,
+      "connections": [
+        "SCI_L2_2",
+        "TEM_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_R1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 41,
+      "positionY": 32,
+      "connections": [
+        "SCION_START",
+        "SCI_R2",
+        "SCI_R3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_R2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -48,
+      "positionY": 19,
+      "connections": [
+        "SCION_START",
+        "SCI_R1",
+        "SCI_R3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_R3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 7,
+      "positionY": -51,
+      "connections": [
+        "SCION_START",
+        "SCI_R1",
+        "SCI_R2"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_CCW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 40,
+      "positionY": -287,
+      "connections": [
+        "DEX_INT_START",
+        "SHA_CCW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_CCW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 31,
+      "positionY": -218,
+      "connections": [
+        "SHA_CCW_1",
+        "SHA_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_CCW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 21,
+      "positionY": -149,
+      "connections": [
+        "SHA_CCW_2",
+        "TEM_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_CW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 229,
+      "positionY": -179,
+      "connections": [
+        "DEX_INT_START",
+        "SHA_CW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_CW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 173,
+      "positionY": -135,
+      "connections": [
+        "SHA_CW_1",
+        "SHA_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_CW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 118,
+      "positionY": -92,
+      "connections": [
+        "MAR_CCW_3",
+        "SHA_CW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 104,
+      "positionY": -444,
+      "connections": [
+        "DEX_INT_START",
+        "SHA_L0_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 125,
+      "positionY": -538,
+      "connections": [
+        "SHA_L0_1",
+        "SHA_L0_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 147,
+      "positionY": -631,
+      "connections": [
+        "SHA_L0_2",
+        "SHA_L0_4",
+        "SHA_L0_5",
+        "SHA_L0_6",
+        "SHA_L0_7",
+        "SHA_L0_8",
+        "SHA_L0_9"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 193,
+      "positionY": -631,
+      "connections": [
+        "SHA_L0_3",
+        "SHA_L0_5",
+        "SHA_L0_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 161,
+      "positionY": -587,
+      "connections": [
+        "SHA_L0_3",
+        "SHA_L0_4",
+        "SHA_L0_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 110,
+      "positionY": -604,
+      "connections": [
+        "SHA_L0_3",
+        "SHA_L0_5",
+        "SHA_L0_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 110,
+      "positionY": -658,
+      "connections": [
+        "SHA_L0_3",
+        "SHA_L0_6",
+        "SHA_L0_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 161,
+      "positionY": -675,
+      "connections": [
+        "SHA_L0_3",
+        "SHA_L0_4",
+        "SHA_L0_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L0_9",
+      "type": "KEYSTONE",
+      "cost": 1,
+      "positionX": 169,
+      "positionY": -725,
+      "connections": [
+        "SHA_L0_3"
+      ],
+      "params": [
+        {
+          "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            40.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L1_1",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 188,
+      "positionY": -415,
+      "connections": [
+        "DEX_INT_START",
+        "SHA_L1_2",
+        "SHA_L1_3",
+        "SHA_L1_4",
+        "SHA_L1_5",
+        "SHA_L1_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L1_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 234,
+      "positionY": -415,
+      "connections": [
+        "SHA_L1_1",
+        "SHA_L1_3",
+        "SHA_L1_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L1_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 188,
+      "positionY": -369,
+      "connections": [
+        "SHA_L1_1",
+        "SHA_L1_2",
+        "SHA_L1_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L1_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 142,
+      "positionY": -415,
+      "connections": [
+        "SHA_L1_1",
+        "SHA_L1_3",
+        "SHA_L1_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L1_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 188,
+      "positionY": -461,
+      "connections": [
+        "SHA_L1_1",
+        "SHA_L1_2",
+        "SHA_L1_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L1_6",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": 228,
+      "positionY": -503,
+      "connections": [
+        "SHA_L1_1"
+      ],
+      "params": []
+    },
+    {
+      "code": "SHA_L2_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 266,
+      "positionY": -371,
+      "connections": [
+        "DEX_INT_START",
+        "SHA_L2_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L2_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 322,
+      "positionY": -449,
+      "connections": [
+        "SHA_L2_1",
+        "SHA_L2_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L2_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 377,
+      "positionY": -527,
+      "connections": [
+        "SHA_L2_2",
+        "SHA_L2_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L2_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 433,
+      "positionY": -605,
+      "connections": [
+        "SHA_L2_3",
+        "SHA_L2_5",
+        "SHA_L2_6",
+        "SHA_L2_7",
+        "SHA_L2_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L2_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 479,
+      "positionY": -605,
+      "connections": [
+        "SHA_L2_4",
+        "SHA_L2_6",
+        "SHA_L2_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L2_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 433,
+      "positionY": -559,
+      "connections": [
+        "SHA_L2_4",
+        "SHA_L2_5",
+        "SHA_L2_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L2_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 387,
+      "positionY": -605,
+      "connections": [
+        "SHA_L2_4",
+        "SHA_L2_6",
+        "SHA_L2_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L2_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 433,
+      "positionY": -651,
+      "connections": [
+        "SHA_L2_4",
+        "SHA_L2_5",
+        "SHA_L2_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 333,
+      "positionY": -312,
+      "connections": [
+        "DEX_INT_START",
+        "SHA_L3_2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 403,
+      "positionY": -377,
+      "connections": [
+        "SHA_L3_1",
+        "SHA_L3_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 473,
+      "positionY": -443,
+      "connections": [
+        "SHA_L3_2",
+        "SHA_L3_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 543,
+      "positionY": -509,
+      "connections": [
+        "SHA_L3_3",
+        "SHA_L3_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_5",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 613,
+      "positionY": -574,
+      "connections": [
+        "SHA_L3_4",
+        "SHA_L3_6",
+        "SHA_L3_7",
+        "SHA_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            9,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 659,
+      "positionY": -574,
+      "connections": [
+        "SHA_L3_5",
+        "SHA_L3_7",
+        "SHA_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 590,
+      "positionY": -534,
+      "connections": [
+        "SHA_L3_5",
+        "SHA_L3_6",
+        "SHA_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L3_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 590,
+      "positionY": -614,
+      "connections": [
+        "SHA_L3_5",
+        "SHA_L3_6",
+        "SHA_L3_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "values": [
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L4_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 382,
+      "positionY": -248,
+      "connections": [
+        "DEX_INT_START",
+        "SHA_L4_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L4_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 463,
+      "positionY": -301,
+      "connections": [
+        "SHA_L4_1",
+        "SHA_L4_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L4_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 543,
+      "positionY": -353,
+      "connections": [
+        "SHA_L4_2",
+        "SHA_L4_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L4_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 624,
+      "positionY": -405,
+      "connections": [
+        "SHA_L4_3",
+        "SHA_L4_5",
+        "SHA_L4_6",
+        "SHA_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L4_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 670,
+      "positionY": -405,
+      "connections": [
+        "SHA_L4_4",
+        "SHA_L4_6",
+        "SHA_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L4_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 601,
+      "positionY": -365,
+      "connections": [
+        "SHA_L4_4",
+        "SHA_L4_5",
+        "SHA_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_L4_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 601,
+      "positionY": -445,
+      "connections": [
+        "SHA_L4_4",
+        "SHA_L4_5",
+        "SHA_L4_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "STR_DEX_START",
+      "type": "START",
+      "cost": 0,
+      "positionX": -360,
+      "positionY": 0,
+      "connections": [
+        "DUE_CCW_1",
+        "DUE_CW_1",
+        "DUE_L0_1",
+        "DUE_L1_1",
+        "DUE_L2_1",
+        "DUE_L3_1",
+        "DUE_L4_1"
+      ],
+      "params": []
+    },
+    {
+      "code": "STR_INT_START",
+      "type": "START",
+      "cost": 0,
+      "positionX": -180,
+      "positionY": -312,
+      "connections": [
+        "TEM_CCW_1",
+        "TEM_CW_1",
+        "TEM_L0_1",
+        "TEM_L1_1",
+        "TEM_L2_1",
+        "TEM_L3_1",
+        "TEM_L4_1"
+      ],
+      "params": []
+    },
+    {
+      "code": "STR_START",
+      "type": "START",
+      "cost": 0,
+      "positionX": 360,
+      "positionY": 0,
+      "connections": [
+        "MAR_CCW_1",
+        "MAR_CW_1",
+        "MAR_L0_1",
+        "MAR_L1_1",
+        "MAR_L2_1",
+        "MAR_L3_1",
+        "MAR_L4_1"
+      ],
+      "params": []
+    },
+    {
+      "code": "TEM_CCW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -229,
+      "positionY": -179,
+      "connections": [
+        "STR_INT_START",
+        "TEM_CCW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_CCW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -173,
+      "positionY": -135,
+      "connections": [
+        "TEM_CCW_1",
+        "TEM_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_CCW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -118,
+      "positionY": -92,
+      "connections": [
+        "DUE_CW_3",
+        "SCI_L2_3",
+        "TEM_CCW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_CW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -40,
+      "positionY": -287,
+      "connections": [
+        "STR_INT_START",
+        "TEM_CW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_CW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -31,
+      "positionY": -218,
+      "connections": [
+        "TEM_CW_1",
+        "TEM_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_CW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -21,
+      "positionY": -149,
+      "connections": [
+        "SHA_CCW_3",
+        "TEM_CW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -341,
+      "positionY": -303,
+      "connections": [
+        "STR_INT_START",
+        "TEM_L0_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -413,
+      "positionY": -366,
+      "connections": [
+        "TEM_L0_1",
+        "TEM_L0_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -485,
+      "positionY": -430,
+      "connections": [
+        "TEM_L0_2",
+        "TEM_L0_4",
+        "TEM_L0_5",
+        "TEM_L0_6",
+        "TEM_L0_7",
+        "TEM_L0_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -439,
+      "positionY": -430,
+      "connections": [
+        "TEM_L0_3",
+        "TEM_L0_5",
+        "TEM_L0_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -471,
+      "positionY": -386,
+      "connections": [
+        "TEM_L0_3",
+        "TEM_L0_4",
+        "TEM_L0_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -522,
+      "positionY": -403,
+      "connections": [
+        "TEM_L0_3",
+        "TEM_L0_5",
+        "TEM_L0_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -522,
+      "positionY": -457,
+      "connections": [
+        "TEM_L0_3",
+        "TEM_L0_6",
+        "TEM_L0_8"
+      ],
+      "params": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L0_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -471,
+      "positionY": -474,
+      "connections": [
+        "TEM_L0_3",
+        "TEM_L0_4",
+        "TEM_L0_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_1",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -277,
+      "positionY": -362,
+      "connections": [
+        "STR_INT_START",
+        "TEM_L1_2",
+        "TEM_L1_3",
+        "TEM_L1_4",
+        "TEM_L1_5",
+        "TEM_L1_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            18,
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -231,
+      "positionY": -362,
+      "connections": [
+        "TEM_L1_1",
+        "TEM_L1_3",
+        "TEM_L1_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -277,
+      "positionY": -316,
+      "connections": [
+        "TEM_L1_1",
+        "TEM_L1_2",
+        "TEM_L1_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -323,
+      "positionY": -362,
+      "connections": [
+        "TEM_L1_1",
+        "TEM_L1_3",
+        "TEM_L1_5"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -277,
+      "positionY": -408,
+      "connections": [
+        "TEM_L1_1",
+        "TEM_L1_2",
+        "TEM_L1_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -335,
+      "positionY": -439,
+      "connections": [
+        "TEM_L1_1",
+        "TEM_L1_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -393,
+      "positionY": -515,
+      "connections": [
+        "TEM_L1_6",
+        "TEM_L1_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L1_8",
+      "type": "KEYSTONE",
+      "cost": 1,
+      "positionX": -452,
+      "positionY": -591,
+      "connections": [
+        "TEM_L1_7"
+      ],
+      "params": [
+        {
+          "code": "PASSIVE_MORE_ELEMENTAL_DAMAGE",
+          "values": [
+            30.0,
+            30.0,
+            30.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L2_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -193,
+      "positionY": -413,
+      "connections": [
+        "STR_INT_START",
+        "TEM_L2_2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L2_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -234,
+      "positionY": -500,
+      "connections": [
+        "TEM_L2_1",
+        "TEM_L2_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L2_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -275,
+      "positionY": -587,
+      "connections": [
+        "TEM_L2_2",
+        "TEM_L2_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L2_4",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": -315,
+      "positionY": -674,
+      "connections": [
+        "TEM_L2_3",
+        "TEM_L2_5"
+      ],
+      "params": []
+    },
+    {
+      "code": "TEM_L2_5",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -356,
+      "positionY": -761,
+      "connections": [
+        "TEM_L2_4",
+        "TEM_L2_6",
+        "TEM_L2_7",
+        "TEM_L2_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+          "values": [
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L2_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -310,
+      "positionY": -761,
+      "connections": [
+        "TEM_L2_5",
+        "TEM_L2_7",
+        "TEM_L2_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L2_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -379,
+      "positionY": -721,
+      "connections": [
+        "TEM_L2_5",
+        "TEM_L2_6",
+        "TEM_L2_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L2_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -379,
+      "positionY": -801,
+      "connections": [
+        "TEM_L2_5",
+        "TEM_L2_6",
+        "TEM_L2_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -111,
+      "positionY": -442,
+      "connections": [
+        "STR_INT_START",
+        "TEM_L3_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -134,
+      "positionY": -535,
+      "connections": [
+        "TEM_L3_1",
+        "TEM_L3_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -157,
+      "positionY": -629,
+      "connections": [
+        "TEM_L3_2",
+        "TEM_L3_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -181,
+      "positionY": -722,
+      "connections": [
+        "TEM_L3_3",
+        "TEM_L3_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_5",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -204,
+      "positionY": -815,
+      "connections": [
+        "TEM_L3_4",
+        "TEM_L3_6",
+        "TEM_L3_7",
+        "TEM_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MAXIMUM_MANA",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -158,
+      "positionY": -815,
+      "connections": [
+        "TEM_L3_5",
+        "TEM_L3_7",
+        "TEM_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MAXIMUM_MANA",
+          "values": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -227,
+      "positionY": -775,
+      "connections": [
+        "TEM_L3_5",
+        "TEM_L3_6",
+        "TEM_L3_8"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MAXIMUM_MANA",
+          "values": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L3_8",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -227,
+      "positionY": -855,
+      "connections": [
+        "TEM_L3_5",
+        "TEM_L3_6",
+        "TEM_L3_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MAXIMUM_MANA",
+          "values": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L4_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -24,
+      "positionY": -455,
+      "connections": [
+        "STR_INT_START",
+        "TEM_L4_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L4_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -29,
+      "positionY": -551,
+      "connections": [
+        "TEM_L4_1",
+        "TEM_L4_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L4_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -34,
+      "positionY": -647,
+      "connections": [
+        "TEM_L4_2",
+        "TEM_L4_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L4_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -39,
+      "positionY": -743,
+      "connections": [
+        "TEM_L4_3",
+        "TEM_L4_5",
+        "TEM_L4_6",
+        "TEM_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L4_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 7,
+      "positionY": -743,
+      "connections": [
+        "TEM_L4_4",
+        "TEM_L4_6",
+        "TEM_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L4_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -62,
+      "positionY": -703,
+      "connections": [
+        "TEM_L4_4",
+        "TEM_L4_5",
+        "TEM_L4_7"
+      ],
+      "params": [
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_L4_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -62,
+      "positionY": -783,
+      "connections": [
+        "TEM_L4_4",
+        "TEM_L4_5",
+        "TEM_L4_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_CCW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -40,
+      "positionY": 287,
+      "connections": [
+        "INT_START",
+        "WIT_CCW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_CCW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -31,
+      "positionY": 218,
+      "connections": [
+        "WIT_CCW_1",
+        "WIT_CCW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_CCW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -21,
+      "positionY": 149,
+      "connections": [
+        "RAN_CW_3",
+        "SCI_L1_3",
+        "WIT_CCW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_CW_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -229,
+      "positionY": 179,
+      "connections": [
+        "INT_START",
+        "WIT_CW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_CW_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -173,
+      "positionY": 135,
+      "connections": [
+        "WIT_CW_1",
+        "WIT_CW_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_CW_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -118,
+      "positionY": 92,
+      "connections": [
+        "DUE_CCW_3",
+        "WIT_CW_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L0_1",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -80,
+      "positionY": 449,
+      "connections": [
+        "INT_START",
+        "WIT_L0_2",
+        "WIT_L0_3",
+        "WIT_L0_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L0_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -34,
+      "positionY": 449,
+      "connections": [
+        "WIT_L0_1",
+        "WIT_L0_3",
+        "WIT_L0_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L0_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -103,
+      "positionY": 489,
+      "connections": [
+        "WIT_L0_1",
+        "WIT_L0_2",
+        "WIT_L0_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L0_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -103,
+      "positionY": 409,
+      "connections": [
+        "WIT_L0_1",
+        "WIT_L0_2",
+        "WIT_L0_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L1_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -152,
+      "positionY": 430,
+      "connections": [
+        "INT_START",
+        "WIT_L1_2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L1_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -184,
+      "positionY": 521,
+      "connections": [
+        "WIT_L1_1",
+        "WIT_L1_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L1_3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -216,
+      "positionY": 611,
+      "connections": [
+        "WIT_L1_2",
+        "WIT_L1_4",
+        "WIT_L1_5",
+        "WIT_L1_6",
+        "WIT_L1_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L1_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -170,
+      "positionY": 611,
+      "connections": [
+        "WIT_L1_3",
+        "WIT_L1_5",
+        "WIT_L1_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L1_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -216,
+      "positionY": 657,
+      "connections": [
+        "WIT_L1_3",
+        "WIT_L1_4",
+        "WIT_L1_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L1_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -262,
+      "positionY": 611,
+      "connections": [
+        "WIT_L1_3",
+        "WIT_L1_5",
+        "WIT_L1_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L1_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -216,
+      "positionY": 565,
+      "connections": [
+        "WIT_L1_3",
+        "WIT_L1_4",
+        "WIT_L1_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L2_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -220,
+      "positionY": 399,
+      "connections": [
+        "INT_START",
+        "WIT_L2_2"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L2_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -266,
+      "positionY": 484,
+      "connections": [
+        "WIT_L2_1",
+        "WIT_L2_3"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L2_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -312,
+      "positionY": 568,
+      "connections": [
+        "WIT_L2_2",
+        "WIT_L2_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L2_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -359,
+      "positionY": 652,
+      "connections": [
+        "WIT_L2_3",
+        "WIT_L2_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L2_5",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": -405,
+      "positionY": 736,
+      "connections": [
+        "WIT_L2_4"
+      ],
+      "params": []
+    },
+    {
+      "code": "WIT_L3_1",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -282,
+      "positionY": 358,
+      "connections": [
+        "INT_START",
+        "WIT_L3_2",
+        "WIT_L3_3",
+        "WIT_L3_4",
+        "WIT_L3_5",
+        "WIT_L3_6",
+        "WIT_L3_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L3_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -236,
+      "positionY": 358,
+      "connections": [
+        "WIT_L3_1",
+        "WIT_L3_3",
+        "WIT_L3_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L3_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -268,
+      "positionY": 402,
+      "connections": [
+        "WIT_L3_1",
+        "WIT_L3_2",
+        "WIT_L3_4"
+      ],
+      "params": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L3_4",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -319,
+      "positionY": 385,
+      "connections": [
+        "WIT_L3_1",
+        "WIT_L3_3",
+        "WIT_L3_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L3_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -319,
+      "positionY": 331,
+      "connections": [
+        "WIT_L3_1",
+        "WIT_L3_4",
+        "WIT_L3_6"
+      ],
+      "params": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L3_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -268,
+      "positionY": 314,
+      "connections": [
+        "WIT_L3_1",
+        "WIT_L3_2",
+        "WIT_L3_5"
+      ],
+      "params": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L3_7",
+      "type": "KEYSTONE",
+      "cost": 1,
+      "positionX": -341,
+      "positionY": 434,
+      "connections": [
+        "WIT_L3_1"
+      ],
+      "params": [
+        {
+          "code": "PASSIVE_SET_MAXIMUM_LIFE",
+          "values": [
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L4_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -337,
+      "positionY": 307,
+      "connections": [
+        "INT_START",
+        "WIT_L4_2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L4_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -408,
+      "positionY": 372,
+      "connections": [
+        "WIT_L4_1",
+        "WIT_L4_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L4_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -479,
+      "positionY": 437,
+      "connections": [
+        "WIT_L4_2",
+        "WIT_L4_4"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L4_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -549,
+      "positionY": 502,
+      "connections": [
+        "WIT_L4_3",
+        "WIT_L4_5",
+        "WIT_L4_6",
+        "WIT_L4_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L4_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -503,
+      "positionY": 502,
+      "connections": [
+        "WIT_L4_4",
+        "WIT_L4_6",
+        "WIT_L4_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L4_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -572,
+      "positionY": 542,
+      "connections": [
+        "WIT_L4_4",
+        "WIT_L4_5",
+        "WIT_L4_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L4_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -572,
+      "positionY": 462,
+      "connections": [
+        "WIT_L4_4",
+        "WIT_L4_5",
+        "WIT_L4_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L5_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -382,
+      "positionY": 248,
+      "connections": [
+        "INT_START",
+        "WIT_L5_2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L5_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -463,
+      "positionY": 301,
+      "connections": [
+        "WIT_L5_1",
+        "WIT_L5_3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L5_3",
+      "type": "JEWEL_SOCKET",
+      "cost": 1,
+      "positionX": -543,
+      "positionY": 353,
+      "connections": [
+        "WIT_L5_2",
+        "WIT_L5_4"
+      ],
+      "params": []
+    },
+    {
+      "code": "WIT_L5_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": -624,
+      "positionY": 405,
+      "connections": [
+        "WIT_L5_3",
+        "WIT_L5_5",
+        "WIT_L5_6",
+        "WIT_L5_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L5_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -578,
+      "positionY": 405,
+      "connections": [
+        "WIT_L5_4",
+        "WIT_L5_6",
+        "WIT_L5_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L5_6",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -647,
+      "positionY": 445,
+      "connections": [
+        "WIT_L5_4",
+        "WIT_L5_5",
+        "WIT_L5_7"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_L5_7",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -647,
+      "positionY": 365,
+      "connections": [
+        "WIT_L5_4",
+        "WIT_L5_5",
+        "WIT_L5_6"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ]
+    }
+  ]
+}
