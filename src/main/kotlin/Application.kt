@@ -14,6 +14,7 @@ import config.DatabaseSeeder.getKoin
 import config.LogManager
 import config.MongoBackupManager
 import config.SystemMonitor
+import features.logic.icons.IconCache
 import features.logic.locale.LocaleCache
 import io.ktor.server.engine.EmbeddedServer
 import org.koin.core.context.startKoin
@@ -56,6 +57,8 @@ suspend fun Application.configureModules() {
     // Словари читаются из ресурсов до всего остального: они не зависят
     // от базы, а поиск на аукционе без них не работает
     LocaleCache.initializeCache()
+    // Иконки тоже читаются из ресурсов и тоже ни от чего не зависят
+    IconCache.initializeCache()
 
     configureStatusPages()
     configureMonitoring()

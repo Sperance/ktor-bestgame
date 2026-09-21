@@ -15,14 +15,19 @@ import extensions.ALL_ROUTES
 import extensions.printLog
 import extensions.saveChildren
 import io.ktor.openapi.OpenApiInfo
+import features.logic.icons.IconCache
+import features.logic.icons.IconManifest
 import features.logic.locale.LocaleCache
 import io.ktor.server.application.*
 import io.ktor.server.http.content.staticResources
 import io.ktor.server.plugins.openapi.openAPI
 import io.ktor.server.response.respond
+import io.ktor.http.ContentType
+import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.openapi.OpenApiDocSource
 import io.ktor.server.routing.route
+import kotlinx.serialization.json.Json
 import io.ktor.server.routing.routing
 import io.ktor.server.routing.routingRoot
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -45,6 +50,17 @@ fun Application.configureRouting() {
         // Файлы локализации раздаются как есть: клиент читает манифест
         // locale/index.json, сверяет отпечаток и качает нужный словарь
         staticResources("/${LocaleCache.FOLDER}", LocaleCache.FOLDER)
+
+        // Иконки устроены так же, но манифест собирает сервер: отпечаток
+        // считается из самого файла, и забыть его обновить нельзя
+        route("/${IconCache.FOLDER}") {
+            get("/index.json") {
+                call.respondText(Json.encodeToString(IconManifest.serializer(), IconCache.manifest()), ContentType.Application.Json)
+            }
+            get("/${IconCache.FILE}") {
+                call.respondText(IconCache.document(), ContentType.Application.Json)
+            }
+        }
 
         routeRegistry.registerAll(this)
 
