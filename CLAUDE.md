@@ -26,15 +26,20 @@ change, here and in the client, whether or not the task mentions them.
    key sets, no string may be empty, a placeholder must survive translation, and a composite
    modifier needs a placeholder per effect. Run it before calling such a change done.
 
-2. **Every finished change ends with a changelog and a version.** Once the checks have passed and
-   the branches are pushed, report what changed as a list, under a version number, **for the
-   application and for the server separately** — even when only one of them moved, say so. The
-   server's number is `SERVER_VERSION`, pinned in the client's `core/.../contract/Contract.kt`
-   together with `SERVER_COMMIT` and `SERVER_BRANCH`; bump it as part of the change rather than
-   leaving it for later. This is the last step of the work, not a courtesy: a change that is
-   pushed but not written up is not delivered.
+2. **Every finished change ends with a changelog entry and a version.** Once the checks have
+   passed and the branches are pushed, write what changed into `CHANGELOG.md` — a new entry at
+   the **top**, dated, under the version number, brief: what moved, and for a fix, what the cause
+   was. The client keeps its own `CHANGELOG.md` and the two cross-reference each other, so the
+   history of dates answers "what changed and when" without reading commits. Then report the same
+   list in the reply, **for the application and for the server separately** — even when only one
+   of them moved, say so. The server's number is `SERVER_VERSION`, pinned in the client's
+   `core/.../contract/Contract.kt` together with `SERVER_COMMIT` and `SERVER_BRANCH`; bump it as
+   part of the change rather than leaving it for later. This is the last step of the work, not a
+   courtesy: a change that is pushed but not written up is not delivered.
 
 ## Where names and numbers live
+
+- `CHANGELOG.md` — dated entries per version; the client keeps its own beside it.
 
 - `src/main/resources/locale/{index,ru,en}.json` — every string in the game. No document in Mongo
   has carried text since 0.14.0; entities store a `code`.
