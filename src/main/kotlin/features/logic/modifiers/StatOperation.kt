@@ -2,6 +2,7 @@ package features.logic.modifiers
 
 import application.enums.EnumModifierOperation
 import application.enums.IntEnumStat
+import kotlinx.serialization.Serializable
 import kotlin.math.floor
 
 /**
@@ -12,6 +13,19 @@ import kotlin.math.floor
  * [Modifier], но и свёрнутый результат локальных модификаторов предмета
  * или база от класса.
  */
+/**
+ * Что набор модификаторов даёт по одной характеристике одной операцией.
+ *
+ * Это вклад, а не итог: база сюда не входит, поэтому INCREASED остаётся
+ * процентом, а не превращается в ноль от умножения на пустоту.
+ */
+@Serializable
+data class StatContribution(
+    val stat: IntEnumStat,
+    val operation: EnumModifierOperation,
+    val value: Double,
+)
+
 data class StatOperation(
     val stat: IntEnumStat,
     val operation: EnumModifierOperation,

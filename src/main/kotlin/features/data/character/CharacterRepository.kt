@@ -367,12 +367,12 @@ class CharacterRepository : BaseRepository<Character>(
             available = total - spent,
             // Копия: состояние - это ответ наружу, а не окно в документ персонажа
             nodes = character.skillNodes.toList(),
-            // Сумма по всему дереву, посчитанная теми же правилами, что и характеристики:
-            // операции модификаторов складываются не одинаково, и на клиенте это врало бы.
-            totals = ModifierCalculator.compute(
-                emptyMap(),
+            // Вклад дерева, а не итог персонажа: базы здесь нет, поэтому проценты
+            // остаются процентами. Свод делает тот же калькулятор - складывать
+            // операции разных видов на клиенте было бы неверно.
+            totals = ModifierCalculator.contributions(
                 ModifierCalculator.expand(character.skillNodes.flatMap { it.params })
-            ).filterValues { it != 0.0 }
+            )
         )
     }
 

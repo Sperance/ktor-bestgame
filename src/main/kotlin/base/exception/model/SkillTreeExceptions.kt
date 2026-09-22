@@ -3,27 +3,27 @@ package base.exception.model
 import base.exception.BaseException
 
 object SkillTreeExceptions {
-    open class SkillTreeException(message: String?, errorMethod: String?, errorCode: String) : BaseException(message, "SkillTree", errorMethod, errorCode) {
+    open class SkillTreeException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "SkillTree", errorMethod, errorCode, messageArgs) {
         override fun toString(): String {
             return "{SkillTreeException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = SkillTreeException(value, errorMethod, "ST_001")
-    fun funExceptionCode(errorMethod: String, value: String? = "") = SkillTreeException("Skill node code '$value' is null or empty", errorMethod, "ST_002")
-    fun funExceptionCost(errorMethod: String, value: String? = "") = SkillTreeException("Skill node cost $value must not be negative", errorMethod, "ST_003")
-    fun funExceptionNodeNotFound(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value not found", errorMethod, "ST_004")
-    fun funExceptionAlreadyTaken(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is already taken", errorMethod, "ST_005")
-    fun funExceptionNotTaken(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not taken", errorMethod, "ST_006")
-    fun funExceptionNotConnected(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not connected to any taken node", errorMethod, "ST_007")
-    fun funExceptionNoPoints(errorMethod: String, value: String? = "") = SkillTreeException("Character has not enough skill points ($value)", errorMethod, "ST_008")
-    fun funExceptionStartTaken(errorMethod: String, value: String? = "") = SkillTreeException("Character already started the tree from $value", errorMethod, "ST_009")
-    fun funExceptionWrongStart(errorMethod: String, value: String? = "") = SkillTreeException("Character must start the tree from its own class node ($value)", errorMethod, "ST_013")
-    fun funExceptionNoStart(errorMethod: String, value: String? = "") = SkillTreeException("Character must take a START node first", errorMethod, "ST_010")
-    fun funExceptionWouldDetach(errorMethod: String, value: String? = "") = SkillTreeException("Refunding $value would detach other taken nodes from the start", errorMethod, "ST_011")
-    fun funExceptionStartRefund(errorMethod: String, value: String? = "") = SkillTreeException("START node $value can only be refunded by a full reset", errorMethod, "ST_012")
-    fun funExceptionSocketBusy(errorMethod: String, value: String? = "") = SkillTreeException("Jewel socket $value is not empty", errorMethod, "ST_014")
-    fun funExceptionNoRegret(errorMethod: String, value: String? = "") = SkillTreeException("Character has no Orb of Regret left (need $value)", errorMethod, "ST_015")
-    fun funExceptionNotSocket(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not a jewel socket", errorMethod, "ST_016")
-    fun funExceptionNotJewel(errorMethod: String, value: String? = "") = SkillTreeException("Item $value is not a jewel", errorMethod, "ST_017")
+    fun funException(errorMethod: String, value: String? = "") = SkillTreeException(value, errorMethod, "ST_001", listOf(value.orEmpty()))
+    fun funExceptionCode(errorMethod: String, value: String? = "") = SkillTreeException("Skill node code '$value' is null or empty", errorMethod, "ST_002", listOf(value.orEmpty()))
+    fun funExceptionCost(errorMethod: String, value: String? = "") = SkillTreeException("Skill node cost $value must not be negative", errorMethod, "ST_003", listOf(value.orEmpty()))
+    fun funExceptionNodeNotFound(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value not found", errorMethod, "ST_004", listOf(value.orEmpty()))
+    fun funExceptionAlreadyTaken(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is already taken", errorMethod, "ST_005", listOf(value.orEmpty()))
+    fun funExceptionNotTaken(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not taken", errorMethod, "ST_006", listOf(value.orEmpty()))
+    fun funExceptionNotConnected(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not connected to any taken node", errorMethod, "ST_007", listOf(value.orEmpty()))
+    fun funExceptionNoPoints(errorMethod: String, value: String? = "") = SkillTreeException("Character has not enough skill points ($value)", errorMethod, "ST_008", listOf(value.orEmpty()))
+    fun funExceptionStartTaken(errorMethod: String, value: String? = "") = SkillTreeException("Character already started the tree from $value", errorMethod, "ST_009", listOf(value.orEmpty()))
+    fun funExceptionWrongStart(errorMethod: String, value: String? = "") = SkillTreeException("Character must start the tree from its own class node ($value)", errorMethod, "ST_013", listOf(value.orEmpty()))
+    fun funExceptionNoStart(errorMethod: String, value: String? = "") = SkillTreeException("Character must take a START node first", errorMethod, "ST_010", listOf(value.orEmpty()))
+    fun funExceptionWouldDetach(errorMethod: String, value: String? = "") = SkillTreeException("Refunding $value would detach other taken nodes from the start", errorMethod, "ST_011", listOf(value.orEmpty()))
+    fun funExceptionStartRefund(errorMethod: String, value: String? = "") = SkillTreeException("START node $value can only be refunded by a full reset", errorMethod, "ST_012", listOf(value.orEmpty()))
+    fun funExceptionSocketBusy(errorMethod: String, value: String? = "") = SkillTreeException("Jewel socket $value is not empty", errorMethod, "ST_014", listOf(value.orEmpty()))
+    fun funExceptionNoRegret(errorMethod: String, value: String? = "") = SkillTreeException("Character has no Orb of Regret left (need $value)", errorMethod, "ST_015", listOf(value.orEmpty()))
+    fun funExceptionNotSocket(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not a jewel socket", errorMethod, "ST_016", listOf(value.orEmpty()))
+    fun funExceptionNotJewel(errorMethod: String, value: String? = "") = SkillTreeException("Item $value is not a jewel", errorMethod, "ST_017", listOf(value.orEmpty()))
 }

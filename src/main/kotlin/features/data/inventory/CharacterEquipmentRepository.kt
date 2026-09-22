@@ -20,6 +20,8 @@ import features.data.equipment.equipment_data.Equipment
 import features.logic.currency.CurrencyApplier
 import features.logic.currency.CurrencyOutcome
 import features.logic.stats.EquipmentRequirements
+import features.logic.trade.SellOutcome
+import features.logic.trade.SellPrice
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -123,6 +125,46 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
             item.socketCode = null
             update(item, session)
             item
+        }
+    }
+
+    /**
+     * Продаёт предмет торговцу за золото.
+     *
+     * Цену назначает [SellPrice], а не клиент, и экземпляр после продажи
+     * исчезает: золото и удаление идут одной транзакцией, иначе неудачная
+     * запись оставила бы игрока и без предмета, и без денег.
+     *
+     * Надетое и вставленное в гнездо не продаётся: сначала снимите. Это то же
+     * правило, по которому надетый предмет не выставить на аукцион - предмет
+     * должен быть в руках, а не в работе.
+     */
+    suspend fun sellForGold(characterId: String, inventoryId: String): SellOutcome {
+        val item = findById(inventoryId)
+            ?: throw CharacterExceptions.funExceptionItemNotFound("sellForGold", inventoryId)
+        if (item.characterId != characterId)
+            throw CharacterExceptions.funExceptionItemNotFound("sellForGold", inventoryId)
+
+        val template = equipmentCache.findById(item.equipmentId)
+            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("sellForGold", item.equipmentId)
+
+        if (item.socketCode != null)
+            throw CharacterExceptions.funExceptionSellSocketed("sellForGold", template.code)
+        if (item.equippedSlot != null)
+            throw CharacterExceptions.funExceptionSellEquipped("sellForGold", template.code)
+
+        val character = characterRepository.findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound("sellForGold", characterId)
+
+        // Характеристики нужны ради STOCK_GOLD: надбавку к цене даёт сам персонаж.
+        val stats = characterRepository.calculateStats(characterId).stats
+        val gold = SellPrice.of(template, item.params, stats)
+
+        return transactionExecute("sellForGold $inventoryId") { session ->
+            deleteById(inventoryId, session)
+            character.money += gold
+            characterRepository.update(character, session)
+            SellOutcome(inventoryId, template.code, gold, character.money)
         }
     }
 

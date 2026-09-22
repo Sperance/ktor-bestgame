@@ -57,6 +57,12 @@ class CharacterEquipmentRoute(
             val data = repo.unsocket(characterId, inventoryId)
             call.respond(ApiMongoResponse.ok(data))
         }
+        post("/sell") {
+            val characterId = call.queryParam("characterId")
+            val inventoryId = call.queryParam("inventoryId")
+            val data = repo.sellForGold(characterId, inventoryId)
+            call.respond(ApiMongoResponse.ok(data))
+        }
         post("/unequip") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")

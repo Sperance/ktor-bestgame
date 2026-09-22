@@ -68,6 +68,37 @@ object ModifierCalculator : KoinComponent {
     }
 
     /**
+     * Что набор модификаторов даёт сам по себе, без базы - по строке на
+     * характеристику и вид операции.
+     *
+     * Нужно там, где базы нет и быть не может: дерево навыков показывает свой
+     * вклад, а не итог персонажа. Считать его через [compute] нельзя - от нулевой
+     * базы INCREASED и MORE схлопываются в ноль (0 * 1.4 = 0), и процентные узлы
+     * пропадают из ответа целиком.
+     *
+     * Каждый вид операции сворачивается своим правилом, тем же, что и в
+     * [ModifierMath]: ADD и INCREASED складываются, MORE перемножаются и
+     * возвращаются одним процентом, SET заменяет - остаётся последний.
+     */
+    fun contributions(operations: Collection<StatOperation>): List<StatContribution> =
+        operations
+            .groupBy { it.stat to it.operation }
+            .mapNotNull { (key, group) ->
+                val (stat, operation) = key
+                val values = group.map { it.resolve(0.0) }
+                val value = when (operation) {
+                    EnumModifierOperation.ADD, EnumModifierOperation.INCREASED -> values.sum()
+                    // Два MORE - это умножение, а не сложение: 20% и 30% дают 56%, не 50%.
+                    EnumModifierOperation.MORE ->
+                        (values.fold(1.0) { acc, v -> acc * (1.0 + v / 100.0) } - 1.0) * 100.0
+                    // SET не складывается ни с чем: побеждает последний, как в ModifierMath.
+                    EnumModifierOperation.SET -> values.last()
+                }
+                if (value == 0.0) null else StatContribution(stat, operation, value)
+            }
+            .sortedWith(compareBy({ it.stat.order }, { it.operation.ordinal }))
+
+    /**
      * Разворачивает модификаторы в плоские операции по их описаниям.
      *
      * У составного модификатора эффектов несколько, и значения идут

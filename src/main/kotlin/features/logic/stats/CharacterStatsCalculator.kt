@@ -28,10 +28,30 @@ data class InactiveEquipment(
 )
 
 /**
+ * Шаблон экипировки, который персонажу сейчас не по силам.
+ *
+ * Требование лежит на шаблоне, а не на экземпляре, поэтому вердикт даётся
+ * шаблону: он одинаков для всех копий, и по нему клиент помечает и то, что
+ * лежит в арсенале, и чужой лот на витрине.
+ */
+@Serializable
+data class UnwearableEquipment(
+    val equipmentId: String,
+
+    /**
+     * Код шаблона - название клиент возьмёт из локализации.
+     */
+    val code: String,
+
+    val reasons: List<String>,
+)
+
+/**
  * Итоговые характеристики персонажа.
  *
  * @property active id работающих предметов инвентаря
  * @property inactive надетые предметы, чьи требования не выполнены
+ * @property unwearable шаблоны, которые персонаж сейчас надеть не может
  */
 @Serializable
 data class CharacterStats(
@@ -40,6 +60,7 @@ data class CharacterStats(
     val stats: Map<IntEnumStat, Double>,
     val active: List<String>,
     val inactive: List<InactiveEquipment>,
+    val unwearable: List<UnwearableEquipment> = emptyList(),
 )
 
 /**
@@ -69,8 +90,13 @@ object CharacterStatsCalculator : KoinComponent {
         val level = character.level.toInt()
         val base = characterClass.baseOn(level)
 
-        // Проход 1: то, что не зависит от экипировки
-        val treeOperations = ModifierCalculator.expand(skillNodes.flatMap { it.params })
+        // Проход 1: то, что не зависит от экипировки.
+        // Конверсии класса ("+1 к здоровью за каждые 2 Силы") идут здесь же: это
+        // постоянные модификаторы персонажа, а не база, поэтому в baseOn их нет.
+        // Считает их тот же ModifierCalculator - он сортирует статы по order, так что
+        // Сила уже посчитана к моменту, когда до здоровья доходит очередь.
+        val innateOperations = ModifierCalculator.expand(characterClass.params)
+        val treeOperations = innateOperations + ModifierCalculator.expand(skillNodes.flatMap { it.params })
         var stats = ModifierCalculator.compute(base, treeOperations)
 
         // Проход 2: экипировка в порядке слотов
@@ -116,12 +142,27 @@ object CharacterStatsCalculator : KoinComponent {
             stats = ModifierCalculator.compute(base, treeOperations + itemOperations)
         }
 
+        // Вердикт по всему справочнику, а не только по надетому: им клиент помечает
+        // и арсенал, и чужие лоты на витрине. Требование лежит на шаблоне, поэтому
+        // один ответ закрывает оба экрана, и клиенту не приходится сверять
+        // требования самому - он только смотрит, есть ли шаблон в этом списке.
+        val unwearable = equipmentCache.getCache().mapNotNull { template ->
+            val unmet = EquipmentRequirements.unmet(template, level, stats)
+            if (unmet.isEmpty()) null
+            else UnwearableEquipment(
+                equipmentId = template._id,
+                code = template.code,
+                reasons = unmet.map { "${it.name}: need ${it.required}, have ${it.actual}" }
+            )
+        }
+
         return CharacterStats(
             characterId = character._id,
             level = level,
             stats = stats,
             active = active,
-            inactive = inactive
+            inactive = inactive,
+            unwearable = unwearable
         )
     }
 }

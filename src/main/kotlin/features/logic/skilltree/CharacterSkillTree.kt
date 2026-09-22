@@ -4,6 +4,7 @@ import application.enums.EnumSkillNodeType
 import application.enums.IntEnumStat
 import base.exception.model.SkillTreeExceptions
 import features.data.character.character_data.CharacterSkillNode
+import features.logic.modifiers.StatContribution
 import kotlinx.serialization.Serializable
 
 /**
@@ -22,14 +23,19 @@ data class CharacterSkillTreeState(
     val nodes: List<CharacterSkillNode>,
 
     /**
-     * Что дерево даёт в сумме - по характеристике на строку.
+     * Что даёт взятое дерево - по строке на характеристику и вид операции.
      *
-     * Считает сервер, а не клиент, и не потому что так строже: у модификаторов
-     * есть операции, и два INCREASED складываются, а два MORE перемножаются.
-     * Простое сложение снимков на клиенте врало бы ровно там, где игрок решает,
-     * стоит ли узел очка.
+     * Это вклад дерева, а не итог персонажа: база в него не входит, поэтому
+     * "+40% к физическому урону" остаётся процентом. Раньше здесь был итог от
+     * пустой базы, и все проценты пропадали - 0 * 1.4 это ноль, а ноль
+     * отбрасывался.
+     *
+     * Считает сервер, а не клиент, и не для строгости: у модификаторов есть
+     * операции, и два INCREASED складываются, а два MORE перемножаются.
+     * Сложение снимков на клиенте врало бы там, где игрок решает, стоит ли
+     * узел очка.
      */
-    val totals: Map<IntEnumStat, Double> = emptyMap(),
+    val totals: List<StatContribution> = emptyList(),
 )
 
 /**

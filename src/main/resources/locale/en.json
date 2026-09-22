@@ -1026,5 +1026,7 @@
   "system.blocked": "You are blocked",
   "system.deleted": "Deleted",
   "system.no_changes": "Nothing to change",
-  "system.success": "Done"
+  "system.success": "Done",
+  "error.CH_014": "Item {0} must be unequipped before it is sold",
+  "error.CH_015": "Jewel {0} must be taken out of its socket before it is sold"
 }
