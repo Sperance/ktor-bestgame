@@ -172,14 +172,15 @@ class LocalizationTest {
     fun the_manifest_lists_the_languages_that_really_exist() {
         val manifest = LocaleCache.manifest()
 
-        assert(manifest.languages.map { it.code }.toSet() == setOf("en", "ru")) {
-            "got ${manifest.languages.map { it.code }}"
-        }
+        // Список языков не зашит: добавили язык - добавили файл и строку в манифест,
+        // а тест проверяет, что за каждой объявленной строкой стоит читаемый словарь
+        assert(manifest.languages.isNotEmpty()) { "манифест не объявляет ни одного языка" }
         assert(manifest.default in manifest.languages.map { it.code }) {
             "язык по умолчанию '${manifest.default}' не объявлен в манифесте"
         }
         manifest.languages.forEach {
             assert(it.label.isNotBlank()) { "${it.code}: нет подписи для меню выбора языка" }
+            assert(LocaleCache.bundle(it.code).size > 0) { "${it.code}: словарь пуст или не прочитан" }
         }
     }
 

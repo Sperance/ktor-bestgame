@@ -4,12 +4,17 @@
     {
       "code": "en",
       "label": "English",
-      "hash": "c2e138e361580fde"
+      "hash": "acbbab960a99cf5e"
     },
     {
       "code": "ru",
       "label": "Русский",
-      "hash": "628b47a2a5381950"
+      "hash": "9c7311ddd2a599d7"
+    },
+    {
+      "code": "zh",
+      "label": "简体中文",
+      "hash": "91841b4a7a96437a"
     }
   ]
 }
