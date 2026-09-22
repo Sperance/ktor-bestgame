@@ -14,9 +14,14 @@ change, here and in the client, whether or not the task mentions them.
 
 1. **Anything with a name is born translated.** Adding an item, a piece of equipment, a class, a
    currency orb, a tree node, a modifier, an enum value or an error code means adding its strings
-   to **every** language served today — `src/main/resources/locale/ru.json` and `en.json`, and
-   whatever `locale/index.json` lists tomorrow. A code without a name in all of them is an
-   unfinished change, not a change with a follow-up.
+   to **every** language `locale/index.json` lists — today `src/main/resources/locale/ru.json`,
+   `en.json` and `zh.json`, and whatever it lists tomorrow. A code without a name in all of them
+   is an unfinished change, not a change with a follow-up.
+
+   The same rule runs on the client, where it covers the other half: every label ExileForge wrote
+   itself is a key in its own `core/src/main/resources/i18n/ui_{ru,en,zh}.json`, and its
+   `UiStringsTest` is the twin of the test below. A language exists for a player only when both
+   halves have it, which is why the client builds its picker from this server's manifest.
 
    Keys are `<section>.<CODE>.<field>`, built by `LocaleKey` on both sides; never hand-write one,
    because the client computes the same string and a drift shows up as a raw key on screen.
@@ -41,7 +46,7 @@ change, here and in the client, whether or not the task mentions them.
 
 - `CHANGELOG.md` — dated entries per version; the client keeps its own beside it.
 
-- `src/main/resources/locale/{index,ru,en}.json` — every string in the game. No document in Mongo
+- `src/main/resources/locale/{index,ru,en,zh}.json` — every string in the game. No document in Mongo
   has carried text since 0.14.0; entities store a `code`.
 - `src/main/resources/content/{equipment,items,currency}.json` — the catalogues, read by the
   seeders. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
