@@ -7,6 +7,16 @@ repository, **ExileForge** (Android Compose), whose own `CLAUDE.md` carries the 
 between the two. The client is deliberately thin: this server owns items, stats, modifier rolls,
 prices and inventory, and the client only renders what it is told.
 
+## Where the backlog lives
+
+The owner tracks both repositories in one Asana project, **KTOR**
+(`https://app.asana.com/1/1209764106123448/project/1218745509544018`, gid `1218745509544018`),
+split into three sections: `Сервер · ktor-bestgame`, `Приложение · ExileForge` and `Обсудить`.
+
+**A comment on a card is the owner's answer to it.** That is how decisions arrive: the card states
+the problem, the comment states what to do. Read the comments before starting anything the board
+already covers, and when a card's work is done, say so on the card rather than only in the reply.
+
 ## Standing rules (never skip, whatever the task)
 
 These two were set by the owner of the project and outrank convenience. They apply to every
