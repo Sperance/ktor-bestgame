@@ -90,6 +90,7 @@ object CurrencyApplier : KoinComponent {
      */
     fun apply(orb: EnumCurrencyOrb, item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         if (item.corrupted) throw CurrencyExceptions.funExceptionCorrupted("apply", template.code)
+        if (item.mirrored) throw CurrencyExceptions.funExceptionMirrored("apply", template.code)
 
         return when (orb) {
             ORB_OF_TRANSMUTATION -> upgrade(item, template, from = EnumRarity.COMMON, to = EnumRarity.UNCOMMON)
@@ -286,12 +287,15 @@ object CurrencyApplier : KoinComponent {
      * Создаёт неизменяемую копию предмета.
      */
     private fun mirror(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        // Копия неизменяема, а не порчена: запрет тот же, но состояние своё.
+        // До 0.20.0 здесь стояла порча - отдельного флага просто не было.
         val copy = item.copy(
             _id = ObjectId().toHexString(),
             version = 0,
             params = item.params.toMutableList(),
             equippedSlot = null,
-            corrupted = true
+            socketCode = null,
+            mirrored = true
         )
 
         return CurrencyOutcome(item, copy, "currency.mirrored", listOf(LocaleKey.equipmentName(template.code)))

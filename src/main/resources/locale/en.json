@@ -361,6 +361,7 @@
   "error.CR_007": "Item {0} has no free affix slot",
   "error.CR_008": "Item {0} has no implicit modifiers",
   "error.CR_009": "This orb is not applied to an item",
+  "error.CR_010": "Item {0} is mirrored and cannot be modified",
   "error.EQ_001": "Equipment error: {0}",
   "error.EQ_002": "Equipment type is not supported",
   "error.EQ_003": "Invalid slot for equipment type {0}",

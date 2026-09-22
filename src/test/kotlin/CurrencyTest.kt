@@ -23,11 +23,12 @@ class CurrencyTest {
         itemLevel = 50
     )
 
-    private fun item(rarity: EnumRarity, corrupted: Boolean = false) = CharacterEquipment(
+    private fun item(rarity: EnumRarity, corrupted: Boolean = false, mirrored: Boolean = false) = CharacterEquipment(
         characterId = "character",
         equipmentId = "equipment",
         rarity = rarity,
-        corrupted = corrupted
+        corrupted = corrupted,
+        mirrored = mirrored
     )
 
     // ==================== Данные ====================
@@ -95,8 +96,14 @@ class CurrencyTest {
         }
     }
 
+    /**
+     * Неизменяемость - своё состояние, а не порча.
+     *
+     * До 0.20.0 зеркало помечало копию corrupted, потому что другого запрета не
+     * было, и предмет, никогда не видевший Ваал, числился порченым.
+     */
     @Test
-    fun mirror_creates_an_independent_corrupted_copy() {
+    fun mirror_creates_an_independent_mirrored_copy() {
         val source = item(EnumRarity.RARE).apply { equippedSlot = EnumEquipmentType.HELMET }
         val outcome = CurrencyApplier.apply(EnumCurrencyOrb.MIRROR_OF_KALANDRA, source, template())
 
@@ -104,10 +111,22 @@ class CurrencyTest {
         assert(copy != null) { "Mirror created nothing" }
         assert(copy!!._id != source._id) { "Copy shares the source id" }
         assert(copy.version == 0L) { "Copy must be a fresh document" }
-        assert(copy.corrupted) { "Mirrored copy must be corrupted" }
+        assert(copy.mirrored) { "Mirrored copy must be mirrored" }
+        assert(!copy.corrupted) { "A mirrored copy is not a corrupted one" }
         assert(copy.equippedSlot == null) { "Copy must not arrive equipped" }
+        assert(copy.socketCode == null) { "Copy must not arrive socketed" }
         assert(copy.params !== source.params) { "Copy shares the params list with the source" }
-        assert(!source.corrupted) { "Mirror must not corrupt the source" }
+        assert(!source.mirrored && !source.corrupted) { "Mirror must not touch the source" }
+    }
+
+    @Test
+    fun mirrored_items_reject_every_orb() {
+        val mirrored = item(EnumRarity.RARE, mirrored = true)
+
+        EnumCurrencyOrb.entries.forEach { orb ->
+            val failed = runCatching { CurrencyApplier.apply(orb, mirrored, template()) }.isFailure
+            assert(failed) { "$orb was applied to a mirrored item" }
+        }
     }
 
     @Test

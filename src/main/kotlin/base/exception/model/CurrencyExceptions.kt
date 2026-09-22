@@ -18,4 +18,5 @@ object CurrencyExceptions {
     fun funExceptionNoFreeAffix(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no free affix slot", errorMethod, "CR_007", listOf(value.orEmpty()))
     fun funExceptionNoImplicits(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no implicit modifiers", errorMethod, "CR_008", listOf(value.orEmpty()))
     fun funExceptionNotForItem(errorMethod: String, value: String? = "") = CurrencyException("Orb $value is not applied to an item", errorMethod, "CR_009", listOf(value.orEmpty()))
+    fun funExceptionMirrored(errorMethod: String, value: String? = "") = CurrencyException("Item $value is mirrored and cannot be modified", errorMethod, "CR_010", listOf(value.orEmpty()))
 }
