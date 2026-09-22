@@ -3,8 +3,10 @@ import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import config.EquipmentSeeder
 import config.ModifierSeeder
+import config.RedemptionSeeder
 import config.UniqueEquipmentSeeder
 import features.data.equipment.equipment_data.Equipment
+import features.data.redemptionCodes.RedemptionKind
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierTier
 import org.junit.Test
@@ -152,6 +154,35 @@ class SeedDataTest {
                 assert(definition!!.source == EnumModifierSource.UNIQUE) {
                     "${item.code} carries a rollable modifier ${definition.code}"
                 }
+            }
+        }
+    }
+
+    /**
+     * Сид промокодов проходит те же проверки, что и создание промокода руками.
+     *
+     * Сидер вставляет коды через тот же insertMany, а тот зовёт validateBeforeInsert:
+     * пустой подарок или неположительное количество не отвергаются, а роняют сидинг,
+     * то есть старт сервера. Именно это и случилось в 0.19.0, когда награды стали
+     * обязательными, а пример с пустым списком остался.
+     */
+    @Test
+    fun seeded_redemption_codes_pass_the_rules_that_guard_insertion() {
+        val codes = RedemptionSeeder.seed()
+        assert(codes.isNotEmpty()) { "No redemption codes seeded" }
+
+        val duplicates = codes.groupBy { it.code }.filterValues { it.size > 1 }.keys
+        assert(duplicates.isEmpty()) { "Duplicate redemption codes: $duplicates" }
+
+        codes.forEach { entry ->
+            assert(entry.code.isNotBlank()) { "A seeded redemption code has no code" }
+            assert(entry.treasure.isNotEmpty()) { "${entry.code} gives nothing" }
+            entry.treasure.forEach { reward ->
+                assert(reward.amount > 0) { "${entry.code} has a reward of ${reward.amount}" }
+                val needsDocument = reward.kind == RedemptionKind.ITEM || reward.kind == RedemptionKind.EQUIPMENT
+                // Идентификаторы предметов и шаблонов сид знать не может, поэтому
+                // на них он не ссылается - только опыт и золото.
+                assert(!needsDocument) { "${entry.code} names a ${reward.kind} document the seed cannot know" }
             }
         }
     }

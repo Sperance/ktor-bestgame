@@ -26,7 +26,6 @@ import features.data.auction.AuctionLotRepository
 import features.data.blockList.BlockListRepository
 import features.data.inventory.CharacterEquipmentRepository
 import features.data.recipe.RecipeRepository
-import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
@@ -372,11 +371,7 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Seeding RedemptionCodes...")
 
-        val listItems = arrayListOf<RedemptionCodes>()
-        listItems.add(
-            RedemptionCodes("ALFA_BETA_GAMMA", listOf(), "")
-        )
-
+        val listItems = RedemptionSeeder.seed()
         redemptionCodesRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} RedemptionCodes created")
