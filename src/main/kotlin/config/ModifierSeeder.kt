@@ -36,6 +36,7 @@ import application.enums.EnumStatStock.STOCK_LEECH_PHYSICAL
 import application.enums.EnumStatStock.STOCK_MANA
 import application.enums.EnumStatStock.STOCK_MANA_REGEN
 import application.enums.EnumStatStock.STOCK_MOVEMENT_SPEED
+import application.enums.EnumStatStock.STOCK_GOLD
 import application.enums.EnumStatStock.STOCK_RARITY
 import application.enums.EnumStatStock.STOCK_RESIST_ALL
 import application.enums.EnumStatStock.STOCK_RESIST_CHAOS
@@ -445,6 +446,16 @@ object ModifierSeeder {
             tags = listOf("rarity"),
             effects = listOf(effect(STOCK_RARITY, INCREASED, best = 20.0..24.0, worst = 6.0..10.0)),
             tierCount = 5, bestItemLevel = 82
+        ),
+        // Единственный источник STOCK_GOLD в мире. До него характеристика существовала,
+        // участвовала множителем в цене продажи и всегда равнялась нулю - то есть
+        // торговец платил по базе и делал вид, что считает.
+        ModifierTemplate(
+            code = "INCREASED_SELL_VALUE",
+            source = SUFFIX,
+            tags = listOf("gold"),
+            effects = listOf(effect(STOCK_GOLD, INCREASED, best = 25.0..30.0, worst = 8.0..12.0)),
+            tierCount = 4, bestItemLevel = 78
         ),
 
         // ---------- IMPLICIT: встроенные модификаторы базы ----------

@@ -2981,6 +2981,7 @@
       "positionX": 0,
       "positionY": 0,
       "connections": [
+        "SCI_G1",
         "SCI_J1",
         "SCI_L0_1",
         "SCI_L1_1",
@@ -3229,6 +3230,68 @@
           "code": "ADD_INTELLIGENCE",
           "values": [
             8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_G1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 46,
+      "positionY": 56,
+      "connections": [
+        "SCION_START",
+        "SCI_G2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SELL_VALUE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_G2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 92,
+      "positionY": 112,
+      "connections": [
+        "SCI_G1",
+        "SCI_G3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SELL_VALUE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_G3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 138,
+      "positionY": 168,
+      "connections": [
+        "SCI_G2"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_SELL_VALUE",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "INCREASED_ITEM_RARITY",
+          "values": [
+            12
           ]
         }
       ]

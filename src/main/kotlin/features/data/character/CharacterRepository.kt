@@ -397,17 +397,29 @@ class CharacterRepository : BaseRepository<Character>(
      */
     suspend fun addExperience(characterId: String, amount: Double): Character {
         val character = requireCharacter(characterId, "addExperience")
-        if (amount < 0) throw CharacterExceptions.funExceptionExperience("addExperience", amount.toString())
-        if (experienceLevelCache.isEmpty()) throw ProgressionExceptions.funExceptionNoLevels("addExperience")
-
-        character.experience += amount
-        val reached = experienceLevelCache.levelOf(character.experience)
-        if (reached > character.level) character.level = reached.toShort()
+        applyExperience(character, amount, "addExperience")
 
         transactionExecute("addExperience") { session ->
             update(character, session)
         }
         return character
+    }
+
+    /**
+     * Опыт на уже прочитанном персонаже, без записи.
+     *
+     * Существует отдельно от [addExperience] ради того, кто начисляет опыт не один:
+     * промокод выдаёт опыт, золото и предметы одной транзакцией, и своя транзакция
+     * внутри каждого начисления сделала бы выдачу делимой - половина награды при
+     * сбое хуже, чем её отсутствие.
+     */
+    fun applyExperience(character: Character, amount: Double, method: String) {
+        if (amount < 0) throw CharacterExceptions.funExceptionExperience(method, amount.toString())
+        if (experienceLevelCache.isEmpty()) throw ProgressionExceptions.funExceptionNoLevels(method)
+
+        character.experience += amount
+        val reached = experienceLevelCache.levelOf(character.experience)
+        if (reached > character.level) character.level = reached.toShort()
     }
 
     /**
@@ -435,40 +447,50 @@ class CharacterRepository : BaseRepository<Character>(
         val character = findById(characterId)
         if (character == null) throw CharacterExceptions.funExceptionNotFound("addItem", characterId)
 
+        if (!applyItems(character, itemObj, "addItem")) return "system.no_changes"
+
+        transactionExecute("addItem") { session ->
+            update(character, session)
+        }
+        return "system.success"
+    }
+
+    /**
+     * Простые предметы на уже прочитанном персонаже, без записи.
+     *
+     * Отвечает, изменилось ли что-нибудь: нулевое количество - не ошибка, а просто
+     * отсутствие работы. Существует отдельно от [addItem] по той же причине, что и
+     * [applyExperience]: выдача нескольких наград должна быть одной транзакцией.
+     */
+    fun applyItems(character: Character, itemObj: List<CharacterItems>, method: String): Boolean {
         val allItems = itemsCache.getCache()
         val currentItems = character.parseItems()
 
         var isChanged = false
         itemObj.forEach { itm ->
             if (itm.amount == 0L) return@forEach
-            if (itm.amount > CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
-            if (itm.amount < -CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount("addItem", itm.toString())
-            if (allItems.find { it._id == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound("addItem", itm.toString())
+            if (itm.amount > CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount(method, itm.toString())
+            if (itm.amount < -CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount(method, itm.toString())
+            if (allItems.find { it._id == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound(method, itm.toString())
 
             val findedItem = currentItems.find { it.itemId == itm.itemId }
             if (findedItem != null) {
                 findedItem.amount += itm.amount
-                if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
+                if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero(method, itm.toString())
             }
             else {
-                if (itm.amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("addItem", itm.toString())
+                if (itm.amount <= 0) throw CharacterExceptions.funExceptionItemLowZero(method, itm.toString())
                 currentItems.add(CharacterItems(itm.itemId, itm.amount))
             }
 
             isChanged = true
         }
 
-        if (!isChanged) {
-            return "system.no_changes"
-        }
+        if (!isChanged) return false
 
         //Зачем хранить id предмета без кол-ва
         currentItems.removeAll { it.amount == 0L }
         character.items = currentItems.toStorage()
-
-        transactionExecute("addItem") { session ->
-            update(character, session)
-        }
-        return "system.success"
+        return true
     }
 }

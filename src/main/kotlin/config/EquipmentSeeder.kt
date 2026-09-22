@@ -73,10 +73,10 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
      * решает код - теги живут в описаниях модификаторов, а они остались в Kotlin.
      */
     private fun namedPool(name: String): MutableList<String> = when (name) {
-        "helmet" -> pool("life", "mana", "energy_shield", "armour", "evasion", "resistance", "attribute", "regen", "rarity")
+        "helmet" -> pool("life", "mana", "energy_shield", "armour", "evasion", "resistance", "attribute", "regen", "rarity", "gold")
         // Самоцвет не носят на теле, поэтому и локальной защиты у него нет:
-        // только то, что работает на персонажа целиком.
-        "jewel" -> pool("life", "mana", "attribute", "resistance", "regen")
+        // только то, что работает на персонажа целиком. Золото как раз такое.
+        "jewel" -> pool("life", "mana", "attribute", "resistance", "regen", "gold")
         else -> throw EquipmentExceptions.funException("namedPool", "Unknown modifier pool: $name")
     }
 
