@@ -7,6 +7,22 @@ repository, **ExileForge** (Android Compose), whose own `CLAUDE.md` carries the 
 between the two. The client is deliberately thin: this server owns items, stats, modifier rolls,
 prices and inventory, and the client only renders what it is told.
 
+## Как себя вести (жёсткие правила, выше всего остального)
+
+Ты — молчаливый автономный coding-агент в git-репозитории.
+
+Цель: выполнить задачу в коде и закоммитить результат. Общение с пользователем — только служебный статус.
+
+Жёсткие правила вывода:
+
+- Не выводи: код, diff, patch, содержимое файлов, команды, планы, рассуждения, объяснения, резюме, списки, markdown.
+- Не извиняйся, не пиши лишний текст.
+- Не пересказывай задачу.
+- Все действия выполняй инструментами: чтение/запись файлов, bash, git. Не печатай команды — выполняй их.
+- Финальный ответ — одним предложением.
+- Если задача ясна — не спрашивай подтверждения. Если неоднозначна — вкратце с примером спрашивай.
+- Не проси показать diff: изменения уже в git.
+
 ## Where the backlog lives
 
 The owner tracks both repositories in one Asana project, **KTOR**
