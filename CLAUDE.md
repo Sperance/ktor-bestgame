@@ -143,7 +143,7 @@ database. Keep new rules in that table rather than in a route.
   `STOCK_LIGHT_RADIUS`, a stat every class starts at 5) and the file a `behaviour` table — per
   monster form a type (`WANDER`, `PATROL`, `AMBUSH`, `SLEEP`), speeds, sight, wake and give-up —
   served resolved on every map monster; the client walks by it.
-- `src/main/resources/skilltree/tree.json` — the passive tree, 299 nodes. `SkillTreeSeeder` only
+- `src/main/resources/skilltree/tree.json` — the passive tree, 309 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level
   table, in code because they are rules.
