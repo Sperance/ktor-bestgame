@@ -924,6 +924,7 @@
   "monster.THORN_DRYAD.name": "Thorn Dryad",
   "monster.TUNNEL_DWELLER.name": "Tunnel Dweller",
   "monster.WOOD_SPIDER.name": "Wood Spider",
+  "monstermod.MOB_ARCANE.name": "+{0} spell damage, +{1} mana, {2}% increased cast speed",
   "monstermod.MOB_ARMOURED.name": "+{0} armour",
   "monstermod.MOB_BERSERK.name": "{0}% more physical damage, {1}% increased attack speed",
   "monstermod.MOB_DEADLY.name": "+{0}% critical chance, +{1}% critical multiplier",

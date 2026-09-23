@@ -14,7 +14,9 @@
     "STOCK_ATTACK_CHAOS": 1.12,
     "STOCK_ARMOR": 1.12,
     "STOCK_EVASION": 1.12,
-    "STOCK_STUN_THRESHOLD": 1.12
+    "STOCK_STUN_THRESHOLD": 1.12,
+    "STOCK_ATTACK_MAGICAL": 1.12,
+    "STOCK_MANA": 1.1
   },
   "rarities": [
     {
@@ -349,6 +351,29 @@
           "value": 2
         }
       ]
+    },
+    {
+      "code": "MOB_ARCANE",
+      "weight": 40,
+      "minLevel": 9,
+      "minRarity": "RARE",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_MAGICAL",
+          "operation": "ADD",
+          "value": 3
+        },
+        {
+          "stat": "STOCK_MANA",
+          "operation": "ADD",
+          "value": 20
+        },
+        {
+          "stat": "STOCK_CAST_SPEED",
+          "operation": "INCREASED",
+          "value": 20
+        }
+      ]
     }
   ],
   "lootTables": {
@@ -678,7 +703,11 @@
         "STOCK_HEALTH": 17,
         "STOCK_ATTACK_PHYSICAL": 3,
         "STOCK_ATTACK_CHAOS": 2,
-        "STOCK_HEALTH_REGEN": 0.5
+        "STOCK_HEALTH_REGEN": 0.5,
+        "STOCK_ATTACK_MAGICAL": 2.0,
+        "STOCK_CAST_SPEED": 0.7,
+        "STOCK_MANA": 24,
+        "STOCK_MANA_REGEN": 1.5
       }
     },
     {
@@ -756,7 +785,11 @@
         "STOCK_ENERGY_SHIELD": 10,
         "STOCK_ATTACK_COLD": 4.5,
         "STOCK_EVASION": 30,
-        "STOCK_RESIST_COLD": 50
+        "STOCK_RESIST_COLD": 50,
+        "STOCK_ATTACK_MAGICAL": 3.0,
+        "STOCK_CAST_SPEED": 0.9,
+        "STOCK_MANA": 30,
+        "STOCK_MANA_REGEN": 2
       }
     },
     {
@@ -865,7 +898,11 @@
         "STOCK_ENERGY_SHIELD": 12,
         "STOCK_ATTACK_COLD": 5,
         "STOCK_EVASION": 30,
-        "STOCK_RESIST_COLD": 75
+        "STOCK_RESIST_COLD": 75,
+        "STOCK_ATTACK_MAGICAL": 3.5,
+        "STOCK_CAST_SPEED": 0.9,
+        "STOCK_MANA": 32,
+        "STOCK_MANA_REGEN": 2
       }
     },
     {
@@ -892,7 +929,11 @@
         "STOCK_ATTACK_PHYSICAL": 4,
         "STOCK_ATTACK_FIRE": 3,
         "STOCK_RESIST_FIRE": 30,
-        "STOCK_CRITICAL_CHANCE": 7
+        "STOCK_CRITICAL_CHANCE": 7,
+        "STOCK_ATTACK_MAGICAL": 3.0,
+        "STOCK_CAST_SPEED": 0.8,
+        "STOCK_MANA": 30,
+        "STOCK_MANA_REGEN": 2
       }
     },
     {
@@ -919,7 +960,11 @@
         "STOCK_HEALTH": 16,
         "STOCK_ENERGY_SHIELD": 8,
         "STOCK_ATTACK_CHAOS": 5,
-        "STOCK_RESIST_CHAOS": 40
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_ATTACK_MAGICAL": 4.5,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 40,
+        "STOCK_MANA_REGEN": 3
       }
     },
     {
@@ -1084,5 +1129,103 @@
         }
       ]
     }
-  ]
+  ],
+  "combat": {
+    "timeLimit": 60,
+    "variance": 20,
+    "resistCap": 75,
+    "blockCap": 75,
+    "spellBlockShare": 50,
+    "unarmed": {
+      "damage": 4,
+      "speed": 1.2
+    },
+    "critical": {
+      "chance": 5,
+      "multiplier": 150
+    },
+    "armour": {
+      "factor": 5,
+      "cap": 90
+    },
+    "evasion": {
+      "base": 150,
+      "perLevel": 40,
+      "cap": 75
+    },
+    "stun": {
+      "share": 15,
+      "duration": 0.4
+    },
+    "shield": {
+      "rechargeDelay": 2.0,
+      "rechargePerSecond": 20
+    },
+    "spell": {
+      "innateDamage": 2,
+      "innatePerLevel": 0.5,
+      "castSpeed": 0.8,
+      "manaCost": 12,
+      "manaRegenShare": 1.75
+    },
+    "flask": {
+      "charges": 3,
+      "perKill": 1,
+      "heal": 40,
+      "duration": 3
+    },
+    "retreat": {
+      "delay": 1.5
+    },
+    "death": {
+      "fromLevel": 10,
+      "experienceShare": 5
+    },
+    "ailments": [
+      {
+        "ailment": "BURNING",
+        "type": "STOCK_ATTACK_FIRE",
+        "chance": 30,
+        "magnitude": 60,
+        "duration": 4
+      },
+      {
+        "ailment": "CHILLED",
+        "type": "STOCK_ATTACK_COLD",
+        "chance": 100,
+        "magnitude": 15,
+        "duration": 2
+      },
+      {
+        "ailment": "FROZEN",
+        "type": "STOCK_ATTACK_COLD",
+        "chance": 100,
+        "magnitude": 0,
+        "duration": 0.8,
+        "threshold": 10
+      },
+      {
+        "ailment": "SHOCKED",
+        "type": "STOCK_ATTACK_LIGHTNING",
+        "chance": 35,
+        "magnitude": 20,
+        "duration": 3
+      },
+      {
+        "ailment": "POISONED",
+        "type": "STOCK_ATTACK_CHAOS",
+        "chance": 40,
+        "magnitude": 30,
+        "duration": 3,
+        "stacks": true
+      },
+      {
+        "ailment": "BLEEDING",
+        "type": "STOCK_ATTACK_PHYSICAL",
+        "chance": 15,
+        "magnitude": 50,
+        "duration": 4
+      }
+    ]
+  }
 }

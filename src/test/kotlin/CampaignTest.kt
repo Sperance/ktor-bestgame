@@ -2,7 +2,9 @@ import application.enums.EnumRarity
 import base.exception.model.CampaignExceptions
 import config.CurrencySeeder
 import features.logic.campaign.CampaignContent
+import features.logic.campaign.CampaignDeath
 import features.logic.campaign.CampaignLoot
+import features.logic.campaign.DeathRule
 import features.logic.campaign.EnumMonsterRarity
 import org.junit.Test
 import kotlin.random.Random
@@ -110,5 +112,57 @@ class CampaignTest {
         assertFailsWith<CampaignExceptions.CampaignException> {
             CampaignContent.load(text.replace("\"STOCK_ATTACK_SPEED\"", "\"STOCK_NOT_A_STAT\""))
         }
+    }
+
+    @Test
+    fun the_combat_rules_are_served_with_the_chapters_and_name_every_ailment_once() {
+        val rules = view.combat
+        assertTrue(rules.timeLimit > 0 && rules.unarmed.damage > 0 && rules.critical.multiplier >= 100)
+        // Шесть недугов из EnumStatBool - по одному правилу на каждый, и каждый висит на своём типе урона
+        val ailments = rules.ailments.map { it.ailment }
+        assertEquals(ailments.toSet(), ailments.toSet().also { assertEquals(it.size, ailments.size) })
+        assertEquals(setOf("BURNING", "CHILLED", "FROZEN", "SHOCKED", "POISONED", "BLEEDING"), ailments.toSet())
+        assertTrue(rules.ailments.all { it.type.startsWith("STOCK_ATTACK_") && it.chance in 0.0..100.0 && it.duration > 0 })
+        assertTrue(rules.ailments.single { it.ailment == "POISONED" }.stacks, "яд складывается стопками")
+        assertTrue(rules.ailments.single { it.ailment == "FROZEN" }.threshold > 0, "заморозка - только сильным ударом")
+        assertTrue(rules.flask.charges > 0 && rules.flask.heal in 1.0..100.0)
+        assertTrue(rules.spell.castSpeed > 0 && rules.spell.manaCost in 1.0..100.0)
+    }
+
+    @Test
+    fun a_casting_monster_has_mana_and_the_arcane_modifier_gives_both() {
+        val casters = content.monsters.filter { (it.stats["STOCK_ATTACK_MAGICAL"] ?: 0.0) > 0 }
+        assertTrue(casters.size >= 3, "в главе должны быть колдующие монстры")
+        casters.forEach { assertTrue((it.stats["STOCK_MANA"] ?: 0.0) > 0 && (it.stats["STOCK_CAST_SPEED"] ?: 0.0) > 0, it.code) }
+        val arcane = content.modifiers.single { it.code == "MOB_ARCANE" }
+        assertEquals(EnumMonsterRarity.RARE, arcane.minRarity)
+        assertEquals(setOf("STOCK_ATTACK_MAGICAL", "STOCK_MANA", "STOCK_CAST_SPEED"), arcane.effects.map { it.stat }.toSet())
+        // Урон заклинаний и мана растут с уровнем карты, как здоровье
+        val acolyte = { map: features.logic.campaign.CampaignMap -> map.monsters.firstOrNull { it.code == "ABYSSAL_ACOLYTE" } }
+        val temple = view.chapters.first().maps.last { acolyte(it) != null }
+        assertTrue(acolyte(temple)!!.stats.getValue("STOCK_ATTACK_MAGICAL") > 4.5)
+    }
+
+    @Test
+    fun death_costs_a_share_of_the_level_and_never_the_level_itself() {
+        val rule = DeathRule(fromLevel = 10, experienceShare = 5.0)
+        // Ранняя карта - бесплатно; последний уровень - нечего терять
+        assertEquals(0.0, CampaignDeath.lost(rule, 5, 1500.0, 1000.0, 2000.0))
+        assertEquals(0.0, CampaignDeath.lost(rule, 12, 1500.0, 1000.0, null))
+        // Пять процентов от шага уровня...
+        assertEquals(50.0, CampaignDeath.lost(rule, 12, 1500.0, 1000.0, 2000.0))
+        // ...но не ниже его порога
+        assertEquals(20.0, CampaignDeath.lost(rule, 12, 1020.0, 1000.0, 2000.0))
+        assertEquals(0.0, CampaignDeath.lost(rule, 12, 1000.0, 1000.0, 2000.0))
+        assertEquals(0.0, CampaignDeath.lost(DeathRule(1, 0.0), 12, 1500.0, 1000.0, 2000.0))
+    }
+
+    @Test
+    fun broken_combat_rules_are_refused_at_start() {
+        val text = javaClass.classLoader.getResource("content/${CampaignContent.FILE}")!!.readText()
+        assertFailsWith<CampaignExceptions.CampaignException> { CampaignContent.load(text.replace("\"BURNING\"", "\"SLEEPING\"")) }
+        assertFailsWith<CampaignExceptions.CampaignException> { CampaignContent.load(text.replace("\"resistCap\": 75", "\"resistCap\": 175")) }
+        // Колдун без маны - ошибка файла
+        assertFailsWith<CampaignExceptions.CampaignException> { CampaignContent.load(text.replace("\"STOCK_MANA\": 40", "\"STOCK_MANA\": 0")) }
     }
 }

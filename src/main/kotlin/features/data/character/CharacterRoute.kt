@@ -69,7 +69,7 @@ class CharacterRoute(
             }
         }
 
-        // Кампания (0.26.0): бой считает клиент, добычу и опыт - сервер.
+        // Кампания (0.26.0): бой считает клиент по правилам сервера (0.28.0), добычу, опыт и цену смерти - сервер.
         route("/campaign") {
             get("/chapters") {
                 call.respond(ApiMongoResponse.ok(campaign.view()))
@@ -89,6 +89,12 @@ class CharacterRoute(
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
                 call.respond(ApiMongoResponse.ok(campaign.complete(characterId, mapCode)))
+            }
+            // 0.28.0: смерть героя стоит опыта по правилу сервера; уровень не падает.
+            post("/fall") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.fall(characterId, mapCode)))
             }
         }
 

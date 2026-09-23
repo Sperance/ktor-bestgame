@@ -84,3 +84,26 @@ object CampaignLoot {
         return whole + if (random.nextDouble() < expected - whole) 1 else 0
     }
 }
+
+/**
+ * Смерть героя - правило сервера, как и добыча (с 0.28.0).
+ *
+ * Как в PoE: с карты уровня `death.fromLevel` смерть отнимает `death.experienceShare` процентов
+ * опыта текущего уровня - от его порога до следующего, - но никогда не опускает ниже порога,
+ * так что уровень не падает. Функция чистая: тест проверяет её без базы.
+ */
+object CampaignDeath {
+
+    /**
+     * Сколько опыта теряется.
+     *
+     * @param experience опыт героя сейчас
+     * @param floor порог текущего уровня
+     * @param next порог следующего уровня; null - уровень последний, терять нечего
+     */
+    fun lost(rule: DeathRule, mapLevel: Int, experience: Double, floor: Double, next: Double?): Double {
+        if (mapLevel < rule.fromLevel || rule.experienceShare <= 0 || next == null || next <= floor) return 0.0
+        val penalty = (next - floor) * rule.experienceShare / 100
+        return Math.round(penalty.coerceAtMost((experience - floor).coerceAtLeast(0.0))).toDouble()
+    }
+}

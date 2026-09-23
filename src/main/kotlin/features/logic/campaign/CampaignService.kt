@@ -5,6 +5,7 @@ import base.exception.model.CampaignExceptions
 import base.exception.model.CharacterExceptions
 import config.MongoFactory.transactionExecute
 import features.caches.EquipmentCache
+import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
 import features.data.character.Character
 import features.data.character.CharacterRepository
@@ -37,8 +38,12 @@ data class CampaignReward(
     val money: Long,
 )
 
+/** Что стоила смерть: потерянный опыт и где герой теперь. Уровень не меняется никогда. */
+@Serializable
+data class CampaignFall(val lost: Double, val level: Int, val totalExperience: Double)
+
 /**
- * Кампания персонажа: прогресс по картам, награда за убийство и прохождение карты.
+ * Кампания персонажа: прогресс по картам, награда за убийство, смерть и прохождение карты.
  *
  * С 0.26.0 бой считает клиент и присылает итог - так решил владелец проекта. Сервер проверяет
  * то, что может проверить без боя: карта существует и открыта, монстр на ней водится, редкость
@@ -50,6 +55,7 @@ class CampaignService : KoinComponent {
     private val inventory: CharacterEquipmentRepository by inject()
     private val equipmentCache: EquipmentCache by inject()
     private val itemsCache: ItemsCache by inject()
+    private val levels: ExperienceLevelCache by inject()
 
     fun view(): CampaignView = CampaignContent.view
 
@@ -93,6 +99,23 @@ class CampaignService : KoinComponent {
             created
         }
         return CampaignReward(experience, loot.gold, orbs, equipment, character.level.toInt(), character.experience, character.money)
+    }
+
+    /**
+     * Герой погиб на карте: часть опыта текущего уровня теряется по правилу [CombatRules.death].
+     * Карта должна быть открыта, как и для убийства; на ранних картах правило ничего не отнимает.
+     */
+    suspend fun fall(characterId: String, mapCode: String): CampaignFall {
+        val method = "fall"
+        val character = requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        val floor = levels.ordered().lastOrNull { it.level <= character.level.toInt() }?.experience ?: 0.0
+        val lost = CampaignDeath.lost(CampaignContent.file.combat.death, map.level, character.experience, floor, levels.nextLevelExperience(character.level.toInt()))
+        if (lost > 0) {
+            character.experience -= lost
+            transactionExecute(method) { session -> characters.update(character, session) }
+        }
+        return CampaignFall(lost, character.level.toInt(), character.experience)
     }
 
     /** Герой дошёл до выхода: карта пройдена и открывает следующую. Повторное прохождение ничего не меняет. */

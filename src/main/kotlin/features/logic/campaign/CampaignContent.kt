@@ -2,6 +2,7 @@ package features.logic.campaign
 
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumModifierOperation
+import application.enums.EnumStatBool
 import application.enums.EnumStatStock
 import base.exception.model.CampaignExceptions
 import config.ContentResource
@@ -58,6 +59,80 @@ data class MonsterModifier(
     val effects: List<MonsterEffect>,
 )
 
+/**
+ * Недуг: что вешает попадание одного типа урона, как в PoE. Бой считает клиент, но числа - отсюда.
+ *
+ * [ailment] - имя из [application.enums.EnumStatBool] без `BOOL_` (BURNING, CHILLED, FROZEN,
+ * SHOCKED, POISONED, BLEEDING); [type] - характеристика урона, которая его вешает
+ * (`STOCK_ATTACK_FIRE`...). [chance] - шанс в процентах на попадание с уроном этого типа,
+ * [threshold] - доля здоровья цели в процентах, которую это попадание должно снять (заморозка -
+ * только сильным ударом). [magnitude]: у урона со временем - сколько процентов урона попадания
+ * дотекает за [duration] секунд; у охлаждения - на сколько процентов замедлены действия; у шока -
+ * на сколько процентов больше урона получает цель. Яд складывается стопками, остальные обновляются.
+ */
+@Serializable
+data class AilmentRule(
+    val ailment: String,
+    val type: String,
+    val chance: Double,
+    val magnitude: Double = 0.0,
+    val duration: Double,
+    val threshold: Double = 0.0,
+    val stacks: Boolean = false,
+)
+
+@Serializable data class UnarmedRule(val damage: Double, val speed: Double)
+@Serializable data class CriticalRule(val chance: Double, val multiplier: Double)
+/** Броня снижает физический урон на `armour / (armour + factor × damage)`, не больше [cap] процентов. */
+@Serializable data class ArmourRule(val factor: Double, val cap: Double)
+/** Шанс уклониться - `evasion / (evasion + base + perLevel × уровень атакующего)`, не больше [cap]. */
+@Serializable data class EvasionRule(val base: Double, val perLevel: Double, val cap: Double)
+/** Удар на [share] процентов здоровья цели сверх её порога оглушения откладывает её действие на [duration] секунд. */
+@Serializable data class StunRule(val share: Double, val duration: Double)
+/** Энергетический щит, не тронутый [rechargeDelay] секунд, восстанавливается на [rechargePerSecond] процентов в секунду. */
+@Serializable data class ShieldRule(val rechargeDelay: Double, val rechargePerSecond: Double)
+/**
+ * Заклинание: у героя оно врождённое - [innateDamage] плюс [innatePerLevel] за уровень сверх
+ * `STOCK_ATTACK_MAGICAL` листа, скорость сотворения [castSpeed] в секунду, если лист не даёт своей;
+ * стоит [manaCost] процентов маны, а мана возвращается на [manaRegenShare] процентов в секунду.
+ * Монстр колдует, только если у него есть `STOCK_ATTACK_MAGICAL` и `STOCK_MANA`.
+ */
+@Serializable data class SpellRule(val innateDamage: Double, val innatePerLevel: Double, val castSpeed: Double, val manaCost: Double, val manaRegenShare: Double)
+/** Флакон жизни: [charges] зарядов на забег, [perKill] за убийство, лечит [heal] процентов здоровья за [duration] секунд. */
+@Serializable data class FlaskRule(val charges: Int, val perKill: Int, val heal: Double, val duration: Double)
+/** Отступление из боя занимает [delay] секунд, в которые герой не бьёт, а монстр - бьёт. */
+@Serializable data class RetreatRule(val delay: Double)
+/** Смерть на карте уровня от [fromLevel] стоит [experienceShare] процентов опыта текущего уровня; уровень не падает. */
+@Serializable data class DeathRule(val fromLevel: Int, val experienceShare: Double)
+
+/**
+ * Правила боя - числа, по которым клиент считает автобой (с 0.28.0).
+ *
+ * Бой остаётся клиентским по решению владельца, но формулы и константы - сервера: клиент читает
+ * их вместе с главами и не держит своих. [timeLimit] - секунды, после которых бой никто не выиграл;
+ * [variance] - разброс урона удара в процентах; [resistCap], [blockCap] - потолки в процентах;
+ * [spellBlockShare] - какая доля шанса блока работает против заклинаний.
+ */
+@Serializable
+data class CombatRules(
+    val timeLimit: Double,
+    val variance: Double,
+    val resistCap: Double,
+    val blockCap: Double,
+    val spellBlockShare: Double,
+    val unarmed: UnarmedRule,
+    val critical: CriticalRule,
+    val armour: ArmourRule,
+    val evasion: EvasionRule,
+    val stun: StunRule,
+    val shield: ShieldRule,
+    val spell: SpellRule,
+    val flask: FlaskRule,
+    val retreat: RetreatRule,
+    val death: DeathRule,
+    val ailments: List<AilmentRule>,
+)
+
 @Serializable
 data class LootDrop(val kind: EnumLootKind, val code: String = "", val chance: Double, val amount: List<Long> = listOf(1, 1))
 
@@ -98,6 +173,7 @@ data class CampaignContentFile(
     val lootTables: Map<String, LootTable>,
     val monsters: List<MonsterTemplate>,
     val chapters: List<CampaignChapterTemplate>,
+    val combat: CombatRules,
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -127,8 +203,9 @@ data class CampaignMap(
 @Serializable
 data class CampaignChapter(val code: String, val maps: List<CampaignMap>)
 
+/** Главы, правила редкости и правила боя - всё, что клиенту нужно, чтобы драться, одним ответом. */
 @Serializable
-data class CampaignView(val chapters: List<CampaignChapter>, val rarities: List<CampaignRarity>)
+data class CampaignView(val chapters: List<CampaignChapter>, val rarities: List<CampaignRarity>, val combat: CombatRules)
 
 /**
  * Содержимое кампании - главы, карты, монстры, их модификаторы и добыча.
@@ -189,7 +266,7 @@ object CampaignContent {
             if (rarity.statScale <= 0) rarity
             else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
         }
-        return CampaignView(chapters, rarities)
+        return CampaignView(chapters, rarities, content.combat)
     }
 
     /** Характеристика на уровне карты: растёт только то, что названо в `growth`, и растёт степенью. */
@@ -230,8 +307,14 @@ object CampaignContent {
             monster.stats.keys.forEach(::stat)
             if (monster.loot !in content.lootTables) throw CampaignExceptions.funExceptionContent(method, "loot ${monster.loot}")
         }
+        content.monsters.forEach { monster ->
+            // Колдующий монстр без маны никогда бы не колдовал - это ошибка файла, а не тихий монстр.
+            if ((monster.stats["STOCK_ATTACK_MAGICAL"] ?: 0.0) > 0 && (monster.stats["STOCK_MANA"] ?: 0.0) <= 0)
+                throw CampaignExceptions.funExceptionContent(method, "caster ${monster.code} without mana")
+        }
         val monsters = content.monsters.map { it.code }.toSet()
         if (monsters.size != content.monsters.size) throw CampaignExceptions.funExceptionContent(method, "monster codes")
+        validate(content.combat)
         val codes = content.chapters.flatMap { chapter -> chapter.maps.map { it.code } }
         if (codes.toSet().size != codes.size) throw CampaignExceptions.funExceptionContent(method, "map codes")
         content.chapters.flatMap { it.maps }.forEach { map ->
@@ -239,5 +322,35 @@ object CampaignContent {
             map.monsters.forEach { if (it !in monsters) throw CampaignExceptions.funExceptionContent(method, "monster $it") }
             if (map.count.size != 2 || map.count[0] < 1 || map.count[0] > map.count[1]) throw CampaignExceptions.funExceptionContent(method, "count of ${map.code}")
         }
+    }
+
+    private fun validate(rules: CombatRules) {
+        val method = "CombatRules"
+        val ailments = EnumStatBool.entries.map { it.name.removePrefix("BOOL_") }.toSet()
+        val damage = EnumStatStock.entries.map { it.name }.filter { it.startsWith("STOCK_ATTACK_") }.toSet()
+        fun positive(value: Double, name: String) { if (value <= 0) throw CampaignExceptions.funExceptionContent(method, name) }
+        fun percent(value: Double, name: String) { if (value !in 0.0..100.0) throw CampaignExceptions.funExceptionContent(method, name) }
+        positive(rules.timeLimit, "timeLimit"); percent(rules.variance, "variance")
+        percent(rules.resistCap, "resistCap"); percent(rules.blockCap, "blockCap"); percent(rules.spellBlockShare, "spellBlockShare")
+        positive(rules.unarmed.damage, "unarmed.damage"); positive(rules.unarmed.speed, "unarmed.speed")
+        percent(rules.critical.chance, "critical.chance"); if (rules.critical.multiplier < 100) throw CampaignExceptions.funExceptionContent(method, "critical.multiplier")
+        positive(rules.armour.factor, "armour.factor"); percent(rules.armour.cap, "armour.cap")
+        positive(rules.evasion.base, "evasion.base"); percent(rules.evasion.cap, "evasion.cap")
+        if (rules.evasion.perLevel < 0 || rules.stun.share < 0 || rules.stun.duration < 0) throw CampaignExceptions.funExceptionContent(method, "stun")
+        if (rules.shield.rechargeDelay < 0 || rules.shield.rechargePerSecond < 0) throw CampaignExceptions.funExceptionContent(method, "shield")
+        if (rules.spell.innateDamage < 0 || rules.spell.innatePerLevel < 0) throw CampaignExceptions.funExceptionContent(method, "spell.innate")
+        positive(rules.spell.castSpeed, "spell.castSpeed"); percent(rules.spell.manaCost, "spell.manaCost"); percent(rules.spell.manaRegenShare, "spell.manaRegenShare")
+        if (rules.flask.charges < 0 || rules.flask.perKill < 0 || rules.flask.duration <= 0) throw CampaignExceptions.funExceptionContent(method, "flask")
+        percent(rules.flask.heal, "flask.heal")
+        if (rules.retreat.delay < 0) throw CampaignExceptions.funExceptionContent(method, "retreat.delay")
+        if (rules.death.fromLevel < 1) throw CampaignExceptions.funExceptionContent(method, "death.fromLevel")
+        percent(rules.death.experienceShare, "death.experienceShare")
+        rules.ailments.forEach { rule ->
+            if (rule.ailment !in ailments) throw CampaignExceptions.funExceptionContent(method, "ailment ${rule.ailment}")
+            if (rule.type !in damage) throw CampaignExceptions.funExceptionContent(method, "ailment ${rule.ailment} by ${rule.type}")
+            percent(rule.chance, "ailment ${rule.ailment} chance"); percent(rule.threshold, "ailment ${rule.ailment} threshold")
+            if (rule.magnitude < 0 || rule.duration <= 0) throw CampaignExceptions.funExceptionContent(method, "ailment ${rule.ailment}")
+        }
+        if (rules.ailments.map { it.ailment }.toSet().size != rules.ailments.size) throw CampaignExceptions.funExceptionContent(method, "ailments")
     }
 }

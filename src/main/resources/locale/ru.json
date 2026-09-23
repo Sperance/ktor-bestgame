@@ -924,6 +924,7 @@
   "monster.THORN_DRYAD.name": "Терновая дриада",
   "monster.TUNNEL_DWELLER.name": "Обитатель туннелей",
   "monster.WOOD_SPIDER.name": "Лесной паук",
+  "monstermod.MOB_ARCANE.name": "+{0} к урону от заклинаний, +{1} к мане, {2}% увеличение скорости сотворения",
   "monstermod.MOB_ARMOURED.name": "+{0} к броне",
   "monstermod.MOB_BERSERK.name": "{0}% больше физического урона, {1}% увеличение скорости атаки",
   "monstermod.MOB_DEADLY.name": "+{0}% к шансу крита, +{1}% к множителю крита",
