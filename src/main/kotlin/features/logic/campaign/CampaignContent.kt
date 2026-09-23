@@ -25,21 +25,38 @@ data class MonsterEffect(val stat: String, val operation: EnumModifierOperation,
 /**
  * Правило редкости: насколько часто она выпадает на карте, сколько модификаторов получает
  * монстр, что она сама добавляет к его характеристикам и во сколько раз растут добыча и опыт.
+ *
+ * С 0.27.0 тир редкости поднимает **все** растущие характеристики монстра: [statScale] - это
+ * «больше» в процентах к каждой из `growth` (здоровье, щит, урон всех типов, броня, уклонение,
+ * регенерация, порог оглушения). Клиенту правило уходит уже развёрнутым в [effects], так что
+ * формула у него одна. [modifierPower] - во сколько раз сильнее значения модификаторов монстра
+ * этой редкости, а какие модификаторы ему доступны, говорит [MonsterModifier.minRarity].
  */
 @Serializable
 data class CampaignRarity(
     val rarity: EnumMonsterRarity,
     val weight: Int,
     val modifiers: List<Int>,
+    val statScale: Double = 0.0,
+    val modifierPower: Double = 1.0,
     val effects: List<MonsterEffect> = emptyList(),
     val quantity: Double = 1.0,
     val rarityBonus: Double = 0.0,
     val experience: Double = 1.0,
 )
 
-/** Модификатор монстра. [minLevel] - с какого уровня карты он может выпасть. */
+/**
+ * Модификатор монстра. [minLevel] - с какого уровня карты он может выпасть, [minRarity] - с какой
+ * редкости: у редкого монстра пул шире, чем у магического.
+ */
 @Serializable
-data class MonsterModifier(val code: String, val weight: Int, val minLevel: Int = 1, val effects: List<MonsterEffect>)
+data class MonsterModifier(
+    val code: String,
+    val weight: Int,
+    val minLevel: Int = 1,
+    val minRarity: EnumMonsterRarity = EnumMonsterRarity.MAGIC,
+    val effects: List<MonsterEffect>,
+)
 
 @Serializable
 data class LootDrop(val kind: EnumLootKind, val code: String = "", val chance: Double, val amount: List<Long> = listOf(1, 1))
@@ -167,7 +184,12 @@ object CampaignContent {
                 )
             })
         }
-        return CampaignView(chapters, content.rarities)
+        // Тир редкости разворачивается в «больше» к каждой растущей характеристике.
+        val rarities = content.rarities.map { rarity ->
+            if (rarity.statScale <= 0) rarity
+            else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
+        }
+        return CampaignView(chapters, rarities)
     }
 
     /** Характеристика на уровне карты: растёт только то, что названо в `growth`, и растёт степенью. */
@@ -184,11 +206,19 @@ object CampaignContent {
 
         (content.defaults.keys + content.growth.keys).forEach(::stat)
         content.rarities.forEach { rarity ->
-            if (rarity.modifiers.size != 2 || rarity.modifiers[0] > rarity.modifiers[1]) throw CampaignExceptions.funExceptionContent(method, "rarity ${rarity.rarity}")
+            if (rarity.modifiers.size != 2 || rarity.modifiers[0] > rarity.modifiers[1] || rarity.modifierPower <= 0 || rarity.statScale < 0)
+                throw CampaignExceptions.funExceptionContent(method, "rarity ${rarity.rarity}")
             rarity.effects.forEach { stat(it.stat) }
         }
         if (content.rarities.map { it.rarity }.toSet() != EnumMonsterRarity.entries.toSet()) throw CampaignExceptions.funExceptionContent(method, "rarities")
-        content.modifiers.forEach { modifier -> modifier.effects.forEach { stat(it.stat) } }
+        content.modifiers.forEach { modifier ->
+            modifier.effects.forEach { stat(it.stat) }
+            if (modifier.minRarity == EnumMonsterRarity.NORMAL) throw CampaignExceptions.funExceptionContent(method, "modifier ${modifier.code} on a normal monster")
+        }
+        // У каждой редкости с модификаторами должно быть из чего выбирать.
+        content.rarities.filter { it.modifiers[1] > 0 }.forEach { rarity ->
+            if (content.modifiers.count { it.minRarity <= rarity.rarity } < rarity.modifiers[1]) throw CampaignExceptions.funExceptionContent(method, "pool of ${rarity.rarity}")
+        }
         content.lootTables.forEach { (name, table) ->
             if (table.gold.size != 2 || table.gold[0] > table.gold[1]) throw CampaignExceptions.funExceptionContent(method, "gold $name")
             table.drops.forEach { drop ->

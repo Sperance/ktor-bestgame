@@ -24,6 +24,8 @@
         0,
         0
       ],
+      "statScale": 0,
+      "modifierPower": 1.0,
       "effects": [],
       "quantity": 1.0,
       "rarityBonus": 0,
@@ -36,16 +38,18 @@
         1,
         2
       ],
+      "statScale": 30,
+      "modifierPower": 1.3,
       "effects": [
         {
           "stat": "STOCK_HEALTH",
           "operation": "MORE",
-          "value": 60
+          "value": 40
         }
       ],
-      "quantity": 2.0,
-      "rarityBonus": 30,
-      "experience": 1.8
+      "quantity": 2.5,
+      "rarityBonus": 50,
+      "experience": 2.2
     },
     {
       "rarity": "RARE",
@@ -54,21 +58,18 @@
         3,
         4
       ],
+      "statScale": 70,
+      "modifierPower": 1.7,
       "effects": [
         {
           "stat": "STOCK_HEALTH",
           "operation": "MORE",
-          "value": 180
-        },
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "operation": "MORE",
-          "value": 20
+          "value": 100
         }
       ],
-      "quantity": 5.0,
-      "rarityBonus": 120,
-      "experience": 4.0
+      "quantity": 6.0,
+      "rarityBonus": 150,
+      "experience": 5.0
     }
   ],
   "modifiers": [
@@ -82,7 +83,8 @@
           "operation": "INCREASED",
           "value": 60
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_HASTED",
@@ -94,7 +96,8 @@
           "operation": "INCREASED",
           "value": 30
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_STRONG",
@@ -106,7 +109,8 @@
           "operation": "INCREASED",
           "value": 40
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_FLAMING",
@@ -118,7 +122,8 @@
           "operation": "ADD",
           "value": 3
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_FREEZING",
@@ -130,7 +135,8 @@
           "operation": "ADD",
           "value": 3
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_SHOCKING",
@@ -142,7 +148,8 @@
           "operation": "ADD",
           "value": 3
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_VENOMOUS",
@@ -154,7 +161,8 @@
           "operation": "ADD",
           "value": 2
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_ARMOURED",
@@ -166,7 +174,8 @@
           "operation": "ADD",
           "value": 25
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_EVASIVE",
@@ -178,7 +187,8 @@
           "operation": "ADD",
           "value": 25
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_REGENERATING",
@@ -190,7 +200,8 @@
           "operation": "ADD",
           "value": 1
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_VAMPIRIC",
@@ -202,7 +213,8 @@
           "operation": "ADD",
           "value": 3
         }
-      ]
+      ],
+      "minRarity": "RARE"
     },
     {
       "code": "MOB_DEADLY",
@@ -219,7 +231,8 @@
           "operation": "ADD",
           "value": 50
         }
-      ]
+      ],
+      "minRarity": "RARE"
     },
     {
       "code": "MOB_WARDED",
@@ -231,7 +244,8 @@
           "operation": "ADD",
           "value": 20
         }
-      ]
+      ],
+      "minRarity": "MAGIC"
     },
     {
       "code": "MOB_STALWART",
@@ -243,7 +257,8 @@
           "operation": "ADD",
           "value": 20
         }
-      ]
+      ],
+      "minRarity": "RARE"
     },
     {
       "code": "MOB_SHIELDED",
@@ -254,6 +269,84 @@
           "stat": "STOCK_ENERGY_SHIELD",
           "operation": "ADD",
           "value": 10
+        }
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_BERSERK",
+      "weight": 40,
+      "minLevel": 5,
+      "minRarity": "RARE",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "operation": "MORE",
+          "value": 30
+        },
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "operation": "INCREASED",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "code": "MOB_JUGGERNAUT",
+      "weight": 40,
+      "minLevel": 7,
+      "minRarity": "RARE",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "operation": "INCREASED",
+          "value": 100
+        },
+        {
+          "stat": "STOCK_STUN_THRESHOLD",
+          "operation": "ADD",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "MOB_ELEMENTALIST",
+      "weight": 40,
+      "minLevel": 9,
+      "minRarity": "RARE",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "operation": "ADD",
+          "value": 2
+        },
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "operation": "ADD",
+          "value": 2
+        },
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "operation": "ADD",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "code": "MOB_UNDYING",
+      "weight": 30,
+      "minLevel": 11,
+      "minRarity": "RARE",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "MORE",
+          "value": 50
+        },
+        {
+          "stat": "STOCK_HEALTH_REGEN",
+          "operation": "ADD",
+          "value": 2
         }
       ]
     }

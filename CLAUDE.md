@@ -125,8 +125,10 @@ database. Keep new rules in that table rather than in a route.
   which is a rule rather than data.
 - `src/main/resources/content/campaign.json` — the campaign (since 0.26.0): chapters of maps in
   unlocking order, each with its level, biome and two to four monsters; monsters at level 1 with
-  a `form` the client draws and a loot table; monster modifiers; the three monster rarities with
-  their weights, modifier counts, stat effects and loot/experience multipliers; and `growth`, how
+  a `form` the client draws and a loot table; monster modifiers, each with the lowest rarity that may roll it
+  (`minRarity` — a rare draws from a wider pool); the three monster rarities with their weights,
+  modifier counts, `statScale` (a MORE to every `growth` stat, expanded into `effects` when served),
+  `modifierPower` (how much stronger their modifiers roll) and loot/experience multipliers; and `growth`, how
   each stat rises per map level. `CampaignContent` validates it at start and serves it resolved —
   monsters and `ADD` modifiers already scaled to their map — from
   `GET /api/v1/character/campaign/chapters`. **The fight is the client's** (the owner's decision):

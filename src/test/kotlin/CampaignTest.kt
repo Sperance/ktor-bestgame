@@ -85,6 +85,26 @@ class CampaignTest {
     }
 
     @Test
+    fun a_rarity_tier_raises_every_growing_stat_and_opens_a_wider_stronger_pool() {
+        val rarities = view.rarities.associateBy { it.rarity }
+        val normal = rarities.getValue(EnumMonsterRarity.NORMAL)
+        val magic = rarities.getValue(EnumMonsterRarity.MAGIC)
+        val rare = rarities.getValue(EnumMonsterRarity.RARE)
+        // Всё, что растёт с уровнем карты, растёт и с тиром редкости - и сильнее у старшего тира
+        content.growth.keys.forEach { stat ->
+            fun more(rarity: features.logic.campaign.CampaignRarity) = rarity.effects
+                .filter { it.stat == stat && it.operation == application.enums.EnumModifierOperation.MORE }.sumOf { it.value }
+            assertEquals(0.0, more(normal), stat)
+            assertTrue(more(rare) > more(magic) && more(magic) > 0, stat)
+        }
+        assertTrue(rare.modifierPower > magic.modifierPower && magic.modifierPower >= normal.modifierPower)
+        val magicPool = content.modifiers.count { it.minRarity <= EnumMonsterRarity.MAGIC }
+        val rarePool = content.modifiers.count { it.minRarity <= EnumMonsterRarity.RARE }
+        assertTrue(rarePool > magicPool, "у редкого монстра пул модификаторов должен быть шире")
+        assertTrue(rare.quantity > magic.quantity && rare.rarityBonus > magic.rarityBonus && rare.experience > magic.experience)
+    }
+
+    @Test
     fun broken_content_is_refused_at_start() {
         val text = javaClass.classLoader.getResource("content/${CampaignContent.FILE}")!!.readText()
         assertFailsWith<CampaignExceptions.CampaignException> {
