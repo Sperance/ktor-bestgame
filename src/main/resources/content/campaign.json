@@ -1199,10 +1199,10 @@
       {
         "ailment": "FROZEN",
         "type": "STOCK_ATTACK_COLD",
-        "chance": 100,
+        "chance": 50,
         "magnitude": 0,
         "duration": 0.8,
-        "threshold": 10
+        "threshold": 15
       },
       {
         "ailment": "SHOCKED",
