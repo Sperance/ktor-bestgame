@@ -165,4 +165,18 @@ class CampaignTest {
         // Колдун без маны - ошибка файла
         assertFailsWith<CampaignExceptions.CampaignException> { CampaignContent.load(text.replace("\"STOCK_MANA\": 40", "\"STOCK_MANA\": 0")) }
     }
+
+    @Test
+    fun every_monster_walks_by_a_rule_and_every_biome_has_its_light() {
+        view.chapters.flatMap { it.maps }.forEach { map ->
+            assertTrue(map.light > 0, "${map.code}: свет ${map.light}")
+            map.monsters.forEach { monster ->
+                assertTrue(monster.behaviour.type in features.logic.campaign.BehaviourRule.types, "${monster.code}: ${monster.behaviour.type}")
+                assertEquals(content.behaviour.forms[monster.form] ?: content.behaviour.default, monster.behaviour, monster.code)
+            }
+        }
+        // Каждая форма, что есть в кампании, описана сама - иначе все звери ходили бы как люди.
+        content.monsters.map { it.form }.toSet().forEach { assertTrue(it in content.behaviour.forms, "форма $it без поведения") }
+        assertTrue(content.behaviour.forms.values.any { it.type == "AMBUSH" } && content.behaviour.forms.values.any { it.type == "SLEEP" })
+    }
 }

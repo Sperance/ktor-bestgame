@@ -150,7 +150,36 @@ data class MonsterTemplate(
     val experience: Double,
     val loot: String,
     val stats: Map<String, Double>,
+    /** Своё поведение монстра поверх поведения его формы (с 0.30.0); обычно пусто. */
+    val behaviour: BehaviourRule? = null,
 )
+
+/**
+ * Как монстр ведёт себя на карте, пока не начался бой (с 0.30.0). Ходит по карте клиент, но
+ * числа - сервера, как и правила боя.
+ *
+ * [type]: `WANDER` бродит в [wanderRadius] клеток от дома; `PATROL` ходит между домом и точкой
+ * патруля в [wanderRadius] клеток; `AMBUSH` стоит, пока герой не подойдёт на [wake] клеток;
+ * `SLEEP` спит до тех же [wake] клеток, а проснувшись - бродит. Любой замечает героя, которого
+ * видит напрямую не дальше [sight] клеток, гонится со скоростью [chaseSpeed] в обход стен и,
+ * не видя его [giveUp] секунд, возвращается домой со скоростью [wanderSpeed].
+ */
+@Serializable
+data class BehaviourRule(
+    val type: String,
+    val wanderSpeed: Double,
+    val chaseSpeed: Double,
+    val sight: Double,
+    val wanderRadius: Double = 0.0,
+    val wake: Double = 0.0,
+    val giveUp: Double,
+) {
+    companion object { val types = setOf("WANDER", "PATROL", "AMBUSH", "SLEEP") }
+}
+
+/** Поведение по формам монстров и [default] для формы, которой в таблице нет. */
+@Serializable
+data class BehaviourTable(val default: BehaviourRule, val forms: Map<String, BehaviourRule> = emptyMap())
 
 @Serializable
 data class CampaignMapTemplate(
@@ -159,6 +188,8 @@ data class CampaignMapTemplate(
     val level: Int,
     val monsters: List<String>,
     val count: List<Int>,
+    /** Во сколько раз биом меняет радиус света героя (с 0.30.0): склеп темнее, берег светлее. */
+    val light: Double = 1.0,
 )
 
 @Serializable
@@ -174,13 +205,14 @@ data class CampaignContentFile(
     val monsters: List<MonsterTemplate>,
     val chapters: List<CampaignChapterTemplate>,
     val combat: CombatRules,
+    val behaviour: BehaviourTable,
 )
 
 // ==================== То, что уходит клиенту ====================
 
 /** Монстр карты: характеристики уже подняты до её уровня, клиенту остаётся только драться. */
 @Serializable
-data class CampaignMonster(val code: String, val form: String, val stats: Map<String, Double>)
+data class CampaignMonster(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule)
 
 /**
  * Карта главы, какой её видит клиент.
@@ -196,6 +228,7 @@ data class CampaignMap(
     val biome: String,
     val level: Int,
     val monsterCount: List<Int>,
+    val light: Double,
     val monsters: List<CampaignMonster>,
     val modifiers: List<MonsterModifier>,
 )
@@ -249,9 +282,11 @@ object CampaignContent {
                     biome = map.biome,
                     level = map.level,
                     monsterCount = map.count,
+                    light = map.light,
                     monsters = map.monsters.map { code ->
                         val template = monsters.getValue(code)
-                        CampaignMonster(code, template.form, (content.defaults + template.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) })
+                        CampaignMonster(code, template.form, (content.defaults + template.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
+                            template.behaviour ?: content.behaviour.forms[template.form] ?: content.behaviour.default)
                     },
                     modifiers = content.modifiers.filter { it.minLevel <= map.level }.map { modifier ->
                         modifier.copy(effects = modifier.effects.map { effect ->
@@ -321,7 +356,20 @@ object CampaignContent {
             if (map.monsters.size !in 2..4) throw CampaignExceptions.funExceptionContent(method, "monsters of ${map.code}")
             map.monsters.forEach { if (it !in monsters) throw CampaignExceptions.funExceptionContent(method, "monster $it") }
             if (map.count.size != 2 || map.count[0] < 1 || map.count[0] > map.count[1]) throw CampaignExceptions.funExceptionContent(method, "count of ${map.code}")
+            if (map.light <= 0) throw CampaignExceptions.funExceptionContent(method, "light of ${map.code}")
         }
+        val forms = content.monsters.map { it.form }.toSet()
+        content.behaviour.forms.keys.forEach { if (it !in forms) throw CampaignExceptions.funExceptionContent(method, "behaviour of form $it") }
+        (listOf(content.behaviour.default) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validate)
+    }
+
+    private fun validate(rule: BehaviourRule) {
+        val method = "BehaviourRule"
+        if (rule.type !in BehaviourRule.types) throw CampaignExceptions.funExceptionContent(method, "type ${rule.type}")
+        if (rule.chaseSpeed <= 0 || rule.wanderSpeed < 0 || rule.sight <= 0 || rule.giveUp <= 0 || rule.wanderRadius < 0 || rule.wake < 0)
+            throw CampaignExceptions.funExceptionContent(method, rule.type)
+        if (rule.type in setOf("AMBUSH", "SLEEP") && rule.wake <= 0) throw CampaignExceptions.funExceptionContent(method, "${rule.type} without wake")
+        if (rule.type in setOf("WANDER", "PATROL") && (rule.wanderSpeed <= 0 || rule.wanderRadius <= 0)) throw CampaignExceptions.funExceptionContent(method, "${rule.type} standing still")
     }
 
     private fun validate(rules: CombatRules) {

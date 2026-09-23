@@ -160,7 +160,8 @@
       "positionY": 119,
       "connections": [
         "DUE_L0_2",
-        "STR_DEX_START"
+        "STR_DEX_START",
+        "DUE_LIGHT"
       ],
       "params": [
         {
@@ -1793,7 +1794,8 @@
       "positionY": 207,
       "connections": [
         "MAR_L4_2",
-        "STR_START"
+        "STR_START",
+        "MAR_LIGHT"
       ],
       "params": [
         {
@@ -2038,7 +2040,8 @@
       "positionY": 287,
       "connections": [
         "DEX_START",
-        "RAN_CW_2"
+        "RAN_CW_2",
+        "RAN_LIGHT"
       ],
       "params": [
         {
@@ -3223,7 +3226,8 @@
       "connections": [
         "SCION_START",
         "SCI_R1",
-        "SCI_R2"
+        "SCI_R2",
+        "SCI_LIGHT"
       ],
       "params": [
         {
@@ -3363,7 +3367,8 @@
       "positionY": -179,
       "connections": [
         "DEX_INT_START",
-        "SHA_CW_2"
+        "SHA_CW_2",
+        "SHA_LIGHT"
       ],
       "params": [
         {
@@ -4296,7 +4301,8 @@
       "positionY": -287,
       "connections": [
         "STR_INT_START",
-        "TEM_CW_2"
+        "TEM_CW_2",
+        "TEM_LIGHT"
       ],
       "params": [
         {
@@ -5854,7 +5860,8 @@
       "positionY": 248,
       "connections": [
         "INT_START",
-        "WIT_L5_2"
+        "WIT_L5_2",
+        "WIT_LIGHT"
       ],
       "params": [
         {
@@ -5973,6 +5980,132 @@
           "code": "INCREASED_CAST_SPEED",
           "values": [
             3
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MAR_LIGHT",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 361,
+      "positionY": 207,
+      "connections": [
+        "MAR_L4_1"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_LIGHT_RADIUS",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RAN_LIGHT",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 62,
+      "positionY": 326,
+      "connections": [
+        "RAN_CW_1"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_LIGHT_RADIUS",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WIT_LIGHT",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -370,
+      "positionY": 205,
+      "connections": [
+        "WIT_L5_1"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_LIGHT_RADIUS",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DUE_LIGHT",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -397,
+      "positionY": 131,
+      "connections": [
+        "DUE_L0_1"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_LIGHT_RADIUS",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TEM_LIGHT",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": -63,
+      "positionY": -326,
+      "connections": [
+        "TEM_CW_1"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_LIGHT_RADIUS",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SHA_LIGHT",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 252,
+      "positionY": -218,
+      "connections": [
+        "SHA_CW_1"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_LIGHT_RADIUS",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SCI_LIGHT",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 39,
+      "positionY": -83,
+      "connections": [
+        "SCI_R3"
+      ],
+      "params": [
+        {
+          "code": "INCREASED_LIGHT_RADIUS",
+          "values": [
+            15
           ]
         }
       ]

@@ -4,6 +4,7 @@ import application.enums.EnumStatStock.STOCK_AGILITY
 import application.enums.EnumStatStock.STOCK_HEALTH
 import application.enums.EnumStatStock.STOCK_INTELLECT
 import application.enums.EnumStatStock.STOCK_MANA
+import application.enums.EnumStatStock.STOCK_LIGHT_RADIUS
 import application.enums.EnumStatStock.STOCK_STRENGTH
 import application.enums.IntEnumStat
 import base.exception.model.ModifierExceptions
@@ -131,6 +132,8 @@ object ProgressionSeeder {
     private val sharedBase = listOf(
         STOCK_HEALTH to 38.0,
         STOCK_MANA to 34.0,
+        // Радиус света (с 0.30.0): пять клеток у каждого класса, растёт от предметов и дерева.
+        STOCK_LIGHT_RADIUS to 5.0,
     )
 
     /**

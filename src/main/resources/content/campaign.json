@@ -997,7 +997,8 @@
           "count": [
             10,
             14
-          ]
+          ],
+          "light": 1.2
         },
         {
           "code": "C1_BRINE_CAVES",
@@ -1011,7 +1012,8 @@
           "count": [
             10,
             14
-          ]
+          ],
+          "light": 0.8
         },
         {
           "code": "C1_ROTTING_MIRE",
@@ -1025,7 +1027,8 @@
           "count": [
             12,
             16
-          ]
+          ],
+          "light": 0.9
         },
         {
           "code": "C1_WHISPERING_WOOD",
@@ -1039,7 +1042,8 @@
           "count": [
             12,
             16
-          ]
+          ],
+          "light": 1.0
         },
         {
           "code": "C1_FALLEN_RUINS",
@@ -1053,7 +1057,8 @@
           "count": [
             12,
             16
-          ]
+          ],
+          "light": 1.0
         },
         {
           "code": "C1_CRYPT_OF_EXILES",
@@ -1068,7 +1073,8 @@
           "count": [
             12,
             16
-          ]
+          ],
+          "light": 0.7
         },
         {
           "code": "C1_CRYSTAL_MINES",
@@ -1082,7 +1088,8 @@
           "count": [
             14,
             18
-          ]
+          ],
+          "light": 0.75
         },
         {
           "code": "C1_ASHEN_WASTES",
@@ -1096,7 +1103,8 @@
           "count": [
             14,
             18
-          ]
+          ],
+          "light": 0.9
         },
         {
           "code": "C1_FROZEN_PASS",
@@ -1110,7 +1118,8 @@
           "count": [
             14,
             18
-          ]
+          ],
+          "light": 1.1
         },
         {
           "code": "C1_DROWNED_TEMPLE",
@@ -1125,7 +1134,8 @@
           "count": [
             14,
             18
-          ]
+          ],
+          "light": 0.85
         }
       ]
     }
@@ -1227,5 +1237,106 @@
         "duration": 4
       }
     ]
+  },
+  "behaviour": {
+    "default": {
+      "type": "WANDER",
+      "wanderSpeed": 1.1,
+      "chaseSpeed": 2.2,
+      "sight": 4.5,
+      "wanderRadius": 3.0,
+      "giveUp": 3.0
+    },
+    "forms": {
+      "HUMANOID": {
+        "type": "WANDER",
+        "wanderSpeed": 1.1,
+        "chaseSpeed": 2.2,
+        "sight": 4.5,
+        "wanderRadius": 3.0,
+        "giveUp": 3.0
+      },
+      "UNDEAD": {
+        "type": "PATROL",
+        "wanderSpeed": 0.9,
+        "chaseSpeed": 1.8,
+        "sight": 4.0,
+        "wanderRadius": 5.0,
+        "giveUp": 4.0
+      },
+      "WRAITH": {
+        "type": "WANDER",
+        "wanderSpeed": 1.3,
+        "chaseSpeed": 2.4,
+        "sight": 5.5,
+        "wanderRadius": 4.0,
+        "giveUp": 2.0
+      },
+      "BEAST": {
+        "type": "WANDER",
+        "wanderSpeed": 1.4,
+        "chaseSpeed": 3.0,
+        "sight": 5.0,
+        "wanderRadius": 4.0,
+        "giveUp": 3.0
+      },
+      "SERPENT": {
+        "type": "AMBUSH",
+        "wanderSpeed": 0.8,
+        "chaseSpeed": 3.2,
+        "sight": 3.5,
+        "wake": 2.5,
+        "giveUp": 2.0
+      },
+      "SPIDER": {
+        "type": "AMBUSH",
+        "wanderSpeed": 0.8,
+        "chaseSpeed": 3.0,
+        "sight": 3.5,
+        "wake": 3.0,
+        "giveUp": 2.0
+      },
+      "SLUG": {
+        "type": "WANDER",
+        "wanderSpeed": 0.5,
+        "chaseSpeed": 1.2,
+        "sight": 3.0,
+        "wanderRadius": 2.0,
+        "giveUp": 5.0
+      },
+      "BAT": {
+        "type": "WANDER",
+        "wanderSpeed": 1.8,
+        "chaseSpeed": 2.8,
+        "sight": 5.0,
+        "wanderRadius": 5.0,
+        "giveUp": 2.0
+      },
+      "CRAB": {
+        "type": "PATROL",
+        "wanderSpeed": 0.8,
+        "chaseSpeed": 1.6,
+        "sight": 3.5,
+        "wanderRadius": 3.0,
+        "giveUp": 3.0
+      },
+      "GOLEM": {
+        "type": "SLEEP",
+        "wanderSpeed": 0.7,
+        "chaseSpeed": 1.5,
+        "sight": 4.0,
+        "wanderRadius": 2.5,
+        "wake": 2.5,
+        "giveUp": 6.0
+      },
+      "BRUTE": {
+        "type": "PATROL",
+        "wanderSpeed": 1.0,
+        "chaseSpeed": 2.0,
+        "sight": 4.0,
+        "wanderRadius": 4.0,
+        "giveUp": 4.0
+      }
+    }
   }
 }

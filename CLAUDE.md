@@ -139,6 +139,10 @@ database. Keep new rules in that table rather than in a route.
   (`Character.campaign`) and opens the next; `GET /campaign/progress` answers both lists.
   Monster, map, chapter and monster-modifier names are `monster.*`, `map.*`, `chapter.*` and
   `monstermod.*` keys, translated in every language; `CampaignTest` reads the file without Mongo.
+  Since 0.30.0 a map carries `light` (how the biome widens or narrows the hero's
+  `STOCK_LIGHT_RADIUS`, a stat every class starts at 5) and the file a `behaviour` table — per
+  monster form a type (`WANDER`, `PATROL`, `AMBUSH`, `SLEEP`), speeds, sight, wake and give-up —
+  served resolved on every map monster; the client walks by it.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 299 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level

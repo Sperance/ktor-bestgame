@@ -53,6 +53,7 @@ import application.enums.EnumStatStock.STOCK_LEECH_MAGICAL
 import application.enums.EnumStatStock.STOCK_LEECH_ALL
 import application.enums.EnumStatStock.STOCK_CONSTITUTION
 import application.enums.EnumStatStock.STOCK_CAST_STRENGTH
+import application.enums.EnumStatStock.STOCK_LIGHT_RADIUS
 import application.enums.EnumStatStock.STOCK_CURSE_EFFECT
 import application.enums.EnumInfluence.ELDER
 import application.enums.EnumInfluence.SHAPER
@@ -610,6 +611,13 @@ object ModifierSeeder {
             tags = listOf("quantity"),
             effects = listOf(effect(STOCK_QUANTITY, INCREASED, best = 8.0..10.0, worst = 2.0..3.0)),
             tierCount = 4, bestItemLevel = 80, weight = 400
+        ),
+        ModifierTemplate(
+            code = "INCREASED_LIGHT_RADIUS",
+            source = SUFFIX,
+            tags = listOf("light"),
+            effects = listOf(effect(STOCK_LIGHT_RADIUS, INCREASED, best = 20.0..25.0, worst = 5.0..8.0)),
+            tierCount = 3, bestItemLevel = 60, weight = 500
         ),
         ModifierTemplate(
             code = "ADD_SPELL_LEECH",

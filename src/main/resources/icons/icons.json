@@ -1485,6 +1485,7 @@
     "stat.STOCK_MANA": "mana",
     "stat.STOCK_MANA_REGEN": "regen",
     "stat.STOCK_MOVEMENT_SPEED": "speed",
+    "stat.STOCK_LIGHT_RADIUS": "light",
     "stat.STOCK_QUANTITY": "quantity",
     "stat.STOCK_RARITY": "rarity",
     "stat.STOCK_RESIST_ALL": "resist",

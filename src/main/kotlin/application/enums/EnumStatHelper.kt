@@ -85,6 +85,8 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_AURA_EFFECT(322),
     STOCK_CURSE_EFFECT(323),
     STOCK_CAST_STRENGTH(324),
+    /** Радиус света на карте кампании в клетках (с 0.30.0): сколько вокруг героя видно сквозь туман. */
+    STOCK_LIGHT_RADIUS(325),
 }
 
 enum class EnumStatBool(override val order: Int) : IntEnumStat {
