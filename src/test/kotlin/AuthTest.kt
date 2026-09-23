@@ -87,7 +87,7 @@ class AuthTest {
         assertEquals(Need.PUBLIC, need("POST", "/api/v1/user/login/byDeviceId"))
         assertEquals(Need.PUBLIC, need("POST", "/api/v1/user/byDeviceId"))
         assertEquals(Need.PUBLIC, need("GET", "/locale/index.json"))
-        assertEquals(Need.PUBLIC, need("GET", "/locale/zh.json"))
+        assertEquals(Need.PUBLIC, need("GET", "/locale/ru.json"))
         assertEquals(Need.PUBLIC, need("GET", "/icons/icons.json"))
         assertEquals(Need.PUBLIC, need("GET", "/system/routes"))
         assertEquals(Need.PUBLIC, need("GET", "/system/version"))

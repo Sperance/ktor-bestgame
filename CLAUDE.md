@@ -40,12 +40,19 @@ change, here and in the client, whether or not the task mentions them.
 
 1. **Anything with a name is born translated.** Adding an item, a piece of equipment, a class, a
    currency orb, a tree node, a modifier, an enum value or an error code means adding its strings
-   to **every** language `locale/index.json` lists — today `src/main/resources/locale/ru.json`,
-   `en.json` and `zh.json`, and whatever it lists tomorrow. A code without a name in all of them
-   is an unfinished change, not a change with a follow-up.
+   to **every** language `locale/index.json` lists — today `src/main/resources/locale/ru.json` and
+   `en.json`, and whatever it lists tomorrow. A code without a name in all of them is an
+   unfinished change, not a change with a follow-up.
+
+   **The name of a thing that is traded is English in every language** (since 0.22.0):
+   `equipment.<CODE>.name`, `item.<CODE>.name` — orbs included — and `enum.EnumCurrencyOrb.*`
+   hold the same English string in `ru.json` as in `en.json`, as in PoE, where players trade and
+   search by one name. Their descriptions, the modifiers, classes, tree nodes, stats and errors are
+   translated as usual. So a new item still gets a key in every dictionary — the same English name
+   in each, and a description in each language.
 
    The same rule runs on the client, where it covers the other half: every label ExileForge wrote
-   itself is a key in its own `core/src/main/resources/i18n/ui_{ru,en,zh}.json`, and its
+   itself is a key in its own `core/src/main/resources/i18n/ui_{ru,en}.json`, and its
    `UiStringsTest` is the twin of the test below. A language exists for a player only when both
    halves have it, which is why the client builds its picker from this server's manifest.
 
@@ -55,7 +62,8 @@ change, here and in the client, whether or not the task mentions them.
    `LocalizationTest` is what catches a miss, and it is stricter than it looks: every dictionary
    must cover every key the code asks for and carry no extras, the languages must hold identical
    key sets, no string may be empty, a placeholder must survive translation, and a composite
-   modifier needs a placeholder per effect. Run it before calling such a change done.
+   modifier needs a placeholder per effect, and an item's name must be the English one in every
+   language. Run it before calling such a change done.
 
 2. **Every finished change ends with a changelog entry and a version.** Once the checks have
    passed and the branches are pushed, write what changed into `CHANGELOG.md` — a new entry at
@@ -99,7 +107,7 @@ database. Keep new rules in that table rather than in a route.
 
 - `CHANGELOG.md` — dated entries per version; the client keeps its own beside it.
 
-- `src/main/resources/locale/{index,ru,en,zh}.json` — every string in the game. No document in Mongo
+- `src/main/resources/locale/{index,ru,en}.json` — every string in the game. No document in Mongo
   has carried text since 0.14.0; entities store a `code`.
 - `src/main/resources/content/{equipment,items,currency}.json` — the catalogues, read by the
   seeders. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,

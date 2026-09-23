@@ -224,6 +224,25 @@ class LocalizationTest {
         }
     }
 
+    /**
+     * Имя предмета, экипировки и сферы одно на все языки — английское, как в PoE: им торгуют и
+     * его ищут, а два имени у одной вещи делят рынок пополам. Переводятся только описания.
+     */
+    @Test
+    fun item_names_are_english_in_every_language() {
+        val names = Regex("""^(equipment\.[^.]+\.name|item\.[^.]+\.name|enum\.EnumCurrencyOrb\.[^.]+)$""")
+        val english = LocaleCache.bundle("en")
+        val keys = english.keys.filter(names::matches)
+        assert(keys.isNotEmpty()) { "в словаре нет ни одного имени предмета" }
+
+        LocaleCache.languages().forEach { language ->
+            val bundle = LocaleCache.bundle(language)
+            keys.forEach { key ->
+                assert(bundle[key] == english[key]) { "$language: $key должен быть «${english[key]}», а не «${bundle[key]}»" }
+            }
+        }
+    }
+
     @Test
     fun nothing_is_left_untranslated_or_empty() {
         LocaleCache.languages().forEach { language ->
