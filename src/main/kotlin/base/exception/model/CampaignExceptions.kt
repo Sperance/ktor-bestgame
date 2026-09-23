@@ -1,0 +1,17 @@
+package base.exception.model
+
+import base.exception.BaseException
+
+object CampaignExceptions {
+    open class CampaignException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "Campaign", errorMethod, errorCode, messageArgs) {
+        override fun toString(): String {
+            return "{CampaignException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
+        }
+    }
+
+    fun funExceptionContent(errorMethod: String, value: String? = "") = CampaignException("Campaign content is invalid: $value", errorMethod, "CP_001", listOf(value.orEmpty()))
+    fun funExceptionMapNotFound(errorMethod: String, value: String? = "") = CampaignException("Campaign map $value not found", errorMethod, "CP_002", listOf(value.orEmpty()))
+    fun funExceptionMapLocked(errorMethod: String, value: String? = "") = CampaignException("Campaign map $value is not open yet", errorMethod, "CP_003", listOf(value.orEmpty()))
+    fun funExceptionMonsterNotOnMap(errorMethod: String, value: String? = "") = CampaignException("Monster $value does not live on this map", errorMethod, "CP_004", listOf(value.orEmpty()))
+    fun funExceptionRarity(errorMethod: String, value: String? = "") = CampaignException("Unknown monster rarity $value", errorMethod, "CP_005", listOf(value.orEmpty()))
+}

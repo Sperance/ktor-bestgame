@@ -23,6 +23,10 @@ object LocaleKey {
     const val ENUM = "enum"
     const val ERROR = "error"
     const val CURRENCY = "currency"
+    const val CHAPTER = "chapter"
+    const val MAP = "map"
+    const val MONSTER = "monster"
+    const val MONSTER_MODIFIER = "monstermod"
 
     const val NAME = "name"
     const val DESCRIPTION = "description"
@@ -40,6 +44,16 @@ object LocaleKey {
 
     fun className(code: String) = key(CHARACTER_CLASS, code, NAME)
     fun classDescription(code: String) = key(CHARACTER_CLASS, code, DESCRIPTION)
+
+    fun chapterName(code: String) = key(CHAPTER, code, NAME)
+
+    fun mapName(code: String) = key(MAP, code, NAME)
+    fun mapDescription(code: String) = key(MAP, code, DESCRIPTION)
+
+    fun monsterName(code: String) = key(MONSTER, code, NAME)
+
+    /** Шаблон с `{0}`, `{1}` по эффектам - как у модификаторов предметов. */
+    fun monsterModifierName(code: String) = key(MONSTER_MODIFIER, code, NAME)
 
     /**
      * Подпись значения перечисления: `enum.EnumRarity.UNIQUE`.

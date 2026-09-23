@@ -1,0 +1,995 @@
+{
+  "defaults": {
+    "STOCK_CRITICAL_CHANCE": 5,
+    "STOCK_CRITICAL_MULTIPLIER": 150
+  },
+  "growth": {
+    "STOCK_HEALTH": 1.15,
+    "STOCK_ENERGY_SHIELD": 1.15,
+    "STOCK_HEALTH_REGEN": 1.15,
+    "STOCK_ATTACK_PHYSICAL": 1.12,
+    "STOCK_ATTACK_FIRE": 1.12,
+    "STOCK_ATTACK_COLD": 1.12,
+    "STOCK_ATTACK_LIGHTNING": 1.12,
+    "STOCK_ATTACK_CHAOS": 1.12,
+    "STOCK_ARMOR": 1.12,
+    "STOCK_EVASION": 1.12,
+    "STOCK_STUN_THRESHOLD": 1.12
+  },
+  "rarities": [
+    {
+      "rarity": "NORMAL",
+      "weight": 85,
+      "modifiers": [
+        0,
+        0
+      ],
+      "effects": [],
+      "quantity": 1.0,
+      "rarityBonus": 0,
+      "experience": 1.0
+    },
+    {
+      "rarity": "MAGIC",
+      "weight": 12,
+      "modifiers": [
+        1,
+        2
+      ],
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "MORE",
+          "value": 60
+        }
+      ],
+      "quantity": 2.0,
+      "rarityBonus": 30,
+      "experience": 1.8
+    },
+    {
+      "rarity": "RARE",
+      "weight": 3,
+      "modifiers": [
+        3,
+        4
+      ],
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "MORE",
+          "value": 180
+        },
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "operation": "MORE",
+          "value": 20
+        }
+      ],
+      "quantity": 5.0,
+      "rarityBonus": 120,
+      "experience": 4.0
+    }
+  ],
+  "modifiers": [
+    {
+      "code": "MOB_TOUGH",
+      "weight": 100,
+      "minLevel": 1,
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "INCREASED",
+          "value": 60
+        }
+      ]
+    },
+    {
+      "code": "MOB_HASTED",
+      "weight": 80,
+      "minLevel": 1,
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "operation": "INCREASED",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "code": "MOB_STRONG",
+      "weight": 100,
+      "minLevel": 1,
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "operation": "INCREASED",
+          "value": 40
+        }
+      ]
+    },
+    {
+      "code": "MOB_FLAMING",
+      "weight": 70,
+      "minLevel": 3,
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "operation": "ADD",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "MOB_FREEZING",
+      "weight": 70,
+      "minLevel": 3,
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "operation": "ADD",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "MOB_SHOCKING",
+      "weight": 70,
+      "minLevel": 5,
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "operation": "ADD",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "MOB_VENOMOUS",
+      "weight": 50,
+      "minLevel": 7,
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_CHAOS",
+          "operation": "ADD",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "code": "MOB_ARMOURED",
+      "weight": 80,
+      "minLevel": 1,
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "operation": "ADD",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "code": "MOB_EVASIVE",
+      "weight": 80,
+      "minLevel": 1,
+      "effects": [
+        {
+          "stat": "STOCK_EVASION",
+          "operation": "ADD",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "code": "MOB_REGENERATING",
+      "weight": 60,
+      "minLevel": 5,
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH_REGEN",
+          "operation": "ADD",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "code": "MOB_VAMPIRIC",
+      "weight": 50,
+      "minLevel": 7,
+      "effects": [
+        {
+          "stat": "STOCK_LEECH_ALL",
+          "operation": "ADD",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "MOB_DEADLY",
+      "weight": 50,
+      "minLevel": 9,
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "operation": "ADD",
+          "value": 10
+        },
+        {
+          "stat": "STOCK_CRITICAL_MULTIPLIER",
+          "operation": "ADD",
+          "value": 50
+        }
+      ]
+    },
+    {
+      "code": "MOB_WARDED",
+      "weight": 60,
+      "minLevel": 9,
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_ALL",
+          "operation": "ADD",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "code": "MOB_STALWART",
+      "weight": 50,
+      "minLevel": 11,
+      "effects": [
+        {
+          "stat": "STOCK_BLOCK_CHANCE",
+          "operation": "ADD",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "code": "MOB_SHIELDED",
+      "weight": 50,
+      "minLevel": 11,
+      "effects": [
+        {
+          "stat": "STOCK_ENERGY_SHIELD",
+          "operation": "ADD",
+          "value": 10
+        }
+      ]
+    }
+  ],
+  "lootTables": {
+    "T1": {
+      "gold": [
+        2,
+        7
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_TRANSMUTATION",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_AUGMENTATION",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.08
+        }
+      ]
+    },
+    "T2": {
+      "gold": [
+        3,
+        9
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_TRANSMUTATION",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_AUGMENTATION",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_CHANCE",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_SCOURING",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.09
+        }
+      ]
+    },
+    "T3": {
+      "gold": [
+        4,
+        12
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_TRANSMUTATION",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "REGAL_ORB",
+          "chance": 0.008,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "CHAOS_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "BLESSED_ORB",
+          "chance": 0.006,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "VAAL_ORB",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_SCOURING",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.1
+        }
+      ]
+    }
+  },
+  "monsters": [
+    {
+      "code": "DROWNED",
+      "form": "HUMANOID",
+      "experience": 20,
+      "loot": "T1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 18,
+        "STOCK_ATTACK_PHYSICAL": 4
+      }
+    },
+    {
+      "code": "SHORE_CRAB",
+      "form": "CRAB",
+      "experience": 18,
+      "loot": "T1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.3,
+        "STOCK_HEALTH": 14,
+        "STOCK_ATTACK_PHYSICAL": 3,
+        "STOCK_ARMOR": 18
+      }
+    },
+    {
+      "code": "CAVE_BAT",
+      "form": "BAT",
+      "experience": 14,
+      "loot": "T1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.8,
+        "STOCK_HEALTH": 9,
+        "STOCK_ATTACK_PHYSICAL": 2.5,
+        "STOCK_EVASION": 30
+      }
+    },
+    {
+      "code": "BRINE_SPITTER",
+      "form": "SERPENT",
+      "experience": 20,
+      "loot": "T1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 15,
+        "STOCK_ATTACK_PHYSICAL": 2,
+        "STOCK_ATTACK_COLD": 2.5,
+        "STOCK_RESIST_COLD": 30
+      }
+    },
+    {
+      "code": "MIRE_ZOMBIE",
+      "form": "HUMANOID",
+      "experience": 22,
+      "loot": "T1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 26,
+        "STOCK_ATTACK_PHYSICAL": 5,
+        "STOCK_STUN_THRESHOLD": 6
+      }
+    },
+    {
+      "code": "BOG_LURKER",
+      "form": "SERPENT",
+      "experience": 22,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 19,
+        "STOCK_ATTACK_PHYSICAL": 3,
+        "STOCK_ATTACK_CHAOS": 2,
+        "STOCK_RESIST_CHAOS": 40
+      }
+    },
+    {
+      "code": "SWAMP_LEECH",
+      "form": "SLUG",
+      "experience": 16,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 16,
+        "STOCK_ATTACK_PHYSICAL": 3,
+        "STOCK_LEECH_ALL": 8
+      }
+    },
+    {
+      "code": "FERAL_WOLF",
+      "form": "BEAST",
+      "experience": 20,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 15,
+        "STOCK_ATTACK_PHYSICAL": 4,
+        "STOCK_EVASION": 20,
+        "STOCK_CRITICAL_CHANCE": 8
+      }
+    },
+    {
+      "code": "THORN_DRYAD",
+      "form": "HUMANOID",
+      "experience": 22,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 17,
+        "STOCK_ATTACK_PHYSICAL": 3,
+        "STOCK_ATTACK_CHAOS": 2,
+        "STOCK_HEALTH_REGEN": 0.5
+      }
+    },
+    {
+      "code": "WOOD_SPIDER",
+      "form": "SPIDER",
+      "experience": 20,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.5,
+        "STOCK_HEALTH": 14,
+        "STOCK_ATTACK_PHYSICAL": 2.5,
+        "STOCK_ATTACK_CHAOS": 2,
+        "STOCK_EVASION": 25
+      }
+    },
+    {
+      "code": "SKELETON_WARRIOR",
+      "form": "UNDEAD",
+      "experience": 22,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 18,
+        "STOCK_ATTACK_PHYSICAL": 5,
+        "STOCK_BLOCK_CHANCE": 20,
+        "STOCK_ARMOR": 15,
+        "STOCK_RESIST_COLD": 20
+      }
+    },
+    {
+      "code": "BONE_ARCHER",
+      "form": "UNDEAD",
+      "experience": 20,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 13,
+        "STOCK_ATTACK_PHYSICAL": 5,
+        "STOCK_CRITICAL_CHANCE": 12
+      }
+    },
+    {
+      "code": "RUIN_SENTRY",
+      "form": "GOLEM",
+      "experience": 26,
+      "loot": "T2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 28,
+        "STOCK_ATTACK_PHYSICAL": 6,
+        "STOCK_ARMOR": 40,
+        "STOCK_STUN_THRESHOLD": 10
+      }
+    },
+    {
+      "code": "GHOUL",
+      "form": "UNDEAD",
+      "experience": 22,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.3,
+        "STOCK_HEALTH": 20,
+        "STOCK_ATTACK_PHYSICAL": 4.5,
+        "STOCK_LEECH_ALL": 5
+      }
+    },
+    {
+      "code": "CRYPT_WRAITH",
+      "form": "WRAITH",
+      "experience": 24,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 10,
+        "STOCK_ENERGY_SHIELD": 10,
+        "STOCK_ATTACK_COLD": 4.5,
+        "STOCK_EVASION": 30,
+        "STOCK_RESIST_COLD": 50
+      }
+    },
+    {
+      "code": "CRYSTAL_GOLEM",
+      "form": "GOLEM",
+      "experience": 28,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 30,
+        "STOCK_ATTACK_PHYSICAL": 3,
+        "STOCK_ATTACK_LIGHTNING": 4,
+        "STOCK_ARMOR": 45,
+        "STOCK_RESIST_LIGHTNING": 50
+      }
+    },
+    {
+      "code": "SHARD_SCUTTLER",
+      "form": "SPIDER",
+      "experience": 20,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 13,
+        "STOCK_ATTACK_PHYSICAL": 2,
+        "STOCK_ATTACK_LIGHTNING": 3,
+        "STOCK_EVASION": 25
+      }
+    },
+    {
+      "code": "TUNNEL_DWELLER",
+      "form": "HUMANOID",
+      "experience": 22,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 19,
+        "STOCK_ATTACK_PHYSICAL": 5,
+        "STOCK_ARMOR": 15,
+        "STOCK_CRITICAL_CHANCE": 7
+      }
+    },
+    {
+      "code": "CINDER_HOUND",
+      "form": "BEAST",
+      "experience": 22,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 16,
+        "STOCK_ATTACK_PHYSICAL": 2.5,
+        "STOCK_ATTACK_FIRE": 3.5,
+        "STOCK_RESIST_FIRE": 50
+      }
+    },
+    {
+      "code": "ASH_REVENANT",
+      "form": "UNDEAD",
+      "experience": 24,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 21,
+        "STOCK_ATTACK_PHYSICAL": 4,
+        "STOCK_ATTACK_FIRE": 3,
+        "STOCK_RESIST_FIRE": 30,
+        "STOCK_HEALTH_REGEN": 0.6
+      }
+    },
+    {
+      "code": "MAGMA_SLUG",
+      "form": "SLUG",
+      "experience": 24,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.7,
+        "STOCK_HEALTH": 27,
+        "STOCK_ATTACK_FIRE": 5,
+        "STOCK_ARMOR": 30,
+        "STOCK_RESIST_FIRE": 75
+      }
+    },
+    {
+      "code": "FROST_TROLL",
+      "form": "BRUTE",
+      "experience": 30,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 36,
+        "STOCK_ATTACK_PHYSICAL": 6,
+        "STOCK_ATTACK_COLD": 2,
+        "STOCK_RESIST_COLD": 50,
+        "STOCK_HEALTH_REGEN": 1,
+        "STOCK_STUN_THRESHOLD": 12
+      }
+    },
+    {
+      "code": "ICE_WRAITH",
+      "form": "WRAITH",
+      "experience": 24,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 11,
+        "STOCK_ENERGY_SHIELD": 12,
+        "STOCK_ATTACK_COLD": 5,
+        "STOCK_EVASION": 30,
+        "STOCK_RESIST_COLD": 75
+      }
+    },
+    {
+      "code": "SNOW_STALKER",
+      "form": "BEAST",
+      "experience": 22,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.5,
+        "STOCK_HEALTH": 17,
+        "STOCK_ATTACK_PHYSICAL": 5,
+        "STOCK_EVASION": 35,
+        "STOCK_CRITICAL_CHANCE": 10
+      }
+    },
+    {
+      "code": "TEMPLE_ZEALOT",
+      "form": "HUMANOID",
+      "experience": 24,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 20,
+        "STOCK_ATTACK_PHYSICAL": 4,
+        "STOCK_ATTACK_FIRE": 3,
+        "STOCK_RESIST_FIRE": 30,
+        "STOCK_CRITICAL_CHANCE": 7
+      }
+    },
+    {
+      "code": "DEEP_ONE",
+      "form": "SERPENT",
+      "experience": 26,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 24,
+        "STOCK_ATTACK_PHYSICAL": 4,
+        "STOCK_ATTACK_COLD": 3,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_LEECH_ALL": 3
+      }
+    },
+    {
+      "code": "ABYSSAL_ACOLYTE",
+      "form": "WRAITH",
+      "experience": 26,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 16,
+        "STOCK_ENERGY_SHIELD": 8,
+        "STOCK_ATTACK_CHAOS": 5,
+        "STOCK_RESIST_CHAOS": 40
+      }
+    },
+    {
+      "code": "TEMPLE_GUARDIAN",
+      "form": "GOLEM",
+      "experience": 30,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 34,
+        "STOCK_ATTACK_PHYSICAL": 6,
+        "STOCK_ARMOR": 50,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 14
+      }
+    }
+  ],
+  "chapters": [
+    {
+      "code": "CHAPTER_1",
+      "maps": [
+        {
+          "code": "C1_TIDAL_SHORE",
+          "biome": "SHORE",
+          "level": 1,
+          "monsters": [
+            "DROWNED",
+            "SHORE_CRAB"
+          ],
+          "count": [
+            10,
+            14
+          ]
+        },
+        {
+          "code": "C1_BRINE_CAVES",
+          "biome": "CAVE",
+          "level": 3,
+          "monsters": [
+            "SHORE_CRAB",
+            "CAVE_BAT",
+            "BRINE_SPITTER"
+          ],
+          "count": [
+            10,
+            14
+          ]
+        },
+        {
+          "code": "C1_ROTTING_MIRE",
+          "biome": "MIRE",
+          "level": 5,
+          "monsters": [
+            "MIRE_ZOMBIE",
+            "BOG_LURKER",
+            "SWAMP_LEECH"
+          ],
+          "count": [
+            12,
+            16
+          ]
+        },
+        {
+          "code": "C1_WHISPERING_WOOD",
+          "biome": "FOREST",
+          "level": 7,
+          "monsters": [
+            "FERAL_WOLF",
+            "THORN_DRYAD",
+            "WOOD_SPIDER"
+          ],
+          "count": [
+            12,
+            16
+          ]
+        },
+        {
+          "code": "C1_FALLEN_RUINS",
+          "biome": "RUINS",
+          "level": 9,
+          "monsters": [
+            "SKELETON_WARRIOR",
+            "BONE_ARCHER",
+            "RUIN_SENTRY"
+          ],
+          "count": [
+            12,
+            16
+          ]
+        },
+        {
+          "code": "C1_CRYPT_OF_EXILES",
+          "biome": "CRYPT",
+          "level": 11,
+          "monsters": [
+            "GHOUL",
+            "SKELETON_WARRIOR",
+            "CRYPT_WRAITH",
+            "BONE_ARCHER"
+          ],
+          "count": [
+            12,
+            16
+          ]
+        },
+        {
+          "code": "C1_CRYSTAL_MINES",
+          "biome": "MINES",
+          "level": 13,
+          "monsters": [
+            "CRYSTAL_GOLEM",
+            "SHARD_SCUTTLER",
+            "TUNNEL_DWELLER"
+          ],
+          "count": [
+            14,
+            18
+          ]
+        },
+        {
+          "code": "C1_ASHEN_WASTES",
+          "biome": "ASH",
+          "level": 15,
+          "monsters": [
+            "CINDER_HOUND",
+            "ASH_REVENANT",
+            "MAGMA_SLUG"
+          ],
+          "count": [
+            14,
+            18
+          ]
+        },
+        {
+          "code": "C1_FROZEN_PASS",
+          "biome": "FROST",
+          "level": 17,
+          "monsters": [
+            "FROST_TROLL",
+            "ICE_WRAITH",
+            "SNOW_STALKER"
+          ],
+          "count": [
+            14,
+            18
+          ]
+        },
+        {
+          "code": "C1_DROWNED_TEMPLE",
+          "biome": "TEMPLE",
+          "level": 20,
+          "monsters": [
+            "TEMPLE_ZEALOT",
+            "DEEP_ONE",
+            "ABYSSAL_ACOLYTE",
+            "TEMPLE_GUARDIAN"
+          ],
+          "count": [
+            14,
+            18
+          ]
+        }
+      ]
+    }
+  ]
+}

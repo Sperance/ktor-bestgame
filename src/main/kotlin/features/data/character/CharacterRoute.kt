@@ -2,6 +2,7 @@ package features.data.character
 
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
+import features.logic.campaign.CampaignService
 import features.data.character.character_data.CharacterItems
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -11,7 +12,8 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
 class CharacterRoute(
-    val repo: CharacterRepository
+    val repo: CharacterRepository,
+    val campaign: CampaignService,
 ) : BaseRoute<Character, Character>(
     repository = repo,
     entitySerializer = Character.serializer(),
@@ -64,6 +66,29 @@ class CharacterRoute(
                 val itemObj = call.receive<List<CharacterItems>>()
                 val data = repo.addItem(characterId, itemObj)
                 call.respond(ApiMongoResponse.ok(data))
+            }
+        }
+
+        // Кампания (0.26.0): бой считает клиент, добычу и опыт - сервер.
+        route("/campaign") {
+            get("/chapters") {
+                call.respond(ApiMongoResponse.ok(campaign.view()))
+            }
+            get("/progress") {
+                val characterId = call.queryParam("characterId")
+                call.respond(ApiMongoResponse.ok(campaign.progress(characterId)))
+            }
+            post("/kill") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                val monsterCode = call.queryParam("monsterCode")
+                val rarity = call.queryParam("rarity")
+                call.respond(ApiMongoResponse.ok(campaign.kill(characterId, mapCode, monsterCode, rarity)))
+            }
+            post("/complete") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.complete(characterId, mapCode)))
             }
         }
 

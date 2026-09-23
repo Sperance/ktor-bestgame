@@ -60,6 +60,12 @@ data class Character(
     var recipeAccess: MutableList<String> = mutableListOf(),
     var gainedRedemptionCodes: MutableList<GainedRedemtionCodes> = mutableListOf(),
 
+    /**
+     * Пройденные карты кампании - их коды, с 0.26.0. Следующая карта главы открывается,
+     * когда пройдена предыдущая, см. [features.logic.campaign.CampaignContent.unlocked].
+     */
+    var campaign: MutableList<String> = mutableListOf(),
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

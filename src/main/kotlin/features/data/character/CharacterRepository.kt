@@ -80,6 +80,7 @@ class CharacterRepository : BaseRepository<Character>(
             entity.boolSkills.clear()
             entity.recipeAccess.clear()
             entity.gainedRedemptionCodes.clear()
+            entity.campaign.clear()
         }
         if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
         if (characterClassCache.findById(entity.classId) == null)

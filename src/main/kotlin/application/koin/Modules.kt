@@ -30,6 +30,7 @@ import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.redemptionCodes.RedemptionCodesRoute
 import features.data.user.UserRepository
 import features.data.user.UserRoute
+import features.logic.campaign.CampaignService
 import features.logic.modifiers.ModifierDefinitionRepository
 import features.logic.modifiers.ModifierDefinitionRoute
 import features.logic.modifiers.ModifierTierRepository
@@ -58,6 +59,7 @@ val repositoryModule = module {
     single { SkillTreeNodeRepository() }
     single { CharacterClassRepository() }
     single { ExperienceLevelRepository() }
+    single { CampaignService() }
 }
 
 val cacheModule = module {
@@ -80,7 +82,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get()),
-                CharacterRoute(get()),
+                CharacterRoute(get(), get()),
                 CharacterEquipmentRoute(get()),
                 AuctionLotRoute(get()),
                 ItemsRoute(get()),

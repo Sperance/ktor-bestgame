@@ -123,6 +123,20 @@ database. Keep new rules in that table rather than in a route.
   with a shield, and a ring takes the free one of `RING`/`RING_2` (or the one `equip?slot=` names).
   `RING_2` is only ever an `equippedSlot`, never a template's slot. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
   which is a rule rather than data.
+- `src/main/resources/content/campaign.json` — the campaign (since 0.26.0): chapters of maps in
+  unlocking order, each with its level, biome and two to four monsters; monsters at level 1 with
+  a `form` the client draws and a loot table; monster modifiers; the three monster rarities with
+  their weights, modifier counts, stat effects and loot/experience multipliers; and `growth`, how
+  each stat rises per map level. `CampaignContent` validates it at start and serves it resolved —
+  monsters and `ADD` modifiers already scaled to their map — from
+  `GET /api/v1/character/campaign/chapters`. **The fight is the client's** (the owner's decision):
+  it rolls the monster's rarity and modifiers from these tables, fights, and reports
+  `POST /campaign/kill?characterId&mapCode&monsterCode&rarity`; `CampaignService` checks the map is
+  open and the monster lives there, then rolls gold, orbs, equipment and experience itself
+  (`CampaignLoot`) in one transaction. `POST /campaign/complete` marks a map cleared
+  (`Character.campaign`) and opens the next; `GET /campaign/progress` answers both lists.
+  Monster, map, chapter and monster-modifier names are `monster.*`, `map.*`, `chapter.*` and
+  `monstermod.*` keys, translated in every language; `CampaignTest` reads the file without Mongo.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 299 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level

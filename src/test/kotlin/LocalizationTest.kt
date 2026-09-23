@@ -19,6 +19,7 @@ import base.exception.BaseRepositoryExceptions
 import base.exception.BaseRouteExceptions
 import base.exception.model.AuctionExceptions
 import base.exception.model.AuthExceptions
+import base.exception.model.CampaignExceptions
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
 import base.exception.model.EquipmentExceptions
@@ -37,6 +38,9 @@ import config.ModifierSeeder
 import config.ProgressionSeeder
 import config.SkillTreeSeeder
 import config.UniqueEquipmentSeeder
+import features.logic.campaign.CampaignContent
+import features.logic.campaign.EnumLootKind
+import features.logic.campaign.EnumMonsterRarity
 import features.logic.locale.LocaleCache
 import features.logic.locale.LocaleKey
 import features.logic.modifiers.ModifierDefinition
@@ -83,6 +87,8 @@ class LocalizationTest {
         "EnumStatBool" to EnumStatBool.entries,
         "EnumStatProfession" to EnumStatProfession.entries,
         "EnumStatBattle" to EnumStatBattle.entries,
+        "EnumMonsterRarity" to EnumMonsterRarity.entries,
+        "EnumLootKind" to EnumLootKind.entries,
     )
 
     /**
@@ -90,7 +96,7 @@ class LocalizationTest {
      */
     private val exceptionObjects: List<KClass<*>> = listOf(
         ApplicationExceptions::class, BaseRepositoryExceptions::class, BaseRouteExceptions::class,
-        AuctionExceptions::class, AuthExceptions::class, CharacterExceptions::class, CurrencyExceptions::class,
+        AuctionExceptions::class, AuthExceptions::class, CampaignExceptions::class, CharacterExceptions::class, CurrencyExceptions::class,
         EquipmentExceptions::class, ItemsExceptions::class, LocaleExceptions::class,
         ModifierExceptions::class, ProgressionExceptions::class, RecipeExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class,
@@ -142,6 +148,17 @@ class LocalizationTest {
             keys.add(LocaleKey.itemName(it.code))
             keys.add(LocaleKey.itemDescription(it.code))
         }
+
+        // Кампания: глава, карты с описанием, монстры и их модификаторы
+        CampaignContent.file.chapters.forEach { chapter ->
+            keys.add(LocaleKey.chapterName(chapter.code))
+            chapter.maps.forEach {
+                keys.add(LocaleKey.mapName(it.code))
+                keys.add(LocaleKey.mapDescription(it.code))
+            }
+        }
+        CampaignContent.file.monsters.forEach { keys.add(LocaleKey.monsterName(it.code)) }
+        CampaignContent.file.modifiers.forEach { keys.add(LocaleKey.monsterModifierName(it.code)) }
 
         enums.forEach { (name, values) -> values.forEach { keys.add(LocaleKey.enumLabel(name, it.name)) } }
 
@@ -302,6 +319,18 @@ class LocalizationTest {
                 assert(indexes.all { it < definition.effects.size }) {
                     "$language / $key: номер плейсхолдера вне эффектов ${definition.effects.size}: $text"
                 }
+            }
+        }
+    }
+
+    @Test
+    fun a_monster_modifier_has_a_placeholder_for_every_effect() {
+        val placeholder = Regex("\\{(\\d+)}")
+        CampaignContent.file.modifiers.forEach { modifier ->
+            val key = LocaleKey.monsterModifierName(modifier.code)
+            LocaleCache.languages().forEach { language ->
+                val indexes = placeholder.findAll(LocaleCache.bundle(language)[key]).map { it.groupValues[1].toInt() }.toSet()
+                assert(indexes == modifier.effects.indices.toSet()) { "$language / $key: $indexes, эффектов ${modifier.effects.size}" }
             }
         }
     }
