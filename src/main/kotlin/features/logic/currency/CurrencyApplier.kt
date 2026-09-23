@@ -4,7 +4,9 @@ import application.enums.EnumCurrencyOrb
 import application.enums.EnumCurrencyOrb.BLESSED_ORB
 import application.enums.EnumCurrencyOrb.CHAOS_ORB
 import application.enums.EnumCurrencyOrb.DIVINE_ORB
+import application.enums.EnumCurrencyOrb.ELDER_ORB
 import application.enums.EnumCurrencyOrb.EXALTED_ORB
+import application.enums.EnumCurrencyOrb.FRACTURING_ORB
 import application.enums.EnumCurrencyOrb.MIRROR_OF_KALANDRA
 import application.enums.EnumCurrencyOrb.ORB_OF_ALCHEMY
 import application.enums.EnumCurrencyOrb.ORB_OF_ALTERATION
@@ -15,7 +17,10 @@ import application.enums.EnumCurrencyOrb.ORB_OF_REGRET
 import application.enums.EnumCurrencyOrb.ORB_OF_SCOURING
 import application.enums.EnumCurrencyOrb.ORB_OF_TRANSMUTATION
 import application.enums.EnumCurrencyOrb.REGAL_ORB
+import application.enums.EnumCurrencyOrb.SHAPERS_ORB
 import application.enums.EnumCurrencyOrb.VAAL_ORB
+import application.enums.EnumEquipmentType
+import application.enums.EnumInfluence
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import base.exception.model.CurrencyExceptions
@@ -83,6 +88,16 @@ object CurrencyApplier : KoinComponent {
     )
 
     /**
+     * Сколько аффиксов должно быть на предмете, чтобы Fracturing Orb могла закрепить один.
+     */
+    const val FRACTURE_MIN_AFFIXES = 4
+
+    /**
+     * Редкости, на которые ложатся закрепление и влияние: редкий предмет и выше, кроме уникалки.
+     */
+    private val rareOrBetter = setOf(EnumRarity.RARE, EnumRarity.EPIC, EnumRarity.MYTHICAL)
+
+    /**
      * Применяет сферу к предмету.
      *
      * @param template шаблон предмета - из него берётся пул модификаторов и item level
@@ -107,6 +122,8 @@ object CurrencyApplier : KoinComponent {
             VAAL_ORB -> vaal(item, template)
             ORB_OF_CHANCE -> chance(item, template)
             MIRROR_OF_KALANDRA -> mirror(item, template)
+            FRACTURING_ORB -> fracture(item, template)
+            SHAPERS_ORB, ELDER_ORB -> influence(item, template, EnumInfluence.byOrb(orb)!!)
             // Единственная сфера, которую тратит не предмет: её списывает дерево навыков
             // за возврат узла, см. CharacterSkillTreeRepository.
             ORB_OF_REGRET -> throw CurrencyExceptions.funExceptionNotForItem("apply", orb.name)
@@ -141,18 +158,20 @@ object CurrencyApplier : KoinComponent {
         requireRarity(item, template, from)
 
         item.rarity = to
-        item.params = (permanent(item) + ModifierRoller.rollAffixes(template, to)).toMutableList()
+        item.params = (permanent(item) + ModifierRoller.rollAffixes(template, to, item.influence)).toMutableList()
 
         return outcome(item, template, "currency.upgraded", LocaleKey.rarity(to), affixes(item).size.toString())
     }
 
     /**
-     * Перекатывает аффиксы, сохраняя редкость.
+     * Перекатывает аффиксы, сохраняя редкость. Закреплённый аффикс остаётся на месте,
+     * ремесленный уходит вместе с остальными - как в POE.
      */
     private fun reroll(item: CharacterEquipment, template: Equipment, required: EnumRarity): CurrencyOutcome {
         requireRarity(item, template, required)
 
-        item.params = (permanent(item) + ModifierRoller.rollAffixes(template, item.rarity)).toMutableList()
+        val kept = fractured(item)
+        item.params = (permanent(item) + kept + ModifierRoller.rollAffixes(template, item.rarity, item.influence, kept)).toMutableList()
 
         return outcome(item, template, "currency.rerolled", affixes(item).size.toString())
     }
@@ -163,7 +182,7 @@ object CurrencyApplier : KoinComponent {
     private fun augment(item: CharacterEquipment, template: Equipment, required: EnumRarity): CurrencyOutcome {
         requireRarity(item, template, required)
 
-        val added = ModifierRoller.rollExtraAffix(template, item.rarity, item.params)
+        val added = ModifierRoller.rollExtraAffix(template, item.rarity, item.params, item.influence)
             ?: throw CurrencyExceptions.funExceptionNoFreeAffix("augment", template.code)
 
         item.params.add(added)
@@ -178,7 +197,7 @@ object CurrencyApplier : KoinComponent {
         requireRarity(item, template, EnumRarity.UNCOMMON)
 
         item.rarity = EnumRarity.RARE
-        ModifierRoller.rollExtraAffix(template, item.rarity, item.params)?.let { item.params.add(it) }
+        ModifierRoller.rollExtraAffix(template, item.rarity, item.params, item.influence)?.let { item.params.add(it) }
 
         return outcome(item, template, "currency.regal", affixes(item).size.toString())
     }
@@ -196,7 +215,7 @@ object CurrencyApplier : KoinComponent {
                 { it.source == EnumModifierSource.PREFIX || it.source == EnumModifierSource.SUFFIX }
             }
 
-        val count = ModifierRoller.definitions(item.params).count(rerollable)
+        val count = ModifierRoller.definitions(item.params.filterNot { it.fractured }).count(rerollable)
         if (count == 0) throw CurrencyExceptions.funExceptionNoAffixes("divine", template.code)
 
         item.params = ModifierRoller.rerollValues(item.params, rerollable)
@@ -217,10 +236,10 @@ object CurrencyApplier : KoinComponent {
     }
 
     /**
-     * Убирает случайный аффикс.
+     * Убирает случайный аффикс. Закреплённый не снимается.
      */
     private fun annul(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
-        val current = affixes(item)
+        val current = affixes(item).filterNot { it.fractured }
         if (current.isEmpty()) throw CurrencyExceptions.funExceptionNoAffixes("annul", template.code)
 
         val removed = current.randomExt()
@@ -231,17 +250,23 @@ object CurrencyApplier : KoinComponent {
 
     /**
      * Снимает все аффиксы и возвращает предмет к обычной редкости.
+     *
+     * Закреплённый аффикс остаётся, а обычный предмет аффиксов не держит,
+     * поэтому такая копия опускается только до магической. Влияние не снимается.
      */
     private fun scour(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
-        if (item.rarity == EnumRarity.COMMON && affixes(item).isEmpty())
-            throw CurrencyExceptions.funExceptionNoAffixes("scour", template.code)
         if (item.rarity == EnumRarity.UNIQUE)
             throw CurrencyExceptions.funExceptionRarity("scour", item.rarity.name)
 
-        item.rarity = EnumRarity.COMMON
-        item.params = permanent(item).toMutableList()
+        val kept = fractured(item)
+        val target = if (kept.isEmpty()) EnumRarity.COMMON else EnumRarity.UNCOMMON
+        if (item.rarity == target && affixes(item).size == kept.size)
+            throw CurrencyExceptions.funExceptionNoAffixes("scour", template.code)
 
-        return outcome(item, template, "currency.scoured")
+        item.rarity = target
+        item.params = (permanent(item) + kept).toMutableList()
+
+        return outcome(item, template, if (kept.isEmpty()) "currency.scoured" else "currency.scoured_fractured")
     }
 
     /**
@@ -271,6 +296,7 @@ object CurrencyApplier : KoinComponent {
             val unique = uniques.randomExt()
             item.equipmentId = unique._id
             item.rarity = EnumRarity.UNIQUE
+            item.influence = null
             item.params = ModifierRoller.roll(unique, EnumRarity.UNIQUE)
 
             return outcome(item, template, "currency.chance_unique", LocaleKey.equipmentName(unique.code))
@@ -278,7 +304,7 @@ object CurrencyApplier : KoinComponent {
 
         val rarity = chanceRarities.weightedRandomExt { it.second }?.first ?: EnumRarity.COMMON
         item.rarity = rarity
-        item.params = (permanent(item) + ModifierRoller.rollAffixes(template, rarity)).toMutableList()
+        item.params = (permanent(item) + ModifierRoller.rollAffixes(template, rarity, item.influence)).toMutableList()
 
         return outcome(item, template, "currency.chance_rarity", LocaleKey.rarity(rarity))
     }
@@ -301,6 +327,49 @@ object CurrencyApplier : KoinComponent {
         return CurrencyOutcome(item, copy, "currency.mirrored", listOf(LocaleKey.equipmentName(template.code)))
     }
 
+    /**
+     * Закрепляет случайный аффикс: дальше его не снимает, не перекатывает и не меняет
+     * ни одна сфера. Нужен редкий предмет с четырьмя аффиксами и больше, закреплённый
+     * аффикс на предмете один, а ремесленный закрепить нельзя - верстак его и так снимает.
+     */
+    private fun fracture(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        if (item.rarity !in rareOrBetter)
+            throw CurrencyExceptions.funExceptionRarity("fracture", item.rarity.name)
+        if (item.params.any { it.fractured })
+            throw CurrencyExceptions.funExceptionAlreadyFractured("fracture", template.code)
+
+        val current = affixes(item)
+        if (current.size < FRACTURE_MIN_AFFIXES)
+            throw CurrencyExceptions.funExceptionTooFewAffixes("fracture", template.code)
+
+        val chosen = current.filterNot { ModifierRoller.isCrafted(it) }.randomExt()
+        item.params[item.params.indexOf(chosen)] = chosen.copy(fractured = true)
+
+        return outcome(item, template, "currency.fractured")
+    }
+
+    /**
+     * Накладывает влияние и сразу добавляет модификатор из его пула - как сферы
+     * влияния в POE. Нужны редкий предмет, свободное место и отсутствие другого
+     * влияния; самоцвет влиянию не поддаётся.
+     */
+    private fun influence(item: CharacterEquipment, template: Equipment, influence: EnumInfluence): CurrencyOutcome {
+        if (template.slot == EnumEquipmentType.JEWEL)
+            throw CurrencyExceptions.funExceptionNotInfluenceable("influence", template.code)
+        if (item.rarity !in rareOrBetter)
+            throw CurrencyExceptions.funExceptionRarity("influence", item.rarity.name)
+        if (item.influence != null)
+            throw CurrencyExceptions.funExceptionAlreadyInfluenced("influence", template.code)
+
+        val added = ModifierRoller.rollInfluenced(template, item.rarity, item.params, influence)
+            ?: throw CurrencyExceptions.funExceptionNoFreeAffix("influence", template.code)
+
+        item.influence = influence
+        item.params.add(added)
+
+        return outcome(item, template, "currency.influenced", LocaleKey.enumLabel("EnumInfluence", influence.name))
+    }
+
     // ==================== Вспомогательное ====================
 
     private fun requireRarity(item: CharacterEquipment, template: Equipment, required: EnumRarity) {
@@ -312,6 +381,11 @@ object CurrencyApplier : KoinComponent {
      * Аффиксы предмета - только их трогают сферы перекатки.
      */
     private fun affixes(item: CharacterEquipment): List<Modifier> = item.params.filter { ModifierRoller.isAffix(it) }
+
+    /**
+     * Закреплённые аффиксы - их не трогает ни одна сфера.
+     */
+    private fun fractured(item: CharacterEquipment): List<Modifier> = item.params.filter { it.fractured }
 
     /**
      * Постоянные модификаторы предмета: implicit, энчанты, порча, модификаторы уникалок.

@@ -1,6 +1,7 @@
 import application.enums.EnumAuctionLotKind
 import application.enums.EnumAuctionLotStatus
 import application.enums.EnumCurrencyOrb
+import application.enums.EnumInfluence
 import application.enums.EnumEquipmentType
 import application.enums.EnumEquipmentWeapon
 import application.enums.EnumModifierOperation
@@ -74,6 +75,7 @@ class LocalizationTest {
         "EnumModifierSource" to EnumModifierSource.entries,
         "EnumModifierOperation" to EnumModifierOperation.entries,
         "EnumCurrencyOrb" to EnumCurrencyOrb.entries,
+        "EnumInfluence" to EnumInfluence.entries,
         "EnumAuctionLotKind" to EnumAuctionLotKind.entries,
         "EnumAuctionLotStatus" to EnumAuctionLotStatus.entries,
         "EnumUserRoles" to EnumUserRoles.entries,
@@ -102,6 +104,7 @@ class LocalizationTest {
     private val currencyKeys = listOf(
         "upgraded", "rerolled", "augmented", "regal", "divine", "blessed", "annulled",
         "scoured", "vaal_modifier", "vaal_nothing", "chance_unique", "chance_rarity", "mirrored",
+        "scoured_fractured", "fractured", "influenced", "crafted", "uncrafted",
     ).map { "${LocaleKey.CURRENCY}.$it" }
 
     /**

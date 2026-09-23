@@ -1,6 +1,7 @@
 package features.data.inventory
 
 import application.enums.EnumEquipmentType
+import application.enums.EnumInfluence
 import application.enums.EnumRarity
 import base.entity.VersionedEntity
 import extensions.now
@@ -73,6 +74,12 @@ data class CharacterEquipment(
      * надето", а это поле - "куда". Самоцвет считается, только пока его гнездо взято.
      */
     var socketCode: String? = null,
+
+    /**
+     * Влияние копии: открывает ей пул модификаторов Создателя или Древнего.
+     * Ставит его сфера влияния, снять нельзя. null - предмет без влияния.
+     */
+    var influence: EnumInfluence? = null,
 
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,

@@ -17,6 +17,9 @@ import features.caches.ItemsCache
 import features.caches.SkillTreeCache
 import features.data.character.CharacterRepository
 import features.data.equipment.equipment_data.Equipment
+import extensions.toStableObjectId
+import features.data.character.Character
+import features.logic.bench.CraftingBench
 import features.logic.currency.CurrencyApplier
 import features.logic.currency.CurrencyOutcome
 import features.logic.stats.EquipmentRequirements
@@ -255,6 +258,50 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
             outcome.created?.let { insert(it, session) }
             outcome
         }
+    }
+
+    /**
+     * Ставит на предмет ремесленный модификатор верстака.
+     *
+     * Как и сфера, оплата списывается в одной транзакции с сохранением предмета:
+     * отказ правила не съедает ни одной сферы.
+     */
+    suspend fun craft(characterId: String, inventoryId: String, recipeCode: String): CurrencyOutcome {
+        val recipe = CraftingBench.recipe(recipeCode)
+        val (item, template, character) = benchTarget("craft", characterId, inventoryId)
+
+        return transactionExecute("craft ${recipe.code}") { session ->
+            characterRepository.spendItem(character, recipe.orbItemId, recipe.amount, session)
+            val outcome = CraftingBench.craft(item, template, recipe)
+            update(outcome.item, session)
+            outcome
+        }
+    }
+
+    /**
+     * Снимает с предмета ремесленный модификатор за [CraftingBench.UNCRAFT_ORB].
+     */
+    suspend fun uncraft(characterId: String, inventoryId: String): CurrencyOutcome {
+        val (item, template, character) = benchTarget("uncraft", characterId, inventoryId)
+
+        return transactionExecute("uncraft $inventoryId") { session ->
+            characterRepository.spendItem(character, CraftingBench.UNCRAFT_ORB.name.toStableObjectId(), 1, session)
+            val outcome = CraftingBench.uncraft(item, template)
+            update(outcome.item, session)
+            outcome
+        }
+    }
+
+    private suspend fun benchTarget(method: String, characterId: String, inventoryId: String): Triple<CharacterEquipment, Equipment, Character> {
+        val item = findById(inventoryId)
+            ?: throw CharacterExceptions.funExceptionItemNotFound(method, inventoryId)
+        if (item.characterId != characterId)
+            throw CharacterExceptions.funExceptionItemNotFound(method, inventoryId)
+        val template = equipmentCache.findById(item.equipmentId)
+            ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.equipmentId)
+        val character = characterRepository.findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
+        return Triple(item, template, character)
     }
 
     /**

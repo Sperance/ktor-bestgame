@@ -1,0 +1,193 @@
+{
+  "recipes": [
+    {
+      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3,
+      "slots": [
+        "HELMET"
+      ]
+    },
+    {
+      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4,
+      "slots": [
+        "HELMET"
+      ]
+    },
+    {
+      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1,
+      "slots": [
+        "HELMET"
+      ]
+    },
+    {
+      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_ADD_STRENGTH",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_STRENGTH",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_STRENGTH",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "tier": 3,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "tier": 2,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "tier": 1,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    }
+  ]
+}

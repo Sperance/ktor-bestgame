@@ -1,7 +1,6 @@
 package config
 
 import application.enums.EnumEquipmentType
-import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import base.exception.model.EquipmentExceptions
 import base.exception.model.ModifierExceptions
@@ -50,10 +49,11 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
 
     /**
      * Описания, которые роллятся случайно и занимают префикс или суффикс предмета.
+     *
+     * Модификаторы влияния и верстака сюда не входят: первые открывает предмету его
+     * влияние, вторые ставит только верстак, и ни те ни другие шаблону не принадлежат.
      */
-    private val rollable = definitions.filter {
-        it.source == EnumModifierSource.PREFIX || it.source == EnumModifierSource.SUFFIX
-    }
+    private val rollable = definitions.filter { it.isNaturalAffix() }
 
     /**
      * Ссылка на описание модификатора по его коду.
@@ -73,7 +73,8 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
      * решает код - теги живут в описаниях модификаторов, а они остались в Kotlin.
      */
     private fun namedPool(name: String): MutableList<String> = when (name) {
-        "helmet" -> pool("life", "mana", "energy_shield", "armour", "evasion", "resistance", "attribute", "regen", "rarity", "gold")
+        "helmet" -> pool("life", "mana", "energy_shield", "armour", "evasion", "resistance", "attribute", "regen", "rarity", "gold",
+            "stun", "energy", "experience", "quantity")
         // Самоцвет не носят на теле, поэтому и локальной защиты у него нет:
         // только то, что работает на персонажа целиком. Золото как раз такое.
         "jewel" -> pool("life", "mana", "attribute", "resistance", "regen", "gold")

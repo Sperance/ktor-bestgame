@@ -1,5 +1,6 @@
 package config
 
+import application.enums.EnumInfluence
 import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
 import application.enums.IntEnumStat
@@ -75,6 +76,26 @@ data class ModifierTemplate(
      * см. [ModifierDefinition.isLocal].
      */
     val isLocal: Boolean = false,
+
+    /**
+     * Группа, см. [ModifierDefinition.group]. null - своя, по коду.
+     */
+    val group: String? = null,
+
+    /**
+     * Вес в пуле, см. [ModifierDefinition.spawnWeight].
+     */
+    val weight: Int = ModifierDefinition.DEFAULT_SPAWN_WEIGHT,
+
+    /**
+     * Влияние, которое открывает модификатор, см. [ModifierDefinition.influence].
+     */
+    val influence: EnumInfluence? = null,
+
+    /**
+     * Ремесленный модификатор верстака, см. [ModifierDefinition.crafted].
+     */
+    val crafted: Boolean = false,
 ) {
 
     fun toDefinition() = ModifierDefinition(
@@ -83,6 +104,10 @@ data class ModifierTemplate(
         source = source,
         isLocal = isLocal,
         tags = tags.toMutableList(),
+        group = group,
+        spawnWeight = weight,
+        influence = influence,
+        crafted = crafted,
         // Справочник пересевается на каждом старте, поэтому _id должен быть
         // стабильным: иначе зароленные модификаторы предметов потеряют ссылки
         _id = code.toStableObjectId()

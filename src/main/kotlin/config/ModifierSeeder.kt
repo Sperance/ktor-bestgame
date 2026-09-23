@@ -45,6 +45,17 @@ import application.enums.EnumStatStock.STOCK_RESIST_FIRE
 import application.enums.EnumStatStock.STOCK_RESIST_LIGHTNING
 import application.enums.EnumStatStock.STOCK_STRENGTH
 import application.enums.EnumStatStock.STOCK_STUN_THRESHOLD
+import application.enums.EnumStatStock.STOCK_EXPERIENCE
+import application.enums.EnumStatStock.STOCK_ENERGY
+import application.enums.EnumStatStock.STOCK_ENERGY_REGEN
+import application.enums.EnumStatStock.STOCK_QUANTITY
+import application.enums.EnumStatStock.STOCK_LEECH_MAGICAL
+import application.enums.EnumStatStock.STOCK_LEECH_ALL
+import application.enums.EnumStatStock.STOCK_CONSTITUTION
+import application.enums.EnumStatStock.STOCK_CAST_STRENGTH
+import application.enums.EnumStatStock.STOCK_CURSE_EFFECT
+import application.enums.EnumInfluence.ELDER
+import application.enums.EnumInfluence.SHAPER
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierTier
 
@@ -456,6 +467,311 @@ object ModifierSeeder {
             tags = listOf("gold"),
             effects = listOf(effect(STOCK_GOLD, INCREASED, best = 25.0..30.0, worst = 8.0..12.0)),
             tierCount = 4, bestItemLevel = 78
+        ),
+
+        // ---------- PREFIX: новые аффиксы 0.23.0 ----------
+        ModifierTemplate(
+            code = "LOCAL_ADD_ARMOUR_AND_EVASION",
+            source = PREFIX, isLocal = true,
+            tags = listOf("armour", "evasion", "defences", "hybrid"),
+            effects = listOf(
+                effect(STOCK_ARMOR, ADD, best = 90.0..120.0, worst = 6.0..10.0),
+                effect(STOCK_EVASION, ADD, best = 90.0..120.0, worst = 6.0..10.0),
+            ),
+            tierCount = 6, bestItemLevel = 83
+        ),
+        ModifierTemplate(
+            code = "LOCAL_ADD_ARMOUR_AND_ENERGY_SHIELD",
+            source = PREFIX, isLocal = true,
+            tags = listOf("armour", "energy_shield", "defences", "hybrid"),
+            effects = listOf(
+                effect(STOCK_ARMOR, ADD, best = 90.0..120.0, worst = 6.0..10.0),
+                effect(STOCK_ENERGY_SHIELD, ADD, best = 30.0..40.0, worst = 3.0..5.0),
+            ),
+            tierCount = 6, bestItemLevel = 83
+        ),
+        ModifierTemplate(
+            code = "LOCAL_ADD_EVASION_AND_ENERGY_SHIELD",
+            source = PREFIX, isLocal = true,
+            tags = listOf("evasion", "energy_shield", "defences", "hybrid"),
+            effects = listOf(
+                effect(STOCK_EVASION, ADD, best = 90.0..120.0, worst = 6.0..10.0),
+                effect(STOCK_ENERGY_SHIELD, ADD, best = 30.0..40.0, worst = 3.0..5.0),
+            ),
+            tierCount = 6, bestItemLevel = 83
+        ),
+        ModifierTemplate(
+            code = "ADD_STUN_THRESHOLD",
+            source = PREFIX,
+            tags = listOf("stun", "defences"),
+            effects = listOf(effect(STOCK_STUN_THRESHOLD, ADD, best = 200.0..250.0, worst = 20.0..40.0)),
+            tierCount = 6, bestItemLevel = 80
+        ),
+        ModifierTemplate(
+            code = "ADD_MAXIMUM_LIFE_AND_LIFE_REGENERATION",
+            source = PREFIX,
+            tags = listOf("life", "regen", "hybrid"),
+            effects = listOf(
+                effect(STOCK_HEALTH, ADD, best = 40.0..49.0, worst = 8.0..12.0),
+                effect(STOCK_HEALTH_REGEN, ADD, best = 8.0..10.0, worst = 1.0..2.0),
+            ),
+            tierCount = 5, bestItemLevel = 78
+        ),
+        ModifierTemplate(
+            code = "ADD_MAXIMUM_MANA_AND_MANA_REGENERATION",
+            source = PREFIX,
+            tags = listOf("mana", "regen", "hybrid"),
+            effects = listOf(
+                effect(STOCK_MANA, ADD, best = 45.0..54.0, worst = 10.0..14.0),
+                effect(STOCK_MANA_REGEN, INCREASED, best = 20.0..25.0, worst = 5.0..8.0),
+            ),
+            tierCount = 5, bestItemLevel = 78
+        ),
+        ModifierTemplate(
+            code = "INCREASED_EXPERIENCE_GAIN",
+            source = PREFIX,
+            tags = listOf("experience"),
+            effects = listOf(effect(STOCK_EXPERIENCE, INCREASED, best = 5.0..6.0, worst = 1.0..2.0)),
+            tierCount = 3, bestItemLevel = 75, weight = 250
+        ),
+        ModifierTemplate(
+            code = "ADD_MAXIMUM_ENERGY",
+            source = PREFIX,
+            tags = listOf("energy"),
+            effects = listOf(effect(STOCK_ENERGY, ADD, best = 35.0..40.0, worst = 5.0..9.0)),
+            tierCount = 6, bestItemLevel = 80
+        ),
+
+        // ---------- SUFFIX: новые аффиксы 0.23.0 ----------
+        ModifierTemplate(
+            code = "ADD_FIRE_AND_CHAOS_RESISTANCES",
+            source = SUFFIX,
+            tags = listOf("resistance", "fire", "chaos", "hybrid"),
+            effects = listOf(
+                effect(STOCK_RESIST_FIRE, ADD, best = 16.0..20.0, worst = 5.0..8.0),
+                effect(STOCK_RESIST_CHAOS, ADD, best = 16.0..20.0, worst = 5.0..8.0),
+            ),
+            tierCount = 5, bestItemLevel = 81, weight = 500
+        ),
+        ModifierTemplate(
+            code = "ADD_COLD_AND_CHAOS_RESISTANCES",
+            source = SUFFIX,
+            tags = listOf("resistance", "cold", "chaos", "hybrid"),
+            effects = listOf(
+                effect(STOCK_RESIST_COLD, ADD, best = 16.0..20.0, worst = 5.0..8.0),
+                effect(STOCK_RESIST_CHAOS, ADD, best = 16.0..20.0, worst = 5.0..8.0),
+            ),
+            tierCount = 5, bestItemLevel = 81, weight = 500
+        ),
+        ModifierTemplate(
+            code = "ADD_LIGHTNING_AND_CHAOS_RESISTANCES",
+            source = SUFFIX,
+            tags = listOf("resistance", "lightning", "chaos", "hybrid"),
+            effects = listOf(
+                effect(STOCK_RESIST_LIGHTNING, ADD, best = 16.0..20.0, worst = 5.0..8.0),
+                effect(STOCK_RESIST_CHAOS, ADD, best = 16.0..20.0, worst = 5.0..8.0),
+            ),
+            tierCount = 5, bestItemLevel = 81, weight = 500
+        ),
+        ModifierTemplate(
+            code = "ADD_ALL_RESISTANCES",
+            source = SUFFIX,
+            tags = listOf("resistance", "chaos", "elemental", "hybrid"),
+            effects = listOf(
+                effect(STOCK_RESIST_ALL, ADD, best = 8.0..10.0, worst = 3.0..4.0),
+                effect(STOCK_RESIST_CHAOS, ADD, best = 8.0..10.0, worst = 3.0..4.0),
+            ),
+            tierCount = 4, bestItemLevel = 84, weight = 250
+        ),
+        ModifierTemplate(
+            code = "ADD_MANA_REGENERATION",
+            source = SUFFIX,
+            tags = listOf("mana", "regen"),
+            effects = listOf(effect(STOCK_MANA_REGEN, ADD, best = 6.0..8.0, worst = 1.0..2.0)),
+            tierCount = 5, bestItemLevel = 76
+        ),
+        ModifierTemplate(
+            code = "INCREASED_LIFE_REGENERATION",
+            source = SUFFIX,
+            tags = listOf("life", "regen"),
+            effects = listOf(effect(STOCK_HEALTH_REGEN, INCREASED, best = 15.0..20.0, worst = 3.0..5.0)),
+            tierCount = 5, bestItemLevel = 78
+        ),
+        ModifierTemplate(
+            code = "INCREASED_ENERGY_REGENERATION",
+            source = SUFFIX,
+            tags = listOf("energy", "regen"),
+            effects = listOf(effect(STOCK_ENERGY_REGEN, INCREASED, best = 30.0..35.0, worst = 8.0..12.0)),
+            tierCount = 5, bestItemLevel = 78
+        ),
+        ModifierTemplate(
+            code = "INCREASED_ITEM_QUANTITY",
+            source = SUFFIX,
+            tags = listOf("quantity"),
+            effects = listOf(effect(STOCK_QUANTITY, INCREASED, best = 8.0..10.0, worst = 2.0..3.0)),
+            tierCount = 4, bestItemLevel = 80, weight = 400
+        ),
+        ModifierTemplate(
+            code = "ADD_SPELL_LEECH",
+            source = SUFFIX,
+            tags = listOf("mana", "leech_spell"),
+            effects = listOf(effect(STOCK_LEECH_MAGICAL, ADD, best = 0.8..1.0, worst = 0.2..0.3)),
+            tierCount = 4, bestItemLevel = 79
+        ),
+        ModifierTemplate(
+            code = "ADD_CONSTITUTION",
+            source = SUFFIX,
+            tags = listOf("attribute", "constitution"),
+            effects = listOf(effect(STOCK_CONSTITUTION, ADD, best = 20.0..25.0, worst = 3.0..5.0)),
+            tierCount = 6, bestItemLevel = 80
+        ),
+
+        // ---------- INFLUENCE: модификаторы, которые открывает влияние ----------
+        // В пул шаблона не входят: их добавляет предмету его собственное влияние,
+        // см. ModifierRoller.influencePool. Группы у них свои, как в POE.
+        ModifierTemplate(
+            code = "SHAPER_INCREASED_MAXIMUM_LIFE",
+            source = PREFIX,
+            tags = listOf("life", "influence"),
+            effects = listOf(effect(STOCK_HEALTH, INCREASED, best = 8.0..10.0, worst = 4.0..5.0)),
+            tierCount = 3, bestItemLevel = 75, influence = SHAPER
+        ),
+        ModifierTemplate(
+            code = "SHAPER_INCREASED_MAXIMUM_ENERGY_SHIELD",
+            source = PREFIX,
+            tags = listOf("energy_shield", "influence"),
+            effects = listOf(effect(STOCK_ENERGY_SHIELD, INCREASED, best = 8.0..10.0, worst = 4.0..5.0)),
+            tierCount = 3, bestItemLevel = 75, influence = SHAPER
+        ),
+        ModifierTemplate(
+            code = "SHAPER_INCREASED_SPELL_DAMAGE",
+            source = PREFIX,
+            tags = listOf("caster", "damage", "influence"),
+            effects = listOf(effect(STOCK_ATTACK_MAGICAL, INCREASED, best = 20.0..25.0, worst = 10.0..14.0)),
+            tierCount = 4, bestItemLevel = 78, influence = SHAPER
+        ),
+        ModifierTemplate(
+            code = "SHAPER_INCREASED_AURA_EFFECT",
+            source = SUFFIX,
+            tags = listOf("aura", "influence"),
+            effects = listOf(effect(STOCK_AURA_EFFECT, INCREASED, best = 8.0..10.0, worst = 4.0..5.0)),
+            tierCount = 3, bestItemLevel = 80, weight = 500, influence = SHAPER
+        ),
+        ModifierTemplate(
+            code = "SHAPER_ADD_SPELL_POWER",
+            source = SUFFIX,
+            tags = listOf("caster", "influence"),
+            effects = listOf(effect(STOCK_CAST_STRENGTH, ADD, best = 15.0..20.0, worst = 5.0..8.0)),
+            tierCount = 4, bestItemLevel = 78, influence = SHAPER
+        ),
+        ModifierTemplate(
+            code = "ELDER_INCREASED_MAXIMUM_MANA",
+            source = PREFIX,
+            tags = listOf("mana", "influence"),
+            effects = listOf(effect(STOCK_MANA, INCREASED, best = 10.0..12.0, worst = 5.0..7.0)),
+            tierCount = 3, bestItemLevel = 75, influence = ELDER
+        ),
+        ModifierTemplate(
+            code = "ELDER_INCREASED_CRITICAL_DAMAGE",
+            source = PREFIX,
+            tags = listOf("critical", "damage", "influence"),
+            effects = listOf(effect(STOCK_CRITICAL_DAMAGE, INCREASED, best = 20.0..25.0, worst = 10.0..15.0)),
+            tierCount = 4, bestItemLevel = 78, influence = ELDER
+        ),
+        ModifierTemplate(
+            code = "ELDER_INCREASED_CURSE_EFFECT",
+            source = SUFFIX,
+            tags = listOf("curse", "influence"),
+            effects = listOf(effect(STOCK_CURSE_EFFECT, INCREASED, best = 8.0..10.0, worst = 4.0..5.0)),
+            tierCount = 3, bestItemLevel = 80, weight = 500, influence = ELDER
+        ),
+        ModifierTemplate(
+            code = "ELDER_ADD_CRITICAL_STRIKE_MULTIPLIER",
+            source = SUFFIX,
+            tags = listOf("critical", "influence"),
+            effects = listOf(effect(STOCK_CRITICAL_MULTIPLIER, ADD, best = 20.0..25.0, worst = 10.0..14.0)),
+            tierCount = 4, bestItemLevel = 78, influence = ELDER
+        ),
+        ModifierTemplate(
+            code = "ELDER_ADD_LEECH",
+            source = SUFFIX,
+            tags = listOf("leech", "influence"),
+            effects = listOf(effect(STOCK_LEECH_ALL, ADD, best = 0.8..1.0, worst = 0.3..0.5)),
+            tierCount = 4, bestItemLevel = 78, influence = ELDER
+        ),
+
+        // ---------- CRAFTED: модификаторы верстака ----------
+        // Их не роллит ни одна сфера - их ставит верстак за сферы, см. CraftingBench.
+        // Группа у каждого та же, что у выпадающего двойника: одно свойство дважды не встаёт.
+        ModifierTemplate(
+            code = "CRAFTED_ADD_MAXIMUM_LIFE",
+            source = PREFIX,
+            tags = listOf("life", "crafted"),
+            effects = listOf(effect(STOCK_HEALTH, ADD, best = 70.0..79.0, worst = 25.0..34.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_MAXIMUM_LIFE", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_MAXIMUM_MANA",
+            source = PREFIX,
+            tags = listOf("mana", "crafted"),
+            effects = listOf(effect(STOCK_MANA, ADD, best = 55.0..64.0, worst = 25.0..34.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_MAXIMUM_MANA", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_LOCAL_INCREASED_ARMOUR",
+            source = PREFIX, isLocal = true,
+            tags = listOf("armour", "defences", "crafted"),
+            effects = listOf(effect(STOCK_ARMOR, INCREASED, best = 60.0..69.0, worst = 20.0..29.0)),
+            tierCount = 3, bestItemLevel = 1, group = "LOCAL_INCREASED_ARMOUR", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_FIRE_RESISTANCE",
+            source = SUFFIX,
+            tags = listOf("resistance", "fire", "crafted"),
+            effects = listOf(effect(STOCK_RESIST_FIRE, ADD, best = 29.0..35.0, worst = 16.0..20.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_FIRE_RESISTANCE", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_COLD_RESISTANCE",
+            source = SUFFIX,
+            tags = listOf("resistance", "cold", "crafted"),
+            effects = listOf(effect(STOCK_RESIST_COLD, ADD, best = 29.0..35.0, worst = 16.0..20.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_COLD_RESISTANCE", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+            source = SUFFIX,
+            tags = listOf("resistance", "lightning", "crafted"),
+            effects = listOf(effect(STOCK_RESIST_LIGHTNING, ADD, best = 29.0..35.0, worst = 16.0..20.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_LIGHTNING_RESISTANCE", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_CHAOS_RESISTANCE",
+            source = SUFFIX,
+            tags = listOf("resistance", "chaos", "crafted"),
+            effects = listOf(effect(STOCK_RESIST_CHAOS, ADD, best = 16.0..20.0, worst = 6.0..10.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_CHAOS_RESISTANCE", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_STRENGTH",
+            source = SUFFIX,
+            tags = listOf("attribute", "strength", "crafted"),
+            effects = listOf(effect(STOCK_STRENGTH, ADD, best = 31.0..35.0, worst = 15.0..20.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_STRENGTH", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_DEXTERITY",
+            source = SUFFIX,
+            tags = listOf("attribute", "dexterity", "crafted"),
+            effects = listOf(effect(STOCK_AGILITY, ADD, best = 31.0..35.0, worst = 15.0..20.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_DEXTERITY", crafted = true
+        ),
+        ModifierTemplate(
+            code = "CRAFTED_ADD_INTELLIGENCE",
+            source = SUFFIX,
+            tags = listOf("attribute", "intelligence", "crafted"),
+            effects = listOf(effect(STOCK_INTELLECT, ADD, best = 31.0..35.0, worst = 15.0..20.0)),
+            tierCount = 3, bestItemLevel = 1, group = "ADD_INTELLIGENCE", crafted = true
         ),
 
         // ---------- IMPLICIT: встроенные модификаторы базы ----------

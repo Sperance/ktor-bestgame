@@ -1,5 +1,6 @@
 package features.logic.modifiers
 
+import application.enums.EnumInfluence
 import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
 import application.enums.IntEnumStat
@@ -94,17 +95,58 @@ data class ModifierDefinition(
     val isLocal: Boolean = false,
 
     /**
-     * Отображаемое имя.
-     */
-
-
-    /**
      * Дополнительные теги.
      */
     val tags: MutableList<String>? = null,
 
+    /**
+     * Группа модификатора, как в POE: на одном предмете не бывает двух модификаторов
+     * одной группы. Так ремесленный "+# к здоровью" не встаёт рядом с выпавшим, а
+     * два тира одного свойства не складываются. null - группа совпадает с кодом.
+     */
+    val group: String? = null,
+
+    /**
+     * Вес модификатора в пуле: чем больше, тем чаще он выпадает среди соседей.
+     * Выбор аффикса взвешенный, как у тиров, а не равновероятный.
+     */
+    val spawnWeight: Int = DEFAULT_SPAWN_WEIGHT,
+
+    /**
+     * Влияние, без которого модификатор не выпадает. null - обычный модификатор.
+     *
+     * Такие модификаторы не входят в пул шаблона: их открывает предмету
+     * его собственное влияние, см. ModifierRoller.
+     */
+    val influence: EnumInfluence? = null,
+
+    /**
+     * Ремесленный модификатор: его не роллит ни одна сфера, его ставит верстак.
+     * Занимает префикс или суффикс, как выпавший, и на предмете такой один.
+     */
+    val crafted: Boolean = false,
+
     override var _id: String = ObjectId().toHexString()
 ) : StockEntity {
+
+    companion object {
+        const val DEFAULT_SPAWN_WEIGHT = 1000
+    }
+
+    /**
+     * Группа, по которой модификаторы исключают друг друга на одном предмете.
+     */
+    fun family(): String = group ?: code
+
+    /**
+     * Занимает ли модификатор место префикса или суффикса.
+     */
+    fun isAffix(): Boolean = source == EnumModifierSource.PREFIX || source == EnumModifierSource.SUFFIX
+
+    /**
+     * Роллится ли модификатор сферами из пула шаблона: аффикс без влияния и не с верстака.
+     */
+    fun isNaturalAffix(): Boolean = isAffix() && influence == null && !crafted
 
     /**
      * Составной модификатор меняет больше одного стата за раз.

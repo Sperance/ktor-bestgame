@@ -19,4 +19,13 @@ object CurrencyExceptions {
     fun funExceptionNoImplicits(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no implicit modifiers", errorMethod, "CR_008", listOf(value.orEmpty()))
     fun funExceptionNotForItem(errorMethod: String, value: String? = "") = CurrencyException("Orb $value is not applied to an item", errorMethod, "CR_009", listOf(value.orEmpty()))
     fun funExceptionMirrored(errorMethod: String, value: String? = "") = CurrencyException("Item $value is mirrored and cannot be modified", errorMethod, "CR_010", listOf(value.orEmpty()))
+    fun funExceptionAlreadyFractured(errorMethod: String, value: String? = "") = CurrencyException("Item $value already has a fractured affix", errorMethod, "CR_011", listOf(value.orEmpty()))
+    fun funExceptionTooFewAffixes(errorMethod: String, value: String? = "") = CurrencyException("Item $value needs at least four affixes to fracture", errorMethod, "CR_012", listOf(value.orEmpty()))
+    fun funExceptionNotInfluenceable(errorMethod: String, value: String? = "") = CurrencyException("Item $value cannot carry an influence", errorMethod, "CR_013", listOf(value.orEmpty()))
+    fun funExceptionAlreadyInfluenced(errorMethod: String, value: String? = "") = CurrencyException("Item $value is already influenced", errorMethod, "CR_014", listOf(value.orEmpty()))
+    fun funExceptionAlreadyCrafted(errorMethod: String, value: String? = "") = CurrencyException("Item $value already has a crafted modifier", errorMethod, "CR_015", listOf(value.orEmpty()))
+    fun funExceptionGroupTaken(errorMethod: String, value: String? = "") = CurrencyException("Item $value already has a modifier of this group", errorMethod, "CR_016", listOf(value.orEmpty()))
+    fun funExceptionNoCrafted(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no crafted modifier", errorMethod, "CR_017", listOf(value.orEmpty()))
+    fun funExceptionRecipeNotFound(errorMethod: String, value: String? = "") = CurrencyException("Bench recipe $value not found", errorMethod, "CR_018", listOf(value.orEmpty()))
+    fun funExceptionRecipeSlot(errorMethod: String, value: String? = "") = CurrencyException("Bench recipe cannot be crafted on $value", errorMethod, "CR_019", listOf(value.orEmpty()))
 }

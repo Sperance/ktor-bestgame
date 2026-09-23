@@ -109,14 +109,22 @@ database. Keep new rules in that table rather than in a route.
 
 - `src/main/resources/locale/{index,ru,en}.json` — every string in the game. No document in Mongo
   has carried text since 0.14.0; entities store a `code`.
-- `src/main/resources/content/{equipment,items,currency}.json` — the catalogues, read by the
-  seeders. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
+- `src/main/resources/content/{equipment,items,currency,bench}.json` — the catalogues, read by the
+  seeders; `bench.json` is the crafting bench, one line per crafted modifier tier and its price in
+  orbs. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
   which is a rule rather than data.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 299 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level
   table, in code because they are rules.
 - `src/main/resources/icons/` — outline path data, no raster images.
+
+How a modifier lands on an item (since 0.23.0): `ModifierRoller.pickAffixes` draws by
+`spawnWeight` and never puts two modifiers of one `group` on an item. A template's pool holds
+only *natural* affixes; `influence` modifiers join the pool of an item that carries that influence
+(Shaper's Orb, Elder Orb), and `crafted` ones are placed only by `CraftingBench`. A `fractured`
+affix (Fracturing Orb) is untouched by every orb. A new crafted modifier needs a line in
+`bench.json` and shares its natural twin's group; `ModifierRollTest` checks both.
 
 A code derives its `_id` through `toStableObjectId()`, so reseeding never breaks a reference that
 a character already holds.
@@ -133,6 +141,6 @@ bash gradlew installDist    # what the client's CI job boots
 Tests that need a live MongoDB (`MongoTest`, `AuctionTest`, `CurrencyTest`, `StatsTest`,
 `PagingTest`, `SoftDeleteTest`) **fail** without one rather than skipping — in a bare container
 that is expected, and is not a signal that the change broke something. `LocalizationTest`,
-`SkillTreeTest` and `SeedDataTest` read resources only and must pass everywhere, which is why
+`SkillTreeTest`, `SeedDataTest` and `ModifierRollTest` read resources only and must pass everywhere, which is why
 they are the ones rule 1 leans on. Run a single one with
 `bash gradlew test --tests LocalizationTest`.

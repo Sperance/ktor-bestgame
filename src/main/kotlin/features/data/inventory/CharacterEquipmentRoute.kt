@@ -6,6 +6,8 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
+import features.logic.bench.CraftingBench
+import features.logic.currency.CurrencyOutcome
 import kotlinx.serialization.Serializable
 
 class CharacterEquipmentRoute(
@@ -33,16 +35,21 @@ class CharacterEquipmentRoute(
             val inventoryId = call.queryParam("inventoryId")
             val orbItemId = call.queryParam("orbItemId")
             val outcome = repo.applyOrb(characterId, inventoryId, orbItemId)
-            call.respond(
-                ApiMongoResponse.ok(
-                    CurrencyApplyResponse(
-                        messageKey = outcome.messageKey,
-                        messageArgs = outcome.messageArgs,
-                        item = outcome.item,
-                        created = outcome.created
-                    )
-                )
-            )
+            call.respond(ApiMongoResponse.ok(CurrencyApplyResponse.of(outcome)))
+        }
+        get("/bench") {
+            call.respond(ApiMongoResponse.ok(CraftingBench.recipes))
+        }
+        post("/craft") {
+            val characterId = call.queryParam("characterId")
+            val inventoryId = call.queryParam("inventoryId")
+            val recipe = call.queryParam("recipe")
+            call.respond(ApiMongoResponse.ok(CurrencyApplyResponse.of(repo.craft(characterId, inventoryId, recipe))))
+        }
+        post("/uncraft") {
+            val characterId = call.queryParam("characterId")
+            val inventoryId = call.queryParam("inventoryId")
+            call.respond(ApiMongoResponse.ok(CurrencyApplyResponse.of(repo.uncraft(characterId, inventoryId))))
         }
         post("/socket") {
             val characterId = call.queryParam("characterId")
@@ -73,7 +80,7 @@ class CharacterEquipmentRoute(
 }
 
 /**
- * Ответ на применение валютной сферы.
+ * Ответ на применение валютной сферы и на работу верстака.
  *
  * Текста здесь нет: клиент собирает фразу сам по [messageKey] и [messageArgs],
  * см. [features.logic.currency.CurrencyOutcome].
@@ -86,4 +93,8 @@ data class CurrencyApplyResponse(
     val messageArgs: List<String>,
     val item: CharacterEquipment,
     val created: CharacterEquipment? = null,
-)
+) {
+    companion object {
+        fun of(outcome: CurrencyOutcome) = CurrencyApplyResponse(outcome.messageKey, outcome.messageArgs, outcome.item, outcome.created)
+    }
+}
