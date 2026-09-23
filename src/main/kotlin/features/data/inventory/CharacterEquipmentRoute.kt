@@ -1,5 +1,6 @@
 package features.data.inventory
 
+import application.enums.EnumEquipmentType
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
 import io.ktor.server.response.respond
@@ -27,7 +28,9 @@ class CharacterEquipmentRoute(
         post("/equip") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
-            val data = repo.equip(characterId, inventoryId)
+            // Необязательный слот - какое из двух колец занять
+            val slot = call.request.queryParameters["slot"]?.let { name -> EnumEquipmentType.entries.firstOrNull { it.name == name } }
+            val data = repo.equip(characterId, inventoryId, slot)
             call.respond(ApiMongoResponse.ok(data))
         }
         post("/applyOrb") {

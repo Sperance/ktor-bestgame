@@ -19,7 +19,9 @@ import features.data.character.CharacterRepository
 import features.data.equipment.equipment_data.Equipment
 import extensions.toStableObjectId
 import features.data.character.Character
+import features.data.equipment.equipment_data.Weapon
 import features.logic.bench.CraftingBench
+import features.logic.equipment.EquipSlots
 import features.logic.currency.CurrencyApplier
 import features.logic.currency.CurrencyOutcome
 import features.logic.stats.EquipmentRequirements
@@ -172,9 +174,13 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     /**
-     * Надевает предмет в его слот, снимая предмет, который уже занимает этот слот.
+     * Надевает предмет в его слот, снимая то, что этот слот занимает, - и то, с чем
+     * он не носится: двуручное оружие освобождает обе руки, лук берёт колчан вместо щита.
+     * Правила слотов - в [EquipSlots].
+     *
+     * @param slot какое из двух колец занять; у остальных предметов не используется
      */
-    suspend fun equip(characterId: String, inventoryId: String): CharacterEquipment {
+    suspend fun equip(characterId: String, inventoryId: String, slot: EnumEquipmentType? = null): CharacterEquipment {
         val item = findById(inventoryId)
             ?: throw CharacterExceptions.funExceptionItemNotFound("equip", inventoryId)
         if (item.characterId != characterId)
@@ -193,15 +199,20 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
                 "${template.code}: " + unmet.joinToString { "${it.name} ${it.actual}/${it.required}" }
             )
 
-        return transactionExecute("equip") { session ->
-            findEquipped(characterId)
-                .filter { it.equippedSlot == template.slot && it._id != item._id }
-                .forEach { occupied ->
-                    occupied.equippedSlot = null
-                    update(occupied, session)
-                }
+        // Самоцвет в гнезде тоже "надет", но рук и колец не занимает
+        val worn = findEquipped(characterId).filter { it._id != item._id && it.socketCode == null }
+        val target = EquipSlots.target(template.slot, slot, worn.mapNotNull { it.equippedSlot })
+        val wornWeapon = worn.firstOrNull { it.equippedSlot == EnumEquipmentType.WEAPON_1H }
+            ?.let { (equipmentCache.findById(it.equipmentId) as? Weapon)?.weaponType }
+        val freed = EquipSlots.displaced(target, (template as? Weapon)?.weaponType, wornWeapon) + target
 
-            item.equippedSlot = template.slot
+        return transactionExecute("equip") { session ->
+            worn.filter { it.equippedSlot in freed }.forEach { occupied ->
+                occupied.equippedSlot = null
+                update(occupied, session)
+            }
+
+            item.equippedSlot = target
             update(item, session)
             item
         }

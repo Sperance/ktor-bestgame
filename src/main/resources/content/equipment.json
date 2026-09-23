@@ -3,7 +3,7 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "LEATHER_CAP",
+      "code": "IRON_HAT",
       "rarity": "COMMON",
       "itemLevel": 1,
       "requiredLevel": 1,
@@ -14,7 +14,7 @@
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            12.0
+            26.0
           ]
         }
       ],
@@ -24,73 +24,10 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "IRON_SKULLCAP",
-      "rarity": "COMMON",
-      "itemLevel": 5,
-      "requiredLevel": 5,
-      "requiredStrength": 10,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            15.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "HIDE_HELM",
-      "rarity": "COMMON",
-      "itemLevel": 10,
-      "requiredLevel": 10,
-      "requiredStrength": 20,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            18.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "CHAIN_COIF",
-      "rarity": "COMMON",
-      "itemLevel": 15,
-      "requiredLevel": 15,
-      "requiredStrength": 30,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            20.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "SALLET",
-      "rarity": "COMMON",
-      "itemLevel": 20,
-      "requiredLevel": 20,
+      "code": "BARBUTE_HELMET",
+      "rarity": "UNCOMMON",
+      "itemLevel": 18,
+      "requiredLevel": 18,
       "requiredStrength": 40,
       "requiredDexterity": 0,
       "requiredIntelligence": 0,
@@ -98,7 +35,7 @@
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            22.0
+            89.0
           ]
         }
       ],
@@ -108,60 +45,18 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "STEEL_HELM",
-      "rarity": "UNCOMMON",
-      "itemLevel": 25,
-      "requiredLevel": 25,
-      "requiredStrength": 50,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            28.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "KNIGHT_S_CASQUE",
-      "rarity": "UNCOMMON",
-      "itemLevel": 30,
-      "requiredLevel": 30,
-      "requiredStrength": 60,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            32.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "BRONZE_GREATHELM",
-      "rarity": "UNCOMMON",
+      "code": "GLADIATOR_HELMET",
+      "rarity": "RARE",
       "itemLevel": 35,
       "requiredLevel": 35,
-      "requiredStrength": 70,
+      "requiredStrength": 77,
       "requiredDexterity": 0,
       "requiredIntelligence": 0,
       "baseParams": [
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            36.0
+            151.0
           ]
         }
       ],
@@ -171,81 +66,18 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "VISORED_HELM",
-      "rarity": "UNCOMMON",
-      "itemLevel": 40,
-      "requiredLevel": 40,
-      "requiredStrength": 80,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            40.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "WARDEN_S_CROWN",
-      "rarity": "UNCOMMON",
-      "itemLevel": 45,
-      "requiredLevel": 45,
-      "requiredStrength": 90,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            44.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "HELM_OF_VALOR",
-      "rarity": "RARE",
-      "itemLevel": 50,
-      "requiredLevel": 50,
-      "requiredStrength": 100,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            52.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "BATTLE_MASK",
-      "rarity": "RARE",
+      "code": "SAMITE_HELMET",
+      "rarity": "EPIC",
       "itemLevel": 55,
       "requiredLevel": 55,
-      "requiredStrength": 110,
+      "requiredStrength": 121,
       "requiredDexterity": 0,
       "requiredIntelligence": 0,
       "baseParams": [
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            58.0
+            225.0
           ]
         }
       ],
@@ -255,18 +87,18 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "AEGIS_HELM",
-      "rarity": "RARE",
-      "itemLevel": 60,
-      "requiredLevel": 60,
-      "requiredStrength": 120,
+      "code": "ETERNAL_BURGONET",
+      "rarity": "MYTHICAL",
+      "itemLevel": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 152,
       "requiredDexterity": 0,
       "requiredIntelligence": 0,
       "baseParams": [
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            64.0
+            276.0
           ]
         }
       ],
@@ -276,18 +108,18 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "FURY_S_VISAGE",
-      "rarity": "RARE",
-      "itemLevel": 65,
-      "requiredLevel": 65,
-      "requiredStrength": 130,
-      "requiredDexterity": 0,
+      "code": "LEATHER_CAP",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 2,
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "IMPLICIT_EVASION_BASE",
           "values": [
-            70.0
+            26.0
           ]
         }
       ],
@@ -297,58 +129,16 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "WARRIOR_S_SALLET",
-      "rarity": "RARE",
-      "itemLevel": 70,
-      "requiredLevel": 70,
-      "requiredStrength": 140,
-      "requiredDexterity": 0,
+      "code": "LEATHER_HOOD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 44,
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            76.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "HELM_OF_JUSTICE",
-      "rarity": "EPIC",
-      "itemLevel": 75,
-      "requiredLevel": 75,
-      "requiredStrength": 150,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            88.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "CROWN_OF_GLORY",
-      "rarity": "EPIC",
-      "itemLevel": 80,
-      "requiredLevel": 80,
-      "requiredStrength": 160,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "IMPLICIT_EVASION_BASE",
           "values": [
             96.0
           ]
@@ -360,18 +150,18 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "HELM_OF_THE_MARTYR",
-      "rarity": "EPIC",
-      "itemLevel": 85,
-      "requiredLevel": 85,
-      "requiredStrength": 170,
-      "requiredDexterity": 0,
+      "code": "HUNTER_HOOD",
+      "rarity": "RARE",
+      "itemLevel": 32,
+      "requiredLevel": 32,
+      "requiredStrength": 0,
+      "requiredDexterity": 70,
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "IMPLICIT_EVASION_BASE",
           "values": [
-            104.0
+            140.0
           ]
         }
       ],
@@ -381,18 +171,18 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "RADIANT_CASQUE",
+      "code": "URSINE_PELT",
       "rarity": "EPIC",
-      "itemLevel": 90,
-      "requiredLevel": 90,
-      "requiredStrength": 180,
-      "requiredDexterity": 0,
+      "itemLevel": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 0,
+      "requiredDexterity": 121,
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "IMPLICIT_EVASION_BASE",
           "values": [
-            112.0
+            225.0
           ]
         }
       ],
@@ -402,129 +192,5329 @@
     {
       "type": "armor",
       "slot": "HELMET",
-      "code": "HELM_OF_ENLIGHTENMENT",
-      "rarity": "EPIC",
-      "itemLevel": 95,
-      "requiredLevel": 95,
-      "requiredStrength": 190,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
-      "baseParams": [
-        {
-          "code": "IMPLICIT_ARMOUR_BASE",
-          "values": [
-            120.0
-          ]
-        }
-      ],
-      "modifierPool": "helmet",
-      "extraModifiers": []
-    },
-    {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "AZURE_CROWN",
+      "code": "LION_PELT",
       "rarity": "MYTHICAL",
-      "itemLevel": 4,
-      "requiredLevel": 4,
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 154,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            280.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "VINE_CIRCLET",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            7.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "TORTURE_CAGE",
+      "rarity": "UNCOMMON",
+      "itemLevel": 17,
+      "requiredLevel": 17,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 37,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "BONE_CIRCLET",
+      "rarity": "RARE",
+      "itemLevel": 34,
+      "requiredLevel": 34,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 75,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            37.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "NECROMANCER_CIRCLET",
+      "rarity": "EPIC",
+      "itemLevel": 54,
+      "requiredLevel": 54,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 119,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            55.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HUBRIS_CIRCLET",
+      "rarity": "MYTHICAL",
+      "itemLevel": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 152,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            69.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "BATTERED_HELM",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            16.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "VISORED_SALLET",
+      "rarity": "UNCOMMON",
+      "itemLevel": 23,
+      "requiredLevel": 23,
+      "requiredStrength": 28,
+      "requiredDexterity": 28,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            64.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            64.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "SECUTOR_HELM",
+      "rarity": "RARE",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 43,
+      "requiredDexterity": 43,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            93.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            93.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "FLUTED_BASCINET",
+      "rarity": "EPIC",
+      "itemLevel": 58,
+      "requiredLevel": 58,
+      "requiredStrength": 70,
+      "requiredDexterity": 70,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            142.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            142.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "NIGHTMARE_BASCINET",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 80,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            161.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            161.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "RUSTED_COIF",
+      "rarity": "COMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 6,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 6,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            24.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            6.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "GREAT_HELMET",
+      "rarity": "UNCOMMON",
+      "itemLevel": 22,
+      "requiredLevel": 22,
+      "requiredStrength": 26,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 26,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            62.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "AVENTAIL_HELMET",
+      "rarity": "RARE",
+      "itemLevel": 37,
+      "requiredLevel": 37,
+      "requiredStrength": 44,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 44,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            95.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            24.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "MAGISTRATE_CROWN",
+      "rarity": "EPIC",
+      "itemLevel": 58,
+      "requiredLevel": 58,
+      "requiredStrength": 70,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 70,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            142.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            35.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "PRAETOR_CROWN",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 82,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 82,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            164.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            41.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "SCARE_MASK",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 1,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            16.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            4.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "IRON_MASK",
+      "rarity": "UNCOMMON",
+      "itemLevel": 17,
+      "requiredLevel": 17,
+      "requiredStrength": 0,
+      "requiredDexterity": 20,
+      "requiredIntelligence": 20,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            51.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            13.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "GOLDEN_MASK",
+      "rarity": "RARE",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 0,
+      "requiredDexterity": 42,
+      "requiredIntelligence": 42,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            91.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "REGICIDE_MASK",
+      "rarity": "EPIC",
+      "itemLevel": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 0,
+      "requiredDexterity": 62,
+      "requiredIntelligence": 62,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            128.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            32.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "DEICIDE_MASK",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 0,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 80,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            161.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            40.0
+          ]
+        }
+      ],
+      "modifierPool": "helmet",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "PLATE_VEST",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 2,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            52.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "CHESTPLATE",
+      "rarity": "UNCOMMON",
+      "itemLevel": 6,
+      "requiredLevel": 6,
+      "requiredStrength": 13,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            89.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "BRONZE_PLATE",
+      "rarity": "RARE",
+      "itemLevel": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 59,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            244.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "COLOSSEUM_PLATE",
+      "rarity": "EPIC",
+      "itemLevel": 51,
+      "requiredLevel": 51,
+      "requiredStrength": 112,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            420.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "GLORIOUS_PLATE",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 150,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            545.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SHABBY_JERKIN",
+      "rarity": "COMMON",
+      "itemLevel": 2,
+      "requiredLevel": 2,
+      "requiredStrength": 0,
+      "requiredDexterity": 4,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            60.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "STRAPPED_LEATHER",
+      "rarity": "UNCOMMON",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 0,
+      "requiredDexterity": 20,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            111.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "BUCKSKIN_TUNIC",
+      "rarity": "RARE",
+      "itemLevel": 18,
+      "requiredLevel": 18,
+      "requiredStrength": 0,
+      "requiredDexterity": 40,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            177.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "FRONTIER_LEATHER",
+      "rarity": "EPIC",
+      "itemLevel": 51,
+      "requiredLevel": 51,
+      "requiredStrength": 0,
+      "requiredDexterity": 112,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            420.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "ASSASSIN_S_GARB",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 150,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            545.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SIMPLE_ROBE",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SILKEN_VEST",
+      "rarity": "UNCOMMON",
+      "itemLevel": 11,
+      "requiredLevel": 11,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 24,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            43.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SCHOLAR_S_ROBE",
+      "rarity": "RARE",
+      "itemLevel": 18,
+      "requiredLevel": 18,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 40,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            60.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "NECROMANCER_SILKS",
+      "rarity": "EPIC",
+      "itemLevel": 48,
+      "requiredLevel": 48,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 106,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            135.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "VAAL_REGALIA",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 150,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            185.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SCALE_VEST",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            31.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            31.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "LIGHT_BRIGANDINE",
+      "rarity": "UNCOMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 10,
+      "requiredDexterity": 10,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            62.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            62.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "FULL_SCALE_ARMOUR",
+      "rarity": "RARE",
+      "itemLevel": 28,
+      "requiredLevel": 28,
+      "requiredStrength": 34,
+      "requiredDexterity": 34,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            151.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            151.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "DESERT_BRIGANDINE",
+      "rarity": "EPIC",
+      "itemLevel": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 62,
+      "requiredDexterity": 62,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            257.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            257.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "TRIUMPHANT_LAMELLAR",
+      "rarity": "MYTHICAL",
+      "itemLevel": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 83,
+      "requiredDexterity": 83,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            332.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            332.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "CHAINMAIL_VEST",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 1,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            31.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            11.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "CHAINMAIL_TUNIC",
+      "rarity": "UNCOMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 10,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 10,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            62.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "RINGMAIL_COAT",
+      "rarity": "RARE",
+      "itemLevel": 17,
+      "requiredLevel": 17,
+      "requiredStrength": 20,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 20,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            102.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            35.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "CONQUEST_CHAINMAIL",
+      "rarity": "EPIC",
+      "itemLevel": 51,
+      "requiredLevel": 51,
+      "requiredStrength": 61,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 61,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            252.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            86.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SAINTLY_CHAINMAIL",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 80,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 80,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            323.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            110.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "PADDED_VEST",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 1,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            31.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            11.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "OILED_VEST",
+      "rarity": "UNCOMMON",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 0,
+      "requiredDexterity": 11,
+      "requiredIntelligence": 11,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            67.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "PADDED_JACKET",
+      "rarity": "RARE",
+      "itemLevel": 18,
+      "requiredLevel": 18,
+      "requiredStrength": 0,
+      "requiredDexterity": 22,
+      "requiredIntelligence": 22,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            106.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            36.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SENTINEL_JACKET",
+      "rarity": "EPIC",
+      "itemLevel": 51,
+      "requiredLevel": 51,
+      "requiredStrength": 0,
+      "requiredDexterity": 61,
+      "requiredIntelligence": 61,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            252.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            86.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "CARNAL_ARMOUR",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 0,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 80,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            323.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            110.0
+          ]
+        }
+      ],
+      "modifierPool": "body",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "IRON_GAUNTLETS",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 2,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "PLATED_GAUNTLETS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 11,
+      "requiredLevel": 11,
+      "requiredStrength": 24,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            38.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "BRONZE_GAUNTLETS",
+      "rarity": "RARE",
+      "itemLevel": 23,
+      "requiredLevel": 23,
+      "requiredStrength": 51,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            65.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "STEEL_GAUNTLETS",
+      "rarity": "EPIC",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 77,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            92.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "TITAN_GAUNTLETS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 152,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            168.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "RAWHIDE_GLOVES",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 2,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "GOATHIDE_GLOVES",
+      "rarity": "UNCOMMON",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 0,
+      "requiredDexterity": 20,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            34.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "DEERSKIN_GLOVES",
+      "rarity": "RARE",
+      "itemLevel": 21,
+      "requiredLevel": 21,
+      "requiredStrength": 0,
+      "requiredDexterity": 46,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            61.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "EELSKIN_GLOVES",
+      "rarity": "EPIC",
+      "itemLevel": 33,
+      "requiredLevel": 33,
+      "requiredStrength": 0,
+      "requiredDexterity": 73,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            87.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "SLINK_GLOVES",
+      "rarity": "MYTHICAL",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 154,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            170.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "WOOL_GLOVES",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            4.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "VELVET_GLOVES",
+      "rarity": "UNCOMMON",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 26,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            11.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "SILK_GLOVES",
+      "rarity": "RARE",
+      "itemLevel": 25,
+      "requiredLevel": 25,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 55,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "EMBROIDERED_GLOVES",
+      "rarity": "EPIC",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 79,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            25.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "SORCERER_GLOVES",
+      "rarity": "MYTHICAL",
+      "itemLevel": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 152,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            44.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "FISHSCALE_GAUNTLETS",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            10.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "IRONSCALE_GAUNTLETS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 18,
+      "requiredDexterity": 18,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            28.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            28.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "BRONZESCALE_GAUNTLETS",
+      "rarity": "RARE",
+      "itemLevel": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 32,
+      "requiredDexterity": 32,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            44.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            44.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "STEELSCALE_GAUNTLETS",
+      "rarity": "EPIC",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 43,
+      "requiredDexterity": 43,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            56.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            56.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "DRAGONSCALE_GAUNTLETS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 80,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            98.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            98.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "CHAIN_GLOVES",
+      "rarity": "COMMON",
+      "itemLevel": 7,
+      "requiredLevel": 7,
       "requiredStrength": 8,
       "requiredDexterity": 0,
-      "requiredIntelligence": 0,
+      "requiredIntelligence": 8,
       "baseParams": [
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            138.0
+            18.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            5.0
           ]
         }
       ],
-      "modifierPool": "helmet",
+      "modifierPool": "gloves",
       "extraModifiers": []
     },
     {
       "type": "armor",
-      "slot": "HELMET",
-      "code": "HELM_OF_THE_TITAN",
+      "slot": "GLOVES",
+      "code": "RINGMAIL_GLOVES",
+      "rarity": "UNCOMMON",
+      "itemLevel": 19,
+      "requiredLevel": 19,
+      "requiredStrength": 23,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 23,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            34.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            9.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "MESH_GLOVES",
+      "rarity": "RARE",
+      "itemLevel": 32,
+      "requiredLevel": 32,
+      "requiredStrength": 38,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 38,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            51.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            14.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "RIVETED_GLOVES",
+      "rarity": "EPIC",
+      "itemLevel": 37,
+      "requiredLevel": 37,
+      "requiredStrength": 44,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 44,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            58.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "CRUSADER_GLOVES",
       "rarity": "MYTHICAL",
+      "itemLevel": 66,
+      "requiredLevel": 66,
+      "requiredStrength": 79,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 79,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            97.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            26.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "WRAPPED_MITTS",
+      "rarity": "COMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 6,
+      "requiredIntelligence": 6,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            4.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "STRAPPED_MITTS",
+      "rarity": "UNCOMMON",
       "itemLevel": 16,
       "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 19,
+      "requiredIntelligence": 19,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            8.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "CLASPED_MITTS",
+      "rarity": "RARE",
+      "itemLevel": 31,
+      "requiredLevel": 31,
+      "requiredStrength": 0,
+      "requiredDexterity": 37,
+      "requiredIntelligence": 37,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            50.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            13.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "TRAPPER_MITTS",
+      "rarity": "EPIC",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 0,
+      "requiredDexterity": 43,
+      "requiredIntelligence": 43,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            56.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "MURDER_MITTS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 0,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 80,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            98.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            26.0
+          ]
+        }
+      ],
+      "modifierPool": "gloves",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "IRON_GREAVES",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 2,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "STEEL_GREAVES",
+      "rarity": "UNCOMMON",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 20,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            34.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "PLATED_GREAVES",
+      "rarity": "RARE",
+      "itemLevel": 23,
+      "requiredLevel": 23,
+      "requiredStrength": 51,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            65.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "REINFORCED_GREAVES",
+      "rarity": "EPIC",
+      "itemLevel": 33,
+      "requiredLevel": 33,
+      "requiredStrength": 73,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            87.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "TITAN_GREAVES",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 150,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            166.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "RAWHIDE_BOOTS",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 2,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "GOATHIDE_BOOTS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 26,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            40.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "DEERSKIN_BOOTS",
+      "rarity": "RARE",
+      "itemLevel": 22,
+      "requiredLevel": 22,
+      "requiredStrength": 0,
+      "requiredDexterity": 48,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            63.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "NUBUCK_BOOTS",
+      "rarity": "EPIC",
+      "itemLevel": 34,
+      "requiredLevel": 34,
+      "requiredStrength": 0,
+      "requiredDexterity": 75,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            90.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "SLINK_BOOTS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 0,
+      "requiredDexterity": 152,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            168.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "WOOL_SHOES",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            4.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "VELVET_SLIPPERS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 20,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            9.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "SILK_SLIPPERS",
+      "rarity": "RARE",
+      "itemLevel": 22,
+      "requiredLevel": 22,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 48,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            17.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "SCHOLAR_BOOTS",
+      "rarity": "EPIC",
+      "itemLevel": 32,
+      "requiredLevel": 32,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 70,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "SORCERER_BOOTS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 147,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            43.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "LEATHERSCALE_BOOTS",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            10.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "IRONSCALE_BOOTS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 18,
+      "requiredLevel": 18,
+      "requiredStrength": 22,
+      "requiredDexterity": 22,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            32.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            32.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "BRONZESCALE_BOOTS",
+      "rarity": "RARE",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 36,
+      "requiredDexterity": 36,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            48.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            48.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "STEELSCALE_BOOTS",
+      "rarity": "EPIC",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 43,
+      "requiredDexterity": 43,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            56.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            56.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "DRAGONSCALE_BOOTS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 78,
+      "requiredDexterity": 78,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            95.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            95.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "CHAIN_BOOTS",
+      "rarity": "COMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 6,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 6,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            4.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "RINGMAIL_BOOTS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 13,
+      "requiredLevel": 13,
+      "requiredStrength": 16,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 16,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            26.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            7.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "MESH_BOOTS",
+      "rarity": "RARE",
+      "itemLevel": 28,
+      "requiredLevel": 28,
+      "requiredStrength": 34,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 34,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            46.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "RIVETED_BOOTS",
+      "rarity": "EPIC",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 43,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 43,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            56.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "CRUSADER_BOOTS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 64,
+      "requiredLevel": 64,
+      "requiredStrength": 77,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 77,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            94.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            25.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "WRAPPED_BOOTS",
+      "rarity": "COMMON",
+      "itemLevel": 6,
+      "requiredLevel": 6,
+      "requiredStrength": 0,
+      "requiredDexterity": 7,
+      "requiredIntelligence": 7,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            16.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            4.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "STRAPPED_BOOTS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 19,
+      "requiredIntelligence": 19,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            8.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "CLASPED_BOOTS",
+      "rarity": "RARE",
+      "itemLevel": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 0,
+      "requiredDexterity": 32,
+      "requiredIntelligence": 32,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            44.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "SHACKLED_BOOTS",
+      "rarity": "EPIC",
+      "itemLevel": 34,
+      "requiredLevel": 34,
+      "requiredStrength": 0,
+      "requiredDexterity": 41,
+      "requiredIntelligence": 41,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            54.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            14.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "MURDER_BOOTS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 0,
+      "requiredDexterity": 83,
+      "requiredIntelligence": 83,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            101.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            27.0
+          ]
+        }
+      ],
+      "modifierPool": "boots",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "SPLINTERED_TOWER_SHIELD",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 2,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            42.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "CORRODED_TOWER_SHIELD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 11,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            66.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "RAWHIDE_TOWER_SHIELD",
+      "rarity": "RARE",
+      "itemLevel": 11,
+      "requiredLevel": 11,
+      "requiredStrength": 24,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            101.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "BRONZE_TOWER_SHIELD",
+      "rarity": "EPIC",
+      "itemLevel": 34,
+      "requiredLevel": 34,
+      "requiredStrength": 75,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            237.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "EZOMYTE_TOWER_SHIELD",
+      "rarity": "MYTHICAL",
+      "itemLevel": 64,
+      "requiredLevel": 64,
+      "requiredStrength": 141,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            415.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            25.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "GOATHIDE_BUCKLER",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 2,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            42.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "PINE_BUCKLER",
+      "rarity": "UNCOMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 18,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            83.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "PAINTED_BUCKLER",
+      "rarity": "RARE",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 35,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            131.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "HAMMERED_BUCKLER",
+      "rarity": "EPIC",
+      "itemLevel": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 0,
+      "requiredDexterity": 59,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            196.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "IMPERIAL_BUCKLER",
+      "rarity": "MYTHICAL",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 154,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            450.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            26.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "TWIG_SPIRIT_SHIELD",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "YEW_SPIRIT_SHIELD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 20,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            22.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "BONE_SPIRIT_SHIELD",
+      "rarity": "RARE",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 33,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "TARNISHED_SPIRIT_SHIELD",
+      "rarity": "EPIC",
+      "itemLevel": 23,
+      "requiredLevel": 23,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 51,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            42.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "TITANIUM_SPIRIT_SHIELD",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 150,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            107.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            26.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "ROTTED_ROUND_SHIELD",
+      "rarity": "COMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 6,
+      "requiredDexterity": 6,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            39.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            39.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "FIR_ROUND_SHIELD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 14,
+      "requiredDexterity": 14,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            64.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            64.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "STUDDED_ROUND_SHIELD",
+      "rarity": "RARE",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 24,
+      "requiredDexterity": 24,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            93.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            93.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "SCARLET_ROUND_SHIELD",
+      "rarity": "EPIC",
+      "itemLevel": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 32,
+      "requiredDexterity": 32,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            117.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            117.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "CARDINAL_ROUND_SHIELD",
+      "rarity": "MYTHICAL",
+      "itemLevel": 66,
+      "requiredLevel": 66,
+      "requiredStrength": 79,
+      "requiredDexterity": 79,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            256.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            256.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            26.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "PLANK_KITE_SHIELD",
+      "rarity": "COMMON",
+      "itemLevel": 7,
+      "requiredLevel": 7,
+      "requiredStrength": 8,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 8,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            46.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            11.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "LINDEN_KITE_SHIELD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 13,
+      "requiredLevel": 13,
+      "requiredStrength": 16,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 16,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            68.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            17.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "REINFORCED_KITE_SHIELD",
+      "rarity": "RARE",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 24,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 24,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_ARMOUR_BASE",
+          "values": [
+            93.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            23.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "LAYERED_KITE_SHIELD",
+      "rarity": "EPIC",
+      "itemLevel": 27,
+      "requiredLevel": 27,
       "requiredStrength": 32,
       "requiredDexterity": 0,
-      "requiredIntelligence": 0,
+      "requiredIntelligence": 32,
       "baseParams": [
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            150.0
+            117.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            29.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
           ]
         }
       ],
-      "modifierPool": "helmet",
+      "modifierPool": "shield",
       "extraModifiers": []
     },
     {
       "type": "armor",
-      "slot": "HELMET",
-      "code": "DRAGONLORD_S_HELM",
+      "slot": "SHIELD",
+      "code": "MOSAIC_KITE_SHIELD",
       "rarity": "MYTHICAL",
-      "itemLevel": 72,
-      "requiredLevel": 72,
-      "requiredStrength": 144,
+      "itemLevel": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 78,
       "requiredDexterity": 0,
-      "requiredIntelligence": 0,
+      "requiredIntelligence": 78,
       "baseParams": [
         {
           "code": "IMPLICIT_ARMOUR_BASE",
           "values": [
-            162.0
+            252.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            62.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            26.0
           ]
         }
       ],
-      "modifierPool": "helmet",
+      "modifierPool": "shield",
       "extraModifiers": []
     },
     {
       "type": "armor",
-      "slot": "HELMET",
-      "code": "HELM_OF_IMMORTALITY",
-      "rarity": "MYTHICAL",
-      "itemLevel": 44,
-      "requiredLevel": 44,
-      "requiredStrength": 88,
-      "requiredDexterity": 0,
-      "requiredIntelligence": 0,
+      "slot": "SHIELD",
+      "code": "SPIKED_BUNDLE",
+      "rarity": "COMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 6,
+      "requiredIntelligence": 6,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "IMPLICIT_EVASION_BASE",
           "values": [
-            174.0
+            39.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            20.0
           ]
         }
       ],
-      "modifierPool": "helmet",
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "DRIFTWOOD_SPIKED_SHIELD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 14,
+      "requiredIntelligence": 14,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            64.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            16.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            21.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "ALLOYED_SPIKED_SHIELD",
+      "rarity": "RARE",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 24,
+      "requiredIntelligence": 24,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            93.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            23.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "BURNISHED_SPIKED_SHIELD",
+      "rarity": "EPIC",
+      "itemLevel": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 0,
+      "requiredDexterity": 32,
+      "requiredIntelligence": 32,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            117.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            29.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "HARMONIC_SPIKED_SHIELD",
+      "rarity": "MYTHICAL",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 84,
+      "requiredIntelligence": 84,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            270.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "values": [
+            66.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "values": [
+            26.0
+          ]
+        }
+      ],
+      "modifierPool": "shield",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "RUSTED_SWORD",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 0,
+      "weaponType": "SWORD",
+      "durability": 101,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            7.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "COPPER_SWORD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 6,
+      "requiredDexterity": 6,
+      "requiredIntelligence": 0,
+      "weaponType": "SWORD",
+      "durability": 105,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            11.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "BROAD_SWORD",
+      "rarity": "RARE",
+      "itemLevel": 23,
+      "requiredLevel": 23,
+      "requiredStrength": 28,
+      "requiredDexterity": 28,
+      "requiredIntelligence": 0,
+      "weaponType": "SWORD",
+      "durability": 123,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            29.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "GEMSTONE_SWORD",
+      "rarity": "EPIC",
+      "itemLevel": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 62,
+      "requiredDexterity": 62,
+      "requiredIntelligence": 0,
+      "weaponType": "SWORD",
+      "durability": 152,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            57.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "ETERNAL_SWORD",
+      "rarity": "MYTHICAL",
+      "itemLevel": 66,
+      "requiredLevel": 66,
+      "requiredStrength": 79,
+      "requiredDexterity": 79,
+      "requiredIntelligence": 0,
+      "weaponType": "SWORD",
+      "durability": 166,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            71.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "RUSTED_SPIKE",
+      "rarity": "COMMON",
+      "itemLevel": 3,
+      "requiredLevel": 3,
+      "requiredStrength": 0,
+      "requiredDexterity": 7,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 103,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": [
+        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "WHALEBONE_RAPIER",
+      "rarity": "UNCOMMON",
+      "itemLevel": 7,
+      "requiredLevel": 7,
+      "requiredStrength": 0,
+      "requiredDexterity": 15,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 107,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            11.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": [
+        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "BASKET_RAPIER",
+      "rarity": "RARE",
+      "itemLevel": 17,
+      "requiredLevel": 17,
+      "requiredStrength": 0,
+      "requiredDexterity": 37,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 117,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": [
+        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "ANTIQUE_RAPIER",
+      "rarity": "EPIC",
+      "itemLevel": 26,
+      "requiredLevel": 26,
+      "requiredStrength": 0,
+      "requiredDexterity": 57,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 126,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            28.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": [
+        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "JEWELLED_FOIL",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 150,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 168,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            64.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": [
+        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "RUSTED_HATCHET",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 0,
+      "weaponType": "AXE",
+      "durability": 101,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "JADE_HATCHET",
+      "rarity": "UNCOMMON",
+      "itemLevel": 6,
+      "requiredLevel": 6,
+      "requiredStrength": 7,
+      "requiredDexterity": 7,
+      "requiredIntelligence": 0,
+      "weaponType": "AXE",
+      "durability": 106,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            14.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "BOARDING_AXE",
+      "rarity": "RARE",
+      "itemLevel": 11,
+      "requiredLevel": 11,
+      "requiredStrength": 13,
+      "requiredDexterity": 13,
+      "requiredIntelligence": 0,
+      "weaponType": "AXE",
+      "durability": 111,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            19.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "VAAL_HATCHET",
+      "rarity": "EPIC",
+      "itemLevel": 62,
+      "requiredLevel": 62,
+      "requiredStrength": 74,
+      "requiredDexterity": 74,
+      "requiredIntelligence": 0,
+      "weaponType": "AXE",
+      "durability": 162,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            76.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "RUNIC_HATCHET",
+      "rarity": "MYTHICAL",
+      "itemLevel": 71,
+      "requiredLevel": 71,
+      "requiredStrength": 85,
+      "requiredDexterity": 85,
+      "requiredIntelligence": 0,
+      "weaponType": "AXE",
+      "durability": 171,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            85.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "DRIFTWOOD_WAND",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "weaponType": "WAND",
+      "durability": 101,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            3.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "wand",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "GOAT_S_HORN",
+      "rarity": "UNCOMMON",
+      "itemLevel": 6,
+      "requiredLevel": 6,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 13,
+      "weaponType": "WAND",
+      "durability": 106,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            6.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "wand",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "CARVED_WAND",
+      "rarity": "RARE",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 26,
+      "weaponType": "WAND",
+      "durability": 112,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "wand",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "IMBUED_WAND",
+      "rarity": "EPIC",
+      "itemLevel": 59,
+      "requiredLevel": 59,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 130,
+      "weaponType": "WAND",
+      "durability": 159,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "wand",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "OPAL_WAND",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 150,
+      "weaponType": "WAND",
+      "durability": 168,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            34.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "wand",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "CRUDE_BOW",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 2,
+      "requiredIntelligence": 0,
+      "weaponType": "BOW",
+      "durability": 101,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            9.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "bow",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "SHORT_BOW",
+      "rarity": "UNCOMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 11,
+      "requiredIntelligence": 0,
+      "weaponType": "BOW",
+      "durability": 105,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "bow",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "RECURVE_BOW",
+      "rarity": "RARE",
+      "itemLevel": 18,
+      "requiredLevel": 18,
+      "requiredStrength": 0,
+      "requiredDexterity": 40,
+      "requiredIntelligence": 0,
+      "weaponType": "BOW",
+      "durability": 118,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            32.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "bow",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "THICKET_BOW",
+      "rarity": "EPIC",
+      "itemLevel": 56,
+      "requiredLevel": 56,
+      "requiredStrength": 0,
+      "requiredDexterity": 123,
+      "requiredIntelligence": 0,
+      "weaponType": "BOW",
+      "durability": 156,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            82.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "bow",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "HARBINGER_BOW",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 150,
+      "requiredIntelligence": 0,
+      "weaponType": "BOW",
+      "durability": 168,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            97.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "modifierPool": "bow",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "CORRODED_BLADE",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 1,
+      "requiredDexterity": 1,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 101,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "LONGSWORD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 10,
+      "requiredDexterity": 10,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 108,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            31.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "BASTARD_SWORD",
+      "rarity": "RARE",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 14,
+      "requiredDexterity": 14,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 112,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            39.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "TWO_HANDED_SWORD",
+      "rarity": "EPIC",
+      "itemLevel": 17,
+      "requiredLevel": 17,
+      "requiredStrength": 20,
+      "requiredDexterity": 20,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 117,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            50.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "LION_SWORD",
+      "rarity": "MYTHICAL",
+      "itemLevel": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 78,
+      "requiredDexterity": 78,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 165,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            154.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "ETCHED_GREATSWORD",
+      "rarity": "COMMON",
+      "itemLevel": 22,
+      "requiredLevel": 22,
+      "requiredStrength": 26,
+      "requiredDexterity": 26,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLESWORD",
+      "durability": 122,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            65.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "ORNATE_SWORD",
+      "rarity": "UNCOMMON",
+      "itemLevel": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 32,
+      "requiredDexterity": 32,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLESWORD",
+      "durability": 127,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            76.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "BUTCHER_SWORD",
+      "rarity": "RARE",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredDexterity": 48,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLESWORD",
+      "durability": 140,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            106.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "VAAL_GREATSWORD",
+      "rarity": "EPIC",
+      "itemLevel": 64,
+      "requiredLevel": 64,
+      "requiredStrength": 77,
+      "requiredDexterity": 77,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLESWORD",
+      "durability": 164,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            161.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "INFERNAL_SWORD",
+      "rarity": "MYTHICAL",
+      "itemLevel": 67,
+      "requiredLevel": 67,
+      "requiredStrength": 80,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLESWORD",
+      "durability": 167,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            168.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "STONE_AXE",
+      "rarity": "COMMON",
+      "itemLevel": 4,
+      "requiredLevel": 4,
+      "requiredStrength": 9,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 104,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "JADE_CHOPPER",
+      "rarity": "UNCOMMON",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 20,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 109,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            37.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "WOODSPLITTER",
+      "rarity": "RARE",
+      "itemLevel": 13,
+      "requiredLevel": 13,
+      "requiredStrength": 29,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 113,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            46.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "DESPOT_AXE",
+      "rarity": "EPIC",
+      "itemLevel": 66,
+      "requiredLevel": 66,
+      "requiredStrength": 145,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 166,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            175.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "VOID_AXE",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 150,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 168,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "values": [
+            180.0
+          ]
+        },
+        {
+          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "modifierPool": "weapon",
+      "extraModifiers": []
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "IRON_RING",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_PHYSICAL_DAMAGE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "CORAL_RING",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_MAXIMUM_LIFE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "PAUA_RING",
+      "rarity": "UNCOMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_MAXIMUM_MANA"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "RUBY_RING",
+      "rarity": "UNCOMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_FIRE_RESISTANCE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "SAPPHIRE_RING",
+      "rarity": "RARE",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_COLD_RESISTANCE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "TOPAZ_RING",
+      "rarity": "RARE",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_LIGHTNING_RESISTANCE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "MOONSTONE_RING",
+      "rarity": "EPIC",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_ENERGY_SHIELD"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "DIAMOND_RING",
+      "rarity": "EPIC",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_CRITICAL_CHANCE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "TWO_STONE_RING",
+      "rarity": "MYTHICAL",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_ALL_ELEMENTAL_RESISTANCES"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "AMETHYST_RING",
+      "rarity": "MYTHICAL",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "ring",
+      "extraModifiers": [
+        "IMPLICIT_ADD_CHAOS_RESISTANCE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "CORAL_AMULET",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "amulet",
+      "extraModifiers": [
+        "IMPLICIT_ADD_LIFE_REGENERATION"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "PAUA_AMULET",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "amulet",
+      "extraModifiers": [
+        "IMPLICIT_ADD_MAXIMUM_MANA"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "AMBER_AMULET",
+      "rarity": "UNCOMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "amulet",
+      "extraModifiers": [
+        "IMPLICIT_ADD_STRENGTH"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "JADE_AMULET",
+      "rarity": "RARE",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "amulet",
+      "extraModifiers": [
+        "IMPLICIT_ADD_DEXTERITY"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "LAPIS_AMULET",
+      "rarity": "RARE",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "amulet",
+      "extraModifiers": [
+        "IMPLICIT_ADD_INTELLIGENCE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "GOLD_AMULET",
+      "rarity": "EPIC",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "amulet",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_ITEM_RARITY"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "ONYX_AMULET",
+      "rarity": "MYTHICAL",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "amulet",
+      "extraModifiers": [
+        "IMPLICIT_ADD_ALL_ATTRIBUTES"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "CHAIN_BELT",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "belt",
+      "extraModifiers": [
+        "IMPLICIT_ADD_ENERGY_SHIELD"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "RUSTIC_SASH",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "belt",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_PHYSICAL_DAMAGE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "HEAVY_BELT",
+      "rarity": "UNCOMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "belt",
+      "extraModifiers": [
+        "IMPLICIT_ADD_STRENGTH"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "LEATHER_BELT",
+      "rarity": "RARE",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "belt",
+      "extraModifiers": [
+        "IMPLICIT_ADD_MAXIMUM_LIFE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "STUDDED_BELT",
+      "rarity": "EPIC",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "belt",
+      "extraModifiers": [
+        "IMPLICIT_ADD_STUN_THRESHOLD"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "VANGUARD_BELT",
+      "rarity": "MYTHICAL",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "belt",
       "extraModifiers": [
         "IMPLICIT_ADD_ARMOUR"
       ]
     },
     {
-      "type": "armor",
-      "slot": "HELMET",
-      "code": "LEGENDARY_CASQUE",
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "TWO_POINT_ARROW_QUIVER",
+      "rarity": "COMMON",
+      "itemLevel": 4,
+      "requiredLevel": 4,
+      "requiredStrength": 0,
+      "requiredDexterity": 6,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "quiver",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_CRITICAL_CHANCE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "SERRATED_ARROW_QUIVER",
+      "rarity": "UNCOMMON",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 8,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "quiver",
+      "extraModifiers": [
+        "IMPLICIT_ADD_PHYSICAL_DAMAGE"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "SHARKTOOTH_ARROW_QUIVER",
+      "rarity": "RARE",
+      "itemLevel": 10,
+      "requiredLevel": 10,
+      "requiredStrength": 0,
+      "requiredDexterity": 15,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "quiver",
+      "extraModifiers": [
+        "IMPLICIT_ADD_LIFE_LEECH"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "BLUNT_ARROW_QUIVER",
+      "rarity": "EPIC",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 24,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "quiver",
+      "extraModifiers": [
+        "IMPLICIT_ADD_STUN_THRESHOLD"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "FIRE_ARROW_QUIVER",
       "rarity": "MYTHICAL",
-      "itemLevel": 90,
-      "requiredLevel": 90,
-      "requiredStrength": 180,
-      "requiredDexterity": 0,
+      "itemLevel": 22,
+      "requiredLevel": 22,
+      "requiredStrength": 0,
+      "requiredDexterity": 33,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPool": "quiver",
+      "extraModifiers": [
+        "IMPLICIT_ADD_FIRE_DAMAGE"
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "TATTERED_WINGS",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 2,
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "IMPLICIT_EVASION_BASE",
           "values": [
-            186.0
+            19.0
           ]
         }
       ],
-      "modifierPool": "helmet",
+      "modifierPool": "wings",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "FEATHERED_WINGS",
+      "rarity": "UNCOMMON",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 0,
+      "requiredDexterity": 22,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            55.0
+          ]
+        }
+      ],
+      "modifierPool": "wings",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_MOVEMENT_SPEED"
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "LEATHERN_WINGS",
+      "rarity": "RARE",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 45,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            95.0
+          ]
+        }
+      ],
+      "modifierPool": "wings",
+      "extraModifiers": []
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "SERAPHIC_WINGS",
+      "rarity": "EPIC",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 0,
+      "requiredDexterity": 75,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            147.0
+          ]
+        }
+      ],
+      "modifierPool": "wings",
+      "extraModifiers": [
+        "IMPLICIT_INCREASED_MOVEMENT_SPEED"
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "VOID_WINGS",
+      "rarity": "MYTHICAL",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 102,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "IMPLICIT_EVASION_BASE",
+          "values": [
+            195.0
+          ]
+        }
+      ],
+      "modifierPool": "wings",
       "extraModifiers": []
     },
     {

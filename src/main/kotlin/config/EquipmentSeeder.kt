@@ -21,11 +21,9 @@ import features.logic.modifiers.ModifierDefinition
  * Шаблоны ссылаются на модификаторы по их _id, поэтому сидер создаётся
  * уже с сохранёнными описаниями модификаторов.
  *
- * Пул модификаторов, как в POE, задаётся классом предмета, а не конкретной
- * базой: любой шлем может выролить любой шлемный модификатор.
- * Обычные шаблоны лежат данными в `resources/content/equipment.json` - см.
- * [ContentResource]; здесь остаются только пулы, потому что теги, из которых пул
- * собирается, живут в описаниях модификаторов, а те остались в Kotlin.
+ * Пул модификаторов, как в POE, задаётся слотом (`content/pools.json`), а локальные
+ * аффиксы защиты и урона - самой базой: броневой шлем роллит броню, шлем уклонения -
+ * уклонение. Шаблоны лежат данными в `resources/content/equipment.json` - см. [ContentResource].
  *
  * Уникальные предметы живут в [UniqueEquipmentSeeder] и в файл не уехали: каждая
  * уникалка порождает собственные описания модификаторов с диапазонами тиров,
@@ -40,6 +38,11 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
          * Файл с обычными шаблонами экипировки.
          */
         const val FILE = "equipment.json"
+
+        /**
+         * Файл с пулами модификаторов по слотам.
+         */
+        const val POOLS_FILE = "pools.json"
     }
 
     private val json = Json { ignoreUnknownKeys = true }
@@ -62,24 +65,30 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
         byCode[code]?._id ?: throw ModifierExceptions.funExceptionCodeNotFound("mod", code)
 
     /**
-     * Пул роллящихся модификаторов, у которых есть хотя бы один из тегов.
+     * Именованные пулы из `content/pools.json`: пул слота, как в POE, - кольцо не роллит
+     * скорость передвижения, а сапоги не роллят урон от заклинаний. С 0.24.0 это список
+     * кодов, а не теги: у каждого слота свой набор, и файл читается глазами.
      */
-    private fun pool(vararg anyTags: String): MutableList<String> =
-        rollable.filter { definition -> definition.tags?.any { it in anyTags } == true }
-            .mapTo(mutableListOf()) { it._id }
+    private val pools: Map<String, List<String>> by lazy {
+        json.decodeFromString(PoolsDocument.serializer(), ContentResource.read(POOLS_FILE)).pools
+    }
+
+    private fun namedPool(name: String): MutableList<String> =
+        pools[name]?.mapTo(mutableListOf(), ::mod)
+            ?: throw EquipmentExceptions.funException("namedPool", "Unknown modifier pool: $name")
 
     /**
-     * Именованные пулы: файл шаблона называет пул словом, а какие теги за ним стоят,
-     * решает код - теги живут в описаниях модификаторов, а они остались в Kotlin.
+     * Локальные аффиксы, которые подходят базе: каждый стат, который они меняют, у базы есть.
+     *
+     * Так броня роллит только броню, гибрид брони и уклонения - обе и их смесь, а оружие -
+     * свой физический урон и скорость атаки. Пул слота этого не знает: тип защиты задаёт база.
      */
-    private fun namedPool(name: String): MutableList<String> = when (name) {
-        "helmet" -> pool("life", "mana", "energy_shield", "armour", "evasion", "resistance", "attribute", "regen", "rarity", "gold",
-            "stun", "energy", "experience", "quantity")
-        // Самоцвет не носят на теле, поэтому и локальной защиты у него нет:
-        // только то, что работает на персонажа целиком. Золото как раз такое.
-        "jewel" -> pool("life", "mana", "attribute", "resistance", "regen", "gold")
-        else -> throw EquipmentExceptions.funException("namedPool", "Unknown modifier pool: $name")
+    private fun localPool(base: List<Modifier>): List<String> {
+        val stats = base.flatMap { modifier -> byId[modifier.modifierId]?.stats().orEmpty() }.toSet()
+        return rollable.filter { it.isLocal && it.stats().all { stat -> stat in stats } }.map { it._id }
     }
+
+    private val byId: Map<String, ModifierDefinition> = definitions.associateBy { it._id }
 
     fun seed(): ArrayList<Equipment> {
         val list = ArrayList<Equipment>()
@@ -122,16 +131,19 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
         val weaponType: EnumEquipmentWeapon? = null,
         val durability: Int = 100,
         val baseParams: List<BaseParam> = emptyList(),
-        val modifierPool: String = "helmet",
+        val modifierPool: String,
         val extraModifiers: List<String> = emptyList(),
     )
+
+    @Serializable
+    private data class PoolsDocument(val pools: Map<String, List<String>> = emptyMap())
 
     @Serializable
     private data class EquipmentDocument(val equipment: List<EquipmentRecord> = emptyList())
 
     private fun EquipmentRecord.toEquipment(): Equipment {
-        val modifierIds = namedPool(modifierPool).apply { extraModifiers.forEach { add(mod(it)) } }
         val base = baseParams.mapTo(mutableListOf()) { Modifier.passive(mod(it.code), it.values) }
+        val modifierIds = (namedPool(modifierPool) + localPool(base) + extraModifiers.map(::mod)).distinct().toMutableList()
 
         return when (type) {
             "weapon" -> Weapon(

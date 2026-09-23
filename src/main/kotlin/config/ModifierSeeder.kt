@@ -808,6 +808,180 @@ object ModifierSeeder {
             tierCount = 3, bestItemLevel = 60
         ),
 
+        // ---------- IMPLICIT 0.24.0: врождённые модификаторы баз PoE ----------
+        // Роллятся на каждой копии по её item level; Blessed Orb перекатывает их значения.
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_PHYSICAL_DAMAGE",
+            source = IMPLICIT,
+            tags = listOf("physical", "attack", "implicit"),
+            effects = listOf(effect(STOCK_ATTACK_PHYSICAL, ADD, best = 4.0..6.0, worst = 1.0..2.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_FIRE_DAMAGE",
+            source = IMPLICIT,
+            tags = listOf("fire", "attack", "implicit"),
+            effects = listOf(effect(STOCK_ATTACK_FIRE, ADD, best = 8.0..12.0, worst = 2.0..4.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_MAXIMUM_MANA",
+            source = IMPLICIT,
+            tags = listOf("mana", "implicit"),
+            effects = listOf(effect(STOCK_MANA, ADD, best = 30.0..35.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_FIRE_RESISTANCE",
+            source = IMPLICIT,
+            tags = listOf("resistance", "fire", "implicit"),
+            effects = listOf(effect(STOCK_RESIST_FIRE, ADD, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_COLD_RESISTANCE",
+            source = IMPLICIT,
+            tags = listOf("resistance", "cold", "implicit"),
+            effects = listOf(effect(STOCK_RESIST_COLD, ADD, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_LIGHTNING_RESISTANCE",
+            source = IMPLICIT,
+            tags = listOf("resistance", "lightning", "implicit"),
+            effects = listOf(effect(STOCK_RESIST_LIGHTNING, ADD, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_CHAOS_RESISTANCE",
+            source = IMPLICIT,
+            tags = listOf("resistance", "chaos", "implicit"),
+            effects = listOf(effect(STOCK_RESIST_CHAOS, ADD, best = 17.0..23.0, worst = 7.0..10.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_ENERGY_SHIELD",
+            source = IMPLICIT,
+            tags = listOf("energy_shield", "implicit"),
+            effects = listOf(effect(STOCK_ENERGY_SHIELD, ADD, best = 15.0..20.0, worst = 6.0..9.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_INCREASED_CRITICAL_CHANCE",
+            source = IMPLICIT,
+            tags = listOf("critical", "implicit"),
+            effects = listOf(effect(STOCK_CRITICAL_CHANCE, INCREASED, best = 20.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_CRITICAL_MULTIPLIER",
+            source = IMPLICIT,
+            tags = listOf("critical", "implicit"),
+            effects = listOf(effect(STOCK_CRITICAL_MULTIPLIER, ADD, best = 20.0..25.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_LIFE_REGENERATION",
+            source = IMPLICIT,
+            tags = listOf("life", "regen", "implicit"),
+            effects = listOf(effect(STOCK_HEALTH_REGEN, ADD, best = 3.0..4.0, worst = 1.0..2.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_STRENGTH",
+            source = IMPLICIT,
+            tags = listOf("attribute", "strength", "implicit"),
+            effects = listOf(effect(STOCK_STRENGTH, ADD, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_DEXTERITY",
+            source = IMPLICIT,
+            tags = listOf("attribute", "dexterity", "implicit"),
+            effects = listOf(effect(STOCK_AGILITY, ADD, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_INTELLIGENCE",
+            source = IMPLICIT,
+            tags = listOf("attribute", "intelligence", "implicit"),
+            effects = listOf(effect(STOCK_INTELLECT, ADD, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_INCREASED_ITEM_RARITY",
+            source = IMPLICIT,
+            tags = listOf("rarity", "implicit"),
+            effects = listOf(effect(STOCK_RARITY, INCREASED, best = 20.0..30.0, worst = 12.0..16.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_INCREASED_PHYSICAL_DAMAGE",
+            source = IMPLICIT,
+            tags = listOf("physical", "damage", "implicit"),
+            effects = listOf(effect(STOCK_ATTACK_PHYSICAL, INCREASED, best = 18.0..24.0, worst = 8.0..12.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_STUN_THRESHOLD",
+            source = IMPLICIT,
+            tags = listOf("stun", "implicit"),
+            effects = listOf(effect(STOCK_STUN_THRESHOLD, ADD, best = 60.0..80.0, worst = 20.0..30.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_ADD_LIFE_LEECH",
+            source = IMPLICIT,
+            tags = listOf("leech", "physical", "implicit"),
+            effects = listOf(effect(STOCK_LEECH_PHYSICAL, ADD, best = 0.6..0.8, worst = 0.2..0.4)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_INCREASED_SPELL_DAMAGE",
+            source = IMPLICIT,
+            tags = listOf("caster", "damage", "implicit"),
+            effects = listOf(effect(STOCK_ATTACK_MAGICAL, INCREASED, best = 15.0..20.0, worst = 8.0..10.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_INCREASED_MOVEMENT_SPEED",
+            source = IMPLICIT,
+            tags = listOf("speed", "implicit"),
+            effects = listOf(effect(STOCK_MOVEMENT_SPEED, INCREASED, best = 8.0..10.0, worst = 3.0..5.0)),
+            tierCount = 3, bestItemLevel = 60
+        ),
+        ModifierTemplate(
+            code = "IMPLICIT_BLOCK_CHANCE_BASE",
+            source = IMPLICIT, isLocal = true,
+            tags = listOf("block", "defences", "implicit", "base"),
+            effects = listOf(effect(STOCK_BLOCK_CHANCE, ADD, best = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+
+        // ---------- LOCAL: стихийный урон оружия ----------
+        // Складывается внутри оружия, как его физический урон, и наружу уходит уже суммой.
+        ModifierTemplate(
+            code = "LOCAL_ADD_FIRE_DAMAGE",
+            source = PREFIX, isLocal = true,
+            tags = listOf("fire", "elemental", "damage", "attack", "weapon"),
+            effects = listOf(effect(STOCK_ATTACK_FIRE, ADD, best = 45.0..80.0, worst = 2.0..4.0)),
+            tierCount = 8, bestItemLevel = 82
+        ),
+        ModifierTemplate(
+            code = "LOCAL_ADD_COLD_DAMAGE",
+            source = PREFIX, isLocal = true,
+            tags = listOf("cold", "elemental", "damage", "attack", "weapon"),
+            effects = listOf(effect(STOCK_ATTACK_COLD, ADD, best = 45.0..80.0, worst = 2.0..4.0)),
+            tierCount = 8, bestItemLevel = 82
+        ),
+        ModifierTemplate(
+            code = "LOCAL_ADD_LIGHTNING_DAMAGE",
+            source = PREFIX, isLocal = true,
+            tags = listOf("lightning", "elemental", "damage", "attack", "weapon"),
+            effects = listOf(effect(STOCK_ATTACK_LIGHTNING, ADD, best = 45.0..80.0, worst = 2.0..4.0)),
+            tierCount = 8, bestItemLevel = 82
+        ),
+
         // ---------- ENCHANTMENT: лабиринтные энчанты ----------
         ModifierTemplate(
             code = "ENCHANT_INCREASED_MOVEMENT_SPEED",

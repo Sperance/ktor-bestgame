@@ -109,9 +109,16 @@ database. Keep new rules in that table rather than in a route.
 
 - `src/main/resources/locale/{index,ru,en}.json` — every string in the game. No document in Mongo
   has carried text since 0.14.0; entities store a `code`.
-- `src/main/resources/content/{equipment,items,currency,bench}.json` — the catalogues, read by the
-  seeders; `bench.json` is the crafting bench, one line per crafted modifier tier and its price in
-  orbs. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
+- `src/main/resources/content/{equipment,items,currency,bench,pools}.json` — the catalogues, read by
+  the seeders; `bench.json` is the crafting bench, one line per crafted modifier tier and its price
+  in orbs, and `pools.json` the modifier pool of every slot as a list of codes (since 0.24.0). A
+  base's *local* affixes are not listed there: `EquipmentSeeder.localPool` adds every natural local
+  affix whose stats the base itself carries, so an armour base rolls armour and a hybrid rolls both.
+  Since 0.24.0 the ordinary bases are Path of Exile's own, five per defence type or weapon kind.
+- `features/logic/equipment/EquipSlots.kt` — where an equipped item goes and what it takes off:
+  a two-handed weapon frees both hands, a bow pairs with a quiver and any other one-handed weapon
+  with a shield, and a ring takes the free one of `RING`/`RING_2` (or the one `equip?slot=` names).
+  `RING_2` is only ever an `equippedSlot`, never a template's slot. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
   which is a rule rather than data.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 299 nodes. `SkillTreeSeeder` only
   reads and validates it.

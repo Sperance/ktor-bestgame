@@ -135,7 +135,7 @@ class SeedDataTest {
 
         // Самоцвет носится не на теле, а в гнезде дерева, и уникальных самоцветов
         // пока нет: их сила должна считаться вместе с деревом, а не отдельно от него.
-        EnumEquipmentType.entries.filterNot { it == EnumEquipmentType.JEWEL }.forEach { slot ->
+        wearableSlots.forEach { slot ->
             val items = bySlot[slot].orEmpty()
             assert(items.size == 3) { "$slot has ${items.size} uniques: ${items.map { it.code }}" }
         }
@@ -196,5 +196,44 @@ class SeedDataTest {
             assert(sources.contains(EnumModifierSource.PREFIX)) { "${item.code} has no prefixes to roll" }
             assert(sources.contains(EnumModifierSource.SUFFIX)) { "${item.code} has no suffixes to roll" }
         }
+    }
+
+    /**
+     * Слоты, в которые надевают шаблоны: самоцвет живёт в гнезде, а второе кольцо -
+     * это место для кольца, а не вид предмета.
+     */
+    private val wearableSlots = EnumEquipmentType.entries - EnumEquipmentType.JEWEL - EnumEquipmentType.RING_2
+
+    @Test
+    fun every_slot_has_ordinary_bases_of_every_rarity() {
+        val ordinary = equipment.filter { it.rarity != EnumRarity.UNIQUE }.groupBy { it.slot }
+        wearableSlots.forEach { slot ->
+            val rarities = ordinary[slot].orEmpty().map { it.rarity }.toSet()
+            // Администратор выдаёт случайный шаблон выбранной редкости и слота - ни одна пара не пустует
+            val missing = listOf(EnumRarity.COMMON, EnumRarity.UNCOMMON, EnumRarity.RARE, EnumRarity.EPIC, EnumRarity.MYTHICAL) - rarities
+            assert(missing.isEmpty()) { "$slot has no ordinary base of $missing" }
+        }
+        assert(equipment.none { it.slot == EnumEquipmentType.RING_2 }) { "RING_2 is a place, not a kind of item" }
+    }
+
+    @Test
+    fun armour_rolls_only_the_local_defences_its_base_carries() {
+        val byId = definitions.associateBy { it._id }
+        equipment.filter { it.rarity != EnumRarity.UNIQUE }.forEach { item ->
+            val baseStats = item.baseParams.flatMap { byId.getValue(it.modifierId).stats() }.toSet()
+            val foreign = item.modifierIds.mapNotNull { byId[it] }
+                .filter { it.isLocal && it.isNaturalAffix() && !it.tags.orEmpty().contains("weapon") }
+                .filterNot { baseStats.containsAll(it.stats()) }
+            assert(foreign.isEmpty()) { "${item.code} rolls local modifiers its base does not carry: ${foreign.map { it.code }}" }
+        }
+    }
+
+    @Test
+    fun every_ordinary_base_has_an_icon() {
+        val icons = kotlinx.serialization.json.Json.parseToJsonElement(
+            javaClass.classLoader.getResource("icons/icons.json")!!.readText()
+        ).let { (it as kotlinx.serialization.json.JsonObject)["icons"] as kotlinx.serialization.json.JsonObject }
+        val missing = equipment.filter { it.slot != EnumEquipmentType.JEWEL }.map { "equipment.${it.code}" }.filterNot { it in icons }
+        assert(missing.isEmpty()) { "Bases without an icon: $missing" }
     }
 }

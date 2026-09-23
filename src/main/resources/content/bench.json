@@ -42,7 +42,11 @@
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3,
       "slots": [
-        "HELMET"
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
       ]
     },
     {
@@ -51,7 +55,11 @@
       "orb": "ORB_OF_ALTERATION",
       "amount": 4,
       "slots": [
-        "HELMET"
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
       ]
     },
     {
@@ -60,7 +68,11 @@
       "orb": "CHAOS_ORB",
       "amount": 1,
       "slots": [
-        "HELMET"
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
       ]
     },
     {
