@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#161a22"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#c8c8e8" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#c8c8e8" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#c8c8e8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="skin" gradientUnits="userSpaceOnUse" cx="140" cy="162" r="90">
+      <stop offset="0" stop-color="#f0d6c2"/>
+      <stop offset="0.7" stop-color="#b09080"/>
+      <stop offset="1" stop-color="#5a3e2c"/>
+    </radialGradient>
+    <linearGradient id="gown" gradientUnits="userSpaceOnUse" x1="150" y1="260" x2="150" y2="400">
+      <stop offset="0" stop-color="#e8e4f0"/>
+      <stop offset="1" stop-color="#6a6680"/>
+    </linearGradient>
+    <linearGradient id="hair" gradientUnits="userSpaceOnUse" x1="150" y1="100" x2="150" y2="300">
+      <stop offset="0" stop-color="#f0d890"/>
+      <stop offset="1" stop-color="#a8883a"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M104 170 Q90 260 100 320 L124 300 Q116 240 118 190 Z" fill="url(#hair)"/>
+  <path d="M196 170 Q210 260 200 320 L176 300 Q184 240 182 190 Z" fill="url(#hair)"/>
+  <path d="M128 228 L128 278 L150 292 L172 278 L172 228 Z" fill="#d8b8a4"/>
+  <path d="M-10 400 L-10 330 Q20 285 95 275 L150 305 L205 275 Q280 285 310 330 L310 400 Z" fill="url(#gown)"/>
+  <path d="M95 275 L150 305 L205 275" fill="none" stroke="#c0a050" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M104 250 L118 226 L150 262 L182 226 L196 250 L150 300 Z" fill="#f6f2fa"/>
+  <path d="M118 226 L150 262 L182 226" fill="none" stroke="#c0a050" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M110 172 Q110 130 150 130 Q190 130 190 172 Q192 212 172.0 226.2 Q150 242 128.0 226.2 Q108 212 110 172 Z" fill="url(#skin)"/>
+  <circle cx="108" cy="184" r="9" fill="#b09080"/>
+  <circle cx="192" cy="184" r="9" fill="#b09080"/>
+  <path d="M108 170 Q100 112 150 106 Q200 112 192 170 Q186 142 166 134 Q150 146 128 138 Q112 146 108 170 Z" fill="url(#hair)"/>
+  <path d="M112 142 Q150 116 188 142" fill="none" stroke="#d8dce8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M142 128 L150 110 L158 128 L150 136 Z" fill="#8a5ad8"/>
+  <circle cx="150" cy="124" r="3" fill="#ffffff" opacity="0.8"/>
+  <ellipse cx="133" cy="182" rx="7.2" ry="4.5" fill="#efe6d8"/>
+  <ellipse cx="167" cy="182" rx="7.2" ry="4.5" fill="#efe6d8"/>
+  <circle cx="133" cy="182" r="3.6" fill="#3a5a8a"/>
+  <circle cx="167" cy="182" r="3.6" fill="#3a5a8a"/>
+  <path d="M116 178 L141 178" fill="none" stroke="#b89048" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M184 178 L159 178" fill="none" stroke="#b89048" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 190 L147 210 L152 212" fill="none" stroke="#b08c7c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M138 228 Q150 236 162 228 Q150 232 138 228 Z" fill="#b04a5a"/>
+
+</svg>

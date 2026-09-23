@@ -89,6 +89,8 @@ class AuthTest {
         assertEquals(Need.PUBLIC, need("GET", "/locale/index.json"))
         assertEquals(Need.PUBLIC, need("GET", "/locale/ru.json"))
         assertEquals(Need.PUBLIC, need("GET", "/icons/icons.json"))
+        assertEquals(Need.PUBLIC, need("GET", "/portraits/index.json"))
+        assertEquals(Need.PUBLIC, need("GET", "/portraits/class/WITCH.svg"))
         assertEquals(Need.PUBLIC, need("GET", "/system/routes"))
         assertEquals(Need.PUBLIC, need("GET", "/system/version"))
         assertEquals(Need.PUBLIC, need("GET", "/system/health"))

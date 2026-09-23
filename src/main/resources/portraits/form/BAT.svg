@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#161a22"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#5a3a6a" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#5a3a6a" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#5a3a6a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="furb" gradientUnits="userSpaceOnUse" cx="150" cy="190" r="110">
+      <stop offset="0" stop-color="#5a4a4a"/>
+      <stop offset="1" stop-color="#1a1414"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M150 250 Q90 200 10 190 Q30 230 20 260 Q50 250 60 280 Q80 262 100 290 Q120 270 150 300 Z" fill="#2a2024"/>
+  <path d="M150 250 Q210 200 290 190 Q270 230 280 260 Q250 250 240 280 Q220 262 200 290 Q180 270 150 300 Z" fill="#2a2024"/>
+  <path d="M112 170 L72 50 L140 140 Z" fill="url(#furb)"/>
+  <path d="M188 170 L228 50 L160 140 Z" fill="url(#furb)"/>
+  <path d="M112 160 L86 80 L132 142 Z" fill="#8a5a6a"/>
+  <path d="M188 160 L214 80 L168 142 Z" fill="#8a5a6a"/>
+  <path d="M100 200 Q100 140 150 136 Q200 140 200 200 Q200 260 150 280 Q100 260 100 200 Z" fill="url(#furb)"/>
+  <circle cx="128" cy="190" r="16.799999999999997" fill="#ff3a2a" opacity="0.3"/>
+  <circle cx="172" cy="190" r="16.799999999999997" fill="#ff3a2a" opacity="0.3"/>
+  <circle cx="128" cy="190" r="6" fill="#ff3a2a"/>
+  <circle cx="172" cy="190" r="6" fill="#ff3a2a"/>
+  <path d="M140 222 L150 214 L160 222 L150 230 Z" fill="#3a2a2a"/>
+  <path d="M130 246 Q150 256 170 246 Q150 262 130 246 Z" fill="#6a2a2a"/>
+  <path d="M136 248 L140 262 L144 250 Z" fill="#f4f0e0"/>
+  <path d="M164 248 L160 262 L156 250 Z" fill="#f4f0e0"/>
+
+</svg>

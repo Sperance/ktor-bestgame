@@ -81,6 +81,9 @@ object ProgressionSeeder {
      * своего атрибута и по 14 остальных, три гибридных - по 23 своих и 14
      * третьего, Скион как универсал имеет ровно по 20 каждого.
      */
+    /** Коды классов в порядке сида: по ним сервер ищет портреты. */
+    val classCodes: List<String> get() = templates.map { it.code }
+
     private val templates = listOf(
         ClassTemplate(
             code = "MARAUDER",

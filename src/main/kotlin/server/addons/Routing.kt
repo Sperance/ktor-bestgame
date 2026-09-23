@@ -17,12 +17,15 @@ import extensions.saveChildren
 import io.ktor.openapi.OpenApiInfo
 import features.logic.icons.IconCache
 import features.logic.icons.IconManifest
+import features.logic.portraits.PortraitCache
+import features.logic.portraits.PortraitManifest
 import features.logic.locale.LocaleCache
 import features.logic.locale.LocaleManifest
 import io.ktor.server.application.*
 import io.ktor.server.plugins.openapi.openAPI
 import io.ktor.server.response.respond
 import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
@@ -72,6 +75,20 @@ fun Application.configureRouting() {
             }
             get("/${IconCache.FILE}") {
                 call.respondText(IconCache.document(), ContentType.Application.Json)
+            }
+        }
+
+        // Портреты (с 0.29.0): манифест с отпечатком каждого файла и сами SVG по разделам.
+        route("/${PortraitCache.FOLDER}") {
+            get("/${PortraitCache.MANIFEST}") {
+                call.respondText(Json.encodeToString(PortraitManifest.serializer(), PortraitCache.manifest()), ContentType.Application.Json)
+            }
+            get("/{section}/{file}") {
+                val section = call.parameters["section"].orEmpty()
+                val code = call.parameters["file"].orEmpty().removeSuffix(".svg")
+                val body = PortraitCache.document(section, code)
+                if (body == null) call.respond(HttpStatusCode.NotFound)
+                else call.respondText(body, ContentType.Image.SVG)
             }
         }
 

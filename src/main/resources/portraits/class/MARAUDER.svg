@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#161a22"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#b3261e" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#b3261e" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#b3261e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="skin" gradientUnits="userSpaceOnUse" cx="140" cy="155" r="90">
+      <stop offset="0" stop-color="#c9946a"/>
+      <stop offset="0.7" stop-color="#8a5a3c"/>
+      <stop offset="1" stop-color="#5a3e2c"/>
+    </radialGradient>
+    <linearGradient id="fur" gradientUnits="userSpaceOnUse" x1="150" y1="270" x2="150" y2="400">
+      <stop offset="0" stop-color="#6b4a2e"/>
+      <stop offset="1" stop-color="#2a1a10"/>
+    </linearGradient>
+    <linearGradient id="iron" gradientUnits="userSpaceOnUse" x1="150" y1="90" x2="150" y2="170">
+      <stop offset="0" stop-color="#9ea3a8"/>
+      <stop offset="1" stop-color="#3d4146"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M128 225 L128 275 L150 289 L172 275 L172 225 Z" fill="#9a6a48"/>
+  <path d="M-10 400 L-10 330 Q20 285 95 275 L150 305 L205 275 Q280 285 310 330 L310 400 Z" fill="url(#fur)"/>
+  <path d="M95 275 L150 305 L205 275" fill="none" stroke="#4a3120" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 330 Q40 300 70 305 Q60 320 80 322 Q70 338 95 336 L90 400 L10 400 Z" fill="#8a6440" opacity="0.8"/>
+  <path d="M280 330 Q260 300 230 305 Q240 320 220 322 Q230 338 205 336 L210 400 L290 400 Z" fill="#8a6440" opacity="0.8"/>
+  <path d="M100 165 Q100 117 150 117 Q200 117 200 165 Q202 205 177.5 224.3 Q150 241 122.5 224.3 Q98 205 100 165 Z" fill="url(#skin)"/>
+  <circle cx="98" cy="177" r="9" fill="#8a5a3c"/>
+  <circle cx="202" cy="177" r="9" fill="#8a5a3c"/>
+  <path d="M98 160 Q98 100 150 96 Q202 100 202 160 L190 150 Q150 136 110 150 Z" fill="url(#iron)"/>
+  <path d="M104 132 Q70 120 58 80 Q52 60 64 44 Q66 78 96 108 Z" fill="#e6dcc4"/>
+  <path d="M196 132 Q230 120 242 80 Q248 60 236 44 Q234 78 204 108 Z" fill="#e6dcc4"/>
+  <path d="M104 132 Q70 120 58 80" fill="none" stroke="#8f836b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M196 132 Q230 120 242 80" fill="none" stroke="#8f836b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 98 L150 146" fill="none" stroke="#2b2e33" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="130" cy="172" rx="7.2" ry="4.5" fill="#efe6d8"/>
+  <ellipse cx="170" cy="172" rx="7.2" ry="4.5" fill="#efe6d8"/>
+  <circle cx="130" cy="172" r="3.6" fill="#2a140c"/>
+  <circle cx="170" cy="172" r="3.6" fill="#2a140c"/>
+  <path d="M116 172 L141 164" fill="none" stroke="#3a2416" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M184 172 L159 164" fill="none" stroke="#3a2416" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 180 L144 202 L153 204" fill="none" stroke="#6e452e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M104 190 Q108 250 150 272 Q192 250 196 190 Q186 214 170 214 Q150 206 130 214 Q114 214 104 190 Z" fill="#4a2c1a"/>
+  <path d="M132 222 Q150 214 168 222 Q160 232 150 232 Q140 232 132 222 Z" fill="#2a160c"/>
+  <path d="M140 162 L146 190" fill="none" stroke="#7a2a20" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+
+</svg>

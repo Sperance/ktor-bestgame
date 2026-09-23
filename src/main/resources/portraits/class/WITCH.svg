@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#161a22"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#4a55d8" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#4a55d8" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#4a55d8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="skin" gradientUnits="userSpaceOnUse" cx="140" cy="162" r="90">
+      <stop offset="0" stop-color="#e8cfc0"/>
+      <stop offset="0.7" stop-color="#a88c80"/>
+      <stop offset="1" stop-color="#5a3e2c"/>
+    </radialGradient>
+    <linearGradient id="robe" gradientUnits="userSpaceOnUse" x1="150" y1="60" x2="150" y2="400">
+      <stop offset="0" stop-color="#3a2a6a"/>
+      <stop offset="1" stop-color="#120c24"/>
+    </linearGradient>
+    <radialGradient id="orb" gradientUnits="userSpaceOnUse" cx="252" cy="70" r="34">
+      <stop offset="0" stop-color="#e6f2ff"/>
+      <stop offset="0.4" stop-color="#6fa8ff"/>
+      <stop offset="1" stop-color="#2a3aa8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M252 96 L238 400" fill="none" stroke="#3b2a1c" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="252" cy="70" r="34" fill="url(#orb)"/>
+  <circle cx="252" cy="70" r="12" fill="#ffffff" opacity="0.8"/>
+  <path d="M100 190 Q96 300 70 360 L118 330 Q110 260 116 200 Z" fill="#1a1024"/>
+  <path d="M200 190 Q204 300 230 360 L182 330 Q190 260 184 200 Z" fill="#1a1024"/>
+  <path d="M128 228 L128 278 L150 292 L172 278 L172 228 Z" fill="#c4a898"/>
+  <path d="M-10 400 L-10 330 Q20 285 95 275 L150 305 L205 275 Q280 285 310 330 L310 400 Z" fill="url(#robe)"/>
+  <path d="M95 275 L150 305 L205 275" fill="none" stroke="#8a7ad8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M84 250 Q76 150 110 110 Q140 60 150 14 Q162 70 190 110 Q224 150 216 250 Q206 170 184 140 Q150 120 116 140 Q94 170 84 250 Z" fill="url(#robe)"/>
+  <path d="M110 172 Q110 130 150 130 Q190 130 190 172 Q192 212 172.0 226.2 Q150 242 128.0 226.2 Q108 212 110 172 Z" fill="url(#skin)"/>
+  <circle cx="108" cy="184" r="9" fill="#a88c80"/>
+  <circle cx="192" cy="184" r="9" fill="#a88c80"/>
+  <path d="M110 150 Q150 128 190 150 Q182 138 150 132 Q118 138 110 150 Z" fill="#1a1024"/>
+  <circle cx="133" cy="180" r="10.4" fill="#8fd0ff" opacity="0.35"/>
+  <circle cx="167" cy="180" r="10.4" fill="#8fd0ff" opacity="0.35"/>
+  <ellipse cx="133" cy="180" rx="6.4" ry="4" fill="#8fd0ff"/>
+  <ellipse cx="167" cy="180" rx="6.4" ry="4" fill="#8fd0ff"/>
+  <path d="M116 177 L141 175" fill="none" stroke="#2a1a3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M184 177 L159 175" fill="none" stroke="#2a1a3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 190 L146 212 L152 214" fill="none" stroke="#9a7c70" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M138 230 Q150 238 162 230 Q150 234 138 230 Z" fill="#7a2a4a"/>
+  <circle cx="150" cy="300" r="10" fill="#8fd0ff" opacity="0.9"/>
+  <path d="M120 286 L150 300 L180 286" fill="none" stroke="#c8b8f0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>

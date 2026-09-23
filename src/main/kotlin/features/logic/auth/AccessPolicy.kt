@@ -49,7 +49,7 @@ object AccessPolicy {
         val path = rawPath.trimEnd('/').ifEmpty { "/" }
         val verb = method.uppercase()
 
-        if (path.startsWith("/locale/") || path.startsWith("/icons/")) return Need.PUBLIC
+        if (path.startsWith("/locale/") || path.startsWith("/icons/") || path.startsWith("/portraits/")) return Need.PUBLIC
         if (path in publicSystem) return Need.PUBLIC
         if (verb == "POST" && path in publicPosts) return Need.PUBLIC
         if (path in adminRoutes) return Need.ADMIN

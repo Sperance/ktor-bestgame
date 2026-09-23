@@ -144,6 +144,12 @@ database. Keep new rules in that table rather than in a route.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level
   table, in code because they are rules.
 - `src/main/resources/icons/` — outline path data, no raster images.
+- `src/main/resources/portraits/{class,form,monster}/<CODE>.svg` — portraits (since 0.29.0), three
+  by four (`viewBox 0 0 300 400`), the face in the circle (150, 165) r 120 that the client cuts out
+  as the map's token. `PortraitCache` looks for a file under every class, monster form and monster
+  code and serves `portraits/index.json` (a fingerprint per file) and the files. The client draws
+  the SVG itself, so only `path`, `circle`, `ellipse`, `rect`, `g` and user-space gradients are
+  allowed — `PortraitTest` refuses anything else, and a class or form without a file.
 
 How a modifier lands on an item (since 0.23.0): `ModifierRoller.pickAffixes` draws by
 `spawnWeight` and never puts two modifiers of one `group` on an item. A template's pool holds
