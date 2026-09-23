@@ -189,13 +189,13 @@ class LocalizationTest {
     }
 
     @Test
-    fun the_manifest_hashes_match_the_files() {
-        // Отпечаток - единственное, по чему клиент понимает, что словарь
-        // обновился. Правили файл - обновите и его, значение ниже
+    fun the_manifest_hashes_match_what_is_served() {
+        // Отпечаток - единственное, по чему клиент понимает, что словарь обновился.
+        // Отдаётся склейка общего и языкового файла, поэтому и отпечаток - от неё.
         LocaleCache.manifest().languages.forEach { language ->
-            val actual = hashOf("${language.code}.json")
+            val actual = hashOf(LocaleCache.document(language.code))
             assert(language.hash == actual) {
-                "${language.code}.json изменился: в манифесте '${language.hash}', на деле '$actual'"
+                "${language.code}: в манифесте '${language.hash}', у отдаваемого словаря '$actual'"
             }
         }
     }
@@ -229,22 +229,31 @@ class LocalizationTest {
 
     /**
      * Имя предмета, экипировки и сферы одно на все языки — английское, как в PoE: им торгуют и
-     * его ищут, а два имени у одной вещи делят рынок пополам. Переводятся только описания.
+     * его ищут, а два имени у одной вещи делят рынок пополам. С 0.25.0 оно и лежит один раз:
+     * в `common.json`, а языковые файлы держат только то, что переводится.
      */
     @Test
-    fun item_names_are_english_in_every_language() {
-        val names = Regex("""^(equipment\.[^.]+\.name|item\.[^.]+\.name|enum\.EnumCurrencyOrb\.[^.]+)$""")
-        val english = LocaleCache.bundle("en")
-        val keys = english.keys.filter(names::matches)
-        assert(keys.isNotEmpty()) { "в словаре нет ни одного имени предмета" }
+    fun traded_names_live_once_in_the_common_file() {
+        val common = file(LocaleCache.COMMON)
+        assert(common.isNotEmpty()) { "общий словарь пуст" }
+        val stray = common.keys.filterNot(LocaleCache.commonKey::matches)
+        assert(stray.isEmpty()) { "в ${LocaleCache.COMMON} попало переводимое: ${stray.take(5)}" }
 
         LocaleCache.languages().forEach { language ->
-            val bundle = LocaleCache.bundle(language)
-            keys.forEach { key ->
-                assert(bundle[key] == english[key]) { "$language: $key должен быть «${english[key]}», а не «${bundle[key]}»" }
+            val own = file("$language.json")
+            val repeated = own.keys.filter(LocaleCache.commonKey::matches)
+            assert(repeated.isEmpty()) { "$language.json повторяет имена из ${LocaleCache.COMMON}: ${repeated.take(5)}" }
+            common.forEach { (key, name) ->
+                assert(LocaleCache.bundle(language)[key] == name) { "$language: $key не дошёл до словаря" }
             }
         }
     }
+
+    /** Файл словаря как он лежит в ресурсах, до склейки. */
+    private fun file(name: String): Map<String, String> =
+        kotlinx.serialization.json.Json.parseToJsonElement(javaClass.classLoader.getResource("${LocaleCache.FOLDER}/$name")!!.readText())
+            .let { it as kotlinx.serialization.json.JsonObject }
+            .mapValues { (it.value as kotlinx.serialization.json.JsonPrimitive).content }
 
     @Test
     fun nothing_is_left_untranslated_or_empty() {
@@ -297,14 +306,9 @@ class LocalizationTest {
         }
     }
 
-    private fun hashOf(file: String): String {
-        val bytes = javaClass.classLoader
-            .getResourceAsStream("${LocaleCache.FOLDER}/$file")!!
-            .use { it.readBytes() }
-
-        return MessageDigest.getInstance("SHA-256")
-            .digest(bytes)
+    private fun hashOf(text: String): String =
+        MessageDigest.getInstance("SHA-256")
+            .digest(text.toByteArray())
             .joinToString("") { "%02x".format(it) }
             .take(16)
-    }
 }

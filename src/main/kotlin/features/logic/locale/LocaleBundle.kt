@@ -35,7 +35,7 @@ data class LocaleManifest(
  */
 class LocaleBundle(
     val language: String,
-    private val strings: Map<String, String>,
+    val strings: Map<String, String>,
 ) {
 
     val size: Int get() = strings.size

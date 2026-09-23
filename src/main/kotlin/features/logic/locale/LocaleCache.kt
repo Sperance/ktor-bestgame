@@ -10,9 +10,12 @@ import java.security.MessageDigest
 /**
  * Словари локализации, загруженные в память сервера.
  *
- * Файлы лежат в ресурсах (`locale/index.json`, `locale/<код>.json`). Тела словарей
- * отдаются как есть, а манифест сервер пересобирает: отпечаток каждого языка он
- * считает из самого файла, как это делает [features.logic.icons.IconCache].
+ * Файлы лежат в ресурсах (`locale/index.json`, `locale/common.json`, `locale/<код>.json`).
+ * С 0.25.0 то, что не переводится, - имена экипировки, предметов и сфер, английские на любом
+ * языке, - лежит один раз в [COMMON], а языковые файлы держат только переводимое. Клиенту
+ * сервер отдаёт склейку общего и языкового словаря, так что для него ничего не изменилось:
+ * один словарь на язык, со всеми ключами. Отпечаток считается от склейки, как это делает
+ * [features.logic.icons.IconCache] для иконок, поэтому правка общего файла обновляет все языки.
  * В памяти они нужны для того, что клиенту не отдать: поиска по названию
  * на аукционе, где в документах лежат только коды.
  *
@@ -30,10 +33,23 @@ object LocaleCache {
      */
     const val MANIFEST = "index.json"
 
+    /**
+     * Общий словарь: строки, одинаковые на всех языках.
+     */
+    const val COMMON = "common.json"
+
+    /**
+     * Ключи, которые живут только в [COMMON]: имя того, чем торгуют, одно на все языки.
+     */
+    val commonKey = Regex("""^(equipment\.[^.]+\.name|item\.[^.]+\.name|enum\.EnumCurrencyOrb\.[^.]+)$""")
+
     private val json = Json { ignoreUnknownKeys = true }
+    private val output = Json { prettyPrint = true }
+    private val strings = MapSerializer(String.serializer(), String.serializer())
 
     private var manifest: LocaleManifest = LocaleManifest(default = "en", languages = emptyList())
     private var bundles: Map<String, LocaleBundle> = emptyMap()
+    private var documents: Map<String, String> = emptyMap()
 
     fun manifest(): LocaleManifest = manifest
 
@@ -56,34 +72,39 @@ object LocaleCache {
     fun defaultLanguage(): String = manifest.default
 
     /**
-     * Читает манифест и все объявленные в нём словари из ресурсов.
+     * Читает манифест, общий словарь и все объявленные языки и склеивает их.
+     *
+     * Ключ, который есть и в общем, и в языковом файле, - ошибка старта: какая из двух строк
+     * верная, сервер решать не берётся, а тихий выбор одной спрятал бы вторую навсегда.
      */
     fun initializeCache() {
         val declared = json.decodeFromString(LocaleManifest.serializer(), resource(MANIFEST))
-        val documents = declared.languages.associate { it.code to resource("${it.code}.json") }
+        val common = json.decodeFromString(strings, resource(COMMON))
 
-        // Отпечаток считается из самого файла, а не берётся из манифеста: отпечаток,
+        bundles = declared.languages.associate { language ->
+            val own = json.decodeFromString(strings, resource("${language.code}.json"))
+            val clash = own.keys intersect common.keys
+            if (clash.isNotEmpty())
+                throw LocaleExceptions.funException("initializeCache", "${language.code}.json repeats $COMMON: ${clash.take(5)}")
+            language.code to LocaleBundle(language.code, (common + own).toSortedMap())
+        }
+        documents = bundles.mapValues { (_, bundle) -> output.encodeToString(strings, bundle.strings) }
+
+        // Отпечаток считается из того, что отдаётся, а не берётся из манифеста: отпечаток,
         // который правят руками, перестаёт работать ровно тогда, когда он нужен -
         // строку поправили, забыли обновить число, и клиенты об этом не узнают никогда.
         manifest = declared.copy(languages = declared.languages.map {
             it.copy(hash = sha256(documents.getValue(it.code)))
         })
 
-        bundles = declared.languages.associate { language ->
-            val strings = json.decodeFromString(
-                MapSerializer(String.serializer(), String.serializer()),
-                documents.getValue(language.code)
-            )
-            language.code to LocaleBundle(language.code, strings)
-        }
-
-        printLog("[LocaleCache] initialized: ${bundles.entries.joinToString { "${it.key}=${it.value.size}" }}")
+        printLog("[LocaleCache] initialized: ${bundles.entries.joinToString { "${it.key}=${it.value.size}" }}, common=${common.size}")
     }
 
     /**
-     * Тело словаря - тот же текст, что лежит в ресурсах.
+     * Тело словаря языка: общий словарь и языковой, склеенные в один.
      */
-    fun document(language: String): String = resource("$language.json")
+    fun document(language: String): String =
+        documents[language] ?: throw LocaleExceptions.funExceptionUnknownLanguage("document", language)
 
     private fun sha256(text: String): String =
         MessageDigest.getInstance("SHA-256").digest(text.toByteArray())

@@ -44,12 +44,14 @@ change, here and in the client, whether or not the task mentions them.
    `en.json`, and whatever it lists tomorrow. A code without a name in all of them is an
    unfinished change, not a change with a follow-up.
 
-   **The name of a thing that is traded is English in every language** (since 0.22.0):
+   **The name of a thing that is traded is English in every language** (since 0.22.0), as in
+   PoE, where players trade and search by one name — and since 0.25.0 it is written **once**:
    `equipment.<CODE>.name`, `item.<CODE>.name` — orbs included — and `enum.EnumCurrencyOrb.*`
-   hold the same English string in `ru.json` as in `en.json`, as in PoE, where players trade and
-   search by one name. Their descriptions, the modifiers, classes, tree nodes, stats and errors are
-   translated as usual. So a new item still gets a key in every dictionary — the same English name
-   in each, and a description in each language.
+   live only in `locale/common.json` (`LocaleCache.commonKey`), never in `ru.json`/`en.json`.
+   `LocaleCache` serves each language as `common.json` + that language merged, hashes the merged
+   text, and refuses to start when a key is in both. Their descriptions, the modifiers, classes,
+   tree nodes, stats and errors are translated as usual, so a new item gets its name in
+   `common.json` and a description in every language file.
 
    The same rule runs on the client, where it covers the other half: every label ExileForge wrote
    itself is a key in its own `core/src/main/resources/i18n/ui_{ru,en}.json`, and its
@@ -107,7 +109,8 @@ database. Keep new rules in that table rather than in a route.
 
 - `CHANGELOG.md` — dated entries per version; the client keeps its own beside it.
 
-- `src/main/resources/locale/{index,ru,en}.json` — every string in the game. No document in Mongo
+- `src/main/resources/locale/{index,common,ru,en}.json` — every string in the game; `common.json`
+  holds what is the same in every language and is merged into each on the way out. No document in Mongo
   has carried text since 0.14.0; entities store a `code`.
 - `src/main/resources/content/{equipment,items,currency,bench,pools}.json` — the catalogues, read by
   the seeders; `bench.json` is the crafting bench, one line per crafted modifier tier and its price
