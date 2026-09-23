@@ -68,6 +68,33 @@ change, here and in the client, whether or not the task mentions them.
    part of the change rather than leaving it for later. This is the last step of the work, not a
    courtesy: a change that is pushed but not written up is not delivered.
 
+## Access and configuration
+
+Since 0.21.0 every request passes `server/addons/Access.kt` before its route. `AccessPolicy.need`
+is one pure table of who may call what — public (sign-in, `/locale`, `/icons`,
+`/system/{routes,health,version}`), signed in, or ADMIN — and `AuthTest` reads it without a
+database. Keep new rules in that table rather than in a route.
+
+- **A session is a token.** `POST /api/v1/user/login`, `/login/byDeviceId` and `/byDeviceId` take
+  a JSON body and answer `{user, token}`; the token goes back as `Authorization: Bearer`. Only its
+  SHA-256 is stored (`authsession`), it lives 30 days and every use extends it. `GET /user/me`
+  restores a session, `POST /user/logout` ends one, and a password change ends all the others.
+- **Ownership is checked once, centrally.** A non-admin caller's `userId` and `characterId`
+  query parameters (and `id` on `/api/v1/character`) must be their own; repositories already
+  check that an item or a lot belongs to that character. `caller()` reads the `Caller` from the
+  coroutine context when a repository needs to know who asked.
+- **The generic CRUD writes only for an administrator**, except creating and deleting one's own
+  character; the player-created character is reset to level 1 with nothing in it. The private
+  collections (`AccessPolicy.privateCollections`) are read whole only by an administrator.
+- **Passwords are PBKDF2** (`pbkdf2$<iterations>$<salt>$<hash>`); a legacy SHA-256 hash still
+  verifies once and is rewritten on that login. Secrets never travel in a query string.
+- **Nothing secret is in the source.** `MONGO_URI`, `MONGO_DB`, `PORT`, `CORS_HOSTS`
+  (comma-separated origins; unset means no CORS), `ADMIN_PASSWORD` and `TEST_PLAYER_PASSWORD`
+  come from the environment. Without `ADMIN_PASSWORD` no administrator is seeded, and without
+  `TEST_PLAYER_PASSWORD` no test player — the client's `client-server` job sets both.
+- Sign-in is limited to 10 requests a minute per address, everything else to 600 per client, and
+  an unexpected exception answers `SP_500` without its message.
+
 ## Where names and numbers live
 
 - `CHANGELOG.md` — dated entries per version; the client keeps its own beside it.

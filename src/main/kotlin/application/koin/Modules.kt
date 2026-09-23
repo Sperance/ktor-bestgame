@@ -13,6 +13,7 @@ import features.caches.CharacterClassCache
 import features.caches.ExperienceLevelCache
 import features.caches.SkillTreeCache
 import features.data.auction.AuctionLotRepository
+import features.data.auth.AuthSessionRepository
 import features.data.auction.AuctionLotRoute
 import features.data.blockList.BlockListRepository
 import features.data.character.CharacterRepository
@@ -43,6 +44,7 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     single { UserRepository() }
+    single { AuthSessionRepository() }
     single { CharacterRepository() }
     single { CharacterEquipmentRepository() }
     single { AuctionLotRepository() }

@@ -12,8 +12,8 @@ object UserExceptions {
     fun funException(errorMethod: String, value: String? = "") = UserException(value, errorMethod, "US_001", listOf(value.orEmpty()))
     fun funExceptionInvalidEmail(errorMethod: String, value: String? = "") = UserException("Invalid email $value", errorMethod, "US_002", listOf(value.orEmpty()))
     fun funExceptionInvalidAge(errorMethod: String, value: String? = "") = UserException("Invalid age $value", errorMethod, "US_003", listOf(value.orEmpty()))
-    fun funExceptionInvalidPassword(errorMethod: String, value: String? = "") = UserException("Invalid password $value", errorMethod, "US_004", listOf(value.orEmpty()))
-    fun funExceptionSalt(errorMethod: String, value: String? = "") = UserException("Field 'salt' blocked to modify", errorMethod, "US_005", listOf(value.orEmpty()))
+    fun funExceptionInvalidPassword(errorMethod: String, value: String? = "") = UserException("Password is too short", errorMethod, "US_004", listOf(value.orEmpty()))
+    fun funExceptionSalt(errorMethod: String, value: String? = "") = UserException("Field $value cannot be modified", errorMethod, "US_005", listOf(value.orEmpty()))
     fun funExceptionLoginExists(errorMethod: String, value: String? = "") = UserException("Login $value already exists", errorMethod, "US_006", listOf(value.orEmpty()))
     fun funExceptionEmailExists(errorMethod: String, value: String? = "") = UserException("Email $value already exists", errorMethod, "US_007", listOf(value.orEmpty()))
 

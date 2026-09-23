@@ -1,6 +1,8 @@
 package server.addons
 
 import base.exception.BaseException
+import base.exception.model.AuthExceptions
+import extensions.printLog
 import base.route.ApiMongoResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.JsonConvertException
@@ -44,6 +46,11 @@ fun Application.configureStatusPages() {
             )
         }
 
+        // ── Отказ в доступе: 401 - войдите, 403 - нельзя ──
+        exception<AuthExceptions.AuthException> { call, cause ->
+            call.respond(HttpStatusCode.fromValue(cause.status), ApiMongoResponse.error(cause))
+        }
+
         // ── Бизнес-исключения приложения ──
         exception<BaseException> { call, cause ->
             call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
@@ -54,8 +61,11 @@ fun Application.configureStatusPages() {
         }
 
         // Общий обработчик (должен быть последним)
+        // Подробности непредвиденной ошибки остаются в логе сервера: сообщения драйвера Mongo
+        // и стек - не то, что стоит отдавать любому, кто прислал кривой запрос.
         exception<Throwable> { call, cause ->
-            call.respond(HttpStatusCode.InternalServerError, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_500")))
+            printLog("[SP_500] ${call.request.uri.substringBefore("?")}: ${cause::class.simpleName}: ${cause.message}\n${cause.stackTraceToString()}", true)
+            call.respond(HttpStatusCode.InternalServerError, ApiMongoResponse.error(BaseException("Internal server error", "StatusPage", null, "SP_500")))
         }
     }
 }

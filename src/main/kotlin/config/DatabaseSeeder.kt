@@ -1,6 +1,8 @@
 package config
 
 import CONST_SEED_ORBS_AMOUNT
+import SEED_ADMIN_PASSWORD
+import SEED_TEST_PLAYER_PASSWORD
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumRarity
 import application.enums.EnumUserRoles
@@ -177,26 +179,21 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Seeding users...")
 
+        // Паролей в коде больше нет: администратор и тестовый игрок заводятся, только если
+        // пароль задан в окружении. Сервер, поднятый без настроек, не создаёт аккаунт с
+        // паролем из открытого репозитория.
         val listItems = arrayListOf<User>()
-        listItems.add(
-            User(
-                name = "Admin",
-                email = "admin@game.com",
-                age = 25,
-                login = "admin",
-                password = "P32543254",
-                role = EnumUserRoles.ADMIN
-            )
-        )
-        listItems.add(
-            User(
-                name = "TestPlayer",
-                email = "player@game.com",
-                age = 22,
-                password = "P123456",
-                login = "test1"
-            )
-        )
+        SEED_ADMIN_PASSWORD?.let {
+            listItems.add(User(name = "Admin", email = "admin@game.com", age = 25, login = "admin",
+                password = it, role = EnumUserRoles.ADMIN))
+        }
+        SEED_TEST_PLAYER_PASSWORD?.let {
+            listItems.add(User(name = "TestPlayer", email = "player@game.com", age = 22, login = "test1", password = it))
+        }
+        if (listItems.isEmpty()) {
+            printLog("  → ADMIN_PASSWORD and TEST_PLAYER_PASSWORD are not set, no users seeded")
+            return
+        }
 
         userRepository.insertMany(listItems, session)
 
@@ -267,6 +264,10 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Seeding characters...")
         val userRepoAll = userRepository.findAll(session)
+        if (userRepoAll.isEmpty()) {
+            printLog("  → no users, characters seeding skipped")
+            return
+        }
 
         val marauder = characterClassCache.findByCode("MARAUDER")
         val witch = characterClassCache.findByCode("WITCH")

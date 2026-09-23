@@ -18,10 +18,24 @@ Here's a list of features included in this project:
 | [kotlinx.serialization](https://start.ktor.io/p/kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library                     |
 | [Content Negotiation](https://start.ktor.io/p/content-negotiation)     | Provides automatic content conversion according to Content-Type and Accept headers |
 | [Routing](https://start.ktor.io/p/routing)                             | Provides a structured routing DSL                                                  |
-| [Sessions](https://start.ktor.io/p/ktor-sessions)                      | Adds support for persistent sessions through cookies or headers                    |
 | [Default Headers](https://start.ktor.io/p/default-headers)             | Adds a default set of headers to HTTP responses                                    |
 | [CORS](https://start.ktor.io/p/cors)                                   | Enables Cross-Origin Resource Sharing (CORS)                                       |
-| [Authentication](https://start.ktor.io/p/auth)                         | Provides extension point for handling the Authorization header                     |
+
+## Configuration
+
+Since 0.21.0 nothing secret lives in the source; the server reads its environment:
+
+| Variable               | Default                     | Meaning                                                   |
+|------------------------|-----------------------------|-----------------------------------------------------------|
+| `MONGO_URI`            | `mongodb://localhost:27017` | MongoDB connection string (a replica set: writes use transactions) |
+| `MONGO_DB`             | `mongobase`                 | Database name                                             |
+| `PORT`                 | `8080`                      | HTTP port                                                 |
+| `CORS_HOSTS`           | unset — no CORS             | Comma-separated origins allowed from a browser            |
+| `ADMIN_PASSWORD`       | unset — no administrator    | Password of the seeded `admin` account                    |
+| `TEST_PLAYER_PASSWORD` | unset — no test player      | Password of the seeded `test1` account                    |
+
+Clients sign in with `POST /api/v1/user/login` and send the returned token as
+`Authorization: Bearer <token>`. `GET /system/version` names the running version.
 
 ## Building & Running
 

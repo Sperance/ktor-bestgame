@@ -2,7 +2,9 @@ package features.data.character
 
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumSkillNodeType
+import base.exception.model.AuthExceptions
 import base.exception.model.CharacterExceptions
+import features.logic.auth.caller
 import base.exception.model.ProgressionExceptions
 import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
@@ -62,6 +64,23 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     override suspend fun validateBeforeInsert(entity: Character, session: ClientSession) {
+        // Игрок создаёт персонажа общим POST и мог прислать в теле что угодно: чужой userId,
+        // десятый уровень, мешок золота. Поэтому от игрока берутся только имя, описание и
+        // класс, владелец - он сам, а всё остальное начинается с нуля. Администратор и
+        // сидинг (вызывающего у них нет) пишут как есть.
+        caller()?.takeUnless { it.isAdmin }?.let { player ->
+            if (entity.userId != player.user._id) throw AuthExceptions.funExceptionNotYourAccount("validateBeforeInsert", entity.userId)
+            entity.level = 1
+            entity.experience = 0.0
+            entity.money = 0
+            entity.skillNodes.clear()
+            entity.items.clear()
+            entity.professionSkills.clear()
+            entity.battleSkills.clear()
+            entity.boolSkills.clear()
+            entity.recipeAccess.clear()
+            entity.gainedRedemptionCodes.clear()
+        }
         if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
         if (characterClassCache.findById(entity.classId) == null)
             throw ProgressionExceptions.funExceptionClassNotFound("validateBeforeInsert", entity.classId)

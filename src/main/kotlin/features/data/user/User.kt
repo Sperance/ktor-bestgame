@@ -40,7 +40,6 @@ data class UserResponse(
     val isActive: Boolean,
     val role: EnumUserRoles,
     val lastLoginDate: LocalDateTime?,
-    val device_id: String,
     var countCharacters: Int,
     val createdAt: LocalDateTime,
     var updatedAt: LocalDateTime,
@@ -56,9 +55,29 @@ fun User.toResponse(): UserResponse = UserResponse(
     isActive = isActive,
     role = role,
     lastLoginDate = lastLoginDate,
-    device_id = device_id,
     createdAt = createdAt,
     updatedAt = updatedAt,
     version = version,
     countCharacters = countCharacters
 )
+
+/**
+ * Ответ на вход: аккаунт и токен сессии.
+ *
+ * `device_id` в [UserResponse] больше нет: до 0.21.0 его отдавал открытый список
+ * пользователей, а по нему же входили в аккаунт - два запроса, и ты любой игрок.
+ */
+@Serializable
+data class LoginResponse(val user: UserResponse, val token: String)
+
+/** Тело входа по логину и паролю. Пароль идёт в теле, а не в строке запроса. */
+@Serializable
+data class LoginRequest(val login: String, val password: String)
+
+/** Тело входа и регистрации по устройству. */
+@Serializable
+data class DeviceRequest(val deviceId: String)
+
+/** Тело смены пароля. */
+@Serializable
+data class PasswordChange(val password: String, val newPassword: String)

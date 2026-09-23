@@ -25,6 +25,7 @@ import io.ktor.server.response.respond
 import io.ktor.http.ContentType
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
+import io.ktor.server.routing.post
 import io.ktor.server.routing.openapi.OpenApiDocSource
 import io.ktor.server.routing.route
 import kotlinx.serialization.json.Json
@@ -37,6 +38,8 @@ import kotlinx.coroutines.launch
 import org.bson.Document
 import org.koin.ktor.ext.inject
 import server
+import SERVER_VERSION
+import kotlinx.serialization.Serializable
 import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.declaredMembers
@@ -85,14 +88,9 @@ fun Application.configureRouting() {
             get("/exceptions") {
                 call.respond(ApiMongoResponse.ok(exceptionFiles()))
             }
-            get("/shutdown") {
-
-                val key = call.queryParameters["key"]
-                if (key == null || key != "32543254") {
-                    call.respond(ApiMongoResponse.ok("system.access_denied"))
-                    return@get
-                }
-
+            // Только администратор - это проверяет доступ до маршрута. Ключ в строке запроса,
+            // лежавший в исходниках, был не защитой, а паролем, известным каждому читателю.
+            post("/shutdown") {
                 call.respond(ApiMongoResponse.ok("system.success"))
 
                 GlobalScope.launch {
@@ -116,6 +114,9 @@ fun Application.configureRouting() {
                     printLog("Health check failed")
                     call.respond(ApiMongoResponse.error(ApplicationExceptions.funExceptionError("/health")))
                 }
+            }
+            get("/version") {
+                call.respond(ApiMongoResponse.ok(ServerVersion(SERVER_VERSION)))
             }
             get("/routes") {
                 val result = ALL_ROUTES.sortedBy { it.path }
@@ -184,3 +185,7 @@ private fun exceptionFiles(): ArrayList<String> {
     }
     return resultArray
 }
+
+/** Ответ `/system/version`: клиент сверяет его с той версией, под которую собран. */
+@Serializable
+data class ServerVersion(val version: String)

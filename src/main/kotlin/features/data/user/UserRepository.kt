@@ -11,8 +11,9 @@ import features.data.character.CharacterRepository
 import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.security.MessageDigest
-import java.security.SecureRandom
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Updates
+import features.logic.auth.Passwords
 import kotlin.getValue
 
 class UserRepository : BaseRepository<User>(
@@ -36,8 +37,8 @@ class UserRepository : BaseRepository<User>(
     override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
         if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
-        if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert", entity.password)
-        if (entity.salt != "") throw UserExceptions.funExceptionSalt("validateBeforeInsert")
+        if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert")
+        if (entity.salt != "") throw UserExceptions.funExceptionSalt("validateBeforeInsert", "salt")
         // Уникальность проверяется и по мягко удалённым: их документы никуда
         // не делись, и уникальный индекс всё равно не даст занять логин или почту
         if (findByLogin(entity.login, includeDeleted = true) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)
@@ -67,15 +68,12 @@ class UserRepository : BaseRepository<User>(
             }
         }
 
-        changes["password"]?.let { password ->
-            val passwordStr = password as? String ?: ""
-            if (passwordStr.isNotEmpty() && passwordStr.length < 6) {
-                throw UserExceptions.funExceptionPasswordCheck("validateBeforeUpdate", password.toString())
-            }
+        // Пароль, соль и идентификатор устройства - это ключи от аккаунта. Общий PUT записал
+        // бы пароль как есть, без хеша, а device_id - это вход без пароля; меняются они только
+        // своими маршрутами.
+        listOf("password", "salt", "device_id").forEach { field ->
+            if (changes.containsKey(field)) throw UserExceptions.funExceptionSalt("validateBeforeUpdate", field)
         }
-
-        if (changes.containsKey("salt"))
-            throw UserExceptions.funExceptionSalt("validateBeforeUpdate")
     }
 
     override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
@@ -92,8 +90,9 @@ class UserRepository : BaseRepository<User>(
     }
 
     private fun generatePassword(entity: User) {
-        entity.salt = generateSalt()
-        entity.password = hashPassword(entity.password, entity.salt)
+        // Соль и число итераций живут внутри строки хеша, поле salt нужно только старым хешам.
+        entity.password = Passwords.hash(entity.password)
+        entity.salt = ""
     }
 
     private fun checkPassword(password: String) {
@@ -160,23 +159,36 @@ class UserRepository : BaseRepository<User>(
 
         val (userId, storedHash, storedSalt) = credentials
 
-        if (hashPassword(password, storedSalt) != storedHash) {
+        if (!Passwords.verify(password, storedHash, storedSalt)) {
             throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
         }
 
         val user = findById(userId)
-
-        if (user == null) {
-            throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
-        }
+            ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
 
         if (!user.isActive) {
             throw UserExceptions.funExceptionInactive("authenticate", user.login)
         }
 
+        // Хеш старого образца переписывается сразу, пока пароль в руках: другого случая
+        // пересчитать его не будет, а сбрасывать пароли всем игрокам незачем.
+        if (Passwords.needsRehash(storedHash)) storeHash(user._id, Passwords.hash(password))
+
         return transactionExecute("User authenticate") { session ->
             updateFields(user, mapOf("lastLoginDate" to LocalDateTime.now()), session)
         }
+    }
+
+    /**
+     * Записывает хеш пароля в обход общего обновления: оно запрещает менять пароль и соль,
+     * потому что через него пароль лёг бы в базу открытым текстом. Версия всё равно растёт -
+     * чужая запись, начатая раньше, не перетрёт новый хеш.
+     */
+    private suspend fun storeHash(userId: String, hash: String) {
+        collection.updateOne(
+            Filters.eq("_id", userId),
+            Updates.combine(Updates.set("password", hash), Updates.set("salt", ""), Updates.inc("version", 1L))
+        )
     }
 
     /**
@@ -196,35 +208,15 @@ class UserRepository : BaseRepository<User>(
 
     suspend fun changePassword(id: String, password: String, newPassword: String): String {
         val user = findById(id)
-        if (user == null) {
-            throw UserExceptions.funExceptionFoundUserId("changePassword", id)
-        }
+            ?: throw UserExceptions.funExceptionFoundUserId("changePassword", id)
 
-        if (user.password != hashPassword(password, user.salt)) {
+        if (!Passwords.verify(password, user.password, user.salt)) {
             throw UserExceptions.funExceptionPasswordLoginPass("changePassword", user.login)
         }
 
         checkPassword(newPassword)
-
-        val newHashedPass = hashPassword(newPassword, user.salt)
-        transactionExecute { session ->
-            updateFields(user, mapOf("password" to newHashedPass), session)
-        }
+        storeHash(user._id, Passwords.hash(newPassword))
         return "system.success"
     }
 
-    // ==================== Password utils ====================
-
-    private fun generateSalt(length: Int = 32): String {
-        val bytes = ByteArray(length)
-        SecureRandom().nextBytes(bytes)
-        return bytes.joinToString("") { "%02x".format(it) }
-    }
-
-    private fun hashPassword(password: String, salt: String): String {
-        val digest = MessageDigest.getInstance("SHA-256")
-        val salted = "$salt:$password"
-        val hash = digest.digest(salted.toByteArray(Charsets.UTF_8))
-        return hash.joinToString("") { "%02x".format(it) }
-    }
 }

@@ -17,6 +17,7 @@ import base.exception.BaseException
 import base.exception.BaseRepositoryExceptions
 import base.exception.BaseRouteExceptions
 import base.exception.model.AuctionExceptions
+import base.exception.model.AuthExceptions
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
 import base.exception.model.EquipmentExceptions
@@ -87,7 +88,7 @@ class LocalizationTest {
      */
     private val exceptionObjects: List<KClass<*>> = listOf(
         ApplicationExceptions::class, BaseRepositoryExceptions::class, BaseRouteExceptions::class,
-        AuctionExceptions::class, CharacterExceptions::class, CurrencyExceptions::class,
+        AuctionExceptions::class, AuthExceptions::class, CharacterExceptions::class, CurrencyExceptions::class,
         EquipmentExceptions::class, ItemsExceptions::class, LocaleExceptions::class,
         ModifierExceptions::class, ProgressionExceptions::class, RecipeExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class,

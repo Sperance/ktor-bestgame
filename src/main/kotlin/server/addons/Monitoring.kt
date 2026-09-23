@@ -6,8 +6,6 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.origin
 import io.ktor.server.request.*
-import io.ktor.server.sessions.sessionId
-import io.ktor.util.AttributeKey
 import org.slf4j.event.*
 
 fun Application.configureMonitoring() {
@@ -20,17 +18,17 @@ fun Application.configureMonitoring() {
             val status = call.response.status()?.value ?: 0
             val method = call.request.httpMethod
             val path = call.request.path()
-            val sessionId = call.sessionId
+            val user = call.attributes.getOrNull(CallerKey)?.user?._id ?: "-"
             val userAgent = call.request.headers["User-Agent"] ?: "unknown"
             val remoteHost = call.request.origin.remoteHost
             val contentLength = call.request.contentLength() ?: 0
-            val startTime = call.attributes[AttributeKey<Long>("CallStartTime")]
-            val duration = System.currentTimeMillis() - startTime
+            val duration = call.processingTimeMillis()
+            val startTime = System.currentTimeMillis() - duration
 
             val res = buildString {
                 append("[HTTP] $method $path ")
                 append("| Status: $status ")
-                append("| Session: $sessionId ")
+                append("| User: $user ")
                 append("| Remote: $remoteHost ")
                 append("| StartTime: ${formatTimestamp(startTime)} ")
                 append("| Duration: ${duration}ms ")

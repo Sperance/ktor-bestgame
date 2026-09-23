@@ -7,7 +7,6 @@ import io.ktor.server.netty.Netty
 import server.addons.configureHTTP
 import server.addons.configureMonitoring
 import server.addons.configureRouting
-import server.addons.configureSecurity
 import server.addons.configureSerialization
 import config.DatabaseSeeder
 import config.DatabaseSeeder.getKoin
@@ -18,9 +17,9 @@ import features.logic.icons.IconCache
 import features.logic.locale.LocaleCache
 import io.ktor.server.engine.EmbeddedServer
 import org.koin.core.context.startKoin
-import server.addons.configureCrypto
 import server.addons.configureIpBlocking
 import server.addons.configureRateLimit
+import server.addons.configureAccess
 import server.addons.configureStatusPages
 
 lateinit var server: EmbeddedServer<*, *>
@@ -30,7 +29,7 @@ fun main() {
 
     server = embeddedServer(Netty,
         configure = {
-            connector { port = 8080; host = "0.0.0.0" }
+            connector { port = SERVER_PORT; host = "0.0.0.0" }
             shutdownGracePeriod = 10_000L },
         module = {
             startKoin { modules(allModules) }
@@ -63,12 +62,12 @@ suspend fun Application.configureModules() {
     configureStatusPages()
     configureMonitoring()
     configureSerialization()
-    configureSecurity()
     configureHTTP()
+    configureRateLimit()
+    // Доступ проверяется до маршрутов: каждый запрос под /api и /system проходит здесь.
+    configureAccess()
     configureRouting()
     configureIpBlocking()
-    configureRateLimit()
-    configureCrypto()
 
     DatabaseSeeder.seed()
 }

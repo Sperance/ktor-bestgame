@@ -45,5 +45,28 @@ const val CONST_PAGE_SIZE_DEFAULT = 20
  */
 const val CONST_PAGE_SIZE_MAX = 100
 
-const val MONGO_URI = "mongodb://localhost:27017"
-const val MONGO_DB = "mongobase"
+/**
+ * Версия сервера. Отдаётся по `/system/version`, чтобы клиент мог сверить её с той, под
+ * которую собран, а не верить своей константе на слово.
+ */
+const val SERVER_VERSION = "0.21.0"
+
+/**
+ * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой
+ * хост или в тестовую базу без пересборки. Значения по умолчанию - прежние, так что локальный
+ * запуск ничего не замечает. Секретов у них по умолчанию нет - см. DatabaseSeeder.
+ */
+private fun env(name: String): String? = System.getenv(name)?.takeIf { it.isNotBlank() }
+
+val MONGO_URI: String = env("MONGO_URI") ?: "mongodb://localhost:27017"
+val MONGO_DB: String = env("MONGO_DB") ?: "mongobase"
+val SERVER_PORT: Int = env("PORT")?.toIntOrNull() ?: 8080
+
+/** Пароль сидового администратора. Не задан - администратор не создаётся вовсе. */
+val SEED_ADMIN_PASSWORD: String? = env("ADMIN_PASSWORD")
+
+/** Пароль сидового тестового игрока. Не задан - тестовый игрок не создаётся. */
+val SEED_TEST_PLAYER_PASSWORD: String? = env("TEST_PLAYER_PASSWORD")
+
+/** Адреса, которым разрешён доступ из браузера (CORS), через запятую. Не задано - никому. */
+val CORS_HOSTS: List<String> = env("CORS_HOSTS")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()

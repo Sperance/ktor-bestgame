@@ -4,6 +4,7 @@ import base.exception.model.CharacterExceptions
 import base.exception.model.RedemptionCodesExceptions
 import base.repository.BaseRepository
 import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.now
@@ -71,13 +72,14 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = 
         if (redemption.treasure.isEmpty())
             throw RedemptionCodesExceptions.funExceptionEmptyTreasure("useCharacterRedemptionCode", redemptionCode)
 
-        redemption.used++
         character.gainedRedemptionCodes.add(GainedRedemtionCodes(redemption._id, LocalDateTime.now()))
 
         transactionExecute("useCharacterRedemptionCode") { session ->
             grant(character, redemption.treasure, session)
             characterRepository.update(character, session)
-            update(redemption, session)
+            // Счётчик растёт в самой базе: прочитать, прибавить и записать обратно значило бы
+            // терять активации, сделанные двумя игроками одновременно.
+            collection.updateOne(session, Filters.eq("_id", redemption._id), Updates.inc("used", 1L))
         }
 
         return "system.success"
