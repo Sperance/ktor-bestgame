@@ -15,6 +15,7 @@ class CharacterRoute(
     val repo: CharacterRepository,
     val campaign: CampaignService,
     val merchant: features.logic.trade.MerchantService,
+    val crafts: features.logic.crafts.CraftsService,
 ) : BaseRoute<Character, Character>(
     repository = repo,
     entitySerializer = Character.serializer(),
@@ -59,6 +60,8 @@ class CharacterRoute(
             }
             get("/items") {
                 val characterId = call.queryParam("characterId")
+                // 0.37.0: добытое работой ложится в сумку до того, как её прочтут.
+                crafts.settle(characterId)
                 val character = repo.findById(characterId)
                 call.respond(ApiMongoResponse.ok(character?.parseItems()))
             }
@@ -67,6 +70,23 @@ class CharacterRoute(
                 val itemObj = call.receive<List<CharacterItems>>()
                 val data = repo.addItem(characterId, itemObj)
                 call.respond(ApiMongoResponse.ok(data))
+            }
+        }
+
+        // Ремёсла (0.37.0): работа идёт на сервере по времени и досчитывается при каждом обращении.
+        route("/crafts") {
+            get {
+                val characterId = call.queryParam("characterId")
+                call.respond(ApiMongoResponse.ok(crafts.state(characterId)))
+            }
+            post("/start") {
+                val characterId = call.queryParam("characterId")
+                val job = call.queryParam("job")
+                call.respond(ApiMongoResponse.ok(crafts.start(characterId, job)))
+            }
+            post("/stop") {
+                val characterId = call.queryParam("characterId")
+                call.respond(ApiMongoResponse.ok(crafts.stop(characterId)))
             }
         }
 

@@ -2991,7 +2991,8 @@
         "SCI_L2_1",
         "SCI_R1",
         "SCI_R2",
-        "SCI_R3"
+        "SCI_R3",
+        "CRA_1"
       ],
       "params": []
     },
@@ -6106,6 +6107,257 @@
           "code": "INCREASED_LIGHT_RADIUS",
           "values": [
             15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 80,
+      "positionY": 0,
+      "connections": [
+        "SCION_START",
+        "CRA_2"
+      ],
+      "params": [
+        {
+          "code": "WORK_SPEED",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 118,
+      "positionY": 0,
+      "connections": [
+        "CRA_1",
+        "CRA_3"
+      ],
+      "params": [
+        {
+          "code": "WORK_LUCK",
+          "values": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_3",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 156,
+      "positionY": 0,
+      "connections": [
+        "CRA_2",
+        "CRA_4"
+      ],
+      "params": [
+        {
+          "code": "WORK_YIELD",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_4",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 194,
+      "positionY": 0,
+      "connections": [
+        "CRA_3",
+        "CRA_U1",
+        "CRA_D1",
+        "CRA_5"
+      ],
+      "params": [
+        {
+          "code": "WORK_SPEED",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "WORK_YIELD",
+          "values": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_U1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 194,
+      "positionY": 44,
+      "connections": [
+        "CRA_4",
+        "CRA_U2"
+      ],
+      "params": [
+        {
+          "code": "WORK_EXPERIENCE",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_U2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 230,
+      "positionY": 48,
+      "connections": [
+        "CRA_U1",
+        "CRA_U3"
+      ],
+      "params": [
+        {
+          "code": "WORK_FIND",
+          "values": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_U3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 266,
+      "positionY": 44,
+      "connections": [
+        "CRA_U2"
+      ],
+      "params": [
+        {
+          "code": "WORK_EXPERIENCE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "WORK_FIND",
+          "values": [
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_D1",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 194,
+      "positionY": -44,
+      "connections": [
+        "CRA_4",
+        "CRA_D2"
+      ],
+      "params": [
+        {
+          "code": "WORK_LUCK",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_D2",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 230,
+      "positionY": -48,
+      "connections": [
+        "CRA_D1",
+        "CRA_D3"
+      ],
+      "params": [
+        {
+          "code": "WORK_SPEED",
+          "values": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_D3",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 266,
+      "positionY": -44,
+      "connections": [
+        "CRA_D2"
+      ],
+      "params": [
+        {
+          "code": "WORK_LUCK",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "WORK_SPEED",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_5",
+      "type": "SMALL",
+      "cost": 1,
+      "positionX": 236,
+      "positionY": 0,
+      "connections": [
+        "CRA_4",
+        "CRA_6"
+      ],
+      "params": [
+        {
+          "code": "WORK_YIELD",
+          "values": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CRA_6",
+      "type": "NOTABLE",
+      "cost": 1,
+      "positionX": 276,
+      "positionY": 0,
+      "connections": [
+        "CRA_5"
+      ],
+      "params": [
+        {
+          "code": "WORK_YIELD",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "WORK_LUCK",
+          "values": [
+            10
           ]
         }
       ]

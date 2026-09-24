@@ -161,7 +161,14 @@ database. Keep new rules in that table rather than in a route.
   `POST /campaign/start?characterId&mapCode[&itemId]` spends one into `Character.activeMap`;
   `maps.risk` in the file turns every harmful modifier into quantity, rarity and experience for that
   location's loot, and `grant` drops maps by `maps.dropChance`/`bossChance`.
-- `src/main/resources/skilltree/tree.json` — the passive tree, 309 nodes. `SkillTreeSeeder` only
+- `src/main/resources/content/professions.json` — the crafts (since 0.37.0): three gathering
+  professions, each with a tool slot (`TOOL_*`) and works (level, seconds, chance of nothing, output
+  material, experience, side finds), and the rules (8 offline hours, levels 1–50). `CraftsService`
+  settles the one work a hero runs by time on every crafts read and every bag read
+  (`Crafts.settle`, pure, `CraftsTest`), paying materials (`items.json`, category `MATERIAL`) into
+  the bag. Tools count only in their profession and are skipped by `CharacterStatsCalculator`;
+  the tree's «Ремесло» branch (`CRA_*`) feeds `STOCK_WORK_*` through the sheet. Errors are `CF_*`.
+- `src/main/resources/skilltree/tree.json` — the passive tree, 321 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level
   table, in code because they are rules.

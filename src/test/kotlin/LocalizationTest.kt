@@ -100,6 +100,7 @@ class LocalizationTest {
         EquipmentExceptions::class, ItemsExceptions::class, LocaleExceptions::class,
         ModifierExceptions::class, ProgressionExceptions::class, RecipeExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class,
+        base.exception.model.ProfessionExceptions::class,
     )
 
     /**
@@ -159,6 +160,13 @@ class LocalizationTest {
         }
         CampaignContent.file.monsters.forEach { keys.add(LocaleKey.monsterName(it.code)) }
         CampaignContent.file.modifiers.forEach { keys.add(LocaleKey.monsterModifierName(it.code)) }
+
+        // Ремёсла (0.37.0): профессии с описанием и их работы
+        features.logic.crafts.CraftsContent.file.professions.forEach { profession ->
+            keys.add(LocaleKey.professionName(profession.code))
+            keys.add(LocaleKey.professionDescription(profession.code))
+            profession.jobs.forEach { keys.add(LocaleKey.jobName(it.code)) }
+        }
 
         enums.forEach { (name, values) -> values.forEach { keys.add(LocaleKey.enumLabel(name, it.name)) } }
 

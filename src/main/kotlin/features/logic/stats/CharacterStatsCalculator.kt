@@ -108,6 +108,8 @@ object CharacterStatsCalculator : KoinComponent {
 
         equipped.sortedBy { it.equippedSlot?.ordinal ?: Int.MAX_VALUE }.forEach { item ->
             val template = equipmentCache.findById(item.equipmentId) ?: return@forEach
+            // Инструмент (0.37.0) работает только в своей профессии, а не на герое.
+            if (template.slot.isTool) return@forEach
 
             // Самоцвет работает, только пока взято гнездо, в котором он сидит:
             // вернули узел - самоцвет остался на месте, но считаться перестал.

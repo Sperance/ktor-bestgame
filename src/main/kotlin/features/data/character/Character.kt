@@ -75,6 +75,15 @@ data class Character(
     /** Карта, с которой герой вошёл в локацию (с 0.35.0); её бонус ложится на добычу только этой локации. */
     var activeMap: features.logic.campaign.ActiveMap? = null,
 
+    /** Профессии героя (с 0.37.0): уровень и опыт по коду профессии. */
+    var professions: MutableMap<String, features.logic.crafts.ProfessionProgress> = mutableMapOf(),
+
+    /** Работа, которую герой ведёт сейчас, - одна на героя (с 0.37.0). */
+    var work: features.logic.crafts.ActiveWork? = null,
+
+    /** Выдан ли стартовый набор инструментов (с 0.37.0): выдаётся один раз. */
+    var toolsGranted: Boolean = false,
+
     /** Витрина торговца этого героя (с 0.34.0), см. [features.logic.trade.MerchantRules]. */
     var merchant: features.logic.trade.MerchantStock? = null,
 

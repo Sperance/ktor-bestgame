@@ -23,6 +23,138 @@
       "category": "CONSUMABLE",
       "subCategory": "HEALTH",
       "price": 80
+    },
+    {
+      "code": "COPPER_ORE",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 8
+    },
+    {
+      "code": "IRON_ORE",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 14
+    },
+    {
+      "code": "SILVER_ORE",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 24
+    },
+    {
+      "code": "MITHRIL_ORE",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 40
+    },
+    {
+      "code": "ADAMANT_ORE",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 60
+    },
+    {
+      "code": "TOPAZ",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 30
+    },
+    {
+      "code": "SAPPHIRE",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 45
+    },
+    {
+      "code": "RUBY",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 65
+    },
+    {
+      "code": "WORMWOOD",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 6
+    },
+    {
+      "code": "CAVE_MUSHROOM",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 8
+    },
+    {
+      "code": "BLOODWORT",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 12
+    },
+    {
+      "code": "AMBER_RESIN",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 16
+    },
+    {
+      "code": "SHADEBLOOM",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 22
+    },
+    {
+      "code": "GLOWCAP",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 30
+    },
+    {
+      "code": "MOON_LOTUS",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 36
+    },
+    {
+      "code": "VOID_ROOT",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 55
+    },
+    {
+      "code": "BIRCH_LOG",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 6
+    },
+    {
+      "code": "OAK_LOG",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 12
+    },
+    {
+      "code": "YEW_LOG",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 22
+    },
+    {
+      "code": "IRONWOOD_LOG",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 36
+    },
+    {
+      "code": "GHOST_ASH_LOG",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 55
+    },
+    {
+      "code": "BARK",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 10
     }
   ]
 }

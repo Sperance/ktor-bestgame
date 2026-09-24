@@ -102,6 +102,11 @@ import application.enums.EnumStatStock.MAP_CHESTS
 import application.enums.EnumStatStock.MAP_QUANTITY
 import application.enums.EnumStatStock.MAP_RARITY
 import application.enums.EnumStatStock.MAP_EXPERIENCE
+import application.enums.EnumStatStock.STOCK_WORK_SPEED
+import application.enums.EnumStatStock.STOCK_WORK_YIELD
+import application.enums.EnumStatStock.STOCK_WORK_LUCK
+import application.enums.EnumStatStock.STOCK_WORK_EXPERIENCE
+import application.enums.EnumStatStock.STOCK_WORK_FIND
 import application.enums.EnumInfluence.ELDER
 import application.enums.EnumInfluence.SHAPER
 import features.logic.modifiers.ModifierDefinition
@@ -764,6 +769,42 @@ object ModifierSeeder {
             tags = listOf("map"),
             effects = listOf(effect(MAP_EXPERIENCE, INCREASED, best = 8.0..10.0, worst = 3.0..4.0)),
             tierCount = 3, bestItemLevel = 15
+        ),
+        // ---------- Ремёсла (0.37.0): аффиксы инструментов и эффекты ветки «Ремесло» ----------
+        ModifierTemplate(
+            code = "WORK_SPEED",
+            source = PREFIX,
+            tags = listOf("work"),
+            effects = listOf(effect(STOCK_WORK_SPEED, INCREASED, best = 22.0..25.0, worst = 6.0..8.0)),
+            tierCount = 4, bestItemLevel = 45
+        ),
+        ModifierTemplate(
+            code = "WORK_YIELD",
+            source = PREFIX,
+            tags = listOf("work"),
+            effects = listOf(effect(STOCK_WORK_YIELD, ADD, best = 26.0..30.0, worst = 8.0..10.0)),
+            tierCount = 4, bestItemLevel = 45
+        ),
+        ModifierTemplate(
+            code = "WORK_LUCK",
+            source = SUFFIX,
+            tags = listOf("work"),
+            effects = listOf(effect(STOCK_WORK_LUCK, ADD, best = 26.0..30.0, worst = 8.0..10.0)),
+            tierCount = 4, bestItemLevel = 45
+        ),
+        ModifierTemplate(
+            code = "WORK_EXPERIENCE",
+            source = SUFFIX,
+            tags = listOf("work"),
+            effects = listOf(effect(STOCK_WORK_EXPERIENCE, INCREASED, best = 18.0..20.0, worst = 5.0..6.0)),
+            tierCount = 3, bestItemLevel = 40
+        ),
+        ModifierTemplate(
+            code = "WORK_FIND",
+            source = SUFFIX,
+            tags = listOf("work"),
+            effects = listOf(effect(STOCK_WORK_FIND, INCREASED, best = 35.0..40.0, worst = 10.0..12.0)),
+            tierCount = 3, bestItemLevel = 40
         ),
         ModifierTemplate(
             code = "INCREASED_CHEST_QUANTITY",

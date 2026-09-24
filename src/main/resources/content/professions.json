@@ -1,0 +1,245 @@
+{
+  "rules": {
+    "offlineHours": 8,
+    "maxLevel": 50,
+    "levelSpeed": 30,
+    "levelFind": 50,
+    "luckCap": 90,
+    "experienceBase": 40,
+    "experiencePower": 1.7
+  },
+  "professions": [
+    {
+      "code": "MINING",
+      "tool": "TOOL_MINING",
+      "jobs": [
+        {
+          "code": "COPPER_VEIN",
+          "level": 1,
+          "seconds": 5,
+          "nothing": 30,
+          "output": "COPPER_ORE",
+          "experience": 4,
+          "extra": []
+        },
+        {
+          "code": "IRON_VEIN",
+          "level": 10,
+          "seconds": 10,
+          "nothing": 32,
+          "output": "IRON_ORE",
+          "experience": 9,
+          "extra": []
+        },
+        {
+          "code": "TOPAZ_DEPOSIT",
+          "level": 15,
+          "seconds": 30,
+          "nothing": 55,
+          "output": "TOPAZ",
+          "experience": 18,
+          "extra": []
+        },
+        {
+          "code": "SILVER_VEIN",
+          "level": 20,
+          "seconds": 18,
+          "nothing": 35,
+          "output": "SILVER_ORE",
+          "experience": 16,
+          "extra": []
+        },
+        {
+          "code": "SAPPHIRE_DEPOSIT",
+          "level": 25,
+          "seconds": 45,
+          "nothing": 60,
+          "output": "SAPPHIRE",
+          "experience": 30,
+          "extra": []
+        },
+        {
+          "code": "MITHRIL_VEIN",
+          "level": 30,
+          "seconds": 28,
+          "nothing": 38,
+          "output": "MITHRIL_ORE",
+          "experience": 26,
+          "extra": []
+        },
+        {
+          "code": "RUBY_DEPOSIT",
+          "level": 35,
+          "seconds": 60,
+          "nothing": 65,
+          "output": "RUBY",
+          "experience": 45,
+          "extra": []
+        },
+        {
+          "code": "ADAMANT_VEIN",
+          "level": 40,
+          "seconds": 40,
+          "nothing": 40,
+          "output": "ADAMANT_ORE",
+          "experience": 40,
+          "extra": []
+        }
+      ]
+    },
+    {
+      "code": "HERBALISM",
+      "tool": "TOOL_HERBALISM",
+      "jobs": [
+        {
+          "code": "WORMWOOD_PATCH",
+          "level": 1,
+          "seconds": 5,
+          "nothing": 30,
+          "output": "WORMWOOD",
+          "experience": 4,
+          "extra": []
+        },
+        {
+          "code": "CAVE_MUSHROOMS",
+          "level": 5,
+          "seconds": 8,
+          "nothing": 32,
+          "output": "CAVE_MUSHROOM",
+          "experience": 6,
+          "extra": []
+        },
+        {
+          "code": "BLOODWORT_PATCH",
+          "level": 10,
+          "seconds": 10,
+          "nothing": 33,
+          "output": "BLOODWORT",
+          "experience": 9,
+          "extra": []
+        },
+        {
+          "code": "AMBER_TAPPING",
+          "level": 12,
+          "seconds": 15,
+          "nothing": 40,
+          "output": "AMBER_RESIN",
+          "experience": 12,
+          "extra": []
+        },
+        {
+          "code": "SHADEBLOOM_PATCH",
+          "level": 20,
+          "seconds": 18,
+          "nothing": 35,
+          "output": "SHADEBLOOM",
+          "experience": 16,
+          "extra": []
+        },
+        {
+          "code": "GLOWCAP_GROTTO",
+          "level": 28,
+          "seconds": 24,
+          "nothing": 45,
+          "output": "GLOWCAP",
+          "experience": 22,
+          "extra": []
+        },
+        {
+          "code": "MOON_LOTUS_POND",
+          "level": 30,
+          "seconds": 28,
+          "nothing": 38,
+          "output": "MOON_LOTUS",
+          "experience": 26,
+          "extra": []
+        },
+        {
+          "code": "VOID_ROOT_BED",
+          "level": 40,
+          "seconds": 40,
+          "nothing": 40,
+          "output": "VOID_ROOT",
+          "experience": 40,
+          "extra": []
+        }
+      ]
+    },
+    {
+      "code": "WOODCUTTING",
+      "tool": "TOOL_WOODCUTTING",
+      "jobs": [
+        {
+          "code": "BIRCH_GROVE",
+          "level": 1,
+          "seconds": 5,
+          "nothing": 30,
+          "output": "BIRCH_LOG",
+          "experience": 4,
+          "extra": [
+            {
+              "item": "BARK",
+              "chance": 8
+            }
+          ]
+        },
+        {
+          "code": "OAK_GROVE",
+          "level": 10,
+          "seconds": 10,
+          "nothing": 32,
+          "output": "OAK_LOG",
+          "experience": 9,
+          "extra": [
+            {
+              "item": "BARK",
+              "chance": 8
+            }
+          ]
+        },
+        {
+          "code": "YEW_GROVE",
+          "level": 20,
+          "seconds": 18,
+          "nothing": 35,
+          "output": "YEW_LOG",
+          "experience": 16,
+          "extra": [
+            {
+              "item": "BARK",
+              "chance": 8
+            }
+          ]
+        },
+        {
+          "code": "IRONWOOD_GROVE",
+          "level": 30,
+          "seconds": 28,
+          "nothing": 38,
+          "output": "IRONWOOD_LOG",
+          "experience": 26,
+          "extra": [
+            {
+              "item": "BARK",
+              "chance": 8
+            }
+          ]
+        },
+        {
+          "code": "GHOST_ASH_GROVE",
+          "level": 40,
+          "seconds": 40,
+          "nothing": 40,
+          "output": "GHOST_ASH_LOG",
+          "experience": 40,
+          "extra": [
+            {
+              "item": "BARK",
+              "chance": 8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

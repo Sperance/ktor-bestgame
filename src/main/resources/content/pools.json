@@ -557,6 +557,13 @@
       "MAP_QUANTITY",
       "MAP_RARITY",
       "MAP_EXPERIENCE"
+    ],
+    "tool": [
+      "WORK_SPEED",
+      "WORK_YIELD",
+      "WORK_LUCK",
+      "WORK_EXPERIENCE",
+      "WORK_FIND"
     ]
   }
 }

@@ -276,7 +276,7 @@ class CampaignService : KoinComponent {
             itemsCache.getCache().firstOrNull { it.code == code }?.let { CharacterItems(it._id, amount) }
         }
         // Уникалки боссов не падают ниоткуда, кроме своего босса; карты - только своим броском.
-        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level && it.code !in CampaignContent.bossUniques && it.slot != EnumEquipmentType.MAP }
+        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level && it.code !in CampaignContent.bossUniques && it.slot != EnumEquipmentType.MAP && !it.slot.isTool }
         val templates = extra + List(loot.equipment) {
             CampaignLoot.pick(bases, { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity, random)
         }.filterNotNull()

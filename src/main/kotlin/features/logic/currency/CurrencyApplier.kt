@@ -354,7 +354,7 @@ object CurrencyApplier : KoinComponent {
      * влияния; самоцвет влиянию не поддаётся.
      */
     private fun influence(item: CharacterEquipment, template: Equipment, influence: EnumInfluence): CurrencyOutcome {
-        if (template.slot == EnumEquipmentType.JEWEL || template.slot == EnumEquipmentType.MAP)
+        if (template.slot == EnumEquipmentType.JEWEL || template.slot == EnumEquipmentType.MAP || template.slot.isTool)
             throw CurrencyExceptions.funExceptionNotInfluenceable("influence", template.code)
         if (item.rarity !in rareOrBetter)
             throw CurrencyExceptions.funExceptionRarity("influence", item.rarity.name)

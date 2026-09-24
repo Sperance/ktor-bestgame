@@ -149,6 +149,16 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     MAP_QUANTITY(411),
     MAP_RARITY(412),
     MAP_EXPERIENCE(413),
+
+    // ========== Ремёсла (0.37.0): инструменты и ветка дерева «Ремесло» ==========
+    // Скорость цикла, процент лишней единицы (каждые 100 - гарантированная), снижение шанса
+    // «ничего», опыт профессии и шанс побочной находки. Инструмент считается только в своей
+    // профессии, поэтому в лист героя инструменты не входят - там только дерево.
+    STOCK_WORK_SPEED(420),
+    STOCK_WORK_YIELD(421),
+    STOCK_WORK_LUCK(422),
+    STOCK_WORK_EXPERIENCE(423),
+    STOCK_WORK_FIND(424),
 }
 
 enum class EnumStatBool(override val order: Int) : IntEnumStat {
