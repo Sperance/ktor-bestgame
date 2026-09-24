@@ -7,8 +7,8 @@ import features.logic.modifiers.Modifier
 import kotlinx.serialization.Serializable
 
 /**
- * Оружие. Урон и скорость атаки задаются implicit-модификаторами
- * в [modifierIds], отдельных полей под них нет.
+ * Оружие. Урон и скорость атаки задаются модификаторами базы
+ * в [baseParams], отдельных полей под них нет.
  */
 @Serializable
 data class Weapon(
@@ -23,7 +23,9 @@ data class Weapon(
     override var code: String = "",
     override var rarity: EnumRarity = EnumRarity.COMMON,
     override var itemLevel: Int = 1,
-    override var modifierIds: MutableList<String> = mutableListOf(),
+    override var fixedModifierIds: MutableList<String> = mutableListOf(),
+    override var modifierPools: MutableList<String> = mutableListOf(),
+    override var pools: Map<String, Int> = emptyMap(),
     override var baseParams: MutableList<Modifier> = mutableListOf(),
     override var requiredLevel: Int = 1,
     override var requiredStrength: Int = 0,

@@ -16,6 +16,7 @@ import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierEffect
 import features.logic.modifiers.ModifierRoller
+import features.logic.pools.Pools
 import org.junit.Test
 
 /**
@@ -24,6 +25,10 @@ import org.junit.Test
  * предмет до обращения к кэшам.
  */
 class ModifierRollTest {
+
+    private companion object {
+        const val TEST_POOL = "test"
+    }
 
     private val definitions: List<ModifierDefinition> =
         ModifierSeeder.seedDefinitions() + UniqueEquipmentSeeder.seedDefinitions()
@@ -34,8 +39,10 @@ class ModifierRollTest {
             effects = listOf(ModifierEffect(EnumStatStock.STOCK_HEALTH, EnumModifierOperation.ADD)),
             source = source,
             group = group,
-            spawnWeight = weight
+            pools = mapOf(TEST_POOL to weight)
         )
+
+    private fun weighted(definitions: List<ModifierDefinition>) = Pools.of(definitions, listOf(TEST_POOL))
 
     private fun template(slot: EnumEquipmentType = EnumEquipmentType.HELMET) =
         Armor(slot = slot, code = "TEST_HELM", rarity = EnumRarity.RARE, itemLevel = 80)
@@ -54,7 +61,7 @@ class ModifierRollTest {
             definition("FIRE", EnumModifierSource.SUFFIX),
         )
         repeat(200) {
-            val picked = ModifierRoller.pickAffixes(pool, prefixes = 3, suffixes = 3)
+            val picked = ModifierRoller.pickAffixes(weighted(pool), prefixes = 3, suffixes = 3)
             assert(picked.map { it.family() }.toSet().size == picked.size) { "Two modifiers of one group: ${picked.map { it.code }}" }
             assert(picked.size == 3) { "Free slots left while the pool still had other groups: ${picked.map { it.code }}" }
         }
@@ -67,7 +74,7 @@ class ModifierRollTest {
             definition("MANA", EnumModifierSource.PREFIX),
         )
         repeat(50) {
-            val picked = ModifierRoller.pickAffixes(pool, prefixes = 2, suffixes = 0, taken = listOf("LIFE"))
+            val picked = ModifierRoller.pickAffixes(weighted(pool), prefixes = 2, suffixes = 0, taken = listOf("LIFE"))
             assert(picked.map { it.code } == listOf("MANA")) { "A taken group was rolled again: ${picked.map { it.code }}" }
         }
     }
@@ -76,7 +83,7 @@ class ModifierRollTest {
     fun slots_of_each_kind_are_respected() {
         val pool = (1..6).map { definition("P$it", EnumModifierSource.PREFIX) } + (1..6).map { definition("S$it", EnumModifierSource.SUFFIX) }
         repeat(50) {
-            val picked = ModifierRoller.pickAffixes(pool, prefixes = 1, suffixes = 2)
+            val picked = ModifierRoller.pickAffixes(weighted(pool), prefixes = 1, suffixes = 2)
             assert(picked.count { it.source == EnumModifierSource.PREFIX } == 1) { "Wrong prefix count" }
             assert(picked.count { it.source == EnumModifierSource.SUFFIX } == 2) { "Wrong suffix count" }
         }
@@ -88,7 +95,7 @@ class ModifierRollTest {
             definition("COMMON", EnumModifierSource.PREFIX, weight = 900),
             definition("RARE", EnumModifierSource.PREFIX, weight = 100),
         )
-        val rolls = (1..2000).map { ModifierRoller.pickAffixes(pool, prefixes = 1, suffixes = 0).single().code }
+        val rolls = (1..2000).map { ModifierRoller.pickAffixes(weighted(pool), prefixes = 1, suffixes = 0).single().code }
         val rare = rolls.count { it == "RARE" }
         assert(rare in 100..350) { "A tenth of the weight rolled $rare times out of 2000" }
     }
@@ -96,17 +103,26 @@ class ModifierRollTest {
     // ==================== Данные ====================
 
     @Test
-    fun every_definition_has_a_positive_weight() {
-        val broken = definitions.filter { it.spawnWeight <= 0 }
-        assert(broken.isEmpty()) { "Modifiers that can never roll: ${broken.map { it.code }}" }
+    fun every_natural_affix_rolls_somewhere_and_no_weight_is_negative() {
+        val broken = definitions.filter { it.pools.values.any { weight -> weight < 0 } }
+        assert(broken.isEmpty()) { "Negative pool weights: ${broken.map { it.code }}" }
+        val loose = definitions.filter { it.isNaturalAffix() && it.pools.values.none { weight -> weight > 0 } }
+        assert(loose.isEmpty()) { "Affixes that can never roll: ${loose.map { it.code }}" }
     }
 
     @Test
     fun crafted_and_influenced_modifiers_stay_out_of_template_pools() {
-        val special = definitions.filter { it.crafted || it.influence != null }.map { it._id }.toSet()
         EquipmentSeeder(definitions).seed().forEach { item ->
-            val leaked = item.modifierIds.filter { it in special }
-            assert(leaked.isEmpty()) { "${item.code} rolls bench or influence modifiers: $leaked" }
+            val leaked = Pools.of(definitions, item.modifierPools).map { it.value }.filter { it.crafted || it.influence != null }
+            assert(leaked.isEmpty()) { "${item.code} rolls bench or influence modifiers: ${leaked.map { it.code }}" }
+        }
+    }
+
+    @Test
+    fun every_influence_opens_its_own_pool() {
+        EnumInfluence.entries.forEach { influence ->
+            val pool = Pools.of(definitions, listOf(Pools.influence(influence))).map { it.value }
+            assert(pool.isNotEmpty() && pool.all { it.influence == influence }) { "$influence pool: ${pool.map { it.code }}" }
         }
     }
 

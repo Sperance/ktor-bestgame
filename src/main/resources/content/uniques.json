@@ -1,0 +1,1432 @@
+{
+  "uniques": [
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "GOLDRIM",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 2,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [27.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [30.0, 40.0] }
+        ],
+        [
+          { "stat": "STOCK_RARITY", "operation": "INCREASED", "range": [6.0, 15.0] }
+        ],
+        [
+          { "stat": "STOCK_EVASION", "operation": "ADD", "range": [30.0, 30.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "STARKONJA_S_HEAD",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 120,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [288.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [50.0, 50.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [100.0, 150.0] }
+        ],
+        [
+          { "stat": "STOCK_CRITICAL_CHANCE", "operation": "INCREASED", "range": [25.0, 25.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "DEVOTO_S_DEVOTION",
+      "itemLevel": 62,
+      "requiredLevel": 62,
+      "requiredStrength": 124,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [296.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [60.0, 65.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [10.0, 10.0] }
+        ],
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [16.0, 16.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_CHAOS", "operation": "ADD", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "BELLY_OF_THE_BEAST",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 100,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [500.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_HEALTH", "operation": "INCREASED", "range": [30.0, 40.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [100.0, 150.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "KAOM_S_HEART",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 136,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [500.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [500.0, 500.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_FIRE", "operation": "MORE", "range": [20.0, 40.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "CARCASS_JACK",
+      "itemLevel": 62,
+      "requiredLevel": 62,
+      "requiredStrength": 124,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [350.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [120.0, 150.0] },
+          { "stat": "STOCK_ENERGY_SHIELD", "operation": "INCREASED", "range": [120.0, 150.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [12.0, 16.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "FACEBREAKER",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 32,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [600.0, 800.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_CHAOS", "operation": "ADD", "range": [2.0, 4.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "MALIGARO_S_VIRTUOSITY",
+      "itemLevel": 21,
+      "requiredLevel": 21,
+      "requiredStrength": 0,
+      "requiredDexterity": 42,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [40.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_CRITICAL_MULTIPLIER", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_CRITICAL_CHANCE", "operation": "INCREASED", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [10.0, 16.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "ATZIRI_S_ACUITY",
+      "itemLevel": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 0,
+      "requiredDexterity": 136,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [350.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [40.0, 50.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [150.0, 200.0] },
+          { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [150.0, 200.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "WANDERLUST",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 2,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [5.0, 10.0] }
+        ],
+        [
+          { "stat": "STOCK_MANA", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [20.0, 20.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "SEVEN_LEAGUE_STEP",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 40,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [50.0, 50.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "GOLDWYRM",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [60.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_MANA", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [20.0, 20.0] }
+        ],
+        [
+          { "stat": "STOCK_RARITY", "operation": "INCREASED", "range": [30.0, 40.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "WINGS_OF_VASTIRI",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 80,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [80.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [10.0, 15.0] }
+        ],
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "SHROUD_OF_THE_SEVENTH",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 120,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [120.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ENERGY_SHIELD", "operation": "ADD", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [10.0, 15.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "PINION_OF_THE_MAW",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 140,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [150.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [80.0, 120.0] },
+          { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [80.0, 120.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "MEGINORD_S_GIRDLE",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 40,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [25.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "ADD", "range": [5.0, 7.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_COLD", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH_REGEN", "operation": "ADD", "range": [8.0, 12.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "HEADHUNTER",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 80,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [40.0, 55.0] },
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [40.0, 55.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "THE_MAGNATE",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 40,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [25.0, 40.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_RARITY", "operation": "INCREASED", "range": [10.0, 20.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "BEREK_S_GRIP",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 40,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_COLD", "operation": "ADD", "range": [20.0, 30.0] },
+          { "stat": "STOCK_RESIST_LIGHTNING", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.4, 0.8] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "VENTOR_S_GAMBLE",
+      "itemLevel": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 130,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_RARITY", "operation": "INCREASED", "range": [20.0, 50.0] }
+        ],
+        [
+          { "stat": "STOCK_QUANTITY", "operation": "INCREASED", "range": [10.0, 20.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [10.0, 20.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [10.0, 30.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "KAOM_S_SIGN",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 80,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [15.0, 25.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH_REGEN", "operation": "ADD", "range": [5.0, 10.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "ASTRAMENTIS",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 60,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [80.0, 100.0] },
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [80.0, 100.0] },
+          { "stat": "STOCK_INTELLECT", "operation": "ADD", "range": [80.0, 100.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "CARNAGE_HEART",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 80,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [20.0, 30.0] },
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [20.0, 30.0] },
+          { "stat": "STOCK_INTELLECT", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.6, 1.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [8.0, 14.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "BISCO_S_COLLAR",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 100,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_RARITY", "operation": "INCREASED", "range": [50.0, 100.0] }
+        ],
+        [
+          { "stat": "STOCK_QUANTITY", "operation": "INCREASED", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "LIONEYE_S_REMORSE",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 90,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [800.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [100.0, 120.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [200.0, 250.0] }
+        ],
+        [
+          { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [5.0, 8.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "RISE_OF_THE_PHOENIX",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 120,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [400.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [40.0, 50.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [150.0, 200.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH_REGEN", "operation": "ADD", "range": [10.0, 20.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "SAFFELL_S_FRAME",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 90,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [120.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [20.0, 25.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_MAGICAL", "operation": "INCREASED", "range": [20.0, 40.0] }
+        ],
+        [
+          { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [5.0, 8.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "DRILLNECK",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [8.0, 12.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [20.0, 40.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "REARGUARD",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 60,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_ENERGY_SHIELD", "operation": "ADD", "range": [30.0, 50.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [40.0, 60.0] }
+        ],
+        [
+          { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [3.0, 5.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "HYRRI_S_BITE",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 0,
+      "requiredDexterity": 90,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_COLD", "operation": "ADD", "range": [15.0, 25.0] }
+        ],
+        [
+          { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.4, 0.8] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "BINO_S_KITCHEN_KNIFE",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 0,
+      "requiredDexterity": 100,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 120,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [65.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.4] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_CRITICAL_CHANCE", "operation": "INCREASED", "range": [30.0, 40.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [50.0, 70.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "DORYANI_S_CATALYST",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 0,
+      "requiredDexterity": 120,
+      "requiredIntelligence": 0,
+      "weaponType": "WAND",
+      "durability": 100,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [50.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.4] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_LIGHTNING", "operation": "ADD", "range": [10.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_MAGICAL", "operation": "INCREASED", "range": [40.0, 60.0] }
+        ],
+        [
+          { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.4, 0.8] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "LIONEYE_S_GLARE",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 140,
+      "requiredIntelligence": 0,
+      "weaponType": "BOW",
+      "durability": 140,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [185.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.4] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [150.0, 200.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [10.0, 14.0] }
+        ],
+        [
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [30.0, 40.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "MAROHI_ERQI",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 100,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 200,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [275.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [0.8] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [250.0, 300.0] }
+        ],
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [30.0, 40.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "STARFORGE",
+      "itemLevel": 75,
+      "requiredLevel": 75,
+      "requiredStrength": 150,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLESWORD",
+      "durability": 220,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [300.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.3] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [300.0, 400.0] }
+        ],
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [40.0, 50.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "MORE", "range": [10.0, 15.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "HEGEMONY_S_ERA",
+      "itemLevel": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 130,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 180,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [220.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.2] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [20.0, 30.0] },
+          { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [150.0, 200.0] }
+        ],
+        [
+          { "stat": "STOCK_CRITICAL_MULTIPLIER", "operation": "ADD", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "TIDEBREAKER_SIGIL",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_RESIST_COLD", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_MANA", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_COLD", "operation": "ADD", "range": [3.0, 6.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_TIDECALLER": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "BRINESHELL_WARD",
+      "itemLevel": 3,
+      "requiredLevel": 3,
+      "requiredStrength": 6,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [60.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [60.0, 90.0] }
+        ],
+        [
+          { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [4.0, 6.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [30.0, 45.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_BRINE_MOTHER": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "MIRE_QUEENS_CROWN",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 10,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [40.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_RESIST_CHAOS", "operation": "ADD", "range": [17.0, 23.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH_REGEN", "operation": "ADD", "range": [3.0, 5.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [30.0, 40.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_BOG_QUEEN": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "PACKLEADERS_STRIDE",
+      "itemLevel": 7,
+      "requiredLevel": 7,
+      "requiredStrength": 0,
+      "requiredDexterity": 14,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [30.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [20.0, 25.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [6.0, 10.0] }
+        ],
+        [
+          { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [40.0, 60.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_ALPHA_WOLF": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "WARDENS_OATH",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 18,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [180.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [80.0, 120.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
+        ],
+        [
+          { "stat": "STOCK_STUN_THRESHOLD", "operation": "ADD", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_RUIN_WARDEN": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "GRAVEBIND",
+      "itemLevel": 11,
+      "requiredLevel": 11,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 22,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.6, 1.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [40.0, 60.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_CRYPT_LORD": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "SHARDFANG",
+      "itemLevel": 13,
+      "requiredLevel": 13,
+      "requiredStrength": 0,
+      "requiredDexterity": 26,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 120,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [32.5] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.5] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_CRITICAL_CHANCE", "operation": "INCREASED", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_CRITICAL_MULTIPLIER", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_LIGHTNING", "operation": "ADD", "range": [8.0, 16.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_SHARD_QUEEN": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "EMBERHEART_GIRDLE",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 30,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [30.0, 40.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_FIRE", "operation": "MORE", "range": [10.0, 15.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_ASHEN_TYRANT": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "WINTERS_GRASP",
+      "itemLevel": 17,
+      "requiredLevel": 17,
+      "requiredStrength": 0,
+      "requiredDexterity": 34,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [90.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_COLD", "operation": "ADD", "range": [10.0, 18.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [8.0, 12.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_COLD", "operation": "ADD", "range": [25.0, 35.0] }
+        ]
+      ],
+      "pools": { "boss:BOSS_FROST_MONARCH": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "LEVIATHANS_MAW",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 40,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 200,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [95.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.1] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [120.0, 160.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_CHAOS", "operation": "ADD", "range": [15.0, 25.0] }
+        ],
+        [
+          { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.8, 1.2] }
+        ]
+      ],
+      "pools": { "boss:BOSS_DROWNED_GOD": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "FORGEMASTERS_VISAGE",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 60,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [150.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [25.0, 35.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "ANVILHEART_PLATE",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 80,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [350.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [100.0, 140.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [70.0, 90.0] }
+        ],
+        [
+          { "stat": "STOCK_STUN_THRESHOLD", "operation": "ADD", "range": [30.0, 40.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "EMBERGRIP",
+      "itemLevel": 25,
+      "requiredLevel": 25,
+      "requiredStrength": 0,
+      "requiredDexterity": 50,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [80.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_FIRE", "operation": "ADD", "range": [8.0, 14.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [8.0, 12.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "IRONSTRIDE",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 40,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [70.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [15.0, 20.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [40.0, 60.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [30.0, 40.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "CHAINBINDER",
+      "itemLevel": 25,
+      "requiredLevel": 25,
+      "requiredStrength": 50,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "ADD", "range": [150.0, 200.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [8.0, 12.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "BULWARK_OF_THE_FORGE",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 70,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [200.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [5.0, 8.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [80.0, 100.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [10.0, 15.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "SMELTERS_EDGE",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 60,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 150,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [37.5] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.4] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [80.0, 110.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_FIRE", "operation": "ADD", "range": [10.0, 18.0] }
+        ],
+        [
+          { "stat": "STOCK_CRITICAL_CHANCE", "operation": "INCREASED", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "MOUNTAINBREAKER",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 90,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 220,
+      "baseParams": [
+        { "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE", "values": [110.0] },
+        { "code": "IMPLICIT_ATTACK_SPEED_BASE", "values": [1.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [140.0, 180.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [6.0, 10.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [40.0, 60.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "TEMPERED_FLETCH",
+      "itemLevel": 25,
+      "requiredLevel": 25,
+      "requiredStrength": 0,
+      "requiredDexterity": 50,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "ADD", "range": [5.0, 9.0] }
+        ],
+        [
+          { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [6.0, 10.0] }
+        ],
+        [
+          { "stat": "STOCK_CRITICAL_MULTIPLIER", "operation": "ADD", "range": [15.0, 20.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "SMITHS_BAND",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 40,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_ATTACK_FIRE", "operation": "ADD", "range": [4.0, 8.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "QUENCHED_TORC",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 60,
+      "baseParams": [],
+      "lines": [
+        [
+          { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_COLD", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [20.0, 30.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "FORGEWINGS",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 70,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [60.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [8.0, 12.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [40.0, 60.0] }
+        ],
+        [
+          { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [40.0, 60.0] }
+        ]
+      ],
+      "pools": { "unique:smith": 100 }
+    }
+  ]
+}

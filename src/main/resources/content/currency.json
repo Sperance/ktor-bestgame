@@ -46,11 +46,17 @@
     },
     {
       "orb": "VAAL_ORB",
-      "price": 800
+      "price": 800,
+      "modifierPools": [
+        "corruption"
+      ]
     },
     {
       "orb": "ORB_OF_CHANCE",
-      "price": 60
+      "price": 60,
+      "uniquePools": [
+        "unique:chance"
+      ]
     },
     {
       "orb": "MIRROR_OF_KALANDRA",

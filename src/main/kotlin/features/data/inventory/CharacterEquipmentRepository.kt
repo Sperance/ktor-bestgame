@@ -168,7 +168,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
 
         // Характеристики нужны ради STOCK_GOLD: надбавку к цене даёт сам персонаж.
         val stats = characterRepository.calculateStats(characterId).stats
-        val gold = SellPrice.of(template, item.params, stats)
+        val gold = SellPrice.of(template, item.rarity, item.params, stats)
 
         return transactionExecute("sellForGold $inventoryId") { session ->
             deleteById(inventoryId, session)

@@ -93,6 +93,7 @@ class AuthTest {
         assertEquals(Need.PUBLIC, need("GET", "/portraits/class/WITCH.svg"))
         assertEquals(Need.PUBLIC, need("GET", "/system/routes"))
         assertEquals(Need.PUBLIC, need("GET", "/system/version"))
+        assertEquals(Need.PUBLIC, need("GET", "/system/stats"))
         assertEquals(Need.PUBLIC, need("GET", "/system/health"))
         // The old GET login is gone, and a GET to the login path is not a way in.
         assertEquals(Need.SIGNED_IN, need("GET", "/api/v1/user/login"))
