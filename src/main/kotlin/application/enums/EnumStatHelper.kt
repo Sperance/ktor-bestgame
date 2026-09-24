@@ -87,6 +87,22 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_LIGHT_RADIUS(325),
     /** Больше сундуков на карте кампании, в процентах (с 0.31.0): каждые полные 100% - ещё один, остаток - шанс. */
     STOCK_CHEST_QUANTITY(326),
+
+    // ========== Карты (с 0.35.0): свойства предмета-карты, а не героя - на лист персонажа не влияют ==========
+    MAP_MONSTER_LIFE(400),
+    MAP_MONSTER_DAMAGE(401),
+    MAP_MONSTER_SPEED(402),
+    MAP_MONSTER_RESIST(403),
+    MAP_PACK_SIZE(404),
+    MAP_MONSTER_RARITY(405),
+    MAP_HERO_LIGHT(406),
+    MAP_HERO_FLASK(407),
+    MAP_HERO_RESIST(408),
+    MAP_HERO_REGEN(409),
+    MAP_CHESTS(410),
+    MAP_QUANTITY(411),
+    MAP_RARITY(412),
+    MAP_EXPERIENCE(413),
 }
 
 enum class EnumStatBool(override val order: Int) : IntEnumStat {

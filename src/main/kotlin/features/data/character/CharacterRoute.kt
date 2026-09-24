@@ -138,6 +138,13 @@ class CharacterRoute(
                 val mapCode = call.queryParam("mapCode")
                 call.respond(ApiMongoResponse.ok(campaign.summon(characterId, mapCode)))
             }
+            // 0.35.0: вход в локацию - с картой нужного уровня или без неё.
+            post("/start") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                val itemId = call.request.queryParameters["itemId"]
+                call.respond(ApiMongoResponse.ok(campaign.start(characterId, mapCode, itemId)))
+            }
             post("/chest") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")

@@ -72,6 +72,9 @@ data class Character(
     /** Когда босс карты вернётся (с 0.32.0), миллисекунды эпохи по кодам карт; до тех пор он мёртв и выход открыт. */
     var bosses: MutableMap<String, Long> = mutableMapOf(),
 
+    /** Карта, с которой герой вошёл в локацию (с 0.35.0); её бонус ложится на добычу только этой локации. */
+    var activeMap: features.logic.campaign.ActiveMap? = null,
+
     /** Витрина торговца этого героя (с 0.34.0), см. [features.logic.trade.MerchantRules]. */
     var merchant: features.logic.trade.MerchantStock? = null,
 

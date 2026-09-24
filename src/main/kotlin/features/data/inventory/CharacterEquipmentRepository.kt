@@ -27,6 +27,7 @@ import features.logic.currency.CurrencyOutcome
 import features.logic.stats.EquipmentRequirements
 import features.logic.trade.SellOutcome
 import features.logic.trade.SellPrice
+import features.logic.modifiers.ModifierRoller
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -72,6 +73,10 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         equipment: Equipment,
         session: ClientSession
     ): CharacterEquipment = insert(CharacterEquipment.fromEquipment(characterId, equipment), session)
+
+    /** Экземпляр своей редкости (с 0.35.0): упавшая карта катает аффиксы под выпавшую редкость, а не под шаблон. */
+    suspend fun addRolled(characterId: String, equipment: Equipment, rarity: EnumRarity, session: ClientSession): CharacterEquipment =
+        insert(CharacterEquipment(characterId = characterId, equipmentId = equipment._id, params = ModifierRoller.roll(equipment, rarity), rarity = rarity), session)
 
     /**
      * Вставляет самоцвет в гнездо дерева навыков.
@@ -188,6 +193,8 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
 
         val template = equipmentCache.findById(item.equipmentId)
             ?: throw CharacterExceptions.funExceptionEquipmentNotFound("equip", item.equipmentId)
+        if (template.slot == EnumEquipmentType.MAP)
+            throw CharacterExceptions.funExceptionMapNotWorn("equip", template.code)
 
         // Надеть предмет с невыполненными требованиями нельзя. Уже надетый
         // при их потере не слетает - он просто перестаёт работать, см. CharacterStatsCalculator

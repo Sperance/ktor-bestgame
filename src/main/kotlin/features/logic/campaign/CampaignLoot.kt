@@ -138,3 +138,60 @@ object CampaignChests {
     fun rarity(rule: ChestRule): CampaignRarity =
         CampaignRarity(EnumMonsterRarity.NORMAL, 0, listOf(0, 0), quantity = rule.quantity, rarityBonus = rule.rarityBonus)
 }
+
+/**
+ * Карта, с которой герой вошёл в локацию (с 0.35.0): её модификаторы, сложенные по характеристикам,
+ * и то, что они прибавляют к добыче этой локации, - в процентах к количеству, редкости и опыту.
+ */
+@kotlinx.serialization.Serializable
+data class ActiveMap(
+    val mapCode: String,
+    val effects: Map<String, Double> = emptyMap(),
+    val quantity: Double = 0.0,
+    val rarity: Double = 0.0,
+    val experience: Double = 0.0,
+)
+
+/** Карты - правило сервера, как и добыча. Функции чистые: [Random] приходит снаружи. */
+object CampaignMaps {
+
+    const val QUANTITY = "MAP_QUANTITY"
+    const val RARITY = "MAP_RARITY"
+    const val EXPERIENCE = "MAP_EXPERIENCE"
+    const val CHESTS = "MAP_CHESTS"
+
+    /** Код шаблона карты для локации: `MAP_<код локации>`. */
+    fun templateCode(mapCode: String) = "MAP_$mapCode"
+
+    /** Сколько процентов даёт риск карты: каждая единица вредного модификатора по его весу. */
+    fun risk(rule: MapRule, effects: Map<String, Double>): Double =
+        Math.round(effects.entries.sumOf { (stat, value) -> value * (rule.risk[stat] ?: 0.0) } * 10) / 10.0
+
+    /** Карта в действии: риск прибавляется к количеству, редкости и опыту вместе с их прямыми модификаторами. */
+    fun active(rule: MapRule, mapCode: String, effects: Map<String, Double>): ActiveMap {
+        val risk = risk(rule, effects)
+        return ActiveMap(mapCode, effects, risk + (effects[QUANTITY] ?: 0.0), risk + (effects[RARITY] ?: 0.0), risk + (effects[EXPERIENCE] ?: 0.0))
+    }
+
+    /**
+     * Выпала ли карта и какой локации.
+     *
+     * @param chance шанс выпадения, уже умноженный на количество
+     * @param maps все локации в порядке открытия; следующая за [mapCode] - «на уровень выше»
+     */
+    fun drop(rule: MapRule, chance: Double, mapCode: String, maps: List<String>, random: Random): String? {
+        if (random.nextDouble() >= chance) return null
+        val next = maps.getOrNull(maps.indexOf(mapCode) + 1)
+        return if (next != null && random.nextDouble() < rule.nextChance) next else mapCode
+    }
+
+    /** Редкость упавшей карты по весам правила. */
+    fun rarity(rule: MapRule, random: Random): EnumRarity {
+        var point = random.nextDouble() * rule.rarities.values.sum()
+        rule.rarities.forEach { (rarity, weight) ->
+            point -= weight
+            if (point < 0) return rarity
+        }
+        return rule.rarities.keys.first()
+    }
+}

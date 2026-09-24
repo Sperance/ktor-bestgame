@@ -156,6 +156,11 @@ database. Keep new rules in that table rather than in a route.
   one more chest per window, `POST /campaign/summon` a slain boss back), the merchant
   (`features/logic/trade/Merchant.kt`: a four-hour shelf per hero, priced at `SellPrice` × 4) and
   lot places (`AuctionSlots`: five, one more for gold at a time up to twenty).
+  Since 0.35.0 maps: equipment of slot `MAP`, one template per location (`MAP_<mapCode>`, item level =
+  location level), rolled from the `map` pool and crafted with ordinary orbs, never worn (`CH_018`).
+  `POST /campaign/start?characterId&mapCode[&itemId]` spends one into `Character.activeMap`;
+  `maps.risk` in the file turns every harmful modifier into quantity, rarity and experience for that
+  location's loot, and `grant` drops maps by `maps.dropChance`/`bossChance`.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 309 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level

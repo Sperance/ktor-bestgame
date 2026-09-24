@@ -399,6 +399,22 @@
       "INCREASED_ENERGY_REGENERATION",
       "ADD_SPELL_LEECH",
       "INCREASED_SELL_VALUE"
+    ],
+    "map": [
+      "MAP_MONSTER_LIFE",
+      "MAP_MONSTER_DAMAGE",
+      "MAP_MONSTER_SPEED",
+      "MAP_MONSTER_RESIST",
+      "MAP_PACK_SIZE",
+      "MAP_MONSTER_RARITY",
+      "MAP_HERO_LIGHT",
+      "MAP_HERO_FLASK",
+      "MAP_HERO_RESIST",
+      "MAP_HERO_REGEN",
+      "MAP_CHESTS",
+      "MAP_QUANTITY",
+      "MAP_RARITY",
+      "MAP_EXPERIENCE"
     ]
   }
 }

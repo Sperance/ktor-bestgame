@@ -54,6 +54,20 @@ import application.enums.EnumStatStock.STOCK_CONSTITUTION
 import application.enums.EnumStatStock.STOCK_CAST_STRENGTH
 import application.enums.EnumStatStock.STOCK_LIGHT_RADIUS
 import application.enums.EnumStatStock.STOCK_CHEST_QUANTITY
+import application.enums.EnumStatStock.MAP_MONSTER_LIFE
+import application.enums.EnumStatStock.MAP_MONSTER_DAMAGE
+import application.enums.EnumStatStock.MAP_MONSTER_SPEED
+import application.enums.EnumStatStock.MAP_MONSTER_RESIST
+import application.enums.EnumStatStock.MAP_PACK_SIZE
+import application.enums.EnumStatStock.MAP_MONSTER_RARITY
+import application.enums.EnumStatStock.MAP_HERO_LIGHT
+import application.enums.EnumStatStock.MAP_HERO_FLASK
+import application.enums.EnumStatStock.MAP_HERO_RESIST
+import application.enums.EnumStatStock.MAP_HERO_REGEN
+import application.enums.EnumStatStock.MAP_CHESTS
+import application.enums.EnumStatStock.MAP_QUANTITY
+import application.enums.EnumStatStock.MAP_RARITY
+import application.enums.EnumStatStock.MAP_EXPERIENCE
 import application.enums.EnumInfluence.ELDER
 import application.enums.EnumInfluence.SHAPER
 import features.logic.modifiers.ModifierDefinition
@@ -617,6 +631,105 @@ object ModifierSeeder {
             tags = listOf("light"),
             effects = listOf(effect(STOCK_LIGHT_RADIUS, INCREASED, best = 20.0..25.0, worst = 5.0..8.0)),
             tierCount = 3, bestItemLevel = 60, weight = 500
+        ),
+        // ---------- Карты (0.35.0): префиксы - монстры и содержимое, суффиксы - герой и награды ----------
+        ModifierTemplate(
+            code = "MAP_MONSTER_LIFE",
+            source = PREFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_MONSTER_LIFE, INCREASED, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_MONSTER_DAMAGE",
+            source = PREFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_MONSTER_DAMAGE, INCREASED, best = 20.0..25.0, worst = 8.0..12.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_MONSTER_SPEED",
+            source = PREFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_MONSTER_SPEED, INCREASED, best = 15.0..20.0, worst = 5.0..8.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_MONSTER_RESIST",
+            source = PREFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_MONSTER_RESIST, ADD, best = 25.0..30.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_PACK_SIZE",
+            source = PREFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_PACK_SIZE, INCREASED, best = 25.0..30.0, worst = 8.0..12.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_MONSTER_RARITY",
+            source = PREFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_MONSTER_RARITY, INCREASED, best = 40.0..50.0, worst = 15.0..20.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_HERO_LIGHT",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_HERO_LIGHT, INCREASED, best = 30.0..35.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_HERO_FLASK",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_HERO_FLASK, ADD, best = 2.0..2.0, worst = 1.0..1.0)),
+            tierCount = 2, bestItemLevel = 11
+        ),
+        ModifierTemplate(
+            code = "MAP_HERO_RESIST",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_HERO_RESIST, ADD, best = 15.0..20.0, worst = 6.0..10.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_HERO_REGEN",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_HERO_REGEN, INCREASED, best = 50.0..60.0, worst = 20.0..30.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_CHESTS",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_CHESTS, ADD, best = 1.0..1.0, worst = 1.0..1.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "MAP_QUANTITY",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_QUANTITY, INCREASED, best = 12.0..15.0, worst = 4.0..6.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_RARITY",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_RARITY, INCREASED, best = 25.0..30.0, worst = 8.0..12.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "MAP_EXPERIENCE",
+            source = SUFFIX,
+            tags = listOf("map"),
+            effects = listOf(effect(MAP_EXPERIENCE, INCREASED, best = 8.0..10.0, worst = 3.0..4.0)),
+            tierCount = 3, bestItemLevel = 15
         ),
         ModifierTemplate(
             code = "INCREASED_CHEST_QUANTITY",

@@ -50,7 +50,7 @@ object MerchantRules {
     fun stock(current: MerchantStock?, characterId: String, level: Int, now: Long, templates: List<Equipment>, random: Random,
               roll: (Equipment, EnumRarity) -> MutableList<Modifier> = ModifierRoller::roll): MerchantStock {
         if (current != null && now < current.refreshAt) return current
-        val pool = templates.filter { it.rarity != EnumRarity.UNIQUE && it.slot != EnumEquipmentType.JEWEL }
+        val pool = templates.filter { it.rarity != EnumRarity.UNIQUE && it.slot != EnumEquipmentType.JEWEL && it.slot != EnumEquipmentType.MAP }
         val near = pool.filter { it.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
             .ifEmpty { pool.filter { it.requiredLevel <= level + LEVEL_SPREAD } }
         val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) {

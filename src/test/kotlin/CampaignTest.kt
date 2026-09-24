@@ -4,8 +4,13 @@ import config.CurrencySeeder
 import features.logic.campaign.CampaignContent
 import features.logic.campaign.CampaignDeath
 import features.logic.campaign.CampaignLoot
+import features.logic.campaign.CampaignMaps
 import features.logic.campaign.DeathRule
 import features.logic.campaign.EnumMonsterRarity
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Test
 import kotlin.random.Random
 import kotlin.test.assertEquals
@@ -214,5 +219,42 @@ class CampaignTest {
         // A boss on a deeper map is stronger, and stronger than the monsters around it.
         val first = maps.first()
         assertTrue(first.boss.stats.getValue("STOCK_HEALTH") > first.monsters.maxOf { it.stats.getValue("STOCK_HEALTH") })
+    }
+
+    @Test
+    fun every_location_has_its_map_and_a_dangerous_map_pays_more() {
+        val bases = kotlinx.serialization.json.Json.parseToJsonElement(config.ContentResource.read("equipment.json"))
+            .jsonObject.getValue("equipment").jsonArray.map { it.jsonObject }
+            .filter { it["slot"]?.jsonPrimitive?.content == "MAP" }
+            .associate { it.getValue("code").jsonPrimitive.content to it.getValue("itemLevel").jsonPrimitive.int }
+        view.chapters.flatMap { it.maps }.forEach { map ->
+            assertEquals(map.level, bases[CampaignMaps.templateCode(map.code)], "${map.code}: карта и её уровень")
+        }
+        assertEquals(CampaignContent.maps.size, bases.size, "карта без локации")
+        val rule = content.maps
+        rule.risk.keys.forEach { assertTrue(it.startsWith("MAP_"), it) }
+        val safe = CampaignMaps.active(rule, "M", mapOf("MAP_QUANTITY" to 10.0, "MAP_PACK_SIZE" to 20.0))
+        assertEquals(10.0, safe.quantity)
+        assertEquals(0.0, safe.rarity, "содержимое карты - не риск")
+        val risky = CampaignMaps.active(rule, "M", mapOf("MAP_MONSTER_LIFE" to 30.0, "MAP_HERO_FLASK" to 2.0))
+        val risk = 30 * rule.risk.getValue("MAP_MONSTER_LIFE") + 2 * rule.risk.getValue("MAP_HERO_FLASK")
+        assertEquals(risk, risky.quantity, 0.05)
+        assertEquals(risky.quantity, risky.rarity)
+        assertEquals(risky.quantity, risky.experience)
+    }
+
+    @Test
+    fun a_map_drops_by_its_chance_and_sometimes_one_level_higher() {
+        val rule = content.maps
+        val codes = CampaignContent.maps.keys.toList()
+        val random = Random(7)
+        val drops = List(20_000) { CampaignMaps.drop(rule, 0.5, codes.first(), codes, random) }
+        val dropped = drops.filterNotNull()
+        assertEquals(0.5, dropped.size / 20_000.0, 0.02)
+        assertEquals(rule.nextChance, dropped.count { it == codes[1] } / dropped.size.toDouble(), 0.03)
+        assertEquals(null, CampaignMaps.drop(rule, 0.0, codes.first(), codes, random))
+        assertEquals(codes.last(), CampaignMaps.drop(rule, 1.0, codes.last(), codes, random), "с последней карты - только она сама")
+        val rarities = List(10_000) { CampaignMaps.rarity(rule, random) }.groupingBy { it }.eachCount()
+        assertEquals(rule.rarities.keys, rarities.keys)
     }
 }

@@ -2,6 +2,7 @@ package features.logic.campaign
 
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumModifierOperation
+import application.enums.EnumRarity
 import application.enums.EnumStatBool
 import application.enums.EnumStatStock
 import base.exception.model.CampaignExceptions
@@ -174,6 +175,23 @@ data class MonsterTemplate(
 @Serializable
 data class ServiceRule(val treasurePerLevel: Long, val summonPerLevel: Long)
 
+/**
+ * Карты (с 0.35.0): предмет слота `MAP` со своим уровнем, что открывает одну локацию того же уровня
+ * с модификаторами. С обычного монстра карта падает с шансом [dropChance] (умноженным на количество
+ * его редкости и героя), с босса - [bossChance]; с шансом [nextChance] она на уровень выше карты,
+ * где упала. Редкость упавшей карты - по весам [rarities]. [risk] - сколько процентов к количеству,
+ * редкости и опыту добычи даёт единица каждого вредного модификатора: чем опаснее карта, тем
+ * щедрее. Клиенту правило уходит целиком, чтобы окно запуска показало ту же сумму, что начислит сервер.
+ */
+@Serializable
+data class MapRule(
+    val dropChance: Double,
+    val bossChance: Double,
+    val nextChance: Double,
+    val rarities: Map<EnumRarity, Int>,
+    val risk: Map<String, Double>,
+)
+
 @Serializable
 data class BossRule(val respawnHours: Double, val uniqueChance: Double, val ownUniqueChance: Double, val behaviour: BehaviourRule)
 
@@ -249,6 +267,7 @@ data class CampaignContentFile(
     val chests: ChestRule,
     val bosses: BossRule,
     val services: ServiceRule,
+    val maps: MapRule,
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -282,7 +301,13 @@ data class CampaignChapter(val code: String, val maps: List<CampaignMap>)
 
 /** Главы, правила редкости и правила боя - всё, что клиенту нужно, чтобы драться, одним ответом. */
 @Serializable
-data class CampaignView(val chapters: List<CampaignChapter>, val rarities: List<CampaignRarity>, val combat: CombatRules, val services: ServiceRule)
+data class CampaignView(
+    val chapters: List<CampaignChapter>,
+    val rarities: List<CampaignRarity>,
+    val combat: CombatRules,
+    val services: ServiceRule,
+    val maps: MapRule,
+)
 
 /**
  * Содержимое кампании - главы, карты, монстры, их модификаторы и добыча.
@@ -346,7 +371,7 @@ object CampaignContent {
             if (rarity.statScale <= 0) rarity
             else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
         }
-        return CampaignView(chapters, rarities, content.combat, content.services)
+        return CampaignView(chapters, rarities, content.combat, content.services, content.maps)
     }
 
     /** Модификатор монстра на уровне карты: растут только прибавки. */
@@ -423,6 +448,11 @@ object CampaignContent {
             if (rule.respawnHours <= 0 || rule.uniqueChance !in 0.0..1.0 || rule.ownUniqueChance !in 0.0..1.0) throw CampaignExceptions.funExceptionContent(method, "bosses")
         }
         if (content.services.treasurePerLevel <= 0 || content.services.summonPerLevel <= 0) throw CampaignExceptions.funExceptionContent(method, "services")
+        content.maps.let { rule ->
+            if (listOf(rule.dropChance, rule.bossChance, rule.nextChance).any { it !in 0.0..1.0 }) throw CampaignExceptions.funExceptionContent(method, "maps")
+            if (rule.rarities.isEmpty() || rule.rarities.values.any { it <= 0 }) throw CampaignExceptions.funExceptionContent(method, "maps.rarities")
+            rule.risk.forEach { (name, weight) -> stat(name); if (weight <= 0) throw CampaignExceptions.funExceptionContent(method, "maps.risk $name") }
+        }
         content.chests.let { rule ->
             if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.refreshHours <= 0 || rule.quantity <= 0)
                 throw CampaignExceptions.funExceptionContent(method, "chests")

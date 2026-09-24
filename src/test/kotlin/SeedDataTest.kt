@@ -200,10 +200,10 @@ class SeedDataTest {
     }
 
     /**
-     * Слоты, в которые надевают шаблоны: самоцвет живёт в гнезде, а второе кольцо -
-     * это место для кольца, а не вид предмета.
+     * Слоты, в которые надевают шаблоны: самоцвет живёт в гнезде, второе кольцо -
+     * это место для кольца, а не вид предмета, а карта (0.35.0) открывает локацию.
      */
-    private val wearableSlots = EnumEquipmentType.entries - EnumEquipmentType.JEWEL - EnumEquipmentType.RING_2
+    private val wearableSlots = EnumEquipmentType.entries - EnumEquipmentType.JEWEL - EnumEquipmentType.RING_2 - EnumEquipmentType.MAP
 
     @Test
     fun every_slot_has_ordinary_bases_of_every_rarity() {

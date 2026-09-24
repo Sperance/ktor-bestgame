@@ -1476,6 +1476,16 @@
     "stat.STOCK_RESIST_FIRE": "fire",
     "stat.STOCK_RESIST_LIGHTNING": "lightning",
     "stat.STOCK_STRENGTH": "strength",
-    "stat.STOCK_STUN_THRESHOLD": "stun"
+    "stat.STOCK_STUN_THRESHOLD": "stun",
+    "equipment.MAP_C1_TIDAL_SHORE": "tool_map",
+    "equipment.MAP_C1_BRINE_CAVES": "tool_map",
+    "equipment.MAP_C1_ROTTING_MIRE": "tool_map",
+    "equipment.MAP_C1_WHISPERING_WOOD": "tool_map",
+    "equipment.MAP_C1_FALLEN_RUINS": "tool_map",
+    "equipment.MAP_C1_CRYPT_OF_EXILES": "tool_map",
+    "equipment.MAP_C1_CRYSTAL_MINES": "tool_map",
+    "equipment.MAP_C1_ASHEN_WASTES": "tool_map",
+    "equipment.MAP_C1_FROZEN_PASS": "tool_map",
+    "equipment.MAP_C1_DROWNED_TEMPLE": "tool_map"
   }
 }

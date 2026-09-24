@@ -24,6 +24,7 @@ object CharacterExceptions {
     fun funExceptionSellEquipped(errorMethod: String, value: String? = "") = CharacterException("Item $value must be unequipped before it is sold", errorMethod, "CH_014", listOf(value.orEmpty()))
     fun funExceptionGold(errorMethod: String, value: String? = "") = CharacterException("Not enough gold: $value needed", errorMethod, "CH_016", listOf(value.orEmpty()))
     fun funExceptionOfferNotFound(errorMethod: String, value: String? = "") = CharacterException("The merchant has no offer $value", errorMethod, "CH_017", listOf(value.orEmpty()))
+    fun funExceptionMapNotWorn(errorMethod: String, value: String? = "") = CharacterException("Map $value is not worn: it opens a location", errorMethod, "CH_018", listOf(value.orEmpty()))
     fun funExceptionSellSocketed(errorMethod: String, value: String? = "") = CharacterException("Jewel $value must be taken out of its socket before it is sold", errorMethod, "CH_015", listOf(value.orEmpty()))
     fun funExceptionExperience(errorMethod: String, value: String? = "") = CharacterException("Experience amount $value must not be negative", errorMethod, "CH_012", listOf(value.orEmpty()))
     fun funExceptionItemFormat(errorMethod: String, value: String? = "") = CharacterException("Item '$value' has invalid storage format, expected 'itemId:amount'", errorMethod, "CH_011", listOf(value.orEmpty()))

@@ -1949,5 +1949,21 @@
   "services": {
     "treasurePerLevel": 60,
     "summonPerLevel": 150
+  },
+  "maps": {
+    "dropChance": 0.03,
+    "bossChance": 0.4,
+    "nextChance": 0.25,
+    "rarities": { "COMMON": 60, "UNCOMMON": 30, "RARE": 10 },
+    "risk": {
+      "MAP_MONSTER_LIFE": 0.4,
+      "MAP_MONSTER_DAMAGE": 0.6,
+      "MAP_MONSTER_SPEED": 0.8,
+      "MAP_MONSTER_RESIST": 0.4,
+      "MAP_HERO_LIGHT": 0.3,
+      "MAP_HERO_FLASK": 6,
+      "MAP_HERO_RESIST": 0.8,
+      "MAP_HERO_REGEN": 0.15
+    }
   }
 }

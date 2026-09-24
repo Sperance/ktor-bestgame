@@ -1,5 +1,6 @@
 package features.logic.campaign
 
+import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.enums.EnumStatStock
 import base.exception.model.CampaignExceptions
@@ -8,6 +9,7 @@ import config.MongoFactory.transactionExecute
 import features.caches.EquipmentCache
 import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
+import features.caches.ModifierDefinitionCache
 import features.data.character.Character
 import features.data.character.CharacterRepository
 import features.data.character.character_data.CharacterItems
@@ -51,6 +53,13 @@ data class MapServiceOutcome(val money: Long, val chests: ChestState, val boss: 
 @Serializable
 data class BossState(val alive: Boolean, val respawnAt: Long)
 
+/**
+ * Вход в локацию (с 0.35.0): карта, с которой герой вошёл, - её сложенные модификаторы и бонус к
+ * добыче, - или null без карты, и сундуки локации с учётом тех, что карта добавила.
+ */
+@Serializable
+data class MapLaunch(val map: ActiveMap?, val chests: ChestState)
+
 /** Что стоила смерть: потерянный опыт и где герой теперь. Уровень не меняется никогда. */
 @Serializable
 data class CampaignFall(val lost: Double, val level: Int, val totalExperience: Double)
@@ -74,6 +83,7 @@ class CampaignService : KoinComponent {
     private val equipmentCache: EquipmentCache by inject()
     private val itemsCache: ItemsCache by inject()
     private val levels: ExperienceLevelCache by inject()
+    private val definitions: ModifierDefinitionCache by inject()
 
     fun view(): CampaignView = CampaignContent.view
 
@@ -93,8 +103,9 @@ class CampaignService : KoinComponent {
         val rarity = CampaignContent.file.rarities.first { it.rarity == rarityValue }
         val monster = CampaignContent.monsters.getValue(monsterCode)
 
-        val experience = CampaignLoot.experience(monster, map.level, rarity, bonus(characterId, EnumStatStock.STOCK_EXPERIENCE))
-        return grant(character, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method)
+        val experience = CampaignLoot.experience(monster, map.level, rarity, bonus(characterId, EnumStatStock.STOCK_EXPERIENCE) + mapBonus(character, mapCode).experience)
+        return grant(character, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method,
+            mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity)
     }
 
     /** Жив ли босс карты у героя и когда вернётся убитый (с 0.32.0). */
@@ -128,9 +139,48 @@ class CampaignService : KoinComponent {
         )
         character.bosses[mapCode] = now + (rule.respawnHours * 3_600_000).toLong()
         val sheet = characters.calculateStats(characterId).stats
-        val experience = CampaignLoot.experience(template, map.level, rarity, sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0)
-        return grant(character, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra)
+        val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
+        return grant(character, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra,
+            mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance)
     }
+
+    /**
+     * Вход в локацию (с 0.35.0). С картой [itemId] она тратится: её уровень должен совпасть с
+     * локацией (`CP_011`), модификаторы складываются в [ActiveMap] и ложатся на добычу этой локации до
+     * следующего входа, а `MAP_CHESTS` сразу добавляет сундуки в окно. Без карты прежний бонус снимается.
+     */
+    suspend fun start(characterId: String, mapCode: String, itemId: String?): MapLaunch {
+        val method = "start"
+        val character = requireCharacter(characterId, method)
+        openMap(character, mapCode, method)
+        val window = windowOf(character, mapCode, characterId, method)
+        val item = itemId?.let { id -> inventory.findById(id)?.takeIf { it.characterId == characterId } ?: throw CharacterExceptions.funExceptionItemNotFound(method, id) }
+        val template = item?.let { equipmentCache.findById(it.equipmentId) }
+        if (item != null && (template == null || template.slot != EnumEquipmentType.MAP || template.code != CampaignMaps.templateCode(mapCode) || item.equippedSlot != null))
+            throw CampaignExceptions.funExceptionMapItem(method, template?.code ?: item.equipmentId)
+        val active = item?.let { map ->
+            val effects = mutableMapOf<String, Double>()
+            map.params.forEach { modifier ->
+                definitions.findById(modifier.modifierId)?.effects?.forEachIndexed { index, effect ->
+                    effects.merge((effect.stat as Enum<*>).name, modifier.values.getOrElse(index) { 0.0 }, Double::plus)
+                }
+            }
+            CampaignMaps.active(CampaignContent.file.maps, mapCode, effects)
+        }
+        val chests = active?.effects?.get(CampaignMaps.CHESTS)?.toInt() ?: 0
+        if (chests > 0) character.chests[mapCode] = window.copy(left = window.left + chests)
+        character.activeMap = active
+        transactionExecute(method) { session ->
+            item?.let { inventory.deleteById(it._id, session) }
+            characters.update(character, session)
+        }
+        val now = character.chests[mapCode] ?: window
+        return MapLaunch(active, ChestState(now.left, now.refreshAt, now.bought))
+    }
+
+    /** Бонус карты, с которой герой вошёл в [mapCode]; в другой локации его нет. */
+    private fun mapBonus(character: Character, mapCode: String): ActiveMap =
+        character.activeMap?.takeIf { it.mapCode == mapCode } ?: ActiveMap(mapCode)
 
     /** Сколько сундуков ещё стоит на карте у героя и когда их станет снова (с 0.31.0). */
     suspend fun chests(characterId: String, mapCode: String): ChestState {
@@ -190,7 +240,7 @@ class CampaignService : KoinComponent {
         character.chests[mapCode] = window.copy(left = window.left - 1)
         val template = CampaignContent.file.chapters.flatMap { it.maps }.first { it.code == mapCode }
         return grant(character, CampaignContent.file.lootTables.getValue(template.chestLoot), map.level,
-            CampaignChests.rarity(CampaignContent.file.chests), 0.0, method)
+            CampaignChests.rarity(CampaignContent.file.chests), 0.0, method, mapCode = mapCode)
     }
 
     /** Окно сундуков карты; истёкшее бросается заново и сохраняется сразу. */
@@ -209,27 +259,37 @@ class CampaignService : KoinComponent {
     private suspend fun bonus(characterId: String, stat: EnumStatStock): Double =
         characters.calculateStats(characterId).stats[stat] ?: 0.0
 
-    /** Добыча по таблице и опыт - одной транзакцией, как у промокода. */
+    /**
+     * Добыча по таблице и опыт - одной транзакцией, как у промокода. Карта, с которой герой вошёл
+     * в [mapCode], добавляет свои количество и редкость; с шансом [mapChance] (с 0.35.0) падает карта.
+     */
     private suspend fun grant(character: Character, table: LootTable, level: Int, rarity: CampaignRarity, experience: Double, method: String,
-                              extra: List<features.data.equipment.equipment_data.Equipment> = emptyList()): CampaignReward {
+                              extra: List<features.data.equipment.equipment_data.Equipment> = emptyList(),
+                              mapCode: String, mapChance: Double = 0.0): CampaignReward {
         val sheet = characters.calculateStats(character._id).stats
+        val active = mapBonus(character, mapCode)
         fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
         val random = Random.Default
-        val loot = CampaignLoot.roll(table, level, rarity, bonus(EnumStatStock.STOCK_QUANTITY), bonus(EnumStatStock.STOCK_GOLD), random)
+        val quantity = bonus(EnumStatStock.STOCK_QUANTITY) + active.quantity
+        val loot = CampaignLoot.roll(table, level, rarity, quantity, bonus(EnumStatStock.STOCK_GOLD), random)
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
             itemsCache.getCache().firstOrNull { it.code == code }?.let { CharacterItems(it._id, amount) }
         }
-        // Уникалки боссов не падают ниоткуда, кроме своего босса.
-        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level && it.code !in CampaignContent.bossUniques }
+        // Уникалки боссов не падают ниоткуда, кроме своего босса; карты - только своим броском.
+        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level && it.code !in CampaignContent.bossUniques && it.slot != EnumEquipmentType.MAP }
         val templates = extra + List(loot.equipment) {
-            CampaignLoot.pick(bases, { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY), random)
+            CampaignLoot.pick(bases, { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity, random)
         }.filterNotNull()
+        val rule = CampaignContent.file.maps
+        val dropped = CampaignMaps.drop(rule, mapChance * (1 + quantity / 100), mapCode, CampaignContent.maps.keys.toList(), random)
+            ?.let { code -> equipmentCache.getCache().firstOrNull { it.code == CampaignMaps.templateCode(code) } }
 
         val equipment = transactionExecute(method) { session ->
             if (orbs.isNotEmpty()) characters.applyItems(character, orbs, method)
             if (experience > 0) characters.applyExperience(character, experience, method)
             character.money += loot.gold
-            val created = templates.map { inventory.addFromEquipment(character._id, it, session) }
+            val created = templates.map { inventory.addFromEquipment(character._id, it, session) } +
+                listOfNotNull(dropped?.let { inventory.addRolled(character._id, it, CampaignMaps.rarity(rule, random), session) })
             characters.update(character, session)
             created
         }
@@ -246,10 +306,11 @@ class CampaignService : KoinComponent {
         val map = openMap(character, mapCode, method)
         val floor = levels.ordered().lastOrNull { it.level <= character.level.toInt() }?.experience ?: 0.0
         val lost = CampaignDeath.lost(CampaignContent.file.combat.death, map.level, character.experience, floor, levels.nextLevelExperience(character.level.toInt()))
-        if (lost > 0) {
-            character.experience -= lost
-            transactionExecute(method) { session -> characters.update(character, session) }
-        }
+        // Смерть тратит и карту: её бонус до следующего входа пропадает, как в PoE.
+        val spent = character.activeMap?.mapCode == mapCode
+        if (spent) character.activeMap = null
+        if (lost > 0) character.experience -= lost
+        if (lost > 0 || spent) transactionExecute(method) { session -> characters.update(character, session) }
         return CampaignFall(lost, character.level.toInt(), character.experience)
     }
 
@@ -262,10 +323,11 @@ class CampaignService : KoinComponent {
         val character = requireCharacter(characterId, method)
         openMap(character, mapCode, method)
         if (System.currentTimeMillis() >= (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionSealed(method, mapCode)
-        if (mapCode !in character.campaign) {
-            character.campaign.add(mapCode)
-            transactionExecute(method) { session -> characters.update(character, session) }
-        }
+        val spent = character.activeMap?.mapCode == mapCode
+        val fresh = mapCode !in character.campaign
+        if (spent) character.activeMap = null
+        if (fresh) character.campaign.add(mapCode)
+        if (spent || fresh) transactionExecute(method) { session -> characters.update(character, session) }
         return progressOf(character)
     }
 
