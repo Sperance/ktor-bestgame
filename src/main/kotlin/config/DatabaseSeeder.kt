@@ -363,7 +363,7 @@ object DatabaseSeeder : KoinComponent {
      * Стартовый запас сфер персонажам, у которых ещё нет простых предметов.
      */
     private suspend fun seedCurrencyToCharacters(session: ClientSession) {
-        val orbs = itemsCache.getCache().filter { it.category == EnumCurrencyOrb.CATEGORY }
+        val orbs = itemsCache.findByCategory(EnumCurrencyOrb.CATEGORY)
         if (orbs.isEmpty()) return
 
         val characters = characterRepository.findAll(session).filter { it.items.isEmpty() }

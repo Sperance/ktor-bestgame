@@ -226,7 +226,7 @@ object ModifierRoller : KoinComponent {
     /** Тот же модификатор на тир выше (с 0.38.0); лучший тир остаётся собой, значения перебрасываются. */
     fun raiseTier(modifier: Modifier): Modifier? {
         if (modifier.fractured || modifier.tier <= 1) return null
-        val tier = tierCache.findByModifier(modifier.modifierId).firstOrNull { it.tier == modifier.tier - 1 } ?: return null
+        val tier = tierCache.findTier(modifier.modifierId, modifier.tier - 1) ?: return null
         return modifier.copy(tierId = tier._id, tier = tier.tier, values = tier.roll())
     }
 

@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class CharacterClassRepository : BaseRepository<CharacterClass>(
     entityClass = CharacterClass::class
 ), KoinComponent {
-    private val cache: CharacterClassCache by inject()
+    override val cache: CharacterClassCache by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -24,23 +24,12 @@ class CharacterClassRepository : BaseRepository<CharacterClass>(
         if (entity.code.isBlank()) throw ProgressionExceptions.funExceptionClassCode("validateBeforeInsert", entity.code)
     }
 
-    override suspend fun validateAfterInsert(entity: CharacterClass, session: ClientSession) {
-        cache.addItem(entity)
-    }
-
-    override suspend fun validateAfterDelete(entity: CharacterClass, session: ClientSession, softDelete: Boolean) {
-        cache.removeItem(entity)
-    }
-
-    override suspend fun validateAfterUpdate(entity: CharacterClass, session: ClientSession) {
-        cache.updateItem(entity)
-    }
 }
 
 class ExperienceLevelRepository : BaseRepository<ExperienceLevel>(
     entityClass = ExperienceLevel::class
 ), KoinComponent {
-    private val cache: ExperienceLevelCache by inject()
+    override val cache: ExperienceLevelCache by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -53,15 +42,4 @@ class ExperienceLevelRepository : BaseRepository<ExperienceLevel>(
         if (entity.experience < 0) throw ProgressionExceptions.funExceptionExperience("validateBeforeInsert", entity.experience.toString())
     }
 
-    override suspend fun validateAfterInsert(entity: ExperienceLevel, session: ClientSession) {
-        cache.addItem(entity)
-    }
-
-    override suspend fun validateAfterDelete(entity: ExperienceLevel, session: ClientSession, softDelete: Boolean) {
-        cache.removeItem(entity)
-    }
-
-    override suspend fun validateAfterUpdate(entity: ExperienceLevel, session: ClientSession) {
-        cache.updateItem(entity)
-    }
 }

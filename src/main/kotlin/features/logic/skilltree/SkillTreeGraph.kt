@@ -3,30 +3,40 @@ package features.logic.skilltree
 import application.enums.EnumSkillNodeType
 
 /**
- * Правила обхода дерева навыков.
+ * Дерево навыков как граф (с 0.49.0 - построенный один раз на снимок кеша).
  *
- * Вынесены из кэша отдельно и работают на любом наборе узлов: именно здесь
- * решается, можно ли взять узел и не развалится ли дерево при откате.
+ * Связи двусторонние: узел, объявивший связь со своей стороны, попадает в соседи и
+ * тому, кто её не объявлял. Соседи и узел по коду - O(1); именно здесь решается,
+ * можно ли взять узел и не развалится ли дерево при откате.
  */
-object SkillTreeGraph {
+class SkillTreeGraph(nodes: Collection<SkillTreeNode>) {
+    val byCode: Map<String, SkillTreeNode> = nodes.associateBy { it.code }
+    val startNodes: List<SkillTreeNode> = nodes.filter { it.type == EnumSkillNodeType.START }
+
+    private val adjacency: Map<String, Set<String>> = HashMap<String, MutableSet<String>>().also { edges ->
+        nodes.forEach { node ->
+            val own = edges.getOrPut(node.code) { LinkedHashSet() }
+            node.connections.forEach { other ->
+                own += other
+                edges.getOrPut(other) { LinkedHashSet() } += node.code
+            }
+        }
+    }
+
+    fun node(code: String): SkillTreeNode? = byCode[code]
 
     /**
      * Коды узлов, смежных с указанным.
-     *
-     * Связь двусторонняя, поэтому учитываются и те узлы,
-     * которые объявили связь со своей стороны.
      */
-    fun neighbours(nodes: Collection<SkillTreeNode>, code: String): Set<String> {
-        val declared = nodes.find { it.code == code }?.connections.orEmpty()
-        val incoming = nodes.filter { code in it.connections }.map { it.code }
-        return (declared + incoming).toSet()
-    }
+    fun neighbours(code: String): Set<String> = adjacency[code].orEmpty()
 
     /**
      * Смежен ли узел хотя бы с одним из взятых.
      */
-    fun isAdjacentTo(nodes: Collection<SkillTreeNode>, code: String, taken: Collection<String>): Boolean =
-        neighbours(nodes, code).any { it in taken }
+    fun isAdjacentTo(code: String, taken: Collection<String>): Boolean {
+        val takenSet = taken as? Set<String> ?: taken.toHashSet()
+        return neighbours(code).any { it in takenSet }
+    }
 
     /**
      * Все ли взятые узлы достижимы от стартового по взятым же узлам.
@@ -34,26 +44,16 @@ object SkillTreeGraph {
      * Именно эта проверка не даёт откатить узел так, чтобы часть дерева
      * повисла в воздухе.
      */
-    fun isConnected(nodes: Collection<SkillTreeNode>, taken: Collection<String>): Boolean {
+    fun isConnected(taken: Collection<String>): Boolean {
         if (taken.isEmpty()) return true
-
-        val remaining = taken.toMutableSet()
-        val roots = remaining.filter { code ->
-            nodes.find { it.code == code }?.type == EnumSkillNodeType.START
-        }
+        val remaining = taken.toHashSet()
+        val roots = remaining.filter { byCode[it]?.type == EnumSkillNodeType.START }
         if (roots.isEmpty()) return false
-
         val queue = ArrayDeque(roots)
         remaining.removeAll(roots.toSet())
-
         while (queue.isNotEmpty()) {
-            val current = queue.removeFirst()
-            neighbours(nodes, current).filter { it in remaining }.forEach { next ->
-                remaining.remove(next)
-                queue.addLast(next)
-            }
+            neighbours(queue.removeFirst()).forEach { next -> if (remaining.remove(next)) queue.addLast(next) }
         }
-
         return remaining.isEmpty()
     }
 }

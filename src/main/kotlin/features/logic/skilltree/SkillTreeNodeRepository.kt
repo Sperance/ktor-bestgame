@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 class SkillTreeNodeRepository : BaseRepository<SkillTreeNode>(
     entityClass = SkillTreeNode::class
 ), KoinComponent {
-    private val cache: SkillTreeCache by inject()
+    override val cache: SkillTreeCache by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -27,15 +27,4 @@ class SkillTreeNodeRepository : BaseRepository<SkillTreeNode>(
         if (entity.cost < 0) throw SkillTreeExceptions.funExceptionCost("validateBeforeInsert", entity.cost.toString())
     }
 
-    override suspend fun validateAfterInsert(entity: SkillTreeNode, session: ClientSession) {
-        cache.addItem(entity)
-    }
-
-    override suspend fun validateAfterDelete(entity: SkillTreeNode, session: ClientSession, softDelete: Boolean) {
-        cache.removeItem(entity)
-    }
-
-    override suspend fun validateAfterUpdate(entity: SkillTreeNode, session: ClientSession) {
-        cache.updateItem(entity)
-    }
 }

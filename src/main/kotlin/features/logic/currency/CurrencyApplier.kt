@@ -310,7 +310,7 @@ object CurrencyApplier : KoinComponent {
         requireRarity(item, template, EnumRarity.COMMON)
 
         // Уникалка того же слота из пулов, которые называет сама сфера
-        val unique = Pools.draw(Pools.of(equipmentCache.getCache().filter { it.slot == template.slot }, CurrencySeeder.records[ORB_OF_CHANCE]?.uniquePools.orEmpty()))
+        val unique = Pools.draw(Pools.of(equipmentCache.findBySlot(template.slot), CurrencySeeder.records[ORB_OF_CHANCE]?.uniquePools.orEmpty()))
 
         if (unique != null && RandomExt.randomInt(1..100) <= CHANCE_UNIQUE_PERCENT) {
             item.equipmentId = unique._id

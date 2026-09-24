@@ -8,34 +8,66 @@ import features.logic.progression.ExperienceLevelRepository
 class CharacterClassCache(
     repository: CharacterClassRepository
 ) : MongoCache<CharacterClass, CharacterClassRepository>(repository) {
+    private val byCode = derived { items -> items.associateBy { it.code } }
 
-    fun findByCode(code: String): CharacterClass? = getCache().find { it.code == code }
+    fun findByCode(code: String): CharacterClass? = byCode.get()[code]
 }
 
 class ExperienceLevelCache(
     repository: ExperienceLevelRepository
 ) : MongoCache<ExperienceLevel, ExperienceLevelRepository>(repository) {
 
+    /** Таблица по возрастанию и очки дерева, накопленные к каждой строке. */
+    private class Table(levels: List<ExperienceLevel>) {
+        val ordered: List<ExperienceLevel> = levels.sortedBy { it.level }
+        val pointsUpTo: IntArray = IntArray(ordered.size).also { sums ->
+            var total = 0
+            ordered.forEachIndexed { index, level -> total += level.skillPoints; sums[index] = total }
+        }
+    }
+
+    private val table = derived { items -> Table(items) }
+
     /**
      * Таблица уровней по возрастанию.
      */
-    fun ordered(): List<ExperienceLevel> = getCache().sortedBy { it.level }
+    fun ordered(): List<ExperienceLevel> = table.get().ordered
 
     /**
      * Уровень, достигнутый указанным опытом. Минимум первый.
      */
-    fun levelOf(experience: Double): Int =
-        ordered().lastOrNull { it.experience <= experience }?.level ?: 1
+    fun levelOf(experience: Double): Int {
+        val ordered = table.get().ordered
+        val reached = reachedCount(ordered) { it.experience <= experience }
+        return if (reached == 0) 1 else ordered[reached - 1].level
+    }
 
     /**
      * Сколько очков дерева накоплено к указанному уровню.
      */
-    fun skillPointsUpTo(level: Int): Int =
-        ordered().filter { it.level <= level }.sumOf { it.skillPoints }
+    fun skillPointsUpTo(level: Int): Int {
+        val current = table.get()
+        val reached = reachedCount(current.ordered) { it.level <= level }
+        return if (reached == 0) 0 else current.pointsUpTo[reached - 1]
+    }
 
     /**
      * Опыт, нужный для следующего уровня. null - уровень последний в таблице.
      */
-    fun nextLevelExperience(level: Int): Double? =
-        ordered().firstOrNull { it.level > level }?.experience
+    fun nextLevelExperience(level: Int): Double? {
+        val ordered = table.get().ordered
+        val reached = reachedCount(ordered) { it.level <= level }
+        return ordered.getOrNull(reached)?.experience
+    }
+
+    /** Сколько строк с начала таблицы удовлетворяют монотонному условию [reached]. */
+    private inline fun reachedCount(ordered: List<ExperienceLevel>, reached: (ExperienceLevel) -> Boolean): Int {
+        var low = 0
+        var high = ordered.size
+        while (low < high) {
+            val middle = (low + high) ushr 1
+            if (reached(ordered[middle])) low = middle + 1 else high = middle
+        }
+        return low
+    }
 }

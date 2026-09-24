@@ -151,9 +151,8 @@ class CraftsService : KoinComponent {
         val result = Crafts.settle(CraftsContent.file.rules, job, progress, bonus(characterId, profession), work.settledAt,
             System.currentTimeMillis(), work.seed, work.cycles, stockOf(character), work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
-        val byCode = itemsCache.getCache().associateBy { it.code }
-        val stacks = result.gains.items.mapNotNull { (code, amount) -> byCode[code]?.let { CharacterItems(it._id, amount) } } +
-            result.gains.spent.mapNotNull { (code, amount) -> byCode[code]?.let { CharacterItems(it._id, -amount) } }
+        val stacks = result.gains.items.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) } } +
+            result.gains.spent.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, -amount) } }
         val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, random) }.filterNotNull()
         character.professions[profession.code] = result.progress
         character.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles)
@@ -190,8 +189,7 @@ class CraftsService : KoinComponent {
 
     /** Сумка героя по кодам предметов. */
     private fun stockOf(character: Character): Map<String, Long> {
-        val byId = itemsCache.getCache().associateBy { it._id }
-        return character.parseItems().mapNotNull { stack -> byId[stack.itemId]?.let { it.code to stack.amount } }.toMap()
+        return character.parseItems().mapNotNull { stack -> itemsCache.findById(stack.itemId)?.let { it.code to stack.amount } }.toMap()
     }
 
     /**
@@ -221,7 +219,7 @@ class CraftsService : KoinComponent {
                     params = (ModifierRoller.roll(base, rarity) + handcrafted.mapNotNull { rollCode(it, base.itemLevel) }).toMutableList())
             }
             JobKind.MAP -> {
-                val base = equipmentCache.getCache().firstOrNull { it.code == features.logic.campaign.CampaignMaps.templateCode(job.map) } ?: return null
+                val base = equipmentCache.findByCode(features.logic.campaign.CampaignMaps.templateCode(job.map)) ?: return null
                 val rarity = features.logic.equipment.Jewels.rarity(base, weighted(crafting.mapRarities, random) ?: EnumRarity.UNCOMMON)
                 val handcrafted = Pools.draw(ModifierRoller.pool(crafting.mapModifierPools), random)?.code.takeIf { random.nextDouble() * 100 < crafting.mapHandcraftedChance }
                 CharacterEquipment(characterId = "", equipmentId = base._id, rarity = rarity,
@@ -259,7 +257,7 @@ class CraftsService : KoinComponent {
         val character = requireCharacter(characterId, method)
         if (character.toolsGranted) return
         val starters = CraftsContent.file.professions.mapNotNull { profession ->
-            equipmentCache.getCache().firstOrNull { it.slot == profession.tool && it.code.startsWith(STARTER) }
+            equipmentCache.findBySlot(profession.tool).firstOrNull { it.code.startsWith(STARTER) }
         }
         character.toolsGranted = true
         transactionExecute(method) { session ->

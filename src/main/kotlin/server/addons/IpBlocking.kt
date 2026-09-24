@@ -15,9 +15,7 @@ fun Application.configureIpBlocking() {
 
     intercept(ApplicationCallPipeline.Monitoring) {
         val clientIp = call.request.origin.remoteAddress
-        val cacheBlocking = blockListCache.getCache()
-        val blocked = cacheBlocking.find { it.address ==  clientIp }
-        if (blocked != null) {
+        if (blockListCache.isBlocked(clientIp)) {
             call.respond(ApiMongoResponse.ok("system.blocked"))
             finish()
         }

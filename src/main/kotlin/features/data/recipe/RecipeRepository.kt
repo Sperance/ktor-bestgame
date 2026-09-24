@@ -15,7 +15,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), KoinComponent {
-    private val cache: RecipeCache by inject()
+    override val cache: RecipeCache by inject()
     private val repoItems: ItemsRepository by inject()
     private val repoCharacters: CharacterRepository by inject()
 
@@ -100,18 +100,6 @@ class RecipeRepository : BaseRepository<Recipe>(entityClass = Recipe::class), Ko
                 }
             }
         }
-    }
-
-    override suspend fun validateAfterInsert(entity: Recipe, session: ClientSession) {
-        cache.addItem(entity)
-    }
-
-    override suspend fun validateAfterDelete(entity: Recipe, session: ClientSession, softDelete: Boolean) {
-        cache.removeItem(entity)
-    }
-
-    override suspend fun validateAfterUpdate(entity: Recipe, session: ClientSession) {
-        cache.updateItem(entity)
     }
 
     suspend fun useRecipe(characterId: String, recipeId: String, recipeUse: RecipeUse): String {

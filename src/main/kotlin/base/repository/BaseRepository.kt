@@ -12,6 +12,7 @@ import com.mongodb.client.result.UpdateResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import config.MongoFactory
+import config.afterCommit
 import CONST_FIELD_DELETED
 import CONST_FIELD_ID
 import CONST_FIELD_UPDATED
@@ -137,14 +138,21 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      */
     fun initialize(
         uniqueIndexes: List<UniqueIndexConfig> = emptyList(),
-        indexedFields: List<String> = emptyList()
+        indexedFields: List<String> = emptyList(),
+        compoundIndexes: List<List<String>> = emptyList(),
     ) {
         runBlocking {
             setupUniqueIndexes(uniqueIndexes)
-            setupIndexedFields(indexedFields)
+            setupIndexedFields(indexedFields.map { listOf(it) } + compoundIndexes)
             setupVersionIndex()
         }
     }
+
+    /**
+     * Кеш коллекции, если она справочная: правки доезжают в него после коммита
+     * транзакции (с 0.49.0), поэтому откат не оставляет кеш впереди базы.
+     */
+    protected open val cache: EntityCache<T>? get() = null
 
     /**
      * Создаёт обычные (неуникальные) индексы по указанным полям.
@@ -154,11 +162,11 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      *
      * @param fields Список полей, по каждому создаётся отдельный индекс
      */
-    private suspend fun setupIndexedFields(fields: List<String>) {
-        fields.forEach { field ->
+    private suspend fun setupIndexedFields(indexes: List<List<String>>) {
+        indexes.forEach { fields ->
             try {
-                collection.createIndex(Indexes.ascending(field))
-                printLog("✅ [$collectionName] Индекс создан на поле $field")
+                collection.createIndex(Indexes.ascending(*fields.toTypedArray()))
+                printLog("✅ [$collectionName] Индекс создан на поле $fields")
             } catch (_: Exception) {
                 // Индекс уже существует - игнорируем
             }
@@ -1203,7 +1211,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
     }
 
     protected open suspend fun validateAfterUpdate(entity: T, session: ClientSession) {
-
+        cache?.let { afterCommit { it.updateItem(entity) } }
     }
 
     /**
@@ -1221,7 +1229,7 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * @param session Сессия транзакции (в контексте которой была вставка)
      */
     protected open suspend fun validateAfterInsert(entity: T, session: ClientSession) {
-
+        cache?.let { afterCommit { it.addItem(entity) } }
     }
 
     /**
@@ -1240,6 +1248,6 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * @param softDelete true, если это было мягкое удаление, false - hard delete
      */
     protected open suspend fun validateAfterDelete(entity: T, session: ClientSession, softDelete: Boolean) {
-
+        cache?.let { afterCommit { it.removeItem(entity) } }
     }
 }

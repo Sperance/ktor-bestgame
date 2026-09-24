@@ -11,7 +11,7 @@ import org.koin.core.component.inject
 class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(
     entityClass = ModifierDefinition::class
 ), KoinComponent {
-    private val cache: ModifierDefinitionCache by inject()
+    override val cache: ModifierDefinitionCache by inject()
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -42,15 +42,4 @@ class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(
         }
     }
 
-    override suspend fun validateAfterInsert(entity: ModifierDefinition, session: ClientSession) {
-        cache.addItem(entity)
-    }
-
-    override suspend fun validateAfterDelete(entity: ModifierDefinition, session: ClientSession, softDelete: Boolean) {
-        cache.removeItem(entity)
-    }
-
-    override suspend fun validateAfterUpdate(entity: ModifierDefinition, session: ClientSession) {
-        cache.updateItem(entity)
-    }
 }

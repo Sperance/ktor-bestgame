@@ -7,13 +7,10 @@ class ModifierDefinitionCache(
     repository: ModifierDefinitionRepository
 ) : MongoCache<ModifierDefinition, ModifierDefinitionRepository>(repository) {
 
+    private val byCode = derived { items -> items.associateBy { it.code } }
+
     /**
      * Поиск описания модификатора по стабильному коду.
      */
-    fun findByCode(code: String): ModifierDefinition? = getCache().find { it.code == code }
-
-    /**
-     * Описания модификаторов по списку id с сохранением порядка переданных id.
-     */
-    fun findAllById(ids: Collection<String>): List<ModifierDefinition> = ids.mapNotNull { findById(it) }
+    fun findByCode(code: String): ModifierDefinition? = byCode.get()[code]
 }

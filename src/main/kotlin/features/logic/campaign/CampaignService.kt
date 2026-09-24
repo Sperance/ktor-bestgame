@@ -321,7 +321,7 @@ class CampaignService : KoinComponent {
         val quantity = bonus(EnumStatStock.STOCK_QUANTITY) + active.quantity
         val loot = CampaignLoot.roll(table, level, rarity, quantity, bonus(EnumStatStock.STOCK_GOLD), random)
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
-            itemsCache.getCache().firstOrNull { it.code == code }?.let { CharacterItems(it._id, amount) }
+            itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) }
         }
         // Экипировка тянется из пулов строки таблицы: что в них не состоит, отсюда не падает.
         val wearable = equipmentCache.getCache().filter { it.requiredLevel <= level }
@@ -330,7 +330,7 @@ class CampaignService : KoinComponent {
         }
         val rule = CampaignContent.file.maps
         val dropped = CampaignMaps.drop(rule, mapChance * (1 + quantity / 100), mapCode, CampaignContent.maps.keys.toList(), random)
-            ?.let { code -> equipmentCache.getCache().firstOrNull { it.code == CampaignMaps.templateCode(code) } }
+            ?.let { code -> equipmentCache.findByCode(CampaignMaps.templateCode(code)) }
 
         val equipment = transactionExecute(method) { session ->
             if (orbs.isNotEmpty()) characters.applyItems(character, orbs, method)

@@ -2,53 +2,93 @@ package features.caches
 
 import base.entity.StockEntity
 import base.repository.BaseRepository
+import base.repository.EntityCache
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import extensions.printLog
-import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicReference
 
-abstract class MongoCache<T: StockEntity, R: BaseRepository<T>>(val repository: R) {
-    private val items: ArrayList<T> = arrayListOf()
-    private val changes = AtomicLong()
+/**
+ * Кеш справочной коллекции (переписан в 0.49.0).
+ *
+ * Состояние - неизменяемый [Snapshot]: список, индекс по `_id` и номер ревизии. Любая правка
+ * подменяет снимок целиком, поэтому читатели никогда не видят кеш наполовину обновлённым
+ * и не ловят ConcurrentModificationException, а `findById` стоит O(1).
+ *
+ * Производные индексы (по коду, по слоту, граф дерева) наследники объявляют через [derived]:
+ * они считаются один раз на ревизию и лежат рядом со снимком, пока тот жив.
+ */
+abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository: R) : EntityCache<T> {
+
+    protected class Snapshot<T : StockEntity>(val items: List<T>, val revision: Long) {
+        val byId: Map<String, T> = items.associateBy { it._id }
+    }
+
+    private val snapshot = AtomicReference(Snapshot<T>(emptyList(), 0))
 
     /**
-     * Счётчик правок кеша (с 0.48.0). Растёт при каждой записи, поэтому [features.logic.world.WorldBundle]
-     * узнаёт, что справочник изменился, не пересчитывая отпечаток на каждый запрос.
+     * Номер снимка. Растёт при каждой записи, поэтому [features.logic.world.WorldBundle] и
+     * производные индексы узнают, что справочник изменился, не сравнивая содержимое.
      */
-    val revision: Long get() = changes.get()
+    val revision: Long get() = snapshot.get().revision
 
-    suspend fun initializeCache() {
-        val data = repository.findAll()
-        loadToCache(data)
-    }
+    /** Отпечаток содержимого: не зависит от порядка и переживает перезапуск. */
+    private val fingerprint = derived { items -> items.sortedBy { it._id }.hashCode() }
 
-    suspend fun initializeCache(session: ClientSession) {
-        val data = repository.findAll(session)
-        loadToCache(data)
-    }
+    suspend fun initializeCache() = loadToCache(repository.findAll())
+
+    suspend fun initializeCache(session: ClientSession) = loadToCache(repository.findAll(session))
 
     fun loadToCache(data: Collection<T>) {
-        clearCache()
-        items.addAll(data)
-        changes.incrementAndGet()
-        printLog("[${javaClass.simpleName}] initialized cache size: ${items.size}")
+        replace { data.toList() }
+        printLog("[${javaClass.simpleName}] initialized cache size: ${data.size}")
     }
 
-    fun addItem(item: T) = items.add(item).also { changes.incrementAndGet() }
+    override fun addItem(item: T) = replace { items -> items + item }
 
-    fun removeItem(item: T) = items.removeIf { it._id == item._id }.also { changes.incrementAndGet() }
+    override fun removeItem(item: T) = replace { items -> items.filterNot { it._id == item._id } }
 
-    fun updateItem(item: T) {
-        removeItem(item)
-        addItem(item)
+    /** Правка на месте: порядок не сдвигается, а новая запись просто добавляется. */
+    override fun updateItem(item: T) = replace { items ->
+        if (items.none { it._id == item._id }) items + item
+        else items.map { if (it._id == item._id) item else it }
     }
 
-    fun clearCache() = items.clear().also { changes.incrementAndGet() }
+    fun clearCache() = replace { emptyList() }
 
-    fun findById(id: String) = items.find { it._id == id }
+    fun findById(id: String): T? = snapshot.get().byId[id]
 
-    fun getCache() = items
+    /** Записи по списку id, в порядке переданных id; неизвестные пропускаются. */
+    fun findAllById(ids: Collection<String>): List<T> {
+        val byId = snapshot.get().byId
+        return ids.mapNotNull { byId[it] }
+    }
 
-    fun getCacheHash() = items.hashCode()
+    /** Текущий снимок: только чтение, писать в него нельзя. */
+    fun getCache(): List<T> = snapshot.get().items
 
-    fun isEmpty() = items.isEmpty()
+    fun getCacheHash(): Int = fingerprint.get()
+
+    fun isEmpty() = snapshot.get().items.isEmpty()
+
+    private fun replace(transform: (List<T>) -> List<T>) {
+        snapshot.updateAndGet { current -> Snapshot(transform(current.items), current.revision + 1) }
+    }
+
+    /**
+     * Производный индекс: [build] запускается при первом чтении на новой ревизии,
+     * дальше отдаётся готовое, пока снимок не сменится.
+     */
+    protected fun <V> derived(build: (List<T>) -> V): Derived<V> = Derived(build)
+
+    protected inner class Derived<V>(private val build: (List<T>) -> V) {
+        private val built = AtomicReference<Pair<Long, V>?>(null)
+
+        fun get(): V {
+            val current = snapshot.get()
+            built.get()?.takeIf { it.first == current.revision }?.let { return it.second }
+            val value = build(current.items)
+            built.set(current.revision to value)
+            return value
+        }
+    }
 }

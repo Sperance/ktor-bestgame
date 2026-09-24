@@ -13,7 +13,7 @@ import org.koin.core.component.inject
 class ModifierTierRepository : BaseRepository<ModifierTier>(
     entityClass = ModifierTier::class
 ), KoinComponent {
-    private val cache: ModifierTierCache by inject()
+    override val cache: ModifierTierCache by inject()
     private val definitionCache: ModifierDefinitionCache by inject()
     private val definitionRepository: ModifierDefinitionRepository by inject()
 
@@ -48,18 +48,6 @@ class ModifierTierRepository : BaseRepository<ModifierTier>(
                 "validateBeforeInsert",
                 "${definition.code}: ${definition.effects.size} effects, ${entity.values.size} values"
             )
-    }
-
-    override suspend fun validateAfterInsert(entity: ModifierTier, session: ClientSession) {
-        cache.addItem(entity)
-    }
-
-    override suspend fun validateAfterDelete(entity: ModifierTier, session: ClientSession, softDelete: Boolean) {
-        cache.removeItem(entity)
-    }
-
-    override suspend fun validateAfterUpdate(entity: ModifierTier, session: ClientSession) {
-        cache.updateItem(entity)
     }
 
     /**

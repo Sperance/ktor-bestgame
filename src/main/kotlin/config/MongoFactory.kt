@@ -14,6 +14,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.bson.Document
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
@@ -82,12 +83,15 @@ object MongoFactory {
         mongoClient.startSession().use { session ->
             printLog("[TR::start::${session.hashCode()}] $transactionName ", true)
             session.startTransaction()
+            val afterCommit = AfterCommit()
             try {
-                val result = body(session)
+                val result = withContext(afterCommit) { body(session) }
                 if (session.hasActiveTransaction()) {
                     printLog("[TR::commit${session.hashCode()}] $transactionName ", true)
                     session.commitTransaction()
                 }
+                // Кеши узнают о правке только теперь: откат выше их не касается.
+                afterCommit.run()
                 return result
             } catch (e: Exception) {
                 if (session.hasActiveTransaction()) {

@@ -53,7 +53,7 @@ object SkillTreeAllocation {
     /**
      * Проверяет, что персонаж может взять узел.
      *
-     * @param nodes всё дерево
+     * @param graph всё дерево
      * @param node узел, который берут
      * @param taken коды уже взятых узлов
      * @param startNodeCode стартовый узел класса персонажа
@@ -61,7 +61,7 @@ object SkillTreeAllocation {
      * @throws SkillTreeExceptions.SkillTreeException если узел брать нельзя
      */
     fun requireAllocatable(
-        nodes: Collection<SkillTreeNode>,
+        graph: SkillTreeGraph,
         node: SkillTreeNode,
         taken: Collection<String>,
         startNodeCode: String,
@@ -79,7 +79,7 @@ object SkillTreeAllocation {
         } else {
             if (taken.isEmpty())
                 throw SkillTreeExceptions.funExceptionNoStart("allocate", node.code)
-            if (!SkillTreeGraph.isAdjacentTo(nodes, node.code, taken))
+            if (!graph.isAdjacentTo(node.code, taken))
                 throw SkillTreeExceptions.funExceptionNotConnected("allocate", node.code)
         }
 
@@ -93,7 +93,7 @@ object SkillTreeAllocation {
      * @throws SkillTreeExceptions.SkillTreeException если узел откатить нельзя
      */
     fun requireRefundable(
-        nodes: Collection<SkillTreeNode>,
+        graph: SkillTreeGraph,
         node: SkillTreeNode,
         taken: Collection<String>,
     ) {
@@ -104,7 +104,7 @@ object SkillTreeAllocation {
         if (node.type == EnumSkillNodeType.START)
             throw SkillTreeExceptions.funExceptionStartRefund("refund", node.code)
 
-        if (!SkillTreeGraph.isConnected(nodes, taken.filterNot { it == node.code }))
+        if (!graph.isConnected(taken.filterNot { it == node.code }))
             throw SkillTreeExceptions.funExceptionWouldDetach("refund", node.code)
     }
 

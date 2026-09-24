@@ -41,7 +41,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     private val skillTreeCache: SkillTreeCache by inject()
 
     init {
-        initialize(indexedFields = listOf("characterId", "equipmentId"))
+        initialize(indexedFields = listOf("characterId", "equipmentId"), compoundIndexes = listOf(listOf("characterId", "equippedSlot")))
     }
 
     override suspend fun validateBeforeInsert(entity: CharacterEquipment, session: ClientSession) {
@@ -108,7 +108,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         if (template.slot != EnumEquipmentType.JEWEL)
             throw SkillTreeExceptions.funExceptionNotJewel("socket", template.code)
 
-        val node = skillTreeCache.getCache().find { it.code == nodeCode }
+        val node = skillTreeCache.findByCode(nodeCode)
             ?: throw SkillTreeExceptions.funExceptionNodeNotFound("socket", nodeCode)
         if (node.type != EnumSkillNodeType.JEWEL_SOCKET)
             throw SkillTreeExceptions.funExceptionNotSocket("socket", nodeCode)

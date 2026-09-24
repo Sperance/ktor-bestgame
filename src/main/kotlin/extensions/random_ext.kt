@@ -1,19 +1,18 @@
 package extensions
 
+import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
+import kotlin.random.asKotlinRandom
 import kotlin.random.nextInt
 import kotlin.random.nextLong
 
-private var randomSeed = 1L
-
+/**
+ * Общий генератор сервера (с 0.49.0 - потоковый): один `Random` на все запросы
+ * не потокобезопасен и при гонке выдавал повторы.
+ */
 object RandomExt {
 
-    val random = Random(System.currentTimeMillis() + randomSeed)
-        get() {
-            randomSeed++
-            if (randomSeed == Long.MAX_VALUE - 1) randomSeed = 1
-            return field
-        }
+    val random: Random get() = ThreadLocalRandom.current().asKotlinRandom()
 
     /* INT */
 
@@ -51,18 +50,19 @@ fun <T> Collection<T>.randomExt(): T {
 /**
  * Взвешенный случайный выбор элемента коллекции.
  *
- * Элементы с неположительным весом игнорируются.
- * Возвращает null, если подходящих элементов нет.
+ * Элементы с неположительным весом игнорируются. Вес каждого элемента
+ * спрашивается один раз. Возвращает null, если подходящих элементов нет.
  */
 fun <T> Collection<T>.weightedRandomExt(weight: (T) -> Int): T? {
-    val candidates = filter { weight(it) > 0 }
-    if (candidates.isEmpty()) return null
-
-    val totalWeight = candidates.sumOf { weight(it) }
-    var point = RandomExt.randomInt(1..totalWeight)
-    candidates.forEach { item ->
-        point -= weight(item)
-        if (point <= 0) return item
+    if (isEmpty()) return null
+    val weights = IntArray(size)
+    var total = 0L
+    forEachIndexed { index, item -> weights[index] = weight(item).coerceAtLeast(0); total += weights[index] }
+    if (total == 0L) return null
+    var point = RandomExt.randomLong(0, total)
+    forEachIndexed { index, item ->
+        point -= weights[index]
+        if (point < 0) return item
     }
-    return candidates.last()
+    return null
 }

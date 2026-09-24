@@ -244,7 +244,7 @@ class CharacterRepository : BaseRepository<Character>(
         val available = stateOf(character).available
 
         SkillTreeAllocation.requireAllocatable(
-            nodes = skillTreeCache.getCache(),
+            graph = skillTreeCache.graph(),
             node = node,
             taken = character.skillNodes.map { it.code },
             startNodeCode = requireClass(character).startNodeCode,
@@ -269,7 +269,7 @@ class CharacterRepository : BaseRepository<Character>(
         val character = requireCharacter(characterId, "refundSkillNode")
         val node = requireNode(nodeCode, "refundSkillNode")
 
-        SkillTreeAllocation.requireRefundable(skillTreeCache.getCache(), node, character.skillNodes.map { it.code })
+        SkillTreeAllocation.requireRefundable(skillTreeCache.graph(), node, character.skillNodes.map { it.code })
         SkillTreeAllocation.requireSocketEmpty(node, socketedNodes(characterId))
 
         // Возврат стоит сферу сожаления. Списание и сам возврат идут одной
@@ -292,8 +292,7 @@ class CharacterRepository : BaseRepository<Character>(
         // Ни одно гнездо не должно остаться занятым: камень повис бы в узле,
         // которого у персонажа после сброса нет.
         val socketed = socketedNodes(characterId)
-        skillTreeCache.getCache()
-            .filter { it.code in character.skillNodes.map { taken -> taken.code } }
+        character.skillNodes.mapNotNull { skillTreeCache.findByCode(it.code) }
             .forEach { SkillTreeAllocation.requireSocketEmpty(it, socketed) }
 
         // Сброс стоит по сфере за каждый возвращаемый узел: стартовый бесплатен,
