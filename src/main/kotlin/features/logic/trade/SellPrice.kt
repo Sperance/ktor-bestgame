@@ -25,7 +25,7 @@ import kotlin.math.floor
 object SellPrice {
 
     /** Сколько аффиксов прибавляют к цене - доля от базы за каждый. */
-    private const val AFFIX_SHARE = 0.15
+    const val AFFIX_SHARE = 0.15
 
     /**
      * @param rarity редкость экземпляра: до 0.41.0 бралась редкость шаблона, и редкая вещь

@@ -206,6 +206,10 @@ private fun exceptionFiles(): ArrayList<String> {
     return resultArray
 }
 
+/** Правило [features.logic.trade.SellPrice]: доля базы за аффикс и множитель редкости. */
+@Serializable
+data class SellRule(val affixShare: Double, val rarity: Map<String, Double>)
+
 /** Одна характеристика и её место в порядке подсчёта. */
 @Serializable
 data class StatOrder(val stat: String, val order: Int)
@@ -213,10 +217,11 @@ data class StatOrder(val stat: String, val order: Int)
 /**
  * Ответ `/system/stats` (с 0.41.0): клиент собирает лист героя сам по формуле сервера. [stats] -
  * порядок подсчёта характеристик (конверсия "X за каждые Y" верна, только если Y посчитан
- * раньше X), [slots] - порядок, в котором проверяются надетые вещи.
+ * раньше X), [slots] - порядок, в котором проверяются надетые вещи, [sell] - правило цены
+ * торговца, по которому клиент показывает цену вещи заранее.
  */
 @Serializable
-data class StatTables(val stats: List<StatOrder>, val slots: List<String>) {
+data class StatTables(val stats: List<StatOrder>, val slots: List<String>, val sell: SellRule) {
     companion object {
         val served: StatTables by lazy {
             StatTables(
@@ -224,6 +229,8 @@ data class StatTables(val stats: List<StatOrder>, val slots: List<String>) {
                     application.enums.EnumStatProfession.entries + application.enums.EnumStatBattle.entries)
                     .map { StatOrder(it.name, (it as application.enums.IntEnumStat).order) }.sortedBy { it.order },
                 application.enums.EnumEquipmentType.entries.map { it.name },
+                SellRule(features.logic.trade.SellPrice.AFFIX_SHARE,
+                    application.enums.EnumRarity.entries.associate { it.name to features.logic.trade.SellPrice.factor(it) }),
             )
         }
     }
