@@ -184,6 +184,8 @@ data class MonsterTemplate(
     val modifiers: List<String> = emptyList(),
     /** Пулы собственных уникалок босса (с 0.39.0) - обычно `boss:<его код>`. */
     val uniquePools: List<String> = emptyList(),
+    /** Страж осквернённой зоны (с 0.46.0): как босс, но не у выхода - его ставит клиент по зерну карты. */
+    val corrupted: Boolean = false,
 )
 
 /**
@@ -240,6 +242,16 @@ data class BossRule(val respawnHours: Double, val uniqueChance: Double, val ownU
 data class CampaignBoss(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule, val modifiers: List<MonsterModifier>)
 
 /**
+ * Осквернённая зона (с 0.46.0): случайный портал на карте (0-1 за заход, по шансу [chance] и
+ * зерну у клиента), а за ним - страж [uniquePools] и [uniqueChance] на уникалку, как у мелкого
+ * босса. Общий на несколько локаций одного уровня (см. `corrupted` карты, как `chestLoot`),
+ * поэтому отдельного `respawnHours` у него нет - открыт он один раз за заход, а не до тех пор,
+ * пока жив.
+ */
+@Serializable
+data class CorruptionRule(val chance: Double = 0.0, val uniqueChance: Double = 0.0, val uniquePools: List<String> = emptyList())
+
+/**
  * Как монстр ведёт себя на карте, пока не начался бой (с 0.30.0). Ходит по карте клиент, но
  * числа - сервера, как и правила боя.
  *
@@ -283,6 +295,8 @@ data class CampaignMapTemplate(
     val boss: String,
     /** Пулы модификаторов монстров этой карты (с 0.39.0). */
     val modifierPools: List<String> = emptyList(),
+    /** Страж осквернённой зоны этой карты (с 0.46.0), если она выпадет за этот заход. */
+    val corrupted: String,
 )
 
 /**
@@ -313,6 +327,7 @@ data class CampaignContentFile(
     val services: ServiceRule,
     val maps: MapRule,
     val fountains: FountainRule = FountainRule(),
+    val corruption: CorruptionRule = CorruptionRule(),
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -340,6 +355,8 @@ data class CampaignMap(
     val monsters: List<CampaignMonster>,
     val modifiers: List<MonsterModifier>,
     val boss: CampaignBoss,
+    /** Страж этой карты за осквернённым порталом (с 0.46.0), если он ей достался этим заходом. */
+    val corrupted: CampaignBoss,
 )
 
 @Serializable
@@ -354,6 +371,7 @@ data class CampaignView(
     val services: ServiceRule,
     val maps: MapRule,
     val fountains: FountainRule = FountainRule(),
+    val corruption: CorruptionRule = CorruptionRule(),
 )
 
 /**
@@ -407,11 +425,8 @@ object CampaignContent {
                     },
                     modifiers = Pools.of(content.modifiers.filter { it.minLevel <= map.level }, map.modifierPools)
                         .map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
-                    boss = monsters.getValue(map.boss).let { boss ->
-                        CampaignBoss(boss.code, boss.form, (content.defaults + boss.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
-                            boss.behaviour ?: content.bosses.behaviour,
-                            boss.modifiers.map { code -> content.modifiers.first { it.code == code }.let { raise(content, it, Pools.weight(it, map.modifierPools), map.level) } })
-                    },
+                    boss = guardian(content, monsters, map.boss, map, content.bosses.behaviour),
+                    corrupted = guardian(content, monsters, map.corrupted, map, content.bosses.behaviour),
                 )
             })
         }
@@ -420,8 +435,16 @@ object CampaignContent {
             if (rarity.statScale <= 0) rarity
             else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
         }
-        return CampaignView(chapters, rarities, content.combat, content.services, content.maps, content.fountains)
+        return CampaignView(chapters, rarities, content.combat, content.services, content.maps, content.fountains, content.corruption)
     }
+
+    /** Босс или страж осквернённой зоны: та же форма ответа, характеристики подняты до уровня карты. */
+    private fun guardian(content: CampaignContentFile, monsters: Map<String, MonsterTemplate>, code: String, map: CampaignMapTemplate, defaultBehaviour: BehaviourRule): CampaignBoss =
+        monsters.getValue(code).let { boss ->
+            CampaignBoss(boss.code, boss.form, (content.defaults + boss.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
+                boss.behaviour ?: defaultBehaviour,
+                boss.modifiers.map { modCode -> content.modifiers.first { it.code == modCode }.let { raise(content, it, Pools.weight(it, map.modifierPools), map.level) } })
+        }
 
     /** Модификатор монстра на уровне карты: растут только прибавки. */
     private fun raise(content: CampaignContentFile, modifier: MonsterModifierRecord, weight: Int, level: Int): MonsterModifier =
@@ -492,10 +515,16 @@ object CampaignContent {
             if (map.chestLoot !in content.lootTables) throw CampaignExceptions.funExceptionContent(method, "chest loot of ${map.code}")
             if (content.monsters.none { it.code == map.boss && it.boss }) throw CampaignExceptions.funExceptionContent(method, "boss of ${map.code}")
             if (map.monsters.any { code -> content.monsters.first { it.code == code }.boss }) throw CampaignExceptions.funExceptionContent(method, "boss among monsters of ${map.code}")
+            if (content.monsters.none { it.code == map.corrupted && it.corrupted }) throw CampaignExceptions.funExceptionContent(method, "corrupted guardian of ${map.code}")
+            if (map.monsters.any { code -> content.monsters.first { it.code == code }.corrupted }) throw CampaignExceptions.funExceptionContent(method, "corrupted guardian among monsters of ${map.code}")
         }
         val modifierCodes = content.modifiers.map { it.code }.toSet()
         content.monsters.filter { it.boss }.forEach { boss ->
             if (boss.uniquePools.isEmpty() || boss.modifiers.any { it !in modifierCodes }) throw CampaignExceptions.funExceptionContent(method, "boss ${boss.code}")
+        }
+        content.monsters.filter { it.corrupted }.forEach { guardian ->
+            if (guardian.boss) throw CampaignExceptions.funExceptionContent(method, "corrupted boss ${guardian.code}")
+            if (guardian.uniquePools.isNotEmpty() || guardian.modifiers.any { it !in modifierCodes }) throw CampaignExceptions.funExceptionContent(method, "corrupted ${guardian.code}")
         }
         content.bosses.let { rule ->
             if (rule.respawnHours <= 0 || rule.uniqueChance !in 0.0..1.0 || rule.ownUniqueChance !in 0.0..1.0 || rule.uniquePools.isEmpty()) throw CampaignExceptions.funExceptionContent(method, "bosses")
@@ -504,6 +533,10 @@ object CampaignContent {
         content.fountains.let { rule ->
             if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.heal !in 0.0..100.0)
                 throw CampaignExceptions.funExceptionContent(method, "fountains")
+        }
+        content.corruption.let { rule ->
+            if (rule.chance !in 0.0..1.0 || rule.uniqueChance !in 0.0..1.0 || rule.uniquePools.isEmpty())
+                throw CampaignExceptions.funExceptionContent(method, "corruption")
         }
         content.maps.let { rule ->
             if (listOf(rule.dropChance, rule.bossChance, rule.nextChance).any { it !in 0.0..1.0 }) throw CampaignExceptions.funExceptionContent(method, "maps")

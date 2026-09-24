@@ -172,6 +172,13 @@ class CharacterRoute(
                 val mapCode = call.queryParam("mapCode")
                 call.respond(ApiMongoResponse.ok(campaign.openChest(characterId, mapCode)))
             }
+            // 0.46.0: осквернённая зона - случайный портал за заход, не больше одного, своя таблица добычи.
+            post("/corrupt") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                val monsterCode = call.queryParam("monsterCode")
+                call.respond(ApiMongoResponse.ok(campaign.corrupt(characterId, mapCode, monsterCode)))
+            }
         }
 
         route("/skilltree") {

@@ -96,6 +96,9 @@ data class Character(
     /** Выпал ли уже рецепт верстака на активной карте (с 0.46.0): не больше одного за заход, сбрасывается входом на карту. */
     var mapRecipeRolled: Boolean = false,
 
+    /** Открыта ли уже осквернённая зона на активной карте (с 0.46.0): не больше одной за заход, сбрасывается входом на карту. */
+    var corruptionOpened: Boolean = false,
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

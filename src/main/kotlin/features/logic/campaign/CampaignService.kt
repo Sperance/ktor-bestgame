@@ -153,6 +153,31 @@ class CampaignService : KoinComponent {
     }
 
     /**
+     * Герой одолел стража осквернённой зоны (с 0.46.0): не больше одного раза за заход карты
+     * (`CP_012`), и не таблица монстра, а его собственная, с шансом на уникалку из
+     * [CorruptionRule.uniquePools]. Зона не персистентна - `start()` сбрасывает счётчик.
+     */
+    suspend fun corrupt(characterId: String, mapCode: String, monsterCode: String): CampaignReward {
+        val method = "corrupt"
+        val character = requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        if (map.corrupted.code != monsterCode) throw CampaignExceptions.funExceptionMonsterNotOnMap(method, monsterCode)
+        if (character.corruptionOpened) throw CampaignExceptions.funExceptionCorruptionSpent(method, mapCode)
+        character.corruptionOpened = true
+        val template = CampaignContent.monsters.getValue(map.corrupted.code)
+        val rule = CampaignContent.file.corruption
+        val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
+        val random = Random.Default
+        val ordinary = Pools.of(equipmentCache.getCache(), rule.uniquePools)
+        val extra = listOfNotNull(
+            Pools.draw(ordinary.filter { it.value.requiredLevel <= map.level + UNIQUE_REACH }.ifEmpty { ordinary }, random).takeIf { random.nextDouble() < rule.uniqueChance },
+        )
+        val sheet = characters.calculateStats(characterId).stats
+        val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
+        return grant(character, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra, mapCode = mapCode)
+    }
+
+    /**
      * Вход в локацию (с 0.35.0). С картой [itemId] она тратится: её уровень должен совпасть с
      * локацией (`CP_011`), модификаторы складываются в [ActiveMap] и ложатся на добычу этой локации до
      * следующего входа, а `MAP_CHESTS` сразу добавляет сундуки в окно. Без карты прежний бонус снимается.
@@ -179,6 +204,7 @@ class CampaignService : KoinComponent {
         if (chests > 0) character.chests[mapCode] = window.copy(left = window.left + chests)
         character.activeMap = active
         character.mapRecipeRolled = false
+        character.corruptionOpened = false
         transactionExecute(method) { session ->
             item?.let { inventory.deleteById(it._id, session) }
             characters.update(character, session)

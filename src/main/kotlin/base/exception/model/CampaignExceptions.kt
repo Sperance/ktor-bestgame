@@ -20,4 +20,5 @@ object CampaignExceptions {
     fun funExceptionBossStands(errorMethod: String, value: String? = "") = CampaignException("The guardian of map $value already stands", errorMethod, "CP_010", listOf(value.orEmpty()))
     fun funExceptionMapItem(errorMethod: String, value: String? = "") = CampaignException("Item $value does not open this location", errorMethod, "CP_011", listOf(value.orEmpty()))
     fun funExceptionRarity(errorMethod: String, value: String? = "") = CampaignException("Unknown monster rarity $value", errorMethod, "CP_005", listOf(value.orEmpty()))
+    fun funExceptionCorruptionSpent(errorMethod: String, value: String? = "") = CampaignException("The corrupted zone of map $value is already spent this run", errorMethod, "CP_012", listOf(value.orEmpty()))
 }

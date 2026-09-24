@@ -1035,6 +1035,225 @@
           ]
         }
       ]
+    },
+    "CORRUPT_1": {
+      "gold": [
+        50,
+        100
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.5,
+          "amount": [
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "CHAOS_ORB",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "VAAL_ORB",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.9,
+          "equipmentPools": [
+            "drop"
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.4,
+          "equipmentPools": [
+            "drop"
+          ]
+        }
+      ]
+    },
+    "CORRUPT_2": {
+      "gold": [
+        90,
+        160
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "REGAL_ORB",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "CHAOS_ORB",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "VAAL_ORB",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "BLESSED_ORB",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 1.0,
+          "equipmentPools": [
+            "drop"
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.5,
+          "equipmentPools": [
+            "drop"
+          ]
+        }
+      ]
+    },
+    "CORRUPT_3": {
+      "gold": [
+        150,
+        260
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "CHAOS_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "VAAL_ORB",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "BLESSED_ORB",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "DIVINE_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 1.0,
+          "equipmentPools": [
+            "drop"
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.6,
+          "equipmentPools": [
+            "drop"
+          ]
+        }
+      ]
     }
   },
   "monsters": [
@@ -1638,6 +1857,59 @@
       "uniquePools": [
         "boss:BOSS_DROWNED_GOD"
       ]
+    },
+    {
+      "code": "CORRUPTED_1",
+      "form": "WRAITH",
+      "experience": 80,
+      "loot": "CORRUPT_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.3,
+        "STOCK_HEALTH": 55,
+        "STOCK_ATTACK_CHAOS": 8,
+        "STOCK_RESIST_CHAOS": 35
+      },
+      "corrupted": true,
+      "modifiers": [
+        "MOB_VAMPIRIC",
+        "MOB_DEADLY"
+      ]
+    },
+    {
+      "code": "CORRUPTED_2",
+      "form": "WRAITH",
+      "experience": 110,
+      "loot": "CORRUPT_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 80,
+        "STOCK_ATTACK_CHAOS": 10,
+        "STOCK_ENERGY_SHIELD": 25,
+        "STOCK_RESIST_CHAOS": 45
+      },
+      "corrupted": true,
+      "modifiers": [
+        "MOB_ARMOURED",
+        "MOB_BERSERK"
+      ]
+    },
+    {
+      "code": "CORRUPTED_3",
+      "form": "WRAITH",
+      "experience": 150,
+      "loot": "CORRUPT_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 110,
+        "STOCK_ATTACK_CHAOS": 14,
+        "STOCK_ENERGY_SHIELD": 40,
+        "STOCK_RESIST_CHAOS": 60
+      },
+      "corrupted": true,
+      "modifiers": [
+        "MOB_SHIELDED",
+        "MOB_ELEMENTALIST"
+      ]
     }
   ],
   "chapters": [
@@ -1659,6 +1931,7 @@
           "light": 1.2,
           "chestLoot": "CHEST_1",
           "boss": "BOSS_TIDECALLER",
+          "corrupted": "CORRUPTED_1",
           "modifierPools": [
             "monster"
           ],
@@ -1680,6 +1953,7 @@
           "light": 0.8,
           "chestLoot": "CHEST_1",
           "boss": "BOSS_BRINE_MOTHER",
+          "corrupted": "CORRUPTED_1",
           "modifierPools": [
             "monster"
           ],
@@ -1701,6 +1975,7 @@
           "light": 0.9,
           "chestLoot": "CHEST_1",
           "boss": "BOSS_BOG_QUEEN",
+          "corrupted": "CORRUPTED_1",
           "modifierPools": [
             "monster"
           ],
@@ -1722,6 +1997,7 @@
           "light": 1.0,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_ALPHA_WOLF",
+          "corrupted": "CORRUPTED_2",
           "modifierPools": [
             "monster"
           ],
@@ -1743,6 +2019,7 @@
           "light": 1.0,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_RUIN_WARDEN",
+          "corrupted": "CORRUPTED_2",
           "modifierPools": [
             "monster"
           ],
@@ -1765,6 +2042,7 @@
           "light": 0.7,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_CRYPT_LORD",
+          "corrupted": "CORRUPTED_2",
           "modifierPools": [
             "monster"
           ],
@@ -1786,6 +2064,7 @@
           "light": 0.75,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_SHARD_QUEEN",
+          "corrupted": "CORRUPTED_2",
           "modifierPools": [
             "monster"
           ],
@@ -1807,6 +2086,7 @@
           "light": 0.9,
           "chestLoot": "CHEST_3",
           "boss": "BOSS_ASHEN_TYRANT",
+          "corrupted": "CORRUPTED_3",
           "modifierPools": [
             "monster"
           ],
@@ -1828,6 +2108,7 @@
           "light": 1.1,
           "chestLoot": "CHEST_3",
           "boss": "BOSS_FROST_MONARCH",
+          "corrupted": "CORRUPTED_3",
           "modifierPools": [
             "monster"
           ],
@@ -1850,6 +2131,7 @@
           "light": 0.85,
           "chestLoot": "CHEST_3",
           "boss": "BOSS_DROWNED_GOD",
+          "corrupted": "CORRUPTED_3",
           "modifierPools": [
             "monster"
           ],
@@ -2095,6 +2377,11 @@
   "fountains": {
     "count": [0, 2],
     "heal": 30
+  },
+  "corruption": {
+    "chance": 0.35,
+    "uniqueChance": 0.12,
+    "uniquePools": ["unique:world"]
   },
   "maps": {
     "dropChance": 0.03,
