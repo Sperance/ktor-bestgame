@@ -1731,6 +1731,8 @@
     "resistCap": 75,
     "blockCap": 75,
     "spellBlockShare": 50,
+    "resistHardCap": 90,
+    "ailmentDurationCap": 75,
     "unarmed": {
       "damage": 4,
       "speed": 1.2
@@ -1782,7 +1784,8 @@
         "type": "STOCK_ATTACK_FIRE",
         "chance": 30,
         "magnitude": 60,
-        "duration": 4
+        "duration": 4,
+        "heroChance": 0
       },
       {
         "ailment": "CHILLED",
@@ -1804,7 +1807,8 @@
         "type": "STOCK_ATTACK_LIGHTNING",
         "chance": 35,
         "magnitude": 20,
-        "duration": 3
+        "duration": 3,
+        "heroChance": 0
       },
       {
         "ailment": "POISONED",
@@ -1812,14 +1816,16 @@
         "chance": 40,
         "magnitude": 30,
         "duration": 3,
-        "stacks": true
+        "stacks": true,
+        "heroChance": 0
       },
       {
         "ailment": "BLEEDING",
         "type": "STOCK_ATTACK_PHYSICAL",
         "chance": 15,
         "magnitude": 50,
-        "duration": 4
+        "duration": 4,
+        "heroChance": 0
       }
     ]
   },

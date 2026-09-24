@@ -39,6 +39,12 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_EVASION(121),
     STOCK_BLOCK_CHANCE(122),
     STOCK_STUN_THRESHOLD(123),
+    /** Шанс заблокировать заклинание, в процентах (с 0.36.0): сверх доли обычного блока. */
+    STOCK_SPELL_BLOCK(124),
+    /** Дополнительное снижение физического урона после брони, в процентах. */
+    STOCK_PHYSICAL_REDUCTION(125),
+    /** Шанс избежать оглушения, в процентах. */
+    STOCK_AVOID_STUN(126),
 
     // ========== Сопротивления ==========
     STOCK_RESIST_FIRE(140),
@@ -46,6 +52,12 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_RESIST_LIGHTNING(142),
     STOCK_RESIST_CHAOS(143),
     STOCK_RESIST_ALL(144),
+    /** Прибавка к потолку сопротивления (с 0.36.0); «все» - к трём стихиям. */
+    STOCK_RESIST_MAX_FIRE(145),
+    STOCK_RESIST_MAX_COLD(146),
+    STOCK_RESIST_MAX_LIGHTNING(147),
+    STOCK_RESIST_MAX_CHAOS(148),
+    STOCK_RESIST_MAX_ALL(149),
 
     // ========== Урон ==========
     STOCK_ATTACK_PHYSICAL(200),
@@ -73,6 +85,40 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_LEECH_PHYSICAL(263),
     STOCK_LEECH_MAGICAL(264),
     STOCK_LEECH_ALL(265),
+    /** Здоровье и мана за убийство и за каждый удар атакой (с 0.36.0). */
+    STOCK_HEALTH_ON_KILL(266),
+    STOCK_MANA_ON_KILL(267),
+    STOCK_HEALTH_ON_HIT(268),
+    STOCK_MANA_ON_HIT(269),
+    /** Лишние заряды флакона на забег и увеличение его лечения в процентах. */
+    STOCK_FLASK_CHARGES(270),
+    STOCK_FLASK_RECOVERY(271),
+
+    // ========== Состояния (с 0.36.0): все - проценты, база героя в правилах боя ==========
+    /** Шанс наложить состояние ударом с уроном его типа, сверх базы правила. */
+    STOCK_IGNITE_CHANCE(280),
+    STOCK_FREEZE_CHANCE(281),
+    STOCK_SHOCK_CHANCE(282),
+    STOCK_POISON_CHANCE(283),
+    STOCK_BLEED_CHANCE(284),
+    /** Увеличение урона со временем от поджога, яда и кровотечения. */
+    STOCK_BURNING_DAMAGE(285),
+    STOCK_POISON_DAMAGE(286),
+    STOCK_BLEED_DAMAGE(287),
+    /** Шанс избежать состояния. */
+    STOCK_AVOID_IGNITE(288),
+    STOCK_AVOID_CHILL(289),
+    STOCK_AVOID_FREEZE(290),
+    STOCK_AVOID_SHOCK(291),
+    STOCK_AVOID_POISON(292),
+    STOCK_AVOID_BLEED(293),
+    /** Сокращение длительности состояния на себе. */
+    STOCK_IGNITE_DURATION_ON_SELF(294),
+    STOCK_CHILL_DURATION_ON_SELF(295),
+    STOCK_FREEZE_DURATION_ON_SELF(296),
+    STOCK_SHOCK_DURATION_ON_SELF(297),
+    STOCK_POISON_DURATION_ON_SELF(298),
+    STOCK_BLEED_DURATION_ON_SELF(299),
 
     // ========== Инвентарь и ресурсы ==========
     STOCK_INVENTORY_SIZE(300),

@@ -57,6 +57,44 @@ fun conversion(
 ) = EffectTemplate(stat, operation, value..value, value..value, perStat, perAmount)
 
 /**
+ * Один тир из таблицы модификаторов POE: с какого item level он открывается и какие
+ * у него диапазоны - по одному на эффект, в порядке эффектов.
+ */
+data class TierRow(val itemLevel: Int, val values: List<ClosedFloatingPointRange<Double>>)
+
+fun tier(itemLevel: Int, vararg values: ClosedFloatingPointRange<Double>) = TierRow(itemLevel, values.toList())
+
+/**
+ * Шаблон модификатора по таблице тиров (с 0.36.0): тир 1 - первая строка, у каждой свой
+ * item level и свои диапазоны, ровно как в POE, без интерполяции между краями.
+ */
+fun tabled(
+    code: String,
+    source: EnumModifierSource,
+    stats: List<Pair<IntEnumStat, EnumModifierOperation>>,
+    tiers: List<TierRow>,
+    tags: List<String> = emptyList(),
+    isLocal: Boolean = false,
+    group: String? = null,
+    weight: Int = ModifierDefinition.DEFAULT_SPAWN_WEIGHT,
+): ModifierTemplate {
+    require(tiers.isNotEmpty() && tiers.all { it.values.size == stats.size }) { "$code: a tier per row, a range per effect" }
+    return ModifierTemplate(
+        code = code,
+        source = source,
+        effects = stats.mapIndexed { index, (stat, operation) -> effect(stat, operation, tiers.first().values[index], tiers.last().values[index]) },
+        tierCount = tiers.size,
+        bestItemLevel = tiers.first().itemLevel,
+        worstItemLevel = tiers.last().itemLevel,
+        tags = tags,
+        isLocal = isLocal,
+        group = group,
+        weight = weight,
+        table = tiers,
+    )
+}
+
+/**
  * Шаблон модификатора для сидера: описание плюс границы его тиров.
  *
  * Несколько эффектов = составной (гибридный) модификатор,
@@ -96,6 +134,11 @@ data class ModifierTemplate(
      * Ремесленный модификатор верстака, см. [ModifierDefinition.crafted].
      */
     val crafted: Boolean = false,
+
+    /**
+     * Явная таблица тиров, см. [tabled]. Пустая - тиры интерполируются между краями.
+     */
+    val table: List<TierRow> = emptyList(),
 ) {
 
     fun toDefinition() = ModifierDefinition(
@@ -118,8 +161,18 @@ data class ModifierTemplate(
      *
      * Значения каждого эффекта и требуемый item level интерполируются линейно,
      * так что достаточно задать только границы, как в таблицах модификаторов POE.
+     * Шаблон с [table] берёт тиры из неё как есть.
      */
-    fun toTiers(modifierId: String): List<ModifierTier> = (1..tierCount).map { tier ->
+    fun toTiers(modifierId: String): List<ModifierTier> = if (table.isNotEmpty()) table.mapIndexed { index, row ->
+        ModifierTier(
+            modifierId = modifierId,
+            tier = index + 1,
+            _id = "$code#${index + 1}".toStableObjectId(),
+            values = row.values.map { ModifierTierValue(valueMin = it.start, valueMax = it.endInclusive) },
+            minItemLevel = row.itemLevel,
+            weight = index + 1
+        )
+    } else (1..tierCount).map { tier ->
         val progress = if (tierCount == 1) 0.0 else (tier - 1).toDouble() / (tierCount - 1).toDouble()
 
         ModifierTier(

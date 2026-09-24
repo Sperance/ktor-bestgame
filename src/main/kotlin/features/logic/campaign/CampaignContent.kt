@@ -71,6 +71,8 @@ data class MonsterModifier(
  * только сильным ударом). [magnitude]: у урона со временем - сколько процентов урона попадания
  * дотекает за [duration] секунд; у охлаждения - на сколько процентов замедлены действия; у шока -
  * на сколько процентов больше урона получает цель. Яд складывается стопками, остальные обновляются.
+ * [heroChance] (с 0.36.0) - база героя вместо [chance], как в PoE: поджечь, шокировать, отравить и
+ * пустить кровь герой может только шансом со снаряжения; null - та же база, что у монстров.
  */
 @Serializable
 data class AilmentRule(
@@ -81,6 +83,7 @@ data class AilmentRule(
     val duration: Double,
     val threshold: Double = 0.0,
     val stacks: Boolean = false,
+    val heroChance: Double? = null,
 )
 
 @Serializable data class UnarmedRule(val damage: Double, val speed: Double)
@@ -114,6 +117,8 @@ data class AilmentRule(
  * их вместе с главами и не держит своих. [timeLimit] - секунды, после которых бой никто не выиграл;
  * [variance] - разброс урона удара в процентах; [resistCap], [blockCap] - потолки в процентах;
  * [spellBlockShare] - какая доля шанса блока работает против заклинаний.
+ * С 0.36.0: [resistHardCap] - выше него не поднимет никакой «+% к максимуму сопротивления»,
+ * [ailmentDurationCap] - сильнее этого не сократить длительность состояния на себе.
  */
 @Serializable
 data class CombatRules(
@@ -133,6 +138,8 @@ data class CombatRules(
     val retreat: RetreatRule,
     val death: DeathRule,
     val ailments: List<AilmentRule>,
+    val resistHardCap: Double = 90.0,
+    val ailmentDurationCap: Double = 75.0,
 )
 
 @Serializable
@@ -479,6 +486,8 @@ object CampaignContent {
         fun percent(value: Double, name: String) { if (value !in 0.0..100.0) throw CampaignExceptions.funExceptionContent(method, name) }
         positive(rules.timeLimit, "timeLimit"); percent(rules.variance, "variance")
         percent(rules.resistCap, "resistCap"); percent(rules.blockCap, "blockCap"); percent(rules.spellBlockShare, "spellBlockShare")
+        percent(rules.resistHardCap, "resistHardCap"); percent(rules.ailmentDurationCap, "ailmentDurationCap")
+        if (rules.resistHardCap < rules.resistCap) throw CampaignExceptions.funExceptionContent(method, "resistHardCap")
         positive(rules.unarmed.damage, "unarmed.damage"); positive(rules.unarmed.speed, "unarmed.speed")
         percent(rules.critical.chance, "critical.chance"); if (rules.critical.multiplier < 100) throw CampaignExceptions.funExceptionContent(method, "critical.multiplier")
         positive(rules.armour.factor, "armour.factor"); percent(rules.armour.cap, "armour.cap")
@@ -496,6 +505,7 @@ object CampaignContent {
             if (rule.ailment !in ailments) throw CampaignExceptions.funExceptionContent(method, "ailment ${rule.ailment}")
             if (rule.type !in damage) throw CampaignExceptions.funExceptionContent(method, "ailment ${rule.ailment} by ${rule.type}")
             percent(rule.chance, "ailment ${rule.ailment} chance"); percent(rule.threshold, "ailment ${rule.ailment} threshold")
+            rule.heroChance?.let { percent(it, "ailment ${rule.ailment} heroChance") }
             if (rule.magnitude < 0 || rule.duration <= 0) throw CampaignExceptions.funExceptionContent(method, "ailment ${rule.ailment}")
         }
         if (rules.ailments.map { it.ailment }.toSet().size != rules.ailments.size) throw CampaignExceptions.funExceptionContent(method, "ailments")

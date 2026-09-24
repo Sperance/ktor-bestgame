@@ -54,6 +54,40 @@ import application.enums.EnumStatStock.STOCK_CONSTITUTION
 import application.enums.EnumStatStock.STOCK_CAST_STRENGTH
 import application.enums.EnumStatStock.STOCK_LIGHT_RADIUS
 import application.enums.EnumStatStock.STOCK_CHEST_QUANTITY
+import application.enums.EnumStatStock.STOCK_SPELL_BLOCK
+import application.enums.EnumStatStock.STOCK_PHYSICAL_REDUCTION
+import application.enums.EnumStatStock.STOCK_AVOID_STUN
+import application.enums.EnumStatStock.STOCK_RESIST_MAX_FIRE
+import application.enums.EnumStatStock.STOCK_RESIST_MAX_COLD
+import application.enums.EnumStatStock.STOCK_RESIST_MAX_LIGHTNING
+import application.enums.EnumStatStock.STOCK_RESIST_MAX_CHAOS
+import application.enums.EnumStatStock.STOCK_RESIST_MAX_ALL
+import application.enums.EnumStatStock.STOCK_HEALTH_ON_KILL
+import application.enums.EnumStatStock.STOCK_MANA_ON_KILL
+import application.enums.EnumStatStock.STOCK_HEALTH_ON_HIT
+import application.enums.EnumStatStock.STOCK_MANA_ON_HIT
+import application.enums.EnumStatStock.STOCK_FLASK_CHARGES
+import application.enums.EnumStatStock.STOCK_FLASK_RECOVERY
+import application.enums.EnumStatStock.STOCK_IGNITE_CHANCE
+import application.enums.EnumStatStock.STOCK_FREEZE_CHANCE
+import application.enums.EnumStatStock.STOCK_SHOCK_CHANCE
+import application.enums.EnumStatStock.STOCK_POISON_CHANCE
+import application.enums.EnumStatStock.STOCK_BLEED_CHANCE
+import application.enums.EnumStatStock.STOCK_BURNING_DAMAGE
+import application.enums.EnumStatStock.STOCK_POISON_DAMAGE
+import application.enums.EnumStatStock.STOCK_BLEED_DAMAGE
+import application.enums.EnumStatStock.STOCK_AVOID_IGNITE
+import application.enums.EnumStatStock.STOCK_AVOID_CHILL
+import application.enums.EnumStatStock.STOCK_AVOID_FREEZE
+import application.enums.EnumStatStock.STOCK_AVOID_SHOCK
+import application.enums.EnumStatStock.STOCK_AVOID_POISON
+import application.enums.EnumStatStock.STOCK_AVOID_BLEED
+import application.enums.EnumStatStock.STOCK_IGNITE_DURATION_ON_SELF
+import application.enums.EnumStatStock.STOCK_CHILL_DURATION_ON_SELF
+import application.enums.EnumStatStock.STOCK_FREEZE_DURATION_ON_SELF
+import application.enums.EnumStatStock.STOCK_SHOCK_DURATION_ON_SELF
+import application.enums.EnumStatStock.STOCK_POISON_DURATION_ON_SELF
+import application.enums.EnumStatStock.STOCK_BLEED_DURATION_ON_SELF
 import application.enums.EnumStatStock.MAP_MONSTER_LIFE
 import application.enums.EnumStatStock.MAP_MONSTER_DAMAGE
 import application.enums.EnumStatStock.MAP_MONSTER_SPEED
@@ -751,6 +785,513 @@ object ModifierSeeder {
             tags = listOf("attribute", "constitution"),
             effects = listOf(effect(STOCK_CONSTITUTION, ADD, best = 20.0..25.0, worst = 3.0..5.0)),
             tierCount = 6, bestItemLevel = 80
+        ),
+
+        // ---------- 0.36.0: модификаторы POE по их таблицам тиров ----------
+        // Тиры заданы строками, как в POE, а не краями: item level и диапазон у каждого свой.
+        tabled(
+            code = "INCREASED_FIRE_DAMAGE", source = SUFFIX,
+            stats = listOf(STOCK_ATTACK_FIRE to INCREASED),
+            tiers = listOf(
+                tier(81, 23.0..26.0),
+                tier(60, 18.0..22.0),
+                tier(30, 13.0..17.0),
+                tier(15, 8.0..12.0),
+                tier(8, 3.0..7.0),
+            ),
+            tags = listOf("fire", "damage")
+        ),
+        tabled(
+            code = "INCREASED_COLD_DAMAGE", source = SUFFIX,
+            stats = listOf(STOCK_ATTACK_COLD to INCREASED),
+            tiers = listOf(
+                tier(81, 23.0..26.0),
+                tier(60, 18.0..22.0),
+                tier(30, 13.0..17.0),
+                tier(15, 8.0..12.0),
+                tier(8, 3.0..7.0),
+            ),
+            tags = listOf("cold", "damage")
+        ),
+        tabled(
+            code = "INCREASED_LIGHTNING_DAMAGE", source = SUFFIX,
+            stats = listOf(STOCK_ATTACK_LIGHTNING to INCREASED),
+            tiers = listOf(
+                tier(81, 23.0..26.0),
+                tier(60, 18.0..22.0),
+                tier(30, 13.0..17.0),
+                tier(15, 8.0..12.0),
+                tier(8, 3.0..7.0),
+            ),
+            tags = listOf("lightning", "damage")
+        ),
+        tabled(
+            code = "INCREASED_CHAOS_DAMAGE", source = SUFFIX,
+            stats = listOf(STOCK_ATTACK_CHAOS to INCREASED),
+            tiers = listOf(
+                tier(81, 23.0..26.0),
+                tier(60, 18.0..22.0),
+                tier(30, 13.0..17.0),
+                tier(15, 8.0..12.0),
+                tier(8, 3.0..7.0),
+            ),
+            tags = listOf("chaos", "damage")
+        ),
+        tabled(
+            code = "INCREASED_ELEMENTAL_DAMAGE_WITH_ATTACKS", source = PREFIX,
+            stats = listOf(STOCK_ATTACK_FIRE to INCREASED, STOCK_ATTACK_COLD to INCREASED, STOCK_ATTACK_LIGHTNING to INCREASED),
+            tiers = listOf(
+                tier(81, 37.0..42.0, 37.0..42.0, 37.0..42.0),
+                tier(60, 31.0..36.0, 31.0..36.0, 31.0..36.0),
+                tier(30, 21.0..30.0, 21.0..30.0, 21.0..30.0),
+                tier(15, 11.0..20.0, 11.0..20.0, 11.0..20.0),
+                tier(4, 5.0..10.0, 5.0..10.0, 5.0..10.0),
+            ),
+            tags = listOf("elemental", "damage", "attack")
+        ),
+        tabled(
+            code = "GLOBAL_ADD_ENERGY_SHIELD", source = PREFIX,
+            stats = listOf(STOCK_ENERGY_SHIELD to ADD),
+            tiers = listOf(
+                tier(74, 48.0..51.0),
+                tier(64, 38.0..43.0),
+                tier(56, 32.0..37.0),
+                tier(46, 27.0..31.0),
+                tier(38, 23.0..26.0),
+                tier(30, 18.0..22.0),
+                tier(24, 13.0..17.0),
+                tier(16, 8.0..12.0),
+                tier(3, 1.0..5.0),
+            ),
+            tags = listOf("energy_shield", "defences")
+        ),
+        tabled(
+            code = "GLOBAL_INCREASED_ATTACK_SPEED", source = SUFFIX,
+            stats = listOf(STOCK_ATTACK_SPEED to INCREASED),
+            tiers = listOf(
+                tier(76, 14.0..16.0),
+                tier(45, 11.0..13.0),
+                tier(15, 8.0..10.0),
+                tier(1, 5.0..7.0),
+            ),
+            tags = listOf("attack", "speed")
+        ),
+        // Состояния: у героя база поджога, шока, яда и кровотечения - ноль, шанс дают только они
+        tabled(
+            code = "CHANCE_TO_IGNITE", source = SUFFIX,
+            stats = listOf(STOCK_IGNITE_CHANCE to ADD),
+            tiers = listOf(
+                tier(76, 26.0..30.0),
+                tier(45, 21.0..25.0),
+                tier(15, 15.0..20.0),
+            ),
+            tags = listOf("fire", "ailment")
+        ),
+        tabled(
+            code = "CHANCE_TO_FREEZE", source = SUFFIX,
+            stats = listOf(STOCK_FREEZE_CHANCE to ADD),
+            tiers = listOf(
+                tier(76, 26.0..30.0),
+                tier(45, 21.0..25.0),
+                tier(15, 15.0..20.0),
+            ),
+            tags = listOf("cold", "ailment")
+        ),
+        tabled(
+            code = "CHANCE_TO_SHOCK", source = SUFFIX,
+            stats = listOf(STOCK_SHOCK_CHANCE to ADD),
+            tiers = listOf(
+                tier(76, 26.0..30.0),
+                tier(45, 21.0..25.0),
+                tier(15, 15.0..20.0),
+            ),
+            tags = listOf("lightning", "ailment")
+        ),
+        tabled(
+            code = "CHANCE_TO_POISON", source = SUFFIX,
+            stats = listOf(STOCK_POISON_CHANCE to ADD),
+            tiers = listOf(
+                tier(70, 31.0..40.0),
+                tier(40, 21.0..30.0),
+                tier(10, 10.0..20.0),
+            ),
+            tags = listOf("chaos", "ailment")
+        ),
+        tabled(
+            code = "CHANCE_TO_BLEED", source = SUFFIX,
+            stats = listOf(STOCK_BLEED_CHANCE to ADD),
+            tiers = listOf(
+                tier(60, 20.0..25.0),
+                tier(36, 15.0..19.0),
+                tier(12, 10.0..14.0),
+            ),
+            tags = listOf("physical", "ailment")
+        ),
+        tabled(
+            code = "INCREASED_BURNING_DAMAGE", source = PREFIX,
+            stats = listOf(STOCK_BURNING_DAMAGE to ADD),
+            tiers = listOf(
+                tier(70, 50.0..59.0),
+                tier(50, 40.0..49.0),
+                tier(30, 30.0..39.0),
+                tier(12, 20.0..29.0),
+            ),
+            tags = listOf("fire", "ailment", "damage")
+        ),
+        tabled(
+            code = "INCREASED_POISON_DAMAGE", source = PREFIX,
+            stats = listOf(STOCK_POISON_DAMAGE to ADD),
+            tiers = listOf(
+                tier(70, 41.0..50.0),
+                tier(50, 31.0..40.0),
+                tier(30, 21.0..30.0),
+                tier(12, 11.0..20.0),
+            ),
+            tags = listOf("chaos", "ailment", "damage")
+        ),
+        tabled(
+            code = "INCREASED_BLEED_DAMAGE", source = PREFIX,
+            stats = listOf(STOCK_BLEED_DAMAGE to ADD),
+            tiers = listOf(
+                tier(70, 41.0..50.0),
+                tier(50, 31.0..40.0),
+                tier(30, 21.0..30.0),
+                tier(12, 11.0..20.0),
+            ),
+            tags = listOf("physical", "ailment", "damage")
+        ),
+        // Защита от состояний и оглушения
+        tabled(
+            code = "AVOID_IGNITE", source = SUFFIX,
+            stats = listOf(STOCK_AVOID_IGNITE to ADD),
+            tiers = listOf(
+                tier(60, 36.0..45.0),
+                tier(35, 26.0..35.0),
+                tier(10, 16.0..25.0),
+            ),
+            tags = listOf("fire", "ailment", "defences")
+        ),
+        tabled(
+            code = "AVOID_CHILL", source = SUFFIX,
+            stats = listOf(STOCK_AVOID_CHILL to ADD),
+            tiers = listOf(
+                tier(60, 36.0..45.0),
+                tier(35, 26.0..35.0),
+                tier(10, 16.0..25.0),
+            ),
+            tags = listOf("cold", "ailment", "defences")
+        ),
+        tabled(
+            code = "AVOID_FREEZE", source = SUFFIX,
+            stats = listOf(STOCK_AVOID_FREEZE to ADD),
+            tiers = listOf(
+                tier(60, 36.0..45.0),
+                tier(35, 26.0..35.0),
+                tier(10, 16.0..25.0),
+            ),
+            tags = listOf("cold", "ailment", "defences")
+        ),
+        tabled(
+            code = "AVOID_SHOCK", source = SUFFIX,
+            stats = listOf(STOCK_AVOID_SHOCK to ADD),
+            tiers = listOf(
+                tier(60, 36.0..45.0),
+                tier(35, 26.0..35.0),
+                tier(10, 16.0..25.0),
+            ),
+            tags = listOf("lightning", "ailment", "defences")
+        ),
+        tabled(
+            code = "AVOID_POISON", source = SUFFIX,
+            stats = listOf(STOCK_AVOID_POISON to ADD),
+            tiers = listOf(
+                tier(60, 36.0..45.0),
+                tier(35, 26.0..35.0),
+                tier(10, 16.0..25.0),
+            ),
+            tags = listOf("chaos", "ailment", "defences")
+        ),
+        tabled(
+            code = "AVOID_BLEED", source = SUFFIX,
+            stats = listOf(STOCK_AVOID_BLEED to ADD),
+            tiers = listOf(
+                tier(60, 36.0..45.0),
+                tier(35, 26.0..35.0),
+                tier(10, 16.0..25.0),
+            ),
+            tags = listOf("physical", "ailment", "defences")
+        ),
+        tabled(
+            code = "AVOID_STUN", source = SUFFIX,
+            stats = listOf(STOCK_AVOID_STUN to ADD),
+            tiers = listOf(
+                tier(60, 26.0..35.0),
+                tier(30, 16.0..25.0),
+                tier(5, 10.0..15.0),
+            ),
+            tags = listOf("stun", "defences")
+        ),
+        tabled(
+            code = "REDUCED_IGNITE_DURATION_ON_SELF", source = SUFFIX,
+            stats = listOf(STOCK_IGNITE_DURATION_ON_SELF to ADD),
+            tiers = listOf(
+                tier(70, 51.0..60.0),
+                tier(45, 41.0..50.0),
+                tier(20, 31.0..40.0),
+            ),
+            tags = listOf("fire", "ailment", "defences")
+        ),
+        tabled(
+            code = "REDUCED_CHILL_DURATION_ON_SELF", source = SUFFIX,
+            stats = listOf(STOCK_CHILL_DURATION_ON_SELF to ADD),
+            tiers = listOf(
+                tier(70, 51.0..60.0),
+                tier(45, 41.0..50.0),
+                tier(20, 31.0..40.0),
+            ),
+            tags = listOf("cold", "ailment", "defences")
+        ),
+        tabled(
+            code = "REDUCED_FREEZE_DURATION_ON_SELF", source = SUFFIX,
+            stats = listOf(STOCK_FREEZE_DURATION_ON_SELF to ADD),
+            tiers = listOf(
+                tier(70, 51.0..60.0),
+                tier(45, 41.0..50.0),
+                tier(20, 31.0..40.0),
+            ),
+            tags = listOf("cold", "ailment", "defences")
+        ),
+        tabled(
+            code = "REDUCED_SHOCK_DURATION_ON_SELF", source = SUFFIX,
+            stats = listOf(STOCK_SHOCK_DURATION_ON_SELF to ADD),
+            tiers = listOf(
+                tier(70, 51.0..60.0),
+                tier(45, 41.0..50.0),
+                tier(20, 31.0..40.0),
+            ),
+            tags = listOf("lightning", "ailment", "defences")
+        ),
+        tabled(
+            code = "REDUCED_POISON_DURATION_ON_SELF", source = SUFFIX,
+            stats = listOf(STOCK_POISON_DURATION_ON_SELF to ADD),
+            tiers = listOf(
+                tier(70, 51.0..60.0),
+                tier(45, 41.0..50.0),
+                tier(20, 31.0..40.0),
+            ),
+            tags = listOf("chaos", "ailment", "defences")
+        ),
+        tabled(
+            code = "REDUCED_BLEED_DURATION_ON_SELF", source = SUFFIX,
+            stats = listOf(STOCK_BLEED_DURATION_ON_SELF to ADD),
+            tiers = listOf(
+                tier(70, 51.0..60.0),
+                tier(45, 41.0..50.0),
+                tier(20, 31.0..40.0),
+            ),
+            tags = listOf("physical", "ailment", "defences")
+        ),
+        tabled(
+            code = "ADD_SPELL_BLOCK_CHANCE", source = SUFFIX,
+            stats = listOf(STOCK_SPELL_BLOCK to ADD),
+            tiers = listOf(
+                tier(70, 10.0..12.0),
+                tier(45, 7.0..9.0),
+                tier(16, 4.0..6.0),
+            ),
+            tags = listOf("block", "defences")
+        ),
+        tabled(
+            code = "ADD_PHYSICAL_DAMAGE_REDUCTION", source = SUFFIX,
+            stats = listOf(STOCK_PHYSICAL_REDUCTION to ADD),
+            tiers = listOf(
+                tier(75, 5.0..6.0),
+                tier(50, 3.0..4.0),
+                tier(25, 1.0..2.0),
+            ),
+            tags = listOf("physical", "defences"), weight = 300
+        ),
+        tabled(
+            code = "ADD_MAXIMUM_FIRE_RESISTANCE", source = SUFFIX,
+            stats = listOf(STOCK_RESIST_MAX_FIRE to ADD),
+            tiers = listOf(
+                tier(80, 3.0..3.0),
+                tier(60, 2.0..2.0),
+                tier(40, 1.0..1.0),
+            ),
+            tags = listOf("fire", "resistance"), weight = 250
+        ),
+        tabled(
+            code = "ADD_MAXIMUM_COLD_RESISTANCE", source = SUFFIX,
+            stats = listOf(STOCK_RESIST_MAX_COLD to ADD),
+            tiers = listOf(
+                tier(80, 3.0..3.0),
+                tier(60, 2.0..2.0),
+                tier(40, 1.0..1.0),
+            ),
+            tags = listOf("cold", "resistance"), weight = 250
+        ),
+        tabled(
+            code = "ADD_MAXIMUM_LIGHTNING_RESISTANCE", source = SUFFIX,
+            stats = listOf(STOCK_RESIST_MAX_LIGHTNING to ADD),
+            tiers = listOf(
+                tier(80, 3.0..3.0),
+                tier(60, 2.0..2.0),
+                tier(40, 1.0..1.0),
+            ),
+            tags = listOf("lightning", "resistance"), weight = 250
+        ),
+        tabled(
+            code = "ADD_MAXIMUM_CHAOS_RESISTANCE", source = SUFFIX,
+            stats = listOf(STOCK_RESIST_MAX_CHAOS to ADD),
+            tiers = listOf(
+                tier(80, 3.0..3.0),
+                tier(60, 2.0..2.0),
+                tier(40, 1.0..1.0),
+            ),
+            tags = listOf("chaos", "resistance"), weight = 250
+        ),
+        tabled(
+            code = "ADD_MAXIMUM_ELEMENTAL_RESISTANCES", source = SUFFIX,
+            stats = listOf(STOCK_RESIST_MAX_ALL to ADD),
+            tiers = listOf(
+                tier(86, 2.0..2.0),
+                tier(70, 1.0..1.0),
+            ),
+            tags = listOf("elemental", "resistance"), weight = 100
+        ),
+        // Флакон и восстановление в бою
+        tabled(
+            code = "ADD_FLASK_CHARGES", source = SUFFIX,
+            stats = listOf(STOCK_FLASK_CHARGES to ADD),
+            tiers = listOf(
+                tier(60, 2.0..2.0),
+                tier(25, 1.0..1.0),
+            ),
+            tags = listOf("flask")
+        ),
+        tabled(
+            code = "INCREASED_FLASK_RECOVERY", source = SUFFIX,
+            stats = listOf(STOCK_FLASK_RECOVERY to ADD),
+            tiers = listOf(
+                tier(60, 31.0..40.0),
+                tier(35, 21.0..30.0),
+                tier(10, 11.0..20.0),
+            ),
+            tags = listOf("flask", "life")
+        ),
+        tabled(
+            code = "ADD_LIFE_ON_KILL", source = SUFFIX,
+            stats = listOf(STOCK_HEALTH_ON_KILL to ADD),
+            tiers = listOf(
+                tier(68, 19.0..22.0),
+                tier(48, 15.0..18.0),
+                tier(30, 11.0..14.0),
+                tier(14, 7.0..10.0),
+                tier(1, 3.0..6.0),
+            ),
+            tags = listOf("life")
+        ),
+        tabled(
+            code = "ADD_MANA_ON_KILL", source = SUFFIX,
+            stats = listOf(STOCK_MANA_ON_KILL to ADD),
+            tiers = listOf(
+                tier(45, 5.0..6.0),
+                tier(20, 3.0..4.0),
+                tier(1, 1.0..2.0),
+            ),
+            tags = listOf("mana")
+        ),
+        tabled(
+            code = "ADD_LIFE_ON_HIT", source = SUFFIX,
+            stats = listOf(STOCK_HEALTH_ON_HIT to ADD),
+            tiers = listOf(
+                tier(50, 4.0..5.0),
+                tier(30, 3.0..3.0),
+                tier(11, 2.0..2.0),
+            ),
+            tags = listOf("life", "attack")
+        ),
+        tabled(
+            code = "ADD_MANA_ON_HIT", source = SUFFIX,
+            stats = listOf(STOCK_MANA_ON_HIT to ADD),
+            tiers = listOf(
+                tier(30, 2.0..2.0),
+                tier(5, 1.0..1.0),
+            ),
+            tags = listOf("mana", "attack")
+        ),
+        // Свои (не из POE): кампания и карта - свет, сундуки, золото вместе с добычей
+        tabled(
+            code = "INCREASED_LIGHT_RADIUS_AND_MOVEMENT_SPEED", source = SUFFIX,
+            stats = listOf(STOCK_LIGHT_RADIUS to INCREASED, STOCK_MOVEMENT_SPEED to INCREASED),
+            tiers = listOf(
+                tier(70, 12.0..15.0, 8.0..10.0),
+                tier(40, 8.0..11.0, 5.0..7.0),
+                tier(12, 5.0..7.0, 3.0..4.0),
+            ),
+            tags = listOf("light", "speed"), weight = 500
+        ),
+        tabled(
+            code = "INCREASED_CHEST_QUANTITY_AND_ITEM_RARITY", source = SUFFIX,
+            stats = listOf(STOCK_CHEST_QUANTITY to INCREASED, STOCK_RARITY to INCREASED),
+            tiers = listOf(
+                tier(75, 18.0..20.0, 10.0..12.0),
+                tier(50, 12.0..15.0, 7.0..9.0),
+                tier(25, 6.0..9.0, 4.0..6.0),
+            ),
+            tags = listOf("quantity", "rarity"), weight = 300
+        ),
+        tabled(
+            code = "INCREASED_SELL_VALUE_AND_ITEM_QUANTITY", source = SUFFIX,
+            stats = listOf(STOCK_GOLD to INCREASED, STOCK_QUANTITY to INCREASED),
+            tiers = listOf(
+                tier(75, 15.0..18.0, 5.0..6.0),
+                tier(50, 10.0..13.0, 3.0..4.0),
+                tier(25, 5.0..8.0, 1.0..2.0),
+            ),
+            tags = listOf("gold", "quantity"), weight = 300
+        ),
+        // Свои: обоюдоострые - сильный плюс ценой постоянного минуса, минус не растёт с тиром
+        tabled(
+            code = "RISK_PHYSICAL_DAMAGE_FOR_LIFE", source = PREFIX,
+            stats = listOf(STOCK_ATTACK_PHYSICAL to INCREASED, STOCK_HEALTH to ADD),
+            tiers = listOf(
+                tier(80, 40.0..49.0, -30.0..-30.0),
+                tier(55, 30.0..39.0, -30.0..-30.0),
+                tier(30, 20.0..29.0, -30.0..-30.0),
+            ),
+            tags = listOf("physical", "damage", "risk"), weight = 400
+        ),
+        tabled(
+            code = "RISK_ATTACK_SPEED_FOR_RESISTANCES", source = SUFFIX,
+            stats = listOf(STOCK_ATTACK_SPEED to INCREASED, STOCK_RESIST_ALL to ADD),
+            tiers = listOf(
+                tier(75, 16.0..18.0, -10.0..-10.0),
+                tier(50, 12.0..15.0, -10.0..-10.0),
+                tier(25, 8.0..11.0, -10.0..-10.0),
+            ),
+            tags = listOf("attack", "speed", "risk"), weight = 400
+        ),
+        tabled(
+            code = "RISK_SPELL_DAMAGE_FOR_CHAOS_RESISTANCE", source = PREFIX,
+            stats = listOf(STOCK_ATTACK_MAGICAL to INCREASED, STOCK_RESIST_CHAOS to ADD),
+            tiers = listOf(
+                tier(80, 50.0..59.0, -20.0..-20.0),
+                tier(55, 35.0..49.0, -20.0..-20.0),
+                tier(30, 20.0..34.0, -20.0..-20.0),
+            ),
+            tags = listOf("caster", "damage", "risk"), weight = 400
+        ),
+        tabled(
+            code = "RISK_BLOCK_FOR_CRITICAL_MULTIPLIER", source = SUFFIX,
+            stats = listOf(STOCK_BLOCK_CHANCE to ADD, STOCK_CRITICAL_MULTIPLIER to ADD),
+            tiers = listOf(
+                tier(70, 6.0..7.0, -15.0..-15.0),
+                tier(40, 4.0..5.0, -15.0..-15.0),
+                tier(15, 2.0..3.0, -15.0..-15.0),
+            ),
+            tags = listOf("block", "defences", "risk"), weight = 400
         ),
 
         // ---------- INFLUENCE: модификаторы, которые открывает влияние ----------

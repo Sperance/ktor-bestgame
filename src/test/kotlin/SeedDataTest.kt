@@ -237,4 +237,29 @@ class SeedDataTest {
         val missing = equipment.filter { it.slot != EnumEquipmentType.JEWEL }.map { "equipment.${it.code}" }.filterNot { it in icons }
         assert(missing.isEmpty()) { "Bases without an icon: $missing" }
     }
+
+    @Test
+    fun a_tabled_modifier_keeps_every_tier_of_its_table() {
+        val fire = definitions.single { it.code == "INCREASED_FIRE_DAMAGE" }
+        val own = tiers.filter { it.modifierId == fire._id }.sortedBy { it.tier }
+        assert(own.map { it.minItemLevel } == listOf(81, 60, 30, 15, 8)) { "item levels ${own.map { it.minItemLevel }}" }
+        assert(own.map { it.values.single().valueMin to it.values.single().valueMax } ==
+            listOf(23.0 to 26.0, 18.0 to 22.0, 13.0 to 17.0, 8.0 to 12.0, 3.0 to 7.0)) { "ranges ${own.map { it.values }}" }
+    }
+
+    @Test
+    fun a_risk_modifier_keeps_its_price_on_every_tier() {
+        definitions.filter { it.code.startsWith("RISK_") }.forEach { risk ->
+            val prices = tiers.filter { it.modifierId == risk._id }.map { it.values[1] }
+            assert(prices.all { it.valueMax < 0 } && prices.distinct().size == 1) { "${risk.code}: $prices" }
+        }
+    }
+
+    @Test
+    fun every_rollable_modifier_sits_in_some_pool() {
+        val pooled = equipment.flatMap { it.modifierIds }.toSet()
+        val loose = definitions.filter { it.isNaturalAffix() && it.tags.orEmpty().any { tag -> tag in setOf("ailment", "risk", "flask") } }
+            .filterNot { it._id in pooled }.map { it.code }
+        assert(loose.isEmpty()) { "Modifiers no pool rolls: $loose" }
+    }
 }
