@@ -1,5 +1,6 @@
 package features.data.recipe
 
+import features.logic.hero.respondWithHero
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
 import features.caches.RecipeCache
@@ -29,7 +30,7 @@ class RecipeRoute(val repo: RecipeRepository) : BaseRoute<Recipe, Recipe>(
             val recipeId = call.queryParam("recipeId")
             val recipeUse = call.receive<RecipeUse>()
             val data = repo.useRecipe(characterId, recipeId, recipeUse)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondWithHero(data)
         }
     }
 }

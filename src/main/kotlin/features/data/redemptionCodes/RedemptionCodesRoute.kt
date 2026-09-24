@@ -1,5 +1,6 @@
 package features.data.redemptionCodes
 
+import features.logic.hero.respondWithHero
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
 import io.ktor.server.response.respond
@@ -18,7 +19,7 @@ class RedemptionCodesRoute(val repo: RedemptionCodesRepository) : BaseRoute<Rede
             val characterId = call.queryParam("characterId")
             val redemptionCode = call.queryParam("redemptionCode")
             val data = repo.useCharacterRedemptionCode(characterId, redemptionCode)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondWithHero(data)
         }
     }
 }

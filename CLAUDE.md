@@ -88,7 +88,7 @@ change, here and in the client, whether or not the task mentions them.
 
 Since 0.21.0 every request passes `server/addons/Access.kt` before its route. `AccessPolicy.need`
 is one pure table of who may call what — public (sign-in, `/locale`, `/icons`,
-`/system/{routes,health,version}`), signed in, or ADMIN — and `AuthTest` reads it without a
+`/static/index.json`, `/system/{routes,health,version}`), signed in (`/world/world.json` too), or ADMIN — and `AuthTest` reads it without a
 database. Keep new rules in that table rather than in a route.
 
 - **A session is a token.** `POST /api/v1/user/login`, `/login/byDeviceId` and `/byDeviceId` take
@@ -110,6 +110,15 @@ database. Keep new rules in that table rather than in a route.
   `TEST_PLAYER_PASSWORD` no test player — the client's `client-server` job sets both.
 - Sign-in is limited to 10 requests a minute per address, everything else to 600 per client, and
   an unexpected exception answers `SP_500` without its message.
+
+## Fewer requests (since 0.48.0, API revision 5)
+
+`GET /static/index.json` is the one manifest a client reads at start (routes plus the locale, icon,
+portrait and world fingerprints). `features/logic/world/WorldBundle.kt` serves every reference table
+as `/world/world.json`, rebuilt when any cache's `revision` moves. `features/logic/hero/HeroSnapshots.kt`
+builds the hero as fingerprinted parts (`character`, `inventory`, `tree`, `bag`, `bench`) for
+`GET /api/v1/character/view` (ETag) and for every hero command that answers via `call.respondWithHero`
+— a new command that changes a hero must answer the same way.
 
 ## Where names and numbers live
 

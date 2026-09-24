@@ -1,5 +1,10 @@
 package features.data.character
 
+import features.logic.hero.HeroSnapshots
+import features.logic.hero.respondWithHero
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.response.header
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
 import features.logic.campaign.CampaignService
@@ -30,6 +35,16 @@ class CharacterRoute(
             call.respond(ApiMongoResponse.ok(data))
         }
 
+        // 0.48.0: герой одним запросом - тот же снимок, что приходит в ответ команды, с ETag.
+        get("/view") {
+            val characterId = call.queryParam("characterId")
+            val snapshot = HeroSnapshots.of(characterId, HeroSnapshots.known(call.request.headers[HeroSnapshots.HEADER]))
+            val etag = "\"${snapshot.version}\""
+            call.response.header(HttpHeaders.ETag, etag)
+            if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) call.respond(HttpStatusCode.NotModified)
+            else call.respond(ApiMongoResponse.ok(snapshot))
+        }
+
         route("/inventory") {
             get("/equipments") {
                 val characterId = call.queryParam("characterId")
@@ -45,7 +60,7 @@ class CharacterRoute(
                 val characterId = call.queryParam("characterId")
                 val equipmentId = call.queryParam("equipmentId")
                 val data = repo.itemToInventory(characterId, equipmentId)
-                call.respond(ApiMongoResponse.ok(data))
+                call.respondWithHero(data)
             }
             get("/stats") {
                 val characterId = call.queryParam("characterId")
@@ -56,7 +71,7 @@ class CharacterRoute(
                 val characterId = call.queryParam("characterId")
                 val amount = call.queryParam("amount", 0.0)
                 val data = repo.addExperience(characterId, amount)
-                call.respond(ApiMongoResponse.ok(data))
+                call.respondWithHero(data)
             }
             get("/items") {
                 val characterId = call.queryParam("characterId")
@@ -69,7 +84,7 @@ class CharacterRoute(
                 val characterId = call.queryParam("characterId")
                 val itemObj = call.receive<List<CharacterItems>>()
                 val data = repo.addItem(characterId, itemObj)
-                call.respond(ApiMongoResponse.ok(data))
+                call.respondWithHero(data)
             }
         }
 
@@ -84,11 +99,11 @@ class CharacterRoute(
                 val job = call.queryParam("job")
                 // 0.38.0: примеси кузнеца - коды через запятую.
                 val additives = call.request.queryParameters["additives"]?.split(',').orEmpty()
-                call.respond(ApiMongoResponse.ok(crafts.start(characterId, job, additives)))
+                call.respondWithHero(crafts.start(characterId, job, additives))
             }
             post("/stop") {
                 val characterId = call.queryParam("characterId")
-                call.respond(ApiMongoResponse.ok(crafts.stop(characterId)))
+                call.respondWithHero(crafts.stop(characterId))
             }
         }
 
@@ -119,18 +134,18 @@ class CharacterRoute(
                 val mapCode = call.queryParam("mapCode")
                 val monsterCode = call.queryParam("monsterCode")
                 val rarity = call.queryParam("rarity")
-                call.respond(ApiMongoResponse.ok(campaign.kill(characterId, mapCode, monsterCode, rarity)))
+                call.respondWithHero(campaign.kill(characterId, mapCode, monsterCode, rarity))
             }
             post("/complete") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
-                call.respond(ApiMongoResponse.ok(campaign.complete(characterId, mapCode)))
+                call.respondWithHero(campaign.complete(characterId, mapCode))
             }
             // 0.28.0: смерть героя стоит опыта по правилу сервера; уровень не падает.
             post("/fall") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
-                call.respond(ApiMongoResponse.ok(campaign.fall(characterId, mapCode)))
+                call.respondWithHero(campaign.fall(characterId, mapCode))
             }
             // 0.31.0: сундуки - окно в шесть часов на карту у каждого героя, добыча - сервера.
             get("/chests") {
@@ -147,37 +162,37 @@ class CharacterRoute(
             post("/boss") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
-                call.respond(ApiMongoResponse.ok(campaign.slayBoss(characterId, mapCode)))
+                call.respondWithHero(campaign.slayBoss(characterId, mapCode))
             }
             // 0.34.0: услуги карты за золото - ещё один сундук и вызов убитого стража.
             post("/treasure") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
-                call.respond(ApiMongoResponse.ok(campaign.treasure(characterId, mapCode)))
+                call.respondWithHero(campaign.treasure(characterId, mapCode))
             }
             post("/summon") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
-                call.respond(ApiMongoResponse.ok(campaign.summon(characterId, mapCode)))
+                call.respondWithHero(campaign.summon(characterId, mapCode))
             }
             // 0.35.0: вход в локацию - с картой нужного уровня или без неё.
             post("/start") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
                 val itemId = call.request.queryParameters["itemId"]
-                call.respond(ApiMongoResponse.ok(campaign.start(characterId, mapCode, itemId)))
+                call.respondWithHero(campaign.start(characterId, mapCode, itemId))
             }
             post("/chest") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
-                call.respond(ApiMongoResponse.ok(campaign.openChest(characterId, mapCode)))
+                call.respondWithHero(campaign.openChest(characterId, mapCode))
             }
             // 0.46.0: осквернённая зона - случайный портал за заход, не больше одного, своя таблица добычи.
             post("/corrupt") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
                 val monsterCode = call.queryParam("monsterCode")
-                call.respond(ApiMongoResponse.ok(campaign.corrupt(characterId, mapCode, monsterCode)))
+                call.respondWithHero(campaign.corrupt(characterId, mapCode, monsterCode))
             }
         }
 
@@ -191,18 +206,18 @@ class CharacterRoute(
                 val characterId = call.queryParam("characterId")
                 val nodeCode = call.queryParam("nodeCode")
                 val data = repo.allocateSkillNode(characterId, nodeCode)
-                call.respond(ApiMongoResponse.ok(data))
+                call.respondWithHero(data)
             }
             post("/refund") {
                 val characterId = call.queryParam("characterId")
                 val nodeCode = call.queryParam("nodeCode")
                 val data = repo.refundSkillNode(characterId, nodeCode)
-                call.respond(ApiMongoResponse.ok(data))
+                call.respondWithHero(data)
             }
             post("/reset") {
                 val characterId = call.queryParam("characterId")
                 val data = repo.resetSkillTree(characterId)
-                call.respond(ApiMongoResponse.ok(data))
+                call.respondWithHero(data)
             }
         }
     }

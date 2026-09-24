@@ -42,6 +42,12 @@ import org.bson.Document
 import org.koin.ktor.ext.inject
 import server
 import SERVER_VERSION
+import API_REVISION
+import extensions.RouteInfo
+import features.logic.world.WorldBundle
+import features.logic.world.WorldManifest
+import io.ktor.http.HttpHeaders
+import io.ktor.server.response.header
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
@@ -89,6 +95,27 @@ fun Application.configureRouting() {
                 val body = PortraitCache.document(section, code)
                 if (body == null) call.respond(HttpStatusCode.NotFound)
                 else call.respondText(body, ContentType.Image.SVG)
+            }
+        }
+
+        // 0.48.0: справочники мира одним файлом. Отпечаток тот же, что в static/index.json,
+        // поэтому клиент с актуальной копией получает 304 и тела не качает.
+        route("/${WorldBundle.FOLDER}") {
+            get("/${WorldBundle.FILE}") {
+                val etag = "\"${WorldBundle.hash()}\""
+                call.response.header(HttpHeaders.ETag, etag)
+                if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) call.respond(HttpStatusCode.NotModified)
+                else call.respondText(WorldBundle.document(), ContentType.Application.Json)
+            }
+        }
+
+        // 0.48.0: один манифест на старт - маршруты, словари, иконки, портреты и справочники.
+        // Прежние манифесты остаются для старых клиентов.
+        route("/static") {
+            get("/index.json") {
+                val manifest = StaticManifest(SERVER_VERSION, API_REVISION, ALL_ROUTES.sortedBy { it.path }, LocaleCache.manifest(),
+                    IconCache.manifest(), PortraitCache.manifest(), WorldBundle.manifest())
+                call.respondText(Json.encodeToString(StaticManifest.serializer(), manifest), ContentType.Application.Json)
             }
         }
 
@@ -235,6 +262,22 @@ data class StatTables(val stats: List<StatOrder>, val slots: List<String>, val s
         }
     }
 }
+
+/**
+ * Единый манифест `static/index.json` (с 0.48.0): всё, что клиент сверяет на старте, одним
+ * запросом - версия, ревизия API, маршруты (по ним клиент решает, какие экраны доступны) и
+ * отпечатки словарей, иконок, портретов и справочников.
+ */
+@Serializable
+data class StaticManifest(
+    val version: String,
+    val revision: Int,
+    val routes: List<RouteInfo>,
+    val locale: LocaleManifest,
+    val icons: IconManifest,
+    val portraits: PortraitManifest,
+    val world: WorldManifest,
+)
 
 /** Ответ `/system/version`: клиент сверяет его с той версией, под которую собран. */
 @Serializable

@@ -95,6 +95,7 @@ class AuthTest {
         assertEquals(Need.PUBLIC, need("GET", "/system/version"))
         assertEquals(Need.PUBLIC, need("GET", "/system/stats"))
         assertEquals(Need.PUBLIC, need("GET", "/system/health"))
+        assertEquals(Need.PUBLIC, need("GET", "/static/index.json"))
         // The old GET login is gone, and a GET to the login path is not a way in.
         assertEquals(Need.SIGNED_IN, need("GET", "/api/v1/user/login"))
     }
@@ -103,6 +104,8 @@ class AuthTest {
     fun everything_a_player_does_needs_a_session() {
         listOf(
             "GET" to "/api/v1/character/inventory/stats",
+            "GET" to "/api/v1/character/view",
+            "GET" to "/world/world.json",
             "POST" to "/api/v1/characterequipment/applyOrb",
             "POST" to "/api/v1/characterequipment/sell",
             "GET" to "/api/v1/characterequipment/bench",

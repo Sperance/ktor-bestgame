@@ -50,6 +50,9 @@ object AccessPolicy {
         val verb = method.uppercase()
 
         if (path.startsWith("/locale/") || path.startsWith("/icons/") || path.startsWith("/portraits/")) return Need.PUBLIC
+        if (path == "/static/index.json") return Need.PUBLIC
+        // Справочники мира - те же коллекции, что читаются через /api вошедшим игроком.
+        if (path.startsWith("/world/")) return Need.SIGNED_IN
         if (path in publicSystem) return Need.PUBLIC
         if (verb == "POST" && path in publicPosts) return Need.PUBLIC
         if (path in adminRoutes) return Need.ADMIN

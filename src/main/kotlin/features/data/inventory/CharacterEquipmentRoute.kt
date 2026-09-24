@@ -1,5 +1,6 @@
 package features.data.inventory
 
+import features.logic.hero.respondWithHero
 import application.enums.EnumEquipmentType
 import base.route.ApiMongoResponse
 import base.route.BaseRoute
@@ -30,14 +31,14 @@ class CharacterEquipmentRoute(
             // Необязательный слот - какое из двух колец занять
             val slot = call.request.queryParameters["slot"]?.let { name -> EnumEquipmentType.entries.firstOrNull { it.name == name } }
             val data = repo.equip(characterId, inventoryId, slot)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondWithHero(data)
         }
         post("/applyOrb") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
             val orbItemId = call.queryParam("orbItemId")
             val outcome = repo.applyOrb(characterId, inventoryId, orbItemId)
-            call.respond(ApiMongoResponse.ok(CurrencyApplyResponse.of(outcome)))
+            call.respondWithHero(CurrencyApplyResponse.of(outcome))
         }
         get("/bench") {
             val characterId = call.queryParam("characterId")
@@ -47,37 +48,37 @@ class CharacterEquipmentRoute(
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
             val recipe = call.queryParam("recipe")
-            call.respond(ApiMongoResponse.ok(CurrencyApplyResponse.of(repo.craft(characterId, inventoryId, recipe))))
+            call.respondWithHero(CurrencyApplyResponse.of(repo.craft(characterId, inventoryId, recipe)))
         }
         post("/uncraft") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
-            call.respond(ApiMongoResponse.ok(CurrencyApplyResponse.of(repo.uncraft(characterId, inventoryId))))
+            call.respondWithHero(CurrencyApplyResponse.of(repo.uncraft(characterId, inventoryId)))
         }
         post("/socket") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
             val nodeCode = call.queryParam("nodeCode")
             val data = repo.socket(characterId, inventoryId, nodeCode)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondWithHero(data)
         }
         post("/unsocket") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
             val data = repo.unsocket(characterId, inventoryId)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondWithHero(data)
         }
         post("/sell") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
             val data = repo.sellForGold(characterId, inventoryId)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondWithHero(data)
         }
         post("/unequip") {
             val characterId = call.queryParam("characterId")
             val inventoryId = call.queryParam("inventoryId")
             val data = repo.unequip(characterId, inventoryId)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondWithHero(data)
         }
     }
 }

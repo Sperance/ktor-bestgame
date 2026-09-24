@@ -234,11 +234,15 @@ abstract class BaseRoute<T : StockEntity, R>(
     }
 }
 
+@OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
 @Serializable
 data class ApiMongoResponse<T>(
     val success: Boolean,
     val data: T? = null,
-    val error: BaseException? = null
+    val error: BaseException? = null,
+    /** Снимок героя после команды (с 0.48.0) - только тому, кто попросил его заголовком. */
+    @kotlinx.serialization.EncodeDefault(kotlinx.serialization.EncodeDefault.Mode.NEVER)
+    val hero: features.logic.hero.HeroSnapshot? = null,
 ) {
     companion object {
         fun <T> ok(data: T?, message: String? = null) =
