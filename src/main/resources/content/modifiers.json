@@ -1230,7 +1230,7 @@
         { "level": 11, "values": [[2.0, 2.0]] },
         { "level": 1, "values": [[1.0, 1.0]] }
       ],
-      "pools": { "map": 1000 }
+      "pools": { "map": 0 }
     },
     {
       "code": "MAP_HERO_RESIST",
@@ -2111,7 +2111,7 @@
         { "level": 60, "values": [[2.0, 2.0]] },
         { "level": 25, "values": [[1.0, 1.0]] }
       ],
-      "pools": { "belt": 1000 }
+      "pools": { "belt": 0 }
     },
     {
       "code": "INCREASED_FLASK_RECOVERY",
@@ -2125,7 +2125,7 @@
         { "level": 35, "values": [[21.0, 30.0]] },
         { "level": 10, "values": [[11.0, 20.0]] }
       ],
-      "pools": { "belt": 1000 }
+      "pools": { "belt": 0 }
     },
     {
       "code": "ADD_LIFE_ON_KILL",

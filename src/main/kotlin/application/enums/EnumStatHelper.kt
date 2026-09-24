@@ -90,7 +90,7 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_MANA_ON_KILL(267),
     STOCK_HEALTH_ON_HIT(268),
     STOCK_MANA_ON_HIT(269),
-    /** Лишние заряды флакона на забег и увеличение его лечения в процентах. */
+    /** Заряды и лечение флакона; флакон выведен из игры в 0.50.0, номера остаются за выпавшими вещами. */
     STOCK_FLASK_CHARGES(270),
     STOCK_FLASK_RECOVERY(271),
 
@@ -142,6 +142,7 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     MAP_PACK_SIZE(404),
     MAP_MONSTER_RARITY(405),
     MAP_HERO_LIGHT(406),
+    /** Выведен в 0.50.0 вместе с флаконом. */
     MAP_HERO_FLASK(407),
     MAP_HERO_RESIST(408),
     MAP_HERO_REGEN(409),

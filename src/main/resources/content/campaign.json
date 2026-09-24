@@ -2180,12 +2180,6 @@
       "manaCost": 12,
       "manaRegenShare": 1.75
     },
-    "flask": {
-      "charges": 3,
-      "perKill": 1,
-      "heal": 40,
-      "duration": 3
-    },
     "retreat": {
       "delay": 1.5
     },

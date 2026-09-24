@@ -118,8 +118,6 @@ data class AilmentRule(
  * Монстр колдует, только если у него есть `STOCK_ATTACK_MAGICAL` и `STOCK_MANA`.
  */
 @Serializable data class SpellRule(val innateDamage: Double, val innatePerLevel: Double, val castSpeed: Double, val manaCost: Double, val manaRegenShare: Double)
-/** Флакон жизни: [charges] зарядов на забег, [perKill] за убийство, лечит [heal] процентов здоровья за [duration] секунд. */
-@Serializable data class FlaskRule(val charges: Int, val perKill: Int, val heal: Double, val duration: Double)
 /** Отступление из боя занимает [delay] секунд, в которые герой не бьёт, а монстр - бьёт. */
 @Serializable data class RetreatRule(val delay: Double)
 /** Смерть на карте уровня от [fromLevel] стоит [experienceShare] процентов опыта текущего уровня; уровень не падает. */
@@ -149,7 +147,6 @@ data class CombatRules(
     val stun: StunRule,
     val shield: ShieldRule,
     val spell: SpellRule,
-    val flask: FlaskRule,
     val retreat: RetreatRule,
     val death: DeathRule,
     val ailments: List<AilmentRule>,
@@ -584,8 +581,6 @@ object CampaignContent {
         if (rules.shield.rechargeDelay < 0 || rules.shield.rechargePerSecond < 0) throw CampaignExceptions.funExceptionContent(method, "shield")
         if (rules.spell.innateDamage < 0 || rules.spell.innatePerLevel < 0) throw CampaignExceptions.funExceptionContent(method, "spell.innate")
         positive(rules.spell.castSpeed, "spell.castSpeed"); percent(rules.spell.manaCost, "spell.manaCost"); percent(rules.spell.manaRegenShare, "spell.manaRegenShare")
-        if (rules.flask.charges < 0 || rules.flask.perKill < 0 || rules.flask.duration <= 0) throw CampaignExceptions.funExceptionContent(method, "flask")
-        percent(rules.flask.heal, "flask.heal")
         if (rules.retreat.delay < 0) throw CampaignExceptions.funExceptionContent(method, "retreat.delay")
         if (rules.death.fromLevel < 1) throw CampaignExceptions.funExceptionContent(method, "death.fromLevel")
         percent(rules.death.experienceShare, "death.experienceShare")
