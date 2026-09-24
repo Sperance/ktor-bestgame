@@ -7,6 +7,16 @@
 Новая запись добавляется **сверху**, в день, когда изменения прошли проверки и уехали в ветку.
 Коротко: что поменялось и, если что-то чинилось, в чём была причина.
 
+## 0.47.1 — 2026-09-24
+
+Работает с ExileForge 2.54.1.
+
+- **Остались только критичные тесты** (решение владельца): `LocalizationTest`, `PoolsTest`,
+  `SeedDataTest`, `ModifierRollTest`, `PortraitTest`, `CraftsTest`, `AuthTest`. Удалены тесты на
+  живую MongoDB и частные проверки (`MongoTest`, `AuctionTest`, `CurrencyTest`, `StatsTest`,
+  `PagingTest`, `SoftDeleteTest`, `TradeTest`, `CampaignTest`, `SkillTreeTest`, `EquipSlotsTest`,
+  `MerchantTest`). Поведение сервера не менялось.
+
 ## 0.47.0 — 2026-09-24
 
 Работает с ExileForge 2.53.0.

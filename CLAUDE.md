@@ -224,9 +224,7 @@ bash gradlew installDist    # what the client's CI job boots
 
 `gradlew` is committed without the executable bit, so invoke it as `bash gradlew`.
 
-Tests that need a live MongoDB (`MongoTest`, `AuctionTest`, `CurrencyTest`, `StatsTest`,
-`PagingTest`, `SoftDeleteTest`) **fail** without one rather than skipping — in a bare container
-that is expected, and is not a signal that the change broke something. `LocalizationTest`,
-`SkillTreeTest`, `SeedDataTest`, `ModifierRollTest` and `PoolsTest` read resources only and must pass everywhere, which is why
-they are the ones rule 1 leans on. Run a single one with
-`bash gradlew test --tests LocalizationTest`.
+Since 0.47.x only the critical tests remain (the owner's rule): `LocalizationTest`, `PoolsTest`,
+`SeedDataTest`, `ModifierRollTest`, `PortraitTest`, `CraftsTest` (pins the same cycle as the client's
+`CraftCycleTest`) and `AuthTest`. None needs a database, so all must pass everywhere. Run a single
+one with `bash gradlew test --tests LocalizationTest`.
