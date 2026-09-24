@@ -39,6 +39,9 @@ import features.logic.progression.ExperienceLevelRepository
 import features.logic.skilltree.SkillTreeNodeRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 
 /**
  * Заполнение БД начальными данными при старте сервера.
@@ -141,11 +144,11 @@ object DatabaseSeeder : KoinComponent {
      * сидера и падали на документах старого формата - то есть раньше, чем
      * пересев успевал бы их починить.
      */
-    private suspend fun initializeCaches() {
+    private suspend fun initializeCaches() = coroutineScope {
         listOf(
             modifierDefinitionCache, modifierTierCache, characterClassCache, experienceLevelCache,
             equipmentCache, skillTreeCache, itemsCache, recipeCache, blockListCache
-        ).forEach { it.initializeCache() }
+        ).map { async { it.initializeCache() } }.awaitAll()
 
         printLog("  → caches loaded")
     }

@@ -4,7 +4,6 @@ import base.entity.StockEntity
 import base.repository.BaseRepository
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import extensions.printLog
-import kotlinx.coroutines.runBlocking
 import java.util.concurrent.atomic.AtomicLong
 
 abstract class MongoCache<T: StockEntity, R: BaseRepository<T>>(val repository: R) {
@@ -17,7 +16,7 @@ abstract class MongoCache<T: StockEntity, R: BaseRepository<T>>(val repository: 
      */
     val revision: Long get() = changes.get()
 
-    fun initializeCache() = runBlocking {
+    suspend fun initializeCache() {
         val data = repository.findAll()
         loadToCache(data)
     }

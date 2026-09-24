@@ -9,7 +9,6 @@ import kotlinx.serialization.json.Json
  * Общий Json-конфиг, используется и в ContentNegotiation, и в BaseRoute.respond()
  */
 val AppJson = Json {
-    prettyPrint = true
     isLenient = true
     ignoreUnknownKeys = true
     encodeDefaults = true
