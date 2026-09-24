@@ -41,7 +41,11 @@ data class CampaignReward(
 
 /** Сундуки карты у героя (с 0.31.0): сколько ещё можно открыть и когда окно бросится заново (миллисекунды эпохи). */
 @Serializable
-data class ChestState(val left: Int, val refreshAt: Long)
+data class ChestState(val left: Int, val refreshAt: Long, val bought: Boolean = false)
+
+/** Что стало после услуги карты (0.34.0): золото героя, сундуки и босс карты. */
+@Serializable
+data class MapServiceOutcome(val money: Long, val chests: ChestState, val boss: BossState)
 
 /** Босс карты у героя (с 0.32.0): жив ли он и когда вернётся убитый (миллисекунды эпохи). */
 @Serializable
@@ -134,7 +138,43 @@ class CampaignService : KoinComponent {
         val character = requireCharacter(characterId, method)
         openMap(character, mapCode, method)
         val window = windowOf(character, mapCode, characterId, method)
-        return ChestState(window.left, window.refreshAt)
+        return ChestState(window.left, window.refreshAt, window.bought)
+    }
+
+    /** «Карта сокровищ» (0.34.0): ещё один сундук в текущем окне карты, раз за окно, за золото. */
+    suspend fun treasure(characterId: String, mapCode: String): MapServiceOutcome {
+        val method = "treasure"
+        val character = requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        val window = windowOf(character, mapCode, characterId, method)
+        if (window.bought) throw CampaignExceptions.funExceptionTreasureBought(method, mapCode)
+        charge(character, CampaignContent.file.services.treasurePerLevel * map.level, method)
+        character.chests[mapCode] = window.copy(left = window.left + 1, bought = true)
+        transactionExecute(method) { session -> characters.update(character, session) }
+        return outcome(character, mapCode)
+    }
+
+    /** «Вызов стража» (0.34.0): убитый босс карты снова стоит у выхода, за золото. */
+    suspend fun summon(characterId: String, mapCode: String): MapServiceOutcome {
+        val method = "summon"
+        val character = requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        if (System.currentTimeMillis() >= (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionBossStands(method, mapCode)
+        charge(character, CampaignContent.file.services.summonPerLevel * map.level, method)
+        character.bosses.remove(mapCode)
+        transactionExecute(method) { session -> characters.update(character, session) }
+        return outcome(character, mapCode)
+    }
+
+    private fun charge(character: Character, price: Long, method: String) {
+        if (character.money < price) throw base.exception.model.CharacterExceptions.funExceptionGold(method, price.toString())
+        character.money -= price
+    }
+
+    private fun outcome(character: Character, mapCode: String): MapServiceOutcome {
+        val window = character.chests[mapCode] ?: ChestWindow()
+        val back = character.bosses[mapCode] ?: 0L
+        return MapServiceOutcome(character.money, ChestState(window.left, window.refreshAt, window.bought), BossState(System.currentTimeMillis() >= back, back))
     }
 
     /**

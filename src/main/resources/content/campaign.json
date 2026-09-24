@@ -1945,5 +1945,9 @@
       "wake": 3.5,
       "giveUp": 4.0
     }
+  },
+  "services": {
+    "treasurePerLevel": 60,
+    "summonPerLevel": 150
   }
 }

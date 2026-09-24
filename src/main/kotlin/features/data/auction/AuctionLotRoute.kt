@@ -55,6 +55,15 @@ class AuctionLotRoute(
             val data = repo.sellItem(characterId, itemId, amount, priceOrbId, price)
             call.respond(ApiMongoResponse.ok(data))
         }
+        // 0.34.0: места под лоты - сколько занято, и докупить ещё одно за золото.
+        get("/slots") {
+            val characterId = call.queryParam("characterId")
+            call.respond(ApiMongoResponse.ok(repo.slots(characterId)))
+        }
+        post("/slots") {
+            val characterId = call.queryParam("characterId")
+            call.respond(ApiMongoResponse.ok(repo.buySlot(characterId)))
+        }
         post("/buy") {
             val characterId = call.queryParam("characterId")
             val lotId = call.queryParam("lotId")

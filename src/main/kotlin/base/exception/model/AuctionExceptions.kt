@@ -19,5 +19,7 @@ object AuctionExceptions {
     fun funExceptionPrice(errorMethod: String, value: String? = "") = AuctionException("Auction price $value must be positive", errorMethod, "AU_008", listOf(value.orEmpty()))
     fun funExceptionAmount(errorMethod: String, value: String? = "") = AuctionException("Auction amount $value must be positive", errorMethod, "AU_009", listOf(value.orEmpty()))
     fun funExceptionItemEquipped(errorMethod: String, value: String? = "") = AuctionException("Item $value must be unequipped before it goes on sale", errorMethod, "AU_010", listOf(value.orEmpty()))
+    fun funExceptionLotLimit(errorMethod: String, value: String? = "") = AuctionException("All $value lot places are taken", errorMethod, "AU_012", listOf(value.orEmpty()))
+    fun funExceptionSlotsMax(errorMethod: String, value: String? = "") = AuctionException("No more than $value lot places", errorMethod, "AU_013", listOf(value.orEmpty()))
     fun funExceptionLotBroken(errorMethod: String, value: String? = "") = AuctionException("Auction lot $value carries no goods", errorMethod, "AU_011", listOf(value.orEmpty()))
 }

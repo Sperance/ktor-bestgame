@@ -93,6 +93,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
      */
     suspend fun sellEquipment(characterId: String, inventoryId: String, priceOrbId: String, price: Long): AuctionLot {
         val seller = requireTrader(characterId, "sellEquipment")
+        requirePlace(seller, "sellEquipment")
         requireOrb(priceOrbId, "sellEquipment")
         requirePrice(price, "sellEquipment")
 
@@ -121,6 +122,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
      */
     suspend fun sellItem(characterId: String, itemId: String, amount: Long, priceOrbId: String, price: Long): AuctionLot {
         val seller = requireTrader(characterId, "sellItem")
+        requirePlace(seller, "sellItem")
         requireOrb(priceOrbId, "sellItem")
         requirePrice(price, "sellItem")
         if (amount <= 0) throw AuctionExceptions.funExceptionAmount("sellItem", amount.toString())
@@ -228,6 +230,38 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
      *
      * @throws AuctionExceptions.AuctionException если уровень слишком низкий
      */
+    // ==================== Места под лоты (0.34.0) ====================
+
+    /** Сколько лотов героя сейчас на витрине и сколько мест у него всего. */
+    suspend fun slots(characterId: String): AuctionSlots {
+        val seller = requireTrader(characterId, "slots")
+        return AuctionSlots.of(seller.auctionSlots, active(seller._id))
+    }
+
+    /** Докупает одно место под лот за золото; цена растёт с каждым купленным. */
+    suspend fun buySlot(characterId: String): AuctionSlots {
+        val method = "buySlot"
+        val seller = requireTrader(characterId, method)
+        if (AuctionSlots.BASE + seller.auctionSlots >= AuctionSlots.MAX) throw AuctionExceptions.funExceptionSlotsMax(method, AuctionSlots.MAX.toString())
+        val price = AuctionSlots.price(seller.auctionSlots)
+        if (seller.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
+        transactionExecute(method) { session ->
+            seller.money -= price
+            seller.auctionSlots += 1
+            characterRepository.update(seller, session)
+        }
+        return AuctionSlots.of(seller.auctionSlots, active(seller._id), seller.money)
+    }
+
+    private suspend fun active(sellerId: String): Int =
+        count(Filters.and(Filters.eq("sellerId", sellerId), Filters.eq("status", EnumAuctionLotStatus.ACTIVE.name))).toInt()
+
+    /** Новый лот - только на свободное место; выставленные раньше сверх лимита остаются. */
+    private suspend fun requirePlace(seller: Character, method: String) {
+        val limit = AuctionSlots.BASE + seller.auctionSlots
+        if (active(seller._id) >= limit) throw AuctionExceptions.funExceptionLotLimit(method, limit.toString())
+    }
+
     private suspend fun requireTrader(characterId: String, method: String): Character {
         val character = characterRepository.findById(characterId)
             ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
@@ -267,5 +301,30 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
         val stale = org.bson.Document("modifierId", org.bson.Document("\$nin", modifierIds.toList()))
         return collection.updateMany(session, Filters.exists("equipment.params", true),
             org.bson.Document("\$pull", org.bson.Document("equipment.params", stale))).modifiedCount
+    }
+}
+
+/**
+ * Места под лоты героя (с 0.34.0): [BASE] сразу, по одному докупается за золото до [MAX]. Цена
+ * первого - [FIRST_PRICE], каждое следующее в [GROWTH] раза дороже.
+ *
+ * @property used сколько лотов героя сейчас на витрине
+ * @property price сколько стоит следующее место; 0, когда больше не купить
+ * @property money золото героя после покупки; 0 в ответе на чтение
+ */
+@kotlinx.serialization.Serializable
+data class AuctionSlots(val used: Int, val limit: Int, val max: Int, val price: Long, val money: Long = 0) {
+    companion object {
+        const val BASE = 5
+        const val MAX = 20
+        const val FIRST_PRICE = 500.0
+        const val GROWTH = 1.5
+
+        fun price(bought: Int): Long = Math.round(FIRST_PRICE * Math.pow(GROWTH, bought.toDouble()))
+
+        fun of(bought: Int, used: Int, money: Long = 0): AuctionSlots {
+            val limit = BASE + bought
+            return AuctionSlots(used, limit, MAX, if (limit >= MAX) 0 else price(bought), money)
+        }
     }
 }

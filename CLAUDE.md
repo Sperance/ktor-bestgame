@@ -152,6 +152,10 @@ database. Keep new rules in that table rather than in a route.
   `complete` is `CP_007` while it lives, `POST /campaign/boss` reports it slain (`Character.bosses`,
   back after `bosses.respawnHours`, `CP_008` meanwhile) and rolls its table plus the unique chances.
   `CampaignContent.bossUniques` keeps those uniques out of every other source.
+  Since 0.34.0 gold has sinks: map services (`services` in the file — `POST /campaign/treasure`
+  one more chest per window, `POST /campaign/summon` a slain boss back), the merchant
+  (`features/logic/trade/Merchant.kt`: a four-hour shelf per hero, priced at `SellPrice` × 4) and
+  lot places (`AuctionSlots`: five, one more for gold at a time up to twenty).
 - `src/main/resources/skilltree/tree.json` — the passive tree, 309 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level

@@ -113,7 +113,7 @@ object CampaignDeath {
  * (миллисекунды эпохи), после чего окно бросается заново.
  */
 @kotlinx.serialization.Serializable
-data class ChestWindow(val refreshAt: Long = 0, val left: Int = 0)
+data class ChestWindow(val refreshAt: Long = 0, val left: Int = 0, val bought: Boolean = false)
 
 /**
  * Сундуки - правило сервера, как и добыча. Функции чистые: время и [Random] приходят снаружи.

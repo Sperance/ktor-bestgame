@@ -72,6 +72,12 @@ data class Character(
     /** Когда босс карты вернётся (с 0.32.0), миллисекунды эпохи по кодам карт; до тех пор он мёртв и выход открыт. */
     var bosses: MutableMap<String, Long> = mutableMapOf(),
 
+    /** Витрина торговца этого героя (с 0.34.0), см. [features.logic.trade.MerchantRules]. */
+    var merchant: features.logic.trade.MerchantStock? = null,
+
+    /** Сколько мест под лоты аукциона герой докупил сверх базовых (с 0.34.0). */
+    var auctionSlots: Int = 0,
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

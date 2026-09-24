@@ -166,6 +166,14 @@ data class MonsterTemplate(
  * до тех пор выход открыт. С него падает добыча его таблицы с редкостью `UNIQUE`, с шансом
  * [uniqueChance] - случайная обычная уникалка, с шансом [ownUniqueChance] - его собственная.
  */
+/**
+ * Услуги карты за золото (с 0.34.0): «Карта сокровищ» - ещё один сундук в окне, раз за окно, за
+ * [treasurePerLevel] × уровень карты; «Вызов стража» - убитый босс снова у выхода, за
+ * [summonPerLevel] × уровень карты.
+ */
+@Serializable
+data class ServiceRule(val treasurePerLevel: Long, val summonPerLevel: Long)
+
 @Serializable
 data class BossRule(val respawnHours: Double, val uniqueChance: Double, val ownUniqueChance: Double, val behaviour: BehaviourRule)
 
@@ -240,6 +248,7 @@ data class CampaignContentFile(
     val behaviour: BehaviourTable,
     val chests: ChestRule,
     val bosses: BossRule,
+    val services: ServiceRule,
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -273,7 +282,7 @@ data class CampaignChapter(val code: String, val maps: List<CampaignMap>)
 
 /** Главы, правила редкости и правила боя - всё, что клиенту нужно, чтобы драться, одним ответом. */
 @Serializable
-data class CampaignView(val chapters: List<CampaignChapter>, val rarities: List<CampaignRarity>, val combat: CombatRules)
+data class CampaignView(val chapters: List<CampaignChapter>, val rarities: List<CampaignRarity>, val combat: CombatRules, val services: ServiceRule)
 
 /**
  * Содержимое кампании - главы, карты, монстры, их модификаторы и добыча.
@@ -337,7 +346,7 @@ object CampaignContent {
             if (rarity.statScale <= 0) rarity
             else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
         }
-        return CampaignView(chapters, rarities, content.combat)
+        return CampaignView(chapters, rarities, content.combat, content.services)
     }
 
     /** Модификатор монстра на уровне карты: растут только прибавки. */
@@ -413,6 +422,7 @@ object CampaignContent {
         content.bosses.let { rule ->
             if (rule.respawnHours <= 0 || rule.uniqueChance !in 0.0..1.0 || rule.ownUniqueChance !in 0.0..1.0) throw CampaignExceptions.funExceptionContent(method, "bosses")
         }
+        if (content.services.treasurePerLevel <= 0 || content.services.summonPerLevel <= 0) throw CampaignExceptions.funExceptionContent(method, "services")
         content.chests.let { rule ->
             if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.refreshHours <= 0 || rule.quantity <= 0)
                 throw CampaignExceptions.funExceptionContent(method, "chests")

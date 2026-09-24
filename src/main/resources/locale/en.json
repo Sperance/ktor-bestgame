@@ -1363,5 +1363,11 @@
   "monster.BOSS_DROWNED_GOD.name": "The Drowned God",
   "enum.EnumMonsterRarity.UNIQUE": "Unique",
   "error.CP_007": "The exit of map {0} is sealed while its guardian lives",
-  "error.CP_008": "The guardian of map {0} is already slain"
+  "error.CP_008": "The guardian of map {0} is already slain",
+  "error.CH_016": "Not enough gold: {0} needed",
+  "error.CH_017": "The merchant has no offer {0}",
+  "error.AU_012": "All {0} lot places are taken",
+  "error.AU_013": "There can be no more than {0} lot places",
+  "error.CP_009": "A treasure map for {0} is already bought in this window",
+  "error.CP_010": "The guardian of map {0} already stands"
 }

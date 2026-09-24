@@ -60,6 +60,7 @@ val repositoryModule = module {
     single { CharacterClassRepository() }
     single { ExperienceLevelRepository() }
     single { CampaignService() }
+    single { features.logic.trade.MerchantService() }
 }
 
 val cacheModule = module {
@@ -82,7 +83,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get()),
-                CharacterRoute(get(), get()),
+                CharacterRoute(get(), get(), get()),
                 CharacterEquipmentRoute(get()),
                 AuctionLotRoute(get()),
                 ItemsRoute(get()),

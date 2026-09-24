@@ -14,6 +14,7 @@ import io.ktor.server.routing.route
 class CharacterRoute(
     val repo: CharacterRepository,
     val campaign: CampaignService,
+    val merchant: features.logic.trade.MerchantService,
 ) : BaseRoute<Character, Character>(
     repository = repo,
     entitySerializer = Character.serializer(),
@@ -69,6 +70,19 @@ class CharacterRoute(
             }
         }
 
+        // Торговец (0.34.0): витрина героя раз в четыре часа и покупка с неё за золото.
+        route("/merchant") {
+            get {
+                val characterId = call.queryParam("characterId")
+                call.respond(ApiMongoResponse.ok(merchant.stock(characterId)))
+            }
+            post("/buy") {
+                val characterId = call.queryParam("characterId")
+                val offerId = call.queryParam("offerId")
+                call.respond(ApiMongoResponse.ok(merchant.buy(characterId, offerId)))
+            }
+        }
+
         // Кампания (0.26.0): бой считает клиент по правилам сервера (0.28.0), добычу, опыт и цену смерти - сервер.
         route("/campaign") {
             get("/chapters") {
@@ -112,6 +126,17 @@ class CharacterRoute(
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")
                 call.respond(ApiMongoResponse.ok(campaign.slayBoss(characterId, mapCode)))
+            }
+            // 0.34.0: услуги карты за золото - ещё один сундук и вызов убитого стража.
+            post("/treasure") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.treasure(characterId, mapCode)))
+            }
+            post("/summon") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.summon(characterId, mapCode)))
             }
             post("/chest") {
                 val characterId = call.queryParam("characterId")
