@@ -788,6 +788,7 @@
   "modifier.PASSIVE_SET_LIFE_REGENERATION.name": "Life Regeneration has no effect",
   "modifier.PASSIVE_SET_MAXIMUM_LIFE.name": "Your Maximum Life is {0}",
   "modifier.PASSIVE_SET_MAXIMUM_MANA.name": "Your Maximum Mana is {0}",
+  "modifier.SHAPER_ADD_ALL_RESISTANCES.name": "+{0}% to all Elemental Resistances",
   "modifier.SHAPER_ADD_SPELL_POWER.name": "+{0} to Spell Power",
   "modifier.SHAPER_INCREASED_MAXIMUM_ENERGY_SHIELD.name": "{0}% increased maximum Energy Shield",
   "modifier.SHAPER_INCREASED_MAXIMUM_LIFE.name": "{0}% increased maximum Life",
