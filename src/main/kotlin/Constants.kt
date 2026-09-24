@@ -29,7 +29,7 @@ const val CONST_SEED_ORBS_AMOUNT = 20L
 /**
  * Уровень, с которого персонажу открывается аукцион игроков.
  */
-const val CONST_AUCTION_MIN_LEVEL = 10
+const val CONST_AUCTION_MIN_LEVEL = 1
 
 /**
  * Размер страницы по умолчанию, если запрос его не задал.
@@ -49,7 +49,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся по `/system/version`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "0.49.0"
+const val SERVER_VERSION = "0.49.1"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты: 5 -

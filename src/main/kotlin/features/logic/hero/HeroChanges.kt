@@ -3,7 +3,11 @@ package features.logic.hero
 import features.data.inventory.CharacterEquipment
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCallPipeline
+import io.ktor.server.application.call
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
@@ -50,7 +54,22 @@ class InventoryDelta(val changed: List<CharacterEquipment>, val removed: List<St
 /** Журнал текущего запроса, если он есть. */
 suspend fun heroChanges(): HeroChanges? = coroutineContext[HeroChanges]
 
+/**
+ * Запросы одного героя идут по очереди (с 0.49.1). Два запроса, пришедшие разом - возврат с карты
+ * шлёт `/crafts` и `/hero` одновременно, - досчитывали ремесло в двух транзакциях и одна падала с
+ * WriteConflict (112). Очередь на героя убирает гонку у корня; чужие герои друг друга не ждут.
+ */
+object HeroLocks {
+    private val locks = ConcurrentHashMap<String, Mutex>()
+
+    fun of(characterId: String): Mutex = locks.getOrPut(characterId) { Mutex() }
+}
+
 /** Каждый вызов получает свой журнал: он нужен снимку в конце того же запроса. */
 fun Application.installHeroChanges() {
-    intercept(ApplicationCallPipeline.Call) { withContext(HeroChanges()) { proceed() } }
+    intercept(ApplicationCallPipeline.Call) {
+        val characterId = call.request.queryParameters["characterId"]
+        if (characterId.isNullOrBlank()) withContext(HeroChanges()) { proceed() }
+        else HeroLocks.of(characterId).withLock { withContext(HeroChanges()) { proceed() } }
+    }
 }

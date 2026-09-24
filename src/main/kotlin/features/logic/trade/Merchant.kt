@@ -59,15 +59,21 @@ object MerchantRules {
 
     /** Витрина на момент [now]: живая остаётся как есть, истёкшая выкладывается заново. */
     fun stock(current: MerchantStock?, characterId: String, level: Int, now: Long, templates: List<Equipment>, random: Random,
-              roll: (Equipment, EnumRarity) -> MutableList<Modifier> = ModifierRoller::roll): MerchantStock {
+              roll: (Equipment, EnumRarity) -> MutableList<Modifier> = ModifierRoller::roll,
+              affix: (Modifier) -> Boolean = ModifierRoller::isAffix): MerchantStock {
         if (current != null && now < current.refreshAt) return current
         val pool = Pools.of(templates, POOLS)
         val near = pool.filter { it.value.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
             .ifEmpty { pool.filter { it.value.requiredLevel <= level + LEVEL_SPREAD } }
         val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) {
             val template = Pools.draw(near, random) ?: near.first().value
-            val rarity = features.logic.equipment.Jewels.rarity(template, rarity(random))
-            val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = roll(template, rarity), rarity = rarity)
+            val wanted = features.logic.equipment.Jewels.rarity(template, rarity(random))
+            // Волшебная или редкая вещь без единого аффикса (0.49.1) - брак ролла, на витрину ему нельзя:
+            // второй заход, а если и он пуст - вещь выкладывается белой, какой она и вышла.
+            var params = roll(template, wanted)
+            if (wanted != EnumRarity.COMMON && params.none(affix)) params = roll(template, wanted)
+            val rarity = if (wanted != EnumRarity.COMMON && params.none(affix)) EnumRarity.COMMON else wanted
+            val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = params, rarity = rarity)
             MerchantOffer(ObjectId().toHexString(), item, SellPrice.of(template, rarity, item.params, emptyMap()) * MARKUP)
         }
         return MerchantStock(now + (WINDOW_HOURS * 3_600_000).toLong(), offers)
