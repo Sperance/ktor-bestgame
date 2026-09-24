@@ -166,7 +166,7 @@ class CampaignService : KoinComponent {
                     effects.merge((effect.stat as Enum<*>).name, modifier.values.getOrElse(index) { 0.0 }, Double::plus)
                 }
             }
-            CampaignMaps.active(CampaignContent.file.maps, mapCode, effects)
+            CampaignMaps.active(CampaignContent.file.maps, mapCode, effects, map.rarity)
         }
         val chests = active?.effects?.get(CampaignMaps.CHESTS)?.toInt() ?: 0
         if (chests > 0) character.chests[mapCode] = window.copy(left = window.left + chests)

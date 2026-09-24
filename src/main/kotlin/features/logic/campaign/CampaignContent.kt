@@ -214,6 +214,13 @@ data class MapRule(
     val nextChance: Double,
     val rarities: Map<EnumRarity, Int>,
     val risk: Map<String, Double>,
+    /**
+     * Сколько аффиксов у карты своей редкости (с 0.42.0, как в PoE): волшебная 1–2, редкая 4–6;
+     * обычная - без аффиксов. Сферы, добавляющие аффикс, сверх верхней границы не добавляют.
+     */
+    val affixes: Map<EnumRarity, List<Int>> = emptyMap(),
+    /** Сколько процентов к количеству и редкости добычи даёт сама редкость карты (с 0.42.0). */
+    val rarityBonus: Map<EnumRarity, Double> = emptyMap(),
 )
 
 @Serializable
@@ -488,6 +495,11 @@ object CampaignContent {
             if (listOf(rule.dropChance, rule.bossChance, rule.nextChance).any { it !in 0.0..1.0 }) throw CampaignExceptions.funExceptionContent(method, "maps")
             if (rule.rarities.isEmpty() || rule.rarities.values.any { it <= 0 }) throw CampaignExceptions.funExceptionContent(method, "maps.rarities")
             rule.risk.forEach { (name, weight) -> stat(name); if (weight <= 0) throw CampaignExceptions.funExceptionContent(method, "maps.risk $name") }
+            rule.affixes.forEach { (rarity, range) ->
+                if (range.size != 2 || range[0] < 0 || range[0] > range[1] || range[1] > rarity.prefixCount + rarity.suffixCount)
+                    throw CampaignExceptions.funExceptionContent(method, "maps.affixes $rarity")
+            }
+            if (rule.rarityBonus.values.any { it < 0 }) throw CampaignExceptions.funExceptionContent(method, "maps.rarityBonus")
         }
         content.chests.let { rule ->
             if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.refreshHours <= 0 || rule.quantity <= 0)

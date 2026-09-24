@@ -108,6 +108,14 @@ object CurrencyApplier : KoinComponent {
      * @throws CurrencyExceptions.CurrencyException если сфера к предмету неприменима
      */
     fun apply(orb: EnumCurrencyOrb, item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        val outcome = applyRule(orb, item, template)
+        // Самоцвет без аффикса ничего не даёт (0.42.0): сфера, что оставила бы его пустым, отказывает.
+        if (features.logic.equipment.Jewels.isJewel(template) && outcome.item._id == item._id && features.logic.equipment.Jewels.empty(template, outcome.item))
+            throw CurrencyExceptions.funExceptionJewelEmpty("apply", template.code)
+        return outcome
+    }
+
+    private fun applyRule(orb: EnumCurrencyOrb, item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         if (item.corrupted) throw CurrencyExceptions.funExceptionCorrupted("apply", template.code)
         if (item.mirrored) throw CurrencyExceptions.funExceptionMirrored("apply", template.code)
         if (orb.mapOnly && template.slot != EnumEquipmentType.MAP) throw CurrencyExceptions.funExceptionNotMap("apply", LocaleKey.enumLabel("EnumCurrencyOrb", orb.name))

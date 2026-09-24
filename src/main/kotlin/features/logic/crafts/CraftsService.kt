@@ -58,7 +58,9 @@ data class ProfessionView(
 /** Идущая работа: когда засчитан последний цикл и когда будет следующий (миллисекунды эпохи). */
 @Serializable
 data class WorkView(val profession: String, val job: String, val startedAt: Long, val settledAt: Long, val cycleMillis: Long, val nextAt: Long,
-                    val additives: List<String> = emptyList())
+                    val additives: List<String> = emptyList(),
+                    /** Зерно и номер следующего цикла (с 0.42.0): по ним клиент бросает цикл сам, см. [Crafts.cycleRandom]. */
+                    val seed: Long = 0, val cycle: Long = 0)
 
 /** Всё о ремёслах героя одним ответом; [gains] - что добыли циклы, досчитанные этим обращением. */
 @Serializable
@@ -119,7 +121,7 @@ class CraftsService : KoinComponent {
         if (Crafts.perCycle(job, chosen).any { (item, amount) -> (stock[item] ?: 0) < amount })
             throw ProfessionExceptions.funExceptionMaterials(method, LocaleKey.jobName(job.code))
         val now = System.currentTimeMillis()
-        character.work = ActiveWork(profession.code, job.code, now, now, chosen)
+        character.work = ActiveWork(profession.code, job.code, now, now, chosen, Random.nextLong())
         transactionExecute(method) { session -> characters.update(character, session) }
         return view(character, gains)
     }
@@ -147,14 +149,14 @@ class CraftsService : KoinComponent {
         val progress = character.professions[profession.code] ?: ProfessionProgress()
         val random = Random.Default
         val result = Crafts.settle(CraftsContent.file.rules, job, progress, bonus(characterId, profession), work.settledAt,
-            System.currentTimeMillis(), random, stockOf(character), work.additives)
+            System.currentTimeMillis(), work.seed, work.cycles, stockOf(character), work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
         val byCode = itemsCache.getCache().associateBy { it.code }
         val stacks = result.gains.items.mapNotNull { (code, amount) -> byCode[code]?.let { CharacterItems(it._id, amount) } } +
             result.gains.spent.mapNotNull { (code, amount) -> byCode[code]?.let { CharacterItems(it._id, -amount) } }
         val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, random) }.filterNotNull()
         character.professions[profession.code] = result.progress
-        character.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt)
+        character.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles)
         val equipment = transactionExecute(method) { session ->
             if (stacks.isNotEmpty()) characters.applyItems(character, stacks, method)
             characters.update(character, session)
@@ -178,7 +180,8 @@ class CraftsService : KoinComponent {
         }
         val work = character.work?.let { work ->
             professions.firstOrNull { it.code == work.profession }?.jobs?.firstOrNull { it.code == work.job }?.let { job ->
-                WorkView(work.profession, work.job, work.startedAt, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives)
+                WorkView(work.profession, work.job, work.startedAt, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives,
+                    work.seed, work.cycles)
             }
         }
         return CraftsState(System.currentTimeMillis(), rules, professions, work, gains,
@@ -210,7 +213,7 @@ class CraftsService : KoinComponent {
                     }
                 }
                 val base = Pools.draw(Pools.of(all.filter { it.requiredLevel in job.band[0]..job.band[1] }, crafting.equipmentPools), random) ?: return null
-                val rarity = weighted(crafting.smithRarities, random) ?: EnumRarity.COMMON
+                val rarity = features.logic.equipment.Jewels.rarity(base, weighted(crafting.smithRarities, random) ?: EnumRarity.COMMON)
                 val guaranteed = additives.mapNotNull { crafting.additives[it] }
                 val handcrafted = (guaranteed + listOfNotNull(Pools.draw(ModifierRoller.pool(crafting.modifierPools).filter { it.value.code !in guaranteed }, random)?.code
                     .takeIf { random.nextDouble() * 100 < crafting.handcraftedChance })).distinct().take(crafting.maxHandcrafted)

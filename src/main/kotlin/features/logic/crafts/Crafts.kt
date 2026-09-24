@@ -23,6 +23,13 @@ data class ActiveWork(
     val settledAt: Long,
     /** Примеси алхимика, что кузнец кладёт в каждую плавку (с 0.38.0). */
     val additives: List<String> = emptyList(),
+    /**
+     * Зерно работы и сколько её циклов уже засчитано (с 0.42.0): цикл номер N бросается от
+     * `(seed, N)`, поэтому клиент, зная их, сам и сразу знает, что цикл принёс, а сервер потом
+     * досчитывает то же самое.
+     */
+    val seed: Long = 0,
+    val cycles: Long = 0,
 )
 
 /**
@@ -88,19 +95,25 @@ object Crafts {
     fun findChance(rules: CraftsRules, extra: JobExtra, level: Int, bonus: WorkBonus): Double =
         (extra.chance * (1 + rules.levelFind / 100 * levelShare(rules, level)) * (1 + max(0.0, bonus.find) / 100)).coerceAtMost(100.0)
 
-    /**
-     * Досчитывает циклы работы с [settledAt] до [now], но не дальше `offlineHours` после
-     * [settledAt]: кто не заглядывал дольше, получает только эти часы. Уровень может вырасти на
-     * середине - следующие циклы идут уже по нему.
-     */
     /** Что уходит за один цикл: вход работы и по одной каждой примеси. */
     fun perCycle(job: Job, additives: List<String>): Map<String, Long> =
         (job.inputs.map { it.item to it.amount } + additives.map { it to 1L }).groupBy({ it.first }, { it.second }).mapValues { it.value.sum() }
 
     /**
+     * Случайность цикла [index] работы с зерном [seed] (с 0.42.0). Клиент бросает тем же генератором
+     * Kotlin в том же порядке: «ничего», лишняя единица, каждая побочная находка.
+     */
+    fun cycleRandom(seed: Long, index: Long): Random = Random(seed xor (index * -7046029254386353131L))
+
+    /**
+     * Досчитывает циклы работы с [settledAt] до [now], но не дальше `offlineHours` после
+     * [settledAt]: кто не заглядывал дольше, получает только эти часы. Уровень может вырасти на
+     * середине - следующие циклы идут уже по нему.
+     *
+     * @param seed зерно работы, @param firstCycle номер первого досчитываемого цикла - см. [cycleRandom]
      * @param stock сколько чего лежит в сумке - ремесло тратит отсюда и встаёт, когда не хватает
      */
-    fun settle(rules: CraftsRules, job: Job, progress: ProfessionProgress, bonus: WorkBonus, settledAt: Long, now: Long, random: Random,
+    fun settle(rules: CraftsRules, job: Job, progress: ProfessionProgress, bonus: WorkBonus, settledAt: Long, now: Long, seed: Long, firstCycle: Long,
                stock: Map<String, Long> = emptyMap(), additives: List<String> = emptyList()): Settlement {
         val cap = (rules.offlineHours * 3_600_000).toLong()
         val end = minOf(now, settledAt + cap)
@@ -123,6 +136,7 @@ object Crafts {
             if (need.any { (item, amount) -> (left[item] ?: 0) < amount }) { starved = true; break }
             need.forEach { (item, amount) -> left.merge(item, -amount, Long::plus); spent.merge(item, amount, Long::plus) }
             t += cycle
+            val random = cycleRandom(seed, firstCycle + cycles)
             cycles++
             if (random.nextDouble() * 100 < nothingChance(rules, job, bonus)) { nothing++; continue }
             val extraUnits = max(0.0, bonus.yield) / 100

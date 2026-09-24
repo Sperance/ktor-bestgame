@@ -2101,6 +2101,14 @@
       "UNCOMMON": 30,
       "RARE": 10
     },
+    "affixes": {
+      "UNCOMMON": [1, 2],
+      "RARE": [4, 6]
+    },
+    "rarityBonus": {
+      "UNCOMMON": 10,
+      "RARE": 25
+    },
     "risk": {
       "MAP_MONSTER_LIFE": 0.4,
       "MAP_MONSTER_DAMAGE": 0.6,

@@ -51,8 +51,13 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     /**
      * Весь инвентарь персонажа.
      */
-    suspend fun findByCharacter(characterId: String): List<CharacterEquipment> =
-        findByFilter(Filters.eq("characterId", characterId))
+    suspend fun findByCharacter(characterId: String): List<CharacterEquipment> {
+        val items = findByFilter(Filters.eq("characterId", characterId))
+        // Пустой самоцвет, лежавший до 0.42.0, получает аффиксы при первом чтении тайника.
+        val repaired = items.filter { item -> equipmentCache.findById(item.equipmentId)?.let { features.logic.equipment.Jewels.repair(it, item) } == true }
+        if (repaired.isNotEmpty()) transactionExecute("repairJewels") { session -> repaired.forEach { update(it, session) } }
+        return items
+    }
 
     /**
      * Только надетые предметы персонажа.
@@ -75,8 +80,10 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     ): CharacterEquipment = insert(CharacterEquipment.fromEquipment(characterId, equipment), session)
 
     /** Экземпляр своей редкости (с 0.35.0): упавшая карта катает аффиксы под выпавшую редкость, а не под шаблон. */
-    suspend fun addRolled(characterId: String, equipment: Equipment, rarity: EnumRarity, session: ClientSession): CharacterEquipment =
-        insert(CharacterEquipment(characterId = characterId, equipmentId = equipment._id, params = ModifierRoller.roll(equipment, rarity), rarity = rarity), session)
+    suspend fun addRolled(characterId: String, equipment: Equipment, rarity: EnumRarity, session: ClientSession): CharacterEquipment {
+        val real = features.logic.equipment.Jewels.rarity(equipment, rarity)
+        return insert(CharacterEquipment(characterId = characterId, equipmentId = equipment._id, params = ModifierRoller.roll(equipment, real), rarity = real), session)
+    }
 
     /**
      * Вставляет самоцвет в гнездо дерева навыков.

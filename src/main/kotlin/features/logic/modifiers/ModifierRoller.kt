@@ -1,5 +1,6 @@
 package features.logic.modifiers
 
+import application.enums.EnumEquipmentType
 import application.enums.EnumInfluence
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
@@ -7,6 +8,8 @@ import extensions.weightedRandomExt
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
 import features.data.equipment.equipment_data.Equipment
+import features.logic.campaign.CampaignContent
+import features.logic.campaign.CampaignMaps
 import features.logic.pools.Pools
 import features.logic.pools.Weighted
 import org.koin.core.component.KoinComponent
@@ -82,7 +85,9 @@ object ModifierRoller : KoinComponent {
     ): List<Modifier> {
         val keptDefinitions = definitions(kept)
         val (prefixes, suffixes) = freeSlots(rarity, keptDefinitions)
-        return pickAffixes(affixPool(equipment, influence), prefixes, suffixes, keptDefinitions.map { it.family() })
+        // Карта катает столько аффиксов, сколько велит её редкость (0.42.0), а не все места.
+        val limit = mapAffixCount(equipment, rarity)?.let { (it - kept.size).coerceAtLeast(0) } ?: Int.MAX_VALUE
+        return pickAffixes(affixPool(equipment, influence), prefixes, suffixes, keptDefinitions.map { it.family() }, limit)
             .mapNotNull { roll(it, equipment.itemLevel) }
     }
 
@@ -99,7 +104,16 @@ object ModifierRoller : KoinComponent {
         rarity: EnumRarity,
         current: Collection<Modifier>,
         influence: EnumInfluence? = null
-    ): Modifier? = rollOne(affixPool(equipment, influence), equipment.itemLevel, rarity, current)
+    ): Modifier? {
+        val max = if (equipment.slot == EnumEquipmentType.MAP) CampaignMaps.affixMax(CampaignContent.file.maps, rarity) else null
+        if (max != null && current.count { isAffix(it) } >= max) return null
+        return rollOne(affixPool(equipment, influence), equipment.itemLevel, rarity, current)
+    }
+
+    /** Сколько аффиксов у новой карты этой редкости; для прочих предметов - null, заполняются все места. */
+    private fun mapAffixCount(equipment: Equipment, rarity: EnumRarity): Int? =
+        if (equipment.slot != EnumEquipmentType.MAP) null
+        else CampaignMaps.affixCount(CampaignContent.file.maps, rarity, kotlin.random.Random.Default)
 
     /**
      * Роллит один модификатор из пула влияния - то, что делает сфера влияния.
@@ -129,14 +143,15 @@ object ModifierRoller : KoinComponent {
         pool: Collection<Weighted<ModifierDefinition>>,
         prefixes: Int,
         suffixes: Int,
-        taken: Collection<String> = emptyList()
+        taken: Collection<String> = emptyList(),
+        limit: Int = Int.MAX_VALUE,
     ): List<ModifierDefinition> {
         val families = taken.toMutableSet()
         var freePrefixes = prefixes
         var freeSuffixes = suffixes
         val picked = mutableListOf<ModifierDefinition>()
 
-        while (true) {
+        while (picked.size < limit) {
             val next = pool.filter { (candidate) ->
                 candidate.family() !in families && when (candidate.source) {
                     EnumModifierSource.PREFIX -> freePrefixes > 0
