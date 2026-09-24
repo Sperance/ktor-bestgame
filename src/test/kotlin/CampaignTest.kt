@@ -257,4 +257,20 @@ class CampaignTest {
         val rarities = List(10_000) { CampaignMaps.rarity(rule, random) }.groupingBy { it }.eachCount()
         assertEquals(rule.rarities.keys, rarities.keys)
     }
+
+    /** Карты как в PoE (0.42.0): волшебная несёт 1–2 аффикса, редкая 4–6, и сама редкость прибавляет к добыче. */
+    @Test
+    fun a_map_rolls_its_rarity_s_affix_count_and_pays_for_its_rarity() {
+        val rule = content.maps
+        val random = Random(9)
+        repeat(50) {
+            assertTrue(CampaignMaps.affixCount(rule, EnumRarity.UNCOMMON, random)!! in 1..2)
+            assertTrue(CampaignMaps.affixCount(rule, EnumRarity.RARE, random)!! in 4..6)
+        }
+        assertEquals(null, CampaignMaps.affixCount(rule, EnumRarity.COMMON, random))
+        val plain = CampaignMaps.active(rule, "M", emptyMap())
+        val rare = CampaignMaps.active(rule, "M", emptyMap(), EnumRarity.RARE)
+        assertTrue(rare.quantity > plain.quantity && rare.rarity > plain.rarity)
+        assertEquals(plain.experience, rare.experience)
+    }
 }

@@ -99,8 +99,8 @@ data class CharacterEquipment(
             CharacterEquipment(
                 characterId = characterId,
                 equipmentId = equipment._id,
-                params = ModifierRoller.roll(equipment),
-                rarity = equipment.rarity
+                params = ModifierRoller.roll(equipment, features.logic.equipment.Jewels.rarity(equipment, equipment.rarity)),
+                rarity = features.logic.equipment.Jewels.rarity(equipment, equipment.rarity)
             )
     }
 }

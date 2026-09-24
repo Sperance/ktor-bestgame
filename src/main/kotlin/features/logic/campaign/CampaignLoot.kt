@@ -168,11 +168,22 @@ object CampaignMaps {
     fun risk(rule: MapRule, effects: Map<String, Double>): Double =
         Math.round(effects.entries.sumOf { (stat, value) -> value * (rule.risk[stat] ?: 0.0) } * 10) / 10.0
 
-    /** Карта в действии: риск прибавляется к количеству, редкости и опыту вместе с их прямыми модификаторами. */
-    fun active(rule: MapRule, mapCode: String, effects: Map<String, Double>): ActiveMap {
+    /**
+     * Карта в действии: риск прибавляется к количеству, редкости и опыту вместе с их прямыми
+     * модификаторами, а редкость самой карты (0.42.0) - к количеству и редкости.
+     */
+    fun active(rule: MapRule, mapCode: String, effects: Map<String, Double>, rarity: EnumRarity = EnumRarity.COMMON): ActiveMap {
         val risk = risk(rule, effects)
-        return ActiveMap(mapCode, effects, risk + (effects[QUANTITY] ?: 0.0), risk + (effects[RARITY] ?: 0.0), risk + (effects[EXPERIENCE] ?: 0.0))
+        val own = rule.rarityBonus[rarity] ?: 0.0
+        return ActiveMap(mapCode, effects, risk + own + (effects[QUANTITY] ?: 0.0), risk + own + (effects[RARITY] ?: 0.0), risk + (effects[EXPERIENCE] ?: 0.0))
     }
+
+    /** Сколько аффиксов роллить на карту редкости [rarity]; null - редкость карт не ограничивает. */
+    fun affixCount(rule: MapRule, rarity: EnumRarity, random: Random): Int? =
+        rule.affixes[rarity]?.let { (low, high) -> low + random.nextInt(high - low + 1) }
+
+    /** Больше скольких аффиксов карта этой редкости не несёт. */
+    fun affixMax(rule: MapRule, rarity: EnumRarity): Int? = rule.affixes[rarity]?.get(1)
 
     /**
      * Выпала ли карта и какой локации.

@@ -1725,5 +1725,6 @@
   "error.CF_007": "Additive {0} does not fit this work",
   "error.CR_020": "Orb {0} is applied to maps only",
   "error.CR_021": "Map {0} has no fitting harmful affix",
-  "error.CR_022": "Map {0} has no room for this alchemy line"
+  "error.CR_022": "Map {0} has no room for this alchemy line",
+  "error.CR_023": "Jewel {0} would be left without an affix — the orb is not applied"
 }
