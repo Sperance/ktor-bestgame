@@ -44,19 +44,6 @@
         }
       ]
     },
-    "aura": {
-      "viewBox": 24,
-      "paths": [
-        {
-          "d": "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6",
-          "alpha": 1.0
-        },
-        {
-          "d": "M5 5a10 10 0 0 0 0 14M19 5a10 10 0 0 1 0 14",
-          "alpha": 0.5
-        }
-      ]
-    },
     "axe": {
       "viewBox": 24,
       "paths": [
@@ -235,19 +222,6 @@
         },
         {
           "d": "M6 9l6 6 6-6",
-          "alpha": 0.5
-        }
-      ]
-    },
-    "curse": {
-      "viewBox": 24,
-      "paths": [
-        {
-          "d": "M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7",
-          "alpha": 1.0
-        },
-        {
-          "d": "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6",
           "alpha": 0.5
         }
       ]
@@ -1436,7 +1410,6 @@
     "stat.BOOL_BURNING": "fire",
     "stat.BOOL_CHILLED": "cold",
     "stat.BOOL_CONCENTRATING": "focus",
-    "stat.BOOL_CURSED": "curse",
     "stat.BOOL_FROZEN": "cold",
     "stat.BOOL_INVINCIBLE": "shield",
     "stat.BOOL_INVISIBLE": "invisible",
@@ -1469,7 +1442,6 @@
     "stat.STOCK_ATTACK_MAGICAL": "magical",
     "stat.STOCK_ATTACK_PHYSICAL": "physical",
     "stat.STOCK_ATTACK_SPEED": "speed",
-    "stat.STOCK_AURA_EFFECT": "aura",
     "stat.STOCK_BLOCK_CHANCE": "block",
     "stat.STOCK_CAST_SPEED": "speed",
     "stat.STOCK_CAST_STRENGTH": "magical",
@@ -1478,7 +1450,6 @@
     "stat.STOCK_CRITICAL_DAMAGE": "critical",
     "stat.STOCK_CRITICAL_MULTIPLIER": "critical",
     "stat.STOCK_CRITICAL_VAMPIRE": "leech",
-    "stat.STOCK_CURSE_EFFECT": "curse",
     "stat.STOCK_ENERGY": "energy",
     "stat.STOCK_ENERGY_REGEN": "regen",
     "stat.STOCK_ENERGY_SHIELD": "shield_energy",

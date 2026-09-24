@@ -90,6 +90,7 @@ object DatabaseSeeder : KoinComponent {
             seedProgression(session, definitions)
             seedEquipment(session, definitions)
             seedSkillTree(session, definitions)
+            pruneModifiers(session, definitions)
 
             seedUsers(session)
             seedCharacters(session)
@@ -147,6 +148,14 @@ object DatabaseSeeder : KoinComponent {
         ).forEach { it.initializeCache() }
 
         printLog("  → caches loaded")
+    }
+
+    /** Модификаторы, которых больше нет в игре, снимаются с предметов - в инвентаре и на аукционе. */
+    private suspend fun pruneModifiers(session: ClientSession, definitions: List<ModifierDefinition>) {
+        val ids = definitions.map { it._id }
+        val items = characterEquipmentRepository.pruneMissingModifiers(ids, session)
+        val lots = auctionLotRepository.pruneMissingModifiers(ids, session)
+        if (items + lots > 0) printLog("  → removed modifiers stripped from $items items and $lots lots")
     }
 
     // ==================== Progression ====================

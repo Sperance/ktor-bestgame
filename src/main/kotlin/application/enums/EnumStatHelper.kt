@@ -82,8 +82,6 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     // ========== Особые статы ==========
     STOCK_RARITY(320),
     STOCK_QUANTITY(321),
-    STOCK_AURA_EFFECT(322),
-    STOCK_CURSE_EFFECT(323),
     STOCK_CAST_STRENGTH(324),
     /** Радиус света на карте кампании в клетках (с 0.30.0): сколько вокруг героя видно сквозь туман. */
     STOCK_LIGHT_RADIUS(325),
@@ -102,7 +100,6 @@ enum class EnumStatBool(override val order: Int) : IntEnumStat {
     BOOL_BLEEDING(1007),
     BOOL_SHOCKED(1008),
     BOOL_CHILLED(1009),
-    BOOL_CURSED(1010),
     BOOL_INVISIBLE(1011),
     BOOL_INVINCIBLE(1012),
     BOOL_CONCENTRATING(1013),

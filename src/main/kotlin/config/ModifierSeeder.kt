@@ -21,7 +21,6 @@ import application.enums.EnumStatStock.STOCK_ATTACK_LIGHTNING
 import application.enums.EnumStatStock.STOCK_ATTACK_MAGICAL
 import application.enums.EnumStatStock.STOCK_ATTACK_PHYSICAL
 import application.enums.EnumStatStock.STOCK_ATTACK_SPEED
-import application.enums.EnumStatStock.STOCK_AURA_EFFECT
 import application.enums.EnumStatStock.STOCK_BLOCK_CHANCE
 import application.enums.EnumStatStock.STOCK_CAST_SPEED
 import application.enums.EnumStatStock.STOCK_CRITICAL_CHANCE
@@ -55,7 +54,6 @@ import application.enums.EnumStatStock.STOCK_CONSTITUTION
 import application.enums.EnumStatStock.STOCK_CAST_STRENGTH
 import application.enums.EnumStatStock.STOCK_LIGHT_RADIUS
 import application.enums.EnumStatStock.STOCK_CHEST_QUANTITY
-import application.enums.EnumStatStock.STOCK_CURSE_EFFECT
 import application.enums.EnumInfluence.ELDER
 import application.enums.EnumInfluence.SHAPER
 import features.logic.modifiers.ModifierDefinition
@@ -667,13 +665,6 @@ object ModifierSeeder {
             tierCount = 4, bestItemLevel = 78, influence = SHAPER
         ),
         ModifierTemplate(
-            code = "SHAPER_INCREASED_AURA_EFFECT",
-            source = SUFFIX,
-            tags = listOf("aura", "influence"),
-            effects = listOf(effect(STOCK_AURA_EFFECT, INCREASED, best = 8.0..10.0, worst = 4.0..5.0)),
-            tierCount = 3, bestItemLevel = 80, weight = 500, influence = SHAPER
-        ),
-        ModifierTemplate(
             code = "SHAPER_ADD_SPELL_POWER",
             source = SUFFIX,
             tags = listOf("caster", "influence"),
@@ -693,13 +684,6 @@ object ModifierSeeder {
             tags = listOf("critical", "damage", "influence"),
             effects = listOf(effect(STOCK_CRITICAL_DAMAGE, INCREASED, best = 20.0..25.0, worst = 10.0..15.0)),
             tierCount = 4, bestItemLevel = 78, influence = ELDER
-        ),
-        ModifierTemplate(
-            code = "ELDER_INCREASED_CURSE_EFFECT",
-            source = SUFFIX,
-            tags = listOf("curse", "influence"),
-            effects = listOf(effect(STOCK_CURSE_EFFECT, INCREASED, best = 8.0..10.0, worst = 4.0..5.0)),
-            tierCount = 3, bestItemLevel = 80, weight = 500, influence = ELDER
         ),
         ModifierTemplate(
             code = "ELDER_ADD_CRITICAL_STRIKE_MULTIPLIER",
@@ -1004,13 +988,6 @@ object ModifierSeeder {
             source = ENCHANTMENT,
             tags = listOf("speed", "enchantment"),
             effects = listOf(effect(STOCK_MOVEMENT_SPEED, INCREASED, best = 16.0..16.0, worst = 8.0..8.0)),
-            tierCount = 3, bestItemLevel = 68
-        ),
-        ModifierTemplate(
-            code = "ENCHANT_INCREASED_AURA_EFFECT",
-            source = ENCHANTMENT,
-            tags = listOf("aura", "enchantment"),
-            effects = listOf(effect(STOCK_AURA_EFFECT, INCREASED, best = 12.0..12.0, worst = 4.0..4.0)),
             tierCount = 3, bestItemLevel = 68
         ),
 

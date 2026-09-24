@@ -371,4 +371,16 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      */
     suspend fun deleteLegacyParams(session: ClientSession): Long =
         collection.deleteMany(session, Filters.exists("params.value", true)).deletedCount
+
+    /**
+     * Снимает с экземпляров модификаторы, описаний которых больше нет (0.33.0: ауры и проклятия
+     * убраны из игры). Предмет остаётся, пропадает только строка, которую уже нечем считать.
+     *
+     * @return сколько экземпляров что-то потеряли
+     */
+    suspend fun pruneMissingModifiers(modifierIds: Collection<String>, session: ClientSession): Long {
+        if (modifierIds.isEmpty()) return 0
+        val stale = org.bson.Document("modifierId", org.bson.Document("\$nin", modifierIds.toList()))
+        return collection.updateMany(session, Filters.empty(), org.bson.Document("\$pull", org.bson.Document("params", stale))).modifiedCount
+    }
 }

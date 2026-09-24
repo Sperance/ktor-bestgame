@@ -260,4 +260,12 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
     private fun requirePrice(price: Long, method: String) {
         if (price <= 0) throw AuctionExceptions.funExceptionPrice(method, price.toString())
     }
+
+    /** То же для предметов, что сейчас лежат на аукционе: лот держит экземпляр у себя. */
+    suspend fun pruneMissingModifiers(modifierIds: Collection<String>, session: ClientSession): Long {
+        if (modifierIds.isEmpty()) return 0
+        val stale = org.bson.Document("modifierId", org.bson.Document("\$nin", modifierIds.toList()))
+        return collection.updateMany(session, Filters.exists("equipment.params", true),
+            org.bson.Document("\$pull", org.bson.Document("equipment.params", stale))).modifiedCount
+    }
 }
