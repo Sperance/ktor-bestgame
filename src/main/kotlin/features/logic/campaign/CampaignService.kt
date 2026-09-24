@@ -40,6 +40,8 @@ data class CampaignReward(
     val level: Int,
     val totalExperience: Double,
     val money: Long,
+    /** Рецепт верстака, только что найденный на карте (с 0.46.0); null почти всегда. */
+    val recipeFound: features.logic.bench.BenchRecipe? = null,
 )
 
 /** Сундуки карты у героя (с 0.31.0): сколько ещё можно открыть и когда окно бросится заново (миллисекунды эпохи). */
@@ -77,6 +79,9 @@ class CampaignService : KoinComponent {
     private companion object {
         /** Обычная уникалка с босса - не старше уровня карты больше чем на столько. */
         const val UNIQUE_REACH = 10
+
+        /** Шанс найти рецепт верстака с редкого монстра или босса, пока на этом заходе карты ещё не находили. */
+        const val RECIPE_CHANCE = 0.10
     }
 
     private val characters: CharacterRepository by inject()
@@ -105,8 +110,9 @@ class CampaignService : KoinComponent {
         val monster = CampaignContent.monsters.getValue(monsterCode)
 
         val experience = CampaignLoot.experience(monster, map.level, rarity, bonus(characterId, EnumStatStock.STOCK_EXPERIENCE) + mapBonus(character, mapCode).experience)
+        val recipe = if (rarityValue == EnumMonsterRarity.RARE) rollRecipe(character, map.level, Random.Default) else null
         return grant(character, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method,
-            mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity)
+            mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity, recipeFound = recipe)
     }
 
     /** Жив ли босс карты у героя и когда вернётся убитый (с 0.32.0). */
@@ -141,8 +147,9 @@ class CampaignService : KoinComponent {
         character.bosses[mapCode] = now + (rule.respawnHours * 3_600_000).toLong()
         val sheet = characters.calculateStats(characterId).stats
         val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
+        val recipe = rollRecipe(character, map.level, random)
         return grant(character, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra,
-            mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance)
+            mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance, recipeFound = recipe)
     }
 
     /**
@@ -171,6 +178,7 @@ class CampaignService : KoinComponent {
         val chests = active?.effects?.get(CampaignMaps.CHESTS)?.toInt() ?: 0
         if (chests > 0) character.chests[mapCode] = window.copy(left = window.left + chests)
         character.activeMap = active
+        character.mapRecipeRolled = false
         transactionExecute(method) { session ->
             item?.let { inventory.deleteById(it._id, session) }
             characters.update(character, session)
@@ -182,6 +190,19 @@ class CampaignService : KoinComponent {
     /** Бонус карты, с которой герой вошёл в [mapCode]; в другой локации его нет. */
     private fun mapBonus(character: Character, mapCode: String): ActiveMap =
         character.activeMap?.takeIf { it.mapCode == mapCode } ?: ActiveMap(mapCode)
+
+    /**
+     * Рецепт верстака с редкого монстра или босса (с 0.46.0): не больше одного за заход карты,
+     * тир решает [features.logic.bench.CraftingBench.tierFor] уровня локации. Мутирует [character]
+     * на месте - сохраняет его вызывающая транзакция.
+     */
+    private fun rollRecipe(character: Character, level: Int, random: Random): features.logic.bench.BenchRecipe? {
+        if (character.mapRecipeRolled || random.nextDouble() >= RECIPE_CHANCE) return null
+        val found = features.logic.bench.CraftingBench.draw(character.knownBenchRecipes, level, random) ?: return null
+        character.knownBenchRecipes.add(found.code)
+        character.mapRecipeRolled = true
+        return found
+    }
 
     /** Сколько сундуков ещё стоит на карте у героя и когда их станет снова (с 0.31.0). */
     suspend fun chests(characterId: String, mapCode: String): ChestState {
@@ -266,7 +287,7 @@ class CampaignService : KoinComponent {
      */
     private suspend fun grant(character: Character, table: LootTable, level: Int, rarity: CampaignRarity, experience: Double, method: String,
                               extra: List<features.data.equipment.equipment_data.Equipment> = emptyList(),
-                              mapCode: String, mapChance: Double = 0.0): CampaignReward {
+                              mapCode: String, mapChance: Double = 0.0, recipeFound: features.logic.bench.BenchRecipe? = null): CampaignReward {
         val sheet = characters.calculateStats(character._id).stats
         val active = mapBonus(character, mapCode)
         fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
@@ -294,7 +315,7 @@ class CampaignService : KoinComponent {
             characters.update(character, session)
             created
         }
-        return CampaignReward(experience, loot.gold, orbs, equipment, character.level.toInt(), character.experience, character.money)
+        return CampaignReward(experience, loot.gold, orbs, equipment, character.level.toInt(), character.experience, character.money, recipeFound)
     }
 
     /**

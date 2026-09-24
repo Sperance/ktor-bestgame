@@ -90,6 +90,12 @@ data class Character(
     /** Сколько мест под лоты аукциона герой докупил сверх базовых (с 0.34.0). */
     var auctionSlots: Int = 0,
 
+    /** Коды рецептов верстака, найденные на картах (с 0.46.0); только эти можно применить, см. [features.logic.bench.CraftingBench]. */
+    var knownBenchRecipes: MutableList<String> = mutableListOf(),
+
+    /** Выпал ли уже рецепт верстака на активной карте (с 0.46.0): не больше одного за заход, сбрасывается входом на карту. */
+    var mapRecipeRolled: Boolean = false,
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

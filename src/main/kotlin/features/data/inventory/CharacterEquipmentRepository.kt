@@ -20,6 +20,7 @@ import features.data.equipment.equipment_data.Equipment
 import extensions.toStableObjectId
 import features.data.character.Character
 import features.data.equipment.equipment_data.Weapon
+import features.logic.bench.BenchRecipe
 import features.logic.bench.CraftingBench
 import features.logic.equipment.EquipSlots
 import features.logic.currency.CurrencyApplier
@@ -291,13 +292,22 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * Как и сфера, оплата списывается в одной транзакции с сохранением предмета:
      * отказ правила не съедает ни одной сферы.
      */
+    /**
+     * Рецепты верстака, известные герою (с 0.46.0): все остальные скрыты, их нужно найти на карте.
+     */
+    suspend fun bench(characterId: String): List<BenchRecipe> {
+        val character = characterRepository.findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound("bench", characterId)
+        return CraftingBench.recipes.filter { it.code in character.knownBenchRecipes }
+    }
+
     suspend fun craft(characterId: String, inventoryId: String, recipeCode: String): CurrencyOutcome {
         val recipe = CraftingBench.recipe(recipeCode)
         val (item, template, character) = benchTarget("craft", characterId, inventoryId)
 
         return transactionExecute("craft ${recipe.code}") { session ->
             characterRepository.spendItem(character, recipe.orbItemId, recipe.amount, session)
-            val outcome = CraftingBench.craft(item, template, recipe)
+            val outcome = CraftingBench.craft(item, template, recipe, character.knownBenchRecipes)
             update(outcome.item, session)
             outcome
         }

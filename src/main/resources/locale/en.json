@@ -1728,6 +1728,7 @@
   "error.CR_021": "Map {0} has no fitting harmful affix",
   "error.CR_022": "Map {0} has no room for this alchemy line",
   "error.CR_023": "“{0}” would be left without an affix — the orb is not applied",
+  "error.CR_024": "Recipe {0} has not been found yet",
   "enum.EnumCurrencyOrb.BLESSED_ORB": "Blessed Orb",
   "enum.EnumCurrencyOrb.BOUNTY_ORB": "Bounty Orb",
   "enum.EnumCurrencyOrb.CHAOS_ORB": "Chaos Orb",

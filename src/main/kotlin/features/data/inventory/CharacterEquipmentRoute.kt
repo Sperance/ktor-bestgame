@@ -7,7 +7,6 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
-import features.logic.bench.CraftingBench
 import features.logic.currency.CurrencyOutcome
 import kotlinx.serialization.Serializable
 
@@ -41,7 +40,8 @@ class CharacterEquipmentRoute(
             call.respond(ApiMongoResponse.ok(CurrencyApplyResponse.of(outcome)))
         }
         get("/bench") {
-            call.respond(ApiMongoResponse.ok(CraftingBench.recipes))
+            val characterId = call.queryParam("characterId")
+            call.respond(ApiMongoResponse.ok(repo.bench(characterId)))
         }
         post("/craft") {
             val characterId = call.queryParam("characterId")

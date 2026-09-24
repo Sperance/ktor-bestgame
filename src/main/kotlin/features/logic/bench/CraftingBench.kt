@@ -72,6 +72,12 @@ object CraftingBench {
      */
     private val craftable = setOf(EnumRarity.UNCOMMON, EnumRarity.RARE, EnumRarity.EPIC, EnumRarity.MYTHICAL)
 
+    /** Самый высокий уровень локации кампании, за которым тир рецепта больше не растёт (с 0.46.0). */
+    const val MAX_MAP_LEVEL = 20
+
+    /** Сколько тиров рецептов знает верстак (с 0.46.0, было 3 - расширено до PoE-масштаба). */
+    const val MAX_TIER = 6
+
     @Serializable
     private data class RecipeRecord(
         val modifier: String,
@@ -125,10 +131,26 @@ object CraftingBench {
         recipes.find { it.code == code } ?: throw CurrencyExceptions.funExceptionRecipeNotFound("recipe", code)
 
     /**
+     * Тир рецепта, который может выпасть на локации этого уровня (с 0.46.0): чем ниже уровень,
+     * тем выше тир - шесть равных отрезков между 1 и [MAX_MAP_LEVEL].
+     */
+    fun tierFor(level: Int): Int =
+        (MAX_TIER - (level - 1) * MAX_TIER / MAX_MAP_LEVEL).coerceIn(1, MAX_TIER)
+
+    /**
+     * Один незнакомый герою рецепт тира этой карты, если такой есть (с 0.46.0). Чистая функция -
+     * решение выпало это или нет, и с каким [random], остаётся вызывающей стороне.
+     */
+    fun draw(known: List<String>, level: Int, random: kotlin.random.Random): BenchRecipe? =
+        recipes.filter { it.tier == tierFor(level) && it.code !in known }.randomOrNull(random)
+
+    /**
      * Ставит ремесленный модификатор. Предмет меняется на месте.
      */
-    fun craft(item: CharacterEquipment, template: Equipment, recipe: BenchRecipe): CurrencyOutcome {
+    fun craft(item: CharacterEquipment, template: Equipment, recipe: BenchRecipe, known: List<String>): CurrencyOutcome {
         requireModifiable(item, template)
+        if (recipe.code !in known)
+            throw CurrencyExceptions.funExceptionRecipeLocked("craft", recipe.code)
         if (item.rarity !in craftable)
             throw CurrencyExceptions.funExceptionRarity("craft", item.rarity.name)
         if (!recipe.fits(template.slot))

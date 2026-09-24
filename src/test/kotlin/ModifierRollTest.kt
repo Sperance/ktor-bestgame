@@ -186,15 +186,29 @@ class ModifierRollTest {
     @Test
     fun the_bench_refuses_what_cannot_take_a_crafted_modifier() {
         val recipe = CraftingBench.recipes.first { it.slots.isEmpty() }
+        val known = listOf(recipe.code)
         listOf(EnumRarity.COMMON, EnumRarity.UNIQUE).forEach { rarity ->
-            assert(refused { CraftingBench.craft(item(rarity), template(), recipe) }) { "Crafted on a $rarity item" }
+            assert(refused { CraftingBench.craft(item(rarity), template(), recipe, known) }) { "Crafted on a $rarity item" }
         }
         val corrupted = item(EnumRarity.RARE).apply { this.corrupted = true }
-        assert(refused { CraftingBench.craft(corrupted, template(), recipe) }) { "Crafted on a corrupted item" }
+        assert(refused { CraftingBench.craft(corrupted, template(), recipe, known) }) { "Crafted on a corrupted item" }
 
         val helmetOnly = CraftingBench.recipes.first { it.slots.isNotEmpty() && EnumEquipmentType.JEWEL !in it.slots }
-        assert(refused { CraftingBench.craft(item(EnumRarity.RARE), template(EnumEquipmentType.JEWEL), helmetOnly) }) {
+        assert(refused { CraftingBench.craft(item(EnumRarity.RARE), template(EnumEquipmentType.JEWEL), helmetOnly, listOf(helmetOnly.code)) }) {
             "${helmetOnly.code} was crafted on a jewel"
         }
+    }
+
+    @Test
+    fun the_bench_refuses_a_recipe_the_character_has_not_found() {
+        val recipe = CraftingBench.recipes.first { it.slots.isEmpty() }
+        assert(refused { CraftingBench.craft(item(EnumRarity.RARE), template(), recipe, emptyList()) }) { "Crafted an unknown recipe" }
+    }
+
+    @Test
+    fun a_lower_map_level_rolls_a_higher_recipe_tier() {
+        assert(CraftingBench.tierFor(1) > CraftingBench.tierFor(CraftingBench.MAX_MAP_LEVEL))
+        assert(CraftingBench.tierFor(1) == CraftingBench.MAX_TIER)
+        assert(CraftingBench.tierFor(CraftingBench.MAX_MAP_LEVEL) == 1)
     }
 }
