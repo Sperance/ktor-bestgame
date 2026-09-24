@@ -1,12 +1,13 @@
 package features.logic.campaign
 
 import application.enums.EnumRarity
+import features.logic.pools.Weighted
 import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.random.Random
 
-/** Что выпало из одного монстра, до того как оно легло персонажу. */
-data class RolledLoot(val gold: Long, val orbs: Map<String, Long>, val equipment: Int)
+/** Что выпало из одного монстра, до того как оно легло персонажу; экипировка - пулами, из которых её тянуть. */
+data class RolledLoot(val gold: Long, val orbs: Map<String, Long>, val equipment: List<List<String>>)
 
 /**
  * Добыча и опыт за убитого монстра - правила сервера.
@@ -48,12 +49,12 @@ object CampaignLoot {
         val multiplier = rarity.quantity * (1 + quantity / 100)
         val gold = random.nextLong(table.gold[0], table.gold[1] + 1) * GOLD_GROWTH.pow(level - 1) * rarity.quantity * (1 + goldBonus / 100)
         val orbs = mutableMapOf<String, Long>()
-        var equipment = 0
+        val equipment = mutableListOf<List<String>>()
         table.drops.forEach { drop ->
             repeat(times(drop.chance * multiplier, random)) {
                 when (drop.kind) {
                     EnumLootKind.ORB -> orbs.merge(drop.code, random.nextLong(drop.amount[0], drop.amount[1] + 1), Long::plus)
-                    EnumLootKind.EQUIPMENT -> equipment++
+                    EnumLootKind.EQUIPMENT -> equipment += drop.equipmentPools
                 }
             }
         }
@@ -61,22 +62,22 @@ object CampaignLoot {
     }
 
     /**
-     * Какой шаблон экипировки выпал: любой, что надевается на уровне карты, чаще простой.
+     * Какой шаблон экипировки выпал из пула: вес в пуле, умноженный на вес редкости - чаще простой.
      *
      * @param bonus бонус редкости - монстра и героя вместе, в процентах
      */
-    fun <T> pick(candidates: List<T>, rarity: (T) -> EnumRarity, bonus: Double, random: Random): T? {
+    fun <T> pick(candidates: List<Weighted<T>>, rarity: (T) -> EnumRarity, bonus: Double, random: Random): T? {
         if (candidates.isEmpty()) return null
-        val weights = candidates.map { candidate ->
-            val base = rarityWeights[rarity(candidate)] ?: 0.0
+        val weights = candidates.map { (candidate, weight) ->
+            val base = weight * (rarityWeights[rarity(candidate)] ?: 0.0)
             if (rarity(candidate) == EnumRarity.COMMON) base else base * (1 + bonus / 100)
         }
         var point = random.nextDouble() * weights.sum()
         candidates.forEachIndexed { index, candidate ->
             point -= weights[index]
-            if (point <= 0) return candidate
+            if (point <= 0) return candidate.value
         }
-        return candidates.last()
+        return candidates.last().value
     }
 
     private fun times(expected: Double, random: Random): Int {

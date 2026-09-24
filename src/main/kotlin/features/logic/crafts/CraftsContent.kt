@@ -44,8 +44,9 @@ data class Job(
 
 /**
  * Правила ремесла (с 0.38.0): шанс ручной работы без примесей и их потолок, шанс уникалки
- * кузнеца, веса редкости вещей и карт, какая примесь какой модификатор гарантирует и из чего
- * выбирается случайная ручная работа вещи и карты.
+ * кузнеца, веса редкости вещей и карт и какая примесь какой модификатор гарантирует. С 0.39.0
+ * всё, что кузнец и картограф тянут случайно, - пулы: базы кузнеца ([equipmentPools]), его
+ * уникалки ([uniquePools]), случайная ручная работа вещи ([modifierPools]) и карты ([mapModifierPools]).
  */
 @Serializable
 data class CraftingRules(
@@ -57,8 +58,10 @@ data class CraftingRules(
     val mapRarities: Map<application.enums.EnumRarity, Int> = emptyMap(),
     val mapHandcraftedChance: Double = 25.0,
     val additives: Map<String, String> = emptyMap(),
-    val smithHandcrafted: List<String> = emptyList(),
-    val mapHandcrafted: List<String> = emptyList(),
+    val equipmentPools: List<String> = emptyList(),
+    val uniquePools: List<String> = emptyList(),
+    val modifierPools: List<String> = emptyList(),
+    val mapModifierPools: List<String> = emptyList(),
 )
 
 /** Профессия: её инструмент - слот экипировки, который она читает, - и работы. */
@@ -132,6 +135,7 @@ object CraftsContent {
         content.crafting.let { c ->
             if (c.handcraftedChance !in 0.0..100.0 || c.mapHandcraftedChance !in 0.0..100.0 || c.uniqueChance !in 0.0..100.0) fail("crafting chances")
             if (c.maxHandcrafted < 1 || c.maxAdditives !in 0..c.maxHandcrafted) fail("crafting limits")
+            if (listOf(c.equipmentPools, c.uniquePools, c.modifierPools, c.mapModifierPools).any { it.isEmpty() }) fail("crafting pools")
         }
     }
 }

@@ -3,11 +3,12 @@ package features.logic.modifiers
 import application.enums.EnumInfluence
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
-import extensions.randomExt
 import extensions.weightedRandomExt
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
 import features.data.equipment.equipment_data.Equipment
+import features.logic.pools.Pools
+import features.logic.pools.Weighted
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -46,8 +47,8 @@ object ModifierRoller : KoinComponent {
      * правка базового типа доезжает до всех уже выданных копий, и ни одно
      * число не лежит в базе данных дважды.
      *
-     * Пул разбирается по [EnumModifierSource]: количество префиксов и
-     * суффиксов задаёт редкость, остальные источники попадают на предмет всегда.
+     * Префиксы и суффиксы тянутся из пулов шаблона в количестве, которое задаёт редкость;
+     * закреплённые модификаторы шаблона попадают на предмет всегда.
      *
      * @param rarity редкость, под которую роллим - у экземпляра она своя и её меняют сферы
      */
@@ -59,14 +60,14 @@ object ModifierRoller : KoinComponent {
      * Сферы, которые перекатывают аффиксы, их не трогают.
      */
     fun rollPermanent(equipment: Equipment): List<Modifier> =
-        definitionCache.findAllById(equipment.modifierIds)
+        definitionCache.findAllById(equipment.fixedModifierIds)
             .filter { it.source in alwaysApplied }
             .mapNotNull { roll(it, equipment.itemLevel) }
 
     /**
      * Случайные префиксы и суффиксы на места, которые оставила редкость.
      *
-     * Выбор взвешенный ([ModifierDefinition.spawnWeight]) и без повторов группы
+     * Выбор взвешенный (вес модификатора в пулах шаблона) и без повторов группы
      * ([ModifierDefinition.family]): два модификатора одной группы на предмет не встают.
      *
      * @param influence влияние копии - добавляет в пул модификаторы своего влияния
@@ -106,9 +107,9 @@ object ModifierRoller : KoinComponent {
      * @return null, если свободного места нет или все группы пула уже заняты
      */
     fun rollInfluenced(equipment: Equipment, rarity: EnumRarity, current: Collection<Modifier>, influence: EnumInfluence): Modifier? =
-        rollOne(influencePool(influence), equipment.itemLevel, rarity, current)
+        rollOne(pool(listOf(Pools.influence(influence))), equipment.itemLevel, rarity, current)
 
-    private fun rollOne(pool: List<ModifierDefinition>, itemLevel: Int, rarity: EnumRarity, current: Collection<Modifier>): Modifier? {
+    private fun rollOne(pool: List<Weighted<ModifierDefinition>>, itemLevel: Int, rarity: EnumRarity, current: Collection<Modifier>): Modifier? {
         val currentDefinitions = definitions(current)
         val (prefixes, suffixes) = freeSlots(rarity, currentDefinitions)
         return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), currentDefinitions.map { it.family() })
@@ -125,7 +126,7 @@ object ModifierRoller : KoinComponent {
      * @param taken группы, которые на предмете уже есть
      */
     fun pickAffixes(
-        pool: Collection<ModifierDefinition>,
+        pool: Collection<Weighted<ModifierDefinition>>,
         prefixes: Int,
         suffixes: Int,
         taken: Collection<String> = emptyList()
@@ -136,13 +137,13 @@ object ModifierRoller : KoinComponent {
         val picked = mutableListOf<ModifierDefinition>()
 
         while (true) {
-            val next = pool.filter { candidate ->
+            val next = pool.filter { (candidate) ->
                 candidate.family() !in families && when (candidate.source) {
                     EnumModifierSource.PREFIX -> freePrefixes > 0
                     EnumModifierSource.SUFFIX -> freeSuffixes > 0
                     else -> false
                 }
-            }.weightedRandomExt { it.spawnWeight } ?: break
+            }.weightedRandomExt { it.weight }?.value ?: break
 
             picked += next
             families += next.family()
@@ -180,15 +181,14 @@ object ModifierRoller : KoinComponent {
     }
 
     /**
-     * Случайный модификатор порчи - то, что вешает Vaal Orb.
+     * Один модификатор из пулов [tags] по их весам - порча Vaal Orb, ручная работа ремесла.
      *
-     * @return null, если в справочнике нет ни одного модификатора с источником CORRUPTION
+     * @return null, если в пулах никого нет
      */
-    fun rollCorruption(itemLevel: Int): Modifier? {
-        val candidates = definitionCache.getCache().filter { it.source == EnumModifierSource.CORRUPTION }
-        if (candidates.isEmpty()) return null
-        return roll(candidates.randomExt(), itemLevel)
-    }
+    fun rollFrom(tags: List<String>, itemLevel: Int): Modifier? = Pools.draw(pool(tags))?.let { roll(it, itemLevel) }
+
+    /** Модификаторы пулов [tags] с их весами, см. [Pools.of]. */
+    fun pool(tags: List<String>): List<Weighted<ModifierDefinition>> = Pools.of(definitionCache.getCache(), tags)
 
     /**
      * Роллит один модификатор: выбирает доступный тир и значение внутри его диапазона.
@@ -238,17 +238,9 @@ object ModifierRoller : KoinComponent {
         freeSlots(rarity, definitions(current)).let { (prefixes, suffixes) -> prefixes > 0 || suffixes > 0 }
 
     /**
-     * Пул аффиксов предмета: обычные из шаблона и, если копия под влиянием, модификаторы этого влияния.
-     * Ремесленных здесь нет никогда - их ставит только верстак.
+     * Пул аффиксов предмета: пулы шаблона и, если копия под влиянием, пул этого влияния - он общий
+     * для всех шаблонов. Ремесленных здесь нет никогда - их ставит только верстак.
      */
-    private fun affixPool(equipment: Equipment, influence: EnumInfluence?): List<ModifierDefinition> =
-        definitionCache.findAllById(equipment.modifierIds).filter { it.isNaturalAffix() } +
-            (influence?.let(::influencePool) ?: emptyList())
-
-    /**
-     * Модификаторы одного влияния. Они общие для всех шаблонов: влияние открывает свой
-     * пул любому предмету, на который его можно наложить.
-     */
-    private fun influencePool(influence: EnumInfluence): List<ModifierDefinition> =
-        definitionCache.getCache().filter { it.influence == influence && it.isAffix() && !it.crafted }
+    fun affixPool(equipment: Equipment, influence: EnumInfluence? = null): List<Weighted<ModifierDefinition>> =
+        pool(equipment.modifierPools + listOfNotNull(influence?.let(Pools::influence))).filter { (it) -> it.isAffix() && !it.crafted }
 }

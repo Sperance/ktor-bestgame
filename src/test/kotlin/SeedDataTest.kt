@@ -9,6 +9,7 @@ import features.data.equipment.equipment_data.Equipment
 import features.data.redemptionCodes.RedemptionKind
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierTier
+import features.logic.pools.Pools
 import org.junit.Test
 
 /**
@@ -131,8 +132,8 @@ class SeedDataTest {
 
     @Test
     fun every_slot_has_three_uniques() {
-        // Уникалки боссов кампании (0.32.0) - сверх трёх: они падают только со своего босса.
-        val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE && it.code !in config.UniqueEquipmentSeeder.bossOnly && it.code !in config.UniqueEquipmentSeeder.smithOnly }.groupBy { it.slot }
+        // Уникалки боссов (0.32.0) и кузнеца (0.38.0) - сверх трёх: они не состоят в общем пуле.
+        val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE && "unique:world" in it.pools }.groupBy { it.slot }
 
         // Самоцвет носится не на теле, а в гнезде дерева, и уникальных самоцветов
         // пока нет: их сила должна считаться вместе с деревом, а не отдельно от него.
@@ -147,9 +148,10 @@ class SeedDataTest {
         val definitionsById = definitions.associateBy { it._id }
 
         equipment.filter { it.rarity == EnumRarity.UNIQUE }.forEach { item ->
-            assert(item.modifierIds.isNotEmpty()) { "${item.code} has no modifiers" }
+            assert(item.fixedModifierIds.isNotEmpty()) { "${item.code} has no modifiers" }
+            assert(item.modifierPools.isEmpty()) { "${item.code} rolls affixes" }
 
-            item.modifierIds.forEach { id ->
+            item.fixedModifierIds.forEach { id ->
                 val definition = definitionsById[id]
                 assert(definition != null) { "${item.code} references unknown modifier $id" }
                 assert(definition!!.source == EnumModifierSource.UNIQUE) {
@@ -190,10 +192,8 @@ class SeedDataTest {
 
     @Test
     fun rollable_items_have_both_prefixes_and_suffixes_available() {
-        val definitionsById = definitions.associateBy { it._id }
-
         equipment.filter { it.rarity != EnumRarity.UNIQUE }.forEach { item ->
-            val sources = item.modifierIds.mapNotNull { definitionsById[it]?.source }
+            val sources = Pools.of(definitions, item.modifierPools).map { it.value.source }
             assert(sources.contains(EnumModifierSource.PREFIX)) { "${item.code} has no prefixes to roll" }
             assert(sources.contains(EnumModifierSource.SUFFIX)) { "${item.code} has no suffixes to roll" }
         }
@@ -222,7 +222,7 @@ class SeedDataTest {
         val byId = definitions.associateBy { it._id }
         equipment.filter { it.rarity != EnumRarity.UNIQUE }.forEach { item ->
             val baseStats = item.baseParams.flatMap { byId.getValue(it.modifierId).stats() }.toSet()
-            val foreign = item.modifierIds.mapNotNull { byId[it] }
+            val foreign = Pools.of(definitions, item.modifierPools).map { it.value }
                 .filter { it.isLocal && it.isNaturalAffix() && !it.tags.orEmpty().contains("weapon") }
                 .filterNot { baseStats.containsAll(it.stats()) }
             assert(foreign.isEmpty()) { "${item.code} rolls local modifiers its base does not carry: ${foreign.map { it.code }}" }
@@ -257,9 +257,9 @@ class SeedDataTest {
 
     @Test
     fun every_rollable_modifier_sits_in_some_pool() {
-        val pooled = equipment.flatMap { it.modifierIds }.toSet()
+        val pooled = equipment.flatMap { Pools.of(definitions, it.modifierPools) }.map { it.value.code }.toSet()
         val loose = definitions.filter { it.isNaturalAffix() && it.tags.orEmpty().any { tag -> tag in setOf("ailment", "risk", "flask") } }
-            .filterNot { it._id in pooled }.map { it.code }
+            .filterNot { it.code in pooled }.map { it.code }
         assert(loose.isEmpty()) { "Modifiers no pool rolls: $loose" }
     }
 }

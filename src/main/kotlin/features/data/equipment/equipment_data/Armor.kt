@@ -6,7 +6,7 @@ import features.logic.modifiers.Modifier
 import kotlinx.serialization.Serializable
 
 /**
- * Броня. Её защита задаётся implicit-модификатором в [modifierIds],
+ * Броня. Её защита задаётся модификатором базы в [baseParams],
  * отдельного поля под неё нет.
  */
 @Serializable
@@ -15,7 +15,9 @@ data class Armor(
     override var code: String = "",
     override var rarity: EnumRarity = EnumRarity.COMMON,
     override var itemLevel: Int = 1,
-    override var modifierIds: MutableList<String> = mutableListOf(),
+    override var fixedModifierIds: MutableList<String> = mutableListOf(),
+    override var modifierPools: MutableList<String> = mutableListOf(),
+    override var pools: Map<String, Int> = emptyMap(),
     override var baseParams: MutableList<Modifier> = mutableListOf(),
     override var requiredLevel: Int = 1,
     override var requiredStrength: Int = 0,

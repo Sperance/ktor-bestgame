@@ -76,7 +76,7 @@ class CampaignTest {
 
         fun drops(rarity: features.logic.campaign.CampaignRarity): Int {
             val random = Random(7)
-            return (1..2000).sumOf { CampaignLoot.roll(table, 5, rarity, 0.0, 0.0, random).let { it.equipment + it.orbs.values.sum().toInt() } }
+            return (1..2000).sumOf { CampaignLoot.roll(table, 5, rarity, 0.0, 0.0, random).let { it.equipment.size + it.orbs.values.sum().toInt() } }
         }
         assertTrue(drops(rare) > drops(normal) * 3, "редкий монстр должен ронять заметно больше")
     }
@@ -86,7 +86,7 @@ class CampaignTest {
         val bases = listOf(EnumRarity.COMMON, EnumRarity.RARE)
         fun rares(bonus: Double): Int {
             val random = Random(11)
-            return (1..5000).count { CampaignLoot.pick(bases, { it }, bonus, random) == EnumRarity.RARE }
+            return (1..5000).count { CampaignLoot.pick(bases.map { features.logic.pools.Weighted(it, 100) }, { it }, bonus, random) == EnumRarity.RARE }
         }
         assertTrue(rares(200.0) > rares(0.0))
     }
@@ -213,7 +213,7 @@ class CampaignTest {
             assertTrue(map.boss.modifiers.isNotEmpty(), "${map.code}: босс без модификаторов")
             assertTrue(map.monsters.none { it.code == map.boss.code })
         }
-        assertEquals(config.UniqueEquipmentSeeder.bossOnly, CampaignContent.bossUniques)
+        assertTrue(content.monsters.filter { it.boss }.all { it.uniquePools.isNotEmpty() }, "босс без пула своих уникалок")
         val unique = content.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
         assertEquals(0, unique.weight, "уникальная редкость не выпадает случайно")
         // A boss on a deeper map is stronger, and stronger than the monsters around it.

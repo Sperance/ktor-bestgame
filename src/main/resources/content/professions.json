@@ -1084,17 +1084,17 @@
       "STORM_FLUX": "HC_LIGHTNING",
       "QUICK_FLUX": "HC_SPEED"
     },
-    "smithHandcrafted": [
-      "HC_FIRE",
-      "HC_COLD",
-      "HC_LIGHTNING",
-      "HC_LIFE",
-      "HC_ARMOUR",
-      "HC_SPEED"
+    "equipmentPools": [
+      "smith"
     ],
-    "mapHandcrafted": [
-      "HC_MAP_QUANTITY",
-      "HC_MAP_RARITY"
+    "uniquePools": [
+      "unique:smith"
+    ],
+    "modifierPools": [
+      "handcrafted:smith"
+    ],
+    "mapModifierPools": [
+      "handcrafted:map"
     ]
   }
 }

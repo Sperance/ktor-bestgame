@@ -112,17 +112,29 @@ database. Keep new rules in that table rather than in a route.
 - `src/main/resources/locale/{index,common,ru,en}.json` — every string in the game; `common.json`
   holds what is the same in every language and is merged into each on the way out. No document in Mongo
   has carried text since 0.14.0; entities store a `code`.
-- `src/main/resources/content/{equipment,items,currency,bench,pools}.json` — the catalogues, read by
-  the seeders; `bench.json` is the crafting bench, one line per crafted modifier tier and its price
-  in orbs, and `pools.json` the modifier pool of every slot as a list of codes (since 0.24.0). A
-  base's *local* affixes are not listed there: `EquipmentSeeder.localPool` adds every natural local
-  affix whose stats the base itself carries, so an armour base rolls armour and a hybrid rolls both.
+- `src/main/resources/content/{equipment,uniques,modifiers,items,currency,bench}.json` — the
+  catalogues, read by the seeders; `bench.json` is the crafting bench, one line per crafted modifier
+  tier and its price in orbs. Since 0.39.0 `modifiers.json` holds every modifier definition with its
+  explicit PoE tier table, and `uniques.json` every unique (the same record as `equipment.json` plus
+  `lines`, which `UniqueEquipmentSeeder` turns into its `UNIQUE_<code>_<n>` modifiers).
   Since 0.24.0 the ordinary bases are Path of Exile's own, five per defence type or weapon kind.
+- **Pools are tags, and there is no registry of them (since 0.39.0).** `features/logic/pools/Pools.kt`:
+  anything drawn at random is `Pooled` — it carries `pools`, a tag → weight map — and a *source*
+  names the tags it draws from. Modifiers carry `helmet`…`tool`, `local:<stats>` (a base names the
+  local pools its own base stats open), `influence:<INFLUENCE>`, `corruption`, `handcrafted:smith`,
+  `handcrafted:map`; equipment templates carry `drop`, `smith`, `merchant`, and uniques
+  `unique:world`, `unique:chance`, `unique:smith` or `boss:<boss code>`; monster modifiers `monster`.
+  Sources: a template's `modifierPools`, a loot drop's `equipmentPools`, a map's `modifierPools`, a
+  boss's and the `bosses` rule's `uniquePools`, an orb's `modifierPools`/`uniquePools` in
+  `currency.json`, the crafting rules' four pools and `MerchantRules.POOLS`. Weight is the first
+  tag of the source the entry sits in, and 0 there excludes it (PoE's `spawn_weights`). Exclusivity
+  is membership: a boss's unique drops from nowhere else because it sits in no other pool. Slot and
+  level are the source's filters, not pools. `PoolsTest` is the registry: every named pool has
+  members, every tag on a record is named by some source, a boss unique sits in its own pool alone.
 - `features/logic/equipment/EquipSlots.kt` — where an equipped item goes and what it takes off:
   a two-handed weapon frees both hands, a bow pairs with a quiver and any other one-handed weapon
   with a shield, and a ring takes the free one of `RING`/`RING_2` (or the one `equip?slot=` names).
-  `RING_2` is only ever an `equippedSlot`, never a template's slot. Uniques stay in Kotlin: each generates its own `ModifierDefinition`s with tier ranges,
-  which is a rule rather than data.
+  `RING_2` is only ever an `equippedSlot`, never a template's slot.
 - `src/main/resources/content/campaign.json` — the campaign (since 0.26.0): chapters of maps in
   unlocking order, each with its level, biome and two to four monsters; monsters at level 1 with
   a `form` the client draws and a loot table; monster modifiers, each with the lowest rarity that may roll it
@@ -148,10 +160,10 @@ database. Keep new rules in that table rather than in a route.
   `GET /campaign/chests` says how many are left, `POST /campaign/chest` opens one and rolls the
   map's `chestLoot` table, and an empty window is `CP_006`.
   Since 0.32.0 every map has a boss (`monsters` entry with `boss`, fixed `modifiers` and a
-  boss-only `unique`; the map names it in `boss`) of rarity `UNIQUE`, served as `CampaignMap.boss`.
+  boss-only unique, named by its `uniquePools`; the map names it in `boss`) of rarity `UNIQUE`, served as `CampaignMap.boss`.
   `complete` is `CP_007` while it lives, `POST /campaign/boss` reports it slain (`Character.bosses`,
   back after `bosses.respawnHours`, `CP_008` meanwhile) and rolls its table plus the unique chances.
-  `CampaignContent.bossUniques` keeps those uniques out of every other source.
+  Those uniques sit in the boss's own pool alone (`boss:<code>`), so no other source reaches them.
   Since 0.34.0 gold has sinks: map services (`services` in the file — `POST /campaign/treasure`
   one more chest per window, `POST /campaign/summon` a slain boss back), the merchant
   (`features/logic/trade/Merchant.kt`: a four-hour shelf per hero, priced at `SellPrice` × 4) and
@@ -170,13 +182,13 @@ database. Keep new rules in that table rather than in a route.
   the tree's «Ремесло» branch (`CRA_*`) feeds `STOCK_WORK_*` through the sheet. Errors are `CF_*`.
   Since 0.38.0 three crafting professions: a job has a `kind` (`ITEM`, `EQUIPMENT`, `MAP`) and
   `inputs` spent every cycle from the bag (the work stops when they run out); `crafting` in the file
-  holds the smith's rarity weights, the unique chance (`UniqueEquipmentSeeder.smithOnly`, never from
-  elsewhere), the additives and the handcrafted pools. `HANDCRAFTED` and `ALCHEMY` modifier sources
+  holds the smith's rarity weights, the unique chance, the additives and the pools the smith and
+  the cartographer draw from (bases, `unique:smith` uniques, handcrafted modifiers). `HANDCRAFTED` and `ALCHEMY` modifier sources
   are not affixes, so no orb touches them; the map-only orbs are `EnumCurrencyOrb.mapOnly`.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 321 nodes. `SkillTreeSeeder` only
   reads and validates it.
-- `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level
-  table, in code because they are rules.
+- `config/ProgressionSeeder.kt` — classes and the level table, in code because they are rules;
+  `config/ModifierSeeder.kt` only reads `modifiers.json`.
 - `src/main/resources/icons/` — outline path data, no raster images.
 - `src/main/resources/portraits/{class,form,monster}/<CODE>.svg` — portraits (since 0.29.0), three
   by four (`viewBox 0 0 300 400`), the face in the circle (150, 165) r 120 that the client cuts out
@@ -185,10 +197,12 @@ database. Keep new rules in that table rather than in a route.
   the SVG itself, so only `path`, `circle`, `ellipse`, `rect`, `g` and user-space gradients are
   allowed — `PortraitTest` refuses anything else, and a class or form without a file.
 
-How a modifier lands on an item (since 0.23.0): `ModifierRoller.pickAffixes` draws by
-`spawnWeight` and never puts two modifiers of one `group` on an item. A template's pool holds
-only *natural* affixes; `influence` modifiers join the pool of an item that carries that influence
-(Shaper's Orb, Elder Orb), and `crafted` ones are placed only by `CraftingBench`. A `fractured`
+How a modifier lands on an item (since 0.23.0): `ModifierRoller.pickAffixes` draws by the weight
+the template's `modifierPools` give (since 0.39.0) and never puts two modifiers of one `group` on an
+item. A template's pools hold only *natural* affixes; the `influence:<INFLUENCE>` pool joins them on
+an item that carries that influence (Shaper's Orb, Elder Orb), and `crafted` ones sit in no pool —
+only `CraftingBench` places them. A template's fixed modifiers (implicits, a unique's lines) are
+`fixedModifierIds`. A `fractured`
 affix (Fracturing Orb) is untouched by every orb. A new crafted modifier needs a line in
 `bench.json` and shares its natural twin's group; `ModifierRollTest` checks both.
 
@@ -207,6 +221,6 @@ bash gradlew installDist    # what the client's CI job boots
 Tests that need a live MongoDB (`MongoTest`, `AuctionTest`, `CurrencyTest`, `StatsTest`,
 `PagingTest`, `SoftDeleteTest`) **fail** without one rather than skipping — in a bare container
 that is expected, and is not a signal that the change broke something. `LocalizationTest`,
-`SkillTreeTest`, `SeedDataTest` and `ModifierRollTest` read resources only and must pass everywhere, which is why
+`SkillTreeTest`, `SeedDataTest`, `ModifierRollTest` and `PoolsTest` read resources only and must pass everywhere, which is why
 they are the ones rule 1 leans on. Run a single one with
 `bash gradlew test --tests LocalizationTest`.

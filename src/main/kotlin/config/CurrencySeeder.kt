@@ -22,8 +22,17 @@ object CurrencySeeder {
 
     private val json = Json { ignoreUnknownKeys = true }
 
+    /**
+     * Сфера в файле. Сфера, которая что-то тянет из пулов, называет их сама (с 0.39.0):
+     * Vaal Orb - `modifierPools` порчи, Orb of Chance - `uniquePools`, из которых выпадает уникалка.
+     */
     @Serializable
-    private data class OrbRecord(val orb: EnumCurrencyOrb, val price: Long)
+    data class OrbRecord(
+        val orb: EnumCurrencyOrb,
+        val price: Long,
+        val modifierPools: List<String> = emptyList(),
+        val uniquePools: List<String> = emptyList(),
+    )
 
     @Serializable
     private data class CurrencyDocument(val currency: List<OrbRecord> = emptyList())
@@ -34,6 +43,10 @@ object CurrencySeeder {
      * _id выводится из кода сферы и стабилен, поэтому пересев валюты
      * не ломает ссылки из инвентарей персонажей.
      */
+    val records: Map<EnumCurrencyOrb, OrbRecord> by lazy {
+        json.decodeFromString(CurrencyDocument.serializer(), ContentResource.read(FILE)).currency.associateBy { it.orb }
+    }
+
     fun seed(): List<Items> {
         val records = json.decodeFromString(CurrencyDocument.serializer(), ContentResource.read(FILE)).currency
 

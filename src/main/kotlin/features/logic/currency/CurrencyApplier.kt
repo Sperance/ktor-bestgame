@@ -34,6 +34,8 @@ import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import features.logic.locale.LocaleKey
 import features.logic.modifiers.ModifierRoller
+import features.logic.pools.Pools
+import config.CurrencySeeder
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -285,7 +287,7 @@ object CurrencyApplier : KoinComponent {
     private fun vaal(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         item.corrupted = true
 
-        val corruption = ModifierRoller.rollCorruption(template.itemLevel)
+        val corruption = ModifierRoller.rollFrom(CurrencySeeder.records[VAAL_ORB]?.modifierPools.orEmpty(), template.itemLevel)
         if (corruption != null) item.params.add(corruption)
 
         val key = if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing"
@@ -299,11 +301,10 @@ object CurrencyApplier : KoinComponent {
     private fun chance(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         requireRarity(item, template, EnumRarity.COMMON)
 
-        val uniques = equipmentCache.getCache()
-            .filter { it.rarity == EnumRarity.UNIQUE && it.slot == template.slot && it.code !in features.logic.campaign.CampaignContent.bossUniques && it.code !in config.UniqueEquipmentSeeder.smithOnly }
+        // Уникалка того же слота из пулов, которые называет сама сфера
+        val unique = Pools.draw(Pools.of(equipmentCache.getCache().filter { it.slot == template.slot }, CurrencySeeder.records[ORB_OF_CHANCE]?.uniquePools.orEmpty()))
 
-        if (uniques.isNotEmpty() && RandomExt.randomInt(1..100) <= CHANCE_UNIQUE_PERCENT) {
-            val unique = uniques.randomExt()
+        if (unique != null && RandomExt.randomInt(1..100) <= CHANCE_UNIQUE_PERCENT) {
             item.equipmentId = unique._id
             item.rarity = EnumRarity.UNIQUE
             item.influence = null
@@ -429,9 +430,8 @@ object CurrencyApplier : KoinComponent {
     /** Добавляет карте вредный аффикс её пула сверх лимита, без повтора группы. */
     private fun peril(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         val taken = ModifierRoller.definitions(item.params).map { it.family() }.toSet()
-        val pool = ModifierRoller.definitions(template.modifierIds.map { Modifier(it, emptyList()) })
-            .filter { it.isAffix() && harmful(it) && it.family() !in taken }
-        val added = pool.randomOrNull()?.let { ModifierRoller.roll(it, template.itemLevel) }
+        val pool = ModifierRoller.affixPool(template).filter { (it) -> harmful(it) && it.family() !in taken }
+        val added = Pools.draw(pool)?.let { ModifierRoller.roll(it, template.itemLevel) }
             ?: throw CurrencyExceptions.funExceptionNoHarm("peril", template.code)
         item.params.add(added)
         return outcome(item, template, "currency.peril")

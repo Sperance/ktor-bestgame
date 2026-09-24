@@ -1,6 +1,5 @@
 package features.logic.trade
 
-import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import base.exception.model.CharacterExceptions
 import config.MongoFactory.transactionExecute
@@ -11,6 +10,7 @@ import features.data.inventory.CharacterEquipment
 import features.data.inventory.CharacterEquipmentRepository
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierRoller
+import features.logic.pools.Pools
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
@@ -34,7 +34,7 @@ data class MerchantPurchase(val item: CharacterEquipment, val money: Long)
  *
  * У каждого героя своя витрина: раз в [WINDOW_HOURS] часа торговец выкладывает от [MIN_OFFERS] до
  * [MAX_OFFERS] предметов уровня героя ± [LEVEL_SPREAD], магических ([EnumRarity.UNCOMMON]) и - с
- * долей [RARE_SHARE] - редких, без уникальных. Экземпляр роллится при выкладке, поэтому игрок
+ * долей [RARE_SHARE] - редких, из пулов [POOLS]. Экземпляр роллится при выкладке, поэтому игрок
  * видит ровно то, что купит. Цена - то, что торговец дал бы за такой предмет, умноженное на
  * [MARKUP]: купить и сразу продать всегда в убыток. Досрочно витрину не обновить.
  */
@@ -46,15 +46,18 @@ object MerchantRules {
     const val RARE_SHARE = 0.3
     const val MARKUP = 4
 
+    /** Пулы экипировки, из которых торговец выкладывает товар (с 0.39.0). */
+    val POOLS = listOf("merchant")
+
     /** Витрина на момент [now]: живая остаётся как есть, истёкшая выкладывается заново. */
     fun stock(current: MerchantStock?, characterId: String, level: Int, now: Long, templates: List<Equipment>, random: Random,
               roll: (Equipment, EnumRarity) -> MutableList<Modifier> = ModifierRoller::roll): MerchantStock {
         if (current != null && now < current.refreshAt) return current
-        val pool = templates.filter { it.rarity != EnumRarity.UNIQUE && it.slot != EnumEquipmentType.JEWEL && it.slot != EnumEquipmentType.MAP }
-        val near = pool.filter { it.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
-            .ifEmpty { pool.filter { it.requiredLevel <= level + LEVEL_SPREAD } }
+        val pool = Pools.of(templates, POOLS)
+        val near = pool.filter { it.value.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
+            .ifEmpty { pool.filter { it.value.requiredLevel <= level + LEVEL_SPREAD } }
         val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) {
-            val template = near[random.nextInt(near.size)]
+            val template = Pools.draw(near, random) ?: near.first().value
             val rarity = if (random.nextDouble() < RARE_SHARE) EnumRarity.RARE else EnumRarity.UNCOMMON
             val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = roll(template, rarity), rarity = rarity)
             MerchantOffer(ObjectId().toHexString(), item, SellPrice.of(template, item.params, emptyMap()) * MARKUP)

@@ -5,6 +5,7 @@ import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
 import application.enums.IntEnumStat
 import base.entity.StockEntity
+import features.logic.pools.Pooled
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -107,15 +108,16 @@ data class ModifierDefinition(
     val group: String? = null,
 
     /**
-     * Вес модификатора в пуле: чем больше, тем чаще он выпадает среди соседей.
-     * Выбор аффикса взвешенный, как у тиров, а не равновероятный.
+     * В каких пулах модификатор состоит и с каким весом (с 0.39.0): `helmet`, `local:armor`,
+     * `influence:SHAPER`, `corruption`, `handcrafted:smith`. Пул называет источник - шаблон,
+     * сфера, ремесло, - а вес решает, как часто модификатор выпадает среди соседей.
      */
-    val spawnWeight: Int = DEFAULT_SPAWN_WEIGHT,
+    override val pools: Map<String, Int> = emptyMap(),
 
     /**
      * Влияние, без которого модификатор не выпадает. null - обычный модификатор.
      *
-     * Такие модификаторы не входят в пул шаблона: их открывает предмету
+     * Пул таких модификаторов - `influence:<влияние>`: его открывает предмету
      * его собственное влияние, см. ModifierRoller.
      */
     val influence: EnumInfluence? = null,
@@ -127,11 +129,7 @@ data class ModifierDefinition(
     val crafted: Boolean = false,
 
     override var _id: String = ObjectId().toHexString()
-) : StockEntity {
-
-    companion object {
-        const val DEFAULT_SPAWN_WEIGHT = 1000
-    }
+) : StockEntity, Pooled {
 
     /**
      * Группа, по которой модификаторы исключают друг друга на одном предмете.

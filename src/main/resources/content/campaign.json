@@ -97,7 +97,6 @@
   "modifiers": [
     {
       "code": "MOB_TOUGH",
-      "weight": 100,
       "minLevel": 1,
       "effects": [
         {
@@ -106,11 +105,13 @@
           "value": 60
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 100
+      }
     },
     {
       "code": "MOB_HASTED",
-      "weight": 80,
       "minLevel": 1,
       "effects": [
         {
@@ -119,11 +120,13 @@
           "value": 30
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 80
+      }
     },
     {
       "code": "MOB_STRONG",
-      "weight": 100,
       "minLevel": 1,
       "effects": [
         {
@@ -132,11 +135,13 @@
           "value": 40
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 100
+      }
     },
     {
       "code": "MOB_FLAMING",
-      "weight": 70,
       "minLevel": 3,
       "effects": [
         {
@@ -145,11 +150,13 @@
           "value": 3
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 70
+      }
     },
     {
       "code": "MOB_FREEZING",
-      "weight": 70,
       "minLevel": 3,
       "effects": [
         {
@@ -158,11 +165,13 @@
           "value": 3
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 70
+      }
     },
     {
       "code": "MOB_SHOCKING",
-      "weight": 70,
       "minLevel": 5,
       "effects": [
         {
@@ -171,11 +180,13 @@
           "value": 3
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 70
+      }
     },
     {
       "code": "MOB_VENOMOUS",
-      "weight": 50,
       "minLevel": 7,
       "effects": [
         {
@@ -184,11 +195,13 @@
           "value": 2
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 50
+      }
     },
     {
       "code": "MOB_ARMOURED",
-      "weight": 80,
       "minLevel": 1,
       "effects": [
         {
@@ -197,11 +210,13 @@
           "value": 25
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 80
+      }
     },
     {
       "code": "MOB_EVASIVE",
-      "weight": 80,
       "minLevel": 1,
       "effects": [
         {
@@ -210,11 +225,13 @@
           "value": 25
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 80
+      }
     },
     {
       "code": "MOB_REGENERATING",
-      "weight": 60,
       "minLevel": 5,
       "effects": [
         {
@@ -223,11 +240,13 @@
           "value": 1
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 60
+      }
     },
     {
       "code": "MOB_VAMPIRIC",
-      "weight": 50,
       "minLevel": 7,
       "effects": [
         {
@@ -236,11 +255,13 @@
           "value": 3
         }
       ],
-      "minRarity": "RARE"
+      "minRarity": "RARE",
+      "pools": {
+        "monster": 50
+      }
     },
     {
       "code": "MOB_DEADLY",
-      "weight": 50,
       "minLevel": 9,
       "effects": [
         {
@@ -254,11 +275,13 @@
           "value": 50
         }
       ],
-      "minRarity": "RARE"
+      "minRarity": "RARE",
+      "pools": {
+        "monster": 50
+      }
     },
     {
       "code": "MOB_WARDED",
-      "weight": 60,
       "minLevel": 9,
       "effects": [
         {
@@ -267,11 +290,13 @@
           "value": 20
         }
       ],
-      "minRarity": "MAGIC"
+      "minRarity": "MAGIC",
+      "pools": {
+        "monster": 60
+      }
     },
     {
       "code": "MOB_STALWART",
-      "weight": 50,
       "minLevel": 11,
       "effects": [
         {
@@ -280,11 +305,13 @@
           "value": 20
         }
       ],
-      "minRarity": "RARE"
+      "minRarity": "RARE",
+      "pools": {
+        "monster": 50
+      }
     },
     {
       "code": "MOB_SHIELDED",
-      "weight": 50,
       "minLevel": 11,
       "effects": [
         {
@@ -293,11 +320,13 @@
           "value": 10
         }
       ],
-      "minRarity": "RARE"
+      "minRarity": "RARE",
+      "pools": {
+        "monster": 50
+      }
     },
     {
       "code": "MOB_BERSERK",
-      "weight": 40,
       "minLevel": 5,
       "minRarity": "RARE",
       "effects": [
@@ -311,11 +340,13 @@
           "operation": "INCREASED",
           "value": 20
         }
-      ]
+      ],
+      "pools": {
+        "monster": 40
+      }
     },
     {
       "code": "MOB_JUGGERNAUT",
-      "weight": 40,
       "minLevel": 7,
       "minRarity": "RARE",
       "effects": [
@@ -329,11 +360,13 @@
           "operation": "ADD",
           "value": 8
         }
-      ]
+      ],
+      "pools": {
+        "monster": 40
+      }
     },
     {
       "code": "MOB_ELEMENTALIST",
-      "weight": 40,
       "minLevel": 9,
       "minRarity": "RARE",
       "effects": [
@@ -352,11 +385,13 @@
           "operation": "ADD",
           "value": 2
         }
-      ]
+      ],
+      "pools": {
+        "monster": 40
+      }
     },
     {
       "code": "MOB_UNDYING",
-      "weight": 30,
       "minLevel": 11,
       "minRarity": "RARE",
       "effects": [
@@ -370,11 +405,13 @@
           "operation": "ADD",
           "value": 2
         }
-      ]
+      ],
+      "pools": {
+        "monster": 30
+      }
     },
     {
       "code": "MOB_ARCANE",
-      "weight": 40,
       "minLevel": 9,
       "minRarity": "RARE",
       "effects": [
@@ -393,7 +430,10 @@
           "operation": "INCREASED",
           "value": 20
         }
-      ]
+      ],
+      "pools": {
+        "monster": 40
+      }
     }
   ],
   "lootTables": {
@@ -441,7 +481,10 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.08
+          "chance": 0.08,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -516,7 +559,10 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.09
+          "chance": 0.09,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -609,7 +655,10 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.1
+          "chance": 0.1,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -657,7 +706,10 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.7
+          "chance": 0.7,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -714,11 +766,17 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.8
+          "chance": 0.8,
+          "equipmentPools": [
+            "drop"
+          ]
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.25
+          "chance": 0.25,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -775,11 +833,17 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.9
+          "chance": 0.9,
+          "equipmentPools": [
+            "drop"
+          ]
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.4
+          "chance": 0.4,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -827,7 +891,10 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.2
+          "chance": 0.2,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -884,7 +951,10 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.25
+          "chance": 0.25,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     },
@@ -959,7 +1029,10 @@
         },
         {
           "kind": "EQUIPMENT",
-          "chance": 0.3
+          "chance": 0.3,
+          "equipmentPools": [
+            "drop"
+          ]
         }
       ]
     }
@@ -1367,7 +1440,9 @@
         "MOB_TOUGH",
         "MOB_FREEZING"
       ],
-      "unique": "TIDEBREAKER_SIGIL"
+      "uniquePools": [
+        "boss:BOSS_TIDECALLER"
+      ]
     },
     {
       "code": "BOSS_BRINE_MOTHER",
@@ -1386,7 +1461,9 @@
         "MOB_ARMOURED",
         "MOB_STRONG"
       ],
-      "unique": "BRINESHELL_WARD"
+      "uniquePools": [
+        "boss:BOSS_BRINE_MOTHER"
+      ]
     },
     {
       "code": "BOSS_BOG_QUEEN",
@@ -1405,7 +1482,9 @@
         "MOB_VENOMOUS",
         "MOB_REGENERATING"
       ],
-      "unique": "MIRE_QUEENS_CROWN"
+      "uniquePools": [
+        "boss:BOSS_BOG_QUEEN"
+      ]
     },
     {
       "code": "BOSS_ALPHA_WOLF",
@@ -1423,7 +1502,9 @@
         "MOB_HASTED",
         "MOB_DEADLY"
       ],
-      "unique": "PACKLEADERS_STRIDE"
+      "uniquePools": [
+        "boss:BOSS_ALPHA_WOLF"
+      ]
     },
     {
       "code": "BOSS_RUIN_WARDEN",
@@ -1443,7 +1524,9 @@
         "MOB_STALWART",
         "MOB_JUGGERNAUT"
       ],
-      "unique": "WARDENS_OATH"
+      "uniquePools": [
+        "boss:BOSS_RUIN_WARDEN"
+      ]
     },
     {
       "code": "BOSS_CRYPT_LORD",
@@ -1462,7 +1545,9 @@
         "MOB_VAMPIRIC",
         "MOB_UNDYING"
       ],
-      "unique": "GRAVEBIND"
+      "uniquePools": [
+        "boss:BOSS_CRYPT_LORD"
+      ]
     },
     {
       "code": "BOSS_SHARD_QUEEN",
@@ -1481,7 +1566,9 @@
         "MOB_SHOCKING",
         "MOB_DEADLY"
       ],
-      "unique": "SHARDFANG"
+      "uniquePools": [
+        "boss:BOSS_SHARD_QUEEN"
+      ]
     },
     {
       "code": "BOSS_ASHEN_TYRANT",
@@ -1500,7 +1587,9 @@
         "MOB_FLAMING",
         "MOB_BERSERK"
       ],
-      "unique": "EMBERHEART_GIRDLE"
+      "uniquePools": [
+        "boss:BOSS_ASHEN_TYRANT"
+      ]
     },
     {
       "code": "BOSS_FROST_MONARCH",
@@ -1523,7 +1612,9 @@
         "MOB_FREEZING",
         "MOB_ARCANE"
       ],
-      "unique": "WINTERS_GRASP"
+      "uniquePools": [
+        "boss:BOSS_FROST_MONARCH"
+      ]
     },
     {
       "code": "BOSS_DROWNED_GOD",
@@ -1544,7 +1635,9 @@
         "MOB_WARDED",
         "MOB_JUGGERNAUT"
       ],
-      "unique": "LEVIATHANS_MAW"
+      "uniquePools": [
+        "boss:BOSS_DROWNED_GOD"
+      ]
     }
   ],
   "chapters": [
@@ -1565,7 +1658,10 @@
           ],
           "light": 1.2,
           "chestLoot": "CHEST_1",
-          "boss": "BOSS_TIDECALLER"
+          "boss": "BOSS_TIDECALLER",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_BRINE_CAVES",
@@ -1582,7 +1678,10 @@
           ],
           "light": 0.8,
           "chestLoot": "CHEST_1",
-          "boss": "BOSS_BRINE_MOTHER"
+          "boss": "BOSS_BRINE_MOTHER",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_ROTTING_MIRE",
@@ -1599,7 +1698,10 @@
           ],
           "light": 0.9,
           "chestLoot": "CHEST_1",
-          "boss": "BOSS_BOG_QUEEN"
+          "boss": "BOSS_BOG_QUEEN",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_WHISPERING_WOOD",
@@ -1616,7 +1718,10 @@
           ],
           "light": 1.0,
           "chestLoot": "CHEST_2",
-          "boss": "BOSS_ALPHA_WOLF"
+          "boss": "BOSS_ALPHA_WOLF",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_FALLEN_RUINS",
@@ -1633,7 +1738,10 @@
           ],
           "light": 1.0,
           "chestLoot": "CHEST_2",
-          "boss": "BOSS_RUIN_WARDEN"
+          "boss": "BOSS_RUIN_WARDEN",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_CRYPT_OF_EXILES",
@@ -1651,7 +1759,10 @@
           ],
           "light": 0.7,
           "chestLoot": "CHEST_2",
-          "boss": "BOSS_CRYPT_LORD"
+          "boss": "BOSS_CRYPT_LORD",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_CRYSTAL_MINES",
@@ -1668,7 +1779,10 @@
           ],
           "light": 0.75,
           "chestLoot": "CHEST_2",
-          "boss": "BOSS_SHARD_QUEEN"
+          "boss": "BOSS_SHARD_QUEEN",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_ASHEN_WASTES",
@@ -1685,7 +1799,10 @@
           ],
           "light": 0.9,
           "chestLoot": "CHEST_3",
-          "boss": "BOSS_ASHEN_TYRANT"
+          "boss": "BOSS_ASHEN_TYRANT",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_FROZEN_PASS",
@@ -1702,7 +1819,10 @@
           ],
           "light": 1.1,
           "chestLoot": "CHEST_3",
-          "boss": "BOSS_FROST_MONARCH"
+          "boss": "BOSS_FROST_MONARCH",
+          "modifierPools": [
+            "monster"
+          ]
         },
         {
           "code": "C1_DROWNED_TEMPLE",
@@ -1720,7 +1840,10 @@
           ],
           "light": 0.85,
           "chestLoot": "CHEST_3",
-          "boss": "BOSS_DROWNED_GOD"
+          "boss": "BOSS_DROWNED_GOD",
+          "modifierPools": [
+            "monster"
+          ]
         }
       ]
     }
@@ -1950,7 +2073,10 @@
       "sight": 6.0,
       "wake": 3.5,
       "giveUp": 4.0
-    }
+    },
+    "uniquePools": [
+      "unique:world"
+    ]
   },
   "services": {
     "treasurePerLevel": 60,
@@ -1960,7 +2086,11 @@
     "dropChance": 0.03,
     "bossChance": 0.4,
     "nextChance": 0.25,
-    "rarities": { "COMMON": 60, "UNCOMMON": 30, "RARE": 10 },
+    "rarities": {
+      "COMMON": 60,
+      "UNCOMMON": 30,
+      "RARE": 10
+    },
     "risk": {
       "MAP_MONSTER_LIFE": 0.4,
       "MAP_MONSTER_DAMAGE": 0.6,

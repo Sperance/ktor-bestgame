@@ -1,5 +1,6 @@
 package features.logic.crafts
 
+import features.logic.pools.Pools
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.enums.EnumStatStock
@@ -204,16 +205,14 @@ class CraftsService : KoinComponent {
                 val all = equipmentCache.getCache()
                 val uniqueChance = crafting.uniqueChance * (1 + level / 50.0)
                 if (random.nextDouble() * 100 < uniqueChance) {
-                    all.filter { it.code in config.UniqueEquipmentSeeder.smithOnly }.randomOrNull(random)?.let { unique ->
+                    Pools.draw(Pools.of(all, crafting.uniquePools), random)?.let { unique ->
                         return CharacterEquipment(characterId = "", equipmentId = unique._id, params = ModifierRoller.roll(unique, EnumRarity.UNIQUE), rarity = EnumRarity.UNIQUE)
                     }
                 }
-                val bases = all.filter { it.rarity != EnumRarity.UNIQUE && !it.slot.isTool && it.slot !in setOf(EnumEquipmentType.MAP, EnumEquipmentType.JEWEL, EnumEquipmentType.RING_2)
-                    && it.requiredLevel in job.band[0]..job.band[1] }
-                val base = bases.randomOrNull(random) ?: return null
+                val base = Pools.draw(Pools.of(all.filter { it.requiredLevel in job.band[0]..job.band[1] }, crafting.equipmentPools), random) ?: return null
                 val rarity = weighted(crafting.smithRarities, random) ?: EnumRarity.COMMON
                 val guaranteed = additives.mapNotNull { crafting.additives[it] }
-                val handcrafted = (guaranteed + listOfNotNull(crafting.smithHandcrafted.filterNot { it in guaranteed }.randomOrNull(random)
+                val handcrafted = (guaranteed + listOfNotNull(Pools.draw(ModifierRoller.pool(crafting.modifierPools).filter { it.value.code !in guaranteed }, random)?.code
                     .takeIf { random.nextDouble() * 100 < crafting.handcraftedChance })).distinct().take(crafting.maxHandcrafted)
                 CharacterEquipment(characterId = "", equipmentId = base._id, rarity = rarity,
                     params = (ModifierRoller.roll(base, rarity) + handcrafted.mapNotNull { rollCode(it, base.itemLevel) }).toMutableList())
@@ -221,7 +220,7 @@ class CraftsService : KoinComponent {
             JobKind.MAP -> {
                 val base = equipmentCache.getCache().firstOrNull { it.code == features.logic.campaign.CampaignMaps.templateCode(job.map) } ?: return null
                 val rarity = weighted(crafting.mapRarities, random) ?: EnumRarity.COMMON
-                val handcrafted = crafting.mapHandcrafted.randomOrNull(random).takeIf { random.nextDouble() * 100 < crafting.mapHandcraftedChance }
+                val handcrafted = Pools.draw(ModifierRoller.pool(crafting.mapModifierPools), random)?.code.takeIf { random.nextDouble() * 100 < crafting.mapHandcraftedChance }
                 CharacterEquipment(characterId = "", equipmentId = base._id, rarity = rarity,
                     params = (ModifierRoller.roll(base, rarity) + listOfNotNull(handcrafted?.let { rollCode(it, base.itemLevel) })).toMutableList())
             }
