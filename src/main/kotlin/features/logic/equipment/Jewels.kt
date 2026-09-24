@@ -23,15 +23,4 @@ object Jewels {
     /** Пустой ли самоцвет: обычный или без единого аффикса. */
     fun empty(template: Equipment, item: CharacterEquipment): Boolean =
         isJewel(template) && (item.rarity == EnumRarity.COMMON || item.params.none { ModifierRoller.isAffix(it) })
-
-    /**
-     * Чинит пустой самоцвет, лежавший до 0.42.0: волшебным и с аффиксами заново. Отвечает, изменился ли он.
-     */
-    fun repair(template: Equipment, item: CharacterEquipment): Boolean {
-        if (!empty(template, item)) return false
-        item.rarity = rarity(template, item.rarity)
-        val permanent = item.params.filterNot { ModifierRoller.isAffix(it) }
-        item.params = (permanent + ModifierRoller.rollAffixes(template, item.rarity, item.influence)).toMutableList()
-        return true
-    }
 }

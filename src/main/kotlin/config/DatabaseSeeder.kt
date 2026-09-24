@@ -11,7 +11,6 @@ import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.data.character.Character
 import features.data.character.character_data.CharacterItems
-import features.data.character.character_data.toStorage
 import features.data.character.CharacterRepository
 import features.data.equipment.EquipmentRepository
 import features.data.items.ItemsRepository
@@ -366,13 +365,13 @@ object DatabaseSeeder : KoinComponent {
         val orbs = itemsCache.findByCategory(EnumCurrencyOrb.CATEGORY)
         if (orbs.isEmpty()) return
 
-        val characters = characterRepository.findAll(session).filter { it.items.isEmpty() }
+        val characters = characterRepository.findAll(session).filter { it.bag.isEmpty() }
         if (characters.isEmpty()) return
 
         printLog("Seeding starting currency...")
 
         characters.forEach { character ->
-            character.items = orbs.map { CharacterItems(it._id, CONST_SEED_ORBS_AMOUNT) }.toStorage()
+            character.bag = orbs.associateTo(mutableMapOf()) { it._id to CONST_SEED_ORBS_AMOUNT }
             characterRepository.update(character, session)
         }
 

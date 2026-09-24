@@ -144,6 +144,8 @@ enum class EnumCurrencyOrb {
         /**
          * Сфера по подкатегории предмета или null, если предмет не сфера.
          */
-        fun byCode(code: String): EnumCurrencyOrb? = entries.find { it.name == code }
+        private val byName: Map<String, EnumCurrencyOrb> = entries.associateBy { it.name }
+
+        fun byCode(code: String): EnumCurrencyOrb? = byName[code]
     }
 }

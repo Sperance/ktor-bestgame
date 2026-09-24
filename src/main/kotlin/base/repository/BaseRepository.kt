@@ -31,11 +31,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
+import org.bson.BsonDocument
+import org.bson.BsonDocumentWriter
+import org.bson.codecs.EncoderContext
 import org.bson.conversions.Bson
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty1
-import kotlin.reflect.full.memberProperties
 
 /**
  * Конфигурация уникального индекса для MongoDB.
@@ -79,7 +81,7 @@ data class UniqueIndexConfig(
  * )
  * ```
  */
-abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
+abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T>) {
 
     private val collectionName = entityClass.simpleName!!
 
@@ -153,6 +155,12 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
      * транзакции (с 0.49.0), поэтому откат не оставляет кеш впереди базы.
      */
     protected open val cache: EntityCache<T>? get() = null
+
+    /**
+     * Поля, которыми владеет база, а не объект в памяти: полная запись [update] их не трогает.
+     * Так счётчик, который двигает `$inc` из другого репозитория, не откатывается устаревшей копией.
+     */
+    protected open val managedFields: Set<String> get() = emptySet()
 
     /**
      * Создаёт обычные (неуникальные) индексы по указанным полям.
@@ -1101,30 +1109,13 @@ abstract class BaseRepository<T : StockEntity>(entityClass: KClass<T>) {
     // ==================== ПРИВАТНЫЕ МЕТОДЫ ====================
 
     /**
-     * Получение всех полей сущности для обновления.
-     * 
-     * Использует рефлексию (kotlin.reflect) для получения всех memberProperties.
-     * Исключает служебные поля из CONST_SYSTEM_FIELDS:
-     * - _id (CONST_FIELD_ID)
-     * - version (CONST_FIELD_VERSION)
-     * - deleted (CONST_FIELD_DELETED)
-     * - updated (CONST_FIELD_UPDATED)
-     * 
-     * @param entity Сущность для анализа
-     * @return Map полей и их значений для использования в Updates
+     * Поля сущности для полной записи: документ кодеком коллекции - тем же, которым её пишет
+     * insert (с 0.49.0 без kotlin-reflect), - минус системные и управляемые базой поля.
      */
     private fun getUpdateFields(entity: T): Map<String, Any?> {
-        val fields = mutableMapOf<String, Any?>()
-
-        entity::class.java.kotlin.memberProperties.forEach { property ->
-            val fieldName = property.name
-            if (fieldName !in CONST_SYSTEM_FIELDS) {
-                val value = property.getter.call(entity)
-                fields[fieldName] = value
-            }
-        }
-
-        return fields
+        val document = BsonDocument()
+        collection.codecRegistry.get(entityClass.java).encode(BsonDocumentWriter(document), entity, EncoderContext.builder().build())
+        return document.filterKeys { it !in CONST_SYSTEM_FIELDS && it !in managedFields }
     }
 
     /**

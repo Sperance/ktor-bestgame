@@ -43,7 +43,8 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
         printLog("[${javaClass.simpleName}] initialized cache size: ${data.size}")
     }
 
-    override fun addItem(item: T) = replace { items -> items + item }
+    /** Вставка идемпотентна: сидер пишет и перечитывает коллекцию в одной транзакции, и запись не должна лечь дважды. */
+    override fun addItem(item: T) = updateItem(item)
 
     override fun removeItem(item: T) = replace { items -> items.filterNot { it._id == item._id } }
 

@@ -50,4 +50,8 @@ object EquipmentRequirements {
 
     private fun stat(stats: Map<IntEnumStat, Double>, stat: IntEnumStat): Int =
         (stats[stat] ?: 0.0).toInt()
+
+    /** Требует ли шаблон хоть чего-то: без требований лист перед ним пересчитывать незачем. */
+    fun demanding(template: Equipment): Boolean =
+        template.requiredLevel > 1 || template.requiredStrength > 0 || template.requiredDexterity > 0 || template.requiredIntelligence > 0
 }

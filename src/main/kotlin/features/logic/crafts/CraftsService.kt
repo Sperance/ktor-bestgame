@@ -1,6 +1,8 @@
 package features.logic.crafts
 
 import features.logic.pools.Pools
+import features.logic.pools.Weighted
+import features.data.equipment.equipment_data.Equipment
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.enums.EnumStatStock
@@ -141,25 +143,29 @@ class CraftsService : KoinComponent {
      * Досчитывает работу героя до сейчас и кладёт добычу в сумку. Зовётся перед всем, что
      * читает или тратит сумку, чтобы добытое не терялось между экранами.
      */
-    suspend fun settle(characterId: String): WorkGains {
+    suspend fun settle(characterId: String): WorkGains = settle(characters.findById(characterId) ?: return WorkGains())
+
+    /** То же на уже прочитанном герое: он меняется на месте, и второй раз читать его не нужно. */
+    suspend fun settle(character: Character): WorkGains {
         val method = "craftsSettle"
-        val character = characters.findById(characterId) ?: return WorkGains()
+        val characterId = character._id
         val work = character.work ?: return WorkGains()
         val (profession, job) = CraftsContent.jobs[work.job] ?: return WorkGains()
         val progress = character.professions[profession.code] ?: ProfessionProgress()
         val random = Random.Default
-        val result = Crafts.settle(CraftsContent.file.rules, job, progress, bonus(characterId, profession), work.settledAt,
+        val result = Crafts.settle(CraftsContent.file.rules, job, progress, bonus(character, profession), work.settledAt,
             System.currentTimeMillis(), work.seed, work.cycles, stockOf(character), work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
         val stacks = result.gains.items.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) } } +
             result.gains.spent.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, -amount) } }
-        val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, random) }.filterNotNull()
+        val bases = if (job.kind == JobKind.EQUIPMENT) craftBases(job) else emptyList()
+        val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, random, bases) }.filterNotNull()
         character.professions[profession.code] = result.progress
         character.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles)
         val equipment = transactionExecute(method) { session ->
             if (stacks.isNotEmpty()) characters.applyItems(character, stacks, method)
             characters.update(character, session)
-            made.map { inventory.insert(it.copy(characterId = characterId), session) }
+            inventory.insertMany(made.map { it.copy(characterId = characterId) }, session)
         }
         return result.gains.copy(equipment = equipment)
     }
@@ -167,11 +173,15 @@ class CraftsService : KoinComponent {
     private suspend fun view(character: Character, gains: WorkGains): CraftsState {
         val rules = CraftsContent.file.rules
         val unlocked = features.logic.campaign.CampaignContent.unlocked(character.campaign).toSet()
+        // Надетое и лист - по одному разу на все профессии, а не на каждую.
+        val equipped = inventory.findEquipped(character._id)
+        val sheet = characters.calculateStats(character, equipped).stats
         val professions = CraftsContent.file.professions.map { profession ->
             val progress = character.professions[profession.code] ?: ProfessionProgress()
-            val bonus = bonus(character._id, profession)
+            val tool = equipped.firstOrNull { it.equippedSlot == profession.tool }
+            val bonus = bonus(sheet, tool)
             ProfessionView(profession.code, profession.tool.name, progress.level, progress.experience, Crafts.toNext(rules, progress.level),
-                tool(character._id, profession), bonus, profession.jobs.sortedBy { it.level }.map { job ->
+                tool, bonus, profession.jobs.sortedBy { it.level }.map { job ->
                     JobView(job.code, job.level, job.seconds, Crafts.cycleMillis(rules, job, progress.level, bonus), Crafts.nothingChance(rules, job, bonus),
                         job.output, job.experience, job.extra.map { it.copy(chance = Crafts.findChance(rules, it, progress.level, bonus)) },
                         job.kind, job.inputs, job.band, job.map, job.additives, job.kind != JobKind.MAP || job.map in unlocked)
@@ -198,19 +208,22 @@ class CraftsService : KoinComponent {
      * примесей гарантированно и ещё одну с шансом, не больше потолка. Картограф чертит карту
      * своей локации случайной редкости, с шансом ручной работы на награду.
      */
-    private fun craft(job: Job, additives: List<String>, level: Int, random: Random): CharacterEquipment? {
+    /** Базы кузнеца в диапазоне уровней работы - один раз на досчёт, а не на каждую вещь. */
+    private fun craftBases(job: Job): List<Weighted<Equipment>> =
+        equipmentCache.pool(CraftsContent.file.crafting.equipmentPools).filter { it.value.requiredLevel in job.band[0]..job.band[1] }
+
+    private fun craft(job: Job, additives: List<String>, level: Int, random: Random, bases: List<Weighted<Equipment>>): CharacterEquipment? {
         val crafting = CraftsContent.file.crafting
         return when (job.kind) {
             JobKind.ITEM -> null
             JobKind.EQUIPMENT -> {
-                val all = equipmentCache.getCache()
                 val uniqueChance = crafting.uniqueChance * (1 + level / 50.0)
                 if (random.nextDouble() * 100 < uniqueChance) {
-                    Pools.draw(Pools.of(all, crafting.uniquePools), random)?.let { unique ->
+                    Pools.draw(equipmentCache.pool(crafting.uniquePools), random)?.let { unique ->
                         return CharacterEquipment(characterId = "", equipmentId = unique._id, params = ModifierRoller.roll(unique, EnumRarity.UNIQUE), rarity = EnumRarity.UNIQUE)
                     }
                 }
-                val base = Pools.draw(Pools.of(all.filter { it.requiredLevel in job.band[0]..job.band[1] }, crafting.equipmentPools), random) ?: return null
+                val base = Pools.draw(bases, random) ?: return null
                 val rarity = features.logic.equipment.Jewels.rarity(base, weighted(crafting.smithRarities, random) ?: EnumRarity.COMMON)
                 val guaranteed = additives.mapNotNull { crafting.additives[it] }
                 val handcrafted = (guaranteed + listOfNotNull(Pools.draw(ModifierRoller.pool(crafting.modifierPools).filter { it.value.code !in guaranteed }, random)?.code
@@ -239,10 +252,16 @@ class CraftsService : KoinComponent {
     private suspend fun tool(characterId: String, profession: Profession): CharacterEquipment? =
         inventory.findEquipped(characterId).firstOrNull { it.equippedSlot == profession.tool }
 
+    /** Бонусы труда профессии на уже прочитанном герое. */
+    private suspend fun bonus(character: Character, profession: Profession): WorkBonus {
+        val equipped = inventory.findEquipped(character._id)
+        return bonus(characters.calculateStats(character, equipped).stats, equipped.firstOrNull { it.equippedSlot == profession.tool })
+    }
+
     /** Бонусы труда: ветка дерева из листа героя (инструменты в него не входят) и инструмент своей профессии. */
-    private suspend fun bonus(characterId: String, profession: Profession): WorkBonus {
-        val stats = characters.calculateStats(characterId).stats.toMutableMap()
-        tool(characterId, profession)?.params?.forEach { modifier ->
+    private fun bonus(sheet: Map<application.enums.IntEnumStat, Double>, tool: CharacterEquipment?): WorkBonus {
+        val stats = sheet.toMutableMap()
+        tool?.params?.forEach { modifier ->
             definitions.findById(modifier.modifierId)?.effects?.forEachIndexed { index, effect ->
                 (effect.stat as? EnumStatStock)?.let { stats.merge(it, modifier.values.getOrElse(index) { 0.0 }, Double::plus) }
             }

@@ -10,6 +10,16 @@ import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
 import base.repository.UniqueIndexConfig
 import com.mongodb.client.model.Filters
+import com.mongodb.client.model.FindOneAndUpdateOptions
+import com.mongodb.client.model.Projections
+import com.mongodb.client.model.ReturnDocument
+import com.mongodb.client.model.Updates
+import extensions.now
+import kotlinx.datetime.LocalDateTime
+import features.caches.EquipmentCache
+import features.caches.ModifierDefinitionCache
+import features.logic.hero.heroChanges
+import features.logic.stats.StatsMemo
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.toStableObjectId
@@ -21,7 +31,6 @@ import features.caches.ItemsCache
 import features.caches.SkillTreeCache
 import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.CharacterSkillNode
-import features.data.character.character_data.toStorage
 import features.data.equipment.EquipmentRepository
 import features.data.inventory.CharacterEquipment
 import features.data.inventory.CharacterEquipmentRepository
@@ -53,6 +62,11 @@ class CharacterRepository : BaseRepository<Character>(
     val characterClassCache: CharacterClassCache by inject()
     val skillTreeCache: SkillTreeCache by inject()
     val experienceLevelCache: ExperienceLevelCache by inject()
+    private val equipmentCache: EquipmentCache by inject()
+    private val modifierDefinitionCache: ModifierDefinitionCache by inject()
+
+    /** Ревизию инвентаря двигает только [bumpInventory]: полная запись документа её не трогает. */
+    override val managedFields: Set<String> = setOf("inventoryRevision")
 
     init {
         initialize(uniqueIndexes = listOf(
@@ -74,7 +88,7 @@ class CharacterRepository : BaseRepository<Character>(
             entity.experience = 0.0
             entity.money = 0
             entity.skillNodes.clear()
-            entity.items.clear()
+            entity.bag.clear()
             entity.professionSkills.clear()
             entity.battleSkills.clear()
             entity.boolSkills.clear()
@@ -147,19 +161,36 @@ class CharacterRepository : BaseRepository<Character>(
      *
      * @throws CharacterExceptions.CharacterException если предмета не хватает
      */
-    suspend fun spendItem(character: Character, itemId: String, amount: Long, session: ClientSession) {
+        suspend fun spendItem(character: Character, itemId: String, amount: Long, session: ClientSession) {
         if (amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("spendItem", "$itemId:$amount")
+        val owned = character.bag[itemId] ?: 0L
+        if (owned < amount) throw CharacterExceptions.funExceptionItemLowZero("spendItem", "$itemId:$owned")
+        // Одна точечная запись вместо документа целиком (0.49.0). Фильтр по версии гарантирует, что
+        // остаток в памяти и есть остаток в базе; версия растёт, как при любой записи, и объект в
+        // памяти идёт в ногу с базой - следующая полная запись в той же транзакции не споткнётся.
+        val field = "bag.$itemId"
+        val now = LocalDateTime.now()
+        val result = collection.updateOne(session,
+            Filters.and(Filters.eq("_id", character._id), Filters.eq("version", character.version), Filters.gte(field, amount)),
+            Updates.combine(
+                if (owned == amount) Updates.unset(field) else Updates.inc(field, -amount),
+                Updates.inc("version", 1L), Updates.set("updatedAt", now)))
+        if (result.matchedCount == 0L) throw CharacterExceptions.funExceptionItemLowZero("spendItem", "$itemId:$owned")
+        if (owned == amount) character.bag.remove(itemId) else character.bag[itemId] = owned - amount
+        character.version += 1
+        character.updatedAt = now
+    }
 
-        val items = character.parseItems()
-        val owned = items.find { it.itemId == itemId }
-        if (owned == null || owned.amount < amount)
-            throw CharacterExceptions.funExceptionItemLowZero("spendItem", "$itemId:${owned?.amount ?: 0}")
-
-        owned.amount -= amount
-        items.removeAll { it.amount == 0L }
-        character.items = items.toStorage()
-
-        update(character, session)
+    /**
+     * Инвентарь героя изменился: ревизия растёт один раз на транзакцию (см. [config.beforeCommit]),
+     * журнал запроса запоминает, откуда и куда, а лист статов в памяти забывается.
+     */
+    suspend fun bumpInventory(characterId: String, session: ClientSession) {
+        val before = collection.withDocumentClass<Document>().findOneAndUpdate(session, Filters.eq("_id", characterId),
+            Updates.inc("inventoryRevision", 1L),
+            FindOneAndUpdateOptions().projection(Projections.include("inventoryRevision")).returnDocument(ReturnDocument.BEFORE))
+        StatsMemo.forget(characterId)
+        heroChanges()?.bumped(characterId, before?.getLong("inventoryRevision") ?: 0L)
     }
 
     /**
@@ -176,19 +207,10 @@ class CharacterRepository : BaseRepository<Character>(
         if (amount <= 0) throw CharacterExceptions.funExceptionItemLowZero("earnItem", "$itemId:$amount")
         if (itemsCache.findById(itemId) == null) throw CharacterExceptions.funExceptionItemNotFound("earnItem", itemId)
 
-        val items = character.parseItems()
-        val owned = items.find { it.itemId == itemId }
-
-        if (owned == null) {
-            items.add(CharacterItems(itemId, amount))
-        } else {
-            owned.amount += amount
-            if (owned.amount > CONST_ITEM_MAX_AMOUNT)
-                throw CharacterExceptions.funExceptionItemOverAmount("earnItem", "$itemId:${owned.amount}")
-        }
-
-        character.items = items.toStorage()
-
+                val total = (character.bag[itemId] ?: 0L) + amount
+        if (total > CONST_ITEM_MAX_AMOUNT)
+            throw CharacterExceptions.funExceptionItemOverAmount("earnItem", "$itemId:$total")
+        character.bag[itemId] = total
         update(character, session)
     }
 
@@ -200,16 +222,26 @@ class CharacterRepository : BaseRepository<Character>(
      * брать характеристики отсюда, иначе потеряется чей-нибудь источник
      * или будет учтён предмет, который на самом деле не работает.
      */
-    suspend fun calculateStats(characterId: String): CharacterStats {
-        val character = requireCharacter(characterId, "calculateStats")
+        suspend fun calculateStats(characterId: String): CharacterStats =
+        calculateStats(requireCharacter(characterId, "calculateStats"))
 
-        return CharacterStatsCalculator.calculate(
-            character = character,
-            characterClass = requireClass(character),
-            skillNodes = character.skillNodes,
-            equipped = characterEquipmentRepository.findEquipped(characterId)
-        )
-    }
+    /**
+     * Лист уже прочитанного героя (с 0.49.0 - из памяти, пока версия персонажа, ревизия
+     * инвентаря и справочники те же; тогда ни чтения, ни расчёта).
+     * @param equipped надетое, если вызывающий его уже прочитал; иначе читается при промахе
+     */
+    suspend fun calculateStats(character: Character, equipped: List<CharacterEquipment>? = null): CharacterStats =
+        StatsMemo.of(character._id, statsKey(character)) {
+            CharacterStatsCalculator.calculate(
+                character = character,
+                characterClass = requireClass(character),
+                skillNodes = character.skillNodes,
+                equipped = equipped ?: characterEquipmentRepository.findEquipped(character._id)
+            )
+        }
+
+    private fun statsKey(character: Character): String =
+        "${character.version}:${character.inventoryRevision}:${characterClassCache.revision + equipmentCache.revision + modifierDefinitionCache.revision}"
 
     /**
      * Класс персонажа из справочника.
@@ -231,6 +263,8 @@ class CharacterRepository : BaseRepository<Character>(
      */
     suspend fun skillTreeState(characterId: String): CharacterSkillTreeState =
         stateOf(requireCharacter(characterId, "skillTreeState"))
+
+    fun skillTreeState(character: Character): CharacterSkillTreeState = stateOf(character)
 
     /**
      * Берёт узел дерева.
@@ -324,15 +358,9 @@ class CharacterRepository : BaseRepository<Character>(
      */
     private fun spendRegret(character: Character, count: Int, method: String) {
         val orbId = EnumCurrencyOrb.ORB_OF_REGRET.name.toStableObjectId()
-        val items = character.parseItems()
-        val owned = items.find { it.itemId == orbId }
-
-        if (owned == null || owned.amount < count)
-            throw SkillTreeExceptions.funExceptionNoRegret(method, "$count, have ${owned?.amount ?: 0}")
-
-        owned.amount -= count
-        items.removeAll { it.amount <= 0L }
-        character.items = items.toStorage()
+                val owned = character.bag[orbId] ?: 0L
+        if (owned < count) throw SkillTreeExceptions.funExceptionNoRegret(method, "$count, have $owned")
+        if (owned == count.toLong()) character.bag.remove(orbId) else character.bag[orbId] = owned - count
     }
 
     /**
@@ -448,7 +476,7 @@ class CharacterRepository : BaseRepository<Character>(
      */
     suspend fun itemToInventory(characterId: String, equipmentId: String): CharacterEquipment {
         if (findById(characterId) == null) throw CharacterExceptions.funExceptionNotFound("itemToInventory", characterId)
-        val equipment = equipmentRepository.findById(equipmentId)
+        val equipment = equipmentCache.findById(equipmentId)
             ?: throw CharacterExceptions.funExceptionEquipmentNotFound("itemToInventory", equipmentId)
 
         return transactionExecute("itemToInventory") { session ->
@@ -482,34 +510,18 @@ class CharacterRepository : BaseRepository<Character>(
      * [applyExperience]: выдача нескольких наград должна быть одной транзакцией.
      */
     fun applyItems(character: Character, itemObj: List<CharacterItems>, method: String): Boolean {
-        val allItems = itemsCache.getCache()
-        val currentItems = character.parseItems()
-
-        var isChanged = false
+                var isChanged = false
         itemObj.forEach { itm ->
             if (itm.amount == 0L) return@forEach
             if (itm.amount > CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount(method, itm.toString())
             if (itm.amount < -CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount(method, itm.toString())
-            if (allItems.find { it._id == itm.itemId } == null) throw CharacterExceptions.funExceptionItemNotFound(method, itm.toString())
-
-            val findedItem = currentItems.find { it.itemId == itm.itemId }
-            if (findedItem != null) {
-                findedItem.amount += itm.amount
-                if (findedItem.amount < 0) throw CharacterExceptions.funExceptionItemLowZero(method, itm.toString())
-            }
-            else {
-                if (itm.amount <= 0) throw CharacterExceptions.funExceptionItemLowZero(method, itm.toString())
-                currentItems.add(CharacterItems(itm.itemId, itm.amount))
-            }
-
+            if (itemsCache.findById(itm.itemId) == null) throw CharacterExceptions.funExceptionItemNotFound(method, itm.toString())
+            val total = (character.bag[itm.itemId] ?: 0L) + itm.amount
+            if (total < 0) throw CharacterExceptions.funExceptionItemLowZero(method, itm.toString())
+            //Зачем хранить id предмета без кол-ва
+            if (total == 0L) character.bag.remove(itm.itemId) else character.bag[itm.itemId] = total
             isChanged = true
         }
-
-        if (!isChanged) return false
-
-        //Зачем хранить id предмета без кол-ва
-        currentItems.removeAll { it.amount == 0L }
-        character.items = currentItems.toStorage()
-        return true
+        return isChanged
     }
 }

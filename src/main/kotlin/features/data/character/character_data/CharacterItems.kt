@@ -1,53 +1,19 @@
 package features.data.character.character_data
 
-import CONST_ITEM_SEPARATOR
-import base.exception.model.CharacterExceptions
 import kotlinx.serialization.Serializable
 
 /**
- * Простой (стакающийся) предмет инвентаря персонажа.
+ * Простой (стакающийся) предмет сумки персонажа - как он ходит по API.
  *
- * В Mongo НЕ хранится объектом: в документе персонажа лежит плоский
- * массив строк вида "chaos_orb:50". Этот класс - только представление
- * такой строки в коде и в API.
+ * В Mongo сумка с 0.49.0 лежит картой `bag: {itemId: amount}`: трата - точечный `$inc`
+ * по ключу, без разбора строк и без записи документа целиком.
  */
 @Serializable
 data class CharacterItems(
     var itemId: String,
     var amount: Long
-) {
-    /**
-     * Строковое представление для хранения в Mongo: "itemId:amount".
-     */
-    fun toStorage(): String = "$itemId$CONST_ITEM_SEPARATOR$amount"
+)
 
-    companion object {
-        /**
-         * Разбирает строку хранения "itemId:amount".
-         *
-         * @throws CharacterExceptions.CharacterException если формат строки некорректен
-         */
-        fun parse(raw: String): CharacterItems {
-            val separator = raw.lastIndexOf(CONST_ITEM_SEPARATOR)
-            if (separator <= 0) throw CharacterExceptions.funExceptionItemFormat("parse", raw)
-
-            val itemId = raw.substring(0, separator)
-            val amount = raw.substring(separator + 1).toLongOrNull()
-                ?: throw CharacterExceptions.funExceptionItemFormat("parse", raw)
-
-            return CharacterItems(itemId, amount)
-        }
-    }
-}
-
-/**
- * Разбирает плоский массив хранения в список предметов.
- */
-fun Collection<String>.toCharacterItems(): MutableList<CharacterItems> =
-    mapTo(mutableListOf()) { CharacterItems.parse(it) }
-
-/**
- * Сворачивает список предметов обратно в плоский массив хранения.
- */
-fun Collection<CharacterItems>.toStorage(): MutableList<String> =
-    mapTo(mutableListOf()) { it.toStorage() }
+/** Сумка списком стаков для ответа; пустые стаки наружу не выходят. */
+fun Map<String, Long>.toCharacterItems(): MutableList<CharacterItems> =
+    entries.filter { it.value > 0 }.mapTo(mutableListOf()) { CharacterItems(it.key, it.value) }

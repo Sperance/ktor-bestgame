@@ -127,8 +127,10 @@ object CraftingBench {
         }
     }
 
+    private val byCode: Map<String, BenchRecipe> by lazy { recipes.associateBy { it.code } }
+
     fun recipe(code: String): BenchRecipe =
-        recipes.find { it.code == code } ?: throw CurrencyExceptions.funExceptionRecipeNotFound("recipe", code)
+        byCode[code] ?: throw CurrencyExceptions.funExceptionRecipeNotFound("recipe", code)
 
     /**
      * Тир рецепта, который может выпасть на локации этого уровня (с 0.46.0): чем ниже уровень,

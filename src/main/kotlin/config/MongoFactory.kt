@@ -83,15 +83,15 @@ object MongoFactory {
         mongoClient.startSession().use { session ->
             printLog("[TR::start::${session.hashCode()}] $transactionName ", true)
             session.startTransaction()
-            val afterCommit = AfterCommit()
+            val hooks = TransactionHooks()
             try {
-                val result = withContext(afterCommit) { body(session) }
+                val result = withContext(hooks) { body(session).also { hooks.runBeforeCommit(session) } }
                 if (session.hasActiveTransaction()) {
                     printLog("[TR::commit${session.hashCode()}] $transactionName ", true)
                     session.commitTransaction()
                 }
-                // Кеши узнают о правке только теперь: откат выше их не касается.
-                afterCommit.run()
+                // Кеши и журнал изменений узнают о правке только теперь: откат выше их не касается.
+                hooks.runAfterCommit()
                 return result
             } catch (e: Exception) {
                 if (session.hasActiveTransaction()) {

@@ -126,8 +126,8 @@ object ModifierRoller : KoinComponent {
     private fun rollOne(pool: List<Weighted<ModifierDefinition>>, itemLevel: Int, rarity: EnumRarity, current: Collection<Modifier>): Modifier? {
         val currentDefinitions = definitions(current)
         val (prefixes, suffixes) = freeSlots(rarity, currentDefinitions)
-        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), currentDefinitions.map { it.family() })
-            .firstNotNullOfOrNull { roll(it, itemLevel) }
+        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), currentDefinitions.map { it.family() }, limit = 1)
+            .firstOrNull()?.let { roll(it, itemLevel) }
     }
 
     /**
@@ -146,23 +146,28 @@ object ModifierRoller : KoinComponent {
         taken: Collection<String> = emptyList(),
         limit: Int = Int.MAX_VALUE,
     ): List<ModifierDefinition> {
-        val families = taken.toMutableSet()
+                val families = taken.toHashSet()
         var freePrefixes = prefixes
         var freeSuffixes = suffixes
+        // Кандидаты отсеиваются по мере выбора: занятая группа и исчерпанный вид уходят из мешка,
+        // и каждая тяга - один проход по тому, что осталось, а не по всему пулу заново.
+        val candidates = pool.filterTo(ArrayList()) { (candidate) ->
+            candidate.family() !in families &&
+                (candidate.source == EnumModifierSource.PREFIX || candidate.source == EnumModifierSource.SUFFIX)
+        }
         val picked = mutableListOf<ModifierDefinition>()
-
-        while (picked.size < limit) {
-            val next = pool.filter { (candidate) ->
-                candidate.family() !in families && when (candidate.source) {
-                    EnumModifierSource.PREFIX -> freePrefixes > 0
-                    EnumModifierSource.SUFFIX -> freeSuffixes > 0
-                    else -> false
-                }
-            }.weightedRandomExt { it.weight }?.value ?: break
-
+        while (picked.size < limit && candidates.isNotEmpty()) {
+            val next = candidates.weightedRandomExt { (candidate, weight) ->
+                if (if (candidate.source == EnumModifierSource.PREFIX) freePrefixes > 0 else freeSuffixes > 0) weight else 0
+            }?.value ?: break
             picked += next
-            families += next.family()
+            val family = next.family()
             if (next.source == EnumModifierSource.PREFIX) freePrefixes-- else freeSuffixes--
+            candidates.removeAll { (candidate) ->
+                candidate.family() == family ||
+                    (candidate.source == EnumModifierSource.PREFIX && freePrefixes == 0) ||
+                    (candidate.source == EnumModifierSource.SUFFIX && freeSuffixes == 0)
+            }
         }
         return picked
     }
@@ -203,7 +208,7 @@ object ModifierRoller : KoinComponent {
     fun rollFrom(tags: List<String>, itemLevel: Int): Modifier? = Pools.draw(pool(tags))?.let { roll(it, itemLevel) }
 
     /** Модификаторы пулов [tags] с их весами, см. [Pools.of]. */
-    fun pool(tags: List<String>): List<Weighted<ModifierDefinition>> = Pools.of(definitionCache.getCache(), tags)
+    fun pool(tags: List<String>): List<Weighted<ModifierDefinition>> = definitionCache.pool(tags)
 
     /**
      * Роллит один модификатор: выбирает доступный тир и значение внутри его диапазона.
@@ -257,5 +262,5 @@ object ModifierRoller : KoinComponent {
      * для всех шаблонов. Ремесленных здесь нет никогда - их ставит только верстак.
      */
     fun affixPool(equipment: Equipment, influence: EnumInfluence? = null): List<Weighted<ModifierDefinition>> =
-        pool(equipment.modifierPools + listOfNotNull(influence?.let(Pools::influence))).filter { (it) -> it.isAffix() && !it.crafted }
+        definitionCache.affixPool(if (influence == null) equipment.modifierPools else equipment.modifierPools + Pools.influence(influence))
 }

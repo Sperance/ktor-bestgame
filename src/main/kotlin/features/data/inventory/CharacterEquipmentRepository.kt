@@ -12,6 +12,9 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
+import config.afterCommit
+import config.beforeCommit
+import features.logic.hero.heroChanges
 import features.caches.EquipmentCache
 import features.caches.ItemsCache
 import features.caches.SkillTreeCache
@@ -52,12 +55,21 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     /**
      * Весь инвентарь персонажа.
      */
-    suspend fun findByCharacter(characterId: String): List<CharacterEquipment> {
-        val items = findByFilter(Filters.eq("characterId", characterId))
-        // Пустой самоцвет, лежавший до 0.42.0, получает аффиксы при первом чтении тайника.
-        val repaired = items.filter { item -> equipmentCache.findById(item.equipmentId)?.let { features.logic.equipment.Jewels.repair(it, item) } == true }
-        if (repaired.isNotEmpty()) transactionExecute("repairJewels") { session -> repaired.forEach { update(it, session) } }
-        return items
+    suspend fun findByCharacter(characterId: String): List<CharacterEquipment> =
+        findByFilter(Filters.eq("characterId", characterId))
+
+    override suspend fun validateAfterInsert(entity: CharacterEquipment, session: ClientSession) = touched(entity, session, removed = false)
+    override suspend fun validateAfterUpdate(entity: CharacterEquipment, session: ClientSession) = touched(entity, session, removed = false)
+    override suspend fun validateAfterDelete(entity: CharacterEquipment, session: ClientSession, softDelete: Boolean) = touched(entity, session, removed = true)
+
+    /**
+     * Любая запись в инвентарь (с 0.49.0): ревизия героя сдвигается один раз на транзакцию, а
+     * журнал запроса узнаёт о вещи после коммита - откат его не касается.
+     */
+    private suspend fun touched(item: CharacterEquipment, session: ClientSession, removed: Boolean) {
+        beforeCommit("inventory:${item.characterId}", session) { characterRepository.bumpInventory(item.characterId, it) }
+        val changes = heroChanges() ?: return
+        afterCommit { if (removed) changes.remove(item) else changes.upsert(item) }
     }
 
     /**
@@ -118,8 +130,8 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         if (character.skillNodes.none { it.code == nodeCode })
             throw SkillTreeExceptions.funExceptionNotTaken("socket", nodeCode)
 
-        if (findByCharacter(characterId).any { it.socketCode == nodeCode && it._id != item._id })
-            throw SkillTreeExceptions.funExceptionSocketBusy("socket", nodeCode)
+        val busy = collection.countDocuments(Filters.and(Filters.eq("characterId", characterId), Filters.eq("socketCode", nodeCode), Filters.ne("_id", item._id)))
+        if (busy > 0) throw SkillTreeExceptions.funExceptionSocketBusy("socket", nodeCode)
 
         return transactionExecute("socket") { session ->
             item.equippedSlot = EnumEquipmentType.JEWEL
@@ -175,7 +187,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
             ?: throw CharacterExceptions.funExceptionNotFound("sellForGold", characterId)
 
         // Характеристики нужны ради STOCK_GOLD: надбавку к цене даёт сам персонаж.
-        val stats = characterRepository.calculateStats(characterId).stats
+        val stats = characterRepository.calculateStats(character).stats
         val gold = SellPrice.of(template, item.rarity, item.params, stats)
 
         return transactionExecute("sellForGold $inventoryId") { session ->
@@ -206,7 +218,11 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
 
         // Надеть предмет с невыполненными требованиями нельзя. Уже надетый
         // при их потере не слетает - он просто перестаёт работать, см. CharacterStatsCalculator
-        val stats = characterRepository.calculateStats(characterId)
+        val character = characterRepository.findById(characterId)
+            ?: throw CharacterExceptions.funExceptionNotFound("equip", characterId)
+        // Самоцвет в гнезде тоже "надет", но рук и колец не занимает
+        val equipped = findEquipped(characterId)
+        val stats = characterRepository.calculateStats(character, equipped)
         val unmet = EquipmentRequirements.unmet(template, stats.level, stats.stats)
         if (unmet.isNotEmpty())
             throw CharacterExceptions.funExceptionRequirements(
@@ -214,8 +230,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
                 "${template.code}: " + unmet.joinToString { "${it.name} ${it.actual}/${it.required}" }
             )
 
-        // Самоцвет в гнезде тоже "надет", но рук и колец не занимает
-        val worn = findEquipped(characterId).filter { it._id != item._id && it.socketCode == null }
+        val worn = equipped.filter { it._id != item._id && it.socketCode == null }
         val target = EquipSlots.target(template.slot, slot, worn.mapNotNull { it.equippedSlot })
         val wornWeapon = worn.firstOrNull { it.equippedSlot == EnumEquipmentType.WEAPON_1H }
             ?.let { (equipmentCache.findById(it.equipmentId) as? Weapon)?.weaponType }
@@ -295,10 +310,12 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     /**
      * Рецепты верстака, известные герою (с 0.46.0): все остальные скрыты, их нужно найти на карте.
      */
-    suspend fun bench(characterId: String): List<BenchRecipe> {
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("bench", characterId)
-        return CraftingBench.recipes.filter { it.code in character.knownBenchRecipes }
+    suspend fun bench(characterId: String): List<BenchRecipe> =
+        bench(characterRepository.findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound("bench", characterId))
+
+    fun bench(character: Character): List<BenchRecipe> {
+        val known = character.knownBenchRecipes.toHashSet()
+        return CraftingBench.recipes.filter { it.code in known }
     }
 
     suspend fun craft(characterId: String, inventoryId: String, recipeCode: String): CurrencyOutcome {

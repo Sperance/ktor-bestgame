@@ -109,9 +109,10 @@ class CampaignService : KoinComponent {
         val rarity = CampaignContent.file.rarities.first { it.rarity == rarityValue }
         val monster = CampaignContent.monsters.getValue(monsterCode)
 
-        val experience = CampaignLoot.experience(monster, map.level, rarity, bonus(characterId, EnumStatStock.STOCK_EXPERIENCE) + mapBonus(character, mapCode).experience)
+        val sheet = characters.calculateStats(character).stats
+        val experience = CampaignLoot.experience(monster, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
         val recipe = if (rarityValue == EnumMonsterRarity.RARE) rollRecipe(character, map.level, Random.Default) else null
-        return grant(character, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method,
+        return grant(character, sheet, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method,
             mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity, recipeFound = recipe)
     }
 
@@ -138,17 +139,15 @@ class CampaignService : KoinComponent {
         val rule = CampaignContent.file.bosses
         val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
         val random = Random.Default
-        val all = equipmentCache.getCache()
-        val ordinary = Pools.of(all, rule.uniquePools)
         val extra = listOfNotNull(
-            Pools.draw(ordinary.filter { it.value.requiredLevel <= map.level + UNIQUE_REACH }.ifEmpty { ordinary }, random).takeIf { random.nextDouble() < rule.uniqueChance },
-            Pools.draw(Pools.of(all, template.uniquePools), random).takeIf { random.nextDouble() < rule.ownUniqueChance },
+            Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, map.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random).takeIf { random.nextDouble() < rule.uniqueChance },
+            Pools.draw(equipmentCache.pool(template.uniquePools), random).takeIf { random.nextDouble() < rule.ownUniqueChance },
         )
+        val sheet = characters.calculateStats(character).stats
         character.bosses[mapCode] = now + (rule.respawnHours * 3_600_000).toLong()
-        val sheet = characters.calculateStats(characterId).stats
         val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
         val recipe = rollRecipe(character, map.level, random)
-        return grant(character, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra,
+        return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra,
             mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance, recipeFound = recipe)
     }
 
@@ -168,13 +167,12 @@ class CampaignService : KoinComponent {
         val rule = CampaignContent.file.corruption
         val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
         val random = Random.Default
-        val ordinary = Pools.of(equipmentCache.getCache(), rule.uniquePools)
         val extra = listOfNotNull(
-            Pools.draw(ordinary.filter { it.value.requiredLevel <= map.level + UNIQUE_REACH }.ifEmpty { ordinary }, random).takeIf { random.nextDouble() < rule.uniqueChance },
+            Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, map.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random).takeIf { random.nextDouble() < rule.uniqueChance },
         )
-        val sheet = characters.calculateStats(characterId).stats
+        val sheet = characters.calculateStats(character).stats
         val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
-        return grant(character, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra, mapCode = mapCode)
+        return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra, mapCode = mapCode)
     }
 
     /**
@@ -287,7 +285,7 @@ class CampaignService : KoinComponent {
         if (window.left <= 0) throw CampaignExceptions.funExceptionNoChest(method, mapCode)
         character.chests[mapCode] = window.copy(left = window.left - 1)
         val template = CampaignContent.file.chapters.flatMap { it.maps }.first { it.code == mapCode }
-        return grant(character, CampaignContent.file.lootTables.getValue(template.chestLoot), map.level,
+        return grant(character, characters.calculateStats(character).stats, CampaignContent.file.lootTables.getValue(template.chestLoot), map.level,
             CampaignChests.rarity(CampaignContent.file.chests), 0.0, method, mapCode = mapCode)
     }
 
@@ -295,7 +293,7 @@ class CampaignService : KoinComponent {
     private suspend fun windowOf(character: Character, mapCode: String, characterId: String, method: String): ChestWindow {
         val current = character.chests[mapCode]
         val window = CampaignChests.window(current, System.currentTimeMillis(), CampaignContent.file.chests,
-            bonus(characterId, EnumStatStock.STOCK_CHEST_QUANTITY), Random.Default)
+            characters.calculateStats(character).stats[EnumStatStock.STOCK_CHEST_QUANTITY] ?: 0.0, Random.Default)
         if (window != current) {
             character.chests[mapCode] = window
             transactionExecute(method) { session -> characters.update(character, session) }
@@ -303,18 +301,14 @@ class CampaignService : KoinComponent {
         return window
     }
 
-    /** Бонус героя из того же листа, что и всё остальное: работают только надетые вещи. */
-    private suspend fun bonus(characterId: String, stat: EnumStatStock): Double =
-        characters.calculateStats(characterId).stats[stat] ?: 0.0
 
     /**
      * Добыча по таблице и опыт - одной транзакцией, как у промокода. Карта, с которой герой вошёл
      * в [mapCode], добавляет свои количество и редкость; с шансом [mapChance] (с 0.35.0) падает карта.
      */
-    private suspend fun grant(character: Character, table: LootTable, level: Int, rarity: CampaignRarity, experience: Double, method: String,
-                              extra: List<features.data.equipment.equipment_data.Equipment> = emptyList(),
+    private suspend fun grant(character: Character, sheet: Map<application.enums.IntEnumStat, Double>, table: LootTable, level: Int, rarity: CampaignRarity,
+                              experience: Double, method: String, extra: List<features.data.equipment.equipment_data.Equipment> = emptyList(),
                               mapCode: String, mapChance: Double = 0.0, recipeFound: features.logic.bench.BenchRecipe? = null): CampaignReward {
-        val sheet = characters.calculateStats(character._id).stats
         val active = mapBonus(character, mapCode)
         fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
         val random = Random.Default
@@ -324,9 +318,8 @@ class CampaignService : KoinComponent {
             itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) }
         }
         // Экипировка тянется из пулов строки таблицы: что в них не состоит, отсюда не падает.
-        val wearable = equipmentCache.getCache().filter { it.requiredLevel <= level }
         val templates = extra + loot.equipment.mapNotNull { pools ->
-            CampaignLoot.pick(Pools.of(wearable, pools), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity, random)
+            CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity, random)
         }
         val rule = CampaignContent.file.maps
         val dropped = CampaignMaps.drop(rule, mapChance * (1 + quantity / 100), mapCode, CampaignContent.maps.keys.toList(), random)

@@ -21,6 +21,7 @@ import features.logic.portraits.PortraitCache
 import features.logic.portraits.PortraitManifest
 import features.logic.locale.LocaleCache
 import features.logic.locale.LocaleManifest
+import features.logic.hero.installHeroChanges
 import io.ktor.server.application.*
 import io.ktor.server.plugins.openapi.openAPI
 import io.ktor.server.response.respond
@@ -56,8 +57,8 @@ import kotlin.time.Duration.Companion.seconds
 
 @OptIn(DelicateCoroutinesApi::class)
 fun Application.configureRouting() {
-    val routeRegistry by inject<RouteRegistry>()
-
+        val routeRegistry by inject<RouteRegistry>()
+    installHeroChanges()
     routing {
         // Файлы локализации раздаются как есть: клиент читает манифест
         // locale/index.json, сверяет отпечаток и качает нужный словарь. Манифест собирает

@@ -53,7 +53,8 @@ data class Character(
      * Экипировка здесь не хранится - каждый её экземпляр это отдельный
      * документ коллекции `CharacterEquipment`.
      */
-    var items: MutableList<String> = mutableListOf(),
+    /** Сумка: id предмета - сколько (с 0.49.0 картой, трата - точечный `$inc`). */
+    var bag: MutableMap<String, Long> = mutableMapOf(),
     var professionSkills: MutableList<CharacterProfessionSkill> = mutableListOf(),
     var battleSkills: MutableList<CharacterBattleSkill> = mutableListOf(),
     var boolSkills: MutableList<CharacterBoolSkill> = mutableListOf(),
@@ -99,6 +100,8 @@ data class Character(
     /** Открыта ли уже осквернённая зона на активной карте (с 0.46.0): не больше одной за заход, сбрасывается входом на карту. */
     var corruptionOpened: Boolean = false,
 
+    /** Растёт на каждую запись в инвентарь героя: по нему клиент и лист статов узнают, что вещи сменились. */
+    var inventoryRevision: Long = 0,
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -118,6 +121,6 @@ data class Character(
     /**
      * Простые предметы, разобранные из плоского массива хранения.
      */
-    fun parseItems(): MutableList<CharacterItems> = items.toCharacterItems()
+    fun parseItems(): MutableList<CharacterItems> = bag.toCharacterItems()
 
 }

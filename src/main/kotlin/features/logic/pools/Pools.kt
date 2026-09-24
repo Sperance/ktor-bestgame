@@ -2,6 +2,7 @@ package features.logic.pools
 
 import application.enums.EnumInfluence
 import extensions.weightedRandomExt
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 /**
@@ -20,7 +21,6 @@ interface Pooled {
 data class Weighted<T>(val value: T, val weight: Int)
 
 object Pools {
-
     /** Разделитель частей тега: `local:armor`, `influence:SHAPER`, `boss:BOSS_TIDECALLER`. */
     const val SEPARATOR = ":"
 
@@ -46,4 +46,14 @@ object Pools {
 
     /** Пул модификаторов, который открывает предмету его влияние. */
     fun influence(influence: EnumInfluence): String = "influence$SEPARATOR${influence.name}"
+
+    /**
+     * Пулы одного набора записей по тегам источника (с 0.49.0): каждая тяга по одним и тем же
+     * тегам собирается один раз, дальше отдаётся готовой. Живёт внутри снимка кеша и умирает с ним.
+     */
+    class Index<T : Pooled>(private val entries: List<T>) {
+        private val byTags = ConcurrentHashMap<List<String>, List<Weighted<T>>>()
+
+        fun of(tags: List<String>): List<Weighted<T>> = byTags.getOrPut(tags) { Pools.of(entries, tags) }
+    }
 }
