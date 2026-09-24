@@ -33,17 +33,25 @@ data class MerchantPurchase(val item: CharacterEquipment, val money: Long)
  * Витрина торговца - правило сервера (с 0.34.0).
  *
  * У каждого героя своя витрина: раз в [WINDOW_HOURS] часа торговец выкладывает от [MIN_OFFERS] до
- * [MAX_OFFERS] предметов уровня героя ± [LEVEL_SPREAD], магических ([EnumRarity.UNCOMMON]) и - с
- * долей [RARE_SHARE] - редких, из пулов [POOLS]. Экземпляр роллится при выкладке, поэтому игрок
+ * [MAX_OFFERS] предметов уровня героя ± [LEVEL_SPREAD] по весам [RARITIES] - с 0.43.0 и белые, без
+ * аффиксов, под сферы (самоцвет белым не бывает, см. `Jewels`), - из пулов [POOLS]. Экземпляр роллится при выкладке, поэтому игрок
  * видит ровно то, что купит. Цена - то, что торговец дал бы за такой предмет, умноженное на
  * [MARKUP]: купить и сразу продать всегда в убыток. Досрочно витрину не обновить.
  */
 object MerchantRules {
     const val WINDOW_HOURS = 4.0
-    const val MIN_OFFERS = 4
-    const val MAX_OFFERS = 6
+    const val MIN_OFFERS = 12
+    const val MAX_OFFERS = 16
     const val LEVEL_SPREAD = 2
-    const val RARE_SHARE = 0.3
+
+    /** Сколько каких редкостей на витрине (с 0.43.0): половина белых, треть с лишним волшебных, остальное редкие. */
+    val RARITIES = listOf(EnumRarity.COMMON to 50, EnumRarity.UNCOMMON to 35, EnumRarity.RARE to 15)
+
+    private fun rarity(random: Random): EnumRarity {
+        var point = random.nextInt(RARITIES.sumOf { it.second })
+        RARITIES.forEach { (rarity, weight) -> point -= weight; if (point < 0) return rarity }
+        return RARITIES.first().first
+    }
     const val MARKUP = 4
 
     /** Пулы экипировки, из которых торговец выкладывает товар (с 0.39.0). */
@@ -58,7 +66,7 @@ object MerchantRules {
             .ifEmpty { pool.filter { it.value.requiredLevel <= level + LEVEL_SPREAD } }
         val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) {
             val template = Pools.draw(near, random) ?: near.first().value
-            val rarity = if (random.nextDouble() < RARE_SHARE) EnumRarity.RARE else EnumRarity.UNCOMMON
+            val rarity = features.logic.equipment.Jewels.rarity(template, rarity(random))
             val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = roll(template, rarity), rarity = rarity)
             MerchantOffer(ObjectId().toHexString(), item, SellPrice.of(template, rarity, item.params, emptyMap()) * MARKUP)
         }

@@ -152,7 +152,20 @@ data class ModifierDefinition(
     fun isComposite(): Boolean = effects.size > 1
 
     /**
+     * Выведен ли модификатор из игры (с 0.43.0): он касается маны или заклинаний, которых больше
+     * нет, и каждый его пул весит ноль - поэтому не роллится нигде, а уже выпавшие копии остаются.
+     */
+    fun isRetired(): Boolean =
+        pools.isNotEmpty() && pools.values.all { it == 0 } && effects.any { (it.stat as? Enum<*>)?.name in RETIRED_STATS }
+
+    /**
      * Все статы, которых касается модификатор.
      */
     fun stats(): List<IntEnumStat> = effects.map { it.stat }
 }
+
+/** Характеристики маны и заклинаний, убранных из игры в 0.43.0: их модификаторы больше не роллятся. */
+val RETIRED_STATS = setOf(
+    "STOCK_MANA", "STOCK_SPELL_BLOCK", "STOCK_ATTACK_MAGICAL", "STOCK_CAST_SPEED", "STOCK_MANA_REGEN",
+    "STOCK_LEECH_MAGICAL", "STOCK_MANA_ON_KILL", "STOCK_MANA_ON_HIT", "STOCK_CAST_STRENGTH",
+)

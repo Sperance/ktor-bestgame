@@ -3892,9 +3892,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3,
             3
           ]
         }
@@ -3912,9 +3911,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3,
             3
           ]
         }
@@ -3932,9 +3930,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3,
             3
           ]
         }
@@ -3952,9 +3949,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3,
             3
           ]
         }
@@ -3974,9 +3970,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            9,
             9
           ]
         }
@@ -3995,9 +3990,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3,
             3
           ]
         }
@@ -4016,9 +4010,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3,
             3
           ]
         }
@@ -4037,9 +4030,8 @@
       ],
       "params": [
         {
-          "code": "INCREASED_ATTACK_AND_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3,
             3
           ]
         }
@@ -4287,9 +4279,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -4347,9 +4339,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -4861,9 +4853,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -4880,9 +4872,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -4899,9 +4891,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -4918,9 +4910,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -4939,9 +4931,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MAXIMUM_MANA",
+          "code": "INCREASED_ENERGY_SHIELD",
           "values": [
-            15
+            24
           ]
         }
       ]
@@ -4959,9 +4951,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MAXIMUM_MANA",
+          "code": "INCREASED_ENERGY_SHIELD",
           "values": [
-            5
+            8
           ]
         }
       ]
@@ -4979,9 +4971,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MAXIMUM_MANA",
+          "code": "INCREASED_ENERGY_SHIELD",
           "values": [
-            5
+            8
           ]
         }
       ]
@@ -4999,9 +4991,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MAXIMUM_MANA",
+          "code": "INCREASED_ENERGY_SHIELD",
           "values": [
-            5
+            8
           ]
         }
       ]
@@ -5195,9 +5187,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -5252,9 +5244,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -5273,9 +5265,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            42
+            30
           ]
         }
       ]
@@ -5293,9 +5285,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -5313,9 +5305,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -5333,9 +5325,9 @@
       ],
       "params": [
         {
-          "code": "ADD_MAXIMUM_MANA",
+          "code": "ADD_ENERGY_SHIELD",
           "values": [
-            14
+            10
           ]
         }
       ]
@@ -5352,9 +5344,11 @@
       ],
       "params": [
         {
-          "code": "INCREASED_SPELL_DAMAGE",
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            8
+            6,
+            6,
+            6
           ]
         }
       ]
@@ -5371,9 +5365,11 @@
       ],
       "params": [
         {
-          "code": "INCREASED_SPELL_DAMAGE",
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            8
+            6,
+            6,
+            6
           ]
         }
       ]
@@ -5393,9 +5389,11 @@
       ],
       "params": [
         {
-          "code": "INCREASED_SPELL_DAMAGE",
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            24
+            18,
+            18,
+            18
           ]
         }
       ]
@@ -5413,9 +5411,11 @@
       ],
       "params": [
         {
-          "code": "INCREASED_SPELL_DAMAGE",
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            8
+            6,
+            6,
+            6
           ]
         }
       ]
@@ -5433,9 +5433,11 @@
       ],
       "params": [
         {
-          "code": "INCREASED_SPELL_DAMAGE",
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            8
+            6,
+            6,
+            6
           ]
         }
       ]
@@ -5453,9 +5455,11 @@
       ],
       "params": [
         {
-          "code": "INCREASED_SPELL_DAMAGE",
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            8
+            6,
+            6,
+            6
           ]
         }
       ]
@@ -5473,9 +5477,11 @@
       ],
       "params": [
         {
-          "code": "INCREASED_SPELL_DAMAGE",
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            8
+            6,
+            6,
+            6
           ]
         }
       ]
@@ -5727,9 +5733,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MANA_REGENERATION",
+          "code": "ADD_LIFE_REGENERATION",
           "values": [
-            12
+            3
           ]
         }
       ]
@@ -5746,9 +5752,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MANA_REGENERATION",
+          "code": "ADD_LIFE_REGENERATION",
           "values": [
-            12
+            3
           ]
         }
       ]
@@ -5765,9 +5771,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MANA_REGENERATION",
+          "code": "ADD_LIFE_REGENERATION",
           "values": [
-            12
+            3
           ]
         }
       ]
@@ -5786,9 +5792,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MANA_REGENERATION",
+          "code": "ADD_LIFE_REGENERATION",
           "values": [
-            36
+            9
           ]
         }
       ]
@@ -5806,9 +5812,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MANA_REGENERATION",
+          "code": "ADD_LIFE_REGENERATION",
           "values": [
-            12
+            3
           ]
         }
       ]
@@ -5826,9 +5832,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MANA_REGENERATION",
+          "code": "ADD_LIFE_REGENERATION",
           "values": [
-            12
+            3
           ]
         }
       ]
@@ -5846,9 +5852,9 @@
       ],
       "params": [
         {
-          "code": "INCREASED_MANA_REGENERATION",
+          "code": "ADD_LIFE_REGENERATION",
           "values": [
-            12
+            3
           ]
         }
       ]
@@ -5866,7 +5872,7 @@
       ],
       "params": [
         {
-          "code": "INCREASED_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
             3
           ]
@@ -5885,7 +5891,7 @@
       ],
       "params": [
         {
-          "code": "INCREASED_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
             3
           ]
@@ -5918,7 +5924,7 @@
       ],
       "params": [
         {
-          "code": "INCREASED_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
             9
           ]
@@ -5938,7 +5944,7 @@
       ],
       "params": [
         {
-          "code": "INCREASED_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
             3
           ]
@@ -5958,7 +5964,7 @@
       ],
       "params": [
         {
-          "code": "INCREASED_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
             3
           ]
@@ -5978,7 +5984,7 @@
       ],
       "params": [
         {
-          "code": "INCREASED_CAST_SPEED",
+          "code": "INCREASED_ATTACK_SPEED",
           "values": [
             3
           ]

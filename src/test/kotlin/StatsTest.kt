@@ -219,7 +219,7 @@ class StatsTest {
             assert(base[STOCK_AGILITY] == dexterity) { "$code dexterity: expected $dexterity, got ${base[STOCK_AGILITY]}" }
             assert(base[STOCK_INTELLECT] == intelligence) { "$code intelligence: expected $intelligence, got ${base[STOCK_INTELLECT]}" }
             assert(base[STOCK_HEALTH] == 38.0) { "$code life: expected 38.0, got ${base[STOCK_HEALTH]}" }
-            assert(base[STOCK_MANA] == 34.0) { "$code mana: expected 34.0, got ${base[STOCK_MANA]}" }
+            assert(base[STOCK_MANA] == null) { "$code mana: expected none since 0.43.0, got ${base[STOCK_MANA]}" }
         }
     }
 

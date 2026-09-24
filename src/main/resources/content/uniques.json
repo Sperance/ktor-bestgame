@@ -240,7 +240,7 @@
           { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [5.0, 10.0] }
         ],
         [
-          { "stat": "STOCK_MANA", "operation": "ADD", "range": [20.0, 30.0] }
+          { "stat": "STOCK_ENERGY_SHIELD", "operation": "ADD", "range": [20.0, 30.0] }
         ],
         [
           { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [20.0, 20.0] }
@@ -279,7 +279,7 @@
       ],
       "lines": [
         [
-          { "stat": "STOCK_MANA", "operation": "ADD", "range": [20.0, 30.0] }
+          { "stat": "STOCK_ENERGY_SHIELD", "operation": "ADD", "range": [20.0, 30.0] }
         ],
         [
           { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [20.0, 30.0] }
@@ -637,7 +637,7 @@
           { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [20.0, 25.0] }
         ],
         [
-          { "stat": "STOCK_ATTACK_MAGICAL", "operation": "INCREASED", "range": [20.0, 40.0] }
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [20.0, 40.0] }
         ],
         [
           { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [5.0, 8.0] }
@@ -762,7 +762,7 @@
           { "stat": "STOCK_ATTACK_LIGHTNING", "operation": "ADD", "range": [10.0, 80.0] }
         ],
         [
-          { "stat": "STOCK_ATTACK_MAGICAL", "operation": "INCREASED", "range": [40.0, 60.0] }
+          { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [40.0, 60.0] }
         ],
         [
           { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.4, 0.8] }
@@ -895,7 +895,7 @@
           { "stat": "STOCK_RESIST_COLD", "operation": "ADD", "range": [20.0, 30.0] }
         ],
         [
-          { "stat": "STOCK_MANA", "operation": "ADD", "range": [20.0, 30.0] }
+          { "stat": "STOCK_ENERGY_SHIELD", "operation": "ADD", "range": [20.0, 30.0] }
         ],
         [
           { "stat": "STOCK_ATTACK_COLD", "operation": "ADD", "range": [3.0, 6.0] }
