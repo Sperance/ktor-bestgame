@@ -260,6 +260,8 @@ data class CampaignMapTemplate(
     val count: List<Int>,
     /** Во сколько раз биом меняет радиус света героя (с 0.30.0): склеп темнее, берег светлее. */
     val light: Double = 1.0,
+    /** Сторона карты в клетках (с 0.40.0): клиент режет карту такого размера, 72 по умолчанию. */
+    val size: Int = 72,
     /** Таблица добычи сундуков этой карты (с 0.31.0). */
     val chestLoot: String,
     /** Босс карты, страж её выхода (с 0.32.0). */
@@ -317,6 +319,7 @@ data class CampaignMap(
     val biome: String,
     val level: Int,
     val monsterCount: List<Int>,
+    val size: Int = 72,
     val light: Double,
     val monsters: List<CampaignMonster>,
     val modifiers: List<MonsterModifier>,
@@ -378,6 +381,7 @@ object CampaignContent {
                     biome = map.biome,
                     level = map.level,
                     monsterCount = map.count,
+                    size = map.size,
                     light = map.light,
                     monsters = map.monsters.map { code ->
                         val template = monsters.getValue(code)
@@ -466,6 +470,7 @@ object CampaignContent {
             map.monsters.forEach { if (it !in monsters) throw CampaignExceptions.funExceptionContent(method, "monster $it") }
             if (map.count.size != 2 || map.count[0] < 1 || map.count[0] > map.count[1]) throw CampaignExceptions.funExceptionContent(method, "count of ${map.code}")
             if (map.light <= 0) throw CampaignExceptions.funExceptionContent(method, "light of ${map.code}")
+            if (map.size !in 32..160) throw CampaignExceptions.funExceptionContent(method, "size of ${map.code}")
             if (map.modifierPools.isEmpty()) throw CampaignExceptions.funExceptionContent(method, "modifier pools of ${map.code}")
             if (map.chestLoot !in content.lootTables) throw CampaignExceptions.funExceptionContent(method, "chest loot of ${map.code}")
             if (content.monsters.none { it.code == map.boss && it.boss }) throw CampaignExceptions.funExceptionContent(method, "boss of ${map.code}")

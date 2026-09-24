@@ -1653,15 +1653,16 @@
             "SHORE_CRAB"
           ],
           "count": [
-            10,
-            14
+            25,
+            35
           ],
           "light": 1.2,
           "chestLoot": "CHEST_1",
           "boss": "BOSS_TIDECALLER",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_BRINE_CAVES",
@@ -1673,15 +1674,16 @@
             "BRINE_SPITTER"
           ],
           "count": [
-            10,
-            14
+            25,
+            35
           ],
           "light": 0.8,
           "chestLoot": "CHEST_1",
           "boss": "BOSS_BRINE_MOTHER",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_ROTTING_MIRE",
@@ -1693,15 +1695,16 @@
             "SWAMP_LEECH"
           ],
           "count": [
-            12,
-            16
+            30,
+            40
           ],
           "light": 0.9,
           "chestLoot": "CHEST_1",
           "boss": "BOSS_BOG_QUEEN",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_WHISPERING_WOOD",
@@ -1713,15 +1716,16 @@
             "WOOD_SPIDER"
           ],
           "count": [
-            12,
-            16
+            30,
+            40
           ],
           "light": 1.0,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_ALPHA_WOLF",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_FALLEN_RUINS",
@@ -1733,15 +1737,16 @@
             "RUIN_SENTRY"
           ],
           "count": [
-            12,
-            16
+            30,
+            40
           ],
           "light": 1.0,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_RUIN_WARDEN",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_CRYPT_OF_EXILES",
@@ -1754,15 +1759,16 @@
             "BONE_ARCHER"
           ],
           "count": [
-            12,
-            16
+            30,
+            40
           ],
           "light": 0.7,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_CRYPT_LORD",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_CRYSTAL_MINES",
@@ -1774,15 +1780,16 @@
             "TUNNEL_DWELLER"
           ],
           "count": [
-            14,
-            18
+            35,
+            45
           ],
           "light": 0.75,
           "chestLoot": "CHEST_2",
           "boss": "BOSS_SHARD_QUEEN",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_ASHEN_WASTES",
@@ -1794,15 +1801,16 @@
             "MAGMA_SLUG"
           ],
           "count": [
-            14,
-            18
+            35,
+            45
           ],
           "light": 0.9,
           "chestLoot": "CHEST_3",
           "boss": "BOSS_ASHEN_TYRANT",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_FROZEN_PASS",
@@ -1814,15 +1822,16 @@
             "SNOW_STALKER"
           ],
           "count": [
-            14,
-            18
+            35,
+            45
           ],
           "light": 1.1,
           "chestLoot": "CHEST_3",
           "boss": "BOSS_FROST_MONARCH",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         },
         {
           "code": "C1_DROWNED_TEMPLE",
@@ -1835,15 +1844,16 @@
             "TEMPLE_GUARDIAN"
           ],
           "count": [
-            14,
-            18
+            35,
+            45
           ],
           "light": 0.85,
           "chestLoot": "CHEST_3",
           "boss": "BOSS_DROWNED_GOD",
           "modifierPools": [
             "monster"
-          ]
+          ],
+          "size": 72
         }
       ]
     }
