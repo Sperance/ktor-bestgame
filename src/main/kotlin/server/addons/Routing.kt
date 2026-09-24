@@ -136,7 +136,7 @@ fun Application.configureRouting() {
                 call.respond(ApiMongoResponse.ok(ServerVersion(SERVER_VERSION)))
             }
             get("/stats") {
-                call.respond(ApiMongoResponse.ok(StatOrder.all))
+                call.respond(ApiMongoResponse.ok(StatTables.served))
             }
             get("/routes") {
                 val result = ALL_ROUTES.sortedBy { it.path }
@@ -206,17 +206,25 @@ private fun exceptionFiles(): ArrayList<String> {
     return resultArray
 }
 
+/** Одна характеристика и её место в порядке подсчёта. */
+@Serializable
+data class StatOrder(val stat: String, val order: Int)
+
 /**
- * Порядок, в котором считаются характеристики (с 0.41.0): клиент собирает лист героя сам по
- * формуле сервера, и конверсия "X за каждые Y" верна, только если Y посчитан раньше X.
+ * Ответ `/system/stats` (с 0.41.0): клиент собирает лист героя сам по формуле сервера. [stats] -
+ * порядок подсчёта характеристик (конверсия "X за каждые Y" верна, только если Y посчитан
+ * раньше X), [slots] - порядок, в котором проверяются надетые вещи.
  */
 @Serializable
-data class StatOrder(val stat: String, val order: Int) {
+data class StatTables(val stats: List<StatOrder>, val slots: List<String>) {
     companion object {
-        val all: List<StatOrder> by lazy {
-            (application.enums.EnumStatStock.entries + application.enums.EnumStatBool.entries +
-                application.enums.EnumStatProfession.entries + application.enums.EnumStatBattle.entries)
-                .map { StatOrder(it.name, (it as application.enums.IntEnumStat).order) }.sortedBy { it.order }
+        val served: StatTables by lazy {
+            StatTables(
+                (application.enums.EnumStatStock.entries + application.enums.EnumStatBool.entries +
+                    application.enums.EnumStatProfession.entries + application.enums.EnumStatBattle.entries)
+                    .map { StatOrder(it.name, (it as application.enums.IntEnumStat).order) }.sortedBy { it.order },
+                application.enums.EnumEquipmentType.entries.map { it.name },
+            )
         }
     }
 }
