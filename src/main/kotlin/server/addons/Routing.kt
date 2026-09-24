@@ -135,6 +135,9 @@ fun Application.configureRouting() {
             get("/version") {
                 call.respond(ApiMongoResponse.ok(ServerVersion(SERVER_VERSION)))
             }
+            get("/stats") {
+                call.respond(ApiMongoResponse.ok(StatOrder.all))
+            }
             get("/routes") {
                 val result = ALL_ROUTES.sortedBy { it.path }
                 call.respond(ApiMongoResponse.ok(result))
@@ -201,6 +204,21 @@ private fun exceptionFiles(): ArrayList<String> {
             }
     }
     return resultArray
+}
+
+/**
+ * Порядок, в котором считаются характеристики (с 0.41.0): клиент собирает лист героя сам по
+ * формуле сервера, и конверсия "X за каждые Y" верна, только если Y посчитан раньше X.
+ */
+@Serializable
+data class StatOrder(val stat: String, val order: Int) {
+    companion object {
+        val all: List<StatOrder> by lazy {
+            (application.enums.EnumStatStock.entries + application.enums.EnumStatBool.entries +
+                application.enums.EnumStatProfession.entries + application.enums.EnumStatBattle.entries)
+                .map { StatOrder(it.name, (it as application.enums.IntEnumStat).order) }.sortedBy { it.order }
+        }
+    }
 }
 
 /** Ответ `/system/version`: клиент сверяет его с той версией, под которую собран. */

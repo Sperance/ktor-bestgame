@@ -25,12 +25,16 @@ class TradeTest {
      */
     @Test
     fun a_rarer_item_with_more_affixes_is_worth_more() {
-        val plain = SellPrice.of(template(price = 100, rarity = EnumRarity.COMMON), emptyList(), emptyMap())
-        val rare = SellPrice.of(template(price = 100, rarity = EnumRarity.RARE), emptyList(), emptyMap())
+        val plain = SellPrice.of(template(price = 100, rarity = EnumRarity.COMMON), EnumRarity.COMMON, emptyList(), emptyMap())
+        val rare = SellPrice.of(template(price = 100, rarity = EnumRarity.COMMON), EnumRarity.RARE, emptyList(), emptyMap())
         assertTrue("редкий не дороже обычного: $rare против $plain", rare > plain)
 
-        val rolled = SellPrice.of(template(price = 100, rarity = EnumRarity.RARE), rolls(4), emptyMap())
+        val rolled = SellPrice.of(template(price = 100, rarity = EnumRarity.COMMON), EnumRarity.RARE, rolls(4), emptyMap())
         assertTrue("аффиксы не подняли цену: $rolled против $rare", rolled > rare)
+
+        // Считается редкость экземпляра, а не шаблона (0.41.0): обычная копия редкой базы стоит как обычная.
+        val copy = SellPrice.of(template(price = 100, rarity = EnumRarity.RARE), EnumRarity.COMMON, emptyList(), emptyMap())
+        assertEquals(plain, copy)
 
         // Уникальный дороже мифического, потому что аффиксов не роллит вовсе.
         assertTrue(SellPrice.factor(EnumRarity.UNIQUE) > SellPrice.factor(EnumRarity.MYTHICAL))
@@ -41,15 +45,13 @@ class TradeTest {
      */
     @Test
     fun the_gold_stat_raises_the_price_and_costs_nothing_while_it_is_zero() {
-        val base = SellPrice.of(template(price = 200, rarity = EnumRarity.COMMON), emptyList(), emptyMap())
-        val zero = SellPrice.of(
-            template(price = 200, rarity = EnumRarity.COMMON), emptyList(),
+        val base = SellPrice.of(template(price = 200, rarity = EnumRarity.COMMON), EnumRarity.COMMON, emptyList(), emptyMap())
+        val zero = SellPrice.of(template(price = 200, rarity = EnumRarity.COMMON), EnumRarity.COMMON, emptyList(),
             mapOf(EnumStatStock.STOCK_GOLD to 0.0)
         )
         assertEquals(base, zero)
 
-        val richer = SellPrice.of(
-            template(price = 200, rarity = EnumRarity.COMMON), emptyList(),
+        val richer = SellPrice.of(template(price = 200, rarity = EnumRarity.COMMON), EnumRarity.COMMON, emptyList(),
             mapOf(EnumStatStock.STOCK_GOLD to 50.0)
         )
         assertEquals(base * 3 / 2, richer)
@@ -58,7 +60,7 @@ class TradeTest {
     /** Торговец никогда не платит ноль: предмет всегда чего-то да стоит. */
     @Test
     fun nothing_is_ever_bought_for_nothing() {
-        assertTrue(SellPrice.of(template(price = 0, rarity = EnumRarity.COMMON), emptyList(), emptyMap()) >= 1L)
+        assertTrue(SellPrice.of(template(price = 0, rarity = EnumRarity.COMMON), EnumRarity.COMMON, emptyList(), emptyMap()) >= 1L)
     }
 
     // ==================== Вклад набора модификаторов ====================

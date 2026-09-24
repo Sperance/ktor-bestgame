@@ -31,7 +31,7 @@ class MerchantTest {
                 assertTrue(template.requiredLevel in 8..12, "${template.code}: ${template.requiredLevel}")
                 assertTrue(template.rarity != EnumRarity.UNIQUE && template.slot != EnumEquipmentType.JEWEL)
                 assertTrue(offer.item.rarity in setOf(EnumRarity.UNCOMMON, EnumRarity.RARE))
-                assertEquals(SellPrice.of(template, offer.item.params, emptyMap()) * 4, offer.price)
+                assertEquals(SellPrice.of(template, offer.item.rarity, offer.item.params, emptyMap()) * 4, offer.price)
             }
         }
     }

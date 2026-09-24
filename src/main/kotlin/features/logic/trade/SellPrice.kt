@@ -10,7 +10,8 @@ import kotlin.math.floor
 /**
  * Во сколько золота торговец оценивает предмет.
  *
- * Цену считает сервер и только сервер: клиент её печатает. Правило собрано из
+ * Цену назначает сервер; с 0.41.0 клиент считает её по этому же правилу, чтобы показать
+ * заранее, - поэтому его изменение меняет и клиентский `SellPrice`. Правило собрано из
  * трёх вещей, каждая из которых уже есть у предмета, - базовой цены шаблона,
  * редкости экземпляра и того, сколько на нём выролено аффиксов. Роллы входят
  * счётом, а не значениями: хорошие роллы стоят дороже плохих, но оценивать
@@ -26,8 +27,12 @@ object SellPrice {
     /** Сколько аффиксов прибавляют к цене - доля от базы за каждый. */
     private const val AFFIX_SHARE = 0.15
 
-    fun of(template: Equipment, rolled: Collection<Modifier>, stats: Map<IntEnumStat, Double>): Long {
-        val rarityFactor = factor(template.rarity)
+    /**
+     * @param rarity редкость экземпляра: до 0.41.0 бралась редкость шаблона, и редкая вещь
+     * продавалась как обычная
+     */
+    fun of(template: Equipment, rarity: EnumRarity, rolled: Collection<Modifier>, stats: Map<IntEnumStat, Double>): Long {
+        val rarityFactor = factor(rarity)
         val affixFactor = 1.0 + AFFIX_SHARE * rolled.size
         val goldFactor = 1.0 + (stats[EnumStatStock.STOCK_GOLD] ?: 0.0) / 100.0
 

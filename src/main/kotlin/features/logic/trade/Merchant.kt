@@ -60,7 +60,7 @@ object MerchantRules {
             val template = Pools.draw(near, random) ?: near.first().value
             val rarity = if (random.nextDouble() < RARE_SHARE) EnumRarity.RARE else EnumRarity.UNCOMMON
             val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = roll(template, rarity), rarity = rarity)
-            MerchantOffer(ObjectId().toHexString(), item, SellPrice.of(template, item.params, emptyMap()) * MARKUP)
+            MerchantOffer(ObjectId().toHexString(), item, SellPrice.of(template, rarity, item.params, emptyMap()) * MARKUP)
         }
         return MerchantStock(now + (WINDOW_HOURS * 3_600_000).toLong(), offers)
     }
