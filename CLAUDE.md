@@ -147,6 +147,11 @@ database. Keep new rules in that table rather than in a route.
   `CampaignChests.window`) rolled from `chests.count` plus `STOCK_CHEST_QUANTITY`;
   `GET /campaign/chests` says how many are left, `POST /campaign/chest` opens one and rolls the
   map's `chestLoot` table, and an empty window is `CP_006`.
+  Since 0.32.0 every map has a boss (`monsters` entry with `boss`, fixed `modifiers` and a
+  boss-only `unique`; the map names it in `boss`) of rarity `UNIQUE`, served as `CampaignMap.boss`.
+  `complete` is `CP_007` while it lives, `POST /campaign/boss` reports it slain (`Character.bosses`,
+  back after `bosses.respawnHours`, `CP_008` meanwhile) and rolls its table plus the unique chances.
+  `CampaignContent.bossUniques` keeps those uniques out of every other source.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 309 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level

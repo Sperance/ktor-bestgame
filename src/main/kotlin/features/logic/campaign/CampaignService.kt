@@ -1,5 +1,6 @@
 package features.logic.campaign
 
+import application.enums.EnumRarity
 import application.enums.EnumStatStock
 import base.exception.model.CampaignExceptions
 import base.exception.model.CharacterExceptions
@@ -42,6 +43,10 @@ data class CampaignReward(
 @Serializable
 data class ChestState(val left: Int, val refreshAt: Long)
 
+/** Босс карты у героя (с 0.32.0): жив ли он и когда вернётся убитый (миллисекунды эпохи). */
+@Serializable
+data class BossState(val alive: Boolean, val respawnAt: Long)
+
 /** Что стоила смерть: потерянный опыт и где герой теперь. Уровень не меняется никогда. */
 @Serializable
 data class CampaignFall(val lost: Double, val level: Int, val totalExperience: Double)
@@ -55,6 +60,11 @@ data class CampaignFall(val lost: Double, val level: Int, val totalExperience: D
  * ни сферу, ни уровень, - только убить монстра, которого не убивал.
  */
 class CampaignService : KoinComponent {
+    private companion object {
+        /** Обычная уникалка с босса - не старше уровня карты больше чем на столько. */
+        const val UNIQUE_REACH = 10
+    }
+
     private val characters: CharacterRepository by inject()
     private val inventory: CharacterEquipmentRepository by inject()
     private val equipmentCache: EquipmentCache by inject()
@@ -73,13 +83,49 @@ class CampaignService : KoinComponent {
         val character = requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         if (map.monsters.none { it.code == monsterCode }) throw CampaignExceptions.funExceptionMonsterNotOnMap(method, monsterCode)
-        val rarityValue = EnumMonsterRarity.entries.firstOrNull { it.name == rarityName }
+        // Уникальная редкость - только у босса, а босс сообщается своим маршрутом.
+        val rarityValue = EnumMonsterRarity.entries.firstOrNull { it.name == rarityName && it != EnumMonsterRarity.UNIQUE }
             ?: throw CampaignExceptions.funExceptionRarity(method, rarityName)
         val rarity = CampaignContent.file.rarities.first { it.rarity == rarityValue }
         val monster = CampaignContent.monsters.getValue(monsterCode)
 
         val experience = CampaignLoot.experience(monster, map.level, rarity, bonus(characterId, EnumStatStock.STOCK_EXPERIENCE))
         return grant(character, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method)
+    }
+
+    /** Жив ли босс карты у героя и когда вернётся убитый (с 0.32.0). */
+    suspend fun boss(characterId: String, mapCode: String): BossState {
+        val method = "boss"
+        val character = requireCharacter(characterId, method)
+        openMap(character, mapCode, method)
+        val back = character.bosses[mapCode] ?: 0L
+        return BossState(System.currentTimeMillis() >= back, back)
+    }
+
+    /**
+     * Герой убил босса карты: добыча его таблицы с уникальной редкостью, шанс обычной уникалки и
+     * шанс его собственной, и выход открыт на [BossRule.respawnHours] часов. Мёртвого не убить - `CP_008`.
+     */
+    suspend fun slayBoss(characterId: String, mapCode: String): CampaignReward {
+        val method = "slayBoss"
+        val character = requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        val now = System.currentTimeMillis()
+        if (now < (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionBossSlain(method, mapCode)
+        val template = CampaignContent.monsters.getValue(map.boss.code)
+        val rule = CampaignContent.file.bosses
+        val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
+        val random = Random.Default
+        val uniques = equipmentCache.getCache().filter { it.rarity == EnumRarity.UNIQUE }
+        val ordinary = uniques.filter { it.code !in CampaignContent.bossUniques }
+        val extra = listOfNotNull(
+            ordinary.filter { it.requiredLevel <= map.level + UNIQUE_REACH }.ifEmpty { ordinary }.randomOrNull(random).takeIf { random.nextDouble() < rule.uniqueChance },
+            uniques.firstOrNull { it.code == template.unique }.takeIf { random.nextDouble() < rule.ownUniqueChance },
+        )
+        character.bosses[mapCode] = now + (rule.respawnHours * 3_600_000).toLong()
+        val sheet = characters.calculateStats(characterId).stats
+        val experience = CampaignLoot.experience(template, map.level, rarity, sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0)
+        return grant(character, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra)
     }
 
     /** Сколько сундуков ещё стоит на карте у героя и когда их станет снова (с 0.31.0). */
@@ -124,7 +170,8 @@ class CampaignService : KoinComponent {
         characters.calculateStats(characterId).stats[stat] ?: 0.0
 
     /** Добыча по таблице и опыт - одной транзакцией, как у промокода. */
-    private suspend fun grant(character: Character, table: LootTable, level: Int, rarity: CampaignRarity, experience: Double, method: String): CampaignReward {
+    private suspend fun grant(character: Character, table: LootTable, level: Int, rarity: CampaignRarity, experience: Double, method: String,
+                              extra: List<features.data.equipment.equipment_data.Equipment> = emptyList()): CampaignReward {
         val sheet = characters.calculateStats(character._id).stats
         fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
         val random = Random.Default
@@ -132,8 +179,9 @@ class CampaignService : KoinComponent {
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
             itemsCache.getCache().firstOrNull { it.code == code }?.let { CharacterItems(it._id, amount) }
         }
-        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level }
-        val templates = List(loot.equipment) {
+        // Уникалки боссов не падают ниоткуда, кроме своего босса.
+        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level && it.code !in CampaignContent.bossUniques }
+        val templates = extra + List(loot.equipment) {
             CampaignLoot.pick(bases, { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY), random)
         }.filterNotNull()
 
@@ -165,11 +213,15 @@ class CampaignService : KoinComponent {
         return CampaignFall(lost, character.level.toInt(), character.experience)
     }
 
-    /** Герой дошёл до выхода: карта пройдена и открывает следующую. Повторное прохождение ничего не меняет. */
+    /**
+     * Герой дошёл до выхода: карта пройдена и открывает следующую. Повторное прохождение ничего не меняет.
+     * С 0.32.0 выход запечатан, пока жив босс карты (`CP_007`).
+     */
     suspend fun complete(characterId: String, mapCode: String): CampaignProgress {
         val method = "complete"
         val character = requireCharacter(characterId, method)
         openMap(character, mapCode, method)
+        if (System.currentTimeMillis() >= (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionSealed(method, mapCode)
         if (mapCode !in character.campaign) {
             character.campaign.add(mapCode)
             transactionExecute(method) { session -> characters.update(character, session) }

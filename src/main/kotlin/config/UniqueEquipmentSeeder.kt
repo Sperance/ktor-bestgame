@@ -27,6 +27,7 @@ import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import application.enums.EnumStatStock.STOCK_AGILITY
 import application.enums.EnumStatStock.STOCK_ARMOR
+import application.enums.EnumStatStock.STOCK_ATTACK_CHAOS
 import application.enums.EnumStatStock.STOCK_ATTACK_COLD
 import application.enums.EnumStatStock.STOCK_ATTACK_FIRE
 import application.enums.EnumStatStock.STOCK_ATTACK_LIGHTNING
@@ -52,6 +53,7 @@ import application.enums.EnumStatStock.STOCK_RESIST_COLD
 import application.enums.EnumStatStock.STOCK_RESIST_FIRE
 import application.enums.EnumStatStock.STOCK_RESIST_LIGHTNING
 import application.enums.EnumStatStock.STOCK_STRENGTH
+import application.enums.EnumStatStock.STOCK_STUN_THRESHOLD
 import features.data.equipment.equipment_data.Accessory
 import features.data.equipment.equipment_data.Armor
 import features.data.equipment.equipment_data.Equipment
@@ -106,7 +108,9 @@ object UniqueEquipmentSeeder {
 
     // ==================== Таблица уникальных предметов ====================
 
-    private val templates = listOf(
+    private val templates get() = ordinary + bosses
+
+    private val ordinary = listOf(
 
         // ---------- HELMET ----------
         UniqueTemplate(
@@ -438,6 +442,99 @@ object UniqueEquipmentSeeder {
             )
         ),
     )
+
+    /**
+     * Уникалки боссов кампании (с 0.32.0): по одной на босса карты, и выпадают они только
+     * с него - ни сфера шанса, ни монстр, ни сундук их не дают. Какой босс что роняет, говорит
+     * `campaign.json` (`unique` босса); уровень предмета - уровень его карты.
+     */
+    private val bosses = listOf(
+        UniqueTemplate(
+            code = "TIDEBREAKER_SIGIL", slot = RING, itemLevel = 1,
+            modifiers = listOf(
+                line(effect(STOCK_RESIST_COLD, ADD, 20.0..30.0)),
+                line(effect(STOCK_MANA, ADD, 20.0..30.0)),
+                line(effect(STOCK_ATTACK_COLD, ADD, 3.0..6.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "BRINESHELL_WARD", slot = SHIELD, itemLevel = 3, defense = 60,
+            modifiers = listOf(
+                line(effect(STOCK_ARMOR, INCREASED, 60.0..90.0)),
+                line(effect(STOCK_BLOCK_CHANCE, ADD, 4.0..6.0)),
+                line(effect(STOCK_HEALTH, ADD, 30.0..45.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "MIRE_QUEENS_CROWN", slot = HELMET, itemLevel = 5, defense = 40,
+            modifiers = listOf(
+                line(effect(STOCK_RESIST_CHAOS, ADD, 17.0..23.0)),
+                line(effect(STOCK_HEALTH_REGEN, ADD, 3.0..5.0)),
+                line(effect(STOCK_HEALTH, ADD, 30.0..40.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "PACKLEADERS_STRIDE", slot = BOOTS, itemLevel = 7, defense = 30,
+            modifiers = listOf(
+                line(effect(STOCK_MOVEMENT_SPEED, INCREASED, 20.0..25.0)),
+                line(effect(STOCK_ATTACK_SPEED, INCREASED, 6.0..10.0)),
+                line(effect(STOCK_EVASION, INCREASED, 40.0..60.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "WARDENS_OATH", slot = BODY, itemLevel = 9, defense = 180,
+            modifiers = listOf(
+                line(effect(STOCK_ARMOR, INCREASED, 80.0..120.0)),
+                line(effect(STOCK_HEALTH, ADD, 50.0..70.0)),
+                line(effect(STOCK_STUN_THRESHOLD, ADD, 20.0..30.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "GRAVEBIND", slot = AMULET, itemLevel = 11,
+            modifiers = listOf(
+                line(effect(STOCK_LEECH_PHYSICAL, ADD, 0.6..1.0)),
+                line(effect(STOCK_HEALTH, ADD, 40.0..60.0)),
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 20.0..30.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "SHARDFANG", slot = WEAPON_1H, itemLevel = 13,
+            weaponType = BLADE, damageMin = 20.0, damageMax = 45.0, attackSpeed = 1.5, durability = 120,
+            modifiers = listOf(
+                line(effect(STOCK_CRITICAL_CHANCE, INCREASED, 60.0..80.0)),
+                line(effect(STOCK_CRITICAL_MULTIPLIER, ADD, 20.0..30.0)),
+                line(effect(STOCK_ATTACK_LIGHTNING, ADD, 8.0..16.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "EMBERHEART_GIRDLE", slot = BELT, itemLevel = 15,
+            modifiers = listOf(
+                line(effect(STOCK_RESIST_FIRE, ADD, 30.0..40.0)),
+                line(effect(STOCK_ATTACK_FIRE, MORE, 10.0..15.0)),
+                line(effect(STOCK_HEALTH, ADD, 50.0..70.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "WINTERS_GRASP", slot = GLOVES, itemLevel = 17, defense = 90,
+            modifiers = listOf(
+                line(effect(STOCK_ATTACK_COLD, ADD, 10.0..18.0)),
+                line(effect(STOCK_ATTACK_SPEED, INCREASED, 8.0..12.0)),
+                line(effect(STOCK_RESIST_COLD, ADD, 25.0..35.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "LEVIATHANS_MAW", slot = WEAPON_2H, itemLevel = 20,
+            weaponType = LONGSWORD, damageMin = 60.0, damageMax = 130.0, attackSpeed = 1.1, durability = 200,
+            modifiers = listOf(
+                line(effect(STOCK_ATTACK_PHYSICAL, INCREASED, 120.0..160.0)),
+                line(effect(STOCK_ATTACK_CHAOS, ADD, 15.0..25.0)),
+                line(effect(STOCK_LEECH_PHYSICAL, ADD, 0.8..1.2)),
+            )
+        ),
+    )
+
+    /** Коды уникалок, что падают только с боссов кампании: их нет ни в одном другом источнике. */
+    val bossOnly: Set<String> get() = bosses.map { it.code }.toSet()
 
     // ==================== Генерация документов ====================
 

@@ -69,6 +69,9 @@ data class Character(
     /** Сундуки кампании по кодам карт (с 0.31.0): окно и сколько в нём осталось, см. [features.logic.campaign.CampaignChests]. */
     var chests: MutableMap<String, features.logic.campaign.ChestWindow> = mutableMapOf(),
 
+    /** Когда босс карты вернётся (с 0.32.0), миллисекунды эпохи по кодам карт; до тех пор он мёртв и выход открыт. */
+    var bosses: MutableMap<String, Long> = mutableMapOf(),
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

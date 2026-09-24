@@ -131,7 +131,8 @@ class SeedDataTest {
 
     @Test
     fun every_slot_has_three_uniques() {
-        val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE }.groupBy { it.slot }
+        // Уникалки боссов кампании (0.32.0) - сверх трёх: они падают только со своего босса.
+        val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE && it.code !in config.UniqueEquipmentSeeder.bossOnly }.groupBy { it.slot }
 
         // Самоцвет носится не на теле, а в гнезде дерева, и уникальных самоцветов
         // пока нет: их сила должна считаться вместе с деревом, а не отдельно от него.

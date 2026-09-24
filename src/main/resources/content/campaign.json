@@ -72,6 +72,26 @@
       "quantity": 6.0,
       "rarityBonus": 150,
       "experience": 5.0
+    },
+    {
+      "rarity": "UNIQUE",
+      "weight": 0,
+      "modifiers": [
+        0,
+        0
+      ],
+      "statScale": 120,
+      "modifierPower": 2.0,
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "MORE",
+          "value": 250
+        }
+      ],
+      "quantity": 10.0,
+      "rarityBonus": 250,
+      "experience": 15.0
     }
   ],
   "modifiers": [
@@ -762,6 +782,186 @@
           "chance": 0.4
         }
       ]
+    },
+    "BOSS_1": {
+      "gold": [
+        30,
+        60
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_TRANSMUTATION",
+          "chance": 0.3,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_AUGMENTATION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.2
+        }
+      ]
+    },
+    "BOSS_2": {
+      "gold": [
+        45,
+        90
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.3,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_CHANCE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_SCOURING",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.25
+        }
+      ]
+    },
+    "BOSS_3": {
+      "gold": [
+        70,
+        140
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.3,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "REGAL_ORB",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "CHAOS_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "BLESSED_ORB",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "VAAL_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.3
+        }
+      ]
     }
   },
   "monsters": [
@@ -1150,6 +1350,201 @@
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 14
       }
+    },
+    {
+      "code": "BOSS_TIDECALLER",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 40,
+        "STOCK_ATTACK_PHYSICAL": 6,
+        "STOCK_ATTACK_COLD": 3
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_TOUGH",
+        "MOB_FREEZING"
+      ],
+      "unique": "TIDEBREAKER_SIGIL"
+    },
+    {
+      "code": "BOSS_BRINE_MOTHER",
+      "form": "CRAB",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 55,
+        "STOCK_ATTACK_PHYSICAL": 7,
+        "STOCK_ARMOR": 40,
+        "STOCK_BLOCK_CHANCE": 15
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_ARMOURED",
+        "MOB_STRONG"
+      ],
+      "unique": "BRINESHELL_WARD"
+    },
+    {
+      "code": "BOSS_BOG_QUEEN",
+      "form": "SLUG",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 60,
+        "STOCK_ATTACK_CHAOS": 6,
+        "STOCK_HEALTH_REGEN": 3,
+        "STOCK_RESIST_CHAOS": 40
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_VENOMOUS",
+        "MOB_REGENERATING"
+      ],
+      "unique": "MIRE_QUEENS_CROWN"
+    },
+    {
+      "code": "BOSS_ALPHA_WOLF",
+      "form": "BEAST",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.5,
+        "STOCK_HEALTH": 50,
+        "STOCK_ATTACK_PHYSICAL": 8,
+        "STOCK_EVASION": 60
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_HASTED",
+        "MOB_DEADLY"
+      ],
+      "unique": "PACKLEADERS_STRIDE"
+    },
+    {
+      "code": "BOSS_RUIN_WARDEN",
+      "form": "GOLEM",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 70,
+        "STOCK_ATTACK_PHYSICAL": 9,
+        "STOCK_ARMOR": 70,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 18
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_STALWART",
+        "MOB_JUGGERNAUT"
+      ],
+      "unique": "WARDENS_OATH"
+    },
+    {
+      "code": "BOSS_CRYPT_LORD",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 55,
+        "STOCK_ATTACK_PHYSICAL": 8,
+        "STOCK_ATTACK_CHAOS": 4,
+        "STOCK_RESIST_CHAOS": 30
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_VAMPIRIC",
+        "MOB_UNDYING"
+      ],
+      "unique": "GRAVEBIND"
+    },
+    {
+      "code": "BOSS_SHARD_QUEEN",
+      "form": "SPIDER",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.4,
+        "STOCK_HEALTH": 50,
+        "STOCK_ATTACK_PHYSICAL": 6,
+        "STOCK_ATTACK_LIGHTNING": 5,
+        "STOCK_CRITICAL_CHANCE": 10
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_SHOCKING",
+        "MOB_DEADLY"
+      ],
+      "unique": "SHARDFANG"
+    },
+    {
+      "code": "BOSS_ASHEN_TYRANT",
+      "form": "BRUTE",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 75,
+        "STOCK_ATTACK_PHYSICAL": 8,
+        "STOCK_ATTACK_FIRE": 7,
+        "STOCK_RESIST_FIRE": 50
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_FLAMING",
+        "MOB_BERSERK"
+      ],
+      "unique": "EMBERHEART_GIRDLE"
+    },
+    {
+      "code": "BOSS_FROST_MONARCH",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 45,
+        "STOCK_ENERGY_SHIELD": 25,
+        "STOCK_ATTACK_COLD": 7,
+        "STOCK_RESIST_COLD": 60,
+        "STOCK_ATTACK_MAGICAL": 6,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_FREEZING",
+        "MOB_ARCANE"
+      ],
+      "unique": "WINTERS_GRASP"
+    },
+    {
+      "code": "BOSS_DROWNED_GOD",
+      "form": "SERPENT",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 80,
+        "STOCK_ATTACK_PHYSICAL": 9,
+        "STOCK_ATTACK_CHAOS": 6,
+        "STOCK_ENERGY_SHIELD": 20,
+        "STOCK_RESIST_CHAOS": 40
+      },
+      "boss": true,
+      "modifiers": [
+        "MOB_ELEMENTALIST",
+        "MOB_WARDED",
+        "MOB_JUGGERNAUT"
+      ],
+      "unique": "LEVIATHANS_MAW"
     }
   ],
   "chapters": [
@@ -1169,7 +1564,8 @@
             14
           ],
           "light": 1.2,
-          "chestLoot": "CHEST_1"
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_TIDECALLER"
         },
         {
           "code": "C1_BRINE_CAVES",
@@ -1185,7 +1581,8 @@
             14
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_1"
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_BRINE_MOTHER"
         },
         {
           "code": "C1_ROTTING_MIRE",
@@ -1201,7 +1598,8 @@
             16
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_1"
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_BOG_QUEEN"
         },
         {
           "code": "C1_WHISPERING_WOOD",
@@ -1217,7 +1615,8 @@
             16
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_2"
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_ALPHA_WOLF"
         },
         {
           "code": "C1_FALLEN_RUINS",
@@ -1233,7 +1632,8 @@
             16
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_2"
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_RUIN_WARDEN"
         },
         {
           "code": "C1_CRYPT_OF_EXILES",
@@ -1250,7 +1650,8 @@
             16
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_2"
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_CRYPT_LORD"
         },
         {
           "code": "C1_CRYSTAL_MINES",
@@ -1266,7 +1667,8 @@
             18
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_2"
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_SHARD_QUEEN"
         },
         {
           "code": "C1_ASHEN_WASTES",
@@ -1282,7 +1684,8 @@
             18
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_3"
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_ASHEN_TYRANT"
         },
         {
           "code": "C1_FROZEN_PASS",
@@ -1298,7 +1701,8 @@
             18
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_3"
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_FROST_MONARCH"
         },
         {
           "code": "C1_DROWNED_TEMPLE",
@@ -1315,7 +1719,8 @@
             18
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_3"
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_DROWNED_GOD"
         }
       ]
     }
@@ -1527,5 +1932,18 @@
     "refreshHours": 6,
     "quantity": 1.0,
     "rarityBonus": 60
+  },
+  "bosses": {
+    "respawnHours": 1,
+    "uniqueChance": 0.1,
+    "ownUniqueChance": 0.2,
+    "behaviour": {
+      "type": "AMBUSH",
+      "wanderSpeed": 1.0,
+      "chaseSpeed": 2.0,
+      "sight": 6.0,
+      "wake": 3.5,
+      "giveUp": 4.0
+    }
   }
 }

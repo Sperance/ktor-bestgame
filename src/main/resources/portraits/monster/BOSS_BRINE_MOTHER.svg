@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#161a22"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#2a6a8a" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#2a6a8a" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#2a6a8a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="shell" gradientUnits="userSpaceOnUse" cx="150" cy="260" r="140">
+      <stop offset="0" stop-color="#e0704a"/>
+      <stop offset="0.7" stop-color="#9a3a20"/>
+      <stop offset="1" stop-color="#4a1a0e"/>
+    </radialGradient>
+    <linearGradient id="bossgold" gradientUnits="userSpaceOnUse" x1="150" y1="40" x2="150" y2="110">
+      <stop offset="0" stop-color="#ffe9a0"/>
+      <stop offset="1" stop-color="#a06a1a"/>
+    </linearGradient>
+    <radialGradient id="bossaura" gradientUnits="userSpaceOnUse" cx="150" cy="180" r="220">
+      <stop offset="0.45" stop-color="#af6025" stop-opacity="0"/>
+      <stop offset="1" stop-color="#af6025" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M30 170 Q10 110 50 80 Q70 110 60 130 Q90 110 96 150 Q70 180 30 170 Z" fill="url(#shell)"/>
+  <path d="M270 170 Q290 110 250 80 Q230 110 240 130 Q210 110 204 150 Q230 180 270 170 Z" fill="url(#shell)"/>
+  <path d="M60 170 L100 250" fill="none" stroke="#9a3a20" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M240 170 L200 250" fill="none" stroke="#9a3a20" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M130 230 L120 170" fill="none" stroke="#9a3a20" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M170 230 L180 170" fill="none" stroke="#9a3a20" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="120" cy="166" r="11" fill="#1a1010"/>
+  <circle cx="180" cy="166" r="11" fill="#1a1010"/>
+  <circle cx="117" cy="163" r="3.5" fill="#ffffff"/>
+  <circle cx="177" cy="163" r="3.5" fill="#ffffff"/>
+  <path d="M40 330 Q40 230 150 220 Q260 230 260 330 Q230 380 150 384 Q70 380 40 330 Z" fill="url(#shell)"/>
+  <path d="M80 300 Q150 270 220 300" fill="none" stroke="#e89070" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+  <path d="M130 300 L126 330 M150 290 L150 324 M170 300 L174 330" fill="none" stroke="#6a2410" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="0" y="0" width="300" height="400" fill="url(#bossaura)"/>
+  <ellipse cx="150" cy="70" rx="80" ry="22" fill="none" stroke="#ffb060" stroke-width="7" opacity="0.8"/>
+  <ellipse cx="150" cy="70" rx="80" ry="22" fill="none" stroke="#fff4d0" stroke-width="2" opacity="0.7"/>
+  <rect x="3" y="3" width="294" height="394" fill="none" stroke="#af6025" stroke-width="6" opacity="0.8"/>
+</svg>

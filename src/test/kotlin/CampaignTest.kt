@@ -199,4 +199,20 @@ class CampaignTest {
             assertTrue(content.chapters.flatMap { it.maps }.first { it.code == map.code }.chestLoot in content.lootTables)
         }
     }
+
+    @Test
+    fun every_map_has_its_own_boss_and_every_boss_its_own_unique() {
+        val maps = view.chapters.flatMap { it.maps }
+        assertEquals(maps.size, maps.map { it.boss.code }.toSet().size, "у каждой карты свой босс")
+        maps.forEach { map ->
+            assertTrue(map.boss.modifiers.isNotEmpty(), "${map.code}: босс без модификаторов")
+            assertTrue(map.monsters.none { it.code == map.boss.code })
+        }
+        assertEquals(config.UniqueEquipmentSeeder.bossOnly, CampaignContent.bossUniques)
+        val unique = content.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
+        assertEquals(0, unique.weight, "уникальная редкость не выпадает случайно")
+        // A boss on a deeper map is stronger, and stronger than the monsters around it.
+        val first = maps.first()
+        assertTrue(first.boss.stats.getValue("STOCK_HEALTH") > first.monsters.maxOf { it.stats.getValue("STOCK_HEALTH") })
+    }
 }

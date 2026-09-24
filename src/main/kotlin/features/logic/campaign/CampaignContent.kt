@@ -14,7 +14,8 @@ import kotlin.math.pow
  * Редкость монстра - как в PoE: обычный, магический с одним-двумя модификаторами и редкий с
  * тремя-четырьмя. Катает её клиент по весам [CampaignRarity], а сервер по ней умножает добычу и опыт.
  */
-enum class EnumMonsterRarity { NORMAL, MAGIC, RARE }
+/** Редкость монстра; `UNIQUE` (с 0.32.0) - только босс карты, случайно она не выпадает никогда. */
+enum class EnumMonsterRarity { NORMAL, MAGIC, RARE, UNIQUE }
 
 /** Что может выпасть: сфера из справочника валюты или экипировка уровня карты. */
 enum class EnumLootKind { ORB, EQUIPMENT }
@@ -152,7 +153,25 @@ data class MonsterTemplate(
     val stats: Map<String, Double>,
     /** Своё поведение монстра поверх поведения его формы (с 0.30.0); обычно пусто. */
     val behaviour: BehaviourRule? = null,
+    /** Босс карты (с 0.32.0): не бродит среди прочих, стоит у выхода и не катает редкость. */
+    val boss: Boolean = false,
+    /** Закреплённые модификаторы босса - коды из `modifiers`, одни и те же при каждой встрече. */
+    val modifiers: List<String> = emptyList(),
+    /** Уникалка, что падает только с этого босса. */
+    val unique: String? = null,
 )
+
+/**
+ * Боссы (с 0.32.0): страж выхода каждой карты. Убитый, он возвращается через [respawnHours] часов;
+ * до тех пор выход открыт. С него падает добыча его таблицы с редкостью `UNIQUE`, с шансом
+ * [uniqueChance] - случайная обычная уникалка, с шансом [ownUniqueChance] - его собственная.
+ */
+@Serializable
+data class BossRule(val respawnHours: Double, val uniqueChance: Double, val ownUniqueChance: Double, val behaviour: BehaviourRule)
+
+/** Босс карты, какой его видит клиент: характеристики и модификаторы уже подняты до уровня карты. */
+@Serializable
+data class CampaignBoss(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule, val modifiers: List<MonsterModifier>)
 
 /**
  * Как монстр ведёт себя на карте, пока не начался бой (с 0.30.0). Ходит по карте клиент, но
@@ -192,6 +211,8 @@ data class CampaignMapTemplate(
     val light: Double = 1.0,
     /** Таблица добычи сундуков этой карты (с 0.31.0). */
     val chestLoot: String,
+    /** Босс карты, страж её выхода (с 0.32.0). */
+    val boss: String,
 )
 
 /**
@@ -218,6 +239,7 @@ data class CampaignContentFile(
     val combat: CombatRules,
     val behaviour: BehaviourTable,
     val chests: ChestRule,
+    val bosses: BossRule,
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -243,6 +265,7 @@ data class CampaignMap(
     val light: Double,
     val monsters: List<CampaignMonster>,
     val modifiers: List<MonsterModifier>,
+    val boss: CampaignBoss,
 )
 
 @Serializable
@@ -300,10 +323,11 @@ object CampaignContent {
                         CampaignMonster(code, template.form, (content.defaults + template.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
                             template.behaviour ?: content.behaviour.forms[template.form] ?: content.behaviour.default)
                     },
-                    modifiers = content.modifiers.filter { it.minLevel <= map.level }.map { modifier ->
-                        modifier.copy(effects = modifier.effects.map { effect ->
-                            if (effect.operation == EnumModifierOperation.ADD) effect.copy(value = scale(content, effect.stat, effect.value, map.level)) else effect
-                        })
+                    modifiers = content.modifiers.filter { it.minLevel <= map.level }.map { raise(content, it, map.level) },
+                    boss = monsters.getValue(map.boss).let { boss ->
+                        CampaignBoss(boss.code, boss.form, (content.defaults + boss.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
+                            boss.behaviour ?: content.bosses.behaviour,
+                            boss.modifiers.map { code -> raise(content, content.modifiers.first { it.code == code }, map.level) })
                     },
                 )
             })
@@ -315,6 +339,15 @@ object CampaignContent {
         }
         return CampaignView(chapters, rarities, content.combat)
     }
+
+    /** Модификатор монстра на уровне карты: растут только прибавки. */
+    private fun raise(content: CampaignContentFile, modifier: MonsterModifier, level: Int): MonsterModifier =
+        modifier.copy(effects = modifier.effects.map { effect ->
+            if (effect.operation == EnumModifierOperation.ADD) effect.copy(value = scale(content, effect.stat, effect.value, level)) else effect
+        })
+
+    /** Уникалки, что падают только с боссов: их не даёт ни один другой источник. */
+    val bossUniques: Set<String> by lazy { file.monsters.mapNotNull { it.unique }.toSet() }
 
     /** Характеристика на уровне карты: растёт только то, что названо в `growth`, и растёт степенью. */
     fun scale(content: CampaignContentFile, stat: String, value: Double, level: Int): Double {
@@ -370,6 +403,15 @@ object CampaignContent {
             if (map.count.size != 2 || map.count[0] < 1 || map.count[0] > map.count[1]) throw CampaignExceptions.funExceptionContent(method, "count of ${map.code}")
             if (map.light <= 0) throw CampaignExceptions.funExceptionContent(method, "light of ${map.code}")
             if (map.chestLoot !in content.lootTables) throw CampaignExceptions.funExceptionContent(method, "chest loot of ${map.code}")
+            if (content.monsters.none { it.code == map.boss && it.boss }) throw CampaignExceptions.funExceptionContent(method, "boss of ${map.code}")
+            if (map.monsters.any { code -> content.monsters.first { it.code == code }.boss }) throw CampaignExceptions.funExceptionContent(method, "boss among monsters of ${map.code}")
+        }
+        val modifierCodes = content.modifiers.map { it.code }.toSet()
+        content.monsters.filter { it.boss }.forEach { boss ->
+            if (boss.unique == null || boss.modifiers.any { it !in modifierCodes }) throw CampaignExceptions.funExceptionContent(method, "boss ${boss.code}")
+        }
+        content.bosses.let { rule ->
+            if (rule.respawnHours <= 0 || rule.uniqueChance !in 0.0..1.0 || rule.ownUniqueChance !in 0.0..1.0) throw CampaignExceptions.funExceptionContent(method, "bosses")
         }
         content.chests.let { rule ->
             if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.refreshHours <= 0 || rule.quantity <= 0)
@@ -377,7 +419,7 @@ object CampaignContent {
         }
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) throw CampaignExceptions.funExceptionContent(method, "behaviour of form $it") }
-        (listOf(content.behaviour.default) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validate)
+        (listOf(content.behaviour.default, content.bosses.behaviour) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validate)
     }
 
     private fun validate(rule: BehaviourRule) {

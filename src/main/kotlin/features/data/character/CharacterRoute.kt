@@ -102,6 +102,17 @@ class CharacterRoute(
                 val mapCode = call.queryParam("mapCode")
                 call.respond(ApiMongoResponse.ok(campaign.chests(characterId, mapCode)))
             }
+            // 0.32.0: босс карты - страж выхода, возвращается через час после смерти.
+            get("/boss") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.boss(characterId, mapCode)))
+            }
+            post("/boss") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.slayBoss(characterId, mapCode)))
+            }
             post("/chest") {
                 val characterId = call.queryParam("characterId")
                 val mapCode = call.queryParam("mapCode")

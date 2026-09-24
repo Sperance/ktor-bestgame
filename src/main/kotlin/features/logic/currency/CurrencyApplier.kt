@@ -290,7 +290,7 @@ object CurrencyApplier : KoinComponent {
         requireRarity(item, template, EnumRarity.COMMON)
 
         val uniques = equipmentCache.getCache()
-            .filter { it.rarity == EnumRarity.UNIQUE && it.slot == template.slot }
+            .filter { it.rarity == EnumRarity.UNIQUE && it.slot == template.slot && it.code !in features.logic.campaign.CampaignContent.bossUniques }
 
         if (uniques.isNotEmpty() && RandomExt.randomInt(1..100) <= CHANCE_UNIQUE_PERCENT) {
             val unique = uniques.randomExt()
