@@ -107,4 +107,10 @@ class CraftsTest {
         assertEquals(whole.gains.items, joined)
         assertEquals(whole.gains.nothing, first.gains.nothing + second.gains.nothing)
     }
+
+    /** Клиент бросает цикл тем же генератором: то же число стоит в клиентском CraftCycleTest. */
+    @Test
+    fun the_cycle_generator_is_the_one_the_client_uses() {
+        assertEquals(0.9186378747095982, Crafts.cycleRandom(42, 3).nextDouble())
+    }
 }
