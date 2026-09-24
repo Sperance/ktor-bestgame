@@ -66,6 +66,9 @@ data class Character(
      */
     var campaign: MutableList<String> = mutableListOf(),
 
+    /** Сундуки кампании по кодам карт (с 0.31.0): окно и сколько в нём осталось, см. [features.logic.campaign.CampaignChests]. */
+    var chests: MutableMap<String, features.logic.campaign.ChestWindow> = mutableMapOf(),
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

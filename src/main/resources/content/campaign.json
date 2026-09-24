@@ -592,6 +592,176 @@
           "chance": 0.1
         }
       ]
+    },
+    "CHEST_1": {
+      "gold": [
+        20,
+        45
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_TRANSMUTATION",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_AUGMENTATION",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.35,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.7
+        }
+      ]
+    },
+    "CHEST_2": {
+      "gold": [
+        35,
+        80
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.5,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_CHANCE",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_SCOURING",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.8
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.25
+        }
+      ]
+    },
+    "CHEST_3": {
+      "gold": [
+        60,
+        140
+      ],
+      "drops": [
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALTERATION",
+          "chance": 0.5,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_ALCHEMY",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "REGAL_ORB",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "CHAOS_ORB",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "ORB",
+          "code": "ORB_OF_REGRET",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.9
+        },
+        {
+          "kind": "EQUIPMENT",
+          "chance": 0.4
+        }
+      ]
     }
   },
   "monsters": [
@@ -998,7 +1168,8 @@
             10,
             14
           ],
-          "light": 1.2
+          "light": 1.2,
+          "chestLoot": "CHEST_1"
         },
         {
           "code": "C1_BRINE_CAVES",
@@ -1013,7 +1184,8 @@
             10,
             14
           ],
-          "light": 0.8
+          "light": 0.8,
+          "chestLoot": "CHEST_1"
         },
         {
           "code": "C1_ROTTING_MIRE",
@@ -1028,7 +1200,8 @@
             12,
             16
           ],
-          "light": 0.9
+          "light": 0.9,
+          "chestLoot": "CHEST_1"
         },
         {
           "code": "C1_WHISPERING_WOOD",
@@ -1043,7 +1216,8 @@
             12,
             16
           ],
-          "light": 1.0
+          "light": 1.0,
+          "chestLoot": "CHEST_2"
         },
         {
           "code": "C1_FALLEN_RUINS",
@@ -1058,7 +1232,8 @@
             12,
             16
           ],
-          "light": 1.0
+          "light": 1.0,
+          "chestLoot": "CHEST_2"
         },
         {
           "code": "C1_CRYPT_OF_EXILES",
@@ -1074,7 +1249,8 @@
             12,
             16
           ],
-          "light": 0.7
+          "light": 0.7,
+          "chestLoot": "CHEST_2"
         },
         {
           "code": "C1_CRYSTAL_MINES",
@@ -1089,7 +1265,8 @@
             14,
             18
           ],
-          "light": 0.75
+          "light": 0.75,
+          "chestLoot": "CHEST_2"
         },
         {
           "code": "C1_ASHEN_WASTES",
@@ -1104,7 +1281,8 @@
             14,
             18
           ],
-          "light": 0.9
+          "light": 0.9,
+          "chestLoot": "CHEST_3"
         },
         {
           "code": "C1_FROZEN_PASS",
@@ -1119,7 +1297,8 @@
             14,
             18
           ],
-          "light": 1.1
+          "light": 1.1,
+          "chestLoot": "CHEST_3"
         },
         {
           "code": "C1_DROWNED_TEMPLE",
@@ -1135,7 +1314,8 @@
             14,
             18
           ],
-          "light": 0.85
+          "light": 0.85,
+          "chestLoot": "CHEST_3"
         }
       ]
     }
@@ -1338,5 +1518,14 @@
         "giveUp": 4.0
       }
     }
+  },
+  "chests": {
+    "count": [
+      0,
+      2
+    ],
+    "refreshHours": 6,
+    "quantity": 1.0,
+    "rarityBonus": 60
   }
 }

@@ -107,3 +107,34 @@ object CampaignDeath {
         return Math.round(penalty.coerceAtMost((experience - floor).coerceAtLeast(0.0))).toDouble()
     }
 }
+
+/**
+ * Окно сундуков одной карты у одного героя (с 0.31.0): [left] ещё можно открыть до [refreshAt]
+ * (миллисекунды эпохи), после чего окно бросается заново.
+ */
+@kotlinx.serialization.Serializable
+data class ChestWindow(val refreshAt: Long = 0, val left: Int = 0)
+
+/**
+ * Сундуки - правило сервера, как и добыча. Функции чистые: время и [Random] приходят снаружи.
+ */
+object CampaignChests {
+
+    /**
+     * Окно на момент [now]: живое остаётся как есть, истёкшее (или отсутствующее) бросается заново.
+     *
+     * @param bonus `STOCK_CHEST_QUANTITY` героя в процентах: каждые полные 100 - ещё один сундук, остаток - шанс
+     */
+    fun window(current: ChestWindow?, now: Long, rule: ChestRule, bonus: Double, random: Random): ChestWindow {
+        if (current != null && now < current.refreshAt) return current
+        val base = random.nextInt(rule.count[0], rule.count[1] + 1)
+        val extra = bonus.coerceAtLeast(0.0) / 100
+        val whole = floor(extra).toInt()
+        val count = base + whole + if (random.nextDouble() < extra - whole) 1 else 0
+        return ChestWindow(now + (rule.refreshHours * 3_600_000).toLong(), count)
+    }
+
+    /** Редкость, с которой катается добыча сундука: множитель количества и бонус редкости правила. */
+    fun rarity(rule: ChestRule): CampaignRarity =
+        CampaignRarity(EnumMonsterRarity.NORMAL, 0, listOf(0, 0), quantity = rule.quantity, rarityBonus = rule.rarityBonus)
+}

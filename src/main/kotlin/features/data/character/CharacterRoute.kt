@@ -96,6 +96,17 @@ class CharacterRoute(
                 val mapCode = call.queryParam("mapCode")
                 call.respond(ApiMongoResponse.ok(campaign.fall(characterId, mapCode)))
             }
+            // 0.31.0: сундуки - окно в шесть часов на карту у каждого героя, добыча - сервера.
+            get("/chests") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.chests(characterId, mapCode)))
+            }
+            post("/chest") {
+                val characterId = call.queryParam("characterId")
+                val mapCode = call.queryParam("mapCode")
+                call.respond(ApiMongoResponse.ok(campaign.openChest(characterId, mapCode)))
+            }
         }
 
         route("/skilltree") {

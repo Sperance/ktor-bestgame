@@ -143,6 +143,10 @@ database. Keep new rules in that table rather than in a route.
   `STOCK_LIGHT_RADIUS`, a stat every class starts at 5) and the file a `behaviour` table — per
   monster form a type (`WANDER`, `PATROL`, `AMBUSH`, `SLEEP`), speeds, sight, wake and give-up —
   served resolved on every map monster; the client walks by it.
+  Since 0.31.0 chests: each hero has a six-hour window per map (`Character.chests`,
+  `CampaignChests.window`) rolled from `chests.count` plus `STOCK_CHEST_QUANTITY`;
+  `GET /campaign/chests` says how many are left, `POST /campaign/chest` opens one and rolls the
+  map's `chestLoot` table, and an empty window is `CP_006`.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 309 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level

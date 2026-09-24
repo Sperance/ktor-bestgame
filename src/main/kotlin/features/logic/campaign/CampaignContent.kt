@@ -190,7 +190,18 @@ data class CampaignMapTemplate(
     val count: List<Int>,
     /** Во сколько раз биом меняет радиус света героя (с 0.30.0): склеп темнее, берег светлее. */
     val light: Double = 1.0,
+    /** Таблица добычи сундуков этой карты (с 0.31.0). */
+    val chestLoot: String,
 )
+
+/**
+ * Сундуки карты (с 0.31.0): у каждого героя на каждой карте своё окно в [refreshHours] часов. В
+ * начале окна сервер бросает, сколько сундуков стоит на карте - от `count[0]` до `count[1]`, плюс
+ * `STOCK_CHEST_QUANTITY` героя, - и столько раз за окно их можно открыть, сколько бы заходов ни
+ * было. Добыча - таблица карты с множителем количества [quantity] и бонусом редкости [rarityBonus].
+ */
+@Serializable
+data class ChestRule(val count: List<Int>, val refreshHours: Double, val quantity: Double, val rarityBonus: Double)
 
 @Serializable
 data class CampaignChapterTemplate(val code: String, val maps: List<CampaignMapTemplate>)
@@ -206,6 +217,7 @@ data class CampaignContentFile(
     val chapters: List<CampaignChapterTemplate>,
     val combat: CombatRules,
     val behaviour: BehaviourTable,
+    val chests: ChestRule,
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -357,6 +369,11 @@ object CampaignContent {
             map.monsters.forEach { if (it !in monsters) throw CampaignExceptions.funExceptionContent(method, "monster $it") }
             if (map.count.size != 2 || map.count[0] < 1 || map.count[0] > map.count[1]) throw CampaignExceptions.funExceptionContent(method, "count of ${map.code}")
             if (map.light <= 0) throw CampaignExceptions.funExceptionContent(method, "light of ${map.code}")
+            if (map.chestLoot !in content.lootTables) throw CampaignExceptions.funExceptionContent(method, "chest loot of ${map.code}")
+        }
+        content.chests.let { rule ->
+            if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.refreshHours <= 0 || rule.quantity <= 0)
+                throw CampaignExceptions.funExceptionContent(method, "chests")
         }
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) throw CampaignExceptions.funExceptionContent(method, "behaviour of form $it") }

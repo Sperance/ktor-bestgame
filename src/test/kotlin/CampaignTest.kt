@@ -179,4 +179,24 @@ class CampaignTest {
         content.monsters.map { it.form }.toSet().forEach { assertTrue(it in content.behaviour.forms, "форма $it без поведения") }
         assertTrue(content.behaviour.forms.values.any { it.type == "AMBUSH" } && content.behaviour.forms.values.any { it.type == "SLEEP" })
     }
+
+    @Test
+    fun a_chest_window_lives_six_hours_and_the_bonus_adds_chests() {
+        val rule = content.chests
+        val now = 1_000_000L
+        val first = features.logic.campaign.CampaignChests.window(null, now, rule, 0.0, Random(1))
+        assertTrue(first.left in rule.count[0]..rule.count[1])
+        assertEquals(now + 6 * 3_600_000L, first.refreshAt)
+        // Inside the window it stays as it is, whatever was opened.
+        val opened = first.copy(left = 0)
+        assertEquals(opened, features.logic.campaign.CampaignChests.window(opened, first.refreshAt - 1, rule, 500.0, Random(2)))
+        // After it a new window is rolled; 200% chest quantity is always two more.
+        repeat(20) { seed ->
+            val next = features.logic.campaign.CampaignChests.window(opened, first.refreshAt, rule, 200.0, Random(seed))
+            assertTrue(next.left in rule.count[0] + 2..rule.count[1] + 2, "$next")
+        }
+        view.chapters.flatMap { it.maps }.forEach { map ->
+            assertTrue(content.chapters.flatMap { it.maps }.first { it.code == map.code }.chestLoot in content.lootTables)
+        }
+    }
 }

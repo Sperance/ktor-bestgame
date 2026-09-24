@@ -38,6 +38,10 @@ data class CampaignReward(
     val money: Long,
 )
 
+/** Сундуки карты у героя (с 0.31.0): сколько ещё можно открыть и когда окно бросится заново (миллисекунды эпохи). */
+@Serializable
+data class ChestState(val left: Int, val refreshAt: Long)
+
 /** Что стоила смерть: потерянный опыт и где герой теперь. Уровень не меняется никогда. */
 @Serializable
 data class CampaignFall(val lost: Double, val level: Int, val totalExperience: Double)
@@ -74,25 +78,68 @@ class CampaignService : KoinComponent {
         val rarity = CampaignContent.file.rarities.first { it.rarity == rarityValue }
         val monster = CampaignContent.monsters.getValue(monsterCode)
 
-        // Бонусы героя к добыче - из того же листа, что и всё остальное: работают только надетые вещи.
-        val sheet = characters.calculateStats(characterId).stats
-        fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
+        val experience = CampaignLoot.experience(monster, map.level, rarity, bonus(characterId, EnumStatStock.STOCK_EXPERIENCE))
+        return grant(character, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method)
+    }
 
+    /** Сколько сундуков ещё стоит на карте у героя и когда их станет снова (с 0.31.0). */
+    suspend fun chests(characterId: String, mapCode: String): ChestState {
+        val method = "chests"
+        val character = requireCharacter(characterId, method)
+        openMap(character, mapCode, method)
+        val window = windowOf(character, mapCode, characterId, method)
+        return ChestState(window.left, window.refreshAt)
+    }
+
+    /**
+     * Герой открыл сундук: из окна карты уходит один, добыча катается по таблице сундуков карты.
+     * Пустое окно - отказ `CP_006`: клиент не может открыть сундуков больше, чем сервер поставил.
+     */
+    suspend fun openChest(characterId: String, mapCode: String): CampaignReward {
+        val method = "openChest"
+        val character = requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        val window = windowOf(character, mapCode, characterId, method)
+        if (window.left <= 0) throw CampaignExceptions.funExceptionNoChest(method, mapCode)
+        character.chests[mapCode] = window.copy(left = window.left - 1)
+        val template = CampaignContent.file.chapters.flatMap { it.maps }.first { it.code == mapCode }
+        return grant(character, CampaignContent.file.lootTables.getValue(template.chestLoot), map.level,
+            CampaignChests.rarity(CampaignContent.file.chests), 0.0, method)
+    }
+
+    /** Окно сундуков карты; истёкшее бросается заново и сохраняется сразу. */
+    private suspend fun windowOf(character: Character, mapCode: String, characterId: String, method: String): ChestWindow {
+        val current = character.chests[mapCode]
+        val window = CampaignChests.window(current, System.currentTimeMillis(), CampaignContent.file.chests,
+            bonus(characterId, EnumStatStock.STOCK_CHEST_QUANTITY), Random.Default)
+        if (window != current) {
+            character.chests[mapCode] = window
+            transactionExecute(method) { session -> characters.update(character, session) }
+        }
+        return window
+    }
+
+    /** Бонус героя из того же листа, что и всё остальное: работают только надетые вещи. */
+    private suspend fun bonus(characterId: String, stat: EnumStatStock): Double =
+        characters.calculateStats(characterId).stats[stat] ?: 0.0
+
+    /** Добыча по таблице и опыт - одной транзакцией, как у промокода. */
+    private suspend fun grant(character: Character, table: LootTable, level: Int, rarity: CampaignRarity, experience: Double, method: String): CampaignReward {
+        val sheet = characters.calculateStats(character._id).stats
+        fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
         val random = Random.Default
-        val experience = CampaignLoot.experience(monster, map.level, rarity, bonus(EnumStatStock.STOCK_EXPERIENCE))
-        val loot = CampaignLoot.roll(CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity,
-            bonus(EnumStatStock.STOCK_QUANTITY), bonus(EnumStatStock.STOCK_GOLD), random)
+        val loot = CampaignLoot.roll(table, level, rarity, bonus(EnumStatStock.STOCK_QUANTITY), bonus(EnumStatStock.STOCK_GOLD), random)
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
             itemsCache.getCache().firstOrNull { it.code == code }?.let { CharacterItems(it._id, amount) }
         }
-        val bases = equipmentCache.getCache().filter { it.requiredLevel <= map.level }
+        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level }
         val templates = List(loot.equipment) {
             CampaignLoot.pick(bases, { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY), random)
         }.filterNotNull()
 
         val equipment = transactionExecute(method) { session ->
             if (orbs.isNotEmpty()) characters.applyItems(character, orbs, method)
-            characters.applyExperience(character, experience, method)
+            if (experience > 0) characters.applyExperience(character, experience, method)
             character.money += loot.gold
             val created = templates.map { inventory.addFromEquipment(character._id, it, session) }
             characters.update(character, session)

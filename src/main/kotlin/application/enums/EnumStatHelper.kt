@@ -87,6 +87,8 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_CAST_STRENGTH(324),
     /** Радиус света на карте кампании в клетках (с 0.30.0): сколько вокруг героя видно сквозь туман. */
     STOCK_LIGHT_RADIUS(325),
+    /** Больше сундуков на карте кампании, в процентах (с 0.31.0): каждые полные 100% - ещё один, остаток - шанс. */
+    STOCK_CHEST_QUANTITY(326),
 }
 
 enum class EnumStatBool(override val order: Int) : IntEnumStat {
