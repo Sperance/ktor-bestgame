@@ -788,6 +788,7 @@
   "modifier.PASSIVE_SET_LIFE_REGENERATION.name": "Восстановление здоровья не действует",
   "modifier.PASSIVE_SET_MAXIMUM_LIFE.name": "Ваш максимум здоровья равен {0}",
   "modifier.PASSIVE_SET_MAXIMUM_MANA.name": "Ваш максимум маны равен {0}",
+  "modifier.SHAPER_ADD_ALL_RESISTANCES.name": "+{0}% ко всем сопротивлениям стихиям",
   "modifier.SHAPER_ADD_SPELL_POWER.name": "+{0} к силе заклинаний",
   "modifier.SHAPER_INCREASED_MAXIMUM_ENERGY_SHIELD.name": "{0}% увеличение максимума энергетического щита",
   "modifier.SHAPER_INCREASED_MAXIMUM_LIFE.name": "{0}% увеличение максимума запаса здоровья",
