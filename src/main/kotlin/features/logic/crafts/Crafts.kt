@@ -16,7 +16,14 @@ data class ProfessionProgress(val level: Int = 1, val experience: Double = 0.0)
  * обращении.
  */
 @Serializable
-data class ActiveWork(val profession: String, val job: String, val startedAt: Long, val settledAt: Long)
+data class ActiveWork(
+    val profession: String,
+    val job: String,
+    val startedAt: Long,
+    val settledAt: Long,
+    /** Примеси алхимика, что кузнец кладёт в каждую плавку (с 0.38.0). */
+    val additives: List<String> = emptyList(),
+)
 
 /**
  * Что даёт работе снаряжение: инструмент профессии и ветка дерева «Ремесло». Всё в процентах:
@@ -40,6 +47,14 @@ data class WorkGains(
     val items: Map<String, Long> = emptyMap(),
     val experience: Double = 0.0,
     val levels: Int = 0,
+    /** Что ушло на ремесло (с 0.38.0). */
+    val spent: Map<String, Long> = emptyMap(),
+    /** Сколько удачных циклов кузнеца или картографа - по вещи или карте на каждый. */
+    val made: Int = 0,
+    /** Материалы кончились: работа встала. */
+    val starved: Boolean = false,
+    /** Вещи и карты, что легли в тайник. */
+    val equipment: List<features.data.inventory.CharacterEquipment> = emptyList(),
 ) {
     val isEmpty: Boolean get() = cycles == 0
 }
@@ -78,7 +93,15 @@ object Crafts {
      * [settledAt]: кто не заглядывал дольше, получает только эти часы. Уровень может вырасти на
      * середине - следующие циклы идут уже по нему.
      */
-    fun settle(rules: CraftsRules, job: Job, progress: ProfessionProgress, bonus: WorkBonus, settledAt: Long, now: Long, random: Random): Settlement {
+    /** Что уходит за один цикл: вход работы и по одной каждой примеси. */
+    fun perCycle(job: Job, additives: List<String>): Map<String, Long> =
+        (job.inputs.map { it.item to it.amount } + additives.map { it to 1L }).groupBy({ it.first }, { it.second }).mapValues { it.value.sum() }
+
+    /**
+     * @param stock сколько чего лежит в сумке - ремесло тратит отсюда и встаёт, когда не хватает
+     */
+    fun settle(rules: CraftsRules, job: Job, progress: ProfessionProgress, bonus: WorkBonus, settledAt: Long, now: Long, random: Random,
+               stock: Map<String, Long> = emptyMap(), additives: List<String> = emptyList()): Settlement {
         val cap = (rules.offlineHours * 3_600_000).toLong()
         val end = minOf(now, settledAt + cap)
         var level = progress.level
@@ -89,15 +112,23 @@ object Crafts {
         var gained = 0.0
         var levels = 0
         val items = mutableMapOf<String, Long>()
+        val need = perCycle(job, additives)
+        val left = stock.toMutableMap()
+        val spent = mutableMapOf<String, Long>()
+        var made = 0
+        var starved = false
         while (true) {
             val cycle = cycleMillis(rules, job, level, bonus)
             if (t + cycle > end) break
+            if (need.any { (item, amount) -> (left[item] ?: 0) < amount }) { starved = true; break }
+            need.forEach { (item, amount) -> left.merge(item, -amount, Long::plus); spent.merge(item, amount, Long::plus) }
             t += cycle
             cycles++
             if (random.nextDouble() * 100 < nothingChance(rules, job, bonus)) { nothing++; continue }
             val extraUnits = max(0.0, bonus.yield) / 100
             val whole = floor(extraUnits).toLong()
-            items.merge(job.output, 1 + whole + if (random.nextDouble() < extraUnits - whole) 1 else 0, Long::plus)
+            val units = 1 + whole + if (random.nextDouble() < extraUnits - whole) 1 else 0
+            if (job.kind == JobKind.ITEM) items.merge(job.output, units, Long::plus) else made += units.toInt()
             job.extra.forEach { extra -> if (random.nextDouble() * 100 < findChance(rules, extra, level, bonus)) items.merge(extra.item, 1, Long::plus) }
             val xp = job.experience * (1 + max(0.0, bonus.experience) / 100)
             gained += xp
@@ -112,7 +143,8 @@ object Crafts {
             if (toNext(rules, level) == null) experience = 0.0
         }
         // Дольше потолка работа стояла: пропущенное не копится и не досчитывается потом.
-        val until = if (now > settledAt + cap) now else t
-        return Settlement(ProfessionProgress(level, experience), until, WorkGains(cycles, nothing, items, Math.round(gained * 10) / 10.0, levels))
+        val until = if (now > settledAt + cap && !starved) now else t
+        return Settlement(ProfessionProgress(level, experience), until,
+            WorkGains(cycles, nothing, items, Math.round(gained * 10) / 10.0, levels, spent, made, starved))
     }
 }

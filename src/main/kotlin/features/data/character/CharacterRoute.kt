@@ -82,7 +82,9 @@ class CharacterRoute(
             post("/start") {
                 val characterId = call.queryParam("characterId")
                 val job = call.queryParam("job")
-                call.respond(ApiMongoResponse.ok(crafts.start(characterId, job)))
+                // 0.38.0: примеси кузнеца - коды через запятую.
+                val additives = call.request.queryParameters["additives"]?.split(',').orEmpty()
+                call.respond(ApiMongoResponse.ok(crafts.start(characterId, job, additives)))
             }
             post("/stop") {
                 val characterId = call.queryParam("characterId")

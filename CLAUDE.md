@@ -168,6 +168,11 @@ database. Keep new rules in that table rather than in a route.
   (`Crafts.settle`, pure, `CraftsTest`), paying materials (`items.json`, category `MATERIAL`) into
   the bag. Tools count only in their profession and are skipped by `CharacterStatsCalculator`;
   the tree's «Ремесло» branch (`CRA_*`) feeds `STOCK_WORK_*` through the sheet. Errors are `CF_*`.
+  Since 0.38.0 three crafting professions: a job has a `kind` (`ITEM`, `EQUIPMENT`, `MAP`) and
+  `inputs` spent every cycle from the bag (the work stops when they run out); `crafting` in the file
+  holds the smith's rarity weights, the unique chance (`UniqueEquipmentSeeder.smithOnly`, never from
+  elsewhere), the additives and the handcrafted pools. `HANDCRAFTED` and `ALCHEMY` modifier sources
+  are not affixes, so no orb touches them; the map-only orbs are `EnumCurrencyOrb.mapOnly`.
 - `src/main/resources/skilltree/tree.json` — the passive tree, 321 nodes. `SkillTreeSeeder` only
   reads and validates it.
 - `config/ModifierSeeder.kt`, `config/ProgressionSeeder.kt` — modifiers, classes and the level

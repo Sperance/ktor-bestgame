@@ -132,7 +132,7 @@ class CampaignService : KoinComponent {
         val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
         val random = Random.Default
         val uniques = equipmentCache.getCache().filter { it.rarity == EnumRarity.UNIQUE }
-        val ordinary = uniques.filter { it.code !in CampaignContent.bossUniques }
+        val ordinary = uniques.filter { it.code !in CampaignContent.bossUniques && it.code !in config.UniqueEquipmentSeeder.smithOnly }
         val extra = listOfNotNull(
             ordinary.filter { it.requiredLevel <= map.level + UNIQUE_REACH }.ifEmpty { ordinary }.randomOrNull(random).takeIf { random.nextDouble() < rule.uniqueChance },
             uniques.firstOrNull { it.code == template.unique }.takeIf { random.nextDouble() < rule.ownUniqueChance },
@@ -276,7 +276,7 @@ class CampaignService : KoinComponent {
             itemsCache.getCache().firstOrNull { it.code == code }?.let { CharacterItems(it._id, amount) }
         }
         // Уникалки боссов не падают ниоткуда, кроме своего босса; карты - только своим броском.
-        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level && it.code !in CampaignContent.bossUniques && it.slot != EnumEquipmentType.MAP && !it.slot.isTool }
+        val bases = equipmentCache.getCache().filter { it.requiredLevel <= level && it.code !in CampaignContent.bossUniques && it.code !in config.UniqueEquipmentSeeder.smithOnly && it.slot != EnumEquipmentType.MAP && !it.slot.isTool }
         val templates = extra + List(loot.equipment) {
             CampaignLoot.pick(bases, { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity, random)
         }.filterNotNull()

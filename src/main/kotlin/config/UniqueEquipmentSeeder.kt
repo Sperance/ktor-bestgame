@@ -25,6 +25,7 @@ import application.enums.EnumModifierOperation.INCREASED
 import application.enums.EnumModifierOperation.MORE
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
+import application.enums.EnumStatStock
 import application.enums.EnumStatStock.STOCK_AGILITY
 import application.enums.EnumStatStock.STOCK_ARMOR
 import application.enums.EnumStatStock.STOCK_ATTACK_CHAOS
@@ -108,7 +109,7 @@ object UniqueEquipmentSeeder {
 
     // ==================== Таблица уникальных предметов ====================
 
-    private val templates get() = ordinary + bosses
+    private val templates get() = ordinary + bosses + smiths
 
     private val ordinary = listOf(
 
@@ -535,6 +536,114 @@ object UniqueEquipmentSeeder {
 
     /** Коды уникалок, что падают только с боссов кампании: их нет ни в одном другом источнике. */
     val bossOnly: Set<String> get() = bosses.map { it.code }.toSet()
+
+    /**
+     * Уникалки кузнеца (с 0.38.0): по одной на слот, и делает их только кузнец - ни монстр, ни
+     * сундук, ни сфера шанса их не дают.
+     */
+    private val smiths = listOf(
+        UniqueTemplate(
+            code = "FORGEMASTERS_VISAGE", slot = HELMET, itemLevel = 30, defense = 150,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_ARMOR, INCREASED, 60.0..80.0)),
+                line(effect(EnumStatStock.STOCK_HEALTH, ADD, 50.0..70.0)),
+                line(effect(EnumStatStock.STOCK_RESIST_FIRE, ADD, 25.0..35.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "ANVILHEART_PLATE", slot = BODY, itemLevel = 40, defense = 350,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_ARMOR, INCREASED, 100.0..140.0)),
+                line(effect(EnumStatStock.STOCK_HEALTH, ADD, 70.0..90.0)),
+                line(effect(EnumStatStock.STOCK_STUN_THRESHOLD, ADD, 30.0..40.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "EMBERGRIP", slot = GLOVES, itemLevel = 25, defense = 80,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_ATTACK_FIRE, ADD, 8.0..14.0)),
+                line(effect(EnumStatStock.STOCK_ATTACK_SPEED, INCREASED, 8.0..12.0)),
+                line(effect(EnumStatStock.STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "IRONSTRIDE", slot = BOOTS, itemLevel = 20, defense = 70,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_MOVEMENT_SPEED, INCREASED, 15.0..20.0)),
+                line(effect(EnumStatStock.STOCK_ARMOR, INCREASED, 40.0..60.0)),
+                line(effect(EnumStatStock.STOCK_HEALTH, ADD, 30.0..40.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "CHAINBINDER", slot = BELT, itemLevel = 25,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_HEALTH, ADD, 50.0..70.0)),
+                line(effect(EnumStatStock.STOCK_ARMOR, ADD, 150.0..200.0)),
+                line(effect(EnumStatStock.STOCK_RESIST_ALL, ADD, 8.0..12.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "BULWARK_OF_THE_FORGE", slot = SHIELD, itemLevel = 35, defense = 200,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_BLOCK_CHANCE, ADD, 5.0..8.0)),
+                line(effect(EnumStatStock.STOCK_ARMOR, INCREASED, 80.0..100.0)),
+                line(effect(EnumStatStock.STOCK_RESIST_ALL, ADD, 10.0..15.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "SMELTERS_EDGE", slot = WEAPON_1H, itemLevel = 30,
+            weaponType = BLADE, damageMin = 25.0, damageMax = 50.0, attackSpeed = 1.4, durability = 150,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_ATTACK_PHYSICAL, INCREASED, 80.0..110.0)),
+                line(effect(EnumStatStock.STOCK_ATTACK_FIRE, ADD, 10.0..18.0)),
+                line(effect(EnumStatStock.STOCK_CRITICAL_CHANCE, INCREASED, 20.0..30.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "MOUNTAINBREAKER", slot = WEAPON_2H, itemLevel = 45,
+            weaponType = LONGSWORD, damageMin = 70.0, damageMax = 150.0, attackSpeed = 1.0, durability = 220,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_ATTACK_PHYSICAL, INCREASED, 140.0..180.0)),
+                line(effect(EnumStatStock.STOCK_ATTACK_SPEED, INCREASED, 6.0..10.0)),
+                line(effect(EnumStatStock.STOCK_HEALTH, ADD, 40.0..60.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "TEMPERED_FLETCH", slot = QUIVER, itemLevel = 25,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_ATTACK_PHYSICAL, ADD, 5.0..9.0)),
+                line(effect(EnumStatStock.STOCK_ATTACK_SPEED, INCREASED, 6.0..10.0)),
+                line(effect(EnumStatStock.STOCK_CRITICAL_MULTIPLIER, ADD, 15.0..20.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "SMITHS_BAND", slot = RING, itemLevel = 20,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_ATTACK_FIRE, ADD, 4.0..8.0)),
+                line(effect(EnumStatStock.STOCK_RESIST_FIRE, ADD, 20.0..30.0)),
+                line(effect(EnumStatStock.STOCK_HEALTH, ADD, 20.0..30.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "QUENCHED_TORC", slot = AMULET, itemLevel = 30,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_STRENGTH, ADD, 20.0..30.0)),
+                line(effect(EnumStatStock.STOCK_RESIST_COLD, ADD, 20.0..30.0)),
+                line(effect(EnumStatStock.STOCK_ARMOR, INCREASED, 20.0..30.0)),
+            )
+        ),
+        UniqueTemplate(
+            code = "FORGEWINGS", slot = WINGS, itemLevel = 35, defense = 60,
+            modifiers = listOf(
+                line(effect(EnumStatStock.STOCK_MOVEMENT_SPEED, INCREASED, 8.0..12.0)),
+                line(effect(EnumStatStock.STOCK_HEALTH, ADD, 40.0..60.0)),
+                line(effect(EnumStatStock.STOCK_EVASION, INCREASED, 40.0..60.0)),
+            )
+        ),
+    )
+
+    /** Коды уникалок, что делает только кузнец. */
+    val smithOnly: Set<String> get() = smiths.map { it.code }.toSet()
 
     // ==================== Генерация документов ====================
 

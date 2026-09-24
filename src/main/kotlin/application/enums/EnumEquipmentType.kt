@@ -40,7 +40,10 @@ enum class EnumEquipmentType {
      */
     TOOL_MINING,
     TOOL_HERBALISM,
-    TOOL_WOODCUTTING;
+    TOOL_WOODCUTTING,
+    TOOL_SMITHING,
+    TOOL_ALCHEMY,
+    TOOL_CARTOGRAPHY;
 
     val isTool: Boolean get() = name.startsWith("TOOL_")
 }

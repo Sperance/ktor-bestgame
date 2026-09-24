@@ -27,5 +27,8 @@ object CurrencyExceptions {
     fun funExceptionGroupTaken(errorMethod: String, value: String? = "") = CurrencyException("Item $value already has a modifier of this group", errorMethod, "CR_016", listOf(value.orEmpty()))
     fun funExceptionNoCrafted(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no crafted modifier", errorMethod, "CR_017", listOf(value.orEmpty()))
     fun funExceptionRecipeNotFound(errorMethod: String, value: String? = "") = CurrencyException("Bench recipe $value not found", errorMethod, "CR_018", listOf(value.orEmpty()))
+    fun funExceptionNotMap(errorMethod: String, value: String? = "") = CurrencyException("Orb $value is applied to maps only", errorMethod, "CR_020", listOf(value.orEmpty()))
+    fun funExceptionNoHarm(errorMethod: String, value: String? = "") = CurrencyException("Map $value has no harmful affix to change", errorMethod, "CR_021", listOf(value.orEmpty()))
+    fun funExceptionAlchemyFull(errorMethod: String, value: String? = "") = CurrencyException("Map $value has no room for this alchemy line", errorMethod, "CR_022", listOf(value.orEmpty()))
     fun funExceptionRecipeSlot(errorMethod: String, value: String? = "") = CurrencyException("Bench recipe cannot be crafted on $value", errorMethod, "CR_019", listOf(value.orEmpty()))
 }

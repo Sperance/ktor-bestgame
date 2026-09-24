@@ -149,6 +149,9 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     MAP_QUANTITY(411),
     MAP_RARITY(412),
     MAP_EXPERIENCE(413),
+    // Алхимия (0.38.0): магические и редкие монстры карты по отдельности.
+    MAP_MAGIC_MONSTERS(414),
+    MAP_RARE_MONSTERS(415),
 
     // ========== Ремёсла (0.37.0): инструменты и ветка дерева «Ремесло» ==========
     // Скорость цикла, процент лишней единицы (каждые 100 - гарантированная), снижение шанса

@@ -155,6 +155,42 @@
       "category": "MATERIAL",
       "subCategory": "WOODCUTTING",
       "price": 10
+    },
+    {
+      "code": "BLOOD_FLUX",
+      "category": "MATERIAL",
+      "subCategory": "ALCHEMY",
+      "price": 40
+    },
+    {
+      "code": "STONE_FLUX",
+      "category": "MATERIAL",
+      "subCategory": "ALCHEMY",
+      "price": 45
+    },
+    {
+      "code": "FIRE_FLUX",
+      "category": "MATERIAL",
+      "subCategory": "ALCHEMY",
+      "price": 60
+    },
+    {
+      "code": "FROST_FLUX",
+      "category": "MATERIAL",
+      "subCategory": "ALCHEMY",
+      "price": 70
+    },
+    {
+      "code": "STORM_FLUX",
+      "category": "MATERIAL",
+      "subCategory": "ALCHEMY",
+      "price": 80
+    },
+    {
+      "code": "QUICK_FLUX",
+      "category": "MATERIAL",
+      "subCategory": "ALCHEMY",
+      "price": 100
     }
   ]
 }

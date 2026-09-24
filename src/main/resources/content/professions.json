@@ -240,6 +240,861 @@
           ]
         }
       ]
+    },
+    {
+      "code": "SMITHING",
+      "tool": "TOOL_SMITHING",
+      "jobs": [
+        {
+          "code": "COPPER_FORGING",
+          "level": 1,
+          "seconds": 30,
+          "nothing": 25,
+          "output": "",
+          "experience": 12,
+          "extra": [],
+          "kind": "EQUIPMENT",
+          "inputs": [
+            {
+              "item": "COPPER_ORE",
+              "amount": 5
+            }
+          ],
+          "band": [
+            1,
+            12
+          ],
+          "additives": true
+        },
+        {
+          "code": "IRON_FORGING",
+          "level": 10,
+          "seconds": 40,
+          "nothing": 27,
+          "output": "",
+          "experience": 24,
+          "extra": [],
+          "kind": "EQUIPMENT",
+          "inputs": [
+            {
+              "item": "IRON_ORE",
+              "amount": 5
+            },
+            {
+              "item": "OAK_LOG",
+              "amount": 1
+            }
+          ],
+          "band": [
+            10,
+            25
+          ],
+          "additives": true
+        },
+        {
+          "code": "SILVER_FORGING",
+          "level": 20,
+          "seconds": 50,
+          "nothing": 30,
+          "output": "",
+          "experience": 40,
+          "extra": [],
+          "kind": "EQUIPMENT",
+          "inputs": [
+            {
+              "item": "SILVER_ORE",
+              "amount": 5
+            },
+            {
+              "item": "YEW_LOG",
+              "amount": 1
+            }
+          ],
+          "band": [
+            20,
+            40
+          ],
+          "additives": true
+        },
+        {
+          "code": "MITHRIL_FORGING",
+          "level": 30,
+          "seconds": 60,
+          "nothing": 32,
+          "output": "",
+          "experience": 60,
+          "extra": [],
+          "kind": "EQUIPMENT",
+          "inputs": [
+            {
+              "item": "MITHRIL_ORE",
+              "amount": 5
+            },
+            {
+              "item": "IRONWOOD_LOG",
+              "amount": 1
+            }
+          ],
+          "band": [
+            35,
+            60
+          ],
+          "additives": true
+        },
+        {
+          "code": "ADAMANT_FORGING",
+          "level": 40,
+          "seconds": 60,
+          "nothing": 35,
+          "output": "",
+          "experience": 85,
+          "extra": [],
+          "kind": "EQUIPMENT",
+          "inputs": [
+            {
+              "item": "ADAMANT_ORE",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 1
+            }
+          ],
+          "band": [
+            55,
+            100
+          ],
+          "additives": true
+        }
+      ]
+    },
+    {
+      "code": "ALCHEMY",
+      "tool": "TOOL_ALCHEMY",
+      "jobs": [
+        {
+          "code": "BLOOD_FLUX_BREW",
+          "level": 1,
+          "seconds": 20,
+          "nothing": 25,
+          "output": "BLOOD_FLUX",
+          "experience": 6,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "WORMWOOD",
+              "amount": 3
+            },
+            {
+              "item": "CAVE_MUSHROOM",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "STONE_FLUX_BREW",
+          "level": 5,
+          "seconds": 20,
+          "nothing": 25,
+          "output": "STONE_FLUX",
+          "experience": 8,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "CAVE_MUSHROOM",
+              "amount": 2
+            },
+            {
+              "item": "COPPER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "FIRE_FLUX_BREW",
+          "level": 10,
+          "seconds": 25,
+          "nothing": 27,
+          "output": "FIRE_FLUX",
+          "experience": 12,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "FROST_FLUX_BREW",
+          "level": 15,
+          "seconds": 25,
+          "nothing": 28,
+          "output": "FROST_FLUX",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 3
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "STORM_FLUX_BREW",
+          "level": 20,
+          "seconds": 30,
+          "nothing": 30,
+          "output": "STORM_FLUX",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 3
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "QUICK_FLUX_BREW",
+          "level": 25,
+          "seconds": 30,
+          "nothing": 32,
+          "output": "QUICK_FLUX",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "TRANSMUTATION_BREW",
+          "level": 1,
+          "seconds": 15,
+          "nothing": 25,
+          "output": "ORB_OF_TRANSMUTATION",
+          "experience": 4,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "WORMWOOD",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "AUGMENTATION_BREW",
+          "level": 5,
+          "seconds": 15,
+          "nothing": 25,
+          "output": "ORB_OF_AUGMENTATION",
+          "experience": 5,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "WORMWOOD",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "ALTERATION_BREW",
+          "level": 8,
+          "seconds": 20,
+          "nothing": 28,
+          "output": "ORB_OF_ALTERATION",
+          "experience": 7,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 2
+            },
+            {
+              "item": "COPPER_ORE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "SCOURING_BREW",
+          "level": 12,
+          "seconds": 20,
+          "nothing": 30,
+          "output": "ORB_OF_SCOURING",
+          "experience": 9,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "ALCHEMY_BREW",
+          "level": 15,
+          "seconds": 30,
+          "nothing": 32,
+          "output": "ORB_OF_ALCHEMY",
+          "experience": 14,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "CHAOS_BREW",
+          "level": 25,
+          "seconds": 45,
+          "nothing": 38,
+          "output": "CHAOS_ORB",
+          "experience": 24,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "REGAL_BREW",
+          "level": 30,
+          "seconds": 45,
+          "nothing": 40,
+          "output": "REGAL_ORB",
+          "experience": 28,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SILVER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "DIVINE_BREW",
+          "level": 40,
+          "seconds": 60,
+          "nothing": 55,
+          "output": "DIVINE_ORB",
+          "experience": 45,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "MITHRIL_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "EXALTED_BREW",
+          "level": 45,
+          "seconds": 60,
+          "nothing": 60,
+          "output": "EXALTED_ORB",
+          "experience": 55,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 3
+            },
+            {
+              "item": "RUBY",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "HORDE_BREW",
+          "level": 10,
+          "seconds": 30,
+          "nothing": 30,
+          "output": "HORDE_ORB",
+          "experience": 12,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            },
+            {
+              "item": "BARK",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "MAGUS_BREW",
+          "level": 15,
+          "seconds": 30,
+          "nothing": 30,
+          "output": "MAGUS_ORB",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "PERIL_BREW",
+          "level": 18,
+          "seconds": 35,
+          "nothing": 32,
+          "output": "PERIL_ORB",
+          "experience": 17,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "MERCY_BREW",
+          "level": 20,
+          "seconds": 40,
+          "nothing": 35,
+          "output": "MERCY_ORB",
+          "experience": 20,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "ELITE_BREW",
+          "level": 25,
+          "seconds": 40,
+          "nothing": 35,
+          "output": "ELITE_ORB",
+          "experience": 24,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "BOUNTY_BREW",
+          "level": 30,
+          "seconds": 45,
+          "nothing": 38,
+          "output": "BOUNTY_ORB",
+          "experience": 28,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "EMPOWERING_BREW",
+          "level": 35,
+          "seconds": 60,
+          "nothing": 45,
+          "output": "EMPOWERING_ORB",
+          "experience": 35,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "CARTOGRAPHY",
+      "tool": "TOOL_CARTOGRAPHY",
+      "jobs": [
+        {
+          "code": "CHART_C1_TIDAL_SHORE",
+          "level": 1,
+          "seconds": 30,
+          "nothing": 25,
+          "output": "",
+          "experience": 10,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 1
+            },
+            {
+              "item": "BIRCH_LOG",
+              "amount": 2
+            }
+          ],
+          "map": "C1_TIDAL_SHORE"
+        },
+        {
+          "code": "CHART_C1_BRINE_CAVES",
+          "level": 5,
+          "seconds": 33,
+          "nothing": 25,
+          "output": "",
+          "experience": 15,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 1
+            },
+            {
+              "item": "BIRCH_LOG",
+              "amount": 2
+            }
+          ],
+          "map": "C1_BRINE_CAVES"
+        },
+        {
+          "code": "CHART_C1_ROTTING_MIRE",
+          "level": 9,
+          "seconds": 36,
+          "nothing": 25,
+          "output": "",
+          "experience": 20,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 1
+            },
+            {
+              "item": "OAK_LOG",
+              "amount": 2
+            }
+          ],
+          "map": "C1_ROTTING_MIRE"
+        },
+        {
+          "code": "CHART_C1_WHISPERING_WOOD",
+          "level": 13,
+          "seconds": 39,
+          "nothing": 25,
+          "output": "",
+          "experience": 25,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 2
+            },
+            {
+              "item": "OAK_LOG",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ],
+          "map": "C1_WHISPERING_WOOD"
+        },
+        {
+          "code": "CHART_C1_FALLEN_RUINS",
+          "level": 17,
+          "seconds": 42,
+          "nothing": 25,
+          "output": "",
+          "experience": 30,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 2
+            },
+            {
+              "item": "YEW_LOG",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ],
+          "map": "C1_FALLEN_RUINS"
+        },
+        {
+          "code": "CHART_C1_CRYPT_OF_EXILES",
+          "level": 21,
+          "seconds": 45,
+          "nothing": 25,
+          "output": "",
+          "experience": 35,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 2
+            },
+            {
+              "item": "YEW_LOG",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ],
+          "map": "C1_CRYPT_OF_EXILES"
+        },
+        {
+          "code": "CHART_C1_CRYSTAL_MINES",
+          "level": 25,
+          "seconds": 48,
+          "nothing": 25,
+          "output": "",
+          "experience": 40,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "IRONWOOD_LOG",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ],
+          "map": "C1_CRYSTAL_MINES"
+        },
+        {
+          "code": "CHART_C1_ASHEN_WASTES",
+          "level": 29,
+          "seconds": 51,
+          "nothing": 25,
+          "output": "",
+          "experience": 45,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "IRONWOOD_LOG",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ],
+          "map": "C1_ASHEN_WASTES"
+        },
+        {
+          "code": "CHART_C1_FROZEN_PASS",
+          "level": 33,
+          "seconds": 54,
+          "nothing": 25,
+          "output": "",
+          "experience": 50,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ],
+          "map": "C1_FROZEN_PASS"
+        },
+        {
+          "code": "CHART_C1_DROWNED_TEMPLE",
+          "level": 37,
+          "seconds": 57,
+          "nothing": 25,
+          "output": "",
+          "experience": 55,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ],
+          "map": "C1_DROWNED_TEMPLE"
+        }
+      ]
     }
-  ]
+  ],
+  "crafting": {
+    "handcraftedChance": 20,
+    "maxHandcrafted": 3,
+    "maxAdditives": 2,
+    "uniqueChance": 0.5,
+    "smithRarities": {
+      "COMMON": 40,
+      "UNCOMMON": 35,
+      "RARE": 20,
+      "EPIC": 5
+    },
+    "mapRarities": {
+      "COMMON": 40,
+      "UNCOMMON": 40,
+      "RARE": 20
+    },
+    "mapHandcraftedChance": 25,
+    "additives": {
+      "BLOOD_FLUX": "HC_LIFE",
+      "STONE_FLUX": "HC_ARMOUR",
+      "FIRE_FLUX": "HC_FIRE",
+      "FROST_FLUX": "HC_COLD",
+      "STORM_FLUX": "HC_LIGHTNING",
+      "QUICK_FLUX": "HC_SPEED"
+    },
+    "smithHandcrafted": [
+      "HC_FIRE",
+      "HC_COLD",
+      "HC_LIGHTNING",
+      "HC_LIFE",
+      "HC_ARMOUR",
+      "HC_SPEED"
+    ],
+    "mapHandcrafted": [
+      "HC_MAP_QUANTITY",
+      "HC_MAP_RARITY"
+    ]
+  }
 }

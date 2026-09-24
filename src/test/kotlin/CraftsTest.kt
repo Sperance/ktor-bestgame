@@ -25,10 +25,18 @@ class CraftsTest {
     @Test
     fun every_work_yields_a_real_material_and_every_profession_has_a_starter_tool() {
         val items = records("items.json", "items").associate { it.getValue("code").jsonPrimitive.content to it.getValue("category").jsonPrimitive.content }
+        val orbs = records("currency.json", "currency").map { it.getValue("orb").jsonPrimitive.content }.toSet()
+        val maps = features.logic.campaign.CampaignContent.maps.keys
         content.professions.flatMap { it.jobs }.forEach { job ->
-            assertEquals("MATERIAL", items[job.output], "${job.code}: ${job.output}")
+            when (job.kind) {
+                features.logic.crafts.JobKind.ITEM -> assertTrue(items[job.output] == "MATERIAL" || job.output in orbs, "${job.code}: ${job.output}")
+                features.logic.crafts.JobKind.EQUIPMENT -> assertTrue(job.band.size == 2, job.code)
+                features.logic.crafts.JobKind.MAP -> assertTrue(job.map in maps, "${job.code}: ${job.map}")
+            }
             job.extra.forEach { assertEquals("MATERIAL", items[it.item], "${job.code}: ${it.item}") }
+            job.inputs.forEach { assertEquals("MATERIAL", items[it.item], "${job.code}: ${it.item}") }
         }
+        content.crafting.additives.forEach { (item, _) -> assertEquals("MATERIAL", items[item], item) }
         val tools = records("equipment.json", "equipment").groupBy { it.getValue("slot").jsonPrimitive.content }
         content.professions.forEach { profession ->
             val own = tools[profession.tool.name].orEmpty().map { it.getValue("code").jsonPrimitive.content }
@@ -71,5 +79,19 @@ class CraftsTest {
         assertTrue(done.gains.cycles.toLong() * Crafts.cycleMillis(rules, job, rules.maxLevel, WorkBonus()) <= capped + Crafts.cycleMillis(rules, job, 1, WorkBonus()))
         assertTrue(done.progress.level > 1)
         assertTrue(done.progress.level <= rules.maxLevel)
+    }
+
+    @Test
+    fun a_craft_spends_every_cycle_and_stops_when_the_bag_runs_dry() {
+        val job = content.professions.first { it.code == "SMITHING" }.jobs.first { it.level == 1 }.copy(nothing = 0.0)
+        val cycle = Crafts.cycleMillis(rules, job, 1, WorkBonus())
+        val need = job.inputs.single().amount
+        val done = Crafts.settle(rules, job, ProfessionProgress(), WorkBonus(), 0, cycle * 10, Random(2), mapOf(job.inputs.single().item to need * 3 + 1))
+        assertEquals(3, done.gains.cycles)
+        assertEquals(3, done.gains.made)
+        assertEquals(need * 3, done.gains.spent[job.inputs.single().item])
+        assertTrue(done.gains.starved)
+        val withFlux = Crafts.perCycle(job, listOf("FIRE_FLUX"))
+        assertEquals(1L, withFlux["FIRE_FLUX"])
     }
 }

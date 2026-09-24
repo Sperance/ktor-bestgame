@@ -77,6 +77,8 @@ object CurrencyApplier : KoinComponent {
      * Шанс, что Orb of Chance выдаст уникальный предмет, в процентах.
      */
     private const val CHANCE_UNIQUE_PERCENT = 5
+    /** Строк «Алхимия» на карте не больше (с 0.38.0). */
+    private const val MAX_ALCHEMY_LINES = 3
 
     /**
      * Шансы редкостей у Orb of Chance, когда уникалка не выпала.
@@ -106,6 +108,7 @@ object CurrencyApplier : KoinComponent {
     fun apply(orb: EnumCurrencyOrb, item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         if (item.corrupted) throw CurrencyExceptions.funExceptionCorrupted("apply", template.code)
         if (item.mirrored) throw CurrencyExceptions.funExceptionMirrored("apply", template.code)
+        if (orb.mapOnly && template.slot != EnumEquipmentType.MAP) throw CurrencyExceptions.funExceptionNotMap("apply", LocaleKey.enumLabel("EnumCurrencyOrb", orb.name))
 
         return when (orb) {
             ORB_OF_TRANSMUTATION -> upgrade(item, template, from = EnumRarity.COMMON, to = EnumRarity.UNCOMMON)
@@ -127,6 +130,13 @@ object CurrencyApplier : KoinComponent {
             // Единственная сфера, которую тратит не предмет: её списывает дерево навыков
             // за возврат узла, см. CharacterSkillTreeRepository.
             ORB_OF_REGRET -> throw CurrencyExceptions.funExceptionNotForItem("apply", orb.name)
+            EnumCurrencyOrb.EMPOWERING_ORB -> empower(item, template)
+            EnumCurrencyOrb.MERCY_ORB -> mercy(item, template)
+            EnumCurrencyOrb.PERIL_ORB -> peril(item, template)
+            EnumCurrencyOrb.HORDE_ORB -> alchemyLine(item, template, "ALC_MAP_PACK")
+            EnumCurrencyOrb.MAGUS_ORB -> alchemyLine(item, template, "ALC_MAP_MAGIC")
+            EnumCurrencyOrb.ELITE_ORB -> alchemyLine(item, template, "ALC_MAP_RARE")
+            EnumCurrencyOrb.BOUNTY_ORB -> alchemyLine(item, template, "ALC_MAP_LOOT")
         }
     }
 
@@ -290,7 +300,7 @@ object CurrencyApplier : KoinComponent {
         requireRarity(item, template, EnumRarity.COMMON)
 
         val uniques = equipmentCache.getCache()
-            .filter { it.rarity == EnumRarity.UNIQUE && it.slot == template.slot && it.code !in features.logic.campaign.CampaignContent.bossUniques }
+            .filter { it.rarity == EnumRarity.UNIQUE && it.slot == template.slot && it.code !in features.logic.campaign.CampaignContent.bossUniques && it.code !in config.UniqueEquipmentSeeder.smithOnly }
 
         if (uniques.isNotEmpty() && RandomExt.randomInt(1..100) <= CHANCE_UNIQUE_PERCENT) {
             val unique = uniques.randomExt()
@@ -390,5 +400,50 @@ object CurrencyApplier : KoinComponent {
     /**
      * Постоянные модификаторы предмета: implicit, энчанты, порча, модификаторы уникалок.
      */
+    // ==================== Сферы алхимика для карт (0.38.0) ====================
+
+    /** Вредная ли строка карты: её характеристика платит риском. */
+    private fun harmful(definition: ModifierDefinition): Boolean {
+        val risk = features.logic.campaign.CampaignContent.file.maps.risk.keys
+        return definition.effects.any { (it.stat as? Enum<*>)?.name in risk }
+    }
+
+    /** Каждый аффикс карты - на тир выше. */
+    private fun empower(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        var raised = 0
+        item.params = item.params.mapTo(mutableListOf()) { modifier ->
+            if (!ModifierRoller.isAffix(modifier)) modifier else ModifierRoller.raiseTier(modifier)?.also { raised++ } ?: modifier
+        }
+        if (raised == 0) throw CurrencyExceptions.funExceptionNoAffixes("empower", template.code)
+        return outcome(item, template, "currency.empowered")
+    }
+
+    /** Снимает случайный вредный аффикс карты. */
+    private fun mercy(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        val candidates = affixes(item).filterNot { it.fractured }.filter { modifier -> ModifierRoller.definitions(listOf(modifier)).any(::harmful) }
+        if (candidates.isEmpty()) throw CurrencyExceptions.funExceptionNoHarm("mercy", template.code)
+        item.params.remove(candidates.randomExt())
+        return outcome(item, template, "currency.mercy")
+    }
+
+    /** Добавляет карте вредный аффикс её пула сверх лимита, без повтора группы. */
+    private fun peril(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        val taken = ModifierRoller.definitions(item.params).map { it.family() }.toSet()
+        val pool = ModifierRoller.definitions(template.modifierIds.map { Modifier(it, emptyList()) })
+            .filter { it.isAffix() && harmful(it) && it.family() !in taken }
+        val added = pool.randomOrNull()?.let { ModifierRoller.roll(it, template.itemLevel) }
+            ?: throw CurrencyExceptions.funExceptionNoHarm("peril", template.code)
+        item.params.add(added)
+        return outcome(item, template, "currency.peril")
+    }
+
+    /** Строка «Алхимия»: до трёх на карте и без повторов. */
+    private fun alchemyLine(item: CharacterEquipment, template: Equipment, code: String): CurrencyOutcome {
+        val lines = ModifierRoller.definitions(item.params).filter { it.source == EnumModifierSource.ALCHEMY }
+        if (lines.size >= MAX_ALCHEMY_LINES || lines.any { it.code == code }) throw CurrencyExceptions.funExceptionAlchemyFull("alchemy", template.code)
+        item.params.add(ModifierRoller.rollCode(code, template.itemLevel) ?: throw CurrencyExceptions.funExceptionAlchemyFull("alchemy", template.code))
+        return outcome(item, template, "currency.alchemy_line")
+    }
+
     private fun permanent(item: CharacterEquipment): List<Modifier> = item.params.filterNot { ModifierRoller.isAffix(it) }
 }

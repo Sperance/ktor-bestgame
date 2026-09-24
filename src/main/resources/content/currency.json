@@ -71,6 +71,34 @@
     {
       "orb": "ELDER_ORB",
       "price": 20000
+    },
+    {
+      "orb": "EMPOWERING_ORB",
+      "price": 2500
+    },
+    {
+      "orb": "MERCY_ORB",
+      "price": 900
+    },
+    {
+      "orb": "PERIL_ORB",
+      "price": 700
+    },
+    {
+      "orb": "HORDE_ORB",
+      "price": 400
+    },
+    {
+      "orb": "MAGUS_ORB",
+      "price": 500
+    },
+    {
+      "orb": "ELITE_ORB",
+      "price": 1200
+    },
+    {
+      "orb": "BOUNTY_ORB",
+      "price": 1500
     }
   ]
 }

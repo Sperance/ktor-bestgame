@@ -208,6 +208,16 @@ object ModifierRoller : KoinComponent {
     /**
      * Описания переданных модификаторов.
      */
+    /** Тот же модификатор на тир выше (с 0.38.0); лучший тир остаётся собой, значения перебрасываются. */
+    fun raiseTier(modifier: Modifier): Modifier? {
+        if (modifier.fractured || modifier.tier <= 1) return null
+        val tier = tierCache.findByModifier(modifier.modifierId).firstOrNull { it.tier == modifier.tier - 1 } ?: return null
+        return modifier.copy(tierId = tier._id, tier = tier.tier, values = tier.roll())
+    }
+
+    /** Модификатор по коду описания на уровне предмета. */
+    fun rollCode(code: String, itemLevel: Int): Modifier? = definitionCache.findByCode(code)?.let { roll(it, itemLevel) }
+
     fun definitions(modifiers: Collection<Modifier>): List<ModifierDefinition> =
         modifiers.mapNotNull { definitionCache.findById(it.modifierId) }
 

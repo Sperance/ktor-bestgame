@@ -6,6 +6,7 @@ import application.enums.EnumModifierOperation.INCREASED
 import application.enums.EnumModifierOperation.MORE
 import application.enums.EnumModifierOperation.SET
 import application.enums.EnumModifierSource
+import application.enums.EnumStatStock
 import application.enums.EnumModifierSource.CORRUPTION
 import application.enums.EnumModifierSource.ENCHANTMENT
 import application.enums.EnumModifierSource.IMPLICIT
@@ -769,6 +770,92 @@ object ModifierSeeder {
             tags = listOf("map"),
             effects = listOf(effect(MAP_EXPERIENCE, INCREASED, best = 8.0..10.0, worst = 3.0..4.0)),
             tierCount = 3, bestItemLevel = 15
+        ),
+        // ---------- Ручная работа (0.38.0): кузнец и картограф, сверх аффиксов, сферам недоступна ----------
+        ModifierTemplate(
+            code = "HC_FIRE",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.STOCK_ATTACK_FIRE, ADD, best = 10.0..14.0, worst = 3.0..5.0)),
+            tierCount = 3, bestItemLevel = 40
+        ),
+        ModifierTemplate(
+            code = "HC_COLD",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.STOCK_ATTACK_COLD, ADD, best = 10.0..14.0, worst = 3.0..5.0)),
+            tierCount = 3, bestItemLevel = 40
+        ),
+        ModifierTemplate(
+            code = "HC_LIGHTNING",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.STOCK_ATTACK_LIGHTNING, ADD, best = 10.0..14.0, worst = 3.0..5.0)),
+            tierCount = 3, bestItemLevel = 40
+        ),
+        ModifierTemplate(
+            code = "HC_LIFE",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.STOCK_HEALTH, ADD, best = 45.0..60.0, worst = 15.0..25.0)),
+            tierCount = 3, bestItemLevel = 40
+        ),
+        ModifierTemplate(
+            code = "HC_ARMOUR",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.STOCK_ARMOR, INCREASED, best = 30.0..40.0, worst = 10.0..15.0)),
+            tierCount = 3, bestItemLevel = 40
+        ),
+        ModifierTemplate(
+            code = "HC_SPEED",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.STOCK_ATTACK_SPEED, INCREASED, best = 8.0..10.0, worst = 3.0..4.0)),
+            tierCount = 3, bestItemLevel = 40
+        ),
+        ModifierTemplate(
+            code = "HC_MAP_QUANTITY",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.MAP_QUANTITY, INCREASED, best = 10.0..12.0, worst = 4.0..5.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        ModifierTemplate(
+            code = "HC_MAP_RARITY",
+            source = EnumModifierSource.HANDCRAFTED,
+            tags = listOf("handcrafted"),
+            effects = listOf(effect(EnumStatStock.MAP_RARITY, INCREASED, best = 16.0..20.0, worst = 6.0..8.0)),
+            tierCount = 3, bestItemLevel = 15
+        ),
+        // ---------- Алхимические строки карт (0.38.0): их ставят сферы алхимика ----------
+        ModifierTemplate(
+            code = "ALC_MAP_PACK",
+            source = EnumModifierSource.ALCHEMY,
+            tags = listOf("alchemy"),
+            effects = listOf(effect(EnumStatStock.MAP_PACK_SIZE, INCREASED, best = 30.0..30.0, worst = 30.0..30.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "ALC_MAP_MAGIC",
+            source = EnumModifierSource.ALCHEMY,
+            tags = listOf("alchemy"),
+            effects = listOf(effect(EnumStatStock.MAP_MAGIC_MONSTERS, INCREASED, best = 60.0..60.0, worst = 60.0..60.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "ALC_MAP_RARE",
+            source = EnumModifierSource.ALCHEMY,
+            tags = listOf("alchemy"),
+            effects = listOf(effect(EnumStatStock.MAP_RARE_MONSTERS, INCREASED, best = 40.0..40.0, worst = 40.0..40.0)),
+            tierCount = 1, bestItemLevel = 1
+        ),
+        ModifierTemplate(
+            code = "ALC_MAP_LOOT",
+            source = EnumModifierSource.ALCHEMY,
+            tags = listOf("alchemy"),
+            effects = listOf(effect(EnumStatStock.MAP_QUANTITY, INCREASED, best = 20.0..20.0, worst = 20.0..20.0)),
+            tierCount = 1, bestItemLevel = 1
         ),
         // ---------- Ремёсла (0.37.0): аффиксы инструментов и эффекты ветки «Ремесло» ----------
         ModifierTemplate(

@@ -10,6 +10,13 @@ import kotlinx.serialization.json.Json
 @Serializable
 data class JobExtra(val item: String, val chance: Double)
 
+/** Сколько предмета уходит за цикл. */
+@Serializable
+data class JobInput(val item: String, val amount: Long)
+
+/** Что даёт удачный цикл: стопку предмета, вещь кузнеца или карту картографа (с 0.38.0). */
+enum class JobKind { ITEM, EQUIPMENT, MAP }
+
 /**
  * Работа профессии (с 0.37.0): что добывается, с какого уровня, за сколько секунд цикл, с каким
  * шансом (в процентах) цикл не приносит ничего и сколько опыта даёт удачный цикл.
@@ -23,6 +30,35 @@ data class Job(
     val output: String,
     val experience: Double,
     val extra: List<JobExtra> = emptyList(),
+    /** Что дают удачные циклы (с 0.38.0); у [JobKind.ITEM] это [output]. */
+    val kind: JobKind = JobKind.ITEM,
+    /** Что уходит за каждый цикл, удачный или нет (с 0.38.0); не хватило - работа встаёт. */
+    val inputs: List<JobInput> = emptyList(),
+    /** Кузнец: уровни баз, из которых куётся вещь. */
+    val band: List<Int> = emptyList(),
+    /** Картограф: локация, чью карту он чертит. */
+    val map: String = "",
+    /** Принимает ли работа примеси алхимика. */
+    val additives: Boolean = false,
+)
+
+/**
+ * Правила ремесла (с 0.38.0): шанс ручной работы без примесей и их потолок, шанс уникалки
+ * кузнеца, веса редкости вещей и карт, какая примесь какой модификатор гарантирует и из чего
+ * выбирается случайная ручная работа вещи и карты.
+ */
+@Serializable
+data class CraftingRules(
+    val handcraftedChance: Double = 20.0,
+    val maxHandcrafted: Int = 3,
+    val maxAdditives: Int = 2,
+    val uniqueChance: Double = 0.5,
+    val smithRarities: Map<application.enums.EnumRarity, Int> = emptyMap(),
+    val mapRarities: Map<application.enums.EnumRarity, Int> = emptyMap(),
+    val mapHandcraftedChance: Double = 25.0,
+    val additives: Map<String, String> = emptyMap(),
+    val smithHandcrafted: List<String> = emptyList(),
+    val mapHandcrafted: List<String> = emptyList(),
 )
 
 /** Профессия: её инструмент - слот экипировки, который она читает, - и работы. */
@@ -47,7 +83,7 @@ data class CraftsRules(
 )
 
 @Serializable
-data class CraftsFile(val rules: CraftsRules, val professions: List<Profession>)
+data class CraftsFile(val rules: CraftsRules, val professions: List<Profession>, val crafting: CraftingRules = CraftingRules())
 
 /**
  * Профессии (с 0.37.0) - `resources/content/professions.json`, как кампания: правила мира, в базу
@@ -85,7 +121,17 @@ object CraftsContent {
         jobs.forEach { job ->
             if (job.level !in 1..content.rules.maxLevel || job.seconds <= 0 || job.nothing !in 0.0..100.0 || job.experience < 0) fail("job ${job.code}")
             if (job.extra.any { it.chance !in 0.0..100.0 }) fail("extra of ${job.code}")
+            if (job.inputs.any { it.amount <= 0 }) fail("inputs of ${job.code}")
+            when (job.kind) {
+                JobKind.ITEM -> if (job.output.isBlank()) fail("output of ${job.code}")
+                JobKind.EQUIPMENT -> if (job.band.size != 2 || job.band[0] > job.band[1]) fail("band of ${job.code}")
+                JobKind.MAP -> if (job.map.isBlank()) fail("map of ${job.code}")
+            }
         }
         content.professions.forEach { if (it.jobs.none { job -> job.level == 1 }) fail("no first-level work in ${it.code}") }
+        content.crafting.let { c ->
+            if (c.handcraftedChance !in 0.0..100.0 || c.mapHandcraftedChance !in 0.0..100.0 || c.uniqueChance !in 0.0..100.0) fail("crafting chances")
+            if (c.maxHandcrafted < 1 || c.maxAdditives !in 0..c.maxHandcrafted) fail("crafting limits")
+        }
     }
 }
