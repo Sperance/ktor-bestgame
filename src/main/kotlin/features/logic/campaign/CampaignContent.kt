@@ -200,6 +200,14 @@ data class MonsterTemplate(
 data class ServiceRule(val treasurePerLevel: Long, val summonPerLevel: Long)
 
 /**
+ * Фонтаны (с 0.43.0): на карте их от `count[0]` до `count[1]`, место и число - по зерну карты у
+ * клиента, и каждый один раз лечит [heal] процентов максимума здоровья. Бой клиентский, поэтому и
+ * фонтан пьёт клиент; сервер только называет правило.
+ */
+@Serializable
+data class FountainRule(val count: List<Int> = listOf(0, 2), val heal: Double = 30.0)
+
+/**
  * Карты (с 0.35.0): предмет слота `MAP` со своим уровнем, что открывает одну локацию того же уровня
  * с модификаторами. С обычного монстра карта падает с шансом [dropChance] (умноженным на количество
  * его редкости и героя), с босса - [bossChance]; с шансом [nextChance] она на уровень выше карты,
@@ -304,6 +312,7 @@ data class CampaignContentFile(
     val bosses: BossRule,
     val services: ServiceRule,
     val maps: MapRule,
+    val fountains: FountainRule = FountainRule(),
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -344,6 +353,7 @@ data class CampaignView(
     val combat: CombatRules,
     val services: ServiceRule,
     val maps: MapRule,
+    val fountains: FountainRule = FountainRule(),
 )
 
 /**
@@ -410,7 +420,7 @@ object CampaignContent {
             if (rarity.statScale <= 0) rarity
             else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
         }
-        return CampaignView(chapters, rarities, content.combat, content.services, content.maps)
+        return CampaignView(chapters, rarities, content.combat, content.services, content.maps, content.fountains)
     }
 
     /** Модификатор монстра на уровне карты: растут только прибавки. */
@@ -491,6 +501,10 @@ object CampaignContent {
             if (rule.respawnHours <= 0 || rule.uniqueChance !in 0.0..1.0 || rule.ownUniqueChance !in 0.0..1.0 || rule.uniquePools.isEmpty()) throw CampaignExceptions.funExceptionContent(method, "bosses")
         }
         if (content.services.treasurePerLevel <= 0 || content.services.summonPerLevel <= 0) throw CampaignExceptions.funExceptionContent(method, "services")
+        content.fountains.let { rule ->
+            if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.heal !in 0.0..100.0)
+                throw CampaignExceptions.funExceptionContent(method, "fountains")
+        }
         content.maps.let { rule ->
             if (listOf(rule.dropChance, rule.bossChance, rule.nextChance).any { it !in 0.0..1.0 }) throw CampaignExceptions.funExceptionContent(method, "maps")
             if (rule.rarities.isEmpty() || rule.rarities.values.any { it <= 0 }) throw CampaignExceptions.funExceptionContent(method, "maps.rarities")

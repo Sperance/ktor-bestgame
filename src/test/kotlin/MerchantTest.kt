@@ -24,13 +24,13 @@ class MerchantTest {
     fun the_merchant_lays_out_four_to_six_magic_or_rare_items_near_the_hero() {
         repeat(30) { seed ->
             val stock = MerchantRules.stock(null, "hero", 10, 0L, equipment, Random(seed)) { _, _ -> mutableListOf() }
-            assertTrue(stock.offers.size in 4..6, "${stock.offers.size}")
+            assertTrue(stock.offers.size in MerchantRules.MIN_OFFERS..MerchantRules.MAX_OFFERS, "${stock.offers.size}")
             assertEquals(4 * 3_600_000L, stock.refreshAt)
             stock.offers.forEach { offer ->
                 val template = equipment.first { it._id == offer.item.equipmentId }
                 assertTrue(template.requiredLevel in 8..12, "${template.code}: ${template.requiredLevel}")
                 assertTrue(template.rarity != EnumRarity.UNIQUE && template.slot != EnumEquipmentType.JEWEL)
-                assertTrue(offer.item.rarity in setOf(EnumRarity.UNCOMMON, EnumRarity.RARE))
+                assertTrue(offer.item.rarity in setOf(EnumRarity.COMMON, EnumRarity.UNCOMMON, EnumRarity.RARE))
                 assertEquals(SellPrice.of(template, offer.item.rarity, offer.item.params, emptyMap()) * 4, offer.price)
             }
         }

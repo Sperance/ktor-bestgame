@@ -258,7 +258,7 @@ class SeedDataTest {
     @Test
     fun every_rollable_modifier_sits_in_some_pool() {
         val pooled = equipment.flatMap { Pools.of(definitions, it.modifierPools) }.map { it.value.code }.toSet()
-        val loose = definitions.filter { it.isNaturalAffix() && it.tags.orEmpty().any { tag -> tag in setOf("ailment", "risk", "flask") } }
+        val loose = definitions.filter { it.isNaturalAffix() && !it.isRetired() && it.tags.orEmpty().any { tag -> tag in setOf("ailment", "risk", "flask") } }
             .filterNot { it.code in pooled }.map { it.code }
         assert(loose.isEmpty()) { "Modifiers no pool rolls: $loose" }
     }

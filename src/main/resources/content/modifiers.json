@@ -36,7 +36,7 @@
         { "level": 13, "values": [[31.3, 36.6]] },
         { "level": 1, "values": [[15.0, 19.0]] }
       ],
-      "pools": { "helmet": 1000, "body": 1000, "gloves": 1000, "boots": 1000, "shield": 1000, "ring": 1000, "amulet": 1000, "belt": 1000, "wings": 1000, "wand": 1000, "jewel": 1000 }
+      "pools": { "helmet": 0, "body": 0, "gloves": 0, "boots": 0, "shield": 0, "ring": 0, "amulet": 0, "belt": 0, "wings": 0, "wand": 0, "jewel": 0 }
     },
     {
       "code": "ADD_ENERGY_SHIELD",
@@ -273,7 +273,7 @@
         { "level": 13, "values": [[21.4, 26.9]] },
         { "level": 1, "values": [[10.0, 14.0]] }
       ],
-      "pools": { "shield": 1000, "amulet": 1000, "wand": 1000 }
+      "pools": { "shield": 0, "amulet": 0, "wand": 0 }
     },
     {
       "code": "ADD_MAXIMUM_LIFE_AND_MANA",
@@ -291,7 +291,7 @@
         { "level": 17, "values": [[19.0, 24.0], [19.0, 24.0]] },
         { "level": 1, "values": [[10.0, 14.0], [10.0, 14.0]] }
       ],
-      "pools": { "helmet": 1000, "body": 1000, "gloves": 1000, "boots": 1000, "shield": 1000, "ring": 1000, "amulet": 1000, "jewel": 1000 }
+      "pools": { "helmet": 0, "body": 0, "gloves": 0, "boots": 0, "shield": 0, "ring": 0, "amulet": 0, "jewel": 0 }
     },
     {
       "code": "INCREASED_ARMOUR_AND_EVASION",
@@ -367,7 +367,7 @@
         { "level": 15, "values": [[18.3, 23.2], [18.3, 28.2]] },
         { "level": 1, "values": [[10.0, 14.0], [10.0, 19.0]] }
       ],
-      "pools": { "amulet": 1000, "wand": 1000 }
+      "pools": { "amulet": 0, "wand": 0 }
     },
     {
       "code": "INCREASED_PHYSICAL_DAMAGE_AND_CRITICAL_MULTIPLIER",
@@ -688,7 +688,7 @@
         { "level": 14, "values": [[7.5, 9.5]] },
         { "level": 1, "values": [[5.0, 7.0]] }
       ],
-      "pools": { "shield": 1000, "amulet": 1000, "wand": 1000 }
+      "pools": { "shield": 0, "amulet": 0, "wand": 0 }
     },
     {
       "code": "INCREASED_MOVEMENT_SPEED",
@@ -775,7 +775,7 @@
         { "level": 14, "values": [[18.3, 27.3]] },
         { "level": 1, "values": [[10.0, 19.0]] }
       ],
-      "pools": { "helmet": 1000, "body": 1000, "shield": 1000, "ring": 1000, "amulet": 1000, "wings": 1000, "wand": 1000, "jewel": 1000 }
+      "pools": { "helmet": 0, "body": 0, "shield": 0, "ring": 0, "amulet": 0, "wings": 0, "wand": 0, "jewel": 0 }
     },
     {
       "code": "ADD_PHYSICAL_LIFE_LEECH",
@@ -944,7 +944,7 @@
         { "level": 20, "values": [[18.8, 24.0], [8.8, 12.3]] },
         { "level": 1, "values": [[10.0, 14.0], [5.0, 8.0]] }
       ],
-      "pools": { "helmet": 1000, "jewel": 1000 }
+      "pools": { "helmet": 0, "jewel": 0 }
     },
     {
       "code": "INCREASED_EXPERIENCE_GAIN",
@@ -1058,7 +1058,7 @@
         { "level": 20, "values": [[2.3, 3.5]] },
         { "level": 1, "values": [[1.0, 2.0]] }
       ],
-      "pools": { "helmet": 1000, "body": 1000, "ring": 1000, "jewel": 1000 }
+      "pools": { "helmet": 0, "body": 0, "ring": 0, "jewel": 0 }
     },
     {
       "code": "INCREASED_LIFE_REGENERATION",
@@ -1570,7 +1570,7 @@
         { "level": 27, "values": [[0.4, 0.5]] },
         { "level": 1, "values": [[0.2, 0.3]] }
       ],
-      "pools": { "helmet": 1000, "gloves": 1000, "ring": 1000, "wand": 1000, "jewel": 1000 }
+      "pools": { "helmet": 0, "gloves": 0, "ring": 0, "wand": 0, "jewel": 0 }
     },
     {
       "code": "ADD_CONSTITUTION",
@@ -2015,7 +2015,7 @@
         { "level": 45, "values": [[7.0, 9.0]] },
         { "level": 16, "values": [[4.0, 6.0]] }
       ],
-      "pools": { "shield": 1000 }
+      "pools": { "shield": 0 }
     },
     {
       "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
@@ -2155,7 +2155,7 @@
         { "level": 20, "values": [[3.0, 4.0]] },
         { "level": 1, "values": [[1.0, 2.0]] }
       ],
-      "pools": { "ring": 1000, "weapon": 1000, "wand": 1000 }
+      "pools": { "ring": 0, "weapon": 0, "wand": 0 }
     },
     {
       "code": "ADD_LIFE_ON_HIT",
@@ -2182,7 +2182,7 @@
         { "level": 30, "values": [[2.0, 2.0]] },
         { "level": 5, "values": [[1.0, 1.0]] }
       ],
-      "pools": { "gloves": 1000, "ring": 1000 }
+      "pools": { "gloves": 0, "ring": 0 }
     },
     {
       "code": "INCREASED_LIGHT_RADIUS_AND_MOVEMENT_SPEED",
@@ -2272,7 +2272,7 @@
         { "level": 55, "values": [[35.0, 49.0], [-20.0, -20.0]] },
         { "level": 30, "values": [[20.0, 34.0], [-20.0, -20.0]] }
       ],
-      "pools": { "amulet": 480, "wand": 400 }
+      "pools": { "amulet": 0, "wand": 0 }
     },
     {
       "code": "RISK_BLOCK_FOR_CRITICAL_MULTIPLIER",
@@ -2333,7 +2333,7 @@
         { "level": 27, "values": [[13.3, 17.7]] },
         { "level": 1, "values": [[10.0, 14.0]] }
       ],
-      "pools": { "influence:SHAPER": 1000 }
+      "pools": { "influence:SHAPER": 0 }
     },
     {
       "code": "SHAPER_ADD_SPELL_POWER",
@@ -2349,7 +2349,7 @@
         { "level": 27, "values": [[8.3, 12.0]] },
         { "level": 1, "values": [[5.0, 8.0]] }
       ],
-      "pools": { "influence:SHAPER": 1000 }
+      "pools": { "influence:SHAPER": 0 }
     },
     {
       "code": "ELDER_INCREASED_MAXIMUM_MANA",
@@ -2364,7 +2364,7 @@
         { "level": 38, "values": [[7.5, 9.5]] },
         { "level": 1, "values": [[5.0, 7.0]] }
       ],
-      "pools": { "influence:ELDER": 1000 }
+      "pools": { "influence:ELDER": 0 }
     },
     {
       "code": "ELDER_INCREASED_CRITICAL_DAMAGE",

@@ -106,7 +106,7 @@ class ModifierRollTest {
     fun every_natural_affix_rolls_somewhere_and_no_weight_is_negative() {
         val broken = definitions.filter { it.pools.values.any { weight -> weight < 0 } }
         assert(broken.isEmpty()) { "Negative pool weights: ${broken.map { it.code }}" }
-        val loose = definitions.filter { it.isNaturalAffix() && it.pools.values.none { weight -> weight > 0 } }
+        val loose = definitions.filter { it.isNaturalAffix() && !it.isRetired() && it.pools.values.none { weight -> weight > 0 } }
         assert(loose.isEmpty()) { "Affixes that can never roll: ${loose.map { it.code }}" }
     }
 

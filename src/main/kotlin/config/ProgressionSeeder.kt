@@ -3,7 +3,6 @@ package config
 import application.enums.EnumStatStock.STOCK_AGILITY
 import application.enums.EnumStatStock.STOCK_HEALTH
 import application.enums.EnumStatStock.STOCK_INTELLECT
-import application.enums.EnumStatStock.STOCK_MANA
 import application.enums.EnumStatStock.STOCK_LIGHT_RADIUS
 import application.enums.EnumStatStock.STOCK_STRENGTH
 import application.enums.IntEnumStat
@@ -61,7 +60,6 @@ object ProgressionSeeder {
     private val sharedConversions = listOf(
         "CONVERT_STRENGTH_TO_LIFE",
         "CONVERT_DEXTERITY_TO_EVASION",
-        "CONVERT_INTELLIGENCE_TO_MANA",
         "CONVERT_INTELLIGENCE_TO_ENERGY_SHIELD",
         "CONVERT_STRENGTH_TO_PHYSICAL_DAMAGE",
     )
@@ -131,7 +129,7 @@ object ProgressionSeeder {
      */
     private val sharedBase = listOf(
         STOCK_HEALTH to 38.0,
-        STOCK_MANA to 34.0,
+        // Маны нет с 0.43.0: заклинания убраны из игры, интеллект кормит энергощит.
         // Радиус света (с 0.30.0): пять клеток у каждого класса, растёт от предметов и дерева.
         STOCK_LIGHT_RADIUS to 5.0,
     )
@@ -141,7 +139,6 @@ object ProgressionSeeder {
      */
     private val sharedGrowth = listOf(
         STOCK_HEALTH to 12.0,
-        STOCK_MANA to 6.0,
     )
 
     /**
