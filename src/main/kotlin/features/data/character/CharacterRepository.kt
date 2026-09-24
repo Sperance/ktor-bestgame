@@ -60,7 +60,7 @@ class CharacterRepository : BaseRepository<Character>(
                 indexName = "idx_unique_name",
                 fields = listOf("name")
             )
-        ))
+        ), indexedFields = listOf("userId"))
     }
 
     override suspend fun validateBeforeInsert(entity: Character, session: ClientSession) {
