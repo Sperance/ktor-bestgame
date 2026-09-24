@@ -62,12 +62,14 @@ class LocaleBundle(
         if (needle.isEmpty()) return emptyList()
 
         val prefix = "$section."
-        val suffix = ".${LocaleKey.NAME}"
+        // Имя на языке игрока и английское торговое (0.45.0): ищут и так, и так
+        val suffixes = listOf(".${LocaleKey.NAME}", ".${LocaleKey.TRADE}")
 
         return strings.asSequence()
-            .filter { it.key.startsWith(prefix) && it.key.endsWith(suffix) }
+            .filter { entry -> entry.key.startsWith(prefix) && suffixes.any { entry.key.endsWith(it) } }
             .filter { it.value.contains(needle, ignoreCase = true) }
-            .map { it.key.removePrefix(prefix).removeSuffix(suffix) }
+            .map { entry -> suffixes.fold(entry.key.removePrefix(prefix)) { code, suffix -> code.removeSuffix(suffix) } }
+            .distinct()
             .toList()
     }
 }

@@ -256,6 +256,7 @@ class CampaignTest {
         assertEquals(codes.last(), CampaignMaps.drop(rule, 1.0, codes.last(), codes, random), "с последней карты - только она сама")
         val rarities = List(10_000) { CampaignMaps.rarity(rule, random) }.groupingBy { it }.eachCount()
         assertEquals(rule.rarities.keys, rarities.keys)
+        assertTrue(EnumRarity.COMMON !in rarities, "карта не бывает обычной (0.45.0)")
     }
 
     /** Карты как в PoE (0.42.0): волшебная несёт 1–2 аффикса, редкая 4–6, и сама редкость прибавляет к добыче. */

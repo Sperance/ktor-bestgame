@@ -39,9 +39,10 @@ object LocaleCache {
     const val COMMON = "common.json"
 
     /**
-     * Ключи, которые живут только в [COMMON]: имя того, чем торгуют, одно на все языки.
+     * Ключи, которые живут только в [COMMON]: английское торговое имя того, чем торгуют, одно на
+     * все языки (с 0.45.0 — `.trade`; само `.name` переводится, как всё остальное).
      */
-    val commonKey = Regex("""^(equipment\.[^.]+\.name|item\.[^.]+\.name|enum\.EnumCurrencyOrb\.[^.]+)$""")
+    val commonKey = Regex("""^(equipment|item)\.[^.]+\.trade$""")
 
     private val json = Json { ignoreUnknownKeys = true }
     private val output = Json { prettyPrint = true }

@@ -111,7 +111,7 @@ object CurrencyApplier : KoinComponent {
         val outcome = applyRule(orb, item, template)
         // Самоцвет без аффикса ничего не даёт (0.42.0): сфера, что оставила бы его пустым, отказывает.
         if (features.logic.equipment.Jewels.isJewel(template) && outcome.item._id == item._id && features.logic.equipment.Jewels.empty(template, outcome.item))
-            throw CurrencyExceptions.funExceptionJewelEmpty("apply", template.code)
+            throw CurrencyExceptions.funExceptionJewelEmpty("apply", LocaleKey.equipmentName(template.code))
         return outcome
     }
 

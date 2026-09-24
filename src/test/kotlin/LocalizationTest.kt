@@ -132,6 +132,7 @@ class LocalizationTest {
 
         EquipmentSeeder(definitions).seed().forEach {
             keys.add(LocaleKey.equipmentName(it.code))
+            keys.add(LocaleKey.equipmentTrade(it.code))
             keys.add(LocaleKey.equipmentDescription(it.code))
         }
 
@@ -148,6 +149,7 @@ class LocalizationTest {
 
         (CurrencySeeder.seed() + ItemsSeeder.seed()).forEach {
             keys.add(LocaleKey.itemName(it.code))
+            keys.add(LocaleKey.itemTrade(it.code))
             keys.add(LocaleKey.itemDescription(it.code))
         }
 
@@ -254,9 +256,9 @@ class LocalizationTest {
     }
 
     /**
-     * Имя предмета, экипировки и сферы одно на все языки — английское, как в PoE: им торгуют и
-     * его ищут, а два имени у одной вещи делят рынок пополам. С 0.25.0 оно и лежит один раз:
-     * в `common.json`, а языковые файлы держат только то, что переводится.
+     * Торговое имя предмета, экипировки и сферы — английское, одно на все языки, как в PoE: им
+     * ищут на аукционе. С 0.45.0 оно лежит один раз в `common.json` как `.trade`, а само `.name`
+     * переводится; в английском словаре имя и торговое имя совпадают.
      */
     @Test
     fun traded_names_live_once_in_the_common_file() {
@@ -272,6 +274,11 @@ class LocalizationTest {
             common.forEach { (key, name) ->
                 assert(LocaleCache.bundle(language)[key] == name) { "$language: $key не дошёл до словаря" }
             }
+        }
+        val english = file("en.json")
+        common.forEach { (key, trade) ->
+            val name = key.removeSuffix(".${LocaleKey.TRADE}") + ".${LocaleKey.NAME}"
+            assert(english[name] == trade) { "en: $name расходится с торговым именем «$trade»" }
         }
     }
 

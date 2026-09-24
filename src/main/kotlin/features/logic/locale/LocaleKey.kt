@@ -33,10 +33,15 @@ object LocaleKey {
     const val NAME = "name"
     const val DESCRIPTION = "description"
 
+    /** Английское имя того, чем торгуют (0.45.0): одно на все языки, для полной карточки и поиска. */
+    const val TRADE = "trade"
+
     fun equipmentName(code: String) = key(EQUIPMENT, code, NAME)
+    fun equipmentTrade(code: String) = key(EQUIPMENT, code, TRADE)
     fun equipmentDescription(code: String) = key(EQUIPMENT, code, DESCRIPTION)
 
     fun itemName(code: String) = key(ITEM, code, NAME)
+    fun itemTrade(code: String) = key(ITEM, code, TRADE)
     fun itemDescription(code: String) = key(ITEM, code, DESCRIPTION)
 
     fun modifierName(code: String) = key(MODIFIER, code, NAME)

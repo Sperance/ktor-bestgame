@@ -2101,9 +2101,8 @@
     "bossChance": 0.4,
     "nextChance": 0.25,
     "rarities": {
-      "COMMON": 60,
-      "UNCOMMON": 30,
-      "RARE": 10
+      "UNCOMMON": 80,
+      "RARE": 20
     },
     "affixes": {
       "UNCOMMON": [1, 2],

@@ -1071,9 +1071,8 @@
       "EPIC": 5
     },
     "mapRarities": {
-      "COMMON": 40,
-      "UNCOMMON": 40,
-      "RARE": 20
+      "UNCOMMON": 70,
+      "RARE": 30
     },
     "mapHandcraftedChance": 25,
     "additives": {

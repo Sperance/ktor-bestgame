@@ -9,11 +9,12 @@ import features.logic.modifiers.ModifierRoller
 /**
  * Самоцвет не бывает пустым (с 0.42.0): у него нет базы, и без аффикса он ничего не даёт. Поэтому
  * обычным он не падает, не куётся и не выдаётся - минимум волшебным, - и сфера, после которой он
- * остался бы без аффикса, отказывает.
+ * остался бы без аффикса, отказывает. С 0.45.0 то же правило у карты: она минимум волшебная и хоть
+ * с одним модификатором.
  */
 object Jewels {
 
-    fun isJewel(template: Equipment): Boolean = template.slot == EnumEquipmentType.JEWEL
+    fun isJewel(template: Equipment): Boolean = template.slot == EnumEquipmentType.JEWEL || template.slot == EnumEquipmentType.MAP
 
     /** Редкость, под которую роллится новая копия: обычный самоцвет становится волшебным. */
     fun rarity(template: Equipment, rarity: EnumRarity): EnumRarity =
