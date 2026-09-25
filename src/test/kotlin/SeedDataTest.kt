@@ -86,6 +86,16 @@ class SeedDataTest {
         }
     }
 
+    /** Всё, что ссылается на модификатор, ссылается кодом (с 0.56.0): база шаблона, строки, конверсии классов, узлы дерева. */
+    @Test
+    fun every_modifier_reference_is_a_known_code() {
+        val codes = definitions.map { it.code }.toSet()
+        val references = equipment.flatMap { item -> item.baseParams.map { it.modifierCode } + item.fixedModifierCodes } +
+            config.ProgressionSeeder.seedClasses(definitions).flatMap { it.params }.map { it.modifierCode } +
+            config.SkillTreeSeeder.seed(definitions).flatMap { node -> node.params + node.options.flatten() }.map { it.modifierCode }
+        assert(references.isNotEmpty() && references.all { it in codes }) { "Unknown references: ${references.filterNot { it in codes }.distinct()}" }
+    }
+
     @Test
     fun equipment_codes_are_unique() {
         val duplicates = equipment.groupBy { it.code }.filterValues { it.size > 1 }.keys

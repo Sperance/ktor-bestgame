@@ -144,7 +144,7 @@ object ProgressionSeeder {
     /**
      * Документы коллекции `CharacterClass`.
      *
-     * @param definitions описания модификаторов - из них берутся _id конверсий
+     * @param definitions описания модификаторов - по ним проверяются коды конверсий
      */
     fun seedClasses(definitions: List<ModifierDefinition>): List<CharacterClass> {
         val byCode = definitions.associateBy { it.code }
@@ -152,7 +152,7 @@ object ProgressionSeeder {
         fun conversion(code: String): Modifier {
             val definition = byCode[code] ?: throw ModifierExceptions.funExceptionCodeNotFound("seedClasses", code)
             // Значение конверсии фиксировано её описанием, множитель всегда один
-            return Modifier.passive(definition._id, definition.effects.map { 1.0 })
+            return Modifier.passive(definition.code, definition.effects.map { 1.0 })
         }
 
         return templates.map { template ->
