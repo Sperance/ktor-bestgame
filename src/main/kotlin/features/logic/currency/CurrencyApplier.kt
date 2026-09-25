@@ -25,6 +25,7 @@ import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import base.exception.model.CurrencyExceptions
 import extensions.RandomExt
+import extensions.to1Digits
 import extensions.randomExt
 import extensions.weightedRandomExt
 import features.caches.EquipmentCache
@@ -296,16 +297,34 @@ object CurrencyApplier : KoinComponent {
     }
 
     /**
-     * Портит предмет: вешает модификатор порчи и закрывает его для дальнейших изменений.
+     * Портит предмет, как в POE (с 0.58.0): после неё ни одна сфера его не тронет, а сама порча
+     * выпадает одним из четырёх равновероятных исходов [VaalOutcome]. Ложится и на экипировку, и на
+     * карты: имплисит карты - любой модификатор из её собственного пула, вредный или наградный.
      */
     private fun vaal(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         item.corrupted = true
-
-        val corruption = ModifierRoller.rollFrom(CurrencySeeder.records[VAAL_ORB]?.modifierPools.orEmpty(), template.itemLevel)
-        if (corruption != null) item.params.add(corruption)
-
-        val key = if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing"
-        return outcome(item, template, key)
+        return when (VaalOutcome.entries.random()) {
+            VaalOutcome.NOTHING -> outcome(item, template, "currency.vaal_nothing")
+            VaalOutcome.IMPLICIT -> {
+                val corruption = if (template.slot == EnumEquipmentType.MAP) Pools.draw(ModifierRoller.affixPool(template))?.let { ModifierRoller.roll(it, template.itemLevel) }
+                    else ModifierRoller.rollFrom(CurrencySeeder.records[VAAL_ORB]?.modifierPools.orEmpty(), template.itemLevel)
+                corruption?.let { item.params.add(it.copy(tier = 0)) }
+                outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
+            }
+            // Уникалку в редкую не превратить, как и в POE: на ней этот исход только портит.
+            VaalOutcome.RARE -> if (item.rarity == EnumRarity.UNIQUE) outcome(item, template, "currency.vaal_nothing") else {
+                item.rarity = EnumRarity.RARE
+                item.params = (permanent(item) + fractured(item) + ModifierRoller.rollAffixes(template, EnumRarity.RARE, item.influence, fractured(item))).toMutableList()
+                outcome(item, template, "currency.vaal_rare", affixes(item).size.toString())
+            }
+            // Каждое значение - своим множителем, и потолок тира ему не указ (как в POE 2).
+            VaalOutcome.SHIFT -> {
+                item.params = item.params.map { modifier ->
+                    modifier.copy(values = modifier.values.map { (it * kotlin.random.Random.nextDouble(VAAL_SHIFT_MIN, VAAL_SHIFT_MAX)).to1Digits() })
+                }.toMutableList()
+                outcome(item, template, "currency.vaal_shift")
+            }
+        }
     }
 
     /**
@@ -461,3 +480,9 @@ object CurrencyApplier : KoinComponent {
 
     private fun permanent(item: CharacterEquipment): List<Modifier> = item.params.filterNot { ModifierRoller.isAffix(it) }
 }
+
+/** Четыре исхода сферы Ваал (с 0.58.0), по 25%: ничего, имплисит порчи, перекат в редкий, сдвиг значений на ±20%. */
+private enum class VaalOutcome { NOTHING, IMPLICIT, RARE, SHIFT }
+
+private const val VAAL_SHIFT_MIN = 0.8
+private const val VAAL_SHIFT_MAX = 1.2
