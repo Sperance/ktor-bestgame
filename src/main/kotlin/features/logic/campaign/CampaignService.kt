@@ -158,7 +158,7 @@ class CampaignService : KoinComponent {
     /**
      * Герой одолел стража осквернённой зоны (с 0.46.0): не больше одного раза за заход карты
      * (`CP_012`), и не таблица монстра, а его собственная, с шансом на уникалку из
-     * [CorruptionRule.uniquePools]. Зона не персистентна - `start()` сбрасывает счётчик.
+     * [CorruptionRule.uniquePools]. Зона не персистентна - счётчик сбрасывает `start()` с потраченной картой.
      */
     suspend fun corrupt(characterId: String, mapCode: String, monsterCode: String): CampaignReward {
         val method = "corrupt"
@@ -205,8 +205,12 @@ class CampaignService : KoinComponent {
         val chests = active?.effects?.get(CampaignMaps.CHESTS)?.toInt() ?: 0
         if (chests > 0) character.chests[mapCode] = window.copy(left = window.left + chests)
         character.activeMap = active
-        character.mapRecipeRolled = false
-        character.corruptionOpened = false
+        // Новый заход открывают порчу и рецепт, только если на него потрачена карта: бесплатный
+        // вход без неё иначе раздавал бы стража порчи и рецепт сколько угодно раз
+        if (item != null) {
+            character.mapRecipeRolled = false
+            character.corruptionOpened = false
+        }
         transactionExecute(method) { session ->
             item?.let { inventory.deleteById(it._id, session) }
             characters.update(character, session)
