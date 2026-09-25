@@ -3,7 +3,6 @@ package config
 import extensions.printLog
 import kotlinx.coroutines.*
 import java.lang.management.ManagementFactory
-import java.lang.management.OperatingSystemMXBean
 import java.lang.management.MemoryMXBean
 import java.lang.management.RuntimeMXBean
 import java.time.LocalDateTime
@@ -18,7 +17,6 @@ object SystemMonitor {
     // Beans для сбора метрик
     private val runtimeMXBean: RuntimeMXBean = ManagementFactory.getRuntimeMXBean()
     private val memoryMXBean: MemoryMXBean = ManagementFactory.getMemoryMXBean()
-    private val osMXBean: OperatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean()
 
     /**
      * Запуск мониторинга с интервалом 1 час

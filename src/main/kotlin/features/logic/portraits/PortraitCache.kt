@@ -47,7 +47,6 @@ object PortraitCache {
     const val CLASS = "class"
     const val FORM = "form"
     const val MONSTER = "monster"
-    val sections = listOf(CLASS, FORM, MONSTER)
 
     private var files: Map<String, String> = emptyMap()
     private var hashes: Map<String, String> = emptyMap()

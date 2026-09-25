@@ -11,11 +11,4 @@ object EquipmentExceptions {
     }
 
     fun funException(errorMethod: String, value: String? = "") = EquipmentException(value, errorMethod, "EQ_001", listOf(value.orEmpty()))
-
-    // Валидация типов предметов
-    fun funExceptionInvalidSlot(errorMethod: String, equipmentType: String) =
-        EquipmentException("Invalid slot for equipment type $equipmentType", errorMethod, "EQ_003", listOf(equipmentType))
-
-    fun funExceptionMissingData(errorMethod: String, missingField: String) =
-        EquipmentException("Missing required data: $missingField", errorMethod, "EQ_004", listOf(missingField))
 }

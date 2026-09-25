@@ -509,8 +509,6 @@
   "error.CR_018": "Bench recipe {0} not found",
   "error.CR_019": "This recipe cannot be crafted on {0}",
   "error.EQ_001": "Equipment error: {0}",
-  "error.EQ_003": "Invalid slot for equipment type {0}",
-  "error.EQ_004": "Missing required data: {0}",
   "error.IT_001": "Item error: {0}",
   "error.LC_001": "Localization error: {0}",
   "error.LC_002": "Language {0} is not in the locale manifest",
