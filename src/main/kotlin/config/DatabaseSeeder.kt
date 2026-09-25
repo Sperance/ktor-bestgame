@@ -105,6 +105,7 @@ object DatabaseSeeder : KoinComponent {
             seedRedemptionCodes(session)
             seedEqipmentCharacters(session)
             seedCurrencyToCharacters(session)
+            characterRepository.markStarterGranted(session)
         }
 
         initializeCaches()
@@ -365,7 +366,7 @@ object DatabaseSeeder : KoinComponent {
     }
 
     /**
-     * Стартовый запас сфер персонажам, у которых ещё нет простых предметов.
+     * Стартовый запас сфер персонажам, у которых ещё нет простых предметов и которые его не получали.
      */
     private suspend fun seedCurrencyToCharacters(session: ClientSession) {
         val orbs = itemsCache.findByCategory(EnumCurrencyOrb.CATEGORY)
@@ -450,7 +451,7 @@ object DatabaseSeeder : KoinComponent {
         val equipped = characterEquipmentRepository.owners(session)
         val byRarity = equipments.groupBy { it.rarity }
         var created = 0
-        characters.filterNot { it._id in equipped }.forEach { char ->
+        characters.filterNot { it.starterGranted || it._id in equipped }.forEach { char ->
             val starters = startRarities.mapNotNull { byRarity[it]?.randomOrNull() }
             created += characterEquipmentRepository.addAllFromEquipment(char._id, starters, session).size
         }

@@ -23,6 +23,7 @@ import features.logic.stats.StatsMemo
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.toStableObjectId
+import CONST_FIELD_VERSION
 import CONST_ITEM_MAX_AMOUNT
 import CONST_USER_MAX_CHARACTERS
 import features.caches.CharacterClassCache
@@ -351,7 +352,18 @@ class CharacterRepository : BaseRepository<Character>(
 
     /** Персонажи с пустой сумкой - фильтром в базе, а не чтением всех. */
     suspend fun withEmptyBag(session: ClientSession): List<Character> =
-        collection.find(session, readFilter(Filters.or(Filters.exists("bag", false), Filters.eq("bag", Document())))).toList()
+        collection.find(session, readFilter(Filters.and(
+            Filters.ne(Character::starterGranted.name, true),
+            Filters.or(Filters.exists("bag", false), Filters.eq("bag", Document())),
+        ))).toList()
+
+    /** Отмечает стартовый набор выданным всем, кто его ещё не получал; версия растёт вместе с документом. */
+    suspend fun markStarterGranted(session: ClientSession): Long =
+        collection.updateMany(
+            session,
+            Filters.ne(Character::starterGranted.name, true),
+            Updates.combine(Updates.set(Character::starterGranted.name, true), Updates.inc(CONST_FIELD_VERSION, 1L)),
+        ).modifiedCount
 
     /**
      * Выдаёт стартовый узел класса тем персонажам, у которых дерево пустое.

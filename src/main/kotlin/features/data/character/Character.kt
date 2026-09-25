@@ -82,6 +82,9 @@ data class Character(
     /** Работа, которую герой ведёт сейчас, - одна на героя (с 0.37.0). */
     var work: features.logic.crafts.ActiveWork? = null,
 
+    /** Получил ли герой стартовые сферы и вещи сидинга: иначе он получал бы их на каждом рестарте, растратив. */
+    var starterGranted: Boolean = false,
+
     /** Выдан ли стартовый набор инструментов (с 0.37.0): выдаётся один раз. */
     var toolsGranted: Boolean = false,
 
