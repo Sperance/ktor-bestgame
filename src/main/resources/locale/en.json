@@ -472,7 +472,6 @@
   "error.BRY_004": "New entity must have version 0, got {0}",
   "error.BRY_005": "Entity with id '{0}' not found",
   "error.BRY_006": "Entity is null",
-  "error.BRY_008": "Entity class {0} is not versioned",
   "error.CH_002": "Character name is empty",
   "error.CH_003": "Character with name {0} already exists",
   "error.CH_004": "User with id {0} not found",

@@ -11,6 +11,7 @@ import base.repository.BaseRepository
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import org.bson.conversions.Bson
+import kotlinx.coroutines.flow.firstOrNull
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import config.afterCommit
@@ -54,6 +55,18 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     /**
+     * Экземпляр [inventoryId] этого персонажа. Чужой отвечает тем же «не найден», что и
+     * несуществующий: иначе ответ подтверждал бы, что чужой id существует.
+     */
+    suspend fun requireOwned(characterId: String, inventoryId: String, method: String): CharacterEquipment =
+        collection.find(readFilter(Filters.and(Filters.eq("_id", inventoryId), Filters.eq("characterId", characterId)))).firstOrNull()
+            ?: throw CharacterExceptions.funExceptionItemNotFound(method, inventoryId)
+
+    /** Шаблон экземпляра из кеша справочника. */
+    fun templateOf(item: CharacterEquipment, method: String): Equipment =
+        equipmentCache.findById(item.equipmentId) ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.equipmentId)
+
+    /**
      * Весь инвентарь персонажа.
      */
     suspend fun findByCharacter(characterId: String): List<CharacterEquipment> =
@@ -61,7 +74,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
 
     override suspend fun validateAfterInsert(entity: CharacterEquipment, session: ClientSession) = touched(entity, session, removed = false)
     override suspend fun validateAfterUpdate(entity: CharacterEquipment, session: ClientSession) = touched(entity, session, removed = false)
-    override suspend fun validateAfterDelete(entity: CharacterEquipment, session: ClientSession, softDelete: Boolean) = touched(entity, session, removed = true)
+    override suspend fun validateAfterDelete(entity: CharacterEquipment, session: ClientSession) = touched(entity, session, removed = true)
 
     /**
      * Любая запись в инвентарь (с 0.49.0): ревизия героя сдвигается один раз на транзакцию, а
@@ -111,13 +124,9 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * которого у игрока нет, значило бы дать бонус за невзятое.
      */
     suspend fun socket(characterId: String, inventoryId: String, nodeCode: String): CharacterEquipment {
-        val item = findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("socket", inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound("socket", inventoryId)
+        val item = requireOwned(characterId, inventoryId, "socket")
 
-        val template = equipmentCache.findById(item.equipmentId)
-            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("socket", item.equipmentId)
+        val template = templateOf(item, "socket")
         if (template.slot != EnumEquipmentType.JEWEL)
             throw SkillTreeExceptions.funExceptionNotJewel("socket", template.code)
 
@@ -126,8 +135,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         if (node.type != EnumSkillNodeType.JEWEL_SOCKET)
             throw SkillTreeExceptions.funExceptionNotSocket("socket", nodeCode)
 
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("socket", characterId)
+        val character = characterRepository.requireCharacter(characterId, "socket")
         if (character.skillNodes.none { it.code == nodeCode })
             throw SkillTreeExceptions.funExceptionNotTaken("socket", nodeCode)
 
@@ -146,10 +154,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * Вынимает самоцвет из гнезда: он возвращается в арсенал и перестаёт считаться.
      */
     suspend fun unsocket(characterId: String, inventoryId: String): CharacterEquipment {
-        val item = findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("unsocket", inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound("unsocket", inventoryId)
+        val item = requireOwned(characterId, inventoryId, "unsocket")
 
         return transactionExecute("unsocket") { session ->
             item.equippedSlot = null
@@ -171,21 +176,16 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * должен быть в руках, а не в работе.
      */
     suspend fun sellForGold(characterId: String, inventoryId: String): SellOutcome {
-        val item = findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("sellForGold", inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound("sellForGold", inventoryId)
+        val item = requireOwned(characterId, inventoryId, "sellForGold")
 
-        val template = equipmentCache.findById(item.equipmentId)
-            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("sellForGold", item.equipmentId)
+        val template = templateOf(item, "sellForGold")
 
         if (item.socketCode != null)
             throw CharacterExceptions.funExceptionSellSocketed("sellForGold", template.code)
         if (item.equippedSlot != null)
             throw CharacterExceptions.funExceptionSellEquipped("sellForGold", template.code)
 
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("sellForGold", characterId)
+        val character = characterRepository.requireCharacter(characterId, "sellForGold")
 
         // Характеристики нужны ради STOCK_GOLD: надбавку к цене даёт сам персонаж.
         val stats = characterRepository.calculateStats(character).stats
@@ -207,20 +207,15 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * @param slot какое из двух колец занять; у остальных предметов не используется
      */
     suspend fun equip(characterId: String, inventoryId: String, slot: EnumEquipmentType? = null): CharacterEquipment {
-        val item = findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("equip", inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound("equip", inventoryId)
+        val item = requireOwned(characterId, inventoryId, "equip")
 
-        val template = equipmentCache.findById(item.equipmentId)
-            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("equip", item.equipmentId)
+        val template = templateOf(item, "equip")
         if (template.slot == EnumEquipmentType.MAP)
             throw CharacterExceptions.funExceptionMapNotWorn("equip", template.code)
 
         // Надеть предмет с невыполненными требованиями нельзя. Уже надетый
         // при их потере не слетает - он просто перестаёт работать, см. CharacterStatsCalculator
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("equip", characterId)
+        val character = characterRepository.requireCharacter(characterId, "equip")
         // Самоцвет в гнезде тоже "надет", но рук и колец не занимает
         val equipped = findEquipped(characterId)
         val stats = characterRepository.calculateStats(character, equipped)
@@ -253,10 +248,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * Снимает предмет, оставляя его в инвентаре.
      */
     suspend fun unequip(characterId: String, inventoryId: String): CharacterEquipment {
-        val item = findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("unequip", inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound("unequip", inventoryId)
+        val item = requireOwned(characterId, inventoryId, "unequip")
 
         item.equippedSlot = null
         transactionExecute("unequip") { session ->
@@ -274,13 +266,9 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * @param orbItemId id предмета-сферы в коллекции `Items`
      */
     suspend fun applyOrb(characterId: String, inventoryId: String, orbItemId: String): CurrencyOutcome {
-        val item = findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("applyOrb", inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound("applyOrb", inventoryId)
+        val item = requireOwned(characterId, inventoryId, "applyOrb")
 
-        val template = equipmentCache.findById(item.equipmentId)
-            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("applyOrb", item.equipmentId)
+        val template = templateOf(item, "applyOrb")
 
         val orbItem = itemsCache.findById(orbItemId)
             ?: throw CharacterExceptions.funExceptionItemNotFound("applyOrb", orbItemId)
@@ -288,8 +276,7 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
             ?.let { EnumCurrencyOrb.byCode(it.subCategory) }
             ?: throw CurrencyExceptions.funExceptionNotCurrency("applyOrb", orbItem.code)
 
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("applyOrb", characterId)
+        val character = characterRepository.requireCharacter(characterId, "applyOrb")
 
         return transactionExecute("applyOrb ${orb.name}") { session ->
             // Сначала списываем сферу: если её нет, предмет даже не трогаем
@@ -303,22 +290,22 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     /**
-     * Ставит на предмет ремесленный модификатор верстака.
-     *
-     * Как и сфера, оплата списывается в одной транзакции с сохранением предмета:
-     * отказ правила не съедает ни одной сферы.
-     */
-    /**
      * Рецепты верстака, известные герою (с 0.46.0): все остальные скрыты, их нужно найти на карте.
      */
     suspend fun bench(characterId: String): List<BenchRecipe> =
-        bench(characterRepository.findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound("bench", characterId))
+        bench(characterRepository.requireCharacter(characterId, "bench"))
 
     fun bench(character: Character): List<BenchRecipe> {
         val known = character.knownBenchRecipes.toHashSet()
         return CraftingBench.recipes.filter { it.code in known }
     }
 
+    /**
+     * Ставит на предмет ремесленный модификатор верстака.
+     *
+     * Как и сфера, оплата списывается в одной транзакции с сохранением предмета:
+     * отказ правила не съедает ни одной сферы.
+     */
     suspend fun craft(characterId: String, inventoryId: String, recipeCode: String): CurrencyOutcome {
         val recipe = CraftingBench.recipe(recipeCode)
         val (item, template, character) = benchTarget("craft", characterId, inventoryId)
@@ -346,14 +333,9 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     private suspend fun benchTarget(method: String, characterId: String, inventoryId: String): Triple<CharacterEquipment, Equipment, Character> {
-        val item = findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound(method, inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound(method, inventoryId)
-        val template = equipmentCache.findById(item.equipmentId)
-            ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.equipmentId)
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
+        val item = requireOwned(characterId, inventoryId, method)
+        val template = templateOf(item, method)
+        val character = characterRepository.requireCharacter(characterId, method)
         return Triple(item, template, character)
     }
 
@@ -402,16 +384,6 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     /**
-     * Удаляет предметы с модификаторами старого формата - одиночным полем `value`
-     * вместо списка `values`, появившегося вместе с составными модификаторами.
-     *
-     * Такие документы уже не читаются драйвером, поэтому вычистить их можно
-     * только фильтром по сырому полю. Совместимость разовая: когда база
-     * пересеяна, метод перестаёт что-либо находить и его можно убрать.
-     *
-     * @return количество удалённых документов
-     */
-    /**
      * Возвращает в сумку самоцветы из гнёзд, которых больше нет в дереве (0.52.0: дерево построено
      * заново). Самоцвет - вещь игрока: он не пропадает вместе с узлом, а просто перестаёт быть вставленным.
      *
@@ -446,6 +418,13 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         true
     }.toLong()
 
+    /**
+     * Удаляет предметы с модификаторами старого формата - одиночным полем `value`
+     * вместо списка `values`. Такие документы уже не читаются драйвером, поэтому
+     * вычистить их можно только фильтром по сырому полю.
+     *
+     * @return количество удалённых документов
+     */
     suspend fun deleteLegacyParams(session: ClientSession): Long =
         collection.deleteMany(session, Filters.exists("params.value", true)).deletedCount
 

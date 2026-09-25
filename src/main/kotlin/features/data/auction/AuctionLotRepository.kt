@@ -103,15 +103,10 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
         requireOrb(priceOrbId, "sellEquipment")
         requirePrice(price, "sellEquipment")
 
-        val item = characterEquipmentRepository.findById(inventoryId)
-            ?: throw CharacterExceptions.funExceptionItemNotFound("sellEquipment", inventoryId)
-        if (item.characterId != characterId)
-            throw CharacterExceptions.funExceptionItemNotFound("sellEquipment", inventoryId)
+        val item = characterEquipmentRepository.requireOwned(characterId, inventoryId, "sellEquipment")
         if (item.isEquipped())
             throw AuctionExceptions.funExceptionItemEquipped("sellEquipment", inventoryId)
-
-        val template = equipmentCache.findById(item.equipmentId)
-            ?: throw CharacterExceptions.funExceptionEquipmentNotFound("sellEquipment", item.equipmentId)
+        val template = characterEquipmentRepository.templateOf(item, "sellEquipment")
 
         return transactionExecute("auction sellEquipment $inventoryId") { session ->
             // Предмет физически уходит из инвентаря: пока лот висит, им не пользуются
@@ -269,9 +264,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
     }
 
     private suspend fun requireTrader(characterId: String, method: String): Character {
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
-
+        val character = characterRepository.requireCharacter(characterId, method)
         if (character.level < CONST_AUCTION_MIN_LEVEL)
             throw AuctionExceptions.funExceptionLevel(method, "${character.level}, need $CONST_AUCTION_MIN_LEVEL")
 

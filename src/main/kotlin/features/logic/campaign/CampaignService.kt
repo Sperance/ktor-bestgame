@@ -93,14 +93,14 @@ class CampaignService : KoinComponent {
 
     fun view(): CampaignView = CampaignContent.view
 
-    suspend fun progress(characterId: String): CampaignProgress = progressOf(requireCharacter(characterId, "progress"))
+    suspend fun progress(characterId: String): CampaignProgress = progressOf(characters.requireCharacter(characterId, "progress"))
 
     /**
      * Награда за монстра: опыт, золото, сферы и экипировка - одной транзакцией, как у промокода.
      */
     suspend fun kill(characterId: String, mapCode: String, monsterCode: String, rarityName: String): CampaignReward {
         val method = "kill"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         if (map.monsters.none { it.code == monsterCode }) throw CampaignExceptions.funExceptionMonsterNotOnMap(method, monsterCode)
         // Уникальная редкость - только у босса, а босс сообщается своим маршрутом.
@@ -119,7 +119,7 @@ class CampaignService : KoinComponent {
     /** Жив ли босс карты у героя и когда вернётся убитый (с 0.32.0). */
     suspend fun boss(characterId: String, mapCode: String): BossState {
         val method = "boss"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         openMap(character, mapCode, method)
         val back = character.bosses[mapCode] ?: 0L
         return BossState(System.currentTimeMillis() >= back, back)
@@ -131,7 +131,7 @@ class CampaignService : KoinComponent {
      */
     suspend fun slayBoss(characterId: String, mapCode: String): CampaignReward {
         val method = "slayBoss"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         val now = System.currentTimeMillis()
         if (now < (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionBossSlain(method, mapCode)
@@ -158,7 +158,7 @@ class CampaignService : KoinComponent {
      */
     suspend fun corrupt(characterId: String, mapCode: String, monsterCode: String): CampaignReward {
         val method = "corrupt"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         if (map.corrupted.code != monsterCode) throw CampaignExceptions.funExceptionMonsterNotOnMap(method, monsterCode)
         if (character.corruptionOpened) throw CampaignExceptions.funExceptionCorruptionSpent(method, mapCode)
@@ -182,10 +182,10 @@ class CampaignService : KoinComponent {
      */
     suspend fun start(characterId: String, mapCode: String, itemId: String?): MapLaunch {
         val method = "start"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         openMap(character, mapCode, method)
         val window = windowOf(character, mapCode, characterId, method)
-        val item = itemId?.let { id -> inventory.findById(id)?.takeIf { it.characterId == characterId } ?: throw CharacterExceptions.funExceptionItemNotFound(method, id) }
+        val item = itemId?.let { inventory.requireOwned(characterId, it, method) }
         val template = item?.let { equipmentCache.findById(it.equipmentId) }
         if (item != null && (template == null || template.slot != EnumEquipmentType.MAP || template.code != CampaignMaps.templateCode(mapCode) || item.equippedSlot != null))
             throw CampaignExceptions.funExceptionMapItem(method, template?.code ?: item.equipmentId)
@@ -231,7 +231,7 @@ class CampaignService : KoinComponent {
     /** Сколько сундуков ещё стоит на карте у героя и когда их станет снова (с 0.31.0). */
     suspend fun chests(characterId: String, mapCode: String): ChestState {
         val method = "chests"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         openMap(character, mapCode, method)
         val window = windowOf(character, mapCode, characterId, method)
         return ChestState(window.left, window.refreshAt, window.bought)
@@ -240,7 +240,7 @@ class CampaignService : KoinComponent {
     /** «Карта сокровищ» (0.34.0): ещё один сундук в текущем окне карты, раз за окно, за золото. */
     suspend fun treasure(characterId: String, mapCode: String): MapServiceOutcome {
         val method = "treasure"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         val window = windowOf(character, mapCode, characterId, method)
         if (window.bought) throw CampaignExceptions.funExceptionTreasureBought(method, mapCode)
@@ -253,7 +253,7 @@ class CampaignService : KoinComponent {
     /** «Вызов стража» (0.34.0): убитый босс карты снова стоит у выхода, за золото. */
     suspend fun summon(characterId: String, mapCode: String): MapServiceOutcome {
         val method = "summon"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         if (System.currentTimeMillis() >= (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionBossStands(method, mapCode)
         charge(character, CampaignContent.file.services.summonPerLevel * map.level, method)
@@ -279,7 +279,7 @@ class CampaignService : KoinComponent {
      */
     suspend fun openChest(characterId: String, mapCode: String): CampaignReward {
         val method = "openChest"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         val window = windowOf(character, mapCode, characterId, method)
         if (window.left <= 0) throw CampaignExceptions.funExceptionNoChest(method, mapCode)
@@ -343,7 +343,7 @@ class CampaignService : KoinComponent {
      */
     suspend fun fall(characterId: String, mapCode: String): CampaignFall {
         val method = "fall"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         val floor = levels.ordered().lastOrNull { it.level <= character.level.toInt() }?.experience ?: 0.0
         val lost = CampaignDeath.lost(CampaignContent.file.combat.death, map.level, character.experience, floor, levels.nextLevelExperience(character.level.toInt()))
@@ -361,7 +361,7 @@ class CampaignService : KoinComponent {
      */
     suspend fun complete(characterId: String, mapCode: String): CampaignProgress {
         val method = "complete"
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         openMap(character, mapCode, method)
         if (System.currentTimeMillis() >= (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionSealed(method, mapCode)
         val spent = character.activeMap?.mapCode == mapCode
@@ -380,7 +380,4 @@ class CampaignService : KoinComponent {
 
     private fun progressOf(character: Character) =
         CampaignProgress(character.campaign.filter { it in CampaignContent.maps }, CampaignContent.unlocked(character.campaign))
-
-    private suspend fun requireCharacter(characterId: String, method: String): Character =
-        characters.findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
 }

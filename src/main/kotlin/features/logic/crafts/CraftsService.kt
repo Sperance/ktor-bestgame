@@ -99,7 +99,7 @@ class CraftsService : KoinComponent {
         val method = "crafts"
         grantStarter(characterId, method)
         val gains = settle(characterId)
-        return view(requireCharacter(characterId, method), gains)
+        return view(characters.requireCharacter(characterId, method), gains)
     }
 
     /** Начать работу: текущая досчитывается и сменяется, прогресс её профессии остаётся. */
@@ -107,7 +107,7 @@ class CraftsService : KoinComponent {
         val method = "craftsStart"
         grantStarter(characterId, method)
         val gains = settle(characterId)
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         val (profession, job) = CraftsContent.jobs[jobCode] ?: throw ProfessionExceptions.funExceptionJobNotFound(method, LocaleKey.jobName(jobCode))
         val progress = character.professions[profession.code] ?: ProfessionProgress()
         if (progress.level < job.level) throw ProfessionExceptions.funExceptionLevel(method, LocaleKey.jobName(jobCode))
@@ -131,7 +131,7 @@ class CraftsService : KoinComponent {
     suspend fun stop(characterId: String): CraftsState {
         val method = "craftsStop"
         val gains = settle(characterId)
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         if (character.work != null) {
             character.work = null
             transactionExecute(method) { session -> characters.update(character, session) }
@@ -273,7 +273,7 @@ class CraftsService : KoinComponent {
 
     /** Стартовый набор - простой инструмент каждой профессии, надетый в её слот, - один раз на героя. */
     private suspend fun grantStarter(characterId: String, method: String) {
-        val character = requireCharacter(characterId, method)
+        val character = characters.requireCharacter(characterId, method)
         if (character.toolsGranted) return
         val starters = CraftsContent.file.professions.mapNotNull { profession ->
             equipmentCache.findBySlot(profession.tool).firstOrNull { it.code.startsWith(STARTER) }
@@ -288,7 +288,4 @@ class CraftsService : KoinComponent {
             characters.update(character, session)
         }
     }
-
-    private suspend fun requireCharacter(characterId: String, method: String): Character =
-        characters.findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
 }

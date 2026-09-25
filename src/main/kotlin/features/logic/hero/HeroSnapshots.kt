@@ -90,7 +90,7 @@ object HeroSnapshots : KoinComponent {
      * без того, что уже добыто.
      */
     suspend fun of(characterId: String, known: Map<String, String> = emptyMap()): HeroSnapshot {
-        val character = characters.findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound("heroView", characterId)
+        val character = characters.requireCharacter(characterId, "heroView")
         crafts.settle(character)
         val changes = heroChanges()
         val bump = changes?.bumpOf(characterId)

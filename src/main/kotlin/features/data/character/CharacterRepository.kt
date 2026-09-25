@@ -118,8 +118,7 @@ class CharacterRepository : BaseRepository<Character>(
         userRepository.update(findedUser, session)
     }
 
-    override suspend fun validateAfterDelete(entity: Character, session: ClientSession, softDelete: Boolean) {
-        if (softDelete) return
+    override suspend fun validateAfterDelete(entity: Character, session: ClientSession) {
         characterEquipmentRepository.deleteByCharacter(entity._id, session)
     }
 
@@ -141,7 +140,7 @@ class CharacterRepository : BaseRepository<Character>(
      * Весь инвентарь экипировки персонажа - отдельные документы коллекции `CharacterEquipment`.
      */
     suspend fun getEquipmentsData(characterId: String): List<CharacterEquipment> {
-        if (findById(characterId) == null) throw CharacterExceptions.funExceptionNotFound("getEquipmentsData", characterId)
+        requireExists(characterId, "getEquipmentsData")
         return characterEquipmentRepository.findByCharacter(characterId)
     }
 
@@ -437,8 +436,14 @@ class CharacterRepository : BaseRepository<Character>(
     private fun startNodeOf(character: Character, method: String): CharacterSkillNode =
         CharacterSkillNode.fromNode(requireNode(requireClass(character).startNodeCode, method))
 
-    private suspend fun requireCharacter(characterId: String, method: String): Character =
-        findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
+    /** Персонаж по id или «не найден» от имени операции [method]. */
+    suspend fun requireCharacter(characterId: String, method: String): Character =
+        requireById(characterId) { CharacterExceptions.funExceptionNotFound(method, it) }
+
+    /** То же без чтения документа: только проверка, что персонаж есть. */
+    suspend fun requireExists(characterId: String, method: String) {
+        if (!exists(characterId)) throw CharacterExceptions.funExceptionNotFound(method, characterId)
+    }
 
     private fun requireNode(nodeCode: String, method: String): SkillTreeNode =
         skillTreeCache.findByCode(nodeCode)
@@ -483,7 +488,7 @@ class CharacterRepository : BaseRepository<Character>(
      * Создаёт отдельный документ инвентаря с зароленными под шаблон модификаторами.
      */
     suspend fun itemToInventory(characterId: String, equipmentId: String): CharacterEquipment {
-        if (findById(characterId) == null) throw CharacterExceptions.funExceptionNotFound("itemToInventory", characterId)
+        requireExists(characterId, "itemToInventory")
         val equipment = equipmentCache.findById(equipmentId)
             ?: throw CharacterExceptions.funExceptionEquipmentNotFound("itemToInventory", equipmentId)
 
@@ -499,8 +504,7 @@ class CharacterRepository : BaseRepository<Character>(
      * поэтому изменения применяются к разобранному списку и сворачиваются обратно.
      */
     suspend fun addItem(characterId: String, itemObj: List<CharacterItems>): String {
-        val character = findById(characterId)
-        if (character == null) throw CharacterExceptions.funExceptionNotFound("addItem", characterId)
+        val character = requireCharacter(characterId, "addItem")
 
         if (!applyItems(character, itemObj, "addItem")) return "system.no_changes"
 

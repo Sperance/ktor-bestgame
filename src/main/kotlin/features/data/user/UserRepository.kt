@@ -6,21 +6,12 @@ import base.repository.UniqueIndexConfig
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.now
-import features.data.character.Character
-import features.data.character.CharacterRepository
 import kotlinx.datetime.LocalDateTime
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import features.logic.auth.Passwords
-import kotlin.getValue
 
-class UserRepository : BaseRepository<User>(
-    entityClass = User::class
-), KoinComponent {
-    val characterRepository: CharacterRepository by inject()
-
+class UserRepository : BaseRepository<User>(User::class) {
     init {
         initialize(uniqueIndexes = listOf(
             UniqueIndexConfig(
@@ -73,19 +64,6 @@ class UserRepository : BaseRepository<User>(
         // своими маршрутами.
         listOf("password", "salt", "device_id").forEach { field ->
             if (changes.containsKey(field)) throw UserExceptions.funExceptionSalt("validateBeforeUpdate", field)
-        }
-    }
-
-    override suspend fun validateAfterDelete(entity: User, session: ClientSession, softDelete: Boolean) {
-        // Включая мягко удалённых: при жёстком удалении пользователя
-        // его персонажи не должны пережить его в базе
-        val characters = characterRepository.findByFieldList(Character::userId, entity._id, includeDeleted = true)
-        characters.forEach { char ->
-            if (softDelete) {
-                characterRepository.softDelete(char, session)
-            } else {
-                characterRepository.deleteById(char, session)
-            }
         }
     }
 

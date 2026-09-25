@@ -8,8 +8,8 @@ import features.logic.pools.Weighted
 import java.util.concurrent.ConcurrentHashMap
 
 class EquipmentCache(repository: EquipmentRepository) : MongoCache<Equipment, EquipmentRepository>(repository) {
-    private val byCode = derived { items -> items.associateBy { it.code } }
-    private val bySlot = derived { items -> items.groupBy { it.slot } }
+    private val byCode = uniqueIndex { it.code }
+    private val bySlot = groupIndex { it.slot }
     private val pools = derived { items -> Pools.Index(items) }
     private val leveled = derived { _ -> ConcurrentHashMap<List<String>, Leveled>() }
 

@@ -8,7 +8,7 @@ import features.logic.progression.ExperienceLevelRepository
 class CharacterClassCache(
     repository: CharacterClassRepository
 ) : MongoCache<CharacterClass, CharacterClassRepository>(repository) {
-    private val byCode = derived { items -> items.associateBy { it.code } }
+    private val byCode = uniqueIndex { it.code }
 
     fun findByCode(code: String): CharacterClass? = byCode.get()[code]
 }

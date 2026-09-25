@@ -9,7 +9,7 @@ class ModifierDefinitionCache(
     repository: ModifierDefinitionRepository
 ) : MongoCache<ModifierDefinition, ModifierDefinitionRepository>(repository) {
 
-    private val byCode = derived { items -> items.associateBy { it.code } }
+    private val byCode = uniqueIndex { it.code }
     private val pools = derived { items -> Pools.Index(items) }
     private val affixPools = derived { items -> Pools.Index(items.filter { it.isAffix() && !it.crafted }) }
 

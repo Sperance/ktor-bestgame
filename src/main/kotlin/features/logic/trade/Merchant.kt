@@ -88,7 +88,7 @@ class MerchantService : KoinComponent {
 
     suspend fun stock(characterId: String): MerchantStock {
         val method = "merchant"
-        val character = characters.findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
+        val character = characters.requireCharacter(characterId, method)
         val stock = MerchantRules.stock(character.merchant, characterId, character.level.toInt(), System.currentTimeMillis(),
             equipmentCache.getCache(), Random.Default)
         if (stock != character.merchant) {
@@ -102,7 +102,7 @@ class MerchantService : KoinComponent {
     suspend fun buy(characterId: String, offerId: String): MerchantPurchase {
         val method = "merchantBuy"
         stock(characterId)
-        val character = characters.findById(characterId) ?: throw CharacterExceptions.funExceptionNotFound(method, characterId)
+        val character = characters.requireCharacter(characterId, method)
         val stock = character.merchant ?: MerchantStock()
         val offer = stock.offers.firstOrNull { it.id == offerId } ?: throw CharacterExceptions.funExceptionOfferNotFound(method, offerId)
         if (character.money < offer.price) throw CharacterExceptions.funExceptionGold(method, offer.price.toString())

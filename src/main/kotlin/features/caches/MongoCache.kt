@@ -20,7 +20,8 @@ import java.util.concurrent.atomic.AtomicReference
 abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository: R) : EntityCache<T> {
 
     protected class Snapshot<T : StockEntity>(val items: List<T>, val revision: Long) {
-        val byId: Map<String, T> = items.associateBy { it._id }
+        /** Строится при первом чтении: серия записей подряд (сидер) не пересобирает его на каждой. */
+        val byId: Map<String, T> by lazy(LazyThreadSafetyMode.PUBLICATION) { items.associateBy { it._id } }
     }
 
     private val snapshot = AtomicReference(Snapshot<T>(emptyList(), 0))
@@ -47,8 +48,8 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
 
     /** Правка на месте: порядок не сдвигается, а новая запись просто добавляется. */
     override fun updateItem(item: T) = replace { items ->
-        if (items.none { it._id == item._id }) items + item
-        else items.map { if (it._id == item._id) item else it }
+        val at = items.indexOfFirst { it._id == item._id }
+        if (at < 0) items + item else items.toMutableList().apply { set(at, item) }
     }
 
     fun findById(id: String): T? = snapshot.get().byId[id]
@@ -67,6 +68,12 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
     private fun replace(transform: (List<T>) -> List<T>) {
         snapshot.updateAndGet { current -> Snapshot(transform(current.items), current.revision + 1) }
     }
+
+    /** Индекс «ключ -> запись» ([key] уникален в справочнике), например по коду. */
+    protected fun <K> uniqueIndex(key: (T) -> K): Derived<Map<K, T>> = derived { items -> items.associateBy(key) }
+
+    /** Индекс «ключ -> записи» в порядке кеша, например по слоту или категории. */
+    protected fun <K> groupIndex(key: (T) -> K): Derived<Map<K, List<T>>> = derived { items -> items.groupBy(key) }
 
     /**
      * Производный индекс: [build] запускается при первом чтении на новой ревизии,
