@@ -73,6 +73,14 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
     }
 
     /**
+     * Снимает открытые лоты удаляемого персонажа: купить их уже нельзя (продавца нет), отменить
+     * некому, а в поиске они висели бы вечно. Закрытые остаются историей покупателей.
+     */
+    suspend fun deleteActiveBySeller(sellerId: String, session: ClientSession) {
+        collection.deleteMany(session, Filters.and(Filters.eq("sellerId", sellerId), Filters.eq("status", EnumAuctionLotStatus.ACTIVE.name)))
+    }
+
+    /**
      * Лоты персонажа - и активные, и уже закрытые.
      */
     suspend fun findBySeller(characterId: String): List<AuctionLot> {

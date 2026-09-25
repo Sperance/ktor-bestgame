@@ -31,6 +31,7 @@ import features.caches.ItemsCache
 import features.caches.SkillTreeCache
 import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.CharacterSkillNode
+import features.data.auction.AuctionLotRepository
 import features.data.equipment.EquipmentRepository
 import features.data.inventory.CharacterEquipment
 import features.data.inventory.CharacterEquipmentRepository
@@ -60,6 +61,7 @@ class CharacterRepository : BaseRepository<Character>(
     val characterEquipmentRepository: CharacterEquipmentRepository by inject()
     val itemsRepository: ItemsRepository by inject()
     val redemptionCodesRepository: RedemptionCodesRepository by inject()
+    private val auctionLotRepository: AuctionLotRepository by inject()
     val itemsCache: ItemsCache by inject()
     val characterClassCache: CharacterClassCache by inject()
     val skillTreeCache: SkillTreeCache by inject()
@@ -110,6 +112,12 @@ class CharacterRepository : BaseRepository<Character>(
 
     override suspend fun validateAfterDelete(entity: Character, session: ClientSession) {
         characterEquipmentRepository.deleteByCharacter(entity._id, session)
+        auctionLotRepository.deleteActiveBySeller(entity._id, session)
+        // Место под персонажа освобождается, иначе после трёх удалений новый не создать
+        userRepository.findByField(User::_id, entity.userId, session)?.let { owner ->
+            owner.countCharacters = (owner.countCharacters - 1).coerceAtLeast(0)
+            userRepository.update(owner, session)
+        }
     }
 
     /**
