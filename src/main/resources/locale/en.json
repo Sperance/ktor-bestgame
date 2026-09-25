@@ -1590,7 +1590,6 @@
   "error.CH_017": "The merchant has no offer {0}",
   "error.AU_012": "All {0} lot places are taken",
   "error.AU_013": "There can be no more than {0} lot places",
-  "error.CP_009": "A treasure map for {0} is already bought in this window",
   "error.CP_010": "The guardian of map {0} already stands",
   "modifier.MAP_MONSTER_LIFE.name": "Monsters have {0}% increased Life",
   "enum.EnumStatStock.MAP_MONSTER_LIFE": "Map Monster Life",

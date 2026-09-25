@@ -131,10 +131,7 @@ class CharacterRoute(
             post("/boss") {
                 call.respondWithHero(campaign.slayBoss(call.characterId, call.mapCode))
             }
-            // 0.34.0: услуги карты за золото - ещё один сундук и вызов убитого стража.
-            post("/treasure") {
-                call.respondWithHero(campaign.treasure(call.characterId, call.mapCode))
-            }
+            // 0.34.0: вызов убитого стража за золото; покупка сундука снята в 0.64.0.
             post("/summon") {
                 call.respondWithHero(campaign.summon(call.characterId, call.mapCode))
             }

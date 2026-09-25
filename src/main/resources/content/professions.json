@@ -16,8 +16,8 @@
         {
           "code": "COPPER_VEIN",
           "level": 1,
-          "seconds": 50,
-          "nothing": 30,
+          "seconds": 71,
+          "nothing": 0,
           "output": "COPPER_ORE",
           "experience": 4,
           "extra": []
@@ -25,8 +25,8 @@
         {
           "code": "IRON_VEIN",
           "level": 10,
-          "seconds": 100,
-          "nothing": 32,
+          "seconds": 147,
+          "nothing": 0,
           "output": "IRON_ORE",
           "experience": 9,
           "extra": []
@@ -34,8 +34,8 @@
         {
           "code": "TOPAZ_DEPOSIT",
           "level": 15,
-          "seconds": 300,
-          "nothing": 55,
+          "seconds": 667,
+          "nothing": 0,
           "output": "TOPAZ",
           "experience": 18,
           "extra": []
@@ -43,8 +43,8 @@
         {
           "code": "SILVER_VEIN",
           "level": 20,
-          "seconds": 180,
-          "nothing": 35,
+          "seconds": 277,
+          "nothing": 0,
           "output": "SILVER_ORE",
           "experience": 16,
           "extra": []
@@ -52,8 +52,8 @@
         {
           "code": "SAPPHIRE_DEPOSIT",
           "level": 25,
-          "seconds": 450,
-          "nothing": 60,
+          "seconds": 1125,
+          "nothing": 0,
           "output": "SAPPHIRE",
           "experience": 30,
           "extra": []
@@ -61,8 +61,8 @@
         {
           "code": "MITHRIL_VEIN",
           "level": 30,
-          "seconds": 280,
-          "nothing": 38,
+          "seconds": 452,
+          "nothing": 0,
           "output": "MITHRIL_ORE",
           "experience": 26,
           "extra": []
@@ -70,8 +70,8 @@
         {
           "code": "RUBY_DEPOSIT",
           "level": 35,
-          "seconds": 600,
-          "nothing": 65,
+          "seconds": 1714,
+          "nothing": 0,
           "output": "RUBY",
           "experience": 45,
           "extra": []
@@ -79,8 +79,8 @@
         {
           "code": "ADAMANT_VEIN",
           "level": 40,
-          "seconds": 400,
-          "nothing": 40,
+          "seconds": 667,
+          "nothing": 0,
           "output": "ADAMANT_ORE",
           "experience": 40,
           "extra": []
@@ -94,8 +94,8 @@
         {
           "code": "WORMWOOD_PATCH",
           "level": 1,
-          "seconds": 50,
-          "nothing": 30,
+          "seconds": 71,
+          "nothing": 0,
           "output": "WORMWOOD",
           "experience": 4,
           "extra": []
@@ -103,8 +103,8 @@
         {
           "code": "CAVE_MUSHROOMS",
           "level": 5,
-          "seconds": 80,
-          "nothing": 32,
+          "seconds": 118,
+          "nothing": 0,
           "output": "CAVE_MUSHROOM",
           "experience": 6,
           "extra": []
@@ -112,8 +112,8 @@
         {
           "code": "BLOODWORT_PATCH",
           "level": 10,
-          "seconds": 100,
-          "nothing": 33,
+          "seconds": 149,
+          "nothing": 0,
           "output": "BLOODWORT",
           "experience": 9,
           "extra": []
@@ -121,8 +121,8 @@
         {
           "code": "AMBER_TAPPING",
           "level": 12,
-          "seconds": 150,
-          "nothing": 40,
+          "seconds": 250,
+          "nothing": 0,
           "output": "AMBER_RESIN",
           "experience": 12,
           "extra": []
@@ -130,8 +130,8 @@
         {
           "code": "SHADEBLOOM_PATCH",
           "level": 20,
-          "seconds": 180,
-          "nothing": 35,
+          "seconds": 277,
+          "nothing": 0,
           "output": "SHADEBLOOM",
           "experience": 16,
           "extra": []
@@ -139,8 +139,8 @@
         {
           "code": "GLOWCAP_GROTTO",
           "level": 28,
-          "seconds": 240,
-          "nothing": 45,
+          "seconds": 436,
+          "nothing": 0,
           "output": "GLOWCAP",
           "experience": 22,
           "extra": []
@@ -148,8 +148,8 @@
         {
           "code": "MOON_LOTUS_POND",
           "level": 30,
-          "seconds": 280,
-          "nothing": 38,
+          "seconds": 452,
+          "nothing": 0,
           "output": "MOON_LOTUS",
           "experience": 26,
           "extra": []
@@ -157,8 +157,8 @@
         {
           "code": "VOID_ROOT_BED",
           "level": 40,
-          "seconds": 400,
-          "nothing": 40,
+          "seconds": 667,
+          "nothing": 0,
           "output": "VOID_ROOT",
           "experience": 40,
           "extra": []
@@ -172,8 +172,8 @@
         {
           "code": "BIRCH_GROVE",
           "level": 1,
-          "seconds": 50,
-          "nothing": 30,
+          "seconds": 71,
+          "nothing": 0,
           "output": "BIRCH_LOG",
           "experience": 4,
           "extra": [
@@ -186,8 +186,8 @@
         {
           "code": "OAK_GROVE",
           "level": 10,
-          "seconds": 100,
-          "nothing": 32,
+          "seconds": 147,
+          "nothing": 0,
           "output": "OAK_LOG",
           "experience": 9,
           "extra": [
@@ -200,8 +200,8 @@
         {
           "code": "YEW_GROVE",
           "level": 20,
-          "seconds": 180,
-          "nothing": 35,
+          "seconds": 277,
+          "nothing": 0,
           "output": "YEW_LOG",
           "experience": 16,
           "extra": [
@@ -214,8 +214,8 @@
         {
           "code": "IRONWOOD_GROVE",
           "level": 30,
-          "seconds": 280,
-          "nothing": 38,
+          "seconds": 452,
+          "nothing": 0,
           "output": "IRONWOOD_LOG",
           "experience": 26,
           "extra": [
@@ -228,8 +228,8 @@
         {
           "code": "GHOST_ASH_GROVE",
           "level": 40,
-          "seconds": 400,
-          "nothing": 40,
+          "seconds": 667,
+          "nothing": 0,
           "output": "GHOST_ASH_LOG",
           "experience": 40,
           "extra": [

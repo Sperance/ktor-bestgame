@@ -198,12 +198,11 @@ data class MonsterTemplate(
  * [uniqueChance] - уникалка из [uniquePools], с шансом [ownUniqueChance] - из собственных пулов босса.
  */
 /**
- * Услуги карты за золото (с 0.34.0): «Карта сокровищ» - ещё один сундук в окне, раз за окно, за
- * [treasurePerLevel] × уровень карты; «Вызов стража» - убитый босс снова у выхода, за
- * [summonPerLevel] × уровень карты.
+ * Услуги карты за золото (с 0.34.0): «Вызов стража» - убитый босс снова у выхода, за
+ * [summonPerLevel] × уровень карты. «Карта сокровищ» снята в 0.64.0.
  */
 @Serializable
-data class ServiceRule(val treasurePerLevel: Long, val summonPerLevel: Long)
+data class ServiceRule(val summonPerLevel: Long)
 
 /**
  * Фонтаны (с 0.43.0): на карте их от `count[0]` до `count[1]`, место и число - по зерну карты у
@@ -556,7 +555,7 @@ object CampaignContent {
         content.bosses.let { rule ->
             if (rule.respawnHours <= 0 || rule.uniqueChance !in 0.0..1.0 || rule.ownUniqueChance !in 0.0..1.0 || rule.uniquePools.isEmpty()) throw CampaignExceptions.funExceptionContent(method, "bosses")
         }
-        if (content.services.treasurePerLevel <= 0 || content.services.summonPerLevel <= 0) throw CampaignExceptions.funExceptionContent(method, "services")
+        if (content.services.summonPerLevel <= 0) throw CampaignExceptions.funExceptionContent(method, "services")
         content.fountains.let { rule ->
             if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.heal !in 0.0..100.0)
                 throw CampaignExceptions.funExceptionContent(method, "fountains")

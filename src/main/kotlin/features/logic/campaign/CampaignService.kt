@@ -299,19 +299,6 @@ class CampaignService : KoinComponent {
         return ChestState(window.left, window.refreshAt, window.bought)
     }
 
-    /** «Карта сокровищ» (0.34.0): ещё один сундук в текущем окне карты, раз за окно, за золото. */
-    suspend fun treasure(characterId: String, mapCode: String): MapServiceOutcome {
-        val method = "treasure"
-        val character = characters.requireCharacter(characterId, method)
-        val map = openMap(character, mapCode, method)
-        val window = windowOf(character, mapCode, characterId, method)
-        if (window.bought) throw CampaignExceptions.funExceptionTreasureBought(method, mapCode)
-        charge(character, CampaignContent.file.services.treasurePerLevel * map.level, method)
-        character.chests[mapCode] = window.copy(left = window.left + 1, bought = true)
-        transactionExecute(method) { session -> characters.update(character, session) }
-        return outcome(character, mapCode)
-    }
-
     /** «Вызов стража» (0.34.0): убитый босс карты снова стоит у выхода, за золото. */
     suspend fun summon(characterId: String, mapCode: String): MapServiceOutcome {
         val method = "summon"

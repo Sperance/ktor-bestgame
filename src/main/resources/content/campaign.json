@@ -2319,7 +2319,6 @@
     ]
   },
   "services": {
-    "treasurePerLevel": 60,
     "summonPerLevel": 150
   },
   "fountains": {

@@ -16,7 +16,6 @@ object CampaignExceptions {
     fun funExceptionNoChest(errorMethod: String, value: String? = "") = CampaignException("No chest left on map $value", errorMethod, "CP_006", listOf(value.orEmpty()))
     fun funExceptionSealed(errorMethod: String, value: String? = "") = CampaignException("The exit of map $value is sealed while its guardian lives", errorMethod, "CP_007", listOf(value.orEmpty()))
     fun funExceptionBossSlain(errorMethod: String, value: String? = "") = CampaignException("The guardian of map $value is already slain", errorMethod, "CP_008", listOf(value.orEmpty()))
-    fun funExceptionTreasureBought(errorMethod: String, value: String? = "") = CampaignException("A treasure map for $value is already bought in this window", errorMethod, "CP_009", listOf(value.orEmpty()))
     fun funExceptionBossStands(errorMethod: String, value: String? = "") = CampaignException("The guardian of map $value already stands", errorMethod, "CP_010", listOf(value.orEmpty()))
     fun funExceptionMapItem(errorMethod: String, value: String? = "") = CampaignException("Item $value does not open this location", errorMethod, "CP_011", listOf(value.orEmpty()))
     fun funExceptionRarity(errorMethod: String, value: String? = "") = CampaignException("Unknown monster rarity $value", errorMethod, "CP_005", listOf(value.orEmpty()))
