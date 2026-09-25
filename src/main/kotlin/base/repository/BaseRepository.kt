@@ -293,7 +293,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         if (entity == null) throw BaseRepositoryExceptions.funExceptionEntityNull("delete")
         val result = writing("delete") { collection.deleteOne(session, identity(entity)) }
         validateAfterDelete(entity, session)
-        if (result.deletedCount == 0L && exists(entity._id)) missed("delete", entity)
+        if (result.deletedCount == 0L) missed("delete", entity)
         return result
     }
 
