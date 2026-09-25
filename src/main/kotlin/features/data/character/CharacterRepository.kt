@@ -537,7 +537,8 @@ class CharacterRepository : BaseRepository<Character>(
             if (itm.amount > CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount(method, itm.toString())
             if (itm.amount < -CONST_ITEM_MAX_AMOUNT) throw CharacterExceptions.funExceptionItemOverAmount(method, itm.toString())
             if (itemsCache.findById(itm.itemId) == null) throw CharacterExceptions.funExceptionItemNotFound(method, itm.toString())
-            val total = (character.bag[itm.itemId] ?: 0L) + itm.amount
+            // Награда сверх лимита стака сгорает: добыча не должна ни раздувать стак, ни срывать всю выдачу
+            val total = ((character.bag[itm.itemId] ?: 0L) + itm.amount).coerceAtMost(maxOf(CONST_ITEM_MAX_AMOUNT, character.bag[itm.itemId] ?: 0L))
             if (total < 0) throw CharacterExceptions.funExceptionItemLowZero(method, itm.toString())
             //Зачем хранить id предмета без кол-ва
             if (total == 0L) character.bag.remove(itm.itemId) else character.bag[itm.itemId] = total
