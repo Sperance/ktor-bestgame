@@ -8,6 +8,8 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.JsonConvertException
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
+import io.ktor.server.plugins.BadRequestException
+import io.ktor.server.plugins.UnsupportedMediaTypeException
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.request.uri
 import io.ktor.server.response.respond
@@ -58,6 +60,17 @@ fun Application.configureStatusPages() {
 
         exception<JsonConvertException> { call, cause ->
             call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_100")))
+        }
+
+        // Ktor заворачивает ошибку разбора тела в BadRequestException, так что обработчик
+        // JsonConvertException выше её не видит: без этого кривое тело отвечало 500
+        exception<BadRequestException> { call, cause ->
+            val reason = generateSequence(cause as Throwable) { it.cause }.last().message ?: cause.message
+            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(reason, "StatusPage", null, "SP_100")))
+        }
+
+        exception<UnsupportedMediaTypeException> { call, cause ->
+            call.respond(HttpStatusCode.UnsupportedMediaType, ApiMongoResponse.error(BaseException(cause.message, "StatusPage", null, "SP_415")))
         }
 
         // Общий обработчик (должен быть последним)
