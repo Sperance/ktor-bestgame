@@ -1,5 +1,7 @@
 package features.logic.auth
 
+import io.ktor.http.decodeURLPart
+
 /**
  * Кто может звать какой маршрут - одной таблицей.
  *
@@ -40,11 +42,19 @@ object AccessPolicy {
     )
 
     /**
+     * Путь так, как его видит маршрутизатор Ktor: пустые сегменты отброшены, `%XX` раскрыты.
+     * Политика обязана судить о том же пути, по которому выберут обработчик, иначе
+     * `//api/v1/character` или `/api/v1/%63haracter` дошли бы до закрытого маршрута в обход проверки.
+     */
+    fun canonical(rawPath: String): String =
+        rawPath.split('/').filter { it.isNotEmpty() }.joinToString("/", prefix = "/") { it.decodeURLPart() }
+
+    /**
      * @param query параметр строки запроса по имени - нужен, чтобы отличить чтение одного
      * своего персонажа от чтения всех сразу
      */
     fun need(method: String, rawPath: String, query: (String) -> String? = { null }): Need {
-        val path = rawPath.trimEnd('/').ifEmpty { "/" }
+        val path = canonical(rawPath)
         val verb = method.uppercase()
 
         if (path.startsWith("/locale/") || path.startsWith("/icons/") || path.startsWith("/portraits/")) return Need.PUBLIC

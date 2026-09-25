@@ -168,4 +168,13 @@ class AuthTest {
         assertEquals(Need.ADMIN, need("POST", "/api/v1/equipment/"))
         assertEquals(Need.ADMIN, need("GET", "/api/v1/user/"))
     }
+
+    @Test
+    fun empty_segments_and_escapes_are_not_a_way_around_the_table() {
+        assertEquals(Need.ADMIN, need("POST", "//api/v1/redemptioncodes"))
+        assertEquals(Need.ADMIN, need("PUT", "/api/v1//character", "id" to "x"))
+        assertEquals(Need.ADMIN, need("GET", "/api/v1/%63haracter"))
+        assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/add%49tem"))
+        assertEquals("/api/v1/character", AccessPolicy.canonical("//api//v1/%63haracter/"))
+    }
 }

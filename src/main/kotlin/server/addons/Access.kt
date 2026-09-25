@@ -57,7 +57,7 @@ fun Application.configureAccess() {
         if (!caller.isAdmin) {
             query["userId"]?.let { if (it != user._id) throw AuthExceptions.funExceptionNotYourAccount("access", it) }
             // Персонаж по characterId, а в общем CRUD персонажей - по id.
-            val characterId = query["characterId"] ?: query["id"]?.takeIf { path.trimEnd('/') == "/api/v1/character" }
+            val characterId = query["characterId"] ?: query["id"]?.takeIf { AccessPolicy.canonical(path) == "/api/v1/character" }
             characterId?.let { id ->
                 val owner = characters.ownerOf(id)
                 // Несуществующий персонаж пропускается: маршрут сам скажет, что его нет, а
