@@ -48,6 +48,8 @@ data class IndexSpec(
     val unique: Boolean = false,
     val sparse: Boolean = false,
     val name: String? = null,
+    /** Какие документы попадают в индекс; у разреженного индекса пустая строка всё равно считается значением. */
+    val partial: Bson? = null,
 ) {
     companion object {
         /** Обычный индекс по [fields] - для полей-ссылок, по которым идут выборки. */
@@ -55,6 +57,9 @@ data class IndexSpec(
 
         /** Уникальный индекс с явным именем: так он узнаётся при повторном создании. */
         fun unique(name: String, vararg fields: String, sparse: Boolean = false) = IndexSpec(fields.toList(), unique = true, sparse = sparse, name = name)
+
+        /** Уникальность только среди заполненных значений: пустая строка повторяться может. */
+        fun uniqueFilled(name: String, field: String) = IndexSpec(listOf(field), unique = true, name = name, partial = Filters.gt(field, ""))
     }
 }
 
@@ -102,14 +107,20 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     /** Индексы коллекции; создаются при старте [ensureIndexes], а не на первом обращении. */
     protected open val indexes: List<IndexSpec> get() = emptyList()
 
+    /** Имена индексов прежних версий, которые снимаются при старте до создания [indexes]. */
+    protected open val retiredIndexes: List<String> get() = emptyList()
+
     /**
      * Создаёт объявленные индексы. Вызывается при старте до первой транзакции: создание индекса
      * меняет каталог MongoDB, и открытая транзакция упала бы с WriteConflict. Одиночный индекс по `version` прежних версий снимается: `_id` и так
      * находит документ, а лишний индекс только замедлял каждую запись.
      */
     suspend fun ensureIndexes() {
+        retiredIndexes.forEach { name -> runCatching { collection.dropIndex(name) } }
         indexes.forEach { spec ->
-            val options = IndexOptions().unique(spec.unique).sparse(spec.sparse).apply { spec.name?.let(::name) }
+            val options = IndexOptions().unique(spec.unique).sparse(spec.sparse)
+                .apply { spec.name?.let(::name) }
+                .apply { spec.partial?.let(::partialFilterExpression) }
             try {
                 collection.createIndex(Indexes.ascending(spec.fields), options)
             } catch (e: MongoCommandException) {

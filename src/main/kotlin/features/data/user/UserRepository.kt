@@ -17,11 +17,15 @@ import kotlinx.coroutines.withContext
 
 class UserRepository : BaseRepository<User>(User::class) {
     // Вход по устройству ищет аккаунт по device_id на каждом старте клиента
+    // Аккаунт по устройству живёт без почты и логина: уникальны только заполненные значения,
+    // иначе второй такой аккаунт упирался в пустую строку первого
     override val indexes = listOf(
-        IndexSpec.unique("idx_unique_email", "email"),
-        IndexSpec.unique("idx_unique_login", "login"),
-        IndexSpec.on("device_id"),
+        IndexSpec.uniqueFilled("idx_unique_email_filled", "email"),
+        IndexSpec.uniqueFilled("idx_unique_login_filled", "login"),
+        IndexSpec.uniqueFilled("idx_unique_device_filled", "device_id"),
     )
+
+    override val retiredIndexes = listOf("idx_unique_email", "idx_unique_login", "device_id_1")
 
     override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
@@ -110,8 +114,8 @@ class UserRepository : BaseRepository<User>(User::class) {
     suspend fun findByDeviceId(deviceId: String): User {
         if (deviceId.trim().isEmpty()) throw UserExceptions.funExceptionEmptyDevice("createByDevice")
 
-        val user = findByField(User::device_id, deviceId)
-        if (user == null) throw UserExceptions.funExceptionDeviceNotFound("createByDevice", deviceId)
+        val user = findByField(User::device_id, deviceId)?.takeIf { it.isActive }
+            ?: throw UserExceptions.funExceptionDeviceNotFound("createByDevice", deviceId)
 
         user.lastLoginDate = LocalDateTime.now()
         transactionExecute("Correct login date from DeviceId") { session ->
