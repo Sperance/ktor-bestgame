@@ -105,7 +105,8 @@ class CharacterRoute(
                 call.respondOk(campaign.progress(call.characterId))
             }
             post("/kill") {
-                call.respondWithHero(campaign.kill(call.characterId, call.mapCode, call.queryParam("monsterCode"), call.queryParam("rarity")))
+                call.respondWithHero(campaign.kill(call.characterId, call.mapCode, call.queryParam("monsterCode"), call.queryParam("rarity"),
+                    call.request.queryParameters["vaal"] == "true"))
             }
             post("/complete") {
                 call.respondWithHero(campaign.complete(call.characterId, call.mapCode))
@@ -142,6 +143,13 @@ class CharacterRoute(
             // 0.46.0: осквернённая зона - случайный портал за заход, не больше одного, своя таблица добычи.
             post("/corrupt") {
                 call.respondWithHero(campaign.corrupt(call.characterId, call.mapCode, call.queryParam("monsterCode")))
+            }
+            // 0.57.0: портал ведёт в Ваал-зону - её модификаторы до входа, и закрытие без стража.
+            post("/vaal") {
+                call.respondOk(campaign.vaal(call.characterId, call.mapCode))
+            }
+            post("/vaal/leave") {
+                call.respondWithHero(campaign.vaalLeave(call.characterId, call.mapCode))
             }
         }
 

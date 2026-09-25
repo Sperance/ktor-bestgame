@@ -102,10 +102,12 @@ class CampaignService : KoinComponent {
     /**
      * Награда за монстра: опыт, золото, сферы и экипировка - одной транзакцией, как у промокода.
      */
-    suspend fun kill(characterId: String, mapCode: String, monsterCode: String, rarityName: String): CampaignReward {
+    suspend fun kill(characterId: String, mapCode: String, monsterCode: String, rarityName: String, vaal: Boolean = false): CampaignReward {
         val method = "kill"
         val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
+        // Монстр Ваал-зоны (с 0.57.0): её бонус ложится на добычу поверх бонуса карты.
+        val zone = if (vaal) zoneOf(character, mapCode, method) else null
         if (map.monsters.none { it.code == monsterCode }) throw CampaignExceptions.funExceptionMonsterNotOnMap(method, monsterCode)
         // Уникальная редкость - только у босса, а босс сообщается своим маршрутом.
         val rarityValue = EnumMonsterRarity.entries.firstOrNull { it.name == rarityName && it != EnumMonsterRarity.UNIQUE }
@@ -114,10 +116,10 @@ class CampaignService : KoinComponent {
         val monster = CampaignContent.monsters.getValue(monsterCode)
 
         val sheet = characters.calculateStats(character).stats
-        val experience = CampaignLoot.experience(monster, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
+        val experience = CampaignLoot.experience(monster, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + (zone?.experience ?: 0.0))
         val recipe = if (rarityValue == EnumMonsterRarity.RARE) rollRecipe(character, map.level, Random.Default) else null
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method,
-            mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity, recipeFound = recipe)
+            mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity, recipeFound = recipe, zone = zone)
     }
 
     /** Жив ли босс карты у героя и когда вернётся убитый (с 0.32.0). */
@@ -165,8 +167,10 @@ class CampaignService : KoinComponent {
         val character = characters.requireCharacter(characterId, method)
         val map = openMap(character, mapCode, method)
         if (map.corrupted.code != monsterCode) throw CampaignExceptions.funExceptionMonsterNotOnMap(method, monsterCode)
-        if (character.corruptionOpened) throw CampaignExceptions.funExceptionCorruptionSpent(method, mapCode)
+        // Страж стоит в конце Ваал-зоны (с 0.57.0): без открытой зоны его не убить, а убитый её закрывает.
+        val zone = zoneOf(character, mapCode, method)
         character.corruptionOpened = true
+        character.vaalZone = null
         val template = CampaignContent.monsters.getValue(map.corrupted.code)
         val rule = CampaignContent.file.corruption
         val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
@@ -175,9 +179,44 @@ class CampaignService : KoinComponent {
             Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, map.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random).takeIf { random.nextDouble() < rule.uniqueChance },
         )
         val sheet = characters.calculateStats(character).stats
-        val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience)
-        return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra, mapCode = mapCode)
+        val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + zone.experience)
+        return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, extra, mapCode = mapCode, zone = zone)
     }
+
+    /**
+     * Ваал-зона за порталом карты (с 0.57.0): модификаторы и то, что она платит, - для экрана перед
+     * входом. Катится один раз за заход и хранится у героя, пока он не вошёл и не вышел или не
+     * отказался; повторный вызов отдаёт ту же зону. Закрытую зону этого захода не открыть - `CP_012`.
+     */
+    suspend fun vaal(characterId: String, mapCode: String): VaalZone {
+        val method = "vaal"
+        val character = characters.requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        if (character.corruptionOpened) throw CampaignExceptions.funExceptionCorruptionSpent(method, mapCode)
+        character.vaalZone?.takeIf { it.mapCode == mapCode }?.let { return it }
+        val zone = VaalZones.roll(CampaignContent.file.vaal, CampaignContent.file.maps, mapCode, map.level, definitions::findByCode, Random.Default)
+        character.vaalZone = zone
+        transactionExecute(method) { session -> characters.update(character, session) }
+        return zone
+    }
+
+    /**
+     * Ваал-зона закрыта без стража (с 0.57.0): герой отказался от входа или погиб внутри. Её добыча
+     * потеряна, опыт смерть здесь не отнимает - заход карты продолжается.
+     */
+    suspend fun vaalLeave(characterId: String, mapCode: String): CampaignFall {
+        val method = "vaalLeave"
+        val character = characters.requireCharacter(characterId, method)
+        openMap(character, mapCode, method)
+        zoneOf(character, mapCode, method)
+        character.corruptionOpened = true
+        character.vaalZone = null
+        transactionExecute(method) { session -> characters.update(character, session) }
+        return CampaignFall(0.0, character.level.toInt(), character.experience)
+    }
+
+    private fun zoneOf(character: Character, mapCode: String, method: String): VaalZone =
+        character.vaalZone?.takeIf { it.mapCode == mapCode && !character.corruptionOpened } ?: throw CampaignExceptions.funExceptionCorruptionSpent(method, mapCode)
 
     /**
      * Вход в локацию (с 0.35.0). С картой [itemId] она тратится: её уровень должен совпасть с
@@ -210,6 +249,7 @@ class CampaignService : KoinComponent {
         if (item != null) {
             character.mapRecipeRolled = false
             character.corruptionOpened = false
+            character.vaalZone = null
         }
         transactionExecute(method) { session ->
             item?.let { inventory.deleteById(it._id, session) }
@@ -316,18 +356,18 @@ class CampaignService : KoinComponent {
      */
     private suspend fun grant(character: Character, sheet: Map<application.enums.IntEnumStat, Double>, table: LootTable, level: Int, rarity: CampaignRarity,
                               experience: Double, method: String, extra: List<features.data.equipment.equipment_data.Equipment> = emptyList(),
-                              mapCode: String, mapChance: Double = 0.0, recipeFound: features.logic.bench.BenchRecipe? = null): CampaignReward {
+                              mapCode: String, mapChance: Double = 0.0, recipeFound: features.logic.bench.BenchRecipe? = null, zone: VaalZone? = null): CampaignReward {
         val active = mapBonus(character, mapCode)
         fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
         val random = Random.Default
-        val quantity = bonus(EnumStatStock.STOCK_QUANTITY) + active.quantity
+        val quantity = bonus(EnumStatStock.STOCK_QUANTITY) + active.quantity + (zone?.quantity ?: 0.0)
         val loot = CampaignLoot.roll(table, level, rarity, quantity, bonus(EnumStatStock.STOCK_GOLD), random)
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
             itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) }
         }
         // Экипировка тянется из пулов строки таблицы: что в них не состоит, отсюда не падает.
         val templates = extra + loot.equipment.mapNotNull { pools ->
-            CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity, random)
+            CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity + (zone?.rarity ?: 0.0), random)
         }
         val rule = CampaignContent.file.maps
         val dropped = CampaignMaps.drop(rule, mapChance * (1 + quantity / 100), mapCode, CampaignContent.mapCodes.toList(), random)

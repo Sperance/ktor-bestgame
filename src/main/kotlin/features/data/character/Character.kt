@@ -103,6 +103,9 @@ data class Character(
     /** Открыта ли уже осквернённая зона на активной карте (с 0.46.0): не больше одной за заход, сбрасывается входом на карту. */
     var corruptionOpened: Boolean = false,
 
+    /** Ваал-зона активной карты (с 0.57.0), выпавшая за её порталом и ещё не закрытая; см. [features.logic.campaign.VaalZones]. */
+    var vaalZone: features.logic.campaign.VaalZone? = null,
+
     /** Растёт на каждую запись в инвентарь героя: по нему клиент и лист статов узнают, что вещи сменились. */
     var inventoryRevision: Long = 0,
     override var _id: String = ObjectId().toHexString(),

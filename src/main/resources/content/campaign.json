@@ -2309,6 +2309,23 @@
     "uniqueChance": 0.12,
     "uniquePools": ["unique:world"]
   },
+  "vaal": {
+    "mods": [3, 8],
+    "power": 1.5,
+    "reward": 1.5,
+    "perMod": 4.0,
+    "pool": [
+      { "modifier": "MAP_MONSTER_LIFE", "weight": 100 },
+      { "modifier": "MAP_MONSTER_DAMAGE", "weight": 100 },
+      { "modifier": "MAP_MONSTER_SPEED", "weight": 100 },
+      { "modifier": "MAP_MONSTER_RESIST", "weight": 100 },
+      { "modifier": "MAP_HERO_LIGHT", "weight": 100 },
+      { "modifier": "MAP_HERO_RESIST", "weight": 100 },
+      { "modifier": "MAP_HERO_REGEN", "weight": 100 },
+      { "modifier": "MAP_PACK_SIZE", "weight": 100 },
+      { "modifier": "MAP_MONSTER_RARITY", "weight": 100 }
+    ]
+  },
   "maps": {
     "dropChance": 0.03,
     "bossChance": 0.4,

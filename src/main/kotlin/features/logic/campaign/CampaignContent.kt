@@ -312,6 +312,7 @@ data class CampaignContentFile(
     val maps: MapRule,
     val fountains: FountainRule = FountainRule(),
     val corruption: CorruptionRule = CorruptionRule(),
+    val vaal: VaalRule = VaalRule(),
 )
 
 // ==================== То, что уходит клиенту ====================
@@ -356,6 +357,7 @@ data class CampaignView(
     val maps: MapRule,
     val fountains: FountainRule = FountainRule(),
     val corruption: CorruptionRule = CorruptionRule(),
+    val vaal: VaalRule = VaalRule(),
 )
 
 /**
@@ -436,7 +438,7 @@ object CampaignContent {
             if (rarity.statScale <= 0) rarity
             else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
         }
-        return CampaignView(chapters, rarities, content.combat, content.services, content.maps, content.fountains, content.corruption)
+        return CampaignView(chapters, rarities, content.combat, content.services, content.maps, content.fountains, content.corruption, content.vaal)
     }
 
     /** Босс или страж осквернённой зоны: та же форма ответа, характеристики подняты до уровня карты. */
@@ -538,6 +540,11 @@ object CampaignContent {
         content.corruption.let { rule ->
             if (rule.chance !in 0.0..1.0 || rule.uniqueChance !in 0.0..1.0 || rule.uniquePools.isEmpty())
                 throw CampaignExceptions.funExceptionContent(method, "corruption")
+        }
+        content.vaal.let { rule ->
+            if (rule.mods.size != 2 || rule.mods[0] < 1 || rule.mods[0] > rule.mods[1] || rule.mods[1] > rule.pool.size || rule.power <= 0 || rule.reward < 0 || rule.perMod < 0
+                || rule.pool.any { it.weight <= 0 } || rule.pool.map { it.modifier }.toSet().size != rule.pool.size)
+                throw CampaignExceptions.funExceptionContent(method, "vaal")
         }
         content.maps.let { rule ->
             if (listOf(rule.dropChance, rule.bossChance, rule.nextChance).any { it !in 0.0..1.0 }) throw CampaignExceptions.funExceptionContent(method, "maps")
