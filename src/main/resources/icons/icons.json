@@ -1609,6 +1609,7 @@
     "stat.MAP_HERO_LIGHT": "light",
     "stat.MAP_HERO_RESIST": "resist",
     "stat.MAP_HERO_REGEN": "regen",
+    "stat.MAP_HERO_SLOW": "speed",
     "stat.MAP_CHESTS": "inventory",
     "stat.MAP_QUANTITY": "quantity",
     "stat.MAP_RARITY": "rarity",

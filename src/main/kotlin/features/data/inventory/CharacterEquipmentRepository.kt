@@ -49,6 +49,29 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     // Инвентарь и надетое героя - по префиксу (characterId, equippedSlot)
     override val indexes = listOf(IndexSpec.on("characterId", "equippedSlot"), IndexSpec.on("equipmentId"))
 
+    /** Новая копия не бывает волшебной или редкой без аффиксов (0.65.0). */
+    override suspend fun admit(entity: CharacterEquipment): CharacterEquipment = entity.also { settle(it) }
+
+    /** Ни одна запись копии не оставляет её ниже дна её редкости (0.65.0). */
+    override suspend fun settle(entity: CharacterEquipment) {
+        equipmentCache.findById(entity.equipmentId)?.let { ModifierRoller.ensureAffixes(it, entity) }
+    }
+
+    /**
+     * Старые копии, записанные до правила, - волшебные и редкие ниже дна своей редкости -
+     * дороллены при старте (0.65.0).
+     *
+     * @return сколько копий починено
+     */
+    suspend fun repairAffixes(session: ClientSession): Int {
+        var repaired = 0
+        collection.find(session, readFilter(Filters.`in`("rarity", EnumRarity.UNCOMMON.name, EnumRarity.RARE.name))).toList().forEach { item ->
+            val template = equipmentCache.findById(item.equipmentId) ?: return@forEach
+            if (ModifierRoller.ensureAffixes(template, item)) { update(item, session); repaired++ }
+        }
+        return repaired
+    }
+
     override suspend fun validateBeforeInsert(entity: CharacterEquipment, session: ClientSession) {
         if (equipmentCache.findById(entity.equipmentId) == null)
             throw CharacterExceptions.funExceptionEquipmentNotFound("validateBeforeInsert", entity.equipmentId)

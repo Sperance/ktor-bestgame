@@ -1609,6 +1609,8 @@
   "enum.EnumStatStock.MAP_HERO_RESIST": "Ослабление сопротивлений на карте",
   "modifier.MAP_HERO_REGEN.name": "Герой: регенерация здоровья меньше на {0}%",
   "enum.EnumStatStock.MAP_HERO_REGEN": "Ослабление регенерации на карте",
+  "modifier.MAP_HERO_SLOW.name": "Герой: скорость передвижения меньше на {0}%",
+  "enum.EnumStatStock.MAP_HERO_SLOW": "Замедление героя на карте",
   "modifier.MAP_CHESTS.name": "Ещё {0} сундук на карте",
   "enum.EnumStatStock.MAP_CHESTS": "Сундуки карты",
   "modifier.MAP_QUANTITY.name": "{0}% больше найденных предметов",

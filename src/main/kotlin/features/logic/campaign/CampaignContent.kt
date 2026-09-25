@@ -134,14 +134,13 @@ data class AilmentRule(
  * Правила боя - числа, по которым клиент считает автобой (с 0.28.0).
  *
  * Бой остаётся клиентским по решению владельца, но формулы и константы - сервера: клиент читает
- * их вместе с главами и не держит своих. [timeLimit] - секунды, после которых бой никто не выиграл;
+ * их вместе с главами и не держит своих. Лимита времени у боя нет с 0.65.0.
  * [variance] - разброс урона удара в процентах; [resistCap], [blockCap] - потолки в процентах.
  * С 0.36.0: [resistHardCap] - выше него не поднимет никакой «+% к максимуму сопротивления»,
  * [ailmentDurationCap] - сильнее этого не сократить длительность состояния на себе.
  */
 @Serializable
 data class CombatRules(
-    val timeLimit: Double,
     val variance: Double,
     val resistCap: Double,
     val blockCap: Double,
@@ -599,7 +598,7 @@ object CampaignContent {
         val damage = EnumStatStock.entries.map { it.name }.filter { it.startsWith("STOCK_ATTACK_") }.toSet()
         fun positive(value: Double, name: String) { if (value <= 0) throw CampaignExceptions.funExceptionContent(method, name) }
         fun percent(value: Double, name: String) { if (value !in 0.0..100.0) throw CampaignExceptions.funExceptionContent(method, name) }
-        positive(rules.timeLimit, "timeLimit"); percent(rules.variance, "variance")
+        percent(rules.variance, "variance")
         percent(rules.resistCap, "resistCap"); percent(rules.blockCap, "blockCap")
         percent(rules.resistHardCap, "resistHardCap"); percent(rules.ailmentDurationCap, "ailmentDurationCap")
         if (rules.resistHardCap < rules.resistCap) throw CampaignExceptions.funExceptionContent(method, "resistHardCap")

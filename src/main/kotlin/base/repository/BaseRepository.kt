@@ -249,6 +249,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * @throws BaseRepositoryExceptions.BaseRepositoryException документа нет или его версия ушла вперёд
      */
     suspend fun update(entity: T, session: ClientSession): UpdateResult {
+        settle(entity)
         val encoded = encode(entity)
         // Кодек не пишет null: поле, обнулённое в памяти (снятый предмет - equippedSlot), иначе осталось бы в базе
         val cleared = fieldNames(entity).filterNot { it in encoded || it in CONST_SYSTEM_FIELDS || it in managedFields }
@@ -373,6 +374,9 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * сущности не станет лазейкой, пока его сюда не добавят.
      */
     protected open suspend fun admit(entity: T): T = entity
+
+    /** Приводит сущность к инвариантам коллекции перед полной записью [update] (0.65.0); меняет её на месте. */
+    protected open suspend fun settle(entity: T) = Unit
 
     /** Проверка перед вставкой; вызывается для каждой сущности [insert] и [insertMany]. */
     protected open suspend fun validateBeforeInsert(entity: T, session: ClientSession) = Unit

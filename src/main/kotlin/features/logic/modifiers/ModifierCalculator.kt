@@ -1,6 +1,7 @@
 package features.logic.modifiers
 
 import application.enums.EnumModifierOperation
+import application.enums.EnumStatStock
 import application.enums.IntEnumStat
 import features.caches.ModifierDefinitionCache
 import org.koin.core.component.KoinComponent
@@ -18,6 +19,17 @@ import org.koin.core.component.inject
  * Саму арифметику POE считает [ModifierMath].
  */
 object ModifierCalculator : KoinComponent {
+
+    /**
+     * Статы, чьё значение - уже процент прибавки, без базы (0.65.0): скорость передвижения, редкость
+     * и количество добычи, опыт, золото, сундуки, бонусы труда. INCREASED складывается в них как есть.
+     */
+    val PERCENT_STATS: Set<IntEnumStat> = setOf(
+        EnumStatStock.STOCK_MOVEMENT_SPEED, EnumStatStock.STOCK_RARITY, EnumStatStock.STOCK_QUANTITY, EnumStatStock.STOCK_EXPERIENCE,
+        EnumStatStock.STOCK_GOLD, EnumStatStock.STOCK_CHEST_QUANTITY, EnumStatStock.STOCK_WORK_SPEED, EnumStatStock.STOCK_WORK_EXPERIENCE,
+        EnumStatStock.STOCK_WORK_FIND,
+    )
+
 
     private val definitionCache: ModifierDefinitionCache by inject()
 
@@ -61,7 +73,7 @@ object ModifierCalculator : KoinComponent {
                 val source = operation.perStat?.let { result[it] ?: 0.0 } ?: 0.0
                 operation.operation to operation.resolve(source)
             }
-            result[stat] = ModifierMath.apply(base[stat] ?: 0.0, applied)
+            result[stat] = ModifierMath.apply(base[stat] ?: 0.0, applied, stat in PERCENT_STATS)
         }
 
         return result

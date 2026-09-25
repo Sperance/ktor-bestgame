@@ -457,6 +457,9 @@ object CurrencyApplier : KoinComponent {
     private fun mercy(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         val candidates = affixes(item).filterNot { it.fractured }.filter { modifier -> ModifierRoller.definitions(listOf(modifier)).any(::harmful) }
         if (candidates.isEmpty()) throw CurrencyExceptions.funExceptionNoHarm("mercy", template.code)
+        // Ниже дна редкости карта не опускается (0.65.0), как и под сферой отмены.
+        if (affixes(item).size <= item.rarity.affixes.first)
+            throw CurrencyExceptions.funExceptionAffixMinimum("mercy", LocaleKey.equipmentName(template.code), LocaleKey.rarity(item.rarity))
         item.params.remove(candidates.randomExt())
         return outcome(item, template, "currency.mercy")
     }

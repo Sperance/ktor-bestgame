@@ -2102,7 +2102,6 @@
     }
   ],
   "combat": {
-    "timeLimit": 60,
     "variance": 20,
     "resistCap": 75,
     "blockCap": 75,
@@ -2343,6 +2342,7 @@
       { "modifier": "MAP_HERO_LIGHT", "weight": 100 },
       { "modifier": "MAP_HERO_RESIST", "weight": 100 },
       { "modifier": "MAP_HERO_REGEN", "weight": 100 },
+      { "modifier": "MAP_HERO_SLOW", "weight": 100 },
       { "modifier": "MAP_PACK_SIZE", "weight": 100 },
       { "modifier": "MAP_MONSTER_RARITY", "weight": 100 }
     ]
@@ -2366,7 +2366,8 @@
       "MAP_MONSTER_RESIST": 0.4,
       "MAP_HERO_LIGHT": 0.3,
       "MAP_HERO_RESIST": 0.8,
-      "MAP_HERO_REGEN": 0.15
+      "MAP_HERO_REGEN": 0.15,
+      "MAP_HERO_SLOW": 0.3
     }
   }
 }

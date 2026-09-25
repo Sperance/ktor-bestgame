@@ -106,6 +106,21 @@ object ModifierRoller : KoinComponent {
     }
 
     /**
+     * Правило «волшебный или редкий предмет - не пустой» (0.65.0): копия, у которой аффиксов меньше
+     * дна её редкости, дороллена до него. Одно место на все пути - ролл, сферы, ремесло, торговец,
+     * старые копии в базе, - поэтому предмет без модификаторов не появляется ни откуда.
+     *
+     * @return true, если копия изменилась
+     */
+    fun ensureAffixes(equipment: Equipment, item: features.data.inventory.CharacterEquipment): Boolean {
+        val rarity = item.rarity
+        if (rarity.fixed || rarity.affixes.first == 0 || item.params.count(::isAffix) >= rarity.affixes.first) return false
+        val fixed = normalize(equipment, rarity, item.params, item.influence) ?: return false
+        item.params = fixed
+        return true
+    }
+
+    /**
      * Роллит один аффикс сверх уже имеющихся - то, что делают сферы улучшения и Exalted Orb.
      *
      * Свободным считается место того вида (префикс или суффикс), которого

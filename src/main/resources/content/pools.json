@@ -367,6 +367,7 @@
       "MAP_HERO_LIGHT": 1000,
       "MAP_HERO_RESIST": 1000,
       "MAP_HERO_REGEN": 1000,
+      "MAP_HERO_SLOW": 1000,
       "MAP_CHESTS": 1000,
       "MAP_QUANTITY": 1000,
       "MAP_RARITY": 1000,

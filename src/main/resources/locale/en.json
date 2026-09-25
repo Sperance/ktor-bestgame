@@ -1609,6 +1609,8 @@
   "enum.EnumStatStock.MAP_HERO_RESIST": "Map Reduced Player Resistances",
   "modifier.MAP_HERO_REGEN.name": "Players have {0}% less Life Regeneration",
   "enum.EnumStatStock.MAP_HERO_REGEN": "Map Reduced Player Regeneration",
+  "modifier.MAP_HERO_SLOW.name": "Players have {0}% reduced Movement Speed",
+  "enum.EnumStatStock.MAP_HERO_SLOW": "Map Reduced Player Movement Speed",
   "modifier.MAP_CHESTS.name": "{0} additional Chest on the map",
   "enum.EnumStatStock.MAP_CHESTS": "Map Chests",
   "modifier.MAP_QUANTITY.name": "{0}% increased Quantity of Items found in this Area",

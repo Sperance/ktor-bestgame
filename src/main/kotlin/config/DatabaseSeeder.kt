@@ -109,6 +109,9 @@ object DatabaseSeeder : KoinComponent {
         }
 
         initializeCaches()
+        // Волшебный или редкий предмет без аффиксов - брак старых роллов (0.65.0): чинится сразу.
+        transactionExecute { session -> characterEquipmentRepository.repairAffixes(session) }
+            .takeIf { it > 0 }?.let { printLog("  → affixes repaired on $it items") }
 
         printLog("Database seeding completed")
     }

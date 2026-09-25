@@ -25,13 +25,15 @@ object ModifierMath {
      * @param base базовое значение стата без модификаторов
      * @param operations пары "операция - значение", относящиеся к этому стату
      */
-    fun apply(base: Double, operations: Collection<Pair<EnumModifierOperation, Double>>): Double {
+    fun apply(base: Double, operations: Collection<Pair<EnumModifierOperation, Double>>, percent: Boolean = false): Double {
         var result = base
 
         result += operations.filter { it.first == EnumModifierOperation.ADD }.sumOf { it.second }
 
         val increased = operations.filter { it.first == EnumModifierOperation.INCREASED }.sumOf { it.second }
-        result *= (1.0 + increased / 100.0)
+        // Стат-процент (0.65.0): «15% увеличение скорости передвижения» и есть +15 к нему -
+        // базы у такого стата нет, и множитель от нуля съедал бы всю прибавку.
+        if (percent) result += increased else result *= (1.0 + increased / 100.0)
 
         operations.filter { it.first == EnumModifierOperation.MORE }.forEach { (_, value) ->
             result *= (1.0 + value / 100.0)
