@@ -237,7 +237,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * @throws BaseRepositoryExceptions.BaseRepositoryException документа нет или его версия ушла вперёд
      */
     suspend fun update(entity: T, session: ClientSession): UpdateResult {
-        val fields = encode(entity).map { (field, value) -> Updates.set(field, value) }
+        val encoded = encode(entity)
+        // Кодек не пишет null: поле, обнулённое в памяти (снятый предмет - equippedSlot), иначе осталось бы в базе
+        val cleared = fieldNames(entity).filterNot { it in encoded || it in CONST_SYSTEM_FIELDS || it in managedFields }
+        val fields = encoded.map { (field, value) -> Updates.set(field, value) } + cleared.map { Updates.unset(it) }
         val result = writing("update") { collection.updateOne(session, identity(entity), Updates.combine(versionBump(entity) + fields)) }
         if (result.matchedCount == 0L) missed("update", entity)
         if (entity is VersionedEntity && result.modifiedCount > 0) entity.version += 1
@@ -340,6 +343,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * Поля сущности для полной записи: документ кодеком коллекции - тем же, которым её пишет
      * insert, - минус системные и управляемые базой поля.
      */
+    /** Имена всех сериализуемых полей конкретного класса сущности, как они лежат в документе. */
+    private fun fieldNames(entity: T): List<String> =
+        kotlinx.serialization.serializer(entity.javaClass).descriptor.let { descriptor -> List(descriptor.elementsCount, descriptor::getElementName) }
+
     private fun encode(entity: T): Map<String, Any?> {
         val document = BsonDocument()
         collection.codecRegistry.get(entityClass.java).encode(BsonDocumentWriter(document), entity, EncoderContext.builder().build())
