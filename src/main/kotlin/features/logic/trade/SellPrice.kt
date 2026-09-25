@@ -44,16 +44,15 @@ object SellPrice {
     /**
      * Множитель редкости.
      *
-     * Растёт вместе с вместимостью аффиксов, которую редкость и задаёт, а
-     * уникальный стоит дороже мифического, потому что не роллится вовсе.
+     * Растёт вместе с вместимостью аффиксов, которую редкость и задаёт; уникальный не роллится
+     * вовсе, а мифический (0.53.0) - самая редкая и сильная вещь в игре.
      */
     fun factor(rarity: EnumRarity): Double = when (rarity) {
         EnumRarity.COMMON -> 1.0
         EnumRarity.UNCOMMON -> 1.5
         EnumRarity.RARE -> 2.5
-        EnumRarity.EPIC -> 4.0
-        EnumRarity.MYTHICAL -> 6.0
         EnumRarity.UNIQUE -> 8.0
+        EnumRarity.MYTHICAL -> 20.0
     }
 }
 

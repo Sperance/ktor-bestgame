@@ -1,6 +1,5 @@
 package features.logic.modifiers
 
-import application.enums.EnumEquipmentType
 import application.enums.EnumInfluence
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
@@ -8,8 +7,6 @@ import extensions.weightedRandomExt
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
 import features.data.equipment.equipment_data.Equipment
-import features.logic.campaign.CampaignContent
-import features.logic.campaign.CampaignMaps
 import features.logic.pools.Pools
 import features.logic.pools.Weighted
 import org.koin.core.component.KoinComponent
@@ -85,10 +82,29 @@ object ModifierRoller : KoinComponent {
     ): List<Modifier> {
         val keptDefinitions = definitions(kept)
         val (prefixes, suffixes) = freeSlots(rarity, keptDefinitions)
-        // Карта катает столько аффиксов, сколько велит её редкость (0.42.0), а не все места.
-        val limit = mapAffixCount(equipment, rarity)?.let { (it - kept.size).coerceAtLeast(0) } ?: Int.MAX_VALUE
+        // Сколько аффиксов - велит редкость (0.53.0: таблица карт стала общей для всех предметов).
+        val limit = (rarity.affixes.random() - kept.size).coerceAtLeast(0)
         return pickAffixes(affixPool(equipment, influence), prefixes, suffixes, keptDefinitions.map { it.family() }, limit)
             .mapNotNull { roll(it, equipment.itemLevel) }
+    }
+
+    /**
+     * Доводит аффиксы копии до правил её редкости (0.53.0): лишние сверх мест префиксов и суффиксов
+     * снимаются, а недостающие до минимума дороллены. Закреплённые аффиксы не трогаются.
+     *
+     * @return новые модификаторы или null, если копия уже в порядке
+     */
+    fun normalize(equipment: Equipment, rarity: EnumRarity, params: List<Modifier>, influence: EnumInfluence? = null): MutableList<Modifier>? {
+        if (rarity.fixed) return null
+        val result = params.toMutableList()
+        listOf(EnumModifierSource.PREFIX to rarity.prefixCount, EnumModifierSource.SUFFIX to rarity.suffixCount).forEach { (source, cap) ->
+            val removable = result.filter { !it.fractured && definitionCache.findById(it.modifierId)?.source == source }
+            val over = result.count { definitionCache.findById(it.modifierId)?.source == source } - cap
+            if (over > 0) result.removeAll(removable.takeLast(over).toSet())
+        }
+        while (result.count(::isAffix) < rarity.affixes.first)
+            result += rollExtraAffix(equipment, rarity, result, influence) ?: break
+        return result.takeIf { it != params }
     }
 
     /**
@@ -105,15 +121,9 @@ object ModifierRoller : KoinComponent {
         current: Collection<Modifier>,
         influence: EnumInfluence? = null
     ): Modifier? {
-        val max = if (equipment.slot == EnumEquipmentType.MAP) CampaignMaps.affixMax(CampaignContent.file.maps, rarity) else null
-        if (max != null && current.count { isAffix(it) } >= max) return null
+        if (current.count(::isAffix) >= rarity.affixes.last) return null
         return rollOne(affixPool(equipment, influence), equipment.itemLevel, rarity, current)
     }
-
-    /** Сколько аффиксов у новой карты этой редкости; для прочих предметов - null, заполняются все места. */
-    private fun mapAffixCount(equipment: Equipment, rarity: EnumRarity): Int? =
-        if (equipment.slot != EnumEquipmentType.MAP) null
-        else CampaignMaps.affixCount(CampaignContent.file.maps, rarity, kotlin.random.Random.Default)
 
     /**
      * Роллит один модификатор из пула влияния - то, что делает сфера влияния.
@@ -263,4 +273,6 @@ object ModifierRoller : KoinComponent {
      */
     fun affixPool(equipment: Equipment, influence: EnumInfluence? = null): List<Weighted<ModifierDefinition>> =
         definitionCache.affixPool(if (influence == null) equipment.modifierPools else equipment.modifierPools + Pools.influence(influence))
+            // Описание без тиров не роллится: выбранное, оно молча съело бы место аффикса (0.53.0)
+            .filter { (definition) -> tierCache.findByModifier(definition._id).isNotEmpty() }
 }

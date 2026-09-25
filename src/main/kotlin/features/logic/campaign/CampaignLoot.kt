@@ -24,10 +24,14 @@ object CampaignLoot {
     /** Показатель степени опыта: на двадцатой карте монстр стоит в сотни раз больше, чем на первой. */
     private const val EXPERIENCE_POWER = 1.9
 
-    /** Вес шаблона экипировки по его редкости; всё, кроме обычного, растёт от бонуса редкости. */
+    /**
+     * Вес шаблона экипировки по его редкости; всё, кроме обычного, растёт от бонуса редкости.
+     * Мифический впятеро реже уникального (0.53.0), а с карт ниже 15-й не падает вовсе: его
+     * требуемый уровень выше, чем отдаёт такой пул, см. EquipmentCache.poolUpTo.
+     */
     private val rarityWeights = mapOf(
         EnumRarity.COMMON to 100.0, EnumRarity.UNCOMMON to 40.0, EnumRarity.RARE to 15.0,
-        EnumRarity.EPIC to 5.0, EnumRarity.MYTHICAL to 1.5, EnumRarity.UNIQUE to 1.0,
+        EnumRarity.UNIQUE to 1.0, EnumRarity.MYTHICAL to 0.2,
     )
 
     /**
@@ -177,13 +181,6 @@ object CampaignMaps {
         val own = rule.rarityBonus[rarity] ?: 0.0
         return ActiveMap(mapCode, effects, risk + own + (effects[QUANTITY] ?: 0.0), risk + own + (effects[RARITY] ?: 0.0), risk + (effects[EXPERIENCE] ?: 0.0))
     }
-
-    /** Сколько аффиксов роллить на карту редкости [rarity]; null - редкость карт не ограничивает. */
-    fun affixCount(rule: MapRule, rarity: EnumRarity, random: Random): Int? =
-        rule.affixes[rarity]?.let { (low, high) -> low + random.nextInt(high - low + 1) }
-
-    /** Больше скольких аффиксов карта этой редкости не несёт. */
-    fun affixMax(rule: MapRule, rarity: EnumRarity): Int? = rule.affixes[rarity]?.get(1)
 
     /**
      * Выпала ли карта и какой локации.

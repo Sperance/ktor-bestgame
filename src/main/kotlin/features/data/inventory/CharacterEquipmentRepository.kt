@@ -10,6 +10,7 @@ import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
+import org.bson.conversions.Bson
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import config.afterCommit
@@ -422,6 +423,29 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         return collection.updateMany(session, stale, Updates.set("socketCode", null)).modifiedCount
     }
 
+    /**
+     * Эпической редкости больше нет, а мифическая стала своими предметами (0.53.0): копии прежних
+     * эпических и мифических баз становятся редкими. Правка сырая - такие документы уже не читаются.
+     *
+     * @param mythics шаблоны настоящих мифических предметов - их копии остаются мифическими
+     * @return сколько копий сменили редкость
+     */
+    suspend fun retireRarities(mythics: Collection<String>, session: ClientSession): Long =
+        collection.updateMany(session, retiredRarity("rarity", "equipmentId", mythics), Updates.set("rarity", EnumRarity.RARE.name)).modifiedCount
+
+    /**
+     * Доводит аффиксы всех копий до правил их редкости (0.53.0), см. [ModifierRoller.normalize].
+     *
+     * @return сколько копий изменилось
+     */
+    suspend fun normalizeAffixes(session: ClientSession): Long = findAll(session).count { item ->
+        val template = equipmentCache.findById(item.equipmentId) ?: return@count false
+        val params = ModifierRoller.normalize(template, item.rarity, item.params, item.influence) ?: return@count false
+        item.params = params
+        update(item, session)
+        true
+    }.toLong()
+
     suspend fun deleteLegacyParams(session: ClientSession): Long =
         collection.deleteMany(session, Filters.exists("params.value", true)).deletedCount
 
@@ -437,3 +461,10 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         return collection.updateMany(session, Filters.empty(), org.bson.Document("\$pull", org.bson.Document("params", stale))).modifiedCount
     }
 }
+
+/** Редкости, которых больше нет у обычных баз (0.53.0). */
+val RETIRED_RARITIES = listOf("EPIC", "MYTHICAL")
+
+/** Копии прежних эпических и мифических баз - все, кроме копий настоящих мифических предметов. */
+fun retiredRarity(rarityField: String, equipmentField: String, mythics: Collection<String>): Bson =
+    Filters.and(Filters.`in`(rarityField, RETIRED_RARITIES), Filters.nin(equipmentField, mythics.toList()))

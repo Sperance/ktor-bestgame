@@ -23,10 +23,14 @@ import kotlinx.serialization.json.Json
  * `unique:world` и `unique:chance`, кузнечная - в `unique:smith`, уникалка босса - в
  * `boss:<код босса>`. Источник называет пулы, из которых тянет, так что уникалка босса не падает
  * ниоткуда, кроме своего босса, просто потому, что больше ни в одном пуле не состоит.
+ *
+ * Мифические предметы (0.53.0, `mythics.json`) устроены так же, только строк у них две-три,
+ * каждая в разы сильнее лучшего тира, а падают они впятеро реже уникалок и лишь с 15-й карты.
  */
 object UniqueEquipmentSeeder {
 
     const val FILE = "uniques.json"
+    const val MYTHICS_FILE = "mythics.json"
 
     private val json = Json { ignoreUnknownKeys = true }
 
@@ -35,16 +39,22 @@ object UniqueEquipmentSeeder {
     data class UniqueEffect(val stat: IntEnumStat, val operation: EnumModifierOperation, val range: List<Double>)
 
     @Serializable
-    private data class UniquesDocument(val uniques: List<EquipmentSeeder.EquipmentRecord> = emptyList())
+    private data class UniquesDocument(
+        val uniques: List<EquipmentSeeder.EquipmentRecord> = emptyList(),
+        val mythics: List<EquipmentSeeder.EquipmentRecord> = emptyList(),
+    )
 
-    /** Шаблоны уникалок в том виде, в каком они лежат в файле; редкость у всех одна. */
+    /** Шаблоны уникалок и мифических предметов в том виде, в каком они лежат в файлах; редкость задаёт файл. */
     val records: List<EquipmentSeeder.EquipmentRecord> by lazy {
-        json.decodeFromString(UniquesDocument.serializer(), ContentResource.read(FILE)).uniques.map { record ->
-            if (record.lines.isEmpty() || record.lines.any { line -> line.isEmpty() || line.any { it.range.size != 2 || it.range[0] > it.range[1] } })
-                throw EquipmentExceptions.funException("UniqueEquipmentSeeder", "Unique ${record.code} needs lines of [min, max] ranges")
-            record.copy(rarity = EnumRarity.UNIQUE)
-        }
+        read(FILE, EnumRarity.UNIQUE) { it.uniques } + read(MYTHICS_FILE, EnumRarity.MYTHICAL) { it.mythics }
     }
+
+    private fun read(file: String, rarity: EnumRarity, list: (UniquesDocument) -> List<EquipmentSeeder.EquipmentRecord>) =
+        list(json.decodeFromString(UniquesDocument.serializer(), ContentResource.read(file))).map { record ->
+            if (record.lines.isEmpty() || record.lines.any { line -> line.isEmpty() || line.any { it.range.size != 2 || it.range[0] > it.range[1] } })
+                throw EquipmentExceptions.funException("UniqueEquipmentSeeder", "${record.code} in $file needs lines of [min, max] ranges")
+            record.copy(rarity = rarity)
+        }
 
     fun modifierCode(itemCode: String, index: Int): String = "UNIQUE_${itemCode}_$index"
 

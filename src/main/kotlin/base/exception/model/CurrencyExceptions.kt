@@ -32,5 +32,6 @@ object CurrencyExceptions {
     fun funExceptionAlchemyFull(errorMethod: String, value: String? = "") = CurrencyException("Map $value has no room for this alchemy line", errorMethod, "CR_022", listOf(value.orEmpty()))
     fun funExceptionJewelEmpty(errorMethod: String, value: String? = "") = CurrencyException("Jewel $value would be left without an affix", errorMethod, "CR_023", listOf(value.orEmpty()))
     fun funExceptionRecipeSlot(errorMethod: String, value: String? = "") = CurrencyException("Bench recipe cannot be crafted on $value", errorMethod, "CR_019", listOf(value.orEmpty()))
+    fun funExceptionAffixMinimum(errorMethod: String, value: String? = "", rarity: String = "") = CurrencyException("Item $value would drop below the affix minimum of its rarity", errorMethod, "CR_025", listOf(value.orEmpty(), rarity))
     fun funExceptionRecipeLocked(errorMethod: String, value: String? = "") = CurrencyException("Bench recipe $value has not been found yet", errorMethod, "CR_024", listOf(value.orEmpty()))
 }

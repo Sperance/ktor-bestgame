@@ -6,6 +6,7 @@ import SEED_ADMIN_PASSWORD
 import SEED_TEST_PLAYER_PASSWORD
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumRarity
+import extensions.toStableObjectId
 import application.enums.EnumUserRoles
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
@@ -92,8 +93,10 @@ object DatabaseSeeder : KoinComponent {
             val definitions = seedModifiers(session)
             seedProgression(session, definitions)
             seedEquipment(session, definitions)
+            retireRarities(session)
             seedSkillTree(session, definitions)
             pruneModifiers(session, definitions)
+            normalizeAffixes(session)
 
             seedUsers(session)
             seedCharacters(session)
@@ -160,6 +163,21 @@ object DatabaseSeeder : KoinComponent {
         val items = characterEquipmentRepository.pruneMissingModifiers(ids, session)
         val lots = auctionLotRepository.pruneMissingModifiers(ids, session)
         if (items + lots > 0) printLog("  → removed modifiers stripped from $items items and $lots lots")
+    }
+
+    /** Эпической редкости больше нет (0.53.0): копии прежних эпических и мифических баз - редкие. */
+    private suspend fun retireRarities(session: ClientSession) {
+        val mythics = UniqueEquipmentSeeder.records.filter { it.rarity == EnumRarity.MYTHICAL }.map { it.code.toStableObjectId() }
+        val items = characterEquipmentRepository.retireRarities(mythics, session)
+        val lots = auctionLotRepository.retireRarities(mythics, session)
+        if (items + lots > 0) printLog("  → $items items and $lots lots became rare")
+    }
+
+    /** Волшебные и редкие копии доводятся до числа аффиксов своей редкости (0.53.0). */
+    private suspend fun normalizeAffixes(session: ClientSession) {
+        val items = characterEquipmentRepository.normalizeAffixes(session)
+        val lots = auctionLotRepository.normalizeAffixes(session)
+        if (items + lots > 0) printLog("  → affixes evened out on $items items and $lots lots")
     }
 
     // ==================== Progression ====================

@@ -2385,10 +2385,6 @@
       "UNCOMMON": 80,
       "RARE": 20
     },
-    "affixes": {
-      "UNCOMMON": [1, 2],
-      "RARE": [4, 6]
-    },
     "rarityBonus": {
       "UNCOMMON": 10,
       "RARE": 25

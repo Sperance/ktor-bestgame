@@ -1067,8 +1067,7 @@
     "smithRarities": {
       "COMMON": 40,
       "UNCOMMON": 35,
-      "RARE": 20,
-      "EPIC": 5
+      "RARE": 25
     },
     "mapRarities": {
       "UNCOMMON": 70,

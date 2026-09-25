@@ -147,7 +147,7 @@ class SeedDataTest {
     fun uniques_carry_only_their_own_fixed_modifiers() {
         val definitionsById = definitions.associateBy { it._id }
 
-        equipment.filter { it.rarity == EnumRarity.UNIQUE }.forEach { item ->
+        equipment.filter { it.rarity.fixed }.forEach { item ->
             assert(item.fixedModifierIds.isNotEmpty()) { "${item.code} has no modifiers" }
             assert(item.modifierPools.isEmpty()) { "${item.code} rolls affixes" }
 
@@ -192,7 +192,7 @@ class SeedDataTest {
 
     @Test
     fun rollable_items_have_both_prefixes_and_suffixes_available() {
-        equipment.filter { it.rarity != EnumRarity.UNIQUE }.forEach { item ->
+        equipment.filter { !it.rarity.fixed }.forEach { item ->
             val sources = Pools.of(definitions, item.modifierPools).map { it.value.source }
             assert(sources.contains(EnumModifierSource.PREFIX)) { "${item.code} has no prefixes to roll" }
             assert(sources.contains(EnumModifierSource.SUFFIX)) { "${item.code} has no suffixes to roll" }
@@ -207,11 +207,11 @@ class SeedDataTest {
 
     @Test
     fun every_slot_has_ordinary_bases_of_every_rarity() {
-        val ordinary = equipment.filter { it.rarity != EnumRarity.UNIQUE }.groupBy { it.slot }
+        val ordinary = equipment.filter { !it.rarity.fixed }.groupBy { it.slot }
         wearableSlots.forEach { slot ->
             val rarities = ordinary[slot].orEmpty().map { it.rarity }.toSet()
             // Администратор выдаёт случайный шаблон выбранной редкости и слота - ни одна пара не пустует
-            val missing = listOf(EnumRarity.COMMON, EnumRarity.UNCOMMON, EnumRarity.RARE, EnumRarity.EPIC, EnumRarity.MYTHICAL) - rarities
+            val missing = listOf(EnumRarity.COMMON, EnumRarity.UNCOMMON, EnumRarity.RARE) - rarities
             assert(missing.isEmpty()) { "$slot has no ordinary base of $missing" }
         }
         assert(equipment.none { it.slot == EnumEquipmentType.RING_2 }) { "RING_2 is a place, not a kind of item" }
@@ -220,7 +220,7 @@ class SeedDataTest {
     @Test
     fun armour_rolls_only_the_local_defences_its_base_carries() {
         val byId = definitions.associateBy { it._id }
-        equipment.filter { it.rarity != EnumRarity.UNIQUE }.forEach { item ->
+        equipment.filter { !it.rarity.fixed }.forEach { item ->
             val baseStats = item.baseParams.flatMap { byId.getValue(it.modifierId).stats() }.toSet()
             val foreign = Pools.of(definitions, item.modifierPools).map { it.value }
                 .filter { it.isLocal && it.isNaturalAffix() && !it.tags.orEmpty().contains("weapon") }

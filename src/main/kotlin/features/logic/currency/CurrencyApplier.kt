@@ -99,7 +99,7 @@ object CurrencyApplier : KoinComponent {
     /**
      * Редкости, на которые ложатся закрепление и влияние: редкий предмет и выше, кроме уникалки.
      */
-    private val rareOrBetter = setOf(EnumRarity.RARE, EnumRarity.EPIC, EnumRarity.MYTHICAL)
+    private val rareOrBetter = setOf(EnumRarity.RARE)
 
     /**
      * Применяет сферу к предмету.
@@ -211,13 +211,16 @@ object CurrencyApplier : KoinComponent {
     }
 
     /**
-     * Магический предмет становится редким: аффиксы сохраняются, добавляется ещё один.
+     * Магический предмет становится редким: аффиксы сохраняются, добавляется ещё один
+     * и сколько нужно ещё, чтобы дотянуть до минимума редкого.
      */
     private fun regal(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         requireRarity(item, template, EnumRarity.UNCOMMON)
 
         item.rarity = EnumRarity.RARE
         ModifierRoller.rollExtraAffix(template, item.rarity, item.params, item.influence)?.let { item.params.add(it) }
+        // У редкого своё дно (0.53.0): добавленного одного может не хватить - дороллим до минимума
+        ModifierRoller.normalize(template, item.rarity, item.params, item.influence)?.let { item.params = it }
 
         return outcome(item, template, "currency.regal", affixes(item).size.toString())
     }
@@ -229,7 +232,7 @@ object CurrencyApplier : KoinComponent {
      */
     private fun divine(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         val rerollable: (ModifierDefinition) -> Boolean =
-            if (item.rarity == EnumRarity.UNIQUE) {
+            if (item.rarity.fixed) {
                 { it.source == EnumModifierSource.UNIQUE }
             } else {
                 { it.source == EnumModifierSource.PREFIX || it.source == EnumModifierSource.SUFFIX }
@@ -256,11 +259,14 @@ object CurrencyApplier : KoinComponent {
     }
 
     /**
-     * Убирает случайный аффикс. Закреплённый не снимается.
+     * Убирает случайный аффикс. Закреплённый не снимается, а ниже минимума редкости сфера не опускает.
      */
     private fun annul(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         val current = affixes(item).filterNot { it.fractured }
         if (current.isEmpty()) throw CurrencyExceptions.funExceptionNoAffixes("annul", template.code)
+        // Ниже минимума редкости предмет не опускается (0.53.0): у волшебного хотя бы один аффикс, у редкого четыре
+        if (affixes(item).size <= item.rarity.affixes.first)
+            throw CurrencyExceptions.funExceptionAffixMinimum("annul", LocaleKey.equipmentName(template.code), LocaleKey.rarity(item.rarity))
 
         val removed = current.randomExt()
         item.params.remove(removed)
@@ -275,7 +281,7 @@ object CurrencyApplier : KoinComponent {
      * поэтому такая копия опускается только до магической. Влияние не снимается.
      */
     private fun scour(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
-        if (item.rarity == EnumRarity.UNIQUE)
+        if (item.rarity.fixed)
             throw CurrencyExceptions.funExceptionRarity("scour", item.rarity.name)
 
         val kept = fractured(item)

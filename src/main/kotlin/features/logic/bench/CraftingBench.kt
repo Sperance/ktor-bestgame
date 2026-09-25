@@ -70,7 +70,7 @@ object CraftingBench {
      * Редкости, на которые верстак ставит модификатор: у обычного предмета нет мест,
      * у уникального они закрыты.
      */
-    private val craftable = setOf(EnumRarity.UNCOMMON, EnumRarity.RARE, EnumRarity.EPIC, EnumRarity.MYTHICAL)
+    private val craftable = setOf(EnumRarity.UNCOMMON, EnumRarity.RARE)
 
     /** Самый высокий уровень локации кампании, за которым тир рецепта больше не растёт (с 0.46.0). */
     const val MAX_MAP_LEVEL = 20
