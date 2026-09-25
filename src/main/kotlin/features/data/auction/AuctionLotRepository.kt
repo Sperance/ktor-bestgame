@@ -105,7 +105,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
         requirePrice(price, "sellEquipment")
 
         val item = characterEquipmentRepository.requireOwned(characterId, inventoryId, "sellEquipment")
-        if (item.isEquipped())
+        if (item.isEquipped() || item.socketCode != null)
             throw AuctionExceptions.funExceptionItemEquipped("sellEquipment", inventoryId)
         val template = characterEquipmentRepository.templateOf(item, "sellEquipment")
 
@@ -197,6 +197,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
 
                 item.characterId = owner._id
                 item.equippedSlot = null
+                item.socketCode = null
                 // Документ вставляется в инвентарь заново, история версий начинается с нуля
                 item.version = 0
                 item.deleted = false

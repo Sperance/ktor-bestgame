@@ -154,6 +154,8 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         if (busy > 0) throw SkillTreeExceptions.funExceptionSocketBusy("socket", nodeCode)
 
         return transactionExecute("socket") { session ->
+            // Запись персонажа с проверкой версии: два параллельных запроса не займут одно гнездо
+            characterRepository.update(character, session)
             item.equippedSlot = EnumEquipmentType.JEWEL
             item.socketCode = nodeCode
             update(item, session)
@@ -223,6 +225,9 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         val template = templateOf(item, "equip")
         if (template.slot == EnumEquipmentType.MAP)
             throw CharacterExceptions.funExceptionMapNotWorn("equip", template.code)
+        // Самоцвет работает только из гнезда дерева: через слот он дал бы бонус без узла
+        if (template.slot == EnumEquipmentType.JEWEL)
+            throw CharacterExceptions.funExceptionJewelNotWorn("equip", template.code)
 
         // Надеть предмет с невыполненными требованиями нельзя. Уже надетый
         // при их потере не слетает - он просто перестаёт работать, см. CharacterStatsCalculator
@@ -244,6 +249,8 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         val freed = EquipSlots.displaced(target, (template as? Weapon)?.weaponType, wornWeapon) + target
 
         return transactionExecute("equip") { session ->
+            // Запись персонажа с проверкой версии: два параллельных запроса не займут один слот
+            characterRepository.update(character, session)
             worn.filter { it.equippedSlot in freed }.forEach { occupied ->
                 occupied.equippedSlot = null
                 update(occupied, session)
@@ -261,7 +268,9 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     suspend fun unequip(characterId: String, inventoryId: String): CharacterEquipment {
         val item = requireOwned(characterId, inventoryId, "unequip")
 
+        // Снятый самоцвет освобождает и гнездо, иначе узел остался бы занят вещью из арсенала
         item.equippedSlot = null
+        item.socketCode = null
         transactionExecute("unequip") { session ->
             update(item, session)
         }

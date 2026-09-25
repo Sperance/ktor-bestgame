@@ -1703,6 +1703,7 @@
   "equipment.MAP_C1_DROWNED_TEMPLE.description": "A level 20 map: placed in the launch window of Drowned Temple and consumed when the run begins.",
   "enum.EnumEquipmentType.MAP": "Map",
   "error.CH_018": "Map {0} cannot be worn: it goes into a location's launch window",
+  "error.CH_019": "Jewel {0} cannot be worn: it goes into a skill tree socket",
   "error.CP_011": "Map {0} does not fit this location",
   "error.CP_012": "The corrupted zone of map {0} is already spent this run",
   "item.COPPER_ORE.description": "Soft reddish ore from shallow veins",
