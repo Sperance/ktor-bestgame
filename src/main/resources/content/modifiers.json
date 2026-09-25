@@ -2579,30 +2579,6 @@
       ]
     },
     {
-      "code": "CORRUPTED_ADD_ALL_ELEMENTAL_RESISTANCES",
-      "source": "CORRUPTION",
-      "tags": ["resistance", "elemental", "corrupted"],
-      "effects": [
-        { "stat": "STOCK_RESIST_ALL", "operation": "ADD" }
-      ],
-      "tiers": [
-        { "level": 68, "values": [[10.0, 12.0]] },
-        { "level": 1, "values": [[5.0, 7.0]] }
-      ]
-    },
-    {
-      "code": "CORRUPTED_MORE_PHYSICAL_DAMAGE",
-      "source": "CORRUPTION",
-      "tags": ["physical", "damage", "corrupted"],
-      "effects": [
-        { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "MORE" }
-      ],
-      "tiers": [
-        { "level": 68, "values": [[12.0, 15.0]] },
-        { "level": 1, "values": [[5.0, 8.0]] }
-      ]
-    },
-    {
       "code": "IMPLICIT_ARMOUR_BASE",
       "source": "IMPLICIT",
       "local": true,
@@ -3119,17 +3095,6 @@
       ],
       "tiers": [
         { "level": 1, "values": [[40.0, 40.0], [40.0, 40.0], [40.0, 40.0]] }
-      ]
-    },
-    {
-      "code": "CORRUPTED_SET_CRITICAL_STRIKE_CHANCE",
-      "source": "CORRUPTION",
-      "tags": ["critical", "corrupted"],
-      "effects": [
-        { "stat": "STOCK_CRITICAL_CHANCE", "operation": "SET" }
-      ],
-      "tiers": [
-        { "level": 68, "values": [[5.0, 5.0]] }
       ]
     },
     {

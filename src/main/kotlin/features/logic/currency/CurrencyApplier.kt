@@ -298,16 +298,17 @@ object CurrencyApplier : KoinComponent {
 
     /**
      * Портит предмет, как в POE (с 0.58.0): после неё ни одна сфера его не тронет, а сама порча
-     * выпадает одним из четырёх равновероятных исходов [VaalOutcome]. Ложится и на экипировку, и на
-     * карты: имплисит карты - любой модификатор из её собственного пула, вредный или наградный.
+     * выпадает одним из равновероятных исходов [VaalOutcome]. Ложится и на экипировку, и на карты.
+     * Имплисит порчи (с 0.59.0) - только у карты: любой модификатор из её собственного пула,
+     * вредный или наградный; экипировке остаются три исхода.
      */
     private fun vaal(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         item.corrupted = true
-        return when (VaalOutcome.entries.random()) {
+        val map = template.slot == EnumEquipmentType.MAP
+        return when (VaalOutcome.entries.filter { map || it != VaalOutcome.IMPLICIT }.random()) {
             VaalOutcome.NOTHING -> outcome(item, template, "currency.vaal_nothing")
             VaalOutcome.IMPLICIT -> {
-                val corruption = if (template.slot == EnumEquipmentType.MAP) Pools.draw(ModifierRoller.affixPool(template))?.let { ModifierRoller.roll(it, template.itemLevel) }
-                    else ModifierRoller.rollFrom(CurrencySeeder.records[VAAL_ORB]?.modifierPools.orEmpty(), template.itemLevel)
+                val corruption = Pools.draw(ModifierRoller.affixPool(template))?.let { ModifierRoller.roll(it, template.itemLevel) }
                 corruption?.let { item.params.add(it.copy(tier = 0)) }
                 outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
             }
@@ -481,7 +482,7 @@ object CurrencyApplier : KoinComponent {
     private fun permanent(item: CharacterEquipment): List<Modifier> = item.params.filterNot { ModifierRoller.isAffix(it) }
 }
 
-/** Четыре исхода сферы Ваал (с 0.58.0), по 25%: ничего, имплисит порчи, перекат в редкий, сдвиг значений на ±20%. */
+/** Исходы сферы Ваал (с 0.58.0), равновероятные: ничего, имплисит порчи (только карта, 0.59.0), перекат в редкий, сдвиг значений на ±20%. */
 private enum class VaalOutcome { NOTHING, IMPLICIT, RARE, SHIFT }
 
 private const val VAAL_SHIFT_MIN = 0.8

@@ -46,10 +46,7 @@
     },
     {
       "orb": "VAAL_ORB",
-      "price": 800,
-      "modifierPools": [
-        "corruption"
-      ]
+      "price": 800
     },
     {
       "orb": "ORB_OF_CHANCE",
