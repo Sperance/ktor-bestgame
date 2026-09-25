@@ -16,14 +16,15 @@ class ModifierDefinitionCache(
     /**
      * Тиры одного модификатора под вопрос «какой выпал на этом уровне»: по порогу уровня
      * с накопленными весами. Ролл - два двоичных поиска, без фильтра и сортировки на каждый вызов.
-     * Чем лучше тир, тем меньше вес: вес тира - его номер.
+     * Вес тира - его [ModifierTier.weight] (0.66.0), как spawn weight в POE; тир без веса
+     * весит свой номер: чем лучше тир, тем он реже.
      */
     private class Ladder(tiers: List<ModifierTier>) {
         private val byLevel: List<Pair<Int, ModifierTier>> = tiers.mapIndexed { index, tier -> index + 1 to tier }.sortedBy { it.second.level }
         private val levels = IntArray(byLevel.size) { byLevel[it].second.level }
         private val cumulative = LongArray(byLevel.size).also { sums ->
             var total = 0L
-            byLevel.forEachIndexed { index, (number, _) -> total += number; sums[index] = total }
+            byLevel.forEachIndexed { index, (number, tier) -> total += tier.weight.takeIf { it > 0 } ?: number; sums[index] = total }
         }
 
         fun roll(itemLevel: Int, random: Random): Pair<Int, ModifierTier>? {
@@ -54,6 +55,7 @@ class ModifierDefinitionCache(
     }
 
     private val byCode = uniqueIndex { it.code }
+    private val monsters = derived { items -> items.filter { it.isMonster() } }
     private val ladders = derived { items -> items.associate { it.code to Ladder(it.tiers) } }
     private val pools = derived(poolCache) { items -> poolCache.table(EnumPoolTarget.MODIFIER).index(items) }
     private val affixPools = derived(poolCache) { items ->
@@ -71,6 +73,9 @@ class ModifierDefinitionCache(
         val index = byCode.get()
         return codes.mapNotNull { index[it] }
     }
+
+    /** Описания модификаторов монстров (0.66.0), один список на ревизию: по нему кампания собирает карты. */
+    fun monsters(): List<ModifierDefinition> = monsters.get()
 
     /** Модификаторы пулов [tags] с их весами; собирается один раз на ревизию описаний и пулов. */
     fun pool(tags: List<String>): List<Weighted<ModifierDefinition>> = pools.get().of(tags)

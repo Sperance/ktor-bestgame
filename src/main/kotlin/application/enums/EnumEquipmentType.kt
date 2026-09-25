@@ -43,7 +43,9 @@ enum class EnumEquipmentType {
     TOOL_WOODCUTTING,
     TOOL_SMITHING,
     TOOL_ALCHEMY,
-    TOOL_CARTOGRAPHY;
+    TOOL_CARTOGRAPHY,
+    /** Инструмент зачарователя (0.66.0): его свитки ставят зачарования на снаряжение. */
+    TOOL_ENCHANTING;
 
     val isTool: Boolean get() = name.startsWith("TOOL_")
 }

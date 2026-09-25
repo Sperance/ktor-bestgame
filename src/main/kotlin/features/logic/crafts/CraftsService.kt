@@ -226,7 +226,9 @@ class CraftsService : KoinComponent {
                 val base = Pools.draw(bases, random) ?: return null
                 val rarity = features.logic.equipment.Jewels.rarity(base, weighted(crafting.smithRarities, random) ?: EnumRarity.COMMON)
                 val guaranteed = additives.mapNotNull { crafting.additives[it] }
-                val handcrafted = (guaranteed + listOfNotNull(Pools.draw(ModifierRoller.pool(crafting.modifierPools).filter { it.value.code !in guaranteed }, random)?.code
+                // Ручная работа по виду вещи (0.66.0): оружию - своё, броне и прочему - своё, сверх общего пула.
+                val kind = if (base.slot == application.enums.EnumEquipmentType.WEAPON_1H || base.slot == application.enums.EnumEquipmentType.WEAPON_2H) "weapon" else "armour"
+                val handcrafted = (guaranteed + listOfNotNull(Pools.draw(ModifierRoller.pool(listOf("handcrafted:smith:$kind") + crafting.modifierPools).filter { it.value.code !in guaranteed }, random)?.code
                     .takeIf { random.nextDouble() * 100 < crafting.handcraftedChance })).distinct().take(crafting.maxHandcrafted)
                 CharacterEquipment(characterId = "", equipmentId = base._id, rarity = rarity,
                     params = (ModifierRoller.roll(base, rarity) + handcrafted.mapNotNull { rollCode(it, base.itemLevel) }).toMutableList())

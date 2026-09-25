@@ -41,3 +41,4 @@ logs_archive/
 backups/
 ### Kotlin ###
 .kotlin
+__pycache__/

@@ -12,7 +12,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             26.0
           ]
@@ -35,7 +35,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             89.0
           ]
@@ -58,7 +58,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             151.0
           ]
@@ -81,7 +81,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             225.0
           ]
@@ -104,7 +104,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             276.0
           ]
@@ -127,7 +127,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             26.0
           ]
@@ -150,7 +150,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             96.0
           ]
@@ -173,7 +173,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             140.0
           ]
@@ -196,7 +196,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             225.0
           ]
@@ -219,7 +219,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             280.0
           ]
@@ -242,7 +242,7 @@
       "requiredIntelligence": 2,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             7.0
           ]
@@ -265,7 +265,7 @@
       "requiredIntelligence": 37,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             21.0
           ]
@@ -288,7 +288,7 @@
       "requiredIntelligence": 75,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             37.0
           ]
@@ -311,7 +311,7 @@
       "requiredIntelligence": 119,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             55.0
           ]
@@ -334,7 +334,7 @@
       "requiredIntelligence": 152,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             69.0
           ]
@@ -357,13 +357,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             16.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             16.0
           ]
@@ -388,13 +388,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             64.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             64.0
           ]
@@ -419,13 +419,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             93.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             93.0
           ]
@@ -450,13 +450,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             142.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             142.0
           ]
@@ -481,13 +481,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             161.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             161.0
           ]
@@ -512,13 +512,13 @@
       "requiredIntelligence": 6,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             24.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             6.0
           ]
@@ -543,13 +543,13 @@
       "requiredIntelligence": 26,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             62.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             16.0
           ]
@@ -574,13 +574,13 @@
       "requiredIntelligence": 44,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             95.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             24.0
           ]
@@ -605,13 +605,13 @@
       "requiredIntelligence": 70,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             142.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             35.0
           ]
@@ -636,13 +636,13 @@
       "requiredIntelligence": 82,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             164.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             41.0
           ]
@@ -667,13 +667,13 @@
       "requiredIntelligence": 1,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             16.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             4.0
           ]
@@ -698,13 +698,13 @@
       "requiredIntelligence": 20,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             51.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             13.0
           ]
@@ -729,13 +729,13 @@
       "requiredIntelligence": 42,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             91.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             23.0
           ]
@@ -760,13 +760,13 @@
       "requiredIntelligence": 62,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             128.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             32.0
           ]
@@ -791,13 +791,13 @@
       "requiredIntelligence": 80,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             161.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             40.0
           ]
@@ -822,7 +822,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             52.0
           ]
@@ -845,7 +845,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             89.0
           ]
@@ -868,7 +868,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             244.0
           ]
@@ -891,7 +891,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             420.0
           ]
@@ -914,7 +914,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             545.0
           ]
@@ -937,7 +937,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             60.0
           ]
@@ -960,7 +960,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             111.0
           ]
@@ -983,7 +983,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             177.0
           ]
@@ -1006,7 +1006,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             420.0
           ]
@@ -1029,7 +1029,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             545.0
           ]
@@ -1052,7 +1052,7 @@
       "requiredIntelligence": 2,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             18.0
           ]
@@ -1075,7 +1075,7 @@
       "requiredIntelligence": 24,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             43.0
           ]
@@ -1098,7 +1098,7 @@
       "requiredIntelligence": 40,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             60.0
           ]
@@ -1121,7 +1121,7 @@
       "requiredIntelligence": 106,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             135.0
           ]
@@ -1144,7 +1144,7 @@
       "requiredIntelligence": 150,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             185.0
           ]
@@ -1167,13 +1167,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             31.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             31.0
           ]
@@ -1198,13 +1198,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             62.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             62.0
           ]
@@ -1229,13 +1229,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             151.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             151.0
           ]
@@ -1260,13 +1260,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             257.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             257.0
           ]
@@ -1291,13 +1291,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             332.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             332.0
           ]
@@ -1322,13 +1322,13 @@
       "requiredIntelligence": 1,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             31.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             11.0
           ]
@@ -1353,13 +1353,13 @@
       "requiredIntelligence": 10,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             62.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             21.0
           ]
@@ -1384,13 +1384,13 @@
       "requiredIntelligence": 20,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             102.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             35.0
           ]
@@ -1415,13 +1415,13 @@
       "requiredIntelligence": 61,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             252.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             86.0
           ]
@@ -1446,13 +1446,13 @@
       "requiredIntelligence": 80,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             323.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             110.0
           ]
@@ -1477,13 +1477,13 @@
       "requiredIntelligence": 1,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             31.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             11.0
           ]
@@ -1508,13 +1508,13 @@
       "requiredIntelligence": 11,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             67.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             23.0
           ]
@@ -1539,13 +1539,13 @@
       "requiredIntelligence": 22,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             106.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             36.0
           ]
@@ -1570,13 +1570,13 @@
       "requiredIntelligence": 61,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             252.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             86.0
           ]
@@ -1601,13 +1601,13 @@
       "requiredIntelligence": 80,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             323.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             110.0
           ]
@@ -1632,7 +1632,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             16.0
           ]
@@ -1655,7 +1655,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             38.0
           ]
@@ -1678,7 +1678,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             65.0
           ]
@@ -1701,7 +1701,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             92.0
           ]
@@ -1724,7 +1724,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             168.0
           ]
@@ -1747,7 +1747,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             16.0
           ]
@@ -1770,7 +1770,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             34.0
           ]
@@ -1793,7 +1793,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             61.0
           ]
@@ -1816,7 +1816,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             87.0
           ]
@@ -1839,7 +1839,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             170.0
           ]
@@ -1862,7 +1862,7 @@
       "requiredIntelligence": 2,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             4.0
           ]
@@ -1885,7 +1885,7 @@
       "requiredIntelligence": 26,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             11.0
           ]
@@ -1908,7 +1908,7 @@
       "requiredIntelligence": 55,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             18.0
           ]
@@ -1931,7 +1931,7 @@
       "requiredIntelligence": 79,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             25.0
           ]
@@ -1954,7 +1954,7 @@
       "requiredIntelligence": 152,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             44.0
           ]
@@ -1977,13 +1977,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             10.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             10.0
           ]
@@ -2008,13 +2008,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             28.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             28.0
           ]
@@ -2039,13 +2039,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             44.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             44.0
           ]
@@ -2070,13 +2070,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             56.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             56.0
           ]
@@ -2101,13 +2101,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             98.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             98.0
           ]
@@ -2132,13 +2132,13 @@
       "requiredIntelligence": 8,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             18.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             5.0
           ]
@@ -2163,13 +2163,13 @@
       "requiredIntelligence": 23,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             34.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             9.0
           ]
@@ -2194,13 +2194,13 @@
       "requiredIntelligence": 38,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             51.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             14.0
           ]
@@ -2225,13 +2225,13 @@
       "requiredIntelligence": 44,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             58.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             15.0
           ]
@@ -2256,13 +2256,13 @@
       "requiredIntelligence": 79,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             97.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             26.0
           ]
@@ -2287,13 +2287,13 @@
       "requiredIntelligence": 6,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             15.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             4.0
           ]
@@ -2318,13 +2318,13 @@
       "requiredIntelligence": 19,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             30.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             8.0
           ]
@@ -2349,13 +2349,13 @@
       "requiredIntelligence": 37,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             50.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             13.0
           ]
@@ -2380,13 +2380,13 @@
       "requiredIntelligence": 43,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             56.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             15.0
           ]
@@ -2411,13 +2411,13 @@
       "requiredIntelligence": 80,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             98.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             26.0
           ]
@@ -2442,7 +2442,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             16.0
           ]
@@ -2465,7 +2465,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             34.0
           ]
@@ -2488,7 +2488,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             65.0
           ]
@@ -2511,7 +2511,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             87.0
           ]
@@ -2534,7 +2534,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             166.0
           ]
@@ -2557,7 +2557,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             16.0
           ]
@@ -2580,7 +2580,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             40.0
           ]
@@ -2603,7 +2603,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             63.0
           ]
@@ -2626,7 +2626,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             90.0
           ]
@@ -2649,7 +2649,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             168.0
           ]
@@ -2672,7 +2672,7 @@
       "requiredIntelligence": 2,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             4.0
           ]
@@ -2695,7 +2695,7 @@
       "requiredIntelligence": 20,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             9.0
           ]
@@ -2718,7 +2718,7 @@
       "requiredIntelligence": 48,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             17.0
           ]
@@ -2741,7 +2741,7 @@
       "requiredIntelligence": 70,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             23.0
           ]
@@ -2764,7 +2764,7 @@
       "requiredIntelligence": 147,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             43.0
           ]
@@ -2787,13 +2787,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             10.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             10.0
           ]
@@ -2818,13 +2818,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             32.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             32.0
           ]
@@ -2849,13 +2849,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             48.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             48.0
           ]
@@ -2880,13 +2880,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             56.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             56.0
           ]
@@ -2911,13 +2911,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             95.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             95.0
           ]
@@ -2942,13 +2942,13 @@
       "requiredIntelligence": 6,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             15.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             4.0
           ]
@@ -2973,13 +2973,13 @@
       "requiredIntelligence": 16,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             26.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             7.0
           ]
@@ -3004,13 +3004,13 @@
       "requiredIntelligence": 34,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             46.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             12.0
           ]
@@ -3035,13 +3035,13 @@
       "requiredIntelligence": 43,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             56.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             15.0
           ]
@@ -3066,13 +3066,13 @@
       "requiredIntelligence": 77,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             94.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             25.0
           ]
@@ -3097,13 +3097,13 @@
       "requiredIntelligence": 7,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             16.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             4.0
           ]
@@ -3128,13 +3128,13 @@
       "requiredIntelligence": 19,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             30.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             8.0
           ]
@@ -3159,13 +3159,13 @@
       "requiredIntelligence": 32,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             44.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             12.0
           ]
@@ -3190,13 +3190,13 @@
       "requiredIntelligence": 41,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             54.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             14.0
           ]
@@ -3221,13 +3221,13 @@
       "requiredIntelligence": 83,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             101.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             27.0
           ]
@@ -3252,13 +3252,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             42.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             20.0
           ]
@@ -3281,13 +3281,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             66.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             20.0
           ]
@@ -3310,13 +3310,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             101.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3339,13 +3339,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             237.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             23.0
           ]
@@ -3368,13 +3368,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             415.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             25.0
           ]
@@ -3397,13 +3397,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             42.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             20.0
           ]
@@ -3426,13 +3426,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             83.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3455,13 +3455,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             131.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3484,13 +3484,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             196.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -3513,13 +3513,13 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             450.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             26.0
           ]
@@ -3542,13 +3542,13 @@
       "requiredIntelligence": 2,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             10.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             20.0
           ]
@@ -3571,13 +3571,13 @@
       "requiredIntelligence": 20,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             22.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3600,13 +3600,13 @@
       "requiredIntelligence": 33,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             30.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3629,13 +3629,13 @@
       "requiredIntelligence": 51,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             42.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -3658,13 +3658,13 @@
       "requiredIntelligence": 150,
       "baseParams": [
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             107.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             26.0
           ]
@@ -3687,19 +3687,19 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             39.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             39.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             20.0
           ]
@@ -3724,19 +3724,19 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             64.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             64.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3761,19 +3761,19 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             93.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             93.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -3798,19 +3798,19 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             117.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             117.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -3835,19 +3835,19 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             256.0
           ]
         },
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             256.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             26.0
           ]
@@ -3872,19 +3872,19 @@
       "requiredIntelligence": 8,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             46.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             11.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3909,19 +3909,19 @@
       "requiredIntelligence": 16,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             68.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             17.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -3946,19 +3946,19 @@
       "requiredIntelligence": 24,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             93.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             23.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -3983,19 +3983,19 @@
       "requiredIntelligence": 32,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             117.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             29.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -4020,19 +4020,19 @@
       "requiredIntelligence": 78,
       "baseParams": [
         {
-          "code": "IMPLICIT_ARMOUR_BASE",
+          "code": "BASE_ARMOUR",
           "values": [
             252.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             62.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             26.0
           ]
@@ -4057,19 +4057,19 @@
       "requiredIntelligence": 6,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             39.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             10.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             20.0
           ]
@@ -4094,19 +4094,19 @@
       "requiredIntelligence": 14,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             64.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             16.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             21.0
           ]
@@ -4131,19 +4131,19 @@
       "requiredIntelligence": 24,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             93.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             23.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -4168,19 +4168,19 @@
       "requiredIntelligence": 32,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             117.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             29.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
           ]
@@ -4205,19 +4205,19 @@
       "requiredIntelligence": 84,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             270.0
           ]
         },
         {
-          "code": "IMPLICIT_ENERGY_SHIELD_BASE",
+          "code": "BASE_ENERGY_SHIELD",
           "values": [
             66.0
           ]
         },
         {
-          "code": "IMPLICIT_BLOCK_CHANCE_BASE",
+          "code": "BASE_BLOCK_CHANCE",
           "values": [
             26.0
           ]
@@ -4244,20 +4244,20 @@
       "durability": 101,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             7.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.5
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4276,20 +4276,20 @@
       "durability": 105,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             11.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.5
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4308,20 +4308,20 @@
       "durability": 123,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             29.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.5
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4340,20 +4340,20 @@
       "durability": 152,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             57.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.5
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4372,20 +4372,20 @@
       "durability": 166,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             71.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.5
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4404,25 +4404,25 @@
       "durability": 103,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             8.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.55
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "blade",
         "local:attack_physical",
         "local:attack_speed"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
       ]
     },
     {
@@ -4439,25 +4439,25 @@
       "durability": 107,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             11.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.55
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "blade",
         "local:attack_physical",
         "local:attack_speed"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
       ]
     },
     {
@@ -4474,25 +4474,25 @@
       "durability": 117,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             20.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.55
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "blade",
         "local:attack_physical",
         "local:attack_speed"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
       ]
     },
     {
@@ -4509,25 +4509,25 @@
       "durability": 126,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             28.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.55
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "blade",
         "local:attack_physical",
         "local:attack_speed"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
       ]
     },
     {
@@ -4544,25 +4544,25 @@
       "durability": 168,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             64.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.55
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "blade",
         "local:attack_physical",
         "local:attack_speed"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
       ]
     },
     {
@@ -4579,20 +4579,20 @@
       "durability": 101,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             8.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4611,20 +4611,20 @@
       "durability": 106,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             14.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4643,20 +4643,20 @@
       "durability": 111,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             19.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4675,20 +4675,20 @@
       "durability": 162,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             76.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4707,20 +4707,20 @@
       "durability": 171,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             85.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -4739,13 +4739,13 @@
       "durability": 101,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             3.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -4774,13 +4774,13 @@
       "durability": 106,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             6.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -4809,13 +4809,13 @@
       "durability": 112,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             8.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -4844,13 +4844,13 @@
       "durability": 159,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             30.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -4879,13 +4879,13 @@
       "durability": 168,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             34.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -4914,13 +4914,13 @@
       "durability": 101,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             9.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -4946,13 +4946,13 @@
       "durability": 105,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             15.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -4978,13 +4978,13 @@
       "durability": 118,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             32.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -5010,13 +5010,13 @@
       "durability": 156,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             82.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -5042,13 +5042,13 @@
       "durability": 168,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             97.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.4
           ]
@@ -5074,20 +5074,20 @@
       "durability": 101,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             15.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.35
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5106,20 +5106,20 @@
       "durability": 108,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             31.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.35
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5138,20 +5138,20 @@
       "durability": 112,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             39.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.35
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5170,20 +5170,20 @@
       "durability": 117,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             50.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.35
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5202,20 +5202,20 @@
       "durability": 165,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             154.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.35
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5234,20 +5234,20 @@
       "durability": 122,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             65.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5266,20 +5266,20 @@
       "durability": 127,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             76.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5298,20 +5298,20 @@
       "durability": 140,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             106.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5330,20 +5330,20 @@
       "durability": 164,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             161.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5362,20 +5362,20 @@
       "durability": 167,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             168.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.3
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "sword",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5394,20 +5394,20 @@
       "durability": 104,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             25.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.25
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5426,20 +5426,20 @@
       "durability": 109,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             37.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.25
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5458,20 +5458,20 @@
       "durability": 113,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             46.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.25
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5490,20 +5490,20 @@
       "durability": 166,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             175.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.25
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5522,20 +5522,20 @@
       "durability": 168,
       "baseParams": [
         {
-          "code": "IMPLICIT_PHYSICAL_DAMAGE_BASE",
+          "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             180.0
           ]
         },
         {
-          "code": "IMPLICIT_ATTACK_SPEED_BASE",
+          "code": "BASE_ATTACK_SPEED",
           "values": [
             1.25
           ]
         }
       ],
       "modifierPools": [
-        "weapon",
+        "axe",
         "local:attack_physical",
         "local:attack_speed"
       ]
@@ -5555,7 +5555,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_PHYSICAL_DAMAGE"
+        "ADD_PHYSICAL_DAMAGE@IMPLICIT"
       ]
     },
     {
@@ -5573,7 +5573,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_MAXIMUM_LIFE"
+        "ADD_MAXIMUM_LIFE@IMPLICIT"
       ]
     },
     {
@@ -5609,7 +5609,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_FIRE_RESISTANCE"
+        "ADD_FIRE_RESISTANCE@IMPLICIT"
       ]
     },
     {
@@ -5627,7 +5627,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_COLD_RESISTANCE"
+        "ADD_COLD_RESISTANCE@IMPLICIT"
       ]
     },
     {
@@ -5645,7 +5645,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_LIGHTNING_RESISTANCE"
+        "ADD_LIGHTNING_RESISTANCE@IMPLICIT"
       ]
     },
     {
@@ -5663,7 +5663,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_ENERGY_SHIELD"
+        "ADD_ENERGY_SHIELD@IMPLICIT"
       ]
     },
     {
@@ -5681,7 +5681,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_INCREASED_CRITICAL_CHANCE"
+        "INCREASED_CRITICAL_STRIKE_CHANCE@IMPLICIT"
       ]
     },
     {
@@ -5699,7 +5699,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_ALL_ELEMENTAL_RESISTANCES"
+        "ADD_ALL_ELEMENTAL_RESISTANCES@IMPLICIT"
       ]
     },
     {
@@ -5717,7 +5717,7 @@
         "ring"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_CHAOS_RESISTANCE"
+        "ADD_CHAOS_RESISTANCE@IMPLICIT"
       ]
     },
     {
@@ -5735,7 +5735,7 @@
         "amulet"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_LIFE_REGENERATION"
+        "ADD_LIFE_REGENERATION@IMPLICIT"
       ]
     },
     {
@@ -5771,7 +5771,7 @@
         "amulet"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_STRENGTH"
+        "ADD_STRENGTH@IMPLICIT"
       ]
     },
     {
@@ -5789,7 +5789,7 @@
         "amulet"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_DEXTERITY"
+        "ADD_DEXTERITY@IMPLICIT"
       ]
     },
     {
@@ -5807,7 +5807,7 @@
         "amulet"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_INTELLIGENCE"
+        "ADD_INTELLIGENCE@IMPLICIT"
       ]
     },
     {
@@ -5825,7 +5825,7 @@
         "amulet"
       ],
       "fixedModifiers": [
-        "IMPLICIT_INCREASED_ITEM_RARITY"
+        "INCREASED_ITEM_RARITY@IMPLICIT"
       ]
     },
     {
@@ -5843,7 +5843,7 @@
         "amulet"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_ALL_ATTRIBUTES"
+        "ADD_ALL_ATTRIBUTES@IMPLICIT"
       ]
     },
     {
@@ -5861,7 +5861,7 @@
         "belt"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_ENERGY_SHIELD"
+        "ADD_ENERGY_SHIELD@IMPLICIT"
       ]
     },
     {
@@ -5879,7 +5879,7 @@
         "belt"
       ],
       "fixedModifiers": [
-        "IMPLICIT_INCREASED_PHYSICAL_DAMAGE"
+        "INCREASED_PHYSICAL_DAMAGE@IMPLICIT"
       ]
     },
     {
@@ -5897,7 +5897,7 @@
         "belt"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_STRENGTH"
+        "ADD_STRENGTH@IMPLICIT"
       ]
     },
     {
@@ -5915,7 +5915,7 @@
         "belt"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_MAXIMUM_LIFE"
+        "ADD_MAXIMUM_LIFE@IMPLICIT"
       ]
     },
     {
@@ -5933,7 +5933,7 @@
         "belt"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_STUN_THRESHOLD"
+        "ADD_STUN_THRESHOLD@IMPLICIT"
       ]
     },
     {
@@ -5951,7 +5951,7 @@
         "belt"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_ARMOUR"
+        "ADD_ARMOUR@IMPLICIT"
       ]
     },
     {
@@ -5969,7 +5969,7 @@
         "quiver"
       ],
       "fixedModifiers": [
-        "IMPLICIT_INCREASED_CRITICAL_CHANCE"
+        "INCREASED_CRITICAL_STRIKE_CHANCE@IMPLICIT"
       ]
     },
     {
@@ -5987,7 +5987,7 @@
         "quiver"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_PHYSICAL_DAMAGE"
+        "ADD_PHYSICAL_DAMAGE@IMPLICIT"
       ]
     },
     {
@@ -6005,7 +6005,7 @@
         "quiver"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_LIFE_LEECH"
+        "ADD_PHYSICAL_LIFE_LEECH@IMPLICIT"
       ]
     },
     {
@@ -6023,7 +6023,7 @@
         "quiver"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_STUN_THRESHOLD"
+        "ADD_STUN_THRESHOLD@IMPLICIT"
       ]
     },
     {
@@ -6041,7 +6041,7 @@
         "quiver"
       ],
       "fixedModifiers": [
-        "IMPLICIT_ADD_FIRE_DAMAGE"
+        "ADD_FIRE_DAMAGE@IMPLICIT"
       ]
     },
     {
@@ -6056,7 +6056,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             19.0
           ]
@@ -6079,7 +6079,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             55.0
           ]
@@ -6090,7 +6090,7 @@
         "local:evasion"
       ],
       "fixedModifiers": [
-        "IMPLICIT_INCREASED_MOVEMENT_SPEED"
+        "INCREASED_MOVEMENT_SPEED@IMPLICIT"
       ]
     },
     {
@@ -6105,7 +6105,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             95.0
           ]
@@ -6128,7 +6128,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             147.0
           ]
@@ -6139,7 +6139,7 @@
         "local:evasion"
       ],
       "fixedModifiers": [
-        "IMPLICIT_INCREASED_MOVEMENT_SPEED"
+        "INCREASED_MOVEMENT_SPEED@IMPLICIT"
       ]
     },
     {
@@ -6154,7 +6154,7 @@
       "requiredIntelligence": 0,
       "baseParams": [
         {
-          "code": "IMPLICIT_EVASION_BASE",
+          "code": "BASE_EVASION",
           "values": [
             195.0
           ]
@@ -6372,6 +6372,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:mining",
         "tool"
       ]
     },
@@ -6387,6 +6388,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:mining",
         "tool"
       ]
     },
@@ -6402,6 +6404,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:mining",
         "tool"
       ]
     },
@@ -6417,6 +6420,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:herbalism",
         "tool"
       ]
     },
@@ -6432,6 +6436,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:herbalism",
         "tool"
       ]
     },
@@ -6447,6 +6452,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:herbalism",
         "tool"
       ]
     },
@@ -6462,6 +6468,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:woodcutting",
         "tool"
       ]
     },
@@ -6477,6 +6484,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:woodcutting",
         "tool"
       ]
     },
@@ -6492,6 +6500,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:woodcutting",
         "tool"
       ]
     },
@@ -6507,6 +6516,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:smithing",
         "tool"
       ]
     },
@@ -6522,6 +6532,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:smithing",
         "tool"
       ]
     },
@@ -6537,6 +6548,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:smithing",
         "tool"
       ]
     },
@@ -6552,6 +6564,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:alchemy",
         "tool"
       ]
     },
@@ -6567,6 +6580,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:alchemy",
         "tool"
       ]
     },
@@ -6582,6 +6596,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:alchemy",
         "tool"
       ]
     },
@@ -6597,6 +6612,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:cartography",
         "tool"
       ]
     },
@@ -6612,6 +6628,7 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:cartography",
         "tool"
       ]
     },
@@ -6627,6 +6644,55 @@
       "requiredIntelligence": 0,
       "baseParams": [],
       "modifierPools": [
+        "tool:cartography",
+        "tool"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "TOOL_ENCHANTING",
+      "code": "BRONZE_STYLUS",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "tool:enchanting",
+        "tool"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "TOOL_ENCHANTING",
+      "code": "STEEL_STYLUS",
+      "rarity": "COMMON",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "tool:enchanting",
+        "tool"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "TOOL_ENCHANTING",
+      "code": "RUNIC_STYLUS",
+      "rarity": "COMMON",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "tool:enchanting",
         "tool"
       ]
     }

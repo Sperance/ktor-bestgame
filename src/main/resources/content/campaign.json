@@ -1,5 +1,7 @@
 {
-  "rangedForms": ["WRAITH"],
+  "rangedForms": [
+    "WRAITH"
+  ],
   "defaults": {
     "STOCK_CRITICAL_CHANCE": 5,
     "STOCK_CRITICAL_MULTIPLIER": 150
@@ -93,305 +95,6 @@
       "quantity": 10.0,
       "rarityBonus": 250,
       "experience": 15.0
-    }
-  ],
-  "modifiers": [
-    {
-      "code": "MOB_TOUGH",
-      "minLevel": 1,
-      "effects": [
-        {
-          "stat": "STOCK_HEALTH",
-          "operation": "INCREASED",
-          "value": 60
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_HASTED",
-      "minLevel": 1,
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_SPEED",
-          "operation": "INCREASED",
-          "value": 30
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_STRONG",
-      "minLevel": 1,
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "operation": "INCREASED",
-          "value": 40
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_FLAMING",
-      "minLevel": 3,
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_FIRE",
-          "operation": "ADD",
-          "value": 3
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_FREEZING",
-      "minLevel": 3,
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "operation": "ADD",
-          "value": 3
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_SHOCKING",
-      "minLevel": 5,
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
-          "operation": "ADD",
-          "value": 3
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_VENOMOUS",
-      "minLevel": 7,
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_CHAOS",
-          "operation": "ADD",
-          "value": 2
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_ARMOURED",
-      "minLevel": 1,
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR",
-          "operation": "ADD",
-          "value": 25
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_EVASIVE",
-      "minLevel": 1,
-      "effects": [
-        {
-          "stat": "STOCK_EVASION",
-          "operation": "ADD",
-          "value": 25
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_REGENERATING",
-      "minLevel": 5,
-      "effects": [
-        {
-          "stat": "STOCK_HEALTH_REGEN",
-          "operation": "ADD",
-          "value": 1
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_VAMPIRIC",
-      "minLevel": 7,
-      "effects": [
-        {
-          "stat": "STOCK_LEECH_ALL",
-          "operation": "ADD",
-          "value": 3
-        }
-      ],
-      "minRarity": "RARE"
-    },
-    {
-      "code": "MOB_DEADLY",
-      "minLevel": 9,
-      "effects": [
-        {
-          "stat": "STOCK_CRITICAL_CHANCE",
-          "operation": "ADD",
-          "value": 10
-        },
-        {
-          "stat": "STOCK_CRITICAL_MULTIPLIER",
-          "operation": "ADD",
-          "value": 50
-        }
-      ],
-      "minRarity": "RARE"
-    },
-    {
-      "code": "MOB_WARDED",
-      "minLevel": 9,
-      "effects": [
-        {
-          "stat": "STOCK_RESIST_ALL",
-          "operation": "ADD",
-          "value": 20
-        }
-      ],
-      "minRarity": "MAGIC"
-    },
-    {
-      "code": "MOB_STALWART",
-      "minLevel": 11,
-      "effects": [
-        {
-          "stat": "STOCK_BLOCK_CHANCE",
-          "operation": "ADD",
-          "value": 20
-        }
-      ],
-      "minRarity": "RARE"
-    },
-    {
-      "code": "MOB_SHIELDED",
-      "minLevel": 11,
-      "effects": [
-        {
-          "stat": "STOCK_ENERGY_SHIELD",
-          "operation": "ADD",
-          "value": 10
-        }
-      ],
-      "minRarity": "RARE"
-    },
-    {
-      "code": "MOB_BERSERK",
-      "minLevel": 5,
-      "minRarity": "RARE",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "operation": "MORE",
-          "value": 30
-        },
-        {
-          "stat": "STOCK_ATTACK_SPEED",
-          "operation": "INCREASED",
-          "value": 20
-        }
-      ]
-    },
-    {
-      "code": "MOB_JUGGERNAUT",
-      "minLevel": 7,
-      "minRarity": "RARE",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR",
-          "operation": "INCREASED",
-          "value": 100
-        },
-        {
-          "stat": "STOCK_STUN_THRESHOLD",
-          "operation": "ADD",
-          "value": 8
-        }
-      ]
-    },
-    {
-      "code": "MOB_ELEMENTALIST",
-      "minLevel": 9,
-      "minRarity": "RARE",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_FIRE",
-          "operation": "ADD",
-          "value": 2
-        },
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "operation": "ADD",
-          "value": 2
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
-          "operation": "ADD",
-          "value": 2
-        }
-      ]
-    },
-    {
-      "code": "MOB_UNDYING",
-      "minLevel": 11,
-      "minRarity": "RARE",
-      "effects": [
-        {
-          "stat": "STOCK_HEALTH",
-          "operation": "MORE",
-          "value": 50
-        },
-        {
-          "stat": "STOCK_HEALTH_REGEN",
-          "operation": "ADD",
-          "value": 2
-        }
-      ]
-    },
-    {
-      "code": "MOB_TAUNTING",
-      "minLevel": 3,
-      "minRarity": "MAGIC",
-      "effects": [
-        {
-          "stat": "STOCK_TAUNT",
-          "operation": "ADD",
-          "value": 1
-        },
-        {
-          "stat": "STOCK_HEALTH",
-          "operation": "INCREASED",
-          "value": 25
-        }
-      ]
-    },
-    {
-      "code": "MOB_ARCANE",
-      "minLevel": 9,
-      "minRarity": "RARE",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_MAGICAL",
-          "operation": "ADD",
-          "value": 3
-        },
-        {
-          "stat": "STOCK_MANA",
-          "operation": "ADD",
-          "value": 20
-        },
-        {
-          "stat": "STOCK_CAST_SPEED",
-          "operation": "INCREASED",
-          "value": 20
-        }
-      ]
     }
   ],
   "lootTables": {
@@ -1252,7 +955,8 @@
       }
     },
     {
-      "code": "BRINE_SPITTER", "range": "RANGED",
+      "code": "BRINE_SPITTER",
+      "range": "RANGED",
       "form": "SERPENT",
       "experience": 20,
       "loot": "T1",
@@ -1315,7 +1019,8 @@
       }
     },
     {
-      "code": "THORN_DRYAD", "range": "RANGED",
+      "code": "THORN_DRYAD",
+      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 22,
       "loot": "T2",
@@ -1359,7 +1064,8 @@
       }
     },
     {
-      "code": "BONE_ARCHER", "range": "RANGED",
+      "code": "BONE_ARCHER",
+      "range": "RANGED",
       "form": "UNDEAD",
       "experience": 20,
       "loot": "T2",
@@ -1541,7 +1247,8 @@
       }
     },
     {
-      "code": "TEMPLE_ZEALOT", "range": "RANGED",
+      "code": "TEMPLE_ZEALOT",
+      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 24,
       "loot": "T3",
@@ -1573,7 +1280,8 @@
       }
     },
     {
-      "code": "ABYSSAL_ACOLYTE", "range": "RANGED",
+      "code": "ABYSSAL_ACOLYTE",
+      "range": "RANGED",
       "form": "WRAITH",
       "experience": 26,
       "loot": "T3",
@@ -1611,14 +1319,15 @@
       "loot": "BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
-        "STOCK_HEALTH": 40,
+        "STOCK_HEALTH": 48,
         "STOCK_ATTACK_PHYSICAL": 6,
-        "STOCK_ATTACK_COLD": 3
+        "STOCK_ATTACK_COLD": 4,
+        "STOCK_RESIST_COLD": 30
       },
       "boss": true,
       "modifiers": [
         "MOB_TOUGH",
-        "MOB_FREEZING"
+        "BOSS_TEMPEST"
       ],
       "uniquePools": [
         "boss:BOSS_TIDECALLER"
@@ -1631,14 +1340,15 @@
       "loot": "BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
-        "STOCK_HEALTH": 55,
-        "STOCK_ATTACK_PHYSICAL": 7,
-        "STOCK_ARMOR": 40,
-        "STOCK_BLOCK_CHANCE": 15
+        "STOCK_HEALTH": 66,
+        "STOCK_ATTACK_PHYSICAL": 8,
+        "STOCK_ARMOR": 55,
+        "STOCK_BLOCK_CHANCE": 20,
+        "STOCK_STUN_THRESHOLD": 10
       },
       "boss": true,
       "modifiers": [
-        "MOB_ARMOURED",
+        "BOSS_SIEGE",
         "MOB_STRONG"
       ],
       "uniquePools": [
@@ -1652,14 +1362,15 @@
       "loot": "BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
-        "STOCK_HEALTH": 60,
-        "STOCK_ATTACK_CHAOS": 6,
+        "STOCK_HEALTH": 70,
+        "STOCK_ATTACK_CHAOS": 7,
         "STOCK_HEALTH_REGEN": 3,
-        "STOCK_RESIST_CHAOS": 40
+        "STOCK_RESIST_CHAOS": 50,
+        "STOCK_POISON_CHANCE": 20
       },
       "boss": true,
       "modifiers": [
-        "MOB_VENOMOUS",
+        "BOSS_PLAGUEBEARER",
         "MOB_REGENERATING"
       ],
       "uniquePools": [
@@ -1672,15 +1383,17 @@
       "experience": 60,
       "loot": "BOSS_2",
       "stats": {
-        "STOCK_ATTACK_SPEED": 1.5,
-        "STOCK_HEALTH": 50,
-        "STOCK_ATTACK_PHYSICAL": 8,
-        "STOCK_EVASION": 60
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 58,
+        "STOCK_ATTACK_PHYSICAL": 9,
+        "STOCK_EVASION": 80,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MOVEMENT_SPEED": 20
       },
       "boss": true,
       "modifiers": [
         "MOB_HASTED",
-        "MOB_DEADLY"
+        "BOSS_EXECUTIONER"
       ],
       "uniquePools": [
         "boss:BOSS_ALPHA_WOLF"
@@ -1693,16 +1406,17 @@
       "loot": "BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
-        "STOCK_HEALTH": 70,
-        "STOCK_ATTACK_PHYSICAL": 9,
-        "STOCK_ARMOR": 70,
+        "STOCK_HEALTH": 85,
+        "STOCK_ATTACK_PHYSICAL": 10,
+        "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
-        "STOCK_STUN_THRESHOLD": 18
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_AVOID_STUN": 50
       },
       "boss": true,
       "modifiers": [
-        "MOB_STALWART",
-        "MOB_JUGGERNAUT"
+        "BOSS_COLOSSAL",
+        "MOB_STALWART"
       ],
       "uniquePools": [
         "boss:BOSS_RUIN_WARDEN"
@@ -1715,15 +1429,16 @@
       "loot": "BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
-        "STOCK_HEALTH": 55,
+        "STOCK_HEALTH": 64,
         "STOCK_ATTACK_PHYSICAL": 8,
-        "STOCK_ATTACK_CHAOS": 4,
-        "STOCK_RESIST_CHAOS": 30
+        "STOCK_ATTACK_CHAOS": 5,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_LEECH_ALL": 3
       },
       "boss": true,
       "modifiers": [
-        "MOB_VAMPIRIC",
-        "MOB_UNDYING"
+        "BOSS_IMMORTAL",
+        "MOB_VAMPIRIC"
       ],
       "uniquePools": [
         "boss:BOSS_CRYPT_LORD"
@@ -1736,15 +1451,16 @@
       "loot": "BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
-        "STOCK_HEALTH": 50,
+        "STOCK_HEALTH": 58,
         "STOCK_ATTACK_PHYSICAL": 6,
-        "STOCK_ATTACK_LIGHTNING": 5,
-        "STOCK_CRITICAL_CHANCE": 10
+        "STOCK_ATTACK_LIGHTNING": 7,
+        "STOCK_CRITICAL_CHANCE": 12,
+        "STOCK_SHOCK_CHANCE": 25
       },
       "boss": true,
       "modifiers": [
-        "MOB_SHOCKING",
-        "MOB_DEADLY"
+        "BOSS_DEVASTATING",
+        "MOB_CRACKLING"
       ],
       "uniquePools": [
         "boss:BOSS_SHARD_QUEEN"
@@ -1756,16 +1472,18 @@
       "experience": 60,
       "loot": "BOSS_3",
       "stats": {
-        "STOCK_ATTACK_SPEED": 0.9,
-        "STOCK_HEALTH": 75,
-        "STOCK_ATTACK_PHYSICAL": 8,
-        "STOCK_ATTACK_FIRE": 7,
-        "STOCK_RESIST_FIRE": 50
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 88,
+        "STOCK_ATTACK_PHYSICAL": 9,
+        "STOCK_ATTACK_FIRE": 9,
+        "STOCK_RESIST_FIRE": 60,
+        "STOCK_IGNITE_CHANCE": 25,
+        "STOCK_PENETRATE_ELEMENTAL": 10
       },
       "boss": true,
       "modifiers": [
-        "MOB_FLAMING",
-        "MOB_BERSERK"
+        "MOB_BURNING",
+        "BOSS_WARLORD"
       ],
       "uniquePools": [
         "boss:BOSS_ASHEN_TYRANT"
@@ -1778,19 +1496,20 @@
       "loot": "BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
-        "STOCK_HEALTH": 45,
-        "STOCK_ENERGY_SHIELD": 25,
-        "STOCK_ATTACK_COLD": 7,
-        "STOCK_RESIST_COLD": 60,
+        "STOCK_HEALTH": 52,
+        "STOCK_ENERGY_SHIELD": 35,
+        "STOCK_ATTACK_COLD": 9,
+        "STOCK_RESIST_COLD": 70,
         "STOCK_ATTACK_MAGICAL": 6,
         "STOCK_CAST_SPEED": 1.0,
         "STOCK_MANA": 60,
-        "STOCK_MANA_REGEN": 4
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
       },
       "boss": true,
       "modifiers": [
-        "MOB_FREEZING",
-        "MOB_ARCANE"
+        "BOSS_DREAD",
+        "MOB_CHILLING"
       ],
       "uniquePools": [
         "boss:BOSS_FROST_MONARCH"
@@ -1803,17 +1522,19 @@
       "loot": "BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
-        "STOCK_HEALTH": 80,
-        "STOCK_ATTACK_PHYSICAL": 9,
-        "STOCK_ATTACK_CHAOS": 6,
-        "STOCK_ENERGY_SHIELD": 20,
-        "STOCK_RESIST_CHAOS": 40
+        "STOCK_HEALTH": 96,
+        "STOCK_ATTACK_PHYSICAL": 10,
+        "STOCK_ATTACK_CHAOS": 7,
+        "STOCK_ENERGY_SHIELD": 30,
+        "STOCK_RESIST_CHAOS": 50,
+        "STOCK_RESIST_ALL": 20,
+        "STOCK_REFLECT": 10
       },
       "boss": true,
       "modifiers": [
-        "MOB_ELEMENTALIST",
-        "MOB_WARDED",
-        "MOB_JUGGERNAUT"
+        "BOSS_MIRROR_SHELL",
+        "BOSS_DEVASTATING",
+        "MOB_WARDED"
       ],
       "uniquePools": [
         "boss:BOSS_DROWNED_GOD"
@@ -2132,7 +1853,10 @@
       "rechargeDelay": 2.0,
       "rechargePerSecond": 20
     },
-    "loneWolf": {"dealt": 10, "taken": 10},
+    "loneWolf": {
+      "dealt": 10,
+      "taken": 10
+    },
     "retreat": {
       "delay": 1.5
     },
@@ -2315,36 +2039,134 @@
     },
     "uniquePools": [
       "unique:world"
-    ]
+    ],
+    "modifierPools": [
+      "boss"
+    ],
+    "rolls": [
+      1,
+      2
+    ],
+    "tierReach": 5
   },
   "services": {
     "summonPerLevel": 150
   },
   "fountains": {
-    "count": [0, 2],
+    "count": [
+      0,
+      2
+    ],
     "heal": 30
   },
   "corruption": {
     "chance": 0.35,
     "uniqueChance": 0.12,
-    "uniquePools": ["unique:world"]
+    "uniquePools": [
+      "unique:world"
+    ]
   },
   "vaal": {
-    "mods": [3, 8],
+    "mods": [
+      3,
+      9
+    ],
     "power": 1.5,
     "reward": 1.5,
     "perMod": 4.0,
     "pool": [
-      { "modifier": "MAP_MONSTER_LIFE", "weight": 100 },
-      { "modifier": "MAP_MONSTER_DAMAGE", "weight": 100 },
-      { "modifier": "MAP_MONSTER_SPEED", "weight": 100 },
-      { "modifier": "MAP_MONSTER_RESIST", "weight": 100 },
-      { "modifier": "MAP_HERO_LIGHT", "weight": 100 },
-      { "modifier": "MAP_HERO_RESIST", "weight": 100 },
-      { "modifier": "MAP_HERO_REGEN", "weight": 100 },
-      { "modifier": "MAP_HERO_SLOW", "weight": 100 },
-      { "modifier": "MAP_PACK_SIZE", "weight": 100 },
-      { "modifier": "MAP_MONSTER_RARITY", "weight": 100 }
+      {
+        "modifier": "MAP_MONSTER_LIFE",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_MONSTER_DAMAGE",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_MONSTER_SPEED",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_MONSTER_RESIST",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_HERO_LIGHT",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_HERO_RESIST",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_HERO_REGEN",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_HERO_SLOW",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_PACK_SIZE",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_MONSTER_RARITY",
+        "weight": 100
+      },
+      {
+        "modifier": "MAP_MONSTER_PENETRATION",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_MONSTER_REFLECT",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_MONSTER_CRITICAL",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_MONSTER_AILMENTS",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_MONSTER_ARMOUR",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_MONSTER_LEECH",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_MONSTER_STUN",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_HERO_DAMAGE_TAKEN",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_HERO_RECOVERY",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_HERO_MAX_RESIST",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_HERO_DEFENCES",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_HERO_BLOCK",
+        "weight": 70
+      },
+      {
+        "modifier": "MAP_HERO_CRIT",
+        "weight": 70
+      }
     ]
   },
   "maps": {
@@ -2367,7 +2189,21 @@
       "MAP_HERO_LIGHT": 0.3,
       "MAP_HERO_RESIST": 0.8,
       "MAP_HERO_REGEN": 0.15,
-      "MAP_HERO_SLOW": 0.3
+      "MAP_HERO_SLOW": 0.3,
+      "MAP_MONSTER_PENETRATION": 0.8,
+      "MAP_MONSTER_REFLECT": 1.0,
+      "MAP_MONSTER_CRITICAL": 0.6,
+      "MAP_MONSTER_AILMENTS": 0.4,
+      "MAP_MONSTER_ARMOUR": 0.2,
+      "MAP_MONSTER_LEECH": 1.5,
+      "MAP_MONSTER_STUN": 0.1,
+      "MAP_MONSTER_MAGIC_MIN": 12.0,
+      "MAP_HERO_DAMAGE_TAKEN": 0.8,
+      "MAP_HERO_RECOVERY": 0.4,
+      "MAP_HERO_MAX_RESIST": 1.5,
+      "MAP_HERO_DEFENCES": 0.4,
+      "MAP_HERO_BLOCK": 0.5,
+      "MAP_HERO_CRIT": 0.25
     }
   }
 }

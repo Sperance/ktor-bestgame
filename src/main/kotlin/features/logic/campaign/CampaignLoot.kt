@@ -1,5 +1,6 @@
 package features.logic.campaign
 
+import application.enums.EnumMonsterRarity
 import application.enums.EnumRarity
 import features.logic.pools.Weighted
 import kotlin.math.floor
@@ -167,6 +168,9 @@ object CampaignMaps {
     const val RARITY = "MAP_RARITY"
     const val EXPERIENCE = "MAP_EXPERIENCE"
     const val CHESTS = "MAP_CHESTS"
+    const val GOLD = "MAP_GOLD"
+    const val FOUNTAINS = "MAP_FOUNTAINS"
+    const val BOSS_POWER = "MAP_BOSS_POWER"
 
     /** Код шаблона карты для локации: `MAP_<код локации>`. */
     fun templateCode(mapCode: String) = "MAP_$mapCode"
@@ -191,16 +195,17 @@ object CampaignMaps {
      * @param chance шанс выпадения, уже умноженный на количество
      * @param maps все локации в порядке открытия; следующая за [mapCode] - «на уровень выше»
      */
-    fun drop(rule: MapRule, chance: Double, mapCode: String, maps: List<String>, random: Random): String? {
+    fun drop(rule: MapRule, chance: Double, mapCode: String, maps: List<String>, random: Random, nextBonus: Double = 0.0): String? {
         if (random.nextDouble() >= chance) return null
         val next = maps.getOrNull(maps.indexOf(mapCode) + 1)
-        return if (next != null && random.nextDouble() < rule.nextChance) next else mapCode
+        return if (next != null && random.nextDouble() < rule.nextChance * (1 + nextBonus / 100)) next else mapCode
     }
 
-    /** Редкость упавшей карты по весам правила. */
-    fun rarity(rule: MapRule, random: Random): EnumRarity {
-        var point = random.nextDouble() * rule.rarities.values.sum()
-        rule.rarities.forEach { (rarity, weight) ->
+    /** Редкость упавшей карты по весам правила; [rareBonus] (атлас, 0.66.0) - проценты к весу редкой. */
+    fun rarity(rule: MapRule, random: Random, rareBonus: Double = 0.0): EnumRarity {
+        val weights = rule.rarities.mapValues { (rarity, weight) -> if (rarity == EnumRarity.RARE) weight * (1 + rareBonus / 100) else weight.toDouble() }
+        var point = random.nextDouble() * weights.values.sum()
+        weights.forEach { (rarity, weight) ->
             point -= weight
             if (point < 0) return rarity
         }

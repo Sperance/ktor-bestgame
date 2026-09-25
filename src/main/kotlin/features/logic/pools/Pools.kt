@@ -1,5 +1,6 @@
 package features.logic.pools
 
+import application.enums.EnumEquipmentType
 import application.enums.EnumInfluence
 import extensions.weightedRandomExt
 import java.util.concurrent.ConcurrentHashMap
@@ -79,4 +80,25 @@ object Pools {
 
     /** Пул модификаторов, который открывает предмету его влияние. */
     fun influence(influence: EnumInfluence): String = "influence$SEPARATOR${influence.name}"
+
+    /**
+     * Пулы влияния для предмета слота [slot] (0.66.0): сначала слотовый `influence:<влияние>:<слот>`,
+     * потом общий - вес берётся из первого, где строка есть, как у любого источника.
+     */
+    fun influence(influence: EnumInfluence, slot: EnumEquipmentType): List<String> =
+        listOf("${influence(influence)}$SEPARATOR${slotTag(slot)}", influence(influence))
+
+    /** Тег слота в пулах (0.66.0): оба оружия - `weapon`, инструменты - `tool`, остальное - имя слота. */
+    fun slotTag(slot: EnumEquipmentType): String = when {
+        slot == EnumEquipmentType.WEAPON_1H || slot == EnumEquipmentType.WEAPON_2H -> "weapon"
+        slot == EnumEquipmentType.RING_2 -> "ring"
+        slot.isTool -> "tool"
+        else -> slot.name.lowercase()
+    }
+
+    /** Пул порченых имплиситов слота (0.66.0): `corruption:<слот>`. */
+    fun corruption(slot: EnumEquipmentType): String = "corruption$SEPARATOR${slotTag(slot)}"
+
+    /** Пул зачарований слота (0.66.0): `enchant:<слот>`. */
+    fun enchant(slotTag: String): String = "enchant$SEPARATOR$slotTag"
 }

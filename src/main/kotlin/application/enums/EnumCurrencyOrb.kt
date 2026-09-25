@@ -131,9 +131,44 @@ enum class EnumCurrencyOrb {
     ELITE_ORB,
 
     /** Строка «Алхимия»: больше добычи. */
-    BOUNTY_ORB;
+    BOUNTY_ORB,
 
-    val mapOnly: Boolean get() = ordinal >= EMPOWERING_ORB.ordinal
+    /** Строка «Алхимия» (0.66.0): больше сундуков. */
+    TREASURE_ORB,
+
+    /** Строка «Алхимия» (0.66.0): больше золота. */
+    GILDED_ORB,
+
+    /** Строка «Алхимия» (0.66.0): босс сильнее и щедрее. */
+    WARDEN_ORB,
+
+    // ---------- Свитки зачарователя (0.66.0): зачарование своего слота, одно на предмет ----------
+
+    /** Зачарование шлема. */
+    HELMET_SCROLL,
+
+    /** Зачарование перчаток. */
+    GLOVES_SCROLL,
+
+    /** Зачарование сапог. */
+    BOOTS_SCROLL,
+
+    /** Зачарование оружия. */
+    WEAPON_SCROLL;
+
+    val mapOnly: Boolean get() = ordinal >= EMPOWERING_ORB.ordinal && ordinal <= WARDEN_ORB.ordinal
+
+    /** Свиток зачарователя: ложится на снаряжение своего слота, см. CurrencyApplier. */
+    val enchant: Boolean get() = ordinal >= HELMET_SCROLL.ordinal
+
+    /** Слот, который зачаровывает свиток; у прочих сфер - null. */
+    val enchantSlot: String? get() = when (this) {
+        HELMET_SCROLL -> "helmet"
+        GLOVES_SCROLL -> "gloves"
+        BOOTS_SCROLL -> "boots"
+        WEAPON_SCROLL -> "weapon"
+        else -> null
+    }
 
     companion object {
         /**

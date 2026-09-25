@@ -1,4 +1,5 @@
 import application.enums.EnumCurrencyOrb
+import application.enums.EnumEquipmentType
 import application.enums.EnumInfluence
 import application.enums.EnumRarity
 import config.CurrencySeeder
@@ -42,9 +43,11 @@ class PoolsTest {
     /** Пулы модификаторов предметов, которые называют источники. */
     private val modifierSources: Map<String, List<String>> =
         equipment.associate { "equipment ${it.code}" to it.modifierPools }.filterValues { it.isNotEmpty() } +
-            EnumInfluence.entries.associate { "influence $it" to listOf(Pools.influence(it)) } +
+            EnumInfluence.entries.flatMap { influence -> EnumEquipmentType.entries.map { slot -> "influence $influence $slot" to Pools.influence(influence, slot) } } +
             CurrencySeeder.records.values.filter { it.modifierPools.isNotEmpty() }.associate { "orb ${it.orb}" to it.modifierPools } +
-            mapOf("smith" to crafting.modifierPools, "cartographer" to crafting.mapModifierPools)
+            // Порча (0.66.0): у носимого, самоцвета и карты; инструмент Vaal Orb портит без имплисита.
+            EnumEquipmentType.entries.filter { !it.isTool && it != EnumEquipmentType.RING_2 }.associate { "corruption $it" to listOf(Pools.corruption(it)) } +
+            mapOf("smith" to crafting.modifierPools + listOf("handcrafted:smith:weapon", "handcrafted:smith:armour"), "cartographer" to crafting.mapModifierPools)
 
     /** Пулы экипировки и уникалок, которые называют источники. */
     private val equipmentSources: Map<String, List<String>> =
@@ -54,7 +57,11 @@ class PoolsTest {
             mapOf("bosses" to campaign.bosses.uniquePools, "corruption" to campaign.corruption.uniquePools,
                 "smith bases" to crafting.equipmentPools, "smith uniques" to crafting.uniquePools, "merchant" to MerchantRules.POOLS)
 
-    private val monsterSources: Map<String, List<String>> = campaign.chapters.flatMap { it.maps }.associate { "map ${it.code}" to it.modifierPools }
+    private val monsterSources: Map<String, List<String>> =
+        campaign.chapters.flatMap { it.maps }.associate { "map ${it.code}" to it.modifierPools } + mapOf("bosses" to campaign.bosses.modifierPools)
+
+    /** Модификаторы монстров (0.66.0) - описания источника MONSTER. */
+    private val monsterModifiers = definitions.filter { it.isMonster() }
 
     @Test
     fun the_first_pool_a_source_names_decides_the_weight_and_zero_excludes() {
@@ -81,12 +88,14 @@ class PoolsTest {
     fun every_pool_a_source_names_has_members() {
         modifierSources.forEach { (source, tags) -> assertTrue(modifierPools.of(definitions, tags).isNotEmpty(), "$source names empty pools $tags") }
         equipmentSources.forEach { (source, tags) -> assertTrue(equipmentPools.of(equipment, tags).isNotEmpty(), "$source names empty pools $tags") }
-        monsterSources.forEach { (source, tags) -> assertTrue(monsterPools.of(campaign.modifiers, tags).isNotEmpty(), "$source names empty pools $tags") }
+        monsterSources.forEach { (source, tags) -> assertTrue(monsterPools.of(monsterModifiers, tags).isNotEmpty(), "$source names empty pools $tags") }
     }
 
     @Test
     fun every_pool_is_named_by_a_source() {
-        fun orphans(table: PoolTable, sources: Map<String, List<String>>) = table.tags - sources.values.flatten().toSet()
+        // Общие пулы (0.66.0) никто не называет: их включают пулы слотов, см. PoolSeeder.
+        val included = setOf("armour", "jewellery", "weapon", "tool")
+        fun orphans(table: PoolTable, sources: Map<String, List<String>>) = table.tags - sources.values.flatten().toSet() - included
         assertEquals(emptySet(), orphans(modifierPools, modifierSources))
         assertEquals(emptySet(), orphans(equipmentPools, equipmentSources))
         assertEquals(emptySet(), orphans(monsterPools, monsterSources))
@@ -96,7 +105,7 @@ class PoolsTest {
     fun every_entry_is_a_record_of_its_kind() {
         val codes: Map<EnumPoolKind, Set<String>> = mapOf(
             EnumPoolKind.MODIFIER to definitions.map { it.code }.toSet(),
-            EnumPoolKind.MONSTER to campaign.modifiers.map { it.code }.toSet(),
+            EnumPoolKind.MONSTER to monsterModifiers.map { it.code }.toSet(),
             EnumPoolKind.EQUIPMENT to equipment.filter { !it.rarity.fixed }.map { it.code }.toSet(),
             EnumPoolKind.UNIQUE to equipment.filter { it.rarity == EnumRarity.UNIQUE }.map { it.code }.toSet(),
             EnumPoolKind.MYTHIC to equipment.filter { it.rarity == EnumRarity.MYTHICAL }.map { it.code }.toSet(),

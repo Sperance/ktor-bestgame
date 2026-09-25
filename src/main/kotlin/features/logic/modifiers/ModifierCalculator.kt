@@ -28,6 +28,16 @@ object ModifierCalculator : KoinComponent {
         EnumStatStock.STOCK_MOVEMENT_SPEED, EnumStatStock.STOCK_RARITY, EnumStatStock.STOCK_QUANTITY, EnumStatStock.STOCK_EXPERIENCE,
         EnumStatStock.STOCK_GOLD, EnumStatStock.STOCK_CHEST_QUANTITY, EnumStatStock.STOCK_WORK_SPEED, EnumStatStock.STOCK_WORK_EXPERIENCE,
         EnumStatStock.STOCK_WORK_FIND,
+        // 0.66.0: пробивание, урон по состояниям, длительность состояний, получаемый урон, восстановление, отражение
+        EnumStatStock.STOCK_PENETRATE_FIRE, EnumStatStock.STOCK_PENETRATE_COLD, EnumStatStock.STOCK_PENETRATE_LIGHTNING,
+        EnumStatStock.STOCK_PENETRATE_CHAOS, EnumStatStock.STOCK_PENETRATE_ELEMENTAL,
+        EnumStatStock.STOCK_DAMAGE_VS_AILED, EnumStatStock.STOCK_DAMAGE_VS_BURNING, EnumStatStock.STOCK_DAMAGE_VS_CHILLED,
+        EnumStatStock.STOCK_DAMAGE_VS_SHOCKED, EnumStatStock.STOCK_DAMAGE_VS_POISONED, EnumStatStock.STOCK_DAMAGE_VS_BLEEDING,
+        EnumStatStock.STOCK_AILMENT_DURATION, EnumStatStock.STOCK_IGNITE_DURATION, EnumStatStock.STOCK_CHILL_DURATION,
+        EnumStatStock.STOCK_FREEZE_DURATION, EnumStatStock.STOCK_SHOCK_DURATION, EnumStatStock.STOCK_POISON_DURATION,
+        EnumStatStock.STOCK_BLEED_DURATION, EnumStatStock.STOCK_DAMAGE_TAKEN, EnumStatStock.STOCK_PHYSICAL_TAKEN,
+        EnumStatStock.STOCK_ELEMENTAL_TAKEN, EnumStatStock.STOCK_CHAOS_TAKEN, EnumStatStock.STOCK_RECOVERY_RATE,
+        EnumStatStock.STOCK_SHIELD_RECHARGE, EnumStatStock.STOCK_REFLECT,
     )
 
 
