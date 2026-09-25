@@ -2,7 +2,7 @@
 """
 Генератор словарных строк модификаторов (0.66.0).
 
-Убирает из `locale/en.json` и `locale/ru.json` строки на каждое описание (`modifier.*`, `monstermod.*`)
+Убирает из `locale/en.json` и `locale/ru.json` строки на каждое описание (`modifier.*`)
 и кладёт вместо них шаблоны на пару «стат - операция» (`stat.template.*`), из которых сервер на старте
 собирает `modifier.<код>.name`, см. features.logic.locale.ModifierText. Заодно - подписи новых
 характеристик, сфер, профессии зачарователя, инструментов и прочие ключи 0.66.0.
@@ -344,7 +344,7 @@ if __name__ == "__main__":
     if missing:
         raise SystemExit("no template for: " + ", ".join(sorted(key_of(k) for k in missing)))
     for lang, index in [("en", 0), ("ru", 1)]:
-        table = {k: v for k, v in read(f"{lang}.json").items() if not k.startswith(("modifier.", "monstermod.", "stat.template."))}
+        table = {k: v for k, v in read(f"{lang}.json").items() if not k.startswith(("modifier.", "stat.template."))}
         for triple in needed:
             table[key_of(triple)] = JOIN[index] if triple == ("join",) else T[triple][index]
         for stat, labels in LABELS.items():
