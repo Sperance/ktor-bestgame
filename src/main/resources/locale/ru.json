@@ -2444,5 +2444,7 @@
   "modifier.UNIQUE_UNYIELDING_BASTION_1.name": "+{0} к максимуму запаса здоровья",
   "modifier.UNIQUE_UNYIELDING_BASTION_2.name": "{0}% увеличение брони",
   "modifier.UNIQUE_UNYIELDING_BASTION_3.name": "+{0}% ко всем сопротивлениям стихиям",
-  "modifier.UNIQUE_UNYIELDING_BASTION_4.name": "{0}% снижение получаемого физического урона"
+  "modifier.UNIQUE_UNYIELDING_BASTION_4.name": "{0}% снижение получаемого физического урона",
+  "error.ST_019": "Этот узел нельзя перевыбрать: только взятый атрибутный узел, не мастерство",
+  "error.ST_020": "Нужна сфера хаоса, чтобы сменить выбор"
 }

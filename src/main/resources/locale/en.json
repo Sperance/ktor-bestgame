@@ -2444,5 +2444,7 @@
   "modifier.UNIQUE_UNYIELDING_BASTION_1.name": "+{0} to maximum Life",
   "modifier.UNIQUE_UNYIELDING_BASTION_2.name": "{0}% increased Armour",
   "modifier.UNIQUE_UNYIELDING_BASTION_3.name": "+{0}% to all Elemental Resistances",
-  "modifier.UNIQUE_UNYIELDING_BASTION_4.name": "{0}% reduced Physical Damage taken"
+  "modifier.UNIQUE_UNYIELDING_BASTION_4.name": "{0}% reduced Physical Damage taken",
+  "error.ST_019": "Only a taken attribute node, not a mastery, can change its choice",
+  "error.ST_020": "A Chaos Orb is needed to change the choice"
 }

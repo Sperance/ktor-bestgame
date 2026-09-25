@@ -54,7 +54,7 @@ object MerchantRules {
         RARITIES.forEach { (rarity, weight) -> point -= weight; if (point < 0) return rarity }
         return RARITIES.first().first
     }
-    const val MARKUP = 4
+    const val MARKUP = 3
 
     /** Пулы экипировки, из которых торговец выкладывает товар (с 0.39.0). */
     val POOLS = listOf("merchant")

@@ -16,7 +16,7 @@
         {
           "code": "COPPER_VEIN",
           "level": 1,
-          "seconds": 5,
+          "seconds": 50,
           "nothing": 30,
           "output": "COPPER_ORE",
           "experience": 4,
@@ -25,7 +25,7 @@
         {
           "code": "IRON_VEIN",
           "level": 10,
-          "seconds": 10,
+          "seconds": 100,
           "nothing": 32,
           "output": "IRON_ORE",
           "experience": 9,
@@ -34,7 +34,7 @@
         {
           "code": "TOPAZ_DEPOSIT",
           "level": 15,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 55,
           "output": "TOPAZ",
           "experience": 18,
@@ -43,7 +43,7 @@
         {
           "code": "SILVER_VEIN",
           "level": 20,
-          "seconds": 18,
+          "seconds": 180,
           "nothing": 35,
           "output": "SILVER_ORE",
           "experience": 16,
@@ -52,7 +52,7 @@
         {
           "code": "SAPPHIRE_DEPOSIT",
           "level": 25,
-          "seconds": 45,
+          "seconds": 450,
           "nothing": 60,
           "output": "SAPPHIRE",
           "experience": 30,
@@ -61,7 +61,7 @@
         {
           "code": "MITHRIL_VEIN",
           "level": 30,
-          "seconds": 28,
+          "seconds": 280,
           "nothing": 38,
           "output": "MITHRIL_ORE",
           "experience": 26,
@@ -70,7 +70,7 @@
         {
           "code": "RUBY_DEPOSIT",
           "level": 35,
-          "seconds": 60,
+          "seconds": 600,
           "nothing": 65,
           "output": "RUBY",
           "experience": 45,
@@ -79,7 +79,7 @@
         {
           "code": "ADAMANT_VEIN",
           "level": 40,
-          "seconds": 40,
+          "seconds": 400,
           "nothing": 40,
           "output": "ADAMANT_ORE",
           "experience": 40,
@@ -94,7 +94,7 @@
         {
           "code": "WORMWOOD_PATCH",
           "level": 1,
-          "seconds": 5,
+          "seconds": 50,
           "nothing": 30,
           "output": "WORMWOOD",
           "experience": 4,
@@ -103,7 +103,7 @@
         {
           "code": "CAVE_MUSHROOMS",
           "level": 5,
-          "seconds": 8,
+          "seconds": 80,
           "nothing": 32,
           "output": "CAVE_MUSHROOM",
           "experience": 6,
@@ -112,7 +112,7 @@
         {
           "code": "BLOODWORT_PATCH",
           "level": 10,
-          "seconds": 10,
+          "seconds": 100,
           "nothing": 33,
           "output": "BLOODWORT",
           "experience": 9,
@@ -121,7 +121,7 @@
         {
           "code": "AMBER_TAPPING",
           "level": 12,
-          "seconds": 15,
+          "seconds": 150,
           "nothing": 40,
           "output": "AMBER_RESIN",
           "experience": 12,
@@ -130,7 +130,7 @@
         {
           "code": "SHADEBLOOM_PATCH",
           "level": 20,
-          "seconds": 18,
+          "seconds": 180,
           "nothing": 35,
           "output": "SHADEBLOOM",
           "experience": 16,
@@ -139,7 +139,7 @@
         {
           "code": "GLOWCAP_GROTTO",
           "level": 28,
-          "seconds": 24,
+          "seconds": 240,
           "nothing": 45,
           "output": "GLOWCAP",
           "experience": 22,
@@ -148,7 +148,7 @@
         {
           "code": "MOON_LOTUS_POND",
           "level": 30,
-          "seconds": 28,
+          "seconds": 280,
           "nothing": 38,
           "output": "MOON_LOTUS",
           "experience": 26,
@@ -157,7 +157,7 @@
         {
           "code": "VOID_ROOT_BED",
           "level": 40,
-          "seconds": 40,
+          "seconds": 400,
           "nothing": 40,
           "output": "VOID_ROOT",
           "experience": 40,
@@ -172,7 +172,7 @@
         {
           "code": "BIRCH_GROVE",
           "level": 1,
-          "seconds": 5,
+          "seconds": 50,
           "nothing": 30,
           "output": "BIRCH_LOG",
           "experience": 4,
@@ -186,7 +186,7 @@
         {
           "code": "OAK_GROVE",
           "level": 10,
-          "seconds": 10,
+          "seconds": 100,
           "nothing": 32,
           "output": "OAK_LOG",
           "experience": 9,
@@ -200,7 +200,7 @@
         {
           "code": "YEW_GROVE",
           "level": 20,
-          "seconds": 18,
+          "seconds": 180,
           "nothing": 35,
           "output": "YEW_LOG",
           "experience": 16,
@@ -214,7 +214,7 @@
         {
           "code": "IRONWOOD_GROVE",
           "level": 30,
-          "seconds": 28,
+          "seconds": 280,
           "nothing": 38,
           "output": "IRONWOOD_LOG",
           "experience": 26,
@@ -228,7 +228,7 @@
         {
           "code": "GHOST_ASH_GROVE",
           "level": 40,
-          "seconds": 40,
+          "seconds": 400,
           "nothing": 40,
           "output": "GHOST_ASH_LOG",
           "experience": 40,
@@ -248,7 +248,7 @@
         {
           "code": "COPPER_FORGING",
           "level": 1,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 25,
           "output": "",
           "experience": 12,
@@ -269,7 +269,7 @@
         {
           "code": "IRON_FORGING",
           "level": 10,
-          "seconds": 40,
+          "seconds": 400,
           "nothing": 27,
           "output": "",
           "experience": 24,
@@ -294,7 +294,7 @@
         {
           "code": "SILVER_FORGING",
           "level": 20,
-          "seconds": 50,
+          "seconds": 500,
           "nothing": 30,
           "output": "",
           "experience": 40,
@@ -319,7 +319,7 @@
         {
           "code": "MITHRIL_FORGING",
           "level": 30,
-          "seconds": 60,
+          "seconds": 600,
           "nothing": 32,
           "output": "",
           "experience": 60,
@@ -344,7 +344,7 @@
         {
           "code": "ADAMANT_FORGING",
           "level": 40,
-          "seconds": 60,
+          "seconds": 600,
           "nothing": 35,
           "output": "",
           "experience": 85,
@@ -375,7 +375,7 @@
         {
           "code": "BLOOD_FLUX_BREW",
           "level": 1,
-          "seconds": 20,
+          "seconds": 200,
           "nothing": 25,
           "output": "BLOOD_FLUX",
           "experience": 6,
@@ -395,7 +395,7 @@
         {
           "code": "STONE_FLUX_BREW",
           "level": 5,
-          "seconds": 20,
+          "seconds": 200,
           "nothing": 25,
           "output": "STONE_FLUX",
           "experience": 8,
@@ -415,7 +415,7 @@
         {
           "code": "FIRE_FLUX_BREW",
           "level": 10,
-          "seconds": 25,
+          "seconds": 250,
           "nothing": 27,
           "output": "FIRE_FLUX",
           "experience": 12,
@@ -435,7 +435,7 @@
         {
           "code": "FROST_FLUX_BREW",
           "level": 15,
-          "seconds": 25,
+          "seconds": 250,
           "nothing": 28,
           "output": "FROST_FLUX",
           "experience": 15,
@@ -455,7 +455,7 @@
         {
           "code": "STORM_FLUX_BREW",
           "level": 20,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 30,
           "output": "STORM_FLUX",
           "experience": 18,
@@ -475,7 +475,7 @@
         {
           "code": "QUICK_FLUX_BREW",
           "level": 25,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 32,
           "output": "QUICK_FLUX",
           "experience": 22,
@@ -495,7 +495,7 @@
         {
           "code": "TRANSMUTATION_BREW",
           "level": 1,
-          "seconds": 15,
+          "seconds": 150,
           "nothing": 25,
           "output": "ORB_OF_TRANSMUTATION",
           "experience": 4,
@@ -511,7 +511,7 @@
         {
           "code": "AUGMENTATION_BREW",
           "level": 5,
-          "seconds": 15,
+          "seconds": 150,
           "nothing": 25,
           "output": "ORB_OF_AUGMENTATION",
           "experience": 5,
@@ -527,7 +527,7 @@
         {
           "code": "ALTERATION_BREW",
           "level": 8,
-          "seconds": 20,
+          "seconds": 200,
           "nothing": 28,
           "output": "ORB_OF_ALTERATION",
           "experience": 7,
@@ -547,7 +547,7 @@
         {
           "code": "SCOURING_BREW",
           "level": 12,
-          "seconds": 20,
+          "seconds": 200,
           "nothing": 30,
           "output": "ORB_OF_SCOURING",
           "experience": 9,
@@ -563,7 +563,7 @@
         {
           "code": "ALCHEMY_BREW",
           "level": 15,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 32,
           "output": "ORB_OF_ALCHEMY",
           "experience": 14,
@@ -583,7 +583,7 @@
         {
           "code": "CHAOS_BREW",
           "level": 25,
-          "seconds": 45,
+          "seconds": 450,
           "nothing": 38,
           "output": "CHAOS_ORB",
           "experience": 24,
@@ -603,7 +603,7 @@
         {
           "code": "REGAL_BREW",
           "level": 30,
-          "seconds": 45,
+          "seconds": 450,
           "nothing": 40,
           "output": "REGAL_ORB",
           "experience": 28,
@@ -623,7 +623,7 @@
         {
           "code": "DIVINE_BREW",
           "level": 40,
-          "seconds": 60,
+          "seconds": 600,
           "nothing": 55,
           "output": "DIVINE_ORB",
           "experience": 45,
@@ -643,7 +643,7 @@
         {
           "code": "EXALTED_BREW",
           "level": 45,
-          "seconds": 60,
+          "seconds": 600,
           "nothing": 60,
           "output": "EXALTED_ORB",
           "experience": 55,
@@ -663,7 +663,7 @@
         {
           "code": "HORDE_BREW",
           "level": 10,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 30,
           "output": "HORDE_ORB",
           "experience": 12,
@@ -683,7 +683,7 @@
         {
           "code": "MAGUS_BREW",
           "level": 15,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 30,
           "output": "MAGUS_ORB",
           "experience": 15,
@@ -703,7 +703,7 @@
         {
           "code": "PERIL_BREW",
           "level": 18,
-          "seconds": 35,
+          "seconds": 350,
           "nothing": 32,
           "output": "PERIL_ORB",
           "experience": 17,
@@ -723,7 +723,7 @@
         {
           "code": "MERCY_BREW",
           "level": 20,
-          "seconds": 40,
+          "seconds": 400,
           "nothing": 35,
           "output": "MERCY_ORB",
           "experience": 20,
@@ -743,7 +743,7 @@
         {
           "code": "ELITE_BREW",
           "level": 25,
-          "seconds": 40,
+          "seconds": 400,
           "nothing": 35,
           "output": "ELITE_ORB",
           "experience": 24,
@@ -767,7 +767,7 @@
         {
           "code": "BOUNTY_BREW",
           "level": 30,
-          "seconds": 45,
+          "seconds": 450,
           "nothing": 38,
           "output": "BOUNTY_ORB",
           "experience": 28,
@@ -791,7 +791,7 @@
         {
           "code": "EMPOWERING_BREW",
           "level": 35,
-          "seconds": 60,
+          "seconds": 600,
           "nothing": 45,
           "output": "EMPOWERING_ORB",
           "experience": 35,
@@ -821,7 +821,7 @@
         {
           "code": "CHART_C1_TIDAL_SHORE",
           "level": 1,
-          "seconds": 30,
+          "seconds": 300,
           "nothing": 25,
           "output": "",
           "experience": 10,
@@ -842,7 +842,7 @@
         {
           "code": "CHART_C1_BRINE_CAVES",
           "level": 5,
-          "seconds": 33,
+          "seconds": 330,
           "nothing": 25,
           "output": "",
           "experience": 15,
@@ -863,7 +863,7 @@
         {
           "code": "CHART_C1_ROTTING_MIRE",
           "level": 9,
-          "seconds": 36,
+          "seconds": 360,
           "nothing": 25,
           "output": "",
           "experience": 20,
@@ -884,7 +884,7 @@
         {
           "code": "CHART_C1_WHISPERING_WOOD",
           "level": 13,
-          "seconds": 39,
+          "seconds": 390,
           "nothing": 25,
           "output": "",
           "experience": 25,
@@ -909,7 +909,7 @@
         {
           "code": "CHART_C1_FALLEN_RUINS",
           "level": 17,
-          "seconds": 42,
+          "seconds": 420,
           "nothing": 25,
           "output": "",
           "experience": 30,
@@ -934,7 +934,7 @@
         {
           "code": "CHART_C1_CRYPT_OF_EXILES",
           "level": 21,
-          "seconds": 45,
+          "seconds": 450,
           "nothing": 25,
           "output": "",
           "experience": 35,
@@ -959,7 +959,7 @@
         {
           "code": "CHART_C1_CRYSTAL_MINES",
           "level": 25,
-          "seconds": 48,
+          "seconds": 480,
           "nothing": 25,
           "output": "",
           "experience": 40,
@@ -984,7 +984,7 @@
         {
           "code": "CHART_C1_ASHEN_WASTES",
           "level": 29,
-          "seconds": 51,
+          "seconds": 510,
           "nothing": 25,
           "output": "",
           "experience": 45,
@@ -1009,7 +1009,7 @@
         {
           "code": "CHART_C1_FROZEN_PASS",
           "level": 33,
-          "seconds": 54,
+          "seconds": 540,
           "nothing": 25,
           "output": "",
           "experience": 50,
@@ -1034,7 +1034,7 @@
         {
           "code": "CHART_C1_DROWNED_TEMPLE",
           "level": 37,
-          "seconds": 57,
+          "seconds": 570,
           "nothing": 25,
           "output": "",
           "experience": 55,

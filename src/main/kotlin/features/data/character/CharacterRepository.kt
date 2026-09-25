@@ -280,6 +280,33 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     /**
+     * Меняет вариант взятого атрибутного узла (с 0.63.0): узел остаётся взятым, очки и сферы
+     * сожаления не тратятся - уходит одна сфера хаоса. Мастерство так не меняется: его вариант -
+     * решение дороже, и оно по-прежнему только через возврат узла.
+     *
+     * @throws SkillTreeExceptions.SkillTreeException если узел не атрибутный, не взят, вариант тот же или нет сферы хаоса
+     */
+    suspend fun rechooseSkillNode(characterId: String, nodeCode: String, choice: Int): CharacterSkillTreeState {
+        val method = "rechooseSkillNode"
+        val character = requireCharacter(characterId, method)
+        val node = requireNode(nodeCode, method)
+        if (node.type == EnumSkillNodeType.MASTERY || node.options.isEmpty()) throw SkillTreeExceptions.funExceptionNotRechoosable(method, nodeCode)
+        if (choice !in node.options.indices) throw SkillTreeExceptions.funExceptionChoice(method, "$nodeCode: $choice of ${node.options.size}")
+        val index = character.skillNodes.indexOfFirst { it.code == nodeCode }
+        if (index < 0) throw SkillTreeExceptions.funExceptionNotTaken(method, nodeCode)
+        if (character.skillNodes[index].choice == choice) throw SkillTreeExceptions.funExceptionChoice(method, "$nodeCode: $choice is already chosen")
+
+        val orbId = EnumCurrencyOrb.CHAOS_ORB.name.toStableObjectId()
+        val owned = character.bag[orbId] ?: 0L
+        if (owned < 1) throw SkillTreeExceptions.funExceptionNoChaos(method, nodeCode)
+        if (owned == 1L) character.bag.remove(orbId) else character.bag[orbId] = owned - 1
+
+        character.skillNodes[index] = CharacterSkillNode.fromNode(node, choice)
+        transactionExecute("$method $nodeCode") { session -> update(character, session) }
+        return stateOf(character)
+    }
+
+    /**
      * Откатывает узел и возвращает очки.
      *
      * Стартовый узел откатывается только полным сбросом: без него дерево

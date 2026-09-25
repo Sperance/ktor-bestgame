@@ -167,6 +167,11 @@ class CharacterRoute(
             post("/refund") {
                 call.respondWithHero(repo.refundSkillNode(call.characterId, call.queryParam("nodeCode")))
             }
+            post("/rechoose") {
+                // Другой вариант взятого атрибутного узла за сферу хаоса (с 0.63.0)
+                val choice = call.queryParam("choice").let { it.toIntOrNull() ?: throw SkillTreeExceptions.funExceptionChoice("rechoose", it) }
+                call.respondWithHero(repo.rechooseSkillNode(call.characterId, call.queryParam("nodeCode"), choice))
+            }
             post("/reset") {
                 call.respondWithHero(repo.resetSkillTree(call.characterId))
             }
