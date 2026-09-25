@@ -5,6 +5,7 @@ import features.caches.EquipmentCache
 import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
+import features.caches.ModifierTierCache
 import features.caches.SkillTreeCache
 import features.data.equipment.equipment_data.Equipment
 import features.data.items.Items
@@ -16,6 +17,9 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -31,7 +35,8 @@ data class WorldManifest(val hash: String, val file: String)
 
 /**
  * Все справочники мира одним файлом (с 0.48.0): модификаторы, классы, уровни, дерево,
- * шаблоны экипировки, предметы и таблицы листа.
+ * шаблоны экипировки, предметы и таблицы листа. С 0.54.0 у каждого модификатора его тиры -
+ * номер и диапазоны значений: по ним клиент показывает, насколько хорош ролл внутри тира.
  *
  * Клиент раньше читал их девятью запросами в каждой сессии. Теперь он хранит файл у себя и
  * качает заново, только когда разошёлся [WorldManifest.hash]. Файл собирается из тех же кешей,
@@ -44,6 +49,7 @@ object WorldBundle : KoinComponent {
     const val FILE = "world.json"
 
     private val modifiers: ModifierDefinitionCache by inject()
+    private val tiers: ModifierTierCache by inject()
     private val classes: CharacterClassCache by inject()
     private val levels: ExperienceLevelCache by inject()
     private val tree: SkillTreeCache by inject()
@@ -63,14 +69,14 @@ object WorldBundle : KoinComponent {
     fun hash(): String = current().hash
 
     private fun revision(): Long =
-        modifiers.revision + classes.revision + levels.revision + tree.revision + equipment.revision + items.revision
+        modifiers.revision + tiers.revision + classes.revision + levels.revision + tree.revision + equipment.revision + items.revision
 
     @Synchronized
     private fun current(): Built {
         val revision = revision()
         built?.takeIf { it.revision == revision }?.let { return it }
         val document = compact.encodeToString(kotlinx.serialization.json.JsonObject.serializer(), buildJsonObject {
-            put("modifiers", encode(ModifierDefinition.serializer(), modifiers.getCache().toList()))
+            put("modifiers", withTiers(encode(ModifierDefinition.serializer(), modifiers.getCache().toList())))
             put("classes", encode(CharacterClass.serializer(), classes.getCache().toList()))
             put("levels", encode(ExperienceLevel.serializer(), levels.getCache().toList()))
             put("tree", encode(SkillTreeNode.serializer(), tree.getCache().toList()))
@@ -80,6 +86,18 @@ object WorldBundle : KoinComponent {
         })
         return Built(revision, document, sha256(document)).also { built = it }
     }
+
+    /** Каждому описанию - его тиры: `{"tier": 1, "values": [[min, max], ...]}`, от лучшего к худшему. */
+    private fun withTiers(definitions: kotlinx.serialization.json.JsonElement) = JsonArray((definitions as JsonArray).map { row ->
+        val definition = row as JsonObject
+        val id = (definition["_id"] as? JsonPrimitive)?.content.orEmpty()
+        JsonObject(definition + ("tiers" to JsonArray(tiers.findByModifier(id).map { tier ->
+            JsonObject(mapOf(
+                "tier" to JsonPrimitive(tier.tier),
+                "values" to JsonArray(tier.values.map { JsonArray(listOf(JsonPrimitive(it.valueMin), JsonPrimitive(it.valueMax))) }),
+            ))
+        })))
+    })
 
     /** По `_id`: порядок кеша сдвигается при правке, а отпечаток от порядка зависеть не должен. */
     private fun <T : base.entity.StockEntity> encode(serializer: KSerializer<T>, rows: List<T>) =
