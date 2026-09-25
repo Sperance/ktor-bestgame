@@ -15,6 +15,7 @@ import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.GainedRedemtionCodes
 import features.caches.EquipmentCache
 import features.data.inventory.CharacterEquipmentRepository
+import features.data.user.UserRepository
 import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -23,9 +24,12 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = 
     private val characterRepository: CharacterRepository by inject()
     private val characterEquipmentRepository: CharacterEquipmentRepository by inject()
     private val equipmentCache: EquipmentCache by inject()
+    private val userRepository: UserRepository by inject()
 
     // Погашение ищет код по строке, которую ввёл игрок
-    override val indexes = listOf(IndexSpec.on("code"))
+    override val indexes = listOf(IndexSpec.unique("idx_unique_code", "code"))
+
+    override val retiredIndexes = listOf("code_1")
 
     /**
      * Что администратор не имеет права создать.
@@ -78,6 +82,10 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = 
         character.gainedRedemptionCodes.add(GainedRedemtionCodes(redemption._id, LocalDateTime.now()))
 
         transactionExecute("useCharacterRedemptionCode") { session ->
+            // Отметка на аккаунте - в той же транзакции: второй персонаж того же игрока,
+            // пришедший параллельно, или новый вместо удалённого код уже не возьмут
+            if (!userRepository.claimRedemption(character.userId, redemption._id, session))
+                throw RedemptionCodesExceptions.funExceptionRedemptionAlreadyUser("useCharacterRedemptionCode", redemptionCode)
             grant(character, redemption.treasure, session)
             characterRepository.update(character, session)
             // Счётчик растёт в самой базе: прочитать, прибавить и записать обратно значило бы

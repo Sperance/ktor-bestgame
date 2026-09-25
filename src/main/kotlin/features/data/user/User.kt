@@ -21,6 +21,8 @@ data class User(
     var device_id: String = "",
 
     var countCharacters: Int = 0,
+    /** Промокоды, взятые аккаунтом: отметка на аккаунте переживает удаление персонажа. */
+    var redeemedCodes: MutableList<String> = mutableListOf(),
 
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,

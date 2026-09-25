@@ -1,5 +1,7 @@
 package features.data.user
 
+import CONST_FIELD_ID
+import CONST_FIELD_VERSION
 import base.exception.model.UserExceptions
 import base.repository.BaseRepository
 import base.repository.IndexSpec
@@ -118,6 +120,18 @@ class UserRepository : BaseRepository<User>(User::class) {
 
         return user
     }
+
+    /**
+     * Отмечает промокод [codeId] за аккаунтом одной условной записью: из двух параллельных
+     * активаций (хоть разными персонажами) проходит одна. Версия растёт, чтобы полная запись
+     * по устаревшему чтению не стёрла отметку. Отвечает, была ли отметка новой.
+     */
+    suspend fun claimRedemption(userId: String, codeId: String, session: ClientSession): Boolean =
+        collection.updateOne(
+            session,
+            Filters.and(Filters.eq(CONST_FIELD_ID, userId), Filters.ne(User::redeemedCodes.name, codeId)),
+            Updates.combine(Updates.addToSet(User::redeemedCodes.name, codeId), Updates.inc(CONST_FIELD_VERSION, 1L)),
+        ).modifiedCount == 1L
 
     suspend fun authenticate(login: String, password: String): User {
         val user = findByLogin(login)
