@@ -16,6 +16,14 @@ class PoolRepository : BaseRepository<Pool>(entityClass = Pool::class), KoinComp
     override suspend fun validateBeforeInsert(entity: Pool, session: ClientSession) {
         PoolRules.problem(entity)?.let { throw PoolExceptions.funException("validateBeforeInsert", it) }
     }
+
+    /** Правка администратора меняет только состав: тег и вид - это личность пула, от них его `_id`. */
+    override suspend fun validateBeforeUpdate(changes: Map<String, Any?>) {
+        if ("code" in changes || "kind" in changes) throw PoolExceptions.funException("validateBeforeUpdate", "tag and kind are fixed")
+        val entries = changes["entries"] ?: return
+        val broken = entries !is Map<*, *> || entries.any { (code, weight) -> code.toString().isBlank() || (weight as? Number)?.toLong()?.let { it < 0 } != false }
+        if (broken) throw PoolExceptions.funException("validateBeforeUpdate", "entries: $entries")
+    }
 }
 
 /** Правила документа пула - общие для сида и правки администратора. */
