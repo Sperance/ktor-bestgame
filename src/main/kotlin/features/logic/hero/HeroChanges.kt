@@ -60,9 +60,23 @@ suspend fun heroChanges(): HeroChanges? = coroutineContext[HeroChanges]
  * WriteConflict (112). Очередь на героя убирает гонку у корня; чужие герои друг друга не ждут.
  */
 object HeroLocks {
-    private val locks = ConcurrentHashMap<String, Mutex>()
+    /** Замок и число запросов, которые его держат или ждут: последний уходящий убирает запись. */
+    private class Entry(val mutex: Mutex = Mutex(), var holders: Int = 0)
 
-    fun of(characterId: String): Mutex = locks.getOrPut(characterId) { Mutex() }
+    private val locks = ConcurrentHashMap<String, Entry>()
+
+    /**
+     * Выполняет [block] под замком героя. Запись живёт, пока ею кто-то пользуется: иначе карта
+     * росла бы от каждого нового `characterId`, в том числе выдуманного.
+     */
+    suspend fun <T> withLock(characterId: String, block: suspend () -> T): T {
+        val entry = locks.compute(characterId) { _, current -> (current ?: Entry()).apply { holders++ } }!!
+        try {
+            return entry.mutex.withLock { block() }
+        } finally {
+            locks.computeIfPresent(characterId) { _, current -> current.takeIf { --it.holders > 0 } }
+        }
+    }
 }
 
 /** Каждый вызов получает свой журнал: он нужен снимку в конце того же запроса. */
@@ -70,6 +84,6 @@ fun Application.installHeroChanges() {
     intercept(ApplicationCallPipeline.Call) {
         val characterId = call.request.queryParameters["characterId"]
         if (characterId.isNullOrBlank()) withContext(HeroChanges()) { proceed() }
-        else HeroLocks.of(characterId).withLock { withContext(HeroChanges()) { proceed() } }
+        else HeroLocks.withLock(characterId) { withContext(HeroChanges()) { proceed() } }
     }
 }
