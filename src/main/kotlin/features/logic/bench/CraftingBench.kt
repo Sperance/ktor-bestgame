@@ -11,6 +11,7 @@ import extensions.toStableObjectId
 import features.data.equipment.equipment_data.Equipment
 import features.data.inventory.CharacterEquipment
 import features.logic.currency.CurrencyOutcome
+import features.logic.equipment.Jewels
 import features.logic.locale.LocaleKey
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
@@ -177,6 +178,13 @@ object CraftingBench {
         val crafted = item.params.filter { ModifierRoller.isCrafted(it) }
         if (crafted.isEmpty()) throw CurrencyExceptions.funExceptionNoCrafted("uncraft", template.code)
 
+        // Ремесленный аффикс считался в минимуме редкости, и сфера Отмены могла снять природный
+        // вместо него: снятие не должно оставить редкий предмет недобранным, а самоцвет - пустым
+        val left = item.params.count { ModifierRoller.isAffix(it) && !ModifierRoller.isCrafted(it) }
+        if (left < item.rarity.affixes.first)
+            throw CurrencyExceptions.funExceptionAffixMinimum("uncraft", LocaleKey.equipmentName(template.code), LocaleKey.rarity(item.rarity))
+        if (Jewels.isJewel(template) && left == 0)
+            throw CurrencyExceptions.funExceptionJewelEmpty("uncraft", LocaleKey.equipmentName(template.code))
         item.params.removeAll(crafted)
         return outcome(item, template, "currency.uncrafted")
     }
