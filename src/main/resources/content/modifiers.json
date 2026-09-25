@@ -1220,19 +1220,6 @@
       "pools": { "map": 1000 }
     },
     {
-      "code": "MAP_HERO_FLASK",
-      "source": "SUFFIX",
-      "tags": ["map"],
-      "effects": [
-        { "stat": "MAP_HERO_FLASK", "operation": "ADD" }
-      ],
-      "tiers": [
-        { "level": 11, "values": [[2.0, 2.0]] },
-        { "level": 1, "values": [[1.0, 1.0]] }
-      ],
-      "pools": { "map": 0 }
-    },
-    {
       "code": "MAP_HERO_RESIST",
       "source": "SUFFIX",
       "tags": ["map"],
@@ -2099,33 +2086,6 @@
         { "level": 70, "values": [[1.0, 1.0]] }
       ],
       "pools": { "shield": 100, "amulet": 120 }
-    },
-    {
-      "code": "ADD_FLASK_CHARGES",
-      "source": "SUFFIX",
-      "tags": ["flask"],
-      "effects": [
-        { "stat": "STOCK_FLASK_CHARGES", "operation": "ADD" }
-      ],
-      "tiers": [
-        { "level": 60, "values": [[2.0, 2.0]] },
-        { "level": 25, "values": [[1.0, 1.0]] }
-      ],
-      "pools": { "belt": 0 }
-    },
-    {
-      "code": "INCREASED_FLASK_RECOVERY",
-      "source": "SUFFIX",
-      "tags": ["flask", "life"],
-      "effects": [
-        { "stat": "STOCK_FLASK_RECOVERY", "operation": "ADD" }
-      ],
-      "tiers": [
-        { "level": 60, "values": [[31.0, 40.0]] },
-        { "level": 35, "values": [[21.0, 30.0]] },
-        { "level": 10, "values": [[11.0, 20.0]] }
-      ],
-      "pools": { "belt": 0 }
     },
     {
       "code": "ADD_LIFE_ON_KILL",

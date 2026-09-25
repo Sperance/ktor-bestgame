@@ -29,4 +29,12 @@ class ItemsRepository : BaseRepository<Items>(entityClass = Items::class), KoinC
     suspend fun deleteByCategory(category: String, session: ClientSession): Long =
         collection.deleteMany(session, Filters.eq("category", category)).deletedCount
 
+    /**
+     * Удаляет предметы вне [category], которых больше нет в контенте (0.51.0: зелье здоровья).
+     *
+     * @param itemIds _id всех актуальных предметов
+     * @return количество удалённых документов
+     */
+    suspend fun deleteMissing(itemIds: Collection<String>, category: String, session: ClientSession): Long =
+        collection.deleteMany(session, Filters.and(Filters.ne("category", category), Filters.nin("_id", itemIds))).deletedCount
 }

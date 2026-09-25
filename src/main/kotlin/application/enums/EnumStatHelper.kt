@@ -90,9 +90,6 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_MANA_ON_KILL(267),
     STOCK_HEALTH_ON_HIT(268),
     STOCK_MANA_ON_HIT(269),
-    /** Заряды и лечение флакона; флакон выведен из игры в 0.50.0, номера остаются за выпавшими вещами. */
-    STOCK_FLASK_CHARGES(270),
-    STOCK_FLASK_RECOVERY(271),
 
     // ========== Состояния (с 0.36.0): все - проценты, база героя в правилах боя ==========
     /** Шанс наложить состояние ударом с уроном его типа, сверх базы правила. */
@@ -142,8 +139,6 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     MAP_PACK_SIZE(404),
     MAP_MONSTER_RARITY(405),
     MAP_HERO_LIGHT(406),
-    /** Выведен в 0.50.0 вместе с флаконом. */
-    MAP_HERO_FLASK(407),
     MAP_HERO_RESIST(408),
     MAP_HERO_REGEN(409),
     MAP_CHESTS(410),

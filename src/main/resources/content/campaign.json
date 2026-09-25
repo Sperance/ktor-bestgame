@@ -2399,7 +2399,6 @@
       "MAP_MONSTER_SPEED": 0.8,
       "MAP_MONSTER_RESIST": 0.4,
       "MAP_HERO_LIGHT": 0.3,
-      "MAP_HERO_FLASK": 6,
       "MAP_HERO_RESIST": 0.8,
       "MAP_HERO_REGEN": 0.15
     }

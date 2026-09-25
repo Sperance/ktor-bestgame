@@ -152,7 +152,7 @@ data class ModifierDefinition(
     fun isComposite(): Boolean = effects.size > 1
 
     /**
-     * Выведен ли модификатор из игры (с 0.43.0): он касается маны, заклинаний или флакона, которых больше
+     * Выведен ли модификатор из игры (с 0.43.0): он касается маны или заклинаний, которых больше
      * нет, и каждый его пул весит ноль - поэтому не роллится нигде, а уже выпавшие копии остаются.
      */
     fun isRetired(): Boolean =
@@ -165,11 +165,10 @@ data class ModifierDefinition(
 }
 
 /**
- * Характеристики, убранные из игры: мана и заклинания (0.43.0), флакон жизни (0.50.0). Их
+ * Характеристики, убранные из игры: мана и заклинания (0.43.0). Их
  * модификаторы больше не роллятся, а уже выпавшие копии остаются на вещах.
  */
 val RETIRED_STATS = setOf(
     "STOCK_MANA", "STOCK_SPELL_BLOCK", "STOCK_ATTACK_MAGICAL", "STOCK_CAST_SPEED", "STOCK_MANA_REGEN",
     "STOCK_LEECH_MAGICAL", "STOCK_MANA_ON_KILL", "STOCK_MANA_ON_HIT", "STOCK_CAST_STRENGTH",
-    "STOCK_FLASK_CHARGES", "STOCK_FLASK_RECOVERY", "MAP_HERO_FLASK",
 )

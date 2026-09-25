@@ -402,6 +402,24 @@ class CharacterRepository : BaseRepository<Character>(
         return collection.updateMany(session, Filters.empty(), pull).modifiedCount
     }
 
+    /**
+     * Убирает из сумок всех персонажей предметы, которых больше нет в `Items`.
+     *
+     * @param itemIds _id всех существующих предметов
+     * @return сколько персонажей потеряли хотя бы один предмет
+     */
+    suspend fun pruneMissingBagItems(itemIds: Collection<String>, session: ClientSession): Long {
+        if (itemIds.isEmpty()) return 0
+
+        // Сумка - словарь по _id: фильтруем его пары конвейером, modifiedCount
+        // посчитает только тех, у кого что-то действительно ушло
+        val kept = Document("\$filter", Document("input", Document("\$objectToArray", "\$bag"))
+            .append("cond", Document("\$in", listOf("\$\$this.k", itemIds.toList()))))
+        val prune = Document("\$set", Document("bag", Document("\$arrayToObject", kept)))
+
+        return collection.updateMany(session, Filters.exists("bag"), listOf(prune)).modifiedCount
+    }
+
     private fun stateOf(character: Character): CharacterSkillTreeState {
         val total = skillPointsTotal(character)
         // Стоимость берётся из снимка: именно столько персонаж за узел заплатил

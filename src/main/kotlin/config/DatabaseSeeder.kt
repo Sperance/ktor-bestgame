@@ -99,6 +99,7 @@ object DatabaseSeeder : KoinComponent {
             seedStartNodes(session)
             seedItems(session)
             seedCurrency(session)
+            pruneItems(session)
             seedRedemptionCodes(session)
             seedEqipmentCharacters(session)
             seedCurrencyToCharacters(session)
@@ -336,6 +337,16 @@ object DatabaseSeeder : KoinComponent {
         itemsRepository.insertMany(listItems, session)
 
         printLog("  → ${listItems.size} items created")
+    }
+
+    /** Предметы, которых больше нет в контенте, удаляются из `Items` и из сумок персонажей. */
+    private suspend fun pruneItems(session: ClientSession) {
+        val seeded = ItemsSeeder.seed().map { it._id }
+        val removed = itemsRepository.deleteMissing(seeded, EnumCurrencyOrb.CATEGORY, session)
+        if (removed > 0) itemsCache.initializeCache(session)
+
+        val touched = characterRepository.pruneMissingBagItems(itemsRepository.findAll(session).map { it._id }, session)
+        if (removed + touched > 0) printLog("  → $removed removed items dropped, bags of $touched characters cleaned")
     }
 
     // ==================== Currency ====================

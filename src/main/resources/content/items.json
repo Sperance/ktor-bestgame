@@ -19,12 +19,6 @@
       "price": 22
     },
     {
-      "code": "POTION_HEALTH",
-      "category": "CONSUMABLE",
-      "subCategory": "HEALTH",
-      "price": 80
-    },
-    {
       "code": "COPPER_ORE",
       "category": "MATERIAL",
       "subCategory": "MINING",
