@@ -39,10 +39,6 @@ data class Modifier(
      */
     val fractured: Boolean = false,
 ) {
-    /**
-     * Модификатор с тиром - то есть зароленный на предмете.
-     */
-    fun isRolled(): Boolean = tierId.isNotEmpty()
 
     companion object {
         /**

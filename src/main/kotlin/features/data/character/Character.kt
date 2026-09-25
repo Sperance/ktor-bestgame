@@ -108,15 +108,6 @@ data class Character(
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity {
-    fun getProfessionSkill(skill: EnumStatProfession) : CharacterProfessionSkill {
-        return professionSkills.find { it.stat == skill } ?: CharacterProfessionSkill(skill, 0)
-    }
-    fun getBattleSkill(skill: EnumStatBattle) : CharacterBattleSkill {
-        return battleSkills.find { it.stat == skill } ?: CharacterBattleSkill(skill, 0)
-    }
-    fun getBoolSkill(skill: EnumStatBool) : CharacterBoolSkill {
-        return boolSkills.find { it.stat == skill } ?: CharacterBoolSkill(skill, null)
-    }
 
     /**
      * Простые предметы, разобранные из плоского массива хранения.

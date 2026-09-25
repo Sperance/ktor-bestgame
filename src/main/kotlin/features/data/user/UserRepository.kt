@@ -110,14 +110,6 @@ class UserRepository : BaseRepository<User>(
         return findByField(User::email, email, includeDeleted)
     }
 
-    suspend fun searchByName(name: String): List<User> {
-        return findByFieldList(User::name, name)
-    }
-
-    suspend fun findActive(): List<User> {
-        return findByFieldList(User::isActive, true)
-    }
-
     /**
      * @param includeDeleted true - найдётся и мягко удалённый пользователь
      */

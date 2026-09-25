@@ -381,14 +381,6 @@ class MongoBackupManager(
     }
 
     /**
-     * Создание бэкапа прямо сейчас (ручной вызов)
-     */
-    suspend fun createBackupNow(): Boolean {
-        printLog("[MongoBackupManager] Manual backup requested", true)
-        return createBackup()
-    }
-
-    /**
      * Получение информации о последнем бэкапе
      */
     fun getLastBackupInfo(): BackupInfo? {
@@ -404,24 +396,6 @@ class MongoBackupManager(
             created = latest.lastModified(),
             path = latest.absolutePath
         )
-    }
-
-    /**
-     * Получение списка всех бэкапов
-     */
-    fun getAllBackups(): List<BackupInfo> {
-        val backupFiles = File(backupDir).listFiles { file ->
-            file.isFile && file.name.startsWith("backup_") && file.name.endsWith(".zip")
-        } ?: return emptyList()
-
-        return backupFiles.map { file ->
-            BackupInfo(
-                fileName = file.name,
-                size = file.length(),
-                created = file.lastModified(),
-                path = file.absolutePath
-            )
-        }.sortedByDescending { it.created }
     }
 
     /**
@@ -441,17 +415,5 @@ class MongoBackupManager(
         val size: Long,
         val created: Long,
         val path: String
-    ) {
-        val sizeFormatted: String get() = when {
-            size > 1024 * 1024 * 1024 -> "${size / (1024 * 1024 * 1024)} GB"
-            size > 1024 * 1024 -> "${size / (1024 * 1024)} MB"
-            size > 1024 -> "${size / 1024} KB"
-            else -> "$size B"
-        }
-
-        val createdFormatted: String get() =
-            Instant.fromEpochMilliseconds(created)
-                .toLocalDateTime(TimeZone.currentSystemDefault())
-                .toString()
-    }
+    )
 }

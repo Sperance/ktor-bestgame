@@ -1047,8 +1047,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * Постраничный поиск по фильтру.
      *
      * Страницы нумеруются с нуля, документы пропускаются по `page * pageSize`.
-     * Запрошенные значения приводятся к допустимым через [PageRequest], а
-     * применённые возвращаются в ответе.
+     * Запрошенные значения приводятся к допустимым через [PageRequest].
      *
      * Порядок задан явно и по умолчанию идёт по _id: без сортировки MongoDB
      * не обещает одинаковый порядок между запросами, и один документ мог бы
@@ -1087,7 +1086,6 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         return PagedMongoResponse(
             items = items,
             page = request.page,
-            pageSize = request.size,
             totalItems = totalItems,
             totalPages = request.totalPages(totalItems)
         )

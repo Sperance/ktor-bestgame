@@ -29,36 +29,26 @@ data class User(
     override var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity
 
+/** Аккаунт, как его видит клиент: только поля, которые он читает. */
 @Serializable
 data class UserResponse(
     val id: String,
     val version: Long,
     val name: String,
-    val email: String,
     val login: String,
-    val age: Int?,
     val isActive: Boolean,
     val role: EnumUserRoles,
-    val lastLoginDate: LocalDateTime?,
-    var countCharacters: Int,
-    val createdAt: LocalDateTime,
-    var updatedAt: LocalDateTime,
+    val countCharacters: Int,
 )
 
-// Функция-расширение для маппинга
 fun User.toResponse(): UserResponse = UserResponse(
     id = _id,
+    version = version,
     name = name,
-    email = email,
     login = login,
-    age = age,
     isActive = isActive,
     role = role,
-    lastLoginDate = lastLoginDate,
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-    version = version,
-    countCharacters = countCharacters
+    countCharacters = countCharacters,
 )
 
 /**

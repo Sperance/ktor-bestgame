@@ -2,19 +2,10 @@ const val CONST_FIELD_ID = "_id"
 const val CONST_FIELD_VERSION  = "version"
 const val CONST_FIELD_DELETED  = "deleted"
 const val CONST_FIELD_UPDATED  = "updatedAt"
-const val CONST_FIELD_CREATED  = "createdAt"
 val CONST_SYSTEM_FIELDS = listOf("_id", "id", "version", "deleted", "createdAt", "updatedAt")
 
 const val CONST_USER_MAX_CHARACTERS = 3
 const val CONST_API_VERSION = 1
-
-/**
- * Разделитель простого предмета в инвентаре персонажа.
- *
- * Простые предметы хранятся плоским массивом строк вида "chaos_orb:50",
- * где слева id предмета, справа его количество.
- */
-const val CONST_ITEM_SEPARATOR = ":"
 
 /**
  * Максимальное количество одного простого предмета в инвентаре.
@@ -39,9 +30,8 @@ const val CONST_PAGE_SIZE_DEFAULT = 20
 /**
  * Максимальный размер страницы.
  *
- * Потолок нужен, чтобы одним запросом нельзя было вычитать всю коллекцию.
- * Запрошенный размер сверх него урезается, и применённый размер возвращается
- * клиенту в ответе - подмены втихую не происходит.
+ * Потолок нужен, чтобы одним запросом нельзя было вычитать всю коллекцию:
+ * запрошенный размер сверх него урезается.
  */
 const val CONST_PAGE_SIZE_MAX = 100
 

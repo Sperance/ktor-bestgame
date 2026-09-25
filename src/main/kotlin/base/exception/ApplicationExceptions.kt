@@ -7,7 +7,6 @@ object ApplicationExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = ApplicationException(value, errorMethod, "SYS_001", listOf(value.orEmpty()))
     fun funExceptionDisconnected(errorMethod: String, value: String? = "") = ApplicationException("Database disconnected", errorMethod, "SYS_002", listOf(value.orEmpty()))
     fun funExceptionError(errorMethod: String, value: String? = "") = ApplicationException("Database error $value", errorMethod, "SYS_003", listOf(value.orEmpty()))
 }

@@ -111,13 +111,6 @@ data class AilmentRule(
 @Serializable data class StunRule(val share: Double, val duration: Double)
 /** Энергетический щит, не тронутый [rechargeDelay] секунд, восстанавливается на [rechargePerSecond] процентов в секунду. */
 @Serializable data class ShieldRule(val rechargeDelay: Double, val rechargePerSecond: Double)
-/**
- * Заклинание: у героя оно врождённое - [innateDamage] плюс [innatePerLevel] за уровень сверх
- * `STOCK_ATTACK_MAGICAL` листа, скорость сотворения [castSpeed] в секунду, если лист не даёт своей;
- * стоит [manaCost] процентов маны, а мана возвращается на [manaRegenShare] процентов в секунду.
- * Монстр колдует, только если у него есть `STOCK_ATTACK_MAGICAL` и `STOCK_MANA`.
- */
-@Serializable data class SpellRule(val innateDamage: Double, val innatePerLevel: Double, val castSpeed: Double, val manaCost: Double, val manaRegenShare: Double)
 /** Отступление из боя занимает [delay] секунд, в которые герой не бьёт, а монстр - бьёт. */
 @Serializable data class RetreatRule(val delay: Double)
 /** Смерть на карте уровня от [fromLevel] стоит [experienceShare] процентов опыта текущего уровня; уровень не падает. */
@@ -128,8 +121,7 @@ data class AilmentRule(
  *
  * Бой остаётся клиентским по решению владельца, но формулы и константы - сервера: клиент читает
  * их вместе с главами и не держит своих. [timeLimit] - секунды, после которых бой никто не выиграл;
- * [variance] - разброс урона удара в процентах; [resistCap], [blockCap] - потолки в процентах;
- * [spellBlockShare] - какая доля шанса блока работает против заклинаний.
+ * [variance] - разброс урона удара в процентах; [resistCap], [blockCap] - потолки в процентах.
  * С 0.36.0: [resistHardCap] - выше него не поднимет никакой «+% к максимуму сопротивления»,
  * [ailmentDurationCap] - сильнее этого не сократить длительность состояния на себе.
  */
@@ -139,14 +131,12 @@ data class CombatRules(
     val variance: Double,
     val resistCap: Double,
     val blockCap: Double,
-    val spellBlockShare: Double,
     val unarmed: UnarmedRule,
     val critical: CriticalRule,
     val armour: ArmourRule,
     val evasion: EvasionRule,
     val stun: StunRule,
     val shield: ShieldRule,
-    val spell: SpellRule,
     val retreat: RetreatRule,
     val death: DeathRule,
     val ailments: List<AilmentRule>,
@@ -561,7 +551,7 @@ object CampaignContent {
         fun positive(value: Double, name: String) { if (value <= 0) throw CampaignExceptions.funExceptionContent(method, name) }
         fun percent(value: Double, name: String) { if (value !in 0.0..100.0) throw CampaignExceptions.funExceptionContent(method, name) }
         positive(rules.timeLimit, "timeLimit"); percent(rules.variance, "variance")
-        percent(rules.resistCap, "resistCap"); percent(rules.blockCap, "blockCap"); percent(rules.spellBlockShare, "spellBlockShare")
+        percent(rules.resistCap, "resistCap"); percent(rules.blockCap, "blockCap")
         percent(rules.resistHardCap, "resistHardCap"); percent(rules.ailmentDurationCap, "ailmentDurationCap")
         if (rules.resistHardCap < rules.resistCap) throw CampaignExceptions.funExceptionContent(method, "resistHardCap")
         positive(rules.unarmed.damage, "unarmed.damage"); positive(rules.unarmed.speed, "unarmed.speed")
@@ -570,8 +560,6 @@ object CampaignContent {
         positive(rules.evasion.base, "evasion.base"); percent(rules.evasion.cap, "evasion.cap")
         if (rules.evasion.perLevel < 0 || rules.stun.share < 0 || rules.stun.duration < 0) throw CampaignExceptions.funExceptionContent(method, "stun")
         if (rules.shield.rechargeDelay < 0 || rules.shield.rechargePerSecond < 0) throw CampaignExceptions.funExceptionContent(method, "shield")
-        if (rules.spell.innateDamage < 0 || rules.spell.innatePerLevel < 0) throw CampaignExceptions.funExceptionContent(method, "spell.innate")
-        positive(rules.spell.castSpeed, "spell.castSpeed"); percent(rules.spell.manaCost, "spell.manaCost"); percent(rules.spell.manaRegenShare, "spell.manaRegenShare")
         if (rules.retreat.delay < 0) throw CampaignExceptions.funExceptionContent(method, "retreat.delay")
         if (rules.death.fromLevel < 1) throw CampaignExceptions.funExceptionContent(method, "death.fromLevel")
         percent(rules.death.experienceShare, "death.experienceShare")

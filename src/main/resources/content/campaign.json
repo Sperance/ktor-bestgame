@@ -2145,7 +2145,6 @@
     "variance": 20,
     "resistCap": 75,
     "blockCap": 75,
-    "spellBlockShare": 50,
     "resistHardCap": 90,
     "ailmentDurationCap": 75,
     "unarmed": {
@@ -2172,13 +2171,6 @@
     "shield": {
       "rechargeDelay": 2.0,
       "rechargePerSecond": 20
-    },
-    "spell": {
-      "innateDamage": 2,
-      "innatePerLevel": 0.5,
-      "castSpeed": 0.8,
-      "manaCost": 12,
-      "manaRegenShare": 1.75
     },
     "retreat": {
       "delay": 1.5

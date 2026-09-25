@@ -11,7 +11,6 @@ object EquipmentExceptions {
     }
 
     fun funException(errorMethod: String, value: String? = "") = EquipmentException(value, errorMethod, "EQ_001", listOf(value.orEmpty()))
-    fun funExceptionType(errorMethod: String, value: String? = "") = EquipmentException("Equipment type is not supported", errorMethod, "EQ_002", listOf(value.orEmpty()))
 
     // Валидация типов предметов
     fun funExceptionInvalidSlot(errorMethod: String, equipmentType: String) =

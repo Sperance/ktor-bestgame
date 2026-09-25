@@ -9,7 +9,6 @@ object UserExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = UserException(value, errorMethod, "US_001", listOf(value.orEmpty()))
     fun funExceptionInvalidEmail(errorMethod: String, value: String? = "") = UserException("Invalid email $value", errorMethod, "US_002", listOf(value.orEmpty()))
     fun funExceptionInvalidAge(errorMethod: String, value: String? = "") = UserException("Invalid age $value", errorMethod, "US_003", listOf(value.orEmpty()))
     fun funExceptionInvalidPassword(errorMethod: String, value: String? = "") = UserException("Password is too short", errorMethod, "US_004", listOf(value.orEmpty()))
@@ -22,7 +21,6 @@ object UserExceptions {
     fun funExceptionPasswordOneDigit(errorMethod: String, value: String? = "") = UserException("Password should contain at least one digit", errorMethod, "US_008", listOf(value.orEmpty()))
     fun funExceptionPasswordOneUppercase(errorMethod: String, value: String? = "") = UserException("Password should contains uppercase letter", errorMethod, "US_008", listOf(value.orEmpty()))
     fun funExceptionPasswordWhitespace(errorMethod: String, value: String? = "") = UserException("Password shouldn't have whitespace", errorMethod, "US_008", listOf(value.orEmpty()))
-    fun funExceptionPasswordCheck(errorMethod: String, value: String? = "") = UserException("Invalid password check", errorMethod, "US_009", listOf(value.orEmpty()))
 
     fun funExceptionPasswordLoginPass(errorMethod: String, value: String? = "") = UserException("Invalid login or password", errorMethod, "US_010", listOf(value.orEmpty()))
     fun funExceptionInactive(errorMethod: String, value: String? = "") = UserException("Account with login $value is inactive", errorMethod, "US_011", listOf(value.orEmpty()))

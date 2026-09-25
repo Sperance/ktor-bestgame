@@ -9,7 +9,6 @@ object ProgressionExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = ProgressionException(value, errorMethod, "PR_001", listOf(value.orEmpty()))
     fun funExceptionClassCode(errorMethod: String, value: String? = "") = ProgressionException("Character class code '$value' is null or empty", errorMethod, "PR_002", listOf(value.orEmpty()))
     fun funExceptionClassNotFound(errorMethod: String, value: String? = "") = ProgressionException("Character class $value not found", errorMethod, "PR_003", listOf(value.orEmpty()))
     fun funExceptionLevel(errorMethod: String, value: String? = "") = ProgressionException("Level $value must be positive", errorMethod, "PR_004", listOf(value.orEmpty()))

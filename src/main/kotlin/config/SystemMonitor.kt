@@ -20,11 +20,6 @@ object SystemMonitor {
     private val memoryMXBean: MemoryMXBean = ManagementFactory.getMemoryMXBean()
     private val osMXBean: OperatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean()
 
-    // Дополнительные метрики (если доступны)
-    private val osBean: OperatingSystemMXBean? = runCatching {
-        ManagementFactory.getOperatingSystemMXBean()
-    }.getOrNull()
-
     /**
      * Запуск мониторинга с интервалом 1 час
      */
@@ -104,33 +99,6 @@ object SystemMonitor {
     }
 
     /**
-     * Сбор метрик в структуру данных
-     */
-    fun collectMetrics(): SystemMetrics {
-        return SystemMetrics(
-            timestamp = LocalDateTime.now(),
-            pid = getProcessId(),
-            uptime = runtimeMXBean.uptime,
-            threadCount = Thread.activeCount(),
-            heapMemory = MemoryUsage(
-                total = memoryMXBean.heapMemoryUsage.committed,
-                used = memoryMXBean.heapMemoryUsage.used,
-                max = memoryMXBean.heapMemoryUsage.max
-            ),
-            nonHeapMemory = MemoryUsage(
-                total = memoryMXBean.nonHeapMemoryUsage.committed,
-                used = memoryMXBean.nonHeapMemoryUsage.used,
-                max = memoryMXBean.nonHeapMemoryUsage.max
-            ),
-            cpuCores = osMXBean.availableProcessors,
-            systemLoadAverage = osMXBean.systemLoadAverage,
-            gcInfo = ManagementFactory.getGarbageCollectorMXBeans().map { gc ->
-                GCInfo(gc.name, gc.collectionCount, gc.collectionTime)
-            }
-        )
-    }
-
-    /**
      * Получение PID процесса
      */
     private fun getProcessId(): String {
@@ -170,69 +138,4 @@ object SystemMonitor {
         }
     }
 
-    /**
-     * Получение общей системной памяти
-     */
-    private fun getTotalSystemMemory(): Long {
-        return try {
-            val osBean = ManagementFactory.getOperatingSystemMXBean()
-            val method = osBean.javaClass.getMethod("getTotalPhysicalMemorySize")
-            method.invoke(osBean) as Long
-        } catch (e: Exception) {
-            0L
-        }
-    }
-
-    /**
-     * Получение свободной системной памяти
-     */
-    private fun getFreeSystemMemory(): Long {
-        return try {
-            val osBean = ManagementFactory.getOperatingSystemMXBean()
-            val method = osBean.javaClass.getMethod("getFreePhysicalMemorySize")
-            method.invoke(osBean) as Long
-        } catch (e: Exception) {
-            0L
-        }
-    }
-
-    /**
-     * Получение нагрузки на CPU
-     */
-    fun getCpuLoad(): Double {
-        return try {
-            val osBean = ManagementFactory.getOperatingSystemMXBean()
-            val method = osBean.javaClass.getMethod("getSystemLoadAverage")
-            (method.invoke(osBean) as Double) / osBean.availableProcessors
-        } catch (e: Exception) {
-            -1.0
-        }
-    }
 }
-
-// Data classes для метрик
-data class SystemMetrics(
-    val timestamp: LocalDateTime,
-    val pid: String,
-    val uptime: Long,
-    val threadCount: Int,
-    val heapMemory: MemoryUsage,
-    val nonHeapMemory: MemoryUsage,
-    val cpuCores: Int,
-    val systemLoadAverage: Double,
-    val gcInfo: List<GCInfo>
-)
-
-data class MemoryUsage(
-    val total: Long,
-    val used: Long,
-    val max: Long
-) {
-    val usagePercent: Int get() = if (max > 0) (used * 100 / max).toInt() else 0
-}
-
-data class GCInfo(
-    val name: String,
-    val count: Long,
-    val time: Long
-)

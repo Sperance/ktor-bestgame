@@ -23,12 +23,10 @@ import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
 import features.caches.ModifierTierCache
-import features.caches.RecipeCache
 import features.caches.SkillTreeCache
 import features.data.auction.AuctionLotRepository
 import features.data.blockList.BlockListRepository
 import features.data.inventory.CharacterEquipmentRepository
-import features.data.recipe.RecipeRepository
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
@@ -56,7 +54,6 @@ object DatabaseSeeder : KoinComponent {
     private val itemsRepository: ItemsRepository by inject()
     private val equipmentRepository: EquipmentRepository by inject()
     private val blockListRepository: BlockListRepository by inject()
-    private val recipeRepository: RecipeRepository by inject()
     private val redemptionCodesRepository: RedemptionCodesRepository by inject()
     private val characterEquipmentRepository: CharacterEquipmentRepository by inject()
     private val auctionLotRepository: AuctionLotRepository by inject()
@@ -73,7 +70,6 @@ object DatabaseSeeder : KoinComponent {
     private val characterClassCache: CharacterClassCache by inject()
     private val experienceLevelCache: ExperienceLevelCache by inject()
     private val blockListCache: BlockListCache by inject()
-    private val recipeCache: RecipeCache by inject()
 
     suspend fun seed() {
 
@@ -130,7 +126,6 @@ object DatabaseSeeder : KoinComponent {
             itemsRepository,
             equipmentRepository,
             blockListRepository,
-            recipeRepository,
             redemptionCodesRepository,
             modifierDefinitionRepository,
             modifierTierRepository,
@@ -151,7 +146,7 @@ object DatabaseSeeder : KoinComponent {
     private suspend fun initializeCaches() = coroutineScope {
         listOf(
             modifierDefinitionCache, modifierTierCache, characterClassCache, experienceLevelCache,
-            equipmentCache, skillTreeCache, itemsCache, recipeCache, blockListCache
+            equipmentCache, skillTreeCache, itemsCache, blockListCache
         ).map { async { it.initializeCache() } }.awaitAll()
 
         printLog("  → caches loaded")

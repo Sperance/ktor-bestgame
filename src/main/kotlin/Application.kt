@@ -16,19 +16,16 @@ import config.SystemMonitor
 import features.logic.icons.IconCache
 import features.logic.locale.LocaleCache
 import features.logic.portraits.PortraitCache
-import io.ktor.server.engine.EmbeddedServer
 import org.koin.core.context.startKoin
 import server.addons.configureIpBlocking
 import server.addons.configureRateLimit
 import server.addons.configureAccess
 import server.addons.configureStatusPages
 
-lateinit var server: EmbeddedServer<*, *>
-
 fun main() {
     printLog("\n\n***** Starting up", true)
 
-    server = embeddedServer(Netty,
+    val server = embeddedServer(Netty,
         configure = {
             connector { port = SERVER_PORT; host = "0.0.0.0" }
             shutdownGracePeriod = 10_000L },

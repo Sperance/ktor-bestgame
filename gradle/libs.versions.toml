@@ -5,7 +5,6 @@ logback = "1.5.37"
 dokka = "2.2.0"
 kotlinx_datetime_version = "0.8.0"
 ktmongo = "0.31.0"
-swagger = "2.2.52"
 koin_version = "4.2.2"
 mongo_bson = "5.9.0"
 
@@ -27,7 +26,6 @@ ktor-server-config-yaml = { module = "io.ktor:ktor-server-config-yaml", version.
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 opensavvy-ktmongo = { module = "dev.opensavvy.ktmongo:driver-coroutines", version.ref = "ktmongo"}
-swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger"}
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin_version"}
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin_version"}
 mongo-bson = { module = "org.mongodb:bson-kotlinx", version.ref = "mongo_bson"}

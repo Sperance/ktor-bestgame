@@ -262,12 +262,6 @@ object ModifierRoller : KoinComponent {
     fun isCrafted(modifier: Modifier): Boolean = definitionCache.findById(modifier.modifierId)?.crafted == true
 
     /**
-     * Есть ли на предмете место под ещё один аффикс.
-     */
-    fun hasFreeAffixSlot(rarity: EnumRarity, current: Collection<Modifier>): Boolean =
-        freeSlots(rarity, definitions(current)).let { (prefixes, suffixes) -> prefixes > 0 || suffixes > 0 }
-
-    /**
      * Пул аффиксов предмета: пулы шаблона и, если копия под влиянием, пул этого влияния - он общий
      * для всех шаблонов. Ремесленных здесь нет никогда - их ставит только верстак.
      */

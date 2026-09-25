@@ -14,6 +14,5 @@ object BaseRepositoryExceptions {
     fun funExceptionInsertVersion(errorMethod: String, value: String? = "") = BaseRepositoryException("New entity field 'version' must be 0. Currene version: $value", errorMethod, "BRY_004", listOf(value.orEmpty()))
     fun funExceptionFindId(errorMethod: String, value: String? = "") = BaseRepositoryException("Entity with id '$value' not found", errorMethod, "BRY_005", listOf(value.orEmpty()))
     fun funExceptionEntityNull(errorMethod: String, value: String? = "") = BaseRepositoryException("Entity is null", errorMethod, "BRY_006", listOf(value.orEmpty()))
-    fun funExceptionEntityClass(errorMethod: String, value: String? = "") = BaseRepositoryException("Entity class $value does not support", errorMethod, "BRY_007", listOf(value.orEmpty()))
     fun funExceptionVersioned(errorMethod: String, value: String? = "") = BaseRepositoryException("Entity class $value is not versioned", errorMethod, "BRY_008", listOf(value.orEmpty()))
 }

@@ -22,7 +22,7 @@ object AccessPolicy {
         "/api/v1/user/byDeviceId",
     )
 
-    private val publicSystem = setOf("/system/routes", "/system/health", "/system/version", "/system/stats")
+    private val publicSystem = setOf("/system/health", "/system/stats")
 
     /**
      * Коллекции, в которых лежат чужие данные: аккаунты, персонажи, их вещи, лоты, промокоды.
@@ -37,8 +37,6 @@ object AccessPolicy {
         "/api/v1/character/inventory/itemToInventory",
         "/api/v1/character/inventory/experience",
         "/api/v1/character/inventory/addItem",
-        "/system/shutdown",
-        "/system/exceptions",
     )
 
     /**
@@ -58,8 +56,6 @@ object AccessPolicy {
         if (path in adminRoutes) return Need.ADMIN
         if (path.startsWith("/system/")) return Need.ADMIN
         if (!path.startsWith("/api/")) return Need.PUBLIC
-
-        if (path.startsWith("/api/v1/user/search")) return Need.ADMIN
 
         val segments = path.removePrefix("/api/v1/").split('/')
         val collection = segments.first()

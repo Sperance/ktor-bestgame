@@ -1,13 +1,6 @@
 package server.addons
 
 import base.exception.ApplicationExceptions
-import base.exception.BaseRepositoryExceptions
-import base.exception.BaseRouteExceptions
-import base.exception.model.CharacterExceptions
-import base.exception.model.EquipmentExceptions
-import base.exception.model.ItemsExceptions
-import base.exception.model.PropertyExceptions
-import base.exception.model.UserExceptions
 import base.route.ApiMongoResponse
 import base.route.RouteRegistry
 import config.MongoFactory
@@ -29,19 +22,13 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
-import io.ktor.server.routing.post
 import io.ktor.server.routing.openapi.OpenApiDocSource
 import io.ktor.server.routing.route
 import kotlinx.serialization.json.Json
 import io.ktor.server.routing.routing
 import io.ktor.server.routing.routingRoot
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.bson.Document
 import org.koin.ktor.ext.inject
-import server
 import SERVER_VERSION
 import API_REVISION
 import extensions.RouteInfo
@@ -50,19 +37,13 @@ import features.logic.world.WorldManifest
 import io.ktor.http.HttpHeaders
 import io.ktor.server.response.header
 import kotlinx.serialization.Serializable
-import kotlin.reflect.KFunction
-import kotlin.reflect.KParameter
-import kotlin.reflect.full.declaredMembers
-import kotlin.time.Duration.Companion.seconds
 
-@OptIn(DelicateCoroutinesApi::class)
 fun Application.configureRouting() {
-        val routeRegistry by inject<RouteRegistry>()
+    val routeRegistry by inject<RouteRegistry>()
     installHeroChanges()
     routing {
-        // Файлы локализации раздаются как есть: клиент читает манифест
-        // locale/index.json, сверяет отпечаток и качает нужный словарь. Манифест собирает
-        // сервер, как и у иконок: отпечаток считается из файла и забыть его нельзя.
+        // Словари, иконки и портреты - статичные файлы с манифестами; отпечатки считает сервер,
+        // и те же манифесты собраны в static/index.json.
         route("/${LocaleCache.FOLDER}") {
             get("/${LocaleCache.MANIFEST}") {
                 call.respondText(Json.encodeToString(LocaleManifest.serializer(), LocaleCache.manifest()), ContentType.Application.Json)
@@ -73,9 +54,6 @@ fun Application.configureRouting() {
                 call.respondText(LocaleCache.document(language), ContentType.Application.Json)
             }
         }
-
-        // Иконки устроены так же, но манифест собирает сервер: отпечаток
-        // считается из самого файла, и забыть его обновить нельзя
         route("/${IconCache.FOLDER}") {
             get("/index.json") {
                 call.respondText(Json.encodeToString(IconManifest.serializer(), IconCache.manifest()), ContentType.Application.Json)
@@ -84,7 +62,6 @@ fun Application.configureRouting() {
                 call.respondText(IconCache.document(), ContentType.Application.Json)
             }
         }
-
         // Портреты (с 0.29.0): манифест с отпечатком каждого файла и сами SVG по разделам.
         route("/${PortraitCache.FOLDER}") {
             get("/${PortraitCache.MANIFEST}") {
@@ -111,7 +88,6 @@ fun Application.configureRouting() {
         }
 
         // 0.48.0: один манифест на старт - маршруты, словари, иконки, портреты и справочники.
-        // Прежние манифесты остаются для старых клиентов.
         route("/static") {
             get("/index.json") {
                 val manifest = StaticManifest(SERVER_VERSION, API_REVISION, ALL_ROUTES.sortedBy { it.path }, LocaleCache.manifest(),
@@ -130,19 +106,6 @@ fun Application.configureRouting() {
         }
 
         route("/system") {
-            get("/exceptions") {
-                call.respond(ApiMongoResponse.ok(exceptionFiles()))
-            }
-            // Только администратор - это проверяет доступ до маршрута. Ключ в строке запроса,
-            // лежавший в исходниках, был не защитой, а паролем, известным каждому читателю.
-            post("/shutdown") {
-                call.respond(ApiMongoResponse.ok("system.success"))
-
-                GlobalScope.launch {
-                    delay(2.seconds)
-                    server.stop()
-                }
-            }
             get("/health") {
                 try {
                     val ping = MongoFactory.getDatabase().runCommand(Document("ping", 1))
@@ -160,78 +123,11 @@ fun Application.configureRouting() {
                     call.respond(ApiMongoResponse.error(ApplicationExceptions.funExceptionError("/health")))
                 }
             }
-            get("/version") {
-                call.respond(ApiMongoResponse.ok(ServerVersion(SERVER_VERSION)))
-            }
             get("/stats") {
                 call.respond(ApiMongoResponse.ok(StatTables.served))
             }
-            get("/routes") {
-                val result = ALL_ROUTES.sortedBy { it.path }
-                call.respond(ApiMongoResponse.ok(result))
-            }
         }
     }.saveChildren()
-}
-
-private fun exceptionFiles(): ArrayList<String> {
-    val arrayClasses = listOf(
-        ApplicationExceptions::class,
-        BaseRepositoryExceptions::class,
-        BaseRouteExceptions::class,
-        CharacterExceptions::class,
-        EquipmentExceptions::class,
-        ItemsExceptions::class,
-        PropertyExceptions::class,
-        UserExceptions::class,
-    )
-
-    val resultArray = ArrayList<String>()
-
-    arrayClasses.forEach { cls ->
-        val instance = cls.objectInstance ?: run {
-            try {
-                cls.constructors.firstOrNull { it.parameters.isEmpty() }?.call()
-            } catch (e: Exception) {
-                null
-            }
-        }
-
-        if (instance == null) {
-            printLog("⚠️[${cls.simpleName}] Не удалось получить экземпляр")
-            return@forEach
-        }
-
-        cls.declaredMembers
-            .filterIsInstance<KFunction<*>>()
-            .filter { it.name.startsWith("funException") }
-            .forEach { func ->
-                try {
-                    val args = mutableMapOf<KParameter, Any?>()
-
-                    func.parameters.forEachIndexed { index, param ->
-                        // Пропускаем receiver (индекс 0 если это метод класса)
-                        if (index == 0 && param.type.classifier == cls) {
-                            args[param] = instance
-                            return@forEachIndexed
-                        }
-
-                        // Проверяем, есть ли значение по умолчанию для этого параметра
-                        val defaultValue = "<NULL>"
-
-                        // Используем значение по умолчанию
-                        args[param] = defaultValue
-                    }
-
-                    val result = func.callBy(args)
-                    resultArray.add("✅[${cls.simpleName}] ${func.name}: $result")
-
-                } catch (e: Exception) {
-                    resultArray.add("❌[${cls.simpleName}] ${func.name}: ${e.message}")
-                }
-            }
-    }
-    return resultArray
 }
 
 /** Правило [features.logic.trade.SellPrice]: доля базы за аффикс и множитель редкости. */
@@ -279,7 +175,3 @@ data class StaticManifest(
     val portraits: PortraitManifest,
     val world: WorldManifest,
 )
-
-/** Ответ `/system/version`: клиент сверяет его с той версией, под которую собран. */
-@Serializable
-data class ServerVersion(val version: String)

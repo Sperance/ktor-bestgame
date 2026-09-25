@@ -59,7 +59,7 @@ data class ProfessionView(
 
 /** Идущая работа: когда засчитан последний цикл и когда будет следующий (миллисекунды эпохи). */
 @Serializable
-data class WorkView(val profession: String, val job: String, val startedAt: Long, val settledAt: Long, val cycleMillis: Long, val nextAt: Long,
+data class WorkView(val profession: String, val job: String, val settledAt: Long, val cycleMillis: Long, val nextAt: Long,
                     val additives: List<String> = emptyList(),
                     /** Зерно и номер следующего цикла (с 0.42.0): по ним клиент бросает цикл сам, см. [Crafts.cycleRandom]. */
                     val seed: Long = 0, val cycle: Long = 0)
@@ -189,7 +189,7 @@ class CraftsService : KoinComponent {
         }
         val work = character.work?.let { work ->
             professions.firstOrNull { it.code == work.profession }?.jobs?.firstOrNull { it.code == work.job }?.let { job ->
-                WorkView(work.profession, work.job, work.startedAt, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives,
+                WorkView(work.profession, work.job, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives,
                     work.seed, work.cycles)
             }
         }

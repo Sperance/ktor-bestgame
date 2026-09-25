@@ -146,14 +146,6 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     /**
-     * Надетая экипировка персонажа.
-     */
-    suspend fun getEquippedData(characterId: String): List<CharacterEquipment> {
-        if (findById(characterId) == null) throw CharacterExceptions.funExceptionNotFound("getEquippedData", characterId)
-        return characterEquipmentRepository.findEquipped(characterId)
-    }
-
-    /**
      * Списывает у персонажа простые предметы в рамках уже открытой транзакции.
      *
      * Нужен операциям, которые тратят предмет и тут же меняют что-то ещё -
@@ -215,14 +207,11 @@ class CharacterRepository : BaseRepository<Character>(
     }
 
     /**
-     * Итоговые характеристики персонажа: база класса на его уровне,
-     * дерево навыков и работающая экипировка.
-     *
-     * Единственная точка расчёта - боёвка и любые другие механики должны
-     * брать характеристики отсюда, иначе потеряется чей-нибудь источник
-     * или будет учтён предмет, который на самом деле не работает.
+     * Итоговые характеристики персонажа: база класса на его уровне, дерево навыков и работающая
+     * экипировка. Единственная точка расчёта - иначе потеряется чей-нибудь источник или будет
+     * учтён предмет, который на самом деле не работает.
      */
-        suspend fun calculateStats(characterId: String): CharacterStats =
+    suspend fun calculateStats(characterId: String): CharacterStats =
         calculateStats(requireCharacter(characterId, "calculateStats"))
 
     /**

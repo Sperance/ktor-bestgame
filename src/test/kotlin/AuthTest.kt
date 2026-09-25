@@ -91,8 +91,6 @@ class AuthTest {
         assertEquals(Need.PUBLIC, need("GET", "/icons/icons.json"))
         assertEquals(Need.PUBLIC, need("GET", "/portraits/index.json"))
         assertEquals(Need.PUBLIC, need("GET", "/portraits/class/WITCH.svg"))
-        assertEquals(Need.PUBLIC, need("GET", "/system/routes"))
-        assertEquals(Need.PUBLIC, need("GET", "/system/version"))
         assertEquals(Need.PUBLIC, need("GET", "/system/stats"))
         assertEquals(Need.PUBLIC, need("GET", "/system/health"))
         assertEquals(Need.PUBLIC, need("GET", "/static/index.json"))
@@ -103,7 +101,7 @@ class AuthTest {
     @Test
     fun everything_a_player_does_needs_a_session() {
         listOf(
-            "GET" to "/api/v1/character/inventory/stats",
+            "GET" to "/api/v1/character/inventory/equipments",
             "GET" to "/api/v1/character/view",
             "GET" to "/world/world.json",
             "POST" to "/api/v1/characterequipment/applyOrb",
@@ -120,7 +118,7 @@ class AuthTest {
             "POST" to "/api/v1/user/changePassword",
             "GET" to "/api/v1/equipment",
             "GET" to "/api/v1/modifierdefinition",
-            "GET" to "/api/v1/skilltreenode/paged",
+            "GET" to "/api/v1/skilltreenode",
         ).forEach { (method, path) -> assertEquals(Need.SIGNED_IN, need(method, path), "$method $path") }
     }
 
@@ -154,7 +152,6 @@ class AuthTest {
             assertEquals(Need.ADMIN, need("GET", "/api/v1/$collection/paged"), collection)
             assertEquals(Need.ADMIN, need("GET", "/api/v1/$collection/count"), collection)
         }
-        assertEquals(Need.ADMIN, need("GET", "/api/v1/user/search/active"))
     }
 
     @Test
@@ -162,8 +159,7 @@ class AuthTest {
         assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/itemToInventory"))
         assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/experience"))
         assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/addItem"))
-        assertEquals(Need.ADMIN, need("POST", "/system/shutdown"))
-        assertEquals(Need.ADMIN, need("GET", "/system/exceptions"))
+        assertEquals(Need.ADMIN, need("GET", "/system/routes"))
     }
 
     @Test

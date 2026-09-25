@@ -16,15 +16,4 @@ class SkillTreeCache(
     fun graph(): SkillTreeGraph = built.get()
 
     fun findByCode(code: String): SkillTreeNode? = graph().node(code)
-
-    /**
-     * Стартовые узлы дерева - точки, с которых персонаж может начать.
-     */
-    fun startNodes(): List<SkillTreeNode> = graph().startNodes
-
-    fun neighbours(code: String): Set<String> = graph().neighbours(code)
-
-    fun isAdjacentTo(code: String, taken: Collection<String>): Boolean = graph().isAdjacentTo(code, taken)
-
-    fun isConnected(taken: Collection<String>): Boolean = graph().isConnected(taken)
 }

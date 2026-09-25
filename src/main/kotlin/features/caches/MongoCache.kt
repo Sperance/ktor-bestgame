@@ -31,9 +31,6 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
      */
     val revision: Long get() = snapshot.get().revision
 
-    /** Отпечаток содержимого: не зависит от порядка и переживает перезапуск. */
-    private val fingerprint = derived { items -> items.sortedBy { it._id }.hashCode() }
-
     suspend fun initializeCache() = loadToCache(repository.findAll())
 
     suspend fun initializeCache(session: ClientSession) = loadToCache(repository.findAll(session))
@@ -54,8 +51,6 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
         else items.map { if (it._id == item._id) item else it }
     }
 
-    fun clearCache() = replace { emptyList() }
-
     fun findById(id: String): T? = snapshot.get().byId[id]
 
     /** Записи по списку id, в порядке переданных id; неизвестные пропускаются. */
@@ -66,8 +61,6 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
 
     /** Текущий снимок: только чтение, писать в него нельзя. */
     fun getCache(): List<T> = snapshot.get().items
-
-    fun getCacheHash(): Int = fingerprint.get()
 
     fun isEmpty() = snapshot.get().items.isEmpty()
 

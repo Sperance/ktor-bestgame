@@ -39,7 +39,6 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.opensavvy.ktmongo)
-    implementation(libs.swagger.annotations)
     implementation(libs.koin.core)
     implementation(libs.koin.ktor)
     implementation(libs.mongo.bson)

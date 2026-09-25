@@ -10,7 +10,6 @@ object CharacterExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = CharacterException(value, errorMethod, "CH_001", listOf(value.orEmpty()))
     fun funExceptionName(errorMethod: String, value: String? = "") = CharacterException("Character name is null or empty", errorMethod, "CH_002", listOf(value.orEmpty()))
     fun funExceptionNameDuplicate(errorMethod: String, value: String? = "") = CharacterException("Character with name $value already exists", errorMethod, "CH_003", listOf(value.orEmpty()))
     fun funExceptionUserNotFound(errorMethod: String, value: String? = "") = CharacterException("User with id $value not found", errorMethod, "CH_004", listOf(value.orEmpty()))
@@ -27,5 +26,4 @@ object CharacterExceptions {
     fun funExceptionMapNotWorn(errorMethod: String, value: String? = "") = CharacterException("Map $value is not worn: it opens a location", errorMethod, "CH_018", listOf(value.orEmpty()))
     fun funExceptionSellSocketed(errorMethod: String, value: String? = "") = CharacterException("Jewel $value must be taken out of its socket before it is sold", errorMethod, "CH_015", listOf(value.orEmpty()))
     fun funExceptionExperience(errorMethod: String, value: String? = "") = CharacterException("Experience amount $value must not be negative", errorMethod, "CH_012", listOf(value.orEmpty()))
-    fun funExceptionItemFormat(errorMethod: String, value: String? = "") = CharacterException("Item '$value' has invalid storage format, expected 'itemId:amount'", errorMethod, "CH_011", listOf(value.orEmpty()))
 }

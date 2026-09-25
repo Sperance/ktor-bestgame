@@ -276,31 +276,6 @@ object LogManager {
     }
 
     /**
-     * Принудительное архивирование текущих логов
-     */
-    fun forceArchiveMonth(yearMonth: YearMonth? = null) {
-        val targetMonth = yearMonth ?: YearMonth.now()
-        val logDir = File(LOG_DIRECTORY)
-        val logFiles = logDir.listFiles { file ->
-            file.isFile && file.name.startsWith("log_") && file.name.endsWith(".log")
-        }?.filter { file ->
-            try {
-                val dateStr = file.name.removePrefix("log_").removeSuffix(".log")
-                val fileDate = LocalDate.parse(dateStr, DATE_FORMAT)
-                YearMonth.from(fileDate) == targetMonth
-            } catch (e: Exception) {
-                false
-            }
-        } ?: emptyList()
-
-        if (logFiles.isNotEmpty()) {
-            archiveLogsForMonth(targetMonth, logFiles)
-        } else {
-            printLog("No log files found for month $targetMonth")
-        }
-    }
-
-    /**
      * Закрытие ресурсов при завершении
      */
     fun shutdown() {
@@ -312,28 +287,4 @@ object LogManager {
         }
     }
 
-    /**
-     * Получение текущего файла лога
-     */
-    fun getCurrentLogFile(): File = getLogFile()
-
-    /**
-     * Получение списка всех лог-файлов
-     */
-    fun getLogFiles(): List<File> {
-        val logDir = File(LOG_DIRECTORY)
-        return logDir.listFiles { file ->
-            file.isFile && file.name.startsWith("log_") && file.name.endsWith(".log")
-        }?.sortedBy { it.name } ?: emptyList()
-    }
-
-    /**
-     * Получение списка всех архивов
-     */
-    fun getArchiveFiles(): List<File> {
-        val archiveDir = File(ARCHIVE_DIRECTORY)
-        return archiveDir.listFiles { file ->
-            file.isFile && file.name.startsWith("logs_") && file.name.endsWith(".zip")
-        }?.sortedBy { it.name } ?: emptyList()
-    }
 }

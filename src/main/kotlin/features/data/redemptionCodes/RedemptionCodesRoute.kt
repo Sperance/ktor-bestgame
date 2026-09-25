@@ -1,25 +1,22 @@
 package features.data.redemptionCodes
 
-import features.logic.hero.respondWithHero
-import base.route.ApiMongoResponse
 import base.route.BaseRoute
-import io.ktor.server.response.respond
+import base.route.Crud
+import base.route.characterId
+import base.route.queryParam
+import features.logic.hero.respondWithHero
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
-import org.koin.core.component.KoinComponent
 
-class RedemptionCodesRoute(val repo: RedemptionCodesRepository) : BaseRoute<RedemptionCodes, RedemptionCodes>(
+/** Промокоды: администратор их заводит и удаляет, игрок - погашает. */
+class RedemptionCodesRoute(private val repo: RedemptionCodesRepository) : BaseRoute<RedemptionCodes>(
     repository = repo,
     entitySerializer = RedemptionCodes.serializer(),
-    responseSerializer = RedemptionCodes.serializer(),
-    toResponse = { it }
-), KoinComponent {
+    operations = setOf(Crud.READ, Crud.CREATE, Crud.DELETE),
+) {
     override fun additionalRoutes(route: Route) = with(route) {
         post("useRedeptionCode") {
-            val characterId = call.queryParam("characterId")
-            val redemptionCode = call.queryParam("redemptionCode")
-            val data = repo.useCharacterRedemptionCode(characterId, redemptionCode)
-            call.respondWithHero(data)
+            call.respondWithHero(repo.useCharacterRedemptionCode(call.characterId, call.queryParam("redemptionCode")))
         }
     }
 }

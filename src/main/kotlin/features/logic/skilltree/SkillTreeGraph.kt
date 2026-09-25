@@ -11,7 +11,6 @@ import application.enums.EnumSkillNodeType
  */
 class SkillTreeGraph(nodes: Collection<SkillTreeNode>) {
     val byCode: Map<String, SkillTreeNode> = nodes.associateBy { it.code }
-    val startNodes: List<SkillTreeNode> = nodes.filter { it.type == EnumSkillNodeType.START }
 
     private val adjacency: Map<String, Set<String>> = HashMap<String, MutableSet<String>>().also { edges ->
         nodes.forEach { node ->

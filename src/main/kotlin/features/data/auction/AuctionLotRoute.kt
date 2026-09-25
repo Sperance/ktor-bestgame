@@ -4,77 +4,54 @@ import application.enums.EnumAuctionLotKind
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import base.exception.BaseRouteExceptions
-import base.route.ApiMongoResponse
+import CONST_PAGE_SIZE_DEFAULT
 import base.route.BaseRoute
+import base.route.characterId
+import base.route.inventoryId
+import base.route.queryParam
+import base.route.respondOk
 import features.logic.locale.LocaleCache
 import io.ktor.server.application.ApplicationCall
-import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 /**
- * Маршруты аукциона. Всё, кроме служебного CRUD из [BaseRoute],
- * требует персонажа: аукцион открывается с определённого уровня.
+ * Маршруты аукциона. Каждый требует персонажа: аукцион открывается с определённого уровня.
  */
 class AuctionLotRoute(
-    val repo: AuctionLotRepository
-) : BaseRoute<AuctionLot, AuctionLot>(
+    private val repo: AuctionLotRepository
+) : BaseRoute<AuctionLot>(
     repository = repo,
     entitySerializer = AuctionLot.serializer(),
-    responseSerializer = AuctionLot.serializer(),
-    toResponse = { it }
+    operations = emptySet(),
 ) {
     override fun additionalRoutes(route: Route) = with(route) {
         get("/search") {
-            val characterId = call.queryParam("characterId")
-            val page = call.queryParam("page", 0)
-            val size = call.queryParam("size", 20)
-            val data = repo.search(characterId, searchFrom(call), page, size)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondOk(repo.search(call.characterId, searchFrom(call), call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
         }
         get("/my") {
-            val characterId = call.queryParam("characterId")
-            val data = repo.findBySeller(characterId)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondOk(repo.findBySeller(call.characterId))
         }
         post("/sell/equipment") {
-            val characterId = call.queryParam("characterId")
-            val inventoryId = call.queryParam("inventoryId")
-            val priceOrbId = call.queryParam("priceOrbId")
-            val price = call.queryParam("price", 0L)
-            val data = repo.sellEquipment(characterId, inventoryId, priceOrbId, price)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondOk(repo.sellEquipment(call.characterId, call.inventoryId, call.queryParam("priceOrbId"), call.queryParam("price", 0L)))
         }
         post("/sell/item") {
-            val characterId = call.queryParam("characterId")
-            val itemId = call.queryParam("itemId")
-            val amount = call.queryParam("amount", 1L)
-            val priceOrbId = call.queryParam("priceOrbId")
-            val price = call.queryParam("price", 0L)
-            val data = repo.sellItem(characterId, itemId, amount, priceOrbId, price)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondOk(repo.sellItem(call.characterId, call.queryParam("itemId"), call.queryParam("amount", 1L),
+                call.queryParam("priceOrbId"), call.queryParam("price", 0L)))
         }
         // 0.34.0: места под лоты - сколько занято, и докупить ещё одно за золото.
         get("/slots") {
-            val characterId = call.queryParam("characterId")
-            call.respond(ApiMongoResponse.ok(repo.slots(characterId)))
+            call.respondOk(repo.slots(call.characterId))
         }
         post("/slots") {
-            val characterId = call.queryParam("characterId")
-            call.respond(ApiMongoResponse.ok(repo.buySlot(characterId)))
+            call.respondOk(repo.buySlot(call.characterId))
         }
         post("/buy") {
-            val characterId = call.queryParam("characterId")
-            val lotId = call.queryParam("lotId")
-            val data = repo.buy(characterId, lotId)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondOk(repo.buy(call.characterId, call.queryParam("lotId")))
         }
         post("/cancel") {
-            val characterId = call.queryParam("characterId")
-            val lotId = call.queryParam("lotId")
-            val data = repo.cancel(characterId, lotId)
-            call.respond(ApiMongoResponse.ok(data))
+            call.respondOk(repo.cancel(call.characterId, call.queryParam("lotId")))
         }
     }
 

@@ -39,12 +39,6 @@ object EquipmentRequirements {
         return result
     }
 
-    /**
-     * Выполнены ли все требования предмета.
-     */
-    fun isMet(template: Equipment, level: Int, stats: Map<IntEnumStat, Double>): Boolean =
-        unmet(template, level, stats).isEmpty()
-
     private fun check(name: String, required: Int, actual: Int): UnmetRequirement? =
         if (required <= actual) null else UnmetRequirement(name, required, actual)
 

@@ -15,12 +15,6 @@ class ItemsRepository : BaseRepository<Items>(entityClass = Items::class), KoinC
     }
 
     /**
-     * Все предметы категории.
-     */
-    suspend fun findByCategory(category: String): List<Items> =
-        findByFilter(Filters.eq("category", category))
-
-    /**
      * Удаляет все предметы категории в рамках транзакции.
      * Нужен для пересева справочных категорий вроде валюты.
      *

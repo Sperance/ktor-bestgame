@@ -47,10 +47,6 @@ data class ModifierEffect(
      */
     val perAmount: Double = 1.0,
 ) {
-    /**
-     * Конверсия ли это - то есть зависит ли значение от другого стата.
-     */
-    fun isConversion(): Boolean = perStat != null
 }
 
 /**

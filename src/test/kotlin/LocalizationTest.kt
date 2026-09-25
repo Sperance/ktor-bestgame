@@ -27,7 +27,6 @@ import base.exception.model.ItemsExceptions
 import base.exception.model.LocaleExceptions
 import base.exception.model.ModifierExceptions
 import base.exception.model.ProgressionExceptions
-import base.exception.model.RecipeExceptions
 import base.exception.model.RedemptionCodesExceptions
 import base.exception.model.SkillTreeExceptions
 import base.exception.model.UserExceptions
@@ -98,7 +97,7 @@ class LocalizationTest {
         ApplicationExceptions::class, BaseRepositoryExceptions::class, BaseRouteExceptions::class,
         AuctionExceptions::class, AuthExceptions::class, CampaignExceptions::class, CharacterExceptions::class, CurrencyExceptions::class,
         EquipmentExceptions::class, ItemsExceptions::class, LocaleExceptions::class,
-        ModifierExceptions::class, ProgressionExceptions::class, RecipeExceptions::class,
+        ModifierExceptions::class, ProgressionExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class,
         base.exception.model.ProfessionExceptions::class,
     )

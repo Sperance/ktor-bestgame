@@ -9,7 +9,6 @@ object AuctionExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = AuctionException(value, errorMethod, "AU_001", listOf(value.orEmpty()))
     fun funExceptionLevel(errorMethod: String, value: String? = "") = AuctionException("Character level $value is too low for the auction", errorMethod, "AU_002", listOf(value.orEmpty()))
     fun funExceptionLotNotFound(errorMethod: String, value: String? = "") = AuctionException("Auction lot $value not found", errorMethod, "AU_003", listOf(value.orEmpty()))
     fun funExceptionLotClosed(errorMethod: String, value: String? = "") = AuctionException("Auction lot $value is not on sale anymore", errorMethod, "AU_004", listOf(value.orEmpty()))

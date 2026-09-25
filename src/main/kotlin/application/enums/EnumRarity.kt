@@ -31,11 +31,6 @@ enum class EnumRarity(
     UNIQUE(0, 0),
     MYTHICAL(0, 0);
 
-    /**
-     * Сколько всего аффиксов помещается на предмет этой редкости.
-     */
-    fun affixCount(): Int = prefixCount + suffixCount
-
     /** Модификаторы задаёт сам предмет, а не ролл: уникалка и мифический предмет. */
     val fixed: Boolean get() = this == UNIQUE || this == MYTHICAL
 }

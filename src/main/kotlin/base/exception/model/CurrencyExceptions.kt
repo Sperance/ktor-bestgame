@@ -9,9 +9,7 @@ object CurrencyExceptions {
         }
     }
 
-    fun funException(errorMethod: String, value: String? = "") = CurrencyException(value, errorMethod, "CR_001", listOf(value.orEmpty()))
     fun funExceptionNotCurrency(errorMethod: String, value: String? = "") = CurrencyException("Item $value is not a currency orb", errorMethod, "CR_002", listOf(value.orEmpty()))
-    fun funExceptionNotEnough(errorMethod: String, value: String? = "") = CurrencyException("Character has no $value left", errorMethod, "CR_003", listOf(value.orEmpty()))
     fun funExceptionCorrupted(errorMethod: String, value: String? = "") = CurrencyException("Item $value is corrupted and cannot be modified", errorMethod, "CR_004", listOf(value.orEmpty()))
     fun funExceptionRarity(errorMethod: String, value: String? = "") = CurrencyException("Orb cannot be applied to an item of this rarity ($value)", errorMethod, "CR_005", listOf(value.orEmpty()))
     fun funExceptionNoAffixes(errorMethod: String, value: String? = "") = CurrencyException("Item $value has no affixes to change", errorMethod, "CR_006", listOf(value.orEmpty()))
