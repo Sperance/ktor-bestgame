@@ -23,6 +23,12 @@ import kotlin.math.pow
 /** Редкость монстра; `UNIQUE` (с 0.32.0) - только босс карты, случайно она не выпадает никогда. */
 enum class EnumMonsterRarity { NORMAL, MAGIC, RARE, UNIQUE }
 
+/**
+ * Где монстр стоит в бою (с 0.61.0): ближний - в первом ряду, дальний - во втором и бьёт героя с
+ * первой секунды. Героя с оружием ближнего боя второй ряд не подпускает, пока жив первый.
+ */
+enum class EnumMonsterRange { MELEE, RANGED }
+
 /** Что может выпасть: сфера из справочника валюты или экипировка уровня карты. */
 enum class EnumLootKind { ORB, EQUIPMENT }
 
@@ -175,6 +181,8 @@ data class MonsterTemplate(
     val uniquePools: List<String> = emptyList(),
     /** Страж осквернённой зоны (с 0.46.0): как босс, но не у выхода - его ставит клиент по зерну карты. */
     val corrupted: Boolean = false,
+    /** Ближний или дальний бой (с 0.61.0); без него решает форма - см. [CampaignContentFile.rangedForms]. */
+    val range: EnumMonsterRange? = null,
 )
 
 /**
@@ -223,7 +231,8 @@ data class BossRule(val respawnHours: Double, val uniqueChance: Double, val ownU
 
 /** Босс карты, какой его видит клиент: характеристики и модификаторы уже подняты до уровня карты. */
 @Serializable
-data class CampaignBoss(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule, val modifiers: List<MonsterModifier>)
+data class CampaignBoss(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule, val modifiers: List<MonsterModifier>,
+                        val range: EnumMonsterRange = EnumMonsterRange.MELEE)
 
 /**
  * Осквернённая зона (с 0.46.0): случайный портал на карте (0-1 за заход, по шансу [chance] и
@@ -313,13 +322,20 @@ data class CampaignContentFile(
     val fountains: FountainRule = FountainRule(),
     val corruption: CorruptionRule = CorruptionRule(),
     val vaal: VaalRule = VaalRule(),
-)
+    /** Формы, которые дерутся издалека, если шаблон не сказал сам (с 0.61.0). */
+    val rangedForms: Set<String> = emptySet(),
+) {
+    /** Ряд монстра в бою: свой из шаблона, иначе по форме. */
+    fun range(template: MonsterTemplate): EnumMonsterRange =
+        template.range ?: if (template.form in rangedForms) EnumMonsterRange.RANGED else EnumMonsterRange.MELEE
+}
 
 // ==================== То, что уходит клиенту ====================
 
 /** Монстр карты: характеристики уже подняты до её уровня, клиенту остаётся только драться. */
 @Serializable
-data class CampaignMonster(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule)
+data class CampaignMonster(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule,
+                           val range: EnumMonsterRange = EnumMonsterRange.MELEE)
 
 /**
  * Карта главы, какой её видит клиент.
@@ -424,7 +440,7 @@ object CampaignContent {
                     monsters = map.monsters.map { code ->
                         val template = monsters.getValue(code)
                         CampaignMonster(code, template.form, (content.defaults + template.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
-                            template.behaviour ?: content.behaviour.forms[template.form] ?: content.behaviour.default)
+                            template.behaviour ?: content.behaviour.forms[template.form] ?: content.behaviour.default, content.range(template))
                     },
                     modifiers = pools.of(content.modifiers.filter { it.minLevel <= map.level }, map.modifierPools)
                         .map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
@@ -446,7 +462,8 @@ object CampaignContent {
         monsters.getValue(code).let { boss ->
             CampaignBoss(boss.code, boss.form, (content.defaults + boss.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
                 boss.behaviour ?: defaultBehaviour,
-                boss.modifiers.map { modCode -> content.modifiers.first { it.code == modCode }.let { raise(content, it, pools.weight(it.code, map.modifierPools), map.level) } })
+                boss.modifiers.map { modCode -> content.modifiers.first { it.code == modCode }.let { raise(content, it, pools.weight(it.code, map.modifierPools), map.level) } },
+                content.range(boss))
         }
 
     /** Модификатор монстра на уровне карты: растут только прибавки. */
