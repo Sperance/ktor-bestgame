@@ -106,6 +106,12 @@ data class Character(
     /** Ваал-зона активной карты (с 0.57.0), выпавшая за её порталом и ещё не закрытая; см. [features.logic.campaign.VaalZones]. */
     var vaalZone: features.logic.campaign.VaalZone? = null,
 
+    /** Взятые узлы атласа (с 0.60.0), без корня - он взят всегда; см. [features.logic.atlas.AtlasService]. */
+    var atlasNodes: MutableList<String> = mutableListOf(),
+
+    /** Засчитанные достижения атласа (с 0.60.0): `exit:<карта>`, `rare:<карта>`, `vaal:<карта>` - каждое один раз. */
+    var atlasEarned: MutableList<String> = mutableListOf(),
+
     /** Растёт на каждую запись в инвентарь героя: по нему клиент и лист статов узнают, что вещи сменились. */
     var inventoryRevision: Long = 0,
     override var _id: String = ObjectId().toHexString(),

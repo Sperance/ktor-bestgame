@@ -8,6 +8,7 @@ import base.route.mapCode
 import base.route.queryParam
 import base.route.respondOk
 import features.data.character.character_data.CharacterItems
+import features.logic.atlas.AtlasService
 import features.logic.campaign.CampaignService
 import features.logic.crafts.CraftsService
 import features.logic.hero.HeroSnapshots
@@ -28,6 +29,7 @@ class CharacterRoute(
     private val campaign: CampaignService,
     private val merchant: MerchantService,
     private val crafts: CraftsService,
+    private val atlas: AtlasService,
 ) : BaseRoute<Character>(
     repository = repo,
     entitySerializer = Character.serializer(),
@@ -167,6 +169,25 @@ class CharacterRoute(
             }
             post("/reset") {
                 call.respondWithHero(repo.resetSkillTree(call.characterId))
+            }
+        }
+
+        // 0.60.0: пассивное дерево атласа - очки за выходы, редкие карты и стражей Ваал, откат за золото.
+        route("/atlas") {
+            get("/tree") {
+                call.respondOk(atlas.tree())
+            }
+            get("/state") {
+                call.respondOk(atlas.state(call.characterId))
+            }
+            post("/allocate") {
+                call.respondWithHero(atlas.allocate(call.characterId, call.queryParam("nodeCode")))
+            }
+            post("/refund") {
+                call.respondWithHero(atlas.refund(call.characterId, call.queryParam("nodeCode")))
+            }
+            post("/reset") {
+                call.respondWithHero(atlas.reset(call.characterId))
             }
         }
     }

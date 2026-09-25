@@ -29,6 +29,7 @@ object LocaleKey {
     const val MONSTER_MODIFIER = "monstermod"
     const val PROFESSION = "profession"
     const val JOB = "job"
+    const val ATLAS_NODE = "atlas.node"
 
     const val NAME = "name"
     const val DESCRIPTION = "description"
@@ -65,6 +66,9 @@ object LocaleKey {
     fun professionName(code: String) = key(PROFESSION, code, NAME)
     fun professionDescription(code: String) = key(PROFESSION, code, DESCRIPTION)
     fun jobName(code: String) = key(JOB, code, NAME)
+
+    /** Узел атласа (с 0.60.0): `atlas.node.<CODE>.name`; строки эффектов клиент собирает по характеристикам. */
+    fun atlasNodeName(code: String) = key(ATLAS_NODE, code, NAME)
 
     /**
      * Подпись значения перечисления: `enum.EnumRarity.UNIQUE`.

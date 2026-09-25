@@ -13,6 +13,7 @@ import config.DatabaseSeeder.getKoin
 import config.LogManager
 import config.MongoBackupManager
 import config.SystemMonitor
+import features.logic.atlas.AtlasContent
 import features.logic.icons.IconCache
 import features.logic.locale.LocaleCache
 import features.logic.portraits.PortraitCache
@@ -58,6 +59,8 @@ suspend fun Application.configureModules() {
     IconCache.initializeCache()
     // Портреты - из ресурсов; какие искать, говорят классы и кампания
     PortraitCache.initializeCache()
+    // Атлас - из ресурсов; битый файл должен уронить старт, а не первый запрос героя
+    AtlasContent.initialize()
 
     configureStatusPages()
     configureMonitoring()

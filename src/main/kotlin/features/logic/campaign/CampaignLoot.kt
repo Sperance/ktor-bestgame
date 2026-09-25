@@ -129,13 +129,14 @@ object CampaignChests {
      * Окно на момент [now]: живое остаётся как есть, истёкшее (или отсутствующее) бросается заново.
      *
      * @param bonus `STOCK_CHEST_QUANTITY` героя в процентах: каждые полные 100 - ещё один сундук, остаток - шанс
+     * @param extra сундуки сверх броска (`ATLAS_CHESTS`, с 0.60.0); ложатся только в новое окно, живое не меняется
      */
-    fun window(current: ChestWindow?, now: Long, rule: ChestRule, bonus: Double, random: Random): ChestWindow {
+    fun window(current: ChestWindow?, now: Long, rule: ChestRule, bonus: Double, random: Random, extra: Int = 0): ChestWindow {
         if (current != null && now < current.refreshAt) return current
         val base = random.nextInt(rule.count[0], rule.count[1] + 1)
-        val extra = bonus.coerceAtLeast(0.0) / 100
-        val whole = floor(extra).toInt()
-        val count = base + whole + if (random.nextDouble() < extra - whole) 1 else 0
+        val share = bonus.coerceAtLeast(0.0) / 100
+        val whole = floor(share).toInt()
+        val count = (base + whole + extra + if (random.nextDouble() < share - whole) 1 else 0).coerceAtLeast(0)
         return ChestWindow(now + (rule.refreshHours * 3_600_000).toLong(), count)
     }
 
@@ -147,6 +148,7 @@ object CampaignChests {
 /**
  * Карта, с которой герой вошёл в локацию (с 0.35.0): её модификаторы, сложенные по характеристикам,
  * и то, что они прибавляют к добыче этой локации, - в процентах к количеству, редкости и опыту.
+ * [itemRarity] (с 0.60.0) - редкость самой карты: выход с редкой приносит очко атласа.
  */
 @kotlinx.serialization.Serializable
 data class ActiveMap(
@@ -155,6 +157,7 @@ data class ActiveMap(
     val quantity: Double = 0.0,
     val rarity: Double = 0.0,
     val experience: Double = 0.0,
+    val itemRarity: EnumRarity = EnumRarity.COMMON,
 )
 
 /** Карты - правило сервера, как и добыча. Функции чистые: [Random] приходит снаружи. */
@@ -179,7 +182,7 @@ object CampaignMaps {
     fun active(rule: MapRule, mapCode: String, effects: Map<String, Double>, rarity: EnumRarity = EnumRarity.COMMON): ActiveMap {
         val risk = risk(rule, effects)
         val own = rule.rarityBonus[rarity] ?: 0.0
-        return ActiveMap(mapCode, effects, risk + own + (effects[QUANTITY] ?: 0.0), risk + own + (effects[RARITY] ?: 0.0), risk + (effects[EXPERIENCE] ?: 0.0))
+        return ActiveMap(mapCode, effects, risk + own + (effects[QUANTITY] ?: 0.0), risk + own + (effects[RARITY] ?: 0.0), risk + (effects[EXPERIENCE] ?: 0.0), rarity)
     }
 
     /**

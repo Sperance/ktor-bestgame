@@ -99,7 +99,7 @@ class LocalizationTest {
         EquipmentExceptions::class, ItemsExceptions::class, LocaleExceptions::class,
         ModifierExceptions::class, ProgressionExceptions::class, base.exception.model.PoolExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class,
-        base.exception.model.ProfessionExceptions::class,
+        base.exception.model.ProfessionExceptions::class, base.exception.model.AtlasExceptions::class,
     )
 
     /**
@@ -169,6 +169,9 @@ class LocalizationTest {
             keys.add(LocaleKey.professionDescription(profession.code))
             profession.jobs.forEach { keys.add(LocaleKey.jobName(it.code)) }
         }
+
+        // Атлас (0.60.0): название каждого узла
+        features.logic.atlas.AtlasContent.tree.nodes.forEach { keys.add(LocaleKey.atlasNodeName(it.code)) }
 
         enums.forEach { (name, values) -> values.forEach { keys.add(LocaleKey.enumLabel(name, it.name)) } }
 

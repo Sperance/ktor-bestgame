@@ -154,6 +154,23 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_WORK_LUCK(422),
     STOCK_WORK_EXPERIENCE(423),
     STOCK_WORK_FIND(424),
+
+    // ========== Атлас (0.60.0): пассивы атласа героя, а не его лист - их читает кампания ==========
+    // Всё в процентах, кроме плоских VAAL_MIN_MODS, CHESTS и FOUNTAINS. VAAL_CHANCE, FOUNTAINS,
+    // PACK_SIZE и RARE_MONSTERS катает клиент: сервер отдаёт их в ответе входа на карту.
+    ATLAS_QUANTITY(440),
+    ATLAS_RARITY(441),
+    ATLAS_EXPERIENCE(442),
+    ATLAS_MAP_DROP(443),
+    ATLAS_VAAL_CHANCE(444),
+    ATLAS_VAAL_REWARD(445),
+    ATLAS_VAAL_MIN_MODS(446),
+    ATLAS_CHESTS(447),
+    ATLAS_FOUNTAINS(448),
+    ATLAS_PACK_SIZE(449),
+    ATLAS_RARE_MONSTERS(450),
+    ATLAS_BOSS_RESPAWN(451),
+    ATLAS_BOSS_UNIQUE(452),
 }
 
 enum class EnumStatBool(override val order: Int) : IntEnumStat {

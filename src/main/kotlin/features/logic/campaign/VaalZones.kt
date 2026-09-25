@@ -1,5 +1,6 @@
 package features.logic.campaign
 
+import features.logic.atlas.AtlasBonuses
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import kotlinx.serialization.Serializable
@@ -41,12 +42,18 @@ data class VaalZone(
     val experience: Double,
 )
 
-/** Правило Ваал-зон. Чистое: описания и [Random] приходят снаружи. */
+/** Правило Ваал-зон. Чистое: описания, атлас героя и [Random] приходят снаружи. */
 object VaalZones {
 
-    fun roll(rule: VaalRule, maps: MapRule, mapCode: String, level: Int, definition: (String) -> ModifierDefinition?, random: Random): VaalZone {
+    /**
+     * @param atlas с 0.60.0: `ATLAS_VAAL_MIN_MODS` поднимает нижнюю границу числа модификаторов (не выше
+     * верхней), `ATLAS_VAAL_REWARD` - процент сверху к бонусу зоны к количеству и редкости
+     */
+    fun roll(rule: VaalRule, maps: MapRule, mapCode: String, level: Int, definition: (String) -> ModifierDefinition?, random: Random,
+             atlas: AtlasBonuses = AtlasBonuses.NONE): VaalZone {
         val pool = rule.pool.mapNotNull { mod -> definition(mod.modifier)?.takeIf { it.tiers.isNotEmpty() }?.let { it to mod.weight } }.toMutableList()
-        val (low, high) = rule.mods.getOrElse(0) { 3 } to rule.mods.getOrElse(1) { 8 }
+        val high = rule.mods.getOrElse(1) { 8 }
+        val low = (rule.mods.getOrElse(0) { 3 } + atlas.vaalMinMods).coerceIn(0, high)
         val count = random.nextInt(low, high + 1).coerceAtMost(pool.size)
         val modifiers = List(count) {
             val (picked, _) = draw(pool, random)
@@ -62,7 +69,7 @@ object VaalZones {
             }
         }
         val risk = CampaignMaps.risk(maps, effects) * rule.reward
-        val bonus = tenths(risk + rule.perMod * modifiers.size)
+        val bonus = tenths((risk + rule.perMod * modifiers.size) * (1 + atlas.vaalReward / 100))
         return VaalZone(mapCode, level, modifiers, effects, bonus, bonus, tenths(risk))
     }
 
