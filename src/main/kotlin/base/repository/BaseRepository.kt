@@ -181,7 +181,9 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
     /** Есть ли документ: читается только `_id`, без самого документа. */
     suspend fun exists(id: String, includeDeleted: Boolean = false): Boolean =
-        collection.find(readFilter(byId(id), includeDeleted)).projection(Projections.include(CONST_FIELD_ID)).limit(1).firstOrNull() != null
+        // Без документа сущности: проекция из одного `_id` не соберётся в класс с обязательными полями
+        collection.withDocumentClass<org.bson.Document>().find(readFilter(byId(id), includeDeleted))
+            .projection(Projections.include(CONST_FIELD_ID)).limit(1).firstOrNull() != null
 
     suspend fun findAll(includeDeleted: Boolean = false): List<T> =
         collection.find(readFilter(includeDeleted = includeDeleted)).toList()
