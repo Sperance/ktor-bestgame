@@ -2,12 +2,11 @@ package config
 
 import base.exception.model.ModifierExceptions
 import features.logic.modifiers.ModifierDefinition
-import features.logic.modifiers.ModifierTier
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 /**
- * Начальные данные коллекций `ModifierDefinition` и `ModifierTier`.
+ * Начальные данные коллекции `ModifierDefinition` - описания вместе с их тирами (с 0.56.0).
  *
  * Набор модификаторов построен по модели Path of Exile и с 0.39.0 лежит данными в
  * `resources/content/modifiers.json`, как экипировка:
@@ -18,7 +17,7 @@ import kotlinx.serialization.json.Json
  * - модификатор может быть составным и менять несколько статов сразу
  *   ("+# to maximum Life and Mana"), тогда у него несколько эффектов;
  * - тир 1 - лучший и требует самый высокий item level, дальше значения и требования падают;
- * - `pools` - в каких пулах он состоит и с каким весом, см. [features.logic.pools.Pooled].
+ * - в каких пулах он состоит и с каким весом, говорит `content/pools.json`, см. [PoolSeeder].
  */
 object ModifierSeeder {
 
@@ -39,11 +38,4 @@ object ModifierSeeder {
      * Документы коллекции `ModifierDefinition`.
      */
     fun seedDefinitions(): List<ModifierDefinition> = records.toDefinitions()
-
-    /**
-     * Документы коллекции `ModifierTier` для уже сохранённых описаний.
-     *
-     * @param definitions описания, которым принадлежат тиры (нужны их _id)
-     */
-    fun seedTiers(definitions: List<ModifierDefinition>): List<ModifierTier> = records.toTiers(definitions)
 }

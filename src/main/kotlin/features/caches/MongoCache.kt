@@ -78,17 +78,22 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
     /**
      * Производный индекс: [build] запускается при первом чтении на новой ревизии,
      * дальше отдаётся готовое, пока снимок не сменится.
+     *
+     * [dependencies] - другие справочники, из которых индекс тоже читает (с 0.56.0 тяги модификаторов
+     * и шаблонов строятся по пулам): их правка пересобирает индекс так же, как своя. Ревизии только
+     * растут, поэтому сумма меняется при любой правке любого из них.
      */
-    protected fun <V> derived(build: (List<T>) -> V): Derived<V> = Derived(build)
+    protected fun <V> derived(vararg dependencies: EntityCache<*>, build: (List<T>) -> V): Derived<V> = Derived(dependencies.toList(), build)
 
-    protected inner class Derived<V>(private val build: (List<T>) -> V) {
+    protected inner class Derived<V>(private val dependencies: List<EntityCache<*>>, private val build: (List<T>) -> V) {
         private val built = AtomicReference<Pair<Long, V>?>(null)
 
         fun get(): V {
             val current = snapshot.get()
-            built.get()?.takeIf { it.first == current.revision }?.let { return it.second }
+            val revision = current.revision + dependencies.sumOf { it.revision }
+            built.get()?.takeIf { it.first == revision }?.let { return it.second }
             val value = build(current.items)
-            built.set(current.revision to value)
+            built.set(revision to value)
             return value
         }
     }

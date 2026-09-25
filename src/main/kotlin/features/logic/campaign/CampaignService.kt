@@ -1,5 +1,7 @@
 package features.logic.campaign
 
+import features.caches.PoolCache
+import features.logic.pools.EnumPoolTarget
 import features.logic.pools.Pools
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
@@ -91,7 +93,9 @@ class CampaignService : KoinComponent {
     private val levels: ExperienceLevelCache by inject()
     private val definitions: ModifierDefinitionCache by inject()
 
-    fun view(): CampaignView = CampaignContent.view
+    private val pools: PoolCache by inject()
+
+    fun view(): CampaignView = CampaignContent.view(pools.table(EnumPoolTarget.MONSTER))
 
     suspend fun progress(characterId: String): CampaignProgress = progressOf(characters.requireCharacter(characterId, "progress"))
 
@@ -192,7 +196,7 @@ class CampaignService : KoinComponent {
         val active = item?.let { map ->
             val effects = mutableMapOf<String, Double>()
             map.params.forEach { modifier ->
-                definitions.findById(modifier.modifierId)?.effects?.forEachIndexed { index, effect ->
+                definitions.findByCode(modifier.modifierCode)?.effects?.forEachIndexed { index, effect ->
                     effects.merge((effect.stat as Enum<*>).name, modifier.values.getOrElse(index) { 0.0 }, Double::plus)
                 }
             }
@@ -322,7 +326,7 @@ class CampaignService : KoinComponent {
             CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity, random)
         }
         val rule = CampaignContent.file.maps
-        val dropped = CampaignMaps.drop(rule, mapChance * (1 + quantity / 100), mapCode, CampaignContent.maps.keys.toList(), random)
+        val dropped = CampaignMaps.drop(rule, mapChance * (1 + quantity / 100), mapCode, CampaignContent.mapCodes.toList(), random)
             ?.let { code -> equipmentCache.findByCode(CampaignMaps.templateCode(code)) }
 
         val equipment = transactionExecute(method) { session ->
@@ -373,11 +377,11 @@ class CampaignService : KoinComponent {
     }
 
     private fun openMap(character: Character, mapCode: String, method: String): CampaignMap {
-        val map = CampaignContent.maps[mapCode] ?: throw CampaignExceptions.funExceptionMapNotFound(method, mapCode)
+        val map = CampaignContent.map(mapCode, pools.table(EnumPoolTarget.MONSTER)) ?: throw CampaignExceptions.funExceptionMapNotFound(method, mapCode)
         if (mapCode !in CampaignContent.unlocked(character.campaign)) throw CampaignExceptions.funExceptionMapLocked(method, mapCode)
         return map
     }
 
     private fun progressOf(character: Character) =
-        CampaignProgress(character.campaign.filter { it in CampaignContent.maps }, CampaignContent.unlocked(character.campaign))
+        CampaignProgress(character.campaign.filter { it in CampaignContent.mapCodes }, CampaignContent.unlocked(character.campaign))
 }

@@ -37,82 +37,82 @@
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
-      "tier": 1,
-      "orb": "DIVINE_ORB",
-      "amount": 1
-    },
-    {
-      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
-      "tier": 2,
-      "orb": "EXALTED_ORB",
-      "amount": 1
-    },
-    {
-      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
-      "tier": 3,
-      "orb": "CHAOS_ORB",
-      "amount": 1
-    },
-    {
-      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
-      "tier": 4,
-      "orb": "ORB_OF_ALTERATION",
-      "amount": 4
-    },
-    {
-      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
-      "tier": 5,
-      "orb": "ORB_OF_TRANSMUTATION",
-      "amount": 3
-    },
-    {
-      "modifier": "CRAFTED_ADD_MAXIMUM_MANA",
-      "tier": 6,
-      "orb": "ORB_OF_TRANSMUTATION",
-      "amount": 1
-    },
-    {
       "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1,
-      "slots": ["HELMET", "BODY", "GLOVES", "BOOTS", "SHIELD"]
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
+      ]
     },
     {
       "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1,
-      "slots": ["HELMET", "BODY", "GLOVES", "BOOTS", "SHIELD"]
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
+      ]
     },
     {
       "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1,
-      "slots": ["HELMET", "BODY", "GLOVES", "BOOTS", "SHIELD"]
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
+      ]
     },
     {
       "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4,
-      "slots": ["HELMET", "BODY", "GLOVES", "BOOTS", "SHIELD"]
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
+      ]
     },
     {
       "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3,
-      "slots": ["HELMET", "BODY", "GLOVES", "BOOTS", "SHIELD"]
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
+      ]
     },
     {
       "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1,
-      "slots": ["HELMET", "BODY", "GLOVES", "BOOTS", "SHIELD"]
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD"
+      ]
     },
     {
       "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",

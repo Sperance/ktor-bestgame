@@ -7,6 +7,7 @@ import application.enums.EnumRarity
 import application.enums.EnumStatStock
 import config.EquipmentSeeder
 import config.ModifierSeeder
+import config.PoolSeeder
 import config.UniqueEquipmentSeeder
 import features.data.equipment.equipment_data.Armor
 import features.data.inventory.CharacterEquipment
@@ -16,7 +17,9 @@ import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierEffect
 import features.logic.modifiers.ModifierRoller
+import features.logic.pools.EnumPoolTarget
 import features.logic.pools.Pools
+import features.logic.pools.Weighted
 import org.junit.Test
 
 /**
@@ -26,12 +29,13 @@ import org.junit.Test
  */
 class ModifierRollTest {
 
-    private companion object {
-        const val TEST_POOL = "test"
-    }
-
     private val definitions: List<ModifierDefinition> =
         ModifierSeeder.seedDefinitions() + UniqueEquipmentSeeder.seedDefinitions()
+
+    private val pools = PoolSeeder.table(EnumPoolTarget.MODIFIER)
+
+    /** Вес тестового описания в его единственном пуле. */
+    private val weights = mutableMapOf<String, Int>()
 
     private fun definition(code: String, source: EnumModifierSource, group: String? = null, weight: Int = 1000) =
         ModifierDefinition(
@@ -39,10 +43,9 @@ class ModifierRollTest {
             effects = listOf(ModifierEffect(EnumStatStock.STOCK_HEALTH, EnumModifierOperation.ADD)),
             source = source,
             group = group,
-            pools = mapOf(TEST_POOL to weight)
-        )
+        ).also { weights[code] = weight }
 
-    private fun weighted(definitions: List<ModifierDefinition>) = Pools.of(definitions, listOf(TEST_POOL))
+    private fun weighted(definitions: List<ModifierDefinition>) = definitions.map { Weighted(it, weights.getValue(it.code)) }
 
     private fun template(slot: EnumEquipmentType = EnumEquipmentType.HELMET) =
         Armor(slot = slot, code = "TEST_HELM", rarity = EnumRarity.RARE, itemLevel = 80)
@@ -104,16 +107,16 @@ class ModifierRollTest {
 
     @Test
     fun every_natural_affix_rolls_somewhere_and_no_weight_is_negative() {
-        val broken = definitions.filter { it.pools.values.any { weight -> weight < 0 } }
+        val broken = PoolSeeder.pools.filter { pool -> pool.entries.values.any { weight -> weight < 0 } }
         assert(broken.isEmpty()) { "Negative pool weights: ${broken.map { it.code }}" }
-        val loose = definitions.filter { it.isNaturalAffix() && !it.isRetired() && it.pools.values.none { weight -> weight > 0 } }
+        val loose = definitions.filter { it.isNaturalAffix() && pools.tags.none { tag -> (pools.members(tag)[it.code] ?: 0) > 0 } }
         assert(loose.isEmpty()) { "Affixes that can never roll: ${loose.map { it.code }}" }
     }
 
     @Test
     fun crafted_and_influenced_modifiers_stay_out_of_template_pools() {
         EquipmentSeeder(definitions).seed().forEach { item ->
-            val leaked = Pools.of(definitions, item.modifierPools).map { it.value }.filter { it.crafted || it.influence != null }
+            val leaked = pools.of(definitions, item.modifierPools).map { it.value }.filter { it.crafted || it.influence != null }
             assert(leaked.isEmpty()) { "${item.code} rolls bench or influence modifiers: ${leaked.map { it.code }}" }
         }
     }
@@ -121,7 +124,7 @@ class ModifierRollTest {
     @Test
     fun every_influence_opens_its_own_pool() {
         EnumInfluence.entries.forEach { influence ->
-            val pool = Pools.of(definitions, listOf(Pools.influence(influence))).map { it.value }
+            val pool = pools.of(definitions, listOf(Pools.influence(influence))).map { it.value }
             assert(pool.isNotEmpty() && pool.all { it.influence == influence }) { "$influence pool: ${pool.map { it.code }}" }
         }
     }
@@ -167,7 +170,7 @@ class ModifierRollTest {
         listOf(EnumRarity.COMMON, EnumRarity.UNCOMMON, EnumRarity.UNIQUE).forEach { rarity ->
             assert(refused { CurrencyApplier.apply(EnumCurrencyOrb.FRACTURING_ORB, item(rarity), template()) }) { "Fractured a $rarity item" }
         }
-        val fractured = item(EnumRarity.RARE, mutableListOf(Modifier("m", listOf(1.0), "t", 1, fractured = true)))
+        val fractured = item(EnumRarity.RARE, mutableListOf(Modifier("m", listOf(1.0), 1, fractured = true)))
         assert(refused { CurrencyApplier.apply(EnumCurrencyOrb.FRACTURING_ORB, fractured, template()) }) { "Fractured twice" }
     }
 

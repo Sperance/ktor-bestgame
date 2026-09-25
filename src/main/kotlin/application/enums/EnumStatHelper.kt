@@ -83,13 +83,10 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     STOCK_MANA_REGEN(261),
     STOCK_ENERGY_REGEN(262),
     STOCK_LEECH_PHYSICAL(263),
-    STOCK_LEECH_MAGICAL(264),
     STOCK_LEECH_ALL(265),
-    /** Здоровье и мана за убийство и за каждый удар атакой (с 0.36.0). */
+    /** Здоровье за убийство и за каждый удар атакой (с 0.36.0). */
     STOCK_HEALTH_ON_KILL(266),
-    STOCK_MANA_ON_KILL(267),
     STOCK_HEALTH_ON_HIT(268),
-    STOCK_MANA_ON_HIT(269),
 
     // ========== Состояния (с 0.36.0): все - проценты, база героя в правилах боя ==========
     /** Шанс наложить состояние ударом с уроном его типа, сверх базы правила. */
@@ -125,7 +122,6 @@ enum class EnumStatStock(override val order: Int) : IntEnumStat {
     // ========== Особые статы ==========
     STOCK_RARITY(320),
     STOCK_QUANTITY(321),
-    STOCK_CAST_STRENGTH(324),
     /** Радиус света на карте кампании в клетках (с 0.30.0): сколько вокруг героя видно сквозь туман. */
     STOCK_LIGHT_RADIUS(325),
     /** Больше сундуков на карте кампании, в процентах (с 0.31.0): каждые полные 100% - ещё один, остаток - шанс. */

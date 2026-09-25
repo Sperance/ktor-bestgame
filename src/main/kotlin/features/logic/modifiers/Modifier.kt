@@ -6,15 +6,16 @@ import kotlinx.serialization.Serializable
  * Применённый модификатор: зароленный на экземпляре предмета
  * или закреплённый за узлом дерева навыков.
  *
- * Ссылается на [ModifierDefinition], а у предметов - ещё и на выпавший [ModifierTier].
+ * С 0.56.0 ссылается на [ModifierDefinition] по стабильному коду, а тир - просто номер
+ * внутри [ModifierDefinition.tiers].
  */
 @Serializable
 data class Modifier(
 
     /**
-     * Ссылка на [ModifierDefinition._id].
+     * Ссылка на [ModifierDefinition.code].
      */
-    val modifierId: String,
+    val modifierCode: String,
 
     /**
      * Выпавшие значения, по одному на каждый эффект описания и в том же порядке.
@@ -23,13 +24,7 @@ data class Modifier(
     val values: List<Double>,
 
     /**
-     * Ссылка на [ModifierTier._id]. Пусто у пассивок дерева: тиров у них нет.
-     */
-    val tierId: String = "",
-
-    /**
-     * Номер выпавшего тира. Дублирует [ModifierTier.tier] для чтения без join.
-     * Ноль у пассивок дерева.
+     * Номер выпавшего тира, 1 - лучший. Ноль у пассивок дерева и базы шаблона: тиров у них нет.
      */
     val tier: Int = 0,
 
@@ -42,9 +37,9 @@ data class Modifier(
 
     companion object {
         /**
-         * Пассивный модификатор дерева навыков: значения фиксированы узлом,
+         * Пассивный модификатор дерева навыков или базы шаблона: значения фиксированы,
          * ролла и тира у него нет.
          */
-        fun passive(modifierId: String, values: List<Double>) = Modifier(modifierId, values)
+        fun passive(modifierCode: String, values: List<Double>) = Modifier(modifierCode, values)
     }
 }

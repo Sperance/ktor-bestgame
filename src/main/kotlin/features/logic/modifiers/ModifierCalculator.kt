@@ -106,7 +106,7 @@ object ModifierCalculator : KoinComponent {
      */
     fun expand(modifiers: Collection<Modifier>): List<StatOperation> =
         modifiers.flatMap { modifier ->
-            val definition = definitionCache.findById(modifier.modifierId) ?: return@flatMap emptyList()
+            val definition = definitionCache.findByCode(modifier.modifierCode) ?: return@flatMap emptyList()
 
             definition.effects.mapIndexedNotNull { index, effect ->
                 val value = modifier.values.getOrNull(index) ?: return@mapIndexedNotNull null
@@ -142,5 +142,5 @@ object ModifierCalculator : KoinComponent {
      * Локальный ли модификатор - то есть считается ли он внутри своего предмета.
      */
     fun isLocal(modifier: Modifier): Boolean =
-        definitionCache.findById(modifier.modifierId)?.isLocal == true
+        definitionCache.findByCode(modifier.modifierCode)?.isLocal == true
 }

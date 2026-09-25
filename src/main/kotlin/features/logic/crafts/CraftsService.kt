@@ -262,7 +262,7 @@ class CraftsService : KoinComponent {
     private fun bonus(sheet: Map<application.enums.IntEnumStat, Double>, tool: CharacterEquipment?): WorkBonus {
         val stats = sheet.toMutableMap()
         tool?.params?.forEach { modifier ->
-            definitions.findById(modifier.modifierId)?.effects?.forEachIndexed { index, effect ->
+            definitions.findByCode(modifier.modifierCode)?.effects?.forEachIndexed { index, effect ->
                 (effect.stat as? EnumStatStock)?.let { stats.merge(it, modifier.values.getOrElse(index) { 0.0 }, Double::plus) }
             }
         }

@@ -5,7 +5,6 @@ import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import extensions.weightedRandomExt
 import features.caches.ModifierDefinitionCache
-import features.caches.ModifierTierCache
 import features.data.equipment.equipment_data.Equipment
 import features.logic.pools.Pools
 import features.logic.pools.Weighted
@@ -20,13 +19,12 @@ import org.koin.core.component.inject
  * Здесь же операции, которыми пользуются сферы: доролл одного аффикса,
  * перекат значений, ролл порчи.
  *
- * Описания модификаторов и тиры берутся из кэшей Mongo-коллекций
- * `ModifierDefinition` и `ModifierTier`.
+ * Описания модификаторов с их тирами берутся из кэша коллекции `ModifierDefinition`,
+ * состав пулов - из кэша `Pool`.
  */
 object ModifierRoller : KoinComponent {
 
     private val definitionCache: ModifierDefinitionCache by inject()
-    private val tierCache: ModifierTierCache by inject()
 
     /**
      * Модификаторы, которые не роллятся случайно, а всегда есть на предмете.
@@ -60,7 +58,7 @@ object ModifierRoller : KoinComponent {
      * Сферы, которые перекатывают аффиксы, их не трогают.
      */
     fun rollPermanent(equipment: Equipment): List<Modifier> =
-        definitionCache.findAllById(equipment.fixedModifierIds)
+        definitionCache.findAllByCode(equipment.fixedModifierCodes)
             .filter { it.source in alwaysApplied }
             .mapNotNull { roll(it, equipment.itemLevel) }
 
@@ -98,8 +96,8 @@ object ModifierRoller : KoinComponent {
         if (rarity.fixed) return null
         val result = params.toMutableList()
         listOf(EnumModifierSource.PREFIX to rarity.prefixCount, EnumModifierSource.SUFFIX to rarity.suffixCount).forEach { (source, cap) ->
-            val removable = result.filter { !it.fractured && definitionCache.findById(it.modifierId)?.source == source }
-            val over = result.count { definitionCache.findById(it.modifierId)?.source == source } - cap
+            val removable = result.filter { !it.fractured && definitionCache.findByCode(it.modifierCode)?.source == source }
+            val over = result.count { definitionCache.findByCode(it.modifierCode)?.source == source } - cap
             if (over > 0) result.removeAll(removable.takeLast(over).toSet())
         }
         while (result.count(::isAffix) < rarity.affixes.first)
@@ -156,7 +154,7 @@ object ModifierRoller : KoinComponent {
         taken: Collection<String> = emptyList(),
         limit: Int = Int.MAX_VALUE,
     ): List<ModifierDefinition> {
-                val families = taken.toHashSet()
+        val families = taken.toHashSet()
         var freePrefixes = prefixes
         var freeSuffixes = suffixes
         // Кандидаты отсеиваются по мере выбора: занятая группа и исчерпанный вид уходят из мешка,
@@ -203,10 +201,10 @@ object ModifierRoller : KoinComponent {
     ): MutableList<Modifier> = modifiers.mapTo(mutableListOf()) { modifier ->
         // Закреплённый аффикс неизменен целиком, значения тоже
         if (modifier.fractured) return@mapTo modifier
-        val definition = definitionCache.findById(modifier.modifierId)
+        val definition = definitionCache.findByCode(modifier.modifierCode)
         if (definition == null || !filter(definition)) return@mapTo modifier
 
-        val tier = tierCache.findById(modifier.tierId) ?: return@mapTo modifier
+        val tier = definition.tier(modifier.tier) ?: return@mapTo modifier
         modifier.copy(values = tier.roll())
     }
 
@@ -217,7 +215,7 @@ object ModifierRoller : KoinComponent {
      */
     fun rollFrom(tags: List<String>, itemLevel: Int): Modifier? = Pools.draw(pool(tags))?.let { roll(it, itemLevel) }
 
-    /** Модификаторы пулов [tags] с их весами, см. [Pools.of]. */
+    /** Модификаторы пулов [tags] с их весами, см. [features.logic.pools.PoolTable.of]. */
     fun pool(tags: List<String>): List<Weighted<ModifierDefinition>> = definitionCache.pool(tags)
 
     /**
@@ -226,40 +224,35 @@ object ModifierRoller : KoinComponent {
      * @return null, если для описания модификатора не заведено ни одного тира
      */
     fun roll(definition: ModifierDefinition, itemLevel: Int): Modifier? {
-        val tier = tierCache.rollTier(definition._id, itemLevel) ?: return null
-        return Modifier(
-            modifierId = definition._id,
-            tierId = tier._id,
-            tier = tier.tier,
-            values = tier.roll()
-        )
+        val (number, tier) = definitionCache.rollTier(definition.code, itemLevel) ?: return null
+        return Modifier(modifierCode = definition.code, values = tier.roll(), tier = number)
     }
 
-    /**
-     * Описания переданных модификаторов.
-     */
     /** Тот же модификатор на тир выше (с 0.38.0); лучший тир остаётся собой, значения перебрасываются. */
     fun raiseTier(modifier: Modifier): Modifier? {
         if (modifier.fractured || modifier.tier <= 1) return null
-        val tier = tierCache.findTier(modifier.modifierId, modifier.tier - 1) ?: return null
-        return modifier.copy(tierId = tier._id, tier = tier.tier, values = tier.roll())
+        val tier = definitionCache.findByCode(modifier.modifierCode)?.tier(modifier.tier - 1) ?: return null
+        return modifier.copy(tier = modifier.tier - 1, values = tier.roll())
     }
 
     /** Модификатор по коду описания на уровне предмета. */
     fun rollCode(code: String, itemLevel: Int): Modifier? = definitionCache.findByCode(code)?.let { roll(it, itemLevel) }
 
+    /**
+     * Описания переданных модификаторов.
+     */
     fun definitions(modifiers: Collection<Modifier>): List<ModifierDefinition> =
-        modifiers.mapNotNull { definitionCache.findById(it.modifierId) }
+        modifiers.mapNotNull { definitionCache.findByCode(it.modifierCode) }
 
     /**
      * Аффикс ли это - то есть трогают ли его сферы.
      */
-    fun isAffix(modifier: Modifier): Boolean = definitionCache.findById(modifier.modifierId)?.isAffix() == true
+    fun isAffix(modifier: Modifier): Boolean = definitionCache.findByCode(modifier.modifierCode)?.isAffix() == true
 
     /**
      * Поставлен ли модификатор верстаком.
      */
-    fun isCrafted(modifier: Modifier): Boolean = definitionCache.findById(modifier.modifierId)?.crafted == true
+    fun isCrafted(modifier: Modifier): Boolean = definitionCache.findByCode(modifier.modifierCode)?.crafted == true
 
     /**
      * Пул аффиксов предмета: пулы шаблона и, если копия под влиянием, пул этого влияния - он общий
@@ -267,6 +260,4 @@ object ModifierRoller : KoinComponent {
      */
     fun affixPool(equipment: Equipment, influence: EnumInfluence? = null): List<Weighted<ModifierDefinition>> =
         definitionCache.affixPool(if (influence == null) equipment.modifierPools else equipment.modifierPools + Pools.influence(influence))
-            // Описание без тиров не роллится: выбранное, оно молча съело бы место аффикса (0.53.0)
-            .filter { (definition) -> tierCache.findByModifier(definition._id).isNotEmpty() }
 }

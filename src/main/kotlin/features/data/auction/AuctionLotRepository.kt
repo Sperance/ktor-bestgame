@@ -4,28 +4,22 @@ import CONST_AUCTION_MIN_LEVEL
 import application.enums.EnumAuctionLotKind
 import application.enums.EnumAuctionLotStatus
 import application.enums.EnumCurrencyOrb
-import application.enums.EnumRarity
 import base.exception.model.AuctionExceptions
 import base.exception.model.CharacterExceptions
 import base.repository.BaseRepository
 import base.repository.IndexSpec
 import base.route.PagedMongoResponse
 import com.mongodb.client.model.Filters
-import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.now
-import features.caches.EquipmentCache
 import features.caches.ItemsCache
 import features.data.character.Character
 import features.data.character.CharacterRepository
 import features.data.inventory.CharacterEquipmentRepository
-import features.data.inventory.RETIRED_RARITIES
-import features.data.inventory.retiredRarity
 import features.data.items.Items
 import features.logic.locale.LocaleCache
 import features.logic.locale.LocaleKey
-import features.logic.modifiers.ModifierRoller
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
@@ -47,7 +41,6 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
 ), KoinComponent {
     private val characterRepository: CharacterRepository by inject()
     private val characterEquipmentRepository: CharacterEquipmentRepository by inject()
-    private val equipmentCache: EquipmentCache by inject()
     private val itemsCache: ItemsCache by inject()
 
     // Витрина - открытые лоты по порядку _id; места продавца - его открытые лоты
@@ -295,27 +288,9 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
     }
 
     /** То же для предметов, что сейчас лежат на аукционе: лот держит экземпляр у себя. */
-    /** Лоты с копиями прежних эпических и мифических баз, см. [CharacterEquipmentRepository.retireRarities]. */
-    suspend fun retireRarities(mythics: Collection<String>, session: ClientSession): Long {
-        val rare = EnumRarity.RARE.name
-        val items = collection.updateMany(session, retiredRarity("equipment.rarity", "equipment.equipmentId", mythics), Updates.set("equipment.rarity", rare)).modifiedCount
-        collection.updateMany(session, Filters.and(Filters.`in`("rarity", RETIRED_RARITIES), Filters.nin("equipment.equipmentId", mythics.toList())), Updates.set("rarity", rare))
-        return items
-    }
-
-    /** Аффиксы выставленных копий - по правилам редкости, см. [CharacterEquipmentRepository.normalizeAffixes]. */
-    suspend fun normalizeAffixes(session: ClientSession): Long =
-        collection.find(session, readFilter(Filters.exists("equipment.params", true))).toList().count { lot ->
-            val item = lot.equipment ?: return@count false
-            val template = equipmentCache.findById(item.equipmentId) ?: return@count false
-            item.params = ModifierRoller.normalize(template, item.rarity, item.params, item.influence) ?: return@count false
-            update(lot, session)
-            true
-        }.toLong()
-
-    suspend fun pruneMissingModifiers(modifierIds: Collection<String>, session: ClientSession): Long {
-        if (modifierIds.isEmpty()) return 0
-        val stale = org.bson.Document("modifierId", org.bson.Document("\$nin", modifierIds.toList()))
+    suspend fun pruneMissingModifiers(modifierCodes: Collection<String>, session: ClientSession): Long {
+        if (modifierCodes.isEmpty()) return 0
+        val stale = org.bson.Document("modifierCode", org.bson.Document("\$nin", modifierCodes.toList()))
         return collection.updateMany(session, Filters.exists("equipment.params", true),
             org.bson.Document("\$pull", org.bson.Document("equipment.params", stale))).modifiedCount
     }

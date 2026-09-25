@@ -15,35 +15,29 @@ interface EquipmentInterface : Pooled {
 
     /**
      * Стабильный код шаблона. Им предмет ссылается на свой текст
-     * в файлах локализации: equipment.<code>.name и .description.
+     * в файлах локализации: equipment.<code>.name и .description, - а пулы экипировки на него.
      *
      * Названия и описания в документе не хранятся - см. locale/ru.json.
      */
-    var code: String
+    override var code: String
 
     var rarity: EnumRarity
     var itemLevel: Int
 
     /**
-     * Закреплённые модификаторы шаблона - ссылки на [ModifierDefinition._id]: implicit базы и строки
+     * Закреплённые модификаторы шаблона - коды [ModifierDefinition.code]: implicit базы и строки
      * уникалки. Каждый попадает на каждый экземпляр предмета ([EnumModifierSource] у них не
      * PREFIX и не SUFFIX), сферы, перекатывающие аффиксы, их не трогают.
      */
-    var fixedModifierIds: MutableList<String>
+    var fixedModifierCodes: MutableList<String>
 
     /**
      * Пулы, из которых предмет роллит префиксы и суффиксы (с 0.39.0) - теги, а не список кодов:
      * пул слота (`helmet`) и локальные пулы базы (`local:armor`). Кто в них состоит и с каким весом,
-     * говорит сам модификатор, см. [ModifierDefinition.pools]. Порядок - приоритет: вес модификатора
-     * берётся из первого пула, в котором он состоит.
+     * говорит коллекция пулов (с 0.56.0), см. [features.logic.pools.Pool]. Порядок - приоритет: вес
+     * модификатора берётся из первого пула, в котором он состоит.
      */
     var modifierPools: MutableList<String>
-
-    /**
-     * В каких пулах экипировки состоит сам шаблон и с каким весом: `drop`, `smith`, `merchant`,
-     * `unique:world`, `unique:chance`, `unique:smith`, `boss:<код>`.
-     */
-    override var pools: Map<String, Int>
 
     /**
      * База предмета - броня, урон, скорость атаки - готовыми модификаторами

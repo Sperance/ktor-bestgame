@@ -21,11 +21,11 @@ import kotlinx.serialization.json.Json
  *
  * С 0.39.0 шаблон не хранит раскрытого пула: он называет пулы модификаторов, из которых роллит
  * (`modifierPools` - пул слота, как в POE, и локальные пулы своей базы: броневой шлем называет
- * `local:armor`, шлем уклонения - `local:evasion`), а сам состоит в пулах экипировки (`pools` -
- * `drop`, `smith`, `merchant`, пулы уникалок). Закреплённые модификаторы - implicit и строки
- * уникалки - лежат ссылками в `fixedModifierIds`.
+ * `local:armor`, шлем уклонения - `local:evasion`). В каких пулах экипировки состоит сам шаблон
+ * (`drop`, `smith`, `merchant`, пулы уникалок), с 0.56.0 говорит `pools.json`. Закреплённые
+ * модификаторы - implicit и строки уникалки - лежат кодами в `fixedModifierCodes`.
  *
- * @param definitions документы коллекции `ModifierDefinition`
+ * @param definitions документы коллекции `ModifierDefinition`: коды ссылок проверяются по ним
  */
 class EquipmentSeeder(definitions: List<ModifierDefinition>) {
 
@@ -41,10 +41,10 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
     private val byCode: Map<String, ModifierDefinition> = definitions.associateBy { it.code }
 
     /**
-     * Ссылка на описание модификатора по его коду.
+     * Ссылка на описание модификатора - его код, если такое описание есть.
      */
     private fun mod(code: String): String =
-        byCode[code]?._id ?: throw ModifierExceptions.funExceptionCodeNotFound("mod", code)
+        byCode[code]?.code ?: throw ModifierExceptions.funExceptionCodeNotFound("mod", code)
 
     fun seed(): ArrayList<Equipment> {
         val list = ArrayList<Equipment>()
@@ -90,14 +90,13 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
         val modifierPools: List<String> = emptyList(),
         val fixedModifiers: List<String> = emptyList(),
         val lines: List<List<UniqueEquipmentSeeder.UniqueEffect>> = emptyList(),
-        val pools: Map<String, Int> = emptyMap(),
     )
 
     @Serializable
     private data class EquipmentDocument(val equipment: List<EquipmentRecord> = emptyList())
 
     private fun EquipmentRecord.toEquipment(): Equipment {
-        if ((modifierPools + pools.keys).any { it.isBlank() } || pools.values.any { it < 0 })
+        if (modifierPools.any { it.isBlank() })
             throw EquipmentExceptions.funException("toEquipment", "Broken pools of $code")
         val base = baseParams.mapTo(mutableListOf()) { Modifier.passive(mod(it.code), it.values) }
         val fixed = (fixedModifiers + lines.indices.map { UniqueEquipmentSeeder.modifierCode(code, it) }).mapTo(mutableListOf(), ::mod)
@@ -106,19 +105,19 @@ class EquipmentSeeder(definitions: List<ModifierDefinition>) {
         return when (type) {
             "weapon" -> Weapon(
                 slot = slot, weaponType = weaponType ?: EnumEquipmentWeapon.BLADE, durability = durability,
-                code = code, rarity = rarity, itemLevel = itemLevel, fixedModifierIds = fixed, modifierPools = affixPools, pools = pools,
+                code = code, rarity = rarity, itemLevel = itemLevel, fixedModifierCodes = fixed, modifierPools = affixPools,
                 baseParams = base, requiredLevel = requiredLevel, requiredStrength = requiredStrength,
                 requiredDexterity = requiredDexterity, requiredIntelligence = requiredIntelligence)
 
             "accessory" -> Accessory(
                 slot = slot, code = code, rarity = rarity, itemLevel = itemLevel,
-                fixedModifierIds = fixed, modifierPools = affixPools, pools = pools, baseParams = base,
+                fixedModifierCodes = fixed, modifierPools = affixPools, baseParams = base,
                 requiredLevel = requiredLevel, requiredStrength = requiredStrength,
                 requiredDexterity = requiredDexterity, requiredIntelligence = requiredIntelligence)
 
             "armor" -> Armor(
                 slot = slot, code = code, rarity = rarity, itemLevel = itemLevel,
-                fixedModifierIds = fixed, modifierPools = affixPools, pools = pools, baseParams = base,
+                fixedModifierCodes = fixed, modifierPools = affixPools, baseParams = base,
                 requiredLevel = requiredLevel, requiredStrength = requiredStrength,
                 requiredDexterity = requiredDexterity, requiredIntelligence = requiredIntelligence)
 

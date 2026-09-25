@@ -5,6 +5,8 @@ import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
 import application.enums.IntEnumStat
 import base.entity.StockEntity
+import extensions.RandomExt
+import extensions.to1Digits
 import features.logic.pools.Pooled
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
@@ -50,25 +52,54 @@ data class ModifierEffect(
 }
 
 /**
- * Описание возможного модификатора. Отдельная коллекция Mongo `ModifierDefinition`.
+ * Тир модификатора (с 0.56.0 - внутри описания, отдельной коллекции `ModifierTier` больше нет).
  *
- * Это НЕ модификатор конкретного предмета: здесь нет ни значений, ни тира -
- * только то, ЧТО модификатор делает. Диапазоны значений вынесены в
- * коллекцию [ModifierTier], по одному документу на тир.
+ * Нумерация как в POE: тир 1 - первый в списке [ModifierDefinition.tiers], лучший, он даёт
+ * максимальные значения и требует самый высокий item level; дальше тиры слабеют.
  *
- * Например:
+ * @property level минимальный item level предмета, на котором тир может выпасть
+ * @property values диапазоны `[min, max]`, по одному на каждый эффект описания и в том же порядке
+ */
+@Serializable
+data class ModifierTier(val level: Int = 1, val values: List<List<Double>>) {
+
+    /**
+     * Роллит значения тира - по одному на каждый эффект описания.
+     *
+     * Качество ролла общее для всех эффектов: составной модификатор
+     * не может выпасть максимумом по здоровью и минимумом по мане.
+     */
+    fun roll(): List<Double> {
+        val progress = RandomExt.randomProgress()
+        return values.map { (min, max) -> (min + (max - min) * progress).to1Digits() }
+    }
+
+    /** Ошибка тира или null: по диапазону `[min, max]` на каждый из [effects] эффектов. */
+    fun problem(effects: Int): String? = when {
+        level < 1 -> "level $level"
+        values.size != effects -> "$effects effects, ${values.size} values"
+        values.any { it.size != 2 || it[0] > it[1] } -> "a [min, max] per effect"
+        else -> null
+    }
+}
+
+/**
+ * Описание возможного модификатора. Коллекция Mongo `ModifierDefinition`.
  *
- * "Life and Mana" (PREFIX) - два эффекта, ADD по здоровью и ADD по мане,
+ * Это НЕ модификатор конкретного предмета: здесь нет выпавших значений - только то, ЧТО
+ * модификатор делает, и его тиры с диапазонами. Экземпляры предметов, верстак, дерево и пулы
+ * ссылаются на описание по стабильному [code] (с 0.56.0), а не по `_id`.
+ *
+ * Например "Life and Mana" (PREFIX) - два эффекта, ADD по здоровью и ADD по мане,
  * плюс тиры 1..8 с диапазонами значений для каждого эффекта.
  */
 @Serializable
 data class ModifierDefinition(
 
     /**
-     * Стабильный код модификатора. Уникален в пределах коллекции,
-     * используется сидером и внешними инструментами вместо _id.
+     * Стабильный код модификатора. Уникален в пределах коллекции; им на описание ссылается всё.
      */
-    val code: String,
+    override val code: String,
 
     /**
      * Что модификатор делает. Один эффект - обычный модификатор,
@@ -80,6 +111,11 @@ data class ModifierDefinition(
      * Откуда модификатор появился.
      */
     val source: EnumModifierSource,
+
+    /**
+     * Тиры от лучшего (тир 1) к худшему. Пусто у пассивок, которым значения задаёт узел дерева.
+     */
+    val tiers: List<ModifierTier> = emptyList(),
 
     /**
      * Локальный модификатор считается внутри своего предмета и наружу отдаёт
@@ -102,13 +138,6 @@ data class ModifierDefinition(
      * два тира одного свойства не складываются. null - группа совпадает с кодом.
      */
     val group: String? = null,
-
-    /**
-     * В каких пулах модификатор состоит и с каким весом (с 0.39.0): `helmet`, `local:armor`,
-     * `influence:SHAPER`, `corruption`, `handcrafted:smith`. Пул называет источник - шаблон,
-     * сфера, ремесло, - а вес решает, как часто модификатор выпадает среди соседей.
-     */
-    override val pools: Map<String, Int> = emptyMap(),
 
     /**
      * Влияние, без которого модификатор не выпадает. null - обычный модификатор.
@@ -147,24 +176,11 @@ data class ModifierDefinition(
      */
     fun isComposite(): Boolean = effects.size > 1
 
-    /**
-     * Выведен ли модификатор из игры (с 0.43.0): он касается маны или заклинаний, которых больше
-     * нет, и каждый его пул весит ноль - поэтому не роллится нигде, а уже выпавшие копии остаются.
-     */
-    fun isRetired(): Boolean =
-        pools.isNotEmpty() && pools.values.all { it == 0 } && effects.any { (it.stat as? Enum<*>)?.name in RETIRED_STATS }
+    /** Тир по номеру (1 - лучший). */
+    fun tier(number: Int): ModifierTier? = tiers.getOrNull(number - 1)
 
     /**
      * Все статы, которых касается модификатор.
      */
     fun stats(): List<IntEnumStat> = effects.map { it.stat }
 }
-
-/**
- * Характеристики, убранные из игры: мана и заклинания (0.43.0). Их
- * модификаторы больше не роллятся, а уже выпавшие копии остаются на вещах.
- */
-val RETIRED_STATS = setOf(
-    "STOCK_MANA", "STOCK_SPELL_BLOCK", "STOCK_ATTACK_MAGICAL", "STOCK_CAST_SPEED", "STOCK_MANA_REGEN",
-    "STOCK_LEECH_MAGICAL", "STOCK_MANA_ON_KILL", "STOCK_MANA_ON_HIT", "STOCK_CAST_STRENGTH",
-)

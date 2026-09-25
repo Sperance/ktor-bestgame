@@ -19,9 +19,9 @@ import kotlinx.serialization.json.Json
  * на уровне предмета. Значения внутри диапазонов роллятся при получении предмета, поэтому две
  * копии одной уникалки отличаются друг от друга.
  *
- * Откуда уникалка падает, решают её `pools`, а не список в коде: обычная состоит в `drop`,
- * `unique:world` и `unique:chance`, кузнечная - в `unique:smith`, уникалка босса - в
- * `boss:<код босса>`. Источник называет пулы, из которых тянет, так что уникалка босса не падает
+ * Откуда уникалка падает, решают пулы вида UNIQUE в `pools.json`, а не список в коде: обычная
+ * состоит в `drop`, `unique:world` и `unique:chance`, кузнечная - в `unique:smith`, уникалка
+ * босса - в `boss:<код босса>`. Источник называет пулы, из которых тянет, так что уникалка босса не падает
  * ниоткуда, кроме своего босса, просто потому, что больше ни в одном пуле не состоит.
  *
  * Мифические предметы (0.53.0, `mythics.json`) устроены так же, только строк у них две-три,
@@ -66,7 +66,7 @@ object UniqueEquipmentSeeder {
                     source = EnumModifierSource.UNIQUE,
                     effects = line.map { EffectRecord(it.stat, it.operation) },
                     // У уникалки один тир: диапазон фиксирован самим предметом
-                    tiers = listOf(TierRecord(unique.itemLevel, line.map { it.range })),
+                    tiers = listOf(ModifierTier(unique.itemLevel, line.map { it.range })),
                     tags = listOf("unique", unique.slot.name.lowercase()),
                 )
             }
@@ -77,9 +77,4 @@ object UniqueEquipmentSeeder {
      * Описания модификаторов уникальных предметов.
      */
     fun seedDefinitions(): List<ModifierDefinition> = modifierRecords.toDefinitions()
-
-    /**
-     * Тиры модификаторов уникальных предметов - по одному на модификатор.
-     */
-    fun seedTiers(definitions: List<ModifierDefinition>): List<ModifierTier> = modifierRecords.toTiers(definitions)
 }

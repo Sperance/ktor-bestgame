@@ -22,7 +22,7 @@ object AccessPolicy {
         "/api/v1/user/byDeviceId",
     )
 
-    private val publicSystem = setOf("/system/health", "/system/stats")
+    private val publicSystem = setOf("/system/routes", "/system/health", "/system/stats")
 
     /**
      * Коллекции, в которых лежат чужие данные: аккаунты, персонажи, их вещи, лоты, промокоды.

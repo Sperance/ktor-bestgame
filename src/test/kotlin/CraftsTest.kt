@@ -26,7 +26,7 @@ class CraftsTest {
     fun every_work_yields_a_real_material_and_every_profession_has_a_starter_tool() {
         val items = records("items.json", "items").associate { it.getValue("code").jsonPrimitive.content to it.getValue("category").jsonPrimitive.content }
         val orbs = records("currency.json", "currency").map { it.getValue("orb").jsonPrimitive.content }.toSet()
-        val maps = features.logic.campaign.CampaignContent.maps.keys
+        val maps = features.logic.campaign.CampaignContent.mapCodes
         content.professions.flatMap { it.jobs }.forEach { job ->
             when (job.kind) {
                 features.logic.crafts.JobKind.ITEM -> assertTrue(items[job.output] == "MATERIAL" || job.output in orbs, "${job.code}: ${job.output}")

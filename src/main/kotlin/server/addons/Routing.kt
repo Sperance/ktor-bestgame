@@ -126,6 +126,10 @@ fun Application.configureRouting() {
             get("/stats") {
                 call.respond(ApiMongoResponse.ok(StatTables.served))
             }
+            // Готовность сервера и список маршрутов для проверки клиента (скрипт client-server в CI).
+            get("/routes") {
+                call.respond(ApiMongoResponse.ok(ALL_ROUTES.sortedBy { it.path }))
+            }
         }
     }.saveChildren()
 }

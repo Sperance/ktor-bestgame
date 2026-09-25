@@ -16,7 +16,6 @@ import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierRoller
 import features.logic.modifiers.ModifierTier
-import features.logic.modifiers.ModifierTierValue
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
@@ -24,8 +23,8 @@ import kotlinx.serialization.json.Json
  * Одна строка верстака: какой ремесленный модификатор какого тира и за сколько сфер.
  *
  * Значения внутри тира роллятся при крафте, как у выпавшего аффикса, а сам тир
- * выбирает игрок - в этом и смысл верстака. [values] отдаются клиенту, чтобы
- * строка читалась как "+(70-79) к здоровью" ещё до крафта.
+ * выбирает игрок - в этом и смысл верстака. [values] - диапазоны `[min, max]` тира, как в
+ * описании модификатора: клиент читает строку как "+(70-79) к здоровью" ещё до крафта.
  *
  * @property code стабильный код рецепта: код модификатора и номер тира
  * @property orbItemId id сферы в коллекции `Items`, которой платят
@@ -34,13 +33,11 @@ import kotlinx.serialization.json.Json
 @Serializable
 data class BenchRecipe(
     val code: String,
-    val modifierId: String,
     val modifierCode: String,
-    val tierId: String,
     val tier: Int,
     val source: EnumModifierSource,
     val group: String,
-    val values: List<ModifierTierValue>,
+    val values: List<List<Double>>,
     val orb: EnumCurrencyOrb,
     val orbItemId: String,
     val amount: Long,
@@ -91,8 +88,8 @@ object CraftingBench {
     private data class BenchDocument(val recipes: List<RecipeRecord> = emptyList())
 
     /**
-     * Все рецепты. Строятся из файла и сидера модификаторов без базы: у описаний
-     * и тиров стабильные _id, поэтому ссылки совпадают с тем, что лежит в Mongo.
+     * Все рецепты. Строятся из файла и сидера модификаторов без базы: ссылка на модификатор -
+     * его код, а тир - номер внутри описания, поэтому они совпадают с тем, что лежит в Mongo.
      */
     val recipes: List<BenchRecipe> by lazy { build(ModifierSeeder.seedDefinitions()) }
 
@@ -100,23 +97,20 @@ object CraftingBench {
 
     fun build(definitions: List<ModifierDefinition>): List<BenchRecipe> {
         val byCode = definitions.associateBy { it.code }
-        val tiers = ModifierSeeder.seedTiers(definitions).associateBy { it.modifierId to it.tier }
         val records = json.decodeFromString(BenchDocument.serializer(), ContentResource.read(FILE)).recipes
 
         return records.map { record ->
             val definition = byCode[record.modifier]
                 ?: throw CurrencyExceptions.funExceptionRecipeNotFound("build", record.modifier)
-            val tier = tiers[definition._id to record.tier]
+            val tier = definition.tier(record.tier)
                 ?: throw CurrencyExceptions.funExceptionRecipeNotFound("build", "${record.modifier}_T${record.tier}")
             if (!definition.crafted || !definition.isAffix())
                 throw CurrencyExceptions.funExceptionRecipeNotFound("build", "${record.modifier} is not a crafted affix")
 
             BenchRecipe(
-                code = "${definition.code}_T${tier.tier}",
-                modifierId = definition._id,
+                code = "${definition.code}_T${record.tier}",
                 modifierCode = definition.code,
-                tierId = tier._id,
-                tier = tier.tier,
+                tier = record.tier,
                 source = definition.source,
                 group = definition.family(),
                 values = tier.values,
@@ -169,8 +163,8 @@ object CraftingBench {
         val free = if (recipe.source == EnumModifierSource.PREFIX) prefixes else suffixes
         if (free == 0) throw CurrencyExceptions.funExceptionNoFreeAffix("craft", template.code)
 
-        val values = ModifierTier(recipe.modifierId, recipe.tier, recipe.values, _id = recipe.tierId).roll()
-        item.params.add(Modifier(recipe.modifierId, values, recipe.tierId, recipe.tier))
+        val values = ModifierTier(values = recipe.values).roll()
+        item.params.add(Modifier(recipe.modifierCode, values, recipe.tier))
 
         return outcome(item, template, "currency.crafted")
     }

@@ -11,7 +11,6 @@ import base.repository.BaseRepository
 import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
-import org.bson.conversions.Bson
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
 import com.mongodb.kotlin.client.coroutine.ClientSession
@@ -372,28 +371,6 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         collection.deleteMany(session, Filters.nin("equipmentId", equipmentIds)).deletedCount
 
     /**
-     * Проставляет редкость экземплярам, созданным до того, как она у них появилась.
-     *
-     * До появления сфер редкость жила только на шаблоне, поэтому у старых
-     * документов поля нет и оно читается как COMMON. Совместимость разовая.
-     *
-     * @param equipmentIds шаблоны, чью редкость нужно проставить
-     * @return количество обновлённых документов
-     */
-    suspend fun backfillRarity(equipmentIds: Collection<String>, rarity: EnumRarity, session: ClientSession): Long {
-        if (equipmentIds.isEmpty()) return 0
-
-        return collection.updateMany(
-            session,
-            Filters.and(
-                Filters.`in`("equipmentId", equipmentIds),
-                Filters.exists("rarity", false)
-            ),
-            Updates.set("rarity", rarity.name)
-        ).modifiedCount
-    }
-
-    /**
      * Возвращает в сумку самоцветы из гнёзд, которых больше нет в дереве (0.52.0: дерево построено
      * заново). Самоцвет - вещь игрока: он не пропадает вместе с узлом, а просто перестаёт быть вставленным.
      *
@@ -406,54 +383,15 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     /**
-     * Эпической редкости больше нет, а мифическая стала своими предметами (0.53.0): копии прежних
-     * эпических и мифических баз становятся редкими. Правка сырая - такие документы уже не читаются.
+     * Снимает с экземпляров модификаторы, описаний которых больше нет в справочнике: предмет
+     * остаётся, пропадает только строка, которую уже нечем считать.
      *
-     * @param mythics шаблоны настоящих мифических предметов - их копии остаются мифическими
-     * @return сколько копий сменили редкость
-     */
-    suspend fun retireRarities(mythics: Collection<String>, session: ClientSession): Long =
-        collection.updateMany(session, retiredRarity("rarity", "equipmentId", mythics), Updates.set("rarity", EnumRarity.RARE.name)).modifiedCount
-
-    /**
-     * Доводит аффиксы всех копий до правил их редкости (0.53.0), см. [ModifierRoller.normalize].
-     *
-     * @return сколько копий изменилось
-     */
-    suspend fun normalizeAffixes(session: ClientSession): Long = findAll(session).count { item ->
-        val template = equipmentCache.findById(item.equipmentId) ?: return@count false
-        val params = ModifierRoller.normalize(template, item.rarity, item.params, item.influence) ?: return@count false
-        item.params = params
-        update(item, session)
-        true
-    }.toLong()
-
-    /**
-     * Удаляет предметы с модификаторами старого формата - одиночным полем `value`
-     * вместо списка `values`. Такие документы уже не читаются драйвером, поэтому
-     * вычистить их можно только фильтром по сырому полю.
-     *
-     * @return количество удалённых документов
-     */
-    suspend fun deleteLegacyParams(session: ClientSession): Long =
-        collection.deleteMany(session, Filters.exists("params.value", true)).deletedCount
-
-    /**
-     * Снимает с экземпляров модификаторы, описаний которых больше нет (0.33.0: ауры и проклятия
-     * убраны из игры). Предмет остаётся, пропадает только строка, которую уже нечем считать.
-     *
+     * @param modifierCodes коды всех актуальных описаний
      * @return сколько экземпляров что-то потеряли
      */
-    suspend fun pruneMissingModifiers(modifierIds: Collection<String>, session: ClientSession): Long {
-        if (modifierIds.isEmpty()) return 0
-        val stale = org.bson.Document("modifierId", org.bson.Document("\$nin", modifierIds.toList()))
+    suspend fun pruneMissingModifiers(modifierCodes: Collection<String>, session: ClientSession): Long {
+        if (modifierCodes.isEmpty()) return 0
+        val stale = org.bson.Document("modifierCode", org.bson.Document("\$nin", modifierCodes.toList()))
         return collection.updateMany(session, Filters.empty(), org.bson.Document("\$pull", org.bson.Document("params", stale))).modifiedCount
     }
 }
-
-/** Редкости, которых больше нет у обычных баз (0.53.0). */
-val RETIRED_RARITIES = listOf("EPIC", "MYTHICAL")
-
-/** Копии прежних эпических и мифических баз - все, кроме копий настоящих мифических предметов. */
-fun retiredRarity(rarityField: String, equipmentField: String, mythics: Collection<String>): Bson =
-    Filters.and(Filters.`in`(rarityField, RETIRED_RARITIES), Filters.nin(equipmentField, mythics.toList()))

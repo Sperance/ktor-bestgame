@@ -6,33 +6,66 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 /**
- * Запись, которую можно вытянуть из пула (с 0.39.0): модификатор предмета или монстра,
- * шаблон экипировки, уникалка.
+ * Запись, которую можно вытянуть из пула: модификатор предмета или монстра, шаблон экипировки.
  *
- * Пул - это тег, и реестра пулов нет: запись сама говорит, в каких пулах она состоит и с каким
- * весом, а источник (шаблон, таблица добычи, босс, сфера, ремесло) называет пулы, из которых
- * тянет. Новый пул - это новый тег на записях и его имя у источника, без строчки кода.
+ * С 0.56.0 запись о пулах не знает ничего - только свой стабильный код. Кто в каком пуле и с каким
+ * весом, лежит в коллекции [Pool] (сид - `content/pools.json`), а источник (шаблон, таблица добычи,
+ * босс, сфера, ремесло) по-прежнему называет теги пулов, из которых тянет.
  */
 interface Pooled {
-    val pools: Map<String, Int>
+    val code: String
 }
 
 /** Запись пула с её весом в этой тяге. */
 data class Weighted<T>(val value: T, val weight: Int)
 
-object Pools {
-    /** Разделитель частей тега: `local:armor`, `influence:SHAPER`, `boss:BOSS_TIDECALLER`. */
-    const val SEPARATOR = ":"
+/**
+ * Пулы одного справочника ([EnumPoolTarget]), сведённые по тегу: `тег -> код -> вес`.
+ *
+ * Разрешение как `spawn_weights` в PoE: источник перечисляет теги по приоритету, вес записи даёт
+ * первый тег, в пуле которого она есть, и вес 0 в нём исключает её, даже если дальше она есть с весом.
+ */
+class PoolTable(pools: Collection<Pool>) {
+    private val byTag: Map<String, Map<String, Int>> =
+        pools.groupBy { it.code }.mapValues { (_, same) -> same.fold(emptyMap()) { merged, pool -> merged + pool.entries } }
 
-    /**
-     * Вес записи в тяге по [tags], как `spawn_weights` в PoE: решает первый тег источника,
-     * в котором запись состоит, и вес 0 в нём исключает её, даже если дальше она есть с весом.
-     */
-    fun weight(entry: Pooled, tags: List<String>): Int = tags.firstNotNullOfOrNull { entry.pools[it] } ?: 0
+    /** Все теги таблицы. */
+    val tags: Set<String> get() = byTag.keys
+
+    /** Состав пула [tag]: код -> вес. */
+    fun members(tag: String): Map<String, Int> = byTag[tag].orEmpty()
+
+    /** Вес записи [code] в тяге по [tags]. */
+    fun weight(code: String, tags: List<String>): Int = tags.firstNotNullOfOrNull { byTag[it]?.get(code) } ?: 0
 
     /** Пул по тегам источника: записи с положительным весом, в исходном порядке. */
     fun <T : Pooled> of(entries: Iterable<T>, tags: List<String>): List<Weighted<T>> =
-        entries.mapNotNull { entry -> weight(entry, tags).takeIf { it > 0 }?.let { Weighted(entry, it) } }
+        entries.mapNotNull { entry -> weight(entry.code, tags).takeIf { it > 0 }?.let { Weighted(entry, it) } }
+
+    /**
+     * Тяги одного набора записей по этой таблице (с 0.49.0): каждая по одним и тем же тегам
+     * собирается один раз, дальше отдаётся готовой. Живёт внутри ревизии кеша и умирает с ней.
+     */
+    fun <T : Pooled> index(entries: List<T>): Index<T> = Index(entries, this)
+
+    class Index<T : Pooled>(private val entries: List<T>, private val table: PoolTable) {
+        private val byTags = ConcurrentHashMap<List<String>, List<Weighted<T>>>()
+
+        fun of(tags: List<String>): List<Weighted<T>> = byTags.getOrPut(tags) { table.of(entries, tags) }
+    }
+
+    companion object {
+        val EMPTY = PoolTable(emptyList())
+
+        /** Таблицы всех справочников по набору пулов. */
+        fun byTarget(pools: Collection<Pool>): Map<EnumPoolTarget, PoolTable> =
+            EnumPoolTarget.entries.associateWith { target -> PoolTable(pools.filter { it.kind.target == target }) }
+    }
+}
+
+object Pools {
+    /** Разделитель частей тега: `local:armor`, `influence:SHAPER`, `boss:BOSS_TIDECALLER`. */
+    const val SEPARATOR = ":"
 
     /** Одна запись пула по весам. */
     fun <T> draw(pool: List<Weighted<T>>, random: Random): T? {
@@ -46,14 +79,4 @@ object Pools {
 
     /** Пул модификаторов, который открывает предмету его влияние. */
     fun influence(influence: EnumInfluence): String = "influence$SEPARATOR${influence.name}"
-
-    /**
-     * Пулы одного набора записей по тегам источника (с 0.49.0): каждая тяга по одним и тем же
-     * тегам собирается один раз, дальше отдаётся готовой. Живёт внутри снимка кеша и умирает с ним.
-     */
-    class Index<T : Pooled>(private val entries: List<T>) {
-        private val byTags = ConcurrentHashMap<List<String>, List<Weighted<T>>>()
-
-        fun of(tags: List<String>): List<Weighted<T>> = byTags.getOrPut(tags) { Pools.of(entries, tags) }
-    }
 }

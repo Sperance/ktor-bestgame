@@ -97,7 +97,7 @@ class LocalizationTest {
         ApplicationExceptions::class, BaseRepositoryExceptions::class, BaseRouteExceptions::class,
         AuctionExceptions::class, AuthExceptions::class, CampaignExceptions::class, CharacterExceptions::class, CurrencyExceptions::class,
         EquipmentExceptions::class, ItemsExceptions::class, LocaleExceptions::class,
-        ModifierExceptions::class, ProgressionExceptions::class,
+        ModifierExceptions::class, ProgressionExceptions::class, base.exception.model.PoolExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class,
         base.exception.model.ProfessionExceptions::class,
     )

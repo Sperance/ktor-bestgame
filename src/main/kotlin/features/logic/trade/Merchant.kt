@@ -12,6 +12,7 @@ import features.data.inventory.CharacterEquipmentRepository
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierRoller
 import features.logic.pools.Pools
+import features.logic.pools.Weighted
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
@@ -59,11 +60,10 @@ object MerchantRules {
     val POOLS = listOf("merchant")
 
     /** Витрина на момент [now]: живая остаётся как есть, истёкшая выкладывается заново. */
-    fun stock(current: MerchantStock?, characterId: String, level: Int, now: Long, templates: List<Equipment>, random: Random,
+    fun stock(current: MerchantStock?, characterId: String, level: Int, now: Long, pool: List<Weighted<Equipment>>, random: Random,
               roll: (Equipment, EnumRarity) -> MutableList<Modifier> = ModifierRoller::roll,
               affix: (Modifier) -> Boolean = ModifierRoller::isAffix): MerchantStock {
         if (current != null && now < current.refreshAt) return current
-        val pool = Pools.of(templates, POOLS)
         val near = pool.filter { it.value.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
             .ifEmpty { pool.filter { it.value.requiredLevel <= level + LEVEL_SPREAD } }
         val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) {
@@ -92,7 +92,7 @@ class MerchantService : KoinComponent {
     /** Витрина героя на сейчас; сменившаяся записывается, и [character] в памяти идёт в ногу с базой. */
     private suspend fun restock(character: Character): MerchantStock {
         val stock = MerchantRules.stock(character.merchant, character._id, character.level.toInt(), System.currentTimeMillis(),
-            equipmentCache.getCache(), Random.Default)
+            equipmentCache.pool(MerchantRules.POOLS), Random.Default)
         if (stock != character.merchant) {
             character.merchant = stock
             transactionExecute("merchant") { session -> characters.update(character, session) }

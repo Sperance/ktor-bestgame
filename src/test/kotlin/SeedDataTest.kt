@@ -3,13 +3,14 @@ import application.enums.EnumModifierSource
 import application.enums.EnumRarity
 import config.EquipmentSeeder
 import config.ModifierSeeder
+import config.PoolSeeder
 import config.RedemptionSeeder
 import config.UniqueEquipmentSeeder
 import features.data.equipment.equipment_data.Equipment
 import features.data.redemptionCodes.RedemptionKind
 import features.logic.modifiers.ModifierDefinition
-import features.logic.modifiers.ModifierTier
-import features.logic.pools.Pools
+import application.enums.EnumStatStock
+import features.logic.pools.EnumPoolTarget
 import org.junit.Test
 
 /**
@@ -20,8 +21,7 @@ class SeedDataTest {
     private val definitions: List<ModifierDefinition> =
         ModifierSeeder.seedDefinitions() + UniqueEquipmentSeeder.seedDefinitions()
 
-    private val tiers: List<ModifierTier> =
-        ModifierSeeder.seedTiers(definitions) + UniqueEquipmentSeeder.seedTiers(definitions)
+    private val modifierPools = PoolSeeder.table(EnumPoolTarget.MODIFIER)
 
     private val equipment: List<Equipment> = EquipmentSeeder(definitions).seed()
 
@@ -34,7 +34,6 @@ class SeedDataTest {
     @Test
     fun modifier_ids_are_unique_and_stable_between_seeds() {
         assert(definitions.map { it._id }.toSet().size == definitions.size) { "Duplicate modifier definition ids" }
-        assert(tiers.map { it._id }.toSet().size == tiers.size) { "Duplicate modifier tier ids" }
 
         val again = ModifierSeeder.seedDefinitions() + UniqueEquipmentSeeder.seedDefinitions()
         assert(again.associate { it.code to it._id } == definitions.associate { it.code to it._id }) {
@@ -44,50 +43,28 @@ class SeedDataTest {
 
     @Test
     fun every_definition_has_effects_and_tiers() {
-        val tiersByModifier = tiers.groupBy { it.modifierId }
-
         definitions.forEach { definition ->
             assert(definition.effects.isNotEmpty()) { "${definition.code} has no effects" }
-
-            val own = tiersByModifier[definition._id].orEmpty()
-            assert(own.isNotEmpty()) { "${definition.code} has no tiers" }
-            assert(own.map { it.tier }.toSet() == (1..own.size).toSet()) {
-                "${definition.code} has broken tier numbering: ${own.map { it.tier }}"
-            }
+            assert(definition.tiers.isNotEmpty()) { "${definition.code} has no tiers" }
         }
     }
 
     @Test
     fun every_tier_has_a_value_per_effect() {
-        val definitionsById = definitions.associateBy { it._id }
-
-        tiers.forEach { tier ->
-            val definition = definitionsById.getValue(tier.modifierId)
-            assert(tier.values.size == definition.effects.size) {
-                "${definition.code} T${tier.tier}: ${definition.effects.size} effects, ${tier.values.size} values"
+        definitions.forEach { definition ->
+            definition.tiers.forEachIndexed { index, tier ->
+                assert(tier.problem(definition.effects.size) == null) { "${definition.code} T${index + 1}: ${tier.problem(definition.effects.size)}" }
             }
-            tier.values.forEach { value ->
-                assert(value.valueMin <= value.valueMax) {
-                    "${definition.code} T${tier.tier}: broken range ${value.valueMin}..${value.valueMax}"
-                }
-            }
-            assert(tier.minItemLevel >= 1) { "${definition.code} T${tier.tier}: minItemLevel ${tier.minItemLevel}" }
-            assert(tier.weight > 0) { "${definition.code} T${tier.tier}: weight ${tier.weight}" }
         }
     }
 
     @Test
     fun better_tiers_are_stronger_and_require_higher_item_level() {
-        tiers.groupBy { it.modifierId }.forEach { (_, own) ->
-            val sorted = own.sortedBy { it.tier }
-            sorted.zipWithNext { better, worse ->
-                assert(better.minItemLevel >= worse.minItemLevel) {
-                    "tier ${better.tier} requires less item level than tier ${worse.tier}"
-                }
-                better.values.forEachIndexed { index, value ->
-                    assert(value.valueMax >= worse.values[index].valueMax) {
-                        "tier ${better.tier} is weaker than tier ${worse.tier}"
-                    }
+        definitions.forEach { definition ->
+            definition.tiers.zipWithNext { better, worse ->
+                assert(better.level >= worse.level) { "${definition.code}: a better tier requires less item level" }
+                better.values.forEachIndexed { index, (_, max) ->
+                    assert(max >= worse.values[index][1]) { "${definition.code}: a better tier is weaker" }
                 }
             }
         }
@@ -95,21 +72,16 @@ class SeedDataTest {
 
     @Test
     fun composite_modifiers_roll_all_their_effects_together() {
-        val definitionsById = definitions.associateBy { it._id }
-        val composite = tiers.filter { definitionsById.getValue(it.modifierId).isComposite() }
-
+        val composite = definitions.filter { it.isComposite() }.flatMap { definition -> definition.tiers.map { definition to it } }
         assert(composite.isNotEmpty()) { "No composite modifiers in seed data" }
 
-        composite.forEach { tier ->
+        composite.forEach { (definition, tier) ->
             val rolled = tier.roll()
             assert(rolled.size == tier.values.size) { "rolled ${rolled.size} values for ${tier.values.size} effects" }
-
             rolled.forEachIndexed { index, value ->
-                val range = tier.values[index]
+                val (min, max) = tier.values[index]
                 // to1Digits округляет, поэтому допускаем шаг округления на границах
-                assert(value >= range.valueMin - 0.05 && value <= range.valueMax + 0.05) {
-                    "${definitionsById.getValue(tier.modifierId).code}: $value out of ${range.valueMin}..${range.valueMax}"
-                }
+                assert(value >= min - 0.05 && value <= max + 0.05) { "${definition.code}: $value out of $min..$max" }
             }
         }
     }
@@ -133,7 +105,8 @@ class SeedDataTest {
     @Test
     fun every_slot_has_three_uniques() {
         // Уникалки боссов (0.32.0) и кузнеца (0.38.0) - сверх трёх: они не состоят в общем пуле.
-        val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE && "unique:world" in it.pools }.groupBy { it.slot }
+        val world = PoolSeeder.table(EnumPoolTarget.EQUIPMENT).members("unique:world")
+        val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE && it.code in world }.groupBy { it.slot }
 
         // Самоцвет носится не на теле, а в гнезде дерева, и уникальных самоцветов
         // пока нет: их сила должна считаться вместе с деревом, а не отдельно от него.
@@ -145,14 +118,14 @@ class SeedDataTest {
 
     @Test
     fun uniques_carry_only_their_own_fixed_modifiers() {
-        val definitionsById = definitions.associateBy { it._id }
+        val definitionsByCode = definitions.associateBy { it.code }
 
         equipment.filter { it.rarity.fixed }.forEach { item ->
-            assert(item.fixedModifierIds.isNotEmpty()) { "${item.code} has no modifiers" }
+            assert(item.fixedModifierCodes.isNotEmpty()) { "${item.code} has no modifiers" }
             assert(item.modifierPools.isEmpty()) { "${item.code} rolls affixes" }
 
-            item.fixedModifierIds.forEach { id ->
-                val definition = definitionsById[id]
+            item.fixedModifierCodes.forEach { id ->
+                val definition = definitionsByCode[id]
                 assert(definition != null) { "${item.code} references unknown modifier $id" }
                 assert(definition!!.source == EnumModifierSource.UNIQUE) {
                     "${item.code} carries a rollable modifier ${definition.code}"
@@ -193,7 +166,7 @@ class SeedDataTest {
     @Test
     fun rollable_items_have_both_prefixes_and_suffixes_available() {
         equipment.filter { !it.rarity.fixed }.forEach { item ->
-            val sources = Pools.of(definitions, item.modifierPools).map { it.value.source }
+            val sources = modifierPools.of(definitions, item.modifierPools).map { it.value.source }
             assert(sources.contains(EnumModifierSource.PREFIX)) { "${item.code} has no prefixes to roll" }
             assert(sources.contains(EnumModifierSource.SUFFIX)) { "${item.code} has no suffixes to roll" }
         }
@@ -219,12 +192,14 @@ class SeedDataTest {
 
     @Test
     fun armour_rolls_only_the_local_defences_its_base_carries() {
-        val byId = definitions.associateBy { it._id }
+        val byCode = definitions.associateBy { it.code }
+        // Гибрид «защита и здоровье» или «защита и порог оглушения» (0.56.0) проверяется по своей защите
+        val defences = setOf(EnumStatStock.STOCK_ARMOR, EnumStatStock.STOCK_EVASION, EnumStatStock.STOCK_ENERGY_SHIELD)
         equipment.filter { !it.rarity.fixed }.forEach { item ->
-            val baseStats = item.baseParams.flatMap { byId.getValue(it.modifierId).stats() }.toSet()
-            val foreign = Pools.of(definitions, item.modifierPools).map { it.value }
+            val baseStats = item.baseParams.flatMap { byCode.getValue(it.modifierCode).stats() }.toSet()
+            val foreign = modifierPools.of(definitions, item.modifierPools).map { it.value }
                 .filter { it.isLocal && it.isNaturalAffix() && !it.tags.orEmpty().contains("weapon") }
-                .filterNot { baseStats.containsAll(it.stats()) }
+                .filterNot { modifier -> baseStats.containsAll(modifier.stats().filter { it in defences }) }
             assert(foreign.isEmpty()) { "${item.code} rolls local modifiers its base does not carry: ${foreign.map { it.code }}" }
         }
     }
@@ -238,27 +213,31 @@ class SeedDataTest {
         assert(missing.isEmpty()) { "Bases without an icon: $missing" }
     }
 
+    /**
+     * Сетка тиров по важности стата (0.56.0): основные - 8 тиров на 1/13/25/37/50/62/74/86,
+     * второстепенные - 5 на 1/20/40/60/80, редкие - 3 на 1/40/75. Любой выпадающий аффикс стоит на одной из них.
+     */
     @Test
-    fun a_tabled_modifier_keeps_every_tier_of_its_table() {
-        val fire = definitions.single { it.code == "INCREASED_FIRE_DAMAGE" }
-        val own = tiers.filter { it.modifierId == fire._id }.sortedBy { it.tier }
-        assert(own.map { it.minItemLevel } == listOf(81, 60, 30, 15, 8)) { "item levels ${own.map { it.minItemLevel }}" }
-        assert(own.map { it.values.single().valueMin to it.values.single().valueMax } ==
-            listOf(23.0 to 26.0, 18.0 to 22.0, 13.0 to 17.0, 8.0 to 12.0, 3.0 to 7.0)) { "ranges ${own.map { it.values }}" }
+    fun a_natural_affix_follows_a_tier_grid() {
+        val grids = setOf(listOf(86, 74, 62, 50, 37, 25, 13, 1), listOf(80, 60, 40, 20, 1), listOf(75, 40, 1))
+        val natural = modifierPools.tags.filterNot { it == "map" || it == "tool" }.flatMap { modifierPools.members(it).keys }.toSet()
+        definitions.filter { it.isNaturalAffix() && it.code in natural }.forEach { definition ->
+            assert(definition.tiers.map { it.level } in grids) { "${definition.code}: levels ${definition.tiers.map { it.level }}" }
+        }
     }
 
     @Test
     fun a_risk_modifier_keeps_its_price_on_every_tier() {
         definitions.filter { it.code.startsWith("RISK_") }.forEach { risk ->
-            val prices = tiers.filter { it.modifierId == risk._id }.map { it.values[1] }
-            assert(prices.all { it.valueMax < 0 } && prices.distinct().size == 1) { "${risk.code}: $prices" }
+            val prices = risk.tiers.map { it.values[1] }
+            assert(prices.all { it[1] < 0 } && prices.distinct().size == 1) { "${risk.code}: $prices" }
         }
     }
 
     @Test
     fun every_rollable_modifier_sits_in_some_pool() {
-        val pooled = equipment.flatMap { Pools.of(definitions, it.modifierPools) }.map { it.value.code }.toSet()
-        val loose = definitions.filter { it.isNaturalAffix() && !it.isRetired() && it.tags.orEmpty().any { tag -> tag in setOf("ailment", "risk") } }
+        val pooled = equipment.flatMap { modifierPools.of(definitions, it.modifierPools) }.map { it.value.code }.toSet()
+        val loose = definitions.filter { it.isNaturalAffix() && it.tags.orEmpty().any { tag -> tag in setOf("ailment", "risk") } }
             .filterNot { it.code in pooled }.map { it.code }
         assert(loose.isEmpty()) { "Modifiers no pool rolls: $loose" }
     }

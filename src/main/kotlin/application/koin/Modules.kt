@@ -15,7 +15,7 @@ import features.caches.BlockListCache
 import features.caches.EquipmentCache
 import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
-import features.caches.ModifierTierCache
+import features.caches.PoolCache
 import features.caches.CharacterClassCache
 import features.caches.ExperienceLevelCache
 import features.caches.SkillTreeCache
@@ -35,8 +35,8 @@ import features.data.user.UserRepository
 import features.data.user.UserRoute
 import features.logic.campaign.CampaignService
 import features.logic.modifiers.ModifierDefinitionRepository
-import features.logic.modifiers.ModifierTierRepository
-import features.logic.modifiers.ModifierTierRoute
+import features.logic.pools.Pool
+import features.logic.pools.PoolRepository
 import features.logic.progression.CharacterClassRepository
 import features.logic.progression.ExperienceLevelRepository
 import features.logic.skilltree.SkillTreeNodeRepository
@@ -53,7 +53,7 @@ val repositoryModule = module {
     single { BlockListRepository() }
     single { RedemptionCodesRepository() }
     single { ModifierDefinitionRepository() }
-    single { ModifierTierRepository() }
+    single { PoolRepository() }
     single { SkillTreeNodeRepository() }
     single { CharacterClassRepository() }
     single { ExperienceLevelRepository() }
@@ -67,12 +67,12 @@ val cacheModule = module {
     // Грузить их при старте Koin нельзя: они поднимались бы раньше сидера
     // и падали на документах старого формата.
     single { BlockListCache(get()) }
-    single { ModifierDefinitionCache(get()) }
-    single { ModifierTierCache(get()) }
+    single { PoolCache(get()) }
+    single { ModifierDefinitionCache(get(), get()) }
     single { CharacterClassCache(get()) }
     single { ExperienceLevelCache(get()) }
     single { SkillTreeCache(get()) }
-    single { EquipmentCache(get()) }
+    single { EquipmentCache(get(), get()) }
     single { ItemsCache(get()) }
 }
 
@@ -87,11 +87,12 @@ val routeModule = module {
                 CharacterEquipmentRoute(get()),
                 AuctionLotRoute(get()),
                 RedemptionCodesRoute(get()),
-                ModifierTierRoute(get()),
                 BaseRoute(get<ItemsRepository>(), Items.serializer(), catalog, get<ItemsCache>()),
                 // Страницы шаблонов клиент не читает, но требует маршрут при проверке сервера
                 BaseRoute(get<EquipmentRepository>(), Equipment.serializer(), catalog + Crud.PAGED, get<EquipmentCache>()),
                 BaseRoute(get<ModifierDefinitionRepository>(), ModifierDefinition.serializer(), readOnly, get<ModifierDefinitionCache>()),
+                // Пулы (0.56.0) - справочник, который администратор правит из редактора клиента
+                BaseRoute(get<PoolRepository>(), Pool.serializer(), catalog, get<PoolCache>()),
                 BaseRoute(get<SkillTreeNodeRepository>(), SkillTreeNode.serializer(), readOnly, get<SkillTreeCache>()),
                 BaseRoute(get<CharacterClassRepository>(), CharacterClass.serializer(), readOnly, get<CharacterClassCache>()),
                 BaseRoute(get<ExperienceLevelRepository>(), ExperienceLevel.serializer(), readOnly, get<ExperienceLevelCache>()),

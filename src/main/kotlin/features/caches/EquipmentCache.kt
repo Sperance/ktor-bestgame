@@ -3,15 +3,18 @@ package features.caches
 import application.enums.EnumEquipmentType
 import features.data.equipment.EquipmentRepository
 import features.data.equipment.equipment_data.Equipment
-import features.logic.pools.Pools
+import features.logic.pools.EnumPoolTarget
 import features.logic.pools.Weighted
 import java.util.concurrent.ConcurrentHashMap
 
-class EquipmentCache(repository: EquipmentRepository) : MongoCache<Equipment, EquipmentRepository>(repository) {
+class EquipmentCache(
+    repository: EquipmentRepository,
+    private val poolCache: PoolCache,
+) : MongoCache<Equipment, EquipmentRepository>(repository) {
     private val byCode = uniqueIndex { it.code }
     private val bySlot = groupIndex { it.slot }
-    private val pools = derived { items -> Pools.Index(items) }
-    private val leveled = derived { _ -> ConcurrentHashMap<List<String>, Leveled>() }
+    private val pools = derived(poolCache) { items -> poolCache.table(EnumPoolTarget.EQUIPMENT).index(items) }
+    private val leveled = derived(poolCache) { _ -> ConcurrentHashMap<List<String>, Leveled>() }
 
     /** Пул по возрастанию требуемого уровня: срез «до уровня» - двоичный поиск, а не фильтр. */
     private class Leveled(pool: List<Weighted<Equipment>>) {
@@ -34,7 +37,7 @@ class EquipmentCache(repository: EquipmentRepository) : MongoCache<Equipment, Eq
     /** Шаблоны слота, в порядке кеша. */
     fun findBySlot(slot: EnumEquipmentType): List<Equipment> = bySlot.get()[slot].orEmpty()
 
-    /** Шаблоны пулов [tags] с их весами, см. [Pools.of]; собирается один раз на ревизию. */
+    /** Шаблоны пулов [tags] с их весами; собирается один раз на ревизию шаблонов и пулов. */
     fun pool(tags: List<String>): List<Weighted<Equipment>> = pools.get().of(tags)
 
     /** Те же шаблоны, которые по уровню доступны на [level]: что падает на локации этого уровня. */

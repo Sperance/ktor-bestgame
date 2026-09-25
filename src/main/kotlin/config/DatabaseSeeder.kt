@@ -6,7 +6,6 @@ import SEED_ADMIN_PASSWORD
 import SEED_TEST_PLAYER_PASSWORD
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumRarity
-import extensions.toStableObjectId
 import application.enums.EnumUserRoles
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
@@ -22,7 +21,7 @@ import features.caches.EquipmentCache
 import features.caches.ExperienceLevelCache
 import features.caches.ItemsCache
 import features.caches.ModifierDefinitionCache
-import features.caches.ModifierTierCache
+import features.caches.PoolCache
 import features.caches.SkillTreeCache
 import features.data.auction.AuctionLotRepository
 import features.data.blockList.BlockListRepository
@@ -33,7 +32,7 @@ import features.data.user.UserRepository
 import features.data.auth.AuthSessionRepository
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierDefinitionRepository
-import features.logic.modifiers.ModifierTierRepository
+import features.logic.pools.PoolRepository
 import features.logic.progression.CharacterClassRepository
 import features.logic.progression.ExperienceLevelRepository
 import features.logic.skilltree.SkillTreeNodeRepository
@@ -46,7 +45,8 @@ import kotlinx.coroutines.coroutineScope
 /**
  * Заполнение БД начальными данными при старте сервера.
  *
- * Каждый блок проверяет, есть ли уже данные — повторный запуск безопасен.
+ * Сначала разовая очистка базы ([DatabaseWipe], 0.56.0), потом справочники и сиды. Каждый блок
+ * проверяет, есть ли уже данные — повторный запуск безопасен.
  */
 object DatabaseSeeder : KoinComponent {
 
@@ -60,10 +60,10 @@ object DatabaseSeeder : KoinComponent {
     private val characterEquipmentRepository: CharacterEquipmentRepository by inject()
     private val auctionLotRepository: AuctionLotRepository by inject()
     private val modifierDefinitionRepository: ModifierDefinitionRepository by inject()
-    private val modifierTierRepository: ModifierTierRepository by inject()
+    private val poolRepository: PoolRepository by inject()
     private val equipmentCache: EquipmentCache by inject()
     private val modifierDefinitionCache: ModifierDefinitionCache by inject()
-    private val modifierTierCache: ModifierTierCache by inject()
+    private val poolCache: PoolCache by inject()
     private val itemsCache: ItemsCache by inject()
     private val skillTreeCache: SkillTreeCache by inject()
     private val skillTreeNodeRepository: SkillTreeNodeRepository by inject()
@@ -84,17 +84,17 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Database seeding started")
 
+        DatabaseWipe.runOnce()
         ensureIndexes()
 
         transactionExecute { session ->
-            // Справочники первыми: на них ссылается всё остальное
+            // Справочники первыми: на них ссылается всё остальное, а тяги кешей строятся по пулам
+            seedPools(session)
             val definitions = seedModifiers(session)
             seedProgression(session, definitions)
             seedEquipment(session, definitions)
-            retireRarities(session)
             seedSkillTree(session, definitions)
             pruneModifiers(session, definitions)
-            normalizeAffixes(session)
 
             seedUsers(session)
             seedCharacters(session)
@@ -120,7 +120,7 @@ object DatabaseSeeder : KoinComponent {
         listOf(
             userRepository, authSessionRepository, characterRepository, characterEquipmentRepository,
             auctionLotRepository, itemsRepository, equipmentRepository, blockListRepository,
-            redemptionCodesRepository, modifierDefinitionRepository, modifierTierRepository,
+            redemptionCodesRepository, modifierDefinitionRepository, poolRepository,
             skillTreeNodeRepository, characterClassRepository, experienceLevelRepository,
         ).map { async { it.ensureIndexes() } }.awaitAll()
         printLog("  → indexes ensured")
@@ -135,7 +135,7 @@ object DatabaseSeeder : KoinComponent {
      */
     private suspend fun initializeCaches() = coroutineScope {
         listOf(
-            modifierDefinitionCache, modifierTierCache, characterClassCache, experienceLevelCache,
+            poolCache, modifierDefinitionCache, characterClassCache, experienceLevelCache,
             equipmentCache, skillTreeCache, itemsCache, blockListCache
         ).map { async { it.initializeCache() } }.awaitAll()
 
@@ -144,25 +144,10 @@ object DatabaseSeeder : KoinComponent {
 
     /** Модификаторы, которых больше нет в игре, снимаются с предметов - в инвентаре и на аукционе. */
     private suspend fun pruneModifiers(session: ClientSession, definitions: List<ModifierDefinition>) {
-        val ids = definitions.map { it._id }
-        val items = characterEquipmentRepository.pruneMissingModifiers(ids, session)
-        val lots = auctionLotRepository.pruneMissingModifiers(ids, session)
+        val codes = definitions.map { it.code }
+        val items = characterEquipmentRepository.pruneMissingModifiers(codes, session)
+        val lots = auctionLotRepository.pruneMissingModifiers(codes, session)
         if (items + lots > 0) printLog("  → removed modifiers stripped from $items items and $lots lots")
-    }
-
-    /** Эпической редкости больше нет (0.53.0): копии прежних эпических и мифических баз - редкие. */
-    private suspend fun retireRarities(session: ClientSession) {
-        val mythics = UniqueEquipmentSeeder.records.filter { it.rarity == EnumRarity.MYTHICAL }.map { it.code.toStableObjectId() }
-        val items = characterEquipmentRepository.retireRarities(mythics, session)
-        val lots = auctionLotRepository.retireRarities(mythics, session)
-        if (items + lots > 0) printLog("  → $items items and $lots lots became rare")
-    }
-
-    /** Волшебные и редкие копии доводятся до числа аффиксов своей редкости (0.53.0). */
-    private suspend fun normalizeAffixes(session: ClientSession) {
-        val items = characterEquipmentRepository.normalizeAffixes(session)
-        val lots = auctionLotRepository.normalizeAffixes(session)
-        if (items + lots > 0) printLog("  → affixes evened out on $items items and $lots lots")
     }
 
     // ==================== Progression ====================
@@ -219,34 +204,40 @@ object DatabaseSeeder : KoinComponent {
     // ==================== Modifiers ====================
 
     /**
-     * Описания модификаторов и их тиры - две отдельные коллекции Mongo.
+     * Пулы (с 0.56.0) - одна коллекция на все: модификаторы предметов и монстров, базы, уникалки
+     * и мифические предметы. Пересеваются на каждом старте, как и остальные справочники.
+     */
+    private suspend fun seedPools(session: ClientSession) {
+        printLog("Seeding pools...")
+
+        poolRepository.deleteAll(session)
+        val pools = poolRepository.insertMany(PoolSeeder.pools, session)
+        poolCache.initializeCache(session)
+
+        printLog("  → ${pools.size} pools created")
+    }
+
+    /**
+     * Описания модификаторов вместе с их тирами (с 0.56.0 тиры внутри описания).
      *
-     * Справочник пересобирается на каждом старте, чтобы правки в таблицах
-     * модификаторов сразу попадали в базу. _id выводятся из кода модификатора
-     * и стабильны, поэтому зароленные модификаторы предметов переживают пересев.
+     * Справочник пересобирается на каждом старте, чтобы правки в таблицах модификаторов сразу
+     * попадали в базу. Предметы ссылаются на описание кодом, поэтому переживают пересев.
      *
      * @return актуальные описания модификаторов
      */
     private suspend fun seedModifiers(session: ClientSession): List<ModifierDefinition> {
         printLog("Seeding modifiers...")
 
-        modifierTierRepository.deleteAll(session)
         modifierDefinitionRepository.deleteAll(session)
 
         val definitions = modifierDefinitionRepository.insertMany(
             ModifierSeeder.seedDefinitions() + UniqueEquipmentSeeder.seedDefinitions(),
             session
         )
-        val tiers = modifierTierRepository.insertMany(
-            ModifierSeeder.seedTiers(definitions) + UniqueEquipmentSeeder.seedTiers(definitions),
-            session
-        )
 
         modifierDefinitionCache.initializeCache(session)
-        modifierTierCache.initializeCache(session)
 
         printLog("  → ${definitions.size} modifier definitions created")
-        printLog("  → ${tiers.size} modifier tiers created")
 
         return definitions
     }
@@ -454,16 +445,6 @@ object DatabaseSeeder : KoinComponent {
         // Инвентарь, ссылающийся на уже несуществующий шаблон, чистим
         val dropped = characterEquipmentRepository.deleteByMissingEquipment(equipmentIds, session)
         if (dropped > 0) printLog("  → $dropped outdated character equipments removed")
-
-        val legacy = characterEquipmentRepository.deleteLegacyParams(session)
-        if (legacy > 0) printLog("  → $legacy character equipments with legacy modifiers removed")
-
-        // Редкость переехала на экземпляр предмета, у старых документов её нет
-        var backfilled = 0L
-        equipments.groupBy { it.rarity }.forEach { (rarity, templates) ->
-            backfilled += characterEquipmentRepository.backfillRarity(templates.map { it._id }, rarity, session)
-        }
-        if (backfilled > 0) printLog("  → $backfilled character equipments got their rarity")
 
         // Кто уже с вещами - одним запросом, а не подсчётом на каждого персонажа
         val equipped = characterEquipmentRepository.owners(session)

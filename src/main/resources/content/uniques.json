@@ -22,8 +22,7 @@
         [
           { "stat": "STOCK_EVASION", "operation": "ADD", "range": [30.0, 30.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -50,8 +49,7 @@
         [
           { "stat": "STOCK_CRITICAL_CHANCE", "operation": "INCREASED", "range": [25.0, 25.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -78,8 +76,7 @@
         [
           { "stat": "STOCK_RESIST_CHAOS", "operation": "ADD", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -103,8 +100,7 @@
         [
           { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [100.0, 150.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -125,8 +121,7 @@
         [
           { "stat": "STOCK_ATTACK_FIRE", "operation": "MORE", "range": [20.0, 40.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -151,8 +146,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -171,8 +165,7 @@
         [
           { "stat": "STOCK_RESIST_CHAOS", "operation": "ADD", "range": [2.0, 4.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -196,8 +189,7 @@
         [
           { "stat": "STOCK_ATTACK_SPEED", "operation": "INCREASED", "range": [10.0, 16.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -222,8 +214,7 @@
           { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [150.0, 200.0] },
           { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [150.0, 200.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -245,8 +236,7 @@
         [
           { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [20.0, 20.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -262,8 +252,7 @@
         [
           { "stat": "STOCK_MOVEMENT_SPEED", "operation": "INCREASED", "range": [50.0, 50.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -290,8 +279,7 @@
         [
           { "stat": "STOCK_RARITY", "operation": "INCREASED", "range": [30.0, 40.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -312,8 +300,7 @@
         [
           { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -334,8 +321,7 @@
         [
           { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [10.0, 15.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -357,8 +343,7 @@
           { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [80.0, 120.0] },
           { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [80.0, 120.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -383,8 +368,7 @@
         [
           { "stat": "STOCK_HEALTH_REGEN", "operation": "ADD", "range": [8.0, 12.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -404,8 +388,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -427,8 +410,7 @@
         [
           { "stat": "STOCK_RARITY", "operation": "INCREASED", "range": [10.0, 20.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -451,8 +433,7 @@
         [
           { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.4, 0.8] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -477,8 +458,7 @@
         [
           { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [10.0, 30.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -500,8 +480,7 @@
         [
           { "stat": "STOCK_HEALTH_REGEN", "operation": "ADD", "range": [5.0, 10.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -519,8 +498,7 @@
           { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [80.0, 100.0] },
           { "stat": "STOCK_INTELLECT", "operation": "ADD", "range": [80.0, 100.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -544,8 +522,7 @@
         [
           { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [8.0, 14.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -564,8 +541,7 @@
         [
           { "stat": "STOCK_QUANTITY", "operation": "INCREASED", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -589,8 +565,7 @@
         [
           { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [5.0, 8.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -617,8 +592,7 @@
         [
           { "stat": "STOCK_HEALTH_REGEN", "operation": "ADD", "range": [10.0, 20.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -642,8 +616,7 @@
         [
           { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [5.0, 8.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -665,8 +638,7 @@
         [
           { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [20.0, 40.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -688,8 +660,7 @@
         [
           { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [3.0, 5.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -711,8 +682,7 @@
         [
           { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.4, 0.8] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -739,8 +709,7 @@
         [
           { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [50.0, 70.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -767,8 +736,7 @@
         [
           { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.4, 0.8] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -795,8 +763,7 @@
         [
           { "stat": "STOCK_AGILITY", "operation": "ADD", "range": [30.0, 40.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -820,8 +787,7 @@
         [
           { "stat": "STOCK_STRENGTH", "operation": "ADD", "range": [30.0, 40.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -848,8 +814,7 @@
         [
           { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "MORE", "range": [10.0, 15.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -877,8 +842,7 @@
         [
           { "stat": "STOCK_CRITICAL_MULTIPLIER", "operation": "ADD", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "drop": 100, "unique:world": 100, "unique:chance": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -900,8 +864,7 @@
         [
           { "stat": "STOCK_ATTACK_COLD", "operation": "ADD", "range": [3.0, 6.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_TIDECALLER": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -925,8 +888,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [30.0, 45.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_BRINE_MOTHER": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -950,8 +912,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [30.0, 40.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_BOG_QUEEN": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -975,8 +936,7 @@
         [
           { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [40.0, 60.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_ALPHA_WOLF": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1000,8 +960,7 @@
         [
           { "stat": "STOCK_STUN_THRESHOLD", "operation": "ADD", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_RUIN_WARDEN": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -1023,8 +982,7 @@
         [
           { "stat": "STOCK_ATTACK_PHYSICAL", "operation": "INCREASED", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_CRYPT_LORD": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -1051,8 +1009,7 @@
         [
           { "stat": "STOCK_ATTACK_LIGHTNING", "operation": "ADD", "range": [8.0, 16.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_SHARD_QUEEN": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -1074,8 +1031,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [50.0, 70.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_ASHEN_TYRANT": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1099,8 +1055,7 @@
         [
           { "stat": "STOCK_RESIST_COLD", "operation": "ADD", "range": [25.0, 35.0] }
         ]
-      ],
-      "pools": { "boss:BOSS_FROST_MONARCH": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -1127,8 +1082,7 @@
         [
           { "stat": "STOCK_LEECH_PHYSICAL", "operation": "ADD", "range": [0.8, 1.2] }
         ]
-      ],
-      "pools": { "boss:BOSS_DROWNED_GOD": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1152,8 +1106,7 @@
         [
           { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [25.0, 35.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1177,8 +1130,7 @@
         [
           { "stat": "STOCK_STUN_THRESHOLD", "operation": "ADD", "range": [30.0, 40.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1202,8 +1154,7 @@
         [
           { "stat": "STOCK_RESIST_FIRE", "operation": "ADD", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1227,8 +1178,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [30.0, 40.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -1250,8 +1200,7 @@
         [
           { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [8.0, 12.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1275,8 +1224,7 @@
         [
           { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [10.0, 15.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -1303,8 +1251,7 @@
         [
           { "stat": "STOCK_CRITICAL_CHANCE", "operation": "INCREASED", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "weapon",
@@ -1331,8 +1278,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [40.0, 60.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -1354,8 +1300,7 @@
         [
           { "stat": "STOCK_CRITICAL_MULTIPLIER", "operation": "ADD", "range": [15.0, 20.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -1377,8 +1322,7 @@
         [
           { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "accessory",
@@ -1400,8 +1344,7 @@
         [
           { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [20.0, 30.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     },
     {
       "type": "armor",
@@ -1425,8 +1368,7 @@
         [
           { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [40.0, 60.0] }
         ]
-      ],
-      "pools": { "unique:smith": 100 }
+      ]
     }
   ]
 }

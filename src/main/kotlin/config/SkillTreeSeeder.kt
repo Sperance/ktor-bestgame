@@ -73,7 +73,7 @@ object SkillTreeSeeder {
      * опечатка в коде соседа или в коде модификатора должна остановить старт, а не
      * оставить висящую связь, которую заметят через неделю по жалобе игрока.
      *
-     * @param definitions описания модификаторов - из них берутся _id бонусов
+     * @param definitions описания модификаторов - по ним проверяются коды бонусов
      */
     fun seed(definitions: List<ModifierDefinition>): List<SkillTreeNode> {
         val byCode = definitions.associateBy { it.code }
@@ -103,7 +103,7 @@ object SkillTreeSeeder {
 
         fun bonus(bonus: NodeBonus): Modifier {
             val definition = byCode[bonus.code] ?: throw ModifierExceptions.funExceptionCodeNotFound("seed", bonus.code)
-            return Modifier.passive(definition._id, bonus.values)
+            return Modifier.passive(definition.code, bonus.values)
         }
 
         return records.map { record ->

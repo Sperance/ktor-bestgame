@@ -21,12 +21,7 @@
       "modifierPools": [
         "helmet",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -49,12 +44,7 @@
       "modifierPools": [
         "helmet",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -77,12 +67,7 @@
       "modifierPools": [
         "helmet",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -105,12 +90,7 @@
       "modifierPools": [
         "helmet",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -133,12 +113,7 @@
       "modifierPools": [
         "helmet",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -161,12 +136,7 @@
       "modifierPools": [
         "helmet",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -189,12 +159,7 @@
       "modifierPools": [
         "helmet",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -217,12 +182,7 @@
       "modifierPools": [
         "helmet",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -245,12 +205,7 @@
       "modifierPools": [
         "helmet",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -273,12 +228,7 @@
       "modifierPools": [
         "helmet",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -301,12 +251,7 @@
       "modifierPools": [
         "helmet",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -329,12 +274,7 @@
       "modifierPools": [
         "helmet",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -357,12 +297,7 @@
       "modifierPools": [
         "helmet",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -385,12 +320,7 @@
       "modifierPools": [
         "helmet",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -413,12 +343,7 @@
       "modifierPools": [
         "helmet",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -449,12 +374,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -485,12 +405,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -521,12 +436,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -557,12 +467,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -593,12 +498,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -629,12 +529,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -665,12 +560,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -701,12 +591,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -737,12 +622,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -773,12 +653,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -809,12 +684,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -845,12 +715,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -881,12 +746,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -917,12 +777,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -953,12 +808,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -981,12 +831,7 @@
       "modifierPools": [
         "body",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1009,12 +854,7 @@
       "modifierPools": [
         "body",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1037,12 +877,7 @@
       "modifierPools": [
         "body",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1065,12 +900,7 @@
       "modifierPools": [
         "body",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1093,12 +923,7 @@
       "modifierPools": [
         "body",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1121,12 +946,7 @@
       "modifierPools": [
         "body",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1149,12 +969,7 @@
       "modifierPools": [
         "body",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1177,12 +992,7 @@
       "modifierPools": [
         "body",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1205,12 +1015,7 @@
       "modifierPools": [
         "body",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1233,12 +1038,7 @@
       "modifierPools": [
         "body",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1261,12 +1061,7 @@
       "modifierPools": [
         "body",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1289,12 +1084,7 @@
       "modifierPools": [
         "body",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1317,12 +1107,7 @@
       "modifierPools": [
         "body",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1345,12 +1130,7 @@
       "modifierPools": [
         "body",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1373,12 +1153,7 @@
       "modifierPools": [
         "body",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1409,12 +1184,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1445,12 +1215,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1481,12 +1246,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1517,12 +1277,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1553,12 +1308,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1589,12 +1339,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1625,12 +1370,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1661,12 +1401,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1697,12 +1432,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1733,12 +1463,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1769,12 +1494,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1805,12 +1525,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1841,12 +1556,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1877,12 +1587,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1913,12 +1618,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1941,12 +1641,7 @@
       "modifierPools": [
         "gloves",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1969,12 +1664,7 @@
       "modifierPools": [
         "gloves",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -1997,12 +1687,7 @@
       "modifierPools": [
         "gloves",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2025,12 +1710,7 @@
       "modifierPools": [
         "gloves",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2053,12 +1733,7 @@
       "modifierPools": [
         "gloves",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2081,12 +1756,7 @@
       "modifierPools": [
         "gloves",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2109,12 +1779,7 @@
       "modifierPools": [
         "gloves",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2137,12 +1802,7 @@
       "modifierPools": [
         "gloves",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2165,12 +1825,7 @@
       "modifierPools": [
         "gloves",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2193,12 +1848,7 @@
       "modifierPools": [
         "gloves",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2221,12 +1871,7 @@
       "modifierPools": [
         "gloves",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2249,12 +1894,7 @@
       "modifierPools": [
         "gloves",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2277,12 +1917,7 @@
       "modifierPools": [
         "gloves",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2305,12 +1940,7 @@
       "modifierPools": [
         "gloves",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2333,12 +1963,7 @@
       "modifierPools": [
         "gloves",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2369,12 +1994,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2405,12 +2025,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2441,12 +2056,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2477,12 +2087,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2513,12 +2118,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2549,12 +2149,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2585,12 +2180,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2621,12 +2211,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2657,12 +2242,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2693,12 +2273,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2729,12 +2304,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2765,12 +2335,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2801,12 +2366,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2837,12 +2397,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2873,12 +2428,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2901,12 +2451,7 @@
       "modifierPools": [
         "boots",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2929,12 +2474,7 @@
       "modifierPools": [
         "boots",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2957,12 +2497,7 @@
       "modifierPools": [
         "boots",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -2985,12 +2520,7 @@
       "modifierPools": [
         "boots",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3013,12 +2543,7 @@
       "modifierPools": [
         "boots",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3041,12 +2566,7 @@
       "modifierPools": [
         "boots",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3069,12 +2589,7 @@
       "modifierPools": [
         "boots",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3097,12 +2612,7 @@
       "modifierPools": [
         "boots",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3125,12 +2635,7 @@
       "modifierPools": [
         "boots",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3153,12 +2658,7 @@
       "modifierPools": [
         "boots",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3181,12 +2681,7 @@
       "modifierPools": [
         "boots",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3209,12 +2704,7 @@
       "modifierPools": [
         "boots",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3237,12 +2727,7 @@
       "modifierPools": [
         "boots",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3265,12 +2750,7 @@
       "modifierPools": [
         "boots",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3293,12 +2773,7 @@
       "modifierPools": [
         "boots",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3329,12 +2804,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3365,12 +2835,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3401,12 +2866,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3437,12 +2897,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3473,12 +2928,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3509,12 +2959,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3545,12 +2990,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3581,12 +3021,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3617,12 +3052,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3653,12 +3083,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3689,12 +3114,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3725,12 +3145,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3761,12 +3176,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3797,12 +3207,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3833,12 +3238,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3867,12 +3267,7 @@
       "modifierPools": [
         "shield",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3901,12 +3296,7 @@
       "modifierPools": [
         "shield",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3935,12 +3325,7 @@
       "modifierPools": [
         "shield",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -3969,12 +3354,7 @@
       "modifierPools": [
         "shield",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4003,12 +3383,7 @@
       "modifierPools": [
         "shield",
         "local:armor"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4037,12 +3412,7 @@
       "modifierPools": [
         "shield",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4071,12 +3441,7 @@
       "modifierPools": [
         "shield",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4105,12 +3470,7 @@
       "modifierPools": [
         "shield",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4139,12 +3499,7 @@
       "modifierPools": [
         "shield",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4173,12 +3528,7 @@
       "modifierPools": [
         "shield",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4207,12 +3557,7 @@
       "modifierPools": [
         "shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4241,12 +3586,7 @@
       "modifierPools": [
         "shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4275,12 +3615,7 @@
       "modifierPools": [
         "shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4309,12 +3644,7 @@
       "modifierPools": [
         "shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4343,12 +3673,7 @@
       "modifierPools": [
         "shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4385,12 +3710,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4427,12 +3747,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4469,12 +3784,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4511,12 +3821,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4553,12 +3858,7 @@
         "local:armor",
         "local:armor+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4595,12 +3895,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4637,12 +3932,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4679,12 +3969,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4721,12 +4006,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4763,12 +4043,7 @@
         "local:armor",
         "local:armor+energy_shield",
         "local:energy_shield"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4805,12 +4080,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4847,12 +4117,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4889,12 +4154,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4931,12 +4191,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -4973,12 +4228,7 @@
         "local:energy_shield",
         "local:energy_shield+evasion",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5010,12 +4260,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5047,12 +4292,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5084,12 +4324,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5121,12 +4356,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5158,12 +4388,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5198,12 +4423,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5238,12 +4458,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5278,12 +4493,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5318,12 +4528,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5358,12 +4563,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_CRITICAL_MULTIPLIER"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5395,12 +4595,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5432,12 +4627,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5469,12 +4659,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5506,12 +4691,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5543,12 +4723,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5583,12 +4758,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5623,12 +4793,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5663,12 +4828,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5703,12 +4863,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5743,12 +4898,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5780,12 +4930,7 @@
         "bow",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5817,12 +4962,7 @@
         "bow",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5854,12 +4994,7 @@
         "bow",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5891,12 +5026,7 @@
         "bow",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5928,12 +5058,7 @@
         "bow",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -5965,12 +5090,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6002,12 +5122,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6039,12 +5154,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6076,12 +5186,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6113,12 +5218,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6150,12 +5250,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6187,12 +5282,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6224,12 +5314,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6261,12 +5346,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6298,12 +5378,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6335,12 +5410,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6372,12 +5442,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6409,12 +5474,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6446,12 +5506,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "weapon",
@@ -6483,12 +5538,7 @@
         "weapon",
         "local:attack_physical",
         "local:attack_speed"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6506,12 +5556,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_PHYSICAL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6529,12 +5574,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_MAXIMUM_LIFE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6552,12 +5592,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_MAXIMUM_MANA"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6575,12 +5610,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_FIRE_RESISTANCE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6598,12 +5628,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_COLD_RESISTANCE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6621,12 +5646,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_LIGHTNING_RESISTANCE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6644,12 +5664,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_ENERGY_SHIELD"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6667,12 +5682,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_CRITICAL_CHANCE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6690,12 +5700,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_ALL_ELEMENTAL_RESISTANCES"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6713,12 +5718,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_CHAOS_RESISTANCE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6736,12 +5736,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_LIFE_REGENERATION"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6759,12 +5754,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_MAXIMUM_MANA"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6782,12 +5772,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_STRENGTH"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6805,12 +5790,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_DEXTERITY"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6828,12 +5808,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_INTELLIGENCE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6851,12 +5826,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_ITEM_RARITY"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6874,12 +5844,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_ALL_ATTRIBUTES"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6897,12 +5862,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_ENERGY_SHIELD"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6920,12 +5880,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_PHYSICAL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6943,12 +5898,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_STRENGTH"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6966,12 +5916,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_MAXIMUM_LIFE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -6989,12 +5934,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_STUN_THRESHOLD"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7012,12 +5952,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_ARMOUR"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7035,12 +5970,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_CRITICAL_CHANCE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7058,12 +5988,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_PHYSICAL_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7081,12 +6006,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_LIFE_LEECH"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7104,12 +6024,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_STUN_THRESHOLD"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7127,12 +6042,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_ADD_FIRE_DAMAGE"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -7155,12 +6065,7 @@
       "modifierPools": [
         "wings",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -7186,12 +6091,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_MOVEMENT_SPEED"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -7214,12 +6114,7 @@
       "modifierPools": [
         "wings",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -7245,12 +6140,7 @@
       ],
       "fixedModifiers": [
         "IMPLICIT_INCREASED_MOVEMENT_SPEED"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "armor",
@@ -7273,12 +6163,7 @@
       "modifierPools": [
         "wings",
         "local:evasion"
-      ],
-      "pools": {
-        "drop": 100,
-        "smith": 100,
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7293,10 +6178,7 @@
       "baseParams": [],
       "modifierPools": [
         "jewel"
-      ],
-      "pools": {
-        "drop": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7311,10 +6193,7 @@
       "baseParams": [],
       "modifierPools": [
         "jewel"
-      ],
-      "pools": {
-        "drop": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7329,10 +6208,7 @@
       "baseParams": [],
       "modifierPools": [
         "jewel"
-      ],
-      "pools": {
-        "drop": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7497,10 +6373,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7515,10 +6388,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7533,10 +6403,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7551,10 +6418,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7569,10 +6433,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7587,10 +6448,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7605,10 +6463,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7623,10 +6478,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7641,10 +6493,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7659,10 +6508,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7677,10 +6523,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7695,10 +6538,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7713,10 +6553,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7731,10 +6568,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7749,10 +6583,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7767,10 +6598,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7785,10 +6613,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     },
     {
       "type": "accessory",
@@ -7803,10 +6628,7 @@
       "baseParams": [],
       "modifierPools": [
         "tool"
-      ],
-      "pools": {
-        "merchant": 100
-      }
+      ]
     }
   ]
 }
