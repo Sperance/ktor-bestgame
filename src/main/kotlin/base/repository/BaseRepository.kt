@@ -128,8 +128,9 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      *
      * @param validation false - без хуков [validateBeforeInsert] и [validateAfterInsert]
      */
-    suspend fun insert(entity: T, session: ClientSession, validation: Boolean = true): T {
-        requireNew(entity, "insert")
+    suspend fun insert(source: T, session: ClientSession, validation: Boolean = true): T {
+        requireNew(source, "insert")
+        val entity = if (validation) admit(source) else source
         if (validation) validateBeforeInsert(entity, session)
         val result = writing("insert") { collection.insertOne(session, entity) }
         val insertedId = result.insertedId
@@ -141,11 +142,11 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     }
 
     /** Вставляет документы одной командой; атомарность даёт транзакция [session]. */
-    suspend fun insertMany(entities: List<T>, session: ClientSession): List<T> {
-        if (entities.isEmpty()) return emptyList()
-        entities.forEach {
+    suspend fun insertMany(sources: List<T>, session: ClientSession): List<T> {
+        if (sources.isEmpty()) return emptyList()
+        val entities = sources.map {
             requireNew(it, "insertMany")
-            validateBeforeInsert(it, session)
+            admit(it).also { entity -> validateBeforeInsert(entity, session) }
         }
         val result = writing("insertMany") { collection.insertMany(session, entities) }
         printLog("[ADDED_MANY::$collectionName] size: ${result.insertedIds.size}")
@@ -354,6 +355,13 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     }
 
     // ==================== ХУКИ ====================
+
+    /**
+     * Что из присланного разрешено записать: вызывается до [validateBeforeInsert] и может вернуть
+     * новый объект. Список разрешённых полей надёжнее обнуления запрещённых - новое поле
+     * сущности не станет лазейкой, пока его сюда не добавят.
+     */
+    protected open suspend fun admit(entity: T): T = entity
 
     /** Проверка перед вставкой; вызывается для каждой сущности [insert] и [insertMany]. */
     protected open suspend fun validateBeforeInsert(entity: T, session: ClientSession) = Unit

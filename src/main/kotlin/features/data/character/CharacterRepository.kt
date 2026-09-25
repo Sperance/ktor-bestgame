@@ -72,26 +72,21 @@ class CharacterRepository : BaseRepository<Character>(
 
     override val indexes = listOf(IndexSpec.unique("idx_unique_name", "name"), IndexSpec.on("userId"))
 
+    /**
+     * Игрок создаёт персонажа общим POST и мог прислать в теле что угодно: десятый уровень,
+     * мешок золота, торговца со своими ценами. Поэтому от игрока берутся только имя, описание
+     * и класс, всё остальное начинается с нуля. Администратор и сидинг (вызывающего у них нет)
+     * пишут как есть.
+     */
+    override suspend fun admit(entity: Character): Character =
+        if (caller()?.isAdmin != false) entity
+        else Character(userId = entity.userId, name = entity.name.trim(), description = entity.description, classId = entity.classId)
+
     override suspend fun validateBeforeInsert(entity: Character, session: ClientSession) {
-        // Игрок создаёт персонажа общим POST и мог прислать в теле что угодно: чужой userId,
-        // десятый уровень, мешок золота. Поэтому от игрока берутся только имя, описание и
-        // класс, владелец - он сам, а всё остальное начинается с нуля. Администратор и
-        // сидинг (вызывающего у них нет) пишут как есть.
-        caller()?.takeUnless { it.isAdmin }?.let { player ->
-            if (entity.userId != player.user._id) throw AuthExceptions.funExceptionNotYourAccount("validateBeforeInsert", entity.userId)
-            entity.level = 1
-            entity.experience = 0.0
-            entity.money = 0
-            entity.skillNodes.clear()
-            entity.bag.clear()
-            entity.professionSkills.clear()
-            entity.battleSkills.clear()
-            entity.boolSkills.clear()
-            entity.recipeAccess.clear()
-            entity.gainedRedemptionCodes.clear()
-            entity.campaign.clear()
-        }
-        if (entity.name.isEmpty()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
+        val player = caller()?.takeUnless { it.isAdmin }
+        if (player != null && entity.userId != player.user._id)
+            throw AuthExceptions.funExceptionNotYourAccount("validateBeforeInsert", entity.userId)
+        if (entity.name.isBlank()) throw CharacterExceptions.funExceptionName("validateBeforeInsert")
         if (characterClassCache.findById(entity.classId) == null)
             throw ProgressionExceptions.funExceptionClassNotFound("validateBeforeInsert", entity.classId)
         // Имя уникально в индексе, поэтому занятым считается и имя мягко удалённого персонажа
