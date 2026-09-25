@@ -1,5 +1,6 @@
 package config
 
+import application.enums.EnumSkillNodeType
 import CONST_SEED_ORBS_AMOUNT
 import SEED_ADMIN_PASSWORD
 import SEED_TEST_PLAYER_PASSWORD
@@ -420,6 +421,8 @@ object DatabaseSeeder : KoinComponent {
 
         val touched = characterRepository.pruneMissingSkillNodes(listItems.map { it.code }, session)
         if (touched > 0) printLog("  → $touched characters lost nodes that are no longer in the tree")
+        val released = characterEquipmentRepository.releaseMissingSockets(listItems.filter { it.type == EnumSkillNodeType.JEWEL_SOCKET }.map { it.code }, session)
+        if (released > 0) printLog("  → $released jewels returned to the bag from sockets that are no longer in the tree")
 
         printLog("  → ${listItems.size} skill tree nodes created")
     }

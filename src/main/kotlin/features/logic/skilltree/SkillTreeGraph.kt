@@ -32,11 +32,16 @@ class SkillTreeGraph(nodes: Collection<SkillTreeNode>) {
 
     /**
      * Смежен ли узел хотя бы с одним из взятых.
+     *
+     * Взятое мастерство (с 0.52.0) соседей не открывает: оно лист кластера, и иначе через него
+     * можно было бы перепрыгнуть с одного notable на другой, минуя кольцо.
      */
     fun isAdjacentTo(code: String, taken: Collection<String>): Boolean {
         val takenSet = taken as? Set<String> ?: taken.toHashSet()
-        return neighbours(code).any { it in takenSet }
+        return neighbours(code).any { it in takenSet && !isMastery(it) }
     }
+
+    private fun isMastery(code: String) = byCode[code]?.type == EnumSkillNodeType.MASTERY
 
     /**
      * Все ли взятые узлы достижимы от стартового по взятым же узлам.
@@ -52,7 +57,10 @@ class SkillTreeGraph(nodes: Collection<SkillTreeNode>) {
         val queue = ArrayDeque(roots)
         remaining.removeAll(roots.toSet())
         while (queue.isNotEmpty()) {
-            neighbours(queue.removeFirst()).forEach { next -> if (remaining.remove(next)) queue.addLast(next) }
+            val current = queue.removeFirst()
+            // Мастерство достижимо, но дальше не ведёт - как и при взятии
+            if (isMastery(current)) continue
+            neighbours(current).forEach { next -> if (remaining.remove(next)) queue.addLast(next) }
         }
         return remaining.isEmpty()
     }

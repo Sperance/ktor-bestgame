@@ -1,5 +1,6 @@
 package features.data.character
 
+import base.exception.model.SkillTreeExceptions
 import features.logic.hero.HeroSnapshots
 import features.logic.hero.respondWithHero
 import io.ktor.http.HttpHeaders
@@ -205,7 +206,9 @@ class CharacterRoute(
             post("/allocate") {
                 val characterId = call.queryParam("characterId")
                 val nodeCode = call.queryParam("nodeCode")
-                val data = repo.allocateSkillNode(characterId, nodeCode)
+                // Вариант мастерства или атрибутного узла (с 0.52.0); у прочих узлов его нет
+                val choice = call.request.queryParameters["choice"]?.let { it.toIntOrNull() ?: throw SkillTreeExceptions.funExceptionChoice("allocate", it) }
+                val data = repo.allocateSkillNode(characterId, nodeCode, choice)
                 call.respondWithHero(data)
             }
             post("/refund") {

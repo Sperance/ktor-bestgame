@@ -410,6 +410,18 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      *
      * @return количество удалённых документов
      */
+    /**
+     * Возвращает в сумку самоцветы из гнёзд, которых больше нет в дереве (0.52.0: дерево построено
+     * заново). Самоцвет - вещь игрока: он не пропадает вместе с узлом, а просто перестаёт быть вставленным.
+     *
+     * @return сколько самоцветов вернулось в сумку
+     */
+    suspend fun releaseMissingSockets(nodeCodes: Collection<String>, session: ClientSession): Long {
+        if (nodeCodes.isEmpty()) return 0
+        val stale = Filters.and(Filters.ne("socketCode", null), Filters.nin("socketCode", nodeCodes.toList()))
+        return collection.updateMany(session, stale, Updates.set("socketCode", null)).modifiedCount
+    }
+
     suspend fun deleteLegacyParams(session: ClientSession): Long =
         collection.deleteMany(session, Filters.exists("params.value", true)).deletedCount
 

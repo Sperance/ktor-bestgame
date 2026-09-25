@@ -271,7 +271,7 @@ class CharacterRepository : BaseRepository<Character>(
      *
      * @throws SkillTreeExceptions.SkillTreeException если узел брать нельзя
      */
-    suspend fun allocateSkillNode(characterId: String, nodeCode: String): CharacterSkillTreeState {
+    suspend fun allocateSkillNode(characterId: String, nodeCode: String, choice: Int? = null): CharacterSkillTreeState {
         val character = requireCharacter(characterId, "allocateSkillNode")
         val node = requireNode(nodeCode, "allocateSkillNode")
 
@@ -282,10 +282,11 @@ class CharacterRepository : BaseRepository<Character>(
             node = node,
             taken = character.skillNodes.map { it.code },
             startNodeCode = requireClass(character).startNodeCode,
-            available = available
+            available = available,
+            choice = choice,
         )
 
-        character.skillNodes.add(CharacterSkillNode.fromNode(node))
+        character.skillNodes.add(CharacterSkillNode.fromNode(node, choice))
         transactionExecute("allocateSkillNode $nodeCode") { session -> update(character, session) }
 
         return stateOf(character)

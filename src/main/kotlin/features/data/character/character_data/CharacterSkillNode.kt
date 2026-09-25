@@ -46,18 +46,25 @@ data class CharacterSkillNode(
      * и именно столько вернёт при откате.
      */
     var cost: Int = 1,
+
+    /**
+     * Выбранный вариант мастерства или атрибутного узла (с 0.52.0) - индекс в
+     * [SkillTreeNode.options]; его бонусы и лежат в [params]. У остальных узлов null.
+     */
+    var choice: Int? = null,
 ) {
 
     companion object {
         /**
          * Снимает узел дерева таким, какой он сейчас.
          */
-        fun fromNode(node: SkillTreeNode): CharacterSkillNode = CharacterSkillNode(
+        fun fromNode(node: SkillTreeNode, choice: Int? = null): CharacterSkillNode = CharacterSkillNode(
             code = node.code,
-            // Modifier неизменяем, поэтому хватает копии списка
-            params = node.params.toMutableList(),
+            // Modifier неизменяем, поэтому хватает копии списка; у узла с выбором - копии варианта
+            params = (choice?.let { node.options[it] } ?: node.params).toMutableList(),
             type = node.type,
-            cost = node.cost
+            cost = node.cost,
+            choice = choice,
         )
     }
 }

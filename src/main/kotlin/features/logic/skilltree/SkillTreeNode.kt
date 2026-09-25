@@ -38,6 +38,12 @@ data class SkillTreeNode(
     val connections: MutableList<String> = mutableListOf(),
 
     /**
+     * Варианты на выбор (с 0.52.0) у мастерства и атрибутного узла: игрок берёт ровно один,
+     * и его бонусы становятся бонусами узла у этого героя. У остальных узлов пусто.
+     */
+    val options: List<List<Modifier>> = emptyList(),
+
+    /**
      * Сколько очков навыков стоит узел. Стартовый узел бесплатен.
      */
     val cost: Int = 1,

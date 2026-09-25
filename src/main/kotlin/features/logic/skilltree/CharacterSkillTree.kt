@@ -58,6 +58,7 @@ object SkillTreeAllocation {
      * @param taken коды уже взятых узлов
      * @param startNodeCode стартовый узел класса персонажа
      * @param available сколько очков у персонажа осталось
+     * @param choice выбранный вариант - обязателен у мастерства и атрибутного узла, у прочих запрещён
      * @throws SkillTreeExceptions.SkillTreeException если узел брать нельзя
      */
     fun requireAllocatable(
@@ -66,7 +67,11 @@ object SkillTreeAllocation {
         taken: Collection<String>,
         startNodeCode: String,
         available: Int,
+        choice: Int? = null,
     ) {
+        if (node.options.isEmpty() != (choice == null) || (choice != null && choice !in node.options.indices))
+            throw SkillTreeExceptions.funExceptionChoice("allocate", "${node.code}: $choice of ${node.options.size}")
+
         if (node.code in taken)
             throw SkillTreeExceptions.funExceptionAlreadyTaken("allocate", node.code)
 

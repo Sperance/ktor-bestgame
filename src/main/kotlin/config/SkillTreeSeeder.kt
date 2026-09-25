@@ -60,6 +60,7 @@ object SkillTreeSeeder {
         val positionY: Int = 0,
         val connections: List<String> = emptyList(),
         val params: List<NodeBonus> = emptyList(),
+        val options: List<List<NodeBonus>> = emptyList(),
     )
 
     @Serializable
@@ -90,16 +91,28 @@ object SkillTreeSeeder {
             }
         }
 
+        val types = records.associate { it.code to it.type }
+        records.forEach { record ->
+            val choosing = record.type == EnumSkillNodeType.MASTERY || record.type == EnumSkillNodeType.ATTRIBUTE
+            if (choosing != record.options.isNotEmpty())
+                throw SkillTreeExceptions.funException("seed", "${record.code}: only a mastery or an attribute node offers options")
+            // Мастерство - лист кластера: его соседи только notable, иначе через него шёл бы путь
+            if (record.type == EnumSkillNodeType.MASTERY && record.connections.any { types[it] != EnumSkillNodeType.NOTABLE })
+                throw SkillTreeExceptions.funException("seed", "${record.code}: a mastery links to notables only")
+        }
+
+        fun bonus(bonus: NodeBonus): Modifier {
+            val definition = byCode[bonus.code] ?: throw ModifierExceptions.funExceptionCodeNotFound("seed", bonus.code)
+            return Modifier.passive(definition._id, bonus.values)
+        }
+
         return records.map { record ->
             SkillTreeNode(
                 code = record.code,
                 type = record.type,
-                params = record.params.mapTo(mutableListOf()) { bonus ->
-                    val definition = byCode[bonus.code]
-                        ?: throw ModifierExceptions.funExceptionCodeNotFound("seed", bonus.code)
-                    Modifier.passive(definition._id, bonus.values)
-                },
+                params = record.params.mapTo(mutableListOf(), ::bonus),
                 connections = record.connections.toMutableList(),
+                options = record.options.map { option -> option.map(::bonus) },
                 // Стартовый узел класса персонаж получает при создании и не платит за него;
                 // гнездо стоит очко, как обычный узел - место на дереве само по себе ценно.
                 cost = if (record.type == EnumSkillNodeType.START) 0 else record.cost,

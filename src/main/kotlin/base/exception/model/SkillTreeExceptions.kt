@@ -26,4 +26,5 @@ object SkillTreeExceptions {
     fun funExceptionNoRegret(errorMethod: String, value: String? = "") = SkillTreeException("Character has no Orb of Regret left (need $value)", errorMethod, "ST_015", listOf(value.orEmpty()))
     fun funExceptionNotSocket(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not a jewel socket", errorMethod, "ST_016", listOf(value.orEmpty()))
     fun funExceptionNotJewel(errorMethod: String, value: String? = "") = SkillTreeException("Item $value is not a jewel", errorMethod, "ST_017", listOf(value.orEmpty()))
+    fun funExceptionChoice(errorMethod: String, value: String? = "") = SkillTreeException("Skill node needs one of its options, or takes none ($value)", errorMethod, "ST_018", listOf(value.orEmpty()))
 }
