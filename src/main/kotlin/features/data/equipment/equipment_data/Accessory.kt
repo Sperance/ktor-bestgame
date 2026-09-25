@@ -22,4 +22,9 @@ data class Accessory(
     override var requiredStrength: Int = 0,
     override var requiredDexterity: Int = 0,
     override var requiredIntelligence: Int = 0,
-) : Equipment()
+) : Equipment() {
+
+    init {
+        price = calculatePrice()
+    }
+}
