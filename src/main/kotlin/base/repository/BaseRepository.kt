@@ -11,6 +11,7 @@ import base.exception.BaseException
 import base.exception.BaseRepositoryExceptions
 import base.route.PagedMongoResponse
 import com.mongodb.MongoBulkWriteException
+import com.mongodb.MongoCommandException
 import com.mongodb.MongoWriteException
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.FindOneAndUpdateOptions
@@ -30,7 +31,6 @@ import extensions.now
 import extensions.printLog
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
 import org.bson.BsonDocument
 import org.bson.BsonDocumentWriter
@@ -40,23 +40,29 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
 /**
- * Конфигурация уникального индекса для MongoDB.
- *
- * @property indexName Имя индекса (должно быть уникальным в пределах коллекции)
- * @property fields Список полей, по которым создается индекс
- * @property sparse Флаг разреженного индекса (игнорирует документы без указанных полей)
+ * Индекс коллекции: поля по возрастанию, уникальность, разреженность и имя.
+ * Репозиторий объявляет свои в [BaseRepository.indexes], создаёт их [BaseRepository.ensureIndexes].
  */
-data class UniqueIndexConfig(
-    val indexName: String,
+data class IndexSpec(
     val fields: List<String>,
-    val sparse: Boolean = false
-)
+    val unique: Boolean = false,
+    val sparse: Boolean = false,
+    val name: String? = null,
+) {
+    companion object {
+        /** Обычный индекс по [fields] - для полей-ссылок, по которым идут выборки. */
+        fun on(vararg fields: String) = IndexSpec(fields.toList())
+
+        /** Уникальный индекс с явным именем: так он узнаётся при повторном создании. */
+        fun unique(name: String, vararg fields: String, sparse: Boolean = false) = IndexSpec(fields.toList(), unique = true, sparse = sparse, name = name)
+    }
+}
 
 /** Код MongoDB «дубликат уникального ключа». */
 private const val DUPLICATE_KEY = 11000
 
-/** Код MongoDB «индекс уже существует». */
-private const val INDEX_EXISTS = 85
+/** Коды MongoDB «такой индекс уже есть» - с другим именем или другими опциями. */
+private val INDEX_CONFLICTS = setOf(85, 86)
 
 /**
  * Репозиторий коллекции MongoDB: CRUD с оптимистичной блокировкой по `version`,
@@ -93,32 +99,26 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
     // ==================== ИНДЕКСЫ ====================
 
-    /**
-     * Создаёт индексы коллекции. Вызывается один раз до первой транзакции: создание индекса
-     * меняет каталог MongoDB, и открытая транзакция упала бы с WriteConflict.
-     */
-    fun initialize(
-        uniqueIndexes: List<UniqueIndexConfig> = emptyList(),
-        indexedFields: List<String> = emptyList(),
-        compoundIndexes: List<List<String>> = emptyList(),
-    ) {
-        runBlocking {
-            uniqueIndexes.forEach { config ->
-                createIndex(config.fields, IndexOptions().unique(true).name(config.indexName).sparse(config.sparse))
-            }
-            (indexedFields.map { listOf(it) } + compoundIndexes).forEach { createIndex(it) }
-            createIndex(listOf(CONST_FIELD_VERSION))
-        }
-    }
+    /** Индексы коллекции; создаются при старте [ensureIndexes], а не на первом обращении. */
+    protected open val indexes: List<IndexSpec> get() = emptyList()
 
-    private suspend fun createIndex(fields: List<String>, options: IndexOptions = IndexOptions()) {
-        try {
-            collection.createIndex(Indexes.ascending(fields), options)
-        } catch (e: MongoWriteException) {
-            if (e.code != INDEX_EXISTS) throw BaseRepositoryExceptions.funException("createIndex", e.message)
-        } catch (_: Exception) {
-            // Такой индекс уже есть под другим именем или с другими опциями - оставляем его
+    /**
+     * Создаёт объявленные индексы. Вызывается при старте до первой транзакции: создание индекса
+     * меняет каталог MongoDB, и открытая транзакция упала бы с WriteConflict. Одиночный индекс по `version` прежних версий снимается: `_id` и так
+     * находит документ, а лишний индекс только замедлял каждую запись.
+     */
+    suspend fun ensureIndexes() {
+        indexes.forEach { spec ->
+            val options = IndexOptions().unique(spec.unique).sparse(spec.sparse).apply { spec.name?.let(::name) }
+            try {
+                collection.createIndex(Indexes.ascending(spec.fields), options)
+            } catch (e: MongoCommandException) {
+                // Индекс с теми же полями уже есть под другим именем - оставляем его. Прочее не
+                // роняет старт: без индекса сервер медленнее, но работает, а причина - в логе.
+                if (e.code !in INDEX_CONFLICTS) printLog("❌ [$collectionName] index ${spec.fields} not created: ${e.errorMessage}", true)
+            }
         }
+        runCatching { collection.dropIndex(Indexes.ascending(CONST_FIELD_VERSION)) }
     }
 
     // ==================== CREATE ====================

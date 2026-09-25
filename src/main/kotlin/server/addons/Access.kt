@@ -59,7 +59,7 @@ fun Application.configureAccess() {
             // Персонаж по characterId, а в общем CRUD персонажей - по id.
             val characterId = query["characterId"] ?: query["id"]?.takeIf { path.trimEnd('/') == "/api/v1/character" }
             characterId?.let { id ->
-                val owner = characters.findById(id)?.userId
+                val owner = characters.ownerOf(id)
                 // Несуществующий персонаж пропускается: маршрут сам скажет, что его нет, а
                 // ответ «не ваш» на «нет такого» подтверждал бы, что чужой id существует.
                 if (owner != null && owner != user._id) throw AuthExceptions.funExceptionNotYourCharacter("access", id)

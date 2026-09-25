@@ -2,7 +2,7 @@ package features.data.user
 
 import base.exception.model.UserExceptions
 import base.repository.BaseRepository
-import base.repository.UniqueIndexConfig
+import base.repository.IndexSpec
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.now
@@ -10,20 +10,16 @@ import kotlinx.datetime.LocalDateTime
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import features.logic.auth.Passwords
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class UserRepository : BaseRepository<User>(User::class) {
-    init {
-        initialize(uniqueIndexes = listOf(
-            UniqueIndexConfig(
-                indexName = "idx_unique_email",
-                fields = listOf("email")
-            ),
-            UniqueIndexConfig(
-                indexName = "idx_unique_login",
-                fields = listOf("login")
-            )
-        ))
-    }
+    // Вход по устройству ищет аккаунт по device_id на каждом старте клиента
+    override val indexes = listOf(
+        IndexSpec.unique("idx_unique_email", "email"),
+        IndexSpec.unique("idx_unique_login", "login"),
+        IndexSpec.on("device_id"),
+    )
 
     override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
@@ -67,9 +63,9 @@ class UserRepository : BaseRepository<User>(User::class) {
         }
     }
 
-    private fun generatePassword(entity: User) {
+    private suspend fun generatePassword(entity: User) {
         // Соль и число итераций живут внутри строки хеша, поле salt нужно только старым хешам.
-        entity.password = Passwords.hash(entity.password)
+        entity.password = offCpu { Passwords.hash(entity.password) }
         entity.salt = ""
     }
 
@@ -124,25 +120,20 @@ class UserRepository : BaseRepository<User>(User::class) {
     }
 
     suspend fun authenticate(login: String, password: String): User {
-        val credentials = findCredentialsByLogin(login)
+        val user = findByLogin(login)
+            ?.takeIf { offCpu { Passwords.verify(password, it.password, it.salt) } }
             ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
 
-        val (userId, storedHash, storedSalt) = credentials
-
-        if (!Passwords.verify(password, storedHash, storedSalt)) {
-            throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
-        }
-
-        val user = findById(userId)
-            ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
-
-        if (!user.isActive) {
-            throw UserExceptions.funExceptionInactive("authenticate", user.login)
-        }
+        if (!user.isActive) throw UserExceptions.funExceptionInactive("authenticate", user.login)
 
         // Хеш старого образца переписывается сразу, пока пароль в руках: другого случая
         // пересчитать его не будет, а сбрасывать пароли всем игрокам незачем.
-        if (Passwords.needsRehash(storedHash)) storeHash(user._id, Passwords.hash(password))
+        if (Passwords.needsRehash(user.password)) {
+            storeHash(user._id, offCpu { Passwords.hash(password) })
+            // Запись хеша подняла версию в базе - объект в памяти идёт следом, иначе
+            // следующая запись споткнулась бы о собственную гонку
+            user.version += 1
+        }
 
         return transactionExecute("User authenticate") { session ->
             updateFields(user, mapOf("lastLoginDate" to LocalDateTime.now()), session)
@@ -162,30 +153,21 @@ class UserRepository : BaseRepository<User>(User::class) {
     }
 
     /**
-     * Возвращает (id, password_hash, salt) по login напрямую из БД,
-     * минуя toEntity (который маскирует @WriteOnly-поля).
-     *
-     * Используется для аутентификации.
+     * PBKDF2 на сотнях тысяч итераций - это сотни миллисекунд процессора: он считается на
+     * пуле вычислений, а не на потоках, которые обслуживают запросы.
      */
-    suspend fun findCredentialsByLogin(login: String): Triple<String, String, String>? {
-
-        val result = findByLogin(login)
-
-        if (result == null) return null
-
-        return Triple(result._id, result.password, result.salt)
-    }
+    private suspend fun <R> offCpu(block: () -> R): R = withContext(Dispatchers.Default) { block() }
 
     suspend fun changePassword(id: String, password: String, newPassword: String): String {
         val user = findById(id)
             ?: throw UserExceptions.funExceptionFoundUserId("changePassword", id)
 
-        if (!Passwords.verify(password, user.password, user.salt)) {
+        if (!offCpu { Passwords.verify(password, user.password, user.salt) }) {
             throw UserExceptions.funExceptionPasswordLoginPass("changePassword", user.login)
         }
 
         checkPassword(newPassword)
-        storeHash(user._id, Passwords.hash(newPassword))
+        storeHash(user._id, offCpu { Passwords.hash(newPassword) })
         return "system.success"
     }
 

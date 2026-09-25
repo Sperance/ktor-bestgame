@@ -2,7 +2,7 @@ package features.logic.modifiers
 
 import base.exception.model.ModifierExceptions
 import base.repository.BaseRepository
-import base.repository.UniqueIndexConfig
+import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.caches.ModifierDefinitionCache
@@ -17,17 +17,8 @@ class ModifierTierRepository : BaseRepository<ModifierTier>(
     private val definitionCache: ModifierDefinitionCache by inject()
     private val definitionRepository: ModifierDefinitionRepository by inject()
 
-    init {
-        initialize(
-            uniqueIndexes = listOf(
-                UniqueIndexConfig(
-                    indexName = "idx_unique_modifier_tier",
-                    fields = listOf("modifierId", "tier")
-                )
-            ),
-            indexedFields = listOf("modifierId")
-        )
-    }
+    // Уникальный (modifierId, tier) покрывает и выборку по modifierId
+    override val indexes = listOf(IndexSpec.unique("idx_unique_modifier_tier", "modifierId", "tier"))
 
     override suspend fun validateBeforeInsert(entity: ModifierTier, session: ClientSession) {
         if (entity.tier <= 0)

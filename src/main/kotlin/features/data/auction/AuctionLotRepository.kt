@@ -8,6 +8,7 @@ import application.enums.EnumRarity
 import base.exception.model.AuctionExceptions
 import base.exception.model.CharacterExceptions
 import base.repository.BaseRepository
+import base.repository.IndexSpec
 import base.route.PagedMongoResponse
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
@@ -49,9 +50,8 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(
     private val equipmentCache: EquipmentCache by inject()
     private val itemsCache: ItemsCache by inject()
 
-    init {
-        initialize(indexedFields = listOf("sellerId", "status", "itemCode"))
-    }
+    // Витрина - открытые лоты по порядку _id; места продавца - его открытые лоты
+    override val indexes = listOf(IndexSpec.on("status", "_id"), IndexSpec.on("sellerId", "status"), IndexSpec.on("itemCode"))
 
     // ==================== Витрина ====================
 

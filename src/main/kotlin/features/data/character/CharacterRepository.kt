@@ -8,7 +8,7 @@ import features.logic.auth.caller
 import base.exception.model.ProgressionExceptions
 import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
-import base.repository.UniqueIndexConfig
+import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.FindOneAndUpdateOptions
 import com.mongodb.client.model.Projections
@@ -46,6 +46,8 @@ import features.logic.stats.CharacterStats
 import features.logic.modifiers.ModifierCalculator
 import features.logic.stats.CharacterStatsCalculator
 import org.bson.Document
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.toList
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue
@@ -68,14 +70,7 @@ class CharacterRepository : BaseRepository<Character>(
     /** Ревизию инвентаря двигает только [bumpInventory]: полная запись документа её не трогает. */
     override val managedFields: Set<String> = setOf("inventoryRevision")
 
-    init {
-        initialize(uniqueIndexes = listOf(
-            UniqueIndexConfig(
-                indexName = "idx_unique_name",
-                fields = listOf("name")
-            )
-        ), indexedFields = listOf("userId"))
-    }
+    override val indexes = listOf(IndexSpec.unique("idx_unique_name", "name"), IndexSpec.on("userId"))
 
     override suspend fun validateBeforeInsert(entity: Character, session: ClientSession) {
         // Игрок создаёт персонажа общим POST и мог прислать в теле что угодно: чужой userId,
@@ -334,8 +329,7 @@ class CharacterRepository : BaseRepository<Character>(
      * Коды гнёзд, в которых у персонажа сейчас сидят самоцветы.
      */
     private suspend fun socketedNodes(characterId: String): Set<String> =
-        characterEquipmentRepository.findByCharacter(characterId)
-            .mapNotNullTo(mutableSetOf()) { it.socketCode }
+        characterEquipmentRepository.socketCodes(characterId)
 
     /**
      * Списывает сферы сожаления из сумки персонажа.
@@ -352,6 +346,10 @@ class CharacterRepository : BaseRepository<Character>(
         if (owned == count.toLong()) character.bag.remove(orbId) else character.bag[orbId] = owned - count
     }
 
+    /** Персонажи с пустой сумкой - фильтром в базе, а не чтением всех. */
+    suspend fun withEmptyBag(session: ClientSession): List<Character> =
+        collection.find(session, readFilter(Filters.or(Filters.exists("bag", false), Filters.eq("bag", Document())))).toList()
+
     /**
      * Выдаёт стартовый узел класса тем персонажам, у которых дерево пустое.
      *
@@ -361,7 +359,7 @@ class CharacterRepository : BaseRepository<Character>(
      * @return сколько персонажей получили стартовый узел
      */
     suspend fun ensureStartNodes(session: ClientSession): Int {
-        val orphans = findAll(session).filter { it.skillNodes.isEmpty() }
+        val orphans = collection.find(session, readFilter(Filters.or(Filters.size("skillNodes", 0), Filters.exists("skillNodes", false)))).toList()
 
         orphans.forEach { character ->
             character.skillNodes.add(startNodeOf(character, "ensureStartNodes"))
@@ -439,6 +437,14 @@ class CharacterRepository : BaseRepository<Character>(
     /** Персонаж по id или «не найден» от имени операции [method]. */
     suspend fun requireCharacter(characterId: String, method: String): Character =
         requireById(characterId) { CharacterExceptions.funExceptionNotFound(method, it) }
+
+    /**
+     * Владелец персонажа - одно поле по `_id`, без документа: доступ спрашивает его на каждой
+     * команде, а персонаж со всей сумкой и деревом ему не нужен.
+     */
+    suspend fun ownerOf(characterId: String): String? =
+        collection.withDocumentClass<Document>().find(readFilter(Filters.eq("_id", characterId)))
+            .projection(Projections.include("userId")).limit(1).firstOrNull()?.getString("userId")
 
     /** То же без чтения документа: только проверка, что персонаж есть. */
     suspend fun requireExists(characterId: String, method: String) {

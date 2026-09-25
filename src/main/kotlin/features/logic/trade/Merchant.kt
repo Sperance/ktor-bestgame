@@ -4,6 +4,7 @@ import application.enums.EnumRarity
 import base.exception.model.CharacterExceptions
 import config.MongoFactory.transactionExecute
 import features.caches.EquipmentCache
+import features.data.character.Character
 import features.data.character.CharacterRepository
 import features.data.equipment.equipment_data.Equipment
 import features.data.inventory.CharacterEquipment
@@ -86,14 +87,15 @@ class MerchantService : KoinComponent {
     private val inventory: CharacterEquipmentRepository by inject()
     private val equipmentCache: EquipmentCache by inject()
 
-    suspend fun stock(characterId: String): MerchantStock {
-        val method = "merchant"
-        val character = characters.requireCharacter(characterId, method)
-        val stock = MerchantRules.stock(character.merchant, characterId, character.level.toInt(), System.currentTimeMillis(),
+    suspend fun stock(characterId: String): MerchantStock = restock(characters.requireCharacter(characterId, "merchant"))
+
+    /** Витрина героя на сейчас; сменившаяся записывается, и [character] в памяти идёт в ногу с базой. */
+    private suspend fun restock(character: Character): MerchantStock {
+        val stock = MerchantRules.stock(character.merchant, character._id, character.level.toInt(), System.currentTimeMillis(),
             equipmentCache.getCache(), Random.Default)
         if (stock != character.merchant) {
             character.merchant = stock
-            transactionExecute(method) { session -> characters.update(character, session) }
+            transactionExecute("merchant") { session -> characters.update(character, session) }
         }
         return stock
     }
@@ -101,9 +103,8 @@ class MerchantService : KoinComponent {
     /** Покупка с витрины: золото уходит торговцу, экземпляр - в тайник, строка - с витрины. */
     suspend fun buy(characterId: String, offerId: String): MerchantPurchase {
         val method = "merchantBuy"
-        stock(characterId)
         val character = characters.requireCharacter(characterId, method)
-        val stock = character.merchant ?: MerchantStock()
+        val stock = restock(character)
         val offer = stock.offers.firstOrNull { it.id == offerId } ?: throw CharacterExceptions.funExceptionOfferNotFound(method, offerId)
         if (character.money < offer.price) throw CharacterExceptions.funExceptionGold(method, offer.price.toString())
         val item = transactionExecute(method) { session ->

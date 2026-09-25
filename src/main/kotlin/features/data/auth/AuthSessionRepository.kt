@@ -1,12 +1,13 @@
 package features.data.auth
 
 import base.repository.BaseRepository
-import base.repository.UniqueIndexConfig
+import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import config.MongoFactory.transactionExecute
 import extensions.now
 import features.logic.auth.Tokens
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -33,12 +34,7 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
         private val TOUCH_EVERY: Duration = 1.hours
     }
 
-    init {
-        initialize(
-            uniqueIndexes = listOf(UniqueIndexConfig(indexName = "idx_unique_token", fields = listOf("tokenHash"))),
-            indexedFields = listOf("userId"),
-        )
-    }
+    override val indexes = listOf(IndexSpec.unique("idx_unique_token", "tokenHash"), IndexSpec.on("userId"))
 
     /** Новая сессия для аккаунта; возвращает сам токен - второй раз его взять будет неоткуда. */
     suspend fun issue(userId: String): String {
@@ -57,7 +53,7 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
 
     /** Живая сессия по токену, или null; истёкшая удаляется, живая продлевается. */
     suspend fun resolve(token: String): AuthSession? {
-        val found = collection.find(Filters.eq("tokenHash", Tokens.hash(token))).toList().firstOrNull() ?: return null
+        val found = collection.find(Filters.eq("tokenHash", Tokens.hash(token))).limit(1).firstOrNull() ?: return null
         val now = LocalDateTime.now()
         if (found.expiresAt < now) {
             collection.deleteOne(Filters.eq("_id", found._id))

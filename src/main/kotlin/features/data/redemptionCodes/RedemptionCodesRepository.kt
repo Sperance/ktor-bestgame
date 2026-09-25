@@ -3,6 +3,7 @@ package features.data.redemptionCodes
 import base.exception.model.CharacterExceptions
 import base.exception.model.RedemptionCodesExceptions
 import base.repository.BaseRepository
+import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
@@ -12,7 +13,7 @@ import features.data.character.Character
 import features.data.character.CharacterRepository
 import features.data.character.character_data.CharacterItems
 import features.data.character.character_data.GainedRedemtionCodes
-import features.data.equipment.EquipmentRepository
+import features.caches.EquipmentCache
 import features.data.inventory.CharacterEquipmentRepository
 import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
@@ -21,7 +22,10 @@ import org.koin.core.component.inject
 class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = RedemptionCodes::class), KoinComponent {
     private val characterRepository: CharacterRepository by inject()
     private val characterEquipmentRepository: CharacterEquipmentRepository by inject()
-    private val equipmentRepository: EquipmentRepository by inject()
+    private val equipmentCache: EquipmentCache by inject()
+
+    // Погашение ищет код по строке, которую ввёл игрок
+    override val indexes = listOf(IndexSpec.on("code"))
 
     /**
      * Что администратор не имеет права создать.
@@ -57,8 +61,7 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = 
      * из возможных исходов.
      */
     suspend fun useCharacterRedemptionCode(characterId: String, redemptionCode: String): String {
-        val character = characterRepository.findById(characterId)
-            ?: throw CharacterExceptions.funExceptionNotFound("useCharacterRedemptionCode", characterId)
+        val character = characterRepository.requireCharacter(characterId, "useCharacterRedemptionCode")
 
         val redemption = findByField(RedemptionCodes::code, redemptionCode)
             ?: throw RedemptionCodesExceptions.funExceptionNotFoundRedemption("useCharacterRedemptionCode", redemptionCode)
@@ -86,14 +89,11 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = 
     }
 
     /**
-     * Брал ли этот код кто-нибудь из персонажей учётной записи.
-     *
-     * Читает всех персонажей аккаунта, а не одного: их не больше трёх, и это дешевле,
-     * чем держать вторую коллекцию ради одного флага.
+     * Брал ли этот код кто-нибудь из персонажей учётной записи: один подсчёт в базе по индексу
+     * `userId`, без чтения самих персонажей.
      */
     private suspend fun accountUsed(userId: String, redemptionId: String): Boolean =
-        characterRepository.findByFilter(Filters.eq("userId", userId))
-            .any { owned -> owned.gainedRedemptionCodes.any { it.redemptionCodeId == redemptionId } }
+        characterRepository.count(Filters.and(Filters.eq("userId", userId), Filters.eq("gainedRedemptionCodes.redemptionCodeId", redemptionId))) > 0
 
     /**
      * Выдача награды на уже прочитанного персонажа, внутри чужой транзакции.
@@ -120,12 +120,11 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(entityClass = 
 
         // Экипировка не стакается: каждая копия шаблона роллится заново и становится
         // отдельным документом инвентаря, поэтому количество здесь - это число копий.
-        treasure.filter { it.kind == RedemptionKind.EQUIPMENT }.forEach { reward ->
-            val equipment = equipmentRepository.findById(reward.itemId)
+        val equipment = treasure.filter { it.kind == RedemptionKind.EQUIPMENT }.flatMap { reward ->
+            val template = equipmentCache.findById(reward.itemId)
                 ?: throw RedemptionCodesExceptions.funExceptionUnknownEquipment(method, reward.itemId)
-            repeat(reward.amount.toInt()) {
-                characterEquipmentRepository.addFromEquipment(character._id, equipment, session)
-            }
+            List(reward.amount.toInt()) { template }
         }
+        characterEquipmentRepository.addAllFromEquipment(character._id, equipment, session)
     }
 }

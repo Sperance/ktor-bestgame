@@ -30,6 +30,7 @@ import features.data.inventory.CharacterEquipmentRepository
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.user.User
 import features.data.user.UserRepository
+import features.data.auth.AuthSessionRepository
 import features.logic.modifiers.ModifierDefinition
 import features.logic.modifiers.ModifierDefinitionRepository
 import features.logic.modifiers.ModifierTierRepository
@@ -50,6 +51,7 @@ import kotlinx.coroutines.coroutineScope
 object DatabaseSeeder : KoinComponent {
 
     private val userRepository: UserRepository by inject()
+    private val authSessionRepository: AuthSessionRepository by inject()
     private val characterRepository: CharacterRepository by inject()
     private val itemsRepository: ItemsRepository by inject()
     private val equipmentRepository: EquipmentRepository by inject()
@@ -82,7 +84,7 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Database seeding started")
 
-        initializeRepositories()
+        ensureIndexes()
 
         transactionExecute { session ->
             // Справочники первыми: на них ссылается всё остальное
@@ -111,29 +113,17 @@ object DatabaseSeeder : KoinComponent {
     }
 
     /**
-     * Прогрев репозиториев до старта транзакции.
-     *
-     * Репозиторий создаёт свои индексы при первом обращении, а создание индекса -
-     * это изменение каталога MongoDB. Если оно случится при уже открытой транзакции,
-     * та упадёт с WriteConflict "due to catalog changes".
+     * Индексы всех коллекций - до старта транзакции: создание индекса меняет каталог MongoDB,
+     * и открытая транзакция упала бы с WriteConflict "due to catalog changes".
      */
-    private fun initializeRepositories() {
-        val repositories = listOf(
-            userRepository,
-            characterRepository,
-            characterEquipmentRepository,
-            auctionLotRepository,
-            itemsRepository,
-            equipmentRepository,
-            blockListRepository,
-            redemptionCodesRepository,
-            modifierDefinitionRepository,
-            modifierTierRepository,
-            skillTreeNodeRepository,
-            characterClassRepository,
-            experienceLevelRepository
-        )
-        printLog("  → ${repositories.size} repositories initialized")
+    private suspend fun ensureIndexes() = coroutineScope {
+        listOf(
+            userRepository, authSessionRepository, characterRepository, characterEquipmentRepository,
+            auctionLotRepository, itemsRepository, equipmentRepository, blockListRepository,
+            redemptionCodesRepository, modifierDefinitionRepository, modifierTierRepository,
+            skillTreeNodeRepository, characterClassRepository, experienceLevelRepository,
+        ).map { async { it.ensureIndexes() } }.awaitAll()
+        printLog("  → indexes ensured")
     }
 
     /**
@@ -390,7 +380,7 @@ object DatabaseSeeder : KoinComponent {
         val orbs = itemsCache.findByCategory(EnumCurrencyOrb.CATEGORY)
         if (orbs.isEmpty()) return
 
-        val characters = characterRepository.findAll(session).filter { it.bag.isEmpty() }
+        val characters = characterRepository.withEmptyBag(session)
         if (characters.isEmpty()) return
 
         printLog("Seeding starting currency...")
@@ -475,15 +465,13 @@ object DatabaseSeeder : KoinComponent {
         }
         if (backfilled > 0) printLog("  → $backfilled character equipments got their rarity")
 
+        // Кто уже с вещами - одним запросом, а не подсчётом на каждого персонажа
+        val equipped = characterEquipmentRepository.owners(session)
+        val byRarity = equipments.groupBy { it.rarity }
         var created = 0
-        characters.forEach { char ->
-            if (characterEquipmentRepository.countByCharacter(char._id, session) > 0) return@forEach
-
-            startRarities.forEach { rarity ->
-                val template = equipments.filter { it.rarity == rarity }.randomOrNull() ?: return@forEach
-                characterEquipmentRepository.addFromEquipment(char._id, template, session)
-                created++
-            }
+        characters.filterNot { it._id in equipped }.forEach { char ->
+            val starters = startRarities.mapNotNull { byRarity[it]?.randomOrNull() }
+            created += characterEquipmentRepository.addAllFromEquipment(char._id, starters, session).size
         }
 
         printLog("  → $created character equipments created")

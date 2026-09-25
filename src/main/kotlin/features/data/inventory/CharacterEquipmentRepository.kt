@@ -8,10 +8,12 @@ import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
 import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
+import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import org.bson.conversions.Bson
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.toList
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import config.afterCommit
@@ -45,9 +47,8 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     private val characterRepository: CharacterRepository by inject()
     private val skillTreeCache: SkillTreeCache by inject()
 
-    init {
-        initialize(indexedFields = listOf("characterId", "equipmentId"), compoundIndexes = listOf(listOf("characterId", "equippedSlot")))
-    }
+    // Инвентарь и надетое героя - по префиксу (characterId, equippedSlot)
+    override val indexes = listOf(IndexSpec.on("characterId", "equippedSlot"), IndexSpec.on("equipmentId"))
 
     override suspend fun validateBeforeInsert(entity: CharacterEquipment, session: ClientSession) {
         if (equipmentCache.findById(entity.equipmentId) == null)
@@ -86,6 +87,13 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         afterCommit { if (removed) changes.remove(item) else changes.upsert(item) }
     }
 
+    /** Коды гнёзд дерева, занятых самоцветами персонажа: одно поле, без документов. */
+    suspend fun socketCodes(characterId: String): Set<String> =
+        collection.withDocumentClass<org.bson.Document>()
+            .find(readFilter(Filters.and(Filters.eq("characterId", characterId), Filters.ne("socketCode", null))))
+            .projection(com.mongodb.client.model.Projections.include("socketCode"))
+            .toList().mapNotNullTo(HashSet()) { it.getString("socketCode") }
+
     /**
      * Только надетые предметы персонажа.
      */
@@ -105,6 +113,10 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         equipment: Equipment,
         session: ClientSession
     ): CharacterEquipment = insert(CharacterEquipment.fromEquipment(characterId, equipment), session)
+
+    /** Экземпляры нескольких шаблонов одной командой, в порядке [equipment]. */
+    suspend fun addAllFromEquipment(characterId: String, equipment: List<Equipment>, session: ClientSession): List<CharacterEquipment> =
+        insertMany(equipment.map { CharacterEquipment.fromEquipment(characterId, it) }, session)
 
     /** Экземпляр своей редкости (с 0.35.0): упавшая карта катает аффиксы под выпавшую редкость, а не под шаблон. */
     suspend fun addRolled(characterId: String, equipment: Equipment, rarity: EnumRarity, session: ClientSession): CharacterEquipment {
@@ -339,11 +351,9 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
         return Triple(item, template, character)
     }
 
-    /**
-     * Количество предметов в инвентаре персонажа.
-     */
-    suspend fun countByCharacter(characterId: String, session: ClientSession): Long =
-        count(session, Filters.eq("characterId", characterId))
+    /** Персонажи, у которых есть хоть один экземпляр. */
+    suspend fun owners(session: ClientSession): Set<String> =
+        collection.distinct(session, "characterId", readFilter(), String::class.java).toList().toSet()
 
     /**
      * Удаляет весь инвентарь персонажа - вызывается при удалении самого персонажа.

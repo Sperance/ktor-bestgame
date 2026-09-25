@@ -30,7 +30,7 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
      * Номер снимка. Растёт при каждой записи, поэтому [features.logic.world.WorldBundle] и
      * производные индексы узнают, что справочник изменился, не сравнивая содержимое.
      */
-    val revision: Long get() = snapshot.get().revision
+    override val revision: Long get() = snapshot.get().revision
 
     suspend fun initializeCache() = loadToCache(repository.findAll())
 
@@ -52,7 +52,7 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
         if (at < 0) items + item else items.toMutableList().apply { set(at, item) }
     }
 
-    fun findById(id: String): T? = snapshot.get().byId[id]
+    override fun findById(id: String): T? = snapshot.get().byId[id]
 
     /** Записи по списку id, в порядке переданных id; неизвестные пропускаются. */
     fun findAllById(ids: Collection<String>): List<T> {
@@ -61,7 +61,7 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
     }
 
     /** Текущий снимок: только чтение, писать в него нельзя. */
-    fun getCache(): List<T> = snapshot.get().items
+    override fun getCache(): List<T> = snapshot.get().items
 
     fun isEmpty() = snapshot.get().items.isEmpty()
 

@@ -88,13 +88,13 @@ val routeModule = module {
                 AuctionLotRoute(get()),
                 RedemptionCodesRoute(get()),
                 ModifierTierRoute(get()),
-                BaseRoute(get<ItemsRepository>(), Items.serializer(), catalog),
+                BaseRoute(get<ItemsRepository>(), Items.serializer(), catalog, get<ItemsCache>()),
                 // Страницы шаблонов клиент не читает, но требует маршрут при проверке сервера
-                BaseRoute(get<EquipmentRepository>(), Equipment.serializer(), catalog + Crud.PAGED),
-                BaseRoute(get<ModifierDefinitionRepository>(), ModifierDefinition.serializer(), readOnly),
-                BaseRoute(get<SkillTreeNodeRepository>(), SkillTreeNode.serializer(), readOnly),
-                BaseRoute(get<CharacterClassRepository>(), CharacterClass.serializer(), readOnly),
-                BaseRoute(get<ExperienceLevelRepository>(), ExperienceLevel.serializer(), readOnly),
+                BaseRoute(get<EquipmentRepository>(), Equipment.serializer(), catalog + Crud.PAGED, get<EquipmentCache>()),
+                BaseRoute(get<ModifierDefinitionRepository>(), ModifierDefinition.serializer(), readOnly, get<ModifierDefinitionCache>()),
+                BaseRoute(get<SkillTreeNodeRepository>(), SkillTreeNode.serializer(), readOnly, get<SkillTreeCache>()),
+                BaseRoute(get<CharacterClassRepository>(), CharacterClass.serializer(), readOnly, get<CharacterClassCache>()),
+                BaseRoute(get<ExperienceLevelRepository>(), ExperienceLevel.serializer(), readOnly, get<ExperienceLevelCache>()),
             )
         )
     }

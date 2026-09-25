@@ -2,7 +2,7 @@ package features.logic.modifiers
 
 import base.exception.model.ModifierExceptions
 import base.repository.BaseRepository
-import base.repository.UniqueIndexConfig
+import base.repository.IndexSpec
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.caches.ModifierDefinitionCache
 import org.koin.core.component.KoinComponent
@@ -13,14 +13,7 @@ class ModifierDefinitionRepository : BaseRepository<ModifierDefinition>(
 ), KoinComponent {
     override val cache: ModifierDefinitionCache by inject()
 
-    init {
-        initialize(uniqueIndexes = listOf(
-            UniqueIndexConfig(
-                indexName = "idx_unique_code",
-                fields = listOf("code")
-            )
-        ))
-    }
+    override val indexes = listOf(IndexSpec.unique("idx_unique_code", "code"))
 
     override suspend fun validateBeforeInsert(entity: ModifierDefinition, session: ClientSession) {
         if (entity.code.isBlank()) throw ModifierExceptions.funExceptionCode("validateBeforeInsert", entity.code)

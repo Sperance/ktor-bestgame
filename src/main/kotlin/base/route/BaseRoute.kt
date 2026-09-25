@@ -7,6 +7,10 @@ import base.entity.StockEntity
 import base.exception.BaseException
 import base.exception.BaseRouteExceptions
 import base.repository.BaseRepository
+import base.repository.EntityCache
+import io.ktor.http.ContentType
+import io.ktor.server.response.respondText
+import java.util.concurrent.atomic.AtomicReference
 import config.MongoFactory.transactionExecute
 import extensions.saveChildren
 import io.ktor.server.request.receive
@@ -59,12 +63,16 @@ enum class Crud {
  * Маршруты коллекции: общий CRUD из [operations] и собственные маршруты наследника
  * в [additionalRoutes]. Путь выводится из имени сериализуемого класса. Справочнику без
  * своих маршрутов наследник не нужен - хватает экземпляра с нужными операциями.
+ *
+ * Справочник с [cache] читается из памяти, а не из базы: список целиком сериализуется один
+ * раз на ревизию кеша, документ по id - O(1).
  */
 @OptIn(ExperimentalKtorApi::class)
 open class BaseRoute<T : StockEntity>(
     protected val repository: BaseRepository<T>,
     entitySerializer: KSerializer<T>,
     private val operations: Set<Crud>,
+    private val cache: EntityCache<T>? = null,
 ) : RouteRegistrar {
     private val collection = entitySerializer.descriptor.serialName.substringAfterLast('.').lowercase()
     private val basePath = apiPath(collection)
@@ -72,6 +80,7 @@ open class BaseRoute<T : StockEntity>(
     private val oneResponse = ApiMongoResponse.serializer(entitySerializer)
     private val listResponse = ApiMongoResponse.serializer(listSerializer)
     private val pagedResponse = ApiMongoResponse.serializer(PagedMongoResponse.serializer(entitySerializer))
+    private val encodedList = AtomicReference<Pair<Long, String>?>(null)
 
     override fun register(routing: Routing) {
         routing.route(basePath) {
@@ -91,8 +100,23 @@ open class BaseRoute<T : StockEntity>(
 
     private fun Route.readRoute() = get {
         val id = call.request.queryParameters["id"].orEmpty()
-        if (id.isEmpty()) call.respondJson(listResponse, ApiMongoResponse.ok(repository.findAll()))
-        else call.respondJson(oneResponse, ApiMongoResponse.ok(repository.findById(requireId(id, "readRoute"))))
+        when {
+            id.isNotEmpty() -> {
+                val key = requireId(id, "readRoute")
+                call.respondJson(oneResponse, ApiMongoResponse.ok(cache?.findById(key) ?: repository.findById(key)))
+            }
+            cache != null -> call.respondText(cachedList(cache), ContentType.Application.Json)
+            else -> call.respondJson(listResponse, ApiMongoResponse.ok(repository.findAll()))
+        }
+    }
+
+    /** Ответ со всем справочником, собранный один раз на ревизию кеша. */
+    private fun cachedList(cache: EntityCache<T>): String {
+        val revision = cache.revision
+        encodedList.get()?.takeIf { it.first == revision }?.let { return it.second }
+        val text = AppJson.encodeToString(listResponse, ApiMongoResponse.ok(cache.getCache()))
+        encodedList.set(revision to text)
+        return text
     }
 
     private fun Route.pagedRoute() = get("/paged") {

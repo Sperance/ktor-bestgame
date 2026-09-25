@@ -329,7 +329,7 @@ class CampaignService : KoinComponent {
             if (orbs.isNotEmpty()) characters.applyItems(character, orbs, method)
             if (experience > 0) characters.applyExperience(character, experience, method)
             character.money += loot.gold
-            val created = templates.map { inventory.addFromEquipment(character._id, it, session) } +
+            val created = inventory.addAllFromEquipment(character._id, templates, session) +
                 listOfNotNull(dropped?.let { inventory.addRolled(character._id, it, CampaignMaps.rarity(rule, random), session) })
             characters.update(character, session)
             created

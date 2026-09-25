@@ -96,11 +96,12 @@ object CraftingBench {
      */
     val recipes: List<BenchRecipe> by lazy { build(ModifierSeeder.seedDefinitions()) }
 
+    private val json = Json { ignoreUnknownKeys = true }
+
     fun build(definitions: List<ModifierDefinition>): List<BenchRecipe> {
         val byCode = definitions.associateBy { it.code }
         val tiers = ModifierSeeder.seedTiers(definitions).associateBy { it.modifierId to it.tier }
-        val records = Json { ignoreUnknownKeys = true }
-            .decodeFromString(BenchDocument.serializer(), ContentResource.read(FILE)).recipes
+        val records = json.decodeFromString(BenchDocument.serializer(), ContentResource.read(FILE)).recipes
 
         return records.map { record ->
             val definition = byCode[record.modifier]

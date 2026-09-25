@@ -7,6 +7,12 @@ import base.entity.StockEntity
  * каждая вставка, правка и удаление доезжают сюда после коммита транзакции.
  */
 interface EntityCache<T : StockEntity> {
+    /** Номер снимка: растёт при каждой правке, по нему узнают, что содержимое сменилось. */
+    val revision: Long
+
+    fun getCache(): List<T>
+    fun findById(id: String): T?
+
     fun addItem(item: T)
     fun updateItem(item: T)
     fun removeItem(item: T)

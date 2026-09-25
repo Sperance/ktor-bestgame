@@ -1,6 +1,7 @@
 package features.data.items
 
 import base.repository.BaseRepository
+import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.caches.ItemsCache
@@ -10,9 +11,7 @@ import org.koin.core.component.inject
 class ItemsRepository : BaseRepository<Items>(entityClass = Items::class), KoinComponent {
     override val cache: ItemsCache by inject()
 
-    init {
-        initialize(indexedFields = listOf("category"))
-    }
+    override val indexes = listOf(IndexSpec.on("category"))
 
     /**
      * Удаляет все предметы категории в рамках транзакции.

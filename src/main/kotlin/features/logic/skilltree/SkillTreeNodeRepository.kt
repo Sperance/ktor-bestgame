@@ -2,7 +2,7 @@ package features.logic.skilltree
 
 import base.exception.model.SkillTreeExceptions
 import base.repository.BaseRepository
-import base.repository.UniqueIndexConfig
+import base.repository.IndexSpec
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.caches.SkillTreeCache
 import org.koin.core.component.KoinComponent
@@ -13,14 +13,7 @@ class SkillTreeNodeRepository : BaseRepository<SkillTreeNode>(
 ), KoinComponent {
     override val cache: SkillTreeCache by inject()
 
-    init {
-        initialize(uniqueIndexes = listOf(
-            UniqueIndexConfig(
-                indexName = "idx_unique_code",
-                fields = listOf("code")
-            )
-        ))
-    }
+    override val indexes = listOf(IndexSpec.unique("idx_unique_code", "code"))
 
     override suspend fun validateBeforeInsert(entity: SkillTreeNode, session: ClientSession) {
         if (entity.code.isBlank()) throw SkillTreeExceptions.funExceptionCode("validateBeforeInsert", entity.code)
