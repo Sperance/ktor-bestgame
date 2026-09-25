@@ -448,7 +448,8 @@
       "MOB_JUGGERNAUT": 40,
       "MOB_ELEMENTALIST": 40,
       "MOB_UNDYING": 30,
-      "MOB_ARCANE": 40
+      "MOB_ARCANE": 40,
+      "MOB_TAUNTING": 50
     }
   },
   "EQUIPMENT": {
@@ -1268,7 +1269,8 @@
       "TIDEBREAKER_SIGIL": 100
     },
     "boss:BOSS_BRINE_MOTHER": {
-      "BRINESHELL_WARD": 100
+      "BRINESHELL_WARD": 100,
+      "BRAZEN_CHALLENGE": 100
     },
     "boss:BOSS_BOG_QUEEN": {
       "MIRE_QUEENS_CROWN": 100
@@ -1277,7 +1279,8 @@
       "PACKLEADERS_STRIDE": 100
     },
     "boss:BOSS_RUIN_WARDEN": {
-      "WARDENS_OATH": 100
+      "WARDENS_OATH": 100,
+      "WARCRY_HELM": 100
     },
     "boss:BOSS_CRYPT_LORD": {
       "GRAVEBIND": 100
@@ -1292,7 +1295,8 @@
       "WINTERS_GRASP": 100
     },
     "boss:BOSS_DROWNED_GOD": {
-      "LEVIATHANS_MAW": 100
+      "LEVIATHANS_MAW": 100,
+      "UNYIELDING_BASTION": 100
     },
     "unique:smith": {
       "FORGEMASTERS_VISAGE": 100,

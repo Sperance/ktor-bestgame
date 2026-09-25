@@ -1115,6 +1115,7 @@
     "equipment.BONE_CIRCLET": "helmet",
     "equipment.BONE_SPIRIT_SHIELD": "shield",
     "equipment.BRINESHELL_WARD": "shield",
+    "equipment.BRAZEN_CHALLENGE": "shield",
     "equipment.BROAD_SWORD": "sword",
     "equipment.BRONZESCALE_BOOTS": "boots",
     "equipment.BRONZESCALE_GAUNTLETS": "gloves",
@@ -1405,6 +1406,7 @@
     "equipment.VOID_WINGS": "wings",
     "equipment.WANDERLUST": "boots",
     "equipment.WARDENS_OATH": "body",
+    "equipment.WARCRY_HELM": "helmet",
     "equipment.WHALEBONE_RAPIER": "blade",
     "equipment.WINGS_OF_VASTIRI": "wings",
     "equipment.WINTERS_GRASP": "gloves",
@@ -1560,6 +1562,8 @@
     "stat.STOCK_RESIST_FIRE": "fire",
     "stat.STOCK_RESIST_LIGHTNING": "lightning",
     "stat.STOCK_STRENGTH": "strength",
-    "stat.STOCK_STUN_THRESHOLD": "stun"
+    "stat.STOCK_STUN_THRESHOLD": "stun",
+    "stat.STOCK_TAUNT": "block",
+    "equipment.UNYIELDING_BASTION": "body"
   }
 }

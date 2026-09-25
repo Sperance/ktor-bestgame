@@ -125,6 +125,12 @@ data class AilmentRule(
 @Serializable data class DeathRule(val fromLevel: Int, val experienceShare: Double)
 
 /**
+ * «Волк-одиночка» (с 0.62.0): герой, который дерётся без отряда, наносит на [dealt] процентов
+ * больше любого урона и получает на [taken] процентов меньше. Со вторым бойцом в отряде бонус пропадает.
+ */
+@Serializable data class LoneWolfRule(val dealt: Double = 10.0, val taken: Double = 10.0)
+
+/**
  * Правила боя - числа, по которым клиент считает автобой (с 0.28.0).
  *
  * Бой остаётся клиентским по решению владельца, но формулы и константы - сервера: клиент читает
@@ -150,6 +156,7 @@ data class CombatRules(
     val ailments: List<AilmentRule>,
     val resistHardCap: Double = 90.0,
     val ailmentDurationCap: Double = 75.0,
+    val loneWolf: LoneWolfRule = LoneWolfRule(),
 )
 
 /** Одна строка таблицы добычи; экипировка тянется из [equipmentPools] (с 0.39.0). */

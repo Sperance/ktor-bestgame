@@ -378,5 +378,8 @@
   "item.VOID_ROOT.trade": "Void Root",
   "item.WOOD_LOG.trade": "Wooden Log",
   "item.WORMWOOD.trade": "Wormwood",
-  "item.YEW_LOG.trade": "Yew Log"
+  "item.YEW_LOG.trade": "Yew Log",
+  "equipment.BRAZEN_CHALLENGE.trade": "Brazen Challenge",
+  "equipment.WARCRY_HELM.trade": "Warcry Helm",
+  "equipment.UNYIELDING_BASTION.trade": "Unyielding Bastion"
 }

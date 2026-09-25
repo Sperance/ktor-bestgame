@@ -1369,6 +1369,90 @@
           { "stat": "STOCK_EVASION", "operation": "INCREASED", "range": [40.0, 60.0] }
         ]
       ]
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "BRAZEN_CHALLENGE",
+      "itemLevel": 3,
+      "requiredLevel": 3,
+      "requiredStrength": 6,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [60.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_TAUNT", "operation": "ADD", "range": [1.0, 1.0] }
+        ],
+        [
+          { "stat": "STOCK_BLOCK_CHANCE", "operation": "ADD", "range": [4.0, 6.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [20.0, 30.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [40.0, 60.0] }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "WARCRY_HELM",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 18,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [60.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_TAUNT", "operation": "ADD", "range": [1.0, 1.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [30.0, 45.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [50.0, 70.0] }
+        ],
+        [
+          { "stat": "STOCK_STUN_THRESHOLD", "operation": "ADD", "range": [15.0, 25.0] }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "UNYIELDING_BASTION",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 40,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        { "code": "IMPLICIT_ARMOUR_BASE", "values": [250.0] }
+      ],
+      "lines": [
+        [
+          { "stat": "STOCK_TAUNT", "operation": "ADD", "range": [1.0, 1.0] }
+        ],
+        [
+          { "stat": "STOCK_HEALTH", "operation": "ADD", "range": [60.0, 80.0] }
+        ],
+        [
+          { "stat": "STOCK_ARMOR", "operation": "INCREASED", "range": [80.0, 110.0] }
+        ],
+        [
+          { "stat": "STOCK_RESIST_ALL", "operation": "ADD", "range": [8.0, 12.0] }
+        ],
+        [
+          { "stat": "STOCK_PHYSICAL_REDUCTION", "operation": "ADD", "range": [3.0, 5.0] }
+        ]
+      ]
     }
   ]
 }
