@@ -227,6 +227,26 @@ class SeedDataTest {
     }
 
     /**
+     * Каждый рисунок набора - объект `{viewBox, paths}`, и каждый код указывает на существующий (0.69.1):
+     * клиент читает набор целиком, и один рисунок не той формы оставлял его без всех иконок.
+     */
+    @Test
+    fun every_sprite_is_a_drawing_and_every_icon_names_one() {
+        val document = kotlinx.serialization.json.Json.parseToJsonElement(javaClass.classLoader.getResource("icons/icons.json")!!.readText())
+            as kotlinx.serialization.json.JsonObject
+        val sprites = document["sprites"] as kotlinx.serialization.json.JsonObject
+        val malformed = sprites.filter { (_, sprite) ->
+            val drawing = sprite as? kotlinx.serialization.json.JsonObject
+            drawing == null || drawing["viewBox"] == null || (drawing["paths"] as? kotlinx.serialization.json.JsonArray).isNullOrEmpty()
+        }.keys
+        assert(malformed.isEmpty()) { "Sprites that are not a drawing: $malformed" }
+        val dangling = (document["icons"] as kotlinx.serialization.json.JsonObject).filterValues { name ->
+            (name as kotlinx.serialization.json.JsonPrimitive).content !in sprites
+        }.keys
+        assert(dangling.isEmpty()) { "Icons naming no sprite: ${dangling.take(10)}" }
+    }
+
+    /**
      * Сетка тиров (0.66.0, как в POE): у каждого семейства своё число тиров, но уровни идут строго
      * вниз от лучшего к худшему, дно всегда открыто с первого уровня, а вершина - не выше 68-го,
      * чтобы тир 1 вообще мог выпасть на предмете 71-го уровня.
