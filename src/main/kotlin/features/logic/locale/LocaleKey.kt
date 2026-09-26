@@ -29,6 +29,8 @@ object LocaleKey {
     const val PROFESSION = "profession"
     const val JOB = "job"
     const val ATLAS_NODE = "atlas.node"
+    const val SKILL = "skill"
+    const val ESSENCE = "essence"
 
     const val NAME = "name"
     const val DESCRIPTION = "description"
@@ -65,6 +67,15 @@ object LocaleKey {
 
     /** Узел атласа (с 0.60.0): `atlas.node.<CODE>.name`; строки эффектов клиент собирает по характеристикам. */
     fun atlasNodeName(code: String) = key(ATLAS_NODE, code, NAME)
+
+    /** Умение класса или монстра (с 0.69.0): `skill.<CODE>.name`; строки действия клиент собирает сам. */
+    fun skillName(code: String) = key(SKILL, code, NAME)
+
+    /** Ступень эссенции (с 0.69.0): `essence.tier.<CODE>`. */
+    fun essenceTier(code: String) = "$ESSENCE.tier.$code"
+
+    /** Имя стража кристалла по его эссенции (с 0.69.0): `essence.<ВИД>.monster` - «Ненасытный», «Ледяной». */
+    fun essenceMonster(kind: String) = "$ESSENCE.$kind.monster"
 
     /**
      * Подпись значения перечисления: `enum.EnumRarity.UNIQUE`.

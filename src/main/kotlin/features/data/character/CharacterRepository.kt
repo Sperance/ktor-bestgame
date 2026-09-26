@@ -101,6 +101,8 @@ class CharacterRepository : BaseRepository<Character>(
         // Стартовый узел дерева ставится сразу: в POE класс приходит в дерево
         // со своей точки входа, она бесплатна и отдельного выбора не требует
         if (entity.skillNodes.isEmpty()) entity.skillNodes.add(startNodeOf(entity, "validateBeforeInsert"))
+        // Первое активное и первое пассивное умение класса (0.69.0) - тоже сразу и в слотах
+        if (entity.skills.learned.isEmpty()) entity.skills = features.logic.skills.SkillRules.starter(requireClass(entity).code)
     }
 
     override suspend fun validateAfterInsert(entity: Character, session: ClientSession) {
@@ -109,6 +111,10 @@ class CharacterRepository : BaseRepository<Character>(
         findedUser.countCharacters++
         if (findedUser.countCharacters > CONST_USER_MAX_CHARACTERS) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert")
         userRepository.update(findedUser, session)
+        // Малая фляга жизни (0.69.0) - сразу на первом месте пояса
+        equipmentCache.findByCode(features.logic.equipment.FlaskRules.STARTER)?.let { flask ->
+            characterEquipmentRepository.insert(CharacterEquipment.fromEquipment(entity._id, flask).apply { equippedSlot = application.enums.EnumEquipmentType.FLASK }, session)
+        }
     }
 
     override suspend fun validateAfterDelete(entity: Character, session: ClientSession) {

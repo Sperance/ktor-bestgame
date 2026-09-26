@@ -23,7 +23,7 @@ class CharacterEquipmentRoute(
 ) {
     override fun additionalRoutes(route: Route) = with(route) {
         post("/equip") {
-            // Необязательный слот - какое из двух колец занять
+            // Необязательный слот - какое из двух колец или трёх мест фляг занять
             val slot = call.optionalParam("slot")?.let { name -> EnumEquipmentType.entries.firstOrNull { it.name == name } }
             call.respondWithHero(repo.equip(call.characterId, call.inventoryId, slot))
         }
@@ -32,6 +32,10 @@ class CharacterEquipmentRoute(
         }
         post("/applyOrb") {
             call.respondWithHero(CurrencyApplyResponse.of(repo.applyOrb(call.characterId, call.inventoryId, call.queryParam("orbItemId"))))
+        }
+        // 0.69.0: эссенция - обычную вещь в редкую с гарантией, с «Воющей» - и редкую заново
+        post("/applyEssence") {
+            call.respondWithHero(CurrencyApplyResponse.of(repo.applyEssence(call.characterId, call.inventoryId, call.queryParam("essenceItemId"))))
         }
         get("/bench") {
             call.respondOk(repo.bench(call.characterId))

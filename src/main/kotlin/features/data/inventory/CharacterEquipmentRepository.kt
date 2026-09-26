@@ -333,6 +333,26 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     /**
+     * Применяет эссенцию к предмету инвентаря (с 0.69.0) - так же, одной транзакцией со списанием.
+     *
+     * @param essenceItemId id предмета-эссенции в коллекции `Items`
+     */
+    suspend fun applyEssence(characterId: String, inventoryId: String, essenceItemId: String): CurrencyOutcome {
+        val method = "applyEssence"
+        val item = requireOwned(characterId, inventoryId, method)
+        val template = templateOf(item, method)
+        val essenceItem = itemsCache.findById(essenceItemId) ?: throw CharacterExceptions.funExceptionItemNotFound(method, essenceItemId)
+        val essence = essenceItem.takeIf { it.category == features.logic.essences.EssenceContent.CATEGORY }
+            ?.let { features.logic.essences.EssenceContent.essences[it.code] }
+            ?: throw CurrencyExceptions.funExceptionNotCurrency(method, essenceItem.code)
+        val character = characterRepository.requireCharacter(characterId, method)
+        return transactionExecute("$method ${essence.code}") { session ->
+            characterRepository.spendItem(character, essenceItemId, 1, session)
+            CurrencyApplier.applyEssence(essence, item, template).also { update(it.item, session) }
+        }
+    }
+
+    /**
      * Рецепты верстака, известные герою (с 0.46.0): все остальные скрыты, их нужно найти на карте.
      */
     suspend fun bench(characterId: String): List<BenchRecipe> =

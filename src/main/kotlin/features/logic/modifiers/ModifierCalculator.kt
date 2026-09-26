@@ -38,6 +38,13 @@ object ModifierCalculator : KoinComponent {
         EnumStatStock.STOCK_BLEED_DURATION, EnumStatStock.STOCK_DAMAGE_TAKEN, EnumStatStock.STOCK_PHYSICAL_TAKEN,
         EnumStatStock.STOCK_ELEMENTAL_TAKEN, EnumStatStock.STOCK_CHAOS_TAKEN, EnumStatStock.STOCK_RECOVERY_RATE,
         EnumStatStock.STOCK_SHIELD_RECHARGE, EnumStatStock.STOCK_REFLECT,
+        // 0.69.0: мана, умения класса и фляги - у героя нет базы ни скорости чар, ни урона умений
+        EnumStatStock.STOCK_DAMAGE, EnumStatStock.STOCK_SKILL_DAMAGE, EnumStatStock.STOCK_SPELL_DAMAGE, EnumStatStock.STOCK_CAST_SPEED,
+        EnumStatStock.STOCK_MANA_REGEN, EnumStatStock.STOCK_COOLDOWN_RECOVERY, EnumStatStock.STOCK_SKILL_COST, EnumStatStock.STOCK_RESERVATION,
+        EnumStatStock.STOCK_AURA_EFFECT, EnumStatStock.STOCK_WARCRY_EFFECT, EnumStatStock.STOCK_CURSE_EFFECT, EnumStatStock.STOCK_SKILL_HEALING,
+        EnumStatStock.STOCK_DAMAGE_VS_CURSED, EnumStatStock.STOCK_FLASK_CHARGES_GAINED, EnumStatStock.STOCK_FLASK_DURATION,
+        EnumStatStock.STOCK_FLASK_EFFECT, EnumStatStock.STOCK_FLASK_CHARGES_USED, EnumStatStock.STOCK_FLASK_LIFE_RECOVERY,
+        EnumStatStock.STOCK_FLASK_RECOVERY,
     )
 
 

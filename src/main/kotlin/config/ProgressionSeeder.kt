@@ -3,6 +3,7 @@ package config
 import application.enums.EnumStatStock.STOCK_AGILITY
 import application.enums.EnumStatStock.STOCK_HEALTH
 import application.enums.EnumStatStock.STOCK_INTELLECT
+import application.enums.EnumStatStock.STOCK_MANA
 import application.enums.EnumStatStock.STOCK_LIGHT_RADIUS
 import application.enums.EnumStatStock.STOCK_STRENGTH
 import application.enums.IntEnumStat
@@ -62,6 +63,8 @@ object ProgressionSeeder {
         "CONVERT_DEXTERITY_TO_EVASION",
         "CONVERT_INTELLIGENCE_TO_ENERGY_SHIELD",
         "CONVERT_STRENGTH_TO_PHYSICAL_DAMAGE",
+        // 0.69.0: мана вернулась в бой - единица за каждые два интеллекта
+        "CONVERT_INTELLIGENCE_TO_MANA",
     )
 
     private data class ClassTemplate(
@@ -129,7 +132,7 @@ object ProgressionSeeder {
      */
     private val sharedBase = listOf(
         STOCK_HEALTH to 38.0,
-        // Маны нет с 0.43.0: заклинания убраны из игры, интеллект кормит энергощит.
+        // Мана с 0.69.0 - своя у класса, см. [buildBase]; до того её не было с 0.43.0.
         // Радиус света (с 0.30.0): пять клеток у каждого класса, растёт от предметов и дерева.
         STOCK_LIGHT_RADIUS to 5.0,
     )
@@ -139,6 +142,8 @@ object ProgressionSeeder {
      */
     private val sharedGrowth = listOf(
         STOCK_HEALTH to 12.0,
+        // 0.69.0: мана растёт с уровнем одинаково у всех классов
+        STOCK_MANA to features.logic.skills.SkillContent.book.rules.manaPerLevel,
     )
 
     /**
@@ -174,6 +179,8 @@ object ProgressionSeeder {
         base.add(StatValue(STOCK_AGILITY, template.dexterity))
         base.add(StatValue(STOCK_INTELLECT, template.intelligence))
         sharedBase.forEach { base.add(StatValue(it.first, it.second)) }
+        // Мана класса на первом уровне (0.69.0): база из книги умений и первый шаг роста
+        base.add(StatValue(STOCK_MANA, features.logic.skills.SkillRules.mana(template.code, 1)))
         return base
     }
 

@@ -185,6 +185,1458 @@
       "category": "MATERIAL",
       "subCategory": "ALCHEMY",
       "price": 100
+    },
+    {
+      "code": "BOOK_HEAVY_STRIKE",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 23
+    },
+    {
+      "code": "BOOK_ENDURING_CRY",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 38
+    },
+    {
+      "code": "BOOK_GROUND_SLAM",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 56
+    },
+    {
+      "code": "BOOK_INFERNAL_BLOW",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 80
+    },
+    {
+      "code": "BOOK_VULNERABILITY",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 110
+    },
+    {
+      "code": "BOOK_BLOOD_RAGE",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 140
+    },
+    {
+      "code": "BOOK_DETERMINATION",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 23
+    },
+    {
+      "code": "BOOK_IRON_SKIN",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 35
+    },
+    {
+      "code": "BOOK_BLOODLETTING",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 50
+    },
+    {
+      "code": "BOOK_ANGER",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 68
+    },
+    {
+      "code": "BOOK_BERSERKER_FURY",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 92
+    },
+    {
+      "code": "BOOK_UNBREAKABLE",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 116
+    },
+    {
+      "code": "BOOK_THICK_SKULL",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 146
+    },
+    {
+      "code": "BOOK_RETALIATION",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 176
+    },
+    {
+      "code": "BOOK_SPLIT_ARROW",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 23
+    },
+    {
+      "code": "BOOK_SNIPE",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 38
+    },
+    {
+      "code": "BOOK_ICE_SHOT",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 56
+    },
+    {
+      "code": "BOOK_RAIN_OF_ARROWS",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 80
+    },
+    {
+      "code": "BOOK_SNIPERS_MARK",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 110
+    },
+    {
+      "code": "BOOK_WIND_VEIL",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 140
+    },
+    {
+      "code": "BOOK_GRACE",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 23
+    },
+    {
+      "code": "BOOK_EAGLE_EYE",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 35
+    },
+    {
+      "code": "BOOK_HUNTERS_THRILL",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 50
+    },
+    {
+      "code": "BOOK_HASTE",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 68
+    },
+    {
+      "code": "BOOK_LIGHT_FOOT",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 92
+    },
+    {
+      "code": "BOOK_GUST",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 116
+    },
+    {
+      "code": "BOOK_POISONED_TIPS",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 146
+    },
+    {
+      "code": "BOOK_FROST_BURST",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 176
+    },
+    {
+      "code": "BOOK_FIREBALL",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 23
+    },
+    {
+      "code": "BOOK_FREEZING_PULSE",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 38
+    },
+    {
+      "code": "BOOK_SPARK",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 56
+    },
+    {
+      "code": "BOOK_ELEMENTAL_WEAKNESS",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 80
+    },
+    {
+      "code": "BOOK_ESSENCE_DRAIN",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 110
+    },
+    {
+      "code": "BOOK_ARCANE_WARD",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 140
+    },
+    {
+      "code": "BOOK_DISCIPLINE",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 23
+    },
+    {
+      "code": "BOOK_ELEMENTAL_MASTERY",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 35
+    },
+    {
+      "code": "BOOK_MANA_HARVEST",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 50
+    },
+    {
+      "code": "BOOK_CLARITY",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 68
+    },
+    {
+      "code": "BOOK_DEEP_RESERVE",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 92
+    },
+    {
+      "code": "BOOK_ELEMENTAL_SURGE",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 116
+    },
+    {
+      "code": "BOOK_SWIFT_CASTING",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 146
+    },
+    {
+      "code": "BOOK_LAST_WARD",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 176
+    },
+    {
+      "code": "BOOK_DOUBLE_STRIKE",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 23
+    },
+    {
+      "code": "BOOK_LUNGE",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 38
+    },
+    {
+      "code": "BOOK_STEEL_WHIRL",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 56
+    },
+    {
+      "code": "BOOK_CHALLENGE",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 80
+    },
+    {
+      "code": "BOOK_ENFEEBLE",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 110
+    },
+    {
+      "code": "BOOK_RIPOSTE",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 140
+    },
+    {
+      "code": "BOOK_PRECISION",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 23
+    },
+    {
+      "code": "BOOK_BLADE_MASTER",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 35
+    },
+    {
+      "code": "BOOK_ONSLAUGHT",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 50
+    },
+    {
+      "code": "BOOK_BLOODLUST",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 68
+    },
+    {
+      "code": "BOOK_SWORDSMAN",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 92
+    },
+    {
+      "code": "BOOK_SECOND_WIND",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 116
+    },
+    {
+      "code": "BOOK_RUTHLESS",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 146
+    },
+    {
+      "code": "BOOK_COUP_DE_GRACE",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 176
+    },
+    {
+      "code": "BOOK_SMITE",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 23
+    },
+    {
+      "code": "BOOK_PURIFYING_FLAME",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 38
+    },
+    {
+      "code": "BOOK_STORM_CALL",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 56
+    },
+    {
+      "code": "BOOK_PRAYER",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 80
+    },
+    {
+      "code": "BOOK_CONDUCTIVITY",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 110
+    },
+    {
+      "code": "BOOK_DIVINE_SHIELD",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 140
+    },
+    {
+      "code": "BOOK_PURITY_OF_ELEMENTS",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 23
+    },
+    {
+      "code": "BOOK_FAITH",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 35
+    },
+    {
+      "code": "BOOK_BLESSING",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 50
+    },
+    {
+      "code": "BOOK_WRATH",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 68
+    },
+    {
+      "code": "BOOK_HOLY_ARMS",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 92
+    },
+    {
+      "code": "BOOK_RIGHTEOUSNESS",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 116
+    },
+    {
+      "code": "BOOK_FORTITUDE",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 146
+    },
+    {
+      "code": "BOOK_MARTYR",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 176
+    },
+    {
+      "code": "BOOK_VIPER_STRIKE",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 23
+    },
+    {
+      "code": "BOOK_BLADE_FLURRY",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 38
+    },
+    {
+      "code": "BOOK_SHADOW_CLOAK",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 56
+    },
+    {
+      "code": "BOOK_TOXIC_CLOUD",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 80
+    },
+    {
+      "code": "BOOK_DESPAIR",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 110
+    },
+    {
+      "code": "BOOK_BACKSTAB",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 140
+    },
+    {
+      "code": "BOOK_MALEVOLENCE",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 23
+    },
+    {
+      "code": "BOOK_ASSASSIN",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 35
+    },
+    {
+      "code": "BOOK_VANISH",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 50
+    },
+    {
+      "code": "BOOK_SWIFTNESS",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 68
+    },
+    {
+      "code": "BOOK_TOXICOLOGIST",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 92
+    },
+    {
+      "code": "BOOK_LETHAL_VENOM",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 116
+    },
+    {
+      "code": "BOOK_STEALTH",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 146
+    },
+    {
+      "code": "BOOK_SIPHON",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 176
+    },
+    {
+      "code": "BOOK_ELEMENTAL_HIT",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 23
+    },
+    {
+      "code": "BOOK_SPECTRAL_THROW",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 38
+    },
+    {
+      "code": "BOOK_ARC",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 56
+    },
+    {
+      "code": "BOOK_RALLYING_CRY",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 80
+    },
+    {
+      "code": "BOOK_TEMPORAL_CHAINS",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 110
+    },
+    {
+      "code": "BOOK_RENEWAL",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 140
+    },
+    {
+      "code": "BOOK_HARMONY",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 23
+    },
+    {
+      "code": "BOOK_LEGACY",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 35
+    },
+    {
+      "code": "BOOK_ECHO",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 50
+    },
+    {
+      "code": "BOOK_RESONANCE",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 68
+    },
+    {
+      "code": "BOOK_ADEPT",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 92
+    },
+    {
+      "code": "BOOK_FLASK_ECHO",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 116
+    },
+    {
+      "code": "BOOK_HUNGER_FOR_POWER",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 146
+    },
+    {
+      "code": "BOOK_WILL_TO_LIVE",
+      "category": "BOOK",
+      "subCategory": "SCION",
+      "price": 176
+    },
+    {
+      "code": "ESSENCE_GREED_1",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_GREED_2",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_GREED_3",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_GREED_4",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_GREED_5",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_GREED_6",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_GREED_7",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_1",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_2",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_3",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_4",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_5",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_6",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_7",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_HATRED_1",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_HATRED_2",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_HATRED_3",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_HATRED_4",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_HATRED_5",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_HATRED_6",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_HATRED_7",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_WOE_1",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_WOE_2",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_WOE_3",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_WOE_4",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_WOE_5",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_WOE_6",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_WOE_7",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_FEAR_1",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_FEAR_2",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_FEAR_3",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_FEAR_4",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_FEAR_5",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_FEAR_6",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_FEAR_7",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_ANGER_1",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_ANGER_2",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_ANGER_3",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_ANGER_4",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_ANGER_5",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_ANGER_6",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_ANGER_7",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_TORMENT_1",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_TORMENT_2",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_TORMENT_3",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_TORMENT_4",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_TORMENT_5",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_TORMENT_6",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_TORMENT_7",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_SORROW_1",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_SORROW_2",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_SORROW_3",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_SORROW_4",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_SORROW_5",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_SORROW_6",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_SORROW_7",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_RAGE_1",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_RAGE_2",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_RAGE_3",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_RAGE_4",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_RAGE_5",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_RAGE_6",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_RAGE_7",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_SUFFERING_1",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_SUFFERING_2",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_SUFFERING_3",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_SUFFERING_4",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_SUFFERING_5",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_SUFFERING_6",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_SUFFERING_7",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_WRATH_1",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_WRATH_2",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_WRATH_3",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_WRATH_4",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_WRATH_5",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_WRATH_6",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_WRATH_7",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_DOUBT_1",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_DOUBT_2",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_DOUBT_3",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_DOUBT_4",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_DOUBT_5",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_DOUBT_6",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_DOUBT_7",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_LOATHING_1",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_LOATHING_2",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_LOATHING_3",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_LOATHING_4",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_LOATHING_5",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_LOATHING_6",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_LOATHING_7",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_ZEAL_1",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_ZEAL_2",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_ZEAL_3",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_ZEAL_4",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_ZEAL_5",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_ZEAL_6",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_ZEAL_7",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_ANGUISH_1",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_ANGUISH_2",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_ANGUISH_3",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_ANGUISH_4",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_ANGUISH_5",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_ANGUISH_6",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_ANGUISH_7",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_SPITE_1",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_SPITE_2",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_SPITE_3",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_SPITE_4",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_SPITE_5",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_SPITE_6",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_SPITE_7",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_SCORN_1",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_SCORN_2",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_SCORN_3",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_SCORN_4",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_SCORN_5",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_SCORN_6",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_SCORN_7",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_ENVY_1",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_ENVY_2",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_ENVY_3",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_ENVY_4",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_ENVY_5",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_ENVY_6",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_ENVY_7",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_MISERY_1",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_MISERY_2",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_MISERY_3",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_MISERY_4",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_MISERY_5",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_MISERY_6",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_MISERY_7",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_DREAD_1",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 5
+    },
+    {
+      "code": "ESSENCE_DREAD_2",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 10
+    },
+    {
+      "code": "ESSENCE_DREAD_3",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 20
+    },
+    {
+      "code": "ESSENCE_DREAD_4",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 40
+    },
+    {
+      "code": "ESSENCE_DREAD_5",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 80
+    },
+    {
+      "code": "ESSENCE_DREAD_6",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 160
+    },
+    {
+      "code": "ESSENCE_DREAD_7",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 320
+    },
+    {
+      "code": "ESSENCE_INSANITY",
+      "category": "ESSENCE",
+      "subCategory": "INSANITY",
+      "price": 400
+    },
+    {
+      "code": "ESSENCE_HORROR",
+      "category": "ESSENCE",
+      "subCategory": "HORROR",
+      "price": 400
+    },
+    {
+      "code": "ESSENCE_DELIRIUM",
+      "category": "ESSENCE",
+      "subCategory": "DELIRIUM",
+      "price": 400
+    },
+    {
+      "code": "ESSENCE_HYSTERIA",
+      "category": "ESSENCE",
+      "subCategory": "HYSTERIA",
+      "price": 400
     }
   ]
 }

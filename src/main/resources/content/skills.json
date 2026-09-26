@@ -1,0 +1,2754 @@
+{
+  "rules": {
+    "activeSlots": [
+      1,
+      12,
+      28
+    ],
+    "passiveSlots": [
+      1,
+      20
+    ],
+    "manaPerLevel": 5,
+    "attributes": {
+      "single": [
+        2.2,
+        8
+      ],
+      "dual": [
+        1.4,
+        5
+      ],
+      "triple": [
+        0.9,
+        3
+      ]
+    },
+    "books": {
+      "boss": 0.3,
+      "bossOwnClass": 0.6,
+      "rare": 0.03,
+      "guardian": 0.1,
+      "reach": 5
+    },
+    "exchange": {
+      "books": 3,
+      "goldPerLevel": 100
+    },
+    "casterSpells": {
+      "FIRE": "MOB_FIREBALL",
+      "COLD": "MOB_ICE_BOLT",
+      "LIGHTNING": "MOB_ZAP",
+      "CHAOS": "MOB_SPIT",
+      "PHYSICAL": "MOB_CHAOS_RING"
+    }
+  },
+  "classes": [
+    {
+      "code": "MARAUDER",
+      "attributes": [
+        "STOCK_STRENGTH"
+      ],
+      "mana": 30
+    },
+    {
+      "code": "RANGER",
+      "attributes": [
+        "STOCK_AGILITY"
+      ],
+      "mana": 40
+    },
+    {
+      "code": "WITCH",
+      "attributes": [
+        "STOCK_INTELLECT"
+      ],
+      "mana": 60
+    },
+    {
+      "code": "DUELIST",
+      "attributes": [
+        "STOCK_STRENGTH",
+        "STOCK_AGILITY"
+      ],
+      "mana": 35
+    },
+    {
+      "code": "TEMPLAR",
+      "attributes": [
+        "STOCK_STRENGTH",
+        "STOCK_INTELLECT"
+      ],
+      "mana": 50
+    },
+    {
+      "code": "SHADOW",
+      "attributes": [
+        "STOCK_AGILITY",
+        "STOCK_INTELLECT"
+      ],
+      "mana": 50
+    },
+    {
+      "code": "SCION",
+      "attributes": [
+        "STOCK_STRENGTH",
+        "STOCK_AGILITY",
+        "STOCK_INTELLECT"
+      ],
+      "mana": 45
+    }
+  ],
+  "skills": [
+    {
+      "code": "HEAVY_STRIKE",
+      "heroClass": "MARAUDER",
+      "type": "ATTACK",
+      "unlock": 1,
+      "icon": "physical",
+      "mana": [
+        6,
+        20
+      ],
+      "cooldown": 3.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          180,
+          300
+        ],
+        "stun": [
+          20,
+          40
+        ]
+      }
+    },
+    {
+      "code": "ENDURING_CRY",
+      "heroClass": "MARAUDER",
+      "type": "WARCRY",
+      "unlock": 6,
+      "icon": "armour",
+      "mana": [
+        10,
+        30
+      ],
+      "cooldown": 12.0,
+      "condition": "FIGHT_START",
+      "buff": {
+        "duration": 6,
+        "stats": [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "INCREASED",
+            "value": [
+              20,
+              60
+            ]
+          },
+          {
+            "stat": "STOCK_LIFE_REGEN_PERCENT",
+            "operation": "ADD",
+            "value": [
+              1,
+              3
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "GROUND_SLAM",
+      "heroClass": "MARAUDER",
+      "type": "ATTACK",
+      "unlock": 12,
+      "icon": "earth",
+      "mana": [
+        12,
+        34
+      ],
+      "cooldown": 6.0,
+      "condition": "ENEMIES_3",
+      "hit": {
+        "targets": 0,
+        "weapon": [
+          110,
+          190
+        ],
+        "stun": [
+          25,
+          25
+        ]
+      }
+    },
+    {
+      "code": "INFERNAL_BLOW",
+      "heroClass": "MARAUDER",
+      "type": "ATTACK",
+      "unlock": 20,
+      "icon": "fire",
+      "mana": [
+        14,
+        36
+      ],
+      "cooldown": 5.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          150,
+          260
+        ],
+        "element": "FIRE",
+        "convert": [
+          40,
+          80
+        ],
+        "ailments": [
+          {
+            "ailment": "IGNITE",
+            "chance": [
+              30,
+              50
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "VULNERABILITY",
+      "heroClass": "MARAUDER",
+      "type": "CURSE",
+      "unlock": 30,
+      "icon": "bleeding",
+      "mana": [
+        18,
+        40
+      ],
+      "cooldown": 15.0,
+      "condition": "RARE_OR_BOSS",
+      "curse": {
+        "duration": 8,
+        "targets": 0,
+        "stats": [
+          {
+            "stat": "STOCK_PHYSICAL_TAKEN",
+            "operation": "ADD",
+            "value": [
+              15,
+              35
+            ]
+          },
+          {
+            "stat": "STOCK_BLEED_TAKEN",
+            "operation": "ADD",
+            "value": [
+              10,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "BLOOD_RAGE",
+      "heroClass": "MARAUDER",
+      "type": "GUARD",
+      "unlock": 40,
+      "icon": "leech",
+      "mana": [
+        16,
+        34
+      ],
+      "cooldown": 20.0,
+      "condition": "LIFE_50",
+      "buff": {
+        "duration": 8,
+        "stats": [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "value": [
+              10,
+              25
+            ]
+          },
+          {
+            "stat": "STOCK_LEECH_ALL",
+            "operation": "ADD",
+            "value": [
+              1,
+              3
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "DETERMINATION",
+      "heroClass": "MARAUDER",
+      "type": "AURA",
+      "unlock": 1,
+      "icon": "armour",
+      "reserve": 50,
+      "stats": [
+        {
+          "stat": "STOCK_ARMOR",
+          "operation": "INCREASED",
+          "value": [
+            20,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "code": "IRON_SKIN",
+      "heroClass": "MARAUDER",
+      "type": "BONUS",
+      "unlock": 5,
+      "icon": "constitution",
+      "stats": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "INCREASED",
+          "value": [
+            4,
+            12
+          ]
+        },
+        {
+          "stat": "STOCK_ARMOR",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BLOODLETTING",
+      "heroClass": "MARAUDER",
+      "type": "TRIGGER",
+      "unlock": 10,
+      "icon": "health",
+      "trigger": {
+        "on": "KILL",
+        "heal": {
+          "life": [
+            2,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "code": "ANGER",
+      "heroClass": "MARAUDER",
+      "type": "AURA",
+      "unlock": 16,
+      "icon": "fire",
+      "reserve": 50,
+      "stats": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "operation": "ADD",
+          "value": [
+            5.5,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BERSERKER_FURY",
+      "heroClass": "MARAUDER",
+      "type": "BONUS",
+      "unlock": 24,
+      "icon": "strength",
+      "stats": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ],
+      "lowLife": true
+    },
+    {
+      "code": "UNBREAKABLE",
+      "heroClass": "MARAUDER",
+      "type": "TRIGGER",
+      "unlock": 32,
+      "icon": "shield",
+      "trigger": {
+        "on": "LOW_LIFE",
+        "cooldown": 30,
+        "barrier": {
+          "life": [
+            10,
+            25
+          ],
+          "duration": 4
+        }
+      }
+    },
+    {
+      "code": "THICK_SKULL",
+      "heroClass": "MARAUDER",
+      "type": "BONUS",
+      "unlock": 42,
+      "icon": "stun",
+      "stats": [
+        {
+          "stat": "STOCK_STUN_THRESHOLD",
+          "operation": "INCREASED",
+          "value": [
+            15,
+            45
+          ]
+        },
+        {
+          "stat": "STOCK_PHYSICAL_REDUCTION",
+          "operation": "ADD",
+          "value": [
+            1,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RETALIATION",
+      "heroClass": "MARAUDER",
+      "type": "TRIGGER",
+      "unlock": 52,
+      "icon": "combat",
+      "trigger": {
+        "on": "HIT_TAKEN",
+        "chance": [
+          10,
+          20
+        ],
+        "hit": {
+          "targets": 1,
+          "weapon": [
+            100,
+            180
+          ]
+        }
+      }
+    },
+    {
+      "code": "SPLIT_ARROW",
+      "heroClass": "RANGER",
+      "type": "ATTACK",
+      "unlock": 1,
+      "icon": "bow",
+      "mana": [
+        6,
+        20
+      ],
+      "cooldown": 2.5,
+      "condition": "READY",
+      "hit": {
+        "targets": 3,
+        "weapon": [
+          90,
+          150
+        ]
+      }
+    },
+    {
+      "code": "SNIPE",
+      "heroClass": "RANGER",
+      "type": "ATTACK",
+      "unlock": 6,
+      "icon": "critical",
+      "mana": [
+        10,
+        28
+      ],
+      "cooldown": 5.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          220,
+          380
+        ],
+        "stats": [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "operation": "ADD",
+            "value": [
+              5,
+              15
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ICE_SHOT",
+      "heroClass": "RANGER",
+      "type": "ATTACK",
+      "unlock": 12,
+      "icon": "cold",
+      "mana": [
+        12,
+        32
+      ],
+      "cooldown": 5.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          130,
+          220
+        ],
+        "element": "COLD",
+        "convert": [
+          50,
+          50
+        ],
+        "ailments": [
+          {
+            "ailment": "CHILL",
+            "chance": [
+              100,
+              100
+            ]
+          },
+          {
+            "ailment": "FREEZE",
+            "chance": [
+              10,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "RAIN_OF_ARROWS",
+      "heroClass": "RANGER",
+      "type": "ATTACK",
+      "unlock": 20,
+      "icon": "quiver",
+      "mana": [
+        16,
+        40
+      ],
+      "cooldown": 8.0,
+      "condition": "ENEMIES_3",
+      "hit": {
+        "targets": 0,
+        "hits": 2,
+        "weapon": [
+          70,
+          120
+        ]
+      }
+    },
+    {
+      "code": "SNIPERS_MARK",
+      "heroClass": "RANGER",
+      "type": "CURSE",
+      "unlock": 30,
+      "icon": "focus",
+      "mana": [
+        16,
+        36
+      ],
+      "cooldown": 14.0,
+      "condition": "RARE_OR_BOSS",
+      "curse": {
+        "duration": 8,
+        "targets": 1,
+        "stats": [
+          {
+            "stat": "STOCK_CRITICAL_TAKEN",
+            "operation": "ADD",
+            "value": [
+              20,
+              50
+            ]
+          },
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "operation": "ADD",
+            "value": [
+              10,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "WIND_VEIL",
+      "heroClass": "RANGER",
+      "type": "GUARD",
+      "unlock": 40,
+      "icon": "air",
+      "mana": [
+        14,
+        32
+      ],
+      "cooldown": 16.0,
+      "condition": "LIFE_50",
+      "buff": {
+        "duration": 5,
+        "stats": [
+          {
+            "stat": "STOCK_EVASION",
+            "operation": "INCREASED",
+            "value": [
+              30,
+              80
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "GRACE",
+      "heroClass": "RANGER",
+      "type": "AURA",
+      "unlock": 1,
+      "icon": "evasion",
+      "reserve": 50,
+      "stats": [
+        {
+          "stat": "STOCK_EVASION",
+          "operation": "INCREASED",
+          "value": [
+            20,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "code": "EAGLE_EYE",
+      "heroClass": "RANGER",
+      "type": "BONUS",
+      "unlock": 5,
+      "icon": "critical",
+      "stats": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "operation": "INCREASED",
+          "value": [
+            20,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "code": "HUNTERS_THRILL",
+      "heroClass": "RANGER",
+      "type": "TRIGGER",
+      "unlock": 10,
+      "icon": "potion",
+      "trigger": {
+        "on": "KILL",
+        "chance": [
+          20,
+          50
+        ],
+        "flaskCharges": 1
+      }
+    },
+    {
+      "code": "HASTE",
+      "heroClass": "RANGER",
+      "type": "AURA",
+      "unlock": 16,
+      "icon": "speed",
+      "reserve": 50,
+      "stats": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "operation": "INCREASED",
+          "value": [
+            6,
+            16
+          ]
+        },
+        {
+          "stat": "STOCK_MOVEMENT_SPEED",
+          "operation": "INCREASED",
+          "value": [
+            5,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "LIGHT_FOOT",
+      "heroClass": "RANGER",
+      "type": "BONUS",
+      "unlock": 24,
+      "icon": "agility",
+      "stats": [
+        {
+          "stat": "STOCK_MOVEMENT_SPEED",
+          "operation": "INCREASED",
+          "value": [
+            5,
+            15
+          ]
+        },
+        {
+          "stat": "STOCK_EVASION",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "GUST",
+      "heroClass": "RANGER",
+      "type": "TRIGGER",
+      "unlock": 32,
+      "icon": "air",
+      "trigger": {
+        "on": "EVADE",
+        "buff": {
+          "duration": 3,
+          "stats": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "operation": "INCREASED",
+              "value": [
+                10,
+                25
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "POISONED_TIPS",
+      "heroClass": "RANGER",
+      "type": "BONUS",
+      "unlock": 42,
+      "icon": "poison",
+      "stats": [
+        {
+          "stat": "STOCK_POISON_CHANCE",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        },
+        {
+          "stat": "STOCK_POISON_DAMAGE",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "FROST_BURST",
+      "heroClass": "RANGER",
+      "type": "TRIGGER",
+      "unlock": 52,
+      "icon": "cold",
+      "trigger": {
+        "on": "CRIT",
+        "chance": [
+          15,
+          30
+        ],
+        "hit": {
+          "targets": 0,
+          "weapon": [
+            60,
+            120
+          ],
+          "element": "COLD",
+          "convert": [
+            100,
+            100
+          ]
+        }
+      }
+    },
+    {
+      "code": "FIREBALL",
+      "heroClass": "WITCH",
+      "type": "SPELL",
+      "unlock": 1,
+      "icon": "fire",
+      "mana": [
+        7,
+        24
+      ],
+      "cooldown": 2.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "spell": {
+          "element": "FIRE",
+          "min": [
+            6,
+            260
+          ],
+          "max": [
+            9,
+            390
+          ]
+        },
+        "ailments": [
+          {
+            "ailment": "IGNITE",
+            "chance": [
+              25,
+              40
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "FREEZING_PULSE",
+      "heroClass": "WITCH",
+      "type": "SPELL",
+      "unlock": 6,
+      "icon": "cold",
+      "mana": [
+        8,
+        26
+      ],
+      "cooldown": 3.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 2,
+        "spell": {
+          "element": "COLD",
+          "min": [
+            5,
+            230
+          ],
+          "max": [
+            8,
+            345
+          ]
+        },
+        "ailments": [
+          {
+            "ailment": "FREEZE",
+            "chance": [
+              20,
+              35
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "SPARK",
+      "heroClass": "WITCH",
+      "type": "SPELL",
+      "unlock": 12,
+      "icon": "lightning",
+      "mana": [
+        10,
+        30
+      ],
+      "cooldown": 3.0,
+      "condition": "ENEMIES_3",
+      "hit": {
+        "targets": 4,
+        "spell": {
+          "element": "LIGHTNING",
+          "min": [
+            2,
+            70
+          ],
+          "max": [
+            12,
+            420
+          ]
+        },
+        "ailments": [
+          {
+            "ailment": "SHOCK",
+            "chance": [
+              25,
+              45
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ELEMENTAL_WEAKNESS",
+      "heroClass": "WITCH",
+      "type": "CURSE",
+      "unlock": 20,
+      "icon": "resist",
+      "mana": [
+        16,
+        38
+      ],
+      "cooldown": 14.0,
+      "condition": "RARE_OR_BOSS",
+      "curse": {
+        "duration": 8,
+        "targets": 0,
+        "stats": [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "value": [
+              -10,
+              -30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ESSENCE_DRAIN",
+      "heroClass": "WITCH",
+      "type": "SPELL",
+      "unlock": 30,
+      "icon": "chaos",
+      "mana": [
+        14,
+        34
+      ],
+      "cooldown": 6.0,
+      "condition": "READY",
+      "dot": {
+        "targets": 1,
+        "element": "CHAOS",
+        "min": [
+          20,
+          450
+        ],
+        "max": [
+          30,
+          680
+        ],
+        "duration": 4,
+        "ailments": [
+          {
+            "ailment": "POISON",
+            "chance": [
+              100,
+              100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ARCANE_WARD",
+      "heroClass": "WITCH",
+      "type": "GUARD",
+      "unlock": 40,
+      "icon": "shield_energy",
+      "mana": [
+        18,
+        40
+      ],
+      "cooldown": 20.0,
+      "condition": "SHIELD_BROKEN",
+      "buff": {
+        "duration": 6,
+        "stats": [
+          {
+            "stat": "STOCK_SHIELD_RECHARGE",
+            "operation": "ADD",
+            "value": [
+              20,
+              50
+            ]
+          }
+        ]
+      },
+      "shield": [
+        15,
+        40
+      ]
+    },
+    {
+      "code": "DISCIPLINE",
+      "heroClass": "WITCH",
+      "type": "AURA",
+      "unlock": 1,
+      "icon": "shield_energy",
+      "reserve": 35,
+      "stats": [
+        {
+          "stat": "STOCK_ENERGY_SHIELD",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ELEMENTAL_MASTERY",
+      "heroClass": "WITCH",
+      "type": "BONUS",
+      "unlock": 5,
+      "icon": "magical",
+      "stats": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            35
+          ]
+        },
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            35
+          ]
+        },
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MANA_HARVEST",
+      "heroClass": "WITCH",
+      "type": "TRIGGER",
+      "unlock": 10,
+      "icon": "mana",
+      "trigger": {
+        "on": "SPELL_KILL",
+        "heal": {
+          "mana": [
+            3,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "code": "CLARITY",
+      "heroClass": "WITCH",
+      "type": "AURA",
+      "unlock": 16,
+      "icon": "mana",
+      "reserve": 20,
+      "stats": [
+        {
+          "stat": "STOCK_MANA_REGEN",
+          "operation": "INCREASED",
+          "value": [
+            30,
+            120
+          ]
+        }
+      ]
+    },
+    {
+      "code": "DEEP_RESERVE",
+      "heroClass": "WITCH",
+      "type": "BONUS",
+      "unlock": 24,
+      "icon": "intellect",
+      "stats": [
+        {
+          "stat": "STOCK_MANA",
+          "operation": "INCREASED",
+          "value": [
+            8,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ELEMENTAL_SURGE",
+      "heroClass": "WITCH",
+      "type": "TRIGGER",
+      "unlock": 32,
+      "icon": "orb_spark",
+      "trigger": {
+        "on": "SPELL_CRIT",
+        "chance": [
+          20,
+          40
+        ],
+        "ailment": "ELEMENT"
+      }
+    },
+    {
+      "code": "SWIFT_CASTING",
+      "heroClass": "WITCH",
+      "type": "BONUS",
+      "unlock": 42,
+      "icon": "speed",
+      "stats": [
+        {
+          "stat": "STOCK_CAST_SPEED",
+          "operation": "INCREASED",
+          "value": [
+            6,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "code": "LAST_WARD",
+      "heroClass": "WITCH",
+      "type": "TRIGGER",
+      "unlock": 52,
+      "icon": "shield_energy",
+      "trigger": {
+        "on": "SHIELD_BROKEN",
+        "cooldown": 30,
+        "shield": [
+          20,
+          40
+        ]
+      }
+    },
+    {
+      "code": "DOUBLE_STRIKE",
+      "heroClass": "DUELIST",
+      "type": "ATTACK",
+      "unlock": 1,
+      "icon": "doublesword",
+      "mana": [
+        6,
+        20
+      ],
+      "cooldown": 2.5,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "hits": 2,
+        "weapon": [
+          80,
+          140
+        ]
+      }
+    },
+    {
+      "code": "LUNGE",
+      "heroClass": "DUELIST",
+      "type": "ATTACK",
+      "unlock": 6,
+      "icon": "longsword",
+      "mana": [
+        9,
+        26
+      ],
+      "cooldown": 4.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          170,
+          290
+        ],
+        "stats": [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "operation": "ADD",
+            "value": [
+              10,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "STEEL_WHIRL",
+      "heroClass": "DUELIST",
+      "type": "ATTACK",
+      "unlock": 12,
+      "icon": "dual",
+      "mana": [
+        14,
+        36
+      ],
+      "cooldown": 8.0,
+      "condition": "ENEMIES_3",
+      "hit": {
+        "targets": 0,
+        "hits": 3,
+        "weapon": [
+          60,
+          100
+        ]
+      }
+    },
+    {
+      "code": "CHALLENGE",
+      "heroClass": "DUELIST",
+      "type": "WARCRY",
+      "unlock": 20,
+      "icon": "combat",
+      "mana": [
+        12,
+        30
+      ],
+      "cooldown": 12.0,
+      "condition": "FIGHT_START",
+      "buff": {
+        "duration": 6,
+        "stats": [
+          {
+            "stat": "STOCK_DAMAGE",
+            "operation": "INCREASED",
+            "value": [
+              15,
+              40
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ENFEEBLE",
+      "heroClass": "DUELIST",
+      "type": "CURSE",
+      "unlock": 30,
+      "icon": "dark",
+      "mana": [
+        16,
+        36
+      ],
+      "cooldown": 15.0,
+      "condition": "RARE_OR_BOSS",
+      "curse": {
+        "duration": 8,
+        "targets": 0,
+        "stats": [
+          {
+            "stat": "STOCK_DAMAGE",
+            "operation": "MORE",
+            "value": [
+              -15,
+              -35
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "RIPOSTE",
+      "heroClass": "DUELIST",
+      "type": "GUARD",
+      "unlock": 40,
+      "icon": "block",
+      "mana": [
+        14,
+        32
+      ],
+      "cooldown": 18.0,
+      "condition": "LIFE_50",
+      "buff": {
+        "duration": 6,
+        "stats": [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "operation": "ADD",
+            "value": [
+              15,
+              35
+            ]
+          }
+        ],
+        "counter": [
+          100,
+          200
+        ]
+      }
+    },
+    {
+      "code": "PRECISION",
+      "heroClass": "DUELIST",
+      "type": "AURA",
+      "unlock": 1,
+      "icon": "critical",
+      "reserve": 35,
+      "stats": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "operation": "INCREASED",
+          "value": [
+            15,
+            45
+          ]
+        },
+        {
+          "stat": "STOCK_CRITICAL_MULTIPLIER",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BLADE_MASTER",
+      "heroClass": "DUELIST",
+      "type": "BONUS",
+      "unlock": 5,
+      "icon": "sword",
+      "stats": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ONSLAUGHT",
+      "heroClass": "DUELIST",
+      "type": "TRIGGER",
+      "unlock": 10,
+      "icon": "speed",
+      "trigger": {
+        "on": "KILL",
+        "buff": {
+          "duration": 4,
+          "stats": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "operation": "INCREASED",
+              "value": [
+                10,
+                25
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "BLOODLUST",
+      "heroClass": "DUELIST",
+      "type": "AURA",
+      "unlock": 16,
+      "icon": "bleeding",
+      "reserve": 35,
+      "stats": [
+        {
+          "stat": "STOCK_BLEED_CHANCE",
+          "operation": "ADD",
+          "value": [
+            15,
+            40
+          ]
+        },
+        {
+          "stat": "STOCK_BLEED_DAMAGE",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SWORDSMAN",
+      "heroClass": "DUELIST",
+      "type": "BONUS",
+      "unlock": 24,
+      "icon": "block",
+      "stats": [
+        {
+          "stat": "STOCK_BLOCK_CHANCE",
+          "operation": "ADD",
+          "value": [
+            3,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SECOND_WIND",
+      "heroClass": "DUELIST",
+      "type": "TRIGGER",
+      "unlock": 32,
+      "icon": "regen",
+      "trigger": {
+        "on": "BLOCK",
+        "heal": {
+          "life": [
+            1,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "code": "RUTHLESS",
+      "heroClass": "DUELIST",
+      "type": "BONUS",
+      "unlock": 42,
+      "icon": "critical",
+      "stats": [
+        {
+          "stat": "STOCK_CRITICAL_MULTIPLIER",
+          "operation": "ADD",
+          "value": [
+            15,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "code": "COUP_DE_GRACE",
+      "heroClass": "DUELIST",
+      "type": "TRIGGER",
+      "unlock": 52,
+      "icon": "bleeding",
+      "stats": [
+        {
+          "stat": "STOCK_BLEED_DAMAGE",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ],
+      "trigger": {
+        "on": "CRIT",
+        "ailment": "BLEED"
+      }
+    },
+    {
+      "code": "SMITE",
+      "heroClass": "TEMPLAR",
+      "type": "ATTACK",
+      "unlock": 1,
+      "icon": "lightning",
+      "mana": [
+        7,
+        22
+      ],
+      "cooldown": 3.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          140,
+          240
+        ],
+        "element": "LIGHTNING",
+        "convert": [
+          40,
+          40
+        ],
+        "ailments": [
+          {
+            "ailment": "SHOCK",
+            "chance": [
+              20,
+              40
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "PURIFYING_FLAME",
+      "heroClass": "TEMPLAR",
+      "type": "SPELL",
+      "unlock": 6,
+      "icon": "fire",
+      "mana": [
+        9,
+        28
+      ],
+      "cooldown": 3.0,
+      "condition": "ENEMIES_3",
+      "hit": {
+        "targets": 0,
+        "spell": {
+          "element": "FIRE",
+          "min": [
+            4,
+            170
+          ],
+          "max": [
+            6,
+            250
+          ]
+        }
+      }
+    },
+    {
+      "code": "STORM_CALL",
+      "heroClass": "TEMPLAR",
+      "type": "SPELL",
+      "unlock": 12,
+      "icon": "lightning",
+      "mana": [
+        12,
+        32
+      ],
+      "cooldown": 5.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "spell": {
+          "element": "LIGHTNING",
+          "min": [
+            5,
+            180
+          ],
+          "max": [
+            15,
+            540
+          ]
+        },
+        "ailments": [
+          {
+            "ailment": "SHOCK",
+            "chance": [
+              100,
+              100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "PRAYER",
+      "heroClass": "TEMPLAR",
+      "type": "HEAL",
+      "unlock": 20,
+      "icon": "light",
+      "mana": [
+        16,
+        40
+      ],
+      "cooldown": 18.0,
+      "condition": "LIFE_50",
+      "heal": {
+        "life": [
+          15,
+          40
+        ],
+        "cleanse": true
+      }
+    },
+    {
+      "code": "CONDUCTIVITY",
+      "heroClass": "TEMPLAR",
+      "type": "CURSE",
+      "unlock": 30,
+      "icon": "lightning",
+      "mana": [
+        16,
+        38
+      ],
+      "cooldown": 14.0,
+      "condition": "RARE_OR_BOSS",
+      "curse": {
+        "duration": 8,
+        "targets": 0,
+        "stats": [
+          {
+            "stat": "STOCK_RESIST_LIGHTNING",
+            "operation": "ADD",
+            "value": [
+              -15,
+              -35
+            ]
+          },
+          {
+            "stat": "STOCK_SHOCK_TAKEN",
+            "operation": "ADD",
+            "value": [
+              10,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "DIVINE_SHIELD",
+      "heroClass": "TEMPLAR",
+      "type": "GUARD",
+      "unlock": 40,
+      "icon": "shield",
+      "mana": [
+        18,
+        42
+      ],
+      "cooldown": 24.0,
+      "condition": "LIFE_35",
+      "barrier": {
+        "life": [
+          15,
+          35
+        ],
+        "duration": 6
+      }
+    },
+    {
+      "code": "PURITY_OF_ELEMENTS",
+      "heroClass": "TEMPLAR",
+      "type": "AURA",
+      "unlock": 1,
+      "icon": "resist",
+      "reserve": 35,
+      "stats": [
+        {
+          "stat": "STOCK_RESIST_ALL",
+          "operation": "ADD",
+          "value": [
+            10,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "code": "FAITH",
+      "heroClass": "TEMPLAR",
+      "type": "BONUS",
+      "unlock": 5,
+      "icon": "light",
+      "stats": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "INCREASED",
+          "value": [
+            3,
+            10
+          ]
+        },
+        {
+          "stat": "STOCK_MANA",
+          "operation": "INCREASED",
+          "value": [
+            5,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "BLESSING",
+      "heroClass": "TEMPLAR",
+      "type": "TRIGGER",
+      "unlock": 10,
+      "icon": "armour",
+      "trigger": {
+        "on": "HEALED",
+        "buff": {
+          "duration": 4,
+          "stats": [
+            {
+              "stat": "STOCK_ARMOR",
+              "operation": "INCREASED",
+              "value": [
+                20,
+                50
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "WRATH",
+      "heroClass": "TEMPLAR",
+      "type": "AURA",
+      "unlock": 16,
+      "icon": "lightning",
+      "reserve": 50,
+      "stats": [
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "operation": "ADD",
+          "value": [
+            5,
+            132.5
+          ]
+        }
+      ]
+    },
+    {
+      "code": "HOLY_ARMS",
+      "heroClass": "TEMPLAR",
+      "type": "BONUS",
+      "unlock": 24,
+      "icon": "magical",
+      "stats": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        },
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        },
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "RIGHTEOUSNESS",
+      "heroClass": "TEMPLAR",
+      "type": "TRIGGER",
+      "unlock": 32,
+      "icon": "health",
+      "trigger": {
+        "on": "KILL",
+        "heal": {
+          "life": [
+            1,
+            4
+          ],
+          "mana": [
+            1,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "code": "FORTITUDE",
+      "heroClass": "TEMPLAR",
+      "type": "BONUS",
+      "unlock": 42,
+      "icon": "constitution",
+      "stats": [
+        {
+          "stat": "STOCK_ARMOR",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        },
+        {
+          "stat": "STOCK_STUN_THRESHOLD",
+          "operation": "INCREASED",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "MARTYR",
+      "heroClass": "TEMPLAR",
+      "type": "TRIGGER",
+      "unlock": 52,
+      "icon": "regen",
+      "trigger": {
+        "on": "LOW_LIFE",
+        "cooldown": 25,
+        "buff": {
+          "duration": 4,
+          "stats": [
+            {
+              "stat": "STOCK_LIFE_REGEN_PERCENT",
+              "operation": "ADD",
+              "value": [
+                2,
+                5
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "VIPER_STRIKE",
+      "heroClass": "SHADOW",
+      "type": "ATTACK",
+      "unlock": 1,
+      "icon": "poison",
+      "mana": [
+        6,
+        20
+      ],
+      "cooldown": 2.5,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          120,
+          220
+        ],
+        "ailments": [
+          {
+            "ailment": "POISON",
+            "chance": [
+              100,
+              100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "BLADE_FLURRY",
+      "heroClass": "SHADOW",
+      "type": "ATTACK",
+      "unlock": 6,
+      "icon": "blade",
+      "mana": [
+        10,
+        28
+      ],
+      "cooldown": 5.0,
+      "condition": "ENEMIES_3",
+      "hit": {
+        "targets": 0,
+        "hits": 2,
+        "weapon": [
+          60,
+          110
+        ]
+      }
+    },
+    {
+      "code": "SHADOW_CLOAK",
+      "heroClass": "SHADOW",
+      "type": "GUARD",
+      "unlock": 12,
+      "icon": "invisible",
+      "mana": [
+        12,
+        30
+      ],
+      "cooldown": 16.0,
+      "condition": "LIFE_50",
+      "buff": {
+        "duration": 4,
+        "stats": [
+          {
+            "stat": "STOCK_EVASION",
+            "operation": "INCREASED",
+            "value": [
+              30,
+              80
+            ]
+          }
+        ],
+        "nextCrit": true
+      }
+    },
+    {
+      "code": "TOXIC_CLOUD",
+      "heroClass": "SHADOW",
+      "type": "SPELL",
+      "unlock": 20,
+      "icon": "poison",
+      "mana": [
+        14,
+        36
+      ],
+      "cooldown": 7.0,
+      "condition": "ENEMIES_3",
+      "dot": {
+        "targets": 0,
+        "element": "CHAOS",
+        "min": [
+          15,
+          350
+        ],
+        "max": [
+          22,
+          520
+        ],
+        "duration": 4,
+        "ailments": [
+          {
+            "ailment": "POISON",
+            "chance": [
+              100,
+              100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "DESPAIR",
+      "heroClass": "SHADOW",
+      "type": "CURSE",
+      "unlock": 30,
+      "icon": "dark",
+      "mana": [
+        16,
+        38
+      ],
+      "cooldown": 14.0,
+      "condition": "RARE_OR_BOSS",
+      "curse": {
+        "duration": 8,
+        "targets": 0,
+        "stats": [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "value": [
+              -15,
+              -35
+            ]
+          },
+          {
+            "stat": "STOCK_DOT_TAKEN",
+            "operation": "ADD",
+            "value": [
+              10,
+              30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "BACKSTAB",
+      "heroClass": "SHADOW",
+      "type": "ATTACK",
+      "unlock": 40,
+      "icon": "blade",
+      "mana": [
+        16,
+        38
+      ],
+      "cooldown": 10.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          150,
+          250
+        ],
+        "finisher": [
+          300,
+          500
+        ]
+      }
+    },
+    {
+      "code": "MALEVOLENCE",
+      "heroClass": "SHADOW",
+      "type": "AURA",
+      "unlock": 1,
+      "icon": "dark",
+      "reserve": 50,
+      "stats": [
+        {
+          "stat": "STOCK_BURNING_DAMAGE",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        },
+        {
+          "stat": "STOCK_POISON_DAMAGE",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        },
+        {
+          "stat": "STOCK_BLEED_DAMAGE",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        },
+        {
+          "stat": "STOCK_AILMENT_DURATION",
+          "operation": "ADD",
+          "value": [
+            10,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ASSASSIN",
+      "heroClass": "SHADOW",
+      "type": "BONUS",
+      "unlock": 5,
+      "icon": "critical",
+      "stats": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "operation": "INCREASED",
+          "value": [
+            20,
+            60
+          ]
+        },
+        {
+          "stat": "STOCK_CRITICAL_MULTIPLIER",
+          "operation": "ADD",
+          "value": [
+            10,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "code": "VANISH",
+      "heroClass": "SHADOW",
+      "type": "TRIGGER",
+      "unlock": 10,
+      "icon": "invisible",
+      "trigger": {
+        "on": "KILL",
+        "buff": {
+          "duration": 2,
+          "stats": [
+            {
+              "stat": "STOCK_EVASION",
+              "operation": "INCREASED",
+              "value": [
+                50,
+                100
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "SWIFTNESS",
+      "heroClass": "SHADOW",
+      "type": "AURA",
+      "unlock": 16,
+      "icon": "speed",
+      "reserve": 35,
+      "stats": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "operation": "INCREASED",
+          "value": [
+            6,
+            16
+          ]
+        },
+        {
+          "stat": "STOCK_EVASION",
+          "operation": "INCREASED",
+          "value": [
+            5,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "TOXICOLOGIST",
+      "heroClass": "SHADOW",
+      "type": "BONUS",
+      "unlock": 24,
+      "icon": "poison",
+      "stats": [
+        {
+          "stat": "STOCK_POISON_DAMAGE",
+          "operation": "ADD",
+          "value": [
+            15,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "code": "LETHAL_VENOM",
+      "heroClass": "SHADOW",
+      "type": "TRIGGER",
+      "unlock": 32,
+      "icon": "poison",
+      "trigger": {
+        "on": "CRIT",
+        "ailment": "POISON",
+        "twice": true
+      }
+    },
+    {
+      "code": "STEALTH",
+      "heroClass": "SHADOW",
+      "type": "BONUS",
+      "unlock": 42,
+      "icon": "evasion",
+      "stats": [
+        {
+          "stat": "STOCK_EVASION",
+          "operation": "INCREASED",
+          "value": [
+            15,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SIPHON",
+      "heroClass": "SHADOW",
+      "type": "TRIGGER",
+      "unlock": 52,
+      "icon": "mana",
+      "trigger": {
+        "on": "EVADE",
+        "heal": {
+          "mana": [
+            1,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "code": "ELEMENTAL_HIT",
+      "heroClass": "SCION",
+      "type": "ATTACK",
+      "unlock": 1,
+      "icon": "orb_facet",
+      "mana": [
+        7,
+        22
+      ],
+      "cooldown": 3.0,
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          150,
+          250
+        ],
+        "element": "RANDOM",
+        "convert": [
+          100,
+          100
+        ],
+        "ailments": [
+          {
+            "ailment": "ELEMENT",
+            "chance": [
+              25,
+              40
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "SPECTRAL_THROW",
+      "heroClass": "SCION",
+      "type": "ATTACK",
+      "unlock": 6,
+      "icon": "throwing",
+      "mana": [
+        9,
+        26
+      ],
+      "cooldown": 3.5,
+      "condition": "READY",
+      "hit": {
+        "targets": 2,
+        "weapon": [
+          110,
+          190
+        ]
+      }
+    },
+    {
+      "code": "ARC",
+      "heroClass": "SCION",
+      "type": "SPELL",
+      "unlock": 12,
+      "icon": "lightning",
+      "mana": [
+        12,
+        32
+      ],
+      "cooldown": 4.0,
+      "condition": "ENEMIES_3",
+      "hit": {
+        "targets": 4,
+        "spell": {
+          "element": "LIGHTNING",
+          "min": [
+            4,
+            150
+          ],
+          "max": [
+            12,
+            450
+          ]
+        }
+      }
+    },
+    {
+      "code": "RALLYING_CRY",
+      "heroClass": "SCION",
+      "type": "WARCRY",
+      "unlock": 20,
+      "icon": "combat",
+      "mana": [
+        14,
+        34
+      ],
+      "cooldown": 13.0,
+      "condition": "FIGHT_START",
+      "buff": {
+        "duration": 6,
+        "stats": [
+          {
+            "stat": "STOCK_DAMAGE",
+            "operation": "INCREASED",
+            "value": [
+              10,
+              25
+            ]
+          },
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "value": [
+              10,
+              20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "TEMPORAL_CHAINS",
+      "heroClass": "SCION",
+      "type": "CURSE",
+      "unlock": 30,
+      "icon": "dark",
+      "mana": [
+        16,
+        38
+      ],
+      "cooldown": 15.0,
+      "condition": "RARE_OR_BOSS",
+      "curse": {
+        "duration": 8,
+        "targets": 0,
+        "stats": [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "MORE",
+            "value": [
+              -15,
+              -35
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "RENEWAL",
+      "heroClass": "SCION",
+      "type": "HEAL",
+      "unlock": 40,
+      "icon": "regen",
+      "mana": [
+        18,
+        42
+      ],
+      "cooldown": 20.0,
+      "condition": "LIFE_50",
+      "heal": {
+        "life": [
+          15,
+          35
+        ],
+        "mana": [
+          10,
+          20
+        ]
+      }
+    },
+    {
+      "code": "HARMONY",
+      "heroClass": "SCION",
+      "type": "AURA",
+      "unlock": 1,
+      "icon": "orb",
+      "reserve": 35,
+      "stats": [
+        {
+          "stat": "STOCK_STRENGTH",
+          "operation": "ADD",
+          "value": [
+            10,
+            40
+          ]
+        },
+        {
+          "stat": "STOCK_AGILITY",
+          "operation": "ADD",
+          "value": [
+            10,
+            40
+          ]
+        },
+        {
+          "stat": "STOCK_INTELLECT",
+          "operation": "ADD",
+          "value": [
+            10,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "code": "LEGACY",
+      "heroClass": "SCION",
+      "type": "BONUS",
+      "unlock": 5,
+      "icon": "resist",
+      "stats": [
+        {
+          "stat": "STOCK_RESIST_ALL",
+          "operation": "ADD",
+          "value": [
+            5,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ECHO",
+      "heroClass": "SCION",
+      "type": "TRIGGER",
+      "unlock": 10,
+      "icon": "mirror",
+      "trigger": {
+        "on": "SKILL_USE",
+        "chance": [
+          10,
+          20
+        ],
+        "refund": true
+      }
+    },
+    {
+      "code": "RESONANCE",
+      "heroClass": "SCION",
+      "type": "AURA",
+      "unlock": 16,
+      "icon": "magical",
+      "reserve": 50,
+      "stats": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "operation": "INCREASED",
+          "value": [
+            8,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ADEPT",
+      "heroClass": "SCION",
+      "type": "BONUS",
+      "unlock": 24,
+      "icon": "speed",
+      "stats": [
+        {
+          "stat": "STOCK_COOLDOWN_RECOVERY",
+          "operation": "INCREASED",
+          "value": [
+            8,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "code": "FLASK_ECHO",
+      "heroClass": "SCION",
+      "type": "TRIGGER",
+      "unlock": 32,
+      "icon": "potion",
+      "trigger": {
+        "on": "KILL",
+        "chance": [
+          15,
+          30
+        ],
+        "flaskCharges": 1
+      }
+    },
+    {
+      "code": "HUNGER_FOR_POWER",
+      "heroClass": "SCION",
+      "type": "BONUS",
+      "unlock": 42,
+      "icon": "leech",
+      "stats": [
+        {
+          "stat": "STOCK_HEALTH_ON_KILL",
+          "operation": "ADD",
+          "value": [
+            2,
+            8
+          ]
+        },
+        {
+          "stat": "STOCK_MANA_ON_KILL",
+          "operation": "ADD",
+          "value": [
+            1,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "code": "WILL_TO_LIVE",
+      "heroClass": "SCION",
+      "type": "TRIGGER",
+      "unlock": 52,
+      "icon": "health",
+      "trigger": {
+        "on": "LOW_LIFE",
+        "cooldown": 25,
+        "buff": {
+          "duration": 4,
+          "stats": [
+            {
+              "stat": "STOCK_RECOVERY_RATE",
+              "operation": "ADD",
+              "value": [
+                50,
+                150
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "monsterSkills": [
+    {
+      "code": "MOB_FIREBALL",
+      "icon": "fire",
+      "mana": 10,
+      "cooldown": 5.0,
+      "spell": true,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          150,
+          150
+        ],
+        "element": "FIRE",
+        "convert": [
+          100,
+          100
+        ],
+        "ailments": [
+          {
+            "ailment": "IGNITE",
+            "chance": [
+              30,
+              30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_ICE_BOLT",
+      "icon": "cold",
+      "mana": 10,
+      "cooldown": 5.0,
+      "spell": true,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          140,
+          140
+        ],
+        "element": "COLD",
+        "convert": [
+          100,
+          100
+        ],
+        "ailments": [
+          {
+            "ailment": "CHILL",
+            "chance": [
+              100,
+              100
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_ZAP",
+      "icon": "lightning",
+      "mana": 10,
+      "cooldown": 5.0,
+      "spell": true,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          130,
+          130
+        ],
+        "element": "LIGHTNING",
+        "convert": [
+          100,
+          100
+        ],
+        "ailments": [
+          {
+            "ailment": "SHOCK",
+            "chance": [
+              30,
+              30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_SPIT",
+      "icon": "poison",
+      "mana": 8,
+      "cooldown": 5.0,
+      "spell": false,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          120,
+          120
+        ],
+        "element": "CHAOS",
+        "convert": [
+          100,
+          100
+        ],
+        "ailments": [
+          {
+            "ailment": "POISON",
+            "chance": [
+              50,
+              50
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_WARCRY",
+      "icon": "combat",
+      "mana": 12,
+      "cooldown": 12.0,
+      "spell": false,
+      "buff": {
+        "duration": 5,
+        "stats": [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "value": [
+              25,
+              25
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_ENFEEBLE",
+      "icon": "dark",
+      "mana": 12,
+      "cooldown": 14.0,
+      "spell": true,
+      "curse": {
+        "duration": 6,
+        "targets": 1,
+        "stats": [
+          {
+            "stat": "STOCK_DAMAGE",
+            "operation": "MORE",
+            "value": [
+              -20,
+              -20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_VULNERABILITY",
+      "icon": "bleeding",
+      "mana": 12,
+      "cooldown": 14.0,
+      "spell": true,
+      "curse": {
+        "duration": 6,
+        "targets": 1,
+        "stats": [
+          {
+            "stat": "STOCK_PHYSICAL_TAKEN",
+            "operation": "ADD",
+            "value": [
+              20,
+              20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_SLAM",
+      "icon": "earth",
+      "mana": 10,
+      "cooldown": 8.0,
+      "spell": false,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          200,
+          200
+        ],
+        "stun": [
+          100,
+          100
+        ]
+      }
+    },
+    {
+      "code": "MOB_HEAL",
+      "icon": "health",
+      "mana": 15,
+      "cooldown": 15.0,
+      "spell": true,
+      "heal": {
+        "life": [
+          15,
+          15
+        ]
+      }
+    },
+    {
+      "code": "MOB_STONESKIN",
+      "icon": "armour",
+      "mana": 12,
+      "cooldown": 15.0,
+      "spell": true,
+      "buff": {
+        "duration": 5,
+        "stats": [
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "operation": "ADD",
+            "value": [
+              -30,
+              -30
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_MANA_DRAIN",
+      "icon": "mana",
+      "mana": 5,
+      "cooldown": 10.0,
+      "spell": true,
+      "manaBurn": 10
+    },
+    {
+      "code": "MOB_CHAOS_RING",
+      "icon": "chaos",
+      "mana": 14,
+      "cooldown": 8.0,
+      "spell": true,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          150,
+          150
+        ],
+        "element": "CHAOS",
+        "convert": [
+          100,
+          100
+        ]
+      }
+    }
+  ]
+}

@@ -61,6 +61,7 @@ val repositoryModule = module {
     single { features.logic.trade.MerchantService() }
     single { features.logic.crafts.CraftsService() }
     single { features.logic.atlas.AtlasService() }
+    single { features.logic.skills.SkillService() }
 }
 
 val cacheModule = module {
@@ -84,7 +85,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get(), get()),
-                CharacterRoute(get(), get(), get(), get(), get()),
+                CharacterRoute(get(), get(), get(), get(), get(), get()),
                 CharacterEquipmentRoute(get()),
                 AuctionLotRoute(get()),
                 RedemptionCodesRoute(get()),

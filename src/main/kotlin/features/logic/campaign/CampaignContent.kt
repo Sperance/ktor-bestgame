@@ -148,7 +148,20 @@ data class CombatRules(
     val resistHardCap: Double = 90.0,
     val ailmentDurationCap: Double = 75.0,
     val loneWolf: LoneWolfRule = LoneWolfRule(),
+    /** Мана героя и монстров (с 0.69.0). */
+    val mana: ManaRule = ManaRule(),
+    /** Фляги (с 0.69.0): заряды за убийство по редкости монстра. */
+    val flasks: FlaskRule = FlaskRule(),
 )
+
+/** Мана (с 0.69.0): регенерация - столько процентов максимума в секунду. */
+@Serializable
+data class ManaRule(val regen: Double = 2.0)
+
+/** Фляги (с 0.69.0): заряды за убийство монстра по его редкости; на входе в зону фляги полные. */
+@Serializable
+data class FlaskRule(val perKill: Map<EnumMonsterRarity, Double> = mapOf(
+    EnumMonsterRarity.NORMAL to 1.0, EnumMonsterRarity.MAGIC to 2.0, EnumMonsterRarity.RARE to 3.0, EnumMonsterRarity.UNIQUE to 5.0))
 
 /** Одна строка таблицы добычи; экипировка тянется из [equipmentPools] (с 0.39.0). */
 @Serializable
@@ -181,6 +194,8 @@ data class MonsterTemplate(
     val corrupted: Boolean = false,
     /** Ближний или дальний бой (с 0.61.0); без него решает форма - см. [CampaignContentFile.rangedForms]. */
     val range: EnumMonsterRange? = null,
+    /** Умения босса (с 0.69.0): одно-два из книги умений монстров. */
+    val skills: List<String> = emptyList(),
 )
 
 /**
@@ -239,7 +254,9 @@ data class BossRule(val respawnHours: Double, val uniqueChance: Double, val ownU
  */
 @Serializable
 data class CampaignBoss(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule, val modifiers: List<MonsterModifier>,
-                        val range: EnumMonsterRange = EnumMonsterRange.MELEE, val pool: List<MonsterModifier> = emptyList(), val rolls: List<Int> = listOf(0, 0))
+                        val range: EnumMonsterRange = EnumMonsterRange.MELEE, val pool: List<MonsterModifier> = emptyList(), val rolls: List<Int> = listOf(0, 0),
+                        /** Умения босса (с 0.69.0) - коды из книги умений монстров; колдует он за свою ману. */
+                        val skills: List<String> = emptyList())
 
 /**
  * Осквернённая зона (с 0.46.0): случайный портал на карте (0-1 за заход, по шансу [chance] и
@@ -408,13 +425,15 @@ data class CampaignMap(
     val boss: CampaignBoss,
     /** Страж этой карты за осквернённым порталом (с 0.46.0), если он ей достался этим заходом. */
     val corrupted: CampaignBoss,
+    /** Модификаторы стражей кристаллов (с 0.69.0) на уровне карты: по одному на вид эссенции. */
+    val essences: List<MonsterModifier> = emptyList(),
 ) {
     /**
      * Жетон зоны для карты мира (0.68.1): зона без пулов модификаторов - своих, босса и стража порчи.
      * Пулы у всех зон одни, отличаются лишь тиром уровня, и сто зон с ними весили бы мегабайты; целиком
      * зона приходит ответом на вход в неё, [MapLaunch.zone].
      */
-    fun token(): CampaignMap = copy(modifiers = emptyList(), boss = boss.copy(pool = emptyList()), corrupted = corrupted.copy(pool = emptyList()))
+    fun token(): CampaignMap = copy(modifiers = emptyList(), boss = boss.copy(pool = emptyList()), corrupted = corrupted.copy(pool = emptyList()), essences = emptyList())
 }
 
 /** Регион карты мира, каким его видит клиент (с 0.67.0; раньше глава). */
@@ -523,6 +542,8 @@ object CampaignContent {
                     modifiers = pools.of(monsterModifiers, map.modifierPools).map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
                     boss = guardian(content, pools, monsterModifiers, monsters, map.boss, map, content.bosses.behaviour),
                     corrupted = guardian(content, pools, monsterModifiers, monsters, map.corrupted, map, content.bosses.behaviour),
+                    essences = pools.of(monsterModifiers, features.logic.essences.EssenceContent.book.crystals.modifierPools)
+                        .map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
                 )
             })
         }
@@ -549,7 +570,7 @@ object CampaignContent {
                 boss.modifiers.map { modCode -> raise(content, byCode.getValue(modCode), pools.weight(modCode, rule.modifierPools), map.level, map.level + rule.tierReach) },
                 content.range(boss),
                 pool = pool.filter { (modifier) -> modifier.code !in boss.modifiers }.map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
-                rolls = rule.rolls)
+                rolls = rule.rolls, skills = boss.skills)
         }
 
     /**
@@ -618,6 +639,10 @@ object CampaignContent {
         content.monsters.forEach { monster ->
             monster.stats.keys.forEach(::stat)
             if (monster.loot !in content.lootTables) throw CampaignExceptions.funExceptionContent(method, "loot ${monster.loot}")
+        }
+        content.monsters.forEach { monster ->
+            monster.skills.forEach { if (it !in features.logic.skills.SkillContent.monsterSkills) throw CampaignExceptions.funExceptionContent(method, "skill $it of ${monster.code}") }
+            if (monster.skills.isNotEmpty() && (monster.stats["STOCK_MANA"] ?: 0.0) <= 0) throw CampaignExceptions.funExceptionContent(method, "skilled ${monster.code} without mana")
         }
         content.monsters.forEach { monster ->
             // Колдующий монстр без маны никогда бы не колдовал - это ошибка файла, а не тихий монстр.

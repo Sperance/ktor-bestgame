@@ -14,23 +14,27 @@ import application.enums.EnumEquipmentWeapon
  *
  * Чистые функции над слотами, без базы: правила проверяются тестом, а репозиторий
  * только применяет ответ. Рук две: двуручное оружие занимает обе, лук стреляет только
- * из колчана, остальное одноручное носят со щитом. Колец два, второе - [RING_2].
+ * из колчана, остальное одноручное носят со щитом. Колец два, второе - [RING_2]; фляг три (с 0.69.0).
  */
 object EquipSlots {
 
     /**
      * Слот, в который встанет предмет.
      *
-     * Кольцо идёт в названный слот, если его назвали, иначе в первый свободный, а когда
-     * заняты оба - на место первого. Всё остальное встаёт в слот своего шаблона.
+     * Кольцо и фляга идут на названное место, если его назвали, иначе на первое свободное, а когда
+     * заняты все - на место первого. Всё остальное встаёт в слот своего шаблона.
      *
-     * @param requested слот, который выбрал игрок, - имеет смысл только для кольца
+     * @param requested слот, который выбрал игрок, - имеет смысл только для кольца и фляги
      * @param occupied слоты, которые уже заняты
      */
     fun target(slot: EnumEquipmentType, requested: EnumEquipmentType?, occupied: Collection<EnumEquipmentType>): EnumEquipmentType {
-        if (slot != RING) return slot
-        if (requested == RING || requested == RING_2) return requested
-        return listOf(RING, RING_2).firstOrNull { it !in occupied } ?: RING
+        val places = when (slot) {
+            RING -> listOf(RING, RING_2)
+            EnumEquipmentType.FLASK -> EnumEquipmentType.FLASKS
+            else -> return slot
+        }
+        if (requested in places) return requested!!
+        return places.firstOrNull { it !in occupied } ?: places.first()
     }
 
     /**

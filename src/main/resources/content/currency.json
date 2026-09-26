@@ -157,6 +157,18 @@
       "modifierPools": [
         "enchant:weapon"
       ]
+    },
+    {
+      "orb": "ESSENCE_ORB",
+      "price": 40
+    },
+    {
+      "orb": "SCRIBE_ORB",
+      "price": 40
+    },
+    {
+      "orb": "GLASSBLOWERS_BAUBLE",
+      "price": 25
     }
   ]
 }

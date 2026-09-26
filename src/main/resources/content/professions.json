@@ -871,6 +871,2506 @@
               "amount": 1
             }
           ]
+        },
+        {
+          "code": "SMALL_LIFE_FLASK_BREW",
+          "level": 1,
+          "seconds": 244,
+          "nothing": 25,
+          "output": "FLASK_SMALL_LIFE",
+          "experience": 8,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "MEDIUM_LIFE_FLASK_BREW",
+          "level": 7,
+          "seconds": 272,
+          "nothing": 26,
+          "output": "FLASK_MEDIUM_LIFE",
+          "experience": 12,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "LARGE_LIFE_FLASK_BREW",
+          "level": 14,
+          "seconds": 304,
+          "nothing": 28,
+          "output": "FLASK_LARGE_LIFE",
+          "experience": 16,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 4
+            }
+          ]
+        },
+        {
+          "code": "GREATER_LIFE_FLASK_BREW",
+          "level": 22,
+          "seconds": 344,
+          "nothing": 30,
+          "output": "FLASK_GREATER_LIFE",
+          "experience": 21,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "code": "GRAND_LIFE_FLASK_BREW",
+          "level": 30,
+          "seconds": 384,
+          "nothing": 32,
+          "output": "FLASK_GRAND_LIFE",
+          "experience": 26,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 6
+            }
+          ]
+        },
+        {
+          "code": "GIANT_LIFE_FLASK_BREW",
+          "level": 40,
+          "seconds": 432,
+          "nothing": 34,
+          "output": "FLASK_GIANT_LIFE",
+          "experience": 32,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 7
+            }
+          ]
+        },
+        {
+          "code": "DIVINE_LIFE_FLASK_BREW",
+          "level": 50,
+          "seconds": 480,
+          "nothing": 37,
+          "output": "FLASK_DIVINE_LIFE",
+          "experience": 38,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 3
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 8
+            }
+          ]
+        },
+        {
+          "code": "SMALL_MANA_FLASK_BREW",
+          "level": 1,
+          "seconds": 244,
+          "nothing": 25,
+          "output": "FLASK_SMALL_MANA",
+          "experience": 8,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "MEDIUM_MANA_FLASK_BREW",
+          "level": 7,
+          "seconds": 272,
+          "nothing": 26,
+          "output": "FLASK_MEDIUM_MANA",
+          "experience": 12,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "LARGE_MANA_FLASK_BREW",
+          "level": 14,
+          "seconds": 304,
+          "nothing": 28,
+          "output": "FLASK_LARGE_MANA",
+          "experience": 16,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 4
+            }
+          ]
+        },
+        {
+          "code": "GREATER_MANA_FLASK_BREW",
+          "level": 22,
+          "seconds": 344,
+          "nothing": 30,
+          "output": "FLASK_GREATER_MANA",
+          "experience": 21,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "code": "GRAND_MANA_FLASK_BREW",
+          "level": 30,
+          "seconds": 384,
+          "nothing": 32,
+          "output": "FLASK_GRAND_MANA",
+          "experience": 26,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 6
+            }
+          ]
+        },
+        {
+          "code": "GIANT_MANA_FLASK_BREW",
+          "level": 40,
+          "seconds": 432,
+          "nothing": 34,
+          "output": "FLASK_GIANT_MANA",
+          "experience": 32,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 7
+            }
+          ]
+        },
+        {
+          "code": "DIVINE_MANA_FLASK_BREW",
+          "level": 50,
+          "seconds": 480,
+          "nothing": 37,
+          "output": "FLASK_DIVINE_MANA",
+          "experience": 38,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 3
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 8
+            }
+          ]
+        },
+        {
+          "code": "QUICKSILVER_FLASK_BREW",
+          "level": 4,
+          "seconds": 256,
+          "nothing": 25,
+          "output": "FLASK_QUICKSILVER",
+          "experience": 10,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "SILVER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "RUBY_FLASK_BREW",
+          "level": 7,
+          "seconds": 272,
+          "nothing": 26,
+          "output": "FLASK_RUBY",
+          "experience": 12,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "SAPPHIRE_FLASK_BREW",
+          "level": 7,
+          "seconds": 272,
+          "nothing": 26,
+          "output": "FLASK_SAPPHIRE",
+          "experience": 12,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "TOPAZ_FLASK_BREW",
+          "level": 7,
+          "seconds": 272,
+          "nothing": 26,
+          "output": "FLASK_TOPAZ",
+          "experience": 12,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "GRANITE_FLASK_BREW",
+          "level": 10,
+          "seconds": 288,
+          "nothing": 27,
+          "output": "FLASK_GRANITE",
+          "experience": 14,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "STONE_ROUGH",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "JADE_FLASK_BREW",
+          "level": 10,
+          "seconds": 288,
+          "nothing": 27,
+          "output": "FLASK_JADE",
+          "experience": 14,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "WORMWOOD",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "SILVER_FLASK_BREW",
+          "level": 17,
+          "seconds": 320,
+          "nothing": 29,
+          "output": "FLASK_SILVER",
+          "experience": 18,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "SILVER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "BASALT_FLASK_BREW",
+          "level": 20,
+          "seconds": 336,
+          "nothing": 29,
+          "output": "FLASK_BASALT",
+          "experience": 20,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "IRON_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "DIAMOND_FLASK_BREW",
+          "level": 24,
+          "seconds": 352,
+          "nothing": 30,
+          "output": "FLASK_DIAMOND",
+          "experience": 22,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "MITHRIL_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "QUARTZ_FLASK_BREW",
+          "level": 25,
+          "seconds": 360,
+          "nothing": 31,
+          "output": "FLASK_QUARTZ",
+          "experience": 23,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "AMETHYST_FLASK_BREW",
+          "level": 25,
+          "seconds": 360,
+          "nothing": 31,
+          "output": "FLASK_AMETHYST",
+          "experience": 23,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "SULPHUR_FLASK_BREW",
+          "level": 30,
+          "seconds": 380,
+          "nothing": 32,
+          "output": "FLASK_SULPHUR",
+          "experience": 25,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "FIRE_FLUX",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "BAUBLE_BREW",
+          "level": 12,
+          "seconds": 300,
+          "nothing": 30,
+          "output": "GLASSBLOWERS_BAUBLE",
+          "experience": 14,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "ESSENCE_BREW",
+          "level": 22,
+          "seconds": 420,
+          "nothing": 36,
+          "output": "ESSENCE_ORB",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "SCRIBE_BREW",
+          "level": 28,
+          "seconds": 420,
+          "nothing": 36,
+          "output": "SCRIBE_ORB",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_GREED_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_GREED_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_GREED_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_GREED_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_GREED_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_GREED_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_GREED_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_GREED_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_GREED_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_GREED_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_GREED_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_GREED_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_GREED_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_GREED_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_GREED_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_GREED_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_GREED_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_GREED_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_CONTEMPT_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_CONTEMPT_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_CONTEMPT_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_CONTEMPT_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_CONTEMPT_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_CONTEMPT_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_CONTEMPT_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_CONTEMPT_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_CONTEMPT_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_CONTEMPT_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_CONTEMPT_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_CONTEMPT_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_CONTEMPT_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_CONTEMPT_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_CONTEMPT_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_CONTEMPT_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_CONTEMPT_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_CONTEMPT_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_HATRED_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_HATRED_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_HATRED_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_HATRED_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_HATRED_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_HATRED_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_HATRED_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_HATRED_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_HATRED_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_HATRED_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_HATRED_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_HATRED_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_HATRED_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_HATRED_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_HATRED_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_HATRED_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_HATRED_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_HATRED_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WOE_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WOE_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WOE_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WOE_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WOE_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WOE_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WOE_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WOE_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WOE_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WOE_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WOE_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WOE_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WOE_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WOE_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WOE_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WOE_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WOE_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WOE_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_FEAR_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_FEAR_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_FEAR_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_FEAR_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_FEAR_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_FEAR_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_FEAR_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_FEAR_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_FEAR_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_FEAR_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_FEAR_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_FEAR_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_FEAR_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_FEAR_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_FEAR_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_FEAR_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_FEAR_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_FEAR_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGER_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGER_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGER_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGER_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGER_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGER_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGER_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGER_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGER_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGER_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGER_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGER_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGER_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGER_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGER_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGER_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGER_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGER_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_TORMENT_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_TORMENT_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_TORMENT_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_TORMENT_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_TORMENT_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_TORMENT_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_TORMENT_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_TORMENT_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_TORMENT_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_TORMENT_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_TORMENT_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_TORMENT_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_TORMENT_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_TORMENT_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_TORMENT_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_TORMENT_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_TORMENT_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_TORMENT_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SORROW_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SORROW_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SORROW_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SORROW_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SORROW_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SORROW_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SORROW_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SORROW_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SORROW_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SORROW_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SORROW_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SORROW_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SORROW_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SORROW_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SORROW_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SORROW_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SORROW_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SORROW_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_RAGE_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_RAGE_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_RAGE_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_RAGE_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_RAGE_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_RAGE_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_RAGE_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_RAGE_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_RAGE_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_RAGE_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_RAGE_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_RAGE_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_RAGE_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_RAGE_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_RAGE_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_RAGE_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_RAGE_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_RAGE_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SUFFERING_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SUFFERING_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SUFFERING_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SUFFERING_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SUFFERING_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SUFFERING_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SUFFERING_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SUFFERING_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SUFFERING_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SUFFERING_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SUFFERING_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SUFFERING_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SUFFERING_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SUFFERING_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SUFFERING_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SUFFERING_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SUFFERING_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SUFFERING_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WRATH_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WRATH_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WRATH_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WRATH_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WRATH_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WRATH_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WRATH_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WRATH_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WRATH_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WRATH_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WRATH_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WRATH_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WRATH_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WRATH_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WRATH_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_WRATH_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_WRATH_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_WRATH_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DOUBT_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DOUBT_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DOUBT_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DOUBT_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DOUBT_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DOUBT_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DOUBT_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DOUBT_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DOUBT_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DOUBT_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DOUBT_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DOUBT_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DOUBT_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DOUBT_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DOUBT_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DOUBT_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DOUBT_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DOUBT_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_LOATHING_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_LOATHING_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_LOATHING_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_LOATHING_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_LOATHING_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_LOATHING_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_LOATHING_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_LOATHING_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_LOATHING_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_LOATHING_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_LOATHING_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_LOATHING_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_LOATHING_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_LOATHING_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_LOATHING_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_LOATHING_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_LOATHING_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_LOATHING_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ZEAL_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ZEAL_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ZEAL_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ZEAL_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ZEAL_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ZEAL_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ZEAL_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ZEAL_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ZEAL_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ZEAL_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ZEAL_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ZEAL_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ZEAL_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ZEAL_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ZEAL_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ZEAL_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ZEAL_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ZEAL_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGUISH_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGUISH_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGUISH_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGUISH_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGUISH_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGUISH_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGUISH_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGUISH_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGUISH_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGUISH_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGUISH_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGUISH_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGUISH_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGUISH_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGUISH_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ANGUISH_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ANGUISH_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ANGUISH_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SPITE_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SPITE_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SPITE_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SPITE_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SPITE_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SPITE_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SPITE_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SPITE_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SPITE_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SPITE_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SPITE_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SPITE_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SPITE_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SPITE_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SPITE_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SPITE_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SPITE_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SPITE_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SCORN_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SCORN_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SCORN_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SCORN_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SCORN_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SCORN_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SCORN_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SCORN_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SCORN_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SCORN_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SCORN_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SCORN_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SCORN_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SCORN_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SCORN_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_SCORN_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_SCORN_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_SCORN_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ENVY_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ENVY_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ENVY_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ENVY_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ENVY_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ENVY_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ENVY_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ENVY_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ENVY_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ENVY_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ENVY_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ENVY_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ENVY_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ENVY_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ENVY_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_ENVY_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_ENVY_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_ENVY_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_MISERY_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_MISERY_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_MISERY_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_MISERY_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_MISERY_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_MISERY_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_MISERY_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_MISERY_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_MISERY_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_MISERY_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_MISERY_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_MISERY_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_MISERY_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_MISERY_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_MISERY_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_MISERY_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_MISERY_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_MISERY_6",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DREAD_2",
+          "level": 8,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DREAD_2",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DREAD_1",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DREAD_3",
+          "level": 16,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DREAD_3",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DREAD_2",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DREAD_4",
+          "level": 24,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DREAD_4",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DREAD_3",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DREAD_5",
+          "level": 32,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DREAD_5",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DREAD_4",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DREAD_6",
+          "level": 38,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DREAD_6",
+          "experience": 34,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DREAD_5",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "CONDENSE_DREAD_7",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 10,
+          "output": "ESSENCE_DREAD_7",
+          "experience": 38,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "ESSENCE_DREAD_6",
+              "amount": 3
+            }
+          ]
         }
       ]
     },
@@ -3487,6 +5987,545 @@
               "item": "RUBY",
               "amount": 1
             }
+          ]
+        },
+        {
+          "code": "BOOK_MARAUDER_1",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 35,
+          "output": "MARAUDER",
+          "experience": 20,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ],
+          "band": [
+            12
+          ]
+        },
+        {
+          "code": "BOOK_MARAUDER_2",
+          "level": 30,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "MARAUDER",
+          "experience": 40,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ],
+          "band": [
+            30
+          ]
+        },
+        {
+          "code": "BOOK_MARAUDER_3",
+          "level": 50,
+          "seconds": 1000,
+          "nothing": 35,
+          "output": "MARAUDER",
+          "experience": 60,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ],
+          "band": [
+            70
+          ]
+        },
+        {
+          "code": "BOOK_RANGER_1",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 35,
+          "output": "RANGER",
+          "experience": 20,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ],
+          "band": [
+            12
+          ]
+        },
+        {
+          "code": "BOOK_RANGER_2",
+          "level": 30,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "RANGER",
+          "experience": 40,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ],
+          "band": [
+            30
+          ]
+        },
+        {
+          "code": "BOOK_RANGER_3",
+          "level": 50,
+          "seconds": 1000,
+          "nothing": 35,
+          "output": "RANGER",
+          "experience": 60,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ],
+          "band": [
+            70
+          ]
+        },
+        {
+          "code": "BOOK_WITCH_1",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 35,
+          "output": "WITCH",
+          "experience": 20,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ],
+          "band": [
+            12
+          ]
+        },
+        {
+          "code": "BOOK_WITCH_2",
+          "level": 30,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "WITCH",
+          "experience": 40,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ],
+          "band": [
+            30
+          ]
+        },
+        {
+          "code": "BOOK_WITCH_3",
+          "level": 50,
+          "seconds": 1000,
+          "nothing": 35,
+          "output": "WITCH",
+          "experience": 60,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ],
+          "band": [
+            70
+          ]
+        },
+        {
+          "code": "BOOK_DUELIST_1",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 35,
+          "output": "DUELIST",
+          "experience": 20,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ],
+          "band": [
+            12
+          ]
+        },
+        {
+          "code": "BOOK_DUELIST_2",
+          "level": 30,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "DUELIST",
+          "experience": 40,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ],
+          "band": [
+            30
+          ]
+        },
+        {
+          "code": "BOOK_DUELIST_3",
+          "level": 50,
+          "seconds": 1000,
+          "nothing": 35,
+          "output": "DUELIST",
+          "experience": 60,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ],
+          "band": [
+            70
+          ]
+        },
+        {
+          "code": "BOOK_TEMPLAR_1",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 35,
+          "output": "TEMPLAR",
+          "experience": 20,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ],
+          "band": [
+            12
+          ]
+        },
+        {
+          "code": "BOOK_TEMPLAR_2",
+          "level": 30,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "TEMPLAR",
+          "experience": 40,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ],
+          "band": [
+            30
+          ]
+        },
+        {
+          "code": "BOOK_TEMPLAR_3",
+          "level": 50,
+          "seconds": 1000,
+          "nothing": 35,
+          "output": "TEMPLAR",
+          "experience": 60,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ],
+          "band": [
+            70
+          ]
+        },
+        {
+          "code": "BOOK_SHADOW_1",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 35,
+          "output": "SHADOW",
+          "experience": 20,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ],
+          "band": [
+            12
+          ]
+        },
+        {
+          "code": "BOOK_SHADOW_2",
+          "level": 30,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "SHADOW",
+          "experience": 40,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ],
+          "band": [
+            30
+          ]
+        },
+        {
+          "code": "BOOK_SHADOW_3",
+          "level": 50,
+          "seconds": 1000,
+          "nothing": 35,
+          "output": "SHADOW",
+          "experience": 60,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ],
+          "band": [
+            70
+          ]
+        },
+        {
+          "code": "BOOK_SCION_1",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 35,
+          "output": "SCION",
+          "experience": 20,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ],
+          "band": [
+            12
+          ]
+        },
+        {
+          "code": "BOOK_SCION_2",
+          "level": 30,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "SCION",
+          "experience": 40,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 4
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ],
+          "band": [
+            30
+          ]
+        },
+        {
+          "code": "BOOK_SCION_3",
+          "level": 50,
+          "seconds": 1000,
+          "nothing": 35,
+          "output": "SCION",
+          "experience": 60,
+          "extra": [],
+          "kind": "BOOK",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ],
+          "band": [
+            70
           ]
         }
       ]

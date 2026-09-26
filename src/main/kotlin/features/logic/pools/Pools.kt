@@ -88,10 +88,11 @@ object Pools {
     fun influence(influence: EnumInfluence, slot: EnumEquipmentType): List<String> =
         listOf("${influence(influence)}$SEPARATOR${slotTag(slot)}", influence(influence))
 
-    /** Тег слота в пулах (0.66.0): оба оружия - `weapon`, инструменты - `tool`, остальное - имя слота. */
+    /** Тег слота в пулах (0.66.0): оба оружия - `weapon`, инструменты - `tool`, места фляг - `flask`, остальное - имя слота. */
     fun slotTag(slot: EnumEquipmentType): String = when {
         slot == EnumEquipmentType.WEAPON_1H || slot == EnumEquipmentType.WEAPON_2H -> "weapon"
         slot == EnumEquipmentType.RING_2 -> "ring"
+        slot.isFlask -> "flask"
         slot.isTool -> "tool"
         else -> slot.name.lowercase()
     }

@@ -158,14 +158,17 @@ class CraftsService : KoinComponent {
         val result = Crafts.settle(CraftsContent.file.rules, job, progress, bonus(character, profession), work.settledAt,
             System.currentTimeMillis(), work.seed, work.cycles, stockOf(character), work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
-        val stacks = result.gains.items.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) } } +
-            result.gains.spent.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, -amount) } }
+        val spentStacks = result.gains.spent.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, -amount) } }
         val bases = if (job.kind == JobKind.EQUIPMENT) craftBases(job) else emptyList()
-        val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, random, bases) }.filterNotNull()
+        // Книги (0.69.0) - не вещи, а стопки сумки: случайное умение класса работы, открытое не выше её потолка.
+        val books = if (job.kind == JobKind.BOOK) List(result.gains.made) { scribe(job, random) }.filterNotNull().groupingBy { it }.eachCount() else emptyMap()
+        val made = if (job.kind == JobKind.BOOK) emptyList() else List(result.gains.made) { craft(job, work.additives, result.progress.level, random, bases) }.filterNotNull()
         character.professions[profession.code] = result.progress
-        val gains = result.gains.copy(equipment = made)
+        val gains = result.gains.copy(equipment = made, items = result.gains.items + books.mapValues { it.value.toLong() },
+            made = if (job.kind == JobKind.BOOK) 0 else result.gains.made)
         character.work = if (result.gains.starved) null
             else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles, totals = work.totals + gains)
+        val stacks = gains.items.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) } } + spentStacks
         val equipment = transactionExecute(method) { session ->
             if (stacks.isNotEmpty()) characters.applyItems(character, stacks, method)
             characters.update(character, session)
@@ -237,6 +240,13 @@ class CraftsService : KoinComponent {
                 CharacterEquipment(characterId = "", equipmentId = base._id, rarity = rarity,
                     params = (ModifierRoller.roll(base, rarity) + handcrafted.mapNotNull { rollCode(it, base.itemLevel) }).toMutableList())
             }
+            // Фляга алхимика (0.69.0): своя база, с шансом сразу волшебная.
+            JobKind.FLASK -> {
+                val base = equipmentCache.findByCode(job.output) ?: return null
+                val rarity = if (random.nextDouble() * 100 < crafting.flaskMagicChance) EnumRarity.UNCOMMON else EnumRarity.COMMON
+                CharacterEquipment(characterId = "", equipmentId = base._id, rarity = rarity, params = ModifierRoller.roll(base, rarity))
+            }
+            JobKind.BOOK -> null
             JobKind.MAP -> {
                 val base = equipmentCache.findByCode(features.logic.campaign.CampaignMaps.templateCode(job.map)) ?: return null
                 val rarity = features.logic.equipment.Jewels.rarity(base, weighted(crafting.mapRarities, random) ?: EnumRarity.UNCOMMON)
@@ -248,6 +258,10 @@ class CraftsService : KoinComponent {
     }
 
     private fun rollCode(code: String, itemLevel: Int) = definitions.findByCode(code)?.let { ModifierRoller.roll(it, itemLevel) }
+
+    /** Книга зачарователя (0.69.0): случайное умение класса [Job.output], открытое не позже `band[0]`. */
+    private fun scribe(job: Job, random: Random): String? =
+        features.logic.skills.SkillContent.ofClass(job.output).filter { it.unlock <= job.band[0] }.randomOrNull(random)?.book
 
     private fun <T> weighted(weights: Map<T, Int>, random: Random): T? {
         var point = random.nextInt(weights.values.sum().coerceAtLeast(1))

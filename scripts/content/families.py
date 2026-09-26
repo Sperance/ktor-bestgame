@@ -646,7 +646,8 @@ fam("HC_SPEED", "HANDCRAFTED", [eff("STOCK_ATTACK_SPEED", "INCREASED")], HC, [[8
 # ПАССИВКИ ДЕРЕВА И БАЗЫ (значения задаёт узел или шаблон)
 # =====================================================================
 for code, stat, op, per, amount in [("CONVERT_STRENGTH_TO_LIFE", "STOCK_HEALTH", "ADD", "STOCK_STRENGTH", 2), ("CONVERT_DEXTERITY_TO_EVASION", "STOCK_EVASION", "ADD", "STOCK_AGILITY", 1),
-                                    ("CONVERT_INTELLIGENCE_TO_ENERGY_SHIELD", "STOCK_ENERGY_SHIELD", "INCREASED", "STOCK_INTELLECT", 5), ("CONVERT_STRENGTH_TO_PHYSICAL_DAMAGE", "STOCK_ATTACK_PHYSICAL", "INCREASED", "STOCK_STRENGTH", 5)]:
+                                    ("CONVERT_INTELLIGENCE_TO_ENERGY_SHIELD", "STOCK_ENERGY_SHIELD", "INCREASED", "STOCK_INTELLECT", 5), ("CONVERT_INTELLIGENCE_TO_MANA", "STOCK_MANA", "ADD", "STOCK_INTELLECT", 2),
+                                    ("CONVERT_STRENGTH_TO_PHYSICAL_DAMAGE", "STOCK_ATTACK_PHYSICAL", "INCREASED", "STOCK_STRENGTH", 5)]:
     fam(code, "PASSIVE", [eff(stat, op, per, amount)], G1, [[1, 1]], [[1, 1]], {}, tags=["passive", "conversion"])
 for code, stat, op in [("PASSIVE_SET_CRITICAL_STRIKE_CHANCE", "STOCK_CRITICAL_CHANCE", "SET"), ("PASSIVE_SET_MAXIMUM_LIFE", "STOCK_HEALTH", "SET"), ("PASSIVE_SET_EVASION_RATING", "STOCK_EVASION", "SET"),
                        ("PASSIVE_SET_CHAOS_RESISTANCE", "STOCK_RESIST_CHAOS", "SET"), ("PASSIVE_SET_LIFE_REGENERATION", "STOCK_HEALTH_REGEN", "SET"), ("PASSIVE_SET_CRITICAL_DAMAGE", "STOCK_CRITICAL_DAMAGE", "SET"),
@@ -659,7 +660,129 @@ for code, stat in [("BASE_ARMOUR", "STOCK_ARMOR"), ("BASE_EVASION", "STOCK_EVASI
     fam(code, "IMPLICIT", [eff(stat)], G1, [[1, 1]], [[1, 1]], {}, tags=["base", "implicit"], local=True)
 # Имплиситы баз, которых нет среди аффиксов
 fam("IMPLICIT_ADD_MAXIMUM_MANA", "IMPLICIT", [eff("STOCK_MANA")], IMP, [[30, 40]], [[10, 15]], {}, tags=["implicit", "mana"])
-fam("IMPLICIT_INCREASED_SPELL_DAMAGE", "IMPLICIT", [eff("STOCK_ATTACK_MAGICAL", "INCREASED")], IMP, [[20, 25]], [[8, 12]], {}, tags=["implicit", "caster"])
+fam("IMPLICIT_INCREASED_SPELL_DAMAGE", "IMPLICIT", [eff("STOCK_SPELL_DAMAGE", "INCREASED")], IMP, [[20, 25]], [[8, 12]], {}, tags=["implicit", "caster"])
+
+# =====================================================================
+# МАНА И УМЕНИЯ КЛАССА (0.69.0): мана, уровни умений, сила умений, фляги с пояса
+# =====================================================================
+fam("ADD_MAXIMUM_MANA", "PREFIX", [eff("STOCK_MANA")], G5, [[80, 100]], [[10, 19]],
+    P(amulet=800, ring=800, belt=600, helmet=500, gloves=500, wings=500, wand=700), tags=["mana"])
+fam("INCREASED_MAXIMUM_MANA", "PREFIX", [eff("STOCK_MANA", "INCREASED")], G3, [[16, 20]], [[6, 10]], P(amulet=400, body=400), tags=["mana"])
+fam("INCREASED_MANA_REGENERATION", "SUFFIX", [eff("STOCK_MANA_REGEN", "INCREASED")], G3, [[41, 60]], [[15, 25]],
+    P(ring=600, amulet=600, wand=600, shield=400), tags=["mana", "regen"])
+fam("ADD_MANA_ON_KILL", "SUFFIX", [eff("STOCK_MANA_ON_KILL")], G3, [[6, 8]], [[1, 2]], P(weapon=300, ring=300), tags=["mana"])
+fam("ADD_MANA_ON_HIT", "SUFFIX", [eff("STOCK_MANA_ON_HIT")], G3, [[3, 4]], [[1, 1]], P(weapon=300, gloves=300), tags=["mana"])
+fam("ADD_MANA_LEECH", "SUFFIX", [eff("STOCK_LEECH_MANA")], G2, [[0.5, 0.8]], [[0.2, 0.4]], P(weapon=250, gloves=250, ring=250), tags=["mana", "leech"], precision=1)
+fam("REDUCED_SKILL_COST", "SUFFIX", [eff("STOCK_SKILL_COST")], G3, [[10, 12]], [[4, 6]], P(amulet=300, ring=300, helmet=300), tags=["mana", "skill"])
+fam("INCREASED_RESERVATION_EFFICIENCY", "SUFFIX", [eff("STOCK_RESERVATION")], G3, [[13, 15]], [[5, 8]], P(amulet=250, body=250, helmet=250), tags=["mana", "aura"])
+# Уровни умений: дно сетки открыто с первого уровня, как у всех аффиксов, - редкость держит вес пула.
+fam("ADD_SKILL_LEVEL", "SUFFIX", [eff("STOCK_SKILL_LEVEL")], [50, 1], [[1, 1]], [[1, 1]], P(amulet=40, helmet=40), tags=["skill", "level"], weight_ratio=0.2)
+fam("ADD_ATTACK_SKILL_LEVEL", "SUFFIX", [eff("STOCK_ATTACK_LEVEL")], [60, 1], [[2, 2]], [[1, 1]], P(weapon=100, quiver=80), tags=["skill", "level", "attack"], weight_ratio=0.3)
+fam("ADD_SPELL_SKILL_LEVEL", "SUFFIX", [eff("STOCK_SPELL_LEVEL")], [60, 1], [[2, 2]], [[1, 1]], P(wand=150, shield=80), tags=["skill", "level", "caster"], weight_ratio=0.3)
+fam("ADD_WARCRY_SKILL_LEVEL", "SUFFIX", [eff("STOCK_WARCRY_LEVEL")], [30, 1], [[1, 1]], [[1, 1]], P(belt=100, helmet=80), tags=["skill", "level"], weight_ratio=0.3)
+fam("ADD_CURSE_SKILL_LEVEL", "SUFFIX", [eff("STOCK_CURSE_LEVEL")], [30, 1], [[1, 1]], [[1, 1]], P(gloves=100, amulet=80), tags=["skill", "level"], weight_ratio=0.3)
+fam("ADD_AURA_SKILL_LEVEL", "SUFFIX", [eff("STOCK_AURA_LEVEL")], [30, 1], [[1, 1]], [[1, 1]], P(body=100, amulet=80), tags=["skill", "level", "aura"], weight_ratio=0.3)
+fam("ADD_PASSIVE_SKILL_LEVEL", "SUFFIX", [eff("STOCK_PASSIVE_LEVEL")], [35, 1], [[1, 1]], [[1, 1]], P(amulet=80, wings=100), tags=["skill", "level"], weight_ratio=0.3)
+fam("INCREASED_SPELL_DAMAGE", "PREFIX", [eff("STOCK_SPELL_DAMAGE", "INCREASED")], G4, [[55, 79]], [[10, 19]], P(wand=1000, shield=300, amulet=300), tags=["caster", "damage"])
+fam("INCREASED_CAST_SPEED", "SUFFIX", [eff("STOCK_CAST_SPEED", "INCREASED")], G4, [[17, 20]], [[5, 8]], P(wand=800, amulet=300, ring=300, gloves=300), tags=["caster", "speed"])
+fam("INCREASED_COOLDOWN_RECOVERY", "SUFFIX", [eff("STOCK_COOLDOWN_RECOVERY", "INCREASED")], G3, [[13, 15]], [[5, 8]], P(helmet=300, boots=300, amulet=300), tags=["skill", "speed"])
+fam("INCREASED_SKILL_DAMAGE", "PREFIX", [eff("STOCK_SKILL_DAMAGE", "INCREASED")], G3, [[25, 35]], [[8, 14]], P(weapon=500, ring=300), tags=["skill", "damage"])
+fam("INCREASED_AURA_EFFECT", "SUFFIX", [eff("STOCK_AURA_EFFECT", "INCREASED")], G2, [[7, 10]], [[4, 6]], P(body=200, amulet=200), tags=["skill", "aura"])
+fam("INCREASED_WARCRY_EFFECT", "SUFFIX", [eff("STOCK_WARCRY_EFFECT", "INCREASED")], G2, [[13, 20]], [[8, 12]], P(belt=250, shield=250), tags=["skill"])
+fam("INCREASED_CURSE_EFFECT", "SUFFIX", [eff("STOCK_CURSE_EFFECT", "INCREASED")], G2, [[9, 12]], [[5, 8]], P(gloves=250, amulet=200), tags=["skill"])
+fam("INCREASED_SKILL_HEALING", "SUFFIX", [eff("STOCK_SKILL_HEALING", "INCREASED")], G2, [[16, 25]], [[10, 15]], P(shield=250, body=250, helmet=250), tags=["skill", "life"])
+fam("ADD_SKILL_TARGET", "SUFFIX", [eff("STOCK_SKILL_TARGETS")], [40, 1], [[1, 1]], [[1, 1]], P(weapon=80, quiver=100), tags=["skill", "attack"], weight_ratio=0.2)
+fam("INCREASED_FLASK_CHARGES_GAINED", "SUFFIX", [eff("STOCK_FLASK_CHARGES_GAINED", "INCREASED")], G3, [[26, 35]], [[10, 15]], P(belt=500), tags=["flask"])
+fam("INCREASED_FLASK_DURATION", "SUFFIX", [eff("STOCK_FLASK_DURATION", "INCREASED")], G3, [[21, 30]], [[8, 12]], P(belt=500), tags=["flask"])
+fam("INCREASED_FLASK_EFFECT", "PREFIX", [eff("STOCK_FLASK_EFFECT", "INCREASED")], G3, [[13, 15]], [[5, 8]], P(belt=300), tags=["flask"])
+fam("REDUCED_FLASK_CHARGES_USED", "SUFFIX", [eff("STOCK_FLASK_CHARGES_USED")], G3, [[13, 15]], [[5, 8]], P(belt=400), tags=["flask"])
+fam("INCREASED_FLASK_LIFE_RECOVERY", "PREFIX", [eff("STOCK_FLASK_LIFE_RECOVERY", "INCREASED")], G3, [[31, 40]], [[10, 20]], P(belt=500), tags=["flask", "life"])
+
+# =====================================================================
+# ФЛЯГИ (0.69.0): база, префиксы и суффиксы по ур. предмета 1/15/35/55, порча
+# Пулы: `flask` - любая, `flask:recovery` - жизни и маны, `flask:life` - жизни, `flask:utility` - утилити.
+# =====================================================================
+F4 = [55, 35, 15, 1]
+for code, stat in [("BASE_FLASK_CHARGES", "FLASK_CHARGES"), ("BASE_FLASK_CHARGES_PER_USE", "FLASK_CHARGES_PER_USE"), ("BASE_FLASK_DURATION", "FLASK_DURATION"),
+                   ("BASE_FLASK_LIFE", "FLASK_LIFE"), ("BASE_FLASK_MANA", "FLASK_MANA")]:
+    fam(code, "IMPLICIT", [eff(stat)], G1, [[1, 1]], [[1, 1]], {}, tags=["base", "implicit", "flask"], local=True)
+for code, stat, op in [("BASE_FLASK_MOVEMENT", "STOCK_MOVEMENT_SPEED", "INCREASED"), ("BASE_FLASK_ARMOUR", "STOCK_ARMOR", "INCREASED"),
+                       ("BASE_FLASK_EVASION", "STOCK_EVASION", "INCREASED"), ("BASE_FLASK_ATTACK_SPEED", "STOCK_ATTACK_SPEED", "INCREASED"),
+                       ("BASE_FLASK_FIRE_RESISTANCE", "STOCK_RESIST_FIRE", "ADD"), ("BASE_FLASK_COLD_RESISTANCE", "STOCK_RESIST_COLD", "ADD"),
+                       ("BASE_FLASK_LIGHTNING_RESISTANCE", "STOCK_RESIST_LIGHTNING", "ADD"), ("BASE_FLASK_CHAOS_RESISTANCE", "STOCK_RESIST_CHAOS", "ADD"),
+                       ("BASE_FLASK_MAXIMUM_FIRE", "STOCK_RESIST_MAX_FIRE", "ADD"), ("BASE_FLASK_MAXIMUM_COLD", "STOCK_RESIST_MAX_COLD", "ADD"),
+                       ("BASE_FLASK_MAXIMUM_LIGHTNING", "STOCK_RESIST_MAX_LIGHTNING", "ADD"), ("BASE_FLASK_MAXIMUM_CHAOS", "STOCK_RESIST_MAX_CHAOS", "ADD"),
+                       ("BASE_FLASK_PHYSICAL_REDUCTION", "STOCK_PHYSICAL_REDUCTION", "ADD"), ("BASE_FLASK_STUN_THRESHOLD", "STOCK_STUN_THRESHOLD", "INCREASED"),
+                       ("BASE_FLASK_CRITICAL", "STOCK_CRITICAL_CHANCE", "INCREASED"), ("BASE_FLASK_BLOCK", "STOCK_BLOCK_CHANCE", "ADD"),
+                       ("BASE_FLASK_DAMAGE", "STOCK_DAMAGE", "INCREASED")]:
+    fam(code, "IMPLICIT", [eff(stat, op)], G1, [[1, 1]], [[1, 1]], {}, tags=["base", "implicit", "flask"], local=True)
+
+
+def flask(code, source, effects, top, bottom, pool="flask", weight=1000, grid=F4, precision=0, tags=()):
+    fam(code, source, effects, grid, top, bottom, {pool: weight}, tags=["flask"] + list(tags), precision=precision)
+
+
+flask("FLASK_CAPACIOUS", "PREFIX", [eff("FLASK_CHARGES")], [[40, 40]], [[10, 10]])
+flask("FLASK_ECONOMICAL", "PREFIX", [eff("STOCK_FLASK_CHARGES_USED")], [[25, 25]], [[10, 10]])
+flask("FLASK_REPLENISHING", "PREFIX", [eff("STOCK_FLASK_CHARGES_GAINED", "INCREASED")], [[50, 50]], [[20, 20]])
+flask("FLASK_LASTING", "PREFIX", [eff("STOCK_FLASK_DURATION", "INCREASED")], [[45, 45]], [[15, 15]])
+flask("FLASK_CONCENTRATED", "PREFIX", [eff("STOCK_FLASK_EFFECT", "INCREASED")], [[25, 25]], [[10, 10]], "flask:utility")
+flask("FLASK_BUBBLING", "PREFIX", [eff("FLASK_INSTANT")], [[50, 50]], [[50, 50]], "flask:recovery", 800, grid=G1)
+# Кипящая - одна цена на всех тирах, как у RISK_: всё сразу, но на четверть меньше.
+flask("FLASK_SEETHING", "PREFIX", [eff("FLASK_INSTANT"), eff("STOCK_FLASK_RECOVERY", "INCREASED")], [[100, 100], [-25, -25]], [[100, 100], [-25, -25]], "flask:recovery", 800, grid=G1)
+flask("FLASK_SATURATED", "PREFIX", [eff("STOCK_FLASK_RECOVERY", "INCREASED")], [[45, 45]], [[15, 15]], "flask:recovery")
+flask("FLASK_BOUNTIFUL", "PREFIX", [eff("STOCK_FLASK_CHARGES_PER_KILL")], [[2, 2]], [[1, 1]], weight=700)
+flask("FLASK_SURGEONS", "PREFIX", [eff("FLASK_CHARGE_ON_CRIT")], [[25, 25]], [[10, 10]], weight=700)
+flask("FLASK_RESPONSIVE", "PREFIX", [eff("FLASK_CHARGE_WHEN_HIT")], [[25, 25]], [[10, 10]], weight=700)
+flask("FLASK_SHIMMERING", "PREFIX", [eff("FLASK_LIFE_TO_SHIELD")], [[50, 50]], [[20, 20]], "flask:life", 700)
+flask("FLASK_TWIN", "PREFIX", [eff("FLASK_LIFE_TO_MANA")], [[25, 25]], [[10, 10]], "flask:life", 700)
+flask("FLASK_DESPERATE", "PREFIX", [eff("FLASK_LOW_LIFE_RECOVERY")], [[60, 60]], [[30, 30]], "flask:recovery", 700)
+flask("FLASK_LINGERING", "PREFIX", [eff("FLASK_DURATION_PER_KILL")], [[1.2, 1.2]], [[0.5, 0.5]], "flask:utility", 700, precision=1)
+for code, stat in [("FLASK_STAUNCHING", "STOCK_IMMUNE_BLEED"), ("FLASK_HEAT", "STOCK_IMMUNE_FREEZE"), ("FLASK_DOUSING", "STOCK_IMMUNE_IGNITE"),
+                   ("FLASK_GROUNDING", "STOCK_IMMUNE_SHOCK"), ("FLASK_CURING", "STOCK_IMMUNE_POISON"), ("FLASK_WARDING", "STOCK_IMMUNE_CURSE"),
+                   ("FLASK_STABILITY", "STOCK_IMMUNE_STUN")]:
+    flask(code, "SUFFIX", [eff(stat)], [[1, 1]], [[1, 1]], weight=500, grid=G1, tags=["immunity"])
+flask("FLASK_IRON_SKIN", "SUFFIX", [eff("STOCK_ARMOR", "INCREASED")], [[60, 60]], [[30, 30]])
+flask("FLASK_REFLEXES", "SUFFIX", [eff("STOCK_EVASION", "INCREASED")], [[60, 60]], [[30, 30]])
+flask("FLASK_RESISTANCE", "SUFFIX", [eff("STOCK_RESIST_ALL")], [[25, 25]], [[10, 10]])
+flask("FLASK_FURY", "SUFFIX", [eff("STOCK_ATTACK_SPEED", "INCREASED")], [[15, 15]], [[8, 8]])
+flask("FLASK_EAGLE", "SUFFIX", [eff("STOCK_CRITICAL_CHANCE", "INCREASED")], [[40, 40]], [[20, 20]])
+flask("FLASK_CRAVING", "SUFFIX", [eff("STOCK_LEECH_ALL")], [[1.5, 1.5]], [[0.5, 0.5]], precision=1)
+flask("FLASK_ADRENALINE", "SUFFIX", [eff("STOCK_MOVEMENT_SPEED", "INCREASED")], [[20, 20]], [[10, 10]])
+flask("FLASK_SENTINEL", "SUFFIX", [eff("STOCK_BLOCK_CHANCE")], [[10, 10]], [[4, 4]])
+flask("FLASK_POWER", "SUFFIX", [eff("STOCK_DAMAGE", "INCREASED")], [[20, 20]], [[8, 8]])
+flask("FLASK_CLARITY", "SUFFIX", [eff("STOCK_MANA_REGEN", "INCREASED")], [[60, 60]], [[30, 30]])
+flask("FLASK_FOCUS", "SUFFIX", [eff("STOCK_SKILL_COST")], [[20, 20]], [[8, 8]])
+# Порча фляги: свой пул имплиситов, как у слотов
+for code, stat, op, top, bottom in [("FLASK_CORRUPT_EFFECT", "STOCK_FLASK_EFFECT", "INCREASED", [8, 10], [5, 7]), ("FLASK_CORRUPT_CHARGES", "FLASK_NO_CHARGE_CHANCE", "ADD", [13, 15], [10, 12]),
+                                    ("FLASK_CORRUPT_DURATION", "FLASK_DURATION", "ADD", [1, 1], [1, 1]), ("FLASK_CORRUPT_STUN", "STOCK_IMMUNE_STUN", "ADD", [1, 1], [1, 1]),
+                                    ("FLASK_CORRUPT_MANA", "FLASK_SIP_MANA", "ADD", [5, 5], [5, 5]), ("FLASK_CORRUPT_DAMAGE", "STOCK_DAMAGE", "INCREASED", [10, 10], [10, 10])]:
+    fam(code, "CORRUPTION", [eff(stat, op)], COR, [top], [bottom], {"corruption:flask": 100}, tags=["flask", "corruption"])
+
+# =====================================================================
+# ЭССЕНЦИИ (0.69.0): строки четырёх особых эссенций - их ставит только эссенция, места аффикса они не занимают
+# =====================================================================
+for code, stat, op in [("ESS_INSANITY_WEAPON", "STOCK_FREE_SKILL_CHANCE", "ADD"), ("ESS_INSANITY_ARMOUR", "STOCK_AURA_EFFECT", "INCREASED"),
+                       ("ESS_INSANITY_JEWELLERY", "STOCK_PASSIVE_LEVEL", "ADD"), ("ESS_HORROR_WEAPON", "STOCK_DAMAGE_VS_CURSED", "INCREASED"),
+                       ("ESS_HORROR_ARMOUR", "STOCK_CURSE_ON_HIT", "ADD"), ("ESS_HORROR_JEWELLERY", "STOCK_CURSE_LEVEL", "ADD"),
+                       ("ESS_DELIRIUM_WEAPON", "STOCK_ATTACK_LEVEL", "ADD"), ("ESS_DELIRIUM_ARMOUR", "STOCK_FLASK_CHARGES_PER_KILL", "ADD"),
+                       ("ESS_DELIRIUM_JEWELLERY", "STOCK_FLASK_DURATION", "INCREASED"), ("ESS_HYSTERIA_WEAPON", "STOCK_WARCRY_SPEED", "ADD"),
+                       ("ESS_HYSTERIA_ARMOUR", "STOCK_WARCRY_HEAL", "ADD"), ("ESS_HYSTERIA_JEWELLERY", "STOCK_WARCRY_LEVEL", "ADD")]:
+    value = {"ESS_INSANITY_WEAPON": 5, "ESS_INSANITY_ARMOUR": 10, "ESS_HORROR_WEAPON": 25, "ESS_HORROR_ARMOUR": 10,
+             "ESS_DELIRIUM_JEWELLERY": 15, "ESS_HYSTERIA_WEAPON": 10, "ESS_HYSTERIA_ARMOUR": 5}.get(code, 1)
+    fam(code, "ESSENCE", [eff(stat, op)], G1, [[value, value]], [[value, value]], {}, tags=["essence"])
+
+# =====================================================================
+# КАРТЫ И УМЕНИЯ (0.69.0): риски фляг, маны и умений, награды - кристаллы и книги; строки «Алхимия»
+# =====================================================================
+mapmod("MAP_FLASK_CHARGES", "SUFFIX", [eff("MAP_FLASK_CHARGES")], [[35, 40]], [[20, 25]], 70)
+mapmod("MAP_HERO_MANA_REGEN", "SUFFIX", [eff("MAP_HERO_MANA_REGEN")], [[45, 50]], [[30, 35]], 70)
+mapmod("MAP_MONSTER_CAST", "PREFIX", [eff("MAP_MONSTER_CAST")], [[35, 40]], [[20, 25]], 70)
+mapmod("MAP_SKILL_COST", "SUFFIX", [eff("MAP_SKILL_COST")], [[25, 30]], [[15, 18]], 70)
+mapmod("MAP_CRYSTALS", "SUFFIX", [eff("MAP_CRYSTALS")], [[1, 1]], [[1, 1]], 50, ["reward"], grid=[10, 1])
+mapmod("MAP_BOOKS", "SUFFIX", [eff("MAP_BOOKS", "INCREASED")], [[50, 60]], [[30, 35]], 50, ["reward"])
+fam("ALC_MAP_CRYSTALS", "ALCHEMY", [eff("MAP_CRYSTALS")], G1, [[1, 2]], [[1, 2]], {}, tags=["map", "alchemy"])
+fam("ALC_MAP_BOOKS", "ALCHEMY", [eff("MAP_BOOKS", "INCREASED")], G1, [[50, 100]], [[50, 100]], {}, tags=["map", "alchemy"])
 
 # =====================================================================
 # МОНСТРЫ: тиры по уровню карты; MAGIC - у волшебных и редких, RARE - у редких, UNIQUE - только босс
@@ -731,3 +854,33 @@ mob("BOSS_TEMPEST", [eff("STOCK_IGNITE_CHANCE"), eff("STOCK_FREEZE_CHANCE"), eff
 mob("BOSS_IMMORTAL", [eff("STOCK_HEALTH_REGEN"), eff("STOCK_LEECH_ALL"), eff("STOCK_RECOVERY_RATE")], [[5, 6], [8, 10], [50, 60]], [[2, 3], [4, 5], [25, 30]], "UNIQUE", 0, ["regen", "leech"], boss=80, precision=1)
 mob("BOSS_MIRROR_SHELL", [eff("STOCK_REFLECT"), eff("STOCK_THORNS"), eff("STOCK_DAMAGE_TAKEN")], [[30, 40], [40, 60], [-20, -15]], [[15, 20], [15, 25], [-10, -8]], "UNIQUE", 0, ["thorns", "defences"], boss=80)
 mob("BOSS_WARLORD", [eff("STOCK_ATTACK_SPEED", "INCREASED"), eff("STOCK_MOVEMENT_SPEED", "INCREASED"), eff("AURA_SLOW")], [[40, 50], [30, 40], [20, 25]], [[20, 25], [15, 20], [10, 12]], "UNIQUE", 0, ["speed", "aura"], boss=80)
+
+# Стражи кристаллов (0.69.0): модификатор своей эссенции, только в пуле `essence`
+def essmob(code, effects, top, bottom, precision=0, grid=G1):
+    fam(code, "MONSTER", effects, grid, top, bottom, {"essence": 100}, tags=["monster", "essence"], minRarity="RARE", precision=precision)
+
+
+essmob("MOB_ESS_GREED", [eff("STOCK_HEALTH", "INCREASED"), eff("STOCK_LIFE_REGEN_PERCENT")], [[60, 60], [2, 2]], [[60, 60], [2, 2]])
+essmob("MOB_ESS_CONTEMPT", [eff("STOCK_ATTACK_PHYSICAL", "INCREASED")], [[40, 40]], [[40, 40]])
+essmob("MOB_ESS_HATRED", [eff("STOCK_ATTACK_COLD"), eff("STOCK_CHILL_DURATION")], [[5, 7], [50, 50]], [[2, 3], [50, 50]], grid=MOB4)
+essmob("MOB_ESS_WOE", [eff("STOCK_SHIELD_OF_LIFE")], [[50, 50]], [[50, 50]])
+essmob("MOB_ESS_FEAR", [eff("AURA_WEAKEN")], [[10, 10]], [[10, 10]])
+essmob("MOB_ESS_ANGER", [eff("STOCK_ATTACK_FIRE"), eff("STOCK_IGNITE_CHANCE")], [[5, 7], [30, 30]], [[2, 3], [30, 30]], grid=MOB4)
+essmob("MOB_ESS_TORMENT", [eff("STOCK_ATTACK_LIGHTNING"), eff("STOCK_SHOCK_CHANCE")], [[5, 7], [30, 30]], [[2, 3], [30, 30]], grid=MOB4)
+essmob("MOB_ESS_SORROW", [eff("STOCK_ATTACK_CHAOS"), eff("STOCK_POISON_CHANCE")], [[4, 5], [30, 30]], [[1, 2], [30, 30]], grid=MOB4)
+essmob("MOB_ESS_RAGE", [eff("STOCK_LOW_LIFE_SPEED")], [[25, 25]], [[25, 25]])
+essmob("MOB_ESS_SUFFERING", [eff("STOCK_BURNING_DAMAGE"), eff("STOCK_POISON_DAMAGE"), eff("STOCK_BLEED_DAMAGE")], [[30, 30]] * 3, [[30, 30]] * 3)
+essmob("MOB_ESS_WRATH", [eff("STOCK_REFLECT")], [[10, 10]], [[10, 10]])
+essmob("MOB_ESS_DOUBT", [eff("AURA_CRIT")], [[30, 30]], [[30, 30]])
+essmob("MOB_ESS_LOATHING", [eff("AURA_RESIST")], [[15, 15]], [[15, 15]])
+essmob("MOB_ESS_ZEAL", [eff("STOCK_ATTACK_SPEED", "INCREASED")], [[30, 30]], [[30, 30]])
+essmob("MOB_ESS_ANGUISH", [eff("STOCK_PENETRATE_ELEMENTAL")], [[15, 15]], [[15, 15]])
+essmob("MOB_ESS_SPITE", [eff("STOCK_MANA_BURN")], [[5, 5]], [[5, 5]])
+essmob("MOB_ESS_SCORN", [eff("AURA_WEAKEN")], [[20, 20]], [[20, 20]])
+essmob("MOB_ESS_ENVY", [eff("STOCK_POISON_CHANCE"), eff("STOCK_POISON_DAMAGE")], [[40, 40], [50, 50]], [[40, 40], [50, 50]])
+essmob("MOB_ESS_MISERY", [eff("AURA_COOLDOWN")], [[30, 30]], [[30, 30]])
+essmob("MOB_ESS_DREAD", [eff("STOCK_BLOCK_CHANCE")], [[20, 20]], [[20, 20]])
+essmob("MOB_ESS_INSANITY", [eff("STOCK_BORROW_SKILLS")], [[1, 1]], [[1, 1]])
+essmob("MOB_ESS_HORROR", [eff("STOCK_DAMAGE"), eff("STOCK_HEALTH", "MORE")], [[50, 50], [-30, -30]], [[50, 50], [-30, -30]])
+essmob("MOB_ESS_DELIRIUM", [eff("AURA_SLOW")], [[20, 20]], [[20, 20]])
+essmob("MOB_ESS_HYSTERIA", [eff("STOCK_WARCRY_EFFECT")], [[100, 100]], [[100, 100]])

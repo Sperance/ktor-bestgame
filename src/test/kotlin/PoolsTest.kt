@@ -59,7 +59,8 @@ class PoolsTest {
                 "smith bases" to crafting.equipmentPools, "smith uniques" to crafting.uniquePools, "merchant" to MerchantRules.POOLS)
 
     private val monsterSources: Map<String, List<String>> =
-        campaign.zones.associate { "map ${it.code}" to it.modifierPools } + mapOf("bosses" to campaign.bosses.modifierPools)
+        campaign.zones.associate { "map ${it.code}" to it.modifierPools } + mapOf("bosses" to campaign.bosses.modifierPools,
+            "crystals" to features.logic.essences.EssenceContent.book.crystals.modifierPools)
 
     /** Модификаторы монстров (0.66.0) - описания источника MONSTER. */
     private val monsterModifiers = definitions.filter { it.isMonster() }

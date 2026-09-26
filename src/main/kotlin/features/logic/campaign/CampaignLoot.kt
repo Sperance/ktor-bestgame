@@ -172,6 +172,8 @@ object CampaignMaps {
     const val GOLD = "MAP_GOLD"
     const val FOUNTAINS = "MAP_FOUNTAINS"
     const val BOSS_POWER = "MAP_BOSS_POWER"
+    const val CRYSTALS = "MAP_CRYSTALS"
+    const val BOOKS = "MAP_BOOKS"
 
     /** Код шаблона карты для локации: `MAP_<код локации>`. */
     fun templateCode(mapCode: String) = "MAP_$mapCode"

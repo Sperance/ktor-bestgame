@@ -186,9 +186,10 @@ class SeedDataTest {
 
     /**
      * Слоты, в которые надевают шаблоны: самоцвет живёт в гнезде, второе кольцо -
-     * это место для кольца, а не вид предмета, а карта (0.35.0) открывает локацию.
+     * это место для кольца, а не вид предмета, а карта (0.35.0) открывает локацию. Фляга (0.69.0)
+     * живёт по своим правилам: только обычные базы, свои уникалки и редкой не бывает.
      */
-    private val wearableSlots = EnumEquipmentType.entries.filterNot { it.isTool } - EnumEquipmentType.JEWEL - EnumEquipmentType.RING_2 - EnumEquipmentType.MAP
+    private val wearableSlots = EnumEquipmentType.entries.filterNot { it.isTool || it.isFlask } - EnumEquipmentType.JEWEL - EnumEquipmentType.RING_2 - EnumEquipmentType.MAP
 
     @Test
     fun every_slot_has_ordinary_bases_of_every_rarity() {

@@ -23,6 +23,7 @@ import features.data.inventory.CharacterEquipmentRepository
 import features.logic.atlas.AtlasBonuses
 import features.logic.atlas.AtlasContent
 import features.logic.atlas.AtlasPoints
+import features.logic.essences.EssenceContent
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -73,7 +74,9 @@ data class BossState(val alive: Boolean, val respawnAt: Long)
  * модификаторов монстров, босса и стража порчи: вид мира их не несёт, заход строится по ней.
  */
 @Serializable
-data class MapLaunch(val zone: CampaignMap, val map: ActiveMap?, val chests: ChestState, val atlas: Map<String, Double> = emptyMap())
+data class MapLaunch(val zone: CampaignMap, val map: ActiveMap?, val chests: ChestState, val atlas: Map<String, Double> = emptyMap(),
+                     /** Кристаллы эссенций зоны (с 0.69.0) - с учётом тех, что добавила карта. */
+                     val crystals: CrystalState? = null)
 
 /** Что стоила смерть: потерянный опыт и где герой теперь. Уровень не меняется никогда. */
 @Serializable
@@ -129,8 +132,9 @@ class CampaignService : KoinComponent {
         val atlas = atlasOf(character)
         val experience = CampaignLoot.experience(monster, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + (zone?.experience ?: 0.0) + atlas.experience)
         val recipe = if (rarityValue == EnumMonsterRarity.RARE) rollRecipe(character, map.level, Random.Default, atlas) else null
+        val book = if (rarityValue == EnumMonsterRarity.RARE) rollBook(character, map.level, books.rare, 0.0, mapCode, atlas) else null
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method, atlas,
-            mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity, recipeFound = recipe, zone = zone)
+            mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity, recipeFound = recipe, zone = zone, extraItems = listOfNotNull(book))
     }
 
     /** Жив ли босс карты у героя и когда вернётся убитый (с 0.32.0). */
@@ -170,8 +174,10 @@ class CampaignService : KoinComponent {
         // Босс щедрее (0.66.0): добыча с боссов по атласу и строка «босс сильнее» карты - к количеству.
         val bossLoot = atlas.bossLoot + (mapBonus(character, mapCode).effects[CampaignMaps.BOSS_POWER] ?: 0.0)
         pass(character, mapCode)
+        // Книга умения с босса (0.69.0): чаще своего класса
+        val book = rollBook(character, map.level, books.boss, books.bossOwnClass, mapCode, atlas)
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, atlas, extra,
-            mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance, recipeFound = recipe, extraQuantity = bossLoot)
+            mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance, recipeFound = recipe, extraQuantity = bossLoot, extraItems = listOfNotNull(book))
             .copy(progress = progressOf(character))
     }
 
@@ -276,6 +282,11 @@ class CampaignService : KoinComponent {
         }
         val chests = active?.effects?.get(CampaignMaps.CHESTS)?.toInt() ?: 0
         if (chests > 0) character.chests[mapCode] = window.copy(left = window.left + chests)
+        // Кристаллы эссенций (0.69.0): карта добавляет их в окно зоны, как сундуки
+        val crystals = crystalWindowOf(character, mapCode, zone.level)
+        val extraCrystals = active?.effects?.get(CampaignMaps.CRYSTALS)?.toInt() ?: 0
+        if (extraCrystals > 0) character.crystals[mapCode] = crystals.copy(crystals = crystals.crystals +
+            List(extraCrystals) { EssenceCrystals.roll(EssenceContent.book.crystals, zone.level, guardians(mapCode), Random.Default, atlasOf(character)) })
         character.activeMap = active
         // Новый заход открывают порчу и рецепт, только если на него потрачена карта: бесплатный
         // вход без неё иначе раздавал бы стража порчи и рецепт сколько угодно раз
@@ -289,7 +300,8 @@ class CampaignService : KoinComponent {
             characters.update(character, session)
         }
         val now = character.chests[mapCode] ?: window
-        return MapLaunch(zone, active, ChestState(now.left, now.refreshAt, now.bought), atlasOf(character).effects)
+        val stones = character.crystals[mapCode] ?: crystals
+        return MapLaunch(zone, active, ChestState(now.left, now.refreshAt, now.bought), atlasOf(character).effects, CrystalState(stones.crystals, stones.refreshAt))
     }
 
     /** Бонус карты, с которой герой вошёл в [mapCode]; в другой локации его нет. */
@@ -381,7 +393,7 @@ class CampaignService : KoinComponent {
     private suspend fun grant(character: Character, sheet: Map<application.enums.IntEnumStat, Double>, table: LootTable, level: Int, rarity: CampaignRarity,
                               experience: Double, method: String, atlas: AtlasBonuses, extra: List<features.data.equipment.equipment_data.Equipment> = emptyList(),
                               mapCode: String, mapChance: Double = 0.0, recipeFound: features.logic.bench.BenchRecipe? = null, zone: VaalZone? = null,
-                              extraQuantity: Double = 0.0): CampaignReward {
+                              extraQuantity: Double = 0.0, extraItems: List<CharacterItems> = emptyList()): CampaignReward {
         val active = mapBonus(character, mapCode)
         fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
         val random = Random.Default
@@ -391,7 +403,7 @@ class CampaignService : KoinComponent {
         val loot = CampaignLoot.roll(table, level, rarity, quantity, gold, random, CampaignContent.file.growthTaper)
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
             itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) }
-        }
+        } + extraItems
         // Экипировка тянется из пулов строки таблицы: что в них не состоит, отсюда не падает.
         val templates = extra + loot.equipment.mapNotNull { pools ->
             CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity + (zone?.rarity ?: 0.0) + atlas.rarity, random)
@@ -415,6 +427,86 @@ class CampaignService : KoinComponent {
             created
         }
         return CampaignReward(experience, loot.gold, orbs, equipment, character.level.toInt(), character.experience, character.money, recipeFound)
+    }
+
+    private val books get() = features.logic.skills.SkillContent.book.rules.books
+
+    /**
+     * Книга умения с монстра (0.69.0): шанс поднимают строка карты и атлас, долю своего класса - атлас.
+     * Книга - простой предмет сумки; класс героя и уровень зоны решают, какие умения могут выпасть.
+     */
+    private fun rollBook(character: Character, level: Int, chance: Double, ownShare: Double, mapCode: String, atlas: AtlasBonuses): CharacterItems? {
+        val boost = 1 + ((mapBonus(character, mapCode).effects[CampaignMaps.BOOKS] ?: 0.0) + atlas.books) / 100
+        val share = (ownShare * (1 + atlas.booksOwn / 100)).coerceAtMost(1.0)
+        val code = features.logic.skills.SkillRules.dropBook(characters.requireClass(character).code, level, chance * boost, share, Random.Default) ?: return null
+        return itemsCache.findByCode(code)?.let { CharacterItems(it._id, 1) }
+    }
+
+    /** Монстры зоны, из которых встаёт страж кристалла. */
+    private fun guardians(mapCode: String): List<String> = CampaignContent.template(mapCode)?.monsters.orEmpty()
+
+    /** Окно кристаллов зоны; истёкшее бросается заново и остаётся в памяти - записывает вызывающий. */
+    private fun crystalWindowOf(character: Character, mapCode: String, level: Int): CrystalWindow {
+        val current = character.crystals[mapCode]
+        val window = EssenceCrystals.window(current, System.currentTimeMillis(), EssenceContent.book.crystals, level, guardians(mapCode), Random.Default, atlasOf(character))
+        if (window != current) character.crystals[mapCode] = window
+        return window
+    }
+
+    /** Кристаллы эссенций зоны у героя (с 0.69.0); новое окно записывается сразу. */
+    suspend fun crystals(characterId: String, mapCode: String): CrystalState {
+        val method = "crystals"
+        val character = characters.requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        val before = character.crystals[mapCode]
+        val window = crystalWindowOf(character, mapCode, map.level)
+        if (window != before) transactionExecute(method) { session -> characters.update(character, session) }
+        return CrystalState(window.crystals, window.refreshAt)
+    }
+
+    /**
+     * Герой одолел стража кристалла [index] (с 0.69.0): кристалл уходит из окна, эссенции - в сумку,
+     * страж роняет добычу редкого монстра своей таблицы и с шансом - книгу умения.
+     */
+    suspend fun slayGuardian(characterId: String, mapCode: String, index: Int): CampaignReward {
+        val method = "slayGuardian"
+        val character = characters.requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        val window = crystalWindowOf(character, mapCode, map.level)
+        val crystal = window.crystals.getOrNull(index) ?: throw CampaignExceptions.funExceptionNoCrystal(method, mapCode)
+        character.crystals[mapCode] = window.copy(crystals = window.crystals.filterIndexed { i, _ -> i != index })
+        val monster = CampaignContent.monsters.getValue(crystal.guardian)
+        val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.RARE }
+        val sheet = characters.calculateStats(character).stats
+        val atlas = atlasOf(character)
+        val experience = CampaignLoot.experience(monster, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + atlas.experience)
+        val essences = crystal.essences.groupingBy { it }.eachCount().mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount.toLong()) } }
+        val book = rollBook(character, map.level, EssenceContent.book.crystals.bookChance, 0.0, mapCode, atlas)
+        return grant(character, sheet, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method, atlas,
+            mapCode = mapCode, extraItems = essences + listOfNotNull(book))
+    }
+
+    /**
+     * Сфера Ваал на кристалле [index] (с 0.69.0): один раз на кристалл - эссенции выше, одна особая или
+     * страж сильнее. Сфера уходит из сумки той же записью.
+     */
+    suspend fun vaalCrystal(characterId: String, mapCode: String, index: Int): CrystalVaal {
+        val method = "vaalCrystal"
+        val character = characters.requireCharacter(characterId, method)
+        val map = openMap(character, mapCode, method)
+        val window = crystalWindowOf(character, mapCode, map.level)
+        val crystal = window.crystals.getOrNull(index) ?: throw CampaignExceptions.funExceptionNoCrystal(method, mapCode)
+        if (crystal.vaal) throw CampaignExceptions.funExceptionCrystalCorrupted(method, mapCode)
+        val orb = application.enums.EnumCurrencyOrb.VAAL_ORB.name
+        val orbId = itemsCache.findByCode(orb)?._id ?: throw CharacterExceptions.funExceptionItemNotFound(method, orb)
+        val owned = character.bag[orbId] ?: 0L
+        if (owned < 1) throw CharacterExceptions.funExceptionItemLowZero(method, "$orb:$owned")
+        if (owned == 1L) character.bag.remove(orbId) else character.bag[orbId] = owned - 1
+        val (outcome, changed) = EssenceCrystals.vaal(crystal, EssenceContent.book.crystals, Random.Default)
+        val crystals = window.crystals.toMutableList().also { it[index] = changed }
+        character.crystals[mapCode] = window.copy(crystals = crystals)
+        transactionExecute(method) { session -> characters.update(character, session) }
+        return CrystalVaal(outcome, changed, CrystalState(crystals, window.refreshAt))
     }
 
     /**

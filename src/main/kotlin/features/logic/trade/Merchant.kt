@@ -11,6 +11,7 @@ import features.data.inventory.CharacterEquipment
 import features.data.inventory.CharacterEquipmentRepository
 import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierRoller
+import features.logic.equipment.FlaskRules
 import features.logic.pools.Pools
 import features.logic.pools.Weighted
 import kotlinx.serialization.Serializable
@@ -38,7 +39,8 @@ data class MerchantPurchase(val item: CharacterEquipment, val money: Long)
  * [MAX_OFFERS] предметов уровня героя ± [LEVEL_SPREAD] по весам [RARITIES] - с 0.43.0 и белые, без
  * аффиксов, под сферы (самоцвет белым не бывает, см. `Jewels`), - из пулов [POOLS]. Экземпляр роллится при выкладке, поэтому игрок
  * видит ровно то, что купит. Цена - то, что торговец дал бы за такой предмет, умноженное на
- * [MARKUP]: купить и сразу продать всегда в убыток. Досрочно витрину не обновить.
+ * [MARKUP]: купить и сразу продать всегда в убыток. Досрочно витрину не обновить. С 0.69.0 рядом
+ * стоят [FLASKS] фляги по уровню героя - редкой фляги не бывает, см. [FlaskRules].
  */
 object MerchantRules {
     const val WINDOW_HOURS = 4.0
@@ -68,16 +70,24 @@ object MerchantRules {
               ensure: (Equipment, CharacterEquipment) -> Boolean = ModifierRoller::ensureAffixes,
               affix: (Modifier) -> Boolean = ModifierRoller::isAffix): MerchantStock {
         if (current != null && now < current.refreshAt) return current
-        val near = pool.filter { it.value.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
-            .ifEmpty { pool.filter { it.value.requiredLevel <= level + LEVEL_SPREAD } }
-        val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) {
-            val template = Pools.draw(near, random) ?: near.first().value
-            val wanted = features.logic.equipment.Jewels.rarity(template, rarity(random))
+        val (flasks, gear) = pool.partition { it.value.slot.isFlask }
+        val near = gear.filter { it.value.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
+            .ifEmpty { gear.filter { it.value.requiredLevel <= level + LEVEL_SPREAD } }
+        fun lay(from: List<Weighted<Equipment>>, rarity: EnumRarity): MerchantOffer {
+            val template = Pools.draw(from, random) ?: from.first().value
+            val wanted = FlaskRules.rarity(template, features.logic.equipment.Jewels.rarity(template, rarity))
             val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = roll(template, wanted), rarity = wanted)
-            offer(ObjectId().toHexString(), template, sound(template, item, ensure, affix))
+            return offer(ObjectId().toHexString(), template, sound(template, item, ensure, affix))
         }
-        return MerchantStock(now + (WINDOW_HOURS * 3_600_000).toLong(), offers)
+        val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) { lay(near, rarity(random)) }
+        // Фляги (0.69.0) - своей полкой: одна-две из тех, что герою уже по уровню, лучшие базы вида чаще.
+        val shelf = flasks.filter { it.value.requiredLevel <= level }
+        val bottles = if (shelf.isEmpty()) emptyList() else List(random.nextInt(FLASKS.first, FLASKS.last + 1)) { lay(shelf, rarity(random)) }
+        return MerchantStock(now + (WINDOW_HOURS * 3_600_000).toLong(), offers + bottles)
     }
+
+    /** Сколько фляг на витрине (с 0.69.0). */
+    val FLASKS = 1..2
 
     /** Строка витрины по вещи: цена - то, что за неё дал бы торговец, с наценкой [MARKUP]. */
     fun offer(id: String, template: Equipment, item: CharacterEquipment): MerchantOffer =

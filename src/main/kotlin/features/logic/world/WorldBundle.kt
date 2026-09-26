@@ -34,7 +34,7 @@ data class WorldManifest(val hash: String, val file: String)
 
 /**
  * Все справочники мира одним файлом (с 0.48.0): модификаторы, классы, уровни, дерево,
- * шаблоны экипировки, предметы, пулы и таблицы листа. У каждого модификатора его тиры
+ * шаблоны экипировки, предметы, пулы и таблицы листа, с 0.69.0 - книга умений и эссенции. У каждого модификатора его тиры
  * (`tiers`, с 0.56.0 - прямо в описании: уровень и диапазоны значений): по ним клиент
  * показывает, насколько хорош ролл внутри тира. Пулы (0.56.0) - документы коллекции `Pool`.
  *
@@ -84,6 +84,9 @@ object WorldBundle : KoinComponent {
             put("items", encode(Items.serializer(), items.getCache().toList()))
             put("pools", encode(Pool.serializer(), pools.getCache().toList()))
             put("stats", AppJson.encodeToJsonElement(StatTables.serializer(), StatTables.served))
+            // 0.69.0: книга умений классов и монстров и эссенции - правила из файлов, их ревизия - сборка сервера
+            put("skills", AppJson.encodeToJsonElement(features.logic.skills.SkillBook.serializer(), features.logic.skills.SkillContent.book))
+            put("essences", AppJson.encodeToJsonElement(features.logic.essences.EssenceBook.serializer(), features.logic.essences.EssenceContent.book))
         })
         return Built(revision, document, sha256(document)).also { built = it }
     }

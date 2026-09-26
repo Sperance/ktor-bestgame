@@ -81,6 +81,12 @@ data class CharacterEquipment(
      */
     var influence: EnumInfluence? = null,
 
+    /**
+     * Качество фляги в процентах (с 0.69.0): каждый процент - плюс процент её эффекта или
+     * восстановления. Поднимает его только «Стеклодув», до [features.logic.equipment.FlaskRules.MAX_QUALITY].
+     */
+    var quality: Int = 0,
+
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

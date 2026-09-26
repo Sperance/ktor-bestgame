@@ -2722,7 +2722,8 @@
         "STOCK_HEALTH": 48,
         "STOCK_ATTACK_PHYSICAL": 6,
         "STOCK_ATTACK_COLD": 4,
-        "STOCK_RESIST_COLD": 30
+        "STOCK_RESIST_COLD": 30,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2731,6 +2732,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_TIDECALLER"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -2744,7 +2749,8 @@
         "STOCK_ATTACK_PHYSICAL": 8,
         "STOCK_ARMOR": 55,
         "STOCK_BLOCK_CHANCE": 20,
-        "STOCK_STUN_THRESHOLD": 10
+        "STOCK_STUN_THRESHOLD": 10,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2753,6 +2759,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_BRINE_MOTHER"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -2766,7 +2776,8 @@
         "STOCK_ATTACK_CHAOS": 7,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_RESIST_CHAOS": 50,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2775,6 +2786,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_BOG_QUEEN"
+      ],
+      "skills": [
+        "MOB_SPIT",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -2788,7 +2803,8 @@
         "STOCK_ATTACK_PHYSICAL": 9,
         "STOCK_EVASION": 80,
         "STOCK_BLEED_CHANCE": 20,
-        "STOCK_MOVEMENT_SPEED": 20
+        "STOCK_MOVEMENT_SPEED": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2797,6 +2813,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_ALPHA_WOLF"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -2811,7 +2831,8 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_AVOID_STUN": 50
+        "STOCK_AVOID_STUN": 50,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2820,6 +2841,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_RUIN_WARDEN"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -2833,7 +2858,8 @@
         "STOCK_ATTACK_PHYSICAL": 8,
         "STOCK_ATTACK_CHAOS": 5,
         "STOCK_RESIST_CHAOS": 40,
-        "STOCK_LEECH_ALL": 3
+        "STOCK_LEECH_ALL": 3,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2842,6 +2868,9 @@
       ],
       "uniquePools": [
         "boss:BOSS_CRYPT_LORD"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -2855,7 +2884,8 @@
         "STOCK_ATTACK_PHYSICAL": 6,
         "STOCK_ATTACK_LIGHTNING": 7,
         "STOCK_CRITICAL_CHANCE": 12,
-        "STOCK_SHOCK_CHANCE": 25
+        "STOCK_SHOCK_CHANCE": 25,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2864,6 +2894,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_SHARD_QUEEN"
+      ],
+      "skills": [
+        "MOB_ZAP",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -2878,7 +2912,8 @@
         "STOCK_ATTACK_FIRE": 9,
         "STOCK_RESIST_FIRE": 60,
         "STOCK_IGNITE_CHANCE": 25,
-        "STOCK_PENETRATE_ELEMENTAL": 10
+        "STOCK_PENETRATE_ELEMENTAL": 10,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2887,6 +2922,9 @@
       ],
       "uniquePools": [
         "boss:BOSS_ASHEN_TYRANT"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -2913,6 +2951,9 @@
       ],
       "uniquePools": [
         "boss:BOSS_FROST_MONARCH"
+      ],
+      "skills": [
+        "MOB_ICE_BOLT"
       ]
     },
     {
@@ -2928,7 +2969,8 @@
         "STOCK_ENERGY_SHIELD": 30,
         "STOCK_RESIST_CHAOS": 50,
         "STOCK_RESIST_ALL": 20,
-        "STOCK_REFLECT": 10
+        "STOCK_REFLECT": 10,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -2938,6 +2980,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_DROWNED_GOD"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -2952,12 +2998,16 @@
         "STOCK_ATTACK_COLD": 3.8,
         "STOCK_RESIST_COLD": 40,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_CHILLING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -2970,12 +3020,16 @@
         "STOCK_HEALTH": 44,
         "STOCK_ATTACK_PHYSICAL": 5.4,
         "STOCK_EVASION": 80,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_SWIFT"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -2999,6 +3053,10 @@
       "modifiers": [
         "BOSS_TEMPEST",
         "MOB_SHOCKING"
+      ],
+      "skills": [
+        "MOB_ZAP",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3013,12 +3071,17 @@
         "STOCK_ATTACK_COLD": 4.0,
         "STOCK_RESIST_COLD": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DREAD",
         "MOB_DRAINING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -3031,12 +3094,16 @@
         "STOCK_HEALTH": 59,
         "STOCK_ATTACK_PHYSICAL": 6.7,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_EVASIVE"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3050,12 +3117,17 @@
         "STOCK_ATTACK_PHYSICAL": 5.7,
         "STOCK_ATTACK_CHAOS": 5.0,
         "STOCK_RESIST_CHAOS": 40,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_TOXIC"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -3070,12 +3142,17 @@
         "STOCK_EVASION": 70,
         "STOCK_CRITICAL_CHANCE": 10,
         "STOCK_MOVEMENT_SPEED": 15,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_BERSERK"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -3089,12 +3166,16 @@
         "STOCK_ATTACK_PHYSICAL": 6.7,
         "STOCK_BLOCK_CHANCE": 20,
         "STOCK_ARMOR": 40,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_ARMOURED"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3109,12 +3190,17 @@
         "STOCK_ATTACK_COLD": 4.5,
         "STOCK_RESIST_COLD": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_FROSTBORN"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -3129,12 +3215,17 @@
         "STOCK_ATTACK_LIGHTNING": 4.9,
         "STOCK_RESIST_LIGHTNING": 40,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_SHOCK_CHANCE": 20
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_CRACKLING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3151,12 +3242,17 @@
         "STOCK_EVASION": 70,
         "STOCK_CRITICAL_CHANCE": 10,
         "STOCK_MOVEMENT_SPEED": 15,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_FREEZING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -3173,12 +3269,16 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_SHOCK_CHANCE": 20
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_JUGGERNAUT"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3193,12 +3293,16 @@
         "STOCK_ATTACK_LIGHTNING": 7.7,
         "STOCK_RESIST_LIGHTNING": 40,
         "STOCK_CRITICAL_CHANCE": 12,
-        "STOCK_SHOCK_CHANCE": 20
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_STORMBORN"
+      ],
+      "skills": [
+        "MOB_ZAP"
       ]
     },
     {
@@ -3223,6 +3327,10 @@
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_FROSTBORN"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
       ]
     },
     {
@@ -3238,12 +3346,16 @@
         "STOCK_RESIST_COLD": 40,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_STUN_THRESHOLD": 15,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_REGENERATING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3260,12 +3372,16 @@
         "STOCK_EVASION": 70,
         "STOCK_CRITICAL_CHANCE": 10,
         "STOCK_MOVEMENT_SPEED": 15,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_FLAMING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3289,6 +3405,10 @@
       "modifiers": [
         "BOSS_TEMPEST",
         "MOB_STORMBORN"
+      ],
+      "skills": [
+        "MOB_ZAP",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3313,6 +3433,10 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_WARDED"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -3329,12 +3453,17 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_FIREPROOF"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -3349,12 +3478,16 @@
         "STOCK_RESIST_FIRE": 70,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_ARMOR": 40,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_BURNING"
+      ],
+      "skills": [
+        "MOB_FIREBALL"
       ]
     },
     {
@@ -3368,12 +3501,17 @@
         "STOCK_ATTACK_PHYSICAL": 7.7,
         "STOCK_ATTACK_COLD": 6.7,
         "STOCK_RESIST_COLD": 40,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_FREEZING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3397,6 +3535,10 @@
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_WITHERING"
+      ],
+      "skills": [
+        "MOB_SPIT",
+        "MOB_HEAL"
       ]
     },
     {
@@ -3411,12 +3553,16 @@
         "STOCK_ATTACK_FIRE": 5.8,
         "STOCK_RESIST_FIRE": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_BURNING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3430,12 +3576,17 @@
         "STOCK_ATTACK_PHYSICAL": 9.1,
         "STOCK_BLOCK_CHANCE": 20,
         "STOCK_ARMOR": 40,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_STURDY"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3448,12 +3599,17 @@
         "STOCK_HEALTH": 100,
         "STOCK_ATTACK_PHYSICAL": 10.1,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_VICIOUS"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -3467,12 +3623,17 @@
         "STOCK_ATTACK_PHYSICAL": 11.1,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_STUN_THRESHOLD": 15,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_CRUSHING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -3496,6 +3657,9 @@
       "modifiers": [
         "BOSS_TEMPEST",
         "MOB_SHOCKING"
+      ],
+      "skills": [
+        "MOB_ZAP"
       ]
     },
     {
@@ -3510,12 +3674,17 @@
         "STOCK_ATTACK_FIRE": 6.2,
         "STOCK_RESIST_FIRE": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_STALWART"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -3528,12 +3697,17 @@
         "STOCK_HEALTH": 82,
         "STOCK_ATTACK_PHYSICAL": 8.7,
         "STOCK_EVASION": 80,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_HUNGERING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -3547,12 +3721,17 @@
         "STOCK_ATTACK_PHYSICAL": 8.2,
         "STOCK_ATTACK_CHAOS": 7.2,
         "STOCK_RESIST_CHAOS": 40,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_VENOMOUS"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -3569,12 +3748,17 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_MIRRORED"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -3587,12 +3771,16 @@
         "STOCK_HEALTH": 104,
         "STOCK_ATTACK_PHYSICAL": 10.4,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_MERCILESS"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3608,12 +3796,16 @@
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_ARMOR": 70,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_TOXIC"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3637,6 +3829,10 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_EVASIVE"
+      ],
+      "skills": [
+        "MOB_FIREBALL",
+        "MOB_HEAL"
       ]
     },
     {
@@ -3651,12 +3847,17 @@
         "STOCK_ATTACK_CHAOS": 6.4,
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_UNDYING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3671,12 +3872,17 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_STEADFAST"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
       ]
     },
     {
@@ -3690,12 +3896,17 @@
         "STOCK_ATTACK_PHYSICAL": 10.1,
         "STOCK_ARMOR": 70,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_PIERCING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -3720,6 +3931,10 @@
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_WITHERING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -3744,6 +3959,10 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_FLAMING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3758,12 +3977,16 @@
         "STOCK_ATTACK_LIGHTNING": 5.4,
         "STOCK_RESIST_LIGHTNING": 40,
         "STOCK_EVASION": 80,
-        "STOCK_SHOCK_CHANCE": 20
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_TEMPEST",
         "MOB_STORMBORN"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3779,7 +4002,8 @@
         "STOCK_RESIST_FIRE": 40,
         "STOCK_LEECH_ALL": 3,
         "STOCK_IGNITE_CHANCE": 20,
-        "STOCK_RESIST_ALL": 15
+        "STOCK_RESIST_ALL": 15,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -3789,6 +4013,9 @@
       ],
       "uniquePools": [
         "boss:BOSS_SUN_KING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3803,12 +4030,17 @@
         "STOCK_EVASION": 70,
         "STOCK_CRITICAL_CHANCE": 10,
         "STOCK_MOVEMENT_SPEED": 15,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_SWIFT"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
       ]
     },
     {
@@ -3820,12 +4052,16 @@
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 124,
         "STOCK_ATTACK_PHYSICAL": 8.9,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_GORING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3839,12 +4075,17 @@
         "STOCK_ATTACK_PHYSICAL": 10.0,
         "STOCK_BLOCK_CHANCE": 20,
         "STOCK_ARMOR": 40,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_ARMOURED"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -3869,6 +4110,9 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_LINGERING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3885,12 +4129,16 @@
         "STOCK_EVASION": 70,
         "STOCK_CRITICAL_CHANCE": 10,
         "STOCK_MOVEMENT_SPEED": 15,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_EVASIVE"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3906,12 +4154,17 @@
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_EVASION": 75,
         "STOCK_CRITICAL_CHANCE": 10,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_VENOMOUS"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -3924,12 +4177,17 @@
         "STOCK_HEALTH": 149,
         "STOCK_ATTACK_PHYSICAL": 10.1,
         "STOCK_HEALTH_REGEN": 4,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_SLOWING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -3953,6 +4211,10 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_TOXIC"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -3968,12 +4230,16 @@
         "STOCK_RESIST_LIGHTNING": 40,
         "STOCK_EVASION": 75,
         "STOCK_CRITICAL_CHANCE": 10,
-        "STOCK_SHOCK_CHANCE": 20
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_STURDY"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -3988,12 +4254,17 @@
         "STOCK_ATTACK_CHAOS": 10.3,
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_CRITICAL_CHANCE": 12,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_BLIGHTED"
+      ],
+      "skills": [
+        "MOB_SPIT",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -4007,12 +4278,16 @@
         "STOCK_ATTACK_CHAOS": 11.6,
         "STOCK_RESIST_CHAOS": 70,
         "STOCK_HEALTH_REGEN": 4,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_REGENERATING"
+      ],
+      "skills": [
+        "MOB_SPIT"
       ]
     },
     {
@@ -4027,12 +4302,17 @@
         "STOCK_ATTACK_FIRE": 6.9,
         "STOCK_RESIST_FIRE": 40,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_BERSERK"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4047,12 +4327,17 @@
         "STOCK_RESIST_CHAOS": 70,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_ARMOR": 40,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_HUNGERING"
+      ],
+      "skills": [
+        "MOB_SPIT",
+        "MOB_HEAL"
       ]
     },
     {
@@ -4066,12 +4351,17 @@
         "STOCK_ATTACK_PHYSICAL": 9.2,
         "STOCK_ATTACK_COLD": 8.1,
         "STOCK_RESIST_COLD": 40,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_CHILLING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
       ]
     },
     {
@@ -4086,12 +4376,17 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_THORNY"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4105,12 +4400,17 @@
         "STOCK_ATTACK_PHYSICAL": 10.5,
         "STOCK_EVASION": 75,
         "STOCK_CRITICAL_CHANCE": 10,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_VICIOUS"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -4126,12 +4426,16 @@
         "STOCK_RESIST_FIRE": 40,
         "STOCK_EVASION": 75,
         "STOCK_CRITICAL_CHANCE": 10,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_STALWART"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4148,7 +4452,8 @@
         "STOCK_EVASION": 75,
         "STOCK_CRITICAL_CHANCE": 10,
         "STOCK_POISON_CHANCE": 20,
-        "STOCK_RESIST_ALL": 15
+        "STOCK_RESIST_ALL": 15,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -4158,6 +4463,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_HIVE_QUEEN"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
       ]
     },
     {
@@ -4173,12 +4482,17 @@
         "STOCK_RESIST_FIRE": 40,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_STUN_THRESHOLD": 15,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_FLAMING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4195,12 +4509,17 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_TOXIC"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -4213,12 +4532,17 @@
         "STOCK_HEALTH": 124,
         "STOCK_ATTACK_PHYSICAL": 12.0,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_STALWART"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -4232,12 +4556,17 @@
         "STOCK_ATTACK_PHYSICAL": 9.8,
         "STOCK_ATTACK_FIRE": 8.5,
         "STOCK_RESIST_FIRE": 40,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_BURNING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4250,12 +4579,16 @@
         "STOCK_HEALTH": 101,
         "STOCK_ATTACK_PHYSICAL": 10.4,
         "STOCK_EVASION": 80,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_PIERCING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4271,12 +4604,17 @@
         "STOCK_RESIST_FIRE": 40,
         "STOCK_ARMOR": 50,
         "STOCK_HEALTH_REGEN": 2,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_FIREPROOF"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -4290,12 +4628,16 @@
         "STOCK_ATTACK_PHYSICAL": 11.0,
         "STOCK_BLOCK_CHANCE": 20,
         "STOCK_ARMOR": 40,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_CRUSHING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4310,12 +4652,16 @@
         "STOCK_ATTACK_FIRE": 11.1,
         "STOCK_RESIST_FIRE": 40,
         "STOCK_CRITICAL_CHANCE": 12,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DREAD",
         "MOB_LINGERING"
+      ],
+      "skills": [
+        "MOB_FIREBALL"
       ]
     },
     {
@@ -4330,12 +4676,17 @@
         "STOCK_ATTACK_FIRE": 7.4,
         "STOCK_RESIST_FIRE": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_DRAINING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
       ]
     },
     {
@@ -4350,12 +4701,16 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_ARMOURED"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4370,12 +4725,17 @@
         "STOCK_RESIST_FIRE": 70,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_ARMOR": 40,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_REGENERATING"
+      ],
+      "skills": [
+        "MOB_FIREBALL",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4400,6 +4760,10 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_ELEMENTALIST"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -4413,12 +4777,17 @@
         "STOCK_ATTACK_PHYSICAL": 12.5,
         "STOCK_ARMOR": 50,
         "STOCK_HEALTH_REGEN": 2,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_STRONG"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4433,12 +4802,17 @@
         "STOCK_ATTACK_FIRE": 7.5,
         "STOCK_RESIST_FIRE": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_BURNING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -4452,12 +4826,17 @@
         "STOCK_ATTACK_PHYSICAL": 10.1,
         "STOCK_ATTACK_FIRE": 8.9,
         "STOCK_RESIST_FIRE": 40,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_FLAMING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -4473,12 +4852,17 @@
         "STOCK_RESIST_FIRE": 40,
         "STOCK_ARMOR": 50,
         "STOCK_HEALTH_REGEN": 2,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_WARDED"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4495,12 +4879,17 @@
         "STOCK_ARMOR": 90,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 22,
-        "STOCK_IGNITE_CHANCE": 20
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_JUGGERNAUT"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -4517,7 +4906,8 @@
         "STOCK_ARMOR": 50,
         "STOCK_HEALTH_REGEN": 2,
         "STOCK_IGNITE_CHANCE": 20,
-        "STOCK_RESIST_ALL": 15
+        "STOCK_RESIST_ALL": 15,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -4527,6 +4917,9 @@
       ],
       "uniquePools": [
         "boss:BOSS_FLAME_SOVEREIGN"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4550,6 +4943,9 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_WITHERING"
+      ],
+      "skills": [
+        "MOB_SPIT"
       ]
     },
     {
@@ -4564,12 +4960,16 @@
         "STOCK_ATTACK_CHAOS": 7.8,
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_LEECH_ALL": 3,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_BLIGHTED"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4594,6 +4994,10 @@
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_ARCANE"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -4617,6 +5021,10 @@
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_FROSTBORN"
+      ],
+      "skills": [
+        "MOB_ICE_BOLT",
+        "MOB_SLAM"
       ]
     },
     {
@@ -4630,12 +5038,16 @@
         "STOCK_ATTACK_CHAOS": 13.2,
         "STOCK_RESIST_CHAOS": 70,
         "STOCK_HEALTH_REGEN": 4,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_PLAGUEBEARER",
         "MOB_REGENERATING"
+      ],
+      "skills": [
+        "MOB_SPIT"
       ]
     },
     {
@@ -4650,12 +5062,17 @@
         "STOCK_ATTACK_CHAOS": 7.9,
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_CRITICAL_CHANCE": 8,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_TOXIC"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4669,12 +5086,17 @@
         "STOCK_ATTACK_PHYSICAL": 11.8,
         "STOCK_BLOCK_CHANCE": 20,
         "STOCK_ARMOR": 40,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_STURDY"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -4688,12 +5110,16 @@
         "STOCK_ATTACK_PHYSICAL": 10.7,
         "STOCK_ATTACK_COLD": 9.3,
         "STOCK_RESIST_COLD": 40,
-        "STOCK_FREEZE_CHANCE": 20
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_COLOSSAL",
         "MOB_CHILLING"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4717,6 +5143,10 @@
       "modifiers": [
         "BOSS_DREAD",
         "MOB_LINGERING"
+      ],
+      "skills": [
+        "MOB_SPIT",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -4732,12 +5162,16 @@
         "STOCK_RESIST_LIGHTNING": 40,
         "STOCK_ARMOR": 50,
         "STOCK_HEALTH_REGEN": 2,
-        "STOCK_SHOCK_CHANCE": 20
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_TEMPEST",
         "MOB_STORMBORN"
+      ],
+      "skills": [
+        "MOB_SLAM"
       ]
     },
     {
@@ -4751,12 +5185,17 @@
         "STOCK_ATTACK_PHYSICAL": 13.5,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_ARMOR": 40,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_DEVASTATING",
         "MOB_HUNGERING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -4772,12 +5211,17 @@
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_HEALTH_REGEN": 3,
         "STOCK_STUN_THRESHOLD": 15,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_SIEGE",
         "MOB_WITHERING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -4802,6 +5246,10 @@
       "modifiers": [
         "BOSS_TEMPEST",
         "MOB_SHOCKING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -4816,12 +5264,17 @@
         "STOCK_ATTACK_CHAOS": 12.1,
         "STOCK_RESIST_CHAOS": 40,
         "STOCK_CRITICAL_CHANCE": 12,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_EXECUTIONER",
         "MOB_VENOMOUS"
+      ],
+      "skills": [
+        "MOB_SPIT",
+        "MOB_STONESKIN"
       ]
     },
     {
@@ -4835,12 +5288,17 @@
         "STOCK_ATTACK_CHAOS": 13.6,
         "STOCK_RESIST_CHAOS": 70,
         "STOCK_HEALTH_REGEN": 4,
-        "STOCK_POISON_CHANCE": 20
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_IMMORTAL",
         "MOB_BLIGHTED"
+      ],
+      "skills": [
+        "MOB_SPIT",
+        "MOB_WARCRY"
       ]
     },
     {
@@ -4864,6 +5322,10 @@
       "modifiers": [
         "BOSS_MIRROR_SHELL",
         "MOB_MIRRORED"
+      ],
+      "skills": [
+        "MOB_ICE_BOLT",
+        "MOB_VULNERABILITY"
       ]
     },
     {
@@ -4877,12 +5339,17 @@
         "STOCK_ATTACK_PHYSICAL": 13.6,
         "STOCK_ARMOR": 50,
         "STOCK_HEALTH_REGEN": 2,
-        "STOCK_BLEED_CHANCE": 20
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
         "BOSS_WARLORD",
         "MOB_RELENTLESS"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
       ]
     },
     {
@@ -4899,7 +5366,8 @@
         "STOCK_ARMOR": 50,
         "STOCK_HEALTH_REGEN": 2,
         "STOCK_POISON_CHANCE": 20,
-        "STOCK_RESIST_ALL": 15
+        "STOCK_RESIST_ALL": 15,
+        "STOCK_MANA": 30
       },
       "boss": true,
       "modifiers": [
@@ -4909,6 +5377,10 @@
       ],
       "uniquePools": [
         "boss:BOSS_ABYSS_KING"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
       ]
     },
     {
@@ -8064,7 +8536,18 @@
         "duration": 4,
         "heroChance": 0
       }
-    ]
+    ],
+    "mana": {
+      "regen": 2.0
+    },
+    "flasks": {
+      "perKill": {
+        "NORMAL": 1.0,
+        "MAGIC": 2.0,
+        "RARE": 3.0,
+        "UNIQUE": 5.0
+      }
+    }
   },
   "behaviour": {
     "default": {
@@ -8387,7 +8870,11 @@
       "MAP_HERO_MAX_RESIST": 1.5,
       "MAP_HERO_DEFENCES": 0.4,
       "MAP_HERO_BLOCK": 0.5,
-      "MAP_HERO_CRIT": 0.25
+      "MAP_HERO_CRIT": 0.25,
+      "MAP_FLASK_CHARGES": 0.4,
+      "MAP_HERO_MANA_REGEN": 0.2,
+      "MAP_MONSTER_CAST": 0.5,
+      "MAP_SKILL_COST": 0.5
     }
   }
 }

@@ -3687,6 +3687,488 @@
           }
         ]
       ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "SAINTS_TEARS",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            260.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "FLASK_INSTANT",
+            "operation": "ADD",
+            "range": [
+              100.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "FLASK_SIP_MANA",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              10.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "QUICKSILVER_MIRROR",
+      "itemLevel": 10,
+      "requiredLevel": 10,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MOVEMENT",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              50.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_EVASION",
+            "operation": "INCREASED",
+            "range": [
+              20.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_FLASK_CHARGES_PER_KILL",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "SEETHING_FURY",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_ATTACK_SPEED",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MOVEMENT",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              40.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              10.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "STARLIGHT_ELIXIR",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_BLOCK",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "FLASK_SIP_SHIELD",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SHIELD_RECHARGE",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              40.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "LAST_BREATH",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_ARMOUR",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "FLASK_AUTO_LOW_LIFE",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "FLASK_INVULNERABLE",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "FLASK_USES_ALL",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "VESSEL_OF_HEXES",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_CHAOS_RESISTANCE",
+          "values": [
+            35.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MAXIMUM_CHAOS",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "FLASK_HITS_CURSE",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "AMBER_NECTAR",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            200.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "FLASK_SKILLS_FREE",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "ATZIRIS_PROMISE",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_CHAOS_RESISTANCE",
+          "values": [
+            35.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MAXIMUM_CHAOS",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "INCREASED",
+            "range": [
+              15.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_ALL",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              2.0
+            ]
+          }
+        ]
+      ]
     }
   ]
 }

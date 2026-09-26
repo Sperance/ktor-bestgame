@@ -8120,6 +8120,1115 @@
         "tool:enchanting",
         "tool"
       ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_SMALL_LIFE",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery",
+        "flask:life"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_MEDIUM_LIFE",
+      "rarity": "COMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            130.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery",
+        "flask:life"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_LARGE_LIFE",
+      "rarity": "COMMON",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            260.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery",
+        "flask:life"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_GREATER_LIFE",
+      "rarity": "COMMON",
+      "itemLevel": 26,
+      "requiredLevel": 26,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            480.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery",
+        "flask:life"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_GRAND_LIFE",
+      "rarity": "COMMON",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            780.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery",
+        "flask:life"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_GIANT_LIFE",
+      "rarity": "COMMON",
+      "itemLevel": 48,
+      "requiredLevel": 48,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            1200.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery",
+        "flask:life"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_DIVINE_LIFE",
+      "rarity": "COMMON",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIFE",
+          "values": [
+            1800.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery",
+        "flask:life"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_SMALL_MANA",
+      "rarity": "COMMON",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_MEDIUM_MANA",
+      "rarity": "COMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            55.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_LARGE_MANA",
+      "rarity": "COMMON",
+      "itemLevel": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            90.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_GREATER_MANA",
+      "rarity": "COMMON",
+      "itemLevel": 26,
+      "requiredLevel": 26,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            140.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_GRAND_MANA",
+      "rarity": "COMMON",
+      "itemLevel": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            200.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_GIANT_MANA",
+      "rarity": "COMMON",
+      "itemLevel": 48,
+      "requiredLevel": 48,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            280.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_DIVINE_MANA",
+      "rarity": "COMMON",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MANA",
+          "values": [
+            380.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            3.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:recovery"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_QUICKSILVER",
+      "rarity": "COMMON",
+      "itemLevel": 4,
+      "requiredLevel": 4,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_MOVEMENT",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_RUBY",
+      "rarity": "COMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_FIRE_RESISTANCE",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MAXIMUM_FIRE",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_SAPPHIRE",
+      "rarity": "COMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_COLD_RESISTANCE",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MAXIMUM_COLD",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_TOPAZ",
+      "rarity": "COMMON",
+      "itemLevel": 8,
+      "requiredLevel": 8,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_LIGHTNING_RESISTANCE",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MAXIMUM_LIGHTNING",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_GRANITE",
+      "rarity": "COMMON",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_ARMOUR",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_JADE",
+      "rarity": "COMMON",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_EVASION",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_SILVER",
+      "rarity": "COMMON",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_ATTACK_SPEED",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MOVEMENT",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_BASALT",
+      "rarity": "COMMON",
+      "itemLevel": 24,
+      "requiredLevel": 24,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_PHYSICAL_REDUCTION",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_STUN_THRESHOLD",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_DIAMOND",
+      "rarity": "COMMON",
+      "itemLevel": 28,
+      "requiredLevel": 28,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_CRITICAL",
+          "values": [
+            50.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_QUARTZ",
+      "rarity": "COMMON",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_BLOCK",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_AMETHYST",
+      "rarity": "COMMON",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_CHAOS_RESISTANCE",
+          "values": [
+            35.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_MAXIMUM_CHAOS",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "FLASK",
+      "code": "FLASK_SULPHUR",
+      "rarity": "COMMON",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_FLASK_DAMAGE",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_CHARGES_PER_USE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_FLASK_DURATION",
+          "values": [
+            5.0
+          ]
+        }
+      ],
+      "modifierPools": [
+        "flask",
+        "flask:utility"
+      ]
     }
   ]
 }

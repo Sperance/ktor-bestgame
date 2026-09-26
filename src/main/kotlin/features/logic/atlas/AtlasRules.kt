@@ -119,6 +119,15 @@ data class AtlasBonuses(val effects: Map<String, Double> = emptyMap()) {
     /** Множитель эффекта модификаторов карты: `1 + ATLAS_MAP_EFFECT / 100`. */
     val mapEffect get() = relative(EnumStatStock.ATLAS_MAP_EFFECT)
 
+    // Атлас, кристаллы и книги (0.69.0); фляги, ману и уровень умений на картах читает клиент.
+    val crystalChance get() = this[EnumStatStock.ATLAS_CRYSTAL_CHANCE]
+    val crystalEssences get() = this[EnumStatStock.ATLAS_CRYSTAL_ESSENCES]
+    val crystalTier get() = this[EnumStatStock.ATLAS_CRYSTAL_TIER]
+    val crystals get() = this[EnumStatStock.ATLAS_CRYSTALS].toInt()
+    val crystalsMore get() = this[EnumStatStock.ATLAS_CRYSTALS_MORE]
+    val books get() = this[EnumStatStock.ATLAS_BOOKS]
+    val booksOwn get() = this[EnumStatStock.ATLAS_BOOKS_OWN]
+
     /** Шанс рецепта верстака с поправкой `ATLAS_RECIPE`. */
     fun recipeChance(chance: Double) = chance * relative(EnumStatStock.ATLAS_RECIPE)
 

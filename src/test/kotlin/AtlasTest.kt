@@ -58,7 +58,7 @@ class AtlasTest {
     @Test
     fun the_atlas_file_is_whole() {
         val tree = AtlasContent.tree
-        assertTrue(tree.nodes.size in 140..160, "the atlas has ${tree.nodes.size} nodes")
+        assertTrue(tree.nodes.size in 140..170, "the atlas has ${tree.nodes.size} nodes")
         assertTrue(AtlasContent.graph.isConnected(tree.nodes.map { it.code }))
         assertTrue(tree.nodes.count { it.kind == EnumAtlasNodeKind.KEYSTONE } in 4..10)
         // Дерево (0.68.0) крупнее потолка очков: всё не взять, приходится выбирать.

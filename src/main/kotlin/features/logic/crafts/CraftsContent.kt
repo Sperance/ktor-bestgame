@@ -14,8 +14,11 @@ data class JobExtra(val item: String, val chance: Double)
 @Serializable
 data class JobInput(val item: String, val amount: Long)
 
-/** Что даёт удачный цикл: стопку предмета, вещь кузнеца или карту картографа (с 0.38.0). */
-enum class JobKind { ITEM, EQUIPMENT, MAP }
+/**
+ * Что даёт удачный цикл: стопку предмета, вещь кузнеца или карту картографа (с 0.38.0), флягу
+ * алхимика и книгу умения зачарователя (с 0.69.0).
+ */
+enum class JobKind { ITEM, EQUIPMENT, MAP, FLASK, BOOK }
 
 /**
  * Работа профессии (с 0.37.0): что добывается, с какого уровня, за сколько секунд цикл, с каким
@@ -34,7 +37,7 @@ data class Job(
     val kind: JobKind = JobKind.ITEM,
     /** Что уходит за каждый цикл, удачный или нет (с 0.38.0); не хватило - работа встаёт. */
     val inputs: List<JobInput> = emptyList(),
-    /** Кузнец: уровни баз, из которых куётся вещь. */
+    /** Кузнец: уровни баз, из которых куётся вещь; зачарователь (0.69.0) - `[до какого уровня открытия]` умения книги. */
     val band: List<Int> = emptyList(),
     /** Картограф: локация, чью карту он чертит. */
     val map: String = "",
@@ -57,6 +60,8 @@ data class CraftingRules(
     val smithRarities: Map<application.enums.EnumRarity, Int> = emptyMap(),
     val mapRarities: Map<application.enums.EnumRarity, Int> = emptyMap(),
     val mapHandcraftedChance: Double = 25.0,
+    /** Шанс, что фляга алхимика выйдет сразу волшебной, в процентах (с 0.69.0). */
+    val flaskMagicChance: Double = 20.0,
     val additives: Map<String, String> = emptyMap(),
     val equipmentPools: List<String> = emptyList(),
     val uniquePools: List<String> = emptyList(),
@@ -129,6 +134,8 @@ object CraftsContent {
                 JobKind.ITEM -> if (job.output.isBlank()) fail("output of ${job.code}")
                 JobKind.EQUIPMENT -> if (job.band.size != 2 || job.band[0] > job.band[1]) fail("band of ${job.code}")
                 JobKind.MAP -> if (job.map.isBlank()) fail("map of ${job.code}")
+                JobKind.FLASK -> if (job.output.isBlank()) fail("flask of ${job.code}")
+                JobKind.BOOK -> if (job.output.isBlank() || job.band.size != 1) fail("book of ${job.code}")
             }
         }
         content.professions.forEach { if (it.jobs.none { job -> job.level == 1 }) fail("no first-level work in ${it.code}") }

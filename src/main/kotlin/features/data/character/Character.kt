@@ -112,6 +112,16 @@ data class Character(
     /** Засчитанные достижения атласа (с 0.60.0): `boss:<зона>` (с 0.67.0 вместо `exit:`), `rare:<зона>`, `vaal:<зона>` - каждое один раз. */
     var atlasEarned: MutableList<String> = mutableListOf(),
 
+    /**
+     * Умения класса (с 0.69.0): изученные уровни, три слота активных и два пассивных с условиями и
+     * условия глотков фляг пояса, см. [features.logic.skills.SkillService]. Новый герой знает первое
+     * активное и первое пассивное умение своего класса.
+     */
+    var skills: features.logic.skills.HeroSkills = features.logic.skills.HeroSkills(),
+
+    /** Кристаллы эссенций кампании по кодам карт (с 0.69.0): окно, как у сундуков, и что в каждом, см. [features.logic.campaign.EssenceCrystals]. */
+    var crystals: MutableMap<String, features.logic.campaign.CrystalWindow> = mutableMapOf(),
+
     /** Растёт на каждую запись в инвентарь героя: по нему клиент и лист статов узнают, что вещи сменились. */
     var inventoryRevision: Long = 0,
     override var _id: String = ObjectId().toHexString(),

@@ -27,14 +27,19 @@ class CraftsTest {
         val items = records("items.json", "items").associate { it.getValue("code").jsonPrimitive.content to it.getValue("category").jsonPrimitive.content }
         val orbs = records("currency.json", "currency").map { it.getValue("orb").jsonPrimitive.content }.toSet()
         val maps = features.logic.campaign.CampaignContent.mapCodes
+        // Сгущение эссенций (0.69.0): эссенция и на входе, и на выходе.
+        val stacked = setOf("MATERIAL", "STONE_STOCK", "WOOD_STOCK", "ESSENCE")
+        val flasks = records("equipment.json", "equipment").filter { it.getValue("slot").jsonPrimitive.content == "FLASK" }.map { it.getValue("code").jsonPrimitive.content }.toSet()
         content.professions.flatMap { it.jobs }.forEach { job ->
             when (job.kind) {
-                features.logic.crafts.JobKind.ITEM -> assertTrue(items[job.output] == "MATERIAL" || job.output in orbs, "${job.code}: ${job.output}")
+                features.logic.crafts.JobKind.ITEM -> assertTrue(items[job.output] in stacked || job.output in orbs, "${job.code}: ${job.output}")
                 features.logic.crafts.JobKind.EQUIPMENT -> assertTrue(job.band.size == 2, job.code)
                 features.logic.crafts.JobKind.MAP -> assertTrue(job.map in maps, "${job.code}: ${job.map}")
+                features.logic.crafts.JobKind.FLASK -> assertTrue(job.output in flasks, "${job.code}: ${job.output}")
+                features.logic.crafts.JobKind.BOOK -> assertTrue(features.logic.skills.SkillContent.ofClass(job.output).any { it.unlock <= job.band.single() }, job.code)
             }
             job.extra.forEach { assertEquals("MATERIAL", items[it.item], "${job.code}: ${it.item}") }
-            job.inputs.forEach { assertEquals("MATERIAL", items[it.item], "${job.code}: ${it.item}") }
+            job.inputs.forEach { assertTrue(items[it.item] in stacked, "${job.code}: ${it.item}") }
         }
         content.crafting.additives.forEach { (item, _) -> assertEquals("MATERIAL", items[item], item) }
         val tools = records("equipment.json", "equipment").groupBy { it.getValue("slot").jsonPrimitive.content }

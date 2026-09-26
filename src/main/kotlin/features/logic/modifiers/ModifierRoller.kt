@@ -259,6 +259,18 @@ object ModifierRoller : KoinComponent {
     fun rollCode(code: String, itemLevel: Int): Modifier? = definitionCache.findByCode(code)?.let { roll(it, itemLevel) }
 
     /**
+     * Модификатор по коду на тире, взятом долей [share] лестницы (0.69.0): 0 - худший, 1 - лучший,
+     * уровень предмета не спрашивается - так эссенция гарантирует свою ступень.
+     */
+    fun rollShare(code: String, share: Double): Modifier? {
+        val definition = definitionCache.findByCode(code) ?: return null
+        val count = definition.tiers.size.takeIf { it > 0 } ?: return null
+        val number = (count - Math.round(share.coerceIn(0.0, 1.0) * (count - 1)).toInt()).coerceIn(1, count)
+        val tier = definition.tier(number) ?: return null
+        return Modifier(modifierCode = definition.code, values = tier.roll(), tier = number)
+    }
+
+    /**
      * Описания переданных модификаторов.
      */
     fun definitions(modifiers: Collection<Modifier>): List<ModifierDefinition> =
@@ -268,6 +280,9 @@ object ModifierRoller : KoinComponent {
      * Аффикс ли это - то есть трогают ли его сферы.
      */
     fun isAffix(modifier: Modifier): Boolean = definitionCache.findByCode(modifier.modifierCode)?.isAffix() == true
+
+    /** Строка особой эссенции (0.69.0): уходит с предмета вместе с аффиксами, но места не занимает. */
+    fun isEssence(modifier: Modifier): Boolean = definitionCache.findByCode(modifier.modifierCode)?.source == application.enums.EnumModifierSource.ESSENCE
 
     /**
      * Поставлен ли модификатор верстаком.

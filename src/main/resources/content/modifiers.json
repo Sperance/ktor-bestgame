@@ -27536,6 +27536,34 @@
       ]
     },
     {
+      "code": "CONVERT_INTELLIGENCE_TO_MANA",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_MANA",
+          "operation": "ADD",
+          "perStat": "STOCK_INTELLECT",
+          "perAmount": 2
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "passive",
+        "conversion"
+      ]
+    },
+    {
       "code": "CONVERT_STRENGTH_TO_PHYSICAL_DAMAGE",
       "source": "PASSIVE",
       "effects": [
@@ -28117,7 +28145,7 @@
       "source": "IMPLICIT",
       "effects": [
         {
-          "stat": "STOCK_ATTACK_MAGICAL",
+          "stat": "STOCK_SPELL_DAMAGE",
           "operation": "INCREASED"
         }
       ],
@@ -28156,6 +28184,4299 @@
       "tags": [
         "implicit",
         "caster"
+      ]
+    },
+    {
+      "code": "ADD_MAXIMUM_MANA",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 62,
+          "weight": 269,
+          "values": [
+            [
+              80,
+              100
+            ]
+          ]
+        },
+        {
+          "level": 47,
+          "weight": 373,
+          "values": [
+            [
+              62,
+              80
+            ]
+          ]
+        },
+        {
+          "level": 32,
+          "weight": 518,
+          "values": [
+            [
+              45,
+              60
+            ]
+          ]
+        },
+        {
+          "level": 17,
+          "weight": 720,
+          "values": [
+            [
+              28,
+              39
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              19
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana"
+      ]
+    },
+    {
+      "code": "INCREASED_MAXIMUM_MANA",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              11,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              6,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana"
+      ]
+    },
+    {
+      "code": "INCREASED_MANA_REGENERATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA_REGEN",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              41,
+              60
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              28,
+              42
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              25
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana",
+        "regen"
+      ]
+    },
+    {
+      "code": "ADD_MANA_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA_ON_KILL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              6,
+              8
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              4,
+              5
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              2
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana"
+      ]
+    },
+    {
+      "code": "ADD_MANA_ON_HIT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA_ON_HIT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              3,
+              4
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana"
+      ]
+    },
+    {
+      "code": "ADD_MANA_LEECH",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_LEECH_MANA",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              0.5,
+              0.8
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              0.2,
+              0.4
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana",
+        "leech"
+      ]
+    },
+    {
+      "code": "REDUCED_SKILL_COST",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_COST",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              10,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              7,
+              9
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              4,
+              6
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana",
+        "skill"
+      ]
+    },
+    {
+      "code": "INCREASED_RESERVATION_EFFICIENCY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_RESERVATION",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              13,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              9,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "mana",
+        "aura"
+      ]
+    },
+    {
+      "code": "ADD_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 50,
+          "weight": 200,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "level"
+      ]
+    },
+    {
+      "code": "ADD_ATTACK_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 300,
+          "values": [
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "level",
+        "attack"
+      ]
+    },
+    {
+      "code": "ADD_SPELL_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 300,
+          "values": [
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "level",
+        "caster"
+      ]
+    },
+    {
+      "code": "ADD_WARCRY_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WARCRY_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 30,
+          "weight": 300,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "level"
+      ]
+    },
+    {
+      "code": "ADD_CURSE_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CURSE_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 30,
+          "weight": 300,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "level"
+      ]
+    },
+    {
+      "code": "ADD_AURA_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_AURA_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 30,
+          "weight": 300,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "level",
+        "aura"
+      ]
+    },
+    {
+      "code": "ADD_PASSIVE_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PASSIVE_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 35,
+          "weight": 300,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "level"
+      ]
+    },
+    {
+      "code": "INCREASED_SPELL_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 373,
+          "values": [
+            [
+              55,
+              79
+            ]
+          ]
+        },
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              59
+            ]
+          ]
+        },
+        {
+          "level": 20,
+          "weight": 720,
+          "values": [
+            [
+              25,
+              39
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              19
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "caster",
+        "damage"
+      ]
+    },
+    {
+      "code": "INCREASED_CAST_SPEED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CAST_SPEED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 373,
+          "values": [
+            [
+              17,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              13,
+              16
+            ]
+          ]
+        },
+        {
+          "level": 20,
+          "weight": 720,
+          "values": [
+            [
+              9,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "caster",
+        "speed"
+      ]
+    },
+    {
+      "code": "INCREASED_COOLDOWN_RECOVERY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_COOLDOWN_RECOVERY",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              13,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              9,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "speed"
+      ]
+    },
+    {
+      "code": "INCREASED_SKILL_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              25,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              16,
+              24
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              14
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "damage"
+      ]
+    },
+    {
+      "code": "INCREASED_AURA_EFFECT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_AURA_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              7,
+              10
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              4,
+              6
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "aura"
+      ]
+    },
+    {
+      "code": "INCREASED_WARCRY_EFFECT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WARCRY_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              13,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              12
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill"
+      ]
+    },
+    {
+      "code": "INCREASED_CURSE_EFFECT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CURSE_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              9,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill"
+      ]
+    },
+    {
+      "code": "INCREASED_SKILL_HEALING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_HEALING",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              16,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "life"
+      ]
+    },
+    {
+      "code": "ADD_SKILL_TARGET",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_TARGETS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 200,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "skill",
+        "attack"
+      ]
+    },
+    {
+      "code": "INCREASED_FLASK_CHARGES_GAINED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_CHARGES_GAINED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              26,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              18,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "INCREASED_FLASK_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_DURATION",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              21,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              14,
+              21
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              12
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "INCREASED_FLASK_EFFECT",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              13,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              9,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "REDUCED_FLASK_CHARGES_USED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_CHARGES_USED",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              13,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              9,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "INCREASED_FLASK_LIFE_RECOVERY",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_LIFE_RECOVERY",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              31,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              20,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "life"
+      ]
+    },
+    {
+      "code": "BASE_FLASK_CHARGES",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "FLASK_CHARGES",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_CHARGES_PER_USE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "FLASK_CHARGES_PER_USE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_DURATION",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "FLASK_DURATION",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_LIFE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "FLASK_LIFE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_MANA",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "FLASK_MANA",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_MOVEMENT",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_MOVEMENT_SPEED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_ARMOUR",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_EVASION",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_EVASION",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_ATTACK_SPEED",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_FIRE_RESISTANCE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_FIRE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_COLD_RESISTANCE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_COLD",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_LIGHTNING_RESISTANCE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_LIGHTNING",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_CHAOS_RESISTANCE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_CHAOS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_MAXIMUM_FIRE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_MAX_FIRE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_MAXIMUM_COLD",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_MAX_COLD",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_MAXIMUM_LIGHTNING",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_MAX_LIGHTNING",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_MAXIMUM_CHAOS",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_MAX_CHAOS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_PHYSICAL_REDUCTION",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_PHYSICAL_REDUCTION",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_STUN_THRESHOLD",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_STUN_THRESHOLD",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_CRITICAL",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_BLOCK",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_BLOCK_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "BASE_FLASK_DAMAGE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "base",
+        "implicit",
+        "flask"
+      ],
+      "local": true
+    },
+    {
+      "code": "FLASK_CAPACIOUS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_CHARGES",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_ECONOMICAL",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_CHARGES_USED",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_REPLENISHING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_CHARGES_GAINED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_LASTING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_DURATION",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              45,
+              45
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              35,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_CONCENTRATED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_BUBBLING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_INSTANT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_SEETHING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_INSTANT",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_FLASK_RECOVERY",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              100,
+              100
+            ],
+            [
+              -25,
+              -25
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_SATURATED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_RECOVERY",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              45,
+              45
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              35,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_BOUNTIFUL",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_CHARGES_PER_KILL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_SURGEONS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_CHARGE_ON_CRIT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_RESPONSIVE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_CHARGE_WHEN_HIT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_SHIMMERING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_LIFE_TO_SHIELD",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_TWIN",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_LIFE_TO_MANA",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_DESPERATE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_LOW_LIFE_RECOVERY",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              60,
+              60
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_LINGERING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "FLASK_DURATION_PER_KILL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              1.2,
+              1.2
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              1.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              0.7,
+              0.7
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              0.5,
+              0.5
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_STAUNCHING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_BLEED",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "immunity"
+      ]
+    },
+    {
+      "code": "FLASK_HEAT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_FREEZE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "immunity"
+      ]
+    },
+    {
+      "code": "FLASK_DOUSING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_IGNITE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "immunity"
+      ]
+    },
+    {
+      "code": "FLASK_GROUNDING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_SHOCK",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "immunity"
+      ]
+    },
+    {
+      "code": "FLASK_CURING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_POISON",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "immunity"
+      ]
+    },
+    {
+      "code": "FLASK_WARDING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_CURSE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "immunity"
+      ]
+    },
+    {
+      "code": "FLASK_STABILITY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_STUN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "immunity"
+      ]
+    },
+    {
+      "code": "FLASK_IRON_SKIN",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              60,
+              60
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_REFLEXES",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_EVASION",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              60,
+              60
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_RESISTANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_ALL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_FURY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              13,
+              13
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_EAGLE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              33,
+              33
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              27,
+              27
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_CRAVING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_LEECH_ALL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              1.5,
+              1.5
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              1.2,
+              1.2
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              0.8,
+              0.8
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              0.5,
+              0.5
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_ADRENALINE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MOVEMENT_SPEED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              17,
+              17
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              13,
+              13
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_SENTINEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_BLOCK_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              8,
+              8
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              6,
+              6
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              4,
+              4
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_POWER",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              16,
+              16
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              12,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_CLARITY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA_REGEN",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              60,
+              60
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_FOCUS",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_COST",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 373,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 35,
+          "weight": 518,
+          "values": [
+            [
+              16,
+              16
+            ]
+          ]
+        },
+        {
+          "level": 15,
+          "weight": 720,
+          "values": [
+            [
+              12,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask"
+      ]
+    },
+    {
+      "code": "FLASK_CORRUPT_EFFECT",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              8,
+              10
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "corruption"
+      ]
+    },
+    {
+      "code": "FLASK_CORRUPT_CHARGES",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "FLASK_NO_CHARGE_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              13,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              12
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "corruption"
+      ]
+    },
+    {
+      "code": "FLASK_CORRUPT_DURATION",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "FLASK_DURATION",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "corruption"
+      ]
+    },
+    {
+      "code": "FLASK_CORRUPT_STUN",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_IMMUNE_STUN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "corruption"
+      ]
+    },
+    {
+      "code": "FLASK_CORRUPT_MANA",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "FLASK_SIP_MANA",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              5
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "corruption"
+      ]
+    },
+    {
+      "code": "FLASK_CORRUPT_DAMAGE",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 720,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "flask",
+        "corruption"
+      ]
+    },
+    {
+      "code": "ESS_INSANITY_WEAPON",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_FREE_SKILL_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              5
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_INSANITY_ARMOUR",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_AURA_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_INSANITY_JEWELLERY",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_PASSIVE_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_HORROR_WEAPON",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_VS_CURSED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_HORROR_ARMOUR",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_CURSE_ON_HIT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_HORROR_JEWELLERY",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_CURSE_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_DELIRIUM_WEAPON",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_DELIRIUM_ARMOUR",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_CHARGES_PER_KILL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_DELIRIUM_JEWELLERY",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_FLASK_DURATION",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_HYSTERIA_WEAPON",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_WARCRY_SPEED",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_HYSTERIA_ARMOUR",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_WARCRY_HEAL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              5
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "ESS_HYSTERIA_JEWELLERY",
+      "source": "ESSENCE",
+      "effects": [
+        {
+          "stat": "STOCK_WARCRY_LEVEL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "essence"
+      ]
+    },
+    {
+      "code": "MAP_FLASK_CHARGES",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_FLASK_CHARGES",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 17,
+          "weight": 373,
+          "values": [
+            [
+              35,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 11,
+          "weight": 518,
+          "values": [
+            [
+              30,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 6,
+          "weight": 720,
+          "values": [
+            [
+              25,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              25
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_HERO_MANA_REGEN",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_HERO_MANA_REGEN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 17,
+          "weight": 373,
+          "values": [
+            [
+              45,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 11,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              45
+            ]
+          ]
+        },
+        {
+          "level": 6,
+          "weight": 720,
+          "values": [
+            [
+              35,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              35
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_MONSTER_CAST",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_MONSTER_CAST",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 17,
+          "weight": 373,
+          "values": [
+            [
+              35,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 11,
+          "weight": 518,
+          "values": [
+            [
+              30,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 6,
+          "weight": 720,
+          "values": [
+            [
+              25,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              25
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_SKILL_COST",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_SKILL_COST",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 17,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 11,
+          "weight": 518,
+          "values": [
+            [
+              22,
+              26
+            ]
+          ]
+        },
+        {
+          "level": 6,
+          "weight": 720,
+          "values": [
+            [
+              18,
+              22
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              18
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_CRYSTALS",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_CRYSTALS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 10,
+          "weight": 720,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward"
+      ]
+    },
+    {
+      "code": "MAP_BOOKS",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_BOOKS",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 17,
+          "weight": 373,
+          "values": [
+            [
+              50,
+              60
+            ]
+          ]
+        },
+        {
+          "level": 11,
+          "weight": 518,
+          "values": [
+            [
+              43,
+              52
+            ]
+          ]
+        },
+        {
+          "level": 6,
+          "weight": 720,
+          "values": [
+            [
+              37,
+              43
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              35
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward"
+      ]
+    },
+    {
+      "code": "ALC_MAP_CRYSTALS",
+      "source": "ALCHEMY",
+      "effects": [
+        {
+          "stat": "MAP_CRYSTALS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              2
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "alchemy"
+      ]
+    },
+    {
+      "code": "ALC_MAP_BOOKS",
+      "source": "ALCHEMY",
+      "effects": [
+        {
+          "stat": "MAP_BOOKS",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              50,
+              100
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "alchemy"
       ]
     },
     {
@@ -32267,6 +36588,894 @@
         "aura"
       ],
       "minRarity": "UNIQUE"
+    },
+    {
+      "code": "MOB_ESS_GREED",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "INCREASED"
+        },
+        {
+          "stat": "STOCK_LIFE_REGEN_PERCENT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              60,
+              60
+            ],
+            [
+              2,
+              2
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_CONTEMPT",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              40,
+              40
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_HATRED",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_CHILL_DURATION",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              5,
+              7
+            ],
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              4,
+              6
+            ],
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              3,
+              4
+            ],
+            [
+              50,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              2,
+              3
+            ],
+            [
+              50,
+              50
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_WOE",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_SHIELD_OF_LIFE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              50,
+              50
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_FEAR",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_WEAKEN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_ANGER",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_IGNITE_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              5,
+              7
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              4,
+              6
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              3,
+              4
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              2,
+              3
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_TORMENT",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_SHOCK_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              5,
+              7
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              4,
+              6
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              3,
+              4
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              2,
+              3
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_SORROW",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_CHAOS",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_POISON_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              4,
+              5
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              3,
+              4
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              2,
+              3
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              2
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_RAGE",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_LOW_LIFE_SPEED",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              25,
+              25
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_SUFFERING",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_BURNING_DAMAGE",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_POISON_DAMAGE",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_BLEED_DAMAGE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ],
+            [
+              30,
+              30
+            ],
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_WRATH",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_REFLECT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_DOUBT",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_CRIT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_LOATHING",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_RESIST",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_ZEAL",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_ANGUISH",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_PENETRATE_ELEMENTAL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_SPITE",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_MANA_BURN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              5
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_SCORN",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_WEAKEN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_ENVY",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_POISON_CHANCE",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_POISON_DAMAGE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              40,
+              40
+            ],
+            [
+              50,
+              50
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_MISERY",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_COOLDOWN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              30,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_DREAD",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_BLOCK_CHANCE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_INSANITY",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_BORROW_SKILLS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_HORROR",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "MORE"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              50,
+              50
+            ],
+            [
+              -30,
+              -30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_DELIRIUM",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_SLOW",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ESS_HYSTERIA",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_WARCRY_EFFECT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              100,
+              100
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "essence"
+      ],
+      "minRarity": "RARE"
     }
   ]
 }

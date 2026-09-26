@@ -9,8 +9,8 @@ package application.enums
  * в CurrencyApplier, поэтому чисто данными, как модификаторы, она быть не может.
  *
  * Сферы POE, которых здесь нет, завязаны на механики, которых нет в проекте:
- * сокеты и связи (Jeweller's, Fusing, Chromatic), качество (Whetstone, Scrap,
- * Bauble), карты и крафт на верстаке. Дерево пассивок появилось, поэтому
+ * сокеты и связи (Jeweller's, Fusing, Chromatic) и качество снаряжения (Whetstone, Scrap);
+ * качество фляги с 0.69.0 даёт «Стеклодув». Дерево пассивок появилось, поэтому
  * [ORB_OF_REGRET] здесь есть - но тратит её дерево, а не CurrencyApplier.
  */
 enum class EnumCurrencyOrb {
@@ -142,6 +142,15 @@ enum class EnumCurrencyOrb {
     /** Строка «Алхимия» (0.66.0): босс сильнее и щедрее. */
     WARDEN_ORB,
 
+    /** Строка «Алхимия» (0.69.0): «Сфера Сущности» - лишние кристаллы эссенций на карте. */
+    ESSENCE_ORB,
+
+    /** Строка «Алхимия» (0.69.0): «Сфера Писца» - книги умений чаще. */
+    SCRIBE_ORB,
+
+    /** «Стеклодув» (0.69.0): качество фляги - два процента обычной, один волшебной, до двадцати. */
+    GLASSBLOWERS_BAUBLE,
+
     // ---------- Свитки зачарователя (0.66.0): зачарование своего слота, одно на предмет ----------
 
     /** Зачарование шлема. */
@@ -156,7 +165,10 @@ enum class EnumCurrencyOrb {
     /** Зачарование оружия. */
     WEAPON_SCROLL;
 
-    val mapOnly: Boolean get() = ordinal >= EMPOWERING_ORB.ordinal && ordinal <= WARDEN_ORB.ordinal
+    val mapOnly: Boolean get() = ordinal >= EMPOWERING_ORB.ordinal && ordinal <= SCRIBE_ORB.ordinal
+
+    /** Сфера только для фляг (0.69.0). */
+    val flaskOnly: Boolean get() = this == GLASSBLOWERS_BAUBLE
 
     /** Свиток зачарователя: ложится на снаряжение своего слота, см. CurrencyApplier. */
     val enchant: Boolean get() = ordinal >= HELMET_SCROLL.ordinal

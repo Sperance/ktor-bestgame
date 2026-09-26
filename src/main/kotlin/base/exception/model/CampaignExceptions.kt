@@ -20,4 +20,6 @@ object CampaignExceptions {
     fun funExceptionMapItem(errorMethod: String, value: String? = "") = CampaignException("Item $value does not open this location", errorMethod, "CP_011", listOf(value.orEmpty()))
     fun funExceptionRarity(errorMethod: String, value: String? = "") = CampaignException("Unknown monster rarity $value", errorMethod, "CP_005", listOf(value.orEmpty()))
     fun funExceptionCorruptionSpent(errorMethod: String, value: String? = "") = CampaignException("The corrupted zone of map $value is already spent this run", errorMethod, "CP_012", listOf(value.orEmpty()))
+    fun funExceptionNoCrystal(errorMethod: String, value: String? = "") = CampaignException("No such essence crystal on map $value", errorMethod, "CP_013", listOf(value.orEmpty()))
+    fun funExceptionCrystalCorrupted(errorMethod: String, value: String? = "") = CampaignException("This crystal on map $value is already corrupted", errorMethod, "CP_014", listOf(value.orEmpty()))
 }

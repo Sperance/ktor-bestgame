@@ -101,6 +101,7 @@ class LocalizationTest {
         ModifierExceptions::class, ProgressionExceptions::class, base.exception.model.PoolExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class,
         base.exception.model.ProfessionExceptions::class, base.exception.model.AtlasExceptions::class,
+        base.exception.model.SkillExceptions::class,
     )
 
     /**
@@ -112,7 +113,7 @@ class LocalizationTest {
         "upgraded", "rerolled", "augmented", "regal", "divine", "blessed", "annulled",
         "scoured", "vaal_modifier", "vaal_nothing", "vaal_rare", "vaal_shift", "chance_unique", "chance_rarity", "mirrored",
         "scoured_fractured", "fractured", "influenced", "crafted", "uncrafted",
-        "empowered", "mercy", "peril", "alchemy_line", "enchanted",
+        "empowered", "mercy", "peril", "alchemy_line", "enchanted", "bauble", "essence",
     ).map { "${LocaleKey.CURRENCY}.$it" }
 
     /**
@@ -175,6 +176,13 @@ class LocalizationTest {
 
         // Атлас (0.60.0): название каждого узла
         features.logic.atlas.AtlasContent.tree.nodes.forEach { keys.add(LocaleKey.atlasNodeName(it.code)) }
+
+        // Умения классов и монстров, ступени эссенций и стражи кристаллов (0.69.0)
+        val book = features.logic.skills.SkillContent.book
+        (book.skills.map { it.code } + book.monsterSkills.map { it.code }).forEach { keys.add(LocaleKey.skillName(it)) }
+        val essences = features.logic.essences.EssenceContent.book
+        essences.tiers.forEach { keys.add(LocaleKey.essenceTier(it.code)) }
+        (essences.kinds + essences.specials).forEach { keys.add(LocaleKey.essenceMonster(it.code)) }
 
         enums.forEach { (name, values) -> values.forEach { keys.add(LocaleKey.enumLabel(name, it.name)) } }
 

@@ -219,6 +219,82 @@ t("MAP_EXPERIENCE", "INCREASED", "{v}% increased Experience gain", "{v}% бол�
 t("MAP_GOLD", "INCREASED", "{v}% increased Gold found", "{v}% больше золота")
 t("MAP_BOSS_POWER", "ADD", "Boss has {v}% more Life and Damage and drops {v}% more Items", "Босс: {v}% больше здоровья и урона и на {v}% щедрее")
 
+# --- мана, умения класса, фляги, эссенции, карты (0.69.0)
+inc("STOCK_MANA", "maximum Mana", "максимума маны")
+t("STOCK_MANA", "ADD", "+{v} to maximum Mana per {n} {s}", "+{v} к максимуму маны за каждые {n} {s}", "per")
+inc("STOCK_MANA_REGEN", "Mana Regeneration rate", "скорости регенерации маны")
+t("STOCK_MANA_ON_KILL", "ADD", "+{v} Mana gained on kill", "+{v} маны за убийство")
+t("STOCK_MANA_ON_HIT", "ADD", "+{v} Mana gained for each enemy hit", "+{v} маны за каждый удар по врагу")
+t("STOCK_LEECH_MANA", "ADD", "{v}% of Damage leeched as Mana", "{v}% урона крадётся маной")
+t("STOCK_SKILL_COST", "ADD", "Skills cost {v}% less Mana", "Умения тратят на {v}% меньше маны")
+t("STOCK_RESERVATION", "ADD", "{v}% increased Reservation Efficiency of Auras", "{v}% увеличение эффективности резерва аур")
+for stat, en, ru in [("STOCK_SKILL_LEVEL", "all Class Skills", "всех умений"), ("STOCK_ATTACK_LEVEL", "Attack Skills", "атакующих умений"),
+                     ("STOCK_SPELL_LEVEL", "Spell Skills", "чар"), ("STOCK_WARCRY_LEVEL", "Warcry Skills", "кличей"),
+                     ("STOCK_CURSE_LEVEL", "Curse Skills", "проклятий"), ("STOCK_AURA_LEVEL", "Aura Skills", "аур"),
+                     ("STOCK_PASSIVE_LEVEL", "Passive Skills", "пассивных умений")]:
+    t(stat, "ADD", f"+{{v}} to Level of {en}", f"+{{v}} к уровню {ru}")
+inc("STOCK_SPELL_DAMAGE", "Spell Damage", "урона чар")
+inc("STOCK_COOLDOWN_RECOVERY", "Cooldown Recovery Rate of Skills", "скорости перезарядки умений")
+inc("STOCK_SKILL_DAMAGE", "Damage of Class Skills", "урона умений")
+inc("STOCK_AURA_EFFECT", "effect of Auras", "эффекта аур")
+inc("STOCK_WARCRY_EFFECT", "effect of Warcries", "эффекта кличей")
+t("STOCK_WARCRY_EFFECT", "ADD", "Warcries are {v}% stronger", "Кличи сильнее на {v}%")
+inc("STOCK_CURSE_EFFECT", "effect of Curses", "эффекта проклятий")
+inc("STOCK_SKILL_HEALING", "Healing from Skills", "силы лечения умений")
+t("STOCK_SKILL_TARGETS", "ADD", "Attack Skills hit {v} additional target", "Атакующие умения поражают ещё {v} цель")
+inc("STOCK_DAMAGE", "Damage", "урона")
+t("STOCK_DAMAGE", "ADD", "Deals {v}% more Damage", "Наносит на {v}% больше урона")
+inc("STOCK_FLASK_CHARGES_GAINED", "Flask Charges gained", "получаемых зарядов фляг")
+inc("STOCK_FLASK_DURATION", "Flask effect Duration", "длительности фляг")
+inc("STOCK_FLASK_EFFECT", "effect of Flasks", "эффекта фляг")
+t("STOCK_FLASK_CHARGES_USED", "ADD", "{v}% reduced Flask Charges used", "{v}% уменьшение расхода зарядов фляг")
+inc("STOCK_FLASK_LIFE_RECOVERY", "Life Recovery from Flasks", "восстановления здоровья флягами")
+inc("STOCK_FLASK_RECOVERY", "Flask Recovery", "восстановления фляги")
+t("STOCK_FLASK_CHARGES_PER_KILL", "ADD", "+{v} Flask Charges gained on kill", "+{v} заряда фляг за убийство")
+t("FLASK_CHARGES", "ADD", "+{v} to maximum Charges", "+{v} к максимуму зарядов")
+t("FLASK_CHARGES_PER_USE", "ADD", "Uses {v} Charges per sip", "Тратит {v} зарядов за глоток")
+t("FLASK_DURATION", "ADD", "+{v} seconds to Duration", "+{v} с к длительности действия")
+t("FLASK_LIFE", "ADD", "Recovers {v} Life", "Восстанавливает {v} здоровья")
+t("FLASK_MANA", "ADD", "Recovers {v} Mana", "Восстанавливает {v} маны")
+t("FLASK_INSTANT", "ADD", "{v}% of Recovery applied Instantly", "{v}% восстановления сразу")
+t("FLASK_CHARGE_ON_CRIT", "ADD", "{v}% chance to gain a Flask Charge on Critical Strike", "{v}% шанс получить заряд при критическом ударе")
+t("FLASK_CHARGE_WHEN_HIT", "ADD", "{v}% chance to gain a Flask Charge when Hit", "{v}% шанс получить заряд, получив удар")
+t("FLASK_LIFE_TO_SHIELD", "ADD", "{v}% of Life Recovery also applies to Energy Shield", "{v}% восстановленного здоровья идёт и в энергощит")
+t("FLASK_LIFE_TO_MANA", "ADD", "{v}% of Life Recovery also restores Mana", "{v}% восстановленного здоровья возвращается маной")
+t("FLASK_LOW_LIFE_RECOVERY", "ADD", "{v}% more Recovery while on Low Life", "На {v}% больше восстановления при здоровье ниже 35%")
+t("FLASK_DURATION_PER_KILL", "ADD", "+{v} seconds to Duration for each kill during the effect", "+{v} с к действию за каждое убийство во время действия")
+t("FLASK_NO_CHARGE_CHANCE", "ADD", "{v}% chance not to consume Charges", "{v}% шанс не потратить заряды")
+t("FLASK_SIP_MANA", "ADD", "Each sip also restores {v}% of maximum Mana", "Глоток восстанавливает и {v}% маны")
+t("FLASK_SIP_SHIELD", "ADD", "Each sip restores {v}% of maximum Energy Shield", "Глоток сразу восстанавливает {v}% энергощита")
+t("FLASK_AUTO_LOW_LIFE", "ADD", "Used automatically when Life falls below {v}%", "Пьётся сама, когда здоровья меньше {v}%")
+t("FLASK_USES_ALL", "ADD", "Each sip consumes all Charges", "Глоток тратит все заряды")
+t("FLASK_INVULNERABLE", "ADD", "Invulnerable for {v} seconds", "Неуязвимость на {v} с")
+t("FLASK_SKILLS_FREE", "ADD", "Skills cost no Mana during the effect", "Умения не тратят ману во время действия")
+t("FLASK_HITS_CURSE", "ADD", "Hits apply a random Curse of your class during the effect", "Во время действия удары накладывают случайное проклятие класса")
+for stat, en, ru in [("STOCK_IMMUNE_BLEED", "Bleeding", "кровотечению"), ("STOCK_IMMUNE_FREEZE", "Chill and Freeze", "холоду и заморозке"),
+                     ("STOCK_IMMUNE_IGNITE", "Ignite", "поджогу"), ("STOCK_IMMUNE_SHOCK", "Shock", "шоку"), ("STOCK_IMMUNE_POISON", "Poison", "отравлению"),
+                     ("STOCK_IMMUNE_CURSE", "Curses", "проклятиям"), ("STOCK_IMMUNE_STUN", "Stun", "оглушению")]:
+    t(stat, "ADD", f"Immune to {en}", f"Невосприимчивость к {ru}")
+t("STOCK_LIFE_REGEN_PERCENT", "ADD", "Regenerate {v}% of Life per second", "Восстанавливает {v}% здоровья в секунду")
+t("STOCK_SHIELD_OF_LIFE", "ADD", "Energy Shield equal to {v}% of Life", "Энергощит в {v}% здоровья")
+t("STOCK_LOW_LIFE_SPEED", "ADD", "{v}% increased Attack Speed while below half Life", "{v}% увеличение скорости атаки, пока здоровья меньше половины")
+t("STOCK_MANA_BURN", "ADD", "Hits burn {v}% of the target's Mana", "Удары сжигают {v}% маны цели")
+t("STOCK_BORROW_SKILLS", "ADD", "Uses the Skills of other Monsters", "Применяет умения других монстров")
+t("AURA_WEAKEN", "ADD", "Nearby enemies deal {v}% less Damage", "Враги рядом наносят на {v}% меньше урона")
+t("AURA_CRIT", "ADD", "Nearby enemies have {v}% reduced Critical Strike Chance", "Враги рядом: на {v}% меньше шанс критического удара")
+t("AURA_COOLDOWN", "ADD", "Skills of nearby enemies recover {v}% slower", "Умения врагов рядом перезаряжаются на {v}% медленнее")
+t("STOCK_FREE_SKILL_CHANCE", "ADD", "{v}% chance to use a ready Skill without Mana", "{v}% шанс применить готовое умение без маны")
+inc("STOCK_DAMAGE_VS_CURSED", "Damage against Cursed enemies", "урона по проклятым")
+t("STOCK_CURSE_ON_HIT", "ADD", "{v}% chance to Curse the attacker with your Curse when Hit", "Получив удар — {v}% шанс проклясть врага своим проклятием")
+t("STOCK_WARCRY_SPEED", "ADD", "Warcries grant {v}% increased Attack Speed", "Кличи дают {v}% увеличение скорости атаки")
+t("STOCK_WARCRY_HEAL", "ADD", "Warcries recover {v}% of Life", "Кличи восстанавливают {v}% здоровья")
+t("MAP_FLASK_CHARGES", "ADD", "Players' Flasks gain {v}% fewer Charges", "Фляги героя получают на {v}% меньше зарядов")
+t("MAP_HERO_MANA_REGEN", "ADD", "Players have {v}% less Mana Regeneration", "Герой: на {v}% меньше регенерация маны")
+t("MAP_MONSTER_CAST", "ADD", "Monsters cast and recover Skills {v}% faster", "Монстры колдуют и перезаряжают умения на {v}% быстрее")
+t("MAP_SKILL_COST", "ADD", "Players' Skills cost {v}% more Mana", "Умения героя дороже на {v}%")
+t("MAP_CRYSTALS", "ADD", "+{v} Essence Crystals", "+{v} кристалла эссенций")
+t("MAP_BOOKS", "INCREASED", "{v}% increased chance of Skill Books", "{v}% больше шанс книг умений")
+
 JOIN = (", ", ", ")
 
 # ---------------------------------------------------------------------------------------------
@@ -256,10 +332,59 @@ LABELS = {
     "ATLAS_VAAL_UNIQUE": ("Atlas: Vaal Uniques", "Атлас: уникалки Ваал"), "ATLAS_BOSS_LOOT": ("Atlas: Boss Loot", "Атлас: добыча с боссов"),
     "ATLAS_CHEST_LOOT": ("Atlas: Chest Loot", "Атлас: добыча из сундуков"), "ATLAS_RECIPE": ("Atlas: Recipes", "Атлас: рецепты"),
     "ATLAS_GOLD": ("Atlas: Gold", "Атлас: золото"), "ATLAS_MONSTER_MODS": ("Atlas: Rare Monster Modifiers", "Атлас: модификаторы редких монстров"),
+    # 0.69.0: мана, умения класса, фляги, эссенции
+    "STOCK_DAMAGE": ("Damage", "Урон"), "STOCK_SKILL_DAMAGE": ("Skill Damage", "Урон умений"), "STOCK_SPELL_DAMAGE": ("Spell Damage", "Урон чар"),
+    "STOCK_DOT_TAKEN": ("Damage over Time Taken", "Получаемый урон со временем"), "STOCK_CRITICAL_TAKEN": ("Critical Multiplier Taken", "Множитель крита по цели"),
+    "STOCK_COOLDOWN_RECOVERY": ("Cooldown Recovery", "Перезарядка умений"), "STOCK_LEECH_MANA": ("Mana Leech", "Кража маны"),
+    "STOCK_MANA_ON_KILL": ("Mana on Kill", "Мана за убийство"), "STOCK_MANA_ON_HIT": ("Mana on Hit", "Мана за удар"),
+    "STOCK_SKILL_COST": ("Skill Cost Reduction", "Снижение цены умений"), "STOCK_RESERVATION": ("Reservation Efficiency", "Эффективность резерва"),
+    "STOCK_LIFE_REGEN_PERCENT": ("Life Regeneration %", "Регенерация здоровья, %"),
+    "STOCK_BLEED_TAKEN": ("Bleed Chance Taken", "Шанс кровотечения по цели"), "STOCK_SHOCK_TAKEN": ("Shock Effect Taken", "Сила шока по цели"),
+    "STOCK_SHIELD_OF_LIFE": ("Shield of Life", "Щит из здоровья"), "STOCK_LOW_LIFE_SPEED": ("Low Life Speed", "Скорость при ранении"),
+    "STOCK_MANA_BURN": ("Mana Burn", "Сжигание маны"), "STOCK_BORROW_SKILLS": ("Borrowed Skills", "Чужие умения"),
+    "AURA_WEAKEN": ("Aura: Weakness", "Аура: слабость"), "AURA_CRIT": ("Aura: Doubt", "Аура: сомнение"), "AURA_COOLDOWN": ("Aura: Misery", "Аура: несчастье"),
+    "MAP_FLASK_CHARGES": ("Map: Flask Charges", "Карта: заряды фляг"), "MAP_HERO_MANA_REGEN": ("Map: Mana Regeneration", "Карта: регенерация маны"),
+    "MAP_MONSTER_CAST": ("Map Monster Casting", "Колдовство монстров карты"), "MAP_SKILL_COST": ("Map: Skill Cost", "Карта: цена умений"),
+    "MAP_CRYSTALS": ("Map Essence Crystals", "Кристаллы эссенций карты"), "MAP_BOOKS": ("Map Skill Books", "Книги умений карты"),
+    "ATLAS_CRYSTAL_CHANCE": ("Atlas: Crystal Chance", "Атлас: шанс кристаллов"), "ATLAS_CRYSTAL_ESSENCES": ("Atlas: Extra Essence", "Атлас: лишняя эссенция"),
+    "ATLAS_CRYSTAL_TIER": ("Atlas: Higher Essences", "Атлас: эссенции выше"), "ATLAS_CRYSTALS": ("Atlas: Crystals", "Атлас: кристаллы"),
+    "ATLAS_CRYSTALS_MORE": ("Atlas: More Crystals", "Атлас: больше кристаллов"), "ATLAS_GUARDIAN_POWER": ("Atlas: Guardian Power", "Атлас: сила стражей"),
+    "ATLAS_BOOKS": ("Atlas: Skill Books", "Атлас: книги умений"), "ATLAS_BOOKS_OWN": ("Atlas: Own Class Books", "Атлас: книги своего класса"),
+    "ATLAS_FLASK_CHARGES": ("Atlas: Flask Charges", "Атлас: заряды фляг"), "ATLAS_FLASK_DURATION": ("Atlas: Flask Duration", "Атлас: длительность фляг"),
+    "ATLAS_FLASK_RARE": ("Atlas: Charges from Rares", "Атлас: заряды за редких"), "ATLAS_MANA_REGEN": ("Atlas: Mana Regeneration", "Атлас: регенерация маны"),
+    "ATLAS_SKILL_LEVEL": ("Atlas: Skill Level", "Атлас: уровень умений"),
+    "STOCK_SKILL_LEVEL": ("Level of all Skills", "Уровень всех умений"), "STOCK_ATTACK_LEVEL": ("Level of Attacks", "Уровень атак"),
+    "STOCK_SPELL_LEVEL": ("Level of Spells", "Уровень чар"), "STOCK_WARCRY_LEVEL": ("Level of Warcries", "Уровень кличей"),
+    "STOCK_CURSE_LEVEL": ("Level of Curses", "Уровень проклятий"), "STOCK_AURA_LEVEL": ("Level of Auras", "Уровень аур"),
+    "STOCK_PASSIVE_LEVEL": ("Level of Passives", "Уровень пассивных умений"),
+    "STOCK_AURA_EFFECT": ("Aura Effect", "Эффект аур"), "STOCK_WARCRY_EFFECT": ("Warcry Effect", "Эффект кличей"),
+    "STOCK_CURSE_EFFECT": ("Curse Effect", "Эффект проклятий"), "STOCK_SKILL_HEALING": ("Skill Healing", "Лечение умений"),
+    "STOCK_SKILL_TARGETS": ("Skill Targets", "Цели умений"), "STOCK_FREE_SKILL_CHANCE": ("Free Skill Chance", "Шанс умения без маны"),
+    "STOCK_DAMAGE_VS_CURSED": ("Damage vs Cursed", "Урон по проклятым"), "STOCK_CURSE_ON_HIT": ("Curse when Hit", "Проклятие в ответ"),
+    "STOCK_WARCRY_SPEED": ("Warcry Speed", "Скорость от кличей"), "STOCK_WARCRY_HEAL": ("Warcry Healing", "Лечение кличей"),
+    "STOCK_FLASK_CHARGES_GAINED": ("Flask Charges Gained", "Заряды фляг"), "STOCK_FLASK_DURATION": ("Flask Duration", "Длительность фляг"),
+    "STOCK_FLASK_EFFECT": ("Flask Effect", "Эффект фляг"), "STOCK_FLASK_CHARGES_USED": ("Flask Charges Used", "Расход зарядов"),
+    "STOCK_FLASK_LIFE_RECOVERY": ("Flask Life Recovery", "Восстановление флягами жизни"), "STOCK_FLASK_RECOVERY": ("Flask Recovery", "Восстановление фляги"),
+    "STOCK_FLASK_CHARGES_PER_KILL": ("Flask Charges per Kill", "Заряды за убийство"),
+    "FLASK_CHARGES": ("Charges", "Заряды"), "FLASK_CHARGES_PER_USE": ("Charges per Use", "Зарядов за глоток"), "FLASK_DURATION": ("Duration", "Длительность"),
+    "FLASK_LIFE": ("Life Recovered", "Восстанавливает здоровья"), "FLASK_MANA": ("Mana Recovered", "Восстанавливает маны"),
+    "FLASK_INSTANT": ("Instant Recovery", "Восстановление сразу"), "FLASK_CHARGE_ON_CRIT": ("Charge on Crit", "Заряд при крите"),
+    "FLASK_CHARGE_WHEN_HIT": ("Charge when Hit", "Заряд от удара"), "FLASK_LIFE_TO_SHIELD": ("Life to Shield", "Здоровье в щит"),
+    "FLASK_LIFE_TO_MANA": ("Life to Mana", "Здоровье в ману"), "FLASK_LOW_LIFE_RECOVERY": ("Low Life Recovery", "Восстановление при ранении"),
+    "FLASK_DURATION_PER_KILL": ("Duration per Kill", "Длительность за убийство"), "FLASK_NO_CHARGE_CHANCE": ("Free Sip Chance", "Глоток без зарядов"),
+    "FLASK_SIP_MANA": ("Mana per Sip", "Мана за глоток"), "FLASK_SIP_SHIELD": ("Shield per Sip", "Щит за глоток"),
+    "FLASK_AUTO_LOW_LIFE": ("Automatic Sip", "Глоток сам"), "FLASK_USES_ALL": ("Uses all Charges", "Тратит все заряды"),
+    "FLASK_INVULNERABLE": ("Invulnerability", "Неуязвимость"), "FLASK_SKILLS_FREE": ("Free Skills", "Умения без маны"),
+    "FLASK_HITS_CURSE": ("Cursing Hits", "Проклинающие удары"),
+    "STOCK_IMMUNE_BLEED": ("Bleed Immunity", "Невосприимчивость к кровотечению"), "STOCK_IMMUNE_FREEZE": ("Freeze Immunity", "Невосприимчивость к холоду"),
+    "STOCK_IMMUNE_IGNITE": ("Ignite Immunity", "Невосприимчивость к поджогу"), "STOCK_IMMUNE_SHOCK": ("Shock Immunity", "Невосприимчивость к шоку"),
+    "STOCK_IMMUNE_POISON": ("Poison Immunity", "Невосприимчивость к яду"), "STOCK_IMMUNE_CURSE": ("Curse Immunity", "Невосприимчивость к проклятиям"),
+    "STOCK_IMMUNE_STUN": ("Stun Immunity", "Невосприимчивость к оглушению"),
 }
 
 EXTRA = {
     "enum.EnumModifierSource.MONSTER": ("Monster", "Монстр"),
+    "enum.EnumModifierSource.ESSENCE": ("Essence", "Эссенция"),
     "enum.EnumEquipmentType.TOOL_ENCHANTING": ("Stylus", "Стилус"),
     "enum.EnumCurrencyOrb.TREASURE_ORB": ("Treasure Orb", "Сфера сокровищ"), "enum.EnumCurrencyOrb.GILDED_ORB": ("Gilded Orb", "Позолоченная сфера"),
     "enum.EnumCurrencyOrb.WARDEN_ORB": ("Warden Orb", "Сфера стража"),

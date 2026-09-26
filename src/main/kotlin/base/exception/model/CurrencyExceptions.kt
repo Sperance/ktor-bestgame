@@ -33,4 +33,8 @@ object CurrencyExceptions {
     fun funExceptionAffixMinimum(errorMethod: String, value: String? = "", rarity: String = "") = CurrencyException("Item $value would drop below the affix minimum of its rarity", errorMethod, "CR_025", listOf(value.orEmpty(), rarity))
     fun funExceptionRecipeLocked(errorMethod: String, value: String? = "") = CurrencyException("Bench recipe $value has not been found yet", errorMethod, "CR_024", listOf(value.orEmpty()))
     fun funExceptionEnchantSlot(errorMethod: String, value: String? = "") = CurrencyException("Scroll $value does not fit this slot", errorMethod, "CR_026", listOf(value.orEmpty()))
+    fun funExceptionNotForFlask(errorMethod: String, orb: String = "", item: String = "") = CurrencyException("Orb $orb does not work on $item", errorMethod, "CR_027", listOf(orb, item))
+    fun funExceptionQualityFull(errorMethod: String, value: String? = "") = CurrencyException("Flask $value cannot gain more quality", errorMethod, "CR_028", listOf(value.orEmpty()))
+    fun funExceptionEssenceItem(errorMethod: String, essence: String = "", item: String = "") = CurrencyException("Essence $essence does not work on $item", errorMethod, "CR_029", listOf(essence, item))
+    fun funExceptionEssenceTier(errorMethod: String, value: String? = "") = CurrencyException("Essence $value is too weak to reforge a rare item", errorMethod, "CR_030", listOf(value.orEmpty()))
 }

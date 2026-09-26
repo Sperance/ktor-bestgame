@@ -1,0 +1,245 @@
+{
+  "tiers": [
+    {
+      "code": "WHISPERING",
+      "level": 1,
+      "rerollsRare": false
+    },
+    {
+      "code": "MUTTERING",
+      "level": 10,
+      "rerollsRare": false
+    },
+    {
+      "code": "WEEPING",
+      "level": 20,
+      "rerollsRare": false
+    },
+    {
+      "code": "WAILING",
+      "level": 30,
+      "rerollsRare": true
+    },
+    {
+      "code": "SCREAMING",
+      "level": 42,
+      "rerollsRare": true
+    },
+    {
+      "code": "SHRIEKING",
+      "level": 55,
+      "rerollsRare": true
+    },
+    {
+      "code": "DEAFENING",
+      "level": 66,
+      "rerollsRare": true
+    }
+  ],
+  "kinds": [
+    {
+      "code": "GREED",
+      "weapon": "ADD_LIFE_ON_HIT",
+      "armour": "ADD_MAXIMUM_LIFE",
+      "jewellery": "ADD_MAXIMUM_LIFE",
+      "monster": "MOB_ESS_GREED"
+    },
+    {
+      "code": "CONTEMPT",
+      "weapon": "INCREASED_PHYSICAL_DAMAGE@LOCAL",
+      "armour": "INCREASED_ARMOUR",
+      "jewellery": "ADD_PHYSICAL_DAMAGE",
+      "monster": "MOB_ESS_CONTEMPT"
+    },
+    {
+      "code": "HATRED",
+      "weapon": "ADD_COLD_DAMAGE@LOCAL",
+      "armour": "ADD_COLD_RESISTANCE",
+      "jewellery": "ADD_COLD_DAMAGE",
+      "monster": "MOB_ESS_HATRED"
+    },
+    {
+      "code": "WOE",
+      "weapon": "INCREASED_SPELL_DAMAGE",
+      "armour": "ADD_ENERGY_SHIELD",
+      "jewellery": "INCREASED_ENERGY_SHIELD",
+      "monster": "MOB_ESS_WOE"
+    },
+    {
+      "code": "FEAR",
+      "weapon": "INCREASED_CRITICAL_STRIKE_CHANCE",
+      "armour": "INCREASED_EVASION_RATING",
+      "jewellery": "ADD_DEXTERITY",
+      "monster": "MOB_ESS_FEAR"
+    },
+    {
+      "code": "ANGER",
+      "weapon": "ADD_FIRE_DAMAGE@LOCAL",
+      "armour": "ADD_FIRE_RESISTANCE",
+      "jewellery": "ADD_FIRE_DAMAGE",
+      "monster": "MOB_ESS_ANGER"
+    },
+    {
+      "code": "TORMENT",
+      "weapon": "ADD_LIGHTNING_DAMAGE@LOCAL",
+      "armour": "ADD_LIGHTNING_RESISTANCE",
+      "jewellery": "ADD_LIGHTNING_DAMAGE",
+      "monster": "MOB_ESS_TORMENT"
+    },
+    {
+      "code": "SORROW",
+      "weapon": "ADD_CHAOS_DAMAGE@LOCAL",
+      "armour": "ADD_CHAOS_RESISTANCE",
+      "jewellery": "ADD_CHAOS_DAMAGE",
+      "monster": "MOB_ESS_SORROW"
+    },
+    {
+      "code": "RAGE",
+      "weapon": "INCREASED_PHYSICAL_DAMAGE@LOCAL",
+      "armour": "ADD_STRENGTH",
+      "jewellery": "ADD_STRENGTH",
+      "monster": "MOB_ESS_RAGE"
+    },
+    {
+      "code": "SUFFERING",
+      "weapon": "INCREASED_DAMAGE_VS_AILED",
+      "armour": "ADD_STUN_THRESHOLD",
+      "jewellery": "INCREASED_BLEED_DAMAGE",
+      "monster": "MOB_ESS_SUFFERING"
+    },
+    {
+      "code": "WRATH",
+      "weapon": "INCREASED_SPELL_DAMAGE",
+      "armour": "INCREASED_SPELL_DAMAGE",
+      "jewellery": "ADD_MAXIMUM_MANA",
+      "monster": "MOB_ESS_WRATH"
+    },
+    {
+      "code": "DOUBT",
+      "weapon": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+      "armour": "INCREASED_CRITICAL_STRIKE_CHANCE",
+      "jewellery": "INCREASED_CRITICAL_STRIKE_CHANCE",
+      "monster": "MOB_ESS_DOUBT"
+    },
+    {
+      "code": "LOATHING",
+      "weapon": "PENETRATE_CHAOS_RESISTANCE",
+      "armour": "ADD_CHAOS_RESISTANCE",
+      "jewellery": "INCREASED_CHAOS_DAMAGE",
+      "monster": "MOB_ESS_LOATHING"
+    },
+    {
+      "code": "ZEAL",
+      "weapon": "INCREASED_ATTACK_SPEED@LOCAL",
+      "armour": "INCREASED_ATTACK_SPEED",
+      "jewellery": "INCREASED_ATTACK_SPEED",
+      "monster": "MOB_ESS_ZEAL"
+    },
+    {
+      "code": "ANGUISH",
+      "weapon": "PENETRATE_ELEMENTAL_RESISTANCES",
+      "armour": "ADD_ALL_ELEMENTAL_RESISTANCES",
+      "jewellery": "INCREASED_ELEMENTAL_DAMAGE",
+      "monster": "MOB_ESS_ANGUISH"
+    },
+    {
+      "code": "SPITE",
+      "weapon": "ADD_MANA_ON_HIT",
+      "armour": "ADD_MAXIMUM_MANA",
+      "jewellery": "INCREASED_MANA_REGENERATION",
+      "monster": "MOB_ESS_SPITE"
+    },
+    {
+      "code": "SCORN",
+      "weapon": "INCREASED_SKILL_DAMAGE",
+      "armour": "INCREASED_COOLDOWN_RECOVERY",
+      "jewellery": "REDUCED_SKILL_COST",
+      "monster": "MOB_ESS_SCORN"
+    },
+    {
+      "code": "ENVY",
+      "weapon": "CHANCE_TO_POISON",
+      "armour": "ADD_CHAOS_RESISTANCE",
+      "jewellery": "INCREASED_POISON_DAMAGE",
+      "monster": "MOB_ESS_ENVY"
+    },
+    {
+      "code": "MISERY",
+      "weapon": "INCREASED_CAST_SPEED",
+      "armour": "INCREASED_ENERGY_SHIELD",
+      "jewellery": "INCREASED_CAST_SPEED",
+      "monster": "MOB_ESS_MISERY"
+    },
+    {
+      "code": "DREAD",
+      "weapon": "ADD_BLOCK_CHANCE",
+      "armour": "INCREASED_ARMOUR",
+      "jewellery": "ADD_ARMOUR",
+      "monster": "MOB_ESS_DREAD"
+    }
+  ],
+  "specials": [
+    {
+      "code": "INSANITY",
+      "weapon": "ESS_FREE_SKILL_CHANCE",
+      "armour": "ESS_AURA_EFFECT",
+      "jewellery": "ESS_PASSIVE_LEVELS",
+      "monster": "MOB_ESS_INSANITY"
+    },
+    {
+      "code": "HORROR",
+      "weapon": "ESS_DAMAGE_VS_CURSED",
+      "armour": "ESS_CURSE_WHEN_HIT",
+      "jewellery": "ESS_CURSE_LEVELS",
+      "monster": "MOB_ESS_HORROR"
+    },
+    {
+      "code": "DELIRIUM",
+      "weapon": "ESS_ATTACK_LEVELS",
+      "armour": "ESS_FLASK_CHARGE_PER_KILL",
+      "jewellery": "ESS_FLASK_DURATION",
+      "monster": "MOB_ESS_DELIRIUM"
+    },
+    {
+      "code": "HYSTERIA",
+      "weapon": "ESS_WARCRY_ATTACK_SPEED",
+      "armour": "ESS_WARCRY_HEAL",
+      "jewellery": "ESS_WARCRY_LEVELS",
+      "monster": "MOB_ESS_HYSTERIA"
+    }
+  ],
+  "crystals": {
+    "count": [
+      0,
+      2
+    ],
+    "refreshHours": 6,
+    "essences": [
+      1,
+      3
+    ],
+    "lowerChance": 0.3,
+    "modifierPools": [
+      "essence"
+    ],
+    "bookChance": 0.1,
+    "vaal": {
+      "UPGRADE": 50,
+      "SPECIAL": 25,
+      "STRONGER": 25
+    },
+    "stronger": 50
+  },
+  "condense": {
+    "inputs": 3,
+    "levels": [
+      8,
+      16,
+      24,
+      32,
+      38,
+      45
+    ],
+    "seconds": 300
+  }
+}

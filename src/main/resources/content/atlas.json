@@ -2420,6 +2420,194 @@
           "value": 10
         }
       ]
+    },
+    {
+      "code": "ATLAS_CRYSTAL_1",
+      "x": -11.46,
+      "y": 5.29,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_C2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CRYSTAL_CHANCE",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTAL_2",
+      "x": -12.71,
+      "y": 5.84,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTAL_1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CRYSTAL_ESSENCES",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTAL_3",
+      "x": -13.96,
+      "y": 6.39,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTAL_2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CRYSTAL_TIER",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTAL_KEEPER",
+      "x": -15.21,
+      "y": 6.94,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRYSTAL_3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CRYSTALS",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTAL_KEY",
+      "x": -16.46,
+      "y": 7.49,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_CRYSTAL_KEEPER"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CRYSTALS_MORE",
+          "value": 100
+        },
+        {
+          "stat": "ATLAS_GUARDIAN_POWER",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOOKS_1",
+      "x": -10.1,
+      "y": 2.8,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_C1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOOKS",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOOKS_LIBRARY",
+      "x": -11.3,
+      "y": 2.1,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOOKS_1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOOKS",
+          "value": 30
+        },
+        {
+          "stat": "ATLAS_BOOKS_OWN",
+          "value": 50
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_FLASK_1",
+      "x": 11.99,
+      "y": 4.75,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_B2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_FLASK_CHARGES",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_FLASK_2",
+      "x": 13.24,
+      "y": 5.35,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_FLASK_1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_FLASK_DURATION",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_FLASK_APOTHECARY",
+      "x": 14.49,
+      "y": 5.95,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_FLASK_2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_FLASK_RARE",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MANA_1",
+      "x": 13.19,
+      "y": 4.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_FLASK_1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MANA_REGEN",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MANA_WORD",
+      "x": 14.39,
+      "y": 3.25,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_MANA_1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_SKILL_LEVEL",
+          "value": 1
+        }
+      ]
     }
   ]
 }

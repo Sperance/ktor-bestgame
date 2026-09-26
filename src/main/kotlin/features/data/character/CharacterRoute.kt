@@ -5,6 +5,7 @@ import base.route.BaseRoute
 import base.route.Crud
 import base.route.characterId
 import base.route.mapCode
+import base.route.optionalParam
 import base.route.queryParam
 import base.route.respondOk
 import features.data.character.character_data.CharacterItems
@@ -13,6 +14,9 @@ import features.logic.campaign.CampaignService
 import features.logic.crafts.CraftsService
 import features.logic.hero.HeroSnapshots
 import features.logic.hero.respondWithHero
+import features.logic.skills.SkillKind
+import features.logic.skills.SkillService
+import features.logic.skills.SlotCondition
 import features.logic.trade.MerchantService
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -30,6 +34,7 @@ class CharacterRoute(
     private val merchant: MerchantService,
     private val crafts: CraftsService,
     private val atlas: AtlasService,
+    private val skills: SkillService,
 ) : BaseRoute<Character>(
     repository = repo,
     entitySerializer = Character.serializer(),
@@ -152,6 +157,36 @@ class CharacterRoute(
             post("/vaal/leave") {
                 call.respondWithHero(campaign.vaalLeave(call.characterId, call.mapCode))
             }
+            // 0.69.0: кристаллы эссенций - окно на зону, как у сундуков; страж и сфера Ваал на кристалл.
+            get("/crystals") {
+                call.respondOk(campaign.crystals(call.characterId, call.mapCode))
+            }
+            post("/crystal") {
+                call.respondWithHero(campaign.slayGuardian(call.characterId, call.mapCode, call.queryParam("index", -1)))
+            }
+            post("/crystal/vaal") {
+                call.respondWithHero(campaign.vaalCrystal(call.characterId, call.mapCode, call.queryParam("index", -1)))
+            }
+        }
+
+        // 0.69.0: умения класса - книга учит уровень, слоты с условиями, условия глотков фляг, обмен книг.
+        route("/skills") {
+            post("/learn") {
+                call.respondWithHero(skills.learn(call.characterId, call.queryParam("skill")))
+            }
+            post("/slot") {
+                val kind = call.queryParam("kind").let { name -> SkillKind.entries.firstOrNull { it.name == name } }
+                    ?: throw base.exception.model.SkillExceptions.funExceptionSlot("slot", call.queryParam("kind"))
+                val condition = call.optionalParam("condition")?.let(::condition)
+                call.respondWithHero(skills.slot(call.characterId, kind, call.queryParam("index", -1), call.optionalParam("skill"), condition))
+            }
+            post("/flask") {
+                call.respondWithHero(skills.flask(call.characterId, call.queryParam("index", -1), call.optionalParam("condition")?.let(::condition)))
+            }
+            post("/exchange") {
+                val books = call.queryParam("books").split(',').map { it.trim() }.filter { it.isNotEmpty() }
+                call.respondWithHero(skills.exchange(call.characterId, books, call.queryParam("skill")))
+            }
         }
 
         route("/skilltree") {
@@ -196,3 +231,7 @@ class CharacterRoute(
         }
     }
 }
+
+/** Условие слота по имени; неизвестное - отказ, а не тихое «как готово». */
+private fun condition(name: String): SlotCondition =
+    SlotCondition.entries.firstOrNull { it.name == name } ?: throw base.exception.model.SkillExceptions.funExceptionCondition("condition", name)

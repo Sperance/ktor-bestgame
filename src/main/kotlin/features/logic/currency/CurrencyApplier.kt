@@ -35,6 +35,7 @@ import features.logic.modifiers.Modifier
 import features.logic.modifiers.ModifierDefinition
 import features.logic.locale.LocaleKey
 import features.logic.modifiers.ModifierRoller
+import features.logic.equipment.FlaskRules
 import features.logic.pools.Pools
 import config.CurrencySeeder
 import org.bson.types.ObjectId
@@ -120,6 +121,9 @@ object CurrencyApplier : KoinComponent {
         if (item.corrupted) throw CurrencyExceptions.funExceptionCorrupted("apply", template.code)
         if (item.mirrored) throw CurrencyExceptions.funExceptionMirrored("apply", template.code)
         if (orb.mapOnly && template.slot != EnumEquipmentType.MAP) throw CurrencyExceptions.funExceptionNotMap("apply", LocaleKey.enumLabel("EnumCurrencyOrb", orb.name))
+        // Фляга (0.69.0) берёт только свой набор сфер, а «Стеклодув» - только флягу
+        if (if (FlaskRules.isFlask(template)) orb !in FlaskRules.ORBS else orb.flaskOnly)
+            throw CurrencyExceptions.funExceptionNotForFlask("apply", LocaleKey.enumLabel("EnumCurrencyOrb", orb.name), LocaleKey.equipmentName(template.code))
 
         return when (orb) {
             ORB_OF_TRANSMUTATION -> upgrade(item, template, from = EnumRarity.COMMON, to = EnumRarity.UNCOMMON)
@@ -151,9 +155,42 @@ object CurrencyApplier : KoinComponent {
             EnumCurrencyOrb.TREASURE_ORB -> alchemyLine(item, template, "ALC_MAP_CHESTS")
             EnumCurrencyOrb.GILDED_ORB -> alchemyLine(item, template, "ALC_MAP_GOLD")
             EnumCurrencyOrb.WARDEN_ORB -> alchemyLine(item, template, "ALC_MAP_BOSS")
+            EnumCurrencyOrb.ESSENCE_ORB -> alchemyLine(item, template, "ALC_MAP_CRYSTALS")
+            EnumCurrencyOrb.SCRIBE_ORB -> alchemyLine(item, template, "ALC_MAP_BOOKS")
+            EnumCurrencyOrb.GLASSBLOWERS_BAUBLE -> bauble(item, template)
             EnumCurrencyOrb.HELMET_SCROLL, EnumCurrencyOrb.GLOVES_SCROLL, EnumCurrencyOrb.BOOTS_SCROLL, EnumCurrencyOrb.WEAPON_SCROLL ->
                 enchant(item, template, orb)
         }
+    }
+
+    /**
+     * Эссенция (0.69.0), как в POE: обычная вещь становится редкой, где одна строка - гарантия эссенции
+     * на тире её ступени, остальные катаются как у сферы алхимии. Эссенция со ступени, что
+     * перебрасывает редкие ([features.logic.essences.EssenceTier.rerollsRare]), и особая берут и
+     * редкую вещь - и катают её заново вокруг гарантии и закреплённого аффикса. Волшебную,
+     * уникальную, порченую, скопированную вещь, флягу, карту, самоцвет и инструмент эссенция не берёт.
+     */
+    fun applyEssence(essence: features.logic.essences.Essence, item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        val method = "applyEssence"
+        val name = LocaleKey.itemName(essence.code)
+        if (item.corrupted) throw CurrencyExceptions.funExceptionCorrupted(method, template.code)
+        if (item.mirrored) throw CurrencyExceptions.funExceptionMirrored(method, template.code)
+        val line = features.logic.essences.EssenceRules.guarantee(essence, template.slot)
+            ?: throw CurrencyExceptions.funExceptionEssenceItem(method, name, LocaleKey.equipmentName(template.code))
+        val tiers = features.logic.essences.EssenceContent.book.tiers
+        when (item.rarity) {
+            EnumRarity.COMMON -> Unit
+            EnumRarity.RARE -> if (!essence.special && !tiers[essence.tier - 1].rerollsRare) throw CurrencyExceptions.funExceptionEssenceTier(method, name)
+            else -> throw CurrencyExceptions.funExceptionEssenceItem(method, name, LocaleKey.equipmentName(template.code))
+        }
+        val share = if (essence.special) 1.0 else (essence.tier - 1).toDouble() / (tiers.size - 1)
+        val forced = ModifierRoller.rollShare(line, share) ?: throw CurrencyExceptions.funExceptionEssenceItem(method, name, LocaleKey.equipmentName(template.code))
+        val group = ModifierRoller.definitions(listOf(forced)).map { it.family() }.toSet()
+        val kept = fractured(item).filterNot { held -> ModifierRoller.definitions(listOf(held)).any { it.family() in group } }
+        val around = if (ModifierRoller.isAffix(forced)) kept + forced else kept
+        item.rarity = EnumRarity.RARE
+        item.params = (permanent(item) + kept + forced + ModifierRoller.rollAffixes(template, EnumRarity.RARE, item.influence, around)).toMutableList()
+        return outcome(item, template, "currency.essence", name)
     }
 
     /**
@@ -321,7 +358,7 @@ object CurrencyApplier : KoinComponent {
                 outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
             }
             // Уникалку в редкую не превратить, как и в POE: на ней этот исход только портит.
-            VaalOutcome.RARE -> if (item.rarity == EnumRarity.UNIQUE) outcome(item, template, "currency.vaal_nothing") else {
+            VaalOutcome.RARE -> if (item.rarity == EnumRarity.UNIQUE || FlaskRules.isFlask(template)) outcome(item, template, "currency.vaal_nothing") else {
                 item.rarity = EnumRarity.RARE
                 item.params = (permanent(item) + fractured(item) + ModifierRoller.rollAffixes(template, EnumRarity.RARE, item.influence, fractured(item))).toMutableList()
                 outcome(item, template, "currency.vaal_rare", affixes(item).size.toString())
@@ -355,7 +392,7 @@ object CurrencyApplier : KoinComponent {
             return outcome(item, template, "currency.chance_unique", LocaleKey.equipmentName(unique.code))
         }
 
-        val rarity = chanceRarities.weightedRandomExt { it.second }?.first ?: EnumRarity.COMMON
+        val rarity = FlaskRules.rarity(template, chanceRarities.weightedRandomExt { it.second }?.first ?: EnumRarity.COMMON)
         item.rarity = rarity
         item.params = (permanent(item) + ModifierRoller.rollAffixes(template, rarity, item.influence)).toMutableList()
 
@@ -407,7 +444,7 @@ object CurrencyApplier : KoinComponent {
      * влияния; самоцвет влиянию не поддаётся.
      */
     private fun influence(item: CharacterEquipment, template: Equipment, influence: EnumInfluence): CurrencyOutcome {
-        if (template.slot == EnumEquipmentType.JEWEL || template.slot == EnumEquipmentType.MAP || template.slot.isTool)
+        if (template.slot == EnumEquipmentType.JEWEL || template.slot == EnumEquipmentType.MAP || template.slot.isTool || template.slot.isFlask)
             throw CurrencyExceptions.funExceptionNotInfluenceable("influence", template.code)
         if (item.rarity !in rareOrBetter)
             throw CurrencyExceptions.funExceptionRarity("influence", item.rarity.name)
@@ -447,6 +484,17 @@ object CurrencyApplier : KoinComponent {
     /**
      * Аффиксы предмета - только их трогают сферы перекатки.
      */
+    /**
+     * «Стеклодув» (0.69.0): качество фляги растёт на шаг её редкости - два процента обычной, один
+     * волшебной - до потолка; уникальной и полной фляге он не нужен (`CR_028`).
+     */
+    private fun bauble(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
+        val step = FlaskRules.baubleStep(item)
+        if (step <= 0) throw CurrencyExceptions.funExceptionQualityFull("bauble", LocaleKey.equipmentName(template.code))
+        item.quality += step
+        return outcome(item, template, "currency.bauble", item.quality.toString())
+    }
+
     private fun affixes(item: CharacterEquipment): List<Modifier> = item.params.filter { ModifierRoller.isAffix(it) }
 
     /**
@@ -504,7 +552,7 @@ object CurrencyApplier : KoinComponent {
         return outcome(item, template, "currency.alchemy_line")
     }
 
-    private fun permanent(item: CharacterEquipment): List<Modifier> = item.params.filterNot { ModifierRoller.isAffix(it) }
+    private fun permanent(item: CharacterEquipment): List<Modifier> = item.params.filterNot { ModifierRoller.isAffix(it) || ModifierRoller.isEssence(it) }
 }
 
 /** Исходы сферы Ваал (с 0.58.0), равновероятные: ничего, имплисит порчи (только карта, 0.59.0), перекат в редкий, сдвиг значений на ±20%. */

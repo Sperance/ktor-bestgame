@@ -127,7 +127,8 @@ class ModifierRollTest {
         EnumInfluence.entries.forEach { influence ->
             val pool = pools.of(definitions, listOf(Pools.influence(influence))).map { it.value }
             assert(pool.isNotEmpty() && pool.all { it.influence == influence }) { "$influence pool: ${pool.map { it.code }}" }
-            EnumEquipmentType.entries.filter { !it.isTool && it != EnumEquipmentType.JEWEL && it != EnumEquipmentType.MAP && it != EnumEquipmentType.RING_2 }.forEach { slot ->
+            // Фляга (0.69.0) влиянию не поддаётся, см. CurrencyApplier.influence.
+            EnumEquipmentType.entries.filter { !it.isTool && !it.isFlask && it != EnumEquipmentType.JEWEL && it != EnumEquipmentType.MAP && it != EnumEquipmentType.RING_2 }.forEach { slot ->
                 val own = pools.of(definitions, Pools.influence(influence, slot)).map { it.value }
                 assert(own.size > pool.size && own.all { it.influence == influence }) { "$influence on $slot: ${own.map { it.code }}" }
             }
