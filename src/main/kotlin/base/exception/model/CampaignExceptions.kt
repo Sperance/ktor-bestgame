@@ -25,4 +25,6 @@ object CampaignExceptions {
     fun funExceptionNoAbyss(errorMethod: String, value: String? = "") = CampaignException("No such Abyss crack on map $value", errorMethod, "CP_015", listOf(value.orEmpty()))
     fun funExceptionAbyssClosed(errorMethod: String, value: String? = "") = CampaignException("No descent into the Abyss is open on map $value", errorMethod, "CP_016", listOf(value.orEmpty()))
     fun funExceptionAbyssDepth(errorMethod: String, value: String? = "") = CampaignException("Abyss depth $value is out of reach", errorMethod, "CP_017", listOf(value.orEmpty()))
+    fun funExceptionNoRun(errorMethod: String, value: String? = "") = CampaignException("No run is open on map $value", errorMethod, "CP_018", listOf(value.orEmpty()))
+    fun funExceptionEventOrder(errorMethod: String, value: String? = "") = CampaignException("Run event $value is out of order", errorMethod, "CP_019", listOf(value.orEmpty()))
 }

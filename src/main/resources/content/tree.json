@@ -3,9 +3,6 @@
     {
       "code": "SCION_START",
       "type": "START",
-      "cost": 0,
-      "positionX": 0,
-      "positionY": 0,
       "connections": [
         "SCN_S0",
         "SCN_S1",
@@ -14,18 +11,12 @@
         "SCN_S4",
         "SCN_S5"
       ],
-      "params": []
+      "cost": 0
     },
     {
       "code": "SCN_S0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 0,
-      "positionY": -181,
-      "connections": [
-        "SCN_R0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -40,45 +31,41 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R0"
+      ],
+      "y": -181
     },
     {
       "code": "SCN_R0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 0,
-      "positionY": -326,
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
       "connections": [
         "MAR_IN_1",
         "SCN_R0_1"
       ],
-      "params": [
-        {
-          "code": "ADD_ALL_ATTRIBUTES",
-          "values": [
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "code": "ADD_MAXIMUM_LIFE",
-          "values": [
-            10
-          ]
-        }
-      ]
+      "y": -326
     },
     {
       "code": "SCN_S1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 134,
-      "positionY": -92,
-      "connections": [
-        "SCN_R1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -93,45 +80,43 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R1"
+      ],
+      "x": 134,
+      "y": -92
     },
     {
       "code": "SCN_R1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 270,
-      "positionY": -172,
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
       "connections": [
         "DUE_IN_1",
         "SCN_R1_1"
       ],
-      "params": [
-        {
-          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
-          "values": [
-            4
-          ]
-        },
-        {
-          "code": "ADD_ALL_ATTRIBUTES",
-          "values": [
-            4,
-            4,
-            4
-          ]
-        }
-      ]
+      "x": 270,
+      "y": -172
     },
     {
       "code": "SCN_S2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 152,
-      "positionY": 85,
-      "connections": [
-        "SCN_R2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -146,45 +131,43 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R2"
+      ],
+      "x": 152,
+      "y": 85
     },
     {
       "code": "SCN_R2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 298,
-      "positionY": 171,
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
       "connections": [
         "RAN_IN_1",
         "SCN_R2_1"
       ],
-      "params": [
-        {
-          "code": "ADD_ALL_ATTRIBUTES",
-          "values": [
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "code": "ADD_MAXIMUM_LIFE",
-          "values": [
-            10
-          ]
-        }
-      ]
+      "x": 298,
+      "y": 171
     },
     {
       "code": "SCN_S3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 12,
-      "positionY": 177,
-      "connections": [
-        "SCN_R3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_LIFE",
           "values": [
@@ -197,19 +180,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R3"
+      ],
+      "x": 12,
+      "y": 177
     },
     {
       "code": "SCN_R3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 22,
-      "positionY": 331,
-      "connections": [
-        "SCN_R3_1",
-        "SHA_IN_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -224,18 +205,18 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R3_1",
+        "SHA_IN_1"
+      ],
+      "x": 22,
+      "y": 331
     },
     {
       "code": "SCN_S4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -161,
-      "positionY": 90,
-      "connections": [
-        "SCN_R4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EXPERIENCE_GAIN",
           "values": [
@@ -248,19 +229,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R4"
+      ],
+      "x": -161,
+      "y": 90
     },
     {
       "code": "SCN_R4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -284,
-      "positionY": 165,
-      "connections": [
-        "SCN_R4_1",
-        "WIT_IN_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -275,18 +254,18 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R4_1",
+        "WIT_IN_1"
+      ],
+      "x": -284,
+      "y": 165
     },
     {
       "code": "SCN_S5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -155,
-      "positionY": -87,
-      "connections": [
-        "SCN_R5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EXPERIENCE_GAIN",
           "values": [
@@ -301,72 +280,69 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R5"
+      ],
+      "x": -155,
+      "y": -87
     },
     {
       "code": "SCN_R5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -270,
-      "positionY": -163,
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
       "connections": [
         "SCN_R5_1",
         "TEM_IN_1"
       ],
-      "params": [
-        {
-          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
-          "values": [
-            4
-          ]
-        },
-        {
-          "code": "ADD_ALL_ATTRIBUTES",
-          "values": [
-            4,
-            4,
-            4
-          ]
-        }
-      ]
+      "x": -270,
+      "y": -163
     },
     {
       "code": "SCN_R0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 112,
-      "positionY": -322,
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
       "connections": [
         "SCN_R0_2",
         "SCN_WP_1"
       ],
-      "params": [
-        {
-          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
-          "values": [
-            4
-          ]
-        },
-        {
-          "code": "ADD_ALL_ATTRIBUTES",
-          "values": [
-            4,
-            4,
-            4
-          ]
-        }
-      ]
+      "x": 112,
+      "y": -322
     },
     {
       "code": "SCN_R0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 212,
-      "positionY": -268,
-      "connections": [
-        "SCN_R1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -379,45 +355,43 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R1"
+      ],
+      "x": 212,
+      "y": -268
     },
     {
       "code": "SCN_R1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 314,
-      "positionY": -65,
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
       "connections": [
         "SCN_FP_1",
         "SCN_R1_2"
       ],
-      "params": [
-        {
-          "code": "ADD_ALL_ATTRIBUTES",
-          "values": [
-            4,
-            4,
-            4
-          ]
-        },
-        {
-          "code": "ADD_MAXIMUM_LIFE",
-          "values": [
-            10
-          ]
-        }
-      ]
+      "x": 314,
+      "y": -65
     },
     {
       "code": "SCN_R1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 350,
-      "positionY": 56,
-      "connections": [
-        "SCN_R2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -432,18 +406,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R2"
+      ],
+      "x": 350,
+      "y": 56
     },
     {
       "code": "SCN_R2_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 210,
-      "positionY": 239,
-      "connections": [
-        "SCN_R2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -458,18 +431,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R2_2"
+      ],
+      "x": 210,
+      "y": 239
     },
     {
       "code": "SCN_R2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 130,
-      "positionY": 312,
-      "connections": [
-        "SCN_R3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -484,43 +456,41 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R3"
+      ],
+      "x": 130,
+      "y": 312
     },
     {
       "code": "SCN_R3_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -97,
-      "positionY": 310,
+      "lines": [
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
       "connections": [
         "SCN_CP_1",
         "SCN_R3_2"
       ],
-      "params": [
-        {
-          "code": "ADD_MAXIMUM_LIFE",
-          "values": [
-            10
-          ]
-        },
-        {
-          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
-          "values": [
-            4
-          ]
-        }
-      ]
+      "x": -97,
+      "y": 310
     },
     {
       "code": "SCN_R3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -205,
-      "positionY": 256,
-      "connections": [
-        "SCN_R4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
           "values": [
@@ -533,19 +503,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R4"
+      ],
+      "x": -205,
+      "y": 256
     },
     {
       "code": "SCN_R4_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -330,
-      "positionY": 57,
-      "connections": [
-        "SCN_AP_1",
-        "SCN_R4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
           "values": [
@@ -558,18 +526,18 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_AP_1",
+        "SCN_R4_2"
+      ],
+      "x": -330,
+      "y": 57
     },
     {
       "code": "SCN_R4_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -334,
-      "positionY": -63,
-      "connections": [
-        "SCN_R5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -584,18 +552,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R5"
+      ],
+      "x": -334,
+      "y": -63
     },
     {
       "code": "SCN_R5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -215,
-      "positionY": -262,
-      "connections": [
-        "SCN_R5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ATTRIBUTES",
           "values": [
@@ -610,18 +577,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R5_2"
+      ],
+      "x": -215,
+      "y": -262
     },
     {
       "code": "SCN_R5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -112,
-      "positionY": -313,
-      "connections": [
-        "SCN_R0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -636,18 +602,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_R0"
+      ],
+      "x": -112,
+      "y": -313
     },
     {
       "code": "SCN_WP_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 185,
-      "positionY": -189,
-      "connections": [
-        "SCN_W_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ITEM_RARITY",
           "values": [
@@ -660,18 +625,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_W_0"
+      ],
+      "x": 185,
+      "y": -189
     },
     {
       "code": "SCN_W_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 88,
-      "positionY": -33,
-      "connections": [
-        "SCN_W_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EXPERIENCE_GAIN",
           "values": [
@@ -684,18 +648,17 @@
             5
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_W_1"
+      ],
+      "x": 88,
+      "y": -33
     },
     {
       "code": "SCN_W_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 89,
-      "positionY": -98,
-      "connections": [
-        "SCN_W_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EXPERIENCE_GAIN",
           "values": [
@@ -708,18 +671,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_W_2"
+      ],
+      "x": 89,
+      "y": -98
     },
     {
       "code": "SCN_W_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 174,
-      "positionY": -116,
-      "connections": [
-        "SCN_W_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SELL_VALUE",
           "values": [
@@ -732,18 +694,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_W_3"
+      ],
+      "x": 174,
+      "y": -116
     },
     {
       "code": "SCN_W_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 193,
-      "positionY": -37,
-      "connections": [
-        "SCN_W_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ITEM_RARITY",
           "values": [
@@ -762,18 +723,17 @@
             15
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_W_4"
+      ],
+      "x": 193,
+      "y": -37
     },
     {
       "code": "SCN_W_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 146,
-      "positionY": 4,
-      "connections": [
-        "SCN_W_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CHEST_QUANTITY",
           "values": [
@@ -792,19 +752,20 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_W_0"
+      ],
+      "x": 146,
+      "y": 4
     },
     {
       "code": "SCN_W_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 140,
-      "positionY": -47,
       "connections": [
         "SCN_W_3",
         "SCN_W_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -848,18 +809,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 140,
+      "y": -47
     },
     {
       "code": "SCN_CP_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -157,
-      "positionY": 173,
-      "connections": [
-        "SCN_C_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "WORK_SPEED",
           "values": [
@@ -872,18 +829,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_C_0"
+      ],
+      "x": -157,
+      "y": 173
     },
     {
       "code": "SCN_C_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -79,
-      "positionY": 29,
-      "connections": [
-        "SCN_C_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "WORK_LUCK",
           "values": [
@@ -896,18 +852,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_C_1"
+      ],
+      "x": -79,
+      "y": 29
     },
     {
       "code": "SCN_C_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -82,
-      "positionY": 86,
-      "connections": [
-        "SCN_C_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "WORK_EXPERIENCE",
           "values": [
@@ -926,18 +881,17 @@
             12
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_C_2"
+      ],
+      "x": -82,
+      "y": 86
     },
     {
       "code": "SCN_C_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -133,
-      "positionY": 126,
-      "connections": [
-        "SCN_C_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "WORK_YIELD",
           "values": [
@@ -950,18 +904,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_C_3"
+      ],
+      "x": -133,
+      "y": 126
     },
     {
       "code": "SCN_C_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -208,
-      "positionY": 86,
-      "connections": [
-        "SCN_C_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "WORK_FIND",
           "values": [
@@ -980,18 +933,17 @@
             12
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_C_4"
+      ],
+      "x": -208,
+      "y": 86
     },
     {
       "code": "SCN_C_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -200,
-      "positionY": 13,
-      "connections": [
-        "SCN_C_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "WORK_LUCK",
           "values": [
@@ -1004,18 +956,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_C_5"
+      ],
+      "x": -200,
+      "y": 13
     },
     {
       "code": "SCN_C_5",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -129,
-      "positionY": -4,
-      "connections": [
-        "SCN_C_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "WORK_YIELD",
           "values": [
@@ -1034,20 +985,21 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_C_0"
+      ],
+      "x": -129,
+      "y": -4
     },
     {
       "code": "SCN_C_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -136,
-      "positionY": 51,
       "connections": [
         "SCN_C_1",
         "SCN_C_3",
         "SCN_C_5"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -1091,18 +1043,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -136,
+      "y": 51
     },
     {
       "code": "SCN_FP_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 260,
-      "positionY": 53,
-      "connections": [
-        "SCN_F_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_DURATION",
           "values": [
@@ -1115,18 +1063,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_F_0"
+      ],
+      "x": 260,
+      "y": 53
     },
     {
       "code": "SCN_F_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 70,
-      "positionY": 53,
-      "connections": [
-        "SCN_F_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_CHARGES_GAINED",
           "values": [
@@ -1139,18 +1086,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_F_1"
+      ],
+      "x": 70,
+      "y": 53
     },
     {
       "code": "SCN_F_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 128,
-      "positionY": 46,
-      "connections": [
-        "SCN_F_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_DURATION",
           "values": [
@@ -1163,18 +1109,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_F_2"
+      ],
+      "x": 128,
+      "y": 46
     },
     {
       "code": "SCN_F_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 198,
-      "positionY": 84,
-      "connections": [
-        "SCN_F_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_DURATION",
           "values": [
@@ -1193,18 +1138,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_F_3"
+      ],
+      "x": 198,
+      "y": 84
     },
     {
       "code": "SCN_F_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 141,
-      "positionY": 143,
-      "connections": [
-        "SCN_F_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_EFFECT",
           "values": [
@@ -1217,18 +1161,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_F_4"
+      ],
+      "x": 141,
+      "y": 143
     },
     {
       "code": "SCN_F_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 53,
-      "positionY": 125,
-      "connections": [
-        "SCN_F_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_DURATION",
           "values": [
@@ -1247,19 +1190,20 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_F_0"
+      ],
+      "x": 53,
+      "y": 125
     },
     {
       "code": "SCN_F_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 107,
-      "positionY": 94,
       "connections": [
         "SCN_F_2",
         "SCN_F_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -1303,18 +1247,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 107,
+      "y": 94
     },
     {
       "code": "SCN_AP_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -243,
-      "positionY": -50,
-      "connections": [
-        "SCN_A_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_MANA",
           "values": [
@@ -1327,18 +1267,17 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_A_0"
+      ],
+      "x": -243,
+      "y": -50
     },
     {
       "code": "SCN_A_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -38,
-      "positionY": -59,
-      "connections": [
-        "SCN_A_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_KILL",
           "values": [
@@ -1351,18 +1290,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_A_1"
+      ],
+      "x": -38,
+      "y": -59
     },
     {
       "code": "SCN_A_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -163,
-      "positionY": -34,
-      "connections": [
-        "SCN_A_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_KILL",
           "values": [
@@ -1381,18 +1319,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_A_2"
+      ],
+      "x": -163,
+      "y": -34
     },
     {
       "code": "SCN_A_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -199,
-      "positionY": -120,
-      "connections": [
-        "SCN_A_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_MANA",
           "values": [
@@ -1411,18 +1348,17 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_A_3"
+      ],
+      "x": -199,
+      "y": -120
     },
     {
       "code": "SCN_A_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -95,
-      "positionY": -171,
-      "connections": [
-        "SCN_A_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_MANA",
           "values": [
@@ -1435,19 +1371,20 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SCN_A_0"
+      ],
+      "x": -95,
+      "y": -171
     },
     {
       "code": "SCN_A_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -110,
-      "positionY": -93,
       "connections": [
         "SCN_A_1",
         "SCN_A_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -1491,25 +1428,22 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -110,
+      "y": -93
     },
     {
       "code": "SCN_J",
       "type": "JEWEL_SOCKET",
-      "cost": 1,
-      "positionX": -218,
-      "positionY": 130,
       "connections": [
         "SCN_R3_2"
       ],
-      "params": []
+      "x": -218,
+      "y": 130
     },
     {
       "code": "STR_START",
       "type": "START",
-      "cost": 0,
-      "positionX": 316,
-      "positionY": -452,
       "connections": [
         "MAR_B0_1",
         "MAR_B1_1",
@@ -1519,18 +1453,14 @@
         "MAR_B5_1",
         "MAR_IN_2"
       ],
-      "params": []
+      "cost": 0,
+      "x": 316,
+      "y": -452
     },
     {
       "code": "MAR_IN_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 75,
-      "positionY": -408,
-      "connections": [
-        "MAR_IN_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_LIFE",
           "values": [
@@ -1543,16 +1473,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_IN_2"
+      ],
+      "x": 75,
+      "y": -408
     },
     {
       "code": "MAR_IN_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 196,
-      "positionY": -448,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -1565,18 +1496,14 @@
             8
           ]
         }
-      ]
+      ],
+      "x": 196,
+      "y": -448
     },
     {
       "code": "MAR_B0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 186,
-      "positionY": -580,
-      "connections": [
-        "MAR_B0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_ON_KILL",
           "values": [
@@ -1589,18 +1516,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_B0_2"
+      ],
+      "x": 186,
+      "y": -580
     },
     {
       "code": "MAR_B0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 140,
-      "positionY": -617,
-      "connections": [
-        "MAR_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_ON_KILL",
           "values": [
@@ -1613,18 +1539,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C0_0"
+      ],
+      "x": 140,
+      "y": -617
     },
     {
       "code": "MAR_C0_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 138,
-      "positionY": -706,
-      "connections": [
-        "MAR_C0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_LIFE",
           "values": [
@@ -1637,18 +1562,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C0_1"
+      ],
+      "x": 138,
+      "y": -706
     },
     {
       "code": "MAR_C0_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 49,
-      "positionY": -786,
-      "connections": [
-        "MAR_C0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -1667,19 +1591,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C0_2"
+      ],
+      "x": 49,
+      "y": -786
     },
     {
       "code": "MAR_C0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 133,
-      "positionY": -849,
-      "connections": [
-        "MAR_C0_3",
-        "MAR_T0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_REGENERATION",
           "values": [
@@ -1692,18 +1614,18 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C0_3",
+        "MAR_T0_1"
+      ],
+      "x": 133,
+      "y": -849
     },
     {
       "code": "MAR_C0_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 199,
-      "positionY": -772,
-      "connections": [
-        "MAR_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -1722,19 +1644,20 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C0_0"
+      ],
+      "x": 199,
+      "y": -772
     },
     {
       "code": "MAR_C0_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 127,
-      "positionY": -777,
       "connections": [
         "MAR_C0_1",
         "MAR_C0_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -1778,18 +1701,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 127,
+      "y": -777
     },
     {
       "code": "MAR_T0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 142,
-      "positionY": -896,
-      "connections": [
-        "MAR_K0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_REGENERATION",
           "values": [
@@ -1802,16 +1721,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_K0"
+      ],
+      "x": 142,
+      "y": -896
     },
     {
       "code": "MAR_K0",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 136,
-      "positionY": -992,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_MORE_MAXIMUM_LIFE",
           "values": [
@@ -1824,18 +1744,16 @@
             5
           ]
         }
-      ]
+      ],
+      "x": 136,
+      "y": -992
     },
     {
       "code": "MAR_B1_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 295,
-      "positionY": -593,
       "connections": [
         "MAR_B1_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -1861,18 +1779,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 295,
+      "y": -593
     },
     {
       "code": "MAR_B1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 281,
-      "positionY": -705,
-      "connections": [
-        "MAR_B1_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
           "values": [
@@ -1885,18 +1799,17 @@
             18
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_B1_3"
+      ],
+      "x": 281,
+      "y": -705
     },
     {
       "code": "MAR_B1_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 308,
-      "positionY": -799,
-      "connections": [
-        "MAR_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR",
           "values": [
@@ -1909,18 +1822,17 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C1_0"
+      ],
+      "x": 308,
+      "y": -799
     },
     {
       "code": "MAR_C1_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 303,
-      "positionY": -947,
-      "connections": [
-        "MAR_C1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ARMOUR",
           "values": [
@@ -1933,18 +1845,17 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C1_1"
+      ],
+      "x": 303,
+      "y": -947
     },
     {
       "code": "MAR_C1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 258,
-      "positionY": -1035,
-      "connections": [
-        "MAR_C1_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_STUN_THRESHOLD",
           "values": [
@@ -1957,19 +1868,17 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C1_2"
+      ],
+      "x": 258,
+      "y": -1035
     },
     {
       "code": "MAR_C1_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 361,
-      "positionY": -1084,
-      "connections": [
-        "MAR_C1_3",
-        "MAR_T1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
           "values": [
@@ -1988,18 +1897,18 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C1_3",
+        "MAR_T1_1"
+      ],
+      "x": 361,
+      "y": -1084
     },
     {
       "code": "MAR_C1_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 390,
-      "positionY": -987,
-      "connections": [
-        "MAR_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR",
           "values": [
@@ -2018,19 +1927,20 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C1_0"
+      ],
+      "x": 390,
+      "y": -987
     },
     {
       "code": "MAR_C1_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 322,
-      "positionY": -1018,
       "connections": [
         "MAR_C1_2",
         "MAR_C1_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -2074,18 +1984,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 322,
+      "y": -1018
     },
     {
       "code": "MAR_T1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 399,
-      "positionY": -1110,
-      "connections": [
-        "MAR_J1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ARMOUR",
           "values": [
@@ -2098,27 +2004,25 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_J1"
+      ],
+      "x": 399,
+      "y": -1110
     },
     {
       "code": "MAR_J1",
       "type": "JEWEL_SOCKET",
-      "cost": 1,
-      "positionX": 425,
-      "positionY": -1230,
-      "connections": [],
-      "params": []
+      "x": 425,
+      "y": -1230
     },
     {
       "code": "MAR_B2_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 306,
-      "positionY": -497,
       "connections": [
         "MAR_B2_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -2144,19 +2048,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 306,
+      "y": -497
     },
     {
       "code": "MAR_B2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 329,
-      "positionY": -563,
-      "connections": [
-        "MAR_C2_0",
-        "MAR_X2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_STRENGTH",
           "values": [
@@ -2169,18 +2068,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C2_0",
+        "MAR_X2"
+      ],
+      "x": 329,
+      "y": -563
     },
     {
       "code": "MAR_C2_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 378,
-      "positionY": -615,
-      "connections": [
-        "MAR_C2_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_EFFECT",
           "values": [
@@ -2193,18 +2092,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C2_1"
+      ],
+      "x": 378,
+      "y": -615
     },
     {
       "code": "MAR_C2_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 310,
-      "positionY": -655,
-      "connections": [
-        "MAR_C2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_CHARGES_GAINED",
           "values": [
@@ -2217,18 +2115,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C2_2"
+      ],
+      "x": 310,
+      "y": -655
     },
     {
       "code": "MAR_C2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 324,
-      "positionY": -744,
-      "connections": [
-        "MAR_C2_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_EFFECT",
           "values": [
@@ -2241,18 +2138,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C2_3"
+      ],
+      "x": 324,
+      "y": -744
     },
     {
       "code": "MAR_C2_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 397,
-      "positionY": -753,
-      "connections": [
-        "MAR_C2_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "REDUCED_FLASK_CHARGES_USED",
           "values": [
@@ -2271,18 +2167,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C2_4"
+      ],
+      "x": 397,
+      "y": -753
     },
     {
       "code": "MAR_C2_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 452,
-      "positionY": -715,
-      "connections": [
-        "MAR_C2_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_LIFE_RECOVERY",
           "values": [
@@ -2301,18 +2196,17 @@
             15
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C2_5"
+      ],
+      "x": 452,
+      "y": -715
     },
     {
       "code": "MAR_C2_5",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 440,
-      "positionY": -610,
-      "connections": [
-        "MAR_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_EFFECT",
           "values": [
@@ -2331,20 +2225,21 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C2_0"
+      ],
+      "x": 440,
+      "y": -610
     },
     {
       "code": "MAR_C2_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 384,
-      "positionY": -683,
       "connections": [
         "MAR_C2_3",
         "MAR_C2_4",
         "MAR_C2_5"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -2388,18 +2283,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 384,
+      "y": -683
     },
     {
       "code": "MAR_B3_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 387,
-      "positionY": -535,
       "connections": [
         "MAR_B3_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -2425,18 +2318,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 387,
+      "y": -535
     },
     {
       "code": "MAR_B3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 467,
-      "positionY": -562,
-      "connections": [
-        "MAR_B3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
@@ -2449,18 +2338,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_B3_3"
+      ],
+      "x": 467,
+      "y": -562
     },
     {
       "code": "MAR_B3_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 520,
-      "positionY": -658,
-      "connections": [
-        "MAR_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_BLEED",
           "values": [
@@ -2473,18 +2361,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C3_0"
+      ],
+      "x": 520,
+      "y": -658
     },
     {
       "code": "MAR_C3_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 639,
-      "positionY": -735,
-      "connections": [
-        "MAR_C3_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -2497,18 +2384,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C3_1"
+      ],
+      "x": 639,
+      "y": -735
     },
     {
       "code": "MAR_C3_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 641,
-      "positionY": -818,
-      "connections": [
-        "MAR_C3_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_BLEED",
           "values": [
@@ -2521,18 +2407,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C3_2"
+      ],
+      "x": 641,
+      "y": -818
     },
     {
       "code": "MAR_C3_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 694,
-      "positionY": -834,
-      "connections": [
-        "MAR_C3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
@@ -2551,18 +2436,17 @@
             5
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C3_3"
+      ],
+      "x": 694,
+      "y": -834
     },
     {
       "code": "MAR_C3_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 757,
-      "positionY": -793,
-      "connections": [
-        "MAR_C3_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_BLEED",
           "values": [
@@ -2575,18 +2459,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C3_4"
+      ],
+      "x": 757,
+      "y": -793
     },
     {
       "code": "MAR_C3_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 725,
-      "positionY": -724,
-      "connections": [
-        "MAR_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
@@ -2605,19 +2488,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C3_0"
+      ],
+      "x": 725,
+      "y": -724
     },
     {
       "code": "MAR_C3_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 689,
-      "positionY": -781,
       "connections": [
         "MAR_C3_2",
         "MAR_C3_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -2661,18 +2545,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 689,
+      "y": -781
     },
     {
       "code": "MAR_B4_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 417,
-      "positionY": -426,
       "connections": [
         "MAR_B4_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -2698,18 +2580,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 417,
+      "y": -426
     },
     {
       "code": "MAR_B4_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 463,
-      "positionY": -471,
-      "connections": [
-        "MAR_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CURSE_EFFECT",
           "values": [
@@ -2722,18 +2600,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C4_0"
+      ],
+      "x": 463,
+      "y": -471
     },
     {
       "code": "MAR_C4_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 542,
-      "positionY": -471,
-      "connections": [
-        "MAR_C4_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "REDUCED_SKILL_COST",
           "values": [
@@ -2746,18 +2623,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C4_1"
+      ],
+      "x": 542,
+      "y": -471
     },
     {
       "code": "MAR_C4_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 537,
-      "positionY": -542,
-      "connections": [
-        "MAR_C4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SKILL_HEALING",
           "values": [
@@ -2776,18 +2652,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C4_2"
+      ],
+      "x": 537,
+      "y": -542
     },
     {
       "code": "MAR_C4_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 604,
-      "positionY": -577,
-      "connections": [
-        "MAR_C4_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SKILL_HEALING",
           "values": [
@@ -2800,18 +2675,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C4_3"
+      ],
+      "x": 604,
+      "y": -577
     },
     {
       "code": "MAR_C4_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 679,
-      "positionY": -554,
-      "connections": [
-        "MAR_C4_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "REDUCED_SKILL_COST",
           "values": [
@@ -2830,18 +2704,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C4_4"
+      ],
+      "x": 679,
+      "y": -554
     },
     {
       "code": "MAR_C4_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 679,
-      "positionY": -467,
-      "connections": [
-        "MAR_C4_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_AURA_EFFECT",
           "values": [
@@ -2860,18 +2733,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C4_5"
+      ],
+      "x": 679,
+      "y": -467
     },
     {
       "code": "MAR_C4_5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 613,
-      "positionY": -421,
-      "connections": [
-        "MAR_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_AURA_EFFECT",
           "values": [
@@ -2884,20 +2756,21 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C4_0"
+      ],
+      "x": 613,
+      "y": -421
     },
     {
       "code": "MAR_C4_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 608,
-      "positionY": -512,
       "connections": [
         "MAR_C4_1",
         "MAR_C4_3",
         "MAR_C4_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -2941,18 +2814,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 608,
+      "y": -512
     },
     {
       "code": "MAR_B5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 492,
-      "positionY": -435,
-      "connections": [
-        "MAR_B5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -2965,18 +2834,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_B5_2"
+      ],
+      "x": 492,
+      "y": -435
     },
     {
       "code": "MAR_B5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 606,
-      "positionY": -467,
-      "connections": [
-        "MAR_B5_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -2989,19 +2857,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_B5_3"
+      ],
+      "x": 606,
+      "y": -467
     },
     {
       "code": "MAR_B5_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 693,
-      "positionY": -511,
-      "connections": [
-        "BR0_1",
-        "MAR_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIGHTNING_RESISTANCE",
           "values": [
@@ -3014,18 +2880,18 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR0_1",
+        "MAR_C5_0"
+      ],
+      "x": 693,
+      "y": -511
     },
     {
       "code": "MAR_C5_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 869,
-      "positionY": -503,
-      "connections": [
-        "MAR_C5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
           "values": [
@@ -3038,18 +2904,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C5_1"
+      ],
+      "x": 869,
+      "y": -503
     },
     {
       "code": "MAR_C5_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 867,
-      "positionY": -599,
-      "connections": [
-        "MAR_C5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -3068,19 +2933,17 @@
             12
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C5_2"
+      ],
+      "x": 867,
+      "y": -599
     },
     {
       "code": "MAR_C5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 955,
-      "positionY": -613,
-      "connections": [
-        "MAR_C5_3",
-        "MAR_T5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -3093,18 +2956,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C5_3",
+        "MAR_T5_1"
+      ],
+      "x": 955,
+      "y": -613
     },
     {
       "code": "MAR_C5_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 1001,
-      "positionY": -520,
-      "connections": [
-        "MAR_C5_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIGHTNING_RESISTANCE",
           "values": [
@@ -3123,18 +2986,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C5_4"
+      ],
+      "x": 1001,
+      "y": -520
     },
     {
       "code": "MAR_C5_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 928,
-      "positionY": -455,
-      "connections": [
-        "MAR_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -3147,19 +3009,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_C5_0"
+      ],
+      "x": 928,
+      "y": -455
     },
     {
       "code": "MAR_C5_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 920,
-      "positionY": -541,
       "connections": [
         "MAR_C5_1",
         "MAR_C5_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -3197,18 +3060,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 920,
+      "y": -541
     },
     {
       "code": "MAR_T5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 1053,
-      "positionY": -567,
-      "connections": [
-        "MAR_K5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_STRENGTH",
           "values": [
@@ -3221,16 +3080,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_K5"
+      ],
+      "x": 1053,
+      "y": -567
     },
     {
       "code": "MAR_K5",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 1070,
-      "positionY": -727,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_MORE_STUN_THRESHOLD",
           "values": [
@@ -3249,18 +3109,14 @@
             0.0
           ]
         }
-      ]
+      ],
+      "x": 1070,
+      "y": -727
     },
     {
       "code": "MAR_X2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 459,
-      "positionY": -651,
-      "connections": [
-        "MAR_B3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -3273,14 +3129,16 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "MAR_B3_3"
+      ],
+      "x": 459,
+      "y": -651
     },
     {
       "code": "STR_DEX_START",
       "type": "START",
-      "cost": 0,
-      "positionX": 538,
-      "positionY": -27,
       "connections": [
         "DUE_B0_1",
         "DUE_B1_1",
@@ -3290,18 +3148,14 @@
         "DUE_B5_1",
         "DUE_IN_2"
       ],
-      "params": []
+      "cost": 0,
+      "x": 538,
+      "y": -27
     },
     {
       "code": "DUE_IN_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 352,
-      "positionY": -159,
-      "connections": [
-        "DUE_IN_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -3315,16 +3169,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_IN_2"
+      ],
+      "x": 352,
+      "y": -159
     },
     {
       "code": "DUE_IN_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 462,
-      "positionY": -99,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -3338,18 +3193,14 @@
             6
           ]
         }
-      ]
+      ],
+      "x": 462,
+      "y": -99
     },
     {
       "code": "DUE_B0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 539,
-      "positionY": -211,
-      "connections": [
-        "DUE_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -3362,18 +3213,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C0_0"
+      ],
+      "x": 539,
+      "y": -211
     },
     {
       "code": "DUE_C0_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 567,
-      "positionY": -325,
-      "connections": [
-        "DUE_C0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_BLEED",
           "values": [
@@ -3386,18 +3236,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C0_1"
+      ],
+      "x": 567,
+      "y": -325
     },
     {
       "code": "DUE_C0_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 569,
-      "positionY": -434,
-      "connections": [
-        "DUE_C0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
@@ -3416,19 +3265,17 @@
             5
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C0_2"
+      ],
+      "x": 569,
+      "y": -434
     },
     {
       "code": "DUE_C0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 662,
-      "positionY": -424,
-      "connections": [
-        "DUE_C0_3",
-        "DUE_T0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_BLEED",
           "values": [
@@ -3441,18 +3288,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C0_3",
+        "DUE_T0_1"
+      ],
+      "x": 662,
+      "y": -424
     },
     {
       "code": "DUE_C0_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 718,
-      "positionY": -371,
-      "connections": [
-        "DUE_C0_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
@@ -3471,18 +3318,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C0_4"
+      ],
+      "x": 718,
+      "y": -371
     },
     {
       "code": "DUE_C0_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 662,
-      "positionY": -288,
-      "connections": [
-        "DUE_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_BLEED",
           "values": [
@@ -3495,19 +3341,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C0_0"
+      ],
+      "x": 662,
+      "y": -288
     },
     {
       "code": "DUE_C0_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 631,
-      "positionY": -366,
       "connections": [
         "DUE_C0_1",
         "DUE_C0_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -3551,18 +3398,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 631,
+      "y": -366
     },
     {
       "code": "DUE_T0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 725,
-      "positionY": -470,
-      "connections": [
-        "DUE_K0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_BLOCK_CHANCE",
           "values": [
@@ -3575,16 +3418,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_K0"
+      ],
+      "x": 725,
+      "y": -470
     },
     {
       "code": "DUE_K0",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 824,
-      "positionY": -500,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_MORE_LIFE_LEECH",
           "values": [
@@ -3597,18 +3441,16 @@
             1
           ]
         }
-      ]
+      ],
+      "x": 824,
+      "y": -500
     },
     {
       "code": "DUE_B1_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 620,
-      "positionY": -125,
       "connections": [
         "DUE_B1_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -3634,18 +3476,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 620,
+      "y": -125
     },
     {
       "code": "DUE_B1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 701,
-      "positionY": -181,
-      "connections": [
-        "DUE_B1_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_ON_KILL",
           "values": [
@@ -3658,18 +3496,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_B1_3"
+      ],
+      "x": 701,
+      "y": -181
     },
     {
       "code": "DUE_B1_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 787,
-      "positionY": -257,
-      "connections": [
-        "DUE_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_REGENERATION",
           "values": [
@@ -3682,18 +3519,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C1_0"
+      ],
+      "x": 787,
+      "y": -257
     },
     {
       "code": "DUE_C1_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 902,
-      "positionY": -328,
-      "connections": [
-        "DUE_C1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_LIFE",
           "values": [
@@ -3706,18 +3542,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C1_1"
+      ],
+      "x": 902,
+      "y": -328
     },
     {
       "code": "DUE_C1_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 951,
-      "positionY": -409,
-      "connections": [
-        "DUE_C1_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_REGENERATION",
           "values": [
@@ -3736,19 +3571,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C1_2"
+      ],
+      "x": 951,
+      "y": -409
     },
     {
       "code": "DUE_C1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 1040,
-      "positionY": -394,
-      "connections": [
-        "DUE_C1_3",
-        "DUE_T1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_REGENERATION",
           "values": [
@@ -3761,18 +3594,18 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C1_3",
+        "DUE_T1_1"
+      ],
+      "x": 1040,
+      "y": -394
     },
     {
       "code": "DUE_C1_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 1040,
-      "positionY": -288,
-      "connections": [
-        "DUE_C1_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIFE_ON_KILL",
           "values": [
@@ -3791,18 +3624,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C1_4"
+      ],
+      "x": 1040,
+      "y": -288
     },
     {
       "code": "DUE_C1_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 954,
-      "positionY": -266,
-      "connections": [
-        "DUE_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -3815,19 +3647,20 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C1_0"
+      ],
+      "x": 954,
+      "y": -266
     },
     {
       "code": "DUE_C1_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 974,
-      "positionY": -340,
       "connections": [
         "DUE_C1_1",
         "DUE_C1_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -3871,18 +3704,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 974,
+      "y": -340
     },
     {
       "code": "DUE_T1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 1092,
-      "positionY": -416,
-      "connections": [
-        "DUE_J1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -3895,27 +3724,25 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_J1"
+      ],
+      "x": 1092,
+      "y": -416
     },
     {
       "code": "DUE_J1",
       "type": "JEWEL_SOCKET",
-      "cost": 1,
-      "positionX": 1182,
-      "positionY": -404,
-      "connections": [],
-      "params": []
+      "x": 1182,
+      "y": -404
     },
     {
       "code": "DUE_B2_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 565,
-      "positionY": -73,
       "connections": [
         "DUE_B2_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -3941,18 +3768,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 565,
+      "y": -73
     },
     {
       "code": "DUE_B2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 609,
-      "positionY": -58,
-      "connections": [
-        "DUE_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -3965,18 +3788,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C2_0"
+      ],
+      "x": 609,
+      "y": -58
     },
     {
       "code": "DUE_C2_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 688,
-      "positionY": -101,
-      "connections": [
-        "DUE_C2_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SKILL_HEALING",
           "values": [
@@ -3989,18 +3811,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C2_1"
+      ],
+      "x": 688,
+      "y": -101
     },
     {
       "code": "DUE_C2_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 746,
-      "positionY": -174,
-      "connections": [
-        "DUE_C2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_AURA_EFFECT",
           "values": [
@@ -4013,18 +3834,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C2_2"
+      ],
+      "x": 746,
+      "y": -174
     },
     {
       "code": "DUE_C2_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 816,
-      "positionY": -155,
-      "connections": [
-        "DUE_C2_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CURSE_EFFECT",
           "values": [
@@ -4043,18 +3863,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C2_3"
+      ],
+      "x": 816,
+      "y": -155
     },
     {
       "code": "DUE_C2_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 807,
-      "positionY": -57,
-      "connections": [
-        "DUE_C2_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CURSE_EFFECT",
           "values": [
@@ -4073,18 +3892,17 @@
             15
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C2_4"
+      ],
+      "x": 807,
+      "y": -57
     },
     {
       "code": "DUE_C2_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 727,
-      "positionY": -33,
-      "connections": [
-        "DUE_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_RESERVATION_EFFICIENCY",
           "values": [
@@ -4097,19 +3915,20 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C2_0"
+      ],
+      "x": 727,
+      "y": -33
     },
     {
       "code": "DUE_C2_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 752,
-      "positionY": -106,
       "connections": [
         "DUE_C2_2",
         "DUE_C2_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -4153,18 +3972,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 752,
+      "y": -106
     },
     {
       "code": "DUE_B3_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 628,
-      "positionY": 19,
       "connections": [
         "DUE_B3_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -4190,18 +4007,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 628,
+      "y": 19
     },
     {
       "code": "DUE_B3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 721,
-      "positionY": 37,
-      "connections": [
-        "DUE_B3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR_AND_EVASION",
           "values": [
@@ -4215,18 +4028,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_B3_3"
+      ],
+      "x": 721,
+      "y": 37
     },
     {
       "code": "DUE_B3_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 851,
-      "positionY": 9,
-      "connections": [
-        "DUE_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_EVASION_RATING",
           "values": [
@@ -4239,18 +4051,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C3_0"
+      ],
+      "x": 851,
+      "y": 9
     },
     {
       "code": "DUE_C3_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 958,
-      "positionY": 67,
-      "connections": [
-        "DUE_C3_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_EVASION_RATING",
           "values": [
@@ -4263,18 +4074,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C3_1"
+      ],
+      "x": 958,
+      "y": 67
     },
     {
       "code": "DUE_C3_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 1000,
-      "positionY": 21,
-      "connections": [
-        "DUE_C3_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR_AND_EVASION",
           "values": [
@@ -4294,18 +4104,17 @@
             22
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C3_2"
+      ],
+      "x": 1000,
+      "y": 21
     },
     {
       "code": "DUE_C3_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 1059,
-      "positionY": 7,
-      "connections": [
-        "DUE_C3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR_AND_EVASION",
           "values": [
@@ -4325,18 +4134,17 @@
             22
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C3_3"
+      ],
+      "x": 1059,
+      "y": 7
     },
     {
       "code": "DUE_C3_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 1096,
-      "positionY": 59,
-      "connections": [
-        "DUE_C3_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MOVEMENT_SPEED",
           "values": [
@@ -4356,18 +4164,17 @@
             50
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C3_4"
+      ],
+      "x": 1096,
+      "y": 59
     },
     {
       "code": "DUE_C3_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 1058,
-      "positionY": 136,
-      "connections": [
-        "DUE_C3_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR_AND_EVASION",
           "values": [
@@ -4381,18 +4188,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C3_5"
+      ],
+      "x": 1058,
+      "y": 136
     },
     {
       "code": "DUE_C3_5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 1003,
-      "positionY": 133,
-      "connections": [
-        "DUE_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR_AND_EVASION",
           "values": [
@@ -4406,20 +4212,21 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C3_0"
+      ],
+      "x": 1003,
+      "y": 133
     },
     {
       "code": "DUE_C3_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 1029,
-      "positionY": 73,
       "connections": [
         "DUE_C3_1",
         "DUE_C3_2",
         "DUE_C3_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -4463,18 +4270,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 1029,
+      "y": 73
     },
     {
       "code": "DUE_B4_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 588,
-      "positionY": 56,
       "connections": [
         "DUE_B4_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -4500,18 +4305,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 588,
+      "y": 56
     },
     {
       "code": "DUE_B4_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 614,
-      "positionY": 93,
-      "connections": [
-        "DUE_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_CHARGES_GAINED",
           "values": [
@@ -4524,18 +4325,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C4_0"
+      ],
+      "x": 614,
+      "y": 93
     },
     {
       "code": "DUE_C4_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 670,
-      "positionY": 124,
-      "connections": [
-        "DUE_C4_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "REDUCED_FLASK_CHARGES_USED",
           "values": [
@@ -4548,18 +4348,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C4_1"
+      ],
+      "x": 670,
+      "y": 124
     },
     {
       "code": "DUE_C4_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 771,
-      "positionY": 104,
-      "connections": [
-        "DUE_C4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_CHARGES_GAINED",
           "values": [
@@ -4578,18 +4377,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C4_2"
+      ],
+      "x": 771,
+      "y": 104
     },
     {
       "code": "DUE_C4_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 814,
-      "positionY": 208,
-      "connections": [
-        "DUE_C4_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_LIFE_RECOVERY",
           "values": [
@@ -4608,18 +4406,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C4_3"
+      ],
+      "x": 814,
+      "y": 208
     },
     {
       "code": "DUE_C4_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 689,
-      "positionY": 248,
-      "connections": [
-        "DUE_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_DURATION",
           "values": [
@@ -4632,19 +4429,20 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C4_0"
+      ],
+      "x": 689,
+      "y": 248
     },
     {
       "code": "DUE_C4_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 741,
-      "positionY": 176,
       "connections": [
         "DUE_C4_1",
         "DUE_C4_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -4688,18 +4486,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 741,
+      "y": 176
     },
     {
       "code": "DUE_B5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 634,
-      "positionY": 151,
-      "connections": [
-        "DUE_B5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
@@ -4712,19 +4506,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_B5_2"
+      ],
+      "x": 634,
+      "y": 151
     },
     {
       "code": "DUE_B5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 729,
-      "positionY": 226,
-      "connections": [
-        "BR1_1",
-        "DUE_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
@@ -4737,18 +4529,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR1_1",
+        "DUE_C5_0"
+      ],
+      "x": 729,
+      "y": 226
     },
     {
       "code": "DUE_C5_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 841,
-      "positionY": 322,
-      "connections": [
-        "DUE_C5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -4761,18 +4553,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C5_1"
+      ],
+      "x": 841,
+      "y": 322
     },
     {
       "code": "DUE_C5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 909,
-      "positionY": 264,
-      "connections": [
-        "DUE_C5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -4785,19 +4576,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C5_2"
+      ],
+      "x": 909,
+      "y": 264
     },
     {
       "code": "DUE_C5_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 998,
-      "positionY": 297,
-      "connections": [
-        "DUE_C5_3",
-        "DUE_T5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -4816,18 +4605,18 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C5_3",
+        "DUE_T5_1"
+      ],
+      "x": 998,
+      "y": 297
     },
     {
       "code": "DUE_C5_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 976,
-      "positionY": 408,
-      "connections": [
-        "DUE_C5_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -4846,18 +4635,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C5_4"
+      ],
+      "x": 976,
+      "y": 408
     },
     {
       "code": "DUE_C5_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 868,
-      "positionY": 417,
-      "connections": [
-        "DUE_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -4870,19 +4658,20 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_C5_0"
+      ],
+      "x": 868,
+      "y": 417
     },
     {
       "code": "DUE_C5_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 919,
-      "positionY": 342,
       "connections": [
         "DUE_C5_2",
         "DUE_C5_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -4926,18 +4715,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 919,
+      "y": 342
     },
     {
       "code": "DUE_T5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 1062,
-      "positionY": 332,
-      "connections": [
-        "DUE_K5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_STRENGTH",
           "values": [
@@ -4950,16 +4735,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "DUE_K5"
+      ],
+      "x": 1062,
+      "y": 332
     },
     {
       "code": "DUE_K5",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 1109,
-      "positionY": 432,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_MORE_PHYSICAL_DAMAGE",
           "values": [
@@ -4978,14 +4764,13 @@
             0.0
           ]
         }
-      ]
+      ],
+      "x": 1109,
+      "y": 432
     },
     {
       "code": "DEX_START",
       "type": "START",
-      "cost": 0,
-      "positionX": 255,
-      "positionY": 531,
       "connections": [
         "RAN_B0_1",
         "RAN_B1_1",
@@ -4995,18 +4780,14 @@
         "RAN_B5_1",
         "RAN_IN_2"
       ],
-      "params": []
+      "cost": 0,
+      "x": 255,
+      "y": 531
     },
     {
       "code": "RAN_IN_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 307,
-      "positionY": 280,
-      "connections": [
-        "RAN_IN_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_EVASION_RATING",
           "values": [
@@ -5019,16 +4800,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_IN_2"
+      ],
+      "x": 307,
+      "y": 280
     },
     {
       "code": "RAN_IN_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 291,
-      "positionY": 406,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_RATING",
           "values": [
@@ -5041,18 +4823,14 @@
             18
           ]
         }
-      ]
+      ],
+      "x": 291,
+      "y": 406
     },
     {
       "code": "RAN_B0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 443,
-      "positionY": 446,
-      "connections": [
-        "RAN_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_RATING",
           "values": [
@@ -5065,18 +4843,17 @@
             18
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C0_0"
+      ],
+      "x": 443,
+      "y": 446
     },
     {
       "code": "RAN_C0_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 557,
-      "positionY": 418,
-      "connections": [
-        "RAN_C0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_EVASION_RATING",
           "values": [
@@ -5089,18 +4866,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C0_1"
+      ],
+      "x": 557,
+      "y": 418
     },
     {
       "code": "RAN_C0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 634,
-      "positionY": 428,
-      "connections": [
-        "RAN_C0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MOVEMENT_SPEED",
           "values": [
@@ -5113,19 +4889,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C0_2"
+      ],
+      "x": 634,
+      "y": 428
     },
     {
       "code": "RAN_C0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 662,
-      "positionY": 496,
-      "connections": [
-        "RAN_C0_3",
-        "RAN_T0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_RATING",
           "values": [
@@ -5138,18 +4912,18 @@
             18
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C0_3",
+        "RAN_T0_1"
+      ],
+      "x": 662,
+      "y": 496
     },
     {
       "code": "RAN_C0_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 609,
-      "positionY": 524,
-      "connections": [
-        "RAN_C0_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MOVEMENT_SPEED",
           "values": [
@@ -5169,18 +4943,17 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C0_4"
+      ],
+      "x": 609,
+      "y": 524
     },
     {
       "code": "RAN_C0_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 540,
-      "positionY": 486,
-      "connections": [
-        "RAN_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MOVEMENT_SPEED",
           "values": [
@@ -5200,19 +4973,20 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C0_0"
+      ],
+      "x": 540,
+      "y": 486
     },
     {
       "code": "RAN_C0_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 602,
-      "positionY": 472,
       "connections": [
         "RAN_C0_3",
         "RAN_C0_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -5256,18 +5030,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 602,
+      "y": 472
     },
     {
       "code": "RAN_T0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 681,
-      "positionY": 540,
-      "connections": [
-        "RAN_K0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MOVEMENT_SPEED",
           "values": [
@@ -5280,16 +5050,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_K0"
+      ],
+      "x": 681,
+      "y": 540
     },
     {
       "code": "RAN_K0",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 785,
-      "positionY": 606,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_SET_EVASION_RATING",
           "values": [
@@ -5302,18 +5073,16 @@
             5
           ]
         }
-      ]
+      ],
+      "x": 785,
+      "y": 606
     },
     {
       "code": "RAN_B1_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 375,
-      "positionY": 580,
       "connections": [
         "RAN_B1_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -5339,18 +5108,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 375,
+      "y": 580
     },
     {
       "code": "RAN_B1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 512,
-      "positionY": 620,
-      "connections": [
-        "RAN_B1_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_BLOCK_CHANCE",
           "values": [
@@ -5363,18 +5128,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_B1_3"
+      ],
+      "x": 512,
+      "y": 620
     },
     {
       "code": "RAN_B1_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 618,
-      "positionY": 669,
-      "connections": [
-        "RAN_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_BLOCK_CHANCE",
           "values": [
@@ -5387,18 +5151,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C1_0"
+      ],
+      "x": 618,
+      "y": 669
     },
     {
       "code": "RAN_C1_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 697,
-      "positionY": 746,
-      "connections": [
-        "RAN_C1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -5411,18 +5174,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C1_1"
+      ],
+      "x": 697,
+      "y": 746
     },
     {
       "code": "RAN_C1_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 777,
-      "positionY": 721,
-      "connections": [
-        "RAN_C1_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
@@ -5441,18 +5203,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C1_2"
+      ],
+      "x": 777,
+      "y": 721
     },
     {
       "code": "RAN_C1_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 835,
-      "positionY": 779,
-      "connections": [
-        "RAN_C1_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_BLEED",
           "values": [
@@ -5471,19 +5232,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C1_3"
+      ],
+      "x": 835,
+      "y": 779
     },
     {
       "code": "RAN_C1_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 813,
-      "positionY": 852,
-      "connections": [
-        "RAN_C1_4",
-        "RAN_T1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -5502,18 +5261,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C1_4",
+        "RAN_T1_1"
+      ],
+      "x": 813,
+      "y": 852
     },
     {
       "code": "RAN_C1_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 730,
-      "positionY": 874,
-      "connections": [
-        "RAN_C1_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_BLOCK_CHANCE",
           "values": [
@@ -5526,18 +5285,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C1_5"
+      ],
+      "x": 730,
+      "y": 874
     },
     {
       "code": "RAN_C1_5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 682,
-      "positionY": 830,
-      "connections": [
-        "RAN_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -5550,20 +5308,21 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C1_0"
+      ],
+      "x": 682,
+      "y": 830
     },
     {
       "code": "RAN_C1_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 755,
-      "positionY": 798,
       "connections": [
         "RAN_C1_1",
         "RAN_C1_2",
         "RAN_C1_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -5607,18 +5366,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 755,
+      "y": 798
     },
     {
       "code": "RAN_T1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 876,
-      "positionY": 850,
-      "connections": [
-        "RAN_J1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -5631,27 +5386,25 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_J1"
+      ],
+      "x": 876,
+      "y": 850
     },
     {
       "code": "RAN_J1",
       "type": "JEWEL_SOCKET",
-      "cost": 1,
-      "positionX": 866,
-      "positionY": 983,
-      "connections": [],
-      "params": []
+      "x": 866,
+      "y": 983
     },
     {
       "code": "RAN_B2_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 337,
-      "positionY": 554,
       "connections": [
         "RAN_C2_0"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -5677,18 +5430,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 337,
+      "y": 554
     },
     {
       "code": "RAN_C2_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 413,
-      "positionY": 607,
-      "connections": [
-        "RAN_C2_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_CHARGES_GAINED",
           "values": [
@@ -5701,18 +5450,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C2_1"
+      ],
+      "x": 413,
+      "y": 607
     },
     {
       "code": "RAN_C2_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 469,
-      "positionY": 603,
-      "connections": [
-        "RAN_C2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_LIFE_RECOVERY",
           "values": [
@@ -5731,18 +5479,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C2_2"
+      ],
+      "x": 469,
+      "y": 603
     },
     {
       "code": "RAN_C2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 487,
-      "positionY": 683,
-      "connections": [
-        "RAN_C2_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "REDUCED_FLASK_CHARGES_USED",
           "values": [
@@ -5755,18 +5502,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C2_3"
+      ],
+      "x": 487,
+      "y": 683
     },
     {
       "code": "RAN_C2_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 421,
-      "positionY": 710,
-      "connections": [
-        "RAN_C2_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_CHARGES_GAINED",
           "values": [
@@ -5779,18 +5525,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C2_4"
+      ],
+      "x": 421,
+      "y": 710
     },
     {
       "code": "RAN_C2_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 370,
-      "positionY": 652,
-      "connections": [
-        "RAN_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FLASK_CHARGES_GAINED",
           "values": [
@@ -5809,19 +5554,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C2_0"
+      ],
+      "x": 370,
+      "y": 652
     },
     {
       "code": "RAN_C2_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 431,
-      "positionY": 657,
       "connections": [
         "RAN_C2_1",
         "RAN_C2_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -5865,18 +5611,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 431,
+      "y": 657
     },
     {
       "code": "RAN_B3_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 286,
-      "positionY": 660,
       "connections": [
         "RAN_B3_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -5902,18 +5646,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 286,
+      "y": 660
     },
     {
       "code": "RAN_B3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 284,
-      "positionY": 763,
-      "connections": [
-        "RAN_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -5926,18 +5666,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C3_0"
+      ],
+      "x": 284,
+      "y": 763
     },
     {
       "code": "RAN_C3_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 372,
-      "positionY": 913,
-      "connections": [
-        "RAN_C3_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
@@ -5950,18 +5689,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C3_1"
+      ],
+      "x": 372,
+      "y": 913
     },
     {
       "code": "RAN_C3_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 439,
-      "positionY": 922,
-      "connections": [
-        "RAN_C3_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -5980,18 +5718,17 @@
             28
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C3_2"
+      ],
+      "x": 439,
+      "y": 922
     },
     {
       "code": "RAN_C3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 454,
-      "positionY": 1017,
-      "connections": [
-        "RAN_C3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -6004,18 +5741,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C3_3"
+      ],
+      "x": 454,
+      "y": 1017
     },
     {
       "code": "RAN_C3_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 386,
-      "positionY": 1044,
-      "connections": [
-        "RAN_C3_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -6028,18 +5764,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C3_4"
+      ],
+      "x": 386,
+      "y": 1044
     },
     {
       "code": "RAN_C3_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 319,
-      "positionY": 1010,
-      "connections": [
-        "RAN_C3_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -6058,18 +5793,17 @@
             28
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C3_5"
+      ],
+      "x": 319,
+      "y": 1010
     },
     {
       "code": "RAN_C3_5",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 307,
-      "positionY": 942,
-      "connections": [
-        "RAN_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -6088,20 +5822,21 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C3_0"
+      ],
+      "x": 307,
+      "y": 942
     },
     {
       "code": "RAN_C3_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 379,
-      "positionY": 977,
       "connections": [
         "RAN_C3_1",
         "RAN_C3_4",
         "RAN_C3_5"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -6145,18 +5880,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 379,
+      "y": 977
     },
     {
       "code": "RAN_B4_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 162,
-      "positionY": 600,
       "connections": [
         "RAN_C4_0"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -6182,18 +5915,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 162,
+      "y": 600
     },
     {
       "code": "RAN_C4_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 134,
-      "positionY": 691,
-      "connections": [
-        "RAN_C4_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_KILL",
           "values": [
@@ -6206,18 +5935,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C4_1"
+      ],
+      "x": 134,
+      "y": 691
     },
     {
       "code": "RAN_C4_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 228,
-      "positionY": 735,
-      "connections": [
-        "RAN_C4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_HIT",
           "values": [
@@ -6230,18 +5958,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C4_2"
+      ],
+      "x": 228,
+      "y": 735
     },
     {
       "code": "RAN_C4_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 215,
-      "positionY": 822,
-      "connections": [
-        "RAN_C4_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_HIT",
           "values": [
@@ -6260,18 +5987,17 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C4_3"
+      ],
+      "x": 215,
+      "y": 822
     },
     {
       "code": "RAN_C4_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 157,
-      "positionY": 825,
-      "connections": [
-        "RAN_C4_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_HIT",
           "values": [
@@ -6290,18 +6016,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C4_4"
+      ],
+      "x": 157,
+      "y": 825
     },
     {
       "code": "RAN_C4_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 100,
-      "positionY": 757,
-      "connections": [
-        "RAN_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_KILL",
           "values": [
@@ -6314,19 +6039,20 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C4_0"
+      ],
+      "x": 100,
+      "y": 757
     },
     {
       "code": "RAN_C4_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 168,
-      "positionY": 768,
       "connections": [
         "RAN_C4_2",
         "RAN_C4_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -6370,18 +6096,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 168,
+      "y": 768
     },
     {
       "code": "RAN_B5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 177,
-      "positionY": 710,
-      "connections": [
-        "RAN_B5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
@@ -6394,19 +6116,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_B5_2"
+      ],
+      "x": 177,
+      "y": 710
     },
     {
       "code": "RAN_B5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 113,
-      "positionY": 813,
-      "connections": [
-        "BR2_1",
-        "RAN_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
@@ -6419,18 +6139,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR2_1",
+        "RAN_C5_0"
+      ],
+      "x": 113,
+      "y": 813
     },
     {
       "code": "RAN_C5_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 60,
-      "positionY": 966,
-      "connections": [
-        "RAN_C5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
@@ -6443,18 +6163,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C5_1"
+      ],
+      "x": 60,
+      "y": 966
     },
     {
       "code": "RAN_C5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 124,
-      "positionY": 1043,
-      "connections": [
-        "RAN_C5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
@@ -6467,19 +6186,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C5_2"
+      ],
+      "x": 124,
+      "y": 1043
     },
     {
       "code": "RAN_C5_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 86,
-      "positionY": 1135,
-      "connections": [
-        "RAN_C5_3",
-        "RAN_T5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
@@ -6500,18 +6217,18 @@
             22
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C5_3",
+        "RAN_T5_1"
+      ],
+      "x": 86,
+      "y": 1135
     },
     {
       "code": "RAN_C5_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -12,
-      "positionY": 1099,
-      "connections": [
-        "RAN_C5_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
@@ -6524,18 +6241,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C5_4"
+      ],
+      "x": -12,
+      "y": 1099
     },
     {
       "code": "RAN_C5_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -5,
-      "positionY": 1013,
-      "connections": [
-        "RAN_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_IGNITE",
           "values": [
@@ -6556,19 +6272,20 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_C5_0"
+      ],
+      "x": -5,
+      "y": 1013
     },
     {
       "code": "RAN_C5_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 48,
-      "positionY": 1058,
       "connections": [
         "RAN_C5_2",
         "RAN_C5_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -6614,18 +6331,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 48,
+      "y": 1058
     },
     {
       "code": "RAN_T5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 21,
-      "positionY": 1172,
-      "connections": [
-        "RAN_K5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -6640,16 +6353,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "RAN_K5"
+      ],
+      "x": 21,
+      "y": 1172
     },
     {
       "code": "RAN_K5",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 73,
-      "positionY": 1301,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_MORE_EVASION_RATING",
           "values": [
@@ -6668,14 +6382,13 @@
             0.0
           ]
         }
-      ]
+      ],
+      "x": 73,
+      "y": 1301
     },
     {
       "code": "DEX_INT_START",
       "type": "START",
-      "cost": 0,
-      "positionX": -237,
-      "positionY": 533,
       "connections": [
         "SHA_B0_1",
         "SHA_B1_1",
@@ -6685,18 +6398,14 @@
         "SHA_B5_1",
         "SHA_IN_2"
       ],
-      "params": []
+      "cost": 0,
+      "x": -237,
+      "y": 533
     },
     {
       "code": "SHA_IN_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -37,
-      "positionY": 402,
-      "connections": [
-        "SHA_IN_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -6709,16 +6418,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_IN_2"
+      ],
+      "x": -37,
+      "y": 402
     },
     {
       "code": "SHA_IN_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -146,
-      "positionY": 487,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
@@ -6732,18 +6442,14 @@
             6
           ]
         }
-      ]
+      ],
+      "x": -146,
+      "y": 487
     },
     {
       "code": "SHA_B0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -123,
-      "positionY": 614,
-      "connections": [
-        "SHA_B0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_INTELLIGENCE",
           "values": [
@@ -6756,18 +6462,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_B0_2"
+      ],
+      "x": -123,
+      "y": 614
     },
     {
       "code": "SHA_B0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -32,
-      "positionY": 662,
-      "connections": [
-        "SHA_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -6780,18 +6485,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C0_0"
+      ],
+      "x": -32,
+      "y": 662
     },
     {
       "code": "SHA_C0_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -5,
-      "positionY": 719,
-      "connections": [
-        "SHA_C0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
@@ -6804,18 +6508,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C0_1"
+      ],
+      "x": -5,
+      "y": 719
     },
     {
       "code": "SHA_C0_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 55,
-      "positionY": 748,
-      "connections": [
-        "SHA_C0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
@@ -6834,18 +6537,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C0_2"
+      ],
+      "x": 55,
+      "y": 748
     },
     {
       "code": "SHA_C0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 67,
-      "positionY": 813,
-      "connections": [
-        "SHA_C0_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -6858,19 +6560,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C0_3"
+      ],
+      "x": 67,
+      "y": 813
     },
     {
       "code": "SHA_C0_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 26,
-      "positionY": 833,
-      "connections": [
-        "SHA_C0_4",
-        "SHA_T0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
@@ -6889,18 +6589,18 @@
             18
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C0_4",
+        "SHA_T0_1"
+      ],
+      "x": 26,
+      "y": 833
     },
     {
       "code": "SHA_C0_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -40,
-      "positionY": 834,
-      "connections": [
-        "SHA_C0_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -6913,18 +6613,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C0_5"
+      ],
+      "x": -40,
+      "y": 834
     },
     {
       "code": "SHA_C0_5",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -51,
-      "positionY": 780,
-      "connections": [
-        "SHA_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -6943,20 +6642,21 @@
             18
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C0_0"
+      ],
+      "x": -51,
+      "y": 780
     },
     {
       "code": "SHA_C0_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 5,
-      "positionY": 791,
       "connections": [
         "SHA_C0_1",
         "SHA_C0_3",
         "SHA_C0_5"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7000,18 +6700,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 5,
+      "y": 791
     },
     {
       "code": "SHA_T0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -30,
-      "positionY": 911,
-      "connections": [
-        "SHA_K0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -7024,16 +6720,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_K0"
+      ],
+      "x": -30,
+      "y": 911
     },
     {
       "code": "SHA_K0",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 46,
-      "positionY": 1011,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
           "values": [
@@ -7046,18 +6743,16 @@
             10
           ]
         }
-      ]
+      ],
+      "x": 46,
+      "y": 1011
     },
     {
       "code": "SHA_B1_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -170,
-      "positionY": 697,
       "connections": [
         "SHA_B1_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7083,18 +6778,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -170,
+      "y": 697
     },
     {
       "code": "SHA_B1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -115,
-      "positionY": 818,
-      "connections": [
-        "SHA_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -7107,18 +6798,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C1_0"
+      ],
+      "x": -115,
+      "y": 818
     },
     {
       "code": "SHA_C1_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -107,
-      "positionY": 957,
-      "connections": [
-        "SHA_C1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_POISON",
           "values": [
@@ -7131,18 +6821,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C1_1"
+      ],
+      "x": -107,
+      "y": 957
     },
     {
       "code": "SHA_C1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -47,
-      "positionY": 993,
-      "connections": [
-        "SHA_C1_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_POISON_DAMAGE",
           "values": [
@@ -7155,19 +6844,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C1_2"
+      ],
+      "x": -47,
+      "y": 993
     },
     {
       "code": "SHA_C1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -77,
-      "positionY": 1091,
-      "connections": [
-        "SHA_C1_3",
-        "SHA_T1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_POISON_DAMAGE",
           "values": [
@@ -7180,18 +6867,18 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C1_3",
+        "SHA_T1_1"
+      ],
+      "x": -77,
+      "y": 1091
     },
     {
       "code": "SHA_C1_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -176,
-      "positionY": 1087,
-      "connections": [
-        "SHA_C1_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CHAOS_DAMAGE",
           "values": [
@@ -7210,18 +6897,17 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C1_4"
+      ],
+      "x": -176,
+      "y": 1087
     },
     {
       "code": "SHA_C1_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -189,
-      "positionY": 1005,
-      "connections": [
-        "SHA_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -7240,19 +6926,20 @@
             22
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C1_0"
+      ],
+      "x": -189,
+      "y": 1005
     },
     {
       "code": "SHA_C1_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -113,
-      "positionY": 1027,
       "connections": [
         "SHA_C1_3",
         "SHA_C1_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7296,18 +6983,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -113,
+      "y": 1027
     },
     {
       "code": "SHA_T1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -67,
-      "positionY": 1169,
-      "connections": [
-        "SHA_J1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
@@ -7320,27 +7003,25 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_J1"
+      ],
+      "x": -67,
+      "y": 1169
     },
     {
       "code": "SHA_J1",
       "type": "JEWEL_SOCKET",
-      "cost": 1,
-      "positionX": -100,
-      "positionY": 1264,
-      "connections": [],
-      "params": []
+      "x": -100,
+      "y": 1264
     },
     {
       "code": "SHA_B2_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -249,
-      "positionY": 601,
       "connections": [
         "SHA_C2_0"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7366,18 +7047,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -249,
+      "y": 601
     },
     {
       "code": "SHA_C2_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -250,
-      "positionY": 683,
-      "connections": [
-        "SHA_C2_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
@@ -7390,18 +7067,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C2_1"
+      ],
+      "x": -250,
+      "y": 683
     },
     {
       "code": "SHA_C2_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -204,
-      "positionY": 757,
-      "connections": [
-        "SHA_C2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
@@ -7414,18 +7090,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C2_2"
+      ],
+      "x": -204,
+      "y": 757
     },
     {
       "code": "SHA_C2_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -280,
-      "positionY": 798,
-      "connections": [
-        "SHA_C2_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
@@ -7444,18 +7119,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C2_3"
+      ],
+      "x": -280,
+      "y": 798
     },
     {
       "code": "SHA_C2_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -312,
-      "positionY": 739,
-      "connections": [
-        "SHA_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_COOLDOWN_RECOVERY",
           "values": [
@@ -7474,19 +7148,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C2_0"
+      ],
+      "x": -312,
+      "y": 739
     },
     {
       "code": "SHA_C2_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -259,
-      "positionY": 746,
       "connections": [
         "SHA_C2_2",
         "SHA_C2_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7524,18 +7199,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -259,
+      "y": 746
     },
     {
       "code": "SHA_B3_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -296,
-      "positionY": 623,
       "connections": [
         "SHA_B3_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7561,18 +7234,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -296,
+      "y": 623
     },
     {
       "code": "SHA_B3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -347,
-      "positionY": 710,
-      "connections": [
-        "SHA_B3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ENERGY_SHIELD",
           "values": [
@@ -7585,18 +7254,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_B3_3"
+      ],
+      "x": -347,
+      "y": 710
     },
     {
       "code": "SHA_B3_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -382,
-      "positionY": 804,
-      "connections": [
-        "SHA_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_DEXTERITY",
           "values": [
@@ -7610,18 +7278,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C3_0"
+      ],
+      "x": -382,
+      "y": 804
     },
     {
       "code": "SHA_C3_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -462,
-      "positionY": 883,
-      "connections": [
-        "SHA_C3_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ENERGY_SHIELD",
           "values": [
@@ -7635,18 +7302,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C3_1"
+      ],
+      "x": -462,
+      "y": 883
     },
     {
       "code": "SHA_C3_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -415,
-      "positionY": 962,
-      "connections": [
-        "SHA_C3_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_SHIELD",
           "values": [
@@ -7665,18 +7331,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C3_2"
+      ],
+      "x": -415,
+      "y": 962
     },
     {
       "code": "SHA_C3_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -450,
-      "positionY": 1038,
-      "connections": [
-        "SHA_C3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ENERGY_SHIELD",
           "values": [
@@ -7696,18 +7361,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C3_3"
+      ],
+      "x": -450,
+      "y": 1038
     },
     {
       "code": "SHA_C3_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -562,
-      "positionY": 1008,
-      "connections": [
-        "SHA_C3_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -7720,18 +7384,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C3_4"
+      ],
+      "x": -562,
+      "y": 1008
     },
     {
       "code": "SHA_C3_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -560,
-      "positionY": 910,
-      "connections": [
-        "SHA_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -7745,19 +7408,20 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C3_0"
+      ],
+      "x": -560,
+      "y": 910
     },
     {
       "code": "SHA_C3_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -490,
-      "positionY": 956,
       "connections": [
         "SHA_C3_1",
         "SHA_C3_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7801,18 +7465,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -490,
+      "y": 956
     },
     {
       "code": "SHA_B4_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -385,
-      "positionY": 503,
       "connections": [
         "SHA_C4_0"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -7838,18 +7500,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -385,
+      "y": 503
     },
     {
       "code": "SHA_C4_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -451,
-      "positionY": 523,
-      "connections": [
-        "SHA_C4_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CURSE_EFFECT",
           "values": [
@@ -7862,18 +7520,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C4_1"
+      ],
+      "x": -451,
+      "y": 523
     },
     {
       "code": "SHA_C4_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -462,
-      "positionY": 638,
-      "connections": [
-        "SHA_C4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SKILL_HEALING",
           "values": [
@@ -7892,18 +7549,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C4_2"
+      ],
+      "x": -462,
+      "y": 638
     },
     {
       "code": "SHA_C4_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -561,
-      "positionY": 640,
-      "connections": [
-        "SHA_C4_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "REDUCED_SKILL_COST",
           "values": [
@@ -7916,18 +7572,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C4_3"
+      ],
+      "x": -561,
+      "y": 640
     },
     {
       "code": "SHA_C4_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -546,
-      "positionY": 534,
-      "connections": [
-        "SHA_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SKILL_HEALING",
           "values": [
@@ -7946,19 +7601,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C4_0"
+      ],
+      "x": -546,
+      "y": 534
     },
     {
       "code": "SHA_C4_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -504,
-      "positionY": 586,
       "connections": [
         "SHA_C4_1",
         "SHA_C4_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -8002,18 +7658,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -504,
+      "y": 586
     },
     {
       "code": "SHA_B5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -420,
-      "positionY": 558,
-      "connections": [
-        "SHA_B5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_EVASION_RATING",
           "values": [
@@ -8026,44 +7678,42 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_B5_2"
+      ],
+      "x": -420,
+      "y": 558
     },
     {
       "code": "SHA_B5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -552,
-      "positionY": 595,
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            8
+          ]
+        }
+      ],
       "connections": [
         "BR3_1",
         "SHA_C5_0"
       ],
-      "params": [
-        {
-          "code": "INCREASED_ARMOUR_AND_EVASION",
-          "values": [
-            6,
-            6
-          ]
-        },
-        {
-          "code": "INCREASED_EVASION_RATING",
-          "values": [
-            8
-          ]
-        }
-      ]
+      "x": -552,
+      "y": 595
     },
     {
       "code": "SHA_C5_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -730,
-      "positionY": 636,
-      "connections": [
-        "SHA_C5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_RATING",
           "values": [
@@ -8077,18 +7727,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C5_1"
+      ],
+      "x": -730,
+      "y": 636
     },
     {
       "code": "SHA_C5_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -741,
-      "positionY": 752,
-      "connections": [
-        "SHA_C5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR_AND_EVASION",
           "values": [
@@ -8108,19 +7757,17 @@
             50
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C5_2"
+      ],
+      "x": -741,
+      "y": 752
     },
     {
       "code": "SHA_C5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -833,
-      "positionY": 720,
-      "connections": [
-        "SHA_C5_3",
-        "SHA_T5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MOVEMENT_SPEED",
           "values": [
@@ -8133,18 +7780,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C5_3",
+        "SHA_T5_1"
+      ],
+      "x": -833,
+      "y": 720
     },
     {
       "code": "SHA_C5_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -837,
-      "positionY": 636,
-      "connections": [
-        "SHA_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MOVEMENT_SPEED",
           "values": [
@@ -8164,19 +7811,20 @@
             50
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_C5_0"
+      ],
+      "x": -837,
+      "y": 636
     },
     {
       "code": "SHA_C5_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -784,
-      "positionY": 688,
       "connections": [
         "SHA_C5_1",
         "SHA_C5_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -8220,18 +7868,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -784,
+      "y": 688
     },
     {
       "code": "SHA_T5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -830,
-      "positionY": 790,
-      "connections": [
-        "SHA_K5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ARMOUR_AND_EVASION",
           "values": [
@@ -8245,16 +7889,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "SHA_K5"
+      ],
+      "x": -830,
+      "y": 790
     },
     {
       "code": "SHA_K5",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": -1008,
-      "positionY": 820,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -8273,14 +7918,13 @@
             0.0
           ]
         }
-      ]
+      ],
+      "x": -1008,
+      "y": 820
     },
     {
       "code": "INT_START",
       "type": "START",
-      "cost": 0,
-      "positionX": -535,
-      "positionY": -38,
       "connections": [
         "WIT_B0_1",
         "WIT_B1_1",
@@ -8290,18 +7934,14 @@
         "WIT_B5_1",
         "WIT_IN_2"
       ],
-      "params": []
+      "cost": 0,
+      "x": -535,
+      "y": -38
     },
     {
       "code": "WIT_IN_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -371,
-      "positionY": 118,
-      "connections": [
-        "WIT_IN_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_INTELLIGENCE",
           "values": [
@@ -8314,16 +7954,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_IN_2"
+      ],
+      "x": -371,
+      "y": 118
     },
     {
       "code": "WIT_IN_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -457,
-      "positionY": 72,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_SHIELD",
           "values": [
@@ -8336,18 +7977,14 @@
             8
           ]
         }
-      ]
+      ],
+      "x": -457,
+      "y": 72
     },
     {
       "code": "WIT_B0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -551,
-      "positionY": 100,
-      "connections": [
-        "WIT_B0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ENERGY_SHIELD",
           "values": [
@@ -8361,18 +7998,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_B0_2"
+      ],
+      "x": -551,
+      "y": 100
     },
     {
       "code": "WIT_B0_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -597,
-      "positionY": 175,
-      "connections": [
-        "WIT_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ENERGY_SHIELD",
           "values": [
@@ -8385,18 +8021,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C0_0"
+      ],
+      "x": -597,
+      "y": 175
     },
     {
       "code": "WIT_C0_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -619,
-      "positionY": 268,
-      "connections": [
-        "WIT_C0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -8409,18 +8044,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C0_1"
+      ],
+      "x": -619,
+      "y": 268
     },
     {
       "code": "WIT_C0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -643,
-      "positionY": 326,
-      "connections": [
-        "WIT_C0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -8433,18 +8067,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C0_2"
+      ],
+      "x": -643,
+      "y": 326
     },
     {
       "code": "WIT_C0_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -728,
-      "positionY": 352,
-      "connections": [
-        "WIT_C0_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
           "values": [
@@ -8464,19 +8097,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C0_3"
+      ],
+      "x": -728,
+      "y": 352
     },
     {
       "code": "WIT_C0_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -773,
-      "positionY": 295,
-      "connections": [
-        "WIT_C0_4",
-        "WIT_T0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_SHIELD",
           "values": [
@@ -8496,18 +8127,18 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C0_4",
+        "WIT_T0_1"
+      ],
+      "x": -773,
+      "y": 295
     },
     {
       "code": "WIT_C0_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -746,
-      "positionY": 221,
-      "connections": [
-        "WIT_C0_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_SHIELD",
           "values": [
@@ -8527,18 +8158,17 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C0_5"
+      ],
+      "x": -746,
+      "y": 221
     },
     {
       "code": "WIT_C0_5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -680,
-      "positionY": 208,
-      "connections": [
-        "WIT_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
           "values": [
@@ -8552,20 +8182,21 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C0_0"
+      ],
+      "x": -680,
+      "y": 208
     },
     {
       "code": "WIT_C0_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -695,
-      "positionY": 279,
       "connections": [
         "WIT_C0_2",
         "WIT_C0_3",
         "WIT_C0_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -8609,18 +8240,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -695,
+      "y": 279
     },
     {
       "code": "WIT_T0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -805,
-      "positionY": 327,
-      "connections": [
-        "WIT_K0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ENERGY_SHIELD",
           "values": [
@@ -8633,16 +8260,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_K0"
+      ],
+      "x": -805,
+      "y": 327
     },
     {
       "code": "WIT_K0",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": -907,
-      "positionY": 337,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_SET_MAXIMUM_LIFE",
           "values": [
@@ -8661,18 +8289,16 @@
             20
           ]
         }
-      ]
+      ],
+      "x": -907,
+      "y": 337
     },
     {
       "code": "WIT_B1_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -659,
-      "positionY": 95,
       "connections": [
         "WIT_B1_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -8698,19 +8324,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -659,
+      "y": 95
     },
     {
       "code": "WIT_B1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -752,
-      "positionY": 163,
-      "connections": [
-        "WIT_C1_0",
-        "WIT_X1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_FREEZE",
           "values": [
@@ -8723,18 +8344,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C1_0",
+        "WIT_X1"
+      ],
+      "x": -752,
+      "y": 163
     },
     {
       "code": "WIT_C1_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -904,
-      "positionY": 238,
-      "connections": [
-        "WIT_C1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_IGNITE",
           "values": [
@@ -8747,18 +8368,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C1_1"
+      ],
+      "x": -904,
+      "y": 238
     },
     {
       "code": "WIT_C1_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -950,
-      "positionY": 292,
-      "connections": [
-        "WIT_C1_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
@@ -8779,19 +8399,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C1_2"
+      ],
+      "x": -950,
+      "y": 292
     },
     {
       "code": "WIT_C1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -1031,
-      "positionY": 264,
-      "connections": [
-        "WIT_C1_3",
-        "WIT_T1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_SHOCK",
           "values": [
@@ -8804,18 +8422,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C1_3",
+        "WIT_T1_1"
+      ],
+      "x": -1031,
+      "y": 264
     },
     {
       "code": "WIT_C1_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -1022,
-      "positionY": 200,
-      "connections": [
-        "WIT_C1_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_FREEZE",
           "values": [
@@ -8828,18 +8446,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C1_4"
+      ],
+      "x": -1022,
+      "y": 200
     },
     {
       "code": "WIT_C1_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -950,
-      "positionY": 172,
-      "connections": [
-        "WIT_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
@@ -8858,19 +8475,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C1_0"
+      ],
+      "x": -950,
+      "y": 172
     },
     {
       "code": "WIT_C1_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -972,
-      "positionY": 236,
       "connections": [
         "WIT_C1_1",
         "WIT_C1_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -8916,18 +8534,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -972,
+      "y": 236
     },
     {
       "code": "WIT_T1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -1073,
-      "positionY": 285,
-      "connections": [
-        "WIT_J1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
@@ -8940,27 +8554,25 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_J1"
+      ],
+      "x": -1073,
+      "y": 285
     },
     {
       "code": "WIT_J1",
       "type": "JEWEL_SOCKET",
-      "cost": 1,
-      "positionX": -1185,
-      "positionY": 333,
-      "connections": [],
-      "params": []
+      "x": -1185,
+      "y": 333
     },
     {
       "code": "WIT_B2_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -585,
-      "positionY": 10,
       "connections": [
         "WIT_B2_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -8986,18 +8598,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -585,
+      "y": 10
     },
     {
       "code": "WIT_B2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -628,
-      "positionY": 24,
-      "connections": [
-        "WIT_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_MANA",
           "values": [
@@ -9010,18 +8618,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C2_0"
+      ],
+      "x": -628,
+      "y": 24
     },
     {
       "code": "WIT_C2_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -685,
-      "positionY": 58,
-      "connections": [
-        "WIT_C2_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_MANA",
           "values": [
@@ -9034,18 +8641,17 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C2_1"
+      ],
+      "x": -685,
+      "y": 58
     },
     {
       "code": "WIT_C2_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -720,
-      "positionY": 130,
-      "connections": [
-        "WIT_C2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_MANA",
           "values": [
@@ -9064,18 +8670,17 @@
             2
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C2_2"
+      ],
+      "x": -720,
+      "y": 130
     },
     {
       "code": "WIT_C2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -843,
-      "positionY": 101,
-      "connections": [
-        "WIT_C2_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_MANA",
           "values": [
@@ -9088,18 +8693,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C2_3"
+      ],
+      "x": -843,
+      "y": 101
     },
     {
       "code": "WIT_C2_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -812,
-      "positionY": -9,
-      "connections": [
-        "WIT_C2_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_KILL",
           "values": [
@@ -9112,18 +8716,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C2_4"
+      ],
+      "x": -812,
+      "y": -9
     },
     {
       "code": "WIT_C2_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -729,
-      "positionY": -32,
-      "connections": [
-        "WIT_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_HIT",
           "values": [
@@ -9142,19 +8745,20 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C2_0"
+      ],
+      "x": -729,
+      "y": -32
     },
     {
       "code": "WIT_C2_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -760,
-      "positionY": 52,
       "connections": [
         "WIT_C2_1",
         "WIT_C2_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -9198,18 +8802,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -760,
+      "y": 52
     },
     {
       "code": "WIT_B3_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -650,
-      "positionY": -79,
       "connections": [
         "WIT_B3_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -9235,18 +8837,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -650,
+      "y": -79
     },
     {
       "code": "WIT_B3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -766,
-      "positionY": -97,
-      "connections": [
-        "WIT_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_INTELLIGENCE",
           "values": [
@@ -9259,18 +8857,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C3_0"
+      ],
+      "x": -766,
+      "y": -97
     },
     {
       "code": "WIT_C3_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -953,
-      "positionY": -118,
-      "connections": [
-        "WIT_C3_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CHAOS_DAMAGE",
           "values": [
@@ -9283,18 +8880,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C3_1"
+      ],
+      "x": -953,
+      "y": -118
     },
     {
       "code": "WIT_C3_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -995,
-      "positionY": -81,
-      "connections": [
-        "WIT_C3_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -9313,18 +8909,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C3_2"
+      ],
+      "x": -995,
+      "y": -81
     },
     {
       "code": "WIT_C3_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -1069,
-      "positionY": -116,
-      "connections": [
-        "WIT_C3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
@@ -9343,18 +8938,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C3_3"
+      ],
+      "x": -1069,
+      "y": -116
     },
     {
       "code": "WIT_C3_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -1061,
-      "positionY": -196,
-      "connections": [
-        "WIT_C3_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -9373,18 +8967,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C3_4"
+      ],
+      "x": -1061,
+      "y": -196
     },
     {
       "code": "WIT_C3_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -1013,
-      "positionY": -215,
-      "connections": [
-        "WIT_C3_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
@@ -9397,18 +8990,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C3_5"
+      ],
+      "x": -1013,
+      "y": -215
     },
     {
       "code": "WIT_C3_5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -950,
-      "positionY": -195,
-      "connections": [
-        "WIT_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_POISON",
           "values": [
@@ -9421,20 +9013,21 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C3_0"
+      ],
+      "x": -950,
+      "y": -195
     },
     {
       "code": "WIT_C3_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -1003,
-      "positionY": -151,
       "connections": [
         "WIT_C3_1",
         "WIT_C3_2",
         "WIT_C3_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -9478,18 +9071,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -1003,
+      "y": -151
     },
     {
       "code": "WIT_B4_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -557,
-      "positionY": -125,
       "connections": [
         "WIT_B4_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -9515,18 +9106,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -557,
+      "y": -125
     },
     {
       "code": "WIT_B4_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -610,
-      "positionY": -163,
-      "connections": [
-        "WIT_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
@@ -9539,18 +9126,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C4_0"
+      ],
+      "x": -610,
+      "y": -163
     },
     {
       "code": "WIT_C4_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -666,
-      "positionY": -224,
-      "connections": [
-        "WIT_C4_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
@@ -9563,18 +9149,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C4_1"
+      ],
+      "x": -666,
+      "y": -224
     },
     {
       "code": "WIT_C4_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -722,
-      "positionY": -202,
-      "connections": [
-        "WIT_C4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
@@ -9593,18 +9178,17 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C4_2"
+      ],
+      "x": -722,
+      "y": -202
     },
     {
       "code": "WIT_C4_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -797,
-      "positionY": -205,
-      "connections": [
-        "WIT_C4_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_COOLDOWN_RECOVERY",
           "values": [
@@ -9623,18 +9207,17 @@
             22
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C4_3"
+      ],
+      "x": -797,
+      "y": -205
     },
     {
       "code": "WIT_C4_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -813,
-      "positionY": -286,
-      "connections": [
-        "WIT_C4_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SKILL_DAMAGE",
           "values": [
@@ -9647,18 +9230,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C4_4"
+      ],
+      "x": -813,
+      "y": -286
     },
     {
       "code": "WIT_C4_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -755,
-      "positionY": -331,
-      "connections": [
-        "WIT_C4_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
@@ -9671,18 +9253,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C4_5"
+      ],
+      "x": -755,
+      "y": -331
     },
     {
       "code": "WIT_C4_5",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -696,
-      "positionY": -309,
-      "connections": [
-        "WIT_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_COOLDOWN_RECOVERY",
           "values": [
@@ -9701,20 +9282,21 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C4_0"
+      ],
+      "x": -696,
+      "y": -309
     },
     {
       "code": "WIT_C4_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -742,
-      "positionY": -262,
       "connections": [
         "WIT_C4_1",
         "WIT_C4_2",
         "WIT_C4_5"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -9752,18 +9334,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -742,
+      "y": -262
     },
     {
       "code": "WIT_B5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -589,
-      "positionY": -204,
-      "connections": [
-        "WIT_B5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -9776,18 +9354,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_B5_2"
+      ],
+      "x": -589,
+      "y": -204
     },
     {
       "code": "WIT_B5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -696,
-      "positionY": -259,
-      "connections": [
-        "WIT_B5_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
           "values": [
@@ -9800,43 +9377,41 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_B5_3"
+      ],
+      "x": -696,
+      "y": -259
     },
     {
       "code": "WIT_B5_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -782,
-      "positionY": -368,
+      "lines": [
+        {
+          "code": "ADD_COLD_RESISTANCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
       "connections": [
         "BR4_1",
         "WIT_C5_0"
       ],
-      "params": [
-        {
-          "code": "ADD_COLD_RESISTANCE",
-          "values": [
-            8
-          ]
-        },
-        {
-          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
-          "values": [
-            4
-          ]
-        }
-      ]
+      "x": -782,
+      "y": -368
     },
     {
       "code": "WIT_C5_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -868,
-      "positionY": -486,
-      "connections": [
-        "WIT_C5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIGHTNING_RESISTANCE",
           "values": [
@@ -9849,18 +9424,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C5_1"
+      ],
+      "x": -868,
+      "y": -486
     },
     {
       "code": "WIT_C5_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -943,
-      "positionY": -469,
-      "connections": [
-        "WIT_C5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIGHTNING_RESISTANCE",
           "values": [
@@ -9879,19 +9453,17 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C5_2"
+      ],
+      "x": -943,
+      "y": -469
     },
     {
       "code": "WIT_C5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -978,
-      "positionY": -513,
-      "connections": [
-        "WIT_C5_3",
-        "WIT_T5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIGHTNING_RESISTANCE",
           "values": [
@@ -9904,18 +9476,18 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C5_3",
+        "WIT_T5_1"
+      ],
+      "x": -978,
+      "y": -513
     },
     {
       "code": "WIT_C5_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -931,
-      "positionY": -581,
-      "connections": [
-        "WIT_C5_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
           "values": [
@@ -9928,18 +9500,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C5_4"
+      ],
+      "x": -931,
+      "y": -581
     },
     {
       "code": "WIT_C5_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -858,
-      "positionY": -555,
-      "connections": [
-        "WIT_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIGHTNING_RESISTANCE",
           "values": [
@@ -9958,19 +9529,20 @@
             16
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_C5_0"
+      ],
+      "x": -858,
+      "y": -555
     },
     {
       "code": "WIT_C5_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -915,
-      "positionY": -520,
       "connections": [
         "WIT_C5_1",
         "WIT_C5_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -10008,18 +9580,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -915,
+      "y": -520
     },
     {
       "code": "WIT_T5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -997,
-      "positionY": -633,
-      "connections": [
-        "WIT_K5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -10032,16 +9600,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_K5"
+      ],
+      "x": -997,
+      "y": -633
     },
     {
       "code": "WIT_K5",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": -1169,
-      "positionY": -565,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_MORE_ELEMENTAL_DAMAGE",
           "values": [
@@ -10062,18 +9631,14 @@
             0.0
           ]
         }
-      ]
+      ],
+      "x": -1169,
+      "y": -565
     },
     {
       "code": "WIT_X1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -758,
-      "positionY": 103,
-      "connections": [
-        "WIT_B2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_INTELLIGENCE",
           "values": [
@@ -10086,14 +9651,16 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "WIT_B2_2"
+      ],
+      "x": -758,
+      "y": 103
     },
     {
       "code": "STR_INT_START",
       "type": "START",
-      "cost": 0,
-      "positionX": -260,
-      "positionY": -539,
       "connections": [
         "TEM_B0_1",
         "TEM_B1_1",
@@ -10103,18 +9670,14 @@
         "TEM_B5_1",
         "TEM_IN_2"
       ],
-      "params": []
+      "cost": 0,
+      "x": -260,
+      "y": -539
     },
     {
       "code": "TEM_IN_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -316,
-      "positionY": -288,
-      "connections": [
-        "TEM_IN_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
@@ -10129,16 +9692,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_IN_2"
+      ],
+      "x": -316,
+      "y": -288
     },
     {
       "code": "TEM_IN_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -323,
-      "positionY": -412,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
@@ -10153,19 +9717,14 @@
             6
           ]
         }
-      ]
+      ],
+      "x": -323,
+      "y": -412
     },
     {
       "code": "TEM_B0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -429,
-      "positionY": -477,
-      "connections": [
-        "TEM_C0_0",
-        "TEM_X0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_INTELLIGENCE",
           "values": [
@@ -10178,18 +9737,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C0_0",
+        "TEM_X0"
+      ],
+      "x": -429,
+      "y": -477
     },
     {
       "code": "TEM_C0_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -599,
-      "positionY": -435,
-      "connections": [
-        "TEM_C0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
@@ -10202,18 +9761,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C0_1"
+      ],
+      "x": -599,
+      "y": -435
     },
     {
       "code": "TEM_C0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -656,
-      "positionY": -412,
-      "connections": [
-        "TEM_C0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
@@ -10228,18 +9786,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C0_2"
+      ],
+      "x": -656,
+      "y": -412
     },
     {
       "code": "TEM_C0_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -698,
-      "positionY": -456,
-      "connections": [
-        "TEM_C0_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_SHOCK",
           "values": [
@@ -10260,19 +9817,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C0_3"
+      ],
+      "x": -698,
+      "y": -456
     },
     {
       "code": "TEM_C0_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -696,
-      "positionY": -513,
-      "connections": [
-        "TEM_C0_4",
-        "TEM_T0_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_SHOCK",
           "values": [
@@ -10291,18 +9846,18 @@
             22
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C0_4",
+        "TEM_T0_1"
+      ],
+      "x": -696,
+      "y": -513
     },
     {
       "code": "TEM_C0_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -632,
-      "positionY": -532,
-      "connections": [
-        "TEM_C0_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_FREEZE",
           "values": [
@@ -10315,18 +9870,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C0_5"
+      ],
+      "x": -632,
+      "y": -532
     },
     {
       "code": "TEM_C0_5",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -584,
-      "positionY": -502,
-      "connections": [
-        "TEM_C0_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
@@ -10347,20 +9901,21 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C0_0"
+      ],
+      "x": -584,
+      "y": -502
     },
     {
       "code": "TEM_C0_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -646,
-      "positionY": -475,
       "connections": [
         "TEM_C0_2",
         "TEM_C0_3",
         "TEM_C0_5"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -10406,18 +9961,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -646,
+      "y": -475
     },
     {
       "code": "TEM_T0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -744,
-      "positionY": -553,
-      "connections": [
-        "TEM_K0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "CHANCE_TO_IGNITE",
           "values": [
@@ -10430,16 +9981,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_K0"
+      ],
+      "x": -744,
+      "y": -553
     },
     {
       "code": "TEM_K0",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": -802,
-      "positionY": -638,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "PASSIVE_MORE_ELEMENTAL_DAMAGE",
           "values": [
@@ -10454,18 +10006,16 @@
             10
           ]
         }
-      ]
+      ],
+      "x": -802,
+      "y": -638
     },
     {
       "code": "TEM_B1_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -393,
-      "positionY": -569,
       "connections": [
         "TEM_B1_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -10491,18 +10041,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -393,
+      "y": -569
     },
     {
       "code": "TEM_B1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -475,
-      "positionY": -659,
-      "connections": [
-        "TEM_B1_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
           "values": [
@@ -10515,18 +10061,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_B1_3"
+      ],
+      "x": -475,
+      "y": -659
     },
     {
       "code": "TEM_B1_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -518,
-      "positionY": -735,
-      "connections": [
-        "TEM_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ARMOUR",
           "values": [
@@ -10539,18 +10084,17 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C1_0"
+      ],
+      "x": -518,
+      "y": -735
     },
     {
       "code": "TEM_C1_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -622,
-      "positionY": -781,
-      "connections": [
-        "TEM_C1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
           "values": [
@@ -10563,18 +10107,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C1_1"
+      ],
+      "x": -622,
+      "y": -781
     },
     {
       "code": "TEM_C1_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -728,
-      "positionY": -766,
-      "connections": [
-        "TEM_C1_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ARMOUR",
           "values": [
@@ -10593,19 +10136,17 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C1_2"
+      ],
+      "x": -728,
+      "y": -766
     },
     {
       "code": "TEM_C1_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -778,
-      "positionY": -855,
-      "connections": [
-        "TEM_C1_3",
-        "TEM_T1_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_STUN_THRESHOLD",
           "values": [
@@ -10618,18 +10159,18 @@
             18
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C1_3",
+        "TEM_T1_1"
+      ],
+      "x": -778,
+      "y": -855
     },
     {
       "code": "TEM_C1_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -703,
-      "positionY": -908,
-      "connections": [
-        "TEM_C1_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ARMOUR",
           "values": [
@@ -10648,18 +10189,17 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C1_4"
+      ],
+      "x": -703,
+      "y": -908
     },
     {
       "code": "TEM_C1_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -632,
-      "positionY": -877,
-      "connections": [
-        "TEM_C1_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
           "values": [
@@ -10672,19 +10212,20 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C1_0"
+      ],
+      "x": -632,
+      "y": -877
     },
     {
       "code": "TEM_C1_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -695,
-      "positionY": -832,
       "connections": [
         "TEM_C1_1",
         "TEM_C1_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -10728,18 +10269,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -695,
+      "y": -832
     },
     {
       "code": "TEM_T1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -777,
-      "positionY": -934,
-      "connections": [
-        "TEM_J1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_STUN_THRESHOLD",
           "values": [
@@ -10752,27 +10289,25 @@
             1
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_J1"
+      ],
+      "x": -777,
+      "y": -934
     },
     {
       "code": "TEM_J1",
       "type": "JEWEL_SOCKET",
-      "cost": 1,
-      "positionX": -841,
-      "positionY": -987,
-      "connections": [],
-      "params": []
+      "x": -841,
+      "y": -987
     },
     {
       "code": "TEM_B2_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -314,
-      "positionY": -566,
       "connections": [
         "TEM_C2_0"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -10798,18 +10333,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -314,
+      "y": -566
     },
     {
       "code": "TEM_C2_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -421,
-      "positionY": -606,
-      "connections": [
-        "TEM_C2_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "REDUCED_SKILL_COST",
           "values": [
@@ -10822,18 +10353,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C2_1"
+      ],
+      "x": -421,
+      "y": -606
     },
     {
       "code": "TEM_C2_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -499,
-      "positionY": -620,
-      "connections": [
-        "TEM_C2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_SKILL_HEALING",
           "values": [
@@ -10846,18 +10376,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C2_2"
+      ],
+      "x": -499,
+      "y": -620
     },
     {
       "code": "TEM_C2_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -514,
-      "positionY": -690,
-      "connections": [
-        "TEM_C2_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_RESERVATION_EFFICIENCY",
           "values": [
@@ -10870,18 +10399,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C2_3"
+      ],
+      "x": -514,
+      "y": -690
     },
     {
       "code": "TEM_C2_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -435,
-      "positionY": -744,
-      "connections": [
-        "TEM_C2_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_AURA_EFFECT",
           "values": [
@@ -10900,18 +10428,17 @@
             6
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C2_4"
+      ],
+      "x": -435,
+      "y": -744
     },
     {
       "code": "TEM_C2_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -377,
-      "positionY": -671,
-      "connections": [
-        "TEM_C2_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_CURSE_EFFECT",
           "values": [
@@ -10930,19 +10457,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C2_0"
+      ],
+      "x": -377,
+      "y": -671
     },
     {
       "code": "TEM_C2_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -433,
-      "positionY": -677,
       "connections": [
         "TEM_C2_3",
         "TEM_C2_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -10986,18 +10514,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -433,
+      "y": -677
     },
     {
       "code": "TEM_B3_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -283,
-      "positionY": -623,
       "connections": [
         "TEM_B3_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -11023,18 +10549,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -283,
+      "y": -623
     },
     {
       "code": "TEM_B3_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -266,
-      "positionY": -749,
-      "connections": [
-        "TEM_B3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_LIGHTNING_RESISTANCE",
           "values": [
@@ -11047,19 +10569,17 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_B3_3"
+      ],
+      "x": -266,
+      "y": -749
     },
     {
       "code": "TEM_B3_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -353,
-      "positionY": -832,
-      "connections": [
-        "TEM_C3_0",
-        "TEM_X3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_COLD_RESISTANCE",
           "values": [
@@ -11072,18 +10592,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C3_0",
+        "TEM_X3"
+      ],
+      "x": -353,
+      "y": -832
     },
     {
       "code": "TEM_C3_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -346,
-      "positionY": -977,
-      "connections": [
-        "TEM_C3_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
           "values": [
@@ -11096,18 +10616,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C3_1"
+      ],
+      "x": -346,
+      "y": -977
     },
     {
       "code": "TEM_C3_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -410,
-      "positionY": -983,
-      "connections": [
-        "TEM_C3_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
           "values": [
@@ -11126,18 +10645,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C3_2"
+      ],
+      "x": -410,
+      "y": -983
     },
     {
       "code": "TEM_C3_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -448,
-      "positionY": -1038,
-      "connections": [
-        "TEM_C3_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_FIRE_RESISTANCE",
           "values": [
@@ -11156,18 +10674,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C3_3"
+      ],
+      "x": -448,
+      "y": -1038
     },
     {
       "code": "TEM_C3_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -397,
-      "positionY": -1086,
-      "connections": [
-        "TEM_C3_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -11186,18 +10703,17 @@
             20
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C3_4"
+      ],
+      "x": -397,
+      "y": -1086
     },
     {
       "code": "TEM_C3_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -346,
-      "positionY": -1088,
-      "connections": [
-        "TEM_C3_5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_COLD_RESISTANCE",
           "values": [
@@ -11210,18 +10726,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C3_5"
+      ],
+      "x": -346,
+      "y": -1088
     },
     {
       "code": "TEM_C3_5",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -315,
-      "positionY": -1036,
-      "connections": [
-        "TEM_C3_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_CHAOS_RESISTANCE",
           "values": [
@@ -11234,20 +10749,21 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C3_0"
+      ],
+      "x": -315,
+      "y": -1036
     },
     {
       "code": "TEM_C3_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -373,
-      "positionY": -1034,
       "connections": [
         "TEM_C3_1",
         "TEM_C3_2",
         "TEM_C3_3"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -11285,18 +10801,16 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -373,
+      "y": -1034
     },
     {
       "code": "TEM_B4_1",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -143,
-      "positionY": -611,
       "connections": [
         "TEM_C4_0"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -11322,18 +10836,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -143,
+      "y": -611
     },
     {
       "code": "TEM_C4_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -117,
-      "positionY": -698,
-      "connections": [
-        "TEM_C4_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MAXIMUM_MANA",
           "values": [
@@ -11346,18 +10856,17 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C4_1"
+      ],
+      "x": -117,
+      "y": -698
     },
     {
       "code": "TEM_C4_1",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -220,
-      "positionY": -749,
-      "connections": [
-        "TEM_C4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_MANA",
           "values": [
@@ -11376,18 +10885,17 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C4_2"
+      ],
+      "x": -220,
+      "y": -749
     },
     {
       "code": "TEM_C4_2",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": -175,
-      "positionY": -853,
-      "connections": [
-        "TEM_C4_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MANA_ON_HIT",
           "values": [
@@ -11406,18 +10914,17 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C4_3"
+      ],
+      "x": -175,
+      "y": -853
     },
     {
       "code": "TEM_C4_3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -89,
-      "positionY": -861,
-      "connections": [
-        "TEM_C4_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MANA_REGENERATION",
           "values": [
@@ -11430,18 +10937,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C4_4"
+      ],
+      "x": -89,
+      "y": -861
     },
     {
       "code": "TEM_C4_4",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -57,
-      "positionY": -761,
-      "connections": [
-        "TEM_C4_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_MANA_REGENERATION",
           "values": [
@@ -11454,19 +10960,20 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C4_0"
+      ],
+      "x": -57,
+      "y": -761
     },
     {
       "code": "TEM_C4_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": -133,
-      "positionY": -778,
       "connections": [
         "TEM_C4_1",
         "TEM_C4_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -11510,18 +11017,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -133,
+      "y": -778
     },
     {
       "code": "TEM_B5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -158,
-      "positionY": -717,
-      "connections": [
-        "TEM_B5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -11534,19 +11037,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_B5_2"
+      ],
+      "x": -158,
+      "y": -717
     },
     {
       "code": "TEM_B5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -92,
-      "positionY": -816,
-      "connections": [
-        "BR5_1",
-        "TEM_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_SHIELD",
           "values": [
@@ -11559,18 +11060,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR5_1",
+        "TEM_C5_0"
+      ],
+      "x": -92,
+      "y": -816
     },
     {
       "code": "TEM_C5_0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 18,
-      "positionY": -1001,
-      "connections": [
-        "TEM_C5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
           "values": [
@@ -11584,18 +11085,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C5_1"
+      ],
+      "x": 18,
+      "y": -1001
     },
     {
       "code": "TEM_C5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -43,
-      "positionY": -1063,
-      "connections": [
-        "TEM_C5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_ENERGY_SHIELD",
           "values": [
@@ -11608,19 +11108,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C5_2"
+      ],
+      "x": -43,
+      "y": -1063
     },
     {
       "code": "TEM_C5_2",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -4,
-      "positionY": -1133,
-      "connections": [
-        "TEM_C5_3",
-        "TEM_T5_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -11633,18 +11131,18 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C5_3",
+        "TEM_T5_1"
+      ],
+      "x": -4,
+      "y": -1133
     },
     {
       "code": "TEM_C5_3",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 67,
-      "positionY": -1124,
-      "connections": [
-        "TEM_C5_4"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -11663,18 +11161,17 @@
             22
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C5_4"
+      ],
+      "x": 67,
+      "y": -1124
     },
     {
       "code": "TEM_C5_4",
       "type": "NOTABLE",
-      "cost": 1,
-      "positionX": 87,
-      "positionY": -1025,
-      "connections": [
-        "TEM_C5_0"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
           "values": [
@@ -11694,19 +11191,20 @@
             25
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_C5_0"
+      ],
+      "x": 87,
+      "y": -1025
     },
     {
       "code": "TEM_C5_M",
       "type": "MASTERY",
-      "cost": 1,
-      "positionX": 21,
-      "positionY": -1066,
       "connections": [
         "TEM_C5_3",
         "TEM_C5_4"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -11750,18 +11248,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 21,
+      "y": -1066
     },
     {
       "code": "TEM_T5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 6,
-      "positionY": -1180,
-      "connections": [
-        "TEM_K5"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ENERGY_REGENERATION",
           "values": [
@@ -11774,16 +11268,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_K5"
+      ],
+      "x": 6,
+      "y": -1180
     },
     {
       "code": "TEM_K5",
       "type": "KEYSTONE",
-      "cost": 1,
-      "positionX": 23,
-      "positionY": -1292,
-      "connections": [],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_ELEMENTAL_RESISTANCES",
           "values": [
@@ -11802,18 +11297,14 @@
             0.0
           ]
         }
-      ]
+      ],
+      "x": 23,
+      "y": -1292
     },
     {
       "code": "TEM_X0",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -593,
-      "positionY": -557,
-      "connections": [
-        "TEM_B1_3"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_INTELLIGENCE",
           "values": [
@@ -11826,18 +11317,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_B1_3"
+      ],
+      "x": -593,
+      "y": -557
     },
     {
       "code": "TEM_X3",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -206,
-      "positionY": -792,
-      "connections": [
-        "TEM_B4_1"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_STRENGTH",
           "values": [
@@ -11850,18 +11340,17 @@
             8
           ]
         }
-      ]
+      ],
+      "connections": [
+        "TEM_B4_1"
+      ],
+      "x": -206,
+      "y": -792
     },
     {
       "code": "BR0_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 711,
-      "positionY": -417,
-      "connections": [
-        "BR0_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -11874,18 +11363,19 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR0_2"
+      ],
+      "x": 711,
+      "y": -417
     },
     {
       "code": "BR0_2",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 754,
-      "positionY": -432,
       "connections": [
         "DUE_B0_1"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -11911,18 +11401,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 754,
+      "y": -432
     },
     {
       "code": "BR1_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 729,
-      "positionY": 359,
-      "connections": [
-        "BR1_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -11935,18 +11421,19 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR1_2"
+      ],
+      "x": 729,
+      "y": 359
     },
     {
       "code": "BR1_2",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 706,
-      "positionY": 442,
       "connections": [
         "RAN_B0_1"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -11972,18 +11459,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 706,
+      "y": 442
     },
     {
       "code": "BR2_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 49,
-      "positionY": 872,
-      "connections": [
-        "BR2_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -11996,18 +11479,19 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR2_2"
+      ],
+      "x": 49,
+      "y": 872
     },
     {
       "code": "BR2_2",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 16,
-      "positionY": 904,
       "connections": [
         "SHA_B0_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -12033,18 +11517,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 16,
+      "y": 904
     },
     {
       "code": "BR3_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -686,
-      "positionY": 478,
-      "connections": [
-        "BR3_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -12057,18 +11537,19 @@
             4
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR3_2"
+      ],
+      "x": -686,
+      "y": 478
     },
     {
       "code": "BR3_2",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -752,
-      "positionY": 408,
       "connections": [
         "WIT_B0_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -12094,18 +11575,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -752,
+      "y": 408
     },
     {
       "code": "BR4_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": -744,
-      "positionY": -453,
-      "connections": [
-        "BR4_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
@@ -12118,18 +11595,19 @@
             10
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR4_2"
+      ],
+      "x": -744,
+      "y": -453
     },
     {
       "code": "BR4_2",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": -740,
-      "positionY": -498,
       "connections": [
         "TEM_B0_1"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -12155,18 +11633,14 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": -740,
+      "y": -498
     },
     {
       "code": "BR5_1",
       "type": "SMALL",
-      "cost": 1,
-      "positionX": 56,
-      "positionY": -864,
-      "connections": [
-        "BR5_2"
-      ],
-      "params": [
+      "lines": [
         {
           "code": "ADD_MAXIMUM_LIFE",
           "values": [
@@ -12179,18 +11653,19 @@
             3
           ]
         }
-      ]
+      ],
+      "connections": [
+        "BR5_2"
+      ],
+      "x": 56,
+      "y": -864
     },
     {
       "code": "BR5_2",
       "type": "ATTRIBUTE",
-      "cost": 1,
-      "positionX": 99,
-      "positionY": -881,
       "connections": [
         "MAR_B0_2"
       ],
-      "params": [],
       "options": [
         [
           {
@@ -12216,7 +11691,9 @@
             ]
           }
         ]
-      ]
+      ],
+      "x": 99,
+      "y": -881
     }
   ]
 }

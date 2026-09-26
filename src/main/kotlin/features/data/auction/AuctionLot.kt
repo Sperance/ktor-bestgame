@@ -1,120 +1,47 @@
 package features.data.auction
 
-import application.enums.EnumAuctionLotKind
-import application.enums.EnumAuctionLotStatus
-import application.enums.EnumEquipmentType
-import application.enums.EnumRarity
 import base.entity.VersionedEntity
+import com.sperance.exileforge.rules.content.ItemTemplate
+import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.roll.ItemInstance
 import extensions.now
-import features.data.character.Character
-import features.data.equipment.equipment_data.Equipment
-import features.data.inventory.CharacterEquipment
-import features.data.items.Items
+import features.data.hero.Hero
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
+@Serializable
+enum class LotKind { EQUIPMENT, ITEM }
+
+@Serializable
+enum class LotStatus { ACTIVE, SOLD, CANCELLED }
+
 /**
- * Лот игрового аукциона. Отдельная коллекция Mongo `AuctionLot`.
- *
- * Пока лот на витрине, товар лежит внутри него, а не у продавца: экземпляр
- * экипировки уходит из коллекции `CharacterEquipment` прямо в лот, простые
- * предметы списываются со склада персонажа. Так один и тот же предмет нельзя
- * ни надеть, ни продать дважды, пока он выставлен.
- *
- * Цена назначается только в валютных сферах: [priceOrbId] ссылается
- * на предмет категории `CURRENCY` в справочнике `Items`.
- *
- * Поля витрины ([itemCode], [slot], [rarity], [itemLevel]) - снимок предмета
- * на момент выставления. Они лежат прямо здесь, чтобы фильтр аукциона
- * работал одним запросом к Mongo, без похода в справочники.
- *
- * Название лота не хранится: [itemCode] - это код предмета, по которому
- * и клиент, и поиск берут текст из файлов локализации.
+ * Лот аукциона - отдельная коллекция `AuctionLot`. Пока лот на витрине, товар лежит в нём, а не у
+ * продавца: копия вещи уходит из документа героя, стопка списывается из сумки. Цена - только в сферах
+ * ([priceOrb] - код предмета категории CURRENCY). Поля витрины - снимок вещи на момент выставления,
+ * чтобы фильтр работал одним запросом к Mongo без справочников; названий нет - клиент берёт текст по коду.
  */
 @Serializable
 data class AuctionLot(
-
-    /**
-     * Продавец - ссылка на `Character._id`.
-     */
     var sellerId: String,
-
-    /**
-     * Снимок имени продавца: витрина читается без обращения к персонажам.
-     */
     var sellerName: String = "",
-
-    /**
-     * Что продаётся: экземпляр экипировки или стакающиеся предметы.
-     */
-    var kind: EnumAuctionLotKind = EnumAuctionLotKind.EQUIPMENT,
-
-    /**
-     * Экземпляр экипировки, снятый с продавца. Заполнен только у [EnumAuctionLotKind.EQUIPMENT].
-     *
-     * Внутри лота у предмета нет владельца: `characterId` проставляется
-     * заново, когда лот уходит покупателю или возвращается продавцу.
-     */
-    var equipment: CharacterEquipment? = null,
-
-    /**
-     * Предмет справочника `Items`. Заполнен только у [EnumAuctionLotKind.ITEM].
-     */
-    var itemId: String = "",
-
-    /**
-     * Сколько предметов в лоте. У экипировки всегда один.
-     */
+    var kind: LotKind = LotKind.EQUIPMENT,
+    /** Копия вещи, снятая с продавца; у стопок null. */
+    var equipment: ItemInstance? = null,
+    /** Код предмета стопки; у вещи пусто. */
+    var item: String = "",
     var amount: Long = 1,
-
-    /**
-     * Сфера, в которой назначена цена - ссылка на `Items._id`.
-     */
-    var priceOrbId: String = "",
-
-    /**
-     * Сколько сфер стоит лот целиком.
-     */
+    var priceOrb: String = "",
     var price: Long = 0,
-
-    // ==================== Снимок для витрины и фильтра ====================
-
-    /**
-     * Код предмета - ключ его текста в локализации.
-     */
     var itemCode: String = "",
-
-    /**
-     * Слот экипировки. null у простых предметов.
-     */
-    var slot: EnumEquipmentType? = null,
-
-    /**
-     * Редкость конкретного экземпляра - её могли изменить сферы,
-     * поэтому берётся с предмета, а не с шаблона. null у простых предметов.
-     */
-    var rarity: EnumRarity? = null,
-
-    /**
-     * Уровень предмета. Ноль у простых предметов.
-     */
+    var slot: Slot? = null,
+    var rarity: Rarity? = null,
     var itemLevel: Int = 0,
-
-    // ==================== Состояние торгов ====================
-
-    var status: EnumAuctionLotStatus = EnumAuctionLotStatus.ACTIVE,
-
-    /**
-     * Покупатель - ссылка на `Character._id`. Заполняется при продаже.
-     */
+    var status: LotStatus = LotStatus.ACTIVE,
     var buyerId: String? = null,
-
-    /**
-     * Когда лот ушёл с витрины - продан или снят.
-     */
     var closedAt: LocalDateTime? = null,
-
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -122,60 +49,16 @@ data class AuctionLot(
     override var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity {
 
-    fun isOnSale(): Boolean = status == EnumAuctionLotStatus.ACTIVE
+    fun isOnSale(): Boolean = status == LotStatus.ACTIVE
 
     companion object {
+        fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long): AuctionLot = AuctionLot(
+            sellerId = seller._id, sellerName = seller.name, kind = LotKind.EQUIPMENT, equipment = item.copy(slot = null, socket = null),
+            priceOrb = priceOrb, price = price, itemCode = template.code, slot = template.slot, rarity = item.rarity, itemLevel = template.level,
+        )
 
-        /**
-         * Лот с экземпляром экипировки.
-         *
-         * @param item предмет, уже снятый с инвентаря продавца
-         * @param template шаблон предмета - из него берутся слот и уровень
-         */
-        fun forEquipment(
-            seller: Character,
-            item: CharacterEquipment,
-            template: Equipment,
-            priceOrbId: String,
-            price: Long,
-        ): AuctionLot {
-            // Пока лот на витрине, у предмета нет владельца
-            item.characterId = ""
-            item.equippedSlot = null
-
-            return AuctionLot(
-                sellerId = seller._id,
-                sellerName = seller.name,
-                kind = EnumAuctionLotKind.EQUIPMENT,
-                equipment = item,
-                amount = 1,
-                priceOrbId = priceOrbId,
-                price = price,
-                itemCode = template.code,
-                slot = template.slot,
-                rarity = item.rarity,
-                itemLevel = template.itemLevel
-            )
-        }
-
-        /**
-         * Лот со стакающимися предметами.
-         */
-        fun forItem(
-            seller: Character,
-            item: Items,
-            amount: Long,
-            priceOrbId: String,
-            price: Long,
-        ): AuctionLot = AuctionLot(
-            sellerId = seller._id,
-            sellerName = seller.name,
-            kind = EnumAuctionLotKind.ITEM,
-            itemId = item._id,
-            amount = amount,
-            priceOrbId = priceOrbId,
-            price = price,
-            itemCode = item.code
+        fun forItem(seller: Hero, code: String, amount: Long, priceOrb: String, price: Long): AuctionLot = AuctionLot(
+            sellerId = seller._id, sellerName = seller.name, kind = LotKind.ITEM, item = code, amount = amount, priceOrb = priceOrb, price = price, itemCode = code,
         )
     }
 }

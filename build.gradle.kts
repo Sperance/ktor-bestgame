@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.descend"
-version = "0.22.0"
+version = "1.0.0"
 
 application {
     mainClass = "io.ktor.server.netty.EngineMain"
@@ -42,6 +42,8 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.ktor)
     implementation(libs.mongo.bson)
+    // Правила игры - составная сборка `rules`, та же, что подключает клиент
+    implementation("com.sperance.exileforge:rules:1.0.0")
 
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)

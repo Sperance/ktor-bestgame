@@ -1,0 +1,124 @@
+package features.logic.hero
+
+import base.route.ApiMongoResponse
+import com.sperance.exileforge.rules.RulesJson
+import com.sperance.exileforge.rules.content.HeroSkills
+import com.sperance.exileforge.rules.content.TakenNode
+import com.sperance.exileforge.rules.content.sha256
+import com.sperance.exileforge.rules.roll.ActiveWork
+import com.sperance.exileforge.rules.roll.ItemInstance
+import com.sperance.exileforge.rules.roll.ProfessionProgress
+import extensions.printLog
+import features.data.hero.CampaignState
+import features.data.hero.Hero
+import features.data.hero.HeroRepository
+import features.logic.crafts.CraftsService
+import features.logic.trade.MerchantStock
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.response.respond
+import kotlinx.coroutines.CancellationException
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.json.JsonElement
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+/** Одна часть героя: отпечаток её содержимого и само содержимое; часть без отпечатка у клиента заменяется целиком. */
+@Serializable
+data class HeroPart(val version: String, val data: JsonElement)
+
+/**
+ * Снимок героя: [version] - версия документа, она же `ETag` у `GET /hero/view`; в [parts] лежат только
+ * части, чьих отпечатков клиент не прислал в [HeroSnapshots.HEADER], - остальные у него уже есть.
+ */
+@Serializable
+data class HeroSnapshot(val version: String, val parts: Map<String, HeroPart>)
+
+/** Герой без вещей, сумки, дерева и кампании - те лежат своими частями. */
+@Serializable
+data class HeroView(
+    val id: String, val userId: String, val name: String, val description: String, val heroClass: String, val level: Int, val experience: Double,
+    val money: Long, val skills: HeroSkills, val atlas: List<String>, val earned: List<String>, val recipes: List<String>, val auctionSlots: Int, val version: Long,
+) {
+    companion object {
+        fun of(hero: Hero) = HeroView(hero._id, hero.userId, hero.name, hero.description, hero.heroClass, hero.level, hero.experience, hero.money,
+            hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.auctionSlots, hero.version)
+    }
+}
+
+/** Ремёсла героя как они лежат: прогресс профессий и идущая работа; виды считает клиент правилами. */
+@Serializable
+data class WorkState(val professions: Map<String, ProfessionProgress> = emptyMap(), val work: ActiveWork? = null)
+
+/**
+ * Снимки героя для ответов команд и `GET /hero/view`. Версия части - отпечаток её JSON: совпал -
+ * часть не уходит. Герой - один документ, так что снимок читает его один раз и кодирует части
+ * компактным JSON правил (без значений по умолчанию).
+ */
+object HeroSnapshots : KoinComponent {
+    /** Заголовок, в котором клиент перечисляет свои части: `hero=<отпечаток>,items=<отпечаток>`. */
+    const val HEADER = "X-Hero-Parts"
+    const val HERO = "hero"
+    const val ITEMS = "items"
+    const val BAG = "bag"
+    const val TREE = "tree"
+    const val CAMPAIGN = "campaign"
+    const val CRAFTS = "crafts"
+    const val MERCHANT = "merchant"
+
+    private val heroes: HeroRepository by inject()
+    private val crafts: CraftsService by inject()
+
+    /** Части, которые клиент назвал в [HEADER]; битый заголовок значит «ничего нет». */
+    fun known(header: String?): Map<String, String> =
+        header.orEmpty().split(',').mapNotNull { pair ->
+            val name = pair.substringBefore('=', "").trim()
+            val hash = pair.substringAfter('=', "").trim()
+            if (name.isEmpty() || hash.isEmpty()) null else name to hash
+        }.toMap()
+
+    /** Снимок героя сейчас; работа ремесла досчитывается первой, иначе сумка отстала бы от добытого. */
+    suspend fun of(heroId: String, known: Map<String, String> = emptyMap()): HeroSnapshot {
+        val hero = heroes.requireHero(heroId, "heroView")
+        crafts.settle(hero)
+        return of(hero, known)
+    }
+
+    fun of(hero: Hero, known: Map<String, String>): HeroSnapshot {
+        val parts = LinkedHashMap<String, HeroPart>()
+        fun <T> part(name: String, serializer: KSerializer<T>, value: T) {
+            val json = RulesJson.encodeToJsonElement(serializer, value)
+            val hash = sha256(json.toString()).take(16)
+            if (known[name] != hash) parts[name] = HeroPart(hash, json)
+        }
+        part(HERO, HeroView.serializer(), HeroView.of(hero))
+        part(ITEMS, ListSerializer(ItemInstance.serializer()), hero.items)
+        part(BAG, MapSerializer(String.serializer(), Long.serializer()), hero.bag)
+        part(TREE, ListSerializer(TakenNode.serializer()), hero.tree)
+        part(CAMPAIGN, CampaignState.serializer(), hero.campaign)
+        part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work))
+        part(MERCHANT, MerchantStock.serializer(), hero.merchant ?: MerchantStock())
+        return HeroSnapshot(hero.version.toString(), parts)
+    }
+
+    /** Снимок для ответа команды: команда уже прошла, сбой снимка её не отменяет - клиент перечитает героя сам. */
+    suspend fun afterCommand(heroId: String?, header: String?): HeroSnapshot? {
+        if (heroId.isNullOrBlank()) return null
+        return try { of(heroId, known(header)) }
+        catch (e: CancellationException) { throw e }
+        catch (e: Exception) { printLog("[HeroSnapshots] $heroId: ${e.message}"); null }
+    }
+
+    /** Снимок, если клиент его просил: заголовок [HEADER] есть, пусть и пустой (`none`). */
+    suspend fun forCall(call: ApplicationCall): HeroSnapshot? {
+        val header = call.request.headers[HEADER] ?: return null
+        return afterCommand(call.request.queryParameters["heroId"], header)
+    }
+}
+
+/** Ответ команды героя: данные и рядом снимок героя после неё. */
+suspend inline fun <reified T> ApplicationCall.respondWithHero(data: T) =
+    respond(ApiMongoResponse(success = true, data = data, hero = HeroSnapshots.forCall(this)))

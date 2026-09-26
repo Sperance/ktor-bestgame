@@ -6536,15 +6536,6 @@
     "maxHandcrafted": 3,
     "maxAdditives": 2,
     "uniqueChance": 0.5,
-    "smithRarities": {
-      "COMMON": 40,
-      "UNCOMMON": 35,
-      "RARE": 25
-    },
-    "mapRarities": {
-      "UNCOMMON": 70,
-      "RARE": 30
-    },
     "mapHandcraftedChance": 25,
     "additives": {
       "BLOOD_FLUX": "HC_LIFE",
@@ -6554,16 +6545,16 @@
       "STORM_FLUX": "HC_LIGHTNING",
       "QUICK_FLUX": "HC_SPEED"
     },
-    "equipmentPools": [
+    "tables": [
       "smith"
     ],
-    "uniquePools": [
+    "uniques": [
       "unique:smith"
     ],
-    "modifierPools": [
+    "modifiers": [
       "handcrafted:smith"
     ],
-    "mapModifierPools": [
+    "mapModifiers": [
       "handcrafted:map"
     ]
   }

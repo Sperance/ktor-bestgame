@@ -1,0 +1,2621 @@
+{
+  "stats": [
+    {
+      "code": "STOCK_STRENGTH",
+      "group": "HERO",
+      "order": 10
+    },
+    {
+      "code": "STOCK_AGILITY",
+      "group": "HERO",
+      "order": 11
+    },
+    {
+      "code": "STOCK_INTELLECT",
+      "group": "HERO",
+      "order": 12
+    },
+    {
+      "code": "STOCK_CONSTITUTION",
+      "group": "HERO",
+      "order": 13
+    },
+    {
+      "code": "STOCK_HEALTH",
+      "group": "HERO",
+      "order": 100
+    },
+    {
+      "code": "STOCK_MANA",
+      "group": "HERO",
+      "order": 101
+    },
+    {
+      "code": "STOCK_ENERGY",
+      "group": "HERO",
+      "order": 102
+    },
+    {
+      "code": "STOCK_ENERGY_SHIELD",
+      "group": "HERO",
+      "order": 103
+    },
+    {
+      "code": "STOCK_ARMOR",
+      "group": "HERO",
+      "order": 120
+    },
+    {
+      "code": "STOCK_EVASION",
+      "group": "HERO",
+      "order": 121
+    },
+    {
+      "code": "STOCK_BLOCK_CHANCE",
+      "group": "HERO",
+      "order": 122
+    },
+    {
+      "code": "STOCK_STUN_THRESHOLD",
+      "group": "HERO",
+      "order": 123
+    },
+    {
+      "code": "STOCK_SPELL_BLOCK",
+      "group": "HERO",
+      "order": 124
+    },
+    {
+      "code": "STOCK_PHYSICAL_REDUCTION",
+      "group": "HERO",
+      "order": 125
+    },
+    {
+      "code": "STOCK_AVOID_STUN",
+      "group": "HERO",
+      "order": 126
+    },
+    {
+      "code": "STOCK_RESIST_FIRE",
+      "group": "HERO",
+      "order": 140
+    },
+    {
+      "code": "STOCK_RESIST_COLD",
+      "group": "HERO",
+      "order": 141
+    },
+    {
+      "code": "STOCK_RESIST_LIGHTNING",
+      "group": "HERO",
+      "order": 142
+    },
+    {
+      "code": "STOCK_RESIST_CHAOS",
+      "group": "HERO",
+      "order": 143
+    },
+    {
+      "code": "STOCK_RESIST_ALL",
+      "group": "HERO",
+      "order": 144
+    },
+    {
+      "code": "STOCK_RESIST_MAX_FIRE",
+      "group": "HERO",
+      "order": 145
+    },
+    {
+      "code": "STOCK_RESIST_MAX_COLD",
+      "group": "HERO",
+      "order": 146
+    },
+    {
+      "code": "STOCK_RESIST_MAX_LIGHTNING",
+      "group": "HERO",
+      "order": 147
+    },
+    {
+      "code": "STOCK_RESIST_MAX_CHAOS",
+      "group": "HERO",
+      "order": 148
+    },
+    {
+      "code": "STOCK_RESIST_MAX_ALL",
+      "group": "HERO",
+      "order": 149
+    },
+    {
+      "code": "STOCK_ATTACK_PHYSICAL",
+      "group": "HERO",
+      "order": 200
+    },
+    {
+      "code": "STOCK_ATTACK_MAGICAL",
+      "group": "HERO",
+      "order": 201
+    },
+    {
+      "code": "STOCK_ATTACK_FIRE",
+      "group": "HERO",
+      "order": 202
+    },
+    {
+      "code": "STOCK_ATTACK_COLD",
+      "group": "HERO",
+      "order": 203
+    },
+    {
+      "code": "STOCK_ATTACK_LIGHTNING",
+      "group": "HERO",
+      "order": 204
+    },
+    {
+      "code": "STOCK_ATTACK_CHAOS",
+      "group": "HERO",
+      "order": 205
+    },
+    {
+      "code": "STOCK_DAMAGE",
+      "group": "HERO",
+      "order": 206,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SKILL_DAMAGE",
+      "group": "HERO",
+      "order": 207,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SPELL_DAMAGE",
+      "group": "HERO",
+      "order": 208,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DOT_TAKEN",
+      "group": "HERO",
+      "order": 209
+    },
+    {
+      "code": "STOCK_CRITICAL_CHANCE",
+      "group": "HERO",
+      "order": 220
+    },
+    {
+      "code": "STOCK_CRITICAL_DAMAGE",
+      "group": "HERO",
+      "order": 221
+    },
+    {
+      "code": "STOCK_CRITICAL_MULTIPLIER",
+      "group": "HERO",
+      "order": 222
+    },
+    {
+      "code": "STOCK_CRITICAL_VAMPIRE",
+      "group": "HERO",
+      "order": 223
+    },
+    {
+      "code": "STOCK_CRITICAL_TAKEN",
+      "group": "HERO",
+      "order": 224
+    },
+    {
+      "code": "STOCK_PENETRATE_FIRE",
+      "group": "HERO",
+      "order": 226,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PENETRATE_COLD",
+      "group": "HERO",
+      "order": 227,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PENETRATE_LIGHTNING",
+      "group": "HERO",
+      "order": 228,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PENETRATE_CHAOS",
+      "group": "HERO",
+      "order": 229,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PENETRATE_ELEMENTAL",
+      "group": "HERO",
+      "order": 230,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_VS_AILED",
+      "group": "HERO",
+      "order": 231,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_VS_BURNING",
+      "group": "HERO",
+      "order": 232,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_VS_CHILLED",
+      "group": "HERO",
+      "order": 233,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_VS_SHOCKED",
+      "group": "HERO",
+      "order": 234,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_VS_POISONED",
+      "group": "HERO",
+      "order": 235,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_VS_BLEEDING",
+      "group": "HERO",
+      "order": 236,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ATTACK_SPEED",
+      "group": "HERO",
+      "order": 240
+    },
+    {
+      "code": "STOCK_CAST_SPEED",
+      "group": "HERO",
+      "order": 241,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_MOVEMENT_SPEED",
+      "group": "HERO",
+      "order": 242,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_COOLDOWN_RECOVERY",
+      "group": "HERO",
+      "order": 243,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_HEALTH_REGEN",
+      "group": "HERO",
+      "order": 260
+    },
+    {
+      "code": "STOCK_MANA_REGEN",
+      "group": "HERO",
+      "order": 261,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ENERGY_REGEN",
+      "group": "HERO",
+      "order": 262
+    },
+    {
+      "code": "STOCK_LEECH_PHYSICAL",
+      "group": "HERO",
+      "order": 263
+    },
+    {
+      "code": "STOCK_LEECH_MANA",
+      "group": "HERO",
+      "order": 264
+    },
+    {
+      "code": "STOCK_LEECH_ALL",
+      "group": "HERO",
+      "order": 265
+    },
+    {
+      "code": "STOCK_HEALTH_ON_KILL",
+      "group": "HERO",
+      "order": 266
+    },
+    {
+      "code": "STOCK_MANA_ON_KILL",
+      "group": "HERO",
+      "order": 267
+    },
+    {
+      "code": "STOCK_HEALTH_ON_HIT",
+      "group": "HERO",
+      "order": 268
+    },
+    {
+      "code": "STOCK_MANA_ON_HIT",
+      "group": "HERO",
+      "order": 269
+    },
+    {
+      "code": "STOCK_SKILL_COST",
+      "group": "HERO",
+      "order": 270,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_RESERVATION",
+      "group": "HERO",
+      "order": 271,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_LIFE_REGEN_PERCENT",
+      "group": "HERO",
+      "order": 272
+    },
+    {
+      "code": "STOCK_IGNITE_CHANCE",
+      "group": "HERO",
+      "order": 280
+    },
+    {
+      "code": "STOCK_FREEZE_CHANCE",
+      "group": "HERO",
+      "order": 281
+    },
+    {
+      "code": "STOCK_SHOCK_CHANCE",
+      "group": "HERO",
+      "order": 282
+    },
+    {
+      "code": "STOCK_POISON_CHANCE",
+      "group": "HERO",
+      "order": 283
+    },
+    {
+      "code": "STOCK_BLEED_CHANCE",
+      "group": "HERO",
+      "order": 284
+    },
+    {
+      "code": "STOCK_BURNING_DAMAGE",
+      "group": "HERO",
+      "order": 285
+    },
+    {
+      "code": "STOCK_POISON_DAMAGE",
+      "group": "HERO",
+      "order": 286
+    },
+    {
+      "code": "STOCK_BLEED_DAMAGE",
+      "group": "HERO",
+      "order": 287
+    },
+    {
+      "code": "STOCK_AVOID_IGNITE",
+      "group": "HERO",
+      "order": 288
+    },
+    {
+      "code": "STOCK_AVOID_CHILL",
+      "group": "HERO",
+      "order": 289
+    },
+    {
+      "code": "STOCK_AVOID_FREEZE",
+      "group": "HERO",
+      "order": 290
+    },
+    {
+      "code": "STOCK_AVOID_SHOCK",
+      "group": "HERO",
+      "order": 291
+    },
+    {
+      "code": "STOCK_AVOID_POISON",
+      "group": "HERO",
+      "order": 292
+    },
+    {
+      "code": "STOCK_AVOID_BLEED",
+      "group": "HERO",
+      "order": 293
+    },
+    {
+      "code": "STOCK_IGNITE_DURATION_ON_SELF",
+      "group": "HERO",
+      "order": 294
+    },
+    {
+      "code": "STOCK_CHILL_DURATION_ON_SELF",
+      "group": "HERO",
+      "order": 295
+    },
+    {
+      "code": "STOCK_FREEZE_DURATION_ON_SELF",
+      "group": "HERO",
+      "order": 296
+    },
+    {
+      "code": "STOCK_SHOCK_DURATION_ON_SELF",
+      "group": "HERO",
+      "order": 297
+    },
+    {
+      "code": "STOCK_POISON_DURATION_ON_SELF",
+      "group": "HERO",
+      "order": 298
+    },
+    {
+      "code": "STOCK_BLEED_DURATION_ON_SELF",
+      "group": "HERO",
+      "order": 299
+    },
+    {
+      "code": "STOCK_INVENTORY_SIZE",
+      "group": "HERO",
+      "order": 300
+    },
+    {
+      "code": "STOCK_GOLD",
+      "group": "HERO",
+      "order": 301,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_EXPERIENCE",
+      "group": "HERO",
+      "order": 302,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_RARITY",
+      "group": "HERO",
+      "order": 320,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_QUANTITY",
+      "group": "HERO",
+      "order": 321,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_LIGHT_RADIUS",
+      "group": "HERO",
+      "order": 325
+    },
+    {
+      "code": "STOCK_CHEST_QUANTITY",
+      "group": "HERO",
+      "order": 326,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_TAUNT",
+      "group": "HERO",
+      "order": 327
+    },
+    {
+      "code": "STOCK_AILMENT_DURATION",
+      "group": "HERO",
+      "order": 330,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_IGNITE_DURATION",
+      "group": "HERO",
+      "order": 331,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_CHILL_DURATION",
+      "group": "HERO",
+      "order": 332,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FREEZE_DURATION",
+      "group": "HERO",
+      "order": 333,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SHOCK_DURATION",
+      "group": "HERO",
+      "order": 334,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_POISON_DURATION",
+      "group": "HERO",
+      "order": 335,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_BLEED_DURATION",
+      "group": "HERO",
+      "order": 336,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_TAKEN",
+      "group": "HERO",
+      "order": 350,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PHYSICAL_TAKEN",
+      "group": "HERO",
+      "order": 351,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ELEMENTAL_TAKEN",
+      "group": "HERO",
+      "order": 352,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_CHAOS_TAKEN",
+      "group": "HERO",
+      "order": 353,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_RECOVERY_RATE",
+      "group": "HERO",
+      "order": 354,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SHIELD_RECHARGE",
+      "group": "HERO",
+      "order": 355,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_THORNS",
+      "group": "HERO",
+      "order": 356
+    },
+    {
+      "code": "STOCK_REFLECT",
+      "group": "HERO",
+      "order": 357,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_BLEED_TAKEN",
+      "group": "HERO",
+      "order": 358
+    },
+    {
+      "code": "STOCK_SHOCK_TAKEN",
+      "group": "HERO",
+      "order": 359
+    },
+    {
+      "code": "STOCK_SHIELD_OF_LIFE",
+      "group": "HERO",
+      "order": 360
+    },
+    {
+      "code": "STOCK_LOW_LIFE_SPEED",
+      "group": "HERO",
+      "order": 361
+    },
+    {
+      "code": "STOCK_MANA_BURN",
+      "group": "HERO",
+      "order": 362
+    },
+    {
+      "code": "STOCK_BORROW_SKILLS",
+      "group": "HERO",
+      "order": 363
+    },
+    {
+      "code": "AURA_RESIST",
+      "group": "AURA",
+      "order": 380
+    },
+    {
+      "code": "AURA_DAMAGE_TAKEN",
+      "group": "AURA",
+      "order": 381
+    },
+    {
+      "code": "AURA_SLOW",
+      "group": "AURA",
+      "order": 382
+    },
+    {
+      "code": "AURA_RECOVERY",
+      "group": "AURA",
+      "order": 383
+    },
+    {
+      "code": "AURA_WEAKEN",
+      "group": "AURA",
+      "order": 384
+    },
+    {
+      "code": "AURA_CRIT",
+      "group": "AURA",
+      "order": 385
+    },
+    {
+      "code": "AURA_COOLDOWN",
+      "group": "AURA",
+      "order": 386
+    },
+    {
+      "code": "MAP_MONSTER_LIFE",
+      "group": "MAP",
+      "order": 400
+    },
+    {
+      "code": "MAP_MONSTER_DAMAGE",
+      "group": "MAP",
+      "order": 401
+    },
+    {
+      "code": "MAP_MONSTER_SPEED",
+      "group": "MAP",
+      "order": 402
+    },
+    {
+      "code": "MAP_MONSTER_RESIST",
+      "group": "MAP",
+      "order": 403
+    },
+    {
+      "code": "MAP_PACK_SIZE",
+      "group": "MAP",
+      "order": 404
+    },
+    {
+      "code": "MAP_MONSTER_RARITY",
+      "group": "MAP",
+      "order": 405
+    },
+    {
+      "code": "MAP_HERO_LIGHT",
+      "group": "MAP",
+      "order": 406
+    },
+    {
+      "code": "MAP_HERO_RESIST",
+      "group": "MAP",
+      "order": 408
+    },
+    {
+      "code": "MAP_HERO_REGEN",
+      "group": "MAP",
+      "order": 409
+    },
+    {
+      "code": "MAP_CHESTS",
+      "group": "MAP",
+      "order": 410
+    },
+    {
+      "code": "MAP_QUANTITY",
+      "group": "MAP",
+      "order": 411
+    },
+    {
+      "code": "MAP_RARITY",
+      "group": "MAP",
+      "order": 412
+    },
+    {
+      "code": "MAP_EXPERIENCE",
+      "group": "MAP",
+      "order": 413
+    },
+    {
+      "code": "MAP_MAGIC_MONSTERS",
+      "group": "MAP",
+      "order": 414
+    },
+    {
+      "code": "MAP_RARE_MONSTERS",
+      "group": "MAP",
+      "order": 415
+    },
+    {
+      "code": "MAP_HERO_SLOW",
+      "group": "MAP",
+      "order": 416
+    },
+    {
+      "code": "MAP_FLASK_CHARGES",
+      "group": "MAP",
+      "order": 407
+    },
+    {
+      "code": "MAP_HERO_MANA_REGEN",
+      "group": "MAP",
+      "order": 417
+    },
+    {
+      "code": "MAP_MONSTER_CAST",
+      "group": "MAP",
+      "order": 418
+    },
+    {
+      "code": "MAP_SKILL_COST",
+      "group": "MAP",
+      "order": 419
+    },
+    {
+      "code": "MAP_HERO_DAMAGE_TAKEN",
+      "group": "MAP",
+      "order": 460
+    },
+    {
+      "code": "MAP_HERO_RECOVERY",
+      "group": "MAP",
+      "order": 461
+    },
+    {
+      "code": "MAP_HERO_MAX_RESIST",
+      "group": "MAP",
+      "order": 462
+    },
+    {
+      "code": "MAP_HERO_DEFENCES",
+      "group": "MAP",
+      "order": 463
+    },
+    {
+      "code": "MAP_HERO_BLOCK",
+      "group": "MAP",
+      "order": 464
+    },
+    {
+      "code": "MAP_HERO_CRIT",
+      "group": "MAP",
+      "order": 465
+    },
+    {
+      "code": "MAP_MONSTER_PENETRATION",
+      "group": "MAP",
+      "order": 466
+    },
+    {
+      "code": "MAP_MONSTER_REFLECT",
+      "group": "MAP",
+      "order": 467
+    },
+    {
+      "code": "MAP_MONSTER_CRITICAL",
+      "group": "MAP",
+      "order": 468
+    },
+    {
+      "code": "MAP_MONSTER_AILMENTS",
+      "group": "MAP",
+      "order": 469
+    },
+    {
+      "code": "MAP_MONSTER_ARMOUR",
+      "group": "MAP",
+      "order": 470
+    },
+    {
+      "code": "MAP_MONSTER_LEECH",
+      "group": "MAP",
+      "order": 471
+    },
+    {
+      "code": "MAP_MONSTER_STUN",
+      "group": "MAP",
+      "order": 472
+    },
+    {
+      "code": "MAP_MONSTER_MAGIC_MIN",
+      "group": "MAP",
+      "order": 473
+    },
+    {
+      "code": "MAP_HERO_HASTE",
+      "group": "MAP",
+      "order": 474
+    },
+    {
+      "code": "MAP_HERO_ATTACK_SPEED",
+      "group": "MAP",
+      "order": 475
+    },
+    {
+      "code": "MAP_HERO_LIFE",
+      "group": "MAP",
+      "order": 476
+    },
+    {
+      "code": "MAP_HERO_LEECH",
+      "group": "MAP",
+      "order": 477
+    },
+    {
+      "code": "MAP_GOLD",
+      "group": "MAP",
+      "order": 478
+    },
+    {
+      "code": "MAP_FOUNTAINS",
+      "group": "MAP",
+      "order": 479
+    },
+    {
+      "code": "MAP_BOSS_POWER",
+      "group": "MAP",
+      "order": 481
+    },
+    {
+      "code": "MAP_CRYSTALS",
+      "group": "MAP",
+      "order": 480
+    },
+    {
+      "code": "MAP_BOOKS",
+      "group": "MAP",
+      "order": 492
+    },
+    {
+      "code": "MAP_ABYSS_CRACKS",
+      "group": "MAP",
+      "order": 771
+    },
+    {
+      "code": "MAP_ABYSS_DEPTH",
+      "group": "MAP",
+      "order": 772
+    },
+    {
+      "code": "MAP_ABYSS_HOARD",
+      "group": "MAP",
+      "order": 773
+    },
+    {
+      "code": "MAP_ABYSS_UNIQUE",
+      "group": "MAP",
+      "order": 774
+    },
+    {
+      "code": "MAP_ABYSS_ORBS",
+      "group": "MAP",
+      "order": 775
+    },
+    {
+      "code": "MAP_ABYSS_RARE",
+      "group": "MAP",
+      "order": 776
+    },
+    {
+      "code": "MAP_ABYSS_LIFE",
+      "group": "MAP",
+      "order": 777
+    },
+    {
+      "code": "MAP_ABYSS_DAMAGE",
+      "group": "MAP",
+      "order": 778
+    },
+    {
+      "code": "MAP_ABYSS_SWARM",
+      "group": "MAP",
+      "order": 779
+    },
+    {
+      "code": "MAP_ABYSS_LEADER",
+      "group": "MAP",
+      "order": 780
+    },
+    {
+      "code": "STOCK_WORK_SPEED",
+      "group": "HERO",
+      "order": 420,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_WORK_YIELD",
+      "group": "HERO",
+      "order": 421
+    },
+    {
+      "code": "STOCK_WORK_LUCK",
+      "group": "HERO",
+      "order": 422
+    },
+    {
+      "code": "STOCK_WORK_EXPERIENCE",
+      "group": "HERO",
+      "order": 423,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_WORK_FIND",
+      "group": "HERO",
+      "order": 424,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "ATLAS_QUANTITY",
+      "group": "ATLAS",
+      "order": 440
+    },
+    {
+      "code": "ATLAS_RARITY",
+      "group": "ATLAS",
+      "order": 441
+    },
+    {
+      "code": "ATLAS_EXPERIENCE",
+      "group": "ATLAS",
+      "order": 442
+    },
+    {
+      "code": "ATLAS_MAP_DROP",
+      "group": "ATLAS",
+      "order": 443
+    },
+    {
+      "code": "ATLAS_VAAL_CHANCE",
+      "group": "ATLAS",
+      "order": 444
+    },
+    {
+      "code": "ATLAS_VAAL_REWARD",
+      "group": "ATLAS",
+      "order": 445
+    },
+    {
+      "code": "ATLAS_VAAL_MIN_MODS",
+      "group": "ATLAS",
+      "order": 446
+    },
+    {
+      "code": "ATLAS_CHESTS",
+      "group": "ATLAS",
+      "order": 447
+    },
+    {
+      "code": "ATLAS_FOUNTAINS",
+      "group": "ATLAS",
+      "order": 448
+    },
+    {
+      "code": "ATLAS_PACK_SIZE",
+      "group": "ATLAS",
+      "order": 449
+    },
+    {
+      "code": "ATLAS_RARE_MONSTERS",
+      "group": "ATLAS",
+      "order": 450
+    },
+    {
+      "code": "ATLAS_BOSS_RESPAWN",
+      "group": "ATLAS",
+      "order": 451
+    },
+    {
+      "code": "ATLAS_BOSS_UNIQUE",
+      "group": "ATLAS",
+      "order": 452
+    },
+    {
+      "code": "ATLAS_MAP_NEXT",
+      "group": "ATLAS",
+      "order": 482
+    },
+    {
+      "code": "ATLAS_MAP_RARE",
+      "group": "ATLAS",
+      "order": 483
+    },
+    {
+      "code": "ATLAS_MAP_AFFIX",
+      "group": "ATLAS",
+      "order": 484
+    },
+    {
+      "code": "ATLAS_MAP_EFFECT",
+      "group": "ATLAS",
+      "order": 485
+    },
+    {
+      "code": "ATLAS_VAAL_UNIQUE",
+      "group": "ATLAS",
+      "order": 486
+    },
+    {
+      "code": "ATLAS_BOSS_LOOT",
+      "group": "ATLAS",
+      "order": 487
+    },
+    {
+      "code": "ATLAS_CHEST_LOOT",
+      "group": "ATLAS",
+      "order": 488
+    },
+    {
+      "code": "ATLAS_RECIPE",
+      "group": "ATLAS",
+      "order": 489
+    },
+    {
+      "code": "ATLAS_GOLD",
+      "group": "ATLAS",
+      "order": 490
+    },
+    {
+      "code": "ATLAS_MONSTER_MODS",
+      "group": "ATLAS",
+      "order": 491
+    },
+    {
+      "code": "ATLAS_CRYSTAL_CHANCE",
+      "group": "ATLAS",
+      "order": 453
+    },
+    {
+      "code": "ATLAS_CRYSTAL_ESSENCES",
+      "group": "ATLAS",
+      "order": 454
+    },
+    {
+      "code": "ATLAS_CRYSTAL_TIER",
+      "group": "ATLAS",
+      "order": 455
+    },
+    {
+      "code": "ATLAS_CRYSTALS",
+      "group": "ATLAS",
+      "order": 456
+    },
+    {
+      "code": "ATLAS_CRYSTALS_MORE",
+      "group": "ATLAS",
+      "order": 457
+    },
+    {
+      "code": "ATLAS_GUARDIAN_POWER",
+      "group": "ATLAS",
+      "order": 458
+    },
+    {
+      "code": "ATLAS_BOOKS",
+      "group": "ATLAS",
+      "order": 459
+    },
+    {
+      "code": "ATLAS_BOOKS_OWN",
+      "group": "ATLAS",
+      "order": 493
+    },
+    {
+      "code": "ATLAS_FLASK_CHARGES",
+      "group": "ATLAS",
+      "order": 494
+    },
+    {
+      "code": "ATLAS_FLASK_DURATION",
+      "group": "ATLAS",
+      "order": 495
+    },
+    {
+      "code": "ATLAS_FLASK_RARE",
+      "group": "ATLAS",
+      "order": 496
+    },
+    {
+      "code": "ATLAS_MANA_REGEN",
+      "group": "ATLAS",
+      "order": 497
+    },
+    {
+      "code": "ATLAS_SKILL_LEVEL",
+      "group": "ATLAS",
+      "order": 498
+    },
+    {
+      "code": "ATLAS_ABYSS_CHANCE",
+      "group": "ATLAS",
+      "order": 781
+    },
+    {
+      "code": "ATLAS_ABYSS_EXTRA",
+      "group": "ATLAS",
+      "order": 782
+    },
+    {
+      "code": "ATLAS_ABYSS_DEPTH",
+      "group": "ATLAS",
+      "order": 783
+    },
+    {
+      "code": "ATLAS_ABYSS_HOARD",
+      "group": "ATLAS",
+      "order": 784
+    },
+    {
+      "code": "ATLAS_ABYSS_UNIQUE",
+      "group": "ATLAS",
+      "order": 785
+    },
+    {
+      "code": "ATLAS_ABYSS_ORBS",
+      "group": "ATLAS",
+      "order": 786
+    },
+    {
+      "code": "ATLAS_ABYSS_RARE",
+      "group": "ATLAS",
+      "order": 787
+    },
+    {
+      "code": "ATLAS_ABYSS_KEEP",
+      "group": "ATLAS",
+      "order": 788
+    },
+    {
+      "code": "ATLAS_ABYSS_POWER",
+      "group": "ATLAS",
+      "order": 789
+    },
+    {
+      "code": "STOCK_SKILL_LEVEL",
+      "group": "HERO",
+      "order": 500
+    },
+    {
+      "code": "STOCK_ATTACK_LEVEL",
+      "group": "HERO",
+      "order": 501
+    },
+    {
+      "code": "STOCK_SPELL_LEVEL",
+      "group": "HERO",
+      "order": 502
+    },
+    {
+      "code": "STOCK_WARCRY_LEVEL",
+      "group": "HERO",
+      "order": 503
+    },
+    {
+      "code": "STOCK_CURSE_LEVEL",
+      "group": "HERO",
+      "order": 504
+    },
+    {
+      "code": "STOCK_AURA_LEVEL",
+      "group": "HERO",
+      "order": 505
+    },
+    {
+      "code": "STOCK_PASSIVE_LEVEL",
+      "group": "HERO",
+      "order": 506
+    },
+    {
+      "code": "STOCK_AURA_EFFECT",
+      "group": "HERO",
+      "order": 510,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_WARCRY_EFFECT",
+      "group": "HERO",
+      "order": 511,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_CURSE_EFFECT",
+      "group": "HERO",
+      "order": 512,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SKILL_HEALING",
+      "group": "HERO",
+      "order": 513,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SKILL_TARGETS",
+      "group": "HERO",
+      "order": 514
+    },
+    {
+      "code": "STOCK_FREE_SKILL_CHANCE",
+      "group": "HERO",
+      "order": 515
+    },
+    {
+      "code": "STOCK_DAMAGE_VS_CURSED",
+      "group": "HERO",
+      "order": 516,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_CURSE_ON_HIT",
+      "group": "HERO",
+      "order": 517
+    },
+    {
+      "code": "STOCK_WARCRY_SPEED",
+      "group": "HERO",
+      "order": 518
+    },
+    {
+      "code": "STOCK_WARCRY_HEAL",
+      "group": "HERO",
+      "order": 519
+    },
+    {
+      "code": "STOCK_FLASK_CHARGES_GAINED",
+      "group": "HERO",
+      "order": 520,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FLASK_DURATION",
+      "group": "HERO",
+      "order": 521,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FLASK_EFFECT",
+      "group": "HERO",
+      "order": 522,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FLASK_CHARGES_USED",
+      "group": "HERO",
+      "order": 523,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FLASK_LIFE_RECOVERY",
+      "group": "HERO",
+      "order": 524,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FLASK_RECOVERY",
+      "group": "HERO",
+      "order": 525,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FLASK_CHARGES_PER_KILL",
+      "group": "HERO",
+      "order": 526
+    },
+    {
+      "code": "FLASK_CHARGES",
+      "group": "FLASK",
+      "order": 530
+    },
+    {
+      "code": "FLASK_CHARGES_PER_USE",
+      "group": "FLASK",
+      "order": 531
+    },
+    {
+      "code": "FLASK_DURATION",
+      "group": "FLASK",
+      "order": 532
+    },
+    {
+      "code": "FLASK_LIFE",
+      "group": "FLASK",
+      "order": 533
+    },
+    {
+      "code": "FLASK_MANA",
+      "group": "FLASK",
+      "order": 534
+    },
+    {
+      "code": "FLASK_INSTANT",
+      "group": "FLASK",
+      "order": 535
+    },
+    {
+      "code": "FLASK_CHARGE_ON_CRIT",
+      "group": "FLASK",
+      "order": 536
+    },
+    {
+      "code": "FLASK_CHARGE_WHEN_HIT",
+      "group": "FLASK",
+      "order": 537
+    },
+    {
+      "code": "FLASK_LIFE_TO_SHIELD",
+      "group": "FLASK",
+      "order": 538
+    },
+    {
+      "code": "FLASK_LIFE_TO_MANA",
+      "group": "FLASK",
+      "order": 539
+    },
+    {
+      "code": "FLASK_LOW_LIFE_RECOVERY",
+      "group": "FLASK",
+      "order": 540
+    },
+    {
+      "code": "FLASK_DURATION_PER_KILL",
+      "group": "FLASK",
+      "order": 541
+    },
+    {
+      "code": "FLASK_NO_CHARGE_CHANCE",
+      "group": "FLASK",
+      "order": 542
+    },
+    {
+      "code": "FLASK_SIP_MANA",
+      "group": "FLASK",
+      "order": 543
+    },
+    {
+      "code": "FLASK_SIP_SHIELD",
+      "group": "FLASK",
+      "order": 544
+    },
+    {
+      "code": "FLASK_AUTO_LOW_LIFE",
+      "group": "FLASK",
+      "order": 545
+    },
+    {
+      "code": "FLASK_USES_ALL",
+      "group": "FLASK",
+      "order": 546
+    },
+    {
+      "code": "FLASK_INVULNERABLE",
+      "group": "FLASK",
+      "order": 547
+    },
+    {
+      "code": "FLASK_SKILLS_FREE",
+      "group": "FLASK",
+      "order": 548
+    },
+    {
+      "code": "FLASK_HITS_CURSE",
+      "group": "FLASK",
+      "order": 549
+    },
+    {
+      "code": "STOCK_IMMUNE_BLEED",
+      "group": "HERO",
+      "order": 550
+    },
+    {
+      "code": "STOCK_IMMUNE_FREEZE",
+      "group": "HERO",
+      "order": 551
+    },
+    {
+      "code": "STOCK_IMMUNE_IGNITE",
+      "group": "HERO",
+      "order": 552
+    },
+    {
+      "code": "STOCK_IMMUNE_SHOCK",
+      "group": "HERO",
+      "order": 553
+    },
+    {
+      "code": "STOCK_IMMUNE_POISON",
+      "group": "HERO",
+      "order": 554
+    },
+    {
+      "code": "STOCK_IMMUNE_CURSE",
+      "group": "HERO",
+      "order": 555
+    },
+    {
+      "code": "STOCK_IMMUNE_STUN",
+      "group": "HERO",
+      "order": 556
+    },
+    {
+      "code": "POWER_THORN_LASH",
+      "group": "POWER",
+      "order": 600
+    },
+    {
+      "code": "POWER_DEFIANCE",
+      "group": "POWER",
+      "order": 601
+    },
+    {
+      "code": "POWER_SOUL_HARVEST",
+      "group": "POWER",
+      "order": 602
+    },
+    {
+      "code": "POWER_GRAVE_CHILL",
+      "group": "POWER",
+      "order": 603
+    },
+    {
+      "code": "POWER_STATIC_DODGE",
+      "group": "POWER",
+      "order": 604
+    },
+    {
+      "code": "POWER_SWORN_STRIKE",
+      "group": "POWER",
+      "order": 605
+    },
+    {
+      "code": "POWER_DESPERATE_THIRST",
+      "group": "POWER",
+      "order": 606
+    },
+    {
+      "code": "POWER_GHOSTLY_ENTRY",
+      "group": "POWER",
+      "order": 607
+    },
+    {
+      "code": "POWER_EMBER_TRAIL",
+      "group": "POWER",
+      "order": 608
+    },
+    {
+      "code": "POWER_MIRROR_GUARD",
+      "group": "POWER",
+      "order": 609
+    },
+    {
+      "code": "POWER_BORROWED_TIME",
+      "group": "POWER",
+      "order": 610
+    },
+    {
+      "code": "POWER_CONSTRICT",
+      "group": "POWER",
+      "order": 611
+    },
+    {
+      "code": "POWER_HOLLOW_VESSEL",
+      "group": "POWER",
+      "order": 612
+    },
+    {
+      "code": "POWER_STORM_EYE",
+      "group": "POWER",
+      "order": 613
+    },
+    {
+      "code": "POWER_GLUTTONY",
+      "group": "POWER",
+      "order": 614
+    },
+    {
+      "code": "POWER_AMBUSH",
+      "group": "POWER",
+      "order": 615
+    },
+    {
+      "code": "POWER_ROT_SPELL",
+      "group": "POWER",
+      "order": 616
+    },
+    {
+      "code": "POWER_GRIEF",
+      "group": "POWER",
+      "order": 617
+    },
+    {
+      "code": "POWER_AFTERSHOCK",
+      "group": "POWER",
+      "order": 618
+    },
+    {
+      "code": "POWER_FROST_ARROW",
+      "group": "POWER",
+      "order": 619
+    },
+    {
+      "code": "POWER_ASH_BURST",
+      "group": "POWER",
+      "order": 620
+    },
+    {
+      "code": "POWER_STOKED",
+      "group": "POWER",
+      "order": 621
+    },
+    {
+      "code": "POWER_SLAG_CLOG",
+      "group": "POWER",
+      "order": 622
+    },
+    {
+      "code": "POWER_RIVET",
+      "group": "POWER",
+      "order": 623
+    },
+    {
+      "code": "POWER_CRUCIBLE",
+      "group": "POWER",
+      "order": 624
+    },
+    {
+      "code": "POWER_QUENCH_RETURN",
+      "group": "POWER",
+      "order": 625
+    },
+    {
+      "code": "POWER_EMBER_WARD",
+      "group": "POWER",
+      "order": 626
+    },
+    {
+      "code": "POWER_TIDE_SONG",
+      "group": "POWER",
+      "order": 627
+    },
+    {
+      "code": "POWER_BRINE_MEND",
+      "group": "POWER",
+      "order": 628
+    },
+    {
+      "code": "POWER_ROOT_DRINK",
+      "group": "POWER",
+      "order": 629
+    },
+    {
+      "code": "POWER_BLOOD_SCENT",
+      "group": "POWER",
+      "order": 630
+    },
+    {
+      "code": "POWER_WARDENS_KEYS",
+      "group": "POWER",
+      "order": 631
+    },
+    {
+      "code": "POWER_DEATHS_VEIL",
+      "group": "POWER",
+      "order": 632
+    },
+    {
+      "code": "POWER_CRYSTAL_RETORT",
+      "group": "POWER",
+      "order": 633
+    },
+    {
+      "code": "POWER_ASHEN_END",
+      "group": "POWER",
+      "order": 634
+    },
+    {
+      "code": "POWER_RIME_BLOCK",
+      "group": "POWER",
+      "order": 635
+    },
+    {
+      "code": "POWER_DEEP_TIDE",
+      "group": "POWER",
+      "order": 636
+    },
+    {
+      "code": "POWER_SUNFLARE",
+      "group": "POWER",
+      "order": 637
+    },
+    {
+      "code": "POWER_SWARM_BURST",
+      "group": "POWER",
+      "order": 638
+    },
+    {
+      "code": "POWER_CINDER_PIERCE",
+      "group": "POWER",
+      "order": 639
+    },
+    {
+      "code": "POWER_ABYSS_DODGE",
+      "group": "POWER",
+      "order": 640
+    },
+    {
+      "code": "POWER_DEVOUR",
+      "group": "POWER",
+      "order": 641
+    },
+    {
+      "code": "POWER_WORLDEATER",
+      "group": "POWER",
+      "order": 642
+    },
+    {
+      "code": "POWER_ALL_SEEING",
+      "group": "POWER",
+      "order": 643
+    },
+    {
+      "code": "POWER_FORESIGHT",
+      "group": "POWER",
+      "order": 644
+    },
+    {
+      "code": "POWER_TIME_LOOP",
+      "group": "POWER",
+      "order": 645
+    },
+    {
+      "code": "POWER_SLOW_TIME",
+      "group": "POWER",
+      "order": 646
+    },
+    {
+      "code": "POWER_SOULFORGE",
+      "group": "POWER",
+      "order": 647
+    },
+    {
+      "code": "POWER_SOUL_SUNDER",
+      "group": "POWER",
+      "order": 648
+    },
+    {
+      "code": "POWER_HORIZON",
+      "group": "POWER",
+      "order": 649
+    },
+    {
+      "code": "POWER_ENDLESS_ROAD",
+      "group": "POWER",
+      "order": 650
+    },
+    {
+      "code": "POWER_EVERFLASK",
+      "group": "POWER",
+      "order": 651
+    },
+    {
+      "code": "POWER_FEAST",
+      "group": "POWER",
+      "order": 652
+    },
+    {
+      "code": "POWER_GILDED_GREED",
+      "group": "POWER",
+      "order": 653
+    },
+    {
+      "code": "POWER_BEAST_FURY",
+      "group": "POWER",
+      "order": 654
+    },
+    {
+      "code": "POWER_PREDATOR_SENSE",
+      "group": "POWER",
+      "order": 655
+    },
+    {
+      "code": "POWER_DEVOTED_SWIFTNESS",
+      "group": "POWER",
+      "order": 656
+    },
+    {
+      "code": "POWER_GLUTTONOUS_HIDE",
+      "group": "POWER",
+      "order": 657
+    },
+    {
+      "code": "POWER_THICK_HIDE",
+      "group": "POWER",
+      "order": 658
+    },
+    {
+      "code": "POWER_KAOMS_BLAZE",
+      "group": "POWER",
+      "order": 659
+    },
+    {
+      "code": "POWER_SEALED_HEART",
+      "group": "POWER",
+      "order": 660
+    },
+    {
+      "code": "POWER_CARCASS_BURST",
+      "group": "POWER",
+      "order": 661
+    },
+    {
+      "code": "POWER_BONE_CRUNCH",
+      "group": "POWER",
+      "order": 662
+    },
+    {
+      "code": "POWER_JAW_BREAKER",
+      "group": "POWER",
+      "order": 663
+    },
+    {
+      "code": "POWER_VIRTUOSO_TEMPO",
+      "group": "POWER",
+      "order": 664
+    },
+    {
+      "code": "POWER_ACUITY_DRAIN",
+      "group": "POWER",
+      "order": 665
+    },
+    {
+      "code": "POWER_WANDERERS_START",
+      "group": "POWER",
+      "order": 666
+    },
+    {
+      "code": "POWER_LEAGUE_STRIDE",
+      "group": "POWER",
+      "order": 667
+    },
+    {
+      "code": "POWER_FLEETING_STEP",
+      "group": "POWER",
+      "order": 668
+    },
+    {
+      "code": "POWER_WYRM_HOARD",
+      "group": "POWER",
+      "order": 669
+    },
+    {
+      "code": "POWER_DESERT_WIND",
+      "group": "POWER",
+      "order": 670
+    },
+    {
+      "code": "POWER_SEVENTH_VEIL",
+      "group": "POWER",
+      "order": 671
+    },
+    {
+      "code": "POWER_MAW_HUNGER",
+      "group": "POWER",
+      "order": 672
+    },
+    {
+      "code": "POWER_GIANT_BLOOD",
+      "group": "POWER",
+      "order": 673
+    },
+    {
+      "code": "POWER_HEADHUNT",
+      "group": "POWER",
+      "order": 674
+    },
+    {
+      "code": "POWER_TROPHY_HUNTER",
+      "group": "POWER",
+      "order": 675
+    },
+    {
+      "code": "POWER_MAGNATE_TAX",
+      "group": "POWER",
+      "order": 676
+    },
+    {
+      "code": "POWER_BEREKS_STORM",
+      "group": "POWER",
+      "order": 677
+    },
+    {
+      "code": "POWER_BEREKS_FROST",
+      "group": "POWER",
+      "order": 678
+    },
+    {
+      "code": "POWER_VENTORS_WAGER",
+      "group": "POWER",
+      "order": 679
+    },
+    {
+      "code": "POWER_KAOMS_RAGE",
+      "group": "POWER",
+      "order": 680
+    },
+    {
+      "code": "POWER_ASTRAL_HARMONY",
+      "group": "POWER",
+      "order": 681
+    },
+    {
+      "code": "POWER_CARNAGE",
+      "group": "POWER",
+      "order": 682
+    },
+    {
+      "code": "POWER_BISCOS_FIND",
+      "group": "POWER",
+      "order": 683
+    },
+    {
+      "code": "POWER_REMORSEFUL_GUARD",
+      "group": "POWER",
+      "order": 684
+    },
+    {
+      "code": "POWER_PHOENIX_REBIRTH",
+      "group": "POWER",
+      "order": 685
+    },
+    {
+      "code": "POWER_SAFFELL_PRISM",
+      "group": "POWER",
+      "order": 686
+    },
+    {
+      "code": "POWER_DRILL_SHOT",
+      "group": "POWER",
+      "order": 687
+    },
+    {
+      "code": "POWER_REARGUARD",
+      "group": "POWER",
+      "order": 688
+    },
+    {
+      "code": "POWER_HYRRIS_TOXIN",
+      "group": "POWER",
+      "order": 689
+    },
+    {
+      "code": "POWER_BINOS_SPREAD",
+      "group": "POWER",
+      "order": 690
+    },
+    {
+      "code": "POWER_CATALYST_SURGE",
+      "group": "POWER",
+      "order": 691
+    },
+    {
+      "code": "POWER_LIONEYES_AIM",
+      "group": "POWER",
+      "order": 692
+    },
+    {
+      "code": "POWER_MAROHI_CRUSH",
+      "group": "POWER",
+      "order": 693
+    },
+    {
+      "code": "POWER_STARFORGED",
+      "group": "POWER",
+      "order": 694
+    },
+    {
+      "code": "POWER_HEGEMONY",
+      "group": "POWER",
+      "order": 695
+    },
+    {
+      "code": "POWER_TIDE_TURN",
+      "group": "POWER",
+      "order": 696
+    },
+    {
+      "code": "POWER_UNDERTOW",
+      "group": "POWER",
+      "order": 697
+    },
+    {
+      "code": "POWER_BRINESHELL",
+      "group": "POWER",
+      "order": 698
+    },
+    {
+      "code": "POWER_SALT_SPINES",
+      "group": "POWER",
+      "order": 699
+    },
+    {
+      "code": "POWER_MIRE_BLOOD",
+      "group": "POWER",
+      "order": 700
+    },
+    {
+      "code": "POWER_BOG_BREATH",
+      "group": "POWER",
+      "order": 701
+    },
+    {
+      "code": "POWER_PACK_TACTICS",
+      "group": "POWER",
+      "order": 702
+    },
+    {
+      "code": "POWER_ALPHA_HOWL",
+      "group": "POWER",
+      "order": 703
+    },
+    {
+      "code": "POWER_WARDENS_VOW",
+      "group": "POWER",
+      "order": 704
+    },
+    {
+      "code": "POWER_GRAVE_PACT",
+      "group": "POWER",
+      "order": 705
+    },
+    {
+      "code": "POWER_BONE_TITHE",
+      "group": "POWER",
+      "order": 706
+    },
+    {
+      "code": "POWER_SHARD_SPLINTER",
+      "group": "POWER",
+      "order": 707
+    },
+    {
+      "code": "POWER_EMBERHEART",
+      "group": "POWER",
+      "order": 708
+    },
+    {
+      "code": "POWER_CINDER_SKIN",
+      "group": "POWER",
+      "order": 709
+    },
+    {
+      "code": "POWER_WINTER_GRIP",
+      "group": "POWER",
+      "order": 710
+    },
+    {
+      "code": "POWER_SHATTER",
+      "group": "POWER",
+      "order": 711
+    },
+    {
+      "code": "POWER_LEVIATHAN_BITE",
+      "group": "POWER",
+      "order": 712
+    },
+    {
+      "code": "POWER_FORGE_FOCUS",
+      "group": "POWER",
+      "order": 713
+    },
+    {
+      "code": "POWER_ANVIL_HEART",
+      "group": "POWER",
+      "order": 714
+    },
+    {
+      "code": "POWER_EMBER_TOUCH",
+      "group": "POWER",
+      "order": 715
+    },
+    {
+      "code": "POWER_IRON_STANCE",
+      "group": "POWER",
+      "order": 716
+    },
+    {
+      "code": "POWER_CHAINBIND",
+      "group": "POWER",
+      "order": 717
+    },
+    {
+      "code": "POWER_FORGE_BULWARK",
+      "group": "POWER",
+      "order": 718
+    },
+    {
+      "code": "POWER_SMELT",
+      "group": "POWER",
+      "order": 719
+    },
+    {
+      "code": "POWER_MOUNTAIN_BREAK",
+      "group": "POWER",
+      "order": 720
+    },
+    {
+      "code": "POWER_TEMPERED_TIPS",
+      "group": "POWER",
+      "order": 721
+    },
+    {
+      "code": "POWER_SMITH_TEMPER",
+      "group": "POWER",
+      "order": 722
+    },
+    {
+      "code": "POWER_QUENCH",
+      "group": "POWER",
+      "order": 723
+    },
+    {
+      "code": "POWER_FORGE_GALE",
+      "group": "POWER",
+      "order": 724
+    },
+    {
+      "code": "POWER_BRAZEN_CALL",
+      "group": "POWER",
+      "order": 725
+    },
+    {
+      "code": "POWER_WAR_SHOUT",
+      "group": "POWER",
+      "order": 726
+    },
+    {
+      "code": "POWER_UNYIELDING",
+      "group": "POWER",
+      "order": 727
+    },
+    {
+      "code": "POWER_LAST_STAND",
+      "group": "POWER",
+      "order": 728
+    },
+    {
+      "code": "POWER_SOLAR_FLARE",
+      "group": "POWER",
+      "order": 729
+    },
+    {
+      "code": "POWER_SUNS_BLESSING",
+      "group": "POWER",
+      "order": 730
+    },
+    {
+      "code": "POWER_ETERNAL_SANDS",
+      "group": "POWER",
+      "order": 731
+    },
+    {
+      "code": "POWER_TIMELESS",
+      "group": "POWER",
+      "order": 732
+    },
+    {
+      "code": "POWER_ROYAL_VENOM",
+      "group": "POWER",
+      "order": 733
+    },
+    {
+      "code": "POWER_HIVEMIND",
+      "group": "POWER",
+      "order": 734
+    },
+    {
+      "code": "POWER_SOVEREIGN_BRAND",
+      "group": "POWER",
+      "order": 735
+    },
+    {
+      "code": "POWER_MOLTEN_CORE",
+      "group": "POWER",
+      "order": 736
+    },
+    {
+      "code": "POWER_ABYSSAL_GAZE",
+      "group": "POWER",
+      "order": 737
+    },
+    {
+      "code": "POWER_ABYSS_CALL",
+      "group": "POWER",
+      "order": 738
+    },
+    {
+      "code": "POWER_VOID_HUNGER",
+      "group": "POWER",
+      "order": 739
+    },
+    {
+      "code": "POWER_SAINTS_GRACE",
+      "group": "POWER",
+      "order": 740
+    },
+    {
+      "code": "POWER_MIRROR_RIPOSTE",
+      "group": "POWER",
+      "order": 741
+    },
+    {
+      "code": "POWER_SEETHING_RAGE",
+      "group": "POWER",
+      "order": 742
+    },
+    {
+      "code": "POWER_STARLIGHT_WARD",
+      "group": "POWER",
+      "order": 743
+    },
+    {
+      "code": "POWER_ATZIRIS_VOW",
+      "group": "POWER",
+      "order": 744
+    },
+    {
+      "code": "POWER_VOID_SIGHT",
+      "group": "POWER",
+      "order": 745
+    },
+    {
+      "code": "POWER_VOID_ECHO",
+      "group": "POWER",
+      "order": 746
+    },
+    {
+      "code": "POWER_ETERNITY_SHROUD",
+      "group": "POWER",
+      "order": 747
+    },
+    {
+      "code": "POWER_TIMELESS_BODY",
+      "group": "POWER",
+      "order": 748
+    },
+    {
+      "code": "POWER_WORLDBREAK",
+      "group": "POWER",
+      "order": 749
+    },
+    {
+      "code": "POWER_TITAN_GRIP",
+      "group": "POWER",
+      "order": 750
+    },
+    {
+      "code": "POWER_ENDLESS_STRIDE",
+      "group": "POWER",
+      "order": 751
+    },
+    {
+      "code": "POWER_PHASE_STEP",
+      "group": "POWER",
+      "order": 752
+    },
+    {
+      "code": "POWER_DAWNBURST",
+      "group": "POWER",
+      "order": 753
+    },
+    {
+      "code": "POWER_FIRST_LIGHT",
+      "group": "POWER",
+      "order": 754
+    },
+    {
+      "code": "POWER_FIRST_BLOOD",
+      "group": "POWER",
+      "order": 755
+    },
+    {
+      "code": "POWER_BLOOD_FRENZY",
+      "group": "POWER",
+      "order": 756
+    },
+    {
+      "code": "POWER_METEOR",
+      "group": "POWER",
+      "order": 757
+    },
+    {
+      "code": "POWER_STARSHARD",
+      "group": "POWER",
+      "order": 758
+    },
+    {
+      "code": "POWER_ABYSSAL_TIDE",
+      "group": "POWER",
+      "order": 759
+    },
+    {
+      "code": "POWER_DEEP_MIND",
+      "group": "POWER",
+      "order": 760
+    },
+    {
+      "code": "POWER_ABYSSAL_HEART",
+      "group": "POWER",
+      "order": 761
+    },
+    {
+      "code": "POWER_HEARTBEAT",
+      "group": "POWER",
+      "order": 762
+    },
+    {
+      "code": "POWER_ABYSS_WILL",
+      "group": "POWER",
+      "order": 763
+    },
+    {
+      "code": "POWER_TITANS_MIGHT",
+      "group": "POWER",
+      "order": 764
+    },
+    {
+      "code": "POWER_TITAN_SKIN",
+      "group": "POWER",
+      "order": 765
+    },
+    {
+      "code": "POWER_STORM_VOLLEY",
+      "group": "POWER",
+      "order": 766
+    },
+    {
+      "code": "POWER_STORMCALL",
+      "group": "POWER",
+      "order": 767
+    },
+    {
+      "code": "POWER_FALLEN_GRACE",
+      "group": "POWER",
+      "order": 768
+    },
+    {
+      "code": "POWER_DIVINE_FALL",
+      "group": "POWER",
+      "order": 769
+    },
+    {
+      "code": "POWER_GODS_BOUNTY",
+      "group": "POWER",
+      "order": 770
+    },
+    {
+      "code": "POWER_ABYSSAL_HUNGER",
+      "group": "POWER",
+      "order": 790
+    },
+    {
+      "code": "POWER_VOID_LASH",
+      "group": "POWER",
+      "order": 791
+    },
+    {
+      "code": "POWER_WHISPERED_HEX",
+      "group": "POWER",
+      "order": 792
+    },
+    {
+      "code": "POWER_DREAD_GAZE",
+      "group": "POWER",
+      "order": 793
+    },
+    {
+      "code": "POWER_UMBRAL_BARRIER",
+      "group": "POWER",
+      "order": 794
+    },
+    {
+      "code": "POWER_DEEP_RECOIL",
+      "group": "POWER",
+      "order": 795
+    },
+    {
+      "code": "POWER_DEPTH_FRENZY",
+      "group": "POWER",
+      "order": 796
+    },
+    {
+      "code": "POWER_SWALLOW_WHOLE",
+      "group": "POWER",
+      "order": 797
+    },
+    {
+      "code": "POWER_VOID_TITHE",
+      "group": "POWER",
+      "order": 798
+    },
+    {
+      "code": "POWER_ENTROPY",
+      "group": "POWER",
+      "order": 799
+    },
+    {
+      "code": "BOOL_ALIVE",
+      "group": "BOOL",
+      "order": 1000,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_BANNED",
+      "group": "BOOL",
+      "order": 1001,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_IN_COMBAT",
+      "group": "BOOL",
+      "order": 1002,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_STUNNED",
+      "group": "BOOL",
+      "order": 1003,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_FROZEN",
+      "group": "BOOL",
+      "order": 1004,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_BURNING",
+      "group": "BOOL",
+      "order": 1005,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_POISONED",
+      "group": "BOOL",
+      "order": 1006,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_BLEEDING",
+      "group": "BOOL",
+      "order": 1007,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_SHOCKED",
+      "group": "BOOL",
+      "order": 1008,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_CHILLED",
+      "group": "BOOL",
+      "order": 1009,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_INVISIBLE",
+      "group": "BOOL",
+      "order": 1011,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_INVINCIBLE",
+      "group": "BOOL",
+      "order": 1012,
+      "kind": "BOOL"
+    },
+    {
+      "code": "BOOL_CONCENTRATING",
+      "group": "BOOL",
+      "order": 1013,
+      "kind": "BOOL"
+    },
+    {
+      "code": "PROFESSION_LUMBERJACK",
+      "group": "PROFESSION",
+      "order": 2000
+    },
+    {
+      "code": "PROFESSION_STONEMASON",
+      "group": "PROFESSION",
+      "order": 2001
+    },
+    {
+      "code": "PROFESSION_ALCHEMY",
+      "group": "PROFESSION",
+      "order": 2002
+    },
+    {
+      "code": "PROFESSION_BLACKSMITH",
+      "group": "PROFESSION",
+      "order": 2003
+    },
+    {
+      "code": "PROFESSION_BUILDER",
+      "group": "PROFESSION",
+      "order": 2004
+    },
+    {
+      "code": "PROFESSION_TAILOR",
+      "group": "PROFESSION",
+      "order": 2005
+    },
+    {
+      "code": "PROFESSION_ENCHANTER",
+      "group": "PROFESSION",
+      "order": 2006
+    },
+    {
+      "code": "PROFESSION_JEWELER",
+      "group": "PROFESSION",
+      "order": 2007
+    },
+    {
+      "code": "PROFESSION_COOK",
+      "group": "PROFESSION",
+      "order": 2008
+    },
+    {
+      "code": "PROFESSION_FISHERMAN",
+      "group": "PROFESSION",
+      "order": 2009
+    },
+    {
+      "code": "PROFESSION_MINER",
+      "group": "PROFESSION",
+      "order": 2010
+    },
+    {
+      "code": "PROFESSION_FARMER",
+      "group": "PROFESSION",
+      "order": 2011
+    },
+    {
+      "code": "PROFESSION_HERBALIST",
+      "group": "PROFESSION",
+      "order": 2012
+    },
+    {
+      "code": "PROFESSION_CARPENTER",
+      "group": "PROFESSION",
+      "order": 2013
+    },
+    {
+      "code": "PROFESSION_CARTOGRAPHER",
+      "group": "PROFESSION",
+      "order": 2014
+    },
+    {
+      "code": "PROFESSION_HUNTER",
+      "group": "PROFESSION",
+      "order": 2015
+    },
+    {
+      "code": "BATTLE_MELEE_COMBAT",
+      "group": "BATTLE",
+      "order": 3000
+    },
+    {
+      "code": "BATTLE_SWORDSMANSHIP",
+      "group": "BATTLE",
+      "order": 3001
+    },
+    {
+      "code": "BATTLE_AXE_COMBAT",
+      "group": "BATTLE",
+      "order": 3002
+    },
+    {
+      "code": "BATTLE_POLEARM_COMBAT",
+      "group": "BATTLE",
+      "order": 3003
+    },
+    {
+      "code": "BATTLE_UNARMED_COMBAT",
+      "group": "BATTLE",
+      "order": 3004
+    },
+    {
+      "code": "BATTLE_DUAL_WIELDING",
+      "group": "BATTLE",
+      "order": 3005
+    },
+    {
+      "code": "BATTLE_TWO_HANDED_WEAPON",
+      "group": "BATTLE",
+      "order": 3006
+    },
+    {
+      "code": "BATTLE_RANGE_COMBAT",
+      "group": "BATTLE",
+      "order": 3007
+    },
+    {
+      "code": "BATTLE_ARCHERY",
+      "group": "BATTLE",
+      "order": 3008
+    },
+    {
+      "code": "BATTLE_CROSSBOW",
+      "group": "BATTLE",
+      "order": 3009
+    },
+    {
+      "code": "BATTLE_THROWING",
+      "group": "BATTLE",
+      "order": 3010
+    },
+    {
+      "code": "BATTLE_MAGIC_COMBAT",
+      "group": "BATTLE",
+      "order": 3011
+    },
+    {
+      "code": "BATTLE_FIRE_MAGIC",
+      "group": "BATTLE",
+      "order": 3012
+    },
+    {
+      "code": "BATTLE_WATER_MAGIC",
+      "group": "BATTLE",
+      "order": 3013
+    },
+    {
+      "code": "BATTLE_EARTH_MAGIC",
+      "group": "BATTLE",
+      "order": 3014
+    },
+    {
+      "code": "BATTLE_AIR_MAGIC",
+      "group": "BATTLE",
+      "order": 3015
+    },
+    {
+      "code": "BATTLE_ELECTRIC_MAGIC",
+      "group": "BATTLE",
+      "order": 3016
+    },
+    {
+      "code": "BATTLE_DARK_MAGIC",
+      "group": "BATTLE",
+      "order": 3017
+    },
+    {
+      "code": "BATTLE_LIGHT_MAGIC",
+      "group": "BATTLE",
+      "order": 3018
+    },
+    {
+      "code": "BATTLE_CHAOS_MAGIC",
+      "group": "BATTLE",
+      "order": 3019
+    },
+    {
+      "code": "BATTLE_SUMMONING",
+      "group": "BATTLE",
+      "order": 3020
+    },
+    {
+      "code": "STOCK_CURSE_WHEN_HIT",
+      "group": "HERO",
+      "order": 505,
+      "kind": "PERCENT"
+    }
+  ]
+}

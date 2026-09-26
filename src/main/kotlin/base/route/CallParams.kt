@@ -29,14 +29,14 @@ inline fun <reified E> ApplicationCall.queryParam(name: String, default: E): E {
     }
 }
 
-/** Персонаж, от имени которого идёт команда: его принадлежность уже проверил доступ. */
-val ApplicationCall.characterId: String get() = queryParam("characterId")
+/** Герой, от имени которого идёт команда: его принадлежность уже проверил доступ. */
+val ApplicationCall.heroId: String get() = queryParam("heroId")
 
 /** Карта кампании команды. */
 val ApplicationCall.mapCode: String get() = queryParam("mapCode")
 
-/** Экземпляр экипировки из инвентаря, над которым идёт команда. */
-val ApplicationCall.inventoryId: String get() = queryParam("inventoryId")
+/** Копия вещи героя, над которой идёт команда. */
+val ApplicationCall.itemId: String get() = queryParam("itemId")
 
 /** `?id=` документа коллекции, проверенный на формат ObjectId. */
 fun ApplicationCall.idParam(): String = requireId(request.queryParameters["id"] ?: "<NULL>", "idParam")

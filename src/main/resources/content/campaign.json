@@ -28,32 +28,25 @@
   "rarities": [
     {
       "rarity": "NORMAL",
-      "weight": 85,
       "modifiers": [
         0,
         0
-      ],
-      "statScale": 0,
-      "modifierPower": 1.0,
-      "effects": [],
-      "quantity": 1.0,
-      "rarityBonus": 0,
-      "experience": 1.0
+      ]
     },
     {
       "rarity": "MAGIC",
-      "weight": 12,
       "modifiers": [
         1,
         2
       ],
       "statScale": 30,
       "modifierPower": 1.3,
-      "effects": [
+      "lines": [
         {
-          "stat": "STOCK_HEALTH",
-          "operation": "MORE",
-          "value": 40
+          "code": "RARITY_STOCK_HEALTH_MORE",
+          "values": [
+            40
+          ]
         }
       ],
       "quantity": 2.5,
@@ -62,18 +55,18 @@
     },
     {
       "rarity": "RARE",
-      "weight": 3,
       "modifiers": [
         3,
         4
       ],
       "statScale": 70,
       "modifierPower": 1.7,
-      "effects": [
+      "lines": [
         {
-          "stat": "STOCK_HEALTH",
-          "operation": "MORE",
-          "value": 100
+          "code": "RARITY_STOCK_HEALTH_MORE",
+          "values": [
+            100
+          ]
         }
       ],
       "quantity": 6.0,
@@ -82,18 +75,18 @@
     },
     {
       "rarity": "UNIQUE",
-      "weight": 0,
       "modifiers": [
         0,
         0
       ],
       "statScale": 120,
       "modifierPower": 2.0,
-      "effects": [
+      "lines": [
         {
-          "stat": "STOCK_HEALTH",
-          "operation": "MORE",
-          "value": 250
+          "code": "RARITY_STOCK_HEALTH_MORE",
+          "values": [
+            250
+          ]
         }
       ],
       "quantity": 10.0,
@@ -101,1864 +94,12 @@
       "experience": 15.0
     }
   ],
-  "lootTables": {
-    "T1": {
-      "gold": [
-        10,
-        35
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_TRANSMUTATION",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_AUGMENTATION",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.08,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "T2": {
-      "gold": [
-        15,
-        45
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_TRANSMUTATION",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_AUGMENTATION",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_CHANCE",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_SCOURING",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.015,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.09,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "T3": {
-      "gold": [
-        20,
-        60
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_TRANSMUTATION",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.008,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.006,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.004,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_SCOURING",
-          "chance": 0.015,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.1,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "T4": {
-      "gold": [
-        25,
-        75
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_TRANSMUTATION",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.025,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.012,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.008,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.005,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_SCOURING",
-          "chance": 0.015,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.1,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "T5": {
-      "gold": [
-        30,
-        90
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.012,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.015,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.006,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.001,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_SCOURING",
-          "chance": 0.015,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.11,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "T6": {
-      "gold": [
-        35,
-        105
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.015,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.018,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.012,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.008,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.002,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_SCOURING",
-          "chance": 0.015,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.025,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.12,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CHEST_1": {
-      "gold": [
-        100,
-        225
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_TRANSMUTATION",
-          "chance": 0.6,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_AUGMENTATION",
-          "chance": 0.4,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.35,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.7,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CHEST_2": {
-      "gold": [
-        175,
-        400
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.5,
-          "amount": [
-            1,
-            3
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.25,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_CHANCE",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_SCOURING",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.25,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.8,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.25,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CHEST_3": {
-      "gold": [
-        300,
-        700
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.5,
-          "amount": [
-            2,
-            4
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.35,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.9,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.4,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CHEST_4": {
-      "gold": [
-        400,
-        900
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.5,
-          "amount": [
-            2,
-            4
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.4,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.9,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.45,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CHEST_5": {
-      "gold": [
-        500,
-        1100
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.45,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.95,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.5,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CHEST_6": {
-      "gold": [
-        600,
-        1300
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.5,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.18,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.35,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 1.0,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.55,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "BOSS_1": {
-      "gold": [
-        150,
-        300
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_TRANSMUTATION",
-          "chance": 0.3,
-          "amount": [
-            1,
-            3
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_AUGMENTATION",
-          "chance": 0.25,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.25,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.2,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "BOSS_2": {
-      "gold": [
-        225,
-        450
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.3,
-          "amount": [
-            1,
-            3
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_CHANCE",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_SCOURING",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.25,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "BOSS_3": {
-      "gold": [
-        350,
-        700
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.3,
-          "amount": [
-            2,
-            4
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.3,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "BOSS_4": {
-      "gold": [
-        450,
-        900
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.3,
-          "amount": [
-            2,
-            4
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.25,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.32,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "BOSS_5": {
-      "gold": [
-        550,
-        1100
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.3,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.22,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.34,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "BOSS_6": {
-      "gold": [
-        650,
-        1300
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.35,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "EXALTED_ORB",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.25,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.36,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CORRUPT_1": {
-      "gold": [
-        250,
-        500
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALTERATION",
-          "chance": 0.5,
-          "amount": [
-            2,
-            3
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.9,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.4,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CORRUPT_2": {
-      "gold": [
-        450,
-        800
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_ALCHEMY",
-          "chance": 0.35,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.25,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 1.0,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.5,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CORRUPT_3": {
-      "gold": [
-        750,
-        1300
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 1.0,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.6,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CORRUPT_4": {
-      "gold": [
-        900,
-        1600
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.22,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.22,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.17,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 1.0,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.65,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CORRUPT_5": {
-      "gold": [
-        1050,
-        1900
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.25,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.25,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.14,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.07,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "EXALTED_ORB",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.35,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 1.0,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.7,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    },
-    "CORRUPT_6": {
-      "gold": [
-        1200,
-        2200
-      ],
-      "drops": [
-        {
-          "kind": "ORB",
-          "code": "REGAL_ORB",
-          "chance": 0.28,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "CHAOS_ORB",
-          "chance": 0.28,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "VAAL_ORB",
-          "chance": 0.22,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "BLESSED_ORB",
-          "chance": 0.16,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "DIVINE_ORB",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "EXALTED_ORB",
-          "chance": 0.02,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "ORB",
-          "code": "ORB_OF_REGRET",
-          "chance": 0.35,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 1.0,
-          "equipmentPools": [
-            "drop"
-          ]
-        },
-        {
-          "kind": "EQUIPMENT",
-          "chance": 0.75,
-          "equipmentPools": [
-            "drop"
-          ]
-        }
-      ]
-    }
-  },
   "monsters": [
     {
       "code": "DROWNED",
       "form": "HUMANOID",
       "experience": 20,
-      "loot": "T1",
+      "loot": "loot:T1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 18,
@@ -1969,7 +110,7 @@
       "code": "SHORE_CRAB",
       "form": "CRAB",
       "experience": 18,
-      "loot": "T1",
+      "loot": "loot:T1",
       "stats": {
         "STOCK_TAUNT": 1,
         "STOCK_ATTACK_SPEED": 1.3,
@@ -1982,7 +123,7 @@
       "code": "CAVE_BAT",
       "form": "BAT",
       "experience": 14,
-      "loot": "T1",
+      "loot": "loot:T1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.8,
         "STOCK_HEALTH": 9,
@@ -1995,7 +136,7 @@
       "range": "RANGED",
       "form": "SERPENT",
       "experience": 20,
-      "loot": "T1",
+      "loot": "loot:T1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 15,
@@ -2008,7 +149,7 @@
       "code": "MIRE_ZOMBIE",
       "form": "HUMANOID",
       "experience": 22,
-      "loot": "T1",
+      "loot": "loot:T1",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 26,
@@ -2020,7 +161,7 @@
       "code": "BOG_LURKER",
       "form": "SERPENT",
       "experience": 22,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 19,
@@ -2033,7 +174,7 @@
       "code": "SWAMP_LEECH",
       "form": "SLUG",
       "experience": 16,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 16,
@@ -2045,7 +186,7 @@
       "code": "FERAL_WOLF",
       "form": "BEAST",
       "experience": 20,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 15,
@@ -2059,7 +200,7 @@
       "range": "RANGED",
       "form": "HUMANOID",
       "experience": 22,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 17,
@@ -2076,7 +217,7 @@
       "code": "WOOD_SPIDER",
       "form": "SPIDER",
       "experience": 20,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.5,
         "STOCK_HEALTH": 14,
@@ -2089,7 +230,7 @@
       "code": "SKELETON_WARRIOR",
       "form": "UNDEAD",
       "experience": 22,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 18,
@@ -2104,7 +245,7 @@
       "range": "RANGED",
       "form": "UNDEAD",
       "experience": 20,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 13,
@@ -2116,7 +257,7 @@
       "code": "RUIN_SENTRY",
       "form": "GOLEM",
       "experience": 26,
-      "loot": "T2",
+      "loot": "loot:T2",
       "stats": {
         "STOCK_TAUNT": 1,
         "STOCK_ATTACK_SPEED": 0.8,
@@ -2130,7 +271,7 @@
       "code": "GHOUL",
       "form": "UNDEAD",
       "experience": 22,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.3,
         "STOCK_HEALTH": 20,
@@ -2142,7 +283,7 @@
       "code": "CRYPT_WRAITH",
       "form": "WRAITH",
       "experience": 24,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 10,
@@ -2160,7 +301,7 @@
       "code": "CRYSTAL_GOLEM",
       "form": "GOLEM",
       "experience": 28,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 30,
@@ -2174,7 +315,7 @@
       "code": "SHARD_SCUTTLER",
       "form": "SPIDER",
       "experience": 20,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 13,
@@ -2187,7 +328,7 @@
       "code": "TUNNEL_DWELLER",
       "form": "HUMANOID",
       "experience": 22,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 19,
@@ -2200,7 +341,7 @@
       "code": "CINDER_HOUND",
       "form": "BEAST",
       "experience": 22,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 16,
@@ -2213,7 +354,7 @@
       "code": "ASH_REVENANT",
       "form": "UNDEAD",
       "experience": 24,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 21,
@@ -2227,7 +368,7 @@
       "code": "MAGMA_SLUG",
       "form": "SLUG",
       "experience": 24,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.7,
         "STOCK_HEALTH": 27,
@@ -2240,7 +381,7 @@
       "code": "FROST_TROLL",
       "form": "BRUTE",
       "experience": 30,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 36,
@@ -2255,7 +396,7 @@
       "code": "ICE_WRAITH",
       "form": "WRAITH",
       "experience": 24,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 11,
@@ -2273,7 +414,7 @@
       "code": "SNOW_STALKER",
       "form": "BEAST",
       "experience": 22,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.5,
         "STOCK_HEALTH": 17,
@@ -2287,7 +428,7 @@
       "range": "RANGED",
       "form": "HUMANOID",
       "experience": 24,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 20,
@@ -2305,7 +446,7 @@
       "code": "DEEP_ONE",
       "form": "SERPENT",
       "experience": 26,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 24,
@@ -2320,7 +461,7 @@
       "range": "RANGED",
       "form": "WRAITH",
       "experience": 26,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 16,
@@ -2337,7 +478,7 @@
       "code": "TEMPLE_GUARDIAN",
       "form": "GOLEM",
       "experience": 30,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_TAUNT": 1,
         "STOCK_ATTACK_SPEED": 0.8,
@@ -2352,7 +493,7 @@
       "code": "SAND_SCORPION",
       "form": "SCORPION",
       "experience": 24,
-      "loot": "T4",
+      "loot": "loot:T4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.3,
         "STOCK_HEALTH": 21,
@@ -2366,7 +507,7 @@
       "code": "DUNE_STALKER",
       "form": "BEAST",
       "experience": 22,
-      "loot": "T4",
+      "loot": "loot:T4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 18,
@@ -2379,7 +520,7 @@
       "code": "MUMMY",
       "form": "UNDEAD",
       "experience": 26,
-      "loot": "T4",
+      "loot": "loot:T4",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 30,
@@ -2394,7 +535,7 @@
       "range": "RANGED",
       "form": "WRAITH",
       "experience": 25,
-      "loot": "T4",
+      "loot": "loot:T4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 12,
@@ -2412,7 +553,7 @@
       "code": "CLIFF_VULTURE",
       "form": "BAT",
       "experience": 18,
-      "loot": "T4",
+      "loot": "loot:T4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.7,
         "STOCK_HEALTH": 13,
@@ -2425,7 +566,7 @@
       "range": "RANGED",
       "form": "HUMANOID",
       "experience": 23,
-      "loot": "T4",
+      "loot": "loot:T4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 19,
@@ -2438,7 +579,7 @@
       "code": "SANDSTONE_GOLEM",
       "form": "GOLEM",
       "experience": 30,
-      "loot": "T4",
+      "loot": "loot:T4",
       "stats": {
         "STOCK_TAUNT": 1,
         "STOCK_ATTACK_SPEED": 0.8,
@@ -2452,7 +593,7 @@
       "code": "EMERALD_PANTHER",
       "form": "BEAST",
       "experience": 24,
-      "loot": "T5",
+      "loot": "loot:T5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.7,
         "STOCK_HEALTH": 19,
@@ -2465,7 +606,7 @@
       "code": "SPORELING",
       "form": "FUNGUS",
       "experience": 24,
-      "loot": "T5",
+      "loot": "loot:T5",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 27,
@@ -2478,7 +619,7 @@
       "code": "GIANT_MANTIS",
       "form": "INSECT",
       "experience": 25,
-      "loot": "T5",
+      "loot": "loot:T5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.5,
         "STOCK_HEALTH": 20,
@@ -2492,7 +633,7 @@
       "range": "RANGED",
       "form": "HUMANOID",
       "experience": 23,
-      "loot": "T5",
+      "loot": "loot:T5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.3,
         "STOCK_HEALTH": 17,
@@ -2506,7 +647,7 @@
       "code": "HIVE_DRONE",
       "form": "INSECT",
       "experience": 18,
-      "loot": "T5",
+      "loot": "loot:T5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.8,
         "STOCK_HEALTH": 12,
@@ -2518,7 +659,7 @@
       "code": "HIVE_SOLDIER",
       "form": "INSECT",
       "experience": 27,
-      "loot": "T5",
+      "loot": "loot:T5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 27,
@@ -2532,7 +673,7 @@
       "range": "RANGED",
       "form": "INSECT",
       "experience": 24,
-      "loot": "T5",
+      "loot": "loot:T5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 16,
@@ -2544,7 +685,7 @@
       "code": "LAVA_IMP",
       "form": "DEMON",
       "experience": 23,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.5,
         "STOCK_HEALTH": 17,
@@ -2557,7 +698,7 @@
       "code": "MAGMA_GOLEM",
       "form": "GOLEM",
       "experience": 31,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_TAUNT": 1,
         "STOCK_ATTACK_SPEED": 0.8,
@@ -2572,7 +713,7 @@
       "code": "FIRE_DRAKE",
       "form": "SERPENT",
       "experience": 26,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 24,
@@ -2585,7 +726,7 @@
       "code": "INFERNAL_KNIGHT",
       "form": "DEMON",
       "experience": 30,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 32,
@@ -2601,7 +742,7 @@
       "range": "RANGED",
       "form": "HUMANOID",
       "experience": 26,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 18,
@@ -2618,7 +759,7 @@
       "code": "GARGOYLE",
       "form": "BAT",
       "experience": 24,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
         "STOCK_HEALTH": 22,
@@ -2631,7 +772,7 @@
       "code": "VOID_SPAWN",
       "form": "DEMON",
       "experience": 27,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.3,
         "STOCK_HEALTH": 24,
@@ -2644,7 +785,7 @@
       "code": "ABYSS_CRAWLER",
       "form": "SPIDER",
       "experience": 24,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.5,
         "STOCK_HEALTH": 18,
@@ -2658,7 +799,7 @@
       "range": "RANGED",
       "form": "WRAITH",
       "experience": 27,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 14,
@@ -2676,7 +817,7 @@
       "code": "BLIGHTCAP",
       "form": "FUNGUS",
       "experience": 26,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 30,
@@ -2689,7 +830,7 @@
       "code": "PLAGUE_BEARER",
       "form": "UNDEAD",
       "experience": 28,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 30,
@@ -2703,7 +844,7 @@
       "code": "PLAGUE_WASP",
       "form": "INSECT",
       "experience": 20,
-      "loot": "T6",
+      "loot": "loot:T6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.9,
         "STOCK_HEALTH": 13,
@@ -2716,7 +857,7 @@
       "code": "BOSS_TIDECALLER",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 48,
@@ -2726,23 +867,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "MOB_TOUGH",
-        "BOSS_TEMPEST"
-      ],
-      "uniquePools": [
-        "boss:BOSS_TIDECALLER"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "MOB_TOUGH",
+        "BOSS_TEMPEST"
+      ],
+      "tables": [
+        "boss:BOSS_TIDECALLER"
       ]
     },
     {
       "code": "BOSS_BRINE_MOTHER",
       "form": "CRAB",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 66,
@@ -2753,23 +894,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_STRONG"
-      ],
-      "uniquePools": [
-        "boss:BOSS_BRINE_MOTHER"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_STRONG"
+      ],
+      "tables": [
+        "boss:BOSS_BRINE_MOTHER"
       ]
     },
     {
       "code": "BOSS_BOG_QUEEN",
       "form": "SLUG",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 70,
@@ -2780,23 +921,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_REGENERATING"
-      ],
-      "uniquePools": [
-        "boss:BOSS_BOG_QUEEN"
-      ],
       "skills": [
         "MOB_SPIT",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_REGENERATING"
+      ],
+      "tables": [
+        "boss:BOSS_BOG_QUEEN"
       ]
     },
     {
       "code": "BOSS_ALPHA_WOLF",
       "form": "BEAST",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 58,
@@ -2807,23 +948,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "MOB_HASTED",
-        "BOSS_EXECUTIONER"
-      ],
-      "uniquePools": [
-        "boss:BOSS_ALPHA_WOLF"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "MOB_HASTED",
+        "BOSS_EXECUTIONER"
+      ],
+      "tables": [
+        "boss:BOSS_ALPHA_WOLF"
       ]
     },
     {
       "code": "BOSS_RUIN_WARDEN",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 85,
@@ -2835,23 +976,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_STALWART"
-      ],
-      "uniquePools": [
-        "boss:BOSS_RUIN_WARDEN"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_STALWART"
+      ],
+      "tables": [
+        "boss:BOSS_RUIN_WARDEN"
       ]
     },
     {
       "code": "BOSS_CRYPT_LORD",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 64,
@@ -2862,22 +1003,22 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
         "BOSS_IMMORTAL",
         "MOB_VAMPIRIC"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_CRYPT_LORD"
-      ],
-      "skills": [
-        "MOB_SLAM"
       ]
     },
     {
       "code": "BOSS_SHARD_QUEEN",
       "form": "SPIDER",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
         "STOCK_HEALTH": 58,
@@ -2888,23 +1029,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_CRACKLING"
-      ],
-      "uniquePools": [
-        "boss:BOSS_SHARD_QUEEN"
-      ],
       "skills": [
         "MOB_ZAP",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_CRACKLING"
+      ],
+      "tables": [
+        "boss:BOSS_SHARD_QUEEN"
       ]
     },
     {
       "code": "BOSS_ASHEN_TYRANT",
       "form": "BRUTE",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 88,
@@ -2916,22 +1057,22 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
         "MOB_BURNING",
         "BOSS_WARLORD"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_ASHEN_TYRANT"
-      ],
-      "skills": [
-        "MOB_SLAM"
       ]
     },
     {
       "code": "BOSS_FROST_MONARCH",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 52,
@@ -2945,22 +1086,22 @@
         "STOCK_FREEZE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_ICE_BOLT"
+      ],
+      "fixed": [
         "BOSS_DREAD",
         "MOB_CHILLING"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_FROST_MONARCH"
-      ],
-      "skills": [
-        "MOB_ICE_BOLT"
       ]
     },
     {
       "code": "BOSS_DROWNED_GOD",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 96,
@@ -2973,24 +1114,24 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
+      ],
+      "fixed": [
         "BOSS_MIRROR_SHELL",
         "BOSS_DEVASTATING",
         "MOB_WARDED"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_DROWNED_GOD"
-      ],
-      "skills": [
-        "MOB_SLAM",
-        "MOB_VULNERABILITY"
       ]
     },
     {
       "code": "BOSS_SORROW_CAPTAIN",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 54,
@@ -3002,19 +1143,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_CHILLING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_CHILLING"
       ]
     },
     {
       "code": "BOSS_NEST_QUEEN",
       "form": "BAT",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.8,
         "STOCK_HEALTH": 44,
@@ -3024,19 +1165,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_SWIFT"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_SWIFT"
       ]
     },
     {
       "code": "BOSS_LAMP_WARDEN",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 44,
@@ -3050,20 +1191,20 @@
         "STOCK_SHOCK_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_TEMPEST",
-        "MOB_SHOCKING"
-      ],
       "skills": [
         "MOB_ZAP",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
       ]
     },
     {
       "code": "BOSS_FERRYMAN",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 59,
@@ -3075,20 +1216,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_DRAINING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_DRAINING"
       ]
     },
     {
       "code": "BOSS_SMUGGLER_KING",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_1",
+      "loot": "loot:BOSS_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 59,
@@ -3098,19 +1239,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_EVASIVE"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_EVASIVE"
       ]
     },
     {
       "code": "BOSS_MIRE_SERPENT",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 70,
@@ -3121,20 +1262,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_TOXIC"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_TOXIC"
       ]
     },
     {
       "code": "BOSS_OLD_WEREWOLF",
       "form": "BEAST",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 57,
@@ -3146,20 +1287,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_BERSERK"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_BERSERK"
       ]
     },
     {
       "code": "BOSS_OUTPOST_COMMANDER",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 68,
@@ -3170,19 +1311,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_ARMOURED"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_ARMOURED"
       ]
     },
     {
       "code": "BOSS_BARROW_CHIEFTAIN",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 68,
@@ -3194,20 +1335,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_FROSTBORN"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_FROSTBORN"
       ]
     },
     {
       "code": "BOSS_FOREMAN",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 76,
@@ -3219,20 +1360,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_CRACKLING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_CRACKLING"
       ]
     },
     {
       "code": "BOSS_WHITE_LYNX",
       "form": "BEAST",
       "experience": 60,
-      "loot": "BOSS_2",
+      "loot": "loot:BOSS_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 69,
@@ -3246,20 +1387,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_FREEZING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_FREEZING"
       ]
     },
     {
       "code": "BOSS_ORE_GOLEM",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 113,
@@ -3273,19 +1414,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_JUGGERNAUT"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_JUGGERNAUT"
       ]
     },
     {
       "code": "BOSS_GEODE_SPINNER",
       "form": "SPIDER",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
         "STOCK_HEALTH": 77,
@@ -3297,19 +1438,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_STORMBORN"
-      ],
       "skills": [
         "MOB_ZAP"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_STORMBORN"
       ]
     },
     {
       "code": "BOSS_RIME_LICH",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 85,
@@ -3324,20 +1465,20 @@
         "STOCK_FREEZE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_FROSTBORN"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_FROSTBORN"
       ]
     },
     {
       "code": "BOSS_ELDER_TROLL",
       "form": "BRUTE",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 124,
@@ -3350,19 +1491,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_REGENERATING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_REGENERATING"
       ]
     },
     {
       "code": "BOSS_HOUND_MOTHER",
       "form": "BEAST",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 77,
@@ -3376,19 +1517,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_FLAMING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_FLAMING"
       ]
     },
     {
       "code": "BOSS_THUNDER_CALLER",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 67,
@@ -3402,20 +1543,20 @@
         "STOCK_SHOCK_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_TEMPEST",
-        "MOB_STORMBORN"
-      ],
       "skills": [
         "MOB_ZAP",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_STORMBORN"
       ]
     },
     {
       "code": "BOSS_DEEP_PRIESTESS",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 90,
@@ -3430,20 +1571,20 @@
         "STOCK_FREEZE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_WARDED"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_WARDED"
       ]
     },
     {
       "code": "BOSS_OBSIDIAN_COLOSSUS",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 125,
@@ -3457,20 +1598,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_FIREPROOF"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_FIREPROOF"
       ]
     },
     {
       "code": "BOSS_SLAG_WORM",
       "form": "SLUG",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 125,
@@ -3482,19 +1623,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_BURNING"
-      ],
       "skills": [
         "MOB_FIREBALL"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_BURNING"
       ]
     },
     {
       "code": "BOSS_FROSTFANG",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 103,
@@ -3505,20 +1646,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_FREEZING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_FREEZING"
       ]
     },
     {
       "code": "BOSS_ABYSS_HERALD",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 70,
@@ -3532,20 +1673,20 @@
         "STOCK_POISON_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_WITHERING"
-      ],
       "skills": [
         "MOB_SPIT",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_WITHERING"
       ]
     },
     {
       "code": "BOSS_ASH_CASTELLAN",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 94,
@@ -3557,19 +1698,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_BURNING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_BURNING"
       ]
     },
     {
       "code": "BOSS_SALT_WALKER",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 100,
@@ -3580,20 +1721,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_STURDY"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_STURDY"
       ]
     },
     {
       "code": "BOSS_CARAVAN_BUTCHER",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 100,
@@ -3603,20 +1744,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_VICIOUS"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_VICIOUS"
       ]
     },
     {
       "code": "BOSS_GORGE_TYRANT",
       "form": "BRUTE",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 146,
@@ -3627,20 +1768,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_CRUSHING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_CRUSHING"
       ]
     },
     {
       "code": "BOSS_DUNE_SIREN",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 77,
@@ -3654,19 +1795,19 @@
         "STOCK_SHOCK_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_TEMPEST",
-        "MOB_SHOCKING"
-      ],
       "skills": [
         "MOB_ZAP"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
       ]
     },
     {
       "code": "BOSS_SAND_MAGISTRATE",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 102,
@@ -3678,20 +1819,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_STALWART"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_STALWART"
       ]
     },
     {
       "code": "BOSS_CARRION_MOTHER",
       "form": "BAT",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.8,
         "STOCK_HEALTH": 82,
@@ -3701,20 +1842,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_HUNGERING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_HUNGERING"
       ]
     },
     {
       "code": "BOSS_OASIS_SERPENT",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 113,
@@ -3725,20 +1866,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_VENOMOUS"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_VENOMOUS"
       ]
     },
     {
       "code": "BOSS_GLASS_COLOSSUS",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 146,
@@ -3752,20 +1893,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_MIRRORED"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_MIRRORED"
       ]
     },
     {
       "code": "BOSS_RAIDER_KHAN",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 104,
@@ -3775,19 +1916,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_MERCILESS"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_MERCILESS"
       ]
     },
     {
       "code": "BOSS_SCORPION_MATRIARCH",
       "form": "SCORPION",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 120,
@@ -3800,19 +1941,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_TOXIC"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_TOXIC"
       ]
     },
     {
       "code": "BOSS_MIRAGE_WEAVER",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 80,
@@ -3826,20 +1967,20 @@
         "STOCK_IGNITE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_EVASIVE"
-      ],
       "skills": [
         "MOB_FIREBALL",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_EVASIVE"
       ]
     },
     {
       "code": "BOSS_MUMMY_KING",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 106,
@@ -3851,20 +1992,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_UNDYING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_UNDYING"
       ]
     },
     {
       "code": "BOSS_ARCH_SENTINEL",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 149,
@@ -3876,20 +2017,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_STEADFAST"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_STEADFAST"
       ]
     },
     {
       "code": "BOSS_RIVERBED_LURKER",
       "form": "SCORPION",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 122,
@@ -3900,20 +2041,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_PIERCING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_PIERCING"
       ]
     },
     {
       "code": "BOSS_HIGH_EMBALMER",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 108,
@@ -3928,20 +2069,20 @@
         "STOCK_POISON_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_WITHERING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_WITHERING"
       ]
     },
     {
       "code": "BOSS_SUN_PRIEST",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 108,
@@ -3956,20 +2097,20 @@
         "STOCK_IGNITE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_FLAMING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_FLAMING"
       ]
     },
     {
       "code": "BOSS_STORM_ROC",
       "form": "BAT",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.8,
         "STOCK_HEALTH": 87,
@@ -3981,19 +2122,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_TEMPEST",
-        "MOB_STORMBORN"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_STORMBORN"
       ]
     },
     {
       "code": "BOSS_SUN_KING",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_4",
+      "loot": "loot:BOSS_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 138,
@@ -4006,23 +2147,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
         "BOSS_IMMORTAL",
         "BOSS_WARLORD",
         "MOB_BURNING"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_SUN_KING"
-      ],
-      "skills": [
-        "MOB_SLAM"
       ]
     },
     {
       "code": "BOSS_JUNGLE_STALKER",
       "form": "BEAST",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 101,
@@ -4034,20 +2175,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_SWIFT"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_SWIFT"
       ]
     },
     {
       "code": "BOSS_MANGROVE_MAW",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 124,
@@ -4056,19 +2197,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_GORING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_GORING"
       ]
     },
     {
       "code": "BOSS_MOSS_LEGIONARY",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 112,
@@ -4079,20 +2220,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_ARMOURED"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_ARMOURED"
       ]
     },
     {
       "code": "BOSS_ORCHID_DRYAD",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 114,
@@ -4107,19 +2248,19 @@
         "STOCK_POISON_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_LINGERING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_LINGERING"
       ]
     },
     {
       "code": "BOSS_SHADOW_PANTHER",
       "form": "BEAST",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 103,
@@ -4133,19 +2274,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_EVASIVE"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_EVASIVE"
       ]
     },
     {
       "code": "BOSS_WASP_MATRON",
       "form": "INSECT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 97,
@@ -4158,20 +2299,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_VENOMOUS"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_VENOMOUS"
       ]
     },
     {
       "code": "BOSS_STRANGLER_VINE",
       "form": "FUNGUS",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 149,
@@ -4181,20 +2322,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_SLOWING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_SLOWING"
       ]
     },
     {
       "code": "BOSS_SERPENT_ORACLE",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 128,
@@ -4208,20 +2349,20 @@
         "STOCK_POISON_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_TOXIC"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_TOXIC"
       ]
     },
     {
       "code": "BOSS_AMBER_WARDEN",
       "form": "INSECT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 99,
@@ -4234,19 +2375,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_STURDY"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_STURDY"
       ]
     },
     {
       "code": "BOSS_CANOPY_HORROR",
       "form": "SPIDER",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
         "STOCK_HEALTH": 111,
@@ -4258,20 +2399,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_BLIGHTED"
-      ],
       "skills": [
         "MOB_SPIT",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_BLIGHTED"
       ]
     },
     {
       "code": "BOSS_SPORE_LORD",
       "form": "FUNGUS",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 154,
@@ -4282,19 +2423,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_REGENERATING"
-      ],
       "skills": [
         "MOB_SPIT"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_REGENERATING"
       ]
     },
     {
       "code": "BOSS_MAD_EXPLORER",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 118,
@@ -4306,20 +2447,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_BERSERK"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_BERSERK"
       ]
     },
     {
       "code": "BOSS_BROOD_NURSE",
       "form": "SLUG",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 166,
@@ -4331,20 +2472,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_HUNGERING"
-      ],
       "skills": [
         "MOB_SPIT",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_HUNGERING"
       ]
     },
     {
       "code": "BOSS_THICKET_HYDRA",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 130,
@@ -4355,20 +2496,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_CHILLING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_CHILLING"
       ]
     },
     {
       "code": "BOSS_TREE_WARDEN",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 169,
@@ -4380,20 +2521,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_THORNY"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_THORNY"
       ]
     },
     {
       "code": "BOSS_MANTIS_PRINCE",
       "form": "INSECT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 102,
@@ -4404,20 +2545,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_VICIOUS"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_VICIOUS"
       ]
     },
     {
       "code": "BOSS_ROYAL_GUARDIAN",
       "form": "INSECT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 102,
@@ -4430,19 +2571,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_STALWART"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_STALWART"
       ]
     },
     {
       "code": "BOSS_HIVE_QUEEN",
       "form": "INSECT",
       "experience": 60,
-      "loot": "BOSS_5",
+      "loot": "loot:BOSS_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 130,
@@ -4456,24 +2597,24 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
+      ],
+      "fixed": [
         "BOSS_PLAGUEBEARER",
         "BOSS_COLOSSAL",
         "MOB_VENOMOUS"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_HIVE_QUEEN"
-      ],
-      "skills": [
-        "MOB_SLAM",
-        "MOB_HEAL"
       ]
     },
     {
       "code": "BOSS_CINDER_BEHEMOTH",
       "form": "BRUTE",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 180,
@@ -4486,20 +2627,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_FLAMING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_FLAMING"
       ]
     },
     {
       "code": "BOSS_SULPHUR_KING",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 174,
@@ -4513,20 +2654,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_TOXIC"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_TOXIC"
       ]
     },
     {
       "code": "BOSS_TURNCOAT_GENERAL",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 124,
@@ -4536,20 +2677,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_STALWART"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_STALWART"
       ]
     },
     {
       "code": "BOSS_LAVA_WYRM",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 139,
@@ -4560,20 +2701,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_BURNING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_BURNING"
       ]
     },
     {
       "code": "BOSS_OBSIDIAN_HARPY",
       "form": "BAT",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.8,
         "STOCK_HEALTH": 101,
@@ -4583,19 +2724,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_PIERCING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_PIERCING"
       ]
     },
     {
       "code": "BOSS_FURNACE_MASTER",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 139,
@@ -4608,20 +2749,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_FIREPROOF"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_FIREPROOF"
       ]
     },
     {
       "code": "BOSS_ETERNAL_BESIEGER",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 126,
@@ -4632,19 +2773,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_CRUSHING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_CRUSHING"
       ]
     },
     {
       "code": "BOSS_ASH_WIDOW",
       "form": "SPIDER",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
         "STOCK_HEALTH": 122,
@@ -4656,19 +2797,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_LINGERING"
-      ],
       "skills": [
         "MOB_FIREBALL"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_LINGERING"
       ]
     },
     {
       "code": "BOSS_MAGMA_FERRYMAN",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 128,
@@ -4680,20 +2821,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_DRAINING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_DRAINING"
       ]
     },
     {
       "code": "BOSS_WALL_WARDEN",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 180,
@@ -4705,19 +2846,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_ARMOURED"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_ARMOURED"
       ]
     },
     {
       "code": "BOSS_BOILING_HORROR",
       "form": "SLUG",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 183,
@@ -4729,20 +2870,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_REGENERATING"
-      ],
       "skills": [
         "MOB_FIREBALL",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_REGENERATING"
       ]
     },
     {
       "code": "BOSS_SMOULDERING_LICH",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 130,
@@ -4757,20 +2898,20 @@
         "STOCK_IGNITE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_ELEMENTALIST"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_ELEMENTALIST"
       ]
     },
     {
       "code": "BOSS_WARSMITH",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 143,
@@ -4781,20 +2922,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_STRONG"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_STRONG"
       ]
     },
     {
       "code": "BOSS_BURNING_CAPTAIN",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 130,
@@ -4806,20 +2947,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_BURNING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_BURNING"
       ]
     },
     {
       "code": "BOSS_VENT_DRAGON",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 146,
@@ -4830,20 +2971,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_FLAMING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_FLAMING"
       ]
     },
     {
       "code": "BOSS_INFERNAL_GATEKEEPER",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 146,
@@ -4856,20 +2997,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_WARDED"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_WARDED"
       ]
     },
     {
       "code": "BOSS_MOUNTAIN_HEART",
       "form": "GOLEM",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 185,
@@ -4883,20 +3024,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_JUGGERNAUT"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_JUGGERNAUT"
       ]
     },
     {
       "code": "BOSS_FLAME_SOVEREIGN",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 185,
@@ -4910,23 +3051,23 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
         "BOSS_WARLORD",
         "BOSS_DEVASTATING",
         "MOB_FLAMING"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_FLAME_SOVEREIGN"
-      ],
-      "skills": [
-        "MOB_SLAM"
       ]
     },
     {
       "code": "BOSS_RIFT_WATCHER",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 102,
@@ -4940,19 +3081,19 @@
         "STOCK_POISON_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_WITHERING"
-      ],
       "skills": [
         "MOB_SPIT"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_WITHERING"
       ]
     },
     {
       "code": "BOSS_PLAGUE_REAPER",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 136,
@@ -4964,19 +3105,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_BLIGHTED"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_BLIGHTED"
       ]
     },
     {
       "code": "BOSS_FALLEN_ABBOT",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 136,
@@ -4991,20 +3132,20 @@
         "STOCK_FREEZE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_ARCANE"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_ARCANE"
       ]
     },
     {
       "code": "BOSS_WHISPERER",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 104,
@@ -5018,20 +3159,20 @@
         "STOCK_FREEZE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_FROSTBORN"
-      ],
       "skills": [
         "MOB_ICE_BOLT",
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_FROSTBORN"
       ]
     },
     {
       "code": "BOSS_ROT_GARDENER",
       "form": "FUNGUS",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 180,
@@ -5042,19 +3183,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_PLAGUEBEARER",
-        "MOB_REGENERATING"
-      ],
       "skills": [
         "MOB_SPIT"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_REGENERATING"
       ]
     },
     {
       "code": "BOSS_PLAGUE_DOCTOR",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 138,
@@ -5066,20 +3207,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_TOXIC"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_TOXIC"
       ]
     },
     {
       "code": "BOSS_BONE_COLLECTOR",
       "form": "UNDEAD",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 138,
@@ -5090,20 +3231,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_STURDY"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_STURDY"
       ]
     },
     {
       "code": "BOSS_VOID_KRAKEN",
       "form": "SERPENT",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 154,
@@ -5114,19 +3255,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_COLOSSAL",
-        "MOB_CHILLING"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_CHILLING"
       ]
     },
     {
       "code": "BOSS_SPORE_CARDINAL",
       "form": "FUNGUS",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 183,
@@ -5140,20 +3281,20 @@
         "STOCK_POISON_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DREAD",
-        "MOB_LINGERING"
-      ],
       "skills": [
         "MOB_SPIT",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_LINGERING"
       ]
     },
     {
       "code": "BOSS_STAR_SPAWN",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 154,
@@ -5166,19 +3307,19 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_TEMPEST",
-        "MOB_STORMBORN"
-      ],
       "skills": [
         "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_STORMBORN"
       ]
     },
     {
       "code": "BOSS_CATACOMB_WORM",
       "form": "SLUG",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.8,
         "STOCK_HEALTH": 199,
@@ -5189,20 +3330,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_DEVASTATING",
-        "MOB_HUNGERING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_HUNGERING"
       ]
     },
     {
       "code": "BOSS_WITHERED_GIANT",
       "form": "BRUTE",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 206,
@@ -5215,20 +3356,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_SIEGE",
-        "MOB_WITHERING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_WITHERING"
       ]
     },
     {
       "code": "BOSS_ECLIPSE_PRIESTESS",
       "form": "HUMANOID",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 142,
@@ -5243,20 +3384,20 @@
         "STOCK_SHOCK_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_TEMPEST",
-        "MOB_SHOCKING"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
       ]
     },
     {
       "code": "BOSS_EYELESS_ONE",
       "form": "SPIDER",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
         "STOCK_HEALTH": 135,
@@ -5268,20 +3409,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_EXECUTIONER",
-        "MOB_VENOMOUS"
-      ],
       "skills": [
         "MOB_SPIT",
         "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_VENOMOUS"
       ]
     },
     {
       "code": "BOSS_MOTHER_BLIGHT",
       "form": "FUNGUS",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 188,
@@ -5292,20 +3433,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_IMMORTAL",
-        "MOB_BLIGHTED"
-      ],
       "skills": [
         "MOB_SPIT",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_BLIGHTED"
       ]
     },
     {
       "code": "BOSS_VEIL_WEAVER",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 108,
@@ -5319,20 +3460,20 @@
         "STOCK_FREEZE_CHANCE": 20
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_MIRROR_SHELL",
-        "MOB_MIRRORED"
-      ],
       "skills": [
         "MOB_ICE_BOLT",
         "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_MIRRORED"
       ]
     },
     {
       "code": "BOSS_ENDLESS_WARDEN",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 159,
@@ -5343,20 +3484,20 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "BOSS_WARLORD",
-        "MOB_RELENTLESS"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_RELENTLESS"
       ]
     },
     {
       "code": "BOSS_ABYSS_KING",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_6",
+      "loot": "loot:BOSS_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 200,
@@ -5370,24 +3511,24 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
         "BOSS_IMMORTAL",
         "BOSS_DREAD",
         "MOB_WITHERING"
       ],
-      "uniquePools": [
+      "tables": [
         "boss:BOSS_ABYSS_KING"
-      ],
-      "skills": [
-        "MOB_SLAM",
-        "MOB_MANA_DRAIN"
       ]
     },
     {
       "code": "CORRUPTED_1",
       "form": "WRAITH",
       "experience": 80,
-      "loot": "CORRUPT_1",
+      "loot": "loot:CORRUPT_1",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.3,
         "STOCK_HEALTH": 55,
@@ -5395,7 +3536,7 @@
         "STOCK_RESIST_CHAOS": 35
       },
       "corrupted": true,
-      "modifiers": [
+      "fixed": [
         "MOB_VAMPIRIC",
         "MOB_DEADLY"
       ]
@@ -5404,7 +3545,7 @@
       "code": "CORRUPTED_2",
       "form": "WRAITH",
       "experience": 110,
-      "loot": "CORRUPT_2",
+      "loot": "loot:CORRUPT_2",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 80,
@@ -5413,7 +3554,7 @@
         "STOCK_RESIST_CHAOS": 45
       },
       "corrupted": true,
-      "modifiers": [
+      "fixed": [
         "MOB_ARMOURED",
         "MOB_BERSERK"
       ]
@@ -5422,7 +3563,7 @@
       "code": "CORRUPTED_3",
       "form": "WRAITH",
       "experience": 150,
-      "loot": "CORRUPT_3",
+      "loot": "loot:CORRUPT_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 110,
@@ -5431,7 +3572,7 @@
         "STOCK_RESIST_CHAOS": 60
       },
       "corrupted": true,
-      "modifiers": [
+      "fixed": [
         "MOB_SHIELDED",
         "MOB_ELEMENTALIST"
       ]
@@ -5440,7 +3581,7 @@
       "code": "CORRUPTED_4",
       "form": "WRAITH",
       "experience": 190,
-      "loot": "CORRUPT_4",
+      "loot": "loot:CORRUPT_4",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 135,
@@ -5449,7 +3590,7 @@
         "STOCK_RESIST_CHAOS": 65
       },
       "corrupted": true,
-      "modifiers": [
+      "fixed": [
         "MOB_VAMPIRIC",
         "MOB_MERCILESS"
       ]
@@ -5458,7 +3599,7 @@
       "code": "CORRUPTED_5",
       "form": "WRAITH",
       "experience": 230,
-      "loot": "CORRUPT_5",
+      "loot": "loot:CORRUPT_5",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 160,
@@ -5467,7 +3608,7 @@
         "STOCK_RESIST_CHAOS": 70
       },
       "corrupted": true,
-      "modifiers": [
+      "fixed": [
         "MOB_WARDED",
         "MOB_HUNGERING"
       ]
@@ -5476,7 +3617,7 @@
       "code": "CORRUPTED_6",
       "form": "WRAITH",
       "experience": 270,
-      "loot": "CORRUPT_6",
+      "loot": "loot:CORRUPT_6",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 185,
@@ -5485,7 +3626,7 @@
         "STOCK_RESIST_CHAOS": 75
       },
       "corrupted": true,
-      "modifiers": [
+      "fixed": [
         "MOB_SHIELDED",
         "MOB_WITHERING"
       ]
@@ -5494,7 +3635,7 @@
       "code": "CHASM_SPAWN",
       "form": "DEMON",
       "experience": 24,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.4,
         "STOCK_HEALTH": 20,
@@ -5507,7 +3648,7 @@
       "code": "CHASM_LEECH",
       "form": "SLUG",
       "experience": 22,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 26,
@@ -5522,7 +3663,7 @@
       "range": "RANGED",
       "form": "WRAITH",
       "experience": 26,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 16,
@@ -5543,7 +3684,7 @@
       "code": "CHASM_STALKER",
       "form": "SPIDER",
       "experience": 24,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.6,
         "STOCK_HEALTH": 18,
@@ -5558,7 +3699,7 @@
       "range": "RANGED",
       "form": "HUMANOID",
       "experience": 26,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 18,
@@ -5578,7 +3719,7 @@
       "code": "CHASM_BRUTE",
       "form": "BRUTE",
       "experience": 28,
-      "loot": "T3",
+      "loot": "loot:T3",
       "stats": {
         "STOCK_ATTACK_SPEED": 0.9,
         "STOCK_HEALTH": 40,
@@ -5595,7 +3736,7 @@
       "code": "CHASM_PIT_MASTER",
       "form": "BRUTE",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.1,
         "STOCK_HEALTH": 110,
@@ -5606,12 +3747,12 @@
         "STOCK_MANA": 30
       },
       "boss": true,
-      "modifiers": [
-        "ABYSS_MOB_BLOODTHIRSTY"
-      ],
       "skills": [
         "MOB_SLAM",
         "MOB_WARCRY"
+      ],
+      "fixed": [
+        "ABYSS_MOB_BLOODTHIRSTY"
       ]
     },
     {
@@ -5619,7 +3760,7 @@
       "range": "RANGED",
       "form": "WRAITH",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.2,
         "STOCK_HEALTH": 90,
@@ -5632,20 +3773,20 @@
         "STOCK_MANA_REGEN": 4
       },
       "boss": true,
-      "modifiers": [
-        "ABYSS_MOB_WHISPERING",
-        "ABYSS_MOB_VOIDTOUCHED"
-      ],
       "skills": [
         "MOB_CHAOS_RING",
         "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "ABYSS_MOB_WHISPERING",
+        "ABYSS_MOB_VOIDTOUCHED"
       ]
     },
     {
       "code": "CHASM_DEVOURER",
       "form": "DEMON",
       "experience": 60,
-      "loot": "BOSS_3",
+      "loot": "loot:BOSS_3",
       "stats": {
         "STOCK_ATTACK_SPEED": 1.15,
         "STOCK_HEALTH": 170,
@@ -5657,14 +3798,14 @@
         "STOCK_MANA": 50
       },
       "boss": true,
-      "modifiers": [
-        "ABYSS_MOB_ENTROPIC",
-        "ABYSS_MOB_UMBRAL"
-      ],
       "skills": [
         "MOB_CHAOS_RING",
         "MOB_VULNERABILITY",
         "MOB_HEAL"
+      ],
+      "fixed": [
+        "ABYSS_MOB_ENTROPIC",
+        "ABYSS_MOB_UMBRAL"
       ]
     }
   ],
@@ -5695,13 +3836,13 @@
             35
           ],
           "light": 1.2,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_TIDECALLER",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_SHIP_GRAVEYARD",
@@ -5722,13 +3863,13 @@
             35
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_SORROW_CAPTAIN",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_BRINE_CAVES",
@@ -5749,13 +3890,13 @@
             35
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_BRINE_MOTHER",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_GULL_CLIFFS",
@@ -5776,13 +3917,13 @@
             35
           ],
           "light": 1.3,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_NEST_QUEEN",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_DROWNED_LIGHTHOUSE",
@@ -5803,13 +3944,13 @@
             40
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_LAMP_WARDEN",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_ROTTING_MIRE",
@@ -5831,13 +3972,13 @@
             40
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_BOG_QUEEN",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_MISTY_FERRY",
@@ -5859,13 +4000,13 @@
             40
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_FERRYMAN",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_SMUGGLERS_GROTTO",
@@ -5886,13 +4027,13 @@
             40
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_1",
+          "chestLoot": "loot:CHEST_1",
           "boss": "BOSS_SMUGGLER_KING",
           "corrupted": "CORRUPTED_1",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_WHISPERING_WOOD",
@@ -5914,13 +4055,13 @@
             40
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_ALPHA_WOLF",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_BLACK_CAUSEWAY",
@@ -5942,13 +4083,13 @@
             40
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_MIRE_SERPENT",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_WOLF_THICKET",
@@ -5968,13 +4109,13 @@
             40
           ],
           "light": 0.95,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_OLD_WEREWOLF",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_FALLEN_RUINS",
@@ -5996,13 +4137,13 @@
             40
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_RUIN_WARDEN",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_OLD_OUTPOST",
@@ -6024,13 +4165,13 @@
             40
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_OUTPOST_COMMANDER",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_CHIEFTAINS_BARROW",
@@ -6051,13 +4192,13 @@
             40
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_BARROW_CHIEFTAIN",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C1_CRYPT_OF_EXILES",
@@ -6081,13 +4222,13 @@
             40
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_CRYPT_LORD",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         }
       ]
     },
@@ -6117,13 +4258,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_FOREMAN",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_CRYSTAL_MINES",
@@ -6144,13 +4285,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_SHARD_QUEEN",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_FOOTHILL_ROAD",
@@ -6171,13 +4312,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_2",
+          "chestLoot": "loot:CHEST_2",
           "boss": "BOSS_WHITE_LYNX",
           "corrupted": "CORRUPTED_2",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_DEEP_ADITS",
@@ -6198,13 +4339,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_ORE_GOLEM",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_GEODE_HOLLOW",
@@ -6226,13 +4367,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_GEODE_SPINNER",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_FROZEN_PASS",
@@ -6254,13 +4395,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_FROST_MONARCH",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_ASHEN_WASTES",
@@ -6281,13 +4422,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_ASHEN_TYRANT",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_GLACIER_TOMBS",
@@ -6308,13 +4449,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_RIME_LICH",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_TROLL_CAVES",
@@ -6336,13 +4477,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_ELDER_TROLL",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_EMBER_FIELDS",
@@ -6364,13 +4505,13 @@
             45
           ],
           "light": 0.95,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_HOUND_MOTHER",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_STORM_PEAK",
@@ -6391,13 +4532,13 @@
             45
           ],
           "light": 1.2,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_THUNDER_CALLER",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_SUNKEN_SHRINE",
@@ -6419,13 +4560,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_DEEP_PRIESTESS",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_OBSIDIAN_QUARRY",
@@ -6447,13 +4588,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_OBSIDIAN_COLOSSUS",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_SLAG_PITS",
@@ -6473,13 +4614,13 @@
             45
           ],
           "light": 0.95,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_SLAG_WORM",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_FROSTFANG_GLACIER",
@@ -6500,13 +4641,13 @@
             45
           ],
           "light": 1.15,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_FROSTFANG",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_ABYSSAL_STAIR",
@@ -6528,13 +4669,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_ABYSS_HERALD",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_CINDER_CITADEL",
@@ -6555,13 +4696,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_ASH_CASTELLAN",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C2_DROWNED_TEMPLE",
@@ -6586,13 +4727,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_3",
+          "chestLoot": "loot:CHEST_3",
           "boss": "BOSS_DROWNED_GOD",
           "corrupted": "CORRUPTED_3",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         }
       ]
     },
@@ -6622,13 +4763,13 @@
             45
           ],
           "light": 1.25,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_SALT_WALKER",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_CARAVAN_ROAD",
@@ -6649,13 +4790,13 @@
             45
           ],
           "light": 1.25,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_CARAVAN_BUTCHER",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_RED_GORGE",
@@ -6676,13 +4817,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_GORGE_TYRANT",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_SINGING_DUNES",
@@ -6703,13 +4844,13 @@
             45
           ],
           "light": 1.25,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_DUNE_SIREN",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_BURIED_CITY",
@@ -6731,13 +4872,13 @@
             45
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_SAND_MAGISTRATE",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_VULTURE_ROOST",
@@ -6759,13 +4900,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_CARRION_MOTHER",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_WITHERED_OASIS",
@@ -6786,13 +4927,13 @@
             45
           ],
           "light": 1.25,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_OASIS_SERPENT",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_GLASS_DESERT",
@@ -6814,13 +4955,13 @@
             45
           ],
           "light": 1.25,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_GLASS_COLOSSUS",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_RAIDER_CAMP",
@@ -6842,13 +4983,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_RAIDER_KHAN",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_SCORPION_NEST",
@@ -6869,13 +5010,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_SCORPION_MATRIARCH",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_MIRAGE_VALE",
@@ -6896,13 +5037,13 @@
             45
           ],
           "light": 1.25,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_MIRAGE_WEAVER",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_TOMBS_OF_KINGS",
@@ -6924,13 +5065,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_MUMMY_KING",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_SANDSTONE_ARCH",
@@ -6952,13 +5093,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_ARCH_SENTINEL",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_DRY_RIVERBED",
@@ -6979,13 +5120,13 @@
             45
           ],
           "light": 1.25,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_RIVERBED_LURKER",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_EMBALMERS_HALL",
@@ -7006,13 +5147,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_HIGH_EMBALMER",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_SUN_TEMPLE",
@@ -7035,13 +5176,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_SUN_PRIEST",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_STORM_MESA",
@@ -7063,13 +5204,13 @@
             45
           ],
           "light": 1.1,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_STORM_ROC",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C3_SUN_KINGS_PYRAMID",
@@ -7094,13 +5235,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_4",
+          "chestLoot": "loot:CHEST_4",
           "boss": "BOSS_SUN_KING",
           "corrupted": "CORRUPTED_4",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         }
       ]
     },
@@ -7130,13 +5271,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_JUNGLE_STALKER",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_MANGROVE_DELTA",
@@ -7157,13 +5298,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_MANGROVE_MAW",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_OVERGROWN_ROAD",
@@ -7184,13 +5325,13 @@
             45
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_MOSS_LEGIONARY",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_ORCHID_GLADE",
@@ -7211,13 +5352,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_ORCHID_DRYAD",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_PANTHER_TRAIL",
@@ -7239,13 +5380,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_SHADOW_PANTHER",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_WASP_HOLLOW",
@@ -7266,13 +5407,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_WASP_MATRON",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_STRANGLER_GROVE",
@@ -7293,13 +5434,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_STRANGLER_VINE",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_SERPENT_SHRINE",
@@ -7320,13 +5461,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_SERPENT_ORACLE",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_AMBER_TUNNELS",
@@ -7348,13 +5489,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_AMBER_WARDEN",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_WEEPING_CANOPY",
@@ -7376,13 +5517,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_CANOPY_HORROR",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_FUNGAL_LOWLANDS",
@@ -7403,13 +5544,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_SPORE_LORD",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_LOST_EXPEDITION",
@@ -7431,13 +5572,13 @@
             45
           ],
           "light": 1.0,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_MAD_EXPLORER",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_BROOD_CHAMBERS",
@@ -7459,13 +5600,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_BROOD_NURSE",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_FLOODED_THICKET",
@@ -7486,13 +5627,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_THICKET_HYDRA",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_GREAT_TREE",
@@ -7514,13 +5655,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_TREE_WARDEN",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_MANTIS_GARDENS",
@@ -7541,13 +5682,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_MANTIS_PRINCE",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_ROYAL_COMBS",
@@ -7568,13 +5709,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_ROYAL_GUARDIAN",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C4_HIVE_HEART",
@@ -7599,13 +5740,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_5",
+          "chestLoot": "loot:CHEST_5",
           "boss": "BOSS_HIVE_QUEEN",
           "corrupted": "CORRUPTED_5",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         }
       ]
     },
@@ -7635,13 +5776,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_CINDER_BEHEMOTH",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_BRIMSTONE_MINES",
@@ -7662,13 +5803,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_SULPHUR_KING",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_FRONTIER_FORT",
@@ -7689,13 +5830,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_TURNCOAT_GENERAL",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_LAVA_FIELDS",
@@ -7716,13 +5857,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_LAVA_WYRM",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_OBSIDIAN_SPIRES",
@@ -7744,13 +5885,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_OBSIDIAN_HARPY",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_SMELTERY",
@@ -7772,13 +5913,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_FURNACE_MASTER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_SIEGE_CAMP",
@@ -7799,13 +5940,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_ETERNAL_BESIEGER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_ASHFALL_VALLEY",
@@ -7827,13 +5968,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_ASH_WIDOW",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_MAGMA_RIVER",
@@ -7854,13 +5995,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_MAGMA_FERRYMAN",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_OUTER_WALLS",
@@ -7881,13 +6022,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_WALL_WARDEN",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_CALDERA_LAKE",
@@ -7908,13 +6049,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_BOILING_HORROR",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_CINDER_WASTES",
@@ -7936,13 +6077,13 @@
             45
           ],
           "light": 0.9,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_SMOULDERING_LICH",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_WAR_FORGES",
@@ -7964,13 +6105,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_WARSMITH",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_BURNING_BARRACKS",
@@ -7991,13 +6132,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_BURNING_CAPTAIN",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_DRAGONS_VENT",
@@ -8019,13 +6160,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_VENT_DRAGON",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_INFERNAL_GATE",
@@ -8047,13 +6188,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_INFERNAL_GATEKEEPER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_MOLTEN_CORE",
@@ -8074,13 +6215,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_MOUNTAIN_HEART",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C5_FLAME_CITADEL",
@@ -8105,13 +6246,13 @@
             45
           ],
           "light": 0.8,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_FLAME_SOVEREIGN",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         }
       ]
     },
@@ -8141,13 +6282,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_RIFT_WATCHER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_BLIGHTED_FIELDS",
@@ -8168,13 +6309,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_PLAGUE_REAPER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_FORSAKEN_ABBEY",
@@ -8195,13 +6336,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_FALLEN_ABBOT",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_WHISPERING_CHASM",
@@ -8222,13 +6363,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_WHISPERER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_ROTTING_ORCHARD",
@@ -8250,13 +6391,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_ROT_GARDENER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_PLAGUE_VILLAGE",
@@ -8278,13 +6419,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_PLAGUE_DOCTOR",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_OSSUARY",
@@ -8305,13 +6446,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_BONE_COLLECTOR",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_VOID_SHORE",
@@ -8332,13 +6473,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_VOID_KRAKEN",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_SPORE_CATHEDRAL",
@@ -8360,13 +6501,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_SPORE_CARDINAL",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_FALLEN_STAR",
@@ -8387,13 +6528,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_STAR_SPAWN",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_CATACOMB_MAW",
@@ -8414,13 +6555,13 @@
             45
           ],
           "light": 0.7,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_CATACOMB_WORM",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_WITHERED_WOOD",
@@ -8442,13 +6583,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_WITHERED_GIANT",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_ECLIPSE_ALTAR",
@@ -8470,13 +6611,13 @@
             45
           ],
           "light": 0.85,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_ECLIPSE_PRIESTESS",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_STARLESS_DEEP",
@@ -8497,13 +6638,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_EYELESS_ONE",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_ROTTEN_HEART",
@@ -8524,13 +6665,13 @@
             45
           ],
           "light": 0.75,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_MOTHER_BLIGHT",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_VEIL_OF_SHADOWS",
@@ -8552,13 +6693,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_VEIL_WEAVER",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_ENDLESS_STAIR",
@@ -8580,13 +6721,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_ENDLESS_WARDEN",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         },
         {
           "code": "C6_ABYSSAL_THRONE",
@@ -8611,13 +6752,13 @@
             45
           ],
           "light": 0.6,
-          "chestLoot": "CHEST_6",
+          "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_ABYSS_KING",
           "corrupted": "CORRUPTED_6",
-          "modifierPools": [
-            "monster"
-          ],
-          "size": 72
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
         }
       ]
     }
@@ -8881,17 +7022,17 @@
       "wake": 3.5,
       "giveUp": 4.0
     },
-    "uniquePools": [
-      "unique:world"
-    ],
-    "modifierPools": [
-      "boss"
-    ],
     "rolls": [
       1,
       2
     ],
-    "tierReach": 5
+    "tierReach": 5,
+    "tables": [
+      "unique:world"
+    ],
+    "modifiers": [
+      "mob:boss"
+    ]
   },
   "services": {
     "summonPerLevel": 150
@@ -8906,7 +7047,7 @@
   "corruption": {
     "chance": 0.35,
     "uniqueChance": 0.12,
-    "uniquePools": [
+    "tables": [
       "unique:world"
     ]
   },
@@ -8917,110 +7058,12 @@
     ],
     "power": 1.5,
     "reward": 1.5,
-    "perMod": 4.0,
-    "pool": [
-      {
-        "modifier": "MAP_MONSTER_LIFE",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_MONSTER_DAMAGE",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_MONSTER_SPEED",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_MONSTER_RESIST",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_HERO_LIGHT",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_HERO_RESIST",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_HERO_REGEN",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_HERO_SLOW",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_PACK_SIZE",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_MONSTER_RARITY",
-        "weight": 100
-      },
-      {
-        "modifier": "MAP_MONSTER_PENETRATION",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_MONSTER_REFLECT",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_MONSTER_CRITICAL",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_MONSTER_AILMENTS",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_MONSTER_ARMOUR",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_MONSTER_LEECH",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_MONSTER_STUN",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_HERO_DAMAGE_TAKEN",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_HERO_RECOVERY",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_HERO_MAX_RESIST",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_HERO_DEFENCES",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_HERO_BLOCK",
-        "weight": 70
-      },
-      {
-        "modifier": "MAP_HERO_CRIT",
-        "weight": 70
-      }
-    ]
+    "perMod": 4.0
   },
   "maps": {
     "dropChance": 0.03,
     "bossChance": 0.4,
     "nextChance": 0.25,
-    "rarities": {
-      "UNCOMMON": 80,
-      "RARE": 20
-    },
     "rarityBonus": {
       "UNCOMMON": 10,
       "RARE": 25
@@ -9235,31 +7278,20 @@
         "experience": 173
       }
     ],
-    "orbs": {
-      "ABYSS_ORB": 20,
-      "CHAOS_ORB": 18,
-      "ORB_OF_ALCHEMY": 18,
-      "REGAL_ORB": 12,
-      "BLESSED_ORB": 10,
-      "VAAL_ORB": 10,
-      "ORB_OF_SCOURING": 8,
-      "EXALTED_ORB": 2,
-      "DIVINE_ORB": 2
-    },
-    "uniquePools": [
-      "abyss"
-    ],
-    "equipmentPools": [
-      "drop"
-    ],
-    "modifierPools": [
-      "abyss",
-      "monster"
-    ],
     "rolls": [
       1,
       2
     ],
-    "tierReach": 5
+    "tierReach": 5,
+    "uniques": [
+      "abyss"
+    ],
+    "tables": [
+      "drop"
+    ],
+    "modifiers": [
+      "mob:abyss",
+      "mob:monster"
+    ]
   }
 }

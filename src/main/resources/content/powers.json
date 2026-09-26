@@ -24,8 +24,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             }
           ]
         }
@@ -85,8 +84,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_LEECH_ALL",
-              "operation": "ADD"
+              "stat": "STOCK_LEECH_ALL"
             }
           ]
         }
@@ -101,7 +99,7 @@
           "lines": [
             {
               "stat": "STOCK_EVASION",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 5
@@ -155,7 +153,6 @@
           "lines": [
             {
               "stat": "STOCK_POISON_DAMAGE",
-              "operation": "ADD",
               "scale": "AILED_FOES",
               "cap": 5
             }
@@ -240,7 +237,6 @@
           "lines": [
             {
               "stat": "STOCK_DAMAGE",
-              "operation": "ADD",
               "scale": "KILLS",
               "cap": 10
             }
@@ -297,7 +293,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_FIRE",
-              "operation": "INCREASED",
+              "op": "INCREASED",
               "scale": "SECONDS",
               "cap": 10
             }
@@ -320,7 +316,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 3
@@ -371,7 +367,6 @@
           "lines": [
             {
               "stat": "STOCK_RESIST_ALL",
-              "operation": "ADD",
               "scale": "AILED_FOES",
               "cap": 5
             }
@@ -404,8 +399,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_HEALTH_REGEN",
-              "operation": "ADD"
+              "stat": "STOCK_HEALTH_REGEN"
             }
           ]
         }
@@ -430,7 +424,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4,
@@ -504,7 +498,6 @@
           "lines": [
             {
               "stat": "STOCK_DAMAGE",
-              "operation": "ADD",
               "scale": "MANA"
             }
           ]
@@ -572,7 +565,7 @@
           "lines": [
             {
               "stat": "STOCK_HEALTH",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 10,
@@ -669,12 +662,10 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_RESIST_ALL",
-              "operation": "ADD"
+              "stat": "STOCK_RESIST_ALL"
             },
             {
-              "stat": "STOCK_RESIST_CHAOS",
-              "operation": "ADD"
+              "stat": "STOCK_RESIST_CHAOS"
             }
           ],
           "duration": 5
@@ -704,8 +695,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE_TAKEN",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE_TAKEN"
             }
           ]
         }
@@ -734,8 +724,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_RECOVERY_RATE",
-              "operation": "ADD"
+              "stat": "STOCK_RECOVERY_RATE"
             }
           ]
         }
@@ -760,7 +749,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 3,
@@ -783,7 +772,7 @@
           "lines": [
             {
               "stat": "STOCK_CRITICAL_CHANCE",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ]
         }
@@ -871,8 +860,7 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE_TAKEN",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE_TAKEN"
             }
           ],
           "duration": 3
@@ -887,8 +875,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_CRITICAL_MULTIPLIER",
-              "operation": "ADD"
+              "stat": "STOCK_CRITICAL_MULTIPLIER"
             }
           ],
           "duration": 4,
@@ -915,7 +902,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 3
@@ -978,8 +965,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             }
           ],
           "duration": 5,
@@ -1011,12 +997,11 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             },
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED",
+              "op": "INCREASED",
               "value": 20
             }
           ],
@@ -1117,7 +1102,6 @@
           "lines": [
             {
               "stat": "STOCK_LEECH_ALL",
-              "operation": "ADD",
               "scale": "AILED_FOES",
               "cap": 3
             }
@@ -1260,8 +1244,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             }
           ]
         }
@@ -1396,7 +1379,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED",
+              "op": "INCREASED",
               "scale": "FOES",
               "cap": 5
             }
@@ -1413,7 +1396,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4,
@@ -1430,7 +1413,7 @@
           "lines": [
             {
               "stat": "STOCK_ARMOR",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4,
@@ -1446,8 +1429,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_LEECH_ALL",
-              "operation": "ADD"
+              "stat": "STOCK_LEECH_ALL"
             }
           ],
           "duration": 4
@@ -1490,7 +1472,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_FIRE",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4,
@@ -1528,8 +1510,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_CRITICAL_MULTIPLIER",
-              "operation": "ADD"
+              "stat": "STOCK_CRITICAL_MULTIPLIER"
             }
           ]
         }
@@ -1598,8 +1579,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE_TAKEN",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE_TAKEN"
             }
           ]
         }
@@ -1631,7 +1611,7 @@
           "lines": [
             {
               "stat": "STOCK_ARMOR",
-              "operation": "INCREASED",
+              "op": "INCREASED",
               "scale": "SECONDS",
               "cap": 10
             }
@@ -1658,8 +1638,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             }
           ],
           "duration": 3,
@@ -1736,7 +1715,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4
@@ -1751,8 +1730,7 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE_TAKEN",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE_TAKEN"
             }
           ],
           "duration": 4
@@ -1768,8 +1746,7 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             }
           ],
           "duration": 3,
@@ -1791,8 +1768,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_PHYSICAL_REDUCTION",
-              "operation": "ADD"
+              "stat": "STOCK_PHYSICAL_REDUCTION"
             }
           ]
         }
@@ -1835,8 +1811,7 @@
           "act": "BUFF",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             }
           ]
         }
@@ -1871,8 +1846,7 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE"
             }
           ],
           "duration": 4
@@ -1927,7 +1901,6 @@
           "lines": [
             {
               "stat": "STOCK_DAMAGE",
-              "operation": "ADD",
               "scale": "CURSED_FOES",
               "cap": 5
             }
@@ -1992,7 +1965,6 @@
           "lines": [
             {
               "stat": "STOCK_DAMAGE",
-              "operation": "ADD",
               "scale": "MISSING_LIFE"
             }
           ]
@@ -2046,7 +2018,6 @@
           "lines": [
             {
               "stat": "STOCK_DAMAGE_TAKEN",
-              "operation": "ADD",
               "scale": "MISSING_LIFE",
               "cap": 6
             }
@@ -2110,7 +2081,7 @@
           "lines": [
             {
               "stat": "STOCK_EVASION",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4,
@@ -2177,7 +2148,7 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 3,
@@ -2205,12 +2176,10 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_RESIST_ALL",
-              "operation": "ADD"
+              "stat": "STOCK_RESIST_ALL"
             },
             {
-              "stat": "STOCK_RESIST_CHAOS",
-              "operation": "ADD"
+              "stat": "STOCK_RESIST_CHAOS"
             }
           ],
           "duration": 4
@@ -2329,7 +2298,7 @@
           "lines": [
             {
               "stat": "STOCK_CRITICAL_CHANCE",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4
@@ -2371,7 +2340,6 @@
           "lines": [
             {
               "stat": "STOCK_DAMAGE",
-              "operation": "ADD",
               "scale": "KILLS",
               "cap": 10
             }
@@ -2414,8 +2382,7 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_DAMAGE_TAKEN",
-              "operation": "ADD"
+              "stat": "STOCK_DAMAGE_TAKEN"
             }
           ],
           "duration": 4
@@ -2458,11 +2425,11 @@
           "lines": [
             {
               "stat": "STOCK_ATTACK_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             },
             {
               "stat": "STOCK_CAST_SPEED",
-              "operation": "INCREASED"
+              "op": "INCREASED"
             }
           ],
           "duration": 4,
@@ -2501,8 +2468,7 @@
           "act": "HEX",
           "lines": [
             {
-              "stat": "STOCK_RESIST_CHAOS",
-              "operation": "ADD"
+              "stat": "STOCK_RESIST_CHAOS"
             }
           ],
           "duration": 3,

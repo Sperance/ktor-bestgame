@@ -2,7 +2,7 @@ package server.addons
 
 import base.exception.model.AuthExceptions
 import features.data.auth.AuthSessionRepository
-import features.data.character.CharacterRepository
+import features.data.hero.HeroRepository
 import features.data.user.UserRepository
 import features.logic.auth.AccessPolicy
 import features.logic.auth.AccessPolicy.Need
@@ -27,16 +27,16 @@ val CallerKey = AttributeKey<Caller>("caller")
  *
  * Уровень доступа берётся из [AccessPolicy]; здесь к нему добавляется то, что без базы не
  * проверить: чья это сессия, и принадлежит ли вызывающему персонаж, от имени которого он
- * действует. Почти каждый игровой маршрут принимает `characterId`, поэтому одна проверка
- * здесь закрывает их все: подставить чужой персонаж больше нельзя нигде. Предметы, лоты и
- * гнёзда уже проверяются репозиториями на принадлежность этому персонажу.
+ * действует. Почти каждый игровой маршрут принимает `heroId`, поэтому одна проверка
+ * здесь закрывает их все: подставить чужого героя больше нельзя нигде. Вещи лежат в документе
+ * героя, лоты проверяются репозиторием аукциона на принадлежность.
  *
  * Администратор проходит проверку принадлежности - ему нужно работать с чужими персонажами.
  */
 fun Application.configureAccess() {
     val sessions by inject<AuthSessionRepository>()
     val users by inject<UserRepository>()
-    val characters by inject<CharacterRepository>()
+    val heroes by inject<HeroRepository>()
 
     intercept(ApplicationCallPipeline.Plugins) {
         if (call.request.httpMethod == HttpMethod.Options) return@intercept
@@ -56,10 +56,10 @@ fun Application.configureAccess() {
 
         if (!caller.isAdmin) {
             query["userId"]?.let { if (it != user._id) throw AuthExceptions.funExceptionNotYourAccount("access", it) }
-            // Персонаж по characterId, а в общем CRUD персонажей - по id.
-            val characterId = query["characterId"] ?: query["id"]?.takeIf { AccessPolicy.canonical(path) == "/api/v1/character" }
-            characterId?.let { id ->
-                val owner = characters.ownerOf(id)
+            // Герой по heroId, а в общем CRUD героев - по id.
+            val heroId = query["heroId"] ?: query["id"]?.takeIf { AccessPolicy.canonical(path) == "/api/v1/hero" }
+            heroId?.let { id ->
+                val owner = heroes.ownerOf(id)
                 // Несуществующий персонаж пропускается: маршрут сам скажет, что его нет, а
                 // ответ «не ваш» на «нет такого» подтверждал бы, что чужой id существует.
                 if (owner != null && owner != user._id) throw AuthExceptions.funExceptionNotYourCharacter("access", id)

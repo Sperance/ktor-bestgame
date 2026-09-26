@@ -1,7 +1,6 @@
 package base.exception.model
 
 import base.exception.BaseException
-import CONST_USER_MAX_CHARACTERS
 
 object CharacterExceptions {
     open class CharacterException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "Character", errorMethod, errorCode, messageArgs) {
@@ -13,7 +12,7 @@ object CharacterExceptions {
     fun funExceptionName(errorMethod: String, value: String? = "") = CharacterException("Character name is null or empty", errorMethod, "CH_002", listOf(value.orEmpty()))
     fun funExceptionNameDuplicate(errorMethod: String, value: String? = "") = CharacterException("Character with name $value already exists", errorMethod, "CH_003", listOf(value.orEmpty()))
     fun funExceptionUserNotFound(errorMethod: String, value: String? = "") = CharacterException("User with id $value not found", errorMethod, "CH_004", listOf(value.orEmpty()))
-    fun funExceptionMaxChars(errorMethod: String, value: String? = "") = CharacterException("User already has maximum amount of characters $CONST_USER_MAX_CHARACTERS", errorMethod, "CH_005", listOf(value.orEmpty()))
+    fun funExceptionMaxChars(errorMethod: String, value: String? = "") = CharacterException("User already has maximum amount of characters $value", errorMethod, "CH_005", listOf(value.orEmpty()))
     fun funExceptionNotFound(errorMethod: String, value: String? = "") = CharacterException("Character with id $value not found", errorMethod, "CH_006", listOf(value.orEmpty()))
     fun funExceptionEquipmentNotFound(errorMethod: String, value: String? = "") = CharacterException("Equipment with id $value not found", errorMethod, "CH_007", listOf(value.orEmpty()))
     fun funExceptionItemNotFound(errorMethod: String, value: String? = "") = CharacterException("Item with id $value not found", errorMethod, "CH_008", listOf(value.orEmpty()))

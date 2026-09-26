@@ -219,16 +219,11 @@
       3
     ],
     "lowerChance": 0.3,
-    "modifierPools": [
-      "essence"
-    ],
     "bookChance": 0.1,
-    "vaal": {
-      "UPGRADE": 50,
-      "SPECIAL": 25,
-      "STRONGER": 25
-    },
-    "stronger": 50
+    "stronger": 50,
+    "modifiers": [
+      "mob:essence"
+    ]
   },
   "condense": {
     "inputs": 3,

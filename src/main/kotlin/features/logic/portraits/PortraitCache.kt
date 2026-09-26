@@ -1,8 +1,7 @@
 package features.logic.portraits
 
-import config.ProgressionSeeder
+import com.sperance.exileforge.rules.content.ContentIndex
 import extensions.printLog
-import features.logic.campaign.CampaignContent
 import kotlinx.serialization.Serializable
 import java.security.MessageDigest
 
@@ -53,10 +52,10 @@ object PortraitCache {
     private var fingerprint: String = ""
 
     /** Все ключи, под которыми сервер ищет файл: классы, формы монстров и сами монстры. */
-    fun candidates(): List<String> =
-        ProgressionSeeder.classCodes.map { "$CLASS.$it" } +
-            CampaignContent.monsters.values.map { it.form }.distinct().map { "$FORM.$it" } +
-            CampaignContent.monsters.keys.map { "$MONSTER.$it" }
+    fun candidates(index: ContentIndex): List<String> =
+        index.classes.classes.map { "$CLASS.${it.code}" } +
+            index.monsters.values.map { it.form }.distinct().map { "$FORM.$it" } +
+            index.monsters.keys.map { "$MONSTER.$it" }
 
     fun manifest(): PortraitManifest = PortraitManifest(fingerprint, portraits = hashes)
 
@@ -65,8 +64,8 @@ object PortraitCache {
 
     fun keys(): Set<String> = files.keys
 
-    fun initializeCache() {
-        files = candidates().mapNotNull { key -> read(key)?.let { key to it } }.toMap()
+    fun initializeCache(index: ContentIndex) {
+        files = candidates(index).mapNotNull { key -> read(key)?.let { key to it } }.toMap()
         hashes = files.mapValues { sha256(it.value) }
         fingerprint = sha256(hashes.toSortedMap().entries.joinToString("\n") { "${it.key}=${it.value}" })
         printLog("[PortraitCache] initialized: portraits=${files.size} hash=$fingerprint")

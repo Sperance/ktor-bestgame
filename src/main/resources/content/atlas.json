@@ -14,9 +14,7 @@
       "code": "ATLAS_START",
       "x": 0.0,
       "y": 0.0,
-      "kind": "START",
-      "parents": [],
-      "effects": []
+      "kind": "START"
     },
     {
       "code": "ATLAS_LOOT_1",
@@ -26,10 +24,12 @@
       "parents": [
         "ATLAS_START"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 2.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
         }
       ]
     },
@@ -41,10 +41,12 @@
       "parents": [
         "ATLAS_LOOT_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARITY",
-          "value": 3.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            3.0
+          ]
         }
       ]
     },
@@ -56,14 +58,18 @@
       "parents": [
         "ATLAS_LOOT_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 4.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            4.0
+          ]
         },
         {
-          "stat": "ATLAS_RARITY",
-          "value": 6.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            6.0
+          ]
         }
       ]
     },
@@ -75,10 +81,12 @@
       "parents": [
         "ATLAS_LOOT_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 2.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
         }
       ]
     },
@@ -90,10 +98,12 @@
       "parents": [
         "ATLAS_LOOT_Q1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 2.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
         }
       ]
     },
@@ -105,10 +115,12 @@
       "parents": [
         "ATLAS_LOOT_Q2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 2.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
         }
       ]
     },
@@ -120,10 +132,12 @@
       "parents": [
         "ATLAS_LOOT_Q3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 6.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            6.0
+          ]
         }
       ]
     },
@@ -135,18 +149,24 @@
       "parents": [
         "ATLAS_LOOT_HOARD"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 15.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            15.0
+          ]
         },
         {
-          "stat": "ATLAS_RARITY",
-          "value": 15.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            15.0
+          ]
         },
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": -25.0
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            -25.0
+          ]
         }
       ]
     },
@@ -158,10 +178,12 @@
       "parents": [
         "ATLAS_LOOT_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARITY",
-          "value": 4.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
         }
       ]
     },
@@ -173,10 +195,12 @@
       "parents": [
         "ATLAS_LOOT_R1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARITY",
-          "value": 4.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
         }
       ]
     },
@@ -188,10 +212,12 @@
       "parents": [
         "ATLAS_LOOT_R2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARITY",
-          "value": 12.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            12.0
+          ]
         }
       ]
     },
@@ -203,10 +229,12 @@
       "parents": [
         "ATLAS_LOOT_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 2.0
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            2.0
+          ]
         }
       ]
     },
@@ -218,10 +246,12 @@
       "parents": [
         "ATLAS_LOOT_X1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 6.0
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            6.0
+          ]
         }
       ]
     },
@@ -233,10 +263,12 @@
       "parents": [
         "ATLAS_LOOT_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 8.0
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            8.0
+          ]
         }
       ]
     },
@@ -248,10 +280,12 @@
       "parents": [
         "ATLAS_LOOT_M1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 8.0
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            8.0
+          ]
         }
       ]
     },
@@ -263,10 +297,12 @@
       "parents": [
         "ATLAS_LOOT_M2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 20.0
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            20.0
+          ]
         }
       ]
     },
@@ -278,10 +314,12 @@
       "parents": [
         "ATLAS_START"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 10.0
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            10.0
+          ]
         }
       ]
     },
@@ -293,10 +331,12 @@
       "parents": [
         "ATLAS_VAAL_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 5.0
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5.0
+          ]
         }
       ]
     },
@@ -308,10 +348,12 @@
       "parents": [
         "ATLAS_VAAL_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 20.0
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            20.0
+          ]
         }
       ]
     },
@@ -323,10 +365,12 @@
       "parents": [
         "ATLAS_VAAL_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 10.0
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            10.0
+          ]
         }
       ]
     },
@@ -338,10 +382,12 @@
       "parents": [
         "ATLAS_VAAL_C1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 10.0
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            10.0
+          ]
         }
       ]
     },
@@ -353,10 +399,12 @@
       "parents": [
         "ATLAS_VAAL_C2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 25.0
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            25.0
+          ]
         }
       ]
     },
@@ -368,10 +416,12 @@
       "parents": [
         "ATLAS_VAAL_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 6.0
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            6.0
+          ]
         }
       ]
     },
@@ -383,10 +433,12 @@
       "parents": [
         "ATLAS_VAAL_W1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 6.0
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            6.0
+          ]
         }
       ]
     },
@@ -398,10 +450,12 @@
       "parents": [
         "ATLAS_VAAL_W2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 6.0
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            6.0
+          ]
         }
       ]
     },
@@ -413,10 +467,12 @@
       "parents": [
         "ATLAS_VAAL_W3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 15.0
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            15.0
+          ]
         }
       ]
     },
@@ -428,18 +484,24 @@
       "parents": [
         "ATLAS_VAAL_ALTAR"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_MIN_MODS",
-          "value": 2.0
+          "code": "ATLAS_VAAL_MIN_MODS",
+          "values": [
+            2.0
+          ]
         },
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 25.0
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            25.0
+          ]
         },
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": -30.0
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            -30.0
+          ]
         }
       ]
     },
@@ -451,10 +513,12 @@
       "parents": [
         "ATLAS_VAAL_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_MIN_MODS",
-          "value": 1.0
+          "code": "ATLAS_VAAL_MIN_MODS",
+          "values": [
+            1.0
+          ]
         }
       ]
     },
@@ -466,10 +530,12 @@
       "parents": [
         "ATLAS_START"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 3.0
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            3.0
+          ]
         }
       ]
     },
@@ -481,10 +547,12 @@
       "parents": [
         "ATLAS_CONT_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 3.0
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            3.0
+          ]
         }
       ]
     },
@@ -496,10 +564,12 @@
       "parents": [
         "ATLAS_CONT_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 8.0
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            8.0
+          ]
         }
       ]
     },
@@ -511,10 +581,12 @@
       "parents": [
         "ATLAS_CONT_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 5.0
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5.0
+          ]
         }
       ]
     },
@@ -526,10 +598,12 @@
       "parents": [
         "ATLAS_CONT_R1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 5.0
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5.0
+          ]
         }
       ]
     },
@@ -541,10 +615,12 @@
       "parents": [
         "ATLAS_CONT_R2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 15.0
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            15.0
+          ]
         }
       ]
     },
@@ -556,10 +632,12 @@
       "parents": [
         "ATLAS_CONT_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARITY",
-          "value": 3.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            3.0
+          ]
         }
       ]
     },
@@ -571,10 +649,12 @@
       "parents": [
         "ATLAS_CONT_T1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CHESTS",
-          "value": 1.0
+          "code": "ATLAS_CHESTS",
+          "values": [
+            1.0
+          ]
         }
       ]
     },
@@ -586,10 +666,12 @@
       "parents": [
         "ATLAS_CONT_TREASURE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARITY",
-          "value": 3.0
+          "code": "ATLAS_RARITY",
+          "values": [
+            3.0
+          ]
         }
       ]
     },
@@ -601,10 +683,12 @@
       "parents": [
         "ATLAS_CONT_T2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CHESTS",
-          "value": 1.0
+          "code": "ATLAS_CHESTS",
+          "values": [
+            1.0
+          ]
         }
       ]
     },
@@ -616,10 +700,12 @@
       "parents": [
         "ATLAS_CONT_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 2.0
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            2.0
+          ]
         }
       ]
     },
@@ -631,10 +717,12 @@
       "parents": [
         "ATLAS_CONT_F1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_FOUNTAINS",
-          "value": 1.0
+          "code": "ATLAS_FOUNTAINS",
+          "values": [
+            1.0
+          ]
         }
       ]
     },
@@ -646,10 +734,12 @@
       "parents": [
         "ATLAS_START"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 5.0
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            5.0
+          ]
         }
       ]
     },
@@ -661,10 +751,12 @@
       "parents": [
         "ATLAS_BOSS_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 5.0
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            5.0
+          ]
         }
       ]
     },
@@ -676,10 +768,12 @@
       "parents": [
         "ATLAS_BOSS_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 15.0
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            15.0
+          ]
         }
       ]
     },
@@ -691,10 +785,12 @@
       "parents": [
         "ATLAS_BOSS_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 10.0
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            10.0
+          ]
         }
       ]
     },
@@ -706,10 +802,12 @@
       "parents": [
         "ATLAS_BOSS_S1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 10.0
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            10.0
+          ]
         }
       ]
     },
@@ -721,10 +819,12 @@
       "parents": [
         "ATLAS_BOSS_S2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 25.0
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            25.0
+          ]
         }
       ]
     },
@@ -736,10 +836,12 @@
       "parents": [
         "ATLAS_BOSS_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 8.0
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            8.0
+          ]
         }
       ]
     },
@@ -751,10 +853,12 @@
       "parents": [
         "ATLAS_BOSS_U1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 8.0
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            8.0
+          ]
         }
       ]
     },
@@ -766,10 +870,12 @@
       "parents": [
         "ATLAS_BOSS_U2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 8.0
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            8.0
+          ]
         }
       ]
     },
@@ -781,10 +887,12 @@
       "parents": [
         "ATLAS_BOSS_U3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 25.0
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            25.0
+          ]
         }
       ]
     },
@@ -796,10 +904,12 @@
       "parents": [
         "ATLAS_BOSS_FORK"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 6.0
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6.0
+          ]
         }
       ]
     },
@@ -811,14 +921,18 @@
       "parents": [
         "ATLAS_BOSS_L1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 5.0
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            5.0
+          ]
         },
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 10.0
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            10.0
+          ]
         }
       ]
     },
@@ -830,10 +944,12 @@
       "parents": [
         "ATLAS_LOOT_GLITTER"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 8
+          "code": "ATLAS_GOLD",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -845,10 +961,12 @@
       "parents": [
         "ATLAS_LOOT_G1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 8
+          "code": "ATLAS_GOLD",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -860,14 +978,18 @@
       "parents": [
         "ATLAS_LOOT_G2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 20
+          "code": "ATLAS_GOLD",
+          "values": [
+            20
+          ]
         },
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 3
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -879,10 +1001,12 @@
       "parents": [
         "ATLAS_LOOT_SAGE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CHEST_LOOT",
-          "value": 10
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -894,14 +1018,18 @@
       "parents": [
         "ATLAS_LOOT_CH1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CHEST_LOOT",
-          "value": 25
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            25
+          ]
         },
         {
-          "stat": "ATLAS_CHESTS",
-          "value": 1
+          "code": "ATLAS_CHESTS",
+          "values": [
+            1
+          ]
         }
       ]
     },
@@ -913,10 +1041,12 @@
       "parents": [
         "ATLAS_VAAL_DEPTH"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_UNIQUE",
-          "value": 15
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -928,10 +1058,12 @@
       "parents": [
         "ATLAS_VAAL_U1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_UNIQUE",
-          "value": 15
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -943,14 +1075,18 @@
       "parents": [
         "ATLAS_VAAL_U2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_UNIQUE",
-          "value": 40
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            40
+          ]
         },
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 5
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -962,10 +1098,12 @@
       "parents": [
         "ATLAS_VAAL_BEACON"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": 5
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -977,10 +1115,12 @@
       "parents": [
         "ATLAS_VAAL_E1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": 5
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -992,10 +1132,12 @@
       "parents": [
         "ATLAS_VAAL_E2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": 15
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1007,10 +1149,12 @@
       "parents": [
         "ATLAS_CONT_ELITE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_NEXT",
-          "value": 15
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1022,10 +1166,12 @@
       "parents": [
         "ATLAS_CONT_N1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_NEXT",
-          "value": 15
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1037,14 +1183,18 @@
       "parents": [
         "ATLAS_CONT_N2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_NEXT",
-          "value": 40
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            40
+          ]
         },
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 10
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1056,10 +1206,12 @@
       "parents": [
         "ATLAS_CONT_VAULT"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_RARE",
-          "value": 20
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            20
+          ]
         }
       ]
     },
@@ -1071,10 +1223,12 @@
       "parents": [
         "ATLAS_CONT_A1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_AFFIX",
-          "value": 10
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1086,14 +1240,18 @@
       "parents": [
         "ATLAS_CONT_A2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_RARE",
-          "value": 50
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            50
+          ]
         },
         {
-          "stat": "ATLAS_MAP_AFFIX",
-          "value": 25
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            25
+          ]
         }
       ]
     },
@@ -1105,14 +1263,18 @@
       "parents": [
         "ATLAS_CONT_CARTEL"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": 30
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            30
+          ]
         },
         {
-          "stat": "ATLAS_MAP_AFFIX",
-          "value": 50
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            50
+          ]
         }
       ]
     },
@@ -1124,10 +1286,12 @@
       "parents": [
         "ATLAS_CONT_SPRING"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 5
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1139,14 +1303,18 @@
       "parents": [
         "ATLAS_CONT_M1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MONSTER_MODS",
-          "value": 1
+          "code": "ATLAS_MONSTER_MODS",
+          "values": [
+            1
+          ]
         },
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 10
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1158,10 +1326,12 @@
       "parents": [
         "ATLAS_BOSS_SPOILS"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1173,10 +1343,12 @@
       "parents": [
         "ATLAS_BOSS_B1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1188,10 +1360,12 @@
       "parents": [
         "ATLAS_BOSS_B2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 30
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            30
+          ]
         }
       ]
     },
@@ -1203,14 +1377,18 @@
       "parents": [
         "ATLAS_BOSS_HOARD"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 50
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            50
+          ]
         },
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 20
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            20
+          ]
         }
       ]
     },
@@ -1222,10 +1400,12 @@
       "parents": [
         "ATLAS_BOSS_TROPHY"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RECIPE",
-          "value": 25
+          "code": "ATLAS_RECIPE",
+          "values": [
+            25
+          ]
         }
       ]
     },
@@ -1237,10 +1417,12 @@
       "parents": [
         "ATLAS_BOSS_R1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RECIPE",
-          "value": 75
+          "code": "ATLAS_RECIPE",
+          "values": [
+            75
+          ]
         }
       ]
     },
@@ -1252,10 +1434,12 @@
       "parents": [
         "ATLAS_LOOT_ATLAS"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 6
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6
+          ]
         }
       ]
     },
@@ -1267,10 +1451,12 @@
       "parents": [
         "ATLAS_LOOT_C1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_NEXT",
-          "value": 10
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1282,14 +1468,18 @@
       "parents": [
         "ATLAS_LOOT_C2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 12
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            12
+          ]
         },
         {
-          "stat": "ATLAS_MAP_NEXT",
-          "value": 15
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1301,10 +1491,12 @@
       "parents": [
         "ATLAS_LOOT_SURVEYOR"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_RARE",
-          "value": 15
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1316,10 +1508,12 @@
       "parents": [
         "ATLAS_LOOT_C3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_AFFIX",
-          "value": 8
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -1331,14 +1525,18 @@
       "parents": [
         "ATLAS_LOOT_C4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_RARE",
-          "value": 30
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            30
+          ]
         },
         {
-          "stat": "ATLAS_MAP_AFFIX",
-          "value": 15
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1350,10 +1548,12 @@
       "parents": [
         "ATLAS_LOOT_ARCHIVE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_AFFIX",
-          "value": 8
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -1365,10 +1565,12 @@
       "parents": [
         "ATLAS_LOOT_MIDAS"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 8
+          "code": "ATLAS_GOLD",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -1380,10 +1582,12 @@
       "parents": [
         "ATLAS_LOOT_G3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 2
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2
+          ]
         }
       ]
     },
@@ -1395,14 +1599,18 @@
       "parents": [
         "ATLAS_LOOT_G4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 20
+          "code": "ATLAS_GOLD",
+          "values": [
+            20
+          ]
         },
         {
-          "stat": "ATLAS_RARITY",
-          "value": 6
+          "code": "ATLAS_RARITY",
+          "values": [
+            6
+          ]
         }
       ]
     },
@@ -1414,10 +1622,12 @@
       "parents": [
         "ATLAS_LOOT_TREASURY"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARITY",
-          "value": 4
+          "code": "ATLAS_RARITY",
+          "values": [
+            4
+          ]
         }
       ]
     },
@@ -1429,18 +1639,24 @@
       "parents": [
         "ATLAS_LOOT_G5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 60
+          "code": "ATLAS_GOLD",
+          "values": [
+            60
+          ]
         },
         {
-          "stat": "ATLAS_RARITY",
-          "value": 10
+          "code": "ATLAS_RARITY",
+          "values": [
+            10
+          ]
         },
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": -20
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            -20
+          ]
         }
       ]
     },
@@ -1452,10 +1668,12 @@
       "parents": [
         "ATLAS_LOOT_TREASURY"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 8
+          "code": "ATLAS_GOLD",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -1467,14 +1685,18 @@
       "parents": [
         "ATLAS_LOOT_G6"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_GOLD",
-          "value": 15
+          "code": "ATLAS_GOLD",
+          "values": [
+            15
+          ]
         },
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": 4
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            4
+          ]
         }
       ]
     },
@@ -1486,10 +1708,12 @@
       "parents": [
         "ATLAS_LOOT_SAGE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 3
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1501,10 +1725,12 @@
       "parents": [
         "ATLAS_LOOT_X2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 3
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1516,10 +1742,12 @@
       "parents": [
         "ATLAS_LOOT_X3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 8
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -1531,10 +1759,12 @@
       "parents": [
         "ATLAS_LOOT_SCHOLAR"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 3
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1546,10 +1776,12 @@
       "parents": [
         "ATLAS_LOOT_X4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 3
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1561,14 +1793,18 @@
       "parents": [
         "ATLAS_LOOT_X5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 30
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            30
+          ]
         },
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": -15
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            -15
+          ]
         }
       ]
     },
@@ -1580,10 +1816,12 @@
       "parents": [
         "ATLAS_VAAL_AMPLIFY"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": 5
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1595,10 +1833,12 @@
       "parents": [
         "ATLAS_VAAL_E3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": 5
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1610,14 +1850,18 @@
       "parents": [
         "ATLAS_VAAL_E4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": 12
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            12
+          ]
         },
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 5
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1629,10 +1873,12 @@
       "parents": [
         "ATLAS_VAAL_RESONANCE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 10
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1644,10 +1890,12 @@
       "parents": [
         "ATLAS_VAAL_E5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 6
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            6
+          ]
         }
       ]
     },
@@ -1659,10 +1907,12 @@
       "parents": [
         "ATLAS_VAAL_E6"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 10
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1674,18 +1924,24 @@
       "parents": [
         "ATLAS_VAAL_W4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 40
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            40
+          ]
         },
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 25
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            25
+          ]
         },
         {
-          "stat": "ATLAS_MAP_EFFECT",
-          "value": -20
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            -20
+          ]
         }
       ]
     },
@@ -1697,10 +1953,12 @@
       "parents": [
         "ATLAS_VAAL_RESONANCE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_UNIQUE",
-          "value": 15
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1712,10 +1970,12 @@
       "parents": [
         "ATLAS_VAAL_U3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_UNIQUE",
-          "value": 15
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1727,14 +1987,18 @@
       "parents": [
         "ATLAS_VAAL_U4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_UNIQUE",
-          "value": 30
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            30
+          ]
         },
         {
-          "stat": "ATLAS_VAAL_CHANCE",
-          "value": 15
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -1746,10 +2010,12 @@
       "parents": [
         "ATLAS_VAAL_TEMPLE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 6
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            6
+          ]
         }
       ]
     },
@@ -1761,14 +2027,18 @@
       "parents": [
         "ATLAS_VAAL_U5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_VAAL_REWARD",
-          "value": 15
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            15
+          ]
         },
         {
-          "stat": "ATLAS_VAAL_UNIQUE",
-          "value": 20
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            20
+          ]
         }
       ]
     },
@@ -1780,10 +2050,12 @@
       "parents": [
         "ATLAS_CONT_LEGION"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 5
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1795,10 +2067,12 @@
       "parents": [
         "ATLAS_CONT_M2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 5
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1810,14 +2084,18 @@
       "parents": [
         "ATLAS_CONT_M3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 12
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            12
+          ]
         },
         {
-          "stat": "ATLAS_MONSTER_MODS",
-          "value": 1
+          "code": "ATLAS_MONSTER_MODS",
+          "values": [
+            1
+          ]
         }
       ]
     },
@@ -1829,10 +2107,12 @@
       "parents": [
         "ATLAS_CONT_WARBAND"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 3
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1844,10 +2124,12 @@
       "parents": [
         "ATLAS_CONT_M4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 3
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1859,14 +2141,18 @@
       "parents": [
         "ATLAS_CONT_M5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 8
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            8
+          ]
         },
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 5
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1878,10 +2164,12 @@
       "parents": [
         "ATLAS_CONT_GAUNTLET"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 3
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1893,10 +2181,12 @@
       "parents": [
         "ATLAS_CONT_M6"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 5
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -1908,14 +2198,18 @@
       "parents": [
         "ATLAS_CONT_M7"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 6
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            6
+          ]
         },
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 8
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -1927,10 +2221,12 @@
       "parents": [
         "ATLAS_CONT_ASCENT"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_NEXT",
-          "value": 10
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1942,10 +2238,12 @@
       "parents": [
         "ATLAS_CONT_N3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 6
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6
+          ]
         }
       ]
     },
@@ -1957,14 +2255,18 @@
       "parents": [
         "ATLAS_CONT_N4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MAP_NEXT",
-          "value": 25
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            25
+          ]
         },
         {
-          "stat": "ATLAS_MAP_DROP",
-          "value": 10
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -1976,10 +2278,12 @@
       "parents": [
         "ATLAS_CONT_PATHFINDER"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 3
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -1991,10 +2295,12 @@
       "parents": [
         "ATLAS_CONT_N5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 3
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -2006,14 +2312,18 @@
       "parents": [
         "ATLAS_CONT_N6"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 10
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            10
+          ]
         },
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 10
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2025,10 +2335,12 @@
       "parents": [
         "ATLAS_CONT_HORDE"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RARE_MONSTERS",
-          "value": 5
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -2040,18 +2352,24 @@
       "parents": [
         "ATLAS_CONT_N7"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_PACK_SIZE",
-          "value": 25
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            25
+          ]
         },
         {
-          "stat": "ATLAS_MONSTER_MODS",
-          "value": 1
+          "code": "ATLAS_MONSTER_MODS",
+          "values": [
+            1
+          ]
         },
         {
-          "stat": "ATLAS_RARITY",
-          "value": -15
+          "code": "ATLAS_RARITY",
+          "values": [
+            -15
+          ]
         }
       ]
     },
@@ -2063,10 +2381,12 @@
       "parents": [
         "ATLAS_CONT_CARTEL"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CHEST_LOOT",
-          "value": 10
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2078,14 +2398,18 @@
       "parents": [
         "ATLAS_CONT_T3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CHEST_LOOT",
-          "value": 20
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            20
+          ]
         },
         {
-          "stat": "ATLAS_CHESTS",
-          "value": 1
+          "code": "ATLAS_CHESTS",
+          "values": [
+            1
+          ]
         }
       ]
     },
@@ -2097,10 +2421,12 @@
       "parents": [
         "ATLAS_CONT_STRONGBOX"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CHEST_LOOT",
-          "value": 10
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2112,14 +2438,18 @@
       "parents": [
         "ATLAS_CONT_T5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_FOUNTAINS",
-          "value": 1
+          "code": "ATLAS_FOUNTAINS",
+          "values": [
+            1
+          ]
         },
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 4
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            4
+          ]
         }
       ]
     },
@@ -2131,10 +2461,12 @@
       "parents": [
         "ATLAS_CONT_WELLSPRING"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_EXPERIENCE",
-          "value": 3
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            3
+          ]
         }
       ]
     },
@@ -2146,10 +2478,12 @@
       "parents": [
         "ATLAS_BOSS_RELENTLESS"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 8
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -2161,10 +2495,12 @@
       "parents": [
         "ATLAS_BOSS_S3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 8
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -2176,14 +2512,18 @@
       "parents": [
         "ATLAS_BOSS_S4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 15
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            15
+          ]
         },
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2195,10 +2535,12 @@
       "parents": [
         "ATLAS_BOSS_HUNTSMAN"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 8
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -2210,10 +2552,12 @@
       "parents": [
         "ATLAS_BOSS_S5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 8
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -2225,14 +2569,18 @@
       "parents": [
         "ATLAS_BOSS_S6"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 20
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            20
+          ]
         },
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2244,10 +2592,12 @@
       "parents": [
         "ATLAS_BOSS_REGALIA"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2259,10 +2609,12 @@
       "parents": [
         "ATLAS_BOSS_S7"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RECIPE",
-          "value": 25
+          "code": "ATLAS_RECIPE",
+          "values": [
+            25
+          ]
         }
       ]
     },
@@ -2274,14 +2626,18 @@
       "parents": [
         "ATLAS_BOSS_S8"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_RECIPE",
-          "value": 60
+          "code": "ATLAS_RECIPE",
+          "values": [
+            60
+          ]
         },
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2293,10 +2649,12 @@
       "parents": [
         "ATLAS_BOSS_FORGEMASTER"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2308,18 +2666,24 @@
       "parents": [
         "ATLAS_BOSS_S9"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 50
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            50
+          ]
         },
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 25
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            25
+          ]
         },
         {
-          "stat": "ATLAS_QUANTITY",
-          "value": -15
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            -15
+          ]
         }
       ]
     },
@@ -2331,10 +2695,12 @@
       "parents": [
         "ATLAS_BOSS_REGALIA"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 10
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2346,10 +2712,12 @@
       "parents": [
         "ATLAS_BOSS_B3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 8
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -2361,14 +2729,18 @@
       "parents": [
         "ATLAS_BOSS_B4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_LOOT",
-          "value": 25
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            25
+          ]
         },
         {
-          "stat": "ATLAS_GOLD",
-          "value": 10
+          "code": "ATLAS_GOLD",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2380,10 +2752,12 @@
       "parents": [
         "ATLAS_BOSS_WARCHEST"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 8
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -2395,10 +2769,12 @@
       "parents": [
         "ATLAS_BOSS_B5"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 8
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            8
+          ]
         }
       ]
     },
@@ -2410,14 +2786,18 @@
       "parents": [
         "ATLAS_BOSS_B6"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOSS_UNIQUE",
-          "value": 15
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            15
+          ]
         },
         {
-          "stat": "ATLAS_BOSS_RESPAWN",
-          "value": 10
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2429,10 +2809,12 @@
       "parents": [
         "ATLAS_LOOT_C2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CRYSTAL_CHANCE",
-          "value": 10
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2444,10 +2826,12 @@
       "parents": [
         "ATLAS_CRYSTAL_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CRYSTAL_ESSENCES",
-          "value": 20
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            20
+          ]
         }
       ]
     },
@@ -2459,10 +2843,12 @@
       "parents": [
         "ATLAS_CRYSTAL_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CRYSTAL_TIER",
-          "value": 10
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2474,10 +2860,12 @@
       "parents": [
         "ATLAS_CRYSTAL_3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CRYSTALS",
-          "value": 1
+          "code": "ATLAS_CRYSTALS",
+          "values": [
+            1
+          ]
         }
       ]
     },
@@ -2489,14 +2877,18 @@
       "parents": [
         "ATLAS_CRYSTAL_KEEPER"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_CRYSTALS_MORE",
-          "value": 100
+          "code": "ATLAS_CRYSTALS_MORE",
+          "values": [
+            100
+          ]
         },
         {
-          "stat": "ATLAS_GUARDIAN_POWER",
-          "value": 100
+          "code": "ATLAS_GUARDIAN_POWER",
+          "values": [
+            100
+          ]
         }
       ]
     },
@@ -2508,10 +2900,12 @@
       "parents": [
         "ATLAS_LOOT_C1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOOKS",
-          "value": 15
+          "code": "ATLAS_BOOKS",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -2523,14 +2917,18 @@
       "parents": [
         "ATLAS_BOOKS_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_BOOKS",
-          "value": 30
+          "code": "ATLAS_BOOKS",
+          "values": [
+            30
+          ]
         },
         {
-          "stat": "ATLAS_BOOKS_OWN",
-          "value": 50
+          "code": "ATLAS_BOOKS_OWN",
+          "values": [
+            50
+          ]
         }
       ]
     },
@@ -2542,10 +2940,12 @@
       "parents": [
         "ATLAS_BOSS_B2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_FLASK_CHARGES",
-          "value": 20
+          "code": "ATLAS_FLASK_CHARGES",
+          "values": [
+            20
+          ]
         }
       ]
     },
@@ -2557,10 +2957,12 @@
       "parents": [
         "ATLAS_FLASK_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_FLASK_DURATION",
-          "value": 10
+          "code": "ATLAS_FLASK_DURATION",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2572,10 +2974,12 @@
       "parents": [
         "ATLAS_FLASK_2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_FLASK_RARE",
-          "value": 1
+          "code": "ATLAS_FLASK_RARE",
+          "values": [
+            1
+          ]
         }
       ]
     },
@@ -2587,10 +2991,12 @@
       "parents": [
         "ATLAS_FLASK_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_MANA_REGEN",
-          "value": 10
+          "code": "ATLAS_MANA_REGEN",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2602,10 +3008,12 @@
       "parents": [
         "ATLAS_MANA_1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_SKILL_LEVEL",
-          "value": 1
+          "code": "ATLAS_SKILL_LEVEL",
+          "values": [
+            1
+          ]
         }
       ]
     },
@@ -2617,10 +3025,12 @@
       "parents": [
         "ATLAS_BOSS_HUNTSMAN"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_CHANCE",
-          "value": 5
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -2632,10 +3042,12 @@
       "parents": [
         "ATLAS_ABYSS_A1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_CHANCE",
-          "value": 5
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -2647,14 +3059,18 @@
       "parents": [
         "ATLAS_ABYSS_A2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_EXTRA",
-          "value": 30
+          "code": "ATLAS_ABYSS_EXTRA",
+          "values": [
+            30
+          ]
         },
         {
-          "stat": "ATLAS_ABYSS_CHANCE",
-          "value": 5
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -2666,10 +3082,12 @@
       "parents": [
         "ATLAS_ABYSS_CALL"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_HOARD",
-          "value": 10
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2681,10 +3099,12 @@
       "parents": [
         "ATLAS_ABYSS_H1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_ORBS",
-          "value": 15
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -2696,10 +3116,12 @@
       "parents": [
         "ATLAS_ABYSS_H2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_HOARD",
-          "value": 10
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2711,14 +3133,18 @@
       "parents": [
         "ATLAS_ABYSS_H3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_HOARD",
-          "value": 20
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            20
+          ]
         },
         {
-          "stat": "ATLAS_ABYSS_ORBS",
-          "value": 20
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            20
+          ]
         }
       ]
     },
@@ -2730,10 +3156,12 @@
       "parents": [
         "ATLAS_ABYSS_TREASURY"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_ORBS",
-          "value": 15
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -2745,18 +3173,24 @@
       "parents": [
         "ATLAS_ABYSS_H4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_POWER",
-          "value": 40
+          "code": "ATLAS_ABYSS_POWER",
+          "values": [
+            40
+          ]
         },
         {
-          "stat": "ATLAS_ABYSS_UNIQUE",
-          "value": 60
+          "code": "ATLAS_ABYSS_UNIQUE",
+          "values": [
+            60
+          ]
         },
         {
-          "stat": "ATLAS_ABYSS_RARE",
-          "value": 15
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -2768,10 +3202,12 @@
       "parents": [
         "ATLAS_ABYSS_CALL"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_RARE",
-          "value": 5
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -2783,10 +3219,12 @@
       "parents": [
         "ATLAS_ABYSS_D1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_UNIQUE",
-          "value": 15
+          "code": "ATLAS_ABYSS_UNIQUE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -2798,10 +3236,12 @@
       "parents": [
         "ATLAS_ABYSS_D2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_DEPTH",
-          "value": 1
+          "code": "ATLAS_ABYSS_DEPTH",
+          "values": [
+            1
+          ]
         }
       ]
     },
@@ -2813,10 +3253,12 @@
       "parents": [
         "ATLAS_ABYSS_BOTTOMLESS"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_RARE",
-          "value": 5
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -2828,10 +3270,12 @@
       "parents": [
         "ATLAS_ABYSS_D3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_UNIQUE",
-          "value": 15
+          "code": "ATLAS_ABYSS_UNIQUE",
+          "values": [
+            15
+          ]
         }
       ]
     },
@@ -2843,18 +3287,24 @@
       "parents": [
         "ATLAS_ABYSS_D4"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_DEPTH",
-          "value": 1
+          "code": "ATLAS_ABYSS_DEPTH",
+          "values": [
+            1
+          ]
         },
         {
-          "stat": "ATLAS_ABYSS_POWER",
-          "value": 25
+          "code": "ATLAS_ABYSS_POWER",
+          "values": [
+            25
+          ]
         },
         {
-          "stat": "ATLAS_ABYSS_HOARD",
-          "value": 30
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            30
+          ]
         }
       ]
     },
@@ -2866,10 +3316,12 @@
       "parents": [
         "ATLAS_ABYSS_CALL"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_KEEP",
-          "value": 10
+          "code": "ATLAS_ABYSS_KEEP",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2881,10 +3333,12 @@
       "parents": [
         "ATLAS_ABYSS_K1"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_KEEP",
-          "value": 10
+          "code": "ATLAS_ABYSS_KEEP",
+          "values": [
+            10
+          ]
         }
       ]
     },
@@ -2896,10 +3350,12 @@
       "parents": [
         "ATLAS_ABYSS_K2"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_KEEP",
-          "value": 25
+          "code": "ATLAS_ABYSS_KEEP",
+          "values": [
+            25
+          ]
         }
       ]
     },
@@ -2911,10 +3367,12 @@
       "parents": [
         "ATLAS_ABYSS_RETREAT"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_CHANCE",
-          "value": 5
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5
+          ]
         }
       ]
     },
@@ -2926,10 +3384,12 @@
       "parents": [
         "ATLAS_ABYSS_K3"
       ],
-      "effects": [
+      "lines": [
         {
-          "stat": "ATLAS_ABYSS_HOARD",
-          "value": 10
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10
+          ]
         }
       ]
     }

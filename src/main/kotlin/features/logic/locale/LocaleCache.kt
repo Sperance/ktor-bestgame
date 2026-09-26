@@ -19,8 +19,7 @@ import java.security.MessageDigest
  * В памяти они нужны для того, что клиенту не отдать: поиска по названию
  * на аукционе, где в документах лежат только коды.
  *
- * Читаются один раз при старте, как и остальные кэши проекта. Строки модификаторов (0.66.0)
- * при чтении разворачиваются из шаблонов, см. [ModifierText].
+ * Читаются один раз при старте, как и остальные кэши проекта.
  */
 object LocaleCache {
 
@@ -83,16 +82,15 @@ object LocaleCache {
         val declared = json.decodeFromString(LocaleManifest.serializer(), resource(MANIFEST))
         val common = json.decodeFromString(strings, resource(COMMON))
 
-        // Текст модификаторов (0.66.0) собирается из шаблонов эффектов по описаниям из файлов:
-        // словарь хранит шаблон на стат, а не строку на каждое из сотен описаний.
-        val definitions = config.ModifierSeeder.seedDefinitions() + config.UniqueEquipmentSeeder.seedDefinitions()
+        // Текст модификаторов клиент собирает сам из шаблонов `stat.template.*` правилами `rules` (1.0.0):
+        // словарь хранит шаблон на стат, а не строку на каждое из тысяч описаний.
         bundles = declared.languages.associate { language ->
             val own = json.decodeFromString(strings, resource("${language.code}.json"))
             val clash = own.keys intersect common.keys
             if (clash.isNotEmpty())
                 throw LocaleExceptions.funException("initializeCache", "${language.code}.json repeats $COMMON: ${clash.take(5)}")
             val merged = common + own
-            language.code to LocaleBundle(language.code, (merged + ModifierText.generate(definitions, merged)).toSortedMap())
+            language.code to LocaleBundle(language.code, merged.toSortedMap())
         }
         documents = bundles.mapValues { (_, bundle) -> output.encodeToString(strings, bundle.strings) }
 

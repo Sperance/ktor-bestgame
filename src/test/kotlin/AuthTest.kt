@@ -91,7 +91,7 @@ class AuthTest {
         assertEquals(Need.PUBLIC, need("GET", "/icons/icons.json"))
         assertEquals(Need.PUBLIC, need("GET", "/portraits/index.json"))
         assertEquals(Need.PUBLIC, need("GET", "/portraits/class/WITCH.svg"))
-        assertEquals(Need.PUBLIC, need("GET", "/system/stats"))
+        assertEquals(Need.PUBLIC, need("GET", "/content/modifiers.json"))
         assertEquals(Need.PUBLIC, need("GET", "/system/health"))
         assertEquals(Need.PUBLIC, need("GET", "/system/routes"))
         assertEquals(Need.PUBLIC, need("GET", "/static/index.json"))
@@ -102,53 +102,49 @@ class AuthTest {
     @Test
     fun everything_a_player_does_needs_a_session() {
         listOf(
-            "GET" to "/api/v1/character/inventory/equipments",
-            "GET" to "/api/v1/character/view",
-            "GET" to "/world/world.json",
-            "POST" to "/api/v1/characterequipment/applyOrb",
-            "POST" to "/api/v1/characterequipment/sell",
-            "GET" to "/api/v1/characterequipment/bench",
-            "POST" to "/api/v1/characterequipment/craft",
-            "POST" to "/api/v1/characterequipment/uncraft",
+            "GET" to "/api/v1/hero/view",
+            "POST" to "/api/v1/hero/orb",
+            "POST" to "/api/v1/hero/sell",
+            "GET" to "/api/v1/hero/bench",
+            "POST" to "/api/v1/hero/craft",
+            "POST" to "/api/v1/hero/campaign/start",
+            "POST" to "/api/v1/hero/campaign/events",
             "POST" to "/api/v1/auctionlot/buy",
             "GET" to "/api/v1/auctionlot/search",
-            "POST" to "/api/v1/character/skilltree/reset",
-            "POST" to "/api/v1/redemptioncodes/useRedeptionCode",
+            "POST" to "/api/v1/hero/skilltree/reset",
+            "POST" to "/api/v1/redemptioncodes/redeem",
             "GET" to "/api/v1/user/me",
             "POST" to "/api/v1/user/logout",
             "POST" to "/api/v1/user/changePassword",
-            "GET" to "/api/v1/equipment",
-            "GET" to "/api/v1/modifierdefinition",
-            "GET" to "/api/v1/skilltreenode",
         ).forEach { (method, path) -> assertEquals(Need.SIGNED_IN, need(method, path), "$method $path") }
     }
 
     @Test
     fun writing_through_the_generic_crud_is_for_an_administrator() {
-        listOf("equipment", "items", "modifierdefinition", "user", "redemptioncodes", "auctionlot", "characterequipment")
+        listOf("user", "redemptioncodes", "auctionlot", "blocklist")
             .forEach { collection ->
                 listOf("POST", "PUT", "DELETE").forEach { method ->
                     assertEquals(Need.ADMIN, need(method, "/api/v1/$collection"), "$method $collection")
                 }
             }
         // A role, a balance or a level is never a player's to write.
-        assertEquals(Need.ADMIN, need("PUT", "/api/v1/character", "id" to "x"))
+        assertEquals(Need.ADMIN, need("PUT", "/api/v1/hero", "id" to "x"))
     }
 
     @Test
-    fun a_player_creates_and_releases_their_own_character_themselves() {
-        assertEquals(Need.SIGNED_IN, need("POST", "/api/v1/character"))
-        assertEquals(Need.SIGNED_IN, need("DELETE", "/api/v1/character", "id" to "x"))
-        assertEquals(Need.SIGNED_IN, need("GET", "/api/v1/character", "id" to "x"))
-        // Without an id it is the whole server's list of characters.
-        assertEquals(Need.ADMIN, need("GET", "/api/v1/character"))
-        assertEquals(Need.ADMIN, need("GET", "/api/v1/character/paged"))
+    fun a_player_creates_and_releases_their_own_hero_themselves() {
+        assertEquals(Need.SIGNED_IN, need("POST", "/api/v1/hero"))
+        assertEquals(Need.SIGNED_IN, need("DELETE", "/api/v1/hero", "id" to "x"))
+        assertEquals(Need.SIGNED_IN, need("GET", "/api/v1/hero", "id" to "x"))
+        // Without an id it is the whole server's list of heroes.
+        assertEquals(Need.ADMIN, need("GET", "/api/v1/hero"))
+        assertEquals(Need.ADMIN, need("GET", "/api/v1/hero/paged"))
     }
 
     @Test
     fun what_belongs_to_other_players_is_read_by_an_administrator_only() {
         AccessPolicy.privateCollections.forEach { collection ->
-            if (collection == "character") return@forEach
+            if (collection == "hero") return@forEach
             assertEquals(Need.ADMIN, need("GET", "/api/v1/$collection"), collection)
             assertEquals(Need.ADMIN, need("GET", "/api/v1/$collection/paged"), collection)
             assertEquals(Need.ADMIN, need("GET", "/api/v1/$collection/count"), collection)
@@ -157,24 +153,24 @@ class AuthTest {
 
     @Test
     fun granting_and_the_system_switches_are_for_an_administrator() {
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/itemToInventory"))
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/experience"))
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/addItem"))
+        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/equipment"))
+        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/experience"))
+        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/item"))
         assertEquals(Need.ADMIN, need("GET", "/system/unknown"))
     }
 
     @Test
     fun a_trailing_slash_is_not_a_way_around_the_table() {
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/equipment/"))
+        assertEquals(Need.ADMIN, need("POST", "/api/v1/redemptioncodes/"))
         assertEquals(Need.ADMIN, need("GET", "/api/v1/user/"))
     }
 
     @Test
     fun empty_segments_and_escapes_are_not_a_way_around_the_table() {
         assertEquals(Need.ADMIN, need("POST", "//api/v1/redemptioncodes"))
-        assertEquals(Need.ADMIN, need("PUT", "/api/v1//character", "id" to "x"))
-        assertEquals(Need.ADMIN, need("GET", "/api/v1/%63haracter"))
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/character/inventory/add%49tem"))
-        assertEquals("/api/v1/character", AccessPolicy.canonical("//api//v1/%63haracter/"))
+        assertEquals(Need.ADMIN, need("PUT", "/api/v1//hero", "id" to "x"))
+        assertEquals(Need.ADMIN, need("GET", "/api/v1/%68ero"))
+        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/%49tem"))
+        assertEquals("/api/v1/hero", AccessPolicy.canonical("//api//v1/%68ero/"))
     }
 }

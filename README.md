@@ -1,5 +1,24 @@
 # ktor-bestgame
 
+Сервер ExileForge на Ktor и MongoDB. С 1.0.0 правила игры живут в составной сборке
+[`rules/`](rules): чистый Kotlin/JVM без Ktor и Mongo - контент, таблицы, роллы, лист героя,
+заходы по семени. Клиент подключает ту же сборку (git submodule `backend/`), поэтому лут и лист
+считаются одним кодом на обеих сторонах.
+
+## Устройство
+
+- **Контент** - `src/main/resources/content/*.json`, единственный источник правил мира: статы,
+  семейства модификаторов с сетками тиров, таблицы (`tables.json` - один взвешенный выбор на всё:
+  аффиксы, монстры, шаблоны, редкости, добыча), шаблоны, предметы, кампания, атлас, дерево, классы,
+  умения, эссенции, силы, профессии, `rules.json`. Файлы проверяются при старте (`ContentLoader`) и
+  отдаются клиенту чанками `GET /content/<файл>` с отпечатком каждого; `static/index.json` - манифест.
+- **База** держит только игроков: `User`, `AuthSession`, `Hero` (герой одним документом - вещи с
+  роллами `{c,t,p}`, сумка, дерево, умения, атлас, ремёсла, торговец, кампания), `AuctionLot`,
+  `RedemptionCodes`, `BlockList`.
+- **Заход** - `POST hero/campaign/start` выдаёт семя и замороженный контекст героя; клиент катает
+  монстров и добычу сам, ведёт журнал событий и присылает его `POST hero/campaign/events`; сервер
+  проигрывает журнал тем же кодом, каждый номер один раз, и его итог - истина.
+
 This project was created using the [Ktor Project Generator](https://start.ktor.io).
 
 Here are some useful links to get you started:
@@ -35,7 +54,7 @@ Since 0.21.0 nothing secret lives in the source; the server reads its environmen
 | `TEST_PLAYER_PASSWORD` | unset — no test player      | Password of the seeded `test1` account                    |
 
 Clients sign in with `POST /api/v1/user/login` and send the returned token as
-`Authorization: Bearer <token>`. `GET /system/version` names the running version.
+`Authorization: Bearer <token>`. `GET /static/index.json` names the running version and revision.
 
 ## Building & Running
 
@@ -43,7 +62,7 @@ To build or run the project, use one of the following tasks:
 
 | Task                                    | Description                                                          |
 | -----------------------------------------|---------------------------------------------------------------------- |
-| `./gradlew test`                        | Run the tests                                                        |
+| `./gradlew test`                        | Run the tests (`./gradlew :rules:test` - the rules module)           |
 | `./gradlew build`                       | Build everything                                                     |
 | `./gradlew buildFatJar`                 | Build an executable JAR of the server with all dependencies included |
 | `./gradlew buildImage`                  | Build the docker image to use with the fat JAR                       |

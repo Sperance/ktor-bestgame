@@ -1,0 +1,146 @@
+{
+  "rarities": {
+    "COMMON": {},
+    "UNCOMMON": {
+      "prefixes": 1,
+      "suffixes": 1,
+      "affixes": [
+        1,
+        2
+      ]
+    },
+    "RARE": {
+      "prefixes": 3,
+      "suffixes": 3,
+      "affixes": [
+        4,
+        6
+      ]
+    },
+    "RARE:JEWEL": {
+      "prefixes": 2,
+      "suffixes": 2,
+      "affixes": [
+        3,
+        4
+      ]
+    },
+    "UNIQUE": {},
+    "MYTHICAL": {}
+  },
+  "merchant": {
+    "windowHours": 4.0,
+    "minOffers": 12,
+    "maxOffers": 16,
+    "levelSpread": 2,
+    "markup": 3,
+    "tables": [
+      "merchant"
+    ],
+    "rarities": "rarity:merchant",
+    "flasks": [
+      1,
+      2
+    ]
+  },
+  "sell": {
+    "affixShare": 0.15,
+    "rarity": {
+      "COMMON": 1.0,
+      "UNCOMMON": 1.5,
+      "RARE": 2.5,
+      "UNIQUE": 8.0,
+      "MYTHICAL": 20.0
+    }
+  },
+  "bench": {
+    "costs": [
+      {
+        "orb": "DIVINE_ORB",
+        "amount": 1
+      },
+      {
+        "orb": "EXALTED_ORB",
+        "amount": 1
+      },
+      {
+        "orb": "CHAOS_ORB",
+        "amount": 1
+      },
+      {
+        "orb": "ORB_OF_ALTERATION",
+        "amount": 4
+      },
+      {
+        "orb": "ORB_OF_TRANSMUTATION",
+        "amount": 3
+      },
+      {
+        "orb": "ORB_OF_TRANSMUTATION",
+        "amount": 1
+      }
+    ],
+    "uncraftOrb": "ORB_OF_SCOURING",
+    "maxMapLevel": 20
+  },
+  "orbs": {
+    "chanceUniquePercent": 5.0,
+    "chanceRarities": "rarity:chance",
+    "chanceUniques": [
+      "unique:chance"
+    ],
+    "fractureMinAffixes": 4,
+    "vaalShift": [
+      0.8,
+      1.2
+    ],
+    "maxAlchemyLines": 3
+  },
+  "flasks": {
+    "starter": "FLASK_SMALL_LIFE",
+    "maxQuality": 20,
+    "baubleCommon": 2,
+    "baubleMagic": 1,
+    "orbs": [
+      "ORB_OF_TRANSMUTATION",
+      "ORB_OF_ALTERATION",
+      "ORB_OF_AUGMENTATION",
+      "ORB_OF_SCOURING",
+      "ORB_OF_CHANCE",
+      "BLESSED_ORB",
+      "DIVINE_ORB",
+      "VAAL_ORB",
+      "GLASSBLOWERS_BAUBLE"
+    ]
+  },
+  "starter": {
+    "orbs": 20,
+    "toolPrefix": "BRONZE_",
+    "gear": [
+      "COMMON",
+      "UNIQUE"
+    ]
+  },
+  "auction": {
+    "baseSlots": 5,
+    "maxSlots": 20,
+    "firstSlotPrice": 500.0,
+    "slotGrowth": 1.5,
+    "minLevel": 1
+  },
+  "loot": {
+    "goldGrowth": 1.1,
+    "experiencePower": 1.9,
+    "rarityWeights": {
+      "COMMON": 100.0,
+      "UNCOMMON": 40.0,
+      "RARE": 15.0,
+      "UNIQUE": 1.0,
+      "MYTHICAL": 0.2
+    },
+    "uniqueReach": 10,
+    "recipeChance": 0.1
+  },
+  "maxCharacters": 3,
+  "maxStack": 100000000000
+}

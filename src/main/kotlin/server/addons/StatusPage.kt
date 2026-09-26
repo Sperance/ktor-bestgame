@@ -1,6 +1,7 @@
 package server.addons
 
 import base.exception.BaseException
+import com.sperance.exileforge.rules.RuleViolation
 import base.exception.model.AuthExceptions
 import extensions.printLog
 import base.route.ApiMongoResponse
@@ -56,6 +57,11 @@ fun Application.configureStatusPages() {
         // ── Бизнес-исключения приложения ──
         exception<BaseException> { call, cause ->
             call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
+        }
+
+        // ── Отказ правил игры (1.0.0): код и аргументы шаблона словаря, как у отказов сервера ──
+        exception<RuleViolation> { call, cause ->
+            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.message, "Rules", null, cause.code, cause.args)))
         }
 
         exception<JsonConvertException> { call, cause ->

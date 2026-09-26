@@ -1,26 +1,26 @@
 import application.koin.allModules
-import extensions.printLog
-import io.ktor.server.application.Application
-import io.ktor.server.engine.connector
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-import server.addons.configureHTTP
-import server.addons.configureMonitoring
-import server.addons.configureRouting
-import server.addons.configureSerialization
+import config.ContentStore
 import config.DatabaseSeeder
 import config.DatabaseSeeder.getKoin
 import config.LogManager
 import config.MongoBackupManager
 import config.SystemMonitor
-import features.logic.atlas.AtlasContent
+import extensions.printLog
 import features.logic.icons.IconCache
 import features.logic.locale.LocaleCache
 import features.logic.portraits.PortraitCache
+import io.ktor.server.application.Application
+import io.ktor.server.engine.connector
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 import org.koin.core.context.startKoin
-import server.addons.configureIpBlocking
-import server.addons.configureRateLimit
 import server.addons.configureAccess
+import server.addons.configureHTTP
+import server.addons.configureIpBlocking
+import server.addons.configureMonitoring
+import server.addons.configureRateLimit
+import server.addons.configureRouting
+import server.addons.configureSerialization
 import server.addons.configureStatusPages
 
 fun main() {
@@ -52,15 +52,11 @@ fun main() {
 }
 
 suspend fun Application.configureModules() {
-    // Словари читаются из ресурсов до всего остального: они не зависят
-    // от базы, а поиск на аукционе без них не работает
+    // Контент читается из ресурсов до всего остального: битый файл роняет старт, а не первый запрос
+    val content: ContentStore = getKoin().get()
     LocaleCache.initializeCache()
-    // Иконки тоже читаются из ресурсов и тоже ни от чего не зависят
     IconCache.initializeCache()
-    // Портреты - из ресурсов; какие искать, говорят классы и кампания
-    PortraitCache.initializeCache()
-    // Атлас - из ресурсов; битый файл должен уронить старт, а не первый запрос героя
-    AtlasContent.initialize()
+    PortraitCache.initializeCache(content.index)
 
     configureStatusPages()
     configureMonitoring()

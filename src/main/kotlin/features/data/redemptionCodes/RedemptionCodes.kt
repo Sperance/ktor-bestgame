@@ -12,33 +12,20 @@ data class RedemptionCodes(
     val description: String? = null,
     var used: Long = 0,
     var expiredAt: LocalDateTime? = null,
-
     override var _id: String = ObjectId().toHexString(),
 ) : StockEntity
 
 /**
- * Что промокод выдаёт.
- *
- * Награды разного рода лежат одним списком, потому что администратор составляет
- * их одним списком: «опыт, немного золота и три сферы хаоса» это одна мысль, а не
- * три поля. [kind] говорит, как читать запись, - у предмета и экипировки заполнен
- * [itemId], у опыта и золота только [amount].
+ * Что промокод выдаёт: у предмета и вещи заполнен [item] - код стопки или шаблона, - у опыта и золота
+ * только [amount]. Награды разного рода лежат одним списком, как их составляет администратор.
  */
 @Serializable
 data class RedemptionItem(
     val kind: RedemptionKind = RedemptionKind.ITEM,
-    val itemId: String = "",
-    val amount: Double
+    val item: String = "",
+    val amount: Double,
 )
 
-/**
- * Род награды.
- *
- * [ITEM] - стакающийся предмет из `items`, включая валютные сферы: [itemId] это его
- * документ, [amount] - количество.
- * [EQUIPMENT] - шаблон из `equipment`: сервер роллит экземпляр столько раз, сколько
- * велит [amount], потому что две копии одного шаблона это два разных предмета.
- * [EXPERIENCE] и [GOLD] предмета не имеют - у них есть только величина.
- */
+/** Род награды: стопка из `items`, вещь из `equipment` (столько копий, сколько велит количество), опыт, золото. */
 @Serializable
 enum class RedemptionKind { ITEM, EQUIPMENT, EXPERIENCE, GOLD }

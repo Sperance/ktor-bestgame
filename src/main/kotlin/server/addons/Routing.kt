@@ -1,46 +1,48 @@
 package server.addons
 
+import API_REVISION
+import SERVER_VERSION
 import base.exception.ApplicationExceptions
 import base.route.ApiMongoResponse
 import base.route.RouteRegistry
+import config.ContentManifest
+import config.ContentStore
 import config.MongoFactory
 import extensions.ALL_ROUTES
+import extensions.RouteInfo
 import extensions.printLog
 import extensions.saveChildren
-import io.ktor.openapi.OpenApiInfo
+import features.logic.hero.installHeroLocks
 import features.logic.icons.IconCache
 import features.logic.icons.IconManifest
-import features.logic.portraits.PortraitCache
-import features.logic.portraits.PortraitManifest
 import features.logic.locale.LocaleCache
 import features.logic.locale.LocaleManifest
-import features.logic.hero.installHeroChanges
-import io.ktor.server.application.*
-import io.ktor.server.plugins.openapi.openAPI
-import io.ktor.server.response.respond
+import features.logic.portraits.PortraitCache
+import features.logic.portraits.PortraitManifest
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
+import io.ktor.openapi.OpenApiInfo
+import io.ktor.server.application.Application
+import io.ktor.server.plugins.openapi.openAPI
+import io.ktor.server.response.header
+import io.ktor.server.response.respond
+import io.ktor.server.response.respondBytes
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.openapi.OpenApiDocSource
 import io.ktor.server.routing.route
-import kotlinx.serialization.json.Json
 import io.ktor.server.routing.routing
 import io.ktor.server.routing.routingRoot
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import org.bson.Document
 import org.koin.ktor.ext.inject
-import SERVER_VERSION
-import API_REVISION
-import extensions.RouteInfo
-import features.logic.world.WorldBundle
-import features.logic.world.WorldManifest
-import io.ktor.http.HttpHeaders
-import io.ktor.server.response.header
-import kotlinx.serialization.Serializable
 
 fun Application.configureRouting() {
     val routeRegistry by inject<RouteRegistry>()
-    installHeroChanges()
+    val content by inject<ContentStore>()
+    installHeroLocks()
     routing {
         // Словари, иконки и портреты - статичные файлы с манифестами; отпечатки считает сервер,
         // и те же манифесты собраны в static/index.json.
@@ -62,7 +64,6 @@ fun Application.configureRouting() {
                 call.respondText(IconCache.document(), ContentType.Application.Json)
             }
         }
-        // Портреты (с 0.29.0): манифест с отпечатком каждого файла и сами SVG по разделам.
         route("/${PortraitCache.FOLDER}") {
             get("/${PortraitCache.MANIFEST}") {
                 call.respondText(Json.encodeToString(PortraitManifest.serializer(), PortraitCache.manifest()), ContentType.Application.Json)
@@ -76,22 +77,27 @@ fun Application.configureRouting() {
             }
         }
 
-        // 0.48.0: справочники мира одним файлом. Отпечаток тот же, что в static/index.json,
-        // поэтому клиент с актуальной копией получает 304 и тела не качает.
-        route("/${WorldBundle.FOLDER}") {
-            get("/${WorldBundle.FILE}") {
-                val etag = "\"${WorldBundle.hash()}\""
+        // 1.0.0: контент чанками - файл за файлом, каждый со своим отпечатком. Клиент с актуальной
+        // копией получает 304 и тела не качает; тело уходит сжатым, если клиент его принимает.
+        route("/content") {
+            get("/{file}") {
+                val chunk = content.chunk(call.parameters["file"].orEmpty()) ?: return@get call.respond(HttpStatusCode.NotFound)
+                val etag = "\"${chunk.hash}\""
                 call.response.header(HttpHeaders.ETag, etag)
-                if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) call.respond(HttpStatusCode.NotModified)
-                else call.respondText(WorldBundle.document(), ContentType.Application.Json)
+                call.response.header(HttpHeaders.CacheControl, "no-cache")
+                if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) return@get call.respond(HttpStatusCode.NotModified)
+                if (call.request.headers[HttpHeaders.AcceptEncoding]?.contains("gzip") == true) {
+                    call.response.header(HttpHeaders.ContentEncoding, "gzip")
+                    call.respondBytes(chunk.gzip, ContentType.Application.Json)
+                } else call.respondText(chunk.text, ContentType.Application.Json)
             }
         }
 
-        // 0.48.0: один манифест на старт - маршруты, словари, иконки, портреты и справочники.
+        // 0.48.0: один манифест на старт - маршруты, словари, иконки, портреты и контент.
         route("/static") {
             get("/index.json") {
                 val manifest = StaticManifest(SERVER_VERSION, API_REVISION, ALL_ROUTES.sortedBy { it.path }, LocaleCache.manifest(),
-                    IconCache.manifest(), PortraitCache.manifest(), WorldBundle.manifest())
+                    IconCache.manifest(), PortraitCache.manifest(), content.manifest)
                 call.respondText(Json.encodeToString(StaticManifest.serializer(), manifest), ContentType.Application.Json)
             }
         }
@@ -123,9 +129,6 @@ fun Application.configureRouting() {
                     call.respond(ApiMongoResponse.error(ApplicationExceptions.funExceptionError("/health")))
                 }
             }
-            get("/stats") {
-                call.respond(ApiMongoResponse.ok(StatTables.served))
-            }
             // Готовность сервера и список маршрутов для проверки клиента (скрипт client-server в CI).
             get("/routes") {
                 call.respond(ApiMongoResponse.ok(ALL_ROUTES.sortedBy { it.path }))
@@ -134,46 +137,10 @@ fun Application.configureRouting() {
     }.saveChildren()
 }
 
-/** Правило [features.logic.trade.SellPrice]: доля базы за аффикс и множитель редкости. */
-@Serializable
-data class SellRule(val affixShare: Double, val rarity: Map<String, Double>)
-
-/** Одна характеристика и её место в порядке подсчёта. */
-@Serializable
-data class StatOrder(val stat: String, val order: Int)
-
 /**
- * Ответ `/system/stats` (с 0.41.0): клиент собирает лист героя сам по формуле сервера. [stats] -
- * порядок подсчёта характеристик (конверсия "X за каждые Y" верна, только если Y посчитан
- * раньше X), [slots] - порядок, в котором проверяются надетые вещи, [sell] - правило цены
- * торговца, по которому клиент показывает цену вещи заранее.
- */
-@Serializable
-data class StatTables(val stats: List<StatOrder>, val slots: List<String>, val sell: SellRule,
-                      /** Статы-проценты (0.66.0): INCREASED в них складывается, см. ModifierCalculator.PERCENT_STATS. */
-                      val percent: List<String> = emptyList(),
-                      /** Силы уникалок (0.70.0): правила листа клиент применяет сам, реакции в бою считает по ним же. */
-                      val powers: features.logic.powers.PowerBook = features.logic.powers.PowerBook()) {
-    companion object {
-        val served: StatTables by lazy {
-            StatTables(
-                (application.enums.EnumStatStock.entries + application.enums.EnumStatBool.entries +
-                    application.enums.EnumStatProfession.entries + application.enums.EnumStatBattle.entries)
-                    .map { StatOrder(it.name, (it as application.enums.IntEnumStat).order) }.sortedBy { it.order },
-                application.enums.EnumEquipmentType.entries.map { it.name },
-                SellRule(features.logic.trade.SellPrice.AFFIX_SHARE,
-                    application.enums.EnumRarity.entries.associate { it.name to features.logic.trade.SellPrice.factor(it) }),
-                features.logic.modifiers.ModifierCalculator.PERCENT_STATS.map { (it as Enum<*>).name }.sorted(),
-                features.logic.powers.PowerContent.book,
-            )
-        }
-    }
-}
-
-/**
- * Единый манифест `static/index.json` (с 0.48.0): всё, что клиент сверяет на старте, одним
- * запросом - версия, ревизия API, маршруты (по ним клиент решает, какие экраны доступны) и
- * отпечатки словарей, иконок, портретов и справочников.
+ * Единый манифест `static/index.json`: всё, что клиент сверяет на старте, одним запросом - версия,
+ * ревизия API, маршруты (по ним клиент решает, какие экраны доступны) и отпечатки словарей, иконок,
+ * портретов и чанков контента.
  */
 @Serializable
 data class StaticManifest(
@@ -183,5 +150,5 @@ data class StaticManifest(
     val locale: LocaleManifest,
     val icons: IconManifest,
     val portraits: PortraitManifest,
-    val world: WorldManifest,
+    val content: ContentManifest,
 )

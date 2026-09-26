@@ -1,5 +1,4 @@
-import config.ProgressionSeeder
-import features.logic.campaign.CampaignContent
+import config.ContentStore
 import features.logic.portraits.PortraitCache
 import org.junit.Test
 import org.w3c.dom.Element
@@ -21,13 +20,15 @@ class PortraitTest {
         "opacity", "fill-opacity", "stroke-opacity",
     )
 
-    init { PortraitCache.initializeCache() }
+    private val index = ContentStore.load().index
+
+    init { PortraitCache.initializeCache(index) }
 
     @Test
     fun every_class_and_every_monster_form_has_a_portrait() {
         val keys = PortraitCache.keys()
-        ProgressionSeeder.classCodes.forEach { assertTrue("class.$it" in keys, "нет портрета класса $it") }
-        CampaignContent.monsters.values.map { it.form }.distinct().forEach { assertTrue("form.$it" in keys, "нет портрета формы $it") }
+        index.classes.classes.forEach { assertTrue("class.${it.code}" in keys, "нет портрета класса ${it.code}") }
+        index.monsters.values.map { it.form }.distinct().forEach { assertTrue("form.$it" in keys, "нет портрета формы $it") }
         assertEquals(keys, PortraitCache.manifest().portraits.keys)
     }
 

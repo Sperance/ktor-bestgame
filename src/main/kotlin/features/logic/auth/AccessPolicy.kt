@@ -10,7 +10,7 @@ import io.ktor.http.decodeURLPart
  * до маршрута, и правила собраны в одном месте, а не разбросаны по маршрутам: так их можно
  * прочитать целиком и проверить тестом без базы.
  *
- * Здесь только уровень доступа. Кому принадлежит персонаж, решает [server.addons.configureAccess]
+ * Здесь только уровень доступа. Кому принадлежит герой, решает [server.addons.configureAccess]
  * по параметрам запроса, потому что для этого нужна база.
  */
 object AccessPolicy {
@@ -24,22 +24,18 @@ object AccessPolicy {
         "/api/v1/user/byDeviceId",
     )
 
-    private val publicSystem = setOf("/system/routes", "/system/health", "/system/stats")
+    private val publicSystem = setOf("/system/routes", "/system/health")
 
     /**
      * Коллекции, в которых лежат чужие данные: аккаунты, персонажи, их вещи, лоты, промокоды.
      * Целиком их читает только администратор; игрок видит своё через игровые маршруты.
      */
     val privateCollections = setOf(
-        "user", "character", "characterequipment", "auctionlot", "redemptioncodes", "blocklist", "authsession",
+        "user", "hero", "auctionlot", "redemptioncodes", "blocklist", "authsession",
     )
 
     /** Игровые маршруты, которыми администратор выдаёт что-то из ничего. */
-    private val adminRoutes = setOf(
-        "/api/v1/character/inventory/itemToInventory",
-        "/api/v1/character/inventory/experience",
-        "/api/v1/character/inventory/addItem",
-    )
+    private const val ADMIN_PREFIX = "/api/v1/hero/grant/"
 
     /**
      * Путь так, как его видит маршрутизатор Ktor: пустые сегменты отброшены, `%XX` раскрыты.
@@ -57,13 +53,12 @@ object AccessPolicy {
         val path = canonical(rawPath)
         val verb = method.uppercase()
 
-        if (path.startsWith("/locale/") || path.startsWith("/icons/") || path.startsWith("/portraits/")) return Need.PUBLIC
+        // Контент (1.0.0) - те же файлы, что лежат в репозитории: секрета в них нет, а клиент качает их до входа.
+        if (path.startsWith("/locale/") || path.startsWith("/icons/") || path.startsWith("/portraits/") || path.startsWith("/content/")) return Need.PUBLIC
         if (path == "/static/index.json") return Need.PUBLIC
-        // Справочники мира - те же коллекции, что читаются через /api вошедшим игроком.
-        if (path.startsWith("/world/")) return Need.SIGNED_IN
         if (path in publicSystem) return Need.PUBLIC
         if (verb == "POST" && path in publicPosts) return Need.PUBLIC
-        if (path in adminRoutes) return Need.ADMIN
+        if (path.startsWith(ADMIN_PREFIX)) return Need.ADMIN
         if (path.startsWith("/system/")) return Need.ADMIN
         if (!path.startsWith("/api/")) return Need.PUBLIC
 
@@ -74,14 +69,14 @@ object AccessPolicy {
 
         return when {
             // Запись в любую коллекцию - дело администратора. Игрок меняет мир только игровыми
-            // маршрутами, где сервер сам проверяет правила. Исключение - собственный персонаж:
+            // маршрутами, где сервер сам проверяет правила. Исключение - собственный герой:
             // создать и отпустить его игрок может сам, а чей он, проверяется отдельно.
             verb != "GET" && verb != "HEAD" ->
-                if (collection == "character" && segments.size == 1 && verb in setOf("POST", "DELETE")) Need.SIGNED_IN
+                if (collection == "hero" && segments.size == 1 && verb in setOf("POST", "DELETE")) Need.SIGNED_IN
                 else Need.ADMIN
-            // Своего персонажа по id читать можно: принадлежность проверяется отдельно.
-            // Без id это список всех персонажей сервера - он только для администратора.
-            collection == "character" && segments.size == 1 && !query("id").isNullOrBlank() -> Need.SIGNED_IN
+            // Своего героя по id читать можно: принадлежность проверяется отдельно.
+            // Без id это список всех героев сервера - он только для администратора.
+            collection == "hero" && segments.size == 1 && !query("id").isNullOrBlank() -> Need.SIGNED_IN
             collection in privateCollections -> Need.ADMIN
             else -> Need.SIGNED_IN
         }
