@@ -149,6 +149,20 @@ object ModifierRoller : KoinComponent {
     fun rollInfluenced(equipment: Equipment, rarity: EnumRarity, current: Collection<Modifier>, influence: EnumInfluence): Modifier? =
         rollOne(pool(Pools.influence(influence, equipment.slot)), equipment.itemLevel, rarity, current, equipment.slot)
 
+    /**
+     * Модификатор влияния наверняка (0.72.0): на свободное место, а без него - вместо случайного
+     * незакреплённого аффикса, чьё место пул влияния может занять. Так добыча Бездны всегда несёт её строку.
+     *
+     * @return false, если пул влияния предмету не подходит вовсе
+     */
+    fun forceInfluenced(equipment: Equipment, rarity: EnumRarity, params: MutableList<Modifier>, influence: EnumInfluence, random: kotlin.random.Random): Boolean {
+        rollInfluenced(equipment, rarity, params, influence)?.let { params += it; return true }
+        params.filter { isAffix(it) && !it.fractured }.shuffled(random).forEach { old ->
+            rollInfluenced(equipment, rarity, params - old, influence)?.let { params[params.indexOf(old)] = it; return true }
+        }
+        return false
+    }
+
     private fun rollOne(pool: List<Weighted<ModifierDefinition>>, itemLevel: Int, rarity: EnumRarity, current: Collection<Modifier>, slot: EnumEquipmentType): Modifier? {
         val currentDefinitions = definitions(current)
         val (prefixes, suffixes) = freeSlots(rarity, currentDefinitions, slot)

@@ -2608,6 +2608,330 @@
           "value": 1
         }
       ]
+    },
+    {
+      "code": "ATLAS_ABYSS_A1",
+      "x": 11.0,
+      "y": 9.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_HUNTSMAN"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_CHANCE",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_A2",
+      "x": 12.4,
+      "y": 9.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_A1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_CHANCE",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_CALL",
+      "x": 13.8,
+      "y": 9.3,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_A2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_EXTRA",
+          "value": 30
+        },
+        {
+          "stat": "ATLAS_ABYSS_CHANCE",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_H1",
+      "x": 14.6,
+      "y": 10.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_CALL"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_HOARD",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_H2",
+      "x": 15.3,
+      "y": 11.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_H1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_ORBS",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_H3",
+      "x": 15.8,
+      "y": 13.3,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_H2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_HOARD",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_TREASURY",
+      "x": 17.0,
+      "y": 14.2,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_H3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_HOARD",
+          "value": 20
+        },
+        {
+          "stat": "ATLAS_ABYSS_ORBS",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_H4",
+      "x": 18.2,
+      "y": 15.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_TREASURY"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_ORBS",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_MAW",
+      "x": 19.4,
+      "y": 15.9,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_ABYSS_H4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_POWER",
+          "value": 40
+        },
+        {
+          "stat": "ATLAS_ABYSS_UNIQUE",
+          "value": 60
+        },
+        {
+          "stat": "ATLAS_ABYSS_RARE",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_D1",
+      "x": 15.3,
+      "y": 9.2,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_CALL"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_RARE",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_D2",
+      "x": 16.7,
+      "y": 9.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_D1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_UNIQUE",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_BOTTOMLESS",
+      "x": 18.0,
+      "y": 10.3,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_D2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_DEPTH",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_D3",
+      "x": 19.1,
+      "y": 11.3,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_BOTTOMLESS"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_RARE",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_D4",
+      "x": 19.9,
+      "y": 12.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_D3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_UNIQUE",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_DARKEST",
+      "x": 20.7,
+      "y": 13.9,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_ABYSS_D4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_DEPTH",
+          "value": 1
+        },
+        {
+          "stat": "ATLAS_ABYSS_POWER",
+          "value": 25
+        },
+        {
+          "stat": "ATLAS_ABYSS_HOARD",
+          "value": 30
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_K1",
+      "x": 14.7,
+      "y": 8.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_CALL"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_KEEP",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_K2",
+      "x": 16.0,
+      "y": 7.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_K1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_KEEP",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_RETREAT",
+      "x": 17.4,
+      "y": 7.1,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_K2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_KEEP",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_K3",
+      "x": 18.7,
+      "y": 7.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_RETREAT"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_CHANCE",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_K4",
+      "x": 19.9,
+      "y": 8.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_K3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_ABYSS_HOARD",
+          "value": 10
+        }
+      ]
     }
   ]
 }

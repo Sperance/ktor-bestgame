@@ -17,7 +17,12 @@ enum class EnumInfluence {
     /**
      * Влияние Древнего (Elder).
      */
-    ELDER;
+    ELDER,
+
+    /**
+     * Влияние Бездны (0.72.0): им отмечена добыча расщелин Бездны, его же ставит Сфера Бездны.
+     */
+    ABYSS;
 
     companion object {
         /**
@@ -26,6 +31,7 @@ enum class EnumInfluence {
         fun byOrb(orb: EnumCurrencyOrb): EnumInfluence? = when (orb) {
             EnumCurrencyOrb.SHAPERS_ORB -> SHAPER
             EnumCurrencyOrb.ELDER_ORB -> ELDER
+            EnumCurrencyOrb.ABYSS_ORB -> ABYSS
             else -> null
         }
     }

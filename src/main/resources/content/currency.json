@@ -91,6 +91,10 @@
       "price": 20000
     },
     {
+      "orb": "ABYSS_ORB",
+      "price": 20000
+    },
+    {
       "orb": "EMPOWERING_ORB",
       "price": 2500
     },

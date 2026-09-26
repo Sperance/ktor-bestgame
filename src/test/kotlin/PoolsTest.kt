@@ -56,11 +56,12 @@ class PoolsTest {
             campaign.monsters.filter { it.boss && it.uniquePools.isNotEmpty() }.associate { "boss ${it.code}" to it.uniquePools } +
             CurrencySeeder.records.values.filter { it.uniquePools.isNotEmpty() }.associate { "orb ${it.orb}" to it.uniquePools } +
             mapOf("bosses" to campaign.bosses.uniquePools, "corruption" to campaign.corruption.uniquePools,
-                "smith bases" to crafting.equipmentPools, "smith uniques" to crafting.uniquePools, "merchant" to MerchantRules.POOLS)
+                "smith bases" to crafting.equipmentPools, "smith uniques" to crafting.uniquePools, "merchant" to MerchantRules.POOLS,
+                "abyss bases" to campaign.abyss?.equipmentPools.orEmpty(), "abyss uniques" to campaign.abyss?.uniquePools.orEmpty())
 
     private val monsterSources: Map<String, List<String>> =
         campaign.zones.associate { "map ${it.code}" to it.modifierPools } + mapOf("bosses" to campaign.bosses.modifierPools,
-            "crystals" to features.logic.essences.EssenceContent.book.crystals.modifierPools)
+            "crystals" to features.logic.essences.EssenceContent.book.crystals.modifierPools, "abyss" to campaign.abyss?.modifierPools.orEmpty())
 
     /** Модификаторы монстров (0.66.0) - описания источника MONSTER. */
     private val monsterModifiers = definitions.filter { it.isMonster() }

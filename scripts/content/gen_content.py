@@ -126,7 +126,7 @@ def pools_document(pools, current):
     monster = {}
     for tag in sorted(pools):
         entries = dict(sorted(pools[tag].items()))
-        if tag in ("monster", "boss", "essence"):
+        if tag in ("monster", "boss", "essence", "abyss"):
             monster[tag] = entries
         else:
             modifier[tag] = entries

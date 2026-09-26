@@ -6,6 +6,7 @@ import features.caches.PoolCache
 import features.logic.pools.EnumPoolTarget
 import features.logic.pools.Pools
 import application.enums.EnumEquipmentType
+import application.enums.EnumInfluence
 import application.enums.EnumRarity
 import application.enums.EnumStatStock
 import features.logic.powers.WorldKind
@@ -78,7 +79,9 @@ data class BossState(val alive: Boolean, val respawnAt: Long)
 @Serializable
 data class MapLaunch(val zone: CampaignMap, val map: ActiveMap?, val chests: ChestState, val atlas: Map<String, Double> = emptyMap(),
                      /** Кристаллы эссенций зоны (с 0.69.0) - с учётом тех, что добавила карта. */
-                     val crystals: CrystalState? = null)
+                     val crystals: CrystalState? = null,
+                     /** Бездна зоны (с 0.72.0) - расщелины, ступени и копилки; null, если расщелин нет. */
+                     val abyss: AbyssLaunch? = null)
 
 /** Что стоила смерть: потерянный опыт и где герой теперь. Уровень не меняется никогда. */
 @Serializable
@@ -289,6 +292,15 @@ class CampaignService : KoinComponent {
         val extraCrystals = active?.effects?.get(CampaignMaps.CRYSTALS)?.toInt() ?: 0
         if (extraCrystals > 0) character.crystals[mapCode] = crystals.copy(crystals = crystals.crystals +
             List(extraCrystals) { EssenceCrystals.roll(EssenceContent.book.crystals, zone.level, guardians(mapCode), Random.Default, atlasOf(character)) })
+        // Бездна (0.72.0): карта добавляет расщелины в окно зоны, как кристаллы, а новый вход закрывает прежний спуск
+        val rule = CampaignContent.file.abyss
+        rule?.let { abyss ->
+            val rifts = abyssWindowOf(character, mapCode, zone.level, abyss)
+            val extraCracks = active?.effects?.get(CampaignMaps.ABYSS_CRACKS)?.toInt() ?: 0
+            if (extraCracks > 0 && zone.level >= abyss.minLevel)
+                character.abyss[mapCode] = rifts.copy(cracks = rifts.cracks + List(extraCracks) { AbyssRifts.crack(abyss, Random.Default, atlasOf(character)) })
+        }
+        character.abyssRun = null
         character.activeMap = active
         // Новый заход открывают порчу и рецепт, только если на него потрачена карта: бесплатный
         // вход без неё иначе раздавал бы стража порчи и рецепт сколько угодно раз
@@ -303,7 +315,8 @@ class CampaignService : KoinComponent {
         }
         val now = character.chests[mapCode] ?: window
         val stones = character.crystals[mapCode] ?: crystals
-        return MapLaunch(zone, active, ChestState(now.left, now.refreshAt, now.bought), atlasOf(character).effects, CrystalState(stones.crystals, stones.refreshAt))
+        val abyss = rule?.let { abyss -> character.abyss[mapCode]?.let { abyssLaunch(character, mapCode, zone.level, it, abyss) } }
+        return MapLaunch(zone, active, ChestState(now.left, now.refreshAt, now.bought), atlasOf(character).effects, CrystalState(stones.crystals, stones.refreshAt), abyss)
     }
 
     /** Бонус карты, с которой герой вошёл в [mapCode]; в другой локации его нет. */
@@ -520,6 +533,108 @@ class CampaignService : KoinComponent {
         transactionExecute(method) { session -> characters.update(character, session) }
         return CrystalVaal(outcome, changed, CrystalState(crystals, window.refreshAt))
     }
+
+    // ==================== Бездна (0.72.0) ====================
+
+    /** Окно расщелин зоны; истёкшее бросается заново и остаётся в памяти - записывает вызывающий. */
+    private fun abyssWindowOf(character: Character, mapCode: String, level: Int, rule: AbyssRule): AbyssWindow {
+        val current = character.abyss[mapCode]
+        val window = AbyssRifts.window(current, System.currentTimeMillis(), rule, level, Random.Default, atlasOf(character))
+        if (window != current) character.abyss[mapCode] = window
+        return window
+    }
+
+    /** На сколько ступеней глубже ведёт расщелины карта, с которой герой вошёл в [mapCode]. */
+    private fun mapDepth(character: Character, mapCode: String): Double = mapBonus(character, mapCode).effects[CampaignMaps.ABYSS_DEPTH] ?: 0.0
+
+    /**
+     * Прибавки к копилке героя в [mapCode]: строки карты и атлас, шанс уникалки - и силами уникалок; единица
+     * опыта копилки - обычный монстр Бездны уровня зоны с бонусом опыта героя, карты и атласа.
+     */
+    private fun hoardBonus(character: Character, sheet: Map<application.enums.IntEnumStat, Double>, mapCode: String, level: Int, rule: AbyssRule): HoardBonus {
+        val map = mapBonus(character, mapCode)
+        val atlas = atlasOf(character)
+        fun sum(mapStat: String, atlasStat: EnumStatStock) = (map.effects[mapStat] ?: 0.0) + atlas[atlasStat]
+        val normal = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.NORMAL }
+        val bonus = experienceBonus(sheet, normal) + map.experience + atlas.experience
+        return HoardBonus(
+            items = 1 + sum(CampaignMaps.ABYSS_HOARD, EnumStatStock.ATLAS_ABYSS_HOARD) / 100,
+            rare = sum(CampaignMaps.ABYSS_RARE, EnumStatStock.ATLAS_ABYSS_RARE),
+            orbs = 1 + sum(CampaignMaps.ABYSS_ORBS, EnumStatStock.ATLAS_ABYSS_ORBS) / 100,
+            unique = uniqueChance(sheet, 1 + sum(CampaignMaps.ABYSS_UNIQUE, EnumStatStock.ATLAS_ABYSS_UNIQUE) / 100),
+            experience = rule.monsters.map { CampaignLoot.experience(CampaignContent.monsters.getValue(it), level, normal, bonus) }.average(),
+        )
+    }
+
+    /** Бездна зоны на этот заход: расщелины с глубиной карты, ступени с монстрами и копилки героя; null без расщелин. */
+    private suspend fun abyssLaunch(character: Character, mapCode: String, level: Int, window: AbyssWindow, rule: AbyssRule): AbyssLaunch? {
+        if (window.cracks.isEmpty()) return null
+        val floors = CampaignContent.abyss(level, pools.table(EnumPoolTarget.MONSTER), definitions.monsters()) ?: return null
+        val bonus = hoardBonus(character, characters.calculateStats(character).stats, mapCode, level, rule)
+        val depths = rule.waves.mapIndexed { index, wave ->
+            AbyssDepth(level + wave.level, wave.count, wave.magic, wave.rare, floors.floors[index].monsters, floors.floors[index].leader,
+                AbyssRifts.view(rule, index + 1, bonus))
+        }
+        val depth = mapDepth(character, mapCode)
+        return AbyssLaunch(window.cracks.map { AbyssRifts.depth(rule, it, depth) }, window.refreshAt, depths, floors.modifiers,
+            atlasOf(character)[EnumStatStock.ATLAS_ABYSS_KEEP].coerceIn(0.0, 100.0))
+    }
+
+    /**
+     * Герой открыл расщелину [index] (0.72.0): она уходит из окна зоны, спуск ведёт на её ступени и глубину
+     * карты. Прежний незабранный спуск на этом закрыт - его копилка сгорела.
+     */
+    suspend fun openAbyss(characterId: String, mapCode: String, index: Int): AbyssOpened {
+        val method = "openAbyss"
+        val character = characters.requireCharacter(characterId, method)
+        val zone = openMap(character, mapCode, method)
+        val rule = CampaignContent.file.abyss ?: throw CampaignExceptions.funExceptionNoAbyss(method, mapCode)
+        val window = abyssWindowOf(character, mapCode, zone.level, rule)
+        val crack = window.cracks.getOrNull(index) ?: throw CampaignExceptions.funExceptionNoAbyss(method, mapCode)
+        val left = window.copy(cracks = window.cracks.filterIndexed { i, _ -> i != index })
+        character.abyss[mapCode] = left
+        val depth = mapDepth(character, mapCode)
+        character.abyssRun = AbyssRun(mapCode, AbyssRifts.depth(rule, crack, depth))
+        transactionExecute(method) { session -> characters.update(character, session) }
+        return AbyssOpened(character.abyssRun!!.depth, left.cracks.map { AbyssRifts.depth(rule, it, depth) }, left.refreshAt)
+    }
+
+    /**
+     * Копилка Бездны (0.72.0): герой прошёл [depth] ступеней спуска и забрал её - или пал ([fallen]), и тогда
+     * уцелевает лишь доля атласа `ATLAS_ABYSS_KEEP`. Вещи - волшебные и редкие базы зоны с влиянием Бездны
+     * и её строкой, сферы - по весам правила, уникалка - из пулов Бездны не старше зоны больше чем на
+     * [UNIQUE_REACH]. Спуск на этом закрыт; ступеней больше, чем в нём, - `CP_017`.
+     */
+    suspend fun claimAbyss(characterId: String, mapCode: String, depth: Int, fallen: Boolean): CampaignReward {
+        val method = "claimAbyss"
+        val character = characters.requireCharacter(characterId, method)
+        val zone = openMap(character, mapCode, method)
+        val rule = CampaignContent.file.abyss ?: throw CampaignExceptions.funExceptionAbyssClosed(method, mapCode)
+        val run = character.abyssRun?.takeIf { it.mapCode == mapCode } ?: throw CampaignExceptions.funExceptionAbyssClosed(method, mapCode)
+        if (depth !in 0..run.depth) throw CampaignExceptions.funExceptionAbyssDepth(method, depth.toString())
+        character.abyssRun = null
+        val random = Random.Default
+        val keep = if (fallen) atlasOf(character)[EnumStatStock.ATLAS_ABYSS_KEEP].coerceIn(0.0, 100.0) / 100 else 1.0
+        val hoard = AbyssRifts.roll(rule, depth, hoardBonus(character, characters.calculateStats(character).stats, mapCode, zone.level, rule), keep, random)
+        val bases = equipmentCache.poolUpTo(rule.equipmentPools, zone.level).filter { (template) -> template.rarity < EnumRarity.UNIQUE && influenceable(template.slot) }
+        val items = hoard.items.mapNotNull { rarity -> Pools.draw(bases, random)?.let { it to rarity } }
+        val unique = Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, zone.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random)
+            .takeIf { hoard.unique }
+        val orbs = hoard.orbs.mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) } }
+        val equipment = transactionExecute(method) { session ->
+            if (orbs.isNotEmpty()) characters.applyItems(character, orbs, method)
+            if (hoard.experience > 0) characters.applyExperience(character, hoard.experience, method)
+            val created = items.map { (template, rarity) -> inventory.addInfluenced(character._id, template, rarity, EnumInfluence.ABYSS, random, session) } +
+                inventory.addAllFromEquipment(character._id, listOfNotNull(unique), session)
+            characters.update(character, session)
+            created
+        }
+        return CampaignReward(hoard.experience, 0, orbs, equipment, character.level.toInt(), character.experience, character.money)
+    }
+
+    /** Может ли база нести влияние: как у сфер влияния - не самоцвет, не карта, не инструмент и не фляга. */
+    private fun influenceable(slot: EnumEquipmentType): Boolean =
+        slot != EnumEquipmentType.JEWEL && slot != EnumEquipmentType.MAP && !slot.isTool && !slot.isFlask
 
     /**
      * Герой погиб на карте: часть опыта текущего уровня теряется по правилу [CombatRules.death].

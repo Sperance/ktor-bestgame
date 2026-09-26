@@ -37476,6 +37476,1759 @@
         "essence"
       ],
       "minRarity": "RARE"
+    },
+    {
+      "code": "ABYSS_ADD_CHAOS_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_CHAOS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 373,
+          "values": [
+            [
+              14,
+              18
+            ]
+          ]
+        },
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              11,
+              14
+            ]
+          ]
+        },
+        {
+          "level": 20,
+          "weight": 720,
+          "values": [
+            [
+              7,
+              10
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              4,
+              6
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "damage",
+        "chaos"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_INCREASED_CHAOS_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_CHAOS",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 373,
+          "values": [
+            [
+              35,
+              42
+            ]
+          ]
+        },
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              27,
+              33
+            ]
+          ]
+        },
+        {
+          "level": 20,
+          "weight": 720,
+          "values": [
+            [
+              20,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              12,
+              16
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "damage",
+        "chaos"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_INCREASED_SPELL_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 373,
+          "values": [
+            [
+              30,
+              36
+            ]
+          ]
+        },
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              23,
+              29
+            ]
+          ]
+        },
+        {
+          "level": 20,
+          "weight": 720,
+          "values": [
+            [
+              17,
+              21
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              14
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "damage",
+        "caster"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_INCREASED_DAMAGE_VS_CURSED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_VS_CURSED",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              30,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              21,
+              28
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              12,
+              16
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "damage",
+        "curse"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_ADD_LIFE_AND_MANA",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_MANA",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 373,
+          "values": [
+            [
+              50,
+              60
+            ],
+            [
+              35,
+              45
+            ]
+          ]
+        },
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              38,
+              47
+            ],
+            [
+              27,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 20,
+          "weight": 720,
+          "values": [
+            [
+              27,
+              33
+            ],
+            [
+              18,
+              24
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              20
+            ],
+            [
+              10,
+              14
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "life",
+        "mana",
+        "hybrid"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_INCREASED_SKILL_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              25,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              12
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "damage"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_ADD_CHAOS_RESISTANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_CHAOS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 60,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              25
+            ]
+          ]
+        },
+        {
+          "level": 20,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              19
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              14
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "resistance",
+        "chaos"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_PENETRATE_CHAOS",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PENETRATE_CHAOS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              12,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              8,
+              11
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "penetration",
+        "chaos"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_ADD_LEECH",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_LEECH_ALL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              0.9,
+              1.2
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              0.6,
+              0.8
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              0.3,
+              0.5
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "leech"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_ADD_MANA_LEECH",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_LEECH_MANA",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              0.6,
+              0.8
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              0.4,
+              0.6
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              0.2,
+              0.3
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "leech",
+        "mana"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_ADD_LIFE_AND_MANA_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH_ON_KILL",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_MANA_ON_KILL",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              30,
+              40
+            ],
+            [
+              6,
+              8
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              20,
+              28
+            ],
+            [
+              4,
+              6
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              15
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "life",
+        "mana",
+        "hybrid"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_CURSE_ON_HIT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CURSE_ON_HIT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              15,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              10,
+              14
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              6,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "curse"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_INCREASED_CURSE_EFFECT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CURSE_EFFECT",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              12,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              8,
+              11
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "curse"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_POISON",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_POISON_CHANCE",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_POISON_DAMAGE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              25
+            ],
+            [
+              25,
+              30
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              14,
+              18
+            ],
+            [
+              18,
+              22
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              8,
+              10
+            ],
+            [
+              10,
+              14
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "ailment",
+        "chaos",
+        "hybrid"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_LIFE_REGEN_PERCENT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_LIFE_REGEN_PERCENT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              1.2,
+              1.5
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              0.8,
+              1.1
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              0.4,
+              0.6
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "regen",
+        "life"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_REDUCED_DAMAGE_TAKEN",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_TAKEN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              -5,
+              -4
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              -4,
+              -3
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              -2,
+              -2
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "defences"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "ABYSS_INCREASED_COOLDOWN_RECOVERY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_COOLDOWN_RECOVERY",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 55,
+          "weight": 518,
+          "values": [
+            [
+              12,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 28,
+          "weight": 720,
+          "values": [
+            [
+              8,
+              11
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "influence",
+        "skill"
+      ],
+      "influence": "ABYSS"
+    },
+    {
+      "code": "MAP_ABYSS_CRACKS",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_CRACKS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_DEPTH",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_DEPTH",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_HOARD",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_HOARD",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              28,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_UNIQUE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_UNIQUE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              60,
+              80
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              40,
+              55
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_ORBS",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_ORBS",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              60,
+              80
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              40,
+              55
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              20,
+              30
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_RARE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_RARE",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              15,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              10,
+              14
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "reward",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_LIFE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_LIFE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              26,
+              33
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              12,
+              16
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_DAMAGE",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              30,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              20,
+              27
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              14
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_SWARM",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_SWARM",
+          "operation": "INCREASED"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              28,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "abyss"
+      ]
+    },
+    {
+      "code": "MAP_ABYSS_LEADER",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_ABYSS_LEADER",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 40,
+          "weight": 518,
+          "values": [
+            [
+              40,
+              50
+            ]
+          ]
+        },
+        {
+          "level": 25,
+          "weight": 720,
+          "values": [
+            [
+              28,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 1000,
+          "values": [
+            [
+              15,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "map",
+        "abyss"
+      ]
+    },
+    {
+      "code": "ABYSS_MOB_VOIDTOUCHED",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_CHAOS",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_RESIST_CHAOS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              5,
+              7
+            ],
+            [
+              30,
+              40
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              4,
+              6
+            ],
+            [
+              25,
+              33
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              3,
+              4
+            ],
+            [
+              20,
+              27
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              2,
+              3
+            ],
+            [
+              15,
+              20
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "abyss",
+        "chaos"
+      ],
+      "minRarity": "MAGIC"
+    },
+    {
+      "code": "ABYSS_MOB_BLOODTHIRSTY",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_LEECH_ALL",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_HEALTH_ON_HIT",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              4,
+              6
+            ],
+            [
+              6,
+              9
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              3,
+              5
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              6
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "abyss",
+        "leech"
+      ],
+      "minRarity": "MAGIC"
+    },
+    {
+      "code": "ABYSS_MOB_UMBRAL",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ENERGY_SHIELD",
+          "operation": "ADD"
+        },
+        {
+          "stat": "STOCK_PENETRATE_CHAOS",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              18,
+              24
+            ],
+            [
+              10,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              14,
+              19
+            ],
+            [
+              8,
+              13
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              10,
+              15
+            ],
+            [
+              7,
+              10
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              6,
+              10
+            ],
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "abyss",
+        "energy_shield",
+        "chaos"
+      ],
+      "minRarity": "MAGIC"
+    },
+    {
+      "code": "ABYSS_MOB_WHISPERING",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_WEAKEN",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              10,
+              14
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              8,
+              12
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              7,
+              9
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "abyss",
+        "aura",
+        "curse"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "ABYSS_MOB_ENTROPIC",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_RESIST",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              15,
+              20
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              12,
+              17
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              9,
+              13
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              6,
+              10
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "abyss",
+        "aura",
+        "curse"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "ABYSS_MOB_DRAINING",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "AURA_RECOVERY",
+          "operation": "ADD"
+        }
+      ],
+      "tiers": [
+        {
+          "level": 16,
+          "weight": 373,
+          "values": [
+            [
+              25,
+              35
+            ]
+          ]
+        },
+        {
+          "level": 10,
+          "weight": 518,
+          "values": [
+            [
+              20,
+              28
+            ]
+          ]
+        },
+        {
+          "level": 5,
+          "weight": 720,
+          "values": [
+            [
+              15,
+              22
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "weight": 1000,
+          "values": [
+            [
+              10,
+              15
+            ]
+          ]
+        }
+      ],
+      "tags": [
+        "monster",
+        "abyss",
+        "aura",
+        "curse"
+      ],
+      "minRarity": "RARE"
     }
   ]
 }

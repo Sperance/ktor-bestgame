@@ -167,6 +167,14 @@ class CharacterRoute(
             post("/crystal/vaal") {
                 call.respondWithHero(campaign.vaalCrystal(call.characterId, call.mapCode, call.queryParam("index", -1)))
             }
+            // 0.72.0: Бездна - расщелина открывает спуск, копилку забирают после ступени или теряют с гибелью.
+            post("/abyss") {
+                call.respondOk(campaign.openAbyss(call.characterId, call.mapCode, call.queryParam("index", -1)))
+            }
+            post("/abyss/claim") {
+                call.respondWithHero(campaign.claimAbyss(call.characterId, call.mapCode, call.queryParam("depth", -1),
+                    call.request.queryParameters["fallen"] == "true"))
+            }
         }
 
         // 0.69.0: умения класса - книга учит уровень, слоты с условиями, условия глотков фляг, обмен книг.

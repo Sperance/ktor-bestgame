@@ -174,6 +174,13 @@ object CampaignMaps {
     const val BOSS_POWER = "MAP_BOSS_POWER"
     const val CRYSTALS = "MAP_CRYSTALS"
     const val BOOKS = "MAP_BOOKS"
+    // Бездна (0.72.0): расщелины и глубина - спуску, остальное - копилке; силу её монстров читает клиент.
+    const val ABYSS_CRACKS = "MAP_ABYSS_CRACKS"
+    const val ABYSS_DEPTH = "MAP_ABYSS_DEPTH"
+    const val ABYSS_HOARD = "MAP_ABYSS_HOARD"
+    const val ABYSS_UNIQUE = "MAP_ABYSS_UNIQUE"
+    const val ABYSS_ORBS = "MAP_ABYSS_ORBS"
+    const val ABYSS_RARE = "MAP_ABYSS_RARE"
 
     /** Код шаблона карты для локации: `MAP_<код локации>`. */
     fun templateCode(mapCode: String) = "MAP_$mapCode"

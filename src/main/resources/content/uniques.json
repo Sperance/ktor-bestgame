@@ -7327,6 +7327,402 @@
           }
         ]
       ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "VOIDFANG",
+      "itemLevel": 12,
+      "requiredLevel": 12,
+      "requiredStrength": 0,
+      "requiredDexterity": 26,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 112,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_ALL",
+            "operation": "ADD",
+            "range": [
+              0.8,
+              1.2
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_POISON_CHANCE",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VOID_LASH",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSSAL_HUNGER",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "HUSH_OF_THE_DEEP",
+      "itemLevel": 26,
+      "requiredLevel": 26,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 56,
+      "baseParams": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            30.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CURSE_EFFECT",
+            "operation": "INCREASED",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WHISPERED_HEX",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DREAD_GAZE",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "MAW_OF_THE_CHASM",
+      "itemLevel": 38,
+      "requiredLevel": 38,
+      "requiredStrength": 76,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LIFE_REGEN_PERCENT",
+            "operation": "ADD",
+            "range": [
+              0.8,
+              1.2
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SWALLOW_WHOLE",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VOID_TITHE",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "UMBRAL_CARAPACE",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 60,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 60,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            245.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            84.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              70.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "operation": "ADD",
+            "range": [
+              -6.0,
+              -4.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_UMBRAL_BARRIER",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEEP_RECOIL",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "ENTROPY_SIGIL",
+      "itemLevel": 62,
+      "requiredLevel": 62,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 124,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "INCREASED",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PENETRATE_CHAOS",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              20.0
+            ]
+          },
+          {
+            "stat": "STOCK_AGILITY",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              20.0
+            ]
+          },
+          {
+            "stat": "STOCK_INTELLECT",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ENTROPY",
+            "operation": "ADD",
+            "range": [
+              -15.0,
+              -10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEPTH_FRENZY",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ]
+      ]
     }
   ]
 }

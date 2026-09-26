@@ -22,4 +22,7 @@ object CampaignExceptions {
     fun funExceptionCorruptionSpent(errorMethod: String, value: String? = "") = CampaignException("The corrupted zone of map $value is already spent this run", errorMethod, "CP_012", listOf(value.orEmpty()))
     fun funExceptionNoCrystal(errorMethod: String, value: String? = "") = CampaignException("No such essence crystal on map $value", errorMethod, "CP_013", listOf(value.orEmpty()))
     fun funExceptionCrystalCorrupted(errorMethod: String, value: String? = "") = CampaignException("This crystal on map $value is already corrupted", errorMethod, "CP_014", listOf(value.orEmpty()))
+    fun funExceptionNoAbyss(errorMethod: String, value: String? = "") = CampaignException("No such Abyss crack on map $value", errorMethod, "CP_015", listOf(value.orEmpty()))
+    fun funExceptionAbyssClosed(errorMethod: String, value: String? = "") = CampaignException("No descent into the Abyss is open on map $value", errorMethod, "CP_016", listOf(value.orEmpty()))
+    fun funExceptionAbyssDepth(errorMethod: String, value: String? = "") = CampaignException("Abyss depth $value is out of reach", errorMethod, "CP_017", listOf(value.orEmpty()))
 }

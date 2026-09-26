@@ -884,3 +884,50 @@ essmob("MOB_ESS_INSANITY", [eff("STOCK_BORROW_SKILLS")], [[1, 1]], [[1, 1]])
 essmob("MOB_ESS_HORROR", [eff("STOCK_DAMAGE"), eff("STOCK_HEALTH", "MORE")], [[50, 50], [-30, -30]], [[50, 50], [-30, -30]])
 essmob("MOB_ESS_DELIRIUM", [eff("AURA_SLOW")], [[20, 20]], [[20, 20]])
 essmob("MOB_ESS_HYSTERIA", [eff("STOCK_WARCRY_EFFECT")], [[100, 100]], [[100, 100]])
+
+# =====================================================================
+# БЕЗДНА (0.72.0): влияние её добычи - хаос, вампиризм, проклятия, отдача с убийств; моды карт на расщелины
+# =====================================================================
+A = "ABYSS"
+inf("ABYSS_ADD_CHAOS_DAMAGE", A, "PREFIX", [eff("STOCK_ATTACK_CHAOS")], G4, [[14, 18]], [[4, 6]], ["weapon", "ring", "amulet", "gloves", "quiver"], ["damage", "chaos"])
+inf("ABYSS_INCREASED_CHAOS_DAMAGE", A, "PREFIX", [eff("STOCK_ATTACK_CHAOS", "INCREASED")], G4, [[35, 42]], [[12, 16]], ["weapon", "amulet"], ["damage", "chaos"])
+inf("ABYSS_INCREASED_SPELL_DAMAGE", A, "PREFIX", [eff("STOCK_SPELL_DAMAGE", "INCREASED")], G4, [[30, 36]], [[10, 14]], ["weapon", "amulet", "ring", "helmet"], ["damage", "caster"])
+inf("ABYSS_INCREASED_DAMAGE_VS_CURSED", A, "PREFIX", [eff("STOCK_DAMAGE_VS_CURSED", "INCREASED")], G3, [[30, 40]], [[12, 16]], ["weapon", "gloves", "amulet", "quiver"], ["damage", "curse"])
+inf("ABYSS_ADD_LIFE_AND_MANA", A, "PREFIX", [eff("STOCK_HEALTH"), eff("STOCK_MANA")], G4, [[50, 60], [35, 45]], [[15, 20], [10, 14]], ["body", "helmet", "belt", "shield", "boots", "gloves"], ["life", "mana", "hybrid"])
+inf("ABYSS_INCREASED_SKILL_DAMAGE", A, "PREFIX", [eff("STOCK_SKILL_DAMAGE", "INCREASED")], G3, [[25, 30]], [[8, 12]], ["weapon", "gloves", "helmet", "amulet"], ["damage"])
+inf("ABYSS_ADD_CHAOS_RESISTANCE", A, "SUFFIX", [eff("STOCK_RESIST_CHAOS")], G4, [[25, 30]], [[10, 14]], [], ["resistance", "chaos"])
+inf("ABYSS_PENETRATE_CHAOS", A, "SUFFIX", [eff("STOCK_PENETRATE_CHAOS")], G3, [[12, 15]], [[5, 7]], ["weapon", "amulet", "quiver", "gloves"], ["penetration", "chaos"])
+inf("ABYSS_ADD_LEECH", A, "SUFFIX", [eff("STOCK_LEECH_ALL")], G3, [[0.9, 1.2]], [[0.3, 0.5]], ["weapon", "gloves", "ring", "amulet"], ["leech"], precision=1)
+inf("ABYSS_ADD_MANA_LEECH", A, "SUFFIX", [eff("STOCK_LEECH_MANA")], G3, [[0.6, 0.8]], [[0.2, 0.3]], ["weapon", "ring", "gloves", "amulet"], ["leech", "mana"], precision=1)
+inf("ABYSS_ADD_LIFE_AND_MANA_ON_KILL", A, "SUFFIX", [eff("STOCK_HEALTH_ON_KILL"), eff("STOCK_MANA_ON_KILL")], G3, [[30, 40], [6, 8]], [[10, 15], [2, 3]], ["ring", "amulet", "boots", "gloves", "belt"], ["life", "mana", "hybrid"])
+inf("ABYSS_CURSE_ON_HIT", A, "SUFFIX", [eff("STOCK_CURSE_ON_HIT")], G3, [[15, 20]], [[6, 8]], ["body", "shield", "helmet", "gloves"], ["curse"])
+inf("ABYSS_INCREASED_CURSE_EFFECT", A, "SUFFIX", [eff("STOCK_CURSE_EFFECT", "INCREASED")], G3, [[12, 15]], [[5, 7]], ["helmet", "amulet", "ring", "body"], ["curse"])
+inf("ABYSS_POISON", A, "SUFFIX", [eff("STOCK_POISON_CHANCE"), eff("STOCK_POISON_DAMAGE")], G3, [[20, 25], [25, 30]], [[8, 10], [10, 14]], ["weapon", "gloves", "quiver", "ring"], ["ailment", "chaos", "hybrid"])
+inf("ABYSS_LIFE_REGEN_PERCENT", A, "SUFFIX", [eff("STOCK_LIFE_REGEN_PERCENT")], G3, [[1.2, 1.5]], [[0.4, 0.6]], ["body", "belt", "shield", "helmet"], ["regen", "life"], precision=1)
+inf("ABYSS_REDUCED_DAMAGE_TAKEN", A, "SUFFIX", [eff("STOCK_DAMAGE_TAKEN")], G3, [[-5, -4]], [[-2, -2]], ["body", "shield", "belt", "wings"], ["defences"])
+inf("ABYSS_INCREASED_COOLDOWN_RECOVERY", A, "SUFFIX", [eff("STOCK_COOLDOWN_RECOVERY", "INCREASED")], G3, [[12, 15]], [[5, 7]], ["amulet", "ring", "boots", "wings"], ["skill"])
+
+AB = [40, 25, 10]
+mapmod("MAP_ABYSS_CRACKS", "SUFFIX", [eff("MAP_ABYSS_CRACKS")], [[1, 1]], [[1, 1]], 60, ["reward", "abyss"], grid=[10])
+mapmod("MAP_ABYSS_DEPTH", "SUFFIX", [eff("MAP_ABYSS_DEPTH")], [[1, 1]], [[1, 1]], 40, ["reward", "abyss"], grid=[10])
+mapmod("MAP_ABYSS_HOARD", "SUFFIX", [eff("MAP_ABYSS_HOARD", "INCREASED")], [[40, 50]], [[15, 20]], 60, ["reward", "abyss"], grid=AB)
+mapmod("MAP_ABYSS_UNIQUE", "SUFFIX", [eff("MAP_ABYSS_UNIQUE", "INCREASED")], [[60, 80]], [[20, 30]], 40, ["reward", "abyss"], grid=AB)
+mapmod("MAP_ABYSS_ORBS", "SUFFIX", [eff("MAP_ABYSS_ORBS", "INCREASED")], [[60, 80]], [[20, 30]], 50, ["reward", "abyss"], grid=AB)
+mapmod("MAP_ABYSS_RARE", "SUFFIX", [eff("MAP_ABYSS_RARE")], [[15, 20]], [[5, 8]], 50, ["reward", "abyss"], grid=AB)
+mapmod("MAP_ABYSS_LIFE", "PREFIX", [eff("MAP_ABYSS_LIFE", "INCREASED")], [[40, 50]], [[12, 16]], 70, ["abyss"], grid=AB)
+mapmod("MAP_ABYSS_DAMAGE", "PREFIX", [eff("MAP_ABYSS_DAMAGE", "INCREASED")], [[30, 40]], [[10, 14]], 70, ["abyss"], grid=AB)
+mapmod("MAP_ABYSS_SWARM", "PREFIX", [eff("MAP_ABYSS_SWARM", "INCREASED")], [[40, 50]], [[15, 20]], 60, ["abyss"], grid=AB)
+mapmod("MAP_ABYSS_LEADER", "PREFIX", [eff("MAP_ABYSS_LEADER")], [[40, 50]], [[15, 20]], 50, ["abyss"], grid=AB)
+
+
+# Монстры Бездны (0.72.0): свой пул `abyss` - хаос, вампиризм и ауры-проклятия; из него же сигнатуры её вожаков
+def abymob(code, effects, top, bottom, rarity="MAGIC", weight=100, tags=(), precision=0):
+    fam(code, "MONSTER", effects, MOB4, top, bottom, {"abyss": weight}, tags=["monster", "abyss"] + list(tags), minRarity=rarity, precision=precision)
+
+
+abymob("ABYSS_MOB_VOIDTOUCHED", [eff("STOCK_ATTACK_CHAOS"), eff("STOCK_RESIST_CHAOS")], [[5, 7], [30, 40]], [[2, 3], [15, 20]], weight=480, tags=["chaos"])
+abymob("ABYSS_MOB_BLOODTHIRSTY", [eff("STOCK_LEECH_ALL"), eff("STOCK_HEALTH_ON_HIT")], [[4, 6], [6, 9]], [[2, 3], [2, 4]], weight=400, tags=["leech"])
+abymob("ABYSS_MOB_UMBRAL", [eff("STOCK_ENERGY_SHIELD"), eff("STOCK_PENETRATE_CHAOS")], [[18, 24], [10, 15]], [[6, 10], [5, 8]], weight=360, tags=["energy_shield", "chaos"])
+abymob("ABYSS_MOB_WHISPERING", [eff("AURA_WEAKEN")], [[10, 14]], [[5, 7]], "RARE", 280, ["aura", "curse"])
+abymob("ABYSS_MOB_ENTROPIC", [eff("AURA_RESIST")], [[15, 20]], [[6, 10]], "RARE", 280, ["aura", "curse"])
+abymob("ABYSS_MOB_DRAINING", [eff("AURA_RECOVERY")], [[25, 35]], [[10, 15]], "RARE", 240, ["aura", "curse"])

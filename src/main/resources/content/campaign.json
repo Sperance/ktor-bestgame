@@ -5489,6 +5489,183 @@
         "MOB_SHIELDED",
         "MOB_WITHERING"
       ]
+    },
+    {
+      "code": "CHASM_SPAWN",
+      "form": "DEMON",
+      "experience": 24,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.4,
+        "STOCK_HEALTH": 20,
+        "STOCK_ATTACK_PHYSICAL": 2.5,
+        "STOCK_ATTACK_CHAOS": 4,
+        "STOCK_RESIST_CHAOS": 50
+      }
+    },
+    {
+      "code": "CHASM_LEECH",
+      "form": "SLUG",
+      "experience": 22,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 26,
+        "STOCK_ATTACK_PHYSICAL": 3.5,
+        "STOCK_ATTACK_CHAOS": 1.5,
+        "STOCK_LEECH_ALL": 10,
+        "STOCK_HEALTH_ON_HIT": 3
+      }
+    },
+    {
+      "code": "CHASM_WHISPERER",
+      "range": "RANGED",
+      "form": "WRAITH",
+      "experience": 26,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 16,
+        "STOCK_ENERGY_SHIELD": 10,
+        "STOCK_ATTACK_CHAOS": 3,
+        "STOCK_RESIST_CHAOS": 60,
+        "STOCK_ATTACK_MAGICAL": 4.5,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 40,
+        "STOCK_MANA_REGEN": 3
+      },
+      "skills": [
+        "MOB_ENFEEBLE",
+        "MOB_CHAOS_RING"
+      ]
+    },
+    {
+      "code": "CHASM_STALKER",
+      "form": "SPIDER",
+      "experience": 24,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 18,
+        "STOCK_ATTACK_PHYSICAL": 3,
+        "STOCK_ATTACK_CHAOS": 2,
+        "STOCK_EVASION": 40,
+        "STOCK_POISON_CHANCE": 25
+      }
+    },
+    {
+      "code": "CHASM_HEXER",
+      "range": "RANGED",
+      "form": "HUMANOID",
+      "experience": 26,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 18,
+        "STOCK_ATTACK_CHAOS": 2.5,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_ATTACK_MAGICAL": 4.0,
+        "STOCK_CAST_SPEED": 0.9,
+        "STOCK_MANA": 40,
+        "STOCK_MANA_REGEN": 3
+      },
+      "skills": [
+        "MOB_VULNERABILITY",
+        "MOB_SPIT"
+      ]
+    },
+    {
+      "code": "CHASM_BRUTE",
+      "form": "BRUTE",
+      "experience": 28,
+      "loot": "T3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 40,
+        "STOCK_ATTACK_PHYSICAL": 5,
+        "STOCK_ATTACK_CHAOS": 2,
+        "STOCK_ARMOR": 40,
+        "STOCK_MANA": 30
+      },
+      "skills": [
+        "MOB_SLAM"
+      ]
+    },
+    {
+      "code": "CHASM_PIT_MASTER",
+      "form": "BRUTE",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 110,
+        "STOCK_ATTACK_PHYSICAL": 9,
+        "STOCK_ATTACK_CHAOS": 5,
+        "STOCK_ARMOR": 60,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "modifiers": [
+        "ABYSS_MOB_BLOODTHIRSTY"
+      ],
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
+      ]
+    },
+    {
+      "code": "CHASM_WHISPER_QUEEN",
+      "range": "RANGED",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 90,
+        "STOCK_ENERGY_SHIELD": 60,
+        "STOCK_ATTACK_CHAOS": 9,
+        "STOCK_RESIST_CHAOS": 60,
+        "STOCK_ATTACK_MAGICAL": 8,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4
+      },
+      "boss": true,
+      "modifiers": [
+        "ABYSS_MOB_WHISPERING",
+        "ABYSS_MOB_VOIDTOUCHED"
+      ],
+      "skills": [
+        "MOB_CHAOS_RING",
+        "MOB_ENFEEBLE"
+      ]
+    },
+    {
+      "code": "CHASM_DEVOURER",
+      "form": "DEMON",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.15,
+        "STOCK_HEALTH": 170,
+        "STOCK_ATTACK_PHYSICAL": 10,
+        "STOCK_ATTACK_CHAOS": 11,
+        "STOCK_RESIST_CHAOS": 70,
+        "STOCK_ARMOR": 60,
+        "STOCK_HEALTH_REGEN": 3,
+        "STOCK_MANA": 50
+      },
+      "boss": true,
+      "modifiers": [
+        "ABYSS_MOB_ENTROPIC",
+        "ABYSS_MOB_UMBRAL"
+      ],
+      "skills": [
+        "MOB_CHAOS_RING",
+        "MOB_VULNERABILITY",
+        "MOB_HEAL"
+      ]
     }
   ],
   "world": {
@@ -8874,7 +9051,215 @@
       "MAP_FLASK_CHARGES": 0.4,
       "MAP_HERO_MANA_REGEN": 0.2,
       "MAP_MONSTER_CAST": 0.5,
-      "MAP_SKILL_COST": 0.5
+      "MAP_SKILL_COST": 0.5,
+      "MAP_ABYSS_LIFE": 0.1,
+      "MAP_ABYSS_DAMAGE": 0.15,
+      "MAP_ABYSS_SWARM": 0.1,
+      "MAP_ABYSS_LEADER": 0.1
     }
+  },
+  "abyss": {
+    "chance": 20,
+    "minLevel": 10,
+    "refreshHours": 6,
+    "depth": [
+      4,
+      6
+    ],
+    "monsters": [
+      "CHASM_SPAWN",
+      "CHASM_LEECH",
+      "CHASM_WHISPERER",
+      "CHASM_STALKER",
+      "CHASM_HEXER",
+      "CHASM_BRUTE"
+    ],
+    "waves": [
+      {
+        "count": [
+          3,
+          4
+        ],
+        "level": 0,
+        "magic": 10,
+        "rare": 0
+      },
+      {
+        "count": [
+          4,
+          5
+        ],
+        "level": 1,
+        "magic": 15,
+        "rare": 3
+      },
+      {
+        "count": [
+          4,
+          6
+        ],
+        "level": 1,
+        "magic": 20,
+        "rare": 5,
+        "leader": "CHASM_PIT_MASTER"
+      },
+      {
+        "count": [
+          5,
+          6
+        ],
+        "level": 2,
+        "magic": 25,
+        "rare": 8
+      },
+      {
+        "count": [
+          5,
+          7
+        ],
+        "level": 2,
+        "magic": 30,
+        "rare": 10,
+        "leader": "CHASM_WHISPER_QUEEN"
+      },
+      {
+        "count": [
+          6,
+          7
+        ],
+        "level": 3,
+        "magic": 35,
+        "rare": 14
+      },
+      {
+        "count": [
+          6,
+          8
+        ],
+        "level": 4,
+        "magic": 40,
+        "rare": 18,
+        "leader": "CHASM_DEVOURER"
+      }
+    ],
+    "hoard": [
+      {
+        "items": [
+          1,
+          1
+        ],
+        "rare": 10,
+        "orbs": [
+          0,
+          1
+        ],
+        "unique": 1,
+        "experience": 4
+      },
+      {
+        "items": [
+          1,
+          2
+        ],
+        "rare": 15,
+        "orbs": [
+          1,
+          1
+        ],
+        "unique": 2,
+        "experience": 10
+      },
+      {
+        "items": [
+          2,
+          3
+        ],
+        "rare": 25,
+        "orbs": [
+          1,
+          2
+        ],
+        "unique": 4,
+        "experience": 53
+      },
+      {
+        "items": [
+          3,
+          4
+        ],
+        "rare": 30,
+        "orbs": [
+          2,
+          3
+        ],
+        "unique": 6,
+        "experience": 62
+      },
+      {
+        "items": [
+          4,
+          5
+        ],
+        "rare": 40,
+        "orbs": [
+          2,
+          4
+        ],
+        "unique": 10,
+        "experience": 108
+      },
+      {
+        "items": [
+          5,
+          6
+        ],
+        "rare": 50,
+        "orbs": [
+          3,
+          5
+        ],
+        "unique": 14,
+        "experience": 121
+      },
+      {
+        "items": [
+          6,
+          8
+        ],
+        "rare": 65,
+        "orbs": [
+          4,
+          6
+        ],
+        "unique": 20,
+        "experience": 173
+      }
+    ],
+    "orbs": {
+      "ABYSS_ORB": 20,
+      "CHAOS_ORB": 18,
+      "ORB_OF_ALCHEMY": 18,
+      "REGAL_ORB": 12,
+      "BLESSED_ORB": 10,
+      "VAAL_ORB": 10,
+      "ORB_OF_SCOURING": 8,
+      "EXALTED_ORB": 2,
+      "DIVINE_ORB": 2
+    },
+    "uniquePools": [
+      "abyss"
+    ],
+    "equipmentPools": [
+      "drop"
+    ],
+    "modifierPools": [
+      "abyss",
+      "monster"
+    ],
+    "rolls": [
+      1,
+      2
+    ],
+    "tierReach": 5
   }
 }

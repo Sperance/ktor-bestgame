@@ -122,6 +122,12 @@ data class Character(
     /** Кристаллы эссенций кампании по кодам карт (с 0.69.0): окно, как у сундуков, и что в каждом, см. [features.logic.campaign.EssenceCrystals]. */
     var crystals: MutableMap<String, features.logic.campaign.CrystalWindow> = mutableMapOf(),
 
+    /** Расщелины Бездны по кодам зон (с 0.72.0): окно, как у кристаллов, - сколько ступеней в каждой, см. [features.logic.campaign.AbyssRifts]. */
+    var abyss: MutableMap<String, features.logic.campaign.AbyssWindow> = mutableMapOf(),
+
+    /** Спуск в Бездну, открытый героем (с 0.72.0): до копилки или гибели; вход в зону его закрывает. */
+    var abyssRun: features.logic.campaign.AbyssRun? = null,
+
     /** Растёт на каждую запись в инвентарь героя: по нему клиент и лист статов узнают, что вещи сменились. */
     var inventoryRevision: Long = 0,
     override var _id: String = ObjectId().toHexString(),

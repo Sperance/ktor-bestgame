@@ -2361,6 +2361,154 @@
       "world": {
         "gain": "BOOK"
       }
+    },
+    {
+      "stat": "POWER_ABYSSAL_HUNGER",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "operation": "ADD",
+              "scale": "KILLS",
+              "cap": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VOID_LASH",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "leech": 20
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WHISPERED_HEX",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "CURSE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DREAD_GAZE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN",
+              "operation": "ADD"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_UMBRAL_BARRIER",
+      "on": "SKILL_USE",
+      "checks": [
+        {
+          "check": "SPELL"
+        }
+      ],
+      "cooldown": 4,
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEEP_RECOIL",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "of": "TAKEN",
+          "type": "CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEPTH_FRENZY",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "operation": "INCREASED"
+            },
+            {
+              "stat": "STOCK_CAST_SPEED",
+              "operation": "INCREASED"
+            }
+          ],
+          "duration": 4,
+          "stacks": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SWALLOW_WHOLE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "of": "TARGET_LIFE",
+          "type": "CHAOS",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VOID_TITHE",
+      "world": {
+        "gain": "RARITY",
+        "against": [
+          "RARE",
+          "UNIQUE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_ENTROPY",
+      "on": "EVERY",
+      "every": 3,
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_RESIST_CHAOS",
+              "operation": "ADD"
+            }
+          ],
+          "duration": 3,
+          "to": "ALL"
+        }
+      ]
     }
   ]
 }

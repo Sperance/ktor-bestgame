@@ -383,6 +383,8 @@ data class CampaignContentFile(
     val vaal: VaalRule = VaalRule(),
     /** Формы, которые дерутся издалека, если шаблон не сказал сам (с 0.61.0). */
     val rangedForms: Set<String> = emptySet(),
+    /** Бездна (с 0.72.0): расщелины, волны и копилка; без правила её нет. */
+    val abyss: AbyssRule? = null,
 ) {
     /** Все зоны мира - регион за регионом, в порядке файла. */
     val zones: List<CampaignMapTemplate> get() = regions.flatMap { it.zones }
@@ -536,12 +538,12 @@ object CampaignContent {
                     light = map.light,
                     monsters = map.monsters.map { code ->
                         val template = monsters.getValue(code)
-                        CampaignMonster(code, template.form, (content.defaults + template.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
+                        CampaignMonster(code, template.form, stats(content, template, map.level),
                             template.behaviour ?: content.behaviour.forms[template.form] ?: content.behaviour.default, content.range(template))
                     },
                     modifiers = pools.of(monsterModifiers, map.modifierPools).map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
-                    boss = guardian(content, pools, monsterModifiers, monsters, map.boss, map, content.bosses.behaviour),
-                    corrupted = guardian(content, pools, monsterModifiers, monsters, map.corrupted, map, content.bosses.behaviour),
+                    boss = guardian(content, pools, monsterModifiers, monsters, map.boss, map.level),
+                    corrupted = guardian(content, pools, monsterModifiers, monsters, map.corrupted, map.level),
                     essences = pools.of(monsterModifiers, features.logic.essences.EssenceContent.book.crystals.modifierPools)
                         .map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
                 )
@@ -556,22 +558,45 @@ object CampaignContent {
     }
 
     /**
-     * Босс или страж осквернённой зоны: та же форма ответа, характеристики подняты до уровня карты.
-     * Сигнатурные строки босса - на тире уровня `карта + tierReach`, его пул - на тире карты (0.66.0).
+     * Босс, страж осквернённой зоны или вожак Бездны: та же форма ответа, характеристики подняты до
+     * [level]. Сигнатурные строки - на тире уровня `level + tierReach`, пул [modifierPools] - на тире
+     * [level] (0.66.0); у боссов и стражей это пул и броски [BossRule], у вожаков - [AbyssRule] (0.72.0).
      */
     private fun guardian(content: CampaignContentFile, pools: PoolTable, modifiers: List<ModifierDefinition>, monsters: Map<String, MonsterTemplate>,
-                         code: String, map: CampaignMapTemplate, defaultBehaviour: BehaviourRule): CampaignBoss =
+                         code: String, level: Int, modifierPools: List<String> = content.bosses.modifierPools, rolls: List<Int> = content.bosses.rolls,
+                         tierReach: Int = content.bosses.tierReach): CampaignBoss =
         monsters.getValue(code).let { boss ->
-            val rule = content.bosses
             val byCode = modifiers.associateBy { it.code }
-            val pool = pools.of(modifiers, rule.modifierPools)
-            CampaignBoss(boss.code, boss.form, (content.defaults + boss.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
-                boss.behaviour ?: defaultBehaviour,
-                boss.modifiers.map { modCode -> raise(content, byCode.getValue(modCode), pools.weight(modCode, rule.modifierPools), map.level, map.level + rule.tierReach) },
+            val pool = pools.of(modifiers, modifierPools)
+            CampaignBoss(boss.code, boss.form, stats(content, boss, level), boss.behaviour ?: content.bosses.behaviour,
+                boss.modifiers.map { modCode -> raise(content, byCode.getValue(modCode), pools.weight(modCode, modifierPools), level, level + tierReach) },
                 content.range(boss),
-                pool = pool.filter { (modifier) -> modifier.code !in boss.modifiers }.map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
-                rolls = rule.rolls, skills = boss.skills)
+                pool = pool.filter { (modifier) -> modifier.code !in boss.modifiers }.map { (modifier, weight) -> raise(content, modifier, weight, level) },
+                rolls = rolls, skills = boss.skills)
         }
+
+    /** Характеристики монстра на [level]: умолчания и свои, растущие - по `growth`. */
+    private fun stats(content: CampaignContentFile, template: MonsterTemplate, level: Int): Map<String, Double> =
+        (content.defaults + template.stats).mapValues { (stat, value) -> scale(content, stat, value, level) }
+
+    /**
+     * Бездна на уровне зоны [level] (0.72.0): по ступени - монстры и вожак, поднятые до уровня её волны,
+     * и пул модификаторов монстров Бездны на уровне зоны. Null, если правила Бездны нет.
+     */
+    fun abyss(level: Int, pools: PoolTable, modifiers: List<ModifierDefinition>): AbyssFloors? {
+        val content = file
+        val rule = content.abyss ?: return null
+        val monsterModifiers = modifiers.filter { it.isMonster() }
+        val floors = rule.waves.map { wave ->
+            val depthLevel = level + wave.level
+            AbyssFloor(rule.monsters.map { code ->
+                val template = monsters.getValue(code)
+                CampaignMonster(code, template.form, stats(content, template, depthLevel), template.behaviour ?: content.behaviour.forms[template.form] ?: content.behaviour.default,
+                    content.range(template))
+            }, wave.leader?.let { guardian(content, pools, monsterModifiers, monsters, it, depthLevel, rule.modifierPools, rule.rolls, rule.tierReach) })
+        }
+        return AbyssFloors(floors, pools.of(monsterModifiers, rule.modifierPools).map { (modifier, weight) -> raise(content, modifier, weight, level) })
+    }
 
     /**
      * Модификатор монстра на уровне карты: лучший тир, открытый на [tierLevel] (обычно сам уровень
@@ -671,7 +696,9 @@ object CampaignContent {
         val modifierCodes = monsterPools.of(monsterModifiers, content.bosses.modifierPools).map { it.value.code }.toSet()
         // Собственные уникалки (0.67.0) - обязательно только у боссов финалов регионов; прочие роняют мировые.
         val finaleBosses = content.zones.filter { it.finale }.map { it.boss }.toSet()
-        content.monsters.filter { it.boss }.forEach { boss ->
+        // Вожаки Бездны (0.72.0) берут сигнатуры из её пула - их проверяет validateAbyss.
+        val leaders = content.abyss?.leaders.orEmpty().toSet()
+        content.monsters.filter { it.boss && it.code !in leaders }.forEach { boss ->
             if ((boss.code in finaleBosses && boss.uniquePools.isEmpty()) || boss.modifiers.isEmpty() || boss.modifiers.any { it !in modifierCodes })
                 throw CampaignExceptions.funExceptionContent(method, "boss ${boss.code}")
         }
@@ -708,6 +735,7 @@ object CampaignContent {
             if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.refreshHours <= 0 || rule.quantity <= 0)
                 throw CampaignExceptions.funExceptionContent(method, "chests")
         }
+        content.abyss?.let { validateAbyss(content, it, monsterPools, monsterModifiers) }
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) throw CampaignExceptions.funExceptionContent(method, "behaviour of form $it") }
         (listOf(content.behaviour.default, content.bosses.behaviour) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validate)
@@ -748,6 +776,44 @@ object CampaignContent {
             }
         }
         WorldGraph(content.zones).unreachable().takeIf { it.isNotEmpty() }?.let { fail("unreachable $it") }
+    }
+
+    /**
+     * Бездна (0.72.0): ступеней волн столько же, сколько копилок, у расщелины - не больше ступеней;
+     * её монстры и вожаки - свои, ни в одной зоне не живут; вожак - босс с сигнатурами из пула Бездны,
+     * и пула хватает на модификаторы каждой редкости, как у зон.
+     */
+    private fun validateAbyss(content: CampaignContentFile, rule: AbyssRule, pools: PoolTable, modifiers: List<ModifierDefinition>) {
+        fun fail(what: String): Nothing = throw CampaignExceptions.funExceptionContent("CampaignAbyss", what)
+        val monsters = content.monsters.associateBy { it.code }
+        val zoned = content.zones.flatMap { it.monsters + it.boss + it.corrupted }.toSet()
+        if (rule.chance !in 0.0..100.0 || rule.minLevel < 1 || rule.refreshHours <= 0) fail("rule")
+        if (rule.waves.isEmpty() || rule.hoard.size != rule.waves.size) fail("depths")
+        if (rule.depth.size != 2 || rule.depth[0] < 1 || rule.depth[0] > rule.depth[1] || rule.depth[1] > rule.waves.size) fail("depth")
+        if (rule.monsters.isEmpty()) fail("monsters")
+        rule.monsters.forEach { code -> val monster = monsters[code] ?: fail("monster $code"); if (monster.boss || monster.corrupted || code in zoned) fail("monster $code") }
+        rule.waves.forEachIndexed { index, wave ->
+            if (wave.count.size != 2 || wave.count[0] < 1 || wave.count[0] > wave.count[1] || wave.level < 0 || wave.magic < 0 || wave.rare < 0 || wave.magic + wave.rare > 100)
+                fail("wave ${index + 1}")
+        }
+        rule.hoard.forEachIndexed { index, hoard ->
+            if (hoard.items.size != 2 || hoard.items[0] < 0 || hoard.items[0] > hoard.items[1] || hoard.orbs.size != 2 || hoard.orbs[0] < 0 || hoard.orbs[0] > hoard.orbs[1]
+                || hoard.rare !in 0.0..100.0 || hoard.unique !in 0.0..100.0 || hoard.experience < 0) fail("hoard ${index + 1}")
+        }
+        val orbs = EnumCurrencyOrb.entries.map { it.name }.toSet()
+        if (rule.orbs.isEmpty() || rule.orbs.any { (code, weight) -> code !in orbs || weight <= 0 }) fail("orbs")
+        if (rule.uniquePools.isEmpty() || rule.equipmentPools.isEmpty() || rule.modifierPools.isEmpty()) fail("pools")
+        if (rule.rolls.size != 2 || rule.rolls[0] < 0 || rule.rolls[0] > rule.rolls[1] || rule.tierReach < 0) fail("rolls")
+        val pool = pools.of(modifiers, rule.modifierPools).map { it.value }
+        content.rarities.filter { it.modifiers[1] > 0 }.forEach { rarity ->
+            if (pool.count { (it.minRarity ?: EnumMonsterRarity.MAGIC) <= rarity.rarity } < rarity.modifiers[1]) fail("pool of ${rarity.rarity}")
+        }
+        if (pool.size < rule.rolls[1]) fail("leader pool")
+        val codes = pool.map { it.code }.toSet()
+        rule.leaders.forEach { code ->
+            val leader = monsters[code] ?: fail("leader $code")
+            if (!leader.boss || leader.corrupted || code in zoned || leader.modifiers.isEmpty() || leader.modifiers.any { it !in codes }) fail("leader $code")
+        }
     }
 
     private fun validate(rule: BehaviourRule) {

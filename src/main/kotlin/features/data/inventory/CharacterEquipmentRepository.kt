@@ -150,6 +150,18 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
     }
 
     /**
+     * Экземпляр с влиянием (0.72.0): аффиксы катятся под [rarity], и одна строка - наверняка из пула
+     * [influence], см. [ModifierRoller.forceInfluenced]. Так ложится добыча копилки Бездны.
+     */
+    suspend fun addInfluenced(characterId: String, equipment: Equipment, rarity: EnumRarity, influence: application.enums.EnumInfluence,
+                              random: kotlin.random.Random, session: ClientSession): CharacterEquipment {
+        val params = ModifierRoller.roll(equipment, rarity)
+        val stamped = ModifierRoller.forceInfluenced(equipment, rarity, params, influence, random)
+        return insert(CharacterEquipment(characterId = characterId, equipmentId = equipment._id, params = params, rarity = rarity,
+            influence = influence.takeIf { stamped }), session)
+    }
+
+    /**
      * Вставляет самоцвет в гнездо дерева навыков.
      *
      * Самоцвет - обычный экземпляр экипировки со слотом [EnumEquipmentType.JEWEL],

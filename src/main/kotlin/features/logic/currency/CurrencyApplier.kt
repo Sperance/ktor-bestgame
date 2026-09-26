@@ -5,6 +5,7 @@ import application.enums.EnumCurrencyOrb.BLESSED_ORB
 import application.enums.EnumCurrencyOrb.CHAOS_ORB
 import application.enums.EnumCurrencyOrb.DIVINE_ORB
 import application.enums.EnumCurrencyOrb.ELDER_ORB
+import application.enums.EnumCurrencyOrb.ABYSS_ORB
 import application.enums.EnumCurrencyOrb.EXALTED_ORB
 import application.enums.EnumCurrencyOrb.FRACTURING_ORB
 import application.enums.EnumCurrencyOrb.MIRROR_OF_KALANDRA
@@ -141,7 +142,7 @@ object CurrencyApplier : KoinComponent {
             ORB_OF_CHANCE -> chance(item, template)
             MIRROR_OF_KALANDRA -> mirror(item, template)
             FRACTURING_ORB -> fracture(item, template)
-            SHAPERS_ORB, ELDER_ORB -> influence(item, template, EnumInfluence.byOrb(orb)!!)
+            SHAPERS_ORB, ELDER_ORB, ABYSS_ORB -> influence(item, template, EnumInfluence.byOrb(orb)!!)
             // Единственная сфера, которую тратит не предмет: её списывает дерево навыков
             // за возврат узла, см. CharacterSkillTreeRepository.
             ORB_OF_REGRET -> throw CurrencyExceptions.funExceptionNotForItem("apply", orb.name)
