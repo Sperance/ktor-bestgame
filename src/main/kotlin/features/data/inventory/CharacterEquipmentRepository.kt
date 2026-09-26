@@ -104,7 +104,10 @@ class CharacterEquipmentRepository : BaseRepository<CharacterEquipment>(
      * журнал запроса узнаёт о вещи после коммита - откат его не касается.
      */
     private suspend fun touched(item: CharacterEquipment, session: ClientSession, removed: Boolean) {
-        beforeCommit("inventory:${item.characterId}", session) { characterRepository.bumpInventory(item.characterId, it) }
+        // Владелец запоминается сейчас (0.70.1): лот аукциона снимает с вещи `characterId` до
+        // коммита, и отложенный сдвиг ревизии ушёл бы в пустоту - Тайник держал бы проданную вещь.
+        val owner = item.characterId
+        beforeCommit("inventory:$owner", session) { characterRepository.bumpInventory(owner, it) }
         val changes = heroChanges() ?: return
         afterCommit { if (removed) changes.remove(item) else changes.upsert(item) }
     }
