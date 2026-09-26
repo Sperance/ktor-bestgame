@@ -52,13 +52,14 @@ class PoolsTest {
     /** Пулы экипировки и уникалок, которые называют источники. */
     private val equipmentSources: Map<String, List<String>> =
         campaign.lootTables.flatMap { (name, table) -> table.drops.filter { it.equipmentPools.isNotEmpty() }.map { "loot $name" to it.equipmentPools } }.toMap() +
-            campaign.monsters.filter { it.boss }.associate { "boss ${it.code}" to it.uniquePools } +
+            // Свои уникалки с 0.67.0 есть не у каждого босса: без них он роняет мировые.
+            campaign.monsters.filter { it.boss && it.uniquePools.isNotEmpty() }.associate { "boss ${it.code}" to it.uniquePools } +
             CurrencySeeder.records.values.filter { it.uniquePools.isNotEmpty() }.associate { "orb ${it.orb}" to it.uniquePools } +
             mapOf("bosses" to campaign.bosses.uniquePools, "corruption" to campaign.corruption.uniquePools,
                 "smith bases" to crafting.equipmentPools, "smith uniques" to crafting.uniquePools, "merchant" to MerchantRules.POOLS)
 
     private val monsterSources: Map<String, List<String>> =
-        campaign.chapters.flatMap { it.maps }.associate { "map ${it.code}" to it.modifierPools } + mapOf("bosses" to campaign.bosses.modifierPools)
+        campaign.zones.associate { "map ${it.code}" to it.modifierPools } + mapOf("bosses" to campaign.bosses.modifierPools)
 
     /** Модификаторы монстров (0.66.0) - описания источника MONSTER. */
     private val monsterModifiers = definitions.filter { it.isMonster() }

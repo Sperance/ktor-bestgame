@@ -100,7 +100,8 @@ class CharacterRoute(
 
         // Кампания (0.26.0): бой считает клиент по правилам сервера (0.28.0), добычу, опыт и цену смерти - сервер.
         route("/campaign") {
-            get("/chapters") {
+            // 0.67.0: карта мира - регионы и связанные жетоны зон вместо глав.
+            get("/world") {
                 call.respondOk(campaign.view())
             }
             get("/progress") {
@@ -110,8 +111,9 @@ class CharacterRoute(
                 call.respondWithHero(campaign.kill(call.characterId, call.mapCode, call.queryParam("monsterCode"), call.queryParam("rarity"),
                     call.request.queryParameters["vaal"] == "true"))
             }
-            post("/complete") {
-                call.respondWithHero(campaign.complete(call.characterId, call.mapCode))
+            // 0.67.0: зону проходит убитый босс, выход только возвращает на карту мира.
+            post("/leave") {
+                call.respondWithHero(campaign.leave(call.characterId, call.mapCode))
             }
             // 0.28.0: смерть героя стоит опыта по правилу сервера; уровень не падает.
             post("/fall") {
@@ -174,7 +176,7 @@ class CharacterRoute(
             }
         }
 
-        // 0.60.0: пассивное дерево атласа - очки за выходы, редкие карты и стражей Ваал, откат за золото.
+        // 0.60.0: пассивное дерево атласа - очки за боссов (с 0.67.0), редкие карты и стражей Ваал, откат за золото.
         route("/atlas") {
             get("/tree") {
                 call.respondOk(atlas.tree())

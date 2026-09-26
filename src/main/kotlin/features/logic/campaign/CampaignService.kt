@@ -28,7 +28,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.random.Random
 
-/** Какие карты персонаж прошёл и какие ему открыты. */
+/** Какие зоны персонаж прошёл (убил их босса) и какие ему открыты. */
 @Serializable
 data class CampaignProgress(val cleared: List<String>, val unlocked: List<String>)
 
@@ -49,6 +49,8 @@ data class CampaignReward(
     val money: Long,
     /** Рецепт верстака, только что найденный на карте (с 0.46.0); null почти всегда. */
     val recipeFound: features.logic.bench.BenchRecipe? = null,
+    /** Прогресс по карте мира после убийства босса (с 0.67.0): босс проходит зону и открывает соседние. */
+    val progress: CampaignProgress? = null,
 )
 
 /** Сундуки карты у героя (с 0.31.0): сколько ещё можно открыть и когда окно бросится заново (миллисекунды эпохи). */
@@ -142,7 +144,8 @@ class CampaignService : KoinComponent {
     /**
      * Герой убил босса карты: добыча его таблицы с уникальной редкостью, шанс обычной уникалки и
      * шанс его собственной, и выход открыт на [BossRule.respawnHours] часов. Мёртвого не убить - `CP_008`.
-     * С 0.60.0 атлас сокращает эти часы и поднимает оба шанса уникалки.
+     * С 0.60.0 атлас сокращает эти часы и поднимает оба шанса уникалки. С 0.67.0 босс проходит зону:
+     * она открывает соседние на карте мира и приносит очки атласа `boss:<зона>` и, с редкой картой, `rare:<зона>`.
      */
     suspend fun slayBoss(characterId: String, mapCode: String): CampaignReward {
         val method = "slayBoss"
@@ -165,8 +168,21 @@ class CampaignService : KoinComponent {
         val recipe = rollRecipe(character, map.level, random, atlas)
         // Босс щедрее (0.66.0): добыча с боссов по атласу и строка «босс сильнее» карты - к количеству.
         val bossLoot = atlas.bossLoot + (mapBonus(character, mapCode).effects[CampaignMaps.BOSS_POWER] ?: 0.0)
+        pass(character, mapCode)
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, atlas, extra,
             mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance, recipeFound = recipe, extraQuantity = bossLoot)
+            .copy(progress = progressOf(character))
+    }
+
+    /**
+     * Зона пройдена (0.67.0): в первый раз она ложится в прогресс героя, а очки атласа - `boss:` за
+     * босса и `rare:` за босса с редкой картой - засчитываются по разу. Мутирует [character] на месте -
+     * сохраняет его транзакция добычи.
+     */
+    private fun pass(character: Character, mapCode: String) {
+        if (mapCode !in character.campaign) character.campaign.add(mapCode)
+        AtlasPoints.earn(character.atlasEarned, AtlasPoints.BOSS, mapCode)
+        if (mapBonus(character, mapCode).itemRarity == EnumRarity.RARE) AtlasPoints.earn(character.atlasEarned, AtlasPoints.RARE, mapCode)
     }
 
     /**
@@ -338,7 +354,7 @@ class CampaignService : KoinComponent {
         val window = windowOf(character, mapCode, characterId, method)
         if (window.left <= 0) throw CampaignExceptions.funExceptionNoChest(method, mapCode)
         character.chests[mapCode] = window.copy(left = window.left - 1)
-        val template = CampaignContent.file.chapters.flatMap { it.maps }.first { it.code == mapCode }
+        val template = CampaignContent.template(mapCode) ?: throw CampaignExceptions.funExceptionMapNotFound(method, mapCode)
         return grant(character, characters.calculateStats(character).stats, CampaignContent.file.lootTables.getValue(template.chestLoot), map.level,
             CampaignChests.rarity(CampaignContent.file.chests), 0.0, method, atlasOf(character), mapCode = mapCode, extraQuantity = atlasOf(character).chestLoot)
     }
@@ -380,7 +396,7 @@ class CampaignService : KoinComponent {
             CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity + (zone?.rarity ?: 0.0) + atlas.rarity, random)
         }
         val rule = CampaignContent.file.maps
-        val dropped = CampaignMaps.drop(rule, atlas.mapChance(mapChance) * (1 + quantity / 100), mapCode, CampaignContent.mapCodes.toList(), random, atlas.mapNext)
+        val dropped = CampaignMaps.drop(rule, atlas.mapChance(mapChance) * (1 + quantity / 100), mapCode, CampaignContent.graph.next(mapCode), random, atlas.mapNext)
             ?.let { code -> equipmentCache.findByCode(CampaignMaps.templateCode(code)) }
 
         val equipment = transactionExecute(method) { session ->
@@ -419,23 +435,19 @@ class CampaignService : KoinComponent {
     }
 
     /**
-     * Герой дошёл до выхода: карта пройдена и открывает следующую. Повторное прохождение ничего не меняет.
-     * С 0.32.0 выход запечатан, пока жив босс карты (`CP_007`). С 0.60.0 выход приносит очко атласа
-     * `exit:<карта>`, а выход с редкой картой - ещё и `rare:<карта>`, каждое один раз.
+     * Герой ушёл через выход обратно на карту мира (с 0.67.0; раньше выход проходил карту - теперь её
+     * проходит босс, см. [slayBoss]). Выход запечатан, пока жив босс (`CP_007`), а карта, с которой
+     * герой вошёл, на этом израсходована.
      */
-    suspend fun complete(characterId: String, mapCode: String): CampaignProgress {
-        val method = "complete"
+    suspend fun leave(characterId: String, mapCode: String): CampaignProgress {
+        val method = "leave"
         val character = characters.requireCharacter(characterId, method)
         openMap(character, mapCode, method)
         if (System.currentTimeMillis() >= (character.bosses[mapCode] ?: 0L)) throw CampaignExceptions.funExceptionSealed(method, mapCode)
-        val entered = character.activeMap?.takeIf { it.mapCode == mapCode }
-        val spent = entered != null
-        val fresh = mapCode !in character.campaign
-        val exit = AtlasPoints.earn(character.atlasEarned, AtlasPoints.EXIT, mapCode)
-        val rare = entered?.itemRarity == EnumRarity.RARE && AtlasPoints.earn(character.atlasEarned, AtlasPoints.RARE, mapCode)
-        if (spent) character.activeMap = null
-        if (fresh) character.campaign.add(mapCode)
-        if (spent || fresh || exit || rare) transactionExecute(method) { session -> characters.update(character, session) }
+        if (character.activeMap?.mapCode == mapCode) {
+            character.activeMap = null
+            transactionExecute(method) { session -> characters.update(character, session) }
+        }
         return progressOf(character)
     }
 

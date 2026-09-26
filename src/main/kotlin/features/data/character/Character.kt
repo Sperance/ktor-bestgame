@@ -62,8 +62,8 @@ data class Character(
     var gainedRedemptionCodes: MutableList<GainedRedemtionCodes> = mutableListOf(),
 
     /**
-     * Пройденные карты кампании - их коды, с 0.26.0. Следующая карта главы открывается,
-     * когда пройдена предыдущая, см. [features.logic.campaign.CampaignContent.unlocked].
+     * Пройденные зоны карты мира - их коды, с 0.26.0; с 0.67.0 зону проходит убитый босс. Зона
+     * открывается, когда пройдена хоть одна из тех, что ведут к ней, см. [features.logic.campaign.CampaignContent.unlocked].
      */
     var campaign: MutableList<String> = mutableListOf(),
 
@@ -109,7 +109,7 @@ data class Character(
     /** Взятые узлы атласа (с 0.60.0), без корня - он взят всегда; см. [features.logic.atlas.AtlasService]. */
     var atlasNodes: MutableList<String> = mutableListOf(),
 
-    /** Засчитанные достижения атласа (с 0.60.0): `exit:<карта>`, `rare:<карта>`, `vaal:<карта>` - каждое один раз. */
+    /** Засчитанные достижения атласа (с 0.60.0): `boss:<зона>` (с 0.67.0 вместо `exit:`), `rare:<зона>`, `vaal:<зона>` - каждое один раз. */
     var atlasEarned: MutableList<String> = mutableListOf(),
 
     /** Растёт на каждую запись в инвентарь героя: по нему клиент и лист статов узнают, что вещи сменились. */

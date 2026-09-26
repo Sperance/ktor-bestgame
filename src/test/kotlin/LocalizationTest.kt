@@ -156,10 +156,10 @@ class LocalizationTest {
             keys.add(LocaleKey.itemDescription(it.code))
         }
 
-        // Кампания: глава, карты с описанием, монстры и их модификаторы
-        CampaignContent.file.chapters.forEach { chapter ->
-            keys.add(LocaleKey.chapterName(chapter.code))
-            chapter.maps.forEach {
+        // Кампания: регионы карты мира, зоны с описанием, монстры и их модификаторы
+        CampaignContent.file.regions.forEach { region ->
+            keys.add(LocaleKey.regionName(region.code))
+            region.zones.forEach {
                 keys.add(LocaleKey.mapName(it.code))
                 keys.add(LocaleKey.mapDescription(it.code))
             }

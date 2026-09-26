@@ -10,7 +10,8 @@ import org.koin.core.component.inject
 
 /**
  * Атлас героя: [allocated] - взятые узлы, корень первым; [earned] - засчитанные достижения
- * (`exit:<карта>`...), [points] - сколько очков они принесли, [available] - сколько ещё не потрачено.
+ * (`boss:<зона>`...), [points] - сколько очков они принесли (не больше потолка дерева), [available] -
+ * сколько ещё не потрачено.
  */
 @Serializable
 data class AtlasState(val allocated: List<String>, val earned: List<String>, val points: Int, val available: Int)
@@ -63,8 +64,8 @@ class AtlasService : KoinComponent {
     }
 
     private fun stateOf(character: Character): AtlasState {
-        val rule = AtlasContent.tree.points
+        val tree = AtlasContent.tree
         return AtlasState(listOf(AtlasContent.graph.start) + character.atlasNodes, character.atlasEarned.toList(),
-            AtlasPoints.total(rule, character.atlasEarned), AtlasPoints.available(rule, character.atlasEarned, character.atlasNodes))
+            AtlasPoints.total(tree.points, character.atlasEarned, tree.cap), AtlasPoints.available(tree.points, character.atlasEarned, character.atlasNodes, tree.cap))
     }
 }

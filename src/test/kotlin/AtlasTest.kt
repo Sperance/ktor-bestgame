@@ -24,10 +24,10 @@ class AtlasTest {
 
     @Test
     fun points_count_each_achievement_once_and_the_start_is_free() {
-        val rule = mapOf(AtlasPoints.EXIT to 1, AtlasPoints.RARE to 2, AtlasPoints.VAAL to 1)
+        val rule = mapOf(AtlasPoints.BOSS to 1, AtlasPoints.RARE to 2, AtlasPoints.VAAL to 1)
         val earned = mutableListOf<String>()
-        assertTrue(AtlasPoints.earn(earned, AtlasPoints.EXIT, "M1"))
-        assertTrue(!AtlasPoints.earn(earned, AtlasPoints.EXIT, "M1"), "the same exit counted twice")
+        assertTrue(AtlasPoints.earn(earned, AtlasPoints.BOSS, "M1"))
+        assertTrue(!AtlasPoints.earn(earned, AtlasPoints.BOSS, "M1"), "the same boss counted twice")
         AtlasPoints.earn(earned, AtlasPoints.RARE, "M1")
         AtlasPoints.earn(earned, AtlasPoints.VAAL, "M2")
         assertEquals(4, AtlasPoints.total(rule, earned))
@@ -65,7 +65,7 @@ class AtlasTest {
 
     @Test
     fun a_broken_atlas_fails_to_load() {
-        fun file(vararg nodes: String) = """{"points":{"exit":1},"respec":{"perNode":1},"nodes":[${nodes.joinToString(",")}]}"""
+        fun file(vararg nodes: String) = """{"points":{"boss":1},"respec":{"perNode":1},"nodes":[${nodes.joinToString(",")}]}"""
         val start = """{"code":"S","x":0,"y":0,"kind":"START"}"""
         listOf(
             file(start, """{"code":"A","x":0,"y":1,"kind":"SMALL","parents":["S"],"effects":[{"stat":"STOCK_QUANTITY","value":1}]}"""),

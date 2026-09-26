@@ -23,7 +23,7 @@ object LocaleKey {
     const val ENUM = "enum"
     const val ERROR = "error"
     const val CURRENCY = "currency"
-    const val CHAPTER = "chapter"
+    const val REGION = "region"
     const val MAP = "map"
     const val MONSTER = "monster"
     const val PROFESSION = "profession"
@@ -52,7 +52,7 @@ object LocaleKey {
     fun className(code: String) = key(CHARACTER_CLASS, code, NAME)
     fun classDescription(code: String) = key(CHARACTER_CLASS, code, DESCRIPTION)
 
-    fun chapterName(code: String) = key(CHAPTER, code, NAME)
+    fun regionName(code: String) = key(REGION, code, NAME)
 
     fun mapName(code: String) = key(MAP, code, NAME)
     fun mapDescription(code: String) = key(MAP, code, DESCRIPTION)

@@ -193,12 +193,11 @@ object CampaignMaps {
      * Выпала ли карта и какой локации.
      *
      * @param chance шанс выпадения, уже умноженный на количество
-     * @param maps все локации в порядке открытия; следующая за [mapCode] - «на уровень выше»
+     * @param next зоны, в которые ведут связи из [mapCode] (0.67.0): «карта следующей зоны» - одна из них наугад
      */
-    fun drop(rule: MapRule, chance: Double, mapCode: String, maps: List<String>, random: Random, nextBonus: Double = 0.0): String? {
+    fun drop(rule: MapRule, chance: Double, mapCode: String, next: List<String>, random: Random, nextBonus: Double = 0.0): String? {
         if (random.nextDouble() >= chance) return null
-        val next = maps.getOrNull(maps.indexOf(mapCode) + 1)
-        return if (next != null && random.nextDouble() < rule.nextChance * (1 + nextBonus / 100)) next else mapCode
+        return if (next.isNotEmpty() && random.nextDouble() < rule.nextChance * (1 + nextBonus / 100)) next.random(random) else mapCode
     }
 
     /** Редкость упавшей карты по весам правила; [rareBonus] (атлас, 0.66.0) - проценты к весу редкой. */

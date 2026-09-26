@@ -36,10 +36,11 @@ data class AtlasRespec(val perNode: Long, val perLevel: Long = 0) {
 
 /**
  * Пассивное дерево атласа (с 0.60.0): [points] - сколько очков приносит каждый вид достижения
- * ([AtlasPoints.EXIT], [AtlasPoints.RARE], [AtlasPoints.VAAL]) на каждой карте, [respec] - цена отката.
+ * ([AtlasPoints.BOSS], [AtlasPoints.RARE], [AtlasPoints.VAAL]) в каждой зоне, [cap] (0.67.0) - больше
+ * скольких очков герою не набрать, [respec] - цена отката.
  */
 @Serializable
-data class AtlasTree(val points: Map<String, Int>, val respec: AtlasRespec, val nodes: List<AtlasNode>)
+data class AtlasTree(val points: Map<String, Int>, val respec: AtlasRespec, val nodes: List<AtlasNode>, val cap: Int = Int.MAX_VALUE)
 
 /**
  * Атлас из `resources/content/atlas.json`. Файл читается и проверяется на старте, как кампания:
@@ -72,6 +73,7 @@ object AtlasContent {
         val stats = EnumStatStock.entries.map { it.name }.filter { it.startsWith(AtlasBonuses.PREFIX) }.toSet()
 
         tree.points.forEach { (kind, amount) -> if (kind !in AtlasPoints.KINDS || amount < 0) fail("points $kind") }
+        if (tree.cap <= 0) fail("cap")
         if (tree.respec.perNode < 0 || tree.respec.perLevel < 0) fail("respec")
         val byCode = tree.nodes.associateBy { it.code }
         if (byCode.size != tree.nodes.size) fail("node codes")

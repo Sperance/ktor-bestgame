@@ -1,9 +1,10 @@
 {
   "points": {
-    "exit": 1,
+    "boss": 1,
     "rare": 1,
     "vaal": 1
   },
+  "cap": 100,
   "respec": {
     "perNode": 500,
     "perLevel": 50

@@ -42,15 +42,15 @@ class AtlasGraph(nodes: Collection<AtlasNode>) {
 }
 
 /**
- * Очки атласа. Их приносят достижения на картах - ключи вида `<вид>:<код карты>`: выход ([EXIT]),
- * выход с редкой картой ([RARE]) и страж Ваал-зоны ([VAAL]). Каждый ключ засчитывается один раз,
- * сколько очков он стоит, говорит `points` файла.
+ * Очки атласа. Их приносят достижения в зонах - ключи вида `<вид>:<код зоны>`: убитый босс ([BOSS],
+ * с 0.67.0 вместо выхода), босс с редкой картой ([RARE]) и страж Ваал-зоны ([VAAL]). Каждый ключ
+ * засчитывается один раз, сколько очков он стоит, говорит `points` файла, а больше `cap` очков не бывает.
  */
 object AtlasPoints {
-    const val EXIT = "exit"
+    const val BOSS = "boss"
     const val RARE = "rare"
     const val VAAL = "vaal"
-    val KINDS = setOf(EXIT, RARE, VAAL)
+    val KINDS = setOf(BOSS, RARE, VAAL)
 
     fun key(kind: String, mapCode: String) = "$kind:$mapCode"
 
@@ -61,13 +61,13 @@ object AtlasPoints {
     fun earn(earned: MutableCollection<String>, kind: String, mapCode: String): Boolean =
         key(kind, mapCode).let { key -> key !in earned && earned.add(key) }
 
-    /** Сколько очков принесли [earned] по правилу [rule]. */
-    fun total(rule: Map<String, Int>, earned: Collection<String>): Int =
-        earned.sumOf { rule[it.substringBefore(':')] ?: 0 }
+    /** Сколько очков принесли [earned] по правилу [rule], но не больше [cap] (0.67.0). */
+    fun total(rule: Map<String, Int>, earned: Collection<String>, cap: Int = Int.MAX_VALUE): Int =
+        minOf(cap, earned.sumOf { rule[it.substringBefore(':')] ?: 0 })
 
     /** Свободные очки: заработанное минус взятые узлы; корень бесплатен и в [allocated] не лежит. */
-    fun available(rule: Map<String, Int>, earned: Collection<String>, allocated: Collection<String>): Int =
-        total(rule, earned) - allocated.size
+    fun available(rule: Map<String, Int>, earned: Collection<String>, allocated: Collection<String>, cap: Int = Int.MAX_VALUE): Int =
+        total(rule, earned, cap) - allocated.size
 }
 
 /** Проверки взятия и отката узла атласа. Чистые: граф и взятое приходят снаружи. */

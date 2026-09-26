@@ -21,6 +21,10 @@
     "STOCK_ATTACK_MAGICAL": 1.12,
     "STOCK_MANA": 1.1
   },
+  "growthTaper": {
+    "from": 20,
+    "rate": 0.42
+  },
   "rarities": [
     {
       "rarity": "NORMAL",
@@ -1541,6 +1545,485 @@
       ]
     },
     {
+      "code": "BOSS_SORROW_CAPTAIN",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 54,
+        "STOCK_ATTACK_PHYSICAL": 6.4,
+        "STOCK_ATTACK_COLD": 3.8,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_CRITICAL_CHANCE": 8,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_SIEGE",
+        "MOB_CHILLING"
+      ]
+    },
+    {
+      "code": "BOSS_NEST_QUEEN",
+      "form": "BAT",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.8,
+        "STOCK_HEALTH": 44,
+        "STOCK_ATTACK_PHYSICAL": 5.4,
+        "STOCK_EVASION": 80,
+        "STOCK_BLEED_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_EXECUTIONER",
+        "MOB_SWIFT"
+      ]
+    },
+    {
+      "code": "BOSS_LAMP_WARDEN",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 44,
+        "STOCK_ENERGY_SHIELD": 26,
+        "STOCK_ATTACK_LIGHTNING": 6.0,
+        "STOCK_RESIST_LIGHTNING": 70,
+        "STOCK_ATTACK_MAGICAL": 4.7,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
+      ]
+    },
+    {
+      "code": "BOSS_FERRYMAN",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 59,
+        "STOCK_ATTACK_PHYSICAL": 6.0,
+        "STOCK_ATTACK_COLD": 4.0,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_LEECH_ALL": 3,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_DREAD",
+        "MOB_DRAINING"
+      ]
+    },
+    {
+      "code": "BOSS_SMUGGLER_KING",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "BOSS_1",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 59,
+        "STOCK_ATTACK_PHYSICAL": 6.7,
+        "STOCK_CRITICAL_CHANCE": 8,
+        "STOCK_BLEED_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_WARLORD",
+        "MOB_EVASIVE"
+      ]
+    },
+    {
+      "code": "BOSS_MIRE_SERPENT",
+      "form": "SERPENT",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 70,
+        "STOCK_ATTACK_PHYSICAL": 5.7,
+        "STOCK_ATTACK_CHAOS": 5.0,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_POISON_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_TOXIC"
+      ]
+    },
+    {
+      "code": "BOSS_OLD_WEREWOLF",
+      "form": "BEAST",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 57,
+        "STOCK_ATTACK_PHYSICAL": 7.4,
+        "STOCK_EVASION": 70,
+        "STOCK_CRITICAL_CHANCE": 10,
+        "STOCK_MOVEMENT_SPEED": 15,
+        "STOCK_BLEED_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_EXECUTIONER",
+        "MOB_BERSERK"
+      ]
+    },
+    {
+      "code": "BOSS_OUTPOST_COMMANDER",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 68,
+        "STOCK_ATTACK_PHYSICAL": 6.7,
+        "STOCK_BLOCK_CHANCE": 20,
+        "STOCK_ARMOR": 40,
+        "STOCK_BLEED_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_WARLORD",
+        "MOB_ARMOURED"
+      ]
+    },
+    {
+      "code": "BOSS_BARROW_CHIEFTAIN",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 68,
+        "STOCK_ATTACK_PHYSICAL": 6.7,
+        "STOCK_ATTACK_COLD": 4.5,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_LEECH_ALL": 3,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_IMMORTAL",
+        "MOB_FROSTBORN"
+      ]
+    },
+    {
+      "code": "BOSS_FOREMAN",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 76,
+        "STOCK_ATTACK_PHYSICAL": 8.2,
+        "STOCK_ATTACK_LIGHTNING": 4.9,
+        "STOCK_RESIST_LIGHTNING": 40,
+        "STOCK_CRITICAL_CHANCE": 8,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_SIEGE",
+        "MOB_CRACKLING"
+      ]
+    },
+    {
+      "code": "BOSS_WHITE_LYNX",
+      "form": "BEAST",
+      "experience": 60,
+      "loot": "BOSS_2",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 69,
+        "STOCK_ATTACK_PHYSICAL": 8.6,
+        "STOCK_ATTACK_COLD": 4.1,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_EVASION": 70,
+        "STOCK_CRITICAL_CHANCE": 10,
+        "STOCK_MOVEMENT_SPEED": 15,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_EXECUTIONER",
+        "MOB_FREEZING"
+      ]
+    },
+    {
+      "code": "BOSS_ORE_GOLEM",
+      "form": "GOLEM",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 113,
+        "STOCK_ATTACK_PHYSICAL": 9.4,
+        "STOCK_ATTACK_LIGHTNING": 4.3,
+        "STOCK_RESIST_LIGHTNING": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_COLOSSAL",
+        "MOB_JUGGERNAUT"
+      ]
+    },
+    {
+      "code": "BOSS_GEODE_SPINNER",
+      "form": "SPIDER",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.4,
+        "STOCK_HEALTH": 77,
+        "STOCK_ATTACK_PHYSICAL": 6.0,
+        "STOCK_ATTACK_LIGHTNING": 7.7,
+        "STOCK_RESIST_LIGHTNING": 40,
+        "STOCK_CRITICAL_CHANCE": 12,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_DEVASTATING",
+        "MOB_STORMBORN"
+      ]
+    },
+    {
+      "code": "BOSS_RIME_LICH",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 85,
+        "STOCK_ATTACK_PHYSICAL": 8.0,
+        "STOCK_ATTACK_COLD": 5.3,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_LEECH_ALL": 3,
+        "STOCK_ATTACK_MAGICAL": 6.2,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_FROSTBORN"
+      ]
+    },
+    {
+      "code": "BOSS_ELDER_TROLL",
+      "form": "BRUTE",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 124,
+        "STOCK_ATTACK_PHYSICAL": 9.8,
+        "STOCK_ATTACK_COLD": 4.4,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_HEALTH_REGEN": 3,
+        "STOCK_STUN_THRESHOLD": 15,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_COLOSSAL",
+        "MOB_REGENERATING"
+      ]
+    },
+    {
+      "code": "BOSS_HOUND_MOTHER",
+      "form": "BEAST",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 77,
+        "STOCK_ATTACK_PHYSICAL": 9.3,
+        "STOCK_ATTACK_FIRE": 4.4,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_EVASION": 70,
+        "STOCK_CRITICAL_CHANCE": 10,
+        "STOCK_MOVEMENT_SPEED": 15,
+        "STOCK_IGNITE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_WARLORD",
+        "MOB_FLAMING"
+      ]
+    },
+    {
+      "code": "BOSS_THUNDER_CALLER",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 67,
+        "STOCK_ENERGY_SHIELD": 40,
+        "STOCK_ATTACK_LIGHTNING": 8.3,
+        "STOCK_RESIST_LIGHTNING": 70,
+        "STOCK_ATTACK_MAGICAL": 6.5,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_TEMPEST",
+        "MOB_STORMBORN"
+      ]
+    },
+    {
+      "code": "BOSS_DEEP_PRIESTESS",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 90,
+        "STOCK_ATTACK_PHYSICAL": 9.2,
+        "STOCK_ATTACK_COLD": 5.5,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_CRITICAL_CHANCE": 8,
+        "STOCK_ATTACK_MAGICAL": 6.5,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_DREAD",
+        "MOB_WARDED"
+      ]
+    },
+    {
+      "code": "BOSS_OBSIDIAN_COLOSSUS",
+      "form": "GOLEM",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 125,
+        "STOCK_ATTACK_PHYSICAL": 10.2,
+        "STOCK_ATTACK_FIRE": 4.6,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_IGNITE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_SIEGE",
+        "MOB_FIREPROOF"
+      ]
+    },
+    {
+      "code": "BOSS_SLAG_WORM",
+      "form": "SLUG",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 125,
+        "STOCK_ATTACK_FIRE": 9.2,
+        "STOCK_RESIST_FIRE": 70,
+        "STOCK_HEALTH_REGEN": 3,
+        "STOCK_ARMOR": 40,
+        "STOCK_IGNITE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_BURNING"
+      ]
+    },
+    {
+      "code": "BOSS_FROSTFANG",
+      "form": "SERPENT",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 103,
+        "STOCK_ATTACK_PHYSICAL": 7.7,
+        "STOCK_ATTACK_COLD": 6.7,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_DEVASTATING",
+        "MOB_FREEZING"
+      ]
+    },
+    {
+      "code": "BOSS_ABYSS_HERALD",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 70,
+        "STOCK_ENERGY_SHIELD": 42,
+        "STOCK_ATTACK_CHAOS": 8.6,
+        "STOCK_RESIST_CHAOS": 70,
+        "STOCK_ATTACK_MAGICAL": 6.7,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_POISON_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_WITHERING"
+      ]
+    },
+    {
+      "code": "BOSS_ASH_CASTELLAN",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "BOSS_3",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 94,
+        "STOCK_ATTACK_PHYSICAL": 8.6,
+        "STOCK_ATTACK_FIRE": 5.8,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_LEECH_ALL": 3,
+        "STOCK_IGNITE_CHANCE": 20
+      },
+      "boss": true,
+      "modifiers": [
+        "BOSS_IMMORTAL",
+        "MOB_BURNING"
+      ]
+    },
+    {
       "code": "CORRUPTED_1",
       "form": "WRAITH",
       "experience": 80,
@@ -1594,14 +2077,24 @@
       ]
     }
   ],
-  "chapters": [
+  "world": {
+    "width": 1100,
+    "height": 2000
+  },
+  "regions": [
     {
-      "code": "CHAPTER_1",
-      "maps": [
+      "code": "REGION_1",
+      "label": {
+        "x": 850,
+        "y": 55
+      },
+      "zones": [
         {
           "code": "C1_TIDAL_SHORE",
           "biome": "SHORE",
           "level": 1,
+          "x": 470,
+          "y": 100,
           "monsters": [
             "DROWNED",
             "SHORE_CRAB"
@@ -1620,9 +2113,41 @@
           "size": 72
         },
         {
+          "code": "C1_SHIP_GRAVEYARD",
+          "biome": "SHORE",
+          "level": 3,
+          "x": 250,
+          "y": 245,
+          "from": [
+            "C1_TIDAL_SHORE"
+          ],
+          "monsters": [
+            "DROWNED",
+            "SHORE_CRAB",
+            "BRINE_SPITTER"
+          ],
+          "count": [
+            25,
+            35
+          ],
+          "light": 1.1,
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_SORROW_CAPTAIN",
+          "corrupted": "CORRUPTED_1",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
           "code": "C1_BRINE_CAVES",
           "biome": "CAVE",
           "level": 3,
+          "x": 470,
+          "y": 240,
+          "from": [
+            "C1_TIDAL_SHORE"
+          ],
           "monsters": [
             "SHORE_CRAB",
             "CAVE_BAT",
@@ -1642,9 +2167,69 @@
           "size": 72
         },
         {
+          "code": "C1_GULL_CLIFFS",
+          "biome": "SHORE",
+          "level": 3,
+          "x": 690,
+          "y": 255,
+          "from": [
+            "C1_TIDAL_SHORE"
+          ],
+          "monsters": [
+            "CAVE_BAT",
+            "SHORE_CRAB",
+            "DROWNED"
+          ],
+          "count": [
+            25,
+            35
+          ],
+          "light": 1.3,
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_NEST_QUEEN",
+          "corrupted": "CORRUPTED_1",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C1_DROWNED_LIGHTHOUSE",
+          "biome": "SHORE",
+          "level": 5,
+          "x": 200,
+          "y": 390,
+          "from": [
+            "C1_SHIP_GRAVEYARD"
+          ],
+          "monsters": [
+            "DROWNED",
+            "SHORE_CRAB",
+            "BRINE_SPITTER"
+          ],
+          "count": [
+            30,
+            40
+          ],
+          "light": 1.0,
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_LAMP_WARDEN",
+          "corrupted": "CORRUPTED_1",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
           "code": "C1_ROTTING_MIRE",
           "biome": "MIRE",
           "level": 5,
+          "x": 380,
+          "y": 385,
+          "from": [
+            "C1_SHIP_GRAVEYARD",
+            "C1_BRINE_CAVES"
+          ],
           "monsters": [
             "MIRE_ZOMBIE",
             "BOG_LURKER",
@@ -1664,9 +2249,70 @@
           "size": 72
         },
         {
+          "code": "C1_MISTY_FERRY",
+          "biome": "MIRE",
+          "level": 5,
+          "x": 570,
+          "y": 395,
+          "from": [
+            "C1_BRINE_CAVES",
+            "C1_GULL_CLIFFS"
+          ],
+          "monsters": [
+            "MIRE_ZOMBIE",
+            "DROWNED",
+            "SWAMP_LEECH"
+          ],
+          "count": [
+            30,
+            40
+          ],
+          "light": 0.8,
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_FERRYMAN",
+          "corrupted": "CORRUPTED_1",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C1_SMUGGLERS_GROTTO",
+          "biome": "CAVE",
+          "level": 5,
+          "x": 790,
+          "y": 405,
+          "from": [
+            "C1_GULL_CLIFFS"
+          ],
+          "monsters": [
+            "SHORE_CRAB",
+            "CAVE_BAT",
+            "DROWNED"
+          ],
+          "count": [
+            30,
+            40
+          ],
+          "light": 0.75,
+          "chestLoot": "CHEST_1",
+          "boss": "BOSS_SMUGGLER_KING",
+          "corrupted": "CORRUPTED_1",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
           "code": "C1_WHISPERING_WOOD",
           "biome": "FOREST",
           "level": 7,
+          "x": 290,
+          "y": 535,
+          "from": [
+            "C1_DROWNED_LIGHTHOUSE",
+            "C1_ROTTING_MIRE"
+          ],
           "monsters": [
             "FERAL_WOLF",
             "THORN_DRYAD",
@@ -1686,9 +2332,69 @@
           "size": 72
         },
         {
+          "code": "C1_BLACK_CAUSEWAY",
+          "biome": "MIRE",
+          "level": 7,
+          "x": 490,
+          "y": 530,
+          "from": [
+            "C1_ROTTING_MIRE",
+            "C1_MISTY_FERRY"
+          ],
+          "monsters": [
+            "BOG_LURKER",
+            "SWAMP_LEECH",
+            "MIRE_ZOMBIE"
+          ],
+          "count": [
+            30,
+            40
+          ],
+          "light": 0.85,
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_MIRE_SERPENT",
+          "corrupted": "CORRUPTED_2",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C1_WOLF_THICKET",
+          "biome": "FOREST",
+          "level": 7,
+          "x": 700,
+          "y": 545,
+          "from": [
+            "C1_MISTY_FERRY"
+          ],
+          "monsters": [
+            "FERAL_WOLF",
+            "WOOD_SPIDER"
+          ],
+          "count": [
+            30,
+            40
+          ],
+          "light": 0.95,
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_OLD_WEREWOLF",
+          "corrupted": "CORRUPTED_2",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
           "code": "C1_FALLEN_RUINS",
           "biome": "RUINS",
           "level": 9,
+          "x": 350,
+          "y": 680,
+          "from": [
+            "C1_WHISPERING_WOOD",
+            "C1_BLACK_CAUSEWAY"
+          ],
           "monsters": [
             "SKELETON_WARRIOR",
             "BONE_ARCHER",
@@ -1708,9 +2414,71 @@
           "size": 72
         },
         {
+          "code": "C1_OLD_OUTPOST",
+          "biome": "RUINS",
+          "level": 9,
+          "x": 560,
+          "y": 675,
+          "from": [
+            "C1_BLACK_CAUSEWAY",
+            "C1_WOLF_THICKET"
+          ],
+          "monsters": [
+            "SKELETON_WARRIOR",
+            "BONE_ARCHER",
+            "FERAL_WOLF"
+          ],
+          "count": [
+            30,
+            40
+          ],
+          "light": 1.0,
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_OUTPOST_COMMANDER",
+          "corrupted": "CORRUPTED_2",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C1_CHIEFTAINS_BARROW",
+          "biome": "CRYPT",
+          "level": 9,
+          "x": 790,
+          "y": 690,
+          "from": [
+            "C1_WOLF_THICKET"
+          ],
+          "monsters": [
+            "GHOUL",
+            "SKELETON_WARRIOR",
+            "BONE_ARCHER"
+          ],
+          "count": [
+            30,
+            40
+          ],
+          "light": 0.7,
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_BARROW_CHIEFTAIN",
+          "corrupted": "CORRUPTED_2",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
           "code": "C1_CRYPT_OF_EXILES",
           "biome": "CRYPT",
           "level": 11,
+          "x": 470,
+          "y": 825,
+          "from": [
+            "C1_FALLEN_RUINS",
+            "C1_OLD_OUTPOST"
+          ],
+          "finale": true,
           "monsters": [
             "GHOUL",
             "SKELETON_WARRIOR",
@@ -1729,11 +2497,52 @@
             "monster"
           ],
           "size": 72
-        },
+        }
+      ]
+    },
+    {
+      "code": "REGION_2",
+      "label": {
+        "x": 880,
+        "y": 935
+      },
+      "zones": [
         {
-          "code": "C1_CRYSTAL_MINES",
+          "code": "C2_MINERS_VILLAGE",
           "biome": "MINES",
           "level": 13,
+          "x": 300,
+          "y": 1000,
+          "from": [
+            "C1_CRYPT_OF_EXILES"
+          ],
+          "monsters": [
+            "TUNNEL_DWELLER",
+            "SHARD_SCUTTLER",
+            "CAVE_BAT"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.85,
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_FOREMAN",
+          "corrupted": "CORRUPTED_2",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_CRYSTAL_MINES",
+          "biome": "MINES",
+          "level": 13,
+          "x": 530,
+          "y": 990,
+          "from": [
+            "C1_CRYPT_OF_EXILES"
+          ],
           "monsters": [
             "CRYSTAL_GOLEM",
             "SHARD_SCUTTLER",
@@ -1753,21 +2562,53 @@
           "size": 72
         },
         {
-          "code": "C1_ASHEN_WASTES",
-          "biome": "ASH",
-          "level": 15,
+          "code": "C2_FOOTHILL_ROAD",
+          "biome": "FROST",
+          "level": 13,
+          "x": 760,
+          "y": 1005,
+          "from": [
+            "C1_CRYPT_OF_EXILES"
+          ],
           "monsters": [
-            "CINDER_HOUND",
-            "ASH_REVENANT",
-            "MAGMA_SLUG"
+            "SNOW_STALKER",
+            "FERAL_WOLF",
+            "TUNNEL_DWELLER"
           ],
           "count": [
             35,
             45
           ],
-          "light": 0.9,
+          "light": 1.1,
+          "chestLoot": "CHEST_2",
+          "boss": "BOSS_WHITE_LYNX",
+          "corrupted": "CORRUPTED_2",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_DEEP_ADITS",
+          "biome": "MINES",
+          "level": 15,
+          "x": 230,
+          "y": 1145,
+          "from": [
+            "C2_MINERS_VILLAGE"
+          ],
+          "monsters": [
+            "CRYSTAL_GOLEM",
+            "TUNNEL_DWELLER",
+            "SHARD_SCUTTLER"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.7,
           "chestLoot": "CHEST_3",
-          "boss": "BOSS_ASHEN_TYRANT",
+          "boss": "BOSS_ORE_GOLEM",
           "corrupted": "CORRUPTED_3",
           "modifierPools": [
             "monster"
@@ -1775,9 +2616,43 @@
           "size": 72
         },
         {
-          "code": "C1_FROZEN_PASS",
+          "code": "C2_GEODE_HOLLOW",
+          "biome": "MINES",
+          "level": 15,
+          "x": 420,
+          "y": 1150,
+          "from": [
+            "C2_MINERS_VILLAGE",
+            "C2_CRYSTAL_MINES"
+          ],
+          "monsters": [
+            "SHARD_SCUTTLER",
+            "CRYSTAL_GOLEM",
+            "CAVE_BAT"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.8,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_GEODE_SPINNER",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_FROZEN_PASS",
           "biome": "FROST",
-          "level": 17,
+          "level": 15,
+          "x": 620,
+          "y": 1140,
+          "from": [
+            "C2_CRYSTAL_MINES",
+            "C2_FOOTHILL_ROAD"
+          ],
           "monsters": [
             "FROST_TROLL",
             "ICE_WRAITH",
@@ -1797,9 +2672,318 @@
           "size": 72
         },
         {
-          "code": "C1_DROWNED_TEMPLE",
+          "code": "C2_ASHEN_WASTES",
+          "biome": "ASH",
+          "level": 15,
+          "x": 840,
+          "y": 1155,
+          "from": [
+            "C2_FOOTHILL_ROAD"
+          ],
+          "monsters": [
+            "CINDER_HOUND",
+            "ASH_REVENANT",
+            "MAGMA_SLUG"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.9,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_ASHEN_TYRANT",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_GLACIER_TOMBS",
+          "biome": "FROST",
+          "level": 17,
+          "x": 310,
+          "y": 1290,
+          "from": [
+            "C2_DEEP_ADITS"
+          ],
+          "monsters": [
+            "ICE_WRAITH",
+            "GHOUL",
+            "SNOW_STALKER"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.8,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_RIME_LICH",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_TROLL_CAVES",
+          "biome": "FROST",
+          "level": 17,
+          "x": 540,
+          "y": 1285,
+          "from": [
+            "C2_DEEP_ADITS",
+            "C2_FROZEN_PASS"
+          ],
+          "monsters": [
+            "FROST_TROLL",
+            "SNOW_STALKER",
+            "CAVE_BAT"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.85,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_ELDER_TROLL",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_EMBER_FIELDS",
+          "biome": "ASH",
+          "level": 17,
+          "x": 770,
+          "y": 1295,
+          "from": [
+            "C2_FROZEN_PASS",
+            "C2_ASHEN_WASTES"
+          ],
+          "monsters": [
+            "CINDER_HOUND",
+            "MAGMA_SLUG",
+            "ASH_REVENANT"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.95,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_HOUND_MOTHER",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_STORM_PEAK",
+          "biome": "FROST",
+          "level": 19,
+          "x": 230,
+          "y": 1435,
+          "from": [
+            "C2_GLACIER_TOMBS"
+          ],
+          "monsters": [
+            "ICE_WRAITH",
+            "SNOW_STALKER",
+            "CRYSTAL_GOLEM"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 1.2,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_THUNDER_CALLER",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_SUNKEN_SHRINE",
           "biome": "TEMPLE",
-          "level": 20,
+          "level": 19,
+          "x": 430,
+          "y": 1440,
+          "from": [
+            "C2_GLACIER_TOMBS",
+            "C2_TROLL_CAVES"
+          ],
+          "monsters": [
+            "DEEP_ONE",
+            "TEMPLE_ZEALOT",
+            "TEMPLE_GUARDIAN"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.85,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_DEEP_PRIESTESS",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_OBSIDIAN_QUARRY",
+          "biome": "ASH",
+          "level": 19,
+          "x": 640,
+          "y": 1430,
+          "from": [
+            "C2_TROLL_CAVES",
+            "C2_EMBER_FIELDS"
+          ],
+          "monsters": [
+            "MAGMA_SLUG",
+            "CRYSTAL_GOLEM",
+            "ASH_REVENANT"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.9,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_OBSIDIAN_COLOSSUS",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_SLAG_PITS",
+          "biome": "ASH",
+          "level": 19,
+          "x": 850,
+          "y": 1445,
+          "from": [
+            "C2_EMBER_FIELDS"
+          ],
+          "monsters": [
+            "MAGMA_SLUG",
+            "CINDER_HOUND"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.95,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_SLAG_WORM",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_FROSTFANG_GLACIER",
+          "biome": "FROST",
+          "level": 21,
+          "x": 310,
+          "y": 1580,
+          "from": [
+            "C2_STORM_PEAK"
+          ],
+          "monsters": [
+            "FROST_TROLL",
+            "ICE_WRAITH",
+            "SNOW_STALKER"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 1.15,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_FROSTFANG",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_ABYSSAL_STAIR",
+          "biome": "TEMPLE",
+          "level": 21,
+          "x": 530,
+          "y": 1575,
+          "from": [
+            "C2_SUNKEN_SHRINE",
+            "C2_OBSIDIAN_QUARRY"
+          ],
+          "monsters": [
+            "ABYSSAL_ACOLYTE",
+            "DEEP_ONE",
+            "TEMPLE_ZEALOT"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.75,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_ABYSS_HERALD",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_CINDER_CITADEL",
+          "biome": "ASH",
+          "level": 21,
+          "x": 750,
+          "y": 1585,
+          "from": [
+            "C2_OBSIDIAN_QUARRY"
+          ],
+          "monsters": [
+            "ASH_REVENANT",
+            "CINDER_HOUND",
+            "TEMPLE_GUARDIAN"
+          ],
+          "count": [
+            35,
+            45
+          ],
+          "light": 0.85,
+          "chestLoot": "CHEST_3",
+          "boss": "BOSS_ASH_CASTELLAN",
+          "corrupted": "CORRUPTED_3",
+          "modifierPools": [
+            "monster"
+          ],
+          "size": 72
+        },
+        {
+          "code": "C2_DROWNED_TEMPLE",
+          "biome": "TEMPLE",
+          "level": 23,
+          "x": 530,
+          "y": 1725,
+          "from": [
+            "C2_FROSTFANG_GLACIER",
+            "C2_ABYSSAL_STAIR",
+            "C2_CINDER_CITADEL"
+          ],
+          "finale": true,
           "monsters": [
             "TEMPLE_ZEALOT",
             "DEEP_ONE",

@@ -206,8 +206,8 @@ data class FountainRule(val count: List<Int> = listOf(0, 2), val heal: Double = 
 /**
  * Карты (с 0.35.0): предмет слота `MAP` со своим уровнем, что открывает одну локацию того же уровня
  * с модификаторами. С обычного монстра карта падает с шансом [dropChance] (умноженным на количество
- * его редкости и героя), с босса - [bossChance]; с шансом [nextChance] она на уровень выше карты,
- * где упала. Редкость упавшей карты - по весам [rarities]. [risk] - сколько процентов к количеству,
+ * его редкости и героя), с босса - [bossChance]; с шансом [nextChance] это карта одной из зон, куда
+ * ведут связи из той, где она упала (0.67.0). Редкость упавшей карты - по весам [rarities]. [risk] - сколько процентов к количеству,
  * редкости и опыту добычи даёт единица каждого вредного модификатора: чем опаснее карта, тем
  * щедрее. Клиенту правило уходит целиком, чтобы окно запуска показало ту же сумму, что начислит сервер.
  */
@@ -278,11 +278,40 @@ data class BehaviourRule(
 @Serializable
 data class BehaviourTable(val default: BehaviourRule, val forms: Map<String, BehaviourRule> = emptyMap())
 
+/** Точка карты мира (с 0.67.0): `x` вправо, `y` вверх от старта, в единицах мира [WorldRule]. */
+@Serializable
+data class WorldPoint(val x: Int, val y: Int)
+
+/**
+ * Карта мира (с 0.67.0): поле [width] на [height] единиц, по которому разложены жетоны зон. Мир
+ * растёт вверх - новые регионы ложатся выше, и координаты прежних жетонов не сдвигаются.
+ */
+@Serializable
+data class WorldRule(val width: Int, val height: Int)
+
+/**
+ * Рост монстров со «спадом» (с 0.67.0): до уровня [from] каждая характеристика `growth` растёт
+ * полной степенью за уровень, выше - лишь долей [rate] этой степени. Без спада уровень 70 давал бы
+ * монстрам здоровья в тысячи раз больше, чем снаряжение даёт герою.
+ */
+@Serializable
+data class GrowthTaper(val from: Int = Int.MAX_VALUE, val rate: Double = 1.0)
+
+/**
+ * Зона карты мира - её жетон (с 0.67.0; раньше карта главы). [x] и [y] - место жетона на карте
+ * мира, [from] - зоны, из которых сюда ведут связи: открыта зона, когда пройдена хоть одна из них,
+ * а стартовая, без связей, открыта всегда. [finale] - финал региона: только из него связи ведут в
+ * следующий регион.
+ */
 @Serializable
 data class CampaignMapTemplate(
     val code: String,
     val biome: String,
     val level: Int,
+    val x: Int,
+    val y: Int,
+    val from: List<String> = emptyList(),
+    val finale: Boolean = false,
     val monsters: List<String>,
     val count: List<Int>,
     /** Во сколько раз биом меняет радиус света героя (с 0.30.0): склеп темнее, берег светлее. */
@@ -308,17 +337,20 @@ data class CampaignMapTemplate(
 @Serializable
 data class ChestRule(val count: List<Int>, val refreshHours: Double, val quantity: Double, val rarityBonus: Double)
 
+/** Регион карты мира (с 0.67.0; раньше глава): его зоны и место подписи [label] на карте. */
 @Serializable
-data class CampaignChapterTemplate(val code: String, val maps: List<CampaignMapTemplate>)
+data class CampaignRegionTemplate(val code: String, val label: WorldPoint, val zones: List<CampaignMapTemplate>)
 
 @Serializable
 data class CampaignContentFile(
     val defaults: Map<String, Double> = emptyMap(),
     val growth: Map<String, Double> = emptyMap(),
+    val growthTaper: GrowthTaper = GrowthTaper(),
     val rarities: List<CampaignRarity>,
     val lootTables: Map<String, LootTable>,
     val monsters: List<MonsterTemplate>,
-    val chapters: List<CampaignChapterTemplate>,
+    val world: WorldRule,
+    val regions: List<CampaignRegionTemplate>,
     val combat: CombatRules,
     val behaviour: BehaviourTable,
     val chests: ChestRule,
@@ -331,6 +363,9 @@ data class CampaignContentFile(
     /** Формы, которые дерутся издалека, если шаблон не сказал сам (с 0.61.0). */
     val rangedForms: Set<String> = emptySet(),
 ) {
+    /** Все зоны мира - регион за регионом, в порядке файла. */
+    val zones: List<CampaignMapTemplate> get() = regions.flatMap { it.zones }
+
     /** Ряд монстра в бою: свой из шаблона, иначе по форме. */
     fun range(template: MonsterTemplate): EnumMonsterRange =
         template.range ?: if (template.form in rangedForms) EnumMonsterRange.RANGED else EnumMonsterRange.MELEE
@@ -344,7 +379,8 @@ data class CampaignMonster(val code: String, val form: String, val stats: Map<St
                            val range: EnumMonsterRange = EnumMonsterRange.MELEE)
 
 /**
- * Карта главы, какой её видит клиент.
+ * Зона карты мира, какой её видит клиент (с 0.67.0 - жетон региона [region] в точке [x], [y]).
+ * [from] - откуда в неё ведут связи, [to] - куда ведут из неё; зона без [to], не [finale], - тупик.
  *
  * Модификаторы тоже подняты до уровня карты: «+3 к урону огнём» на первой карте и на
  * двадцатой - разные числа, и считать рост второй раз на клиенте было бы второй копией правила.
@@ -352,8 +388,12 @@ data class CampaignMonster(val code: String, val form: String, val stats: Map<St
 @Serializable
 data class CampaignMap(
     val code: String,
-    val chapter: String,
-    val order: Int,
+    val region: String,
+    val x: Int,
+    val y: Int,
+    val from: List<String>,
+    val to: List<String>,
+    val finale: Boolean = false,
     val biome: String,
     val level: Int,
     val monsterCount: List<Int>,
@@ -366,13 +406,15 @@ data class CampaignMap(
     val corrupted: CampaignBoss,
 )
 
+/** Регион карты мира, каким его видит клиент (с 0.67.0; раньше глава). */
 @Serializable
-data class CampaignChapter(val code: String, val maps: List<CampaignMap>)
+data class CampaignRegion(val code: String, val label: WorldPoint, val zones: List<CampaignMap>)
 
-/** Главы, правила редкости и правила боя - всё, что клиенту нужно, чтобы драться, одним ответом. */
+/** Карта мира, правила редкости и правила боя - всё, что клиенту нужно, чтобы драться, одним ответом. */
 @Serializable
 data class CampaignView(
-    val chapters: List<CampaignChapter>,
+    val world: WorldRule,
+    val regions: List<CampaignRegion>,
     val rarities: List<CampaignRarity>,
     val combat: CombatRules,
     val services: ServiceRule,
@@ -383,7 +425,7 @@ data class CampaignView(
 )
 
 /**
- * Содержимое кампании - главы, карты, монстры, их модификаторы и добыча.
+ * Содержимое кампании - карта мира с регионами и зонами, монстры, их модификаторы и добыча.
  *
  * Лежит в `resources/content/campaign.json` и в базу не пишется: это правила мира, а не
  * состояние, и перечитываются они при старте. Файл проверяется при чтении, как и остальные
@@ -398,11 +440,19 @@ object CampaignContent {
 
     val file: CampaignContentFile by lazy { load(ContentResource.read(FILE)) }
 
-    /** Коды всех карт кампании. */
-    val mapCodes: Set<String> by lazy { file.chapters.flatMapTo(mutableSetOf()) { chapter -> chapter.maps.map { it.code } } }
+    /** Коды всех зон мира. */
+    val mapCodes: Set<String> by lazy { file.zones.mapTo(mutableSetOf()) { it.code } }
+
+    /** Связи зон карты мира. */
+    val graph: WorldGraph by lazy { WorldGraph(file.zones) }
+
+    private val templates: Map<String, CampaignMapTemplate> by lazy { file.zones.associateBy { it.code } }
+
+    /** Шаблон зоны по коду - таблицы сундуков, пулы; null для неизвестного кода. */
+    fun template(code: String): CampaignMapTemplate? = templates[code]
 
     private class Resolved(val pools: PoolTable, val modifiers: List<ModifierDefinition>, val view: CampaignView) {
-        val maps: Map<String, CampaignMap> = view.chapters.flatMap { it.maps }.associateBy { it.code }
+        val maps: Map<String, CampaignMap> = view.regions.flatMap { it.zones }.associateBy { it.code }
     }
 
     private val resolved = AtomicReference<Resolved?>(null)
@@ -428,22 +478,23 @@ object CampaignContent {
 
     fun load(text: String): CampaignContentFile = json.decodeFromString(CampaignContentFile.serializer(), text).also(::validate)
 
-    /**
-     * Порядок карт в главе - порядок их открытия: следующая открывается, когда пройдена предыдущая.
-     */
-    fun unlocked(cleared: Collection<String>): List<String> = file.chapters.flatMap { chapter ->
-        chapter.maps.filterIndexed { index, _ -> index == 0 || chapter.maps[index - 1].code in cleared }.map { it.code }
-    }
+    /** Открытые зоны мира: стартовая и те, у кого пройдена хоть одна зона, ведущая к ним (0.67.0). */
+    fun unlocked(passed: Collection<String>): List<String> = graph.unlocked(passed)
 
     fun resolve(content: CampaignContentFile, pools: PoolTable, modifiers: List<ModifierDefinition>): CampaignView {
         val monsters = content.monsters.associateBy { it.code }
         val monsterModifiers = modifiers.filter { it.isMonster() }
-        val chapters = content.chapters.map { chapter ->
-            CampaignChapter(chapter.code, chapter.maps.mapIndexed { index, map ->
+        val graph = WorldGraph(content.zones)
+        val regions = content.regions.map { region ->
+            CampaignRegion(region.code, region.label, region.zones.map { map ->
                 CampaignMap(
                     code = map.code,
-                    chapter = chapter.code,
-                    order = index + 1,
+                    region = region.code,
+                    x = map.x,
+                    y = map.y,
+                    from = map.from,
+                    to = graph.next(map.code),
+                    finale = map.finale,
                     biome = map.biome,
                     level = map.level,
                     monsterCount = map.count,
@@ -465,7 +516,7 @@ object CampaignContent {
             if (rarity.statScale <= 0) rarity
             else rarity.copy(effects = rarity.effects + content.growth.keys.map { MonsterEffect(it, EnumModifierOperation.MORE, rarity.statScale) })
         }
-        return CampaignView(chapters, rarities, content.combat, content.services, content.maps, content.fountains, content.corruption, content.vaal)
+        return CampaignView(content.world, regions, rarities, content.combat, content.services, content.maps, content.fountains, content.corruption, content.vaal)
     }
 
     /**
@@ -501,10 +552,15 @@ object CampaignContent {
             }, number)
     }
 
-    /** Характеристика на уровне карты: растёт только то, что названо в `growth`, и растёт степенью. */
+    /**
+     * Характеристика на уровне карты: растёт только то, что названо в `growth`, и растёт степенью,
+     * а выше [GrowthTaper.from] (0.67.0) - лишь долей этой степени за каждый уровень.
+     */
     fun scale(content: CampaignContentFile, stat: String, value: Double, level: Int): Double {
         val factor = content.growth[stat] ?: return value
-        return Math.round(value * factor.pow(level - 1) * 100.0) / 100.0
+        val taper = content.growthTaper
+        val steps = (minOf(level, taper.from) - 1) + taper.rate * maxOf(0, level - taper.from)
+        return Math.round(value * factor.pow(steps) * 100.0) / 100.0
     }
 
     private fun validate(content: CampaignContentFile) {
@@ -526,7 +582,7 @@ object CampaignContent {
         }
         // У каждой редкости с модификаторами на каждой карте должно быть из чего выбирать - по пулам из файла.
         val monsterPools = PoolSeeder.table(EnumPoolTarget.MONSTER)
-        content.chapters.flatMap { it.maps }.forEach { map ->
+        content.zones.forEach { map ->
             val pool = monsterPools.of(monsterModifiers, map.modifierPools).map { it.value }
             content.rarities.filter { it.modifiers[1] > 0 }.forEach { rarity ->
                 if (pool.count { (it.minRarity ?: EnumMonsterRarity.MAGIC) <= rarity.rarity } < rarity.modifiers[1]) throw CampaignExceptions.funExceptionContent(method, "pool of ${rarity.rarity} on ${map.code}")
@@ -558,9 +614,10 @@ object CampaignContent {
         val monsters = content.monsters.map { it.code }.toSet()
         if (monsters.size != content.monsters.size) throw CampaignExceptions.funExceptionContent(method, "monster codes")
         validate(content.combat)
-        val codes = content.chapters.flatMap { chapter -> chapter.maps.map { it.code } }
+        val codes = content.zones.map { it.code }
         if (codes.toSet().size != codes.size) throw CampaignExceptions.funExceptionContent(method, "map codes")
-        content.chapters.flatMap { it.maps }.forEach { map ->
+        validateWorld(content)
+        content.zones.forEach { map ->
             if (map.monsters.size !in 2..4) throw CampaignExceptions.funExceptionContent(method, "monsters of ${map.code}")
             map.monsters.forEach { if (it !in monsters) throw CampaignExceptions.funExceptionContent(method, "monster $it") }
             if (map.count.size != 2 || map.count[0] < 1 || map.count[0] > map.count[1]) throw CampaignExceptions.funExceptionContent(method, "count of ${map.code}")
@@ -574,9 +631,14 @@ object CampaignContent {
             if (map.monsters.any { code -> content.monsters.first { it.code == code }.corrupted }) throw CampaignExceptions.funExceptionContent(method, "corrupted guardian among monsters of ${map.code}")
         }
         val modifierCodes = monsterPools.of(monsterModifiers, content.bosses.modifierPools).map { it.value.code }.toSet()
+        // Собственные уникалки (0.67.0) - обязательно только у боссов финалов регионов; прочие роняют мировые.
+        val finaleBosses = content.zones.filter { it.finale }.map { it.boss }.toSet()
         content.monsters.filter { it.boss }.forEach { boss ->
-            if (boss.uniquePools.isEmpty() || boss.modifiers.any { it !in modifierCodes }) throw CampaignExceptions.funExceptionContent(method, "boss ${boss.code}")
+            if ((boss.code in finaleBosses && boss.uniquePools.isEmpty()) || boss.modifiers.isEmpty() || boss.modifiers.any { it !in modifierCodes })
+                throw CampaignExceptions.funExceptionContent(method, "boss ${boss.code}")
         }
+        val bosses = content.zones.map { it.boss }
+        if (bosses.toSet().size != bosses.size) throw CampaignExceptions.funExceptionContent(method, "a boss guards two zones")
         content.monsters.filter { it.corrupted }.forEach { guardian ->
             if (guardian.boss) throw CampaignExceptions.funExceptionContent(method, "corrupted boss ${guardian.code}")
             if (guardian.uniquePools.isNotEmpty() || guardian.modifiers.any { it !in modifierCodes }) throw CampaignExceptions.funExceptionContent(method, "corrupted ${guardian.code}")
@@ -611,6 +673,43 @@ object CampaignContent {
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) throw CampaignExceptions.funExceptionContent(method, "behaviour of form $it") }
         (listOf(content.behaviour.default, content.bosses.behaviour) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validate)
+    }
+
+    /**
+     * Карта мира (0.67.0): один старт в первом регионе, связи только от младшей зоны к старшей и
+     * только внутри региона или из его финала в следующий, у каждого региона ровно один финал на его
+     * вершине, жетоны и подписи - в поле мира, и до каждой зоны можно дойти от старта.
+     */
+    private fun validateWorld(content: CampaignContentFile) {
+        val method = "CampaignWorld"
+        fun fail(what: String): Nothing = throw CampaignExceptions.funExceptionContent(method, what)
+        val world = content.world
+        if (world.width <= 0 || world.height <= 0) fail("world size")
+        fun inside(x: Int, y: Int) = x in 0..world.width && y in 0..world.height
+        if (content.regions.isEmpty()) fail("regions")
+        val index = content.regions.withIndex().associate { (i, region) -> region.code to i }
+        if (index.size != content.regions.size) fail("region codes")
+        val regionOf = content.regions.flatMap { region -> region.zones.map { it.code to index.getValue(region.code) } }.toMap()
+        val zones = content.zones.associateBy { it.code }
+        val starts = content.zones.filter { it.from.isEmpty() }
+        if (starts.size != 1 || regionOf.getValue(starts[0].code) != 0) fail("one start in the first region")
+        content.regions.forEach { region ->
+            if (region.zones.isEmpty()) fail("zones of ${region.code}")
+            if (!inside(region.label.x, region.label.y)) fail("label of ${region.code}")
+            val finale = region.zones.filter { it.finale }
+            if (finale.size != 1 || finale[0].level != region.zones.maxOf { it.level }) fail("finale of ${region.code}")
+        }
+        content.zones.forEach { zone ->
+            if (!inside(zone.x, zone.y)) fail("place of ${zone.code}")
+            if (zone.from.toSet().size != zone.from.size) fail("links of ${zone.code}")
+            zone.from.forEach { code ->
+                val source = zones[code] ?: fail("link $code of ${zone.code}")
+                if (source.level >= zone.level) fail("link $code of ${zone.code} goes down")
+                val step = regionOf.getValue(zone.code) - regionOf.getValue(code)
+                if (step != 0 && !(step == 1 && source.finale)) fail("link $code of ${zone.code} skips a region")
+            }
+        }
+        WorldGraph(content.zones).unreachable().takeIf { it.isNotEmpty() }?.let { fail("unreachable $it") }
     }
 
     private fun validate(rule: BehaviourRule) {
