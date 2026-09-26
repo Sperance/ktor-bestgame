@@ -69,10 +69,11 @@ data class BossState(val alive: Boolean, val respawnAt: Long)
  * Вход в локацию (с 0.35.0): карта, с которой герой вошёл, - её сложенные модификаторы и бонус к
  * добыче, - или null без карты, и сундуки локации с учётом тех, что карта добавила. [atlas] (с 0.60.0) -
  * прибавки атласа героя по характеристикам: шанс портала Ваал, источники, число и редкость монстров
- * катает клиент, остальное сервер уже учёл сам.
+ * катает клиент, остальное сервер уже учёл сам. [zone] (с 0.68.1) - зона целиком, с пулами
+ * модификаторов монстров, босса и стража порчи: вид мира их не несёт, заход строится по ней.
  */
 @Serializable
-data class MapLaunch(val map: ActiveMap?, val chests: ChestState, val atlas: Map<String, Double> = emptyMap())
+data class MapLaunch(val zone: CampaignMap, val map: ActiveMap?, val chests: ChestState, val atlas: Map<String, Double> = emptyMap())
 
 /** Что стоила смерть: потерянный опыт и где герой теперь. Уровень не меняется никогда. */
 @Serializable
@@ -257,7 +258,7 @@ class CampaignService : KoinComponent {
     suspend fun start(characterId: String, mapCode: String, itemId: String?): MapLaunch {
         val method = "start"
         val character = characters.requireCharacter(characterId, method)
-        openMap(character, mapCode, method)
+        val zone = openMap(character, mapCode, method)
         val window = windowOf(character, mapCode, characterId, method)
         val item = itemId?.let { inventory.requireOwned(characterId, it, method) }
         val template = item?.let { equipmentCache.findById(it.equipmentId) }
@@ -288,7 +289,7 @@ class CampaignService : KoinComponent {
             characters.update(character, session)
         }
         val now = character.chests[mapCode] ?: window
-        return MapLaunch(active, ChestState(now.left, now.refreshAt, now.bought), atlasOf(character).effects)
+        return MapLaunch(zone, active, ChestState(now.left, now.refreshAt, now.bought), atlasOf(character).effects)
     }
 
     /** Бонус карты, с которой герой вошёл в [mapCode]; в другой локации его нет. */

@@ -1,7 +1,12 @@
+import config.ModifierSeeder
+import config.PoolSeeder
 import features.logic.campaign.CampaignContent
 import features.logic.campaign.CampaignMapTemplate
 import features.logic.campaign.CampaignMaps
+import features.logic.campaign.CampaignView
 import features.logic.campaign.WorldGraph
+import features.logic.pools.EnumPoolTarget
+import kotlinx.serialization.json.Json
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -27,6 +32,24 @@ class WorldGraphTest {
     fun a_zone_no_link_reaches_is_found() {
         assertEquals(emptySet(), graph.unreachable())
         assertEquals(setOf("X", "Y"), WorldGraph(listOf(zone("A", 1), zone("X", 3, "Y"), zone("Y", 5, "X"))).unreachable())
+    }
+
+    /**
+     * Карта мира - жетоны без пулов модификаторов (0.68.1): клиент не читает ответ больше 2 МиБ, а сто
+     * зон с пулами весили почти четыре. Пулы приходят с зоной на входе в неё.
+     */
+    @Test
+    fun the_world_is_served_light_and_a_zone_whole_on_entry() {
+        val pools = PoolSeeder.table(EnumPoolTarget.MONSTER)
+        val definitions = ModifierSeeder.seedDefinitions()
+        val view = CampaignContent.view(pools, definitions)
+        val size = Json { encodeDefaults = true }.encodeToString(CampaignView.serializer(), view).length
+        assertTrue(size < 1_000_000, "the world map answer weighs $size characters")
+        val token = view.regions.last().zones.last()
+        assertTrue(token.modifiers.isEmpty() && token.boss.pool.isEmpty() && token.corrupted.pool.isEmpty())
+        val whole = CampaignContent.map(token.code, pools, definitions)!!
+        assertTrue(whole.modifiers.isNotEmpty() && whole.boss.pool.isNotEmpty() && whole.corrupted.pool.isNotEmpty())
+        assertEquals(whole.token(), token)
     }
 
     @Test

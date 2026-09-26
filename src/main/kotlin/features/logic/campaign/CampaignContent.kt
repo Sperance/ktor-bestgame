@@ -408,7 +408,14 @@ data class CampaignMap(
     val boss: CampaignBoss,
     /** Страж этой карты за осквернённым порталом (с 0.46.0), если он ей достался этим заходом. */
     val corrupted: CampaignBoss,
-)
+) {
+    /**
+     * Жетон зоны для карты мира (0.68.1): зона без пулов модификаторов - своих, босса и стража порчи.
+     * Пулы у всех зон одни, отличаются лишь тиром уровня, и сто зон с ними весили бы мегабайты; целиком
+     * зона приходит ответом на вход в неё, [MapLaunch.zone].
+     */
+    fun token(): CampaignMap = copy(modifiers = emptyList(), boss = boss.copy(pool = emptyList()), corrupted = corrupted.copy(pool = emptyList()))
+}
 
 /** Регион карты мира, каким его видит клиент (с 0.67.0; раньше глава). */
 @Serializable
@@ -455,8 +462,11 @@ object CampaignContent {
     /** Шаблон зоны по коду - таблицы сундуков, пулы; null для неизвестного кода. */
     fun template(code: String): CampaignMapTemplate? = templates[code]
 
-    private class Resolved(val pools: PoolTable, val modifiers: List<ModifierDefinition>, val view: CampaignView) {
-        val maps: Map<String, CampaignMap> = view.regions.flatMap { it.zones }.associateBy { it.code }
+    private class Resolved(val pools: PoolTable, val modifiers: List<ModifierDefinition>, whole: CampaignView) {
+        /** Зоны целиком - для входа и проверок. */
+        val maps: Map<String, CampaignMap> = whole.regions.flatMap { it.zones }.associateBy { it.code }
+        /** Карта мира жетонами, без пулов модификаторов (0.68.1). */
+        val view: CampaignView = whole.copy(regions = whole.regions.map { region -> region.copy(zones = region.zones.map(CampaignMap::token)) })
     }
 
     private val resolved = AtomicReference<Resolved?>(null)
@@ -464,7 +474,8 @@ object CampaignContent {
     /**
      * Кампания, как её видит клиент: пулы модификаторов монстров разрешены по таблице [pools], а сами
      * модификаторы (0.66.0) - описания источника MONSTER из [modifiers]. Таблица и список у кешей одни
-     * на ревизию, поэтому вид пересобирается, лишь когда пулы или описания правили.
+     * на ревизию, поэтому вид пересобирается, лишь когда пулы или описания правили. Зоны в нём - жетоны
+     * без пулов (0.68.1), зона целиком - [map].
      */
     fun view(pools: PoolTable, modifiers: List<ModifierDefinition>): CampaignView = resolvedFor(pools, modifiers).view
 
