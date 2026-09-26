@@ -30,7 +30,29 @@ data class ActiveWork(
      */
     val seed: Long = 0,
     val cycles: Long = 0,
+    /** Что работа принесла и потратила с запуска (с 0.66.0); у работ, начатых раньше, - с 0.66.0. */
+    val totals: WorkTally = WorkTally(),
 )
+
+/**
+ * Итог работы с её запуска (с 0.66.0): то же, что [WorkGains], но без самих вещей - в документе
+ * героя лежат только числа, а вещи уже в тайнике.
+ */
+@Serializable
+data class WorkTally(
+    val cycles: Long = 0,
+    val nothing: Long = 0,
+    val items: Map<String, Long> = emptyMap(),
+    val spent: Map<String, Long> = emptyMap(),
+    val made: Long = 0,
+    val experience: Double = 0.0,
+    val levels: Int = 0,
+) {
+    operator fun plus(gains: WorkGains) = WorkTally(cycles + gains.cycles, nothing + gains.nothing, items.merge(gains.items),
+        spent.merge(gains.spent), made + gains.equipment.size, experience + gains.experience, levels + gains.levels)
+
+    private fun Map<String, Long>.merge(other: Map<String, Long>) = (keys + other.keys).associateWith { (this[it] ?: 0) + (other[it] ?: 0) }
+}
 
 /**
  * Что даёт работе снаряжение: инструмент профессии и ветка дерева «Ремесло». Всё в процентах:

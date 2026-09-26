@@ -59,9 +59,13 @@ object MerchantRules {
     /** Пулы экипировки, из которых торговец выкладывает товар (с 0.39.0). */
     val POOLS = listOf("merchant")
 
-    /** Витрина на момент [now]: живая остаётся как есть, истёкшая выкладывается заново. */
+    /**
+     * Витрина на момент [now]: живая остаётся как есть, истёкшая выкладывается заново. Каждая
+     * выложенная вещь проходит [sound] - волшебной или редкой без аффиксов на витрине не бывает.
+     */
     fun stock(current: MerchantStock?, characterId: String, level: Int, now: Long, pool: List<Weighted<Equipment>>, random: Random,
               roll: (Equipment, EnumRarity) -> MutableList<Modifier> = ModifierRoller::roll,
+              ensure: (Equipment, CharacterEquipment) -> Boolean = ModifierRoller::ensureAffixes,
               affix: (Modifier) -> Boolean = ModifierRoller::isAffix): MerchantStock {
         if (current != null && now < current.refreshAt) return current
         val near = pool.filter { it.value.requiredLevel in (level - LEVEL_SPREAD)..(level + LEVEL_SPREAD) }
@@ -69,15 +73,28 @@ object MerchantRules {
         val offers = if (near.isEmpty()) emptyList() else List(random.nextInt(MIN_OFFERS, MAX_OFFERS + 1)) {
             val template = Pools.draw(near, random) ?: near.first().value
             val wanted = features.logic.equipment.Jewels.rarity(template, rarity(random))
-            // Волшебная или редкая вещь без единого аффикса (0.49.1) - брак ролла, на витрину ему нельзя:
-            // второй заход, а если и он пуст - вещь выкладывается белой, какой она и вышла.
-            var params = roll(template, wanted)
-            if (wanted != EnumRarity.COMMON && params.none(affix)) params = roll(template, wanted)
-            val rarity = if (wanted != EnumRarity.COMMON && params.none(affix)) EnumRarity.COMMON else wanted
-            val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = params, rarity = rarity)
-            MerchantOffer(ObjectId().toHexString(), item, SellPrice.of(template, rarity, item.params, emptyMap()) * MARKUP)
+            val item = CharacterEquipment(characterId = characterId, equipmentId = template._id, params = roll(template, wanted), rarity = wanted)
+            offer(ObjectId().toHexString(), template, sound(template, item, ensure, affix))
         }
         return MerchantStock(now + (WINDOW_HOURS * 3_600_000).toLong(), offers)
+    }
+
+    /** Строка витрины по вещи: цена - то, что за неё дал бы торговец, с наценкой [MARKUP]. */
+    fun offer(id: String, template: Equipment, item: CharacterEquipment): MerchantOffer =
+        MerchantOffer(id, item, SellPrice.of(template, item.rarity, item.params, emptyMap()) * MARKUP)
+
+    /**
+     * Вещь, годная на витрину (0.66.0): волшебная или редкая доводится до дна своей редкости
+     * общим правилом [ModifierRoller.ensureAffixes]; если пул шаблона пуст и доролл не дал ни
+     * одного аффикса, вещь выкладывается белой - пустой цветной её не увидит никто.
+     */
+    fun sound(template: Equipment, item: CharacterEquipment,
+              ensure: (Equipment, CharacterEquipment) -> Boolean = ModifierRoller::ensureAffixes,
+              affix: (Modifier) -> Boolean = ModifierRoller::isAffix): CharacterEquipment {
+        if (item.rarity == EnumRarity.COMMON || item.rarity.fixed) return item
+        ensure(template, item)
+        if (item.params.none(affix)) item.rarity = EnumRarity.COMMON
+        return item
     }
 }
 
@@ -92,13 +109,24 @@ class MerchantService : KoinComponent {
     /** Витрина героя на сейчас; сменившаяся записывается, и [character] в памяти идёт в ногу с базой. */
     private suspend fun restock(character: Character): MerchantStock {
         val stock = MerchantRules.stock(character.merchant, character._id, character.level.toInt(), System.currentTimeMillis(),
-            equipmentCache.pool(MerchantRules.POOLS), Random.Default)
+            equipmentCache.pool(MerchantRules.POOLS), Random.Default).let(::repair)
         if (stock != character.merchant) {
             character.merchant = stock
             transactionExecute("merchant") { session -> characters.update(character, session) }
         }
         return stock
     }
+
+    /**
+     * Витрина, выложенная до 0.66.0, могла нести пустые волшебные и редкие вещи: каждая строка
+     * проходит [MerchantRules.sound], изменившаяся получает новую цену.
+     */
+    private fun repair(stock: MerchantStock): MerchantStock = stock.copy(offers = stock.offers.map { offer ->
+        val template = equipmentCache.findById(offer.item.equipmentId) ?: return@map offer
+        val before = offer.item.rarity to offer.item.params.toList()
+        val item = MerchantRules.sound(template, offer.item.copy(params = offer.item.params.toMutableList()))
+        if (item.rarity to item.params.toList() == before) offer else MerchantRules.offer(offer.id, template, item)
+    })
 
     /** Покупка с витрины: золото уходит торговцу, экземпляр - в тайник, строка - с витрины. */
     suspend fun buy(characterId: String, offerId: String): MerchantPurchase {

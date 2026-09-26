@@ -62,7 +62,9 @@ data class ProfessionView(
 data class WorkView(val profession: String, val job: String, val settledAt: Long, val cycleMillis: Long, val nextAt: Long,
                     val additives: List<String> = emptyList(),
                     /** Зерно и номер следующего цикла (с 0.42.0): по ним клиент бросает цикл сам, см. [Crafts.cycleRandom]. */
-                    val seed: Long = 0, val cycle: Long = 0)
+                    val seed: Long = 0, val cycle: Long = 0,
+                    /** Когда работа запущена и что она принесла с тех пор (с 0.66.0). */
+                    val startedAt: Long = 0, val totals: WorkTally = WorkTally())
 
 /** Всё о ремёслах героя одним ответом; [gains] - что добыли циклы, досчитанные этим обращением. */
 @Serializable
@@ -161,13 +163,15 @@ class CraftsService : KoinComponent {
         val bases = if (job.kind == JobKind.EQUIPMENT) craftBases(job) else emptyList()
         val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, random, bases) }.filterNotNull()
         character.professions[profession.code] = result.progress
-        character.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles)
+        val gains = result.gains.copy(equipment = made)
+        character.work = if (result.gains.starved) null
+            else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles, totals = work.totals + gains)
         val equipment = transactionExecute(method) { session ->
             if (stacks.isNotEmpty()) characters.applyItems(character, stacks, method)
             characters.update(character, session)
             inventory.insertMany(made.map { it.copy(characterId = characterId) }, session)
         }
-        return result.gains.copy(equipment = equipment)
+        return gains.copy(equipment = equipment)
     }
 
     private suspend fun view(character: Character, gains: WorkGains): CraftsState {
@@ -190,7 +194,7 @@ class CraftsService : KoinComponent {
         val work = character.work?.let { work ->
             professions.firstOrNull { it.code == work.profession }?.jobs?.firstOrNull { it.code == work.job }?.let { job ->
                 WorkView(work.profession, work.job, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives,
-                    work.seed, work.cycles)
+                    work.seed, work.cycles, work.startedAt, work.totals)
             }
         }
         return CraftsState(System.currentTimeMillis(), rules, professions, work, gains,
