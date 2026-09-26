@@ -109,6 +109,22 @@ data class AtlasBonuses(val effects: Map<String, Double> = emptyMap()) {
     val vaalMinMods get() = this[EnumStatStock.ATLAS_VAAL_MIN_MODS].toInt()
     val chests get() = this[EnumStatStock.ATLAS_CHESTS].toInt()
 
+    // Атлас, продолжение (0.66.0).
+    val mapNext get() = this[EnumStatStock.ATLAS_MAP_NEXT]
+    val mapRare get() = this[EnumStatStock.ATLAS_MAP_RARE]
+    val mapAffix get() = this[EnumStatStock.ATLAS_MAP_AFFIX]
+    val bossLoot get() = this[EnumStatStock.ATLAS_BOSS_LOOT]
+    val chestLoot get() = this[EnumStatStock.ATLAS_CHEST_LOOT]
+    val gold get() = this[EnumStatStock.ATLAS_GOLD]
+    /** Множитель эффекта модификаторов карты: `1 + ATLAS_MAP_EFFECT / 100`. */
+    val mapEffect get() = relative(EnumStatStock.ATLAS_MAP_EFFECT)
+
+    /** Шанс рецепта верстака с поправкой `ATLAS_RECIPE`. */
+    fun recipeChance(chance: Double) = chance * relative(EnumStatStock.ATLAS_RECIPE)
+
+    /** Шанс уникалки со стража Ваал-зоны с поправкой `ATLAS_VAAL_UNIQUE`. */
+    fun vaalUniqueChance(chance: Double) = chance * relative(EnumStatStock.ATLAS_VAAL_UNIQUE)
+
     /** Шанс выпадения карты с поправкой `ATLAS_MAP_DROP`. */
     fun mapChance(chance: Double) = chance * relative(EnumStatStock.ATLAS_MAP_DROP)
 

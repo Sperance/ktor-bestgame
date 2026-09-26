@@ -1,5 +1,6 @@
 package features.logic.modifiers
 
+import application.enums.EnumEquipmentType
 import application.enums.EnumInfluence
 import application.enums.EnumModifierSource
 import application.enums.EnumRarity
@@ -79,9 +80,9 @@ object ModifierRoller : KoinComponent {
         kept: Collection<Modifier> = emptyList()
     ): List<Modifier> {
         val keptDefinitions = definitions(kept)
-        val (prefixes, suffixes) = freeSlots(rarity, keptDefinitions)
+        val (prefixes, suffixes) = freeSlots(rarity, keptDefinitions, equipment.slot)
         // Сколько аффиксов - велит редкость (0.53.0: таблица карт стала общей для всех предметов).
-        val limit = (rarity.affixes.random() - kept.size).coerceAtLeast(0)
+        val limit = (rarity.limits(equipment.slot).affixes.random() - kept.size).coerceAtLeast(0)
         return pickAffixes(affixPool(equipment, influence), prefixes, suffixes, keptDefinitions.map { it.family() }, limit)
             .mapNotNull { roll(it, equipment.itemLevel) }
     }
@@ -95,12 +96,13 @@ object ModifierRoller : KoinComponent {
     fun normalize(equipment: Equipment, rarity: EnumRarity, params: List<Modifier>, influence: EnumInfluence? = null): MutableList<Modifier>? {
         if (rarity.fixed) return null
         val result = params.toMutableList()
-        listOf(EnumModifierSource.PREFIX to rarity.prefixCount, EnumModifierSource.SUFFIX to rarity.suffixCount).forEach { (source, cap) ->
+        val limits = rarity.limits(equipment.slot)
+        listOf(EnumModifierSource.PREFIX to limits.prefixes, EnumModifierSource.SUFFIX to limits.suffixes).forEach { (source, cap) ->
             val removable = result.filter { !it.fractured && definitionCache.findByCode(it.modifierCode)?.source == source }
             val over = result.count { definitionCache.findByCode(it.modifierCode)?.source == source } - cap
             if (over > 0) result.removeAll(removable.takeLast(over).toSet())
         }
-        while (result.count(::isAffix) < rarity.affixes.first)
+        while (result.count(::isAffix) < limits.affixes.first)
             result += rollExtraAffix(equipment, rarity, result, influence) ?: break
         return result.takeIf { it != params }
     }
@@ -114,7 +116,8 @@ object ModifierRoller : KoinComponent {
      */
     fun ensureAffixes(equipment: Equipment, item: features.data.inventory.CharacterEquipment): Boolean {
         val rarity = item.rarity
-        if (rarity.fixed || rarity.affixes.first == 0 || item.params.count(::isAffix) >= rarity.affixes.first) return false
+        val floor = rarity.limits(equipment.slot).affixes.first
+        if (rarity.fixed || floor == 0 || item.params.count(::isAffix) >= floor) return false
         val fixed = normalize(equipment, rarity, item.params, item.influence) ?: return false
         item.params = fixed
         return true
@@ -134,8 +137,8 @@ object ModifierRoller : KoinComponent {
         current: Collection<Modifier>,
         influence: EnumInfluence? = null
     ): Modifier? {
-        if (current.count(::isAffix) >= rarity.affixes.last) return null
-        return rollOne(affixPool(equipment, influence), equipment.itemLevel, rarity, current)
+        if (current.count(::isAffix) >= rarity.limits(equipment.slot).affixes.last) return null
+        return rollOne(affixPool(equipment, influence), equipment.itemLevel, rarity, current, equipment.slot)
     }
 
     /**
@@ -144,11 +147,11 @@ object ModifierRoller : KoinComponent {
      * @return null, если свободного места нет или все группы пула уже заняты
      */
     fun rollInfluenced(equipment: Equipment, rarity: EnumRarity, current: Collection<Modifier>, influence: EnumInfluence): Modifier? =
-        rollOne(pool(listOf(Pools.influence(influence))), equipment.itemLevel, rarity, current)
+        rollOne(pool(Pools.influence(influence, equipment.slot)), equipment.itemLevel, rarity, current, equipment.slot)
 
-    private fun rollOne(pool: List<Weighted<ModifierDefinition>>, itemLevel: Int, rarity: EnumRarity, current: Collection<Modifier>): Modifier? {
+    private fun rollOne(pool: List<Weighted<ModifierDefinition>>, itemLevel: Int, rarity: EnumRarity, current: Collection<Modifier>, slot: EnumEquipmentType): Modifier? {
         val currentDefinitions = definitions(current)
-        val (prefixes, suffixes) = freeSlots(rarity, currentDefinitions)
+        val (prefixes, suffixes) = freeSlots(rarity, currentDefinitions, slot)
         return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), currentDefinitions.map { it.family() }, limit = 1)
             .firstOrNull()?.let { roll(it, itemLevel) }
     }
@@ -198,9 +201,11 @@ object ModifierRoller : KoinComponent {
     /**
      * Сколько префиксов и суффиксов ещё помещается на предмет.
      */
-    fun freeSlots(rarity: EnumRarity, current: Collection<ModifierDefinition>): Pair<Int, Int> =
-        (rarity.prefixCount - current.count { it.source == EnumModifierSource.PREFIX }).coerceAtLeast(0) to
-            (rarity.suffixCount - current.count { it.source == EnumModifierSource.SUFFIX }).coerceAtLeast(0)
+    fun freeSlots(rarity: EnumRarity, current: Collection<ModifierDefinition>, slot: EnumEquipmentType): Pair<Int, Int> {
+        val limits = rarity.limits(slot)
+        return (limits.prefixes - current.count { it.source == EnumModifierSource.PREFIX }).coerceAtLeast(0) to
+            (limits.suffixes - current.count { it.source == EnumModifierSource.SUFFIX }).coerceAtLeast(0)
+    }
 
     /**
      * Перекатывает значения модификаторов, сохраняя сами модификаторы и их тиры -
@@ -274,5 +279,5 @@ object ModifierRoller : KoinComponent {
      * для всех шаблонов. Ремесленных здесь нет никогда - их ставит только верстак.
      */
     fun affixPool(equipment: Equipment, influence: EnumInfluence? = null): List<Weighted<ModifierDefinition>> =
-        definitionCache.affixPool(if (influence == null) equipment.modifierPools else equipment.modifierPools + Pools.influence(influence))
+        definitionCache.affixPool(if (influence == null) equipment.modifierPools else equipment.modifierPools + Pools.influence(influence, equipment.slot))
 }

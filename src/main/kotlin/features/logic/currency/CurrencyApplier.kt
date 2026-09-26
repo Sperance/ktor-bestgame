@@ -148,6 +148,11 @@ object CurrencyApplier : KoinComponent {
             EnumCurrencyOrb.MAGUS_ORB -> alchemyLine(item, template, "ALC_MAP_MAGIC")
             EnumCurrencyOrb.ELITE_ORB -> alchemyLine(item, template, "ALC_MAP_RARE")
             EnumCurrencyOrb.BOUNTY_ORB -> alchemyLine(item, template, "ALC_MAP_LOOT")
+            EnumCurrencyOrb.TREASURE_ORB -> alchemyLine(item, template, "ALC_MAP_CHESTS")
+            EnumCurrencyOrb.GILDED_ORB -> alchemyLine(item, template, "ALC_MAP_GOLD")
+            EnumCurrencyOrb.WARDEN_ORB -> alchemyLine(item, template, "ALC_MAP_BOSS")
+            EnumCurrencyOrb.HELMET_SCROLL, EnumCurrencyOrb.GLOVES_SCROLL, EnumCurrencyOrb.BOOTS_SCROLL, EnumCurrencyOrb.WEAPON_SCROLL ->
+                enchant(item, template, orb)
         }
     }
 
@@ -266,7 +271,7 @@ object CurrencyApplier : KoinComponent {
         val current = affixes(item).filterNot { it.fractured }
         if (current.isEmpty()) throw CurrencyExceptions.funExceptionNoAffixes("annul", template.code)
         // Ниже минимума редкости предмет не опускается (0.53.0): у волшебного хотя бы один аффикс, у редкого четыре
-        if (affixes(item).size <= item.rarity.affixes.first)
+        if (affixes(item).size <= item.rarity.limits(template.slot).affixes.first)
             throw CurrencyExceptions.funExceptionAffixMinimum("annul", LocaleKey.equipmentName(template.code), LocaleKey.rarity(item.rarity))
 
         val removed = current.randomExt()
@@ -299,17 +304,20 @@ object CurrencyApplier : KoinComponent {
     /**
      * Портит предмет, как в POE (с 0.58.0): после неё ни одна сфера его не тронет, а сама порча
      * выпадает одним из равновероятных исходов [VaalOutcome]. Ложится и на экипировку, и на карты.
-     * Имплисит порчи (с 0.59.0) - только у карты: любой модификатор из её собственного пула,
-     * вредный или наградный; экипировке остаются три исхода.
+     * Порченый имплисит (0.66.0, как в POE) встаёт вместо имплисита базы - из пула порчи слота
+     * `corruption:<слот>`, где лежат и сильные плюсы, и чистые минусы; у слота без пула порчи
+     * исход сводится к «ничего». База предмета (броня, урон) при этом остаётся: она не имплисит.
      */
     private fun vaal(item: CharacterEquipment, template: Equipment): CurrencyOutcome {
         item.corrupted = true
-        val map = template.slot == EnumEquipmentType.MAP
-        return when (VaalOutcome.entries.filter { map || it != VaalOutcome.IMPLICIT }.random()) {
+        return when (VaalOutcome.entries.random()) {
             VaalOutcome.NOTHING -> outcome(item, template, "currency.vaal_nothing")
             VaalOutcome.IMPLICIT -> {
-                val corruption = Pools.draw(ModifierRoller.affixPool(template))?.let { ModifierRoller.roll(it, template.itemLevel) }
-                corruption?.let { item.params.add(it.copy(tier = 0)) }
+                val corruption = Pools.draw(ModifierRoller.pool(listOf(Pools.corruption(template.slot))))?.let { ModifierRoller.roll(it, template.itemLevel) }
+                if (corruption != null) {
+                    item.params.removeAll { ModifierRoller.definitions(listOf(it)).any { definition -> definition.source == EnumModifierSource.IMPLICIT } }
+                    item.params.add(corruption)
+                }
                 outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
             }
             // Уникалку в редкую не превратить, как и в POE: на ней этот исход только портит.
@@ -415,6 +423,20 @@ object CurrencyApplier : KoinComponent {
         return outcome(item, template, "currency.influenced", LocaleKey.enumLabel("EnumInfluence", influence.name))
     }
 
+    /**
+     * Свиток зачарователя (0.66.0): зачарование из пула своего слота, одно на предмет - новое
+     * снимает прежнее. Места аффикса не занимает, редкости не требует; чужому слоту отказывает.
+     */
+    private fun enchant(item: CharacterEquipment, template: Equipment, orb: EnumCurrencyOrb): CurrencyOutcome {
+        val slot = orb.enchantSlot ?: throw CurrencyExceptions.funExceptionNotForItem("enchant", orb.name)
+        if (Pools.slotTag(template.slot) != slot) throw CurrencyExceptions.funExceptionEnchantSlot("enchant", LocaleKey.enumLabel("EnumCurrencyOrb", orb.name))
+        val enchantment = Pools.draw(ModifierRoller.pool(listOf(Pools.enchant(slot))))?.let { ModifierRoller.roll(it, template.itemLevel) }
+            ?: throw CurrencyExceptions.funExceptionEnchantSlot("enchant", LocaleKey.enumLabel("EnumCurrencyOrb", orb.name))
+        item.params.removeAll { ModifierRoller.definitions(listOf(it)).any { definition -> definition.source == EnumModifierSource.ENCHANTMENT } }
+        item.params.add(enchantment)
+        return outcome(item, template, "currency.enchanted")
+    }
+
     // ==================== Вспомогательное ====================
 
     private fun requireRarity(item: CharacterEquipment, template: Equipment, required: EnumRarity) {
@@ -458,7 +480,7 @@ object CurrencyApplier : KoinComponent {
         val candidates = affixes(item).filterNot { it.fractured }.filter { modifier -> ModifierRoller.definitions(listOf(modifier)).any(::harmful) }
         if (candidates.isEmpty()) throw CurrencyExceptions.funExceptionNoHarm("mercy", template.code)
         // Ниже дна редкости карта не опускается (0.65.0), как и под сферой отмены.
-        if (affixes(item).size <= item.rarity.affixes.first)
+        if (affixes(item).size <= item.rarity.limits(template.slot).affixes.first)
             throw CurrencyExceptions.funExceptionAffixMinimum("mercy", LocaleKey.equipmentName(template.code), LocaleKey.rarity(item.rarity))
         item.params.remove(candidates.randomExt())
         return outcome(item, template, "currency.mercy")

@@ -3,6 +3,8 @@ package features.logic.modifiers
 import application.enums.EnumInfluence
 import application.enums.EnumModifierOperation
 import application.enums.EnumModifierSource
+import application.enums.EnumModifierVariant
+import application.enums.EnumMonsterRarity
 import application.enums.IntEnumStat
 import base.entity.StockEntity
 import extensions.RandomExt
@@ -48,8 +50,7 @@ data class ModifierEffect(
      * Имеет смысл только вместе с [perStat].
      */
     val perAmount: Double = 1.0,
-) {
-}
+)
 
 /**
  * Тир модификатора (с 0.56.0 - внутри описания, отдельной коллекции `ModifierTier` больше нет).
@@ -57,11 +58,12 @@ data class ModifierEffect(
  * Нумерация как в POE: тир 1 - первый в списке [ModifierDefinition.tiers], лучший, он даёт
  * максимальные значения и требует самый высокий item level; дальше тиры слабеют.
  *
- * @property level минимальный item level предмета, на котором тир может выпасть
+ * @property level минимальный item level предмета (или уровень карты у модификатора монстра), на котором тир может выпасть
  * @property values диапазоны `[min, max]`, по одному на каждый эффект описания и в том же порядке
+ * @property weight вес тира среди открытых по уровню (0.66.0), как spawn weight в POE; 0 - вес равен номеру тира
  */
 @Serializable
-data class ModifierTier(val level: Int = 1, val values: List<List<Double>>) {
+data class ModifierTier(val level: Int = 1, val values: List<List<Double>>, val weight: Int = 0) {
 
     /**
      * Роллит значения тира - по одному на каждый эффект описания.
@@ -69,14 +71,15 @@ data class ModifierTier(val level: Int = 1, val values: List<List<Double>>) {
      * Качество ролла общее для всех эффектов: составной модификатор
      * не может выпасть максимумом по здоровью и минимумом по мане.
      */
-    fun roll(): List<Double> {
-        val progress = RandomExt.randomProgress()
-        return values.map { (min, max) -> (min + (max - min) * progress).to1Digits() }
-    }
+    fun roll(): List<Double> = roll(RandomExt.randomProgress())
+
+    /** Значения тира при качестве [progress] от 0 (дно) до 1 (потолок). */
+    fun roll(progress: Double): List<Double> = values.map { (min, max) -> (min + (max - min) * progress).to1Digits() }
 
     /** Ошибка тира или null: по диапазону `[min, max]` на каждый из [effects] эффектов. */
     fun problem(effects: Int): String? = when {
         level < 1 -> "level $level"
+        weight < 0 -> "weight $weight"
         values.size != effects -> "$effects effects, ${values.size} values"
         values.any { it.size != 2 || it[0] > it[1] } -> "a [min, max] per effect"
         else -> null
@@ -90,14 +93,17 @@ data class ModifierTier(val level: Int = 1, val values: List<List<Double>>) {
  * модификатор делает, и его тиры с диапазонами. Экземпляры предметов, верстак, дерево и пулы
  * ссылаются на описание по стабильному [code] (с 0.56.0), а не по `_id`.
  *
- * Например "Life and Mana" (PREFIX) - два эффекта, ADD по здоровью и ADD по мане,
- * плюс тиры 1..8 с диапазонами значений для каждого эффекта.
+ * С 0.66.0 описание - вариант семейства ([family], [variant]): природный аффикс, его локальная,
+ * верстачная, имплиситная, порченая или зачарованная копия. Эффекты и текст у них общие, тиры и
+ * правила - свои. Модификаторы монстров (источник MONSTER) лежат здесь же: тир у них - по уровню
+ * карты, а [minRarity] говорит, с какой редкости монстра он открыт.
  */
 @Serializable
 data class ModifierDefinition(
 
     /**
-     * Стабильный код модификатора. Уникален в пределах коллекции; им на описание ссылается всё.
+     * Стабильный код описания. Уникален в пределах коллекции; им на описание ссылается всё.
+     * У варианта - `<семейство>@<вариант>`, см. [EnumModifierVariant.code].
      */
     override val code: String,
 
@@ -123,7 +129,7 @@ data class ModifierDefinition(
      * который умножает броню только этого нагрудника.
      *
      * Глобальный действует на персонажа целиком - как тот же процент на кольце.
-     * Поэтому локальная и глобальная версии одного стата это два разных описания.
+     * Поэтому локальная и глобальная версии одного стата это два варианта одного семейства.
      */
     val isLocal: Boolean = false,
 
@@ -135,7 +141,7 @@ data class ModifierDefinition(
     /**
      * Группа модификатора, как в POE: на одном предмете не бывает двух модификаторов
      * одной группы. Так ремесленный "+# к здоровью" не встаёт рядом с выпавшим, а
-     * два тира одного свойства не складываются. null - группа совпадает с кодом.
+     * два тира одного свойства не складываются. null - группа совпадает с семейством.
      */
     val group: String? = null,
 
@@ -153,13 +159,29 @@ data class ModifierDefinition(
      */
     val crafted: Boolean = false,
 
+    /**
+     * Семейство (0.66.0): код записи файла, общий для всех вариантов. Природный вариант - сам код.
+     */
+    val family: String = code,
+
+    /**
+     * Какой это вариант семейства (0.66.0).
+     */
+    val variant: EnumModifierVariant = EnumModifierVariant.NATURAL,
+
+    /**
+     * Модификатор монстра (0.66.0): с какой редкости монстра он открыт. `UNIQUE` - только у босса.
+     * null у всего, что не носит монстр.
+     */
+    val minRarity: EnumMonsterRarity? = null,
+
     override var _id: String = ObjectId().toHexString()
 ) : StockEntity, Pooled {
 
     /**
      * Группа, по которой модификаторы исключают друг друга на одном предмете.
      */
-    fun family(): String = group ?: code
+    fun family(): String = group ?: family
 
     /**
      * Занимает ли модификатор место префикса или суффикса.
@@ -171,6 +193,9 @@ data class ModifierDefinition(
      */
     fun isNaturalAffix(): Boolean = isAffix() && influence == null && !crafted
 
+    /** Носит ли модификатор монстр кампании. */
+    fun isMonster(): Boolean = source == EnumModifierSource.MONSTER
+
     /**
      * Составной модификатор меняет больше одного стата за раз.
      */
@@ -178,6 +203,13 @@ data class ModifierDefinition(
 
     /** Тир по номеру (1 - лучший). */
     fun tier(number: Int): ModifierTier? = tiers.getOrNull(number - 1)
+
+    /** Лучший тир, открытый на уровне [level]; на уровне ниже всех - самый слабый. */
+    fun bestTierAt(level: Int): Pair<Int, ModifierTier>? {
+        val open = tiers.withIndex().filter { it.value.level <= level }.maxByOrNull { it.value.level }
+            ?: tiers.withIndex().minByOrNull { it.value.level } ?: return null
+        return open.index + 1 to open.value
+    }
 
     /**
      * Все статы, которых касается модификатор.

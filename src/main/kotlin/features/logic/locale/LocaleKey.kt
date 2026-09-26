@@ -26,7 +26,6 @@ object LocaleKey {
     const val CHAPTER = "chapter"
     const val MAP = "map"
     const val MONSTER = "monster"
-    const val MONSTER_MODIFIER = "monstermod"
     const val PROFESSION = "profession"
     const val JOB = "job"
     const val ATLAS_NODE = "atlas.node"
@@ -59,9 +58,6 @@ object LocaleKey {
     fun mapDescription(code: String) = key(MAP, code, DESCRIPTION)
 
     fun monsterName(code: String) = key(MONSTER, code, NAME)
-
-    /** Шаблон с `{0}`, `{1}` по эффектам - как у модификаторов предметов. */
-    fun monsterModifierName(code: String) = key(MONSTER_MODIFIER, code, NAME)
 
     fun professionName(code: String) = key(PROFESSION, code, NAME)
     fun professionDescription(code: String) = key(PROFESSION, code, DESCRIPTION)

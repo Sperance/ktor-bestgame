@@ -64,7 +64,9 @@ class SeedDataTest {
             definition.tiers.zipWithNext { better, worse ->
                 assert(better.level >= worse.level) { "${definition.code}: a better tier requires less item level" }
                 better.values.forEachIndexed { index, (_, max) ->
-                    assert(max >= worse.values[index][1]) { "${definition.code}: a better tier is weaker" }
+                    // Отрицательный эффект (0.66.0: порча, «меньше получаемого урона») сильнее по модулю
+                    val negative = max <= 0.0 && worse.values[index][1] <= 0.0
+                    assert(if (negative) -max >= -worse.values[index][1] else max >= worse.values[index][1]) { "${definition.code}: a better tier is weaker" }
                 }
             }
         }
@@ -224,23 +226,46 @@ class SeedDataTest {
     }
 
     /**
-     * Сетка тиров по важности стата (0.56.0): основные - 8 тиров на 1/13/25/37/50/62/74/86,
-     * второстепенные - 5 на 1/20/40/60/80, редкие - 3 на 1/40/75. Любой выпадающий аффикс стоит на одной из них.
+     * Сетка тиров (0.66.0, как в POE): у каждого семейства своё число тиров, но уровни идут строго
+     * вниз от лучшего к худшему, дно всегда открыто с первого уровня, а вершина - не выше 68-го,
+     * чтобы тир 1 вообще мог выпасть на предмете 71-го уровня.
      */
     @Test
     fun a_natural_affix_follows_a_tier_grid() {
-        val grids = setOf(listOf(86, 74, 62, 50, 37, 25, 13, 1), listOf(80, 60, 40, 20, 1), listOf(75, 40, 1))
-        val natural = modifierPools.tags.filterNot { it == "map" || it == "tool" }.flatMap { modifierPools.members(it).keys }.toSet()
+        val natural = modifierPools.tags.filterNot { it == "map" || it.startsWith("tool") }.flatMap { modifierPools.members(it).keys }.toSet()
         definitions.filter { it.isNaturalAffix() && it.code in natural }.forEach { definition ->
-            assert(definition.tiers.map { it.level } in grids) { "${definition.code}: levels ${definition.tiers.map { it.level }}" }
+            val levels = definition.tiers.map { it.level }
+            assert(levels.last() == 1 && levels.first() <= 68 && levels.zipWithNext().all { (a, b) -> a > b }) { "${definition.code}: levels $levels" }
         }
     }
 
+    /** Гибрид «плюс за минус»: цена - последний эффект - одна на всех тирах и никогда не ноль. */
     @Test
     fun a_risk_modifier_keeps_its_price_on_every_tier() {
         definitions.filter { it.code.startsWith("RISK_") }.forEach { risk ->
-            val prices = risk.tiers.map { it.values[1] }
-            assert(prices.all { it[1] < 0 } && prices.distinct().size == 1) { "${risk.code}: $prices" }
+            val prices = risk.tiers.map { it.values.last() }
+            assert(prices.all { it[0] == it[1] && it[1] != 0.0 } && prices.distinct().size == 1) { "${risk.code}: $prices" }
+        }
+    }
+
+    /** Порча (0.66.0): каждый носимый слот, самоцвет и карта открывают Vaal Orb свой пул, а чистый минус лежит только там. */
+    @Test
+    fun every_slot_has_a_corruption_pool_and_curses_stay_inside_it() {
+        EnumEquipmentType.entries.filter { !it.isTool && it != EnumEquipmentType.RING_2 }.forEach { slot ->
+            val pool = modifierPools.of(definitions, listOf(features.logic.pools.Pools.corruption(slot))).map { it.value }
+            assert(pool.isNotEmpty() && pool.all { it.source == EnumModifierSource.CORRUPTION }) { "$slot: ${pool.map { it.code }}" }
+        }
+        val leaked = equipment.flatMap { modifierPools.of(definitions, it.modifierPools) }.map { it.value }.filter { it.source == EnumModifierSource.CORRUPTION }
+        assert(leaked.isEmpty()) { "corruption rolls from template pools: ${leaked.map { it.code }}" }
+    }
+
+    /** Варианты (0.66.0): все варианты семейства носят его эффекты, и у каждого верстачного есть природный близнец. */
+    @Test
+    fun variants_share_the_effects_of_their_family() {
+        val byCode = definitions.associateBy { it.code }
+        definitions.filter { it.variant != application.enums.EnumModifierVariant.NATURAL }.forEach { variant ->
+            val family = byCode[variant.family]
+            assert(family != null && family.effects == variant.effects && family.variant == application.enums.EnumModifierVariant.NATURAL) { "${variant.code} has no family" }
         }
     }
 

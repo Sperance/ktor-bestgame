@@ -33,4 +33,16 @@ enum class EnumRarity(
 
     /** Модификаторы задаёт сам предмет, а не ролл: уникалка и мифический предмет. */
     val fixed: Boolean get() = this == UNIQUE || this == MYTHICAL
+
+    /**
+     * Места аффиксов редкости на предмете слота [slot] (0.66.0): самоцвет, как в POE, держит на
+     * редком 2+2 и выпадает с 3-4, остальное - как у редкости.
+     */
+    fun limits(slot: EnumEquipmentType): AffixLimits = when {
+        this == RARE && slot == EnumEquipmentType.JEWEL -> AffixLimits(2, 2, 3..4)
+        else -> AffixLimits(prefixCount, suffixCount, affixes)
+    }
 }
+
+/** Сколько префиксов и суффиксов помещается и сколько аффиксов выпадает. */
+data class AffixLimits(val prefixes: Int, val suffixes: Int, val affixes: IntRange)

@@ -1,4 +1,6 @@
 import application.enums.EnumAuctionLotKind
+import features.logic.locale.ModifierText
+import application.enums.EnumMonsterRarity
 import application.enums.EnumAuctionLotStatus
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumInfluence
@@ -39,7 +41,6 @@ import config.SkillTreeSeeder
 import config.UniqueEquipmentSeeder
 import features.logic.campaign.CampaignContent
 import features.logic.campaign.EnumLootKind
-import features.logic.campaign.EnumMonsterRarity
 import features.logic.locale.LocaleCache
 import features.logic.locale.LocaleKey
 import features.logic.modifiers.ModifierDefinition
@@ -111,7 +112,7 @@ class LocalizationTest {
         "upgraded", "rerolled", "augmented", "regal", "divine", "blessed", "annulled",
         "scoured", "vaal_modifier", "vaal_nothing", "vaal_rare", "vaal_shift", "chance_unique", "chance_rarity", "mirrored",
         "scoured_fractured", "fractured", "influenced", "crafted", "uncrafted",
-        "empowered", "mercy", "peril", "alchemy_line",
+        "empowered", "mercy", "peril", "alchemy_line", "enchanted",
     ).map { "${LocaleKey.CURRENCY}.$it" }
 
     /**
@@ -127,7 +128,10 @@ class LocalizationTest {
     private fun expectedKeys(): Set<String> {
         val keys = mutableSetOf<String>()
 
+        // Текст модификатора (0.66.0) собирается из шаблонов эффектов: словарь держит шаблон на
+        // стат и операцию, а строку на код - только как исключение для особой формулировки.
         definitions.forEach { keys.add(LocaleKey.modifierName(it.code)) }
+        keys.addAll(ModifierText.keys(definitions))
 
         EquipmentSeeder(definitions).seed().forEach {
             keys.add(LocaleKey.equipmentName(it.code))
@@ -161,7 +165,6 @@ class LocalizationTest {
             }
         }
         CampaignContent.file.monsters.forEach { keys.add(LocaleKey.monsterName(it.code)) }
-        CampaignContent.file.modifiers.forEach { keys.add(LocaleKey.monsterModifierName(it.code)) }
 
         // Ремёсла (0.37.0): профессии с описанием и их работы
         features.logic.crafts.CraftsContent.file.professions.forEach { profession ->
@@ -305,7 +308,7 @@ class LocalizationTest {
     fun a_placeholder_never_disappears_in_translation() {
         // Число подставляется по номеру, поэтому набор {0}, {1}... обязан
         // совпадать во всех языках - иначе значение просто потеряется
-        val placeholder = Regex("\\{\\d+}")
+        val placeholder = Regex("\\{\\|?\\d+\\|?}")
         val reference = LocaleCache.bundle(LocaleCache.defaultLanguage())
 
         LocaleCache.languages().filterNot { it == reference.language }.forEach { language ->
@@ -324,7 +327,7 @@ class LocalizationTest {
 
     @Test
     fun a_composite_modifier_has_a_placeholder_for_every_effect() {
-        val placeholder = Regex("\\{(\\d+)}")
+        val placeholder = Regex("\\{\\|?(\\d+)\\|?}")
 
         definitions.forEach { definition ->
             val key = LocaleKey.modifierName(definition.code)
@@ -341,14 +344,28 @@ class LocalizationTest {
         }
     }
 
+    /** Шаблон эффекта (0.66.0) держит ровно один `{v}`; склейка и подпись источника - без него. */
     @Test
-    fun a_monster_modifier_has_a_placeholder_for_every_effect() {
-        val placeholder = Regex("\\{(\\d+)}")
-        CampaignContent.file.modifiers.forEach { modifier ->
-            val key = LocaleKey.monsterModifierName(modifier.code)
-            LocaleCache.languages().forEach { language ->
-                val indexes = placeholder.findAll(LocaleCache.bundle(language)[key]).map { it.groupValues[1].toInt() }.toSet()
-                assert(indexes == modifier.effects.indices.toSet()) { "$language / $key: $indexes, эффектов ${modifier.effects.size}" }
+    fun every_effect_template_carries_its_value() {
+        val templates = ModifierText.keys(definitions).filter { it.startsWith(ModifierText.SECTION + ".") && it != ModifierText.JOIN }
+        assert(templates.isNotEmpty())
+        LocaleCache.languages().forEach { language ->
+            val bundle = LocaleCache.bundle(language)
+            templates.forEach { key ->
+                val text = bundle[key]
+                assert(text.count { it == '{' } == text.count { it == '}' } && key.contains(".per") == text.contains("{s}")) { "$language / $key: $text" }
+            }
+        }
+    }
+
+    /** Каждое описание собирается в строку: модификатор без текста игрок увидел бы как код. */
+    @Test
+    fun every_definition_renders_from_its_templates() {
+        LocaleCache.languages().forEach { language ->
+            val bundle = LocaleCache.bundle(language)
+            definitions.forEach { definition ->
+                val text = bundle[LocaleKey.modifierName(definition.code)]
+                assert(text != LocaleKey.modifierName(definition.code) && !text.contains("{v}")) { "$language: ${definition.code} reads «$text»" }
             }
         }
     }
