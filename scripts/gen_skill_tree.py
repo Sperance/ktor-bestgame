@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Генератор дерева навыков (0.51.0): неровное колесо в духе POE.
+Генератор дерева навыков (0.51.0, перестроен в 0.71.0): неровное колесо в духе POE.
 
 Scion в центре, шесть классов по кругу со своими ветвями, кластерами, мастерствами,
 атрибутными узлами, гнёздами и двумя keystone на класс; соседние классы связаны мостами.
@@ -16,7 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TREE = ROOT / "src/main/resources/skilltree/tree.json"
 LOCALES = {"ru": ROOT / "src/main/resources/locale/ru.json", "en": ROOT / "src/main/resources/locale/en.json"}
-rng = random.Random(51)
+rng = random.Random(83)
 
 # Значение бонуса на малом узле и на notable; число значений = число эффектов модификатора.
 V = {
@@ -43,6 +43,14 @@ V = {
     "INCREASED_ITEM_RARITY": ([5], [12]), "INCREASED_ITEM_QUANTITY": ([3], [8]), "INCREASED_SELL_VALUE": ([8], [20]),
     "INCREASED_LIGHT_RADIUS": ([8], [15]), "INCREASED_CHEST_QUANTITY": ([6], [15]), "INCREASED_EXPERIENCE_GAIN": ([2], [5]),
     "WORK_SPEED": ([6], [12]), "WORK_YIELD": ([8], [15]), "WORK_LUCK": ([6], [12]), "WORK_EXPERIENCE": ([10], [20]), "WORK_FIND": ([12], [25]),
+    # Мана, чары, умения и фляги (0.71.0): статы пулов 0.69.0, работающие на герое
+    "ADD_MAXIMUM_MANA": ([8], [25]), "INCREASED_MAXIMUM_MANA": ([4], [10]), "INCREASED_MANA_REGENERATION": ([10], [25]),
+    "ADD_MANA_ON_KILL": ([1], [3]), "ADD_MANA_ON_HIT": ([1], [2]), "ADD_MANA_LEECH": ([0.2], [0.5]),
+    "INCREASED_SPELL_DAMAGE": ([8], [22]), "INCREASED_CAST_SPEED": ([3], [8]), "INCREASED_SKILL_DAMAGE": ([6], [16]),
+    "INCREASED_COOLDOWN_RECOVERY": ([3], [8]), "INCREASED_AURA_EFFECT": ([3], [6]), "INCREASED_CURSE_EFFECT": ([4], [8]),
+    "INCREASED_RESERVATION_EFFICIENCY": ([3], [8]), "REDUCED_SKILL_COST": ([3], [6]), "INCREASED_SKILL_HEALING": ([6], [15]),
+    "INCREASED_FLASK_CHARGES_GAINED": ([8], [20]), "INCREASED_FLASK_DURATION": ([6], [15]), "INCREASED_FLASK_EFFECT": ([4], [8]),
+    "REDUCED_FLASK_CHARGES_USED": ([4], [8]), "INCREASED_FLASK_LIFE_RECOVERY": ([8], [20]),
 }
 
 # Темы: статы малых узлов и notable, три варианта мастерства (по два бонуса), имена notable.
@@ -80,16 +88,28 @@ THEMES = {
     "craft": dict(ru="Ремесло", en="Craft", stats=["WORK_SPEED", "WORK_YIELD", "WORK_LUCK", "WORK_EXPERIENCE", "WORK_FIND"],
         mastery=[[("WORK_SPEED", [15]), ("WORK_EXPERIENCE", [10])], [("WORK_YIELD", [15]), ("WORK_LUCK", [8])], [("WORK_FIND", [20]), ("WORK_EXPERIENCE", [20])]],
         names=[("Мастер на все руки", "Jack of All Trades"), ("Подмастерье", "Apprentice"), ("Верная рука", "Steady Hand"), ("Хозяйство", "Homestead")]),
+    "mana": dict(ru="Мана", en="Mana", stats=["ADD_MAXIMUM_MANA", "INCREASED_MAXIMUM_MANA", "INCREASED_MANA_REGENERATION", "ADD_MANA_ON_KILL", "ADD_MANA_ON_HIT"],
+        mastery=[[("INCREASED_MAXIMUM_MANA", [12]), ("INCREASED_MANA_REGENERATION", [20])], [("ADD_MANA_LEECH", [0.6]), ("ADD_MANA_ON_HIT", [2])], [("INCREASED_RESERVATION_EFFICIENCY", [10]), ("ADD_MAXIMUM_MANA", [30])]],
+        names=[("Родник", "Wellspring"), ("Глубокий колодец", "Deep Well"), ("Ясность", "Clarity"), ("Прилив", "High Tide"), ("Чистый поток", "Pure Stream"), ("Запас мудреца", "Sage's Store"), ("Тихий омут", "Still Pool"), ("Вдох", "Inhale"), ("Эфирный ток", "Aether Current"), ("Неиссякаемый", "Inexhaustible"), ("Лунная вода", "Moonwater"), ("Полноводье", "Floodwater"), ("Источник", "Source"), ("Звёздная роса", "Stardew")]),
+    "spell": dict(ru="Чары", en="Spells", stats=["INCREASED_SPELL_DAMAGE", "INCREASED_CAST_SPEED", "INCREASED_SKILL_DAMAGE", "INCREASED_COOLDOWN_RECOVERY"],
+        mastery=[[("INCREASED_SPELL_DAMAGE", [25]), ("INCREASED_CAST_SPEED", [5])], [("ADD_SPELL_SKILL_LEVEL", [1])], [("INCREASED_COOLDOWN_RECOVERY", [10]), ("INCREASED_SKILL_DAMAGE", [12])]],
+        names=[("Слово силы", "Word of Power"), ("Быстрое заклинание", "Quick Casting"), ("Руническая вязь", "Runic Weave"), ("Колдовской огонь", "Witchfire"), ("Гримуар", "Grimoire"), ("Жест мага", "Magus Gesture"), ("Тайный знак", "Arcane Sigil"), ("Раскат заклятья", "Spellburst"), ("Сплетение", "Weaving"), ("Тайнопись", "Cipher"), ("Круг силы", "Circle of Power"), ("Поток чар", "Spellstream"), ("Отголосок", "Echo"), ("Заклинатель", "Invoker")]),
+    "skills": dict(ru="Умения", en="Skills", stats=["INCREASED_AURA_EFFECT", "INCREASED_CURSE_EFFECT", "INCREASED_RESERVATION_EFFICIENCY", "REDUCED_SKILL_COST", "INCREASED_SKILL_HEALING"],
+        mastery=[[("ADD_AURA_SKILL_LEVEL", [1]), ("INCREASED_AURA_EFFECT", [4])], [("ADD_CURSE_SKILL_LEVEL", [1]), ("INCREASED_CURSE_EFFECT", [5])], [("ADD_WARCRY_SKILL_LEVEL", [1]), ("REDUCED_SKILL_COST", [6])]],
+        names=[("Знамя", "Banner"), ("Порча", "Malediction"), ("Клич вождя", "Chieftain's Cry"), ("Сила ауры", "Aura Might"), ("Проклятый круг", "Hexed Circle"), ("Бережливость", "Thrift"), ("Целитель", "Healer"), ("Предводитель", "Leader"), ("Сглаз", "Evil Eye"), ("Дисциплина", "Discipline"), ("Боевой гимн", "War Hymn"), ("Благодать", "Grace"), ("Вестник", "Herald"), ("Ведовство", "Witchcraft")]),
+    "flask": dict(ru="Фляги", en="Flasks", stats=["INCREASED_FLASK_CHARGES_GAINED", "INCREASED_FLASK_DURATION", "INCREASED_FLASK_EFFECT", "REDUCED_FLASK_CHARGES_USED", "INCREASED_FLASK_LIFE_RECOVERY"],
+        mastery=[[("INCREASED_FLASK_EFFECT", [10]), ("INCREASED_FLASK_DURATION", [10])], [("INCREASED_FLASK_CHARGES_GAINED", [25]), ("REDUCED_FLASK_CHARGES_USED", [8])], [("INCREASED_FLASK_LIFE_RECOVERY", [25]), ("INCREASED_SKILL_HEALING", [10])]],
+        names=[("Алхимик", "Alchemist"), ("Полный пояс", "Full Belt"), ("Долгий глоток", "Long Draught"), ("Крепкий настой", "Strong Brew"), ("Бережный глоток", "Careful Sip"), ("Знахарь", "Herbalist"), ("Бальзам", "Balm"), ("Эликсир", "Elixir"), ("Настойка", "Tincture"), ("Аптекарь", "Apothecary"), ("Целебный отвар", "Healing Draught"), ("Горький корень", "Bitter Root"), ("Запасливый", "Provident"), ("Живая вода", "Water of Life")]),
 }
 
 CLASSES = [
     # code, короткий префикс кодов, стартовый код, основной атрибут, темы кластеров, keystone
-    ("STR", "MAR", "STR_START", "ADD_STRENGTH", ["life", "armour", "attack", "resist"]),
-    ("STR_DEX", "DUE", "STR_DEX_START", "ADD_STRENGTH_AND_DEXTERITY", ["attack", "life", "evasion", "crit"]),
-    ("DEX", "RAN", "DEX_START", "ADD_DEXTERITY", ["evasion", "attack", "crit", "elemental"]),
-    ("DEX_INT", "SHA", "DEX_INT_START", "ADD_DEXTERITY_AND_INTELLIGENCE", ["crit", "chaos", "shield", "evasion"]),
-    ("INT", "WIT", "INT_START", "ADD_INTELLIGENCE", ["shield", "elemental", "chaos", "resist"]),
-    ("STR_INT", "TEM", "STR_INT_START", "ADD_STRENGTH_AND_INTELLIGENCE", ["elemental", "armour", "resist", "shield"]),
+    ("STR", "MAR", "STR_START", "ADD_STRENGTH", ["life", "armour", "flask", "attack", "skills", "resist"]),
+    ("STR_DEX", "DUE", "STR_DEX_START", "ADD_STRENGTH_AND_DEXTERITY", ["attack", "life", "skills", "evasion", "flask", "crit"]),
+    ("DEX", "RAN", "DEX_START", "ADD_DEXTERITY", ["evasion", "attack", "flask", "crit", "mana", "elemental"]),
+    ("DEX_INT", "SHA", "DEX_INT_START", "ADD_DEXTERITY_AND_INTELLIGENCE", ["crit", "chaos", "spell", "shield", "skills", "evasion"]),
+    ("INT", "WIT", "INT_START", "ADD_INTELLIGENCE", ["shield", "elemental", "mana", "chaos", "spell", "resist"]),
+    ("STR_INT", "TEM", "STR_INT_START", "ADD_STRENGTH_AND_INTELLIGENCE", ["elemental", "armour", "skills", "resist", "mana", "shield"]),
 ]
 ATTR_CODES = {"ADD_STRENGTH_AND_DEXTERITY": ["ADD_STRENGTH", "ADD_DEXTERITY"], "ADD_DEXTERITY_AND_INTELLIGENCE": ["ADD_DEXTERITY", "ADD_INTELLIGENCE"],
               "ADD_STRENGTH_AND_INTELLIGENCE": ["ADD_STRENGTH", "ADD_INTELLIGENCE"]}
@@ -143,6 +163,13 @@ SMALL_NAMES = {
     "WORK_EXPERIENCE": ("Опыт ремесла", "Craft Lore"), "WORK_FIND": ("Находки", "Finds"), "ADD_ALL_ATTRIBUTES": ("Равновесие", "Balance"),
     "ADD_STRENGTH_AND_DEXTERITY": ("Сила и ловкость", "Strength and Dexterity"), "ADD_DEXTERITY_AND_INTELLIGENCE": ("Ловкость и интеллект", "Dexterity and Intelligence"),
     "ADD_STRENGTH_AND_INTELLIGENCE": ("Сила и интеллект", "Strength and Intelligence"),
+    "ADD_MAXIMUM_MANA": ("Мана", "Mana"), "INCREASED_MAXIMUM_MANA": ("Глубина", "Depth"), "INCREASED_MANA_REGENERATION": ("Приток", "Inflow"),
+    "ADD_MANA_ON_KILL": ("Жатва маны", "Mana Harvest"), "ADD_MANA_ON_HIT": ("Искра", "Spark"),
+    "INCREASED_SPELL_DAMAGE": ("Чары", "Spellcraft"), "INCREASED_CAST_SPEED": ("Беглость", "Fluency"), "INCREASED_SKILL_DAMAGE": ("Мастерство", "Artistry"),
+    "INCREASED_COOLDOWN_RECOVERY": ("Передышка", "Respite"), "INCREASED_AURA_EFFECT": ("Аура", "Aura"), "INCREASED_CURSE_EFFECT": ("Проклятие", "Curse"),
+    "INCREASED_RESERVATION_EFFICIENCY": ("Бережливость", "Thrift"), "REDUCED_SKILL_COST": ("Экономия", "Economy"), "INCREASED_SKILL_HEALING": ("Исцеление", "Mending"),
+    "INCREASED_FLASK_CHARGES_GAINED": ("Заряды", "Charges"), "INCREASED_FLASK_DURATION": ("Долгий глоток", "Long Sip"), "INCREASED_FLASK_EFFECT": ("Крепость", "Potency"),
+    "REDUCED_FLASK_CHARGES_USED": ("Глоток", "Sip"), "INCREASED_FLASK_LIFE_RECOVERY": ("Настой", "Brew"),
 }
 
 nodes = {}
@@ -215,10 +242,10 @@ def notable_name(theme):
 def cluster(prefix, theme, cx, cy, entry, facing):
     """Кластер: неровное кольцо малых узлов с двумя-тремя notable и мастерством в центре."""
     t = THEMES[theme]
-    count = rng.choice([5, 6, 6, 7])
-    radius = rng.uniform(70, 105)
+    count = rng.choice([4, 5, 5, 5, 6])
+    radius = rng.uniform(60, 85)
     turn = facing + 180 + rng.uniform(-20, 20)
-    notable_at = sorted(rng.sample(range(1, count), 3 if count == 7 else 2))
+    notable_at = sorted(rng.sample(range(1, count), 3 if count == 6 else 2))
     ring = []
     for i in range(count):
         x, y = polar(radius * rng.uniform(.85, 1.15), turn + i * 360 / count + rng.uniform(-10, 10))
@@ -277,9 +304,10 @@ for k in range(6):
     mid = [small(f"SCN_R{k}_{j}", *polar(jitter(335, 20), da + (db - da) * j / 3), ["ADD_ALL_ATTRIBUTES", "ADD_MAXIMUM_LIFE", "ADD_ALL_ELEMENTAL_RESISTANCES"]) for j in (1, 2)]
     link(a, mid[0]); link(mid[0], mid[1]); link(mid[1], b)
 # Две ветви Scion внутрь колец: богатство и ремесло
-for code, theme, deg in (("SCN_W", "wealth", 0), ("SCN_C", "craft", 180)):
-    end = path(code + "P", "SCN_R0_1" if deg == 0 else "SCN_R3_1", 300, 180, deg - 60, deg - 30, 2, THEMES[theme]["stats"])
-    cluster(code, theme, *polar(130, deg - 20), end, deg - 20)
+for code, theme, ring, deg in (("SCN_W", "wealth", "SCN_R0_1", 0), ("SCN_C", "craft", "SCN_R3_1", 180),
+                               ("SCN_F", "flask", "SCN_R1_1", 60), ("SCN_A", "mana", "SCN_R4_1", 240)):
+    end = path(code + "P", ring, 300, 200, deg - 60, deg - 35, 1, THEMES[theme]["stats"])
+    cluster(code, theme, *polar(150, deg - 22), end, deg - 22)
 socket = add("SCN_J", "JEWEL_SOCKET", *polar(250, 150))
 name(socket, "Гнездо потомка", "Scion's Socket", "Гнездо для самоцвета.", "A socket for a jewel.")
 link(socket, "SCN_R3_2")
@@ -292,23 +320,27 @@ for k, (cls, pre, start, attr, themes) in enumerate(CLASSES):
     add(start, "START", *polar(r_start, base))
     link(start, path(f"{pre}_IN", ring_points[k][0], 330, r_start, ring_points[k][1], base, 2, [attr] + THEMES[themes[0]]["stats"][:2]))
     stats_base = ATTR_CODES.get(attr, [attr])
-    spreads = sorted(rng.sample([-25, -16, -7, 3, 12, 22], 4))
+    spreads = [-26, -16, -6, 5, 15, 25]
     tails = []
     keys = KEYSTONES[pre]
     for b, spread in enumerate(spreads):
         theme = themes[b]
         stats = THEMES[theme]["stats"] + stats_base
-        deg = base + spread + rng.uniform(-3, 3)
-        length = rng.randint(4, 7)
-        r_cluster = r_start + 90 + length * 58 + rng.uniform(-30, 30)
-        end = path(f"{pre}_B{b}", start, r_start, r_cluster - 110, base + spread * .35, deg, length, stats, attr_at=rng.choice([2, 3]))
+        deg = base + spread + rng.uniform(-2, 2)
+        # Соседние ветви - на разной глубине, чтобы шесть кластеров класса не легли друг на друга
+        length = (1 if b % 2 == 0 else 2) + rng.randint(0, 1)
+        r_cluster = r_start + 150 + (b % 2) * 230 + length * 40 + rng.uniform(-20, 20)
+        end = path(f"{pre}_B{b}", start, r_start, r_cluster - 100, base + spread * .35, deg, length, stats, attr_at=1 if b in (1, 2, 3, 4) else None)
         exit_ = cluster(f"{pre}_C{b}", theme, *polar(r_cluster, deg), end, deg)
         tails.append((end, deg, r_cluster))
         # Хвост после кластера: keystone, гнездо или ещё один notable
-        tail = path(f"{pre}_T{b}", exit_, r_cluster + 90, r_cluster + 260, deg, deg + rng.uniform(-6, 6), rng.randint(1, 3), stats)
-        tr = r_cluster + 330 + rng.uniform(-30, 40)
-        tdeg = deg + rng.uniform(-5, 5)
-        if b in (0, 3):
+        last = len(spreads) - 1
+        if b not in (0, 1, last):
+            continue
+        tail = path(f"{pre}_T{b}", exit_, r_cluster + 80, r_cluster + 160, deg, deg + rng.uniform(-4, 4), 1, stats)
+        tr = r_cluster + 230 + rng.uniform(-20, 30)
+        tdeg = deg + rng.uniform(-4, 4)
+        if b in (0, last):
             kru, ken, params, dru, den = keys[0 if b == 0 else 1]
             code = add(f"{pre}_K{b}", "KEYSTONE", *polar(tr, tdeg), [{"code": c, "values": v} for c, v in params])
             name(code, kru, ken, dru, den)
@@ -322,8 +354,8 @@ for k, (cls, pre, start, attr, themes) in enumerate(CLASSES):
             name(code, ru, en, f"Крупный узел темы «{THEMES[theme]['ru']}».", f"A notable of the {THEMES[theme]['en']} theme.")
         link(tail, code)
     # Поперечные тропы между соседними ветвями - петли, как в POE
-    for b in range(3):
-        if rng.random() < .6:
+    for b in range(len(tails) - 1):
+        if rng.random() < .15:
             (ea, da, ra), (eb, db, rb) = tails[b], tails[b + 1]
             mid = small(f"{pre}_X{b}", *polar((ra + rb) / 2 - 130, (da + db) / 2), stats_base + ["ADD_MAXIMUM_LIFE"])
             link(ea, mid); link(mid, eb)

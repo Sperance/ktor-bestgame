@@ -274,6 +274,11 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
             collection.findOneAndUpdate(session, identity(entity), Updates.combine(versionBump(entity) + fields), options)
         } ?: throw BaseRepositoryExceptions.funException("updateFields", "Not found object with id ${entity._id} after update")
         validateAfterUpdate(result, session)
+        // Частичная запись держит те же правила, что полная (0.71.0): правка, оставившая волшебную или
+        // редкую копию без аффиксов, доролливает её до дна редкости, как любое другое изменение.
+        val before = encode(result)
+        settle(result)
+        if (encode(result) != before) update(result, session)
         return result
     }
 
