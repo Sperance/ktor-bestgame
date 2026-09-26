@@ -160,7 +160,7 @@ object CraftingBench {
         if (current.any { it.family() == recipe.group })
             throw CurrencyExceptions.funExceptionGroupTaken("craft", template.code)
 
-        val (prefixes, suffixes) = ModifierRoller.freeSlots(item.rarity, current)
+        val (prefixes, suffixes) = ModifierRoller.freeSlots(item.rarity, current, template.slot)
         val free = if (recipe.source == EnumModifierSource.PREFIX) prefixes else suffixes
         if (free == 0) throw CurrencyExceptions.funExceptionNoFreeAffix("craft", template.code)
 
@@ -181,7 +181,7 @@ object CraftingBench {
         // Ремесленный аффикс считался в минимуме редкости, и сфера Отмены могла снять природный
         // вместо него: снятие не должно оставить редкий предмет недобранным, а самоцвет - пустым
         val left = item.params.count { ModifierRoller.isAffix(it) && !ModifierRoller.isCrafted(it) }
-        if (left < item.rarity.affixes.first)
+        if (left < item.rarity.limits(template.slot).affixes.first)
             throw CurrencyExceptions.funExceptionAffixMinimum("uncraft", LocaleKey.equipmentName(template.code), LocaleKey.rarity(item.rarity))
         if (Jewels.isJewel(template) && left == 0)
             throw CurrencyExceptions.funExceptionJewelEmpty("uncraft", LocaleKey.equipmentName(template.code))

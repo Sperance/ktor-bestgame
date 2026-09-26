@@ -811,6 +811,66 @@
               "amount": 2
             }
           ]
+        },
+        {
+          "code": "TREASURE_BREW",
+          "level": 30,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "TREASURE_ORB",
+          "experience": 32,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 3
+            },
+            {
+              "item": "SILVER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "GILDED_BREW",
+          "level": 34,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "GILDED_ORB",
+          "experience": 32,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 3
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "WARDEN_BREW",
+          "level": 42,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "WARDEN_ORB",
+          "experience": 32,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ]
         }
       ]
     },
@@ -1055,6 +1115,92 @@
             }
           ],
           "map": "C1_DROWNED_TEMPLE"
+        }
+      ]
+    },
+    {
+      "code": "ENCHANTING",
+      "tool": "TOOL_ENCHANTING",
+      "jobs": [
+        {
+          "code": "HELMET_SCROLL_SCRIBING",
+          "level": 1,
+          "seconds": 320,
+          "nothing": 30,
+          "output": "HELMET_SCROLL",
+          "experience": 10,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            },
+            {
+              "item": "BARK",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "BOOTS_SCROLL_SCRIBING",
+          "level": 8,
+          "seconds": 360,
+          "nothing": 30,
+          "output": "BOOTS_SCROLL",
+          "experience": 16,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "BARK",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "GLOVES_SCROLL_SCRIBING",
+          "level": 16,
+          "seconds": 400,
+          "nothing": 32,
+          "output": "GLOVES_SCROLL",
+          "experience": 24,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "WEAPON_SCROLL_SCRIBING",
+          "level": 26,
+          "seconds": 480,
+          "nothing": 34,
+          "output": "WEAPON_SCROLL",
+          "experience": 36,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ]
         }
       ]
     }

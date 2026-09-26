@@ -46,7 +46,22 @@
     },
     {
       "orb": "VAAL_ORB",
-      "price": 800
+      "price": 800,
+      "modifierPools": [
+        "corruption:amulet",
+        "corruption:belt",
+        "corruption:body",
+        "corruption:boots",
+        "corruption:gloves",
+        "corruption:helmet",
+        "corruption:jewel",
+        "corruption:map",
+        "corruption:quiver",
+        "corruption:ring",
+        "corruption:shield",
+        "corruption:weapon",
+        "corruption:wings"
+      ]
     },
     {
       "orb": "ORB_OF_CHANCE",
@@ -102,6 +117,46 @@
     {
       "orb": "BOUNTY_ORB",
       "price": 1500
+    },
+    {
+      "orb": "TREASURE_ORB",
+      "price": 1300
+    },
+    {
+      "orb": "GILDED_ORB",
+      "price": 900
+    },
+    {
+      "orb": "WARDEN_ORB",
+      "price": 1800
+    },
+    {
+      "orb": "HELMET_SCROLL",
+      "price": 1500,
+      "modifierPools": [
+        "enchant:helmet"
+      ]
+    },
+    {
+      "orb": "GLOVES_SCROLL",
+      "price": 1500,
+      "modifierPools": [
+        "enchant:gloves"
+      ]
+    },
+    {
+      "orb": "BOOTS_SCROLL",
+      "price": 1500,
+      "modifierPools": [
+        "enchant:boots"
+      ]
+    },
+    {
+      "orb": "WEAPON_SCROLL",
+      "price": 2000,
+      "modifierPools": [
+        "enchant:weapon"
+      ]
     }
   ]
 }

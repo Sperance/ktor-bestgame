@@ -1,5 +1,9 @@
 package features.logic.campaign
 
+import features.logic.modifiers.ModifierDefinition
+import features.logic.modifiers.ModifierTier
+import config.ModifierSeeder
+import application.enums.EnumMonsterRarity
 import application.enums.EnumCurrencyOrb
 import application.enums.EnumModifierOperation
 import application.enums.EnumRarity
@@ -10,18 +14,11 @@ import config.ContentResource
 import config.PoolSeeder
 import features.logic.pools.EnumPoolTarget
 import features.logic.pools.PoolTable
-import features.logic.pools.Pooled
 import java.util.concurrent.atomic.AtomicReference
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlin.math.pow
 
-/**
- * Редкость монстра - как в PoE: обычный, магический с одним-двумя модификаторами и редкий с
- * тремя-четырьмя. Катает её клиент по весам [CampaignRarity], а сервер по ней умножает добычу и опыт.
- */
-/** Редкость монстра; `UNIQUE` (с 0.32.0) - только босс карты, случайно она не выпадает никогда. */
-enum class EnumMonsterRarity { NORMAL, MAGIC, RARE, UNIQUE }
 
 /**
  * Где монстр стоит в бою (с 0.61.0): ближний - в первом ряду, дальний - во втором и бьёт героя с
@@ -32,9 +29,13 @@ enum class EnumMonsterRange { MELEE, RANGED }
 /** Что может выпасть: сфера из справочника валюты или экипировка уровня карты. */
 enum class EnumLootKind { ORB, EQUIPMENT }
 
-/** Одно изменение характеристики монстра: те же операции, что у модификаторов предметов. */
+/**
+ * Одно изменение характеристики монстра: те же операции, что у модификаторов предметов.
+ * С 0.66.0 - диапазон [value]..[max] тира, открытого на уровне карты: само значение внутри него
+ * бросает клиент, когда катает монстра.
+ */
 @Serializable
-data class MonsterEffect(val stat: String, val operation: EnumModifierOperation, val value: Double)
+data class MonsterEffect(val stat: String, val operation: EnumModifierOperation, val value: Double, val max: Double = value)
 
 /**
  * Правило редкости: насколько часто она выпадает на карте, сколько модификаторов получает
@@ -60,20 +61,10 @@ data class CampaignRarity(
 )
 
 /**
- * Модификатор монстра в файле. [minLevel] - с какого уровня карты он может выпасть, [minRarity] - с
- * какой редкости: у редкого монстра пул шире, чем у магического. Карта называет пулы, из которых
- * роллятся её монстры, а их состав с 0.56.0 лежит в пулах вида MONSTER (`pools.json`).
- */
-@Serializable
-data class MonsterModifierRecord(
-    override val code: String,
-    val minLevel: Int = 1,
-    val minRarity: EnumMonsterRarity = EnumMonsterRarity.MAGIC,
-    val effects: List<MonsterEffect>,
-) : Pooled
-
-/**
- * Модификатор монстра, каким его видит клиент: пул карты уже разрешён, [weight] - вес в нём.
+ * Модификатор монстра, каким его видит клиент: описание источника MONSTER из `modifiers.json`
+ * (с 0.66.0), пул карты уже разрешён, [weight] - вес в нём, [tier] - лучший тир, открытый на уровне
+ * карты, и его диапазоны в [effects]. [minRarity] - с какой редкости монстра он открыт: у редкого
+ * монстра пул шире, чем у магического, а `UNIQUE` носит только босс.
  */
 @Serializable
 data class MonsterModifier(
@@ -82,6 +73,7 @@ data class MonsterModifier(
     val minLevel: Int = 1,
     val minRarity: EnumMonsterRarity = EnumMonsterRarity.MAGIC,
     val effects: List<MonsterEffect>,
+    val tier: Int = 1,
 )
 
 /**
@@ -230,14 +222,24 @@ data class MapRule(
     val rarityBonus: Map<EnumRarity, Double> = emptyMap(),
 )
 
+/**
+ * Правило боссов. С 0.66.0 у боссов свой пул модификаторов [modifierPools]: сигнатурные строки босса
+ * берутся из него на тире уровня `карта + tierReach`, и ещё от `rolls[0]` до `rolls[1]` случайных
+ * строк того же пула на тире карты катает клиент при каждой встрече.
+ */
 @Serializable
 data class BossRule(val respawnHours: Double, val uniqueChance: Double, val ownUniqueChance: Double, val behaviour: BehaviourRule,
-                    val uniquePools: List<String> = emptyList())
+                    val uniquePools: List<String> = emptyList(), val modifierPools: List<String> = listOf("boss"),
+                    val rolls: List<Int> = listOf(1, 2), val tierReach: Int = 5)
 
-/** Босс карты, какой его видит клиент: характеристики и модификаторы уже подняты до уровня карты. */
+/**
+ * Босс карты, какой его видит клиент: характеристики и сигнатурные [modifiers] уже подняты до уровня
+ * карты; [pool] - строки его пула на тире карты, из которых клиент добирает от `rolls[0]` до
+ * `rolls[1]` случайных при каждой встрече (0.66.0).
+ */
 @Serializable
 data class CampaignBoss(val code: String, val form: String, val stats: Map<String, Double>, val behaviour: BehaviourRule, val modifiers: List<MonsterModifier>,
-                        val range: EnumMonsterRange = EnumMonsterRange.MELEE)
+                        val range: EnumMonsterRange = EnumMonsterRange.MELEE, val pool: List<MonsterModifier> = emptyList(), val rolls: List<Int> = listOf(0, 0))
 
 /**
  * Осквернённая зона (с 0.46.0): случайный портал на карте (0-1 за заход, по шансу [chance] и
@@ -314,7 +316,6 @@ data class CampaignContentFile(
     val defaults: Map<String, Double> = emptyMap(),
     val growth: Map<String, Double> = emptyMap(),
     val rarities: List<CampaignRarity>,
-    val modifiers: List<MonsterModifierRecord>,
     val lootTables: Map<String, LootTable>,
     val monsters: List<MonsterTemplate>,
     val chapters: List<CampaignChapterTemplate>,
@@ -400,23 +401,28 @@ object CampaignContent {
     /** Коды всех карт кампании. */
     val mapCodes: Set<String> by lazy { file.chapters.flatMapTo(mutableSetOf()) { chapter -> chapter.maps.map { it.code } } }
 
-    private class Resolved(val pools: PoolTable, val view: CampaignView) {
+    private class Resolved(val pools: PoolTable, val modifiers: List<ModifierDefinition>, val view: CampaignView) {
         val maps: Map<String, CampaignMap> = view.chapters.flatMap { it.maps }.associateBy { it.code }
     }
 
     private val resolved = AtomicReference<Resolved?>(null)
 
     /**
-     * Кампания, как её видит клиент: пулы модификаторов монстров разрешены по таблице [pools].
-     * Таблица у кеша пулов одна на ревизию, поэтому вид пересобирается, лишь когда пулы правили.
+     * Кампания, как её видит клиент: пулы модификаторов монстров разрешены по таблице [pools], а сами
+     * модификаторы (0.66.0) - описания источника MONSTER из [modifiers]. Таблица и список у кешей одни
+     * на ревизию, поэтому вид пересобирается, лишь когда пулы или описания правили.
      */
-    fun view(pools: PoolTable): CampaignView = resolvedFor(pools).view
+    fun view(pools: PoolTable, modifiers: List<ModifierDefinition>): CampaignView = resolvedFor(pools, modifiers).view
 
     /** Карта кампании по коду в том же виде. */
-    fun map(code: String, pools: PoolTable): CampaignMap? = resolvedFor(pools).maps[code]
+    fun map(code: String, pools: PoolTable, modifiers: List<ModifierDefinition>): CampaignMap? = resolvedFor(pools, modifiers).maps[code]
 
-    private fun resolvedFor(pools: PoolTable): Resolved =
-        resolved.get()?.takeIf { it.pools === pools } ?: Resolved(pools, resolve(file, pools)).also(resolved::set)
+    private fun resolvedFor(pools: PoolTable, modifiers: List<ModifierDefinition>): Resolved =
+        resolved.get()?.takeIf { it.pools === pools && it.modifiers === modifiers }
+            ?: Resolved(pools, modifiers, resolve(file, pools, modifiers)).also(resolved::set)
+
+    /** Описания модификаторов монстров из файла модификаторов - для проверок и тестов без базы. */
+    val seededModifiers: List<ModifierDefinition> by lazy { ModifierSeeder.seedDefinitions().filter { it.isMonster() } }
 
     val monsters: Map<String, MonsterTemplate> by lazy { file.monsters.associateBy { it.code } }
 
@@ -429,8 +435,9 @@ object CampaignContent {
         chapter.maps.filterIndexed { index, _ -> index == 0 || chapter.maps[index - 1].code in cleared }.map { it.code }
     }
 
-    fun resolve(content: CampaignContentFile, pools: PoolTable): CampaignView {
+    fun resolve(content: CampaignContentFile, pools: PoolTable, modifiers: List<ModifierDefinition>): CampaignView {
         val monsters = content.monsters.associateBy { it.code }
+        val monsterModifiers = modifiers.filter { it.isMonster() }
         val chapters = content.chapters.map { chapter ->
             CampaignChapter(chapter.code, chapter.maps.mapIndexed { index, map ->
                 CampaignMap(
@@ -447,10 +454,9 @@ object CampaignContent {
                         CampaignMonster(code, template.form, (content.defaults + template.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
                             template.behaviour ?: content.behaviour.forms[template.form] ?: content.behaviour.default, content.range(template))
                     },
-                    modifiers = pools.of(content.modifiers.filter { it.minLevel <= map.level }, map.modifierPools)
-                        .map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
-                    boss = guardian(content, pools, monsters, map.boss, map, content.bosses.behaviour),
-                    corrupted = guardian(content, pools, monsters, map.corrupted, map, content.bosses.behaviour),
+                    modifiers = pools.of(monsterModifiers, map.modifierPools).map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
+                    boss = guardian(content, pools, monsterModifiers, monsters, map.boss, map, content.bosses.behaviour),
+                    corrupted = guardian(content, pools, monsterModifiers, monsters, map.corrupted, map, content.bosses.behaviour),
                 )
             })
         }
@@ -462,20 +468,38 @@ object CampaignContent {
         return CampaignView(chapters, rarities, content.combat, content.services, content.maps, content.fountains, content.corruption, content.vaal)
     }
 
-    /** Босс или страж осквернённой зоны: та же форма ответа, характеристики подняты до уровня карты. */
-    private fun guardian(content: CampaignContentFile, pools: PoolTable, monsters: Map<String, MonsterTemplate>, code: String, map: CampaignMapTemplate, defaultBehaviour: BehaviourRule): CampaignBoss =
+    /**
+     * Босс или страж осквернённой зоны: та же форма ответа, характеристики подняты до уровня карты.
+     * Сигнатурные строки босса - на тире уровня `карта + tierReach`, его пул - на тире карты (0.66.0).
+     */
+    private fun guardian(content: CampaignContentFile, pools: PoolTable, modifiers: List<ModifierDefinition>, monsters: Map<String, MonsterTemplate>,
+                         code: String, map: CampaignMapTemplate, defaultBehaviour: BehaviourRule): CampaignBoss =
         monsters.getValue(code).let { boss ->
+            val rule = content.bosses
+            val byCode = modifiers.associateBy { it.code }
+            val pool = pools.of(modifiers, rule.modifierPools)
             CampaignBoss(boss.code, boss.form, (content.defaults + boss.stats).mapValues { (stat, value) -> scale(content, stat, value, map.level) },
                 boss.behaviour ?: defaultBehaviour,
-                boss.modifiers.map { modCode -> content.modifiers.first { it.code == modCode }.let { raise(content, it, pools.weight(it.code, map.modifierPools), map.level) } },
-                content.range(boss))
+                boss.modifiers.map { modCode -> raise(content, byCode.getValue(modCode), pools.weight(modCode, rule.modifierPools), map.level, map.level + rule.tierReach) },
+                content.range(boss),
+                pool = pool.filter { (modifier) -> modifier.code !in boss.modifiers }.map { (modifier, weight) -> raise(content, modifier, weight, map.level) },
+                rolls = rule.rolls)
         }
 
-    /** Модификатор монстра на уровне карты: растут только прибавки. */
-    private fun raise(content: CampaignContentFile, modifier: MonsterModifierRecord, weight: Int, level: Int): MonsterModifier =
-        MonsterModifier(modifier.code, weight, modifier.minLevel, modifier.minRarity, modifier.effects.map { effect ->
-            if (effect.operation == EnumModifierOperation.ADD) effect.copy(value = scale(content, effect.stat, effect.value, level)) else effect
-        })
+    /**
+     * Модификатор монстра на уровне карты: лучший тир, открытый на [tierLevel] (обычно сам уровень
+     * карты), а его плоские прибавки к растущим характеристикам подняты по `growth`, как у монстра.
+     */
+    private fun raise(content: CampaignContentFile, modifier: ModifierDefinition, weight: Int, level: Int, tierLevel: Int = level): MonsterModifier {
+        val (number, tier) = modifier.bestTierAt(tierLevel) ?: (1 to ModifierTier(1, modifier.effects.map { listOf(0.0, 0.0) }))
+        return MonsterModifier(modifier.code, weight, modifier.tiers.minOf { it.level }, modifier.minRarity ?: EnumMonsterRarity.MAGIC,
+            modifier.effects.mapIndexed { index, effect ->
+                val stat = (effect.stat as Enum<*>).name
+                val (min, max) = tier.values[index]
+                if (effect.operation == EnumModifierOperation.ADD) MonsterEffect(stat, effect.operation, scale(content, stat, min, level), scale(content, stat, max, level))
+                else MonsterEffect(stat, effect.operation, min, max)
+            }, number)
+    }
 
     /** Характеристика на уровне карты: растёт только то, что названо в `growth`, и растёт степенью. */
     fun scale(content: CampaignContentFile, stat: String, value: Double, level: Int): Double {
@@ -496,17 +520,23 @@ object CampaignContent {
             rarity.effects.forEach { stat(it.stat) }
         }
         if (content.rarities.map { it.rarity }.toSet() != EnumMonsterRarity.entries.toSet()) throw CampaignExceptions.funExceptionContent(method, "rarities")
-        content.modifiers.forEach { modifier ->
-            modifier.effects.forEach { stat(it.stat) }
+        val monsterModifiers = seededModifiers
+        monsterModifiers.forEach { modifier ->
             if (modifier.minRarity == EnumMonsterRarity.NORMAL) throw CampaignExceptions.funExceptionContent(method, "modifier ${modifier.code} on a normal monster")
         }
         // У каждой редкости с модификаторами на каждой карте должно быть из чего выбирать - по пулам из файла.
         val monsterPools = PoolSeeder.table(EnumPoolTarget.MONSTER)
         content.chapters.flatMap { it.maps }.forEach { map ->
-            val pool = monsterPools.of(content.modifiers.filter { it.minLevel <= map.level }, map.modifierPools).map { it.value }
+            val pool = monsterPools.of(monsterModifiers, map.modifierPools).map { it.value }
             content.rarities.filter { it.modifiers[1] > 0 }.forEach { rarity ->
-                if (pool.count { it.minRarity <= rarity.rarity } < rarity.modifiers[1]) throw CampaignExceptions.funExceptionContent(method, "pool of ${rarity.rarity} on ${map.code}")
+                if (pool.count { (it.minRarity ?: EnumMonsterRarity.MAGIC) <= rarity.rarity } < rarity.modifiers[1]) throw CampaignExceptions.funExceptionContent(method, "pool of ${rarity.rarity} on ${map.code}")
             }
+        }
+        content.bosses.let { rule ->
+            if (rule.rolls.size != 2 || rule.rolls[0] < 0 || rule.rolls[0] > rule.rolls[1] || rule.tierReach < 0 || rule.modifierPools.isEmpty())
+                throw CampaignExceptions.funExceptionContent(method, "bosses rolls")
+            val pool = monsterPools.of(monsterModifiers, rule.modifierPools)
+            if (pool.size < rule.rolls[1]) throw CampaignExceptions.funExceptionContent(method, "boss pool")
         }
         content.lootTables.forEach { (name, table) ->
             if (table.gold.size != 2 || table.gold[0] > table.gold[1]) throw CampaignExceptions.funExceptionContent(method, "gold $name")
@@ -543,7 +573,7 @@ object CampaignContent {
             if (content.monsters.none { it.code == map.corrupted && it.corrupted }) throw CampaignExceptions.funExceptionContent(method, "corrupted guardian of ${map.code}")
             if (map.monsters.any { code -> content.monsters.first { it.code == code }.corrupted }) throw CampaignExceptions.funExceptionContent(method, "corrupted guardian among monsters of ${map.code}")
         }
-        val modifierCodes = content.modifiers.map { it.code }.toSet()
+        val modifierCodes = monsterPools.of(monsterModifiers, content.bosses.modifierPools).map { it.value.code }.toSet()
         content.monsters.filter { it.boss }.forEach { boss ->
             if (boss.uniquePools.isEmpty() || boss.modifiers.any { it !in modifierCodes }) throw CampaignExceptions.funExceptionContent(method, "boss ${boss.code}")
         }

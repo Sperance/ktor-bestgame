@@ -1,43 +1,79 @@
 {
   "recipes": [
     {
-      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "modifier": "ADD_MAXIMUM_LIFE@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "modifier": "ADD_MAXIMUM_LIFE@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "modifier": "ADD_MAXIMUM_LIFE@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "modifier": "ADD_MAXIMUM_LIFE@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "modifier": "ADD_MAXIMUM_LIFE@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_MAXIMUM_LIFE",
+      "modifier": "ADD_MAXIMUM_LIFE@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "modifier": "ADD_ENERGY_SHIELD@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_ENERGY_SHIELD@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_ENERGY_SHIELD@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_ENERGY_SHIELD@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "ADD_ENERGY_SHIELD@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "ADD_ENERGY_SHIELD@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_ENERGY_SHIELD@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1,
@@ -46,11 +82,12 @@
         "BODY",
         "GLOVES",
         "BOOTS",
-        "SHIELD"
+        "SHIELD",
+        "WINGS"
       ]
     },
     {
-      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "modifier": "INCREASED_ENERGY_SHIELD@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1,
@@ -59,11 +96,12 @@
         "BODY",
         "GLOVES",
         "BOOTS",
-        "SHIELD"
+        "SHIELD",
+        "WINGS"
       ]
     },
     {
-      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "modifier": "INCREASED_ENERGY_SHIELD@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1,
@@ -72,11 +110,12 @@
         "BODY",
         "GLOVES",
         "BOOTS",
-        "SHIELD"
+        "SHIELD",
+        "WINGS"
       ]
     },
     {
-      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "modifier": "INCREASED_ENERGY_SHIELD@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4,
@@ -85,11 +124,12 @@
         "BODY",
         "GLOVES",
         "BOOTS",
-        "SHIELD"
+        "SHIELD",
+        "WINGS"
       ]
     },
     {
-      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "modifier": "INCREASED_ENERGY_SHIELD@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3,
@@ -98,11 +138,12 @@
         "BODY",
         "GLOVES",
         "BOOTS",
-        "SHIELD"
+        "SHIELD",
+        "WINGS"
       ]
     },
     {
-      "modifier": "CRAFTED_LOCAL_INCREASED_ARMOUR",
+      "modifier": "INCREASED_ENERGY_SHIELD@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1,
@@ -111,257 +152,1596 @@
         "BODY",
         "GLOVES",
         "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ARMOUR@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ARMOUR@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ARMOUR@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ARMOUR@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ARMOUR@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ARMOUR@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_EVASION_RATING@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_EVASION_RATING@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_EVASION_RATING@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_EVASION_RATING@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_EVASION_RATING@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_EVASION_RATING@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1,
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "SHIELD",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "ADD_BLOCK_CHANCE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1,
+      "slots": [
         "SHIELD"
       ]
     },
     {
-      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "modifier": "ADD_BLOCK_CHANCE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1,
+      "slots": [
+        "SHIELD"
+      ]
+    },
+    {
+      "modifier": "ADD_BLOCK_CHANCE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1,
+      "slots": [
+        "SHIELD"
+      ]
+    },
+    {
+      "modifier": "ADD_BLOCK_CHANCE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4,
+      "slots": [
+        "SHIELD"
+      ]
+    },
+    {
+      "modifier": "ADD_BLOCK_CHANCE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3,
+      "slots": [
+        "SHIELD"
+      ]
+    },
+    {
+      "modifier": "ADD_BLOCK_CHANCE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1,
+      "slots": [
+        "SHIELD"
+      ]
+    },
+    {
+      "modifier": "ADD_FIRE_RESISTANCE@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "modifier": "ADD_FIRE_RESISTANCE@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "modifier": "ADD_FIRE_RESISTANCE@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "modifier": "ADD_FIRE_RESISTANCE@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "modifier": "ADD_FIRE_RESISTANCE@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_FIRE_RESISTANCE",
+      "modifier": "ADD_FIRE_RESISTANCE@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "modifier": "ADD_COLD_RESISTANCE@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "modifier": "ADD_COLD_RESISTANCE@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "modifier": "ADD_COLD_RESISTANCE@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "modifier": "ADD_COLD_RESISTANCE@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "modifier": "ADD_COLD_RESISTANCE@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_COLD_RESISTANCE",
+      "modifier": "ADD_COLD_RESISTANCE@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "modifier": "ADD_LIGHTNING_RESISTANCE@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "modifier": "ADD_LIGHTNING_RESISTANCE@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "modifier": "ADD_LIGHTNING_RESISTANCE@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "modifier": "ADD_LIGHTNING_RESISTANCE@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "modifier": "ADD_LIGHTNING_RESISTANCE@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_LIGHTNING_RESISTANCE",
+      "modifier": "ADD_LIGHTNING_RESISTANCE@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "modifier": "ADD_CHAOS_RESISTANCE@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "modifier": "ADD_CHAOS_RESISTANCE@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "modifier": "ADD_CHAOS_RESISTANCE@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "modifier": "ADD_CHAOS_RESISTANCE@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "modifier": "ADD_CHAOS_RESISTANCE@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_CHAOS_RESISTANCE",
+      "modifier": "ADD_CHAOS_RESISTANCE@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_STRENGTH",
+      "modifier": "ADD_ALL_ELEMENTAL_RESISTANCES@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_STRENGTH",
+      "modifier": "ADD_ALL_ELEMENTAL_RESISTANCES@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_STRENGTH",
+      "modifier": "ADD_ALL_ELEMENTAL_RESISTANCES@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_STRENGTH",
+      "modifier": "ADD_ALL_ELEMENTAL_RESISTANCES@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_STRENGTH",
+      "modifier": "ADD_ALL_ELEMENTAL_RESISTANCES@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_STRENGTH",
+      "modifier": "ADD_ALL_ELEMENTAL_RESISTANCES@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "modifier": "ADD_STRENGTH@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "modifier": "ADD_STRENGTH@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "modifier": "ADD_STRENGTH@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "modifier": "ADD_STRENGTH@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "modifier": "ADD_STRENGTH@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_DEXTERITY",
+      "modifier": "ADD_STRENGTH@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "modifier": "ADD_DEXTERITY@CRAFTED",
       "tier": 1,
       "orb": "DIVINE_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "modifier": "ADD_DEXTERITY@CRAFTED",
       "tier": 2,
       "orb": "EXALTED_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "modifier": "ADD_DEXTERITY@CRAFTED",
       "tier": 3,
       "orb": "CHAOS_ORB",
       "amount": 1
     },
     {
-      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "modifier": "ADD_DEXTERITY@CRAFTED",
       "tier": 4,
       "orb": "ORB_OF_ALTERATION",
       "amount": 4
     },
     {
-      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "modifier": "ADD_DEXTERITY@CRAFTED",
       "tier": 5,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 3
     },
     {
-      "modifier": "CRAFTED_ADD_INTELLIGENCE",
+      "modifier": "ADD_DEXTERITY@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_INTELLIGENCE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_INTELLIGENCE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_INTELLIGENCE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_INTELLIGENCE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "ADD_INTELLIGENCE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "ADD_INTELLIGENCE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_PHYSICAL_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_PHYSICAL_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_PHYSICAL_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_PHYSICAL_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_PHYSICAL_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_PHYSICAL_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_FIRE_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_FIRE_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_FIRE_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_FIRE_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_FIRE_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_FIRE_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_COLD_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_COLD_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_COLD_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_COLD_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_COLD_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_COLD_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_LIGHTNING_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_LIGHTNING_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_LIGHTNING_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_LIGHTNING_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_LIGHTNING_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_LIGHTNING_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_ELEMENTAL_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_ELEMENTAL_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_ELEMENTAL_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_ELEMENTAL_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_ELEMENTAL_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_ELEMENTAL_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_CRITICAL_STRIKE_CHANCE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_CRITICAL_STRIKE_CHANCE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_CRITICAL_STRIKE_CHANCE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_CRITICAL_STRIKE_CHANCE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_CRITICAL_STRIKE_CHANCE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_CRITICAL_STRIKE_CHANCE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_CRITICAL_STRIKE_MULTIPLIER@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_CRITICAL_STRIKE_MULTIPLIER@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_CRITICAL_STRIKE_MULTIPLIER@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_CRITICAL_STRIKE_MULTIPLIER@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "ADD_CRITICAL_STRIKE_MULTIPLIER@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "ADD_CRITICAL_STRIKE_MULTIPLIER@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_ATTACK_SPEED@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ATTACK_SPEED@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ATTACK_SPEED@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ATTACK_SPEED@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ATTACK_SPEED@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_ATTACK_SPEED@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1,
+      "slots": [
+        "WEAPON_1H",
+        "WEAPON_2H"
+      ]
+    },
+    {
+      "modifier": "INCREASED_MOVEMENT_SPEED@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1,
+      "slots": [
+        "BOOTS",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_MOVEMENT_SPEED@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1,
+      "slots": [
+        "BOOTS",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_MOVEMENT_SPEED@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1,
+      "slots": [
+        "BOOTS",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_MOVEMENT_SPEED@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4,
+      "slots": [
+        "BOOTS",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_MOVEMENT_SPEED@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3,
+      "slots": [
+        "BOOTS",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "INCREASED_MOVEMENT_SPEED@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1,
+      "slots": [
+        "BOOTS",
+        "WINGS"
+      ]
+    },
+    {
+      "modifier": "ADD_LIFE_REGENERATION@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_LIFE_REGENERATION@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_LIFE_REGENERATION@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_LIFE_REGENERATION@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "ADD_LIFE_REGENERATION@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "ADD_LIFE_REGENERATION@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_PHYSICAL_LIFE_LEECH@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_PHYSICAL_LIFE_LEECH@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_PHYSICAL_LIFE_LEECH@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_PHYSICAL_LIFE_LEECH@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "ADD_PHYSICAL_LIFE_LEECH@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "ADD_PHYSICAL_LIFE_LEECH@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_LIFE_ON_HIT@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_LIFE_ON_HIT@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_LIFE_ON_HIT@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_LIFE_ON_HIT@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "ADD_LIFE_ON_HIT@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "ADD_LIFE_ON_HIT@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_RECOVERY_RATE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_RECOVERY_RATE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_RECOVERY_RATE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_RECOVERY_RATE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_RECOVERY_RATE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_RECOVERY_RATE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_IGNITE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_IGNITE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_IGNITE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_IGNITE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CHANCE_TO_IGNITE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CHANCE_TO_IGNITE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_FREEZE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_FREEZE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_FREEZE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_FREEZE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CHANCE_TO_FREEZE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CHANCE_TO_FREEZE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_SHOCK@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_SHOCK@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_SHOCK@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_SHOCK@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CHANCE_TO_SHOCK@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CHANCE_TO_SHOCK@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_POISON@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_POISON@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_POISON@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_POISON@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CHANCE_TO_POISON@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CHANCE_TO_POISON@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_BLEED@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_BLEED@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_BLEED@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "CHANCE_TO_BLEED@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "CHANCE_TO_BLEED@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "CHANCE_TO_BLEED@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BURNING_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BURNING_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BURNING_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BURNING_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_BURNING_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_BURNING_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_POISON_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_POISON_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_POISON_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_POISON_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_POISON_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_POISON_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BLEED_DAMAGE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BLEED_DAMAGE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BLEED_DAMAGE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_BLEED_DAMAGE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_BLEED_DAMAGE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_BLEED_DAMAGE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_AILMENT_DURATION@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_AILMENT_DURATION@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_AILMENT_DURATION@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_AILMENT_DURATION@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_AILMENT_DURATION@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_AILMENT_DURATION@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_DAMAGE_VS_AILED@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_DAMAGE_VS_AILED@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_DAMAGE_VS_AILED@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "INCREASED_DAMAGE_VS_AILED@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "INCREASED_DAMAGE_VS_AILED@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "INCREASED_DAMAGE_VS_AILED@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_FIRE_RESISTANCE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_FIRE_RESISTANCE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_FIRE_RESISTANCE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_FIRE_RESISTANCE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "PENETRATE_FIRE_RESISTANCE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "PENETRATE_FIRE_RESISTANCE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_COLD_RESISTANCE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_COLD_RESISTANCE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_COLD_RESISTANCE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_COLD_RESISTANCE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "PENETRATE_COLD_RESISTANCE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "PENETRATE_COLD_RESISTANCE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_LIGHTNING_RESISTANCE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_LIGHTNING_RESISTANCE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_LIGHTNING_RESISTANCE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_LIGHTNING_RESISTANCE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "PENETRATE_LIGHTNING_RESISTANCE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "PENETRATE_LIGHTNING_RESISTANCE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_CHAOS_RESISTANCE@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_CHAOS_RESISTANCE@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_CHAOS_RESISTANCE@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "PENETRATE_CHAOS_RESISTANCE@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "PENETRATE_CHAOS_RESISTANCE@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "PENETRATE_CHAOS_RESISTANCE@CRAFTED",
+      "tier": 6,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_THORNS@CRAFTED",
+      "tier": 1,
+      "orb": "DIVINE_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_THORNS@CRAFTED",
+      "tier": 2,
+      "orb": "EXALTED_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_THORNS@CRAFTED",
+      "tier": 3,
+      "orb": "CHAOS_ORB",
+      "amount": 1
+    },
+    {
+      "modifier": "ADD_THORNS@CRAFTED",
+      "tier": 4,
+      "orb": "ORB_OF_ALTERATION",
+      "amount": 4
+    },
+    {
+      "modifier": "ADD_THORNS@CRAFTED",
+      "tier": 5,
+      "orb": "ORB_OF_TRANSMUTATION",
+      "amount": 3
+    },
+    {
+      "modifier": "ADD_THORNS@CRAFTED",
       "tier": 6,
       "orb": "ORB_OF_TRANSMUTATION",
       "amount": 1
