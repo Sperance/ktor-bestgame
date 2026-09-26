@@ -115,8 +115,8 @@ class SeedDataTest {
     }
 
     @Test
-    fun every_slot_has_three_uniques() {
-        // Уникалки боссов (0.32.0) и кузнеца (0.38.0) - сверх трёх: они не состоят в общем пуле.
+    fun every_slot_has_at_least_three_uniques() {
+        // Уникалки боссов (0.32.0) и кузнеца (0.38.0) - сверх этого: они не состоят в общем пуле. С 0.70.0 общий пул шире трёх.
         val world = PoolSeeder.table(EnumPoolTarget.EQUIPMENT).members("unique:world")
         val bySlot = equipment.filter { it.rarity == EnumRarity.UNIQUE && it.code in world }.groupBy { it.slot }
 
@@ -124,7 +124,7 @@ class SeedDataTest {
         // пока нет: их сила должна считаться вместе с деревом, а не отдельно от него.
         wearableSlots.forEach { slot ->
             val items = bySlot[slot].orEmpty()
-            assert(items.size == 3) { "$slot has ${items.size} uniques: ${items.map { it.code }}" }
+            assert(items.size >= 3) { "$slot has ${items.size} uniques: ${items.map { it.code }}" }
         }
     }
 
@@ -296,5 +296,21 @@ class SeedDataTest {
         val loose = definitions.filter { it.isNaturalAffix() && it.tags.orEmpty().any { tag -> tag in setOf("ailment", "risk") } }
             .filterNot { it.code in pooled }.map { it.code }
         assert(loose.isEmpty()) { "Modifiers no pool rolls: $loose" }
+    }
+
+    /**
+     * Силы уникалок (0.70.0): у каждой уникалки и мифика от одного до трёх свойств, которых нет больше
+     * ни на одном предмете и ни в одном обычном модификаторе, а книга сил читается и описывает их все.
+     */
+    @Test
+    fun every_unique_carries_one_to_three_properties_of_its_own() {
+        features.logic.powers.PowerContent.book
+        val ordinary = ModifierSeeder.seedDefinitions().flatMap { it.stats() }.map { (it as Enum<*>).name }.toSet()
+        val byItem = UniqueEquipmentSeeder.records.associate { record -> record.code to record.lines.flatten().map { it.stat.let { s -> (s as Enum<*>).name } }.toSet() }
+        val owners = byItem.values.flatten().groupingBy { it }.eachCount()
+        byItem.forEach { (code, stats) ->
+            val own = stats.filter { it !in ordinary && owners[it] == 1 && (it.startsWith("POWER_") || it.startsWith("FLASK_")) }
+            assert(own.size in 1..3) { "$code has ${own.size} properties of its own: $own" }
+        }
     }
 }

@@ -8,6 +8,8 @@ import features.logic.pools.Pools
 import application.enums.EnumEquipmentType
 import application.enums.EnumRarity
 import application.enums.EnumStatStock
+import features.logic.powers.WorldKind
+import features.logic.powers.WorldPowers
 import base.exception.model.CampaignExceptions
 import base.exception.model.CharacterExceptions
 import config.MongoFactory.transactionExecute
@@ -130,9 +132,9 @@ class CampaignService : KoinComponent {
 
         val sheet = characters.calculateStats(character).stats
         val atlas = atlasOf(character)
-        val experience = CampaignLoot.experience(monster, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + (zone?.experience ?: 0.0) + atlas.experience)
+        val experience = CampaignLoot.experience(monster, map.level, rarity, experienceBonus(sheet, rarity) + mapBonus(character, mapCode).experience + (zone?.experience ?: 0.0) + atlas.experience)
         val recipe = if (rarityValue == EnumMonsterRarity.RARE) rollRecipe(character, map.level, Random.Default, atlas) else null
-        val book = if (rarityValue == EnumMonsterRarity.RARE) rollBook(character, map.level, books.rare, 0.0, mapCode, atlas) else null
+        val book = if (rarityValue == EnumMonsterRarity.RARE) rollBook(character, sheet, map.level, books.rare, 0.0, mapCode, atlas) else null
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method, atlas,
             mapCode = mapCode, mapChance = CampaignContent.file.maps.dropChance * rarity.quantity, recipeFound = recipe, zone = zone, extraItems = listOfNotNull(book))
     }
@@ -163,19 +165,19 @@ class CampaignService : KoinComponent {
         val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
         val random = Random.Default
         val atlas = atlasOf(character)
-        val extra = listOfNotNull(
-            Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, map.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random).takeIf { random.nextDouble() < atlas.bossUniqueChance(rule.uniqueChance) },
-            Pools.draw(equipmentCache.pool(template.uniquePools), random).takeIf { random.nextDouble() < atlas.bossUniqueChance(rule.ownUniqueChance) },
-        )
         val sheet = characters.calculateStats(character).stats
+        val extra = listOfNotNull(
+            Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, map.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random).takeIf { random.nextDouble() < uniqueChance(sheet, atlas.bossUniqueChance(rule.uniqueChance)) },
+            Pools.draw(equipmentCache.pool(template.uniquePools), random).takeIf { random.nextDouble() < uniqueChance(sheet, atlas.bossUniqueChance(rule.ownUniqueChance)) },
+        )
         character.bosses[mapCode] = now + (atlas.bossRespawnHours(rule.respawnHours) * 3_600_000).toLong()
-        val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + atlas.experience)
+        val experience = CampaignLoot.experience(template, map.level, rarity, experienceBonus(sheet, rarity) + mapBonus(character, mapCode).experience + atlas.experience)
         val recipe = rollRecipe(character, map.level, random, atlas)
         // Босс щедрее (0.66.0): добыча с боссов по атласу и строка «босс сильнее» карты - к количеству.
         val bossLoot = atlas.bossLoot + (mapBonus(character, mapCode).effects[CampaignMaps.BOSS_POWER] ?: 0.0)
         pass(character, mapCode)
         // Книга умения с босса (0.69.0): чаще своего класса
-        val book = rollBook(character, map.level, books.boss, books.bossOwnClass, mapCode, atlas)
+        val book = rollBook(character, sheet, map.level, books.boss, books.bossOwnClass, mapCode, atlas)
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, atlas, extra,
             mapCode = mapCode, mapChance = CampaignContent.file.maps.bossChance, recipeFound = recipe, extraQuantity = bossLoot, extraItems = listOfNotNull(book))
             .copy(progress = progressOf(character))
@@ -213,11 +215,11 @@ class CampaignService : KoinComponent {
         val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.UNIQUE }
         val random = Random.Default
         val atlas = atlasOf(character)
-        val extra = listOfNotNull(
-            Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, map.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random).takeIf { random.nextDouble() < atlas.vaalUniqueChance(rule.uniqueChance) },
-        )
         val sheet = characters.calculateStats(character).stats
-        val experience = CampaignLoot.experience(template, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + zone.experience + atlas.experience)
+        val extra = listOfNotNull(
+            Pools.draw(equipmentCache.poolUpTo(rule.uniquePools, map.level + UNIQUE_REACH).ifEmpty { equipmentCache.pool(rule.uniquePools) }, random).takeIf { random.nextDouble() < uniqueChance(sheet, atlas.vaalUniqueChance(rule.uniqueChance)) },
+        )
+        val experience = CampaignLoot.experience(template, map.level, rarity, experienceBonus(sheet, rarity) + mapBonus(character, mapCode).experience + zone.experience + atlas.experience)
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(template.loot), map.level, rarity, experience, method, atlas, extra, mapCode = mapCode, zone = zone)
     }
 
@@ -397,19 +399,21 @@ class CampaignService : KoinComponent {
         val active = mapBonus(character, mapCode)
         fun bonus(stat: EnumStatStock) = sheet[stat] ?: 0.0
         val random = Random.Default
-        val quantity = bonus(EnumStatStock.STOCK_QUANTITY) + active.quantity + (zone?.quantity ?: 0.0) + atlas.quantity + extraQuantity
+        // Силы уникалок (0.70.0) прибавляют с монстров своей редкости.
+        fun power(kind: WorldKind) = WorldPowers.bonus(sheet, kind, rarity.rarity)
+        val quantity = bonus(EnumStatStock.STOCK_QUANTITY) + active.quantity + (zone?.quantity ?: 0.0) + atlas.quantity + extraQuantity + power(WorldKind.QUANTITY)
         // Золото (0.66.0): лист героя, строка карты и атлас складываются.
-        val gold = bonus(EnumStatStock.STOCK_GOLD) + (active.effects[CampaignMaps.GOLD] ?: 0.0) + atlas.gold
+        val gold = bonus(EnumStatStock.STOCK_GOLD) + (active.effects[CampaignMaps.GOLD] ?: 0.0) + atlas.gold + power(WorldKind.GOLD)
         val loot = CampaignLoot.roll(table, level, rarity, quantity, gold, random, CampaignContent.file.growthTaper)
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
             itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) }
         } + extraItems
         // Экипировка тянется из пулов строки таблицы: что в них не состоит, отсюда не падает.
         val templates = extra + loot.equipment.mapNotNull { pools ->
-            CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity + (zone?.rarity ?: 0.0) + atlas.rarity, random)
+            CampaignLoot.pick(equipmentCache.poolUpTo(pools, level), { it.rarity }, rarity.rarityBonus + bonus(EnumStatStock.STOCK_RARITY) + active.rarity + (zone?.rarity ?: 0.0) + atlas.rarity + power(WorldKind.RARITY), random)
         }
         val rule = CampaignContent.file.maps
-        val dropped = CampaignMaps.drop(rule, atlas.mapChance(mapChance) * (1 + quantity / 100), mapCode, CampaignContent.graph.next(mapCode), random, atlas.mapNext)
+        val dropped = CampaignMaps.drop(rule, atlas.mapChance(mapChance) * (1 + quantity / 100) * (1 + power(WorldKind.MAP) / 100), mapCode, CampaignContent.graph.next(mapCode), random, atlas.mapNext)
             ?.let { code -> equipmentCache.findByCode(CampaignMaps.templateCode(code)) }
 
         val equipment = transactionExecute(method) { session ->
@@ -431,12 +435,20 @@ class CampaignService : KoinComponent {
 
     private val books get() = features.logic.skills.SkillContent.book.rules.books
 
+    /** Опыт героя в процентах с монстра [rarity]: лист и силы уникалок (0.70.0). */
+    private fun experienceBonus(sheet: Map<application.enums.IntEnumStat, Double>, rarity: CampaignRarity): Double =
+        (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + WorldPowers.bonus(sheet, WorldKind.EXPERIENCE, rarity.rarity)
+
+    /** Шанс уникалки босса или стража, поднятый силами уникалок (0.70.0). */
+    private fun uniqueChance(sheet: Map<application.enums.IntEnumStat, Double>, chance: Double): Double =
+        WorldPowers.chance(sheet, WorldKind.UNIQUE, chance, EnumMonsterRarity.UNIQUE)
+
     /**
      * Книга умения с монстра (0.69.0): шанс поднимают строка карты и атлас, долю своего класса - атлас.
      * Книга - простой предмет сумки; класс героя и уровень зоны решают, какие умения могут выпасть.
      */
-    private fun rollBook(character: Character, level: Int, chance: Double, ownShare: Double, mapCode: String, atlas: AtlasBonuses): CharacterItems? {
-        val boost = 1 + ((mapBonus(character, mapCode).effects[CampaignMaps.BOOKS] ?: 0.0) + atlas.books) / 100
+    private fun rollBook(character: Character, sheet: Map<application.enums.IntEnumStat, Double>, level: Int, chance: Double, ownShare: Double, mapCode: String, atlas: AtlasBonuses): CharacterItems? {
+        val boost = 1 + ((mapBonus(character, mapCode).effects[CampaignMaps.BOOKS] ?: 0.0) + atlas.books + WorldPowers.bonus(sheet, WorldKind.BOOK)) / 100
         val share = (ownShare * (1 + atlas.booksOwn / 100)).coerceAtMost(1.0)
         val code = features.logic.skills.SkillRules.dropBook(characters.requireClass(character).code, level, chance * boost, share, Random.Default) ?: return null
         return itemsCache.findByCode(code)?.let { CharacterItems(it._id, 1) }
@@ -479,9 +491,9 @@ class CampaignService : KoinComponent {
         val rarity = CampaignContent.file.rarities.first { it.rarity == EnumMonsterRarity.RARE }
         val sheet = characters.calculateStats(character).stats
         val atlas = atlasOf(character)
-        val experience = CampaignLoot.experience(monster, map.level, rarity, (sheet[EnumStatStock.STOCK_EXPERIENCE] ?: 0.0) + mapBonus(character, mapCode).experience + atlas.experience)
+        val experience = CampaignLoot.experience(monster, map.level, rarity, experienceBonus(sheet, rarity) + mapBonus(character, mapCode).experience + atlas.experience)
         val essences = crystal.essences.groupingBy { it }.eachCount().mapNotNull { (code, amount) -> itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount.toLong()) } }
-        val book = rollBook(character, map.level, EssenceContent.book.crystals.bookChance, 0.0, mapCode, atlas)
+        val book = rollBook(character, sheet, map.level, EssenceContent.book.crystals.bookChance, 0.0, mapCode, atlas)
         return grant(character, sheet, CampaignContent.file.lootTables.getValue(monster.loot), map.level, rarity, experience, method, atlas,
             mapCode = mapCode, extraItems = essences + listOfNotNull(book))
     }

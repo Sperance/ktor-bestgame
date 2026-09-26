@@ -47,6 +47,26 @@
               60.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_VOID_SIGHT",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VOID_ECHO",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -107,6 +127,26 @@
               -10.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_ETERNITY_SHROUD",
+            "operation": "ADD",
+            "range": [
+              -3.0,
+              -2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TIMELESS_BODY",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
         ]
       ]
     },
@@ -138,6 +178,26 @@
             "range": [
               60.0,
               80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WORLDBREAK",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              120.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TITAN_GRIP",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              2.0
             ]
           }
         ]
@@ -181,6 +241,26 @@
             "range": [
               70.0,
               90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ENDLESS_STRIDE",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PHASE_STEP",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
             ]
           }
         ]
@@ -241,6 +321,26 @@
             "range": [
               25.0,
               35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DAWNBURST",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FIRST_LIGHT",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
             ]
           }
         ]
@@ -311,6 +411,26 @@
               60.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_FIRST_BLOOD",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BLOOD_FRENZY",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
         ]
       ]
     },
@@ -369,6 +489,26 @@
               20.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_METEOR",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              120.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STARSHARD",
+            "operation": "ADD",
+            "range": [
+              -20.0,
+              -15.0
+            ]
+          }
         ]
       ]
     },
@@ -400,6 +540,26 @@
             "range": [
               30.0,
               40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSSAL_TIDE",
+            "operation": "ADD",
+            "range": [
+              100.0,
+              150.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEEP_MIND",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
             ]
           }
         ]
@@ -455,6 +615,36 @@
               50.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSSAL_HEART",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HEARTBEAT",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSS_WILL",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
         ]
       ]
     },
@@ -498,6 +688,26 @@
               100.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_TITANS_MIGHT",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TITAN_SKIN",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
         ]
       ]
     },
@@ -539,6 +749,26 @@
             "range": [
               60.0,
               80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STORM_VOLLEY",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STORMCALL",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
             ]
           }
         ]
@@ -589,6 +819,420 @@
             "range": [
               150.0,
               200.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FALLEN_GRACE",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DIVINE_FALL",
+            "operation": "ADD",
+            "range": [
+              1.5,
+              2.5
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GODS_BOUNTY",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "WORLDEATER_MAW",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 30,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 200,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            260.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            0.95
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              300.0,
+              380.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              150.0,
+              200.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEVOUR",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WORLDEATER",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "THOUSAND_EYES",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 0,
+      "requiredDexterity": 30,
+      "requiredIntelligence": 30,
+      "baseParams": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            60.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              200.0,
+              260.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "operation": "INCREASED",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ALL_SEEING",
+            "operation": "ADD",
+            "range": [
+              0.2,
+              0.4
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FORESIGHT",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "CHRONOBAND",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 30,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_COOLDOWN_RECOVERY",
+            "operation": "INCREASED",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TIME_LOOP",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SLOW_TIME",
+            "operation": "ADD",
+            "range": [
+              0.4,
+              0.7
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "SOULFORGE_AEGIS",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 30,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 30,
+      "baseParams": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            210.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              200.0,
+              260.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SOULFORGE",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SOUL_SUNDER",
+            "operation": "ADD",
+            "range": [
+              -20.0,
+              -15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "LAST_HORIZON",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 0,
+      "requiredDexterity": 30,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            45.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              45.0,
+              55.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              150.0,
+              200.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HORIZON",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ENDLESS_ROAD",
+            "operation": "ADD",
+            "range": [
+              -30.0,
+              -20.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "ETERNAL_FEAST",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 30,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              250.0,
+              320.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_FLASK_EFFECT",
+            "operation": "INCREASED",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EVERFLASK",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FEAST",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
             ]
           }
         ]

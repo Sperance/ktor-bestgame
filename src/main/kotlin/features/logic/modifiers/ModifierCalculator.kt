@@ -93,7 +93,8 @@ object ModifierCalculator : KoinComponent {
             result[stat] = ModifierMath.apply(base[stat] ?: 0.0, applied, stat in PERCENT_STATS)
         }
 
-        return result
+        // Силы уникалок (0.70.0): конверсии и обнуления - поверх готового листа, как их считает и клиент
+        return features.logic.powers.SheetPowers.apply(result)
     }
 
     /**

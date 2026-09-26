@@ -47,6 +47,16 @@
               30.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_GILDED_GREED",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              100.0
+            ]
+          }
         ]
       ]
     },
@@ -105,6 +115,26 @@
             "range": [
               25.0,
               25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BEAST_FURY",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PREDATOR_SENSE",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
             ]
           }
         ]
@@ -167,6 +197,16 @@
               30.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_DEVOTED_SWIFTNESS",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
         ]
       ]
     },
@@ -227,6 +267,26 @@
               -6.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_GLUTTONOUS_HIDE",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_THICK_HIDE",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              20.0
+            ]
+          }
         ]
       ]
     },
@@ -275,6 +335,26 @@
             "range": [
               20.0,
               30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_KAOMS_BLAZE",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SEALED_HEART",
+            "operation": "ADD",
+            "range": [
+              -30.0,
+              -20.0
             ]
           }
         ]
@@ -345,6 +425,16 @@
               60.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_CARCASS_BURST",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -386,6 +476,26 @@
             "range": [
               30.0,
               40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BONE_CRUNCH",
+            "operation": "ADD",
+            "range": [
+              0.6,
+              1.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_JAW_BREAKER",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
             ]
           }
         ]
@@ -446,6 +556,16 @@
             "range": [
               8.0,
               12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VIRTUOSO_TEMPO",
+            "operation": "ADD",
+            "range": [
+              6.0,
+              10.0
             ]
           }
         ]
@@ -516,6 +636,16 @@
               25.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_ACUITY_DRAIN",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
         ]
       ]
     },
@@ -559,6 +689,16 @@
               20.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_WANDERERS_START",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -580,6 +720,26 @@
             "range": [
               50.0,
               50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_LEAGUE_STRIDE",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FLEETING_STEP",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
             ]
           }
         ]
@@ -642,6 +802,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_WYRM_HOARD",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              40.0
+            ]
+          }
         ]
       ]
     },
@@ -682,6 +852,16 @@
               30.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_DESERT_WIND",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
         ]
       ]
     },
@@ -720,6 +900,16 @@
             "range": [
               10.0,
               15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SEVENTH_VEIL",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              20.0
             ]
           }
         ]
@@ -768,6 +958,16 @@
             "range": [
               80.0,
               120.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MAW_HUNGER",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
             ]
           }
         ]
@@ -823,6 +1023,16 @@
               12.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_GIANT_BLOOD",
+            "operation": "ADD",
+            "range": [
+              0.5,
+              1.0
+            ]
+          }
         ]
       ]
     },
@@ -862,6 +1072,26 @@
             "range": [
               50.0,
               70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HEADHUNT",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TROPHY_HUNTER",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
             ]
           }
         ]
@@ -905,6 +1135,16 @@
             "range": [
               10.0,
               20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MAGNATE_TAX",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              2.0
             ]
           }
         ]
@@ -956,6 +1196,26 @@
             "range": [
               0.4,
               0.8
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BEREKS_STORM",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BEREKS_FROST",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              4.0
             ]
           }
         ]
@@ -1011,6 +1271,16 @@
               30.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_VENTORS_WAGER",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -1054,6 +1324,16 @@
               10.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_KAOMS_RAGE",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
         ]
       ]
     },
@@ -1091,6 +1371,16 @@
             "range": [
               80.0,
               100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ASTRAL_HARMONY",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
             ]
           }
         ]
@@ -1152,6 +1442,16 @@
               14.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_CARNAGE",
+            "operation": "ADD",
+            "range": [
+              0.3,
+              0.5
+            ]
+          }
         ]
       ]
     },
@@ -1183,6 +1483,16 @@
             "range": [
               20.0,
               30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BISCOS_FIND",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
             ]
           }
         ]
@@ -1233,6 +1543,16 @@
             "range": [
               5.0,
               8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_REMORSEFUL_GUARD",
+            "operation": "ADD",
+            "range": [
+              1.5,
+              3.0
             ]
           }
         ]
@@ -1305,6 +1625,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_PHOENIX_REBIRTH",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
         ]
       ]
     },
@@ -1375,6 +1705,16 @@
               -8.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_SAFFELL_PRISM",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
         ]
       ]
     },
@@ -1418,6 +1758,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_DRILL_SHOT",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
         ]
       ]
     },
@@ -1459,6 +1809,16 @@
             "range": [
               3.0,
               5.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_REARGUARD",
+            "operation": "ADD",
+            "range": [
+              0.3,
+              0.6
             ]
           }
         ]
@@ -1508,6 +1868,16 @@
         [
           {
             "stat": "STOCK_BLEED_DURATION",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HYRRIS_TOXIN",
             "operation": "ADD",
             "range": [
               40.0,
@@ -1592,6 +1962,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_BINOS_SPREAD",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              80.0
+            ]
+          }
         ]
       ]
     },
@@ -1660,6 +2040,16 @@
               15.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_CATALYST_SURGE",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
         ]
       ]
     },
@@ -1718,6 +2108,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_LIONEYES_AIM",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
         ]
       ]
     },
@@ -1760,6 +2160,16 @@
         [
           {
             "stat": "STOCK_STRENGTH",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MAROHI_CRUSH",
             "operation": "ADD",
             "range": [
               30.0,
@@ -1834,6 +2244,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_STARFORGED",
+            "operation": "ADD",
+            "range": [
+              60.0,
+              90.0
+            ]
+          }
         ]
       ]
     },
@@ -1900,6 +2320,16 @@
               30.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_HEGEMONY",
+            "operation": "ADD",
+            "range": [
+              0.5,
+              1.0
+            ]
+          }
         ]
       ]
     },
@@ -1941,6 +2371,26 @@
             "range": [
               3.0,
               6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TIDE_TURN",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_UNDERTOW",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
             ]
           }
         ]
@@ -1993,6 +2443,26 @@
               45.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_BRINESHELL",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SALT_SPINES",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
         ]
       ]
     },
@@ -2040,6 +2510,26 @@
             "operation": "ADD",
             "range": [
               30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MIRE_BLOOD",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BOG_BREATH",
+            "operation": "ADD",
+            "range": [
+              20.0,
               40.0
             ]
           }
@@ -2091,6 +2581,26 @@
             "range": [
               40.0,
               60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PACK_TACTICS",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ALPHA_HOWL",
+            "operation": "ADD",
+            "range": [
+              -20.0,
+              -12.0
             ]
           }
         ]
@@ -2153,6 +2663,16 @@
               70.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_WARDENS_VOW",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
         ]
       ]
     },
@@ -2194,6 +2714,26 @@
             "range": [
               20.0,
               30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GRAVE_PACT",
+            "operation": "ADD",
+            "range": [
+              0.5,
+              1.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BONE_TITHE",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
             ]
           }
         ]
@@ -2254,6 +2794,16 @@
               16.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_SHARD_SPLINTER",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              40.0
+            ]
+          }
         ]
       ]
     },
@@ -2295,6 +2845,26 @@
             "range": [
               50.0,
               70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBERHEART",
+            "operation": "ADD",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CINDER_SKIN",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              20.0
             ]
           }
         ]
@@ -2357,6 +2927,26 @@
               60.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_WINTER_GRIP",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SHATTER",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -2415,6 +3005,16 @@
               1.2
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_LEVIATHAN_BITE",
+            "operation": "ADD",
+            "range": [
+              0.5,
+              1.0
+            ]
+          }
         ]
       ]
     },
@@ -2463,6 +3063,16 @@
             "range": [
               25.0,
               35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FORGE_FOCUS",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
             ]
           }
         ]
@@ -2515,6 +3125,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_ANVIL_HEART",
+            "operation": "ADD",
+            "range": [
+              -12.0,
+              -8.0
+            ]
+          }
         ]
       ]
     },
@@ -2563,6 +3183,16 @@
             "range": [
               20.0,
               30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBER_TOUCH",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              75.0
             ]
           }
         ]
@@ -2615,6 +3245,16 @@
               40.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_IRON_STANCE",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
         ]
       ]
     },
@@ -2652,6 +3292,16 @@
         [
           {
             "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CHAINBIND",
             "operation": "ADD",
             "range": [
               8.0,
@@ -2706,6 +3356,16 @@
             "range": [
               10.0,
               15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FORGE_BULWARK",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
             ]
           }
         ]
@@ -2766,6 +3426,16 @@
               30.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_SMELT",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
         ]
       ]
     },
@@ -2824,6 +3494,16 @@
               60.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_MOUNTAIN_BREAK",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
         ]
       ]
     },
@@ -2865,6 +3545,16 @@
             "range": [
               15.0,
               20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TEMPERED_TIPS",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
             ]
           }
         ]
@@ -2910,6 +3600,16 @@
               30.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_SMITH_TEMPER",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -2951,6 +3651,16 @@
             "range": [
               20.0,
               30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_QUENCH",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
             ]
           }
         ]
@@ -3001,6 +3711,16 @@
             "range": [
               40.0,
               60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FORGE_GALE",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
             ]
           }
         ]
@@ -3063,6 +3783,16 @@
               60.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_BRAZEN_CALL",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
         ]
       ]
     },
@@ -3121,6 +3851,16 @@
             "range": [
               15.0,
               25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WAR_SHOUT",
+            "operation": "ADD",
+            "range": [
+              -15.0,
+              -10.0
             ]
           }
         ]
@@ -3203,6 +3943,26 @@
               -4.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_UNYIELDING",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_LAST_STAND",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -3263,6 +4023,26 @@
               8.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_SOLAR_FLARE",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SUNS_BLESSING",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
         ]
       ]
     },
@@ -3314,6 +4094,26 @@
             "range": [
               6.0,
               10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ETERNAL_SANDS",
+            "operation": "ADD",
+            "range": [
+              0.3,
+              0.6
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TIMELESS",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
             ]
           }
         ]
@@ -3384,6 +4184,16 @@
               35.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_ROYAL_VENOM",
+            "operation": "ADD",
+            "range": [
+              -12.0,
+              -8.0
+            ]
+          }
         ]
       ]
     },
@@ -3442,6 +4252,16 @@
             "range": [
               30.0,
               50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HIVEMIND",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
             ]
           }
         ]
@@ -3512,6 +4332,16 @@
               35.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_SOVEREIGN_BRAND",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -3570,6 +4400,16 @@
             "range": [
               10.0,
               15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MOLTEN_CORE",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
             ]
           }
         ]
@@ -3632,6 +4472,26 @@
               -6.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSSAL_GAZE",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSS_CALL",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              80.0
+            ]
+          }
         ]
       ]
     },
@@ -3683,6 +4543,16 @@
             "range": [
               25.0,
               35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VOID_HUNGER",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              4.0
             ]
           }
         ]
@@ -3741,6 +4611,16 @@
             "range": [
               10.0,
               10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SAINTS_GRACE",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
             ]
           }
         ]
@@ -3811,6 +4691,16 @@
               1.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_MIRROR_RIPOSTE",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
         ]
       ]
     },
@@ -3875,6 +4765,16 @@
               10.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "POWER_SEETHING_RAGE",
+            "operation": "ADD",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
         ]
       ]
     },
@@ -3931,6 +4831,16 @@
             "range": [
               40.0,
               40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STARLIGHT_WARD",
+            "operation": "ADD",
+            "range": [
+              0.5,
+              1.0
             ]
           }
         ]
@@ -4165,6 +5075,2254 @@
             "range": [
               2.0,
               2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ATZIRIS_VOW",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "THORNVEIL_HOOD",
+      "itemLevel": 25,
+      "requiredLevel": 25,
+      "requiredStrength": 0,
+      "requiredDexterity": 50,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            100.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_EVASION",
+            "operation": "INCREASED",
+            "range": [
+              60.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_THORNS",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_THORN_LASH",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "ASHEN_VISOR",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 45,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 45,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            180.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "INCREASED",
+            "range": [
+              80.0,
+              120.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEFIANCE",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "GRAVEWALKER_MANTLE",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 70,
+      "baseParams": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            350.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "INCREASED",
+            "range": [
+              100.0,
+              140.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SOUL_HARVEST",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GRAVE_CHILL",
+            "operation": "ADD",
+            "range": [
+              -15.0,
+              -10.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "STORMHIDE_JERKIN",
+      "itemLevel": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 0,
+      "requiredDexterity": 110,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            550.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_EVASION",
+            "operation": "INCREASED",
+            "range": [
+              120.0,
+              160.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              70.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_LIGHTNING",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STATIC_DODGE",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "OATHKEEPER_GAUNTLETS",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 30,
+      "requiredDexterity": 30,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            90.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "operation": "INCREASED",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SWORN_STRIKE",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "LEECHMAW_GRIPS",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 50,
+      "requiredDexterity": 50,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            150.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_PHYSICAL",
+            "operation": "ADD",
+            "range": [
+              0.4,
+              0.8
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DESPERATE_THIRST",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              1.5
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "GHOSTSTEP_TREADS",
+      "itemLevel": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 0,
+      "requiredDexterity": 60,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            90.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              20.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_EVASION",
+            "operation": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GHOSTLY_ENTRY",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              120.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "EMBERWALK_SABATONS",
+      "itemLevel": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 55,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 55,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            165.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              20.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "INCREASED",
+            "range": [
+              60.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBER_TRAIL",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "MIRRORPLATE_BULWARK",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 100,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            700.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "INCREASED",
+            "range": [
+              100.0,
+              140.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MIRROR_GUARD",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "BAND_OF_BORROWED_TIME",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 70,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MANA",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BORROWED_TIME",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "SERPENT_COIL",
+      "itemLevel": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 0,
+      "requiredDexterity": 110,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              14.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_POISON_DURATION",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CONSTRICT",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "PENDANT_OF_THE_HOLLOW",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 80,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HOLLOW_VESSEL",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "EYE_OF_THE_STORM",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 0,
+      "requiredDexterity": 120,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "operation": "INCREASED",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_LIGHTNING",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STORM_EYE",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "GIRDLE_OF_THE_GLUTTON",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 70,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_FLASK_CHARGES_GAINED",
+            "operation": "INCREASED",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GLUTTONY",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "WHISPERBLADE",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 0,
+      "requiredDexterity": 80,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 120,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            55.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              80.0,
+              110.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "operation": "INCREASED",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_AMBUSH",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "ROTWOOD_WAND",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 90,
+      "weaponType": "WAND",
+      "durability": 120,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_MAGICAL",
+            "operation": "INCREASED",
+            "range": [
+              60.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ROT_SPELL",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "GRIEF_HARVESTER",
+      "itemLevel": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 110,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 200,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            200.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            0.9
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              160.0,
+              200.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_PHYSICAL",
+            "operation": "ADD",
+            "range": [
+              0.4,
+              0.8
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GRIEF",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "EARTHSHAKER_MAUL",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 70,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLESWORD",
+      "durability": 200,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            140.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              120.0,
+              160.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STUN_THRESHOLD",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_AFTERSHOCK",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "FROSTFEATHER_QUIVER",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 0,
+      "requiredDexterity": 90,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_COLD",
+            "operation": "ADD",
+            "range": [
+              12.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FROST_ARROW",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "WINGS_OF_ASH",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 100,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            100.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ASH_BURST",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "BELLOWS_HELM",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 90,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            180.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "INCREASED",
+            "range": [
+              80.0,
+              110.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "operation": "ADD",
+            "range": [
+              6.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STOKED",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "SLAGPLATE_CUIRASS",
+      "itemLevel": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 110,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            550.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "INCREASED",
+            "range": [
+              120.0,
+              160.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STUN_THRESHOLD",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SLAG_CLOG",
+            "operation": "ADD",
+            "range": [
+              -15.0,
+              -10.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "RIVET_HAMMER",
+      "itemLevel": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 80,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "AXE",
+      "durability": 120,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              80.0,
+              110.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STUN_THRESHOLD",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_RIVET",
+            "operation": "ADD",
+            "range": [
+              0.3,
+              0.5
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "CRUCIBLE_GREATAXE",
+      "itemLevel": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 120,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "DOUBLEAXE",
+      "durability": 200,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            210.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            0.9
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              150.0,
+              190.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "ADD",
+            "range": [
+              150.0,
+              250.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CRUCIBLE",
+            "operation": "ADD",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "QUENCHING_SASH",
+      "itemLevel": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 45,
+      "requiredDexterity": 45,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_FLASK_DURATION",
+            "operation": "INCREASED",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_QUENCH_RETURN",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "EMBER_LOCKET",
+      "itemLevel": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 100,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              14.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBER_WARD",
+            "operation": "ADD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "TIDECALLER_CONCH",
+      "itemLevel": 1,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 2,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MANA",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TIDE_SONG",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "BELT",
+      "code": "BRINE_CRADLE",
+      "itemLevel": 3,
+      "requiredLevel": 3,
+      "requiredStrength": 6,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BRINE_MEND",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              7.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BOOTS",
+      "code": "BOGROOT_SANDALS",
+      "itemLevel": 5,
+      "requiredLevel": 5,
+      "requiredStrength": 0,
+      "requiredDexterity": 10,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              12.0,
+              16.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              12.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ROOT_DRINK",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "ALPHAS_FANG",
+      "itemLevel": 7,
+      "requiredLevel": 7,
+      "requiredStrength": 0,
+      "requiredDexterity": 14,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BLOOD_SCENT",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "WARDENS_KEYRING",
+      "itemLevel": 9,
+      "requiredLevel": 9,
+      "requiredStrength": 18,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WARDENS_KEYS",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "CRYPT_SHROUD",
+      "itemLevel": 11,
+      "requiredLevel": 11,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 22,
+      "baseParams": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            110.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEATHS_VEIL",
+            "operation": "ADD",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "SHARD_CIRCLET",
+      "itemLevel": 13,
+      "requiredLevel": 13,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 26,
+      "baseParams": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            52.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_LIGHTNING",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CRYSTAL_RETORT",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "GLOVES",
+      "code": "ASHGRIP",
+      "itemLevel": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 30,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            45.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              9.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ASHEN_END",
+            "operation": "ADD",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "RIMEGUARD",
+      "itemLevel": 17,
+      "requiredLevel": 17,
+      "requiredStrength": 34,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            238.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "operation": "ADD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_RIME_BLOCK",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "DROWNED_IDOL",
+      "itemLevel": 20,
+      "requiredLevel": 20,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 40,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MANA",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEEP_TIDE",
+            "operation": "ADD",
+            "range": [
+              1.5,
+              2.5
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "SUNSPEAR",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 35,
+      "requiredDexterity": 35,
+      "requiredIntelligence": 0,
+      "weaponType": "SWORD",
+      "durability": 120,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            45.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.45
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              60.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SUNFLARE",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "QUIVER",
+      "code": "SWARM_QUIVER",
+      "itemLevel": 47,
+      "requiredLevel": 47,
+      "requiredStrength": 0,
+      "requiredDexterity": 94,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SWARM_BURST",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              80.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "CINDER_CROWN",
+      "itemLevel": 59,
+      "requiredLevel": 59,
+      "requiredStrength": 60,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 60,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            236.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "operation": "INCREASED",
+            "range": [
+              100.0,
+              140.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              35.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CINDER_PIERCE",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              20.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "WINGS",
+      "code": "ABYSSAL_MANTLE",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 140,
+      "baseParams": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            140.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSS_DODGE",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
             ]
           }
         ]

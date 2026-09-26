@@ -151,7 +151,9 @@ data class StatOrder(val stat: String, val order: Int)
 @Serializable
 data class StatTables(val stats: List<StatOrder>, val slots: List<String>, val sell: SellRule,
                       /** Статы-проценты (0.66.0): INCREASED в них складывается, см. ModifierCalculator.PERCENT_STATS. */
-                      val percent: List<String> = emptyList()) {
+                      val percent: List<String> = emptyList(),
+                      /** Силы уникалок (0.70.0): правила листа клиент применяет сам, реакции в бою считает по ним же. */
+                      val powers: features.logic.powers.PowerBook = features.logic.powers.PowerBook()) {
     companion object {
         val served: StatTables by lazy {
             StatTables(
@@ -162,6 +164,7 @@ data class StatTables(val stats: List<StatOrder>, val slots: List<String>, val s
                 SellRule(features.logic.trade.SellPrice.AFFIX_SHARE,
                     application.enums.EnumRarity.entries.associate { it.name to features.logic.trade.SellPrice.factor(it) }),
                 features.logic.modifiers.ModifierCalculator.PERCENT_STATS.map { (it as Enum<*>).name }.sorted(),
+                features.logic.powers.PowerContent.book,
             )
         }
     }
