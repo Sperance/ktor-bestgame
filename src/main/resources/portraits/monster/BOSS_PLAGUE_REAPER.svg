@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#161a22"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#3a6a2a" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#3a6a2a" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#3a6a2a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bone" gradientUnits="userSpaceOnUse" cx="140" cy="150" r="110">
+      <stop offset="0" stop-color="#f2ecd8"/>
+      <stop offset="0.7" stop-color="#b8ae90"/>
+      <stop offset="1" stop-color="#6a624c"/>
+    </radialGradient>
+    <linearGradient id="bossgold" gradientUnits="userSpaceOnUse" x1="150" y1="34" x2="150" y2="110">
+      <stop offset="0" stop-color="#e6f0b0"/>
+      <stop offset="1" stop-color="#4a5a1a"/>
+    </linearGradient>
+    <radialGradient id="bossaura" gradientUnits="userSpaceOnUse" cx="150" cy="180" r="220">
+      <stop offset="0.45" stop-color="#7fbf4a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#7fbf4a" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M96 300 Q120 280 150 282 Q180 280 204 300 L220 400 L80 400 Z" fill="#3a3a30"/>
+  <path d="M108 320 L108 400" fill="none" stroke="#b8ae90" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M129 320 L129 400" fill="none" stroke="#b8ae90" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 320 L150 400" fill="none" stroke="#b8ae90" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M171 320 L171 400" fill="none" stroke="#b8ae90" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M192 320 L192 400" fill="none" stroke="#b8ae90" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M92 170 Q92 88 150 84 Q208 88 208 170 Q208 208 188 222 L184 250 L116 250 L112 222 Q92 208 92 170 Z" fill="url(#bone)"/>
+  <ellipse cx="124" cy="172" rx="19" ry="22" fill="#0e0c0a"/>
+  <ellipse cx="176" cy="172" rx="19" ry="22" fill="#0e0c0a"/>
+  <circle cx="124" cy="176" r="5" fill="#9dff5a"/>
+  <circle cx="176" cy="176" r="5" fill="#9dff5a"/>
+  <path d="M150 196 L140 220 L160 220 Z" fill="#1a1612"/>
+  <path d="M118 250 L182 250 L178 286 Q150 296 122 286 Z" fill="url(#bone)"/>
+  <path d="M124.0 250 L124.0 270" fill="none" stroke="#2a2620" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M134.5 250 L134.5 270" fill="none" stroke="#2a2620" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M145.0 250 L145.0 270" fill="none" stroke="#2a2620" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M155.5 250 L155.5 270" fill="none" stroke="#2a2620" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M166.0 250 L166.0 270" fill="none" stroke="#2a2620" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M176.5 250 L176.5 270" fill="none" stroke="#2a2620" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 86 L142 108 L154 122 L146 140" fill="none" stroke="#5a5240" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="0" y="0" width="300" height="400" fill="url(#bossaura)"/>
+  <path d="M104 92 L116 58 L130 84 L150 44 L170 84 L184 58 L196 92 Z" fill="url(#bossgold)"/>
+  <path d="M100 92 L200 92 L196 104 L104 104 Z" fill="url(#bossgold)"/>
+  <circle cx="150" cy="98" r="5" fill="#9dff5a"/>
+  <rect x="3" y="3" width="294" height="394" fill="none" stroke="#af6025" stroke-width="6" opacity="0.8"/>
+</svg>

@@ -3205,6 +3205,488 @@
           }
         ]
       ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "SUN_KINGS_DIADEM",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 70,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            170.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "operation": "MORE",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PENETRATE_ELEMENTAL",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "AMULET",
+      "code": "SANDS_OF_ETERNITY",
+      "itemLevel": 35,
+      "requiredLevel": 35,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 70,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH_REGEN",
+            "operation": "ADD",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              14.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RECOVERY_RATE",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_1H",
+      "code": "QUEENS_STINGER",
+      "itemLevel": 47,
+      "requiredLevel": 47,
+      "requiredStrength": 0,
+      "requiredDexterity": 94,
+      "requiredIntelligence": 0,
+      "weaponType": "BLADE",
+      "durability": 120,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "ADD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "operation": "INCREASED",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_POISON_DURATION",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE_VS_POISONED",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "BODY",
+      "code": "HIVEMIND_CARAPACE",
+      "itemLevel": 47,
+      "requiredLevel": 47,
+      "requiredStrength": 94,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            420.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_EVASION",
+            "operation": "INCREASED",
+            "range": [
+              100.0,
+              140.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_THORNS",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "weapon",
+      "slot": "WEAPON_2H",
+      "code": "SOVEREIGNS_BRAND",
+      "itemLevel": 59,
+      "requiredLevel": 59,
+      "requiredStrength": 118,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "weaponType": "LONGSWORD",
+      "durability": 200,
+      "baseParams": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            200.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.15
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "operation": "INCREASED",
+            "range": [
+              140.0,
+              180.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE_VS_BURNING",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "SHIELD",
+      "code": "MOLTEN_AEGIS",
+      "itemLevel": 59,
+      "requiredLevel": 59,
+      "requiredStrength": 118,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            450.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "operation": "ADD",
+            "range": [
+              6.0,
+              9.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "operation": "ADD",
+            "range": [
+              40.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_REFLECT",
+            "operation": "ADD",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "armor",
+      "slot": "HELMET",
+      "code": "CROWN_OF_THE_ABYSS",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 140,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            330.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "operation": "ADD",
+            "range": [
+              80.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "operation": "ADD",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "operation": "ADD",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "operation": "ADD",
+            "range": [
+              -8.0,
+              -6.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "RING",
+      "code": "VOIDHEART",
+      "itemLevel": 70,
+      "requiredLevel": 70,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 140,
+      "baseParams": [],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "operation": "ADD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_PHYSICAL",
+            "operation": "ADD",
+            "range": [
+              0.6,
+              1.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "operation": "ADD",
+            "range": [
+              12.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "operation": "ADD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ]
+      ]
     }
   ]
 }

@@ -292,10 +292,14 @@ data class WorldRule(val width: Int, val height: Int)
 /**
  * Рост монстров со «спадом» (с 0.67.0): до уровня [from] каждая характеристика `growth` растёт
  * полной степенью за уровень, выше - лишь долей [rate] этой степени. Без спада уровень 70 давал бы
- * монстрам здоровья в тысячи раз больше, чем снаряжение даёт герою.
+ * монстрам здоровья в тысячи раз больше, чем снаряжение даёт герою. С 0.68.0 тем же спадом растёт
+ * и золото с монстров: иначе к семидесятой карте его выпадало бы в семьсот раз больше, чем на первой.
  */
 @Serializable
-data class GrowthTaper(val from: Int = Int.MAX_VALUE, val rate: Double = 1.0)
+data class GrowthTaper(val from: Int = Int.MAX_VALUE, val rate: Double = 1.0) {
+    /** Сколько полных степеней роста набрано к уровню [level]: по одной до [from], по [rate] выше. */
+    fun steps(level: Int): Double = (minOf(level, from) - 1) + rate * maxOf(0, level - from)
+}
 
 /**
  * Зона карты мира - её жетон (с 0.67.0; раньше карта главы). [x] и [y] - место жетона на карте
@@ -558,9 +562,7 @@ object CampaignContent {
      */
     fun scale(content: CampaignContentFile, stat: String, value: Double, level: Int): Double {
         val factor = content.growth[stat] ?: return value
-        val taper = content.growthTaper
-        val steps = (minOf(level, taper.from) - 1) + taper.rate * maxOf(0, level - taper.from)
-        return Math.round(value * factor.pow(steps) * 100.0) / 100.0
+        return Math.round(value * factor.pow(content.growthTaper.steps(level)) * 100.0) / 100.0
     }
 
     private fun validate(content: CampaignContentFile) {

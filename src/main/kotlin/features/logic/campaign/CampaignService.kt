@@ -387,7 +387,7 @@ class CampaignService : KoinComponent {
         val quantity = bonus(EnumStatStock.STOCK_QUANTITY) + active.quantity + (zone?.quantity ?: 0.0) + atlas.quantity + extraQuantity
         // Золото (0.66.0): лист героя, строка карты и атлас складываются.
         val gold = bonus(EnumStatStock.STOCK_GOLD) + (active.effects[CampaignMaps.GOLD] ?: 0.0) + atlas.gold
-        val loot = CampaignLoot.roll(table, level, rarity, quantity, gold, random)
+        val loot = CampaignLoot.roll(table, level, rarity, quantity, gold, random, CampaignContent.file.growthTaper)
         val orbs = loot.orbs.mapNotNull { (code, amount) ->
             itemsCache.findByCode(code)?.let { CharacterItems(it._id, amount) }
         }

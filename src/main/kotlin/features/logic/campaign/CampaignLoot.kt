@@ -49,10 +49,11 @@ object CampaignLoot {
      *
      * @param quantity бонус героя к количеству предметов, в процентах
      * @param goldBonus бонус героя к золоту, в процентах
+     * @param taper спад роста (0.68.0): выше его порога золото растёт так же мягко, как монстры
      */
-    fun roll(table: LootTable, level: Int, rarity: CampaignRarity, quantity: Double, goldBonus: Double, random: Random): RolledLoot {
+    fun roll(table: LootTable, level: Int, rarity: CampaignRarity, quantity: Double, goldBonus: Double, random: Random, taper: GrowthTaper = GrowthTaper()): RolledLoot {
         val multiplier = rarity.quantity * (1 + quantity / 100)
-        val gold = random.nextLong(table.gold[0], table.gold[1] + 1) * GOLD_GROWTH.pow(level - 1) * rarity.quantity * (1 + goldBonus / 100)
+        val gold = random.nextLong(table.gold[0], table.gold[1] + 1) * GOLD_GROWTH.pow(taper.steps(level)) * rarity.quantity * (1 + goldBonus / 100)
         val orbs = mutableMapOf<String, Long>()
         val equipment = mutableListOf<List<String>>()
         table.drops.forEach { drop ->

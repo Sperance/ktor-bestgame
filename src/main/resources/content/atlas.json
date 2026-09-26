@@ -152,8 +152,8 @@
     },
     {
       "code": "ATLAS_LOOT_R1",
-      "x": -4.6,
-      "y": 5.2,
+      "x": -4.8,
+      "y": 4.8,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_FORK"
@@ -168,7 +168,7 @@
     {
       "code": "ATLAS_LOOT_R2",
       "x": -4.3,
-      "y": 6.7,
+      "y": 7.0,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_R1"
@@ -182,8 +182,8 @@
     },
     {
       "code": "ATLAS_LOOT_GLITTER",
-      "x": -4.9,
-      "y": 8.1,
+      "x": -4.8,
+      "y": 8.2,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_LOOT_R2"
@@ -197,7 +197,7 @@
     },
     {
       "code": "ATLAS_LOOT_X1",
-      "x": -2.8,
+      "x": -2.5,
       "y": 4.6,
       "kind": "SMALL",
       "parents": [
@@ -212,7 +212,7 @@
     },
     {
       "code": "ATLAS_LOOT_SAGE",
-      "x": -2.5,
+      "x": -2.6,
       "y": 6.0,
       "kind": "NOTABLE",
       "parents": [
@@ -317,7 +317,7 @@
     },
     {
       "code": "ATLAS_VAAL_C1",
-      "x": -1.6,
+      "x": -1.5,
       "y": 5.6,
       "kind": "SMALL",
       "parents": [
@@ -332,8 +332,8 @@
     },
     {
       "code": "ATLAS_VAAL_C2",
-      "x": -1.4,
-      "y": 7.1,
+      "x": -1.9,
+      "y": 6.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_C1"
@@ -392,7 +392,7 @@
     },
     {
       "code": "ATLAS_VAAL_W3",
-      "x": 0.1,
+      "x": 0.4,
       "y": 8.6,
       "kind": "SMALL",
       "parents": [
@@ -408,7 +408,7 @@
     {
       "code": "ATLAS_VAAL_ALTAR",
       "x": 0.5,
-      "y": 10.0,
+      "y": 9.8,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_W3"
@@ -422,8 +422,8 @@
     },
     {
       "code": "ATLAS_VAAL_KEY",
-      "x": 0.2,
-      "y": 11.6,
+      "x": -0.1,
+      "y": 11.9,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_VAAL_ALTAR"
@@ -535,7 +535,7 @@
     },
     {
       "code": "ATLAS_CONT_ELITE",
-      "x": 1.5,
+      "x": 1.6,
       "y": 8.3,
       "kind": "NOTABLE",
       "parents": [
@@ -565,7 +565,7 @@
     },
     {
       "code": "ATLAS_CONT_TREASURE",
-      "x": 4.1,
+      "x": 4.0,
       "y": 6.2,
       "kind": "NOTABLE",
       "parents": [
@@ -595,8 +595,8 @@
     },
     {
       "code": "ATLAS_CONT_VAULT",
-      "x": 4.9,
-      "y": 8.9,
+      "x": 5.2,
+      "y": 9.0,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CONT_T2"
@@ -625,8 +625,8 @@
     },
     {
       "code": "ATLAS_CONT_SPRING",
-      "x": 4.6,
-      "y": 2.9,
+      "x": 4.4,
+      "y": 2.6,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CONT_F1"
@@ -670,8 +670,8 @@
     },
     {
       "code": "ATLAS_BOSS_FORK",
-      "x": 5.0,
-      "y": 1.8,
+      "x": 5.1,
+      "y": 1.6,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_BOSS_2"
@@ -700,8 +700,8 @@
     },
     {
       "code": "ATLAS_BOSS_S2",
-      "x": 6.6,
-      "y": 4.2,
+      "x": 6.9,
+      "y": 4.3,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSS_S1"
@@ -715,7 +715,7 @@
     },
     {
       "code": "ATLAS_BOSS_RELENTLESS",
-      "x": 7.3,
+      "x": 7.6,
       "y": 5.5,
       "kind": "NOTABLE",
       "parents": [
@@ -730,8 +730,8 @@
     },
     {
       "code": "ATLAS_BOSS_U1",
-      "x": 4.8,
-      "y": 3.3,
+      "x": 4.6,
+      "y": 3.7,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSS_FORK"
@@ -745,8 +745,8 @@
     },
     {
       "code": "ATLAS_BOSS_U2",
-      "x": 5.1,
-      "y": 4.8,
+      "x": 5.0,
+      "y": 4.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSS_U1"
@@ -760,7 +760,7 @@
     },
     {
       "code": "ATLAS_BOSS_U3",
-      "x": 5.0,
+      "x": 5.1,
       "y": 6.3,
       "kind": "SMALL",
       "parents": [
@@ -873,8 +873,8 @@
     },
     {
       "code": "ATLAS_LOOT_CH1",
-      "x": -1.3,
-      "y": 7.2,
+      "x": -0.8,
+      "y": 7.4,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_SAGE"
@@ -888,7 +888,7 @@
     },
     {
       "code": "ATLAS_LOOT_CACHE",
-      "x": -0.3,
+      "x": -0.7,
       "y": 8.6,
       "kind": "NOTABLE",
       "parents": [
@@ -907,7 +907,7 @@
     },
     {
       "code": "ATLAS_VAAL_U1",
-      "x": -3.6,
+      "x": -3.7,
       "y": 4.6,
       "kind": "SMALL",
       "parents": [
@@ -922,8 +922,8 @@
     },
     {
       "code": "ATLAS_VAAL_U2",
-      "x": -4.6,
-      "y": 5.9,
+      "x": -4.8,
+      "y": 6.0,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_U1"
@@ -937,8 +937,8 @@
     },
     {
       "code": "ATLAS_VAAL_RELIC",
-      "x": -5.4,
-      "y": 7.3,
+      "x": -5.5,
+      "y": 7.2,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_U2"
@@ -957,7 +957,7 @@
     {
       "code": "ATLAS_VAAL_E1",
       "x": -0.7,
-      "y": 9.7,
+      "y": 9.8,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_BEACON"
@@ -971,8 +971,8 @@
     },
     {
       "code": "ATLAS_VAAL_E2",
-      "x": 0.3,
-      "y": 11.0,
+      "x": 0.5,
+      "y": 10.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_E1"
@@ -986,8 +986,8 @@
     },
     {
       "code": "ATLAS_VAAL_AMPLIFY",
-      "x": 1.1,
-      "y": 12.4,
+      "x": 1.0,
+      "y": 12.3,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_E2"
@@ -1001,8 +1001,8 @@
     },
     {
       "code": "ATLAS_CONT_N1",
-      "x": 2.7,
-      "y": 9.5,
+      "x": 2.6,
+      "y": 9.3,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CONT_ELITE"
@@ -1016,8 +1016,8 @@
     },
     {
       "code": "ATLAS_CONT_N2",
-      "x": 3.7,
-      "y": 10.8,
+      "x": 3.9,
+      "y": 11.1,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CONT_N1"
@@ -1050,8 +1050,8 @@
     },
     {
       "code": "ATLAS_CONT_A1",
-      "x": 3.7,
-      "y": 10.1,
+      "x": 4.0,
+      "y": 9.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CONT_VAULT"
@@ -1066,7 +1066,7 @@
     {
       "code": "ATLAS_CONT_A2",
       "x": 2.7,
-      "y": 11.4,
+      "y": 11.5,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CONT_A1"
@@ -1080,8 +1080,8 @@
     },
     {
       "code": "ATLAS_CONT_CARTEL",
-      "x": 1.9,
-      "y": 12.8,
+      "x": 2.1,
+      "y": 12.9,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CONT_A2"
@@ -1119,7 +1119,7 @@
     {
       "code": "ATLAS_CONT_M1",
       "x": 5.8,
-      "y": 4.1,
+      "y": 4.0,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CONT_SPRING"
@@ -1133,7 +1133,7 @@
     },
     {
       "code": "ATLAS_CONT_LEGION",
-      "x": 6.8,
+      "x": 6.5,
       "y": 5.5,
       "kind": "NOTABLE",
       "parents": [
@@ -1216,8 +1216,8 @@
     },
     {
       "code": "ATLAS_BOSS_R1",
-      "x": 4.4,
-      "y": 8.9,
+      "x": 4.1,
+      "y": 8.7,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSS_TROPHY"
@@ -1231,8 +1231,8 @@
     },
     {
       "code": "ATLAS_BOSS_WORKSHOP",
-      "x": 3.4,
-      "y": 10.3,
+      "x": 3.0,
+      "y": 10.4,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_BOSS_R1"
@@ -1241,6 +1241,1183 @@
         {
           "stat": "ATLAS_RECIPE",
           "value": 75
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_C1",
+      "x": -8.9,
+      "y": 3.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_ATLAS"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_DROP",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_C2",
+      "x": -9.9,
+      "y": 4.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_C1"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_NEXT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_SURVEYOR",
+      "x": -10.4,
+      "y": 6.0,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_C2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_DROP",
+          "value": 12
+        },
+        {
+          "stat": "ATLAS_MAP_NEXT",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_C3",
+      "x": -10.5,
+      "y": 7.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_SURVEYOR"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_RARE",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_C4",
+      "x": -10.2,
+      "y": 9.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_C3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_AFFIX",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_ARCHIVE",
+      "x": -10.3,
+      "y": 10.6,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_C4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_RARE",
+          "value": 30
+        },
+        {
+          "stat": "ATLAS_MAP_AFFIX",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_C5",
+      "x": -10.4,
+      "y": 12.1,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_ARCHIVE"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_AFFIX",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_G3",
+      "x": -8.8,
+      "y": 13.2,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_MIDAS"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_GOLD",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_G4",
+      "x": -9.3,
+      "y": 14.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_G3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_QUANTITY",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_TREASURY",
+      "x": -9.2,
+      "y": 16.1,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_G4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_GOLD",
+          "value": 20
+        },
+        {
+          "stat": "ATLAS_RARITY",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_G5",
+      "x": -8.6,
+      "y": 17.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_TREASURY"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RARITY",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_KEY2",
+      "x": -7.9,
+      "y": 18.9,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_LOOT_G5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_GOLD",
+          "value": 60
+        },
+        {
+          "stat": "ATLAS_RARITY",
+          "value": 10
+        },
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": -20
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_G6",
+      "x": -10.4,
+      "y": 17.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_TREASURY"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_GOLD",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_HOARDER",
+      "x": -10.5,
+      "y": 18.5,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_G6"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_GOLD",
+          "value": 15
+        },
+        {
+          "stat": "ATLAS_QUANTITY",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_X2",
+      "x": -3.2,
+      "y": 7.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_SAGE"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_X3",
+      "x": -3.4,
+      "y": 8.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_X2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_SCHOLAR",
+      "x": -3.1,
+      "y": 10.4,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_X3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_X4",
+      "x": -3.9,
+      "y": 11.7,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_SCHOLAR"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_X5",
+      "x": -4.8,
+      "y": 12.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_X4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_ENLIGHTEN",
+      "x": -5.6,
+      "y": 14.2,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_LOOT_X5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 30
+        },
+        {
+          "stat": "ATLAS_QUANTITY",
+          "value": -15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_E3",
+      "x": 0.0,
+      "y": 13.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_AMPLIFY"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_EFFECT",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_E4",
+      "x": -0.6,
+      "y": 15.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_E3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_EFFECT",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_RESONANCE",
+      "x": -1.0,
+      "y": 16.5,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_VAAL_E4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_EFFECT",
+          "value": 12
+        },
+        {
+          "stat": "ATLAS_VAAL_REWARD",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_E5",
+      "x": -1.2,
+      "y": 18.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_RESONANCE"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_CHANCE",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_E6",
+      "x": -1.0,
+      "y": 19.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_E5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_REWARD",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_W4",
+      "x": -0.6,
+      "y": 21.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_E6"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_CHANCE",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_KEY2",
+      "x": -0.2,
+      "y": 22.6,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_VAAL_W4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_REWARD",
+          "value": 40
+        },
+        {
+          "stat": "ATLAS_VAAL_CHANCE",
+          "value": 25
+        },
+        {
+          "stat": "ATLAS_MAP_EFFECT",
+          "value": -20
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_U3",
+      "x": -2.4,
+      "y": 17.2,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_RESONANCE"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_UNIQUE",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_U4",
+      "x": -3.3,
+      "y": 18.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_U3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_UNIQUE",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_TEMPLE",
+      "x": -3.6,
+      "y": 19.9,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_VAAL_U4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_UNIQUE",
+          "value": 30
+        },
+        {
+          "stat": "ATLAS_VAAL_CHANCE",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_U5",
+      "x": -4.3,
+      "y": 21.2,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_TEMPLE"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_REWARD",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_BLOODPACT",
+      "x": -4.6,
+      "y": 22.7,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_VAAL_U5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_VAAL_REWARD",
+          "value": 15
+        },
+        {
+          "stat": "ATLAS_VAAL_UNIQUE",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_M2",
+      "x": 6.9,
+      "y": 7.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_LEGION"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RARE_MONSTERS",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_M3",
+      "x": 7.2,
+      "y": 8.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_M2"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RARE_MONSTERS",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_WARBAND",
+      "x": 7.3,
+      "y": 10.0,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CONT_M3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RARE_MONSTERS",
+          "value": 12
+        },
+        {
+          "stat": "ATLAS_MONSTER_MODS",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_M4",
+      "x": 7.1,
+      "y": 11.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_WARBAND"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_PACK_SIZE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_M5",
+      "x": 6.9,
+      "y": 13.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_M4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_GAUNTLET",
+      "x": 6.8,
+      "y": 14.5,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CONT_M5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 8
+        },
+        {
+          "stat": "ATLAS_PACK_SIZE",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_M6",
+      "x": 6.7,
+      "y": 16.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_GAUNTLET"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_M7",
+      "x": 6.4,
+      "y": 17.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_M6"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RARE_MONSTERS",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_VETERAN",
+      "x": 6.1,
+      "y": 19.0,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CONT_M7"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 6
+        },
+        {
+          "stat": "ATLAS_RARE_MONSTERS",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_N3",
+      "x": 4.9,
+      "y": 13.7,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_ASCENT"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_NEXT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_N4",
+      "x": 5.1,
+      "y": 15.2,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_N3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_DROP",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_PATHFINDER",
+      "x": 5.0,
+      "y": 16.8,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CONT_N4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_NEXT",
+          "value": 25
+        },
+        {
+          "stat": "ATLAS_MAP_DROP",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_N5",
+      "x": 4.5,
+      "y": 18.2,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_PATHFINDER"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_PACK_SIZE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_N6",
+      "x": 3.8,
+      "y": 19.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_N5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_PACK_SIZE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_HORDE",
+      "x": 3.0,
+      "y": 20.8,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CONT_N6"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_PACK_SIZE",
+          "value": 10
+        },
+        {
+          "stat": "ATLAS_RARE_MONSTERS",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_N7",
+      "x": 2.3,
+      "y": 22.1,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_HORDE"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RARE_MONSTERS",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_KEY2",
+      "x": 2.0,
+      "y": 23.6,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_CONT_N7"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_PACK_SIZE",
+          "value": 25
+        },
+        {
+          "stat": "ATLAS_MONSTER_MODS",
+          "value": 1
+        },
+        {
+          "stat": "ATLAS_RARITY",
+          "value": -15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_T3",
+      "x": 3.0,
+      "y": 14.3,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_CARTEL"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CHEST_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_STRONGBOX",
+      "x": 3.2,
+      "y": 15.9,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CONT_T3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CHEST_LOOT",
+          "value": 20
+        },
+        {
+          "stat": "ATLAS_CHESTS",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_T5",
+      "x": 2.6,
+      "y": 17.3,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_STRONGBOX"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_CHEST_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_WELLSPRING",
+      "x": 1.8,
+      "y": 18.6,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CONT_T5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_FOUNTAINS",
+          "value": 1
+        },
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CONT_T6",
+      "x": 1.0,
+      "y": 20.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CONT_WELLSPRING"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_EXPERIENCE",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_S3",
+      "x": 8.4,
+      "y": 6.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_RELENTLESS"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_RESPAWN",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_S4",
+      "x": 9.1,
+      "y": 8.3,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_S3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_RESPAWN",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_HUNTSMAN",
+      "x": 9.5,
+      "y": 9.8,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSS_S4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_RESPAWN",
+          "value": 15
+        },
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_S5",
+      "x": 10.3,
+      "y": 11.1,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_HUNTSMAN"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_UNIQUE",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_S6",
+      "x": 10.5,
+      "y": 12.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_S5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_UNIQUE",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_REGALIA",
+      "x": 10.3,
+      "y": 14.1,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSS_S6"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_UNIQUE",
+          "value": 20
+        },
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_S7",
+      "x": 9.8,
+      "y": 15.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_REGALIA"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_S8",
+      "x": 9.2,
+      "y": 16.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_S7"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RECIPE",
+          "value": 25
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_FORGEMASTER",
+      "x": 8.5,
+      "y": 18.2,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSS_S8"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_RECIPE",
+          "value": 60
+        },
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_S9",
+      "x": 7.8,
+      "y": 19.5,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_FORGEMASTER"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_KEY2",
+      "x": 7.2,
+      "y": 20.9,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_BOSS_S9"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_UNIQUE",
+          "value": 50
+        },
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 25
+        },
+        {
+          "stat": "ATLAS_QUANTITY",
+          "value": -15
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_B3",
+      "x": 11.6,
+      "y": 15.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_REGALIA"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_B4",
+      "x": 12.1,
+      "y": 16.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_B3"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_UNIQUE",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_WARCHEST",
+      "x": 12.0,
+      "y": 17.9,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSS_B4"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_LOOT",
+          "value": 25
+        },
+        {
+          "stat": "ATLAS_GOLD",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_B5",
+      "x": 11.7,
+      "y": 19.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_WARCHEST"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_RESPAWN",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_B6",
+      "x": 11.1,
+      "y": 20.8,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSS_B5"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_UNIQUE",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSS_APEX",
+      "x": 10.4,
+      "y": 22.2,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSS_B6"
+      ],
+      "effects": [
+        {
+          "stat": "ATLAS_BOSS_UNIQUE",
+          "value": 15
+        },
+        {
+          "stat": "ATLAS_BOSS_RESPAWN",
+          "value": 10
         }
       ]
     }

@@ -6707,6 +6707,1086 @@
     },
     {
       "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_SALT_FLATS",
+      "rarity": "COMMON",
+      "itemLevel": 25,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_CARAVAN_ROAD",
+      "rarity": "COMMON",
+      "itemLevel": 25,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_RED_GORGE",
+      "rarity": "COMMON",
+      "itemLevel": 25,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_SINGING_DUNES",
+      "rarity": "COMMON",
+      "itemLevel": 27,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_BURIED_CITY",
+      "rarity": "COMMON",
+      "itemLevel": 27,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_VULTURE_ROOST",
+      "rarity": "COMMON",
+      "itemLevel": 27,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_WITHERED_OASIS",
+      "rarity": "COMMON",
+      "itemLevel": 27,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_GLASS_DESERT",
+      "rarity": "COMMON",
+      "itemLevel": 29,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_RAIDER_CAMP",
+      "rarity": "COMMON",
+      "itemLevel": 29,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_SCORPION_NEST",
+      "rarity": "COMMON",
+      "itemLevel": 29,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_MIRAGE_VALE",
+      "rarity": "COMMON",
+      "itemLevel": 31,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_TOMBS_OF_KINGS",
+      "rarity": "COMMON",
+      "itemLevel": 31,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_SANDSTONE_ARCH",
+      "rarity": "COMMON",
+      "itemLevel": 31,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_DRY_RIVERBED",
+      "rarity": "COMMON",
+      "itemLevel": 31,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_EMBALMERS_HALL",
+      "rarity": "COMMON",
+      "itemLevel": 33,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_SUN_TEMPLE",
+      "rarity": "COMMON",
+      "itemLevel": 33,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_STORM_MESA",
+      "rarity": "COMMON",
+      "itemLevel": 33,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C3_SUN_KINGS_PYRAMID",
+      "rarity": "COMMON",
+      "itemLevel": 35,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_JUNGLE_EDGE",
+      "rarity": "COMMON",
+      "itemLevel": 37,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_MANGROVE_DELTA",
+      "rarity": "COMMON",
+      "itemLevel": 37,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_OVERGROWN_ROAD",
+      "rarity": "COMMON",
+      "itemLevel": 37,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_ORCHID_GLADE",
+      "rarity": "COMMON",
+      "itemLevel": 39,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_PANTHER_TRAIL",
+      "rarity": "COMMON",
+      "itemLevel": 39,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_WASP_HOLLOW",
+      "rarity": "COMMON",
+      "itemLevel": 39,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_STRANGLER_GROVE",
+      "rarity": "COMMON",
+      "itemLevel": 39,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_SERPENT_SHRINE",
+      "rarity": "COMMON",
+      "itemLevel": 41,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_AMBER_TUNNELS",
+      "rarity": "COMMON",
+      "itemLevel": 41,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_WEEPING_CANOPY",
+      "rarity": "COMMON",
+      "itemLevel": 41,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_FUNGAL_LOWLANDS",
+      "rarity": "COMMON",
+      "itemLevel": 43,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_LOST_EXPEDITION",
+      "rarity": "COMMON",
+      "itemLevel": 43,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_BROOD_CHAMBERS",
+      "rarity": "COMMON",
+      "itemLevel": 43,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_FLOODED_THICKET",
+      "rarity": "COMMON",
+      "itemLevel": 43,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_GREAT_TREE",
+      "rarity": "COMMON",
+      "itemLevel": 45,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_MANTIS_GARDENS",
+      "rarity": "COMMON",
+      "itemLevel": 45,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_ROYAL_COMBS",
+      "rarity": "COMMON",
+      "itemLevel": 45,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C4_HIVE_HEART",
+      "rarity": "COMMON",
+      "itemLevel": 47,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_SCORCHED_FOOTHILLS",
+      "rarity": "COMMON",
+      "itemLevel": 49,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_BRIMSTONE_MINES",
+      "rarity": "COMMON",
+      "itemLevel": 49,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_FRONTIER_FORT",
+      "rarity": "COMMON",
+      "itemLevel": 49,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_LAVA_FIELDS",
+      "rarity": "COMMON",
+      "itemLevel": 51,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_OBSIDIAN_SPIRES",
+      "rarity": "COMMON",
+      "itemLevel": 51,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_SMELTERY",
+      "rarity": "COMMON",
+      "itemLevel": 51,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_SIEGE_CAMP",
+      "rarity": "COMMON",
+      "itemLevel": 51,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_ASHFALL_VALLEY",
+      "rarity": "COMMON",
+      "itemLevel": 53,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_MAGMA_RIVER",
+      "rarity": "COMMON",
+      "itemLevel": 53,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_OUTER_WALLS",
+      "rarity": "COMMON",
+      "itemLevel": 53,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_CALDERA_LAKE",
+      "rarity": "COMMON",
+      "itemLevel": 55,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_CINDER_WASTES",
+      "rarity": "COMMON",
+      "itemLevel": 55,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_WAR_FORGES",
+      "rarity": "COMMON",
+      "itemLevel": 55,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_BURNING_BARRACKS",
+      "rarity": "COMMON",
+      "itemLevel": 55,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_DRAGONS_VENT",
+      "rarity": "COMMON",
+      "itemLevel": 57,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_INFERNAL_GATE",
+      "rarity": "COMMON",
+      "itemLevel": 57,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_MOLTEN_CORE",
+      "rarity": "COMMON",
+      "itemLevel": 57,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C5_FLAME_CITADEL",
+      "rarity": "COMMON",
+      "itemLevel": 59,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_RIFT_EDGE",
+      "rarity": "COMMON",
+      "itemLevel": 61,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_BLIGHTED_FIELDS",
+      "rarity": "COMMON",
+      "itemLevel": 61,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_FORSAKEN_ABBEY",
+      "rarity": "COMMON",
+      "itemLevel": 61,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_WHISPERING_CHASM",
+      "rarity": "COMMON",
+      "itemLevel": 63,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_ROTTING_ORCHARD",
+      "rarity": "COMMON",
+      "itemLevel": 63,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_PLAGUE_VILLAGE",
+      "rarity": "COMMON",
+      "itemLevel": 63,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_OSSUARY",
+      "rarity": "COMMON",
+      "itemLevel": 63,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_VOID_SHORE",
+      "rarity": "COMMON",
+      "itemLevel": 65,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_SPORE_CATHEDRAL",
+      "rarity": "COMMON",
+      "itemLevel": 65,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_FALLEN_STAR",
+      "rarity": "COMMON",
+      "itemLevel": 65,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_CATACOMB_MAW",
+      "rarity": "COMMON",
+      "itemLevel": 67,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_WITHERED_WOOD",
+      "rarity": "COMMON",
+      "itemLevel": 67,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_ECLIPSE_ALTAR",
+      "rarity": "COMMON",
+      "itemLevel": 67,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_STARLESS_DEEP",
+      "rarity": "COMMON",
+      "itemLevel": 67,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_ROTTEN_HEART",
+      "rarity": "COMMON",
+      "itemLevel": 69,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_VEIL_OF_SHADOWS",
+      "rarity": "COMMON",
+      "itemLevel": 69,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_ENDLESS_STAIR",
+      "rarity": "COMMON",
+      "itemLevel": 69,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
+      "slot": "MAP",
+      "code": "MAP_C6_ABYSSAL_THRONE",
+      "rarity": "COMMON",
+      "itemLevel": 70,
+      "requiredLevel": 1,
+      "requiredStrength": 0,
+      "requiredDexterity": 0,
+      "requiredIntelligence": 0,
+      "baseParams": [],
+      "modifierPools": [
+        "map"
+      ]
+    },
+    {
+      "type": "accessory",
       "slot": "TOOL_MINING",
       "code": "BRONZE_PICKAXE",
       "rarity": "COMMON",

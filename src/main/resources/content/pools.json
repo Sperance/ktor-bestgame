@@ -2300,6 +2300,22 @@
       "LEVIATHANS_MAW": 100,
       "UNYIELDING_BASTION": 100
     },
+    "boss:BOSS_SUN_KING": {
+      "SUN_KINGS_DIADEM": 100,
+      "SANDS_OF_ETERNITY": 100
+    },
+    "boss:BOSS_HIVE_QUEEN": {
+      "QUEENS_STINGER": 100,
+      "HIVEMIND_CARAPACE": 100
+    },
+    "boss:BOSS_FLAME_SOVEREIGN": {
+      "SOVEREIGNS_BRAND": 100,
+      "MOLTEN_AEGIS": 100
+    },
+    "boss:BOSS_ABYSS_KING": {
+      "CROWN_OF_THE_ABYSS": 100,
+      "VOIDHEART": 100
+    },
     "unique:smith": {
       "FORGEMASTERS_VISAGE": 100,
       "ANVILHEART_PLATE": 100,

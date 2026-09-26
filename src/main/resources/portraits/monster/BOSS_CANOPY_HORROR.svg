@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#161a22"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#3a6a2a" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#3a6a2a" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#3a6a2a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="chitin" gradientUnits="userSpaceOnUse" cx="150" cy="190" r="120">
+      <stop offset="0" stop-color="#4a3a3a"/>
+      <stop offset="1" stop-color="#140e10"/>
+    </radialGradient>
+    <linearGradient id="bossgold" gradientUnits="userSpaceOnUse" x1="150" y1="34" x2="150" y2="110">
+      <stop offset="0" stop-color="#e6f0b0"/>
+      <stop offset="1" stop-color="#4a5a1a"/>
+    </linearGradient>
+    <radialGradient id="bossaura" gradientUnits="userSpaceOnUse" cx="150" cy="180" r="220">
+      <stop offset="0.45" stop-color="#7fbf4a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#7fbf4a" stop-opacity="0.55"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M90 150 L30 100 L5 180" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 200 L15 150 L-10 230" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 260 L10 210 L-15 290" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 320 L20 270 L-5 350" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 150 L270 100 L295 180" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 200 L285 150 L310 230" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 260 L290 210 L315 290" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 320 L280 270 L305 350" fill="none" stroke="#241a1c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="150" cy="330" rx="90" ry="80" fill="url(#chitin)"/>
+  <path d="M92 200 Q92 130 150 124 Q208 130 208 200 Q208 260 150 276 Q92 260 92 200 Z" fill="url(#chitin)"/>
+  <circle cx="134" cy="176" r="9" fill="#9dff5a"/>
+  <circle cx="131.3" cy="173.3" r="2.6999999999999997" fill="#ffd0c0"/>
+  <circle cx="166" cy="176" r="9" fill="#9dff5a"/>
+  <circle cx="163.3" cy="173.3" r="2.6999999999999997" fill="#ffd0c0"/>
+  <circle cx="118" cy="164" r="6" fill="#9dff5a"/>
+  <circle cx="116.2" cy="162.2" r="1.7999999999999998" fill="#ffd0c0"/>
+  <circle cx="182" cy="164" r="6" fill="#9dff5a"/>
+  <circle cx="180.2" cy="162.2" r="1.7999999999999998" fill="#ffd0c0"/>
+  <circle cx="128" cy="150" r="4" fill="#9dff5a"/>
+  <circle cx="126.8" cy="148.8" r="1.2" fill="#ffd0c0"/>
+  <circle cx="172" cy="150" r="4" fill="#9dff5a"/>
+  <circle cx="170.8" cy="148.8" r="1.2" fill="#ffd0c0"/>
+  <circle cx="142" cy="196" r="4" fill="#9dff5a"/>
+  <circle cx="140.8" cy="194.8" r="1.2" fill="#ffd0c0"/>
+  <circle cx="158" cy="196" r="4" fill="#9dff5a"/>
+  <circle cx="156.8" cy="194.8" r="1.2" fill="#ffd0c0"/>
+  <path d="M130 240 Q126 272 138 282 Q138 262 144 248 Z" fill="#8a6a5a"/>
+  <path d="M170 240 Q174 272 162 282 Q162 262 156 248 Z" fill="#8a6a5a"/>
+
+  <rect x="0" y="0" width="300" height="400" fill="url(#bossaura)"/>
+  <path d="M98 96 Q150 80 202 96 L200 106 Q150 90 100 106 Z" fill="url(#bossgold)"/>
+  <circle cx="150" cy="86" r="6" fill="#9dff5a"/>
+  <circle cx="118" cy="93" r="3.5" fill="#9dff5a"/>
+  <circle cx="182" cy="93" r="3.5" fill="#9dff5a"/>
+  <rect x="3" y="3" width="294" height="394" fill="none" stroke="#af6025" stroke-width="6" opacity="0.8"/>
+</svg>
