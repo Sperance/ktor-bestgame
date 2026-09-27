@@ -70,9 +70,6 @@ data class PowerBook(val powers: List<Power> = emptyList()) {
         worldPowers.filter { power -> power.world!!.gain == kind && (power.world.against.isEmpty() || rarity?.name in power.world.against) }
             .sumOf { sheet[it.stat] ?: 0.0 }
 
-    fun worldChance(sheet: Map<String, Double>, kind: WorldKind, chance: Double, rarity: MonsterRarity? = null): Double =
-        chance * (1 + worldBonus(sheet, kind, rarity) / 100)
-
     companion object {
         private val AMOUNTED = setOf(PowerAct.HEAL, PowerAct.HURT, PowerAct.BARRIER, PowerAct.DAMAGE, PowerAct.EXECUTE, PowerAct.CHARGES, PowerAct.COOLDOWNS)
         private val TIMED = setOf(PowerAct.BUFF, PowerAct.HEX, PowerAct.BARRIER, PowerAct.STUN, PowerAct.DELAY, PowerAct.INVULNERABLE)

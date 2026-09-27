@@ -6,8 +6,6 @@ import io.ktor.server.routing.path
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import org.bson.types.ObjectId
-import java.security.MessageDigest
 import kotlin.time.Clock
 import kotlin.time.Instant
 
@@ -19,16 +17,6 @@ fun printLog(text: Any? = "", system: Boolean = false) {
 }
 
 fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime(TimeZone.UTC)
-
-/**
- * Детерминированный ObjectId, выведенный из строки.
- *
- * Нужен сидерам: пересев справочника не должен ломать ссылки на его записи.
- */
-fun String.toStableObjectId(): String =
-    ObjectId(MessageDigest.getInstance("MD5").digest(toByteArray()).copyOf(12)).toHexString()
-
-fun Double.to1Digits() = String.format("%.1f", this).replace(",", ".").toDouble()
 
 fun formatTimestamp(timestamp: Long): String {
     // Преобразуем Long в Instant

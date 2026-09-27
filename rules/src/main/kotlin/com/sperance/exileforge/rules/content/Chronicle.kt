@@ -37,8 +37,6 @@ object Counter {
 
     /** Рекорды: пишется наибольшее значение, а не сумма. */
     val MAX = setOf(ABYSS_DEPTH)
-    /** Выводятся из героя: уровень, пройденные зоны, узлы атласа. */
-    val DERIVED = setOf(LEVEL, ZONES, ATLAS)
 
     /** Все счётчики по разделам летописи, в порядке показа. */
     val SECTIONS: Map<String, List<String>> = linkedMapOf(

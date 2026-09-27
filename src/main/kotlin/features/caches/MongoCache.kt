@@ -54,12 +54,6 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
 
     override fun findById(id: String): T? = snapshot.get().byId[id]
 
-    /** Записи по списку id, в порядке переданных id; неизвестные пропускаются. */
-    fun findAllById(ids: Collection<String>): List<T> {
-        val byId = snapshot.get().byId
-        return ids.mapNotNull { byId[it] }
-    }
-
     /** Текущий снимок: только чтение, писать в него нельзя. */
     override fun getCache(): List<T> = snapshot.get().items
 
@@ -68,12 +62,6 @@ abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository
     private fun replace(transform: (List<T>) -> List<T>) {
         snapshot.updateAndGet { current -> Snapshot(transform(current.items), current.revision + 1) }
     }
-
-    /** Индекс «ключ -> запись» ([key] уникален в справочнике), например по коду. */
-    protected fun <K> uniqueIndex(key: (T) -> K): Derived<Map<K, T>> = derived { items -> items.associateBy(key) }
-
-    /** Индекс «ключ -> записи» в порядке кеша, например по слоту или категории. */
-    protected fun <K> groupIndex(key: (T) -> K): Derived<Map<K, List<T>>> = derived { items -> items.groupBy(key) }
 
     /**
      * Производный индекс: [build] запускается при первом чтении на новой ревизии,

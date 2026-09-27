@@ -739,10 +739,11 @@ def stat_glass(sprite, hue):
     return {"viewBox": sprite["viewBox"], "style": "glass", "paths": out}
 
 
-def stats(sprites):
+def stats(sprites, wanted):
     """Converts every mono sprite in place; the mono originals are kept beside this script as the source."""
     source = json.loads(MONO_SOURCE.read_text()) if MONO_SOURCE.exists() else {}
     source.update({k: v for k, v in sprites.items() if not k.startswith(PREFIX) and v.get("style", "mono") == "mono"})
+    source = {k: v for k, v in source.items() if k in wanted}
     MONO_SOURCE.write_text(json.dumps(source, ensure_ascii=False, indent=2) + "\n")
     for name, sprite in source.items():
         sprites[name] = stat_glass(sprite, STAT_HUE.get(name, "#d9a53a"))
@@ -804,10 +805,17 @@ def main():
     target = RES / "icons/icons.json"
     doc = json.loads(target.read_text())
     sprites = {k: v for k, v in doc["sprites"].items() if not k.startswith(PREFIX)}
-    stats(sprites)
-    sprites.update(atlas.sprites)
     icons = dict(doc["icons"])
     icons.update(atlas.keys)
+    # A key for a code the content no longer has, and a drawing nobody names, are dropped.
+    stat_codes = set(re.findall(r'"code"\s*:\s*"([^"]+)"', (content / "stats.json").read_text()))
+    known = {"equipment": {t["code"] for t in templates}, "item": {i["code"] for i in items}, "stat": stat_codes}
+    icons = {k: v for k, v in icons.items() if k.split(".", 1)[0] not in known or k.split(".", 1)[1] in known[k.split(".", 1)[0]]}
+    named = set(re.findall(r'"icon"\s*:\s*"([^"]+)"', "".join(f.read_text() for f in content.glob("*.json"))))
+    wanted = set(icons.values()) | named
+    stats(sprites, wanted)
+    sprites.update(atlas.sprites)
+    sprites = {k: v for k, v in sprites.items() if k in wanted}
     target.write_text(json.dumps({"sprites": sprites, "icons": icons}, ensure_ascii=False, indent=2) + "\n")
     print(f"glass sprites: {len(atlas.sprites)}, keys: {len(atlas.keys)}, total sprites: {len(sprites)}")
 

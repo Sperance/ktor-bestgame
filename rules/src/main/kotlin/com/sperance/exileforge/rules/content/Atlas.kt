@@ -126,9 +126,6 @@ class AtlasBonuses(val effects: Map<String, Double> = emptyMap()) {
     val vaalReward get() = this[AtlasStat.VAAL_REWARD.code]
     val vaalMinMods get() = this[AtlasStat.VAAL_MIN_MODS.code].toInt()
     val chests get() = this[AtlasStat.CHESTS.code].toInt()
-    val mapNext get() = this[AtlasStat.MAP_NEXT.code]
-    val mapRare get() = this[AtlasStat.MAP_RARE.code]
-    val mapAffix get() = this[AtlasStat.MAP_AFFIX.code]
     val bossLoot get() = this[AtlasStat.BOSS_LOOT.code]
     val chestLoot get() = this[AtlasStat.CHEST_LOOT.code]
     val gold get() = this[AtlasStat.GOLD.code]
@@ -139,16 +136,13 @@ class AtlasBonuses(val effects: Map<String, Double> = emptyMap()) {
     val crystals get() = this[AtlasStat.CRYSTALS.code].toInt()
     val crystalsMore get() = this[AtlasStat.CRYSTALS_MORE.code]
     val books get() = this[AtlasStat.BOOKS.code]
-    val booksOwn get() = this[AtlasStat.BOOKS_OWN.code]
     val abyssChance get() = this[AtlasStat.ABYSS_CHANCE.code]
     val abyssExtra get() = this[AtlasStat.ABYSS_EXTRA.code]
     val abyssDepth get() = this[AtlasStat.ABYSS_DEPTH.code].toInt()
     val extraRareMods get() = this[AtlasStat.MONSTER_MODS.code].toInt()
 
     fun recipeChance(chance: Double) = chance * relative(AtlasStat.RECIPE.code)
-    fun vaalUniqueChance(chance: Double) = chance * relative(AtlasStat.VAAL_UNIQUE.code)
     fun mapChance(chance: Double) = chance * relative(AtlasStat.MAP_DROP.code)
-    fun bossUniqueChance(chance: Double) = chance * relative(AtlasStat.BOSS_UNIQUE.code)
     fun bossRespawnHours(hours: Double) = hours * (1 - this[AtlasStat.BOSS_RESPAWN.code].coerceIn(0.0, RESPAWN_CAP) / 100)
 
     private fun relative(stat: String) = (1 + this[stat] / 100).coerceAtLeast(0.0)

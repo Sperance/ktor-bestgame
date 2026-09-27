@@ -17,7 +17,6 @@ object CharacterExceptions {
     fun funExceptionEquipmentNotFound(errorMethod: String, value: String? = "") = CharacterException("Equipment with id $value not found", errorMethod, "CH_007", listOf(value.orEmpty()))
     fun funExceptionItemNotFound(errorMethod: String, value: String? = "") = CharacterException("Item with id $value not found", errorMethod, "CH_008", listOf(value.orEmpty()))
     fun funExceptionItemLowZero(errorMethod: String, value: String? = "") = CharacterException("Amount of item $value is less than zero", errorMethod, "CH_009", listOf(value.orEmpty()))
-    fun funExceptionItemOverAmount(errorMethod: String, value: String? = "") = CharacterException("Very big amount of item $value", errorMethod, "CH_010", listOf(value.orEmpty()))
     fun funExceptionRequirements(errorMethod: String, value: String? = "") = CharacterException("Equipment requirements are not met ($value)", errorMethod, "CH_013", listOf(value.orEmpty()))
     fun funExceptionSellEquipped(errorMethod: String, value: String? = "") = CharacterException("Item $value must be unequipped before it is sold", errorMethod, "CH_014", listOf(value.orEmpty()))
     fun funExceptionGold(errorMethod: String, value: String? = "") = CharacterException("Not enough gold: $value needed", errorMethod, "CH_016", listOf(value.orEmpty()))

@@ -1,7 +1,5 @@
 package com.sperance.exileforge.rules.content
 
-import com.sperance.exileforge.rules.fail
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -54,9 +52,7 @@ data class Effect(
     val op: Op = Op.ADD,
     val perStat: String? = null,
     val perAmount: Double = 1.0,
-) {
-    val conversion: Boolean get() = perStat != null
-}
+)
 
 /** Диапазон `[min, max]` одного эффекта в тире. */
 typealias Range = List<Double>
@@ -215,10 +211,7 @@ data class ModifierDef(
     /** Группа исключения: два описания одной группы на одном носителе не встают. */
     val groupKey: String get() = group ?: family
     val affix: Boolean get() = source.affix
-    /** Катается ли сферами из таблиц носителя: аффикс без влияния и не верстачный. */
-    val naturalAffix: Boolean get() = affix && influence == null && !crafted
     val monster: Boolean get() = source == Source.MONSTER
-    val composite: Boolean get() = effects.size > 1
     val rolls: Boolean get() = tiers.isNotEmpty()
 
     fun tier(number: Int): Tier? = tiers.getOrNull(number - 1)

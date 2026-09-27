@@ -26,9 +26,6 @@ class Menagerie(private val index: ContentIndex) {
 
     fun species(code: String): PetSpecies? = species[code]
 
-    /** Яйцо зоны биома [biome]. */
-    fun eggOf(biome: String): String? = file.eggs[biome]
-
     fun isEgg(code: String): Boolean = code in file.eggs.values
 
     fun orb(code: String): PetOrbAction? = file.orbs[code]

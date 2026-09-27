@@ -12,6 +12,3 @@ val RulesJson: Json = Json {
     explicitNulls = false
     isLenient = true
 }
-
-/** Тот же JSON с отступами - для файлов контента, которые правят руками. */
-val PrettyJson: Json = Json(RulesJson) { prettyPrint = true; prettyPrintIndent = "  " }

@@ -22,7 +22,6 @@ class AffixRoller(private val index: ContentIndex) {
     fun isAffix(roll: Roll): Boolean = definition(roll)?.affix == true
     fun isEssence(roll: Roll): Boolean = definition(roll)?.source == Source.ESSENCE
     fun isCrafted(roll: Roll): Boolean = definition(roll)?.crafted == true
-    fun isLocal(roll: Roll): Boolean = definition(roll)?.local == true
     fun affixes(rolls: Collection<Roll>): List<Roll> = rolls.filter(::isAffix)
     /** Постоянные строки копии: всё, что не аффикс и не строка эссенции. */
     fun permanent(rolls: Collection<Roll>): List<Roll> = rolls.filterNot { isAffix(it) || isEssence(it) }

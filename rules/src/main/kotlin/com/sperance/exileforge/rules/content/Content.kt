@@ -4,7 +4,6 @@ import com.sperance.exileforge.rules.ContentException
 import com.sperance.exileforge.rules.RulesJson
 import com.sperance.exileforge.rules.fail
 import com.sperance.exileforge.rules.roll.Dice
-import com.sperance.exileforge.rules.table.Ref
 import com.sperance.exileforge.rules.table.TableKind
 import com.sperance.exileforge.rules.table.TableSet
 import com.sperance.exileforge.rules.table.TablesFile
@@ -161,7 +160,6 @@ class ContentIndex(val content: Content) {
     private val templatePools = ConcurrentHashMap<List<String>, List<Weighted<ItemTemplate>>>()
 
     fun modifier(code: String): ModifierDef? = byCode[code]
-    fun requireModifier(code: String): ModifierDef = byCode[code] ?: fail("unknown modifier $code")
     fun template(code: String): ItemTemplate? = templates[code]
     fun item(code: String): Item? = items[code]
     fun monster(code: String): Monster? = monsters[code]
