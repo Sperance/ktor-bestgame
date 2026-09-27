@@ -8,7 +8,8 @@
         "STOCK_AGILITY": 14.0,
         "STOCK_INTELLECT": 14.0,
         "STOCK_MANA": 35
-      }
+      },
+      "weapon": "STONE_AXE"
     },
     {
       "code": "RANGER",
@@ -18,7 +19,8 @@
         "STOCK_AGILITY": 32.0,
         "STOCK_INTELLECT": 14.0,
         "STOCK_MANA": 45
-      }
+      },
+      "weapon": "CRUDE_BOW"
     },
     {
       "code": "WITCH",
@@ -28,7 +30,8 @@
         "STOCK_AGILITY": 14.0,
         "STOCK_INTELLECT": 32.0,
         "STOCK_MANA": 65
-      }
+      },
+      "weapon": "DRIFTWOOD_WAND"
     },
     {
       "code": "DUELIST",
@@ -38,7 +41,8 @@
         "STOCK_AGILITY": 23.0,
         "STOCK_INTELLECT": 14.0,
         "STOCK_MANA": 40
-      }
+      },
+      "weapon": "RUSTED_SWORD"
     },
     {
       "code": "TEMPLAR",
@@ -48,7 +52,8 @@
         "STOCK_AGILITY": 14.0,
         "STOCK_INTELLECT": 23.0,
         "STOCK_MANA": 55
-      }
+      },
+      "weapon": "RUSTED_HATCHET"
     },
     {
       "code": "SHADOW",
@@ -58,7 +63,8 @@
         "STOCK_AGILITY": 23.0,
         "STOCK_INTELLECT": 23.0,
         "STOCK_MANA": 55
-      }
+      },
+      "weapon": "RUSTED_SPIKE"
     },
     {
       "code": "SCION",
@@ -68,7 +74,8 @@
         "STOCK_AGILITY": 20.0,
         "STOCK_INTELLECT": 20.0,
         "STOCK_MANA": 50
-      }
+      },
+      "weapon": "CORRODED_BLADE"
     }
   ],
   "experience": [

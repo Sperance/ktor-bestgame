@@ -47,12 +47,14 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     /**
      * Перед каждой записью героя его копии сверяются с контентом (1.1.0): пропавшие описания уходят,
      * закреплённые строки дороллены, волшебная и редкая доведены до дна редкости. Какой бы путь ни
-     * принёс вещь - выдача администратора, старый документ, правка контента, - пустой она не ляжет.
+     * принёс вещь - выдача администратора, старый документ, правка контента, витрина торговца, - пустой
+     * она не ляжет.
      */
     override suspend fun settle(entity: Hero) {
         val factory = ItemFactory(index)
         val dice by lazy { Dice.system() }
-        (entity.items.asSequence() + entity.overflow.asSequence()).forEach { item -> index.template(item.template)?.let { factory.reconcile(it, item, dice) } }
+        (entity.items.asSequence() + entity.overflow.asSequence() + entity.merchant?.offers.orEmpty().asSequence().map { it.item })
+            .forEach { item -> index.template(item.template)?.let { factory.reconcile(it, item, dice) } }
     }
 
     override suspend fun validateBeforeInsert(entity: Hero, session: ClientSession) {
@@ -106,9 +108,9 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
 }
 
 /**
- * Стартовый набор нового героя: узел класса, первые умения, сферы, фляга на поясе, инструмент каждой
- * профессии в своём слоте и по вещи на редкость правила. Заполняет только пустое - администратор
- * может прислать героя готовым.
+ * Стартовый набор нового героя: узел класса, первые умения, сферы, оружие класса в руках, фляга на
+ * поясе, инструмент каждой профессии в своём слоте и по вещи на редкость правила. Заполняет только
+ * пустое - администратор может прислать героя готовым.
  */
 object Starter {
     fun grant(hero: Hero, index: ContentIndex, heroClass: HeroClass) {
@@ -121,6 +123,10 @@ object Starter {
         if (hero.items.isNotEmpty()) return
         index.template(index.rules.flasks.starter)?.let { flask ->
             hero.items += factory.create(Hero.newItemId(), flask, flask.rarity, dice).also { it.slot = Slot.FLASK }
+        }
+        // Оружие класса - обычное, надетое сразу (1.2.0): герой не выходит на первую карту с пустыми руками
+        index.template(heroClass.weapon)?.let { weapon ->
+            hero.items += factory.create(Hero.newItemId(), weapon, Rarity.COMMON, dice).also { it.slot = weapon.slot }
         }
         index.professions.professions.forEach { profession ->
             index.templatesBySlot[profession.tool]?.firstOrNull { it.code.startsWith(rules.toolPrefix) }?.let { tool ->

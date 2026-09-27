@@ -58,10 +58,15 @@ class MerchantService : KoinComponent {
         val (flasks, gear) = index.templatePool(rules.tables).partition { it.value.slot.isFlask }
         val near = gear.filter { it.value.requiredLevel in (level - rules.levelSpread)..(level + rules.levelSpread) }
             .ifEmpty { gear.filter { it.value.requiredLevel <= level + rules.levelSpread } }
+        // Волшебная и редкая на витрине не бывает пустой: шаблон, чья таблица не дотягивает до дна редкости,
+        // заменяется другим, а после нескольких неудач торговец выкладывает вещь обычной
         fun offer(from: List<com.sperance.exileforge.rules.table.Weighted<ItemTemplate>>): MerchantOffer {
-            val template = Tables.draw(from, dice) ?: from.first().value
             val rarity = Tables.value<Rarity>(index.tables, rules.rarities, dice) ?: Rarity.COMMON
-            val item = factory.create(Hero.newItemId(), template, rarity, dice)
+            val (template, item) = (1..OFFER_TRIES).asSequence().map {
+                val template = Tables.draw(from, dice) ?: from.first().value
+                template to factory.create(Hero.newItemId(), template, rarity, dice)
+            }.firstOrNull { (template, item) -> factory.meetsFloor(template, item) }
+                ?: (Tables.draw(from, dice) ?: from.first().value).let { it to factory.create(Hero.newItemId(), it, Rarity.COMMON, dice) }
             return MerchantOffer(item.id, item, SellPrice.of(index, template, item.rarity, item.rolls.size, emptyMap()) * rules.markup)
         }
         val offers = if (near.isEmpty()) emptyList() else List(dice.between(rules.minOffers, rules.maxOffers)) { offer(near) }
@@ -82,5 +87,10 @@ class MerchantService : KoinComponent {
         Stash.receive(hero, offer.item, index)
         heroes.save(hero, method)
         return MerchantPurchase(offer.item, hero.money)
+    }
+
+    private companion object {
+        /** Сколько шаблонов торговец перебирает, прежде чем выложить вещь обычной. */
+        const val OFFER_TRIES = 8
     }
 }

@@ -107,11 +107,15 @@ data class MapRule(
     val rarities: String = "rarity:map",
 )
 
-/** Боссы: страж выхода; [tables] - таблицы мировых уникалок, [modifiers] - таблицы их строк. */
+/**
+ * Боссы: страж выхода; [tables] - таблицы мировых уникалок, [modifiers] - таблицы их строк; [goldShare] и
+ * [orbShare] - доля золота и ожидаемого числа сфер с его таблицы добычи (1.2.0: босс платил слишком щедро).
+ */
 @Serializable
 data class BossRule(
     val respawnHours: Double, val uniqueChance: Double, val ownUniqueChance: Double, val behaviour: BehaviourRule,
     val tables: List<String> = emptyList(), val modifiers: List<String> = listOf("boss"), val rolls: List<Int> = listOf(1, 2), val tierReach: Int = 5,
+    val goldShare: Double = 1.0, val orbShare: Double = 1.0,
 )
 
 @Serializable

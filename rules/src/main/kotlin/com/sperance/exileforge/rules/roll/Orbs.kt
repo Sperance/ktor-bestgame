@@ -38,7 +38,8 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         if (if (template.slot.isFlask) orb !in rules.flasks.orbs else orb.flaskOnly) throw RuleViolation("CR_027", listOf(orbName(orb), name(template)))
         return when (orb) {
             Orb.ORB_OF_TRANSMUTATION -> upgrade(item, template, Rarity.COMMON, Rarity.UNCOMMON, dice)
-            Orb.ORB_OF_ALCHEMY -> upgrade(item, template, Rarity.COMMON, Rarity.RARE, dice)
+            // Алхимия катит от дна редкой до потолка без одного: полный набор - только сферами сверху и ремеслом
+            Orb.ORB_OF_ALCHEMY -> upgrade(item, template, Rarity.COMMON, Rarity.RARE, dice, below = 1)
             Orb.ORB_OF_ALTERATION -> reroll(item, template, Rarity.UNCOMMON, dice)
             Orb.CHAOS_ORB -> reroll(item, template, Rarity.RARE, dice)
             Orb.ORB_OF_AUGMENTATION -> augment(item, template, Rarity.UNCOMMON, dice)
@@ -88,10 +89,10 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         return outcome(item, template, "currency.essence", essenceName)
     }
 
-    private fun upgrade(item: ItemInstance, template: ItemTemplate, from: Rarity, to: Rarity, dice: Dice): OrbOutcome {
+    private fun upgrade(item: ItemInstance, template: ItemTemplate, from: Rarity, to: Rarity, dice: Dice, below: Int = 0): OrbOutcome {
         requireRarity(item, template, from)
         item.rarity = to
-        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, to, dice, item.influence)
+        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, to, dice, item.influence, below = below)
         return outcome(item, template, "currency.upgraded", LocaleKey.rarity(to), affixes.affixes(item.rolls).size.toString())
     }
 

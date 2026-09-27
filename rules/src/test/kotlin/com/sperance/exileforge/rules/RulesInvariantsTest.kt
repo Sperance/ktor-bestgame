@@ -55,6 +55,17 @@ class RulesInvariantsTest {
     }
 
     @Test
+    fun alchemyRollsFromTheFloorToOneBelowTheCeiling() {
+        val template = index.templates.values.first { it.rarity == Rarity.COMMON && it.tables.isNotEmpty() && !it.slot.isJewelLike }
+        val limits = index.limits(Rarity.RARE, template.slot)
+        val counts = (1L..200L).map { seed ->
+            val item = ItemInstance("i", template.code, Rarity.COMMON)
+            affixes(OrbApplier(index).apply(Orb.ORB_OF_ALCHEMY, item, template, Dice(seed)) { "new" }.item)
+        }.toSet()
+        assertEquals((limits.floor until limits.ceiling).toSet(), counts)
+    }
+
+    @Test
     fun aRunNeverPaysTheSameRewardTwice() {
         val zone = index.zones.values.first { it.boss.isNotBlank() && it.chestLoot.isNotBlank() }
         val context = RunContext("", zone.level)

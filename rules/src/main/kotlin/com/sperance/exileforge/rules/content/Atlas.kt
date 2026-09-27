@@ -143,7 +143,6 @@ class AtlasBonuses(val effects: Map<String, Double> = emptyMap()) {
     val abyssChance get() = this[AtlasStat.ABYSS_CHANCE.code]
     val abyssExtra get() = this[AtlasStat.ABYSS_EXTRA.code]
     val abyssDepth get() = this[AtlasStat.ABYSS_DEPTH.code].toInt()
-    val abyssKeep get() = this[AtlasStat.ABYSS_KEEP.code].coerceIn(0.0, 100.0)
     val extraRareMods get() = this[AtlasStat.MONSTER_MODS.code].toInt()
 
     fun recipeChance(chance: Double) = chance * relative(AtlasStat.RECIPE.code)

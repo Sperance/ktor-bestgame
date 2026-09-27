@@ -2,6 +2,7 @@ package com.sperance.exileforge.rules.roll
 
 import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Item
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Monster
 import com.sperance.exileforge.rules.content.Rarity
@@ -44,16 +45,17 @@ class LootRoller(private val index: ContentIndex) {
      * Броски по таблице добычи [tag]: количество - множитель шанса каждой строки, шанс больше единицы -
      * гарантированные выпадения и остаток шансом; золото растёт со спадом роста монстров.
      */
-    fun roll(tag: String, level: Int, rarity: RarityRule, quantity: Double, goldBonus: Double, dice: Dice): RolledLoot {
+    fun roll(tag: String, level: Int, rarity: RarityRule, quantity: Double, goldBonus: Double, dice: Dice, goldShare: Double = 1.0, orbShare: Double = 1.0): RolledLoot {
         val entries = index.tables.loot(tag).orEmpty()
         val goldRange = index.tables.gold(tag) ?: listOf(0L, 0L)
         val multiplier = rarity.quantity * (1 + quantity / 100)
-        val gold = dice.betweenLong(goldRange) * rules.goldGrowth.pow(campaign.growthTaper.steps(level)) * rarity.quantity * (1 + goldBonus / 100)
+        val gold = dice.betweenLong(goldRange) * rules.goldGrowth.pow(campaign.growthTaper.steps(level)) * rarity.quantity * (1 + goldBonus / 100) * goldShare
         val items = mutableMapOf<String, Long>()
         val equipment = mutableListOf<List<String>>()
         entries.forEach { entry ->
             val chance = entry.chance ?: return@forEach
-            repeat(dice.times(chance * multiplier)) {
+            val share = if (entry.kind == TableKind.ITEM && index.item(entry.code)?.category == Item.CURRENCY) orbShare else 1.0
+            repeat(dice.times(chance * multiplier * share)) {
                 when {
                     Ref.isTable(entry.ref) -> equipment += listOf(entry.code)
                     entry.kind == TableKind.ITEM -> items.merge(entry.code, dice.betweenLong(entry.amount ?: listOf(1L, 1L)), Long::plus)

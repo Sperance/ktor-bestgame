@@ -24944,18 +24944,6 @@
       ]
     },
     {
-      "code": "ATLAS_ABYSS_KEEP",
-      "source": "ATLAS",
-      "effects": [
-        {
-          "stat": "ATLAS_ABYSS_KEEP"
-        }
-      ],
-      "tags": [
-        "atlas"
-      ]
-    },
-    {
       "code": "ATLAS_ABYSS_ORBS",
       "source": "ATLAS",
       "effects": [

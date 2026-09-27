@@ -210,7 +210,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
         return grant(dice, template.loot, zone.level, rule, "b$n", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
-            book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass)
+            book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass, goldShare = bosses.goldShare, orbShare = bosses.orbShare)
     }
 
     /** Страж Ваал-зоны убит: своя таблица порчи с бонусом зоны и шанс уникалки порчи. */
@@ -281,12 +281,13 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         dice: Dice, table: String, level: Int, rule: RarityRule, event: String, experience: Double,
         extra: List<ItemTemplate> = emptyList(), mapChance: Double = 0.0, zoneBonus: VaalZone? = null, extraQuantity: Double = 0.0,
         extraItems: Map<String, Long> = emptyMap(), rare: Boolean = false, book: Double = 0.0, ownShare: Double = 0.0,
+        goldShare: Double = 1.0, orbShare: Double = 1.0,
     ): Reward {
         val bonus = context.bonus(rule.rarity)
         val active = context.active
         val quantity = bonus.quantity + (active?.quantity ?: 0.0) + (zoneBonus?.quantity ?: 0.0) + context[AtlasStat.QUANTITY.code] + extraQuantity
         val gold = bonus.gold + (active?.effects?.get(MapStat.GOLD.code) ?: 0.0) + context[AtlasStat.GOLD.code]
-        val rolled = loot.roll(table, level, rule, quantity, gold, dice)
+        val rolled = loot.roll(table, level, rule, quantity, gold, dice, goldShare, orbShare)
         val rarityBonus = rule.rarityBonus + bonus.rarity + (active?.rarity ?: 0.0) + (zoneBonus?.rarity ?: 0.0) + context[AtlasStat.RARITY.code]
         val templates = extra + rolled.equipment.mapNotNull { pools -> loot.pickFrom(pools, level, rarityBonus, dice) }
         val equipment = templates.mapIndexed { n, template -> factory.create(itemId("$event-$n"), template, template.rarity, dice) }.toMutableList()
@@ -311,7 +312,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     fun itemId(event: String): String = "r${java.lang.Long.toHexString(seed)}-$event"
 
     companion object {
-        const val PACK_CHANCE = 0.15
+        const val PACK_CHANCE = 0.20
         const val PACK_MAX = 3
         const val PACK_SLOTS = 8
         /** Глубин на одну копилку в потоке: номер копилки и глубина не пересекаются. */

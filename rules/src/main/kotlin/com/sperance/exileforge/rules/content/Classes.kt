@@ -4,8 +4,9 @@ import com.sperance.exileforge.rules.fail
 import kotlinx.serialization.Serializable
 
 /**
- * Класс героя (`classes.json`): база на первом уровне, прирост за уровень, стартовый узел дерева и
- * закреплённые строки - конверсии атрибутов, общие для всех классов.
+ * Класс героя (`classes.json`): база на первом уровне, прирост за уровень, стартовый узел дерева,
+ * закреплённые строки - конверсии атрибутов, общие для всех классов, - и [weapon], обычное оружие,
+ * которое новый герой класса получает надетым (1.2.0).
  */
 @Serializable
 data class HeroClass(
@@ -14,6 +15,7 @@ data class HeroClass(
     val base: Map<String, Double> = emptyMap(),
     val perLevel: Map<String, Double> = emptyMap(),
     val lines: List<Line> = emptyList(),
+    val weapon: String = "",
 ) {
     fun baseOn(level: Int): Map<String, Double> {
         val steps = (level - 1).coerceAtLeast(0)

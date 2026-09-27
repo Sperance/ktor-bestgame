@@ -38,13 +38,14 @@ class AffixRoller(private val index: ContentIndex) {
 
     /**
      * Случайные префиксы и суффиксы на места, которые оставила редкость: взвешенно и без повторов
-     * группы; [kept] - аффиксы, что остаются на копии и занимают свои места и группы.
+     * группы; [kept] - аффиксы, что остаются на копии и занимают свои места и группы; [below] - на
+     * сколько потолок редкости ниже обычного (сфера алхимии не даёт полного набора).
      */
-    fun rollAffixes(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, kept: Collection<Roll> = emptyList()): List<Roll> {
+    fun rollAffixes(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, kept: Collection<Roll> = emptyList(), below: Int = 0): List<Roll> {
         val keptDefs = definitions(kept)
         val (prefixes, suffixes) = freeSlots(rarity, keptDefs, template.slot)
         val limits = index.limits(rarity, template.slot)
-        val limit = (dice.between(limits.floor, limits.ceiling) - kept.size).coerceAtLeast(0)
+        val limit = (dice.between(limits.floor, (limits.ceiling - below).coerceAtLeast(limits.floor)) - kept.size).coerceAtLeast(0)
         return pickAffixes(affixPool(template, influence), prefixes, suffixes, keptDefs.map { it.groupKey }, limit, dice).mapNotNull { roll(it, template.level, dice) }
     }
 

@@ -228,6 +228,10 @@ class ContentIndex(val content: Content) {
         powers.validate(stats)
         tree.validate(::modifier)
         classes.validate(stats, ::modifier, tree)
+        classes.classes.filter { it.weapon.isNotBlank() }.forEach { heroClass ->
+            val weapon = template(heroClass.weapon) ?: fail("classes: weapon ${heroClass.weapon} of ${heroClass.code}")
+            if (weapon.weaponType == null || weapon.unique || weapon.requiredLevel > 1) fail("classes: ${heroClass.weapon} of ${heroClass.code} is no plain first-level weapon")
+        }
         atlasGraph.validate(atlas, stats, ::modifier)
         professions.validate({ it in items }, ::template, { it in zones }, { classes.heroClass(it) != null })
         rules.bench.costs.forEach { if (items[it.orb.name] == null) fail("rules: bench orb ${it.orb}") }

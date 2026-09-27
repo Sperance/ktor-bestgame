@@ -33,6 +33,10 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         return item
     }
 
+    /** Держит ли копия дно своей редкости: волшебная и редкая - не меньше аффиксов, чем велит правило. */
+    fun meetsFloor(template: ItemTemplate, item: ItemInstance): Boolean =
+        item.rarity.fixed || item.rolls.count(affixes::isAffix) >= index.limits(item.rarity, template.slot).floor
+
     /** Пустой ли самоцвет или карта: обычный или без единого аффикса. */
     fun empty(template: ItemTemplate, item: ItemInstance): Boolean =
         template.slot.isJewelLike && (item.rarity == Rarity.COMMON || item.rolls.none(affixes::isAffix))

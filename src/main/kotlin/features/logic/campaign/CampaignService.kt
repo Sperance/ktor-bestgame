@@ -283,8 +283,8 @@ class CampaignService : KoinComponent {
                 val descent = campaignState.abyssRun?.takeIf { it.mapCode == mapCode } ?: return null
                 if (event.depth !in 0..descent.depth) return null
                 campaignState.abyssRun = null
-                val keep = if (event.fallen) bonuses.abyssKeep / 100 else 1.0
-                Outcome(run.hoard(event.depth, keep))
+                // Гибель в Бездне сжигает копилку целиком; счёт копилок заход ведёт и тогда
+                Outcome(run.hoard(event.depth, if (event.fallen) 0.0 else 1.0))
             }
             RunEventKind.SUMMON -> {
                 if (now >= (campaignState.bosses[mapCode] ?: 0L)) return null
