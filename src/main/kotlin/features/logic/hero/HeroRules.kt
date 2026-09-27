@@ -7,11 +7,12 @@ import com.sperance.exileforge.rules.roll.Menagerie
 import com.sperance.exileforge.rules.run.Reward
 import com.sperance.exileforge.rules.sheet.SheetCalculator
 import com.sperance.exileforge.rules.sheet.SheetResult
+import com.sperance.exileforge.rules.sheet.sourcedLines
 import features.data.hero.Hero
 
 /** Лист героя правилами `rules`: класс на уровне, строки дерева, надетое и гнёзда - то же, что считает клиент. */
 fun ContentIndex.sheetOf(hero: Hero): SheetResult =
-    SheetCalculator(this).calculate(hero.level, heroClass(hero.heroClass), tree.lines(hero.tree) + Menagerie(this).helperLines(hero.activePets()), hero.equipped,
+    SheetCalculator(this).calculate(hero.level, heroClass(hero.heroClass), tree.sourcedLines(hero.tree) + Menagerie(this).helperSourced(hero.activePets()), hero.equipped,
         hero.tree.mapTo(HashSet()) { it.code })
 
 /** Награда ложится на героя: стопки в сумку до потолка, опыт с уровнем, золото, рецепт и копии вещей - через тайник. */

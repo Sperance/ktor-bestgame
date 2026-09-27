@@ -42,17 +42,19 @@ data class PowerBook(val powers: List<Power> = emptyList()) {
      * Правила листа: после свода модификаторов, по порядку книги, для каждой силы, чей стат не ноль.
      * Округление то же, что у свода, - тот же проход делает и клиент.
      */
-    fun applySheet(stats: MutableMap<String, Double>): MutableMap<String, Double> {
+    fun applySheet(stats: MutableMap<String, Double>, trace: ((SheetStep) -> Unit)? = null): MutableMap<String, Double> {
         sheetPowers.forEach { power ->
             val rolled = stats[power.stat] ?: 0.0
             if (rolled == 0.0) return@forEach
             power.sheet.forEach { rule ->
                 val source = rule.from?.let { stats[it] } ?: 0.0
                 val value = rule.value ?: rolled
+                val was = stats[rule.to] ?: 0.0
                 stats[rule.to] = tenths(when (rule.op) {
                     SheetOp.CONVERT -> {
                         val moved = source * value.coerceIn(0.0, 100.0) / 100
                         stats[rule.from!!] = tenths(source - moved)
+                        trace?.invoke(SheetStep(power.stat, rule.from, tenths(source - moved) - source))
                         (stats[rule.to] ?: 0.0) + moved * rule.factor
                     }
                     SheetOp.GAIN -> (stats[rule.to] ?: 0.0) + source * value / 100 * rule.factor
@@ -60,6 +62,7 @@ data class PowerBook(val powers: List<Power> = emptyList()) {
                     SheetOp.SET -> value
                     SheetOp.MORE -> (stats[rule.to] ?: 0.0) * (1 + value / 100)
                 })
+                trace?.invoke(SheetStep(power.stat, rule.to, stats.getValue(rule.to) - was, rule.from))
             }
         }
         return stats
@@ -85,6 +88,9 @@ data class Power(
 
 @Serializable enum class PowerRoll { AMOUNT, CHANCE, DURATION }
 @Serializable data class SheetRule(val op: SheetOp, val from: String? = null, val to: String, val factor: Double = 1.0, val per: Double = 1.0, val value: Double? = null)
+/** Шаг правила силы по листу: сила [power] сдвинула [stat] на [delta], взяв от [from], если брала. */
+data class SheetStep(val power: String, val stat: String, val delta: Double, val from: String? = null)
+
 @Serializable enum class SheetOp { CONVERT, GAIN, PER, SET, MORE }
 
 @Serializable

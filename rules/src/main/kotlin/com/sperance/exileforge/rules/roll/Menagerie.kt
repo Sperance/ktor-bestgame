@@ -10,6 +10,9 @@ import com.sperance.exileforge.rules.content.PetOrbAction
 import com.sperance.exileforge.rules.content.PetSpecies
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.sheet.SheetCalculator
+import com.sperance.exileforge.rules.sheet.SourceKind
+import com.sperance.exileforge.rules.sheet.SourcedLine
+import com.sperance.exileforge.rules.sheet.StatSource
 import com.sperance.exileforge.rules.table.Tables
 import kotlin.math.max
 import kotlin.math.pow
@@ -81,6 +84,10 @@ class Menagerie(private val index: ContentIndex) {
 
     /** Строки помощников герою: то, что ляжет на его лист рядом с деревом. */
     fun helperLines(pets: Collection<Pet>): List<Line> = pets.filter { species(it.species)?.kind == PetKind.HELPER }.flatMap(::lines)
+
+    /** Те же строки помощников, каждая со своим питомцем - для разбивки листа. */
+    fun helperSourced(pets: Collection<Pet>): List<SourcedLine> = pets.filter { species(it.species)?.kind == PetKind.HELPER }
+        .flatMap { pet -> lines(pet).map { SourcedLine(it, StatSource(SourceKind.PET, pet.id)) } }
 
     /** Лист боевого питомца: лист роли на его уровне, как растёт монстр, удар его стихией, строки сверху. */
     fun sheet(pet: Pet): Map<String, Double> {

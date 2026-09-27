@@ -6,6 +6,7 @@ import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Line
 import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.SheetStep
 import com.sperance.exileforge.rules.content.StatRegistry
 import com.sperance.exileforge.rules.content.tenths
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -13,8 +14,14 @@ import com.sperance.exileforge.rules.roll.Roll
 import kotlinx.serialization.Serializable
 import kotlin.math.floor
 
-/** Плоская операция над характеристикой: во что разворачивается эффект перед расчётом. */
-data class StatOperation(val stat: String, val op: Op, val value: Double, val perStat: String? = null, val perAmount: Double = 1.0) {
+/**
+ * Плоская операция над характеристикой: во что разворачивается эффект перед расчётом. [source] - откуда она,
+ * [local] - локальные строки вещи, свёрнутые в эту прибавку; расчёту не нужны, их читает разбивка.
+ */
+data class StatOperation(
+    val stat: String, val op: Op, val value: Double, val perStat: String? = null, val perAmount: Double = 1.0,
+    val source: StatSource? = null, val local: List<StatOperation> = emptyList(),
+) {
     /** У конверсии значение зависит от источника: неполный шаг не засчитывается. */
     fun resolve(source: Double): Double = when {
         perStat == null -> value
@@ -56,35 +63,43 @@ class SheetResult(val stats: Map<String, Double>, val active: List<String>, val 
 class SheetCalculator(private val index: ContentIndex) {
     private val stats: StatRegistry get() = index.stats
 
-    fun expand(lines: Collection<Line>): List<StatOperation> = lines.flatMap { line ->
+    fun expand(lines: Collection<Line>, source: StatSource? = null): List<StatOperation> = lines.flatMap { line ->
         val def = index.modifier(line.code) ?: return@flatMap emptyList()
-        def.effects.mapIndexedNotNull { i, effect -> line.values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount) } }
+        def.effects.mapIndexedNotNull { i, effect -> line.values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source) } }
     }
 
-    fun expandRolls(rolls: Collection<Roll>): List<StatOperation> = rolls.flatMap { roll ->
+    fun expand(lines: Collection<SourcedLine>): List<StatOperation> = lines.flatMap { expand(listOf(it.line), it.source) }
+
+    fun expandRolls(rolls: Collection<Roll>, source: StatSource? = null): List<StatOperation> = rolls.flatMap { roll ->
         val def = index.modifier(roll.code) ?: return@flatMap emptyList()
         val values = roll.values(def)
-        def.effects.mapIndexedNotNull { i, effect -> values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount) } }
+        def.effects.mapIndexedNotNull { i, effect -> values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source) } }
     }
 
-    /** Итог по операциям: характеристики в порядке реестра, источник конверсии посчитан раньше приёмника. */
-    fun compute(base: Map<String, Double>, operations: Collection<StatOperation>): Map<String, Double> {
+    /** Свод до сил уникалок: характеристики в порядке реестра, источник конверсии посчитан раньше приёмника. */
+    fun raw(base: Map<String, Double>, operations: Collection<StatOperation>): MutableMap<String, Double> {
         val byStat = operations.groupBy { it.stat }
         val result = LinkedHashMap<String, Double>()
         (byStat.keys + base.keys).sortedBy { stats.order(it) }.forEach { stat ->
             val applied = byStat[stat].orEmpty().map { it.op to it.resolve(it.perStat?.let { s -> result[s] } ?: 0.0) }
             result[stat] = ModifierMath.apply(base[stat] ?: 0.0, applied, stats.isPercent(stat))
         }
-        return index.powers.applySheet(result)
+        return result
     }
 
+    /** Итог по операциям: свод и силы уникалок поверх; [trace] слышит каждый шаг сил. */
+    fun compute(base: Map<String, Double>, operations: Collection<StatOperation>, trace: ((SheetStep) -> Unit)? = null): Map<String, Double> =
+        index.powers.applySheet(raw(base, operations), trace)
+
     /** Строки вещи в операции над героем: локальные свёрнуты внутри от нулевой базы и отданы прибавкой. */
-    fun foldItem(template: ItemTemplate, rolls: Collection<Roll>): List<StatOperation> {
+    fun foldItem(template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null): List<StatOperation> {
         val (local, global) = rolls.partition { index.modifier(it.code)?.local == true }
-        val baseOps = expand(template.base)
-        if (local.isEmpty()) return baseOps + expandRolls(global)
-        val folded = compute(emptyMap(), expandRolls(local)).filterValues { it != 0.0 }.map { (stat, value) -> StatOperation(stat, Op.ADD, value) }
-        return baseOps + folded + expandRolls(global)
+        val baseOps = expand(template.base, source)
+        if (local.isEmpty()) return baseOps + expandRolls(global, source)
+        val localOps = expandRolls(local, source)
+        val folded = compute(emptyMap(), localOps).filterValues { it != 0.0 }
+            .map { (stat, value) -> StatOperation(stat, Op.ADD, value, source = source, local = localOps.filter { it.stat == stat }) }
+        return baseOps + folded + expandRolls(global, source)
     }
 
     /** Что дают строки сами по себе - по строке на характеристику и операцию. */
@@ -103,13 +118,13 @@ class SheetCalculator(private val index: ContentIndex) {
         .sortedWith(compareBy({ stats.order(it.stat) }, { it.op.ordinal }))
 
     /**
-     * Лист героя. [treeLines] - строки взятых узлов, [equipped] - надетые копии, [takenNodes] - взятые узлы
-     * (самоцвет считается, пока взято его гнездо). Инструменты и фляги в лист не входят.
+     * Лист героя. [lines] - строки взятых узлов и помощников со своими источниками, [equipped] - надетые копии,
+     * [takenNodes] - взятые узлы (самоцвет считается, пока взято его гнездо). Инструменты и фляги в лист не входят.
      */
-    fun calculate(level: Int, heroClass: HeroClass?, treeLines: Collection<Line>, equipped: Collection<ItemInstance>, takenNodes: Set<String>): SheetResult {
+    fun calculate(level: Int, heroClass: HeroClass?, lines: Collection<SourcedLine>, equipped: Collection<ItemInstance>, takenNodes: Set<String>): SheetResult {
         val base = heroClass?.baseOn(level).orEmpty()
-        val operations = ArrayList<StatOperation>(expand(heroClass?.lines.orEmpty()))
-        operations += expand(treeLines)
+        val operations = ArrayList<StatOperation>(expand(heroClass?.lines.orEmpty(), heroClass?.let { StatSource(SourceKind.CLASS, it.code) }))
+        operations += expand(lines)
         var stats = compute(base, operations)
         var stale = false
         val active = mutableListOf<String>()
@@ -127,7 +142,7 @@ class SheetCalculator(private val index: ContentIndex) {
                 if (unmet.isNotEmpty()) { inactive += InactiveItem(item.id, template.code, unmet); return@forEach }
             }
             active += item.id
-            operations += foldItem(template, item.rolls)
+            operations += foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id))
             stale = true
         }
         if (stale) stats = compute(base, operations)
