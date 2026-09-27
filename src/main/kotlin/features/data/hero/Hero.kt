@@ -4,6 +4,7 @@ import base.entity.TrackedEntity
 import base.entity.VersionedEntity
 import base.exception.model.CharacterExceptions
 import com.sperance.exileforge.rules.content.Counter
+import com.sperance.exileforge.rules.content.Pet
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.roll.AbyssRun
@@ -64,6 +65,10 @@ data class Hero(
     var counters: MutableMap<String, Long> = mutableMapOf(),
     /** Титул у имени - код одного из открытых достижениями; пусто - без титула. */
     var title: String = "",
+    /** Зверинец (1.5.0): питомцы героя и активные - боевой и помощник, по id; пусто - никого. */
+    var pets: MutableList<Pet> = mutableListOf(),
+    var petCombat: String = "",
+    var petHelper: String = "",
     var campaign: CampaignState = CampaignState(),
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
@@ -117,6 +122,16 @@ data class Hero(
     fun pay(gold: Long) {
         money -= gold
         count(Counter.GOLD_SPENT, gold)
+    }
+
+    fun pet(id: String): Pet? = pets.firstOrNull { it.id == id }
+
+    /** Питомцы в деле: боевой и помощник. */
+    fun activePets(): List<Pet> = pets.filter { it.id == petCombat || it.id == petHelper }
+
+    fun replacePet(pet: Pet) {
+        val at = pets.indexOfFirst { it.id == pet.id }
+        if (at >= 0) pets[at] = pet
     }
 
     fun replace(item: ItemInstance) {

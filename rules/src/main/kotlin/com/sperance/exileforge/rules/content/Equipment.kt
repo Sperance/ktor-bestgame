@@ -147,6 +147,8 @@ data class Item(val code: String, val category: String, val subCategory: String 
         const val BOOK = "BOOK"
         const val ESSENCE = "ESSENCE"
         const val MATERIAL = "MATERIAL"
+        /** Яйца и сферы питомцев (1.5.0). */
+        const val PET = "PET"
     }
 }
 

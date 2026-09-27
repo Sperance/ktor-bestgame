@@ -7,6 +7,8 @@ import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.roll.ItemInstance
+import com.sperance.exileforge.rules.roll.Menagerie
+import com.sperance.exileforge.rules.content.PetOrbAction
 import com.sperance.exileforge.rules.roll.OrbApplier
 import com.sperance.exileforge.rules.run.Run
 import com.sperance.exileforge.rules.run.RunContext
@@ -49,6 +51,24 @@ class RulesInvariantsTest {
                     val outcome = runCatching { orbs.apply(orb, item.copy(rolls = item.rolls.toList()), template, Dice(100L + n++)) { "new" } }.getOrNull() ?: return@forEach
                     assertTrue(floorHeld(outcome.item), "${template.code} $rarity after $orb: ${outcome.item.rarity} ${affixes(outcome.item)} affixes")
                     outcome.created?.let { assertTrue(floorHeld(it), "${template.code} copy of $orb") }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun aPetKeepsItsRaritysLinesThroughAnyOrb() {
+        val pets = Menagerie(index)
+        val dice = Dice(7L)
+        index.pets.eggs.values.forEach { egg ->
+            repeat(40) { n ->
+                var pet = pets.hatch(egg, "p$n", dice)!!
+                repeat(30) {
+                    pet = pets.apply(PetOrbAction.entries[dice.nextInt(PetOrbAction.entries.size)], pet, dice) ?: pet
+                    val rule = index.pets.rarities.getValue(pet.rarity)
+                    assertTrue(pet.lines.size in rule.floor..rule.ceiling, "${pet.species} ${pet.rarity}: ${pet.lines.size} lines")
+                    assertEquals(pet.lines.size, pet.lines.map { it.code }.toSet().size, "a line twice on ${pet.species}")
+                    assertEquals(pet.lines.size, pets.lines(pet).size, "a line out of the pool of ${pet.species}")
                 }
             }
         }

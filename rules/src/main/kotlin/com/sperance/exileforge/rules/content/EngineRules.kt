@@ -132,6 +132,12 @@ data class LootRules(
 @Serializable
 data class RunRules(val newSeedSeconds: Int = 30)
 
+/** Зверинец (1.5.0): сколько питомцев держит герой и сколько золота даёт отпущенный за уровень по редкости. */
+@Serializable
+data class PetRules(val cap: Int = 20, val releaseGold: Map<Rarity, Long> = mapOf(Rarity.COMMON to 20L, Rarity.UNCOMMON to 60L, Rarity.RARE to 200L)) {
+    fun releasePrice(rarity: Rarity, level: Int): Long = (releaseGold[rarity] ?: 0L) * level.coerceAtLeast(1)
+}
+
 /**
  * Правила движка (`rules.json`): всё, что раньше было константами кода, - места аффиксов редкостей,
  * торговец, цена, верстак, сферы, фляги, стартовый набор, аукцион, добыча, тайник, заход.
@@ -152,6 +158,7 @@ data class EngineRules(
     val loot: LootRules = LootRules(),
     val stash: StashRules = StashRules(),
     val run: RunRules = RunRules(),
+    val pets: PetRules = PetRules(),
     val maxCharacters: Int = 3,
     val maxStack: Long = 100_000_000_000L,
 ) {
@@ -171,5 +178,6 @@ data class EngineRules(
         if (auction.baseSlots < 0 || auction.maxSlots < auction.baseSlots) fail("rules: auction")
         stash.validate()
         if (run.newSeedSeconds < 0) fail("rules: run")
+        if (pets.cap < 1 || pets.releaseGold.values.any { it < 0 }) fail("rules: pets")
     }
 }

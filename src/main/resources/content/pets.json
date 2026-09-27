@@ -1,0 +1,643 @@
+{
+  "species": [
+    {
+      "code": "PANTHER",
+      "kind": "COMBAT",
+      "biome": "JUNGLE",
+      "role": "FIGHTER",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "VOID_WYRM",
+      "kind": "COMBAT",
+      "biome": "ABYSS",
+      "role": "FIGHTER",
+      "element": "CHAOS"
+    },
+    {
+      "code": "BONE_HOUND",
+      "kind": "COMBAT",
+      "biome": "CRYPT",
+      "role": "TANK",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "CINDER_IMP",
+      "kind": "COMBAT",
+      "biome": "ASH",
+      "role": "FIGHTER",
+      "element": "FIRE"
+    },
+    {
+      "code": "SUNLIT_SERAPH",
+      "kind": "COMBAT",
+      "biome": "TEMPLE",
+      "role": "SUPPORT",
+      "element": "LIGHTNING"
+    },
+    {
+      "code": "SAND_SCARAB",
+      "kind": "COMBAT",
+      "biome": "DESERT",
+      "role": "TANK",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "MAGMA_SALAMANDER",
+      "kind": "COMBAT",
+      "biome": "VOLCANO",
+      "role": "FIGHTER",
+      "element": "FIRE"
+    },
+    {
+      "code": "IRON_GOLEM",
+      "kind": "COMBAT",
+      "biome": "CITADEL",
+      "role": "TANK",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "CRYSTAL_MOLE",
+      "kind": "COMBAT",
+      "biome": "MINES",
+      "role": "TANK",
+      "element": "LIGHTNING"
+    },
+    {
+      "code": "FROST_WOLF",
+      "kind": "COMBAT",
+      "biome": "FROST",
+      "role": "FIGHTER",
+      "element": "COLD"
+    },
+    {
+      "code": "STORM_HAWK",
+      "kind": "COMBAT",
+      "biome": "CANYON",
+      "role": "FIGHTER",
+      "element": "LIGHTNING"
+    },
+    {
+      "code": "PLAGUE_RAT",
+      "kind": "COMBAT",
+      "biome": "BLIGHT",
+      "role": "FIGHTER",
+      "element": "CHAOS"
+    },
+    {
+      "code": "BOG_TOAD",
+      "kind": "COMBAT",
+      "biome": "MIRE",
+      "role": "SUPPORT",
+      "element": "CHAOS"
+    },
+    {
+      "code": "STONE_SENTINEL",
+      "kind": "COMBAT",
+      "biome": "RUINS",
+      "role": "TANK",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "HIVE_WASP",
+      "kind": "COMBAT",
+      "biome": "HIVE",
+      "role": "FIGHTER",
+      "element": "CHAOS"
+    },
+    {
+      "code": "TIDE_CRAB",
+      "kind": "COMBAT",
+      "biome": "SHORE",
+      "role": "TANK",
+      "element": "COLD"
+    },
+    {
+      "code": "CAVE_BAT",
+      "kind": "COMBAT",
+      "biome": "CAVE",
+      "role": "SUPPORT",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "SPIRIT_STAG",
+      "kind": "COMBAT",
+      "biome": "FOREST",
+      "role": "SUPPORT",
+      "element": "COLD"
+    },
+    {
+      "code": "CHAMELEON",
+      "kind": "HELPER",
+      "biome": "JUNGLE",
+      "focus": "LOOT"
+    },
+    {
+      "code": "WHISPERING_EYE",
+      "kind": "HELPER",
+      "biome": "ABYSS",
+      "focus": "AURA"
+    },
+    {
+      "code": "GRAVE_MOTH",
+      "kind": "HELPER",
+      "biome": "CRYPT",
+      "focus": "LOOT"
+    },
+    {
+      "code": "EMBER_SPRITE",
+      "kind": "HELPER",
+      "biome": "ASH",
+      "focus": "CRAFT"
+    },
+    {
+      "code": "TEMPLE_CAT",
+      "kind": "HELPER",
+      "biome": "TEMPLE",
+      "focus": "AURA"
+    },
+    {
+      "code": "FENNEC",
+      "kind": "HELPER",
+      "biome": "DESERT",
+      "focus": "LOOT"
+    },
+    {
+      "code": "FORGE_DRAKE",
+      "kind": "HELPER",
+      "biome": "VOLCANO",
+      "focus": "CRAFT"
+    },
+    {
+      "code": "HERALD_OWL",
+      "kind": "HELPER",
+      "biome": "CITADEL",
+      "focus": "AURA"
+    },
+    {
+      "code": "GEM_BEETLE",
+      "kind": "HELPER",
+      "biome": "MINES",
+      "focus": "CRAFT"
+    },
+    {
+      "code": "SNOW_FOX",
+      "kind": "HELPER",
+      "biome": "FROST",
+      "focus": "LOOT"
+    },
+    {
+      "code": "DUST_LIZARD",
+      "kind": "HELPER",
+      "biome": "CANYON",
+      "focus": "CRAFT"
+    },
+    {
+      "code": "MYCELIUM",
+      "kind": "HELPER",
+      "biome": "BLIGHT",
+      "focus": "AURA"
+    },
+    {
+      "code": "LANTERN_FROG",
+      "kind": "HELPER",
+      "biome": "MIRE",
+      "focus": "LOOT"
+    },
+    {
+      "code": "SCRIBE_MONKEY",
+      "kind": "HELPER",
+      "biome": "RUINS",
+      "focus": "CRAFT"
+    },
+    {
+      "code": "QUEEN_BEE",
+      "kind": "HELPER",
+      "biome": "HIVE",
+      "focus": "AURA"
+    },
+    {
+      "code": "PEARL_OTTER",
+      "kind": "HELPER",
+      "biome": "SHORE",
+      "focus": "LOOT"
+    },
+    {
+      "code": "GLOW_WORM",
+      "kind": "HELPER",
+      "biome": "CAVE",
+      "focus": "AURA"
+    },
+    {
+      "code": "WISP",
+      "kind": "HELPER",
+      "biome": "FOREST",
+      "focus": "CRAFT"
+    }
+  ],
+  "lines": [
+    {
+      "code": "INCREASED_MAXIMUM_LIFE",
+      "kind": "COMBAT",
+      "values": [
+        [
+          10,
+          25
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "INCREASED_PHYSICAL_DAMAGE",
+      "kind": "COMBAT",
+      "values": [
+        [
+          10,
+          30
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "INCREASED_ELEMENTAL_DAMAGE",
+      "kind": "COMBAT",
+      "values": [
+        [
+          10,
+          30
+        ],
+        [
+          10,
+          30
+        ],
+        [
+          10,
+          30
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "INCREASED_CHAOS_DAMAGE",
+      "kind": "COMBAT",
+      "values": [
+        [
+          10,
+          30
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "INCREASED_ATTACK_SPEED",
+      "kind": "COMBAT",
+      "values": [
+        [
+          5,
+          15
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+      "kind": "COMBAT",
+      "values": [
+        [
+          20,
+          50
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+      "kind": "COMBAT",
+      "values": [
+        [
+          10,
+          25
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "INCREASED_ARMOUR",
+      "kind": "COMBAT",
+      "values": [
+        [
+          15,
+          40
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "ADD_LIFE_REGENERATION",
+      "kind": "COMBAT",
+      "values": [
+        [
+          1,
+          4
+        ]
+      ],
+      "weight": 100
+    },
+    {
+      "code": "INCREASED_MAXIMUM_LIFE",
+      "kind": "HELPER",
+      "values": [
+        [
+          3,
+          8
+        ]
+      ],
+      "weight": 100,
+      "focus": "AURA"
+    },
+    {
+      "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+      "kind": "HELPER",
+      "values": [
+        [
+          4,
+          10
+        ]
+      ],
+      "weight": 100,
+      "focus": "AURA"
+    },
+    {
+      "code": "ADD_CHAOS_RESISTANCE",
+      "kind": "HELPER",
+      "values": [
+        [
+          4,
+          10
+        ]
+      ],
+      "weight": 100,
+      "focus": "AURA"
+    },
+    {
+      "code": "INCREASED_ATTACK_SPEED",
+      "kind": "HELPER",
+      "values": [
+        [
+          2,
+          6
+        ]
+      ],
+      "weight": 100,
+      "focus": "AURA"
+    },
+    {
+      "code": "INCREASED_MOVEMENT_SPEED",
+      "kind": "HELPER",
+      "values": [
+        [
+          3,
+          8
+        ]
+      ],
+      "weight": 100,
+      "focus": "AURA"
+    },
+    {
+      "code": "ADD_LIFE_REGENERATION",
+      "kind": "HELPER",
+      "values": [
+        [
+          1,
+          3
+        ]
+      ],
+      "weight": 100,
+      "focus": "AURA"
+    },
+    {
+      "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          12
+        ]
+      ],
+      "weight": 100,
+      "focus": "AURA"
+    },
+    {
+      "code": "INCREASED_ITEM_QUANTITY",
+      "kind": "HELPER",
+      "values": [
+        [
+          3,
+          8
+        ]
+      ],
+      "weight": 100,
+      "focus": "LOOT"
+    },
+    {
+      "code": "INCREASED_ITEM_RARITY",
+      "kind": "HELPER",
+      "values": [
+        [
+          6,
+          15
+        ]
+      ],
+      "weight": 100,
+      "focus": "LOOT"
+    },
+    {
+      "code": "INCREASED_EXPERIENCE_GAIN",
+      "kind": "HELPER",
+      "values": [
+        [
+          2,
+          5
+        ]
+      ],
+      "weight": 100,
+      "focus": "LOOT"
+    },
+    {
+      "code": "INCREASED_CHEST_QUANTITY",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          15
+        ]
+      ],
+      "weight": 100,
+      "focus": "LOOT"
+    },
+    {
+      "code": "INCREASED_SELL_VALUE",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          12
+        ]
+      ],
+      "weight": 100,
+      "focus": "LOOT"
+    },
+    {
+      "code": "INCREASED_LIGHT_RADIUS",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          12
+        ]
+      ],
+      "weight": 100,
+      "focus": "LOOT"
+    },
+    {
+      "code": "WORK_SPEED",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          12
+        ]
+      ],
+      "weight": 100,
+      "focus": "CRAFT"
+    },
+    {
+      "code": "WORK_YIELD",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          15
+        ]
+      ],
+      "weight": 100,
+      "focus": "CRAFT"
+    },
+    {
+      "code": "WORK_LUCK",
+      "kind": "HELPER",
+      "values": [
+        [
+          4,
+          10
+        ]
+      ],
+      "weight": 100,
+      "focus": "CRAFT"
+    },
+    {
+      "code": "WORK_EXPERIENCE",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          15
+        ]
+      ],
+      "weight": 100,
+      "focus": "CRAFT"
+    },
+    {
+      "code": "WORK_FIND",
+      "kind": "HELPER",
+      "values": [
+        [
+          5,
+          15
+        ]
+      ],
+      "weight": 100,
+      "focus": "CRAFT"
+    }
+  ],
+  "roles": {
+    "TANK": {
+      "STOCK_HEALTH": 60,
+      "STOCK_ARMOR": 20,
+      "STOCK_ATTACK_PHYSICAL": 3,
+      "STOCK_ATTACK_SPEED": 0.9
+    },
+    "FIGHTER": {
+      "STOCK_HEALTH": 30,
+      "STOCK_ATTACK_PHYSICAL": 7,
+      "STOCK_ATTACK_SPEED": 1.2
+    },
+    "SUPPORT": {
+      "STOCK_HEALTH": 35,
+      "STOCK_ATTACK_PHYSICAL": 3,
+      "STOCK_ATTACK_SPEED": 1.0
+    }
+  },
+  "orbs": {
+    "PET_ORB_UPGRADE": "UPGRADE",
+    "PET_ORB_REROLL": "REROLL",
+    "PET_ORB_AUGMENT": "AUGMENT",
+    "PET_ORB_DIVINE": "DIVINE",
+    "PET_ORB_ANNUL": "ANNUL",
+    "PET_ORB_GROWTH": "GROWTH"
+  },
+  "eggs": {
+    "JUNGLE": "PET_EGG_JUNGLE",
+    "ABYSS": "PET_EGG_ABYSS",
+    "CRYPT": "PET_EGG_CRYPT",
+    "ASH": "PET_EGG_ASH",
+    "TEMPLE": "PET_EGG_TEMPLE",
+    "DESERT": "PET_EGG_DESERT",
+    "VOLCANO": "PET_EGG_VOLCANO",
+    "CITADEL": "PET_EGG_CITADEL",
+    "MINES": "PET_EGG_MINES",
+    "FROST": "PET_EGG_FROST",
+    "CANYON": "PET_EGG_CANYON",
+    "BLIGHT": "PET_EGG_BLIGHT",
+    "MIRE": "PET_EGG_MIRE",
+    "RUINS": "PET_EGG_RUINS",
+    "HIVE": "PET_EGG_HIVE",
+    "SHORE": "PET_EGG_SHORE",
+    "CAVE": "PET_EGG_CAVE",
+    "FOREST": "PET_EGG_FOREST"
+  },
+  "rarities": {
+    "COMMON": {
+      "lines": [
+        0,
+        0
+      ],
+      "weight": 70
+    },
+    "UNCOMMON": {
+      "lines": [
+        1,
+        2
+      ],
+      "weight": 25
+    },
+    "RARE": {
+      "lines": [
+        3,
+        4
+      ],
+      "weight": 5
+    }
+  },
+  "eggChance": {
+    "rare": 0.02,
+    "boss": 0.2
+  },
+  "lineGrowth": 0.03,
+  "experienceShare": 0.5,
+  "supportHeal": [
+    1.0,
+    0.02
+  ],
+  "drawFire": 0.3
+}

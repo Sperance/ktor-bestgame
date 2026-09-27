@@ -26,6 +26,7 @@ import features.logic.hero.Rewards
 import features.logic.hero.Stash
 import features.logic.hero.respondWithHero
 import features.logic.inventory.InventoryService
+import features.logic.pets.PetService
 import features.logic.skills.SkillService
 import features.logic.trade.MerchantService
 import features.logic.tree.TreeService
@@ -50,6 +51,7 @@ class HeroRoute(
     private val crafts: CraftsService,
     private val merchant: MerchantService,
     private val campaign: CampaignService,
+    private val pets: PetService,
 ) : BaseRoute<Hero>(
     repository = repo,
     entitySerializer = Hero.serializer(),
@@ -126,6 +128,15 @@ class HeroRoute(
             post("/expand") { call.respondWithHero(inventory.expandStash(call.heroId)) }
             post("/claim") { call.respondWithHero(inventory.claimOverflow(call.heroId, call.optionalParam("itemId"))) }
             post("/sell") { call.respondWithHero(inventory.sellOverflow(call.heroId, call.itemId)) }
+        }
+
+        // Зверинец (1.5.0): вылупить яйцо, сфера питомцев, в дело или с места, отпустить за золото.
+        route("/pets") {
+            get { call.respondOk(pets.state(call.heroId)) }
+            post("/hatch") { call.respondWithHero(pets.hatch(call.heroId, call.queryParam("egg"))) }
+            post("/orb") { call.respondWithHero(pets.orb(call.heroId, call.queryParam("petId"), call.queryParam("orb"))) }
+            post("/activate") { call.respondWithHero(pets.activate(call.heroId, call.queryParam("petId"))) }
+            post("/release") { call.respondWithHero(pets.release(call.heroId, call.queryParam("petId"))) }
         }
 
         // Ремёсла: работа идёт на сервере по времени и досчитывается при каждом обращении.

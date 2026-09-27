@@ -1853,6 +1853,150 @@
       "category": "CURRENCY",
       "subCategory": "GLASSBLOWERS_BAUBLE",
       "price": 25
+    },
+    {
+      "code": "PET_EGG_JUNGLE",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_ABYSS",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_CRYPT",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_ASH",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_TEMPLE",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_DESERT",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_VOLCANO",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_CITADEL",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_MINES",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_FROST",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_CANYON",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_BLIGHT",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_MIRE",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_RUINS",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_HIVE",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_SHORE",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_CAVE",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_EGG_FOREST",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 150
+    },
+    {
+      "code": "PET_ORB_UPGRADE",
+      "category": "PET",
+      "subCategory": "PET_ORB",
+      "price": 60
+    },
+    {
+      "code": "PET_ORB_REROLL",
+      "category": "PET",
+      "subCategory": "PET_ORB",
+      "price": 50
+    },
+    {
+      "code": "PET_ORB_AUGMENT",
+      "category": "PET",
+      "subCategory": "PET_ORB",
+      "price": 40
+    },
+    {
+      "code": "PET_ORB_DIVINE",
+      "category": "PET",
+      "subCategory": "PET_ORB",
+      "price": 80
+    },
+    {
+      "code": "PET_ORB_ANNUL",
+      "category": "PET",
+      "subCategory": "PET_ORB",
+      "price": 70
+    },
+    {
+      "code": "PET_ORB_GROWTH",
+      "category": "PET",
+      "subCategory": "PET_ORB",
+      "price": 90
     }
   ]
 }

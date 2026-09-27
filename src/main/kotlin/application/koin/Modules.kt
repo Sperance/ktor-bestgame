@@ -18,6 +18,7 @@ import features.data.user.UserRoute
 import features.logic.atlas.AtlasService
 import features.logic.campaign.CampaignService
 import features.logic.crafts.CraftsService
+import features.logic.pets.PetService
 import features.logic.inventory.InventoryService
 import features.logic.skills.SkillService
 import features.logic.trade.MerchantService
@@ -43,6 +44,7 @@ val repositoryModule = module {
     single { CraftsService() }
     single { MerchantService() }
     single { CampaignService() }
+    single { PetService() }
 }
 
 val cacheModule = module {
@@ -54,7 +56,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get(), get()),
-                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get()),
+                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
                 RedemptionCodesRoute(get()),
             )

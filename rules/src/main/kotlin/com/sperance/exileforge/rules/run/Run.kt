@@ -186,7 +186,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val zoneBonus = if (vaal) context.vaal else null
         return grant(dice, template.loot, zone.level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus),
             mapChance = campaign.maps.dropChance * rule.quantity, zoneBonus = zoneBonus, rare = monster.rarity == MonsterRarity.RARE,
-            book = if (monster.rarity == MonsterRarity.RARE) index.skills.rules.books.rare else 0.0)
+            book = if (monster.rarity == MonsterRarity.RARE) index.skills.rules.books.rare else 0.0,
+            egg = if (monster.rarity == MonsterRarity.RARE) index.pets.eggChance.rare else 0.0)
     }
 
     /** Открыт очередной сундук захода: таблица сундуков зоны с множителями правила и атласа. */
@@ -210,7 +211,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
         return grant(dice, template.loot, zone.level, rule, "b$n", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
-            book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass, goldShare = bosses.goldShare, orbShare = bosses.orbShare)
+            book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass, goldShare = bosses.goldShare, orbShare = bosses.orbShare, egg = index.pets.eggChance.boss)
     }
 
     /** Страж Ваал-зоны убит: своя таблица порчи с бонусом зоны и шанс уникалки порчи. */
@@ -281,7 +282,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         dice: Dice, table: String, level: Int, rule: RarityRule, event: String, experience: Double,
         extra: List<ItemTemplate> = emptyList(), mapChance: Double = 0.0, zoneBonus: VaalZone? = null, extraQuantity: Double = 0.0,
         extraItems: Map<String, Long> = emptyMap(), rare: Boolean = false, book: Double = 0.0, ownShare: Double = 0.0,
-        goldShare: Double = 1.0, orbShare: Double = 1.0,
+        goldShare: Double = 1.0, orbShare: Double = 1.0, egg: Double = 0.0,
     ): Reward {
         val bonus = context.bonus(rule.rarity)
         val active = context.active
@@ -305,6 +306,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             index.skillRules.dropBook(context.heroClass, level, book * boost, share, dice)?.let { items.merge(it, 1L, Long::plus) }
         }
         val recipe = if (rare && dice.chance(index.rules.loot.recipeChance * relative(AtlasStat.RECIPE.code))) com.sperance.exileforge.rules.roll.Bench(index).draw(context.recipes, level, dice)?.code else null
+        // Яйцо питомца (1.5.0) - последним броском, чтобы прежние потоки не сдвинулись: биом зоны решает, чьё оно.
+        if (egg > 0 && dice.chance((egg * (1 + quantity / 100)).coerceAtMost(1.0))) index.pets.eggs[zone.biome]?.let { items.merge(it, 1L, Long::plus) }
         return Reward(experience, rolled.gold, items, equipment, recipe)
     }
 

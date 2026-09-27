@@ -14,6 +14,8 @@ import features.data.hero.CampaignState
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.logic.crafts.CraftsService
+import features.logic.pets.PetState
+import config.ContentStore
 import features.logic.trade.MerchantStock
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.response.respond
@@ -75,9 +77,11 @@ object HeroSnapshots : KoinComponent {
     const val CAMPAIGN = "campaign"
     const val CRAFTS = "crafts"
     const val MERCHANT = "merchant"
+    const val PETS = "pets"
 
     private val heroes: HeroRepository by inject()
     private val crafts: CraftsService by inject()
+    private val content: ContentStore by inject()
 
     /** Части, которые клиент назвал в [HEADER]; битый заголовок значит «ничего нет». */
     fun known(header: String?): Map<String, String> =
@@ -111,6 +115,7 @@ object HeroSnapshots : KoinComponent {
         part(CAMPAIGN, CampaignState.serializer(), hero.campaign)
         part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work))
         part(MERCHANT, MerchantStock.serializer(), hero.merchant ?: MerchantStock())
+        part(PETS, PetState.serializer(), PetState.of(hero, content.index.rules.pets.cap))
         return HeroSnapshot(hero.version.toString(), parts)
     }
 

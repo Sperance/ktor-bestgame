@@ -3712,6 +3712,54 @@
         {
           "ref": "table:drop",
           "chance": 0.7
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -3770,6 +3818,54 @@
         {
           "ref": "table:drop",
           "chance": 0.25
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -3828,6 +3924,54 @@
         {
           "ref": "table:drop",
           "chance": 0.4
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -3902,6 +4046,54 @@
         {
           "ref": "table:drop",
           "chance": 0.45
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -3976,6 +4168,54 @@
         {
           "ref": "table:drop",
           "chance": 0.5
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4050,6 +4290,54 @@
         {
           "ref": "table:drop",
           "chance": 0.55
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4096,6 +4384,54 @@
         {
           "ref": "table:drop",
           "chance": 0.2
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4150,6 +4486,54 @@
         {
           "ref": "table:drop",
           "chance": 0.25
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4220,6 +4604,54 @@
         {
           "ref": "table:drop",
           "chance": 0.3
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4290,6 +4722,54 @@
         {
           "ref": "table:drop",
           "chance": 0.32
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4360,6 +4840,54 @@
         {
           "ref": "table:drop",
           "chance": 0.34
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4438,6 +4966,54 @@
         {
           "ref": "table:drop",
           "chance": 0.36
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.08,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [

@@ -31,8 +31,9 @@ object ContentFiles {
     const val PROFESSIONS = "professions.json"
     const val RULES = "rules.json"
     const val ACHIEVEMENTS = "achievements.json"
+    const val PETS = "pets.json"
 
-    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES, ACHIEVEMENTS)
+    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES, ACHIEVEMENTS, PETS)
 }
 
 /** Рецепт верстака: верстачное описание в одном тире и его цена; выводится из CRAFTED-вариантов и лестницы цен правил. */
@@ -68,6 +69,7 @@ class Content(
     val professions: CraftsFile,
     val rules: EngineRules,
     val achievements: AchievementsFile = AchievementsFile(),
+    val pets: PetsFile = PetsFile(),
     val hashes: Map<String, String> = emptyMap(),
 ) {
     /** Отпечаток всего контента: по нему сервер и клиент узнают, что видят один мир. */
@@ -101,6 +103,7 @@ object ContentLoader {
             professions = parse(ContentFiles.PROFESSIONS, CraftsFile.serializer()),
             rules = parse(ContentFiles.RULES, EngineRules.serializer()),
             achievements = parse(ContentFiles.ACHIEVEMENTS, AchievementsFile.serializer()),
+            pets = parse(ContentFiles.PETS, PetsFile.serializer()),
             hashes = texts.mapValues { sha256(it.value) },
         )
         return ContentIndex(content).also { it.validate() }
@@ -123,6 +126,7 @@ class ContentIndex(val content: Content) {
     val professions: CraftsFile get() = content.professions
     val atlas: AtlasTree get() = content.atlas
     val achievements: AchievementsFile get() = content.achievements
+    val pets: PetsFile get() = content.pets
     val hash: String get() = content.hash
 
     val families: Map<String, ModifierFamily> = (content.modifiers.families + content.equipment.templates.flatMap { it.uniqueFamilies() }).associateBy { it.code }
@@ -240,6 +244,7 @@ class ContentIndex(val content: Content) {
         professions.validate({ it in items }, ::template, { it in zones }, { classes.heroClass(it) != null })
         rules.bench.costs.forEach { if (items[it.orb.name] == null) fail("rules: bench orb ${it.orb}") }
         achievements.validate()
+        pets.validate(this)
         CampaignValidator(this).validate()
     }
 }
