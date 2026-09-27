@@ -142,5 +142,16 @@
     "recipeChance": 0.1
   },
   "maxCharacters": 3,
-  "maxStack": 100000000000
+  "maxStack": 100000000000,
+  "stash": {
+    "baseSlots": 200,
+    "maxSlots": 1000,
+    "slotStep": 50,
+    "firstPrice": 1000.0,
+    "priceGrowth": 1.25,
+    "overflowSlots": 100
+  },
+  "run": {
+    "newSeedSeconds": 30
+  }
 }

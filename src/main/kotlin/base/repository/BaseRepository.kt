@@ -6,6 +6,7 @@ import CONST_FIELD_VERSION
 import CONST_PAGE_SIZE_DEFAULT
 import CONST_SYSTEM_FIELDS
 import base.entity.StockEntity
+import base.entity.TrackedEntity
 import base.entity.VersionedEntity
 import base.exception.BaseException
 import base.exception.BaseRepositoryExceptions
@@ -34,6 +35,7 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
 import org.bson.BsonDocument
 import org.bson.BsonDocumentWriter
+import org.bson.BsonValue
 import org.bson.codecs.EncoderContext
 import org.bson.conversions.Bson
 import kotlin.reflect.KClass
@@ -183,10 +185,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      */
 
     suspend fun findById(id: String, includeDeleted: Boolean = false): T? =
-        collection.find(readFilter(byId(id), includeDeleted)).firstOrNull()
+        collection.find(readFilter(byId(id), includeDeleted)).firstOrNull()?.tracked()
 
     suspend fun findById(id: String, session: ClientSession, includeDeleted: Boolean = false): T? =
-        collection.find(session, readFilter(byId(id), includeDeleted)).firstOrNull()
+        collection.find(session, readFilter(byId(id), includeDeleted)).firstOrNull()?.tracked()
 
     /** Документ по id или ошибка из [missing]: общий вид «найди или откажи» для всех репозиториев. */
     suspend inline fun requireById(id: String, missing: (String) -> Throwable): T = findById(id) ?: throw missing(id)
@@ -198,20 +200,20 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
             .projection(Projections.include(CONST_FIELD_ID)).limit(1).firstOrNull() != null
 
     suspend fun findAll(includeDeleted: Boolean = false): List<T> =
-        collection.find(readFilter(includeDeleted = includeDeleted)).toList()
+        collection.find(readFilter(includeDeleted = includeDeleted)).toList().onEach { it.tracked() }
 
     suspend fun findAll(session: ClientSession, includeDeleted: Boolean = false): List<T> =
-        collection.find(session, readFilter(includeDeleted = includeDeleted)).toList()
+        collection.find(session, readFilter(includeDeleted = includeDeleted)).toList().onEach { it.tracked() }
 
     /** Первый документ, у которого поле [field] равно [value]. */
     suspend fun <S> findByField(field: KProperty1<T, S>, value: S, includeDeleted: Boolean = false): T? =
-        collection.find(readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()
+        collection.find(readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()?.tracked()
 
     suspend fun <S> findByField(field: KProperty1<T, S>, value: S, session: ClientSession, includeDeleted: Boolean = false): T? =
-        collection.find(session, readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()
+        collection.find(session, readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()?.tracked()
 
     suspend fun findByFilter(filter: Bson, includeDeleted: Boolean = false): List<T> =
-        collection.find(readFilter(filter, includeDeleted)).toList()
+        collection.find(readFilter(filter, includeDeleted)).toList().onEach { it.tracked() }
 
     suspend fun count(filter: Bson = Filters.empty(), includeDeleted: Boolean = false): Long =
         collection.countDocuments(readFilter(filter, includeDeleted))
@@ -232,7 +234,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     ): PagedMongoResponse<T> {
         val request = PageRequest.of(page, pageSize)
         val query = readFilter(filter, includeDeleted)
-        val items = collection.find(query).sort(sort).skip(request.skip).limit(request.size).toList()
+        val items = collection.find(query).sort(sort).skip(request.skip).limit(request.size).toList().onEach { it.tracked() }
         val totalItems = collection.countDocuments(query)
         return PagedMongoResponse(items, request.page, totalItems, request.totalPages(totalItems))
     }
@@ -244,19 +246,25 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
     /**
      * Полная запись документа с оптимистичной блокировкой: запись проходит, только если версия
-     * в базе та же, что в объекте; после неё версия объекта растёт.
+     * в базе та же, что в объекте; после неё версия объекта растёт. Сущность [TrackedEntity] пишет
+     * только поля, изменившиеся с чтения: версия всё равно проверяется, так что чужая правка между
+     * чтением и записью - гонка, а не потерянное поле.
      *
      * @throws BaseRepositoryExceptions.BaseRepositoryException документа нет или его версия ушла вперёд
      */
     suspend fun update(entity: T, session: ClientSession): UpdateResult {
         settle(entity)
         val encoded = encode(entity)
+        val loaded = (entity as? TrackedEntity)?.loaded
         // Кодек не пишет null: поле, обнулённое в памяти (снятый предмет - equippedSlot), иначе осталось бы в базе
-        val cleared = fieldNames(entity).filterNot { it in encoded || it in CONST_SYSTEM_FIELDS || it in managedFields }
-        val fields = encoded.map { (field, value) -> Updates.set(field, value) } + cleared.map { Updates.unset(it) }
+        val cleared = fieldNames(entity).filterNot { it in encoded || it in CONST_SYSTEM_FIELDS || it in managedFields || (loaded != null && it !in loaded) }
+        val changed = if (loaded == null) encoded else encoded.filter { (field, value) -> loaded[field] != value }
+        val fields = changed.map { (field, value) -> Updates.set(field, value) } + cleared.map { Updates.unset(it) }
         val result = writing("update") { collection.updateOne(session, identity(entity), Updates.combine(versionBump(entity) + fields)) }
         if (result.matchedCount == 0L) missed("update", entity)
         if (entity is VersionedEntity && result.modifiedCount > 0) entity.version += 1
+        // Память документа сдвигается только с коммитом: откат оставляет её той, что лежит в базе
+        if (entity is TrackedEntity) afterCommit { entity.loaded = encoded }
         validateAfterUpdate(entity, session)
         return result
     }
@@ -365,7 +373,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     private fun fieldNames(entity: T): List<String> =
         kotlinx.serialization.serializer(entity.javaClass).descriptor.let { descriptor -> List(descriptor.elementsCount, descriptor::getElementName) }
 
-    private fun encode(entity: T): Map<String, Any?> {
+    /** Сущность, которая помнит документ, запоминает его, каким прочла. */
+    private fun T.tracked(): T = also { if (it is TrackedEntity) it.loaded = encode(it) }
+
+    private fun encode(entity: T): Map<String, BsonValue> {
         val document = BsonDocument()
         collection.codecRegistry.get(entityClass.java).encode(BsonDocumentWriter(document), entity, EncoderContext.builder().build())
         return document.filterKeys { it !in CONST_SYSTEM_FIELDS && it !in managedFields }

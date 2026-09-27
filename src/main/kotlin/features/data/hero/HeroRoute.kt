@@ -23,6 +23,7 @@ import features.logic.campaign.CampaignService
 import features.logic.crafts.CraftsService
 import features.logic.hero.HeroSnapshots
 import features.logic.hero.Rewards
+import features.logic.hero.Stash
 import features.logic.hero.respondWithHero
 import features.logic.inventory.InventoryService
 import features.logic.skills.SkillService
@@ -88,7 +89,7 @@ class HeroRoute(
                 val template = content.index.template(code) ?: throw base.exception.model.CharacterExceptions.funExceptionEquipmentNotFound("grantEquipment", code)
                 val rarity = call.optionalParam("rarity")?.let { Rarity.of(it) } ?: template.rarity
                 val item = ItemFactory(content.index).create(Hero.newItemId(), template, rarity, Dice.system())
-                hero.items += item
+                Stash.receive(hero, item, content.index)
                 repo.save(hero, "grantEquipment")
                 call.respondWithHero(item)
             }
@@ -108,6 +109,14 @@ class HeroRoute(
         get("/bench") { call.respondOk(inventory.bench(repo.requireHero(call.heroId, "bench"))) }
         post("/craft") { call.respondWithHero(inventory.craft(call.heroId, call.itemId, call.queryParam("recipe"))) }
         post("/uncraft") { call.respondWithHero(inventory.uncraft(call.heroId, call.itemId)) }
+
+        // Тайник: места, докупка пачек, переполнение - забрать или продать.
+        route("/stash") {
+            get { call.respondOk(inventory.stash(call.heroId)) }
+            post("/expand") { call.respondWithHero(inventory.expandStash(call.heroId)) }
+            post("/claim") { call.respondWithHero(inventory.claimOverflow(call.heroId, call.optionalParam("itemId"))) }
+            post("/sell") { call.respondWithHero(inventory.sellOverflow(call.heroId, call.itemId)) }
+        }
 
         // Ремёсла: работа идёт на сервере по времени и досчитывается при каждом обращении.
         route("/crafts") {

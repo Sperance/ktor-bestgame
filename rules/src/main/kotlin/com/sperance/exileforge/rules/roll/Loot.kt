@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.roll
 
+import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Monster
@@ -97,7 +98,7 @@ class LootRoller(private val index: ContentIndex) {
     fun activeMap(mapCode: String, effects: Map<String, Double>, rarity: Rarity = Rarity.COMMON): ActiveMap {
         val risk = risk(effects)
         val own = campaign.maps.rarityBonus[rarity] ?: 0.0
-        return ActiveMap(mapCode, effects, risk + own + (effects["MAP_QUANTITY"] ?: 0.0), risk + own + (effects["MAP_RARITY"] ?: 0.0), risk + (effects["MAP_EXPERIENCE"] ?: 0.0), rarity)
+        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), risk + own + (effects[MapStat.RARITY.code] ?: 0.0), risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0), rarity)
     }
 
     /** Строки карты-предмета, сложенные по характеристикам, с множителем атласа. */

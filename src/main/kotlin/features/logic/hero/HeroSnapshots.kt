@@ -6,6 +6,7 @@ import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.sha256
 import com.sperance.exileforge.rules.roll.ActiveWork
+import com.sperance.exileforge.rules.roll.ItemBuckets
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.ProfessionProgress
 import extensions.printLog
@@ -37,15 +38,16 @@ data class HeroPart(val version: String, val data: JsonElement)
 @Serializable
 data class HeroSnapshot(val version: String, val parts: Map<String, HeroPart>)
 
-/** Герой без вещей, сумки, дерева и кампании - те лежат своими частями. */
+/** Герой без вещей, сумки, дерева и кампании - те лежат своими частями; [stashSlots] - докупленные пачки мест тайника. */
 @Serializable
 data class HeroView(
     val id: String, val userId: String, val name: String, val description: String, val heroClass: String, val level: Int, val experience: Double,
     val money: Long, val skills: HeroSkills, val atlas: List<String>, val earned: List<String>, val recipes: List<String>, val auctionSlots: Int, val version: Long,
+    val stashSlots: Int = 0,
 ) {
     companion object {
         fun of(hero: Hero) = HeroView(hero._id, hero.userId, hero.name, hero.description, hero.heroClass, hero.level, hero.experience, hero.money,
-            hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.auctionSlots, hero.version)
+            hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.auctionSlots, hero.version, hero.stashSlots)
     }
 }
 
@@ -55,14 +57,15 @@ data class WorkState(val professions: Map<String, ProfessionProgress> = emptyMap
 
 /**
  * Снимки героя для ответов команд и `GET /hero/view`. Версия части - отпечаток её JSON: совпал -
- * часть не уходит. Герой - один документ, так что снимок читает его один раз и кодирует части
+ * часть не уходит. Вещи - корзинами [ItemBuckets] и порядком: новая добыча шлёт свою корзину и
+ * порядок, а не весь тайник. Герой - один документ, так что снимок читает его один раз и кодирует части
  * компактным JSON правил (без значений по умолчанию).
  */
 object HeroSnapshots : KoinComponent {
     /** Заголовок, в котором клиент перечисляет свои части: `hero=<отпечаток>,items=<отпечаток>`. */
     const val HEADER = "X-Hero-Parts"
     const val HERO = "hero"
-    const val ITEMS = "items"
+    const val OVERFLOW = "overflow"
     const val BAG = "bag"
     const val TREE = "tree"
     const val CAMPAIGN = "campaign"
@@ -95,7 +98,10 @@ object HeroSnapshots : KoinComponent {
             if (known[name] != hash) parts[name] = HeroPart(hash, json)
         }
         part(HERO, HeroView.serializer(), HeroView.of(hero))
-        part(ITEMS, ListSerializer(ItemInstance.serializer()), hero.items)
+        val buckets = hero.items.groupBy { ItemBuckets.of(it.id) }
+        ItemBuckets.names.forEachIndexed { bucket, name -> part(name, ListSerializer(ItemInstance.serializer()), buckets[bucket].orEmpty()) }
+        part(ItemBuckets.ORDER, ListSerializer(String.serializer()), hero.items.map { it.id })
+        part(OVERFLOW, ListSerializer(ItemInstance.serializer()), hero.overflow)
         part(BAG, MapSerializer(String.serializer(), Long.serializer()), hero.bag)
         part(TREE, ListSerializer(TakenNode.serializer()), hero.tree)
         part(CAMPAIGN, CampaignState.serializer(), hero.campaign)

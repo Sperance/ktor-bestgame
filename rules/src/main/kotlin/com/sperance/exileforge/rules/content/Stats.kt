@@ -63,6 +63,8 @@ class StatRegistry(val stats: List<StatDef>) {
     fun validate() {
         if (byCode.size != stats.size) fail("stats: duplicate codes")
         CoreStat.entries.forEach { if (it.code !in byCode) fail("stats: engine stat ${it.code} is missing") }
+        MapStat.entries.forEach { if (it.code !in byCode) fail("stats: map stat ${it.code} is missing") }
+        AtlasStat.entries.forEach { if (it.code !in byCode) fail("stats: atlas stat ${it.code} is missing") }
         if (stats.any { it.code.isBlank() }) fail("stats: blank code")
     }
 

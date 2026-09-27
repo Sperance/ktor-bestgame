@@ -15,6 +15,7 @@ import config.MongoFactory.transactionExecute
 import extensions.now
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.logic.hero.Stash
 import features.logic.locale.LocaleCache
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
@@ -118,7 +119,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     private fun deliver(lot: AuctionLot, owner: Hero) {
         when (lot.kind) {
-            LotKind.EQUIPMENT -> owner.items += (lot.equipment ?: throw AuctionExceptions.funExceptionLotBroken("deliver", lot._id)).copy(slot = null, socket = null)
+            LotKind.EQUIPMENT -> Stash.receive(owner, (lot.equipment ?: throw AuctionExceptions.funExceptionLotBroken("deliver", lot._id)).copy(slot = null, socket = null), index)
             LotKind.ITEM -> owner.earn(lot.item, lot.amount, index.rules.maxStack)
         }
     }

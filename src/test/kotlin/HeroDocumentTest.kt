@@ -7,6 +7,7 @@ import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.Roll
 import com.sperance.exileforge.rules.run.RarityBonus
 import com.sperance.exileforge.rules.run.RunContext
+import com.sperance.exileforge.rules.run.RunTally
 import features.data.hero.Hero
 import features.data.hero.RunState
 import org.bson.BsonDocument
@@ -29,7 +30,9 @@ class HeroDocumentTest {
             bag["CHAOS_ORB"] = 3
             tree += TakenNode("INT_START"); tree += TakenNode("ATTR_1", 2)
             campaign.chests["Z"] = ChestWindow(10, 2)
-            campaign.run = RunState("r", 42L, "Z", RunContext("WITCH", 7, mapOf("NORMAL" to RarityBonus(quantity = 5.0)), mapOf("ATLAS_GOLD" to 3.0)), 1L, 4, mutableListOf(8, 9))
+            campaign.run = RunState("r", 42L, "Z", RunContext("WITCH", 7, mapOf("NORMAL" to RarityBonus(quantity = 5.0)), mapOf("ATLAS_GOLD" to 3.0)), 1L, 4, linkedSetOf(8, 9), tally = RunTally(chests = 2, bosses = 1), content = "h")
+            overflow += ItemInstance("i3", "IRON_HAT", Rarity.UNCOMMON, listOf(Roll("HEALTH", 1, 0.1)))
+            stashSlots = 2
         }
         val document = BsonDocument()
         codec.encode(BsonDocumentWriter(document), hero, EncoderContext.builder().build())
@@ -38,6 +41,10 @@ class HeroDocumentTest {
         assertEquals(hero.bag, back.bag)
         assertEquals(hero.tree, back.tree)
         assertEquals(hero.campaign, back.campaign)
+        assertEquals(hero.overflow, back.overflow)
+        assertEquals(hero.stashSlots, back.stashSlots)
+        // Память прочитанного документа в базу не уходит
+        assertEquals(false, document.containsKey("loaded"))
         val roll = document.getArray("items")[0].asDocument().getArray("m")[0].asDocument()
         assertEquals(setOf("c", "t", "p", "f", "x"), roll.keys)
     }

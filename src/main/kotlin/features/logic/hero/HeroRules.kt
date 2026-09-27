@@ -10,14 +10,14 @@ import features.data.hero.Hero
 fun ContentIndex.sheetOf(hero: Hero): SheetResult =
     SheetCalculator(this).calculate(hero.level, heroClass(hero.heroClass), tree.lines(hero.tree), hero.equipped, hero.tree.mapTo(HashSet()) { it.code })
 
-/** Награда ложится на героя: стопки в сумку до потолка, опыт с уровнем, золото, копии вещей и рецепт. */
+/** Награда ложится на героя: стопки в сумку до потолка, опыт с уровнем, золото, рецепт и копии вещей - через тайник. */
 object Rewards {
-    fun grant(hero: Hero, reward: Reward, index: ContentIndex) {
+    fun grant(hero: Hero, reward: Reward, index: ContentIndex): Received {
         reward.items.forEach { (code, amount) -> if (index.item(code) != null) hero.earn(code, amount, index.rules.maxStack) }
         if (reward.experience > 0) addExperience(hero, reward.experience, index)
         hero.money += reward.gold
-        hero.items += reward.equipment
         reward.recipe?.let { if (it !in hero.recipes) hero.recipes += it }
+        return Stash.receive(hero, reward.equipment, index)
     }
 
     /** Уровень только растёт: потеря опыта не забирает вложенных очков дерева. */

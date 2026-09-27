@@ -29,6 +29,7 @@ import com.sperance.exileforge.rules.text.LocaleKey
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.logic.hero.Stash
 import features.logic.hero.sheetOf
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
@@ -125,7 +126,7 @@ class CraftsService : KoinComponent {
         hero.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles, totals = work.totals + gains)
         gains.spent.forEach { (code, amount) -> hero.spend(code, amount, method) }
         gains.items.forEach { (code, amount) -> hero.earn(code, amount, index.rules.maxStack) }
-        hero.items += made
+        Stash.receive(hero, made, index)
         heroes.save(hero, method)
         return gains
     }

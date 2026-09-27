@@ -44,6 +44,17 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         if (caller()?.isAdmin != false) entity
         else Hero(userId = entity.userId, name = entity.name.trim(), description = entity.description, heroClass = entity.heroClass)
 
+    /**
+     * Перед каждой записью героя его копии сверяются с контентом (1.1.0): пропавшие описания уходят,
+     * закреплённые строки дороллены, волшебная и редкая доведены до дна редкости. Какой бы путь ни
+     * принёс вещь - выдача администратора, старый документ, правка контента, - пустой она не ляжет.
+     */
+    override suspend fun settle(entity: Hero) {
+        val factory = ItemFactory(index)
+        val dice by lazy { Dice.system() }
+        (entity.items.asSequence() + entity.overflow.asSequence()).forEach { item -> index.template(item.template)?.let { factory.reconcile(it, item, dice) } }
+    }
+
     override suspend fun validateBeforeInsert(entity: Hero, session: ClientSession) {
         val method = "validateBeforeInsert"
         val player = caller()?.takeUnless { it.isAdmin }

@@ -19,6 +19,8 @@ import com.sperance.exileforge.rules.sheet.SellPrice
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.logic.hero.Stash
+import features.logic.hero.StashState
 import features.logic.hero.sheetOf
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
@@ -157,9 +159,28 @@ class InventoryService : KoinComponent {
         return finish(hero, bench.uncraft(item, template(item, method)), method)
     }
 
+    /** Места тайника героя и его переполнение. */
+    suspend fun stash(heroId: String): StashState = Stash.state(heroes.requireHero(heroId, "stash"), index)
+
+    /** Докупить пачку мест тайника за золото. */
+    suspend fun expandStash(heroId: String): StashState = stashCommand(heroId, "stashExpand") { Stash.expand(it, index) }
+
+    /** Забрать из переполнения вещь [itemId] или, без неё, всё, что влезет. */
+    suspend fun claimOverflow(heroId: String, itemId: String?): StashState = stashCommand(heroId, "stashClaim") { Stash.claim(it, itemId, index) }
+
+    /** Продать вещь из переполнения, не забирая её в тайник. */
+    suspend fun sellOverflow(heroId: String, itemId: String): StashState = stashCommand(heroId, "stashSell") { Stash.sellOverflow(it, itemId, index) }
+
+    private suspend fun stashCommand(heroId: String, method: String, command: (Hero) -> Any): StashState {
+        val hero = heroes.requireHero(heroId, method)
+        command(hero)
+        heroes.save(hero, method)
+        return Stash.state(hero, index)
+    }
+
     private suspend fun finish(hero: Hero, outcome: OrbOutcome, method: String): CurrencyApplyResponse {
         hero.replace(outcome.item)
-        outcome.created?.let { hero.items += it }
+        outcome.created?.let { Stash.receive(hero, it, index) }
         heroes.save(hero, method)
         return CurrencyApplyResponse.of(outcome)
     }

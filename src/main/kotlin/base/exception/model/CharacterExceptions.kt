@@ -24,6 +24,8 @@ object CharacterExceptions {
     fun funExceptionOfferNotFound(errorMethod: String, value: String? = "") = CharacterException("The merchant has no offer $value", errorMethod, "CH_017", listOf(value.orEmpty()))
     fun funExceptionMapNotWorn(errorMethod: String, value: String? = "") = CharacterException("Map $value is not worn: it opens a location", errorMethod, "CH_018", listOf(value.orEmpty()))
     fun funExceptionJewelNotWorn(errorMethod: String, value: String? = "") = CharacterException("Jewel $value is not worn: it goes into a skill tree socket", errorMethod, "CH_019", listOf(value.orEmpty()))
+    fun funExceptionStashFull(errorMethod: String, value: String? = "") = CharacterException("The stash is full: $value items", errorMethod, "CH_020", listOf(value.orEmpty()))
+    fun funExceptionStashMax(errorMethod: String, value: String? = "") = CharacterException("The stash already has its most places: $value", errorMethod, "CH_021", listOf(value.orEmpty()))
     fun funExceptionSellSocketed(errorMethod: String, value: String? = "") = CharacterException("Jewel $value must be taken out of its socket before it is sold", errorMethod, "CH_015", listOf(value.orEmpty()))
     fun funExceptionExperience(errorMethod: String, value: String? = "") = CharacterException("Experience amount $value must not be negative", errorMethod, "CH_012", listOf(value.orEmpty()))
 }

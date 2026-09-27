@@ -16,6 +16,7 @@ import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.user.UserRepository
 import features.logic.hero.Rewards
+import features.logic.hero.Stash
 import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -74,7 +75,7 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(RedemptionCode
                 RedemptionKind.EXPERIENCE -> Rewards.addExperience(hero, reward.amount, index)
                 RedemptionKind.GOLD -> hero.money += reward.amount.toLong()
                 RedemptionKind.EQUIPMENT -> index.template(reward.item)?.let { template ->
-                    repeat(reward.amount.toInt()) { hero.items += factory.create(Hero.newItemId(), template, template.rarity, dice) }
+                    Stash.receive(hero, List(reward.amount.toInt()) { factory.create(Hero.newItemId(), template, template.rarity, dice) }, index)
                 }
             }
         }

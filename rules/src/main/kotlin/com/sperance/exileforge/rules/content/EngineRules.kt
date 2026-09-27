@@ -88,6 +88,36 @@ data class AuctionRules(val baseSlots: Int = 5, val maxSlots: Int = 20, val firs
     fun slotPrice(bought: Int): Long = Math.round(firstSlotPrice * Math.pow(slotGrowth, bought.toDouble()))
 }
 
+/**
+ * Тайник героя (1.1.0): сколько копий вещей он держит - база и докупленные за золото пачки мест, но
+ * не больше [maxSlots] и никогда не больше [HARD_CAP], считая надетое. Что не влезло, ждёт в
+ * переполнении до [overflowSlots] копий; сверх него вещь продаётся торговцу сама.
+ */
+@Serializable
+data class StashRules(
+    val baseSlots: Int = 200,
+    val maxSlots: Int = HARD_CAP,
+    val slotStep: Int = 50,
+    val firstPrice: Double = 1000.0,
+    val priceGrowth: Double = 1.25,
+    val overflowSlots: Int = 100,
+) {
+    /** Мест у героя, докупившего [bought] пачек. */
+    fun capacity(bought: Int): Int = (baseSlots + bought * slotStep).coerceAtMost(maxSlots)
+
+    /** Цена следующей пачки; ноль - докупать нечего. */
+    fun price(bought: Int): Long = if (capacity(bought) >= maxSlots) 0 else Math.round(firstPrice * Math.pow(priceGrowth, bought.toDouble()))
+
+    fun validate() {
+        if (baseSlots < 1 || maxSlots !in baseSlots..HARD_CAP || slotStep < 1 || firstPrice < 0 || priceGrowth < 1 || overflowSlots < 0) fail("rules: stash")
+    }
+
+    companion object {
+        /** Потолок копий на героя при любых правилах: документ героя не растёт без меры. */
+        const val HARD_CAP = 1000
+    }
+}
+
 /** Добыча: рост золота с уровнем, степень опыта, веса редкости шаблона в тяге, дальность уникалок боссов, шанс рецепта. */
 @Serializable
 data class LootRules(
@@ -98,9 +128,13 @@ data class LootRules(
     val recipeChance: Double = 0.10,
 )
 
+/** Заход: бросить открытый заход ради нового семени - не чаще [newSeedSeconds]; вход без карты в ту же зону продолжает прежний. */
+@Serializable
+data class RunRules(val newSeedSeconds: Int = 30)
+
 /**
  * Правила движка (`rules.json`): всё, что раньше было константами кода, - места аффиксов редкостей,
- * торговец, цена, верстак, сферы, фляги, стартовый набор, аукцион, добыча.
+ * торговец, цена, верстак, сферы, фляги, стартовый набор, аукцион, добыча, тайник, заход.
  */
 @Serializable
 data class EngineRules(
@@ -116,6 +150,8 @@ data class EngineRules(
     val starter: StarterRules = StarterRules(),
     val auction: AuctionRules = AuctionRules(),
     val loot: LootRules = LootRules(),
+    val stash: StashRules = StashRules(),
+    val run: RunRules = RunRules(),
     val maxCharacters: Int = 3,
     val maxStack: Long = 100_000_000_000L,
 ) {
@@ -133,5 +169,7 @@ data class EngineRules(
         if (orbs.vaalShift.size != 2 || orbs.vaalShift[0] > orbs.vaalShift[1] || orbs.fractureMinAffixes < 1 || orbs.maxAlchemyLines < 0) fail("rules: orbs")
         if (loot.rarityWeights.keys != Rarity.entries.toSet()) fail("rules: loot rarity weights")
         if (auction.baseSlots < 0 || auction.maxSlots < auction.baseSlots) fail("rules: auction")
+        stash.validate()
+        if (run.newSeedSeconds < 0) fail("rules: run")
     }
 }

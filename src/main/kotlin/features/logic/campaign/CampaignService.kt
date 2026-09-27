@@ -2,6 +2,7 @@ package features.logic.campaign
 
 import base.exception.model.CampaignExceptions
 import base.exception.model.CharacterExceptions
+import com.sperance.exileforge.rules.content.AtlasBonuses
 import com.sperance.exileforge.rules.content.AtlasPoints
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.CoreStat
@@ -30,6 +31,7 @@ import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.hero.RunState
 import features.logic.atlas.AtlasService
+import features.logic.hero.Received
 import features.logic.hero.Rewards
 import features.logic.hero.sheetOf
 import kotlinx.serialization.Serializable
@@ -55,13 +57,18 @@ data class RewardView(val experience: Double = 0.0, val gold: Long = 0, val item
  */
 @Serializable
 data class RunReport(val applied: Int, val rejected: List<Int>, val reward: RewardView, val lost: Double, val level: Int, val experience: Double, val money: Long,
-                     val progress: CampaignProgress, val open: Boolean)
+                     val progress: CampaignProgress, val open: Boolean, val received: Received = Received())
 
 /**
  * Кампания по семени (1.0.0). `start` замораживает контекст героя и выдаёт семя: клиент катает монстров
  * и добычу правилами `rules` сам и пишет журнал событий; `events` проигрывает журнал тем же кодом,
  * каждый номер один раз, - итог сервера и есть истина. Ни сферы, ни уровня клиент себе не выпишет:
  * он лишь называет, что убил и что открыл, а что выпало, решает семя.
+ *
+ * С 1.1.0 семя не перебрать: вход без карты в зону открытого захода продолжает его, а бросить открытый
+ * заход ради нового семени можно не чаще правила `run.newSeedSeconds`. Награды сундука, босса, стража, кристалла и копилки
+ * катятся по их порядковому номеру в заходе, так что повтор события не повторяет добычу, а заход,
+ * начатый на другом контенте, закрывается, а не проигрывается иначе, чем его видел клиент.
  */
 class CampaignService : KoinComponent {
     private val heroes: HeroRepository by inject()
@@ -91,6 +98,12 @@ class CampaignService : KoinComponent {
         val hero = heroes.requireHero(heroId, method)
         val zone = openZone(hero, mapCode, method)
         val state = hero.campaign
+        val now = System.currentTimeMillis()
+        // Без карты в ту же зону - тот же заход: вход заново не даёт нового семени
+        state.run?.takeIf { itemId == null && it.zone == mapCode && it.content == index.hash }?.let { return startOf(it, zone) }
+        // Бросить открытый заход ради нового семени можно не чаще правила; закрытый выходом или гибелью - сразу
+        val wait = if (state.run == null) 0L else state.seededAt + index.rules.run.newSeedSeconds * 1000L - now
+        if (wait > 0) throw CampaignExceptions.funExceptionSeedTooSoon(method, ((wait + 999) / 1000).toString())
         val bonuses = atlas.bonuses(hero)
         val dice = Dice.system()
         val item = itemId?.let { hero.requireItem(it, method) }
@@ -118,11 +131,15 @@ class CampaignService : KoinComponent {
             state.corruptionOpened = false
             state.vaalZone = null
         }
-        val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context(hero, zone, sheet), System.currentTimeMillis())
+        val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context(hero, zone, sheet), now, content = index.hash)
         state.run = run
+        state.seededAt = now
         heroes.save(hero, method)
-        return RunStart(run.id, run.seed, zone.code, zone.level, run.context, Run(index, zone, run.seed, run.context).count, run.startedAt)
+        return startOf(run, zone)
     }
+
+    private fun startOf(run: RunState, zone: Zone) = RunStart(run.id, run.seed, zone.code, zone.level, run.context, Run(index, zone, run.seed, run.context).count,
+        run.startedAt, run.applied, run.killed.toList(), run.vaalKilled.toList(), run.tally.copy())
 
     /** Контекст захода: проценты героя с монстров каждой редкости - лист и силы уникалок, - атлас, карта, Ваал-зона, связи. */
     private fun context(hero: Hero, zone: Zone, sheet: Map<String, Double>): RunContext {
@@ -142,9 +159,18 @@ class CampaignService : KoinComponent {
             hero.campaign.vaalZone?.takeIf { it.mapCode == zone.code }, atlasBonuses.extraRareMods, index.world.next(zone.code), hero.recipes.toList())
     }
 
-    /** Заход с текущими Ваал-зоной и рецептами героя: остальное контекста замёрзло на входе. */
-    private fun runOf(hero: Hero, state: RunState, zone: Zone): Run =
-        Run(index, zone, state.seed, state.context.copy(vaal = hero.campaign.vaalZone?.takeIf { it.mapCode == zone.code }, recipes = hero.recipes.toList()))
+    /**
+     * Заход с текущими Ваал-зоной и рецептами героя: остальное контекста замёрзло на входе. Строится
+     * заново, только когда они сменились, - журнал в сотню убийств не собирает заход сотню раз.
+     */
+    private inner class Runs(private val hero: Hero, private val state: RunState, private val zone: Zone) {
+        private var built: Run? = null
+
+        fun current(): Run {
+            val context = state.context.copy(vaal = hero.campaign.vaalZone?.takeIf { it.mapCode == zone.code }, recipes = hero.recipes.toList())
+            return built?.takeIf { it.context == context } ?: Run(index, zone, state.seed, context, state.tally).also { built = it }
+        }
+    }
 
     /**
      * Журнал захода: события по номерам, каждый принимается один раз - уже принятые пропускаются, а
@@ -155,33 +181,38 @@ class CampaignService : KoinComponent {
         val method = "events"
         val hero = heroes.requireHero(heroId, method)
         val state = hero.campaign.run ?: throw CampaignExceptions.funExceptionNoRun(method, "")
+        if (state.content != index.hash) {
+            close(hero.campaign, state.zone)
+            heroes.save(hero, method)
+            throw CampaignExceptions.funExceptionContentChanged(method, state.id)
+        }
         val zone = index.zone(state.zone) ?: throw CampaignExceptions.funExceptionMapNotFound(method, state.zone)
+        val runs = Runs(hero, state, zone)
+        val bonuses = atlas.bonuses(hero)
         var total = Reward.NONE
         var lost = 0.0
         val rejected = mutableListOf<Int>()
         for (event in events.sortedBy { it.n }) {
             if (event.n < state.applied) continue
             if (event.n > state.applied) throw CampaignExceptions.funExceptionEventOrder(method, "${event.n}, expected ${state.applied}")
-            val outcome = apply(hero, state, zone, event)
+            val outcome = apply(hero, state, zone, event, runs.current(), bonuses)
             if (outcome == null) rejected += event.n else { total += outcome.reward; lost += outcome.lost }
             state.applied++
             // Выход или гибель закрыли заход: что журнал прислал после них, уже ни к чему не относится
             if (hero.campaign.run == null) break
         }
-        Rewards.grant(hero, total, index)
+        val received = Rewards.grant(hero, total, index)
         heroes.save(hero, method)
-        return RunReport(state.applied, rejected, RewardView.of(total), lost, hero.level, hero.experience, hero.money, progressOf(hero), hero.campaign.run != null)
+        return RunReport(state.applied, rejected, RewardView.of(total), lost, hero.level, hero.experience, hero.money, progressOf(hero), hero.campaign.run != null, received)
     }
 
     private class Outcome(val reward: Reward = Reward.NONE, val lost: Double = 0.0)
 
     /** Одно событие журнала; null - правило его не пустило. */
-    private fun apply(hero: Hero, state: RunState, zone: Zone, event: RunEvent): Outcome? {
+    private fun apply(hero: Hero, state: RunState, zone: Zone, event: RunEvent, run: Run, bonuses: AtlasBonuses): Outcome? {
         val campaignState = hero.campaign
         val mapCode = zone.code
         val now = System.currentTimeMillis()
-        val run = runOf(hero, state, zone)
-        val bonuses = atlas.bonuses(hero)
         return when (event.kind) {
             RunEventKind.KILL -> {
                 val key = event.i * Run.PACK_SLOTS + event.m
@@ -193,9 +224,9 @@ class CampaignService : KoinComponent {
             }
             RunEventKind.CHEST -> {
                 val window = campaignState.chests[mapCode] ?: return null
-                if (window.left <= 0 || event.index < 0) return null
+                if (window.left <= 0) return null
                 campaignState.chests[mapCode] = window.copy(left = window.left - 1)
-                Outcome(run.chest(event.index))
+                Outcome(run.chest())
             }
             RunEventKind.BOSS -> {
                 if (now < (campaignState.bosses[mapCode] ?: 0L)) return null
@@ -228,7 +259,7 @@ class CampaignService : KoinComponent {
                 val window = campaignState.crystals[mapCode] ?: return null
                 val crystal = window.crystals.getOrNull(event.index) ?: return null
                 campaignState.crystals[mapCode] = window.copy(crystals = window.crystals.filterIndexed { i, _ -> i != event.index })
-                Outcome(run.crystal(event.index, crystal))
+                Outcome(run.crystal(crystal))
             }
             RunEventKind.CRYSTAL_VAAL -> {
                 val window = campaignState.crystals[mapCode] ?: return null

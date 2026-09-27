@@ -12,6 +12,7 @@ import com.sperance.exileforge.rules.table.Tables
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.logic.hero.Stash
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -78,7 +79,7 @@ class MerchantService : KoinComponent {
         if (hero.money < offer.price) throw CharacterExceptions.funExceptionGold(method, offer.price.toString())
         hero.money -= offer.price
         hero.merchant = stock.copy(offers = stock.offers - offer)
-        hero.items += offer.item
+        Stash.receive(hero, offer.item, index)
         heroes.save(hero, method)
         return MerchantPurchase(offer.item, hero.money)
     }
