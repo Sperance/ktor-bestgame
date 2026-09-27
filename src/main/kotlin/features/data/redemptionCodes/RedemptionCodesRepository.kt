@@ -73,7 +73,7 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(RedemptionCode
             when (reward.kind) {
                 RedemptionKind.ITEM -> hero.earn(reward.item, reward.amount.toLong(), index.rules.maxStack)
                 RedemptionKind.EXPERIENCE -> Rewards.addExperience(hero, reward.amount, index)
-                RedemptionKind.GOLD -> hero.money += reward.amount.toLong()
+                RedemptionKind.GOLD -> hero.gain(reward.amount.toLong())
                 RedemptionKind.EQUIPMENT -> index.template(reward.item)?.let { template ->
                     Stash.receive(hero, List(reward.amount.toInt()) { factory.create(Hero.newItemId(), template, template.rarity, dice) }, index)
                 }

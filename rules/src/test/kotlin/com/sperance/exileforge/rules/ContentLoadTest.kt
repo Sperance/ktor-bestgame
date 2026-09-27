@@ -44,6 +44,19 @@ class ContentLoadTest {
     }
 
     @Test
+    fun everyAchievementAndTitleHasTextInEveryLanguage() {
+        val index = index()
+        val strings = MapSerializer(String.serializer(), String.serializer())
+        listOf("en", "ru").forEach { language ->
+            val words = RulesJson.decodeFromString(strings, File(resources, "locale/$language.json").readText())
+            val keys = index.achievements.achievements.flatMap { listOf("achievement.${it.code}.name", "achievement.${it.code}.desc") } +
+                index.achievements.achievements.filter { it.title.isNotBlank() }.map { "title.${it.title}" }
+            val missing = keys.filter { words[it].isNullOrBlank() }
+            assertTrue(missing.isEmpty(), "$language: $missing")
+        }
+    }
+
+    @Test
     fun rollsAreDeterministic() {
         val index = index()
         val template = index.templates.values.first { it.rarity == Rarity.COMMON && it.tables.isNotEmpty() && !it.slot.isJewelLike }

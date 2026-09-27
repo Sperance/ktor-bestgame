@@ -110,6 +110,16 @@ class HeroRoute(
         post("/craft") { call.respondWithHero(inventory.craft(call.heroId, call.itemId, call.queryParam("recipe"))) }
         post("/uncraft") { call.respondWithHero(inventory.uncraft(call.heroId, call.itemId)) }
 
+        // Титул у имени: только из открытых достижениями, пустой - снять.
+        post("/title") {
+            val hero = repo.requireHero(call.heroId, "title")
+            val title = call.optionalParam("title").orEmpty()
+            if (title.isNotBlank() && title !in content.index.achievements.titles(hero.chronicle()))
+                throw base.exception.model.CharacterExceptions.funExceptionTitleLocked("title", title)
+            hero.title = title
+            call.respondWithHero(repo.save(hero, "title").title)
+        }
+
         // Тайник: места, докупка пачек, переполнение - забрать или продать.
         route("/stash") {
             get { call.respondOk(inventory.stash(call.heroId)) }

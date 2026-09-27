@@ -8,6 +8,7 @@ import base.route.PagedMongoResponse
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.Item
 import com.sperance.exileforge.rules.text.LocaleKey
 import config.ContentStore
@@ -98,6 +99,8 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         buyer.spend(lot.priceOrb, lot.price, method)
         seller.earn(lot.priceOrb, lot.price, index.rules.maxStack)
         deliver(lot, buyer)
+        buyer.count(Counter.AUCTION_BOUGHT)
+        seller.count(Counter.AUCTION_SOLD)
         return transactionExecute("auction $method $lotId") { session ->
             heroes.update(buyer, session)
             heroes.update(seller, session)
@@ -146,7 +149,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         if (rules.baseSlots + seller.auctionSlots >= rules.maxSlots) throw AuctionExceptions.funExceptionSlotsMax(method, rules.maxSlots.toString())
         val price = rules.slotPrice(seller.auctionSlots)
         if (seller.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
-        seller.money -= price
+        seller.pay(price)
         seller.auctionSlots += 1
         heroes.save(seller, method)
         return slotsOf(seller, active(seller._id), seller.money)

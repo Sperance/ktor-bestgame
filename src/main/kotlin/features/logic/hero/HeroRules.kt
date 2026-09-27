@@ -1,6 +1,8 @@
 package features.logic.hero
 
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Counter
+import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.run.Reward
 import com.sperance.exileforge.rules.sheet.SheetCalculator
 import com.sperance.exileforge.rules.sheet.SheetResult
@@ -15,8 +17,16 @@ object Rewards {
     fun grant(hero: Hero, reward: Reward, index: ContentIndex): Received {
         reward.items.forEach { (code, amount) -> if (index.item(code) != null) hero.earn(code, amount, index.rules.maxStack) }
         if (reward.experience > 0) addExperience(hero, reward.experience, index)
-        hero.money += reward.gold
+        hero.gain(reward.gold)
         reward.recipe?.let { if (it !in hero.recipes) hero.recipes += it }
+        reward.equipment.forEach { item ->
+            when (item.rarity) {
+                Rarity.UNCOMMON -> hero.count(Counter.ITEMS_MAGIC)
+                Rarity.RARE -> hero.count(Counter.ITEMS_RARE)
+                Rarity.UNIQUE, Rarity.MYTHICAL -> hero.count(Counter.UNIQUES)
+                Rarity.COMMON -> Unit
+            }
+        }
         return Stash.receive(hero, reward.equipment, index)
     }
 

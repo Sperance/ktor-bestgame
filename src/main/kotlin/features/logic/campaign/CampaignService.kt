@@ -6,6 +6,7 @@ import com.sperance.exileforge.rules.content.AtlasBonuses
 import com.sperance.exileforge.rules.content.AtlasPoints
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.CoreStat
+import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.MonsterRarity
 import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.Rarity
@@ -134,6 +135,7 @@ class CampaignService : KoinComponent {
         val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context(hero, zone, sheet), now, content = index.hash)
         state.run = run
         state.seededAt = now
+        hero.count(Counter.RUNS)
         heroes.save(hero, method)
         return startOf(run, zone)
     }
@@ -220,12 +222,19 @@ class CampaignService : KoinComponent {
                 if (key in killed) return null
                 val reward = run.kill(event.i, event.m, event.vaal) ?: return null
                 killed += key
+                hero.count(Counter.KILLS)
+                when (run.spawn(event.i, event.vaal).pack.getOrNull(event.m)?.rarity) {
+                    MonsterRarity.MAGIC -> hero.count(Counter.KILLS_MAGIC)
+                    MonsterRarity.RARE -> hero.count(Counter.KILLS_RARE)
+                    else -> Unit
+                }
                 Outcome(reward)
             }
             RunEventKind.CHEST -> {
                 val window = campaignState.chests[mapCode] ?: return null
                 if (window.left <= 0) return null
                 campaignState.chests[mapCode] = window.copy(left = window.left - 1)
+                hero.count(Counter.CHESTS)
                 Outcome(run.chest())
             }
             RunEventKind.BOSS -> {
@@ -233,6 +242,7 @@ class CampaignService : KoinComponent {
                 campaignState.bosses[mapCode] = now + (bonuses.bossRespawnHours(campaign.bosses.respawnHours) * 3_600_000).toLong()
                 if (mapCode !in campaignState.cleared) campaignState.cleared += mapCode
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
+                hero.count(Counter.BOSSES)
                 if (campaignState.activeMap?.takeIf { it.mapCode == mapCode }?.itemRarity == Rarity.RARE) AtlasPoints.earn(hero.earned, AtlasPoints.RARE, mapCode)
                 Outcome(run.boss())
             }
@@ -253,12 +263,14 @@ class CampaignService : KoinComponent {
                 campaignState.corruptionOpened = true
                 campaignState.vaalZone = null
                 AtlasPoints.earn(hero.earned, AtlasPoints.VAAL, mapCode)
+                hero.count(Counter.VAAL_GUARDIANS)
                 Outcome(reward)
             }
             RunEventKind.CRYSTAL -> {
                 val window = campaignState.crystals[mapCode] ?: return null
                 val crystal = window.crystals.getOrNull(event.index) ?: return null
                 campaignState.crystals[mapCode] = window.copy(crystals = window.crystals.filterIndexed { i, _ -> i != event.index })
+                hero.count(Counter.CRYSTALS)
                 Outcome(run.crystal(crystal))
             }
             RunEventKind.CRYSTAL_VAAL -> {
@@ -283,6 +295,7 @@ class CampaignService : KoinComponent {
                 val descent = campaignState.abyssRun?.takeIf { it.mapCode == mapCode } ?: return null
                 if (event.depth !in 0..descent.depth) return null
                 campaignState.abyssRun = null
+                if (!event.fallen) hero.count(Counter.ABYSS_DEPTH, event.depth.toLong())
                 // Гибель в Бездне сжигает копилку целиком; счёт копилок заход ведёт и тогда
                 Outcome(run.hoard(event.depth, if (event.fallen) 0.0 else 1.0))
             }
@@ -290,13 +303,14 @@ class CampaignService : KoinComponent {
                 if (now >= (campaignState.bosses[mapCode] ?: 0L)) return null
                 val price = campaign.services.summonPerLevel * zone.level
                 if (hero.money < price) throw CharacterExceptions.funExceptionGold("summon", price.toString())
-                hero.money -= price
+                hero.pay(price)
                 campaignState.bosses.remove(mapCode)
                 Outcome()
             }
             RunEventKind.FALL -> {
                 val lost = loot.deathLoss(campaign.combat.death, zone.level, hero.experience, index.classes.threshold(hero.level) ?: 0.0, index.classes.nextThreshold(hero.level))
                 hero.experience -= lost
+                hero.count(Counter.DEATHS)
                 close(campaignState, mapCode)
                 Outcome(lost = lost)
             }

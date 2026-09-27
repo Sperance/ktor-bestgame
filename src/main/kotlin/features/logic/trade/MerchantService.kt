@@ -82,7 +82,7 @@ class MerchantService : KoinComponent {
         val stock = restock(hero)
         val offer = stock.offers.firstOrNull { it.id == offerId } ?: throw CharacterExceptions.funExceptionOfferNotFound(method, offerId)
         if (hero.money < offer.price) throw CharacterExceptions.funExceptionGold(method, offer.price.toString())
-        hero.money -= offer.price
+        hero.pay(offer.price)
         hero.merchant = stock.copy(offers = stock.offers - offer)
         Stash.receive(hero, offer.item, index)
         heroes.save(hero, method)

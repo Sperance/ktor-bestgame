@@ -82,7 +82,7 @@ class SkillService : KoinComponent {
         val price = rule.goldPerLevel * hero.level
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
         books.forEach { spendBook(hero, it, method) }
-        hero.money -= price
+        hero.pay(price)
         hero.earn(SkillRules.book(code), 1, index.rules.maxStack)
         return heroes.save(hero, method).skills
     }

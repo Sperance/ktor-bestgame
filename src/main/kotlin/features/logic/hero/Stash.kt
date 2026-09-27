@@ -2,6 +2,7 @@ package features.logic.hero
 
 import base.exception.model.CharacterExceptions
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.sheet.SellPrice
 import features.data.hero.Hero
@@ -48,7 +49,8 @@ object Stash {
                 hero.overflow.size < overflowMax -> { hero.overflow += item; Received(overflowed = 1) }
                 else -> {
                     val gold = index.template(item.template)?.let { SellPrice.of(index, it, item.rarity, item.rolls.size, sheet) } ?: 0L
-                    hero.money += gold
+                    hero.gain(gold)
+                    hero.count(Counter.ITEMS_SOLD)
                     Received(sold = 1, gold = gold)
                 }
             }
@@ -75,7 +77,8 @@ object Stash {
         val template = index.template(item.template) ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.template)
         val gold = SellPrice.of(index, template, item.rarity, item.rolls.size, index.sheetOf(hero).stats)
         hero.overflow.remove(item)
-        hero.money += gold
+        hero.gain(gold)
+        hero.count(Counter.ITEMS_SOLD)
         return gold
     }
 
@@ -85,7 +88,7 @@ object Stash {
         val price = index.rules.stash.price(hero.stashSlots)
         if (price <= 0) throw CharacterExceptions.funExceptionStashMax(method, index.rules.stash.maxSlots.toString())
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
-        hero.money -= price
+        hero.pay(price)
         hero.stashSlots += 1
         return price
     }

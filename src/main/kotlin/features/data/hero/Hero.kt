@@ -3,6 +3,7 @@ package features.data.hero
 import base.entity.TrackedEntity
 import base.entity.VersionedEntity
 import base.exception.model.CharacterExceptions
+import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.roll.AbyssRun
@@ -59,6 +60,10 @@ data class Hero(
     var merchant: MerchantStock? = null,
     /** Мест под лоты аукциона докуплено сверх базовых. */
     var auctionSlots: Int = 0,
+    /** Летопись героя (1.3.0): счётчики [Counter] - сумма или рекорд. */
+    var counters: MutableMap<String, Long> = mutableMapOf(),
+    /** Титул у имени - код одного из открытых достижениями; пусто - без титула. */
+    var title: String = "",
     var campaign: CampaignState = CampaignState(),
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
@@ -93,6 +98,25 @@ data class Hero(
         if (amount <= 0) return
         val owned = bag[code] ?: 0L
         bag[code] = (owned + amount).coerceAtMost(maxOf(cap, owned))
+    }
+
+    /** Счётчик летописи: сумма или рекорд - как велит его вид. */
+    fun count(counter: String, amount: Long = 1) = Counter.add(counters, counter, amount)
+
+    /** Счётчики вместе с выводимыми из героя: уровень, пройденные зоны, узлы атласа. */
+    fun chronicle(): Map<String, Long> = Counter.values(counters, level, campaign.cleared.size, atlas.size)
+
+    /** Золото герою - в кошелёк и в летопись. */
+    fun gain(gold: Long) {
+        if (gold <= 0) return
+        money += gold
+        count(Counter.GOLD_EARNED, gold)
+    }
+
+    /** Золото от героя: списано и записано в летопись; хватает ли - проверяет вызывающий. */
+    fun pay(gold: Long) {
+        money -= gold
+        count(Counter.GOLD_SPENT, gold)
     }
 
     fun replace(item: ItemInstance) {

@@ -2,6 +2,7 @@ package features.logic.crafts
 
 import base.exception.model.ProfessionExceptions
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.CraftsRules
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Job
@@ -127,6 +128,8 @@ class CraftsService : KoinComponent {
         gains.spent.forEach { (code, amount) -> hero.spend(code, amount, method) }
         gains.items.forEach { (code, amount) -> hero.earn(code, amount, index.rules.maxStack) }
         Stash.receive(hero, made, index)
+        hero.count(Counter.CRAFT_CYCLES, result.gains.cycles.toLong())
+        hero.count(Counter.CRAFT_MADE, (made.size + books.values.sum()).toLong())
         heroes.save(hero, method)
         return gains
     }

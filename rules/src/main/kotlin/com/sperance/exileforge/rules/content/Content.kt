@@ -30,8 +30,9 @@ object ContentFiles {
     const val POWERS = "powers.json"
     const val PROFESSIONS = "professions.json"
     const val RULES = "rules.json"
+    const val ACHIEVEMENTS = "achievements.json"
 
-    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES)
+    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES, ACHIEVEMENTS)
 }
 
 /** Рецепт верстака: верстачное описание в одном тире и его цена; выводится из CRAFTED-вариантов и лестницы цен правил. */
@@ -66,6 +67,7 @@ class Content(
     val powers: PowerBook,
     val professions: CraftsFile,
     val rules: EngineRules,
+    val achievements: AchievementsFile = AchievementsFile(),
     val hashes: Map<String, String> = emptyMap(),
 ) {
     /** Отпечаток всего контента: по нему сервер и клиент узнают, что видят один мир. */
@@ -98,6 +100,7 @@ object ContentLoader {
             powers = parse(ContentFiles.POWERS, PowerBook.serializer()),
             professions = parse(ContentFiles.PROFESSIONS, CraftsFile.serializer()),
             rules = parse(ContentFiles.RULES, EngineRules.serializer()),
+            achievements = parse(ContentFiles.ACHIEVEMENTS, AchievementsFile.serializer()),
             hashes = texts.mapValues { sha256(it.value) },
         )
         return ContentIndex(content).also { it.validate() }
@@ -119,6 +122,7 @@ class ContentIndex(val content: Content) {
     val powers: PowerBook get() = content.powers
     val professions: CraftsFile get() = content.professions
     val atlas: AtlasTree get() = content.atlas
+    val achievements: AchievementsFile get() = content.achievements
     val hash: String get() = content.hash
 
     val families: Map<String, ModifierFamily> = (content.modifiers.families + content.equipment.templates.flatMap { it.uniqueFamilies() }).associateBy { it.code }
@@ -235,6 +239,7 @@ class ContentIndex(val content: Content) {
         atlasGraph.validate(atlas, stats, ::modifier)
         professions.validate({ it in items }, ::template, { it in zones }, { classes.heroClass(it) != null })
         rules.bench.costs.forEach { if (items[it.orb.name] == null) fail("rules: bench orb ${it.orb}") }
+        achievements.validate()
         CampaignValidator(this).validate()
     }
 }

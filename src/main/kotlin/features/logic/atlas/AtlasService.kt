@@ -61,6 +61,6 @@ class AtlasService : KoinComponent {
 
     private fun charge(hero: Hero, price: Long, method: String) {
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
-        hero.money -= price
+        hero.pay(price)
     }
 }

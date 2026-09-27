@@ -44,10 +44,14 @@ data class HeroView(
     val id: String, val userId: String, val name: String, val description: String, val heroClass: String, val level: Int, val experience: Double,
     val money: Long, val skills: HeroSkills, val atlas: List<String>, val earned: List<String>, val recipes: List<String>, val auctionSlots: Int, val version: Long,
     val stashSlots: Int = 0,
+    /** Летопись (1.3.0): накопленные счётчики - выводимые клиент добавит сам - и титул у имени. */
+    val counters: Map<String, Long> = emptyMap(),
+    val title: String = "",
 ) {
     companion object {
         fun of(hero: Hero) = HeroView(hero._id, hero.userId, hero.name, hero.description, hero.heroClass, hero.level, hero.experience, hero.money,
-            hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.auctionSlots, hero.version, hero.stashSlots)
+            hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.auctionSlots, hero.version, hero.stashSlots,
+            hero.counters.toMap(), hero.title)
     }
 }
 

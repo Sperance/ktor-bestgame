@@ -5,8 +5,10 @@ import base.exception.model.CurrencyExceptions
 import base.exception.model.SkillTreeExceptions
 import com.sperance.exileforge.rules.content.BenchRecipe
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.EquipSlots
 import com.sperance.exileforge.rules.content.ItemTemplate
+import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.roll.Bench
@@ -114,7 +116,8 @@ class InventoryService : KoinComponent {
         if (item.equipped) throw CharacterExceptions.funExceptionSellEquipped(method, template.code)
         val gold = SellPrice.of(index, template, item.rarity, item.rolls.size, index.sheetOf(hero).stats)
         hero.items.remove(item)
-        hero.money += gold
+        hero.gain(gold)
+        hero.count(Counter.ITEMS_SOLD)
         heroes.save(hero, method)
         return SellOutcome(itemId, template.code, gold, hero.money)
     }
@@ -126,6 +129,8 @@ class InventoryService : KoinComponent {
         val item = hero.requireItem(itemId, method)
         val orb = index.orb(orbCode) ?: throw CurrencyExceptions.funExceptionNotCurrency(method, orbCode)
         hero.spend(orbCode, 1, method)
+        hero.count(Counter.ORBS_USED)
+        if (orb == Orb.MIRROR_OF_KALANDRA) hero.count(Counter.MIRRORS)
         return finish(hero, orbs.apply(orb, item, template(item, method), Dice.system()) { Hero.newItemId() }, method)
     }
 
@@ -136,6 +141,7 @@ class InventoryService : KoinComponent {
         val item = hero.requireItem(itemId, method)
         val essence = index.essence(essenceCode) ?: throw CurrencyExceptions.funExceptionNotCurrency(method, essenceCode)
         hero.spend(essenceCode, 1, method)
+        hero.count(Counter.ESSENCES_USED)
         return finish(hero, orbs.applyEssence(essence, item, template(item, method), Dice.system()), method)
     }
 

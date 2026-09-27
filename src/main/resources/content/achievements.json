@@ -1,0 +1,230 @@
+{
+  "achievements": [
+    {
+      "code": "SLAYER",
+      "counter": "KILLS",
+      "tiers": [
+        100,
+        1000,
+        10000
+      ],
+      "title": "SLAYER"
+    },
+    {
+      "code": "MAGIC_HUNTER",
+      "counter": "KILLS_MAGIC",
+      "tiers": [
+        50,
+        500,
+        5000
+      ]
+    },
+    {
+      "code": "RARE_HUNTER",
+      "counter": "KILLS_RARE",
+      "tiers": [
+        25,
+        250,
+        2500
+      ],
+      "title": "RARE_HUNTER"
+    },
+    {
+      "code": "BOSS_BANE",
+      "counter": "BOSSES",
+      "tiers": [
+        5,
+        50,
+        500
+      ],
+      "title": "BOSS_BANE"
+    },
+    {
+      "code": "DEFILER",
+      "counter": "VAAL_GUARDIANS",
+      "tiers": [
+        1,
+        10,
+        100
+      ],
+      "title": "DEFILER"
+    },
+    {
+      "code": "RESTLESS",
+      "counter": "DEATHS",
+      "tiers": [
+        1,
+        10,
+        100
+      ],
+      "title": "RESTLESS"
+    },
+    {
+      "code": "BOTTOMLESS",
+      "counter": "ABYSS_DEPTH",
+      "tiers": [
+        3,
+        6,
+        10
+      ],
+      "title": "BOTTOMLESS"
+    },
+    {
+      "code": "WANDERER",
+      "counter": "RUNS",
+      "tiers": [
+        10,
+        100,
+        1000
+      ],
+      "title": "WANDERER"
+    },
+    {
+      "code": "TREASURE",
+      "counter": "CHESTS",
+      "tiers": [
+        10,
+        100,
+        1000
+      ],
+      "title": "TREASURE_SEEKER"
+    },
+    {
+      "code": "ESSENCE_GATHERER",
+      "counter": "CRYSTALS",
+      "tiers": [
+        5,
+        50,
+        500
+      ],
+      "title": "ESSENCE_GATHERER"
+    },
+    {
+      "code": "FINDER",
+      "counter": "ITEMS_RARE",
+      "tiers": [
+        25,
+        250,
+        2500
+      ]
+    },
+    {
+      "code": "COLLECTOR",
+      "counter": "UNIQUES",
+      "tiers": [
+        1,
+        25,
+        250
+      ],
+      "title": "COLLECTOR"
+    },
+    {
+      "code": "MAGNATE",
+      "counter": "GOLD_EARNED",
+      "tiers": [
+        10000,
+        1000000,
+        100000000
+      ],
+      "title": "MAGNATE"
+    },
+    {
+      "code": "PATRON",
+      "counter": "GOLD_SPENT",
+      "tiers": [
+        10000,
+        1000000,
+        100000000
+      ],
+      "title": "PATRON"
+    },
+    {
+      "code": "PEDDLER",
+      "counter": "ITEMS_SOLD",
+      "tiers": [
+        50,
+        500,
+        5000
+      ],
+      "title": "PEDDLER"
+    },
+    {
+      "code": "BROKER",
+      "counter": "AUCTION_SOLD",
+      "tiers": [
+        1,
+        25,
+        250
+      ],
+      "title": "BROKER"
+    },
+    {
+      "code": "ORB_MASTER",
+      "counter": "ORBS_USED",
+      "tiers": [
+        50,
+        500,
+        5000
+      ],
+      "title": "ORB_MASTER"
+    },
+    {
+      "code": "ESSENCE_ALCHEMIST",
+      "counter": "ESSENCES_USED",
+      "tiers": [
+        10,
+        100,
+        1000
+      ],
+      "title": "ESSENCE_ALCHEMIST"
+    },
+    {
+      "code": "REFLECTED",
+      "counter": "MIRRORS",
+      "tiers": [
+        1
+      ],
+      "title": "REFLECTED"
+    },
+    {
+      "code": "ARTISAN",
+      "counter": "CRAFT_CYCLES",
+      "tiers": [
+        100,
+        1000,
+        10000
+      ],
+      "title": "ARTISAN"
+    },
+    {
+      "code": "VETERAN",
+      "counter": "LEVEL",
+      "tiers": [
+        20,
+        50,
+        90
+      ],
+      "title": "VETERAN"
+    },
+    {
+      "code": "PATHFINDER",
+      "counter": "ZONES",
+      "tiers": [
+        10,
+        50,
+        100
+      ],
+      "title": "PATHFINDER"
+    },
+    {
+      "code": "CARTOGRAPHER",
+      "counter": "ATLAS",
+      "tiers": [
+        10,
+        50,
+        120
+      ],
+      "title": "CARTOGRAPHER"
+    }
+  ]
+}
