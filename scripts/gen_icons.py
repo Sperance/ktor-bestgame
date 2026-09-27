@@ -3,8 +3,11 @@
 Stained-glass item icons («Витраж», the owner's pick of five mockups).
 
 Rewrites every `equipment.*` and `item.*` key of src/main/resources/icons/icons.json to a coloured
-sprite drawn here, one sprite per subtype: a slot's defence, a weapon's type, a ring's stone, an
-essence's kind and tier band, an orb, an egg's biome. Stat and skill sprites are kept as they are.
+sprite drawn here, one sprite per subtype: a slot's defence and base tier, a weapon's type, a ring's
+stone, an essence's kind and tier band, an orb, an egg's biome. A unique gets its own: the subtype's
+shape in its theme's glass with its sign; a mythical one also rays. `slot.*` keys are the empty
+places of the body in dark glass. Stat and skill sprites become small windows of their hue; their
+mono originals live in `icons_mono.json` beside this script, the source they are redrawn from.
 
 A glass sprite carries `"style": "glass"`; its paths carry `color`. The client paints them as:
   * a piece  (alpha 1, no line) — the colour, a diagonal sheen over it, a dark lead line round it;
@@ -515,65 +518,234 @@ EGG = {"JUNGLE": "#4f9f3e", "ABYSS": "#6a3ab0", "CRYPT": "#8a8474", "ASH": "#d86
        "FOREST": "#2f7a3e"}
 
 
+# Base tiers by the template's level: < 25 plain, 25–54 worked, 55+ ornate with a set stone.
+def tier(t):
+    level = t.get("level") or t.get("requiredLevel") or 1
+    return 0 if level < 25 else 1 if level < 55 else 2
+
+
+TIER_MAT = {
+    "BASE_ARMOUR": ["#8e97a3", "#b9c2cf", "#dfe6ee"],
+    "BASE_EVASION": ["#a8784a", "#8b5530", "#5e3822"],
+    "BASE_ENERGY_SHIELD": ["#8a93a8", "#7a4fc0", "#5a2fa0"],
+}
+TIER_METAL = ["bronze", "steel", "#e8eef6"]
+TIER_GUARD = ["#8a5a34", "gold", "gold"]
+TIER_STONE = "#e0405a"
+
+# A unique's theme, read from its name: its glass, its second colour, the sign it bears and the sign's colour.
+THEMES = [
+    (("VOID", "ABYSS", "CHASM", "MAW", "HOLLOW", "ENTROPY", "SHROUD", "SHADOW", "NIGHT"), "#5a2a9a", "#2a1f3a", "EYE", "#d08af0"),
+    (("EMBER", "MOLTEN", "INFERNAL", "ASH", "PHOENIX", "FIRE", "FLAME", "SEETHING", "FURY"), "#e8602a", "#f2c53a", "FLAME", "#ffd070"),
+    (("FROST", "RIME", "ICE", "WINTER", "GLACI", "SNOW"), "#7fd8f0", "#dfe6ee", "SNOW", "#ffffff"),
+    (("STORM", "THUNDER", "LIGHTNING"), "#f2e04a", "#6a5ae0", "BOLT", "#fff6a0"),
+    (("TIDE", "BRINE", "DROWN", "CONCH", "SHORE", "SERPENT", "QUENCH", "NECTAR"), "#2fa8b0", "#1f5a8a", "WAVE", "#bff0f0"),
+    (("BLOOD", "CARNAGE", "HEART", "BUTCHER", "FANG", "HEADHUNTER", "BITE", "GLUTTON", "FEAST"), "#b01a2a", "#3a1a1a", "DROP", "#ff7a7a"),
+    (("GRAVE", "SOUL", "DEATH", "BONE", "FALLEN", "SEVENTH", "LAST_BREATH", "HEX", "REMORSE"), "#8aa88a", "#e4dcc4", "SKULL", "#efe6cf"),
+    (("STAR", "ASTRA", "CHRONO", "TIME", "ETERNAL", "SANDS", "DAWN", "SUN", "SAINT", "SERAPH", "VASTIRI", "PROMISE"), "#f0d890", "#3a3a8a", "STAR", "#fff6d0"),
+    (("FORGE", "SMITH", "TITAN", "BULWARK", "BRAZEN", "MIRROR", "KAOM", "BEREK", "VANGUARD", "MAGNATE"), "#c98a4a", "#6a6e78", "HEX", "#f2c53a"),
+]
+
+
+def theme(code):
+    for keys, glass, second, sign, sign_col in THEMES:
+        if any(k in code for k in keys):
+            return glass, second, sign, sign_col
+    hue = hashed(code)
+    return hue, shade(hue, .45), "RUNE", "#f2c53a"
+
+
+ACCENT_EMBLEM = {
+    "SNOW": ("M50 22 V78 M26 36 L74 64 M74 36 L26 64", False),
+    "BOLT": ("M58 20 L34 54 H50 L42 80 L68 44 H52 Z", True),
+}
+
+
+def accent(sign, col, x, y, size):
+    """A sign in a dark medallion, [size] wide at x,y: the mark a unique bears."""
+    d, filled = ACCENT_EMBLEM.get(sign) or ORB_EMBLEM[sign]
+    k = size / 60
+    placed = str(Path(d) * Matrix(f"translate({x}, {y}) scale({k}) translate(-50, -50)"))
+    return [piece(circ(x, y, size / 2), "#15171a"), piece(placed, col) if filled else line(placed, col, max(1.4, 9 * k))]
+
+
+def set_stone(x, y, size):
+    h = size / 2
+    return [piece(f"M{x} {y - h} L{x + h} {y} L{x} {y + h} L{x - h} {y}Z", TIER_STONE), glaze(f"M{x} {y - h} L{x} {y + h} L{x - h} {y}Z", "white", .35)]
+
+
+def rays(col="#f0e2c0"):
+    out = []
+    for k in range(12):
+        a = k * math.pi / 6
+        at = lambda r, t: f"{32 + r * math.cos(t):.2f} {32 + r * math.sin(t):.2f}"
+        out.append(piece(f"M{at(22, a - .14)} L{at(31, a)} L{at(22, a + .14)} Z", col))
+    return out
+
+
+# Where a sign or a set stone sits on each drawing, before the drawing is turned: x, y, size.
+ANCHOR = {
+    "SWORD": (32, 42.5, 9), "BLADE": (32, 41, 9), "LONGSWORD": (32, 44.5, 9), "DOUBLESWORD": (32, 43, 10),
+    "AXE": (46, 21, 11), "DOUBLEAXE": (32, 22, 11), "BOW": (40.5, 32, 9), "WAND": None,
+    "HELMET": {"BASE_ARMOUR": (32, 22, 12), "BASE_EVASION": (32, 24, 12), "BASE_ENERGY_SHIELD": (32, 43, 11)},
+    "BODY": (32, 30, 12), "GLOVES": (27, 31, 11), "BOOTS": {"BASE_ARMOUR": (27, 23, 10), "BASE_EVASION": (27, 22, 11), "BASE_ENERGY_SHIELD": (28, 25, 10)},
+    "SHIELD": (32, 32, 16), "BELT": (32, 32, 10), "FLASK_ROUND": (32, 47, 11), "FLASK_TALL": (32, 48, 10),
+    "QUIVER": (33, 40, 11), "WINGS": (32, 32, 11),
+}
+
+
+def anchor(key, style=None):
+    a = ANCHOR.get(key)
+    return a.get(style or "BASE_ARMOUR") if isinstance(a, dict) else a
+
+
+def mark(parts, look, where):
+    """A unique's sign, or a top tier's set stone, laid on a drawing at [where]."""
+    if not where:
+        return parts
+    if look["unique"]:
+        return parts + accent(look["sign"], look["sign_col"], *where)
+    if look["tier"] == 2:
+        return parts + set_stone(where[0], where[1], where[2] * .8)
+    return parts
+
+
 def equipment(atlas, t):
     code, slot = t["code"], t["slot"]
     key = f"equipment.{code}"
     first, second = defences(t)
+    unique = t.get("rarity") in ("UNIQUE", "MYTHICAL")
+    glass, glass2, sign, sign_col = theme(code) if unique else (None, None, None, None)
+    look = {"unique": unique, "tier": tier(t), "sign": sign, "sign_col": sign_col}
+    lv = look["tier"]
+    halo = rays() if t.get("rarity") == "MYTHICAL" else []
+    name = f"u_{code}" if unique else None
+
+    def put(base_name, parts, rot=0):
+        atlas.put(key, name or base_name, halo + parts, rot)
+
     if slot in ("WEAPON_1H", "WEAPON_2H"):
         wt = t.get("weaponType") or next((w for w in WEAPONS if w in code), "SWORD")
         draw, rot = WEAPONS.get(wt, WEAPONS["SWORD"])
-        metal = "bronze" if any(k in code for k in ("RUSTED", "COPPER", "BRONZE", "CORRODED")) else "steel"
-        if draw in (wand,):
-            parts, name = wand(stone(code), "darkwood"), f"wand_{stone(code)[1:]}"
-        elif draw is bow:
-            parts, name = bow("wood", "leather"), "bow"
+        metal = glass or TIER_METAL[lv]
+        guard = glass2 or TIER_GUARD[lv]
+        if draw is wand:
+            gem = glass or stone(code)
+            put(f"wand_{gem[1:]}", wand(gem, "darkwood"), rot)
+            return
+        if draw is bow:
+            parts = bow(glass2 or ["wood", "#7a3a26", "#5e3b22"][lv], "leather")
         elif draw in (axe, doubleaxe):
-            parts, name = draw(metal, "wood"), f"{wt}_{metal}"
+            parts = draw(metal, glass2 or "wood")
         else:
-            parts, name = draw(metal, "gold", "leather"), f"{wt}_{metal}"
-        atlas.put(key, name, parts, rot)
+            parts = draw(metal, guard, "leather")
+        put(f"{wt}_{lv}", mark(parts, look, anchor(wt)), rot)
     elif slot in ARMOUR:
         style = first or "BASE_EVASION"
-        mat = DEFENCE[style][0]
-        trim = DEFENCE[second][1] if second else MAT["gold"]
-        atlas.put(key, f"{slot}_{style}_{second}", ARMOUR[slot](style, mat, trim))
+        mat = glass or TIER_MAT[style][lv]
+        trim = glass2 or (DEFENCE[second][1] if second else ["#a8784a", MAT["gold"], MAT["gold"]][lv])
+        put(f"{slot}_{style}_{second}_{lv}", mark(ARMOUR[slot](style, mat, trim), look, anchor(slot, style)))
     elif slot == "SHIELD":
         shape = next((s for s in SHIELD_SHAPES if s in code), SHIELD_BY_DEFENCE.get(first, "KITE"))
-        face = DEFENCE[first][1] if first else "#a8322a"
-        mat = {"ROUND": "wood", "BUCKLER": "hide"}.get(shape, "steel")
-        atlas.put(key, f"shield_{shape}_{face[1:]}", shield(shape, mat, face if shape != "ROUND" else "wood", "gold"))
+        face = glass or (DEFENCE[first][1] if first else "#a8322a")
+        mat = glass2 or {"ROUND": "wood", "BUCKLER": "hide"}.get(shape) or TIER_MAT["BASE_ARMOUR"][lv]
+        parts = shield(shape, mat, face if shape != "ROUND" or unique else "wood", "gold")
+        put(f"shield_{shape}_{face[1:]}_{lv}", mark(parts, look, anchor("SHIELD")))
     elif slot == "RING":
-        gem = stone(code)
-        atlas.put(key, f"ring_{gem[1:]}", ring("silver" if "IRON" in code else "gold", gem))
+        gem = glass or stone(code)
+        put(f"ring_{gem[1:]}", ring("silver" if "IRON" in code else "gold", gem))
     elif slot == "AMULET":
-        gem = stone(code)
-        atlas.put(key, f"amulet_{gem[1:]}", amulet(gem))
+        gem = glass or stone(code)
+        put(f"amulet_{gem[1:]}", amulet(gem))
     elif slot == "BELT":
         strap, detail = ("steel", "chain") if "CHAIN" in code else ("cloth", "plain") if "SASH" in code else ("leather", "studs")
-        atlas.put(key, f"belt_{detail}", belt(strap, detail))
+        put(f"belt_{detail}", mark(belt(glass2 or strap, detail), look, anchor("BELT")))
     elif slot == "FLASK":
-        liquid = next((v for k, v in FLASK_LIQUID.items() if k in code), None) or hashed(code)
+        liquid = glass or next((v for k, v in FLASK_LIQUID.items() if k in code), None) or hashed(code)
         tall = not any(k in code for k in ("LIFE", "MANA"))
-        atlas.put(key, f"flask_{'tall' if tall else 'round'}_{liquid[1:]}", flask(liquid, tall))
+        put(f"flask_{'tall' if tall else 'round'}_{liquid[1:]}",
+            mark(flask(liquid, tall), look, anchor("FLASK_TALL" if tall else "FLASK_ROUND")))
     elif slot == "QUIVER":
-        fletch = "#f07a2a" if "FIRE" in code else "#7fd8f0" if "FROST" in code else "#b88af0" if "STORM" in code else "#e6d4a6"
-        atlas.put(key, f"quiver_{fletch[1:]}", quiver(fletch), 0)
+        fletch = glass or ("#f07a2a" if "FIRE" in code else "#7fd8f0" if "FROST" in code else "#b88af0" if "STORM" in code else "#e6d4a6")
+        put(f"quiver_{fletch[1:]}", mark(quiver(fletch), look, anchor("QUIVER")))
     elif slot == "WINGS":
         feathered = any(k in code for k in ("FEATHER", "SERAPH", "VASTIRI", "FALLEN_GOD", "PINION"))
-        hue = ("#2a1f3a" if any(k in code for k in ("VOID", "ABYSS", "MAW", "SHROUD")) else
-               "#e0602a" if any(k in code for k in ("ASH", "FORGE")) else
-               "#f0ecdc" if feathered else "#7a5234")
-        atlas.put(key, f"wings_{'f' if feathered else 'b'}_{hue[1:]}", wings(hue, "#d9a53a" if feathered else "#e4dcc4", feathered))
+        hue = glass or ("#f0ecdc" if feathered else "#7a5234")
+        put(f"wings_{'f' if feathered else 'b'}_{hue[1:]}",
+            mark(wings(hue, "#d9a53a" if feathered else "#e4dcc4", feathered), look, anchor("WINGS")))
     elif slot == "JEWEL":
         gem = {"CRIMSON": "#d0304a", "VIRIDIAN": "#3aa870", "COBALT": "#3a6fe0"}.get(code.split("_")[0], hashed(code))
-        atlas.put(key, f"jewel_{gem[1:]}", jewel(gem))
+        put(f"jewel_{gem[1:]}", jewel(gem))
     elif slot == "MAP":
         circle = re.match(r"MAP_(C\d+)", code)
         seal = MAP_SEAL.get(circle.group(1) if circle else "", "#c8c8c8")
-        atlas.put(key, f"map_{seal[1:]}", game_map(seal))
+        put(f"map_{seal[1:]}", game_map(seal))
     elif slot.startswith("TOOL_"):
         metal = next((v for k, v in TOOL_METAL.items() if code.startswith(k)), "steel")
-        atlas.put(key, f"{slot}_{metal}", tool(slot, metal), 0)
+        put(f"{slot}_{metal}", tool(slot, metal))
+
+
+# ------------------------------------------------------------------------------------ empty slots
+
+def shadow(parts):
+    """An empty place of the body: the drawing in dark, unpainted glass, without its highlights."""
+    return [dict(p, color="#3b352e") if "line" not in p else dict(p, color="#4a4238") for p in parts if p.get("alpha", 1) == 1]
+
+
+SLOTS = {
+    "HELMET": lambda: helmet("BASE_ARMOUR", "steel", "gold"), "BODY": lambda: body("BASE_ARMOUR", "steel", "gold"),
+    "GLOVES": lambda: gloves("BASE_ARMOUR", "steel", "gold"), "BOOTS": lambda: boots("BASE_EVASION", "leather", "gold"),
+    "RING": lambda: ring("gold", "gold"), "RING_2": lambda: ring("gold", "gold"), "AMULET": lambda: amulet("gold"),
+    "BELT": lambda: belt("leather", "plain"), "WEAPON_1H": lambda: (sword("steel", "gold", "leather"), 40),
+    "WEAPON_2H": lambda: (longsword("steel", "gold", "leather"), 45), "QUIVER": lambda: quiver("paper"),
+    "SHIELD": lambda: shield("KITE", "steel", "steel", "gold"), "WINGS": lambda: wings("leather", "bone", False),
+    "JEWEL": lambda: jewel("#808080"), "MAP": lambda: game_map("paper"),
+    "FLASK": lambda: flask("glass", False), "FLASK_2": lambda: flask("glass", False), "FLASK_3": lambda: flask("glass", False),
+    **{s: (lambda s=s: tool(s, "steel")) for s in ("TOOL_MINING", "TOOL_HERBALISM", "TOOL_WOODCUTTING", "TOOL_SMITHING",
+                                                  "TOOL_ALCHEMY", "TOOL_CARTOGRAPHY", "TOOL_ENCHANTING")},
+}
+
+
+def slots(atlas):
+    for slot, draw in SLOTS.items():
+        drawn = draw()
+        parts, rot = drawn if isinstance(drawn, tuple) else (drawn, 0)
+        atlas.put(f"slot.{slot}", f"slot_{slot}", shadow(parts), rot)
+
+
+# ------------------------------------------------------------------------------ stats and skills
+
+MONO_SOURCE = FsPath(__file__).resolve().parent / "icons_mono.json"
+STAT_HUE = {
+    "fire": "#ef6a3a", "cold": "#6fc8f0", "water": "#3a9ae8", "lightning": "#f2d03a", "air": "#bfe3ef", "earth": "#a8784a",
+    "chaos": "#9b59d6", "dark": "#8a5ad0", "poison": "#7fcf4a", "physical": "#c8ccd4", "combat": "#c8ccd4",
+    "critical": "#f2a03a", "health": "#e0405a", "regen": "#e86a7a", "leech": "#c02a4a", "bleeding": "#b01a2a",
+    "mana": "#4a7ae8", "magical": "#6a8af0", "focus": "#8aa8f0", "energy": "#8a6ae0", "shield_energy": "#8a6ae0",
+    "armour": "#b9c2cf", "block": "#b9c2cf", "shield": "#b9c2cf", "resist": "#e8c060", "evasion": "#7fcf4a",
+    "speed": "#9adf6a", "agility": "#7fcf4a", "strength": "#e0405a", "intellect": "#4a7ae8", "constitution": "#d98a4a",
+    "rarity": "#f2c53a", "quantity": "#f2c53a", "gold": "#f2c53a", "experience": "#c8e06a", "light": "#fff0b0",
+    "summon": "#b88af0", "stun": "#f0a040", "invisible": "#a0a8b8", "flask": "#e0405a", "crystal": "#9fd8e8",
+    "inventory": "#c89a60", "locked": "#8e97a3", "mirror": "#e8f4ff",
+}
+
+
+def stat_glass(sprite, hue):
+    """A mono stat or skill drawing as a small window: each outline leaded, filled with its hue."""
+    out = []
+    for p in sprite["paths"]:
+        col = hue if p.get("alpha", 1) >= .9 else shade(hue, .62)
+        out.append({"d": p["d"], "color": col, "line": 3.27})
+        out.append({"d": p["d"], "color": col, "alpha": .96})
+    return {"viewBox": sprite["viewBox"], "style": "glass", "paths": out}
+
+
+def stats(sprites):
+    """Converts every mono sprite in place; the mono originals are kept beside this script as the source."""
+    source = json.loads(MONO_SOURCE.read_text()) if MONO_SOURCE.exists() else {}
+    source.update({k: v for k, v in sprites.items() if not k.startswith(PREFIX) and v.get("style", "mono") == "mono"})
+    MONO_SOURCE.write_text(json.dumps(source, ensure_ascii=False, indent=2) + "\n")
+    for name, sprite in source.items():
+        sprites[name] = stat_glass(sprite, STAT_HUE.get(name, "#d9a53a"))
 
 
 def item(atlas, i):
@@ -627,10 +799,12 @@ def main():
     atlas = Atlas()
     for t in templates: equipment(atlas, t)
     for i in items: item(atlas, i)
+    slots(atlas)
 
     target = RES / "icons/icons.json"
     doc = json.loads(target.read_text())
     sprites = {k: v for k, v in doc["sprites"].items() if not k.startswith(PREFIX)}
+    stats(sprites)
     sprites.update(atlas.sprites)
     icons = dict(doc["icons"])
     icons.update(atlas.keys)
