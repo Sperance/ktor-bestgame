@@ -68,6 +68,17 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
      * Эссенция: обычная вещь становится редкой с гарантированной строкой на тире её ступени; ступень,
      * что перебрасывает редкие, и особая берут и редкую. Волшебную, уникальную, флягу, карту, самоцвет не берёт.
      */
+    /**
+     * Пойдёт ли сфера на копию: пробный бросок над её копией, отказ правила - нет. Кузница клиента
+     * показывает только такие сферы; сама копия не меняется.
+     */
+    fun accepts(orb: Orb, item: ItemInstance, template: ItemTemplate): Boolean =
+        runCatching { apply(orb, item.copy(), template, Dice(PROBE)) { PROBE_ID } }.isSuccess
+
+    /** То же для эссенции. */
+    fun accepts(essence: Essence, item: ItemInstance, template: ItemTemplate): Boolean =
+        runCatching { applyEssence(essence, item.copy(), template, Dice(PROBE)) }.isSuccess
+
     fun applyEssence(essence: Essence, item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         val essenceName = LocaleKey.itemName(essence.code)
         if (item.corrupted) throw RuleViolation("CR_004", listOf(name(template)))
@@ -270,4 +281,9 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     private fun outcome(item: ItemInstance, template: ItemTemplate, key: String, vararg args: String) = OrbOutcome(item, null, key, listOf(name(template)) + args)
     private fun name(template: ItemTemplate) = LocaleKey.equipmentName(template.code)
     private fun orbName(orb: Orb) = LocaleKey.enumLabel("EnumCurrencyOrb", orb.name)
+
+    private companion object {
+        const val PROBE = 0L
+        const val PROBE_ID = "probe"
+    }
 }
