@@ -210,6 +210,8 @@ data class CampaignFile(
     val vaal: VaalRule = VaalRule(),
     val rangedForms: Set<String> = emptySet(),
     val abyss: AbyssRule? = null,
+    /** Осквернение (1.4.0): пятна на земле зон; нет раздела - нет пятен. */
+    val desecration: DesecrationRule? = null,
     /** Таблица весов редкостей монстров. */
     val rarityTable: String = "rarity:monster",
 ) {

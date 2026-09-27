@@ -7295,5 +7295,156 @@
       "mob:abyss",
       "mob:monster"
     ]
+  },
+  "desecration": {
+    "count": [
+      2,
+      5
+    ],
+    "radius": 1.8,
+    "trail": 4.0,
+    "growth": 0.015,
+    "minLevel": 1,
+    "kinds": [
+      {
+        "code": "BURNING_GROUND",
+        "group": "ELEMENTAL",
+        "lines": {
+          "MAP_HERO_DEGEN": 1.5,
+          "MAP_HERO_RESIST": 10
+        },
+        "weight": 100
+      },
+      {
+        "code": "CHILLED_GROUND",
+        "group": "ELEMENTAL",
+        "lines": {
+          "MAP_HERO_HASTE": -25,
+          "MAP_HERO_ATTACK_SPEED": -10
+        },
+        "weight": 100
+      },
+      {
+        "code": "SHOCKED_GROUND",
+        "group": "ELEMENTAL",
+        "lines": {
+          "MAP_HERO_DAMAGE_TAKEN": 12
+        },
+        "weight": 100
+      },
+      {
+        "code": "CAUSTIC_GROUND",
+        "group": "POISON",
+        "lines": {
+          "MAP_HERO_DEGEN": 2.5,
+          "MAP_HERO_REGEN": 50
+        },
+        "weight": 100
+      },
+      {
+        "code": "BLIGHT",
+        "group": "POISON",
+        "lines": {
+          "MAP_HERO_DEGEN": 1.0,
+          "MAP_HERO_RECOVERY": 30
+        },
+        "weight": 100
+      },
+      {
+        "code": "CORROSION",
+        "group": "DEFENCE",
+        "lines": {
+          "MAP_HERO_DEFENCES": 30
+        },
+        "weight": 100
+      },
+      {
+        "code": "SHATTERED_WARD",
+        "group": "DEFENCE",
+        "lines": {
+          "MAP_HERO_BLOCK": 15,
+          "MAP_HERO_MAX_RESIST": 5
+        },
+        "weight": 100
+      },
+      {
+        "code": "DARKNESS",
+        "group": "WEAKNESS",
+        "lines": {
+          "MAP_HERO_LIGHT": 40,
+          "MAP_HERO_CRIT": 25
+        },
+        "weight": 100
+      },
+      {
+        "code": "DRAINING",
+        "group": "WEAKNESS",
+        "lines": {
+          "MAP_HERO_MANA_REGEN": 50,
+          "MAP_HERO_LEECH": -2
+        },
+        "weight": 100
+      },
+      {
+        "code": "ENERVATION",
+        "group": "WEAKNESS",
+        "lines": {
+          "MAP_HERO_LIFE": -12
+        },
+        "weight": 100
+      },
+      {
+        "code": "VULNERABILITY",
+        "group": "CURSE",
+        "lines": {
+          "MAP_HERO_DAMAGE_TAKEN": 15
+        },
+        "weight": 60
+      },
+      {
+        "code": "TEMPORAL_CHAINS",
+        "group": "CURSE",
+        "lines": {
+          "MAP_HERO_HASTE": -20,
+          "MAP_HERO_ATTACK_SPEED": -15
+        },
+        "weight": 60
+      },
+      {
+        "code": "ELEMENTAL_WEAKNESS",
+        "group": "CURSE",
+        "lines": {
+          "MAP_HERO_RESIST": 20
+        },
+        "weight": 60
+      },
+      {
+        "code": "ENFEEBLE",
+        "group": "CURSE",
+        "lines": {
+          "MAP_HERO_CRIT": 35,
+          "MAP_HERO_ATTACK_SPEED": -8
+        },
+        "weight": 60
+      },
+      {
+        "code": "PUNISHMENT",
+        "group": "CURSE",
+        "lines": {
+          "MAP_HERO_BLOCK": 10,
+          "MAP_HERO_DAMAGE_TAKEN": 6
+        },
+        "weight": 60
+      },
+      {
+        "code": "DESPAIR",
+        "group": "CURSE",
+        "lines": {
+          "MAP_HERO_MAX_RESIST": 8,
+          "MAP_HERO_RECOVERY": 15
+        },
+        "weight": 60
+      }
+    ]
   }
 }

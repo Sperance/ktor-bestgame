@@ -361,6 +361,11 @@
       "order": 272
     },
     {
+      "code": "STOCK_LIFE_DEGEN_PERCENT",
+      "group": "HERO",
+      "order": 3022
+    },
+    {
       "code": "STOCK_IGNITE_CHANCE",
       "group": "HERO",
       "order": 280
@@ -439,6 +444,11 @@
       "code": "STOCK_CHILL_DURATION_ON_SELF",
       "group": "HERO",
       "order": 295
+    },
+    {
+      "code": "STOCK_DESECRATION_EFFECT",
+      "group": "HERO",
+      "order": 3021
     },
     {
       "code": "STOCK_FREEZE_DURATION_ON_SELF",
@@ -738,6 +748,11 @@
       "code": "MAP_HERO_SLOW",
       "group": "MAP",
       "order": 416
+    },
+    {
+      "code": "MAP_HERO_DEGEN",
+      "group": "MAP",
+      "order": 3023
     },
     {
       "code": "MAP_FLASK_CHARGES",

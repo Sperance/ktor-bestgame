@@ -7279,6 +7279,39 @@
       ]
     },
     {
+      "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DESECRATION_EFFECT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            30,
+            35
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "defences",
+        "chaos"
+      ]
+    },
+    {
       "code": "AVOID_FREEZE",
       "source": "SUFFIX",
       "effects": [

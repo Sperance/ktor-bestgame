@@ -3048,9 +3048,9 @@
         ],
         [
           {
-            "code": "AVOID_STUN",
+            "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
             "values": [
-              10
+              25
             ]
           },
           {
@@ -9568,9 +9568,9 @@
         ],
         [
           {
-            "code": "AVOID_STUN",
+            "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
             "values": [
-              10
+              25
             ]
           },
           {
@@ -10789,9 +10789,9 @@
         ],
         [
           {
-            "code": "AVOID_STUN",
+            "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
             "values": [
-              10
+              25
             ]
           },
           {

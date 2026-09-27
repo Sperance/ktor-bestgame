@@ -328,6 +328,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         }
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }
         content.abyss?.let(::validateAbyss)
+        content.desecration?.let(::validateDesecration)
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) fail("campaign: behaviour of form $it") }
         (listOf(content.behaviour.default, content.bosses.behaviour) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validateBehaviour)
@@ -366,6 +367,16 @@ private class CampaignValidator(private val index: ContentIndex) {
             }
         }
         index.world.unreachable().takeIf { it.isNotEmpty() }?.let { fail("world: unreachable $it") }
+    }
+
+    private fun validateDesecration(rule: DesecrationRule) {
+        if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.radius <= 0 || rule.trail < 0 || rule.growth < 0 || rule.minLevel < 1) fail("desecration: rule")
+        if (rule.kinds.isEmpty() || rule.kinds.map { it.code }.toSet().size != rule.kinds.size) fail("desecration: kinds")
+        if (rule.kinds.map { it.group }.toSet() != DesecrationGroup.entries.toSet()) fail("desecration: groups")
+        rule.kinds.forEach { kind ->
+            if (kind.weight <= 0 || kind.lines.isEmpty() || kind.lines.keys.any { it !in DesecrationRule.HERO_LINES }) fail("desecration: kind ${kind.code}")
+        }
+        stat(DesecrationRule.GUARD)
     }
 
     private fun validateAbyss(rule: AbyssRule) {
