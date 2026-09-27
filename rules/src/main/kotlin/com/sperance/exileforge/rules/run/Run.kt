@@ -117,10 +117,13 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     val pool: List<MonsterMod> = monsters.zonePool(zone)
     private val campaign get() = index.campaign
 
-    /** Сколько жетонов встаёт на карте: бросок зоны плюс строки карты `MAP_PACK`. */
+    /** Строка карты захода по имени; ноль без карты. */
+    private fun mapEffect(stat: String): Double = context.active?.effects?.get(stat) ?: 0.0
+
+    /** Сколько жетонов встаёт на карте: бросок зоны, строки карты `MAP_PACK_SIZE` и атлас `ATLAS_PACK_SIZE`. */
     val count: Int by lazy {
         val dice = streams.of("count")
-        (dice.between(zone.count) * (1 + (context.active?.effects?.get("MAP_PACK") ?: 0.0) / 100)).toInt().coerceAtLeast(1)
+        (dice.between(zone.count) * (1 + (mapEffect("MAP_PACK_SIZE") + context["ATLAS_PACK_SIZE"]) / 100)).toInt().coerceAtLeast(1)
     }
 
     /** Жетонов в Ваал-зоне: бросок зоны на своём потоке. */
@@ -141,11 +144,18 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         return monsters.roll(zone, code, pool, dice, context.extraRareMods, rule)
     }
 
-    /** Редкость монстра: таблица зоны, строки карты `MAP_MAGIC`/`MAP_RARE` поднимают веса волшебных и редких. */
+    /**
+     * Редкость монстра: таблица зоны; строки карты поднимают веса - `MAP_MONSTER_RARITY` обеих, `MAP_MAGIC_MONSTERS`
+     * волшебных, `MAP_RARE_MONSTERS` и атлас `ATLAS_RARE_MONSTERS` редких, `MAP_MONSTER_MAGIC_MIN` убирает обычных.
+     */
     private fun rarityRule(dice: Dice): RarityRule {
-        val magic = 1 + (context.active?.effects?.get("MAP_MAGIC") ?: 0.0) / 100
-        val rare = 1 + (context.active?.effects?.get("MAP_RARE") ?: 0.0) / 100
-        val rarity = Tables.value<MonsterRarity>(index.tables, campaign.rarityTable, dice) { when (it) { MonsterRarity.MAGIC -> magic; MonsterRarity.RARE -> rare; else -> 1.0 } } ?: MonsterRarity.NORMAL
+        val rarer = 1 + mapEffect("MAP_MONSTER_RARITY") / 100
+        val magic = rarer * (1 + mapEffect("MAP_MAGIC_MONSTERS") / 100)
+        val rare = rarer * (1 + (mapEffect("MAP_RARE_MONSTERS") + context["ATLAS_RARE_MONSTERS"]) / 100)
+        val magicFloor = mapEffect("MAP_MONSTER_MAGIC_MIN") > 0
+        val rarity = Tables.value<MonsterRarity>(index.tables, campaign.rarityTable, dice) {
+            when (it) { MonsterRarity.NORMAL -> if (magicFloor) 0.0 else 1.0; MonsterRarity.MAGIC -> magic; MonsterRarity.RARE -> rare; else -> 1.0 }
+        } ?: MonsterRarity.NORMAL
         return campaign.rarity(rarity)
     }
 
