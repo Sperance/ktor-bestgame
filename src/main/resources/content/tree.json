@@ -2329,7 +2329,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            8
+            4.8
           ]
         },
         {
@@ -2375,7 +2375,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            1.8
           ]
         },
         {
@@ -2404,7 +2404,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            1.8
           ]
         }
       ],
@@ -2421,7 +2421,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            22
+            13.0
           ]
         },
         {
@@ -2473,7 +2473,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            22
+            13.0
           ]
         },
         {
@@ -2485,7 +2485,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            4.8
           ]
         }
       ],
@@ -2507,13 +2507,13 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              8
+              4.8
             ]
           },
           {
             "code": "INCREASED_PHYSICAL_DAMAGE",
             "values": [
-              12
+              7.0
             ]
           }
         ],
@@ -2527,7 +2527,7 @@
           {
             "code": "INCREASED_BLEED_DAMAGE",
             "values": [
-              25
+              15.0
             ]
           }
         ],
@@ -2541,7 +2541,7 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              5
+              3.0
             ]
           }
         ]
@@ -3159,7 +3159,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.5
           ]
         },
         {
@@ -3183,7 +3183,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.5
           ]
         },
         {
@@ -3233,7 +3233,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.5
           ]
         }
       ],
@@ -3250,13 +3250,13 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            22
+            33.0
           ]
         },
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            12.0
           ]
         },
         {
@@ -3285,7 +3285,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            8
+            12.0
           ]
         }
       ],
@@ -3303,7 +3303,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            22
+            33.0
           ]
         },
         {
@@ -3338,7 +3338,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            8
+            12.0
           ]
         }
       ],
@@ -3360,13 +3360,13 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              8
+              12.0
             ]
           },
           {
             "code": "INCREASED_PHYSICAL_DAMAGE",
             "values": [
-              12
+              18.0
             ]
           }
         ],
@@ -3380,7 +3380,7 @@
           {
             "code": "INCREASED_BLEED_DAMAGE",
             "values": [
-              25
+              38.0
             ]
           }
         ],
@@ -3394,7 +3394,7 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              5
+              8.0
             ]
           }
         ]
@@ -3415,7 +3415,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.5
           ]
         }
       ],
@@ -4260,7 +4260,7 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              6
+              9.0
             ]
           },
           {
@@ -4497,7 +4497,7 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            15.0
           ]
         },
         {
@@ -4520,7 +4520,7 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            15.0
           ]
         },
         {
@@ -4544,7 +4544,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            9.0
           ]
         },
         {
@@ -4573,7 +4573,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.5
           ]
         }
       ],
@@ -4590,13 +4590,13 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            12.0
           ]
         },
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            18
+            27.0
           ]
         },
         {
@@ -4620,19 +4620,19 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            18
+            27.0
           ]
         },
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            28
+            42.0
           ]
         },
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            12.0
           ]
         }
       ],
@@ -4655,7 +4655,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.5
           ]
         }
       ],
@@ -4677,13 +4677,13 @@
           {
             "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
             "values": [
-              35
+              52.0
             ]
           },
           {
             "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
             "values": [
-              8
+              12.0
             ]
           }
         ],
@@ -4691,13 +4691,13 @@
           {
             "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
             "values": [
-              22
+              33.0
             ]
           },
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              3
+              4.5
             ]
           }
         ],
@@ -4705,7 +4705,7 @@
           {
             "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
             "values": [
-              20
+              30.0
             ]
           },
           {
@@ -4732,7 +4732,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.5
           ]
         }
       ],
@@ -4749,7 +4749,7 @@
         {
           "code": "PASSIVE_MORE_PHYSICAL_DAMAGE",
           "values": [
-            20.0
+            30.0
           ]
         },
         {
@@ -5020,7 +5020,7 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              6
+              6.0
             ]
           },
           {
@@ -5125,7 +5125,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -5165,7 +5165,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            3.2
           ]
         },
         {
@@ -5188,13 +5188,13 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            22
+            24.0
           ]
         },
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            9.0
           ]
         },
         {
@@ -5223,13 +5223,13 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            22
+            24.0
           ]
         },
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -5246,13 +5246,13 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            9.0
           ]
         },
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            22
+            24.0
           ]
         },
         {
@@ -5282,7 +5282,7 @@
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -5299,7 +5299,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            3.2
           ]
         },
         {
@@ -5328,13 +5328,13 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              8
+              9.0
             ]
           },
           {
             "code": "INCREASED_PHYSICAL_DAMAGE",
             "values": [
-              12
+              13.0
             ]
           }
         ],
@@ -5348,7 +5348,7 @@
           {
             "code": "INCREASED_BLEED_DAMAGE",
             "values": [
-              25
+              27.0
             ]
           }
         ],
@@ -5362,7 +5362,7 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              5
+              5.0
             ]
           }
         ]
@@ -5377,13 +5377,13 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            3.2
           ]
         },
         {
           "code": "INCREASED_PHYSICAL_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -5657,7 +5657,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            6.0
           ]
         },
         {
@@ -5680,13 +5680,13 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            11.0
           ]
         },
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            6.0
           ]
         }
       ],
@@ -5703,7 +5703,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            18
+            19.0
           ]
         },
         {
@@ -5715,7 +5715,7 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            28
+            30.0
           ]
         }
       ],
@@ -5732,7 +5732,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            6.0
           ]
         },
         {
@@ -5755,13 +5755,13 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            6.0
           ]
         },
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            11.0
           ]
         }
       ],
@@ -5778,19 +5778,19 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            9.0
           ]
         },
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            18
+            19.0
           ]
         },
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            28
+            30.0
           ]
         }
       ],
@@ -5807,19 +5807,19 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            18
+            19.0
           ]
         },
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            28
+            30.0
           ]
         },
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -5842,13 +5842,13 @@
           {
             "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
             "values": [
-              35
+              38.0
             ]
           },
           {
             "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
             "values": [
-              8
+              9.0
             ]
           }
         ],
@@ -5856,13 +5856,13 @@
           {
             "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
             "values": [
-              22
+              24.0
             ]
           },
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              3
+              3.2
             ]
           }
         ],
@@ -5870,7 +5870,7 @@
           {
             "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
             "values": [
-              20
+              21.0
             ]
           },
           {
@@ -6107,7 +6107,7 @@
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         },
         {
@@ -6130,13 +6130,13 @@
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         },
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -6154,13 +6154,13 @@
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         },
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -6177,13 +6177,13 @@
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         },
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -6200,21 +6200,21 @@
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            16,
-            16,
-            16
+            17.0,
+            17.0,
+            17.0
           ]
         },
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            22
+            24.0
           ]
         },
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            22
+            24.0
           ]
         }
       ],
@@ -6232,13 +6232,13 @@
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         },
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            8
+            9.0
           ]
         }
       ],
@@ -6261,15 +6261,15 @@
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            22
+            24.0
           ]
         },
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            16,
-            16,
-            16
+            17.0,
+            17.0,
+            17.0
           ]
         }
       ],
@@ -6291,9 +6291,9 @@
           {
             "code": "INCREASED_ELEMENTAL_DAMAGE",
             "values": [
-              20,
-              20,
-              20
+              21.0,
+              21.0,
+              21.0
             ]
           },
           {
@@ -6313,7 +6313,7 @@
           {
             "code": "INCREASED_BURNING_DAMAGE",
             "values": [
-              25
+              27.0
             ]
           }
         ],
@@ -6348,9 +6348,9 @@
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            6,
-            6,
-            6
+            6.0,
+            6.0,
+            6.0
           ]
         }
       ],
@@ -6409,13 +6409,13 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            10.0
           ]
         },
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            16.0
           ]
         }
       ],
@@ -6432,7 +6432,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            10.0
           ]
         },
         {
@@ -6459,7 +6459,7 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            16.0
           ]
         }
       ],
@@ -6482,7 +6482,7 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            16.0
           ]
         }
       ],
@@ -6499,13 +6499,13 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            10
+            16.0
           ]
         },
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.8
           ]
         }
       ],
@@ -6522,13 +6522,13 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            28
+            45.0
           ]
         },
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            13.0
           ]
         },
         {
@@ -6557,7 +6557,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            10.0
           ]
         }
       ],
@@ -6574,7 +6574,7 @@
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            28
+            45.0
           ]
         },
         {
@@ -6586,7 +6586,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            18
+            29.0
           ]
         }
       ],
@@ -6610,7 +6610,7 @@
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            6
+            10.0
           ]
         }
       ],
@@ -6627,19 +6627,19 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            8
+            13.0
           ]
         },
         {
           "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
           "values": [
-            28
+            45.0
           ]
         },
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            18
+            29.0
           ]
         }
       ],
@@ -6662,13 +6662,13 @@
           {
             "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
             "values": [
-              35
+              56.0
             ]
           },
           {
             "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
             "values": [
-              8
+              13.0
             ]
           }
         ],
@@ -6676,13 +6676,13 @@
           {
             "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
             "values": [
-              22
+              35.0
             ]
           },
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              3
+              4.8
             ]
           }
         ],
@@ -6690,7 +6690,7 @@
           {
             "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
             "values": [
-              20
+              32.0
             ]
           },
           {
@@ -6711,7 +6711,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            3
+            4.8
           ]
         },
         {
@@ -6734,13 +6734,13 @@
         {
           "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
           "values": [
-            40.0
+            64.0
           ]
         },
         {
           "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
           "values": [
-            10
+            16.0
           ]
         }
       ],
@@ -6835,13 +6835,13 @@
         {
           "code": "INCREASED_POISON_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         },
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            3
+            4.8
           ]
         }
       ],
@@ -6858,7 +6858,7 @@
         {
           "code": "INCREASED_POISON_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         },
         {
@@ -6882,7 +6882,7 @@
         {
           "code": "INCREASED_CHAOS_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         },
         {
@@ -6917,13 +6917,13 @@
         {
           "code": "INCREASED_POISON_DAMAGE",
           "values": [
-            20
+            32.0
           ]
         },
         {
           "code": "INCREASED_CHAOS_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         }
       ],
@@ -6945,7 +6945,7 @@
           {
             "code": "INCREASED_CHAOS_DAMAGE",
             "values": [
-              25
+              40.0
             ]
           },
           {
@@ -6965,7 +6965,7 @@
           {
             "code": "INCREASED_POISON_DAMAGE",
             "values": [
-              25
+              40.0
             ]
           }
         ],
@@ -6994,7 +6994,7 @@
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            3
+            4.8
           ]
         },
         {
@@ -7058,7 +7058,7 @@
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
-            3
+            4.8
           ]
         },
         {
@@ -7081,13 +7081,13 @@
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
-            3
+            4.8
           ]
         },
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         }
       ],
@@ -7104,13 +7104,13 @@
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         },
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
-            8
+            13.0
           ]
         },
         {
@@ -7139,13 +7139,13 @@
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         },
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
-            8
+            13.0
           ]
         }
       ],
@@ -7167,13 +7167,13 @@
           {
             "code": "INCREASED_SPELL_DAMAGE",
             "values": [
-              25
+              40.0
             ]
           },
           {
             "code": "INCREASED_CAST_SPEED",
             "values": [
-              5
+              8.0
             ]
           }
         ],
@@ -7195,7 +7195,7 @@
           {
             "code": "INCREASED_SKILL_DAMAGE",
             "values": [
-              12
+              19.0
             ]
           }
         ]
@@ -7858,7 +7858,7 @@
           {
             "code": "INCREASED_ATTACK_SPEED",
             "values": [
-              6
+              10.0
             ]
           },
           {
@@ -7903,7 +7903,7 @@
         {
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
-            15
+            24.0
           ]
         },
         {
@@ -8365,7 +8365,7 @@
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         }
       ],
@@ -8382,15 +8382,15 @@
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         },
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            16,
-            16,
-            16
+            26.0,
+            26.0,
+            26.0
           ]
         },
         {
@@ -8419,7 +8419,7 @@
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         }
       ],
@@ -8443,7 +8443,7 @@
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         }
       ],
@@ -8460,7 +8460,7 @@
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         },
         {
@@ -8494,9 +8494,9 @@
           {
             "code": "INCREASED_ELEMENTAL_DAMAGE",
             "values": [
-              20,
-              20,
-              20
+              32.0,
+              32.0,
+              32.0
             ]
           },
           {
@@ -8516,7 +8516,7 @@
           {
             "code": "INCREASED_BURNING_DAMAGE",
             "values": [
-              25
+              40.0
             ]
           }
         ],
@@ -8545,13 +8545,13 @@
         {
           "code": "INCREASED_LIGHTNING_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         },
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         }
       ],
@@ -8854,7 +8854,7 @@
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            3
+            4.8
           ]
         }
       ],
@@ -8871,13 +8871,13 @@
         {
           "code": "INCREASED_CHAOS_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         },
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            3
+            4.8
           ]
         }
       ],
@@ -8906,7 +8906,7 @@
         {
           "code": "INCREASED_POISON_DAMAGE",
           "values": [
-            20
+            32.0
           ]
         }
       ],
@@ -8923,7 +8923,7 @@
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            10
+            16.0
           ]
         },
         {
@@ -8935,7 +8935,7 @@
         {
           "code": "INCREASED_POISON_DAMAGE",
           "values": [
-            20
+            32.0
           ]
         }
       ],
@@ -8958,13 +8958,13 @@
         {
           "code": "INCREASED_CHAOS_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         },
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            10
+            16.0
           ]
         }
       ],
@@ -8981,7 +8981,7 @@
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            3
+            4.8
           ]
         },
         {
@@ -9010,7 +9010,7 @@
         {
           "code": "ADD_CHAOS_DAMAGE",
           "values": [
-            3
+            4.8
           ]
         }
       ],
@@ -9033,7 +9033,7 @@
           {
             "code": "INCREASED_CHAOS_DAMAGE",
             "values": [
-              25
+              40.0
             ]
           },
           {
@@ -9053,7 +9053,7 @@
           {
             "code": "INCREASED_POISON_DAMAGE",
             "values": [
-              25
+              40.0
             ]
           }
         ],
@@ -9117,7 +9117,7 @@
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         },
         {
@@ -9140,7 +9140,7 @@
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         },
         {
@@ -9163,7 +9163,7 @@
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         },
         {
@@ -9175,7 +9175,7 @@
         {
           "code": "INCREASED_SKILL_DAMAGE",
           "values": [
-            16
+            26.0
           ]
         }
       ],
@@ -9198,13 +9198,13 @@
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
-            8
+            13.0
           ]
         },
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            22
+            35.0
           ]
         }
       ],
@@ -9221,7 +9221,7 @@
         {
           "code": "INCREASED_SKILL_DAMAGE",
           "values": [
-            6
+            10.0
           ]
         },
         {
@@ -9244,13 +9244,13 @@
         {
           "code": "INCREASED_SPELL_DAMAGE",
           "values": [
-            8
+            13.0
           ]
         },
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
-            3
+            4.8
           ]
         }
       ],
@@ -9273,13 +9273,13 @@
         {
           "code": "INCREASED_CAST_SPEED",
           "values": [
-            8
+            13.0
           ]
         },
         {
           "code": "INCREASED_SKILL_DAMAGE",
           "values": [
-            16
+            26.0
           ]
         }
       ],
@@ -9302,13 +9302,13 @@
           {
             "code": "INCREASED_SPELL_DAMAGE",
             "values": [
-              25
+              40.0
             ]
           },
           {
             "code": "INCREASED_CAST_SPEED",
             "values": [
-              5
+              8.0
             ]
           }
         ],
@@ -9330,7 +9330,7 @@
           {
             "code": "INCREASED_SKILL_DAMAGE",
             "values": [
-              12
+              19.0
             ]
           }
         ]
@@ -9614,9 +9614,9 @@
         {
           "code": "PASSIVE_MORE_ELEMENTAL_DAMAGE",
           "values": [
-            20.0,
-            20.0,
-            20.0
+            32.0,
+            32.0,
+            32.0
           ]
         },
         {
@@ -9681,15 +9681,15 @@
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            6,
-            6,
-            6
+            8.0,
+            8.0,
+            8.0
           ]
         },
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            8
+            10.0
           ]
         }
       ],
@@ -9706,15 +9706,15 @@
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            8
+            10.0
           ]
         },
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            6,
-            6,
-            6
+            8.0,
+            8.0,
+            8.0
           ]
         }
       ],
@@ -9752,7 +9752,7 @@
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            8
+            10.0
           ]
         },
         {
@@ -9775,15 +9775,15 @@
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            8
+            10.0
           ]
         },
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            6,
-            6,
-            6
+            8.0,
+            8.0,
+            8.0
           ]
         }
       ],
@@ -9806,9 +9806,9 @@
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            16,
-            16,
-            16
+            20.0,
+            20.0,
+            20.0
           ]
         },
         {
@@ -9843,7 +9843,7 @@
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            22
+            28.0
           ]
         }
       ],
@@ -9867,7 +9867,7 @@
         {
           "code": "INCREASED_COLD_DAMAGE",
           "values": [
-            8
+            10.0
           ]
         }
       ],
@@ -9884,15 +9884,15 @@
         {
           "code": "INCREASED_ELEMENTAL_DAMAGE",
           "values": [
-            16,
-            16,
-            16
+            20.0,
+            20.0,
+            20.0
           ]
         },
         {
           "code": "INCREASED_FIRE_DAMAGE",
           "values": [
-            22
+            28.0
           ]
         },
         {
@@ -9921,9 +9921,9 @@
           {
             "code": "INCREASED_ELEMENTAL_DAMAGE",
             "values": [
-              20,
-              20,
-              20
+              26.0,
+              26.0,
+              26.0
             ]
           },
           {
@@ -9943,7 +9943,7 @@
           {
             "code": "INCREASED_BURNING_DAMAGE",
             "values": [
-              25
+              32.0
             ]
           }
         ],
@@ -9995,9 +9995,9 @@
         {
           "code": "PASSIVE_MORE_ELEMENTAL_DAMAGE",
           "values": [
-            30.0,
-            30.0,
-            30.0
+            38.0,
+            38.0,
+            38.0
           ]
         },
         {

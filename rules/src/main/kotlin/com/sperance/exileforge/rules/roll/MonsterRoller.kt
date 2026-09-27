@@ -72,7 +72,7 @@ class MonsterRoller(private val index: ContentIndex) {
     fun zonePool(zone: Zone): List<MonsterMod> = pool(zone.tables, zone.level)
 
     /** Босс, страж порчи или вожак Бездны на уровне [level]: сигнатуры на тире `level + tierReach`, таблица на тире уровня. */
-    fun guardian(code: String, level: Int, tables: List<String> = campaign.bosses.modifiers, rolls: List<Int> = campaign.bosses.rolls, tierReach: Int = campaign.bosses.tierReach): GuardianView {
+    fun guardian(code: String, level: Int, tables: List<String> = campaign.bosses.modifiers, rolls: List<Int> = campaign.bosses.rollsAt(level), tierReach: Int = campaign.bosses.tierReach): GuardianView {
         val monster = index.monster(code) ?: throw IllegalArgumentException("unknown monster $code")
         val signature = monster.fixed.mapNotNull { fixed -> index.modifier(fixed)?.let { raise(it, index.tables.weight(fixed, tables), level, level + tierReach) } }
         return GuardianView(monster, level, stats(monster, level), signature, pool(tables, level).filter { it.code !in monster.fixed }, rolls)
@@ -120,7 +120,9 @@ class MonsterRoller(private val index: ContentIndex) {
         val count = dice.between(view.rolls).coerceAtMost(view.pool.size)
         val pool = view.pool.toMutableList()
         val drawn = List(count) { Tables.draw(pool.map { Weighted(it, it.weight) }, dice)?.also { pool.remove(it) } }.filterNotNull().map { rolled(it, rule.modifierPower, dice) }
-        return build(view.monster, view.level, rule, signature + drawn, dice, extra)
+        val boss = build(view.monster, view.level, rule, signature + drawn, dice, extra)
+        val block = boss.stats[BLOCK] ?: return boss
+        return if (block <= campaign.bosses.blockCap) boss else boss.copy(stats = boss.stats + (BLOCK to campaign.bosses.blockCap))
     }
 
     /** Эффекты редкости: закреплённые строки и «больше» ко всем растущим характеристикам. */
@@ -141,5 +143,9 @@ class MonsterRoller(private val index: ContentIndex) {
                 added * increased * more
             }
         }
+    }
+
+    private companion object {
+        const val BLOCK = "STOCK_BLOCK_CHANCE"
     }
 }

@@ -163,6 +163,27 @@
       ]
     },
     {
+      "code": "STALKER_HOOD",
+      "slot": "HELMET",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 44,
+      "requiredLevel": 44,
+      "requiredDexterity": 97,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            179.0
+          ]
+        }
+      ],
+      "tables": [
+        "helmet",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "URSINE_PELT",
       "slot": "HELMET",
       "kind": "ARMOR",
@@ -334,6 +355,35 @@
       ]
     },
     {
+      "code": "IRON_SALLET",
+      "slot": "HELMET",
+      "kind": "ARMOR",
+      "requiredStrength": 14,
+      "requiredDexterity": 14,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            32.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            32.0
+          ]
+        }
+      ],
+      "tables": [
+        "helmet",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ],
+      "level": 12,
+      "requiredLevel": 12
+    },
+    {
       "code": "VISORED_SALLET",
       "slot": "HELMET",
       "kind": "ARMOR",
@@ -383,6 +433,36 @@
           "code": "BASE_EVASION",
           "values": [
             93.0
+          ]
+        }
+      ],
+      "tables": [
+        "helmet",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "RAIDER_HELM",
+      "slot": "HELMET",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 47,
+      "requiredLevel": 47,
+      "requiredStrength": 56,
+      "requiredDexterity": 56,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            115.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            115.0
           ]
         }
       ],
@@ -532,6 +612,36 @@
           "code": "BASE_ENERGY_SHIELD",
           "values": [
             24.0
+          ]
+        }
+      ],
+      "tables": [
+        "helmet",
+        "local:armor",
+        "local:armor+energy_shield",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "WARDEN_CROWN",
+      "slot": "HELMET",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 48,
+      "requiredLevel": 48,
+      "requiredStrength": 58,
+      "requiredIntelligence": 58,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            117.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            29.0
           ]
         }
       ],
@@ -789,6 +899,27 @@
       ]
     },
     {
+      "code": "SCALE_CUIRASS",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "UNCOMMON",
+      "level": 16,
+      "requiredLevel": 16,
+      "requiredStrength": 35,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            144.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:armor"
+      ]
+    },
+    {
       "code": "BRONZE_PLATE",
       "slot": "BODY",
       "kind": "ARMOR",
@@ -801,6 +932,27 @@
           "code": "BASE_ARMOUR",
           "values": [
             244.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:armor"
+      ]
+    },
+    {
+      "code": "WAR_PLATE",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 39,
+      "requiredLevel": 39,
+      "requiredStrength": 86,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            320.0
           ]
         }
       ],
@@ -914,6 +1066,48 @@
       ]
     },
     {
+      "code": "RAWHIDE_JERKIN",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 29,
+      "requiredLevel": 29,
+      "requiredDexterity": 64,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            236.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "RANGER_COAT",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredDexterity": 88,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            315.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "FRONTIER_LEATHER",
       "slot": "BODY",
       "kind": "ARMOR",
@@ -1007,6 +1201,27 @@
           "code": "BASE_ENERGY_SHIELD",
           "values": [
             60.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "ACOLYTE_ROBE",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 33,
+      "requiredLevel": 33,
+      "requiredIntelligence": 73,
+      "base": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            90.0
           ]
         }
       ],
@@ -1134,6 +1349,36 @@
           "code": "BASE_EVASION",
           "values": [
             151.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "SCALED_HAUBERK",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredDexterity": 48,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            197.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            197.0
           ]
         }
       ],
@@ -1292,6 +1537,66 @@
       ]
     },
     {
+      "code": "CHAIN_VESTMENT",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 28,
+      "requiredLevel": 28,
+      "requiredStrength": 33,
+      "requiredIntelligence": 33,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            137.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            47.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:armor",
+        "local:armor+energy_shield",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "TEMPLAR_MAIL",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredIntelligence": 48,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            188.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            64.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:armor",
+        "local:armor+energy_shield",
+        "local:energy_shield"
+      ]
+    },
+    {
       "code": "CONQUEST_CHAINMAIL",
       "slot": "BODY",
       "kind": "ARMOR",
@@ -1428,6 +1733,66 @@
           "code": "BASE_ENERGY_SHIELD",
           "values": [
             36.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "SHADOW_VEST",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 29,
+      "requiredLevel": 29,
+      "requiredDexterity": 35,
+      "requiredIntelligence": 35,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            141.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            48.0
+          ]
+        }
+      ],
+      "tables": [
+        "body",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "NIGHT_WRAP",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredDexterity": 48,
+      "requiredIntelligence": 48,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            188.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            64.0
           ]
         }
       ],
@@ -1580,6 +1945,48 @@
       ]
     },
     {
+      "code": "WAR_GAUNTLETS",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 46,
+      "requiredLevel": 46,
+      "requiredStrength": 101,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            112.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:armor"
+      ]
+    },
+    {
+      "code": "BASTION_GAUNTLETS",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 58,
+      "requiredLevel": 58,
+      "requiredStrength": 128,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            138.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:armor"
+      ]
+    },
+    {
       "code": "TITAN_GAUNTLETS",
       "slot": "GLOVES",
       "kind": "ARMOR",
@@ -1682,6 +2089,48 @@
       ]
     },
     {
+      "code": "SHARKSKIN_GLOVES",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 45,
+      "requiredLevel": 45,
+      "requiredDexterity": 99,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            108.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "VIPERSKIN_GLOVES",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 58,
+      "requiredLevel": 58,
+      "requiredDexterity": 128,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            137.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "SLINK_GLOVES",
       "slot": "GLOVES",
       "kind": "ARMOR",
@@ -1775,6 +2224,48 @@
           "code": "BASE_ENERGY_SHIELD",
           "values": [
             25.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "SATIN_GLOVES",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 47,
+      "requiredLevel": 47,
+      "requiredIntelligence": 103,
+      "base": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            30.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "ARCANIST_GLOVES",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 58,
+      "requiredLevel": 58,
+      "requiredIntelligence": 128,
+      "base": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            36.0
           ]
         }
       ],
@@ -1911,6 +2402,66 @@
           "code": "BASE_EVASION",
           "values": [
             56.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "WYRMSCALE_GAUNTLETS",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 46,
+      "requiredLevel": 46,
+      "requiredStrength": 55,
+      "requiredDexterity": 55,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            67.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            67.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "HYDRASCALE_GAUNTLETS",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 57,
+      "requiredLevel": 57,
+      "requiredStrength": 68,
+      "requiredDexterity": 68,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            82.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            82.0
           ]
         }
       ],
@@ -2071,6 +2622,36 @@
       ]
     },
     {
+      "code": "ZEALOT_GLOVES",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 62,
+      "requiredIntelligence": 62,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            76.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:armor",
+        "local:armor+energy_shield",
+        "local:energy_shield"
+      ]
+    },
+    {
       "code": "CRUSADER_GLOVES",
       "slot": "GLOVES",
       "kind": "ARMOR",
@@ -2220,6 +2801,66 @@
       ]
     },
     {
+      "code": "AMBUSH_MITTS",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 46,
+      "requiredLevel": 46,
+      "requiredDexterity": 55,
+      "requiredIntelligence": 55,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            67.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "CARNAL_MITTS",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 57,
+      "requiredLevel": 57,
+      "requiredDexterity": 68,
+      "requiredIntelligence": 68,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            82.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "tables": [
+        "gloves",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "MURDER_MITTS",
       "slot": "GLOVES",
       "kind": "ARMOR",
@@ -2331,6 +2972,48 @@
       ]
     },
     {
+      "code": "WAR_GREAVES",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 99,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            109.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:armor"
+      ]
+    },
+    {
+      "code": "BASTION_GREAVES",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 56,
+      "requiredLevel": 56,
+      "requiredStrength": 123,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            133.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:armor"
+      ]
+    },
+    {
       "code": "TITAN_GREAVES",
       "slot": "BOOTS",
       "kind": "ARMOR",
@@ -2433,6 +3116,48 @@
       ]
     },
     {
+      "code": "SHARKSKIN_BOOTS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 46,
+      "requiredLevel": 46,
+      "requiredDexterity": 101,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            111.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "VIPERSKIN_BOOTS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 57,
+      "requiredLevel": 57,
+      "requiredDexterity": 125,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            135.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "SLINK_BOOTS",
       "slot": "BOOTS",
       "kind": "ARMOR",
@@ -2526,6 +3251,48 @@
           "code": "BASE_ENERGY_SHIELD",
           "values": [
             23.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "SATIN_SLIPPERS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 44,
+      "requiredLevel": 44,
+      "requiredIntelligence": 96,
+      "base": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            28.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "ARCANIST_SLIPPERS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 55,
+      "requiredLevel": 55,
+      "requiredIntelligence": 120,
+      "base": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            34.0
           ]
         }
       ],
@@ -2662,6 +3429,36 @@
           "code": "BASE_EVASION",
           "values": [
             56.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "WYRMSCALE_BOOTS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 60,
+      "requiredDexterity": 60,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            72.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            72.0
           ]
         }
       ],
@@ -2822,6 +3619,36 @@
       ]
     },
     {
+      "code": "ZEALOT_BOOTS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 60,
+      "requiredIntelligence": 60,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            73.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            19.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:armor",
+        "local:armor+energy_shield",
+        "local:energy_shield"
+      ]
+    },
+    {
       "code": "CRUSADER_BOOTS",
       "slot": "BOOTS",
       "kind": "ARMOR",
@@ -2971,6 +3798,66 @@
       ]
     },
     {
+      "code": "AMBUSH_BOOTS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 46,
+      "requiredLevel": 46,
+      "requiredDexterity": 55,
+      "requiredIntelligence": 55,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            67.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "CARNAL_BOOTS",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 57,
+      "requiredLevel": 57,
+      "requiredDexterity": 68,
+      "requiredIntelligence": 68,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            82.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "tables": [
+        "boots",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "MURDER_BOOTS",
       "slot": "BOOTS",
       "kind": "ARMOR",
@@ -3079,6 +3966,33 @@
       ]
     },
     {
+      "code": "IRON_TOWER_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 22,
+      "requiredLevel": 22,
+      "requiredStrength": 48,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            152.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            22.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:armor"
+      ]
+    },
+    {
       "code": "BRONZE_TOWER_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
@@ -3097,6 +4011,33 @@
           "code": "BASE_BLOCK_CHANCE",
           "values": [
             23.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:armor"
+      ]
+    },
+    {
+      "code": "GIRDED_TOWER_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 49,
+      "requiredLevel": 49,
+      "requiredStrength": 108,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            314.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            24.0
           ]
         }
       ],
@@ -3238,6 +4179,60 @@
       ]
     },
     {
+      "code": "LACQUERED_BUCKLER",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 41,
+      "requiredLevel": 41,
+      "requiredDexterity": 90,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            257.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "WAR_BUCKLER",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 56,
+      "requiredLevel": 56,
+      "requiredDexterity": 123,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            343.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            25.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "IMPERIAL_BUCKLER",
       "slot": "SHIELD",
       "kind": "ARMOR",
@@ -3361,6 +4356,60 @@
           "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "ANCIENT_SPIRIT_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 38,
+      "requiredLevel": 38,
+      "requiredIntelligence": 84,
+      "base": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            57.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "CHIMING_SPIRIT_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 53,
+      "requiredLevel": 53,
+      "requiredIntelligence": 117,
+      "base": [
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            78.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            24.0
           ]
         }
       ],
@@ -3529,6 +4578,78 @@
           "code": "BASE_BLOCK_CHANCE",
           "values": [
             22.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "SPLENDID_ROUND_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredDexterity": 48,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            152.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            152.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:armor",
+        "local:armor+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "ELEGANT_ROUND_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 53,
+      "requiredLevel": 53,
+      "requiredStrength": 64,
+      "requiredDexterity": 64,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            197.0
+          ]
+        },
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            197.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            24.0
           ]
         }
       ],
@@ -3719,6 +4840,78 @@
       ]
     },
     {
+      "code": "CERAMIC_KITE_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredIntelligence": 48,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            152.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            38.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:armor",
+        "local:armor+energy_shield",
+        "local:energy_shield"
+      ]
+    },
+    {
+      "code": "BRANDED_KITE_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 62,
+      "requiredIntelligence": 62,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            194.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            48.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            24.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:armor",
+        "local:armor+energy_shield",
+        "local:energy_shield"
+      ]
+    },
+    {
       "code": "MOSAIC_KITE_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
@@ -3898,6 +5091,78 @@
       ]
     },
     {
+      "code": "COMPOUND_SPIKED_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 41,
+      "requiredLevel": 41,
+      "requiredDexterity": 49,
+      "requiredIntelligence": 49,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            154.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            38.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            23.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
+      "code": "GLEAMING_SPIKED_SHIELD",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "RARE",
+      "level": 56,
+      "requiredLevel": 56,
+      "requiredDexterity": 67,
+      "requiredIntelligence": 67,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            206.0
+          ]
+        },
+        {
+          "code": "BASE_ENERGY_SHIELD",
+          "values": [
+            51.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            25.0
+          ]
+        }
+      ],
+      "tables": [
+        "shield",
+        "local:energy_shield",
+        "local:energy_shield+evasion",
+        "local:evasion"
+      ]
+    },
+    {
       "code": "HARMONIC_SPIKED_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
@@ -3993,6 +5258,37 @@
       ]
     },
     {
+      "code": "CAVALRY_SWORD",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNCOMMON",
+      "level": 14,
+      "requiredLevel": 14,
+      "requiredStrength": 17,
+      "requiredDexterity": 17,
+      "weaponType": "SWORD",
+      "durability": 114,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            18.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
       "code": "BROAD_SWORD",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
@@ -4024,6 +5320,68 @@
       ]
     },
     {
+      "code": "WAR_SWORD",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 33,
+      "requiredLevel": 33,
+      "requiredStrength": 40,
+      "requiredDexterity": 40,
+      "weaponType": "SWORD",
+      "durability": 133,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            37.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "ELEGANT_SWORD",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 42,
+      "requiredLevel": 42,
+      "requiredStrength": 50,
+      "requiredDexterity": 50,
+      "weaponType": "SWORD",
+      "durability": 142,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            45.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
       "code": "GEMSTONE_SWORD",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
@@ -4039,6 +5397,37 @@
           "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             57.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "TWILIGHT_SWORD",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 59,
+      "requiredLevel": 59,
+      "requiredStrength": 70,
+      "requiredDexterity": 70,
+      "weaponType": "SWORD",
+      "durability": 159,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            64.0
           ]
         },
         {
@@ -4217,6 +5606,105 @@
       ]
     },
     {
+      "code": "DUELLING_RAPIER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 36,
+      "requiredLevel": 36,
+      "requiredDexterity": 79,
+      "weaponType": "BLADE",
+      "durability": 136,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            34.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "fixed": [
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
+      ],
+      "tables": [
+        "blade",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "THORN_RAPIER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 47,
+      "requiredLevel": 47,
+      "requiredDexterity": 103,
+      "weaponType": "BLADE",
+      "durability": 147,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            42.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "fixed": [
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
+      ],
+      "tables": [
+        "blade",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "GRACEFUL_FOIL",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 58,
+      "requiredLevel": 58,
+      "requiredDexterity": 128,
+      "weaponType": "BLADE",
+      "durability": 158,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            52.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "fixed": [
+        "ADD_CRITICAL_STRIKE_MULTIPLIER@IMPLICIT"
+      ],
+      "tables": [
+        "blade",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
       "code": "JEWELLED_FOIL",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
@@ -4324,6 +5812,130 @@
           "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             19.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "CLEAVER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 21,
+      "requiredLevel": 21,
+      "requiredStrength": 25,
+      "requiredDexterity": 25,
+      "weaponType": "AXE",
+      "durability": 121,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "BROAD_HATCHET",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 31,
+      "requiredLevel": 31,
+      "requiredStrength": 37,
+      "requiredDexterity": 37,
+      "weaponType": "AXE",
+      "durability": 131,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            33.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "WAR_HATCHET",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 42,
+      "requiredLevel": 42,
+      "requiredStrength": 50,
+      "requiredDexterity": 50,
+      "weaponType": "AXE",
+      "durability": 142,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            44.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "SPECTRAL_HATCHET",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 62,
+      "requiredDexterity": 62,
+      "weaponType": "AXE",
+      "durability": 152,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            58.0
           ]
         },
         {
@@ -4498,6 +6110,105 @@
       ]
     },
     {
+      "code": "BONE_WAND",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 24,
+      "requiredLevel": 24,
+      "requiredIntelligence": 53,
+      "weaponType": "WAND",
+      "durability": 124,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            11.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "wand",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "SERPENT_WAND",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 36,
+      "requiredLevel": 36,
+      "requiredIntelligence": 79,
+      "weaponType": "WAND",
+      "durability": 136,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            16.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "wand",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "CRYSTAL_WAND",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 47,
+      "requiredLevel": 47,
+      "requiredIntelligence": 103,
+      "weaponType": "WAND",
+      "durability": 147,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            22.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "wand",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
       "code": "IMBUED_WAND",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
@@ -4621,6 +6332,36 @@
       ]
     },
     {
+      "code": "LONG_BOW",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNCOMMON",
+      "level": 12,
+      "requiredLevel": 12,
+      "requiredDexterity": 27,
+      "weaponType": "BOW",
+      "durability": 112,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            23.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "tables": [
+        "bow",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
       "code": "RECURVE_BOW",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
@@ -4635,6 +6376,96 @@
           "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             32.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "tables": [
+        "bow",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "COMPOSITE_BOW",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 28,
+      "requiredLevel": 28,
+      "requiredDexterity": 62,
+      "weaponType": "BOW",
+      "durability": 128,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            41.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "tables": [
+        "bow",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "SNIPER_BOW",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 37,
+      "requiredLevel": 37,
+      "requiredDexterity": 82,
+      "weaponType": "BOW",
+      "durability": 137,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            51.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "tables": [
+        "bow",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "IVORY_BOW",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 46,
+      "requiredLevel": 46,
+      "requiredDexterity": 101,
+      "weaponType": "BOW",
+      "durability": 146,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            64.0
           ]
         },
         {
@@ -4832,6 +6663,99 @@
       ]
     },
     {
+      "code": "HIGHLAND_LONGSWORD",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 29,
+      "requiredLevel": 29,
+      "requiredStrength": 34,
+      "requiredDexterity": 34,
+      "weaponType": "LONGSWORD",
+      "durability": 129,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            66.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "ENGRAVED_LONGSWORD",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 41,
+      "requiredLevel": 41,
+      "requiredStrength": 49,
+      "requiredDexterity": 49,
+      "weaponType": "LONGSWORD",
+      "durability": 141,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            88.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "WARLORD_LONGSWORD",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 53,
+      "requiredLevel": 53,
+      "requiredStrength": 64,
+      "requiredDexterity": 64,
+      "weaponType": "LONGSWORD",
+      "durability": 153,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            116.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.35
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
       "code": "LION_SWORD",
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
@@ -4924,6 +6848,37 @@
       ]
     },
     {
+      "code": "HEADMAN_SWORD",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNCOMMON",
+      "level": 34,
+      "requiredLevel": 34,
+      "requiredStrength": 41,
+      "requiredDexterity": 41,
+      "weaponType": "DOUBLESWORD",
+      "durability": 134,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            91.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
       "code": "BUTCHER_SWORD",
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
@@ -4939,6 +6894,37 @@
           "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             106.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "tables": [
+        "sword",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "REAVER_GREATSWORD",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 62,
+      "requiredDexterity": 62,
+      "weaponType": "DOUBLESWORD",
+      "durability": 152,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            131.0
           ]
         },
         {
@@ -5090,6 +7076,126 @@
           "code": "BASE_PHYSICAL_DAMAGE",
           "values": [
             46.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "POLEAXE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 24,
+      "requiredLevel": 24,
+      "requiredStrength": 53,
+      "weaponType": "DOUBLEAXE",
+      "durability": 124,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            61.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "DOUBLE_AXE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 34,
+      "requiredLevel": 34,
+      "requiredStrength": 75,
+      "weaponType": "DOUBLEAXE",
+      "durability": 134,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            78.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "GILDED_AXE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 45,
+      "requiredLevel": 45,
+      "requiredStrength": 99,
+      "weaponType": "DOUBLEAXE",
+      "durability": 145,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            103.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.25
+          ]
+        }
+      ],
+      "tables": [
+        "axe",
+        "local:attack_physical",
+        "local:attack_speed"
+      ]
+    },
+    {
+      "code": "HEADSMAN_AXE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 121,
+      "weaponType": "DOUBLEAXE",
+      "durability": 155,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            133.0
           ]
         },
         {
@@ -5430,6 +7536,20 @@
       "tables": [
         "belt"
       ]
+    },
+    {
+      "code": "SOLDIER_BELT",
+      "slot": "BELT",
+      "rarity": "RARE",
+      "level": 28,
+      "requiredLevel": 28,
+      "fixed": [
+        "ADD_STUN_THRESHOLD@IMPLICIT"
+      ],
+      "tables": [
+        "belt"
+      ],
+      "base": []
     },
     {
       "code": "VANGUARD_BELT",

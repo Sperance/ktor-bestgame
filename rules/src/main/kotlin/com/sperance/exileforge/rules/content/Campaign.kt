@@ -71,6 +71,11 @@ data class CombatRules(
     val loneWolf: LoneWolfRule = LoneWolfRule(),
     val mana: ManaRule = ManaRule(),
     val flasks: FlaskRule = FlaskRule(),
+    /**
+     * Сколько процентов перезарядки активного умения героя ещё идёт в начале боя (1.8.0): стая не падает
+     * от залпа всех слотов в первый же кадр. Умения с условием «начало боя» готовы сразу.
+     */
+    val opening: Double = 0.0,
 )
 
 /**
@@ -116,7 +121,13 @@ data class BossRule(
     val respawnHours: Double, val uniqueChance: Double, val ownUniqueChance: Double, val behaviour: BehaviourRule,
     val tables: List<String> = emptyList(), val modifiers: List<String> = listOf("boss"), val rolls: List<Int> = listOf(1, 2), val tierReach: Int = 5,
     val goldShare: Double = 1.0, val orbShare: Double = 1.0,
-)
+    /** Стражи зон ниже [earlyUntil] катают [earlyRolls] строк вместо [rolls] (1.8.0): первые акты - без лотереи модов. */
+    val earlyRolls: List<Int> = rolls, val earlyUntil: Int = 0,
+    /** Потолок шанса блока стража со всеми строками (1.8.0), ниже общего [CombatRules.blockCap]. */
+    val blockCap: Double = 100.0,
+) {
+    fun rollsAt(level: Int): List<Int> = if (level < earlyUntil) earlyRolls else rolls
+}
 
 @Serializable
 data class CorruptionRule(val chance: Double = 0.0, val uniqueChance: Double = 0.0, val tables: List<String> = emptyList())
@@ -137,11 +148,22 @@ data class BehaviourRule(
 @Serializable data class WorldPoint(val x: Int, val y: Int)
 @Serializable data class WorldRule(val width: Int, val height: Int)
 
-/** Рост со спадом: до [from] полная степень за уровень, выше - доля [rate]. */
+/**
+ * Рост со спадом: до [from] полная степень за уровень, выше - доля [rate], а с каждого излома из [bends]
+ * (1.8.0) - своя доля: кривая по актам, под рывки силы героя на новых базах.
+ */
 @Serializable
-data class GrowthTaper(val from: Int = Int.MAX_VALUE, val rate: Double = 1.0) {
-    fun steps(level: Int): Double = (minOf(level, from) - 1) + rate * maxOf(0, level - from)
+data class GrowthTaper(val from: Int = Int.MAX_VALUE, val rate: Double = 1.0, val bends: List<GrowthBend> = emptyList()) {
+    private val segments: List<GrowthBend> by lazy { listOf(GrowthBend(from, rate)) + bends.sortedBy { it.from } }
+
+    fun steps(level: Int): Double = (minOf(level, from) - 1) + segments.withIndex().sumOf { (i, segment) ->
+        val end = segments.getOrNull(i + 1)?.from ?: Int.MAX_VALUE
+        segment.rate * (minOf(level, end) - segment.from).coerceAtLeast(0)
+    }
 }
+
+/** Излом роста: с уровня [from] доля [rate] полной степени за уровень. */
+@Serializable data class GrowthBend(val from: Int, val rate: Double)
 
 /** Зона карты мира: жетон, связи, монстры, таблицы модификаторов монстров ([tables]) и добычи сундуков. */
 @Serializable
