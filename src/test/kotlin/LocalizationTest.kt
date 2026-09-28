@@ -22,6 +22,7 @@ import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.Source
+import com.sperance.exileforge.rules.content.VariantKind
 import com.sperance.exileforge.rules.content.WeaponType
 import com.sperance.exileforge.rules.text.LocaleKey
 import com.sperance.exileforge.rules.text.ModifierText
@@ -157,6 +158,19 @@ class LocalizationTest {
             val text = ModifierText(index.stats) { key -> bundle.strings[key] }
             val missing = index.definitions.filter { text.template(it) == null }.map { it.code }
             assert(missing.isEmpty()) { "$language: без текста ${missing.size} описаний, например ${missing.take(8)}" }
+        }
+    }
+
+    /** Общий шаблон «Метка: +v» - запасной выход, а не текст: каждой характеристике модификатора нужен свой (1.14.0). */
+    @Test
+    fun every_stat_used_by_a_modifier_has_its_own_template() {
+        LocaleCache.languages().forEach { language ->
+            val strings = LocaleCache.bundle(language).strings
+            val missing = index.definitions
+                .filter { strings[LocaleKey.modifierName(it.code)] == null && (it.variant == VariantKind.NATURAL || strings[LocaleKey.modifierName(it.family)] == null) }
+                .flatMap { def -> def.effects.mapIndexed { i, effect -> ModifierText.templateKey(effect, ModifierText.negative(def, i)) } }
+                .filter { it !in strings }.distinct()
+            assert(missing.isEmpty()) { "$language: нет ${missing.size} шаблонов, например ${missing.take(8)}" }
         }
     }
 
