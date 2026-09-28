@@ -7077,6 +7077,10 @@
     "tables": [
       "unique:world"
     ],
+    "mythicChance": 0.01,
+    "mythicTables": [
+      "mythic:all"
+    ],
     "modifiers": [
       "mob:boss"
     ],
@@ -7104,6 +7108,10 @@
     "uniqueChance": 0.12,
     "tables": [
       "unique:world"
+    ],
+    "mythicChance": 0.01,
+    "mythicTables": [
+      "mythic:all"
     ]
   },
   "vaal": {

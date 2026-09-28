@@ -9767,6 +9767,8 @@
       "slot": "HELMET",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
       "requiredStrength": 2,
       "base": [
         {
@@ -9971,8 +9973,8 @@
       "slot": "BODY",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
-      "level": 50,
-      "requiredLevel": 50,
+      "level": 55,
+      "requiredLevel": 55,
       "requiredStrength": 100,
       "base": [
         {
@@ -10055,8 +10057,8 @@
       "slot": "BODY",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
-      "level": 68,
-      "requiredLevel": 68,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 136,
       "base": [
         {
@@ -10071,8 +10073,8 @@
           {
             "stat": "STOCK_HEALTH",
             "range": [
-              500.0,
-              500.0
+              360.0,
+              360.0
             ]
           }
         ],
@@ -10202,8 +10204,8 @@
       "slot": "GLOVES",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
-      "level": 16,
-      "requiredLevel": 16,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredDexterity": 32,
       "lines": [
         [
@@ -10211,8 +10213,8 @@
             "stat": "STOCK_ATTACK_PHYSICAL",
             "op": "INCREASED",
             "range": [
-              600.0,
-              800.0
+              382.0,
+              510.0
             ]
           }
         ],
@@ -10407,6 +10409,8 @@
       "slot": "BOOTS",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
+      "level": 8,
+      "requiredLevel": 8,
       "requiredDexterity": 2,
       "lines": [
         [
@@ -10575,8 +10579,8 @@
             "stat": "STOCK_MOVEMENT_SPEED",
             "op": "INCREASED",
             "range": [
-              10.0,
-              15.0
+              32.0,
+              48.0
             ]
           }
         ],
@@ -10584,8 +10588,8 @@
           {
             "stat": "STOCK_AGILITY",
             "range": [
-              20.0,
-              30.0
+              45.0,
+              68.0
             ]
           }
         ],
@@ -10593,8 +10597,8 @@
           {
             "stat": "POWER_DESERT_WIND",
             "range": [
-              40.0,
-              60.0
+              80.0,
+              120.0
             ]
           }
         ]
@@ -10987,8 +10991,8 @@
           {
             "stat": "STOCK_STRENGTH",
             "range": [
-              15.0,
-              25.0
+              34.0,
+              57.0
             ]
           }
         ],
@@ -10996,8 +11000,8 @@
           {
             "stat": "STOCK_RESIST_FIRE",
             "range": [
-              20.0,
-              30.0
+              36.0,
+              53.0
             ]
           }
         ],
@@ -11005,8 +11009,8 @@
           {
             "stat": "STOCK_HEALTH_REGEN",
             "range": [
-              5.0,
-              10.0
+              13.0,
+              25.0
             ]
           }
         ],
@@ -11014,8 +11018,8 @@
           {
             "stat": "POWER_KAOMS_RAGE",
             "range": [
-              30.0,
-              50.0
+              60.0,
+              100.0
             ]
           }
         ]
@@ -11025,8 +11029,8 @@
       "code": "ASTRAMENTIS",
       "slot": "AMULET",
       "rarity": "UNIQUE",
-      "level": 30,
-      "requiredLevel": 30,
+      "level": 37,
+      "requiredLevel": 37,
       "requiredIntelligence": 60,
       "lines": [
         [
@@ -11127,8 +11131,8 @@
       "code": "BISCO_S_COLLAR",
       "slot": "AMULET",
       "rarity": "UNIQUE",
-      "level": 50,
-      "requiredLevel": 50,
+      "level": 60,
+      "requiredLevel": 60,
       "requiredIntelligence": 100,
       "lines": [
         [
@@ -11167,8 +11171,8 @@
       "slot": "SHIELD",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
-      "level": 45,
-      "requiredLevel": 45,
+      "level": 60,
+      "requiredLevel": 60,
       "requiredStrength": 90,
       "base": [
         {
@@ -11957,6 +11961,8 @@
       "code": "TIDEBREAKER_SIGIL",
       "slot": "RING",
       "rarity": "UNIQUE",
+      "level": 8,
+      "requiredLevel": 8,
       "requiredIntelligence": 2,
       "lines": [
         [
@@ -12207,8 +12213,8 @@
       "slot": "BODY",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
-      "level": 9,
-      "requiredLevel": 9,
+      "level": 17,
+      "requiredLevel": 17,
       "requiredStrength": 18,
       "base": [
         {
@@ -12328,8 +12334,8 @@
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
       "rarity": "UNIQUE",
-      "level": 13,
-      "requiredLevel": 13,
+      "level": 15,
+      "requiredLevel": 15,
       "requiredDexterity": 26,
       "weaponType": "BLADE",
       "durability": 120,
@@ -12448,8 +12454,8 @@
       "slot": "GLOVES",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
-      "level": 17,
-      "requiredLevel": 17,
+      "level": 20,
+      "requiredLevel": 20,
       "requiredDexterity": 34,
       "base": [
         {
@@ -12522,8 +12528,8 @@
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
       "rarity": "UNIQUE",
-      "level": 20,
-      "requiredLevel": 20,
+      "level": 22,
+      "requiredLevel": 22,
       "requiredStrength": 40,
       "weaponType": "LONGSWORD",
       "durability": 200,
@@ -13305,8 +13311,8 @@
       "slot": "HELMET",
       "kind": "ARMOR",
       "rarity": "UNIQUE",
-      "level": 9,
-      "requiredLevel": 9,
+      "level": 17,
+      "requiredLevel": 17,
       "requiredStrength": 18,
       "base": [
         {
@@ -14065,8 +14071,8 @@
       "code": "QUICKSILVER_MIRROR",
       "slot": "FLASK",
       "rarity": "UNIQUE",
-      "level": 10,
-      "requiredLevel": 10,
+      "level": 19,
+      "requiredLevel": 19,
       "base": [
         {
           "code": "BASE_FLASK_MOVEMENT",
@@ -14805,8 +14811,8 @@
             "stat": "STOCK_ATTACK_PHYSICAL",
             "op": "INCREASED",
             "range": [
-              20.0,
-              30.0
+              71.0,
+              107.0
             ]
           }
         ],
@@ -14814,8 +14820,8 @@
           {
             "stat": "STOCK_LEECH_PHYSICAL",
             "range": [
-              0.4,
-              0.8
+              1.0,
+              2.0
             ]
           }
         ],
@@ -14823,8 +14829,8 @@
           {
             "stat": "STOCK_HEALTH",
             "range": [
-              50.0,
-              70.0
+              101.0,
+              142.0
             ]
           }
         ],
@@ -14832,8 +14838,8 @@
           {
             "stat": "POWER_DESPERATE_THIRST",
             "range": [
-              1.0,
-              1.5
+              2.0,
+              3.0
             ]
           }
         ]
@@ -15069,8 +15075,8 @@
           {
             "stat": "STOCK_ATTACK_CHAOS",
             "range": [
-              8.0,
-              14.0
+              15.0,
+              27.0
             ]
           }
         ],
@@ -15078,8 +15084,8 @@
           {
             "stat": "STOCK_POISON_DURATION",
             "range": [
-              20.0,
-              30.0
+              42.0,
+              63.0
             ]
           }
         ],
@@ -15087,8 +15093,8 @@
           {
             "stat": "STOCK_RESIST_CHAOS",
             "range": [
-              15.0,
-              25.0
+              35.0,
+              58.0
             ]
           }
         ],
@@ -15096,8 +15102,8 @@
           {
             "stat": "POWER_CONSTRICT",
             "range": [
-              5.0,
-              8.0
+              10.0,
+              16.0
             ]
           }
         ]
@@ -15152,8 +15158,8 @@
           {
             "stat": "STOCK_AGILITY",
             "range": [
-              30.0,
-              40.0
+              57.0,
+              77.0
             ]
           }
         ],
@@ -15162,8 +15168,8 @@
             "stat": "STOCK_CRITICAL_CHANCE",
             "op": "INCREASED",
             "range": [
-              20.0,
-              30.0
+              44.0,
+              67.0
             ]
           }
         ],
@@ -15171,8 +15177,8 @@
           {
             "stat": "STOCK_RESIST_LIGHTNING",
             "range": [
-              25.0,
-              35.0
+              52.0,
+              73.0
             ]
           }
         ],
@@ -15180,8 +15186,8 @@
           {
             "stat": "POWER_STORM_EYE",
             "range": [
-              1.0,
-              2.0
+              2.0,
+              4.0
             ]
           }
         ]
@@ -15329,8 +15335,8 @@
             "stat": "STOCK_ATTACK_MAGICAL",
             "op": "INCREASED",
             "range": [
-              60.0,
-              90.0
+              66.0,
+              98.0
             ]
           }
         ],
@@ -15338,8 +15344,8 @@
           {
             "stat": "STOCK_ATTACK_CHAOS",
             "range": [
-              10.0,
-              18.0
+              22.0,
+              40.0
             ]
           }
         ],
@@ -15348,8 +15354,8 @@
             "stat": "STOCK_CAST_SPEED",
             "op": "INCREASED",
             "range": [
-              10.0,
-              15.0
+              18.0,
+              27.0
             ]
           }
         ],
@@ -15357,8 +15363,8 @@
           {
             "stat": "POWER_ROT_SPELL",
             "range": [
-              20.0,
-              30.0
+              40.0,
+              60.0
             ]
           }
         ]
@@ -15561,8 +15567,8 @@
             "stat": "STOCK_MOVEMENT_SPEED",
             "op": "INCREASED",
             "range": [
-              10.0,
-              15.0
+              31.0,
+              47.0
             ]
           }
         ],
@@ -15570,8 +15576,8 @@
           {
             "stat": "STOCK_HEALTH",
             "range": [
-              50.0,
-              70.0
+              101.0,
+              142.0
             ]
           }
         ],
@@ -15579,8 +15585,8 @@
           {
             "stat": "STOCK_RESIST_FIRE",
             "range": [
-              25.0,
-              35.0
+              43.0,
+              60.0
             ]
           }
         ],
@@ -15588,8 +15594,8 @@
           {
             "stat": "POWER_ASH_BURST",
             "range": [
-              20.0,
-              30.0
+              40.0,
+              60.0
             ]
           }
         ]
@@ -15848,8 +15854,8 @@
           {
             "stat": "STOCK_HEALTH",
             "range": [
-              60.0,
-              80.0
+              106.0,
+              142.0
             ]
           }
         ],
@@ -15858,8 +15864,8 @@
             "stat": "STOCK_FLASK_DURATION",
             "op": "INCREASED",
             "range": [
-              15.0,
-              25.0
+              35.0,
+              58.0
             ]
           }
         ],
@@ -15867,8 +15873,8 @@
           {
             "stat": "STOCK_RESIST_FIRE",
             "range": [
-              20.0,
-              30.0
+              40.0,
+              60.0
             ]
           }
         ],
@@ -15876,8 +15882,8 @@
           {
             "stat": "POWER_QUENCH_RETURN",
             "range": [
-              2.0,
-              4.0
+              4.0,
+              8.0
             ]
           }
         ]
@@ -15895,8 +15901,8 @@
           {
             "stat": "STOCK_ATTACK_FIRE",
             "range": [
-              8.0,
-              14.0
+              21.0,
+              37.0
             ]
           }
         ],
@@ -15904,8 +15910,8 @@
           {
             "stat": "STOCK_RESIST_FIRE",
             "range": [
-              25.0,
-              35.0
+              43.0,
+              60.0
             ]
           }
         ],
@@ -15913,8 +15919,8 @@
           {
             "stat": "STOCK_HEALTH",
             "range": [
-              40.0,
-              60.0
+              94.0,
+              142.0
             ]
           }
         ],
@@ -15922,8 +15928,8 @@
           {
             "stat": "POWER_EMBER_WARD",
             "range": [
-              2.0,
-              3.0
+              4.0,
+              6.0
             ]
           }
         ]
@@ -16319,8 +16325,8 @@
           {
             "stat": "STOCK_MANA",
             "range": [
-              30.0,
-              45.0
+              52.0,
+              78.0
             ]
           }
         ],
@@ -16328,8 +16334,8 @@
           {
             "stat": "STOCK_RESIST_COLD",
             "range": [
-              20.0,
-              30.0
+              25.0,
+              38.0
             ]
           }
         ],
@@ -16337,8 +16343,8 @@
           {
             "stat": "POWER_DEEP_TIDE",
             "range": [
-              1.5,
-              2.5
+              3.0,
+              5.0
             ]
           }
         ]
@@ -16412,8 +16418,8 @@
           {
             "stat": "STOCK_ATTACK_CHAOS",
             "range": [
-              10.0,
-              18.0
+              18.0,
+              32.0
             ]
           }
         ],
@@ -16422,8 +16428,8 @@
             "stat": "STOCK_ATTACK_SPEED",
             "op": "INCREASED",
             "range": [
-              8.0,
-              12.0
+              17.0,
+              26.0
             ]
           }
         ],
@@ -16431,8 +16437,8 @@
           {
             "stat": "POWER_SWARM_BURST",
             "range": [
-              50.0,
-              80.0
+              100.0,
+              160.0
             ]
           }
         ]
@@ -16719,8 +16725,8 @@
           {
             "stat": "STOCK_HEALTH",
             "range": [
-              50.0,
-              70.0
+              87.0,
+              122.0
             ]
           }
         ],
@@ -16728,8 +16734,8 @@
           {
             "stat": "STOCK_RESIST_CHAOS",
             "range": [
-              20.0,
-              30.0
+              33.0,
+              50.0
             ]
           }
         ],
@@ -16737,8 +16743,8 @@
           {
             "stat": "STOCK_LIFE_REGEN_PERCENT",
             "range": [
-              0.8,
-              1.2
+              1.2,
+              1.8
             ]
           }
         ],
@@ -16746,8 +16752,8 @@
           {
             "stat": "POWER_SWALLOW_WHOLE",
             "range": [
-              8.0,
-              12.0
+              16.0,
+              24.0
             ]
           }
         ],
@@ -16755,8 +16761,8 @@
           {
             "stat": "POWER_VOID_TITHE",
             "range": [
-              20.0,
-              30.0
+              40.0,
+              60.0
             ]
           }
         ]
@@ -16913,12 +16919,943 @@
       ]
     },
     {
+      "code": "GALEWHISPER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredDexterity": 34,
+      "weaponType": "BOW",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              56.0,
+              74.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              10.0,
+              13.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              16.0,
+              21.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_COLD",
+            "range": [
+              16.0,
+              22.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FROST_ARROW",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "IRONHAIL",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredDexterity": 88,
+      "weaponType": "BOW",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            61.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              116.0,
+              154.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "range": [
+              27.0,
+              36.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              32.0,
+              43.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              33.0,
+              44.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DRILL_SHOT",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "STORMSPLINTER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 65,
+      "requiredLevel": 65,
+      "requiredDexterity": 143,
+      "weaponType": "BOW",
+      "durability": 140,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            103.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              149.0,
+              199.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_LIGHTNING",
+            "range": [
+              56.0,
+              75.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              42.0,
+              56.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "range": [
+              46.0,
+              62.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              19.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SHARD_SPLINTER",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "SQUIRES_VOW",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 18,
+      "requiredDexterity": 18,
+      "weaponType": "SWORD",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            21.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              56.0,
+              74.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "range": [
+              13.0,
+              17.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              28.0,
+              38.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              34.0,
+              46.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SWORN_STRIKE",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "BLOODLETTER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredDexterity": 48,
+      "weaponType": "SWORD",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            48.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              116.0,
+              154.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              19.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_PHYSICAL",
+            "range": [
+              1.1,
+              1.5
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              31.0,
+              41.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BLOOD_SCENT",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "DUSKREAVER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 78,
+      "requiredDexterity": 78,
+      "weaponType": "SWORD",
+      "durability": 140,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            77.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              160.0,
+              214.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "range": [
+              42.0,
+              56.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "range": [
+              50.0,
+              67.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              22.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              34.0,
+              46.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_AMBUSH",
+            "range": [
+              50.0,
+              80.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "EMBERBITE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 18,
+      "requiredDexterity": 18,
+      "weaponType": "AXE",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            24.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              52.0,
+              69.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "range": [
+              18.0,
+              24.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              16.0,
+              21.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              34.0,
+              46.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBER_TOUCH",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "SKULLSPLITTER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredDexterity": 48,
+      "weaponType": "AXE",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            46.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              116.0,
+              154.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "range": [
+              29.0,
+              39.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              33.0,
+              44.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              17.0,
+              23.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_AFTERSHOCK",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "WIDOWMAKER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 65,
+      "requiredLevel": 65,
+      "requiredStrength": 78,
+      "requiredDexterity": 78,
+      "weaponType": "AXE",
+      "durability": 140,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            87.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              160.0,
+              214.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "range": [
+              42.0,
+              56.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "range": [
+              34.0,
+              46.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              41.0,
+              55.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_PHYSICAL",
+            "range": [
+              1.4,
+              1.8
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GRIEF",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "CINDERTWIG",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredIntelligence": 33,
+      "weaponType": "WAND",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              21.0,
+              28.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "op": "INCREASED",
+            "range": [
+              8.0,
+              11.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MANA",
+            "range": [
+              19.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "range": [
+              14.0,
+              19.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SOLAR_FLARE",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "UMBRAL_BRANCH",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredIntelligence": 88,
+      "weaponType": "WAND",
+      "durability": 120,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              66.0,
+              88.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "op": "INCREASED",
+            "range": [
+              16.0,
+              21.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              32.0,
+              43.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "range": [
+              31.0,
+              41.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_UMBRAL_BARRIER",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "STARWEAVER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 65,
+      "requiredLevel": 65,
+      "requiredIntelligence": 143,
+      "weaponType": "WAND",
+      "durability": 140,
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            36.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              83.0,
+              111.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "op": "INCREASED",
+            "range": [
+              21.0,
+              28.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              42.0,
+              56.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "range": [
+              46.0,
+              62.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_LEVEL",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEPTH_FRENZY",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
       "code": "CROWN_OF_THE_VOID",
       "slot": "HELMET",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 30,
       "requiredIntelligence": 30,
       "base": [
@@ -16983,8 +17920,8 @@
       "slot": "BODY",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 40,
       "base": [
         {
@@ -17057,8 +17994,8 @@
       "slot": "GLOVES",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredDexterity": 40,
       "lines": [
         [
@@ -17106,8 +18043,8 @@
       "slot": "BOOTS",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredDexterity": 40,
       "lines": [
         [
@@ -17164,8 +18101,8 @@
       "slot": "SHIELD",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 40,
       "base": [
         {
@@ -17237,8 +18174,8 @@
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredDexterity": 40,
       "weaponType": "BLADE",
       "durability": 150,
@@ -17320,8 +18257,8 @@
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 40,
       "weaponType": "DOUBLEAXE",
       "durability": 250,
@@ -17392,8 +18329,8 @@
       "code": "RING_OF_THE_ABYSS",
       "slot": "RING",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredIntelligence": 30,
       "lines": [
         [
@@ -17440,8 +18377,8 @@
       "code": "HEART_OF_THE_ABYSS",
       "slot": "AMULET",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredIntelligence": 30,
       "lines": [
         [
@@ -17513,8 +18450,8 @@
       "code": "GIRDLE_OF_TITANS",
       "slot": "BELT",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 30,
       "lines": [
         [
@@ -17570,8 +18507,8 @@
       "code": "QUIVER_OF_THE_STORM",
       "slot": "QUIVER",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredDexterity": 30,
       "lines": [
         [
@@ -17627,8 +18564,8 @@
       "slot": "WINGS",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredIntelligence": 30,
       "base": [
         {
@@ -17703,8 +18640,8 @@
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 30,
       "weaponType": "DOUBLEAXE",
       "durability": 200,
@@ -17767,8 +18704,8 @@
       "slot": "HELMET",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredDexterity": 30,
       "requiredIntelligence": 30,
       "base": [
@@ -17832,8 +18769,8 @@
       "code": "CHRONOBAND",
       "slot": "RING",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredIntelligence": 30,
       "lines": [
         [
@@ -17881,8 +18818,8 @@
       "slot": "SHIELD",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 30,
       "requiredIntelligence": 30,
       "base": [
@@ -17946,8 +18883,8 @@
       "slot": "BOOTS",
       "kind": "ARMOR",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredDexterity": 30,
       "base": [
         {
@@ -18010,8 +18947,8 @@
       "code": "ETERNAL_FEAST",
       "slot": "BELT",
       "rarity": "MYTHICAL",
-      "level": 15,
-      "requiredLevel": 15,
+      "level": 70,
+      "requiredLevel": 70,
       "requiredStrength": 30,
       "lines": [
         [

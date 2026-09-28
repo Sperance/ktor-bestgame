@@ -2461,7 +2461,19 @@
         "BRANDED_KITE_SHIELD": 100,
         "COMPOUND_SPIKED_SHIELD": 100,
         "GLEAMING_SPIKED_SHIELD": 100,
-        "SOLDIER_BELT": 100
+        "SOLDIER_BELT": 100,
+        "GALEWHISPER": 100,
+        "IRONHAIL": 100,
+        "STORMSPLINTER": 100,
+        "SQUIRES_VOW": 100,
+        "BLOODLETTER": 100,
+        "DUSKREAVER": 100,
+        "EMBERBITE": 100,
+        "SKULLSPLITTER": 100,
+        "WIDOWMAKER": 100,
+        "CINDERTWIG": 100,
+        "UMBRAL_BRANCH": 100,
+        "STARWEAVER": 100
       }
     },
     {
@@ -3186,7 +3198,19 @@
         "GRIEF_HARVESTER": 100,
         "EARTHSHAKER_MAUL": 100,
         "FROSTFEATHER_QUIVER": 100,
-        "WINGS_OF_ASH": 100
+        "WINGS_OF_ASH": 100,
+        "GALEWHISPER": 100,
+        "IRONHAIL": 100,
+        "STORMSPLINTER": 100,
+        "SQUIRES_VOW": 100,
+        "BLOODLETTER": 100,
+        "DUSKREAVER": 100,
+        "EMBERBITE": 100,
+        "SKULLSPLITTER": 100,
+        "WIDOWMAKER": 100,
+        "CINDERTWIG": 100,
+        "UMBRAL_BRANCH": 100,
+        "STARWEAVER": 100
       }
     },
     {
@@ -3256,7 +3280,43 @@
         "GRIEF_HARVESTER": 100,
         "EARTHSHAKER_MAUL": 100,
         "FROSTFEATHER_QUIVER": 100,
-        "WINGS_OF_ASH": 100
+        "WINGS_OF_ASH": 100,
+        "GALEWHISPER": 100,
+        "IRONHAIL": 100,
+        "STORMSPLINTER": 100,
+        "SQUIRES_VOW": 100,
+        "BLOODLETTER": 100,
+        "DUSKREAVER": 100,
+        "EMBERBITE": 100,
+        "SKULLSPLITTER": 100,
+        "WIDOWMAKER": 100,
+        "CINDERTWIG": 100,
+        "UMBRAL_BRANCH": 100,
+        "STARWEAVER": 100
+      }
+    },
+    {
+      "tag": "mythic:all",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CROWN_OF_THE_VOID": 100,
+        "SHROUD_OF_ETERNITY": 100,
+        "HANDS_OF_THE_WORLDBREAKER": 100,
+        "STRIDE_OF_THE_ENDLESS": 100,
+        "AEGIS_OF_DAWN": 100,
+        "FANG_OF_THE_FIRST_BEAST": 100,
+        "STARFALL": 100,
+        "RING_OF_THE_ABYSS": 100,
+        "HEART_OF_THE_ABYSS": 100,
+        "GIRDLE_OF_TITANS": 100,
+        "QUIVER_OF_THE_STORM": 100,
+        "WINGS_OF_THE_FALLEN_GOD": 100,
+        "WORLDEATER_MAW": 100,
+        "THOUSAND_EYES": 100,
+        "CHRONOBAND": 100,
+        "SOULFORGE_AEGIS": 100,
+        "LAST_HORIZON": 100,
+        "ETERNAL_FEAST": 100
       }
     },
     {
