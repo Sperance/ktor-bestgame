@@ -109,6 +109,9 @@ object ContentLoader {
     }
 }
 
+/** Уникалке нужно не меньше стольких своих эффектов (1.19.0): одна строка силы - это ещё не уникальная вещь. */
+const val MIN_UNIQUE_EFFECTS = 2
+
 /**
  * Контент с индексами: описания по коду и семейству, лестницы тиров, таблицы, шаблоны, предметы,
  * монстры, зоны, графы атласа и дерева, рецепты верстака. Один экземпляр на версию контента.
@@ -222,6 +225,7 @@ class ContentIndex(val content: Content) {
                 }
                 template.tables.forEach { tag -> if (tables.kind(tag) != TableKind.MODIFIER) fail("equipment: ${template.code} rolls from unknown table $tag") }
                 if (template.unique != template.lines.isNotEmpty()) fail("equipment: lines of ${template.code}")
+                if (template.unique && template.uniqueEffects < MIN_UNIQUE_EFFECTS) fail("equipment: ${template.code} has ${template.uniqueEffects} unique effects, needs $MIN_UNIQUE_EFFECTS")
                 if (template.kind == TemplateKind.WEAPON && template.weaponType == null) fail("equipment: weapon type of ${template.code}")
                 if (template.level < 1 || template.requiredLevel < 1) fail("equipment: level of ${template.code}")
             }

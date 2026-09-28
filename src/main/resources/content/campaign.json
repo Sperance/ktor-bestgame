@@ -7107,7 +7107,7 @@
     "chance": 0.35,
     "uniqueChance": 0.12,
     "tables": [
-      "unique:world"
+      "unique:vaal"
     ],
     "mythicChance": 0.01,
     "mythicTables": [
@@ -7127,6 +7127,10 @@
     "dropChance": 0.03,
     "bossChance": 0.4,
     "nextChance": 0.25,
+    "uniqueChance": 0.08,
+    "uniqueTables": [
+      "unique:map"
+    ],
     "rarityBonus": {
       "UNCOMMON": 10,
       "RARE": 25

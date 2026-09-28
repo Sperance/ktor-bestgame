@@ -2390,6 +2390,721 @@
       "order": 799
     },
     {
+      "code": "POWER_GILDED_TOUCH",
+      "group": "POWER",
+      "order": 800
+    },
+    {
+      "code": "POWER_DEVOTED_ZEAL",
+      "group": "POWER",
+      "order": 801
+    },
+    {
+      "code": "POWER_STITCHED_FLESH",
+      "group": "POWER",
+      "order": 802
+    },
+    {
+      "code": "POWER_CRUEL_ART",
+      "group": "POWER",
+      "order": 803
+    },
+    {
+      "code": "POWER_QUEENS_PRECISION",
+      "group": "POWER",
+      "order": 804
+    },
+    {
+      "code": "POWER_FREE_STRIDE",
+      "group": "POWER",
+      "order": 805
+    },
+    {
+      "code": "POWER_HOARD_FIRE",
+      "group": "POWER",
+      "order": 806
+    },
+    {
+      "code": "POWER_SIROCCO",
+      "group": "POWER",
+      "order": 807
+    },
+    {
+      "code": "POWER_SEVENTH_ASCENT",
+      "group": "POWER",
+      "order": 808
+    },
+    {
+      "code": "POWER_MAW_FEAST",
+      "group": "POWER",
+      "order": 809
+    },
+    {
+      "code": "POWER_KARUI_GRIT",
+      "group": "POWER",
+      "order": 810
+    },
+    {
+      "code": "POWER_GOLDEN_PURSE",
+      "group": "POWER",
+      "order": 811
+    },
+    {
+      "code": "POWER_LUCKY_BREAK",
+      "group": "POWER",
+      "order": 812
+    },
+    {
+      "code": "POWER_KAOMS_ENDURANCE",
+      "group": "POWER",
+      "order": 813
+    },
+    {
+      "code": "POWER_STARBOUND_GRACE",
+      "group": "POWER",
+      "order": 814
+    },
+    {
+      "code": "POWER_BLOODBATH",
+      "group": "POWER",
+      "order": 815
+    },
+    {
+      "code": "POWER_GOOD_DOG",
+      "group": "POWER",
+      "order": 816
+    },
+    {
+      "code": "POWER_LAST_GROUND",
+      "group": "POWER",
+      "order": 817
+    },
+    {
+      "code": "POWER_PHOENIX_FLARE",
+      "group": "POWER",
+      "order": 818
+    },
+    {
+      "code": "POWER_REFRACTION",
+      "group": "POWER",
+      "order": 819
+    },
+    {
+      "code": "POWER_SUNDER",
+      "group": "POWER",
+      "order": 820
+    },
+    {
+      "code": "POWER_COVERING_FIRE",
+      "group": "POWER",
+      "order": 821
+    },
+    {
+      "code": "POWER_FROZEN_WOUND",
+      "group": "POWER",
+      "order": 822
+    },
+    {
+      "code": "POWER_TASTE_TEST",
+      "group": "POWER",
+      "order": 823
+    },
+    {
+      "code": "POWER_CATALYSIS",
+      "group": "POWER",
+      "order": 824
+    },
+    {
+      "code": "POWER_MARKED_PREY",
+      "group": "POWER",
+      "order": 825
+    },
+    {
+      "code": "POWER_CRUSHING_BLOW",
+      "group": "POWER",
+      "order": 826
+    },
+    {
+      "code": "POWER_STARBORN_EDGE",
+      "group": "POWER",
+      "order": 827
+    },
+    {
+      "code": "POWER_DAWN_OF_AN_ERA",
+      "group": "POWER",
+      "order": 828
+    },
+    {
+      "code": "POWER_IRON_OATH",
+      "group": "POWER",
+      "order": 829
+    },
+    {
+      "code": "POWER_CRYSTAL_EDGE",
+      "group": "POWER",
+      "order": 830
+    },
+    {
+      "code": "POWER_DROWNING_JAWS",
+      "group": "POWER",
+      "order": 831
+    },
+    {
+      "code": "POWER_FORGE_TEMPER",
+      "group": "POWER",
+      "order": 832
+    },
+    {
+      "code": "POWER_ANVIL_RING",
+      "group": "POWER",
+      "order": 833
+    },
+    {
+      "code": "POWER_HOT_HANDS",
+      "group": "POWER",
+      "order": 834
+    },
+    {
+      "code": "POWER_IRON_FOOTING",
+      "group": "POWER",
+      "order": 835
+    },
+    {
+      "code": "POWER_HEAVY_LINKS",
+      "group": "POWER",
+      "order": 836
+    },
+    {
+      "code": "POWER_SHIELD_BASH",
+      "group": "POWER",
+      "order": 837
+    },
+    {
+      "code": "POWER_SLAG_BURST",
+      "group": "POWER",
+      "order": 838
+    },
+    {
+      "code": "POWER_AVALANCHE",
+      "group": "POWER",
+      "order": 839
+    },
+    {
+      "code": "POWER_KEEN_TIPS",
+      "group": "POWER",
+      "order": 840
+    },
+    {
+      "code": "POWER_OFFCUT_LUCK",
+      "group": "POWER",
+      "order": 841
+    },
+    {
+      "code": "POWER_SNOWMELT",
+      "group": "POWER",
+      "order": 842
+    },
+    {
+      "code": "POWER_BELLOWS_GUST",
+      "group": "POWER",
+      "order": 843
+    },
+    {
+      "code": "POWER_BRAZEN_ROAR",
+      "group": "POWER",
+      "order": 844
+    },
+    {
+      "code": "POWER_RALLYING_CRY",
+      "group": "POWER",
+      "order": 845
+    },
+    {
+      "code": "POWER_SPREADING_STING",
+      "group": "POWER",
+      "order": 846
+    },
+    {
+      "code": "POWER_CHITIN_SHELL",
+      "group": "POWER",
+      "order": 847
+    },
+    {
+      "code": "POWER_ROYAL_PYRE",
+      "group": "POWER",
+      "order": 848
+    },
+    {
+      "code": "POWER_SEARING_RIM",
+      "group": "POWER",
+      "order": 849
+    },
+    {
+      "code": "POWER_VOID_PULSE",
+      "group": "POWER",
+      "order": 850
+    },
+    {
+      "code": "POWER_SILVER_REFLEX",
+      "group": "POWER",
+      "order": 851
+    },
+    {
+      "code": "POWER_BLIND_FURY",
+      "group": "POWER",
+      "order": 852
+    },
+    {
+      "code": "POWER_HEX_FEAST",
+      "group": "POWER",
+      "order": 853
+    },
+    {
+      "code": "POWER_NECTAR_RUSH",
+      "group": "POWER",
+      "order": 854
+    },
+    {
+      "code": "POWER_QUEENS_THIRST",
+      "group": "POWER",
+      "order": 855
+    },
+    {
+      "code": "POWER_BRAMBLE_GUARD",
+      "group": "POWER",
+      "order": 856
+    },
+    {
+      "code": "POWER_EMBER_RESOLVE",
+      "group": "POWER",
+      "order": 857
+    },
+    {
+      "code": "POWER_THUNDERHIDE",
+      "group": "POWER",
+      "order": 858
+    },
+    {
+      "code": "POWER_KEPT_PROMISE",
+      "group": "POWER",
+      "order": 859
+    },
+    {
+      "code": "POWER_DEEP_DRAUGHT",
+      "group": "POWER",
+      "order": 860
+    },
+    {
+      "code": "POWER_PHANTOM_STEP",
+      "group": "POWER",
+      "order": 861
+    },
+    {
+      "code": "POWER_SCORCHED_PATH",
+      "group": "POWER",
+      "order": 862
+    },
+    {
+      "code": "POWER_POLISHED_FACE",
+      "group": "POWER",
+      "order": 863
+    },
+    {
+      "code": "POWER_TIME_DEBT",
+      "group": "POWER",
+      "order": 864
+    },
+    {
+      "code": "POWER_TIGHTENING_COIL",
+      "group": "POWER",
+      "order": 865
+    },
+    {
+      "code": "POWER_HOLLOW_ECHO",
+      "group": "POWER",
+      "order": 866
+    },
+    {
+      "code": "POWER_CALM_CENTER",
+      "group": "POWER",
+      "order": 867
+    },
+    {
+      "code": "POWER_SECOND_HELPING",
+      "group": "POWER",
+      "order": 868
+    },
+    {
+      "code": "POWER_SILENT_OPENING",
+      "group": "POWER",
+      "order": 869
+    },
+    {
+      "code": "POWER_ROT_BLOOM",
+      "group": "POWER",
+      "order": 870
+    },
+    {
+      "code": "POWER_MOURNING",
+      "group": "POWER",
+      "order": 871
+    },
+    {
+      "code": "POWER_TREMOR",
+      "group": "POWER",
+      "order": 872
+    },
+    {
+      "code": "POWER_COLD_DRAW",
+      "group": "POWER",
+      "order": 873
+    },
+    {
+      "code": "POWER_ASHEN_UPDRAFT",
+      "group": "POWER",
+      "order": 874
+    },
+    {
+      "code": "POWER_FANNED_FLAMES",
+      "group": "POWER",
+      "order": 875
+    },
+    {
+      "code": "POWER_SLAG_SHELL",
+      "group": "POWER",
+      "order": 876
+    },
+    {
+      "code": "POWER_HAMMER_HOME",
+      "group": "POWER",
+      "order": 877
+    },
+    {
+      "code": "POWER_CRUCIBLE_HEAT",
+      "group": "POWER",
+      "order": 878
+    },
+    {
+      "code": "POWER_COOLING_DRAUGHT",
+      "group": "POWER",
+      "order": 879
+    },
+    {
+      "code": "POWER_WARM_COAL",
+      "group": "POWER",
+      "order": 880
+    },
+    {
+      "code": "POWER_SEA_HUM",
+      "group": "POWER",
+      "order": 881
+    },
+    {
+      "code": "POWER_LULLABY",
+      "group": "POWER",
+      "order": 882
+    },
+    {
+      "code": "POWER_ROOTED_IN_ROT",
+      "group": "POWER",
+      "order": 883
+    },
+    {
+      "code": "POWER_LEADERS_HOWL",
+      "group": "POWER",
+      "order": 884
+    },
+    {
+      "code": "POWER_HIDDEN_CACHE",
+      "group": "POWER",
+      "order": 885
+    },
+    {
+      "code": "POWER_CRYPT_CHILL",
+      "group": "POWER",
+      "order": 886
+    },
+    {
+      "code": "POWER_SHARD_WARD",
+      "group": "POWER",
+      "order": 887
+    },
+    {
+      "code": "POWER_TYRANTS_TRIBUTE",
+      "group": "POWER",
+      "order": 888
+    },
+    {
+      "code": "POWER_FROZEN_THRONE",
+      "group": "POWER",
+      "order": 889
+    },
+    {
+      "code": "POWER_FLOATING_PRAYER",
+      "group": "POWER",
+      "order": 890
+    },
+    {
+      "code": "POWER_NOON_GLARE",
+      "group": "POWER",
+      "order": 891
+    },
+    {
+      "code": "POWER_BUZZING_CLOUD",
+      "group": "POWER",
+      "order": 892
+    },
+    {
+      "code": "POWER_UNDYING_EMBERS",
+      "group": "POWER",
+      "order": 893
+    },
+    {
+      "code": "POWER_ENDLESS_FALL",
+      "group": "POWER",
+      "order": 894
+    },
+    {
+      "code": "POWER_LAST_VERSE",
+      "group": "POWER",
+      "order": 895
+    },
+    {
+      "code": "POWER_HAILSTORM",
+      "group": "POWER",
+      "order": 896
+    },
+    {
+      "code": "POWER_TWICE_STRUCK",
+      "group": "POWER",
+      "order": 897
+    },
+    {
+      "code": "POWER_TRUE_SWING",
+      "group": "POWER",
+      "order": 898
+    },
+    {
+      "code": "POWER_FIRST_DRAUGHT",
+      "group": "POWER",
+      "order": 899
+    },
+    {
+      "code": "POWER_NIGHTFALL",
+      "group": "POWER",
+      "order": 900
+    },
+    {
+      "code": "POWER_SMOULDER",
+      "group": "POWER",
+      "order": 901
+    },
+    {
+      "code": "POWER_HEADCRACK",
+      "group": "POWER",
+      "order": 902
+    },
+    {
+      "code": "POWER_WIDOWS_TOLL",
+      "group": "POWER",
+      "order": 903
+    },
+    {
+      "code": "POWER_HEARTH_GLOW",
+      "group": "POWER",
+      "order": 904
+    },
+    {
+      "code": "POWER_WATCHING_SHADOWS",
+      "group": "POWER",
+      "order": 905
+    },
+    {
+      "code": "POWER_STAR_THREAD",
+      "group": "POWER",
+      "order": 906
+    },
+    {
+      "code": "POWER_VAAL_OFFERING",
+      "group": "POWER",
+      "order": 907
+    },
+    {
+      "code": "POWER_TAINTED_EDGE",
+      "group": "POWER",
+      "order": 908
+    },
+    {
+      "code": "POWER_SACRIFICIAL_PACT",
+      "group": "POWER",
+      "order": 909
+    },
+    {
+      "code": "POWER_VEILED_GAZE",
+      "group": "POWER",
+      "order": 910
+    },
+    {
+      "code": "POWER_ALTAR_BLOOD",
+      "group": "POWER",
+      "order": 911
+    },
+    {
+      "code": "POWER_BLOOD_ALTAR",
+      "group": "POWER",
+      "order": 912
+    },
+    {
+      "code": "POWER_TAINT",
+      "group": "POWER",
+      "order": 913
+    },
+    {
+      "code": "POWER_CORRUPTED_BLOOD",
+      "group": "POWER",
+      "order": 914
+    },
+    {
+      "code": "POWER_RITUAL_CLEAVE",
+      "group": "POWER",
+      "order": 915
+    },
+    {
+      "code": "POWER_HEART_TAKER",
+      "group": "POWER",
+      "order": 916
+    },
+    {
+      "code": "POWER_CORRUPTION_SURGE",
+      "group": "POWER",
+      "order": 917
+    },
+    {
+      "code": "POWER_VAAL_BLOODLINE",
+      "group": "POWER",
+      "order": 918
+    },
+    {
+      "code": "POWER_WAYFINDER",
+      "group": "POWER",
+      "order": 919
+    },
+    {
+      "code": "POWER_TRAILBLAZE",
+      "group": "POWER",
+      "order": 920
+    },
+    {
+      "code": "POWER_SURVEY",
+      "group": "POWER",
+      "order": 921
+    },
+    {
+      "code": "POWER_SURVEYORS_NOTES",
+      "group": "POWER",
+      "order": 922
+    },
+    {
+      "code": "POWER_WORLDS_WEIGHT",
+      "group": "POWER",
+      "order": 923
+    },
+    {
+      "code": "POWER_ROAD_PROVISIONS",
+      "group": "POWER",
+      "order": 924
+    },
+    {
+      "code": "POWER_HORIZON_CHASER",
+      "group": "POWER",
+      "order": 925
+    },
+    {
+      "code": "POWER_TAILWIND",
+      "group": "POWER",
+      "order": 926
+    },
+    {
+      "code": "POWER_TROPHY_TRAIL",
+      "group": "POWER",
+      "order": 927
+    },
+    {
+      "code": "POWER_SCOUTS_VOLLEY",
+      "group": "POWER",
+      "order": 928
+    },
+    {
+      "code": "POWER_ATLAS_DOMINION",
+      "group": "POWER",
+      "order": 929
+    },
+    {
+      "code": "POWER_CONQUERORS_MARK",
+      "group": "POWER",
+      "order": 930
+    },
+    {
+      "code": "POWER_ESSENCE_SPARK",
+      "group": "POWER",
+      "order": 931
+    },
+    {
+      "code": "POWER_CRYSTAL_RESONANCE",
+      "group": "POWER",
+      "order": 932
+    },
+    {
+      "code": "POWER_PRISM_SPLIT",
+      "group": "POWER",
+      "order": 933
+    },
+    {
+      "code": "POWER_ELEMENTAL_ATTUNEMENT",
+      "group": "POWER",
+      "order": 934
+    },
+    {
+      "code": "POWER_ESSENCE_HARVEST",
+      "group": "POWER",
+      "order": 935
+    },
+    {
+      "code": "POWER_TRINITY",
+      "group": "POWER",
+      "order": 936
+    },
+    {
+      "code": "POWER_CONDUIT",
+      "group": "POWER",
+      "order": 937
+    },
+    {
+      "code": "POWER_CRYSTAL_SHATTER",
+      "group": "POWER",
+      "order": 938
+    },
+    {
+      "code": "POWER_GEODE_SHELL",
+      "group": "POWER",
+      "order": 939
+    },
+    {
+      "code": "POWER_CRYSTAL_GROWTH",
+      "group": "POWER",
+      "order": 940
+    },
+    {
+      "code": "POWER_FRACTURE_SHOT",
+      "group": "POWER",
+      "order": 941
+    },
+    {
+      "code": "POWER_ESSENCE_INFUSION",
+      "group": "POWER",
+      "order": 942
+    },
+    {
       "code": "BOOL_ALIVE",
       "group": "BOOL",
       "order": 1000,

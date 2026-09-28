@@ -3474,6 +3474,42 @@
       }
     },
     {
+      "tag": "unique:vaal",
+      "kind": "TEMPLATE",
+      "entries": {
+        "SACRIFICIAL_FANG": 100,
+        "MASK_OF_THE_SACRIFICE": 100,
+        "ALTAR_SKIN": 100,
+        "BAND_OF_CORRUPTION": 100,
+        "SACRIFICIAL_CLEAVER": 100,
+        "HEART_OF_THE_VAAL": 100
+      }
+    },
+    {
+      "tag": "unique:map",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CARTOGRAPHERS_STRIDE": 100,
+        "SURVEYORS_GRASP": 100,
+        "ATLAS_CINCH": 100,
+        "WINGS_OF_THE_WANDERER": 100,
+        "PATHFINDERS_QUIVER": 100,
+        "CROWN_OF_THE_ATLAS": 100
+      }
+    },
+    {
+      "tag": "unique:crystal",
+      "kind": "TEMPLATE",
+      "entries": {
+        "SHARDCALLER": 100,
+        "PRISM_WARD": 100,
+        "ESSENCE_LOOP": 100,
+        "CRYSTALGRIP": 100,
+        "GEODE_CARAPACE": 100,
+        "PRISMSTRING": 100
+      }
+    },
+    {
       "tag": "loot:T1",
       "kind": "LOOT",
       "entries": [

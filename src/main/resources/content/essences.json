@@ -223,6 +223,10 @@
     "stronger": 50,
     "modifiers": [
       "mob:essence"
+    ],
+    "uniqueChance": 0.05,
+    "uniqueTables": [
+      "unique:crystal"
     ]
   },
   "condense": {
