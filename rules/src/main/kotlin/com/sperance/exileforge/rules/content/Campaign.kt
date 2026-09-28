@@ -49,6 +49,19 @@ data class AilmentRule(
 @Serializable data class DeathRule(val fromLevel: Int, val experienceShare: Double)
 @Serializable data class LoneWolfRule(val dealt: Double = 10.0, val taken: Double = 10.0)
 @Serializable data class ManaRule(val regen: Double = 3.0)
+/**
+ * Кооператив (1.23.0): до [maxSize] героев в заходе хоста. За каждого сверх первого монстры получают
+ * [life] и [damage] процентов, жетонов на карте больше на [monsters], добычи каждому - на [quantity].
+ * Бой начинается, когда все подтвердили готовность или прошло [readySeconds]; отвалившийся ждётся
+ * [reconnectSeconds], павший в бою встаёт после победы с [reviveLife] процентами жизни.
+ */
+@Serializable data class PartyRule(
+    val maxSize: Int = 4, val life: Double = 50.0, val damage: Double = 25.0, val monsters: Double = 30.0, val quantity: Double = 30.0,
+    val readySeconds: Int = 15, val reconnectSeconds: Int = 60, val reviveLife: Double = 10.0,
+) {
+    /** Прибавка в процентах за [size] героев: ноль в одиночку. */
+    fun extra(percent: Double, size: Int): Double = percent * (size.coerceIn(1, maxSize) - 1)
+}
 @Serializable data class FlaskRule(val perKill: Map<MonsterRarity, Double> = mapOf(MonsterRarity.NORMAL to 1.0, MonsterRarity.MAGIC to 2.0, MonsterRarity.RARE to 3.0, MonsterRarity.UNIQUE to 5.0))
 
 /**
@@ -270,6 +283,8 @@ data class CampaignFile(
     val desecration: DesecrationRule? = null,
     /** Таблица весов редкостей монстров. */
     val rarityTable: String = "rarity:monster",
+    /** Кооператив (1.23.0). */
+    val party: PartyRule = PartyRule(),
 ) {
     val zones: List<Zone> get() = regions.flatMap { it.zones }
 

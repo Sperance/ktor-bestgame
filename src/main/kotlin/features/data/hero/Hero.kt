@@ -203,4 +203,18 @@ data class RunState(
     var vaalKilled: MutableSet<Int> = linkedSetOf(),
     val tally: RunTally = RunTally(),
     val content: String = "",
+    /** Заход гостя кооператива (1.23.0): окна хоста на входе; null - свой заход. */
+    val party: PartyWindows? = null,
+)
+
+/**
+ * Окна хоста, скопированные гостю на входе (1.23.0): гость открывает сундуки, кристаллы и расщелины, которые
+ * видит хост, - не свои, и тратит их отсюда. [host] - чей это заход.
+ */
+@Serializable
+data class PartyWindows(
+    val host: String,
+    var chests: Int = 0,
+    var crystals: MutableList<com.sperance.exileforge.rules.roll.Crystal> = mutableListOf(),
+    var cracks: MutableList<Int> = mutableListOf(),
 )

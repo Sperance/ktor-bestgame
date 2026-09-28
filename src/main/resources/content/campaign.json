@@ -7516,5 +7516,15 @@
         "weight": 60
       }
     ]
+  },
+  "party": {
+    "maxSize": 4,
+    "life": 50,
+    "damage": 25,
+    "monsters": 30,
+    "quantity": 30,
+    "readySeconds": 15,
+    "reconnectSeconds": 60,
+    "reviveLife": 10
   }
 }

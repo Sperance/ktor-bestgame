@@ -58,6 +58,13 @@ data class RunContext(
     val next: List<String> = emptyList(),
     /** Известные рецепты верстака: новый рецепт с редкого монстра - только незнакомый. */
     val recipes: List<String> = emptyList(),
+    /** Героев в заходе (1.23.0): больше жетонов и добычи по правилу `party`. */
+    val party: Int = 1,
+    /**
+     * Соль добычи (1.23.0): гость катит монстров семенем хоста, а добычу - своим потоком, так что у
+     * каждого своя. У хоста и в одиночку ноль - прежние броски не сдвигаются.
+     */
+    val salt: Long = 0,
 ) {
     fun bonus(rarity: MonsterRarity): RarityBonus = bonuses[rarity.name] ?: RarityBonus()
     operator fun get(atlasStat: String): Double = atlas[atlasStat] ?: 0.0
@@ -127,6 +134,9 @@ data class Spawn(val index: Int, val pack: List<RolledMonster>)
  */
 class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: RunContext, val tally: RunTally = RunTally()) {
     val streams = Streams(seed)
+    /** Потоки добычи: семя с солью героя; без соли - те же [streams]. */
+    private val lootStreams = if (context.salt == 0L) streams else Streams(seed xor context.salt)
+    private val party get() = index.campaign.party
     val monsters = MonsterRoller(index)
     val loot = LootRoller(index)
     val factory = ItemFactory(index)
@@ -139,7 +149,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     /** Сколько жетонов встаёт на карте: бросок зоны, строки карты `MAP_PACK_SIZE` и атлас `ATLAS_PACK_SIZE`. */
     val count: Int by lazy {
         val dice = streams.of("count")
-        (dice.between(zone.count) * (1 + (mapEffect(MapStat.PACK_SIZE.code) + context[AtlasStat.PACK_SIZE.code]) / 100)).toInt().coerceAtLeast(1)
+        (dice.between(zone.count) * (1 + (mapEffect(MapStat.PACK_SIZE.code) + context[AtlasStat.PACK_SIZE.code]) / 100) *
+            (1 + party.extra(party.monsters, context.party) / 100)).toInt().coerceAtLeast(1)
     }
 
     /** Жетонов в Ваал-зоне: бросок зоны на своём потоке. */
@@ -182,7 +193,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val monster = spawn(i, vaal).pack.getOrNull(m) ?: return null
         val template = index.monster(monster.code) ?: return null
         val rule = campaign.rarity(monster.rarity)
-        val dice = streams.of(if (vaal) "vaalLoot" else "loot", i * PACK_SLOTS + m)
+        val dice = lootStreams.of(if (vaal) "vaalLoot" else "loot", i * PACK_SLOTS + m)
         val zoneBonus = if (vaal) context.vaal else null
         return grant(dice, template.loot, zone.level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus),
             mapChance = campaign.maps.dropChance * rule.quantity, zoneBonus = zoneBonus, rare = monster.rarity == MonsterRarity.RARE,
@@ -193,7 +204,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     /** Открыт очередной сундук захода: таблица сундуков зоны с множителями правила и атласа. */
     fun chest(): Reward {
         val k = tally.chests++
-        val dice = streams.of("chest", k)
+        val dice = lootStreams.of("chest", k)
         val rule = Chests.rarity(campaign.chests)
         return grant(dice, zone.chestLoot, zone.level, rule, "c$k", 0.0, extraQuantity = context[AtlasStat.CHEST_LOOT.code])
     }
@@ -201,7 +212,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     /** Босс убит: его таблица уникальной редкостью, шанс мировой и собственной уникалки, книга своего класса чаще. */
     fun boss(): Reward {
         val n = tally.bosses++
-        val dice = streams.of("boss", n)
+        val dice = lootStreams.of("boss", n)
         val template = index.monster(zone.boss)!!
         val rule = campaign.rarity(MonsterRarity.UNIQUE)
         val bosses = campaign.bosses
@@ -220,7 +231,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     fun corrupt(): Reward? {
         val zoneBonus = context.vaal ?: return null
         val n = tally.corrupts++
-        val dice = streams.of("corrupt", n)
+        val dice = lootStreams.of("corrupt", n)
         val template = index.monster(zone.corrupted)!!
         val rule = campaign.rarity(MonsterRarity.UNIQUE)
         val corruption = campaign.corruption
@@ -234,7 +245,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     /** Страж кристалла [crystal] пал: эссенции кристалла, добыча редкого монстра и с шансом книга. */
     fun crystal(crystal: Crystal): Reward {
         val k = tally.crystals++
-        val dice = streams.of("crystal", k)
+        val dice = lootStreams.of("crystal", k)
         val template = index.monster(crystal.guardian)!!
         val rule = campaign.rarity(MonsterRarity.RARE)
         val essences = crystal.essences.groupingBy { it }.eachCount().mapValues { it.value.toLong() }
@@ -247,7 +258,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     fun hoard(depth: Int, keep: Double): Reward {
         val rule = campaign.abyss ?: return Reward.NONE
         val n = tally.hoards++
-        val dice = streams.of("hoard", n * HOARD_DEPTHS + depth)
+        val dice = lootStreams.of("hoard", n * HOARD_DEPTHS + depth)
         val rifts = AbyssRifts(index)
         val roll = rifts.roll(rule, depth, hoardBonus(rule), keep, dice)
         val bases = index.templatePoolUpTo(rule.tables, zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE && template.slot.influenceable }
@@ -302,7 +313,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     ): Reward {
         val bonus = context.bonus(rule.rarity)
         val active = context.active
-        val quantity = bonus.quantity + (active?.quantity ?: 0.0) + (zoneBonus?.quantity ?: 0.0) + context[AtlasStat.QUANTITY.code] + extraQuantity
+        val quantity = bonus.quantity + (active?.quantity ?: 0.0) + (zoneBonus?.quantity ?: 0.0) + context[AtlasStat.QUANTITY.code] + extraQuantity +
+            party.extra(party.quantity, context.party)
         val gold = bonus.gold + (active?.effects?.get(MapStat.GOLD.code) ?: 0.0) + context[AtlasStat.GOLD.code]
         val rolled = loot.roll(table, level, rule, quantity, gold, dice, goldShare, orbShare)
         val rarityBonus = rule.rarityBonus + bonus.rarity + (active?.rarity ?: 0.0) + (zoneBonus?.rarity ?: 0.0) + context[AtlasStat.RARITY.code]

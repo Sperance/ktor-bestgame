@@ -15,6 +15,8 @@ import features.data.guild.GuildRoute
 import features.data.blockList.BlockListRepository
 import features.data.hero.HeroRepository
 import features.data.hero.HeroRoute
+import features.data.party.PartyRoute
+import features.logic.party.PartyService
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.redemptionCodes.RedemptionCodesRoute
 import features.data.user.UserRepository
@@ -54,6 +56,7 @@ val repositoryModule = module {
     single { CampaignService() }
     single { PetService() }
     single { QuestService() }
+    single { PartyService() }
 }
 
 val cacheModule = module {
@@ -68,6 +71,7 @@ val routeModule = module {
                 HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
                 GuildRoute(get()),
+                PartyRoute(get()),
                 RedemptionCodesRoute(get()),
             )
         )

@@ -24,6 +24,7 @@ data class MonsterEffect(val stat: String, val op: Op, val value: Double, val ma
 data class MonsterMod(val code: String, val weight: Int, val minLevel: Int, val minRarity: MonsterRarity, val effects: List<MonsterEffect>, val tier: Int)
 
 /** Монстр как он стоит на карте: редкость, выпавшие модификаторы (значения уже брошены), итоговые характеристики. */
+@Serializable
 data class RolledMonster(
     val code: String,
     val form: String,

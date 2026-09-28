@@ -27,9 +27,11 @@ import com.sperance.exileforge.rules.run.RunContext
 import com.sperance.exileforge.rules.run.RunEvent
 import com.sperance.exileforge.rules.run.RunEventKind
 import com.sperance.exileforge.rules.run.RunStart
+import com.sperance.exileforge.rules.party.PartyWorld
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.data.hero.PartyWindows
 import features.data.hero.RunState
 import features.logic.atlas.AtlasService
 import features.logic.quests.QuestService
@@ -85,7 +87,7 @@ class CampaignService : KoinComponent {
 
     private fun progressOf(hero: Hero) = CampaignProgress(hero.campaign.cleared.filter { it in index.zones }, index.world.unlocked(hero.campaign.cleared))
 
-    private fun openZone(hero: Hero, mapCode: String, method: String): Zone {
+    fun openZone(hero: Hero, mapCode: String, method: String): Zone {
         val zone = index.zone(mapCode) ?: throw CampaignExceptions.funExceptionMapNotFound(method, mapCode)
         if (mapCode !in index.world.unlocked(hero.campaign.cleared)) throw CampaignExceptions.funExceptionMapLocked(method, mapCode)
         return zone
@@ -96,14 +98,16 @@ class CampaignService : KoinComponent {
      * на добычу захода и добавляют сундуки, кристаллы и расщелины в окна зоны. Прежний заход и спуск
      * в Бездну закрываются; порча и рецепт открываются заново только с потраченной картой.
      */
-    suspend fun start(heroId: String, mapCode: String, itemId: String?): RunStart {
+    suspend fun start(heroId: String, mapCode: String, itemId: String?, party: Int = 1): RunStart {
         val method = "start"
         val hero = heroes.requireHero(heroId, method)
         val zone = openZone(hero, mapCode, method)
         val state = hero.campaign
         val now = System.currentTimeMillis()
-        // Без карты в ту же зону - тот же заход: вход заново не даёт нового семени
-        state.run?.takeIf { itemId == null && it.zone == mapCode && it.content == index.hash }?.let { return startOf(it, zone) }
+        // Без карты в ту же зону - тот же заход: вход заново не даёт нового семени. Заход гостя и заход другого
+        // размера партии - не тот же: у них другие жетоны
+        state.run?.takeIf { itemId == null && it.zone == mapCode && it.content == index.hash && it.party == null && it.context.party == party }
+            ?.let { return startOf(it, zone) }
         // Бросить открытый заход ради нового семени можно не чаще правила; закрытый выходом или гибелью - сразу
         val wait = if (state.run == null) 0L else state.seededAt + index.rules.run.newSeedSeconds * 1000L - now
         if (wait > 0) throw CampaignExceptions.funExceptionSeedTooSoon(method, ((wait + 999) / 1000).toString())
@@ -134,7 +138,7 @@ class CampaignService : KoinComponent {
             state.corruptionOpened = false
             state.vaalZone = null
         }
-        val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context(hero, zone, sheet), now, content = index.hash)
+        val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context(hero, zone, sheet).copy(party = party), now, content = index.hash)
         state.run = run
         state.seededAt = now
         // Задания на сутки выдаются и здесь: заход, начатый до первого взгляда на доску, тоже идёт в зачёт
@@ -143,6 +147,55 @@ class CampaignService : KoinComponent {
         heroes.save(hero, method)
         return startOf(run, zone)
     }
+
+    /**
+     * Гость входит в открытый заход хоста [hostId] (1.23.0): семя, карта, атлас и размер партии - хоста, так что
+     * жетоны у обоих одни; добыча - по его листу и своей соли. Окна сундуков, кристаллов и расщелин хоста
+     * копируются гостю: он открывает то же, что хост. Прежний заход гостя закрывается - правило нового семени
+     * его не держит: семя не его.
+     */
+    suspend fun follow(heroId: String, hostId: String): RunStart {
+        val method = "follow"
+        val host = heroes.requireHero(hostId, method)
+        val lead = host.campaign.run ?: throw CampaignExceptions.funExceptionNoRun(method, hostId)
+        val hero = heroes.requireHero(heroId, method)
+        val zone = openZone(hero, lead.zone, method)
+        val own = context(hero, zone, index.sheetOf(hero).stats)
+        val context = lead.context.copy(heroClass = own.heroClass, heroLevel = own.heroLevel, bonuses = own.bonuses, recipes = own.recipes, salt = saltOf(heroId))
+        val world = worldOf(host)
+        val windows = PartyWindows(hostId, world.chests?.left ?: 0, world.crystals?.crystals.orEmpty().toMutableList(), world.abyss?.cracks.orEmpty().toMutableList())
+        val now = System.currentTimeMillis()
+        val state = hero.campaign
+        close(state, zone.code)
+        state.activeMap = null
+        state.vaalZone = null
+        state.corruptionOpened = false
+        val run = RunState(ObjectId().toHexString(), lead.seed, zone.code, context, now, content = index.hash, party = windows)
+        state.run = run
+        quests.refresh(hero, now, Dice.system())
+        hero.count(Counter.RUNS)
+        heroes.save(hero, method)
+        return startOf(run, zone)
+    }
+
+    /** Мир хоста для гостей: окна его зоны, страж, Ваал-зона и порча - по ним гость строит ту же карту. */
+    fun worldOf(host: Hero): PartyWorld {
+        val zone = host.campaign.run?.zone.orEmpty()
+        val state = host.campaign
+        return PartyWorld(state.chests[zone], state.crystals[zone], state.abyss[zone], state.bosses[zone] ?: 0L, state.corruptionOpened,
+            state.vaalZone?.takeIf { it.mapCode == zone })
+    }
+
+    /** Гость ушёл из партии (1.23.0): его заход в зоне хоста закрыт; свой заход не трогается. */
+    suspend fun abandon(heroId: String) {
+        val hero = heroes.findById(heroId) ?: return
+        val run = hero.campaign.run?.takeIf { it.party != null } ?: return
+        close(hero.campaign, run.zone)
+        heroes.save(hero, "abandon")
+    }
+
+    /** Соль добычи гостя: своя у каждого героя, никогда не ноль. */
+    private fun saltOf(heroId: String): Long = com.sperance.exileforge.rules.roll.Streams.mix(heroId.hashCode().toLong(), SALT, 0L).let { if (it == 0L) SALT else it }
 
     private fun startOf(run: RunState, zone: Zone) = RunStart(run.id, run.seed, zone.code, zone.level, run.context, Run(index, zone, run.seed, run.context).count,
         run.startedAt, run.applied, run.killed.toList(), run.vaalKilled.toList(), run.tally.copy())
@@ -235,6 +288,12 @@ class CampaignService : KoinComponent {
                 Outcome(reward)
             }
             RunEventKind.CHEST -> {
+                state.party?.let { party ->
+                    if (party.chests <= 0) return null
+                    party.chests--
+                    hero.count(Counter.CHESTS)
+                    return Outcome(run.chest())
+                }
                 val window = campaignState.chests[mapCode] ?: return null
                 if (window.left <= 0) return null
                 campaignState.chests[mapCode] = window.copy(left = window.left - 1)
@@ -242,12 +301,13 @@ class CampaignService : KoinComponent {
                 Outcome(run.chest())
             }
             RunEventKind.BOSS -> {
-                if (now < (campaignState.bosses[mapCode] ?: 0L)) return null
+                // Гость бьёт стража хоста: его собственный таймер стража этому не мешает
+                if (state.party == null && now < (campaignState.bosses[mapCode] ?: 0L)) return null
                 campaignState.bosses[mapCode] = now + (bonuses.bossRespawnHours(campaign.bosses.respawnHours) * 3_600_000).toLong()
                 if (mapCode !in campaignState.cleared) campaignState.cleared += mapCode
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
                 hero.count(Counter.BOSSES)
-                if (campaignState.activeMap?.takeIf { it.mapCode == mapCode }?.itemRarity == Rarity.RARE) AtlasPoints.earn(hero.earned, AtlasPoints.RARE, mapCode)
+                if (state.context.active?.takeIf { it.mapCode == mapCode }?.itemRarity == Rarity.RARE) AtlasPoints.earn(hero.earned, AtlasPoints.RARE, mapCode)
                 Outcome(run.boss())
             }
             RunEventKind.VAAL_OPEN -> {
@@ -271,6 +331,12 @@ class CampaignService : KoinComponent {
                 Outcome(reward)
             }
             RunEventKind.CRYSTAL -> {
+                state.party?.let { party ->
+                    val crystal = party.crystals.getOrNull(event.index) ?: return null
+                    party.crystals.removeAt(event.index)
+                    hero.count(Counter.CRYSTALS)
+                    return Outcome(run.crystal(crystal))
+                }
                 val window = campaignState.crystals[mapCode] ?: return null
                 val crystal = window.crystals.getOrNull(event.index) ?: return null
                 campaignState.crystals[mapCode] = window.copy(crystals = window.crystals.filterIndexed { i, _ -> i != event.index })
@@ -278,6 +344,12 @@ class CampaignService : KoinComponent {
                 Outcome(run.crystal(crystal))
             }
             RunEventKind.CRYSTAL_VAAL -> {
+                // Сферу тратит хост; кристалл гостя меняется тем же броском, что у хоста
+                state.party?.let { party ->
+                    val crystal = party.crystals.getOrNull(event.index)?.takeIf { !it.vaal } ?: return null
+                    party.crystals[event.index] = run.crystalVaal(event.index, crystal).second
+                    return Outcome()
+                }
                 val window = campaignState.crystals[mapCode] ?: return null
                 val crystal = window.crystals.getOrNull(event.index) ?: return null
                 if (crystal.vaal || (hero.bag[Orb.VAAL_ORB.name] ?: 0L) < 1) return null
@@ -288,10 +360,12 @@ class CampaignService : KoinComponent {
             }
             RunEventKind.ABYSS_OPEN -> {
                 val rule = campaign.abyss ?: return null
-                val window = campaignState.abyss[mapCode] ?: return null
-                val crack = window.cracks.getOrNull(event.index) ?: return null
-                campaignState.abyss[mapCode] = window.copy(cracks = window.cracks.filterIndexed { i, _ -> i != event.index })
-                val depth = campaignState.activeMap?.takeIf { it.mapCode == mapCode }?.effects?.get(CoreStat.MAP_ABYSS_DEPTH.code) ?: 0.0
+                val party = state.party
+                val crack = if (party != null) party.cracks.getOrNull(event.index)?.also { party.cracks.removeAt(event.index) } ?: return null else {
+                    val window = campaignState.abyss[mapCode] ?: return null
+                    window.cracks.getOrNull(event.index)?.also { campaignState.abyss[mapCode] = window.copy(cracks = window.cracks.filterIndexed { i, _ -> i != event.index }) } ?: return null
+                }
+                val depth = state.context.active?.takeIf { it.mapCode == mapCode }?.effects?.get(CoreStat.MAP_ABYSS_DEPTH.code) ?: 0.0
                 campaignState.abyssRun = AbyssRun(mapCode, AbyssRifts(index).depth(rule, crack, depth))
                 Outcome()
             }
@@ -304,7 +378,7 @@ class CampaignService : KoinComponent {
                 Outcome(run.hoard(event.depth, if (event.fallen) 0.0 else 1.0))
             }
             RunEventKind.SUMMON -> {
-                if (now >= (campaignState.bosses[mapCode] ?: 0L)) return null
+                if (state.party != null || now >= (campaignState.bosses[mapCode] ?: 0L)) return null
                 val price = campaign.services.summonPerLevel * zone.level
                 if (hero.money < price) throw CharacterExceptions.funExceptionGold("summon", price.toString())
                 hero.pay(price)
@@ -319,11 +393,16 @@ class CampaignService : KoinComponent {
                 Outcome(lost = lost)
             }
             RunEventKind.LEAVE -> {
-                if (now >= (campaignState.bosses[mapCode] ?: 0L)) return null
+                // Гость уходит из зоны хоста когда хочет: страж держит выход только хозяину захода
+                if (state.party == null && now >= (campaignState.bosses[mapCode] ?: 0L)) return null
                 close(campaignState, mapCode)
                 Outcome()
             }
         }
+    }
+
+    private companion object {
+        const val SALT = 0x5061727479L
     }
 
     /** Заход кончился: карта, с которой герой вошёл, израсходована, спуск и заход закрыты. */
