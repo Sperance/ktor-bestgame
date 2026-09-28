@@ -20,4 +20,5 @@ object SkillTreeExceptions {
     fun funExceptionChoice(errorMethod: String, value: String? = "") = SkillTreeException("Skill node needs one of its options, or takes none ($value)", errorMethod, "ST_018", listOf(value.orEmpty()))
     fun funExceptionNotRechoosable(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value is not an attribute node whose choice can be changed", errorMethod, "ST_019", listOf(value.orEmpty()))
     fun funExceptionNoChaos(errorMethod: String, value: String? = "") = SkillTreeException("Character has no Chaos Orb to change the choice ($value)", errorMethod, "ST_020", listOf(value.orEmpty()))
+    fun funExceptionClassOnly(errorMethod: String, value: String? = "") = SkillTreeException("Skill node $value belongs to another class", errorMethod, "ST_021", listOf(value.orEmpty()))
 }

@@ -2174,6 +2174,7 @@
   "error.ST_018": "Choose one of this node's options",
   "error.ST_019": "Only a taken attribute node, not a mastery, can change its choice",
   "error.ST_020": "A Chaos Orb is needed to change the choice",
+  "error.ST_021": "Node {0} belongs to another class",
   "error.SYS_002": "Database disconnected",
   "error.SYS_003": "Database error {0}",
   "error.US_002": "Invalid email {0}",

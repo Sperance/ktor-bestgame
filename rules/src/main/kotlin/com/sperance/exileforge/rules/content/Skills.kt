@@ -231,6 +231,8 @@ class SkillRules(val book: SkillBook) {
 
     companion object {
         const val MAX_LEVEL = 20
+        /** Потолок уровня умения с прибавками вещей, атласа и карты (1.17.0): дальше шкала не тянется. */
+        const val MAX_BOOSTED_LEVEL = 25
         const val MAX_HERO_LEVEL = 70
         const val BOOK_PREFIX = "BOOK_"
         fun book(code: String): String = BOOK_PREFIX + code

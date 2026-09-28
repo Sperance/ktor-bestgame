@@ -9,7 +9,8 @@ enum class SkillNodeType { START, SMALL, NOTABLE, KEYSTONE, JEWEL_SOCKET, MASTER
 
 /**
  * Узел дерева навыков (`tree.json`): граф по [connections] (связь двусторонняя), бонусы [lines] -
- * закреплённые строки без тира; у мастерства и атрибутного узла - [options] на выбор.
+ * закреплённые строки без тира; у мастерства и атрибутного узла - [options] на выбор. [only] (1.17.0) -
+ * стартовый узел класса, которому узел достаётся один: ветки Сиона чужим классам закрыты.
  */
 @Serializable
 data class TreeNode(
@@ -21,7 +22,10 @@ data class TreeNode(
     val cost: Int = 1,
     val x: Int = 0,
     val y: Int = 0,
-)
+    val only: String? = null,
+) {
+    fun openTo(startNode: String): Boolean = only == null || only == startNode
+}
 
 @Serializable
 data class TreeFile(val nodes: List<TreeNode> = emptyList())
@@ -78,6 +82,7 @@ class TreeGraph(nodes: Collection<TreeNode>) {
     fun validate(modifier: (String) -> ModifierDef?) {
         byCode.values.forEach { node ->
             node.connections.forEach { if (it !in byCode) fail("tree: ${node.code} connects to unknown $it") }
+            node.only?.let { if (byCode[it]?.type != SkillNodeType.START) fail("tree: ${node.code} is only for $it, not a start") }
             (node.lines + node.options.flatten()).forEach { line ->
                 val def = modifier(line.code) ?: fail("tree: modifier ${line.code} of ${node.code}")
                 if (line.values.size != def.effects.size) fail("tree: values of ${line.code} on ${node.code}")
@@ -100,6 +105,7 @@ object TreeAllocation {
         } else {
             if (taken.isEmpty()) throw RuleViolation("ST_010", listOf(node.code))
             if (!graph.isAdjacentTo(node.code, taken)) throw RuleViolation("ST_007", listOf(node.code))
+            if (!node.openTo(startNode)) throw RuleViolation("ST_021", listOf(node.code))
         }
         if (node.cost > available) throw RuleViolation("ST_008", listOf("need ${node.cost}, available $available"))
     }
