@@ -32,8 +32,9 @@ object ContentFiles {
     const val ACHIEVEMENTS = "achievements.json"
     const val PETS = "pets.json"
     const val GUILDS = "guilds.json"
+    const val QUESTS = "quests.json"
 
-    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES, ACHIEVEMENTS, PETS, GUILDS)
+    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES, ACHIEVEMENTS, PETS, GUILDS, QUESTS)
 }
 
 /** Рецепт верстака: верстачное описание в одном тире и его цена; выводится из CRAFTED-вариантов и лестницы цен правил. */
@@ -71,6 +72,7 @@ class Content(
     val achievements: AchievementsFile = AchievementsFile(),
     val pets: PetsFile = PetsFile(),
     val guilds: GuildRules = GuildRules(),
+    val quests: QuestRules = QuestRules(),
     val hashes: Map<String, String> = emptyMap(),
 ) {
     /** Отпечаток всего контента: по нему сервер и клиент узнают, что видят один мир. */
@@ -106,6 +108,7 @@ object ContentLoader {
             achievements = parse(ContentFiles.ACHIEVEMENTS, AchievementsFile.serializer()),
             pets = parse(ContentFiles.PETS, PetsFile.serializer()),
             guilds = parse(ContentFiles.GUILDS, GuildRules.serializer()),
+            quests = parse(ContentFiles.QUESTS, QuestRules.serializer()),
             hashes = texts.mapValues { sha256(it.value) },
         )
         return ContentIndex(content).also { it.validate() }
@@ -133,6 +136,7 @@ class ContentIndex(val content: Content) {
     val achievements: AchievementsFile get() = content.achievements
     val pets: PetsFile get() = content.pets
     val guilds: GuildRules get() = content.guilds
+    val quests: QuestRules get() = content.quests
     val hash: String get() = content.hash
 
     val families: Map<String, ModifierFamily> = (content.modifiers.families + content.equipment.templates.flatMap { it.uniqueFamilies() }).associateBy { it.code }
@@ -258,6 +262,7 @@ class ContentIndex(val content: Content) {
         achievements.validate()
         pets.validate(this)
         guilds.validate(stats)
+        quests.validate(this)
         CampaignValidator(this).validate()
     }
 }

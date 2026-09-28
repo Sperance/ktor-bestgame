@@ -1,0 +1,876 @@
+{
+  "goals": [
+    {
+      "code": "KILL",
+      "category": "COMBAT",
+      "counter": "KILLS",
+      "base": 40,
+      "perLevel": 0.6,
+      "scope": "REGION",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 14,
+      "minLevel": 1,
+      "conditional": true
+    },
+    {
+      "code": "KILL_MAGIC",
+      "category": "COMBAT",
+      "counter": "KILLS_MAGIC",
+      "base": 8,
+      "perLevel": 0.1,
+      "scope": "REGION",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 10,
+      "minLevel": 1,
+      "conditional": true
+    },
+    {
+      "code": "KILL_RARE",
+      "category": "COMBAT",
+      "counter": "KILLS_RARE",
+      "base": 3,
+      "perLevel": 0.03,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 8,
+      "minLevel": 1,
+      "conditional": true
+    },
+    {
+      "code": "GUARDIANS",
+      "category": "COMBAT",
+      "counter": "BOSSES",
+      "base": 2,
+      "perLevel": 0.02,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 8,
+      "minLevel": 1,
+      "conditional": true
+    },
+    {
+      "code": "RUNS",
+      "category": "COMBAT",
+      "counter": "RUNS",
+      "base": 3,
+      "perLevel": 0,
+      "scope": "REGION",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 8,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "CHESTS",
+      "category": "COMBAT",
+      "counter": "CHESTS",
+      "base": 3,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 6,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "CRYSTALS",
+      "category": "COMBAT",
+      "counter": "CRYSTALS",
+      "base": 2,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 4,
+      "minLevel": 10,
+      "conditional": false
+    },
+    {
+      "code": "ORBS",
+      "category": "CRAFT",
+      "counter": "ORBS_USED",
+      "base": 6,
+      "perLevel": 0.05,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 10,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "ESSENCES",
+      "category": "CRAFT",
+      "counter": "ESSENCES_USED",
+      "base": 2,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 4,
+      "minLevel": 10,
+      "conditional": false
+    },
+    {
+      "code": "CRAFT",
+      "category": "CRAFT",
+      "counter": "CRAFT_MADE",
+      "base": 2,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 6,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "WORK",
+      "category": "CRAFT",
+      "counter": "CRAFT_CYCLES",
+      "base": 3,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 5,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "SELL",
+      "category": "ECONOMY",
+      "counter": "ITEMS_SOLD",
+      "base": 8,
+      "perLevel": 0.05,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 8,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "EARN",
+      "category": "ECONOMY",
+      "counter": "GOLD_EARNED",
+      "base": 800,
+      "perLevel": 150,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 8,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "SPEND",
+      "category": "ECONOMY",
+      "counter": "GOLD_SPENT",
+      "base": 500,
+      "perLevel": 100,
+      "scope": "ANY",
+      "kinds": [
+        "DAILY",
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD",
+        "GUILD_DAILY",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 5,
+      "minLevel": 1,
+      "conditional": false
+    },
+    {
+      "code": "AUCTION_SELL",
+      "category": "ECONOMY",
+      "counter": "AUCTION_SOLD",
+      "base": 1,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 3,
+      "minLevel": 5,
+      "conditional": false
+    },
+    {
+      "code": "AUCTION_BUY",
+      "category": "ECONOMY",
+      "counter": "AUCTION_BOUGHT",
+      "base": 1,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "WEEKLY",
+        "CONTRACT",
+        "GUILD_WEEKLY"
+      ],
+      "weight": 3,
+      "minLevel": 5,
+      "conditional": false
+    },
+    {
+      "code": "LEVEL",
+      "category": "PROGRESS",
+      "counter": "LEVEL",
+      "base": 1,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "WEEKLY",
+        "CONTRACT"
+      ],
+      "weight": 4,
+      "minLevel": 1,
+      "conditional": false,
+      "max": 2
+    },
+    {
+      "code": "TREE",
+      "category": "PROGRESS",
+      "counter": "TREE",
+      "base": 2,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "WEEKLY",
+        "CONTRACT"
+      ],
+      "weight": 4,
+      "minLevel": 2,
+      "conditional": false,
+      "max": 5
+    },
+    {
+      "code": "ZONES",
+      "category": "PROGRESS",
+      "counter": "ZONES",
+      "base": 1,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "WEEKLY",
+        "CONTRACT"
+      ],
+      "weight": 4,
+      "minLevel": 1,
+      "conditional": false,
+      "max": 3
+    },
+    {
+      "code": "ATLAS",
+      "category": "PROGRESS",
+      "counter": "ATLAS",
+      "base": 1,
+      "perLevel": 0,
+      "scope": "ANY",
+      "kinds": [
+        "WEEKLY"
+      ],
+      "weight": 2,
+      "minLevel": 10,
+      "conditional": false,
+      "max": 3
+    }
+  ],
+  "rarities": [
+    {
+      "rarity": "COMMON",
+      "weight": 60,
+      "target": 1.0,
+      "reward": 1.0,
+      "conditions": 0,
+      "contractHours": 2,
+      "orbs": [
+        {
+          "code": "ORB_OF_TRANSMUTATION",
+          "amount": 3,
+          "weight": 3
+        },
+        {
+          "code": "ORB_OF_AUGMENTATION",
+          "amount": 2,
+          "weight": 3
+        },
+        {
+          "code": "ORB_OF_ALTERATION",
+          "amount": 1,
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "rarity": "UNCOMMON",
+      "weight": 28,
+      "target": 1.5,
+      "reward": 2.0,
+      "conditions": 1,
+      "contractHours": 6,
+      "orbs": [
+        {
+          "code": "ORB_OF_ALTERATION",
+          "amount": 3,
+          "weight": 3
+        },
+        {
+          "code": "ORB_OF_CHANCE",
+          "amount": 2,
+          "weight": 2
+        },
+        {
+          "code": "ORB_OF_ALCHEMY",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "ORB_OF_SCOURING",
+          "amount": 1,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rarity": "RARE",
+      "weight": 10,
+      "target": 2.0,
+      "reward": 4.0,
+      "conditions": 2,
+      "contractHours": 12,
+      "orbs": [
+        {
+          "code": "CHAOS_ORB",
+          "amount": 1,
+          "weight": 4
+        },
+        {
+          "code": "REGAL_ORB",
+          "amount": 1,
+          "weight": 3
+        },
+        {
+          "code": "ORB_OF_ALCHEMY",
+          "amount": 3,
+          "weight": 3
+        },
+        {
+          "code": "BLESSED_ORB",
+          "amount": 1,
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "rarity": "UNIQUE",
+      "weight": 2,
+      "target": 3.0,
+      "reward": 8.0,
+      "conditions": 3,
+      "contractHours": 24,
+      "orbs": [
+        {
+          "code": "EXALTED_ORB",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "DIVINE_ORB",
+          "amount": 1,
+          "weight": 3
+        },
+        {
+          "code": "VAAL_ORB",
+          "amount": 2,
+          "weight": 3
+        },
+        {
+          "code": "CHAOS_ORB",
+          "amount": 4,
+          "weight": 3
+        },
+        {
+          "code": "ORB_OF_ANNULMENT",
+          "amount": 1,
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "kinds": [
+    {
+      "kind": "DAILY",
+      "count": 3,
+      "rarities": [
+        "COMMON",
+        "UNCOMMON",
+        "RARE"
+      ],
+      "target": 1.0,
+      "reward": 1.0,
+      "orbs": 1
+    },
+    {
+      "kind": "WEEKLY",
+      "count": 3,
+      "rarities": [
+        "UNCOMMON",
+        "RARE",
+        "UNIQUE"
+      ],
+      "target": 5.0,
+      "reward": 4.0,
+      "orbs": 2
+    },
+    {
+      "kind": "CONTRACT",
+      "count": 0,
+      "rarities": [
+        "COMMON",
+        "UNCOMMON",
+        "RARE",
+        "UNIQUE"
+      ],
+      "target": 1.5,
+      "reward": 1.5,
+      "orbs": 1
+    },
+    {
+      "kind": "STORY",
+      "count": 0,
+      "rarities": [
+        "COMMON",
+        "UNCOMMON",
+        "RARE",
+        "UNIQUE"
+      ],
+      "target": 1.0,
+      "reward": 3.0,
+      "orbs": 1
+    },
+    {
+      "kind": "GUILD",
+      "count": 2,
+      "rarities": [
+        "COMMON",
+        "UNCOMMON",
+        "RARE"
+      ],
+      "target": 1.0,
+      "reward": 1.0,
+      "orbs": 1
+    },
+    {
+      "kind": "GUILD_DAILY",
+      "count": 2,
+      "rarities": [
+        "UNCOMMON",
+        "RARE"
+      ],
+      "target": 0.6,
+      "reward": 1.5,
+      "orbs": 1
+    },
+    {
+      "kind": "GUILD_WEEKLY",
+      "count": 3,
+      "rarities": [
+        "UNCOMMON",
+        "RARE",
+        "UNIQUE"
+      ],
+      "target": 3.0,
+      "reward": 4.0,
+      "orbs": 2
+    }
+  ],
+  "reward": {
+    "goldBase": 40.0,
+    "goldPower": 1.3,
+    "experienceShare": 5.0,
+    "experienceCap": 60.0
+  },
+  "board": {
+    "size": 6,
+    "active": 3,
+    "refillHours": 2,
+    "refreshPerLevel": 50
+  },
+  "reroll": {
+    "free": 1,
+    "goldPerLevel": 250
+  },
+  "guild": {
+    "fairShare": 0.25,
+    "experience": 0.5,
+    "sharedLevel": 20
+  },
+  "highZoneSlack": 2,
+  "story": [
+    {
+      "region": "REGION_1",
+      "steps": [
+        {
+          "code": "S1_LANDING",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C1_TIDAL_SHORE",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S1_WRECKS",
+          "counter": "KILLS",
+          "target": 30,
+          "zone": "C1_SHIP_GRAVEYARD",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S1_LIGHT",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C1_DROWNED_LIGHTHOUSE",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S1_SMUGGLERS",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C1_SMUGGLERS_GROTTO",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S1_BARROW",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C1_CHIEFTAINS_BARROW",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S1_CRYPT",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C1_CRYPT_OF_EXILES",
+          "rarity": "UNIQUE"
+        }
+      ]
+    },
+    {
+      "region": "REGION_2",
+      "steps": [
+        {
+          "code": "S2_VILLAGE",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C2_MINERS_VILLAGE",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S2_MINES",
+          "counter": "KILLS_MAGIC",
+          "target": 6,
+          "zone": "C2_CRYSTAL_MINES",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S2_TOOLS",
+          "counter": "ORBS_USED",
+          "target": 5,
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S2_PASS",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C2_FROZEN_PASS",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S2_PEAK",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C2_STORM_PEAK",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S2_TEMPLE",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C2_DROWNED_TEMPLE",
+          "rarity": "UNIQUE"
+        }
+      ]
+    },
+    {
+      "region": "REGION_3",
+      "steps": [
+        {
+          "code": "S3_CARAVAN",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C3_CARAVAN_ROAD",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S3_TRADE",
+          "counter": "ITEMS_SOLD",
+          "target": 10,
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S3_RAIDERS",
+          "counter": "KILLS_RARE",
+          "target": 3,
+          "zone": "C3_RAIDER_CAMP",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S3_TOMBS",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C3_TOMBS_OF_KINGS",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S3_EMBALMER",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C3_EMBALMERS_HALL",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S3_PYRAMID",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C3_SUN_KINGS_PYRAMID",
+          "rarity": "UNIQUE"
+        }
+      ]
+    },
+    {
+      "region": "REGION_4",
+      "steps": [
+        {
+          "code": "S4_EDGE",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C4_JUNGLE_EDGE",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S4_EXPEDITION",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C4_LOST_EXPEDITION",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S4_BROOD",
+          "counter": "KILLS",
+          "target": 80,
+          "zone": "C4_BROOD_CHAMBERS",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S4_CRAFT",
+          "counter": "CRAFT_MADE",
+          "target": 2,
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S4_TREE",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C4_GREAT_TREE",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S4_HIVE",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C4_HIVE_HEART",
+          "rarity": "UNIQUE"
+        }
+      ]
+    },
+    {
+      "region": "REGION_5",
+      "steps": [
+        {
+          "code": "S5_FORT",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C5_FRONTIER_FORT",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S5_GENERAL",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C5_FRONTIER_FORT",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S5_LEVEL",
+          "counter": "LEVEL",
+          "target": 55,
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S5_FORGES",
+          "counter": "KILLS_RARE",
+          "target": 5,
+          "zone": "C5_WAR_FORGES",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S5_GATE",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C5_INFERNAL_GATE",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S5_CITADEL",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C5_FLAME_CITADEL",
+          "rarity": "UNIQUE"
+        }
+      ]
+    },
+    {
+      "region": "REGION_6",
+      "steps": [
+        {
+          "code": "S6_RIFT",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C6_RIFT_EDGE",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S6_ABBEY",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C6_FORSAKEN_ABBEY",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S6_OSSUARY",
+          "counter": "KILLS",
+          "target": 120,
+          "zone": "C6_OSSUARY",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S6_STAR",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C6_FALLEN_STAR",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S6_STAIR",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C6_ENDLESS_STAIR",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S6_THRONE",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C6_ABYSSAL_THRONE",
+          "rarity": "UNIQUE"
+        }
+      ]
+    }
+  ]
+}

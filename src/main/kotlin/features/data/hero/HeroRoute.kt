@@ -27,6 +27,7 @@ import features.logic.hero.Stash
 import features.logic.hero.respondWithHero
 import features.logic.inventory.InventoryService
 import features.logic.pets.PetService
+import features.logic.quests.QuestService
 import features.logic.skills.SkillService
 import features.logic.trade.MerchantService
 import features.logic.tree.TreeService
@@ -52,6 +53,7 @@ class HeroRoute(
     private val merchant: MerchantService,
     private val campaign: CampaignService,
     private val pets: PetService,
+    private val quests: QuestService,
 ) : BaseRoute<Hero>(
     repository = repo,
     entitySerializer = Hero.serializer(),
@@ -154,6 +156,16 @@ class HeroRoute(
             get { call.respondOk(merchant.stock(call.heroId)) }
             post("/buy") { call.respondWithHero(merchant.buy(call.heroId, call.queryParam("offerId"))) }
             post("/buyOrb") { call.respondWithHero(merchant.buyOrb(call.heroId, call.queryParam("code"))) }
+        }
+
+        // Задания (1.21.0): доска героя, награда, замена ежедневного, контракты с доски, новая доска за золото.
+        route("/quests") {
+            get { call.respondOk(quests.board(call.heroId)) }
+            post("/claim") { call.respondWithHero(quests.claim(call.heroId, call.queryParam("questId"))) }
+            post("/reroll") { call.respondWithHero(quests.reroll(call.heroId, call.queryParam("questId"))) }
+            post("/take") { call.respondWithHero(quests.take(call.heroId, call.queryParam("offerId"))) }
+            post("/abandon") { call.respondWithHero(quests.abandon(call.heroId, call.queryParam("questId"))) }
+            post("/renew") { call.respondWithHero(quests.renew(call.heroId)) }
         }
 
         // Кампания по семени: вход выдаёт семя и контекст, журнал событий проигрывается сервером.

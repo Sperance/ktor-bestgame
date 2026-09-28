@@ -26,6 +26,7 @@ import features.logic.pets.PetService
 import features.logic.inventory.InventoryService
 import features.logic.skills.SkillService
 import features.logic.trade.MerchantService
+import features.logic.quests.QuestService
 import features.logic.tree.TreeService
 import org.koin.dsl.module
 
@@ -52,6 +53,7 @@ val repositoryModule = module {
     single { MerchantService() }
     single { CampaignService() }
     single { PetService() }
+    single { QuestService() }
 }
 
 val cacheModule = module {
@@ -63,7 +65,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get(), get()),
-                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
+                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
                 GuildRoute(get()),
                 RedemptionCodesRoute(get()),

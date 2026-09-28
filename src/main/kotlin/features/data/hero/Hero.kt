@@ -5,6 +5,8 @@ import base.entity.VersionedEntity
 import base.exception.model.CharacterExceptions
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.Pet
+import com.sperance.exileforge.rules.content.QuestLog
+import com.sperance.exileforge.rules.content.QuestProgress
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.roll.AbyssRun
@@ -76,6 +78,8 @@ data class Hero(
     var guildMarks: Long = 0,
     /** Когда герой вышел или был исключён (мс эпохи): вступить снова можно через `rejoinHours` правил. */
     var guildLeftAt: Long = 0,
+    /** Задания (1.21.0): ежедневные, недельные, контракты, сюжет и гильдейские; прогресс двигает [count]. */
+    var quests: QuestLog = QuestLog(),
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -111,8 +115,11 @@ data class Hero(
         bag[code] = (owned + amount).coerceAtMost(maxOf(cap, owned))
     }
 
-    /** Счётчик летописи: сумма или рекорд - как велит его вид. */
-    fun count(counter: String, amount: Long = 1) = Counter.add(counters, counter, amount)
+    /** Счётчик летописи: сумма или рекорд - как велит его вид; тот же прирост двигает задания героя в зоне открытого захода. */
+    fun count(counter: String, amount: Long = 1) {
+        Counter.add(counters, counter, amount)
+        QuestProgress.advance(quests, counter, amount, campaign.run?.zone, guild?.id, System.currentTimeMillis())
+    }
 
     /** Счётчики вместе с выводимыми из героя: уровень, пройденные зоны, узлы атласа. */
     fun chronicle(): Map<String, Long> = Counter.values(counters, level, campaign.cleared.size, atlas.size)

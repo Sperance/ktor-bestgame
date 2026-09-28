@@ -32,6 +32,7 @@ import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.hero.RunState
 import features.logic.atlas.AtlasService
+import features.logic.quests.QuestService
 import features.logic.hero.Received
 import features.logic.hero.Rewards
 import features.logic.hero.sheetOf
@@ -74,6 +75,7 @@ data class RunReport(val applied: Int, val rejected: List<Int>, val reward: Rewa
 class CampaignService : KoinComponent {
     private val heroes: HeroRepository by inject()
     private val atlas: AtlasService by inject()
+    private val quests: QuestService by inject()
     private val content: ContentStore by inject()
     private val index: ContentIndex get() = content.index
     private val campaign get() = index.campaign
@@ -135,6 +137,8 @@ class CampaignService : KoinComponent {
         val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context(hero, zone, sheet), now, content = index.hash)
         state.run = run
         state.seededAt = now
+        // Задания на сутки выдаются и здесь: заход, начатый до первого взгляда на доску, тоже идёт в зачёт
+        quests.refresh(hero, now, Dice.system())
         hero.count(Counter.RUNS)
         heroes.save(hero, method)
         return startOf(run, zone)

@@ -3,6 +3,7 @@ package features.data.guild
 import base.exception.BaseException
 import base.exception.model.CharacterExceptions
 import base.exception.model.GuildExceptions
+import base.exception.model.QuestExceptions
 import base.repository.BaseRepository
 import base.repository.IndexSpec
 import base.route.PagedMongoResponse
@@ -15,7 +16,14 @@ import com.sperance.exileforge.rules.content.GuildLogKind
 import com.sperance.exileforge.rules.content.GuildMode
 import com.sperance.exileforge.rules.content.GuildRole
 import com.sperance.exileforge.rules.content.GuildRules
+import com.sperance.exileforge.rules.content.GuildGoal
+import com.sperance.exileforge.rules.content.GuildGoalView
+import com.sperance.exileforge.rules.content.GuildQuestLog
+import com.sperance.exileforge.rules.content.GuildQuests
 import com.sperance.exileforge.rules.content.Item
+import com.sperance.exileforge.rules.content.QuestClock
+import com.sperance.exileforge.rules.content.QuestKind
+import com.sperance.exileforge.rules.roll.Dice
 import config.ContentStore
 import config.MongoFactory.transactionExecute
 import extensions.printLog
@@ -24,6 +32,7 @@ import features.data.hero.Hero
 import features.data.hero.HeroCard
 import features.data.hero.HeroGuild
 import features.data.hero.HeroRepository
+import features.logic.quests.QuestService
 import org.bson.Document
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -39,6 +48,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
     private val events: GuildEventRepository by inject()
     private val chats: GuildChatRepository by inject()
     private val content: ContentStore by inject()
+    private val questService: QuestService by inject()
     private val index: ContentIndex get() = content.index
     private val rules: GuildRules get() = index.guilds
 
@@ -318,22 +328,97 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         change.log(GuildLogKind.CONTRIBUTED, hero.name, "$amount ${if (gold) GOLD else item}")
         val rankAfter = rules.rankIndex(me.contribution)
         if (rankAfter > rankBefore) change.log(GuildLogKind.RANK_UP, hero.name, rules.ranks[rankAfter].code)
-        guild.experience += value
-        val level = rules.levelFor(guild.experience)
-        val grown = level > guild.level
-        if (grown) {
-            guild.level = level
-            change.log(GuildLogKind.LEVEL_UP, hero.name, level.toString())
-        }
+        val grown = change.grow(value, hero.name)
         change.sync(hero)
-        transactionExecute("guild $method ${guild._id}") { session ->
-            change.write(session)
-            // Уровень гильдии - в копии у каждого участника: бонус покровителя растёт у всех сразу
-            if (grown) heroes.patchGuild(Filters.and(Filters.eq("guild.id", guild._id), Filters.ne("_id", heroId)), Updates.set("guild.level", level), session)
-        }
+        commit(change, method, grown)
         val cards = heroes.cards(guild.members.map { it.heroId })
         return GuildContribution(view(change, me, cards), member(me, cards[heroId], change.now), hero.money)
     }
+
+    // ==================== ЗАДАНИЯ ====================
+
+    /** Задания гильдии героя: его личные на сутки и общие цели с вкладом каждого участника. */
+    suspend fun quests(heroId: String): GuildQuests {
+        val method = "guildQuests"
+        val change = acting(heroId, method)
+        val hero = change.actor
+        if (questService.refresh(hero, change.now, Dice.system())) change.touch(hero)
+        change.save(method)
+        return questsView(change, hero)
+    }
+
+    /**
+     * Награда задания гильдии: личного ([questId]) или доли общей цели ([goal] - её ключ). Опыт гильдии за общую
+     * цель начисляется один раз - первым, кто забрал долю; за личное - каждым.
+     */
+    suspend fun claimQuest(heroId: String, questId: String?, goal: String?): GuildQuests {
+        val method = "guildQuestClaim"
+        val change = acting(heroId, method)
+        val hero = change.actor
+        questService.refresh(hero, change.now, Dice.system())
+        val log = hero.quests.guild ?: throw QuestExceptions.funExceptionNotFound(method, questId ?: goal)
+        val grown = if (questId != null) {
+            val quest = log.quests.firstOrNull { it.id == questId } ?: throw QuestExceptions.funExceptionNotFound(method, questId)
+            questService.requireClaimable(quest, method)
+            questService.grant(hero, quest.reward)
+            quest.claimed = true
+            change.grow(quest.reward.guildExperience, hero.name)
+        } else {
+            val board = change.guild.quests
+            val target = (board.daily + board.weekly).firstOrNull { it.key == goal } ?: throw QuestExceptions.funExceptionNotFound(method, goal)
+            if (target.key in log.claimed) throw QuestExceptions.funExceptionClaimed(method, target.key)
+            val shares = shares(change, hero, target)
+            if (shares.values.sum() < target.target) throw QuestExceptions.funExceptionNotDone(method, target.key)
+            val need = need(change.guild, target)
+            if ((shares[heroId] ?: 0) < need) throw QuestExceptions.funExceptionShare(method, need.toString())
+            questService.grant(hero, questService.sharedReward(hero, target))
+            log.claimed += target.key
+            if (target.key !in board.paid) {
+                board.paid += target.key
+                change.grow(target.guildExperience, hero.name)
+            } else false
+        }
+        change.touch(hero)
+        change.sync(hero)
+        commit(change, method, grown)
+        return questsView(change, hero)
+    }
+
+    private suspend fun questsView(change: Change, hero: Hero): GuildQuests {
+        val board = change.guild.quests
+        val tallies = tallies(change, hero)
+        fun view(goal: GuildGoal): GuildGoalView {
+            val shares = shares(tallies, change.guild, goal)
+            return GuildGoalView(goal, shares.values.sum(), shares[hero._id] ?: 0, need(change.guild, goal),
+                goal.key in hero.quests.guild?.claimed.orEmpty(), questService.sharedReward(hero, goal), shares.filterValues { it > 0 })
+        }
+        return GuildQuests(hero.quests.guild?.quests.orEmpty(), board.daily.map(::view), board.weekly.map(::view),
+            QuestClock.dayEnd(change.now), QuestClock.weekEnd(change.now), hero.money)
+    }
+
+    /** Порог доли: [GuildQuestRule.fairShare] средней доли участника, не меньше единицы. */
+    private fun need(guild: Guild, goal: GuildGoal): Long =
+        kotlin.math.ceil(goal.target.toDouble() / guild.members.size.coerceAtLeast(1) * index.quests.guild.fairShare).toLong().coerceAtLeast(1)
+
+    private suspend fun shares(change: Change, hero: Hero, goal: GuildGoal): Map<String, Long> = shares(tallies(change, hero), change.guild, goal)
+
+    /** Вклад участников в цель: их счётчики за сутки или неделю цели, пока они в этой гильдии. */
+    private fun shares(tallies: Map<String, GuildQuestLog>, guild: Guild, goal: GuildGoal): Map<String, Long> {
+        val daily = goal.kind == QuestKind.GUILD_DAILY
+        return guild.members.associate { member ->
+            val tally = tallies[member.heroId]?.takeIf { it.id == guild._id }
+            val value = when {
+                tally == null -> 0L
+                daily -> if (tally.day == guild.quests.day) tally.dayCounts[goal.counter] ?: 0L else 0L
+                else -> if (tally.week == guild.quests.week) tally.weekCounts[goal.counter] ?: 0L else 0L
+            }
+            member.heroId to value
+        }
+    }
+
+    /** Гильдейские счётчики участников; свой - из героя в памяти, он свежее базы. */
+    private suspend fun tallies(change: Change, hero: Hero): Map<String, GuildQuestLog> =
+        heroes.guildTallies(change.guild.members.map { it.heroId }.filter { it != hero._id }) + listOfNotNull(hero.quests.guild?.let { hero._id to it })
 
     // ==================== ЧАТ ====================
 
@@ -424,6 +509,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             val me = record(hero._id)
             if (now - me.lastSeenAt >= SEEN_STEP) { me.lastSeenAt = now; dirty = true }
             maintain()
+            plan()
             sync(hero)
         }
 
@@ -476,6 +562,35 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
 
         fun touch(hero: Hero) { touched[hero._id] = hero }
 
+        /** Опыт гильдии; вырос уровень - запись в журнал и true: копии уровня у участников надо переписать. */
+        fun grow(value: Long, heroName: String): Boolean {
+            guild.experience += value
+            val level = rules.levelFor(guild.experience)
+            if (level <= guild.level) return false
+            guild.level = level
+            log(GuildLogKind.LEVEL_UP, heroName, level.toString())
+            return true
+        }
+
+        /** Общие цели на новые сутки и неделю: цель растёт с числом участников на момент выдачи. */
+        fun plan() {
+            val board = guild.quests
+            val day = QuestClock.day(now)
+            val week = QuestClock.week(now)
+            val dice = Dice.system()
+            if (board.day != day) {
+                board.day = day
+                board.daily = questService.sharedGoals(QuestKind.GUILD_DAILY, QuestService.dayKey(day), guild.members.size, dice)
+                dirty = true
+            }
+            if (board.week != week) {
+                board.week = week
+                board.weekly = questService.sharedGoals(QuestKind.GUILD_WEEKLY, QuestService.weekKey(week), guild.members.size, dice)
+                dirty = true
+            }
+            if (board.paid.removeIf { !it.startsWith(QuestService.dayKey(day)) && !it.startsWith(QuestService.weekKey(week)) }) dirty = true
+        }
+
         /**
          * Гильдия, тронутые герои и журнал. [fresh] - гильдия только что вставлена; [quiet] - команда гильдию
          * не меняла (чат), и она пишется, только если её тронуло обслуживание.
@@ -498,6 +613,15 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             } catch (e: BaseException) {
                 printLog("[Guild] $method ${guild._id}: ${e.message}")
             }
+        }
+    }
+
+    /** Запись команды; вырос уровень гильдии - он же в копии у каждого участника: бонус покровителя растёт у всех сразу. */
+    private suspend fun commit(change: Change, method: String, grown: Boolean) {
+        val guild = change.guild
+        transactionExecute("guild $method ${guild._id}") { session ->
+            change.write(session)
+            if (grown) heroes.patchGuild(Filters.and(Filters.eq("guild.id", guild._id), Filters.ne("_id", change.actor._id)), Updates.set("guild.level", guild.level), session)
         }
     }
 

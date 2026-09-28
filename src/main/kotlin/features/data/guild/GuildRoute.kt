@@ -54,6 +54,8 @@ class GuildRoute(private val repo: GuildRepository) : BaseRoute<Guild>(
             ))
         }
         post("/contribute") { call.respondWithHero(repo.contribute(call.heroId, call.queryParam("item"), call.queryParam("amount", 0L))) }
+        get("/quests") { call.respondOk(repo.quests(call.heroId)) }
+        post("/quests/claim") { call.respondWithHero(repo.claimQuest(call.heroId, call.optionalParam("questId"), call.optionalParam("goal"))) }
         get("/log") { call.respondOk(repo.log(call.heroId, call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT))) }
         get("/chat") { call.respondOk(repo.chat(call.heroId, call.queryParam("after", 0L))) }
         post("/chat") { call.respondOk(repo.say(call.heroId, call.receive<GuildChatBody>().text)) }

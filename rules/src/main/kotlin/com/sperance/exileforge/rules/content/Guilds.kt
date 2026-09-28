@@ -166,7 +166,8 @@ data class GuildRules(
         if (chat.keep < 1 || chat.length < 1 || chat.cooldownSeconds < 0 || announcement < 0) fail("guilds: chat")
     }
 
-    private companion object {
-        val COLOR = Regex("#[0-9A-Fa-f]{6}")
+    // Не private: плагин сериализации вешает serializer() на companion, и приватный прячет его от ContentLoader
+    companion object {
+        private val COLOR = Regex("#[0-9A-Fa-f]{6}")
     }
 }

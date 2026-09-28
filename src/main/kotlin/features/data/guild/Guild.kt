@@ -4,6 +4,7 @@ import base.entity.StockEntity
 import base.entity.VersionedEntity
 import com.sperance.exileforge.rules.content.GuildLogKind
 import com.sperance.exileforge.rules.content.GuildMode
+import com.sperance.exileforge.rules.content.GuildQuestBoard
 import com.sperance.exileforge.rules.content.GuildRole
 import extensions.now
 import kotlinx.datetime.LocalDateTime
@@ -60,6 +61,8 @@ data class Guild(
     var members: MutableList<GuildMemberRecord> = mutableListOf(),
     var applications: MutableList<GuildApplication> = mutableListOf(),
     var invites: MutableList<GuildInvite> = mutableListOf(),
+    /** Общие цели гильдии на сутки и неделю (1.21.0): выдаются сами при первом обращении в новых сутках. */
+    var quests: GuildQuestBoard = GuildQuestBoard(),
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

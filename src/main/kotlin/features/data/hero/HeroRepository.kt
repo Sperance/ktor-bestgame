@@ -12,6 +12,7 @@ import com.mongodb.client.model.Projections
 import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.HeroClass
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Slot
@@ -112,6 +113,23 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         return collection.withDocumentClass<Document>().find(readFilter(Filters.`in`("_id", ids)))
             .projection(Projections.include("name", "heroClass", "level")).toList()
             .associate { doc -> doc.getString("_id") to HeroCard(doc.getString("_id"), doc.getString("name").orEmpty(), doc.getString("heroClass").orEmpty(), doc.getInteger("level", 1)) }
+    }
+
+    /** Гильдейские счётчики заданий героев (1.21.0) - только они, без документов целиком. */
+    suspend fun guildTallies(ids: Collection<String>): Map<String, GuildQuestLog> {
+        if (ids.isEmpty()) return emptyMap()
+        fun counts(doc: Document?): MutableMap<String, Long> =
+            doc?.entries?.associateTo(HashMap()) { (key, value) -> key to ((value as? Number)?.toLong() ?: 0L) } ?: mutableMapOf()
+        return collection.withDocumentClass<Document>().find(readFilter(Filters.`in`("_id", ids)))
+            .projection(Projections.include("quests.guild")).toList()
+            .mapNotNull { doc ->
+                val guild = (doc["quests"] as? Document)?.get("guild") as? Document ?: return@mapNotNull null
+                val id = guild.getString("id") ?: return@mapNotNull null
+                doc.getString("_id") to GuildQuestLog(
+                    id, (guild["day"] as? Number)?.toLong() ?: 0, (guild["week"] as? Number)?.toLong() ?: 0,
+                    counts(guild["dayCounts"] as? Document), counts(guild["weekCounts"] as? Document),
+                )
+            }.toMap()
     }
 
     /**

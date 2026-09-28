@@ -1,0 +1,325 @@
+package features.logic.quests
+
+import base.exception.model.CharacterExceptions
+import base.exception.model.QuestExceptions
+import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Counter
+import com.sperance.exileforge.rules.content.GuildGoal
+import com.sperance.exileforge.rules.content.GuildQuestLog
+import com.sperance.exileforge.rules.content.Quest
+import com.sperance.exileforge.rules.content.QuestBoard
+import com.sperance.exileforge.rules.content.QuestClock
+import com.sperance.exileforge.rules.content.QuestCondition
+import com.sperance.exileforge.rules.content.QuestCounter
+import com.sperance.exileforge.rules.content.QuestGoal
+import com.sperance.exileforge.rules.content.QuestKind
+import com.sperance.exileforge.rules.content.QuestLog
+import com.sperance.exileforge.rules.content.QuestProgress
+import com.sperance.exileforge.rules.content.QuestReward
+import com.sperance.exileforge.rules.content.QuestRules
+import com.sperance.exileforge.rules.content.QuestScope
+import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.roll.Dice
+import config.ContentStore
+import features.data.hero.Hero
+import features.data.hero.HeroRepository
+import features.logic.hero.Rewards
+import org.bson.types.ObjectId
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+/**
+ * Задания героя (1.21.0): выдача по суткам и неделям UTC, доска контрактов, сюжет по регионам, личные гильдейские.
+ * Всё выдаётся лениво - при чтении доски, входе в заход и чтении заданий гильдии ([refresh]); прогресс двигает
+ * `Hero.count`, выводимые цели досчитываются здесь же. Награда выроллена при выдаче и видна заранее.
+ */
+class QuestService : KoinComponent {
+    private val heroes: HeroRepository by inject()
+    private val content: ContentStore by inject()
+    private val index: ContentIndex get() = content.index
+    private val rules: QuestRules get() = index.quests
+
+    suspend fun board(heroId: String): QuestBoard {
+        val hero = heroes.requireHero(heroId, "quests")
+        val now = System.currentTimeMillis()
+        if (refresh(hero, now, Dice.system())) heroes.save(hero, "quests")
+        return view(hero, now)
+    }
+
+    /** Награда за выполненное: контракт уходит с доски, шаг сюжета сменяется следующим. Гильдейские забираются через гильдию. */
+    suspend fun claim(heroId: String, questId: String): QuestBoard = command(heroId, "questClaim") { hero, log, now, dice ->
+        val quest = log.find(questId)?.takeIf { it.kind != QuestKind.GUILD } ?: throw QuestExceptions.funExceptionNotFound("questClaim", questId)
+        requireClaimable(quest, "questClaim")
+        grant(hero, quest.reward)
+        quest.claimed = true
+        when (quest.kind) {
+            QuestKind.CONTRACT -> log.contracts.remove(quest)
+            QuestKind.STORY -> {
+                log.story = null
+                log.step++
+                if (log.step >= rules.story.getOrNull(log.chapter)?.steps?.size ?: 0) { log.chapter++; log.step = 0 }
+                refresh(hero, now, dice)
+            }
+            else -> Unit
+        }
+    }
+
+    /** Замена ежедневного: первые `reroll.free` за сутки даром, дальше за золото. */
+    suspend fun reroll(heroId: String, questId: String): QuestBoard = command(heroId, "questReroll") { hero, log, now, dice ->
+        val method = "questReroll"
+        val quest = log.daily.firstOrNull { it.id == questId } ?: throw QuestExceptions.funExceptionReroll(method, questId)
+        if (quest.claimed) throw QuestExceptions.funExceptionClaimed(method, questId)
+        val price = rerollPrice(hero)
+        if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
+        if (price > 0) hero.pay(price)
+        log.rerolls++
+        val fresh = roll(hero, QuestKind.DAILY, dice, now, log.daily.map { it.goal }.toSet()) ?: return@command
+        log.daily[log.daily.indexOf(quest)] = fresh
+    }
+
+    /** Взять листок с доски: срок контракта считается с этой минуты. */
+    suspend fun take(heroId: String, offerId: String): QuestBoard = command(heroId, "questTake") { _, log, now, _ ->
+        val method = "questTake"
+        val offer = log.offers.firstOrNull { it.id == offerId } ?: throw QuestExceptions.funExceptionOffer(method, offerId)
+        if (log.contracts.size >= rules.board.active) throw QuestExceptions.funExceptionContracts(method, log.contracts.size.toString())
+        log.offers.remove(offer)
+        log.contracts += offer.copy(expiresAt = now + hours(offer.rarity))
+    }
+
+    /** Отказ от контракта: листок сгорает. */
+    suspend fun abandon(heroId: String, questId: String): QuestBoard = command(heroId, "questAbandon") { _, log, _, _ ->
+        if (!log.contracts.removeIf { it.id == questId }) throw QuestExceptions.funExceptionNotFound("questAbandon", questId)
+    }
+
+    /** Новая доска целиком за золото. */
+    suspend fun renew(heroId: String): QuestBoard = command(heroId, "questRenew") { hero, log, now, dice ->
+        val price = rules.board.refreshPerLevel * hero.level
+        if (hero.money < price) throw CharacterExceptions.funExceptionGold("questRenew", price.toString())
+        hero.pay(price)
+        log.offers = MutableList(rules.board.size) { roll(hero, QuestKind.CONTRACT, dice, now) }.filterNotNull().toMutableList()
+        log.refilledAt = now
+    }
+
+    private suspend fun command(heroId: String, method: String, block: (Hero, QuestLog, Long, Dice) -> Unit): QuestBoard {
+        val hero = heroes.requireHero(heroId, method)
+        val now = System.currentTimeMillis()
+        val dice = Dice.system()
+        refresh(hero, now, dice)
+        block(hero, hero.quests, now, dice)
+        heroes.save(hero, method)
+        return view(hero, now)
+    }
+
+    // ==================== ВЫДАЧА ====================
+
+    /**
+     * Задания на сейчас: сменились сутки или неделя - новые, доска пополнена, просроченное снято, сюжет на месте,
+     * выводимые цели досчитаны, гильдейские - по гильдии героя. true - герой изменился.
+     */
+    fun refresh(hero: Hero, now: Long, dice: Dice): Boolean {
+        val log = hero.quests
+        val before = log.copy(daily = log.daily.map { it.copy() }.toMutableList(), weekly = log.weekly.map { it.copy() }.toMutableList(),
+            offers = log.offers.toMutableList(), contracts = log.contracts.map { it.copy() }.toMutableList(), story = log.story?.copy(),
+            guild = log.guild?.let { it.copy(quests = it.quests.map { q -> q.copy() }.toMutableList(), claimed = it.claimed.toMutableList()) })
+        val day = QuestClock.day(now)
+        val week = QuestClock.week(now)
+        if (log.day != day) {
+            log.day = day
+            log.rerolls = 0
+            log.daily = rollMany(hero, QuestKind.DAILY, dice, now)
+        }
+        if (log.week != week) {
+            log.week = week
+            log.weekly = rollMany(hero, QuestKind.WEEKLY, dice, now)
+        }
+        log.contracts.removeIf { it.expiresAt in 1..now && !it.done }
+        log.offers.removeIf { it.expiresAt in 1..now }
+        refill(hero, log, now, dice)
+        if (log.story == null) log.story = storyStep(hero, log)
+        refreshGuild(hero, log, day, week, now, dice)
+        log.active().forEach { derive(hero, it) }
+        return log != before
+    }
+
+    /** Личные гильдейские на сутки; вне гильдии гильдейской части нет. */
+    private fun refreshGuild(hero: Hero, log: QuestLog, day: Long, week: Long, now: Long, dice: Dice) {
+        val guildId = hero.guild?.id
+        if (guildId == null) { log.guild = null; return }
+        val guild = log.guild?.takeIf { it.id == guildId } ?: GuildQuestLog(guildId, day, week).also { log.guild = it }
+        if (guild.day != day) { guild.day = day; guild.dayCounts = mutableMapOf() }
+        if (guild.week != week) { guild.week = week; guild.weekCounts = mutableMapOf() }
+        if (guild.rolled != day) {
+            guild.rolled = day
+            guild.quests = rollMany(hero, QuestKind.GUILD, dice, now)
+        }
+        guild.claimed.removeIf { !it.startsWith(dayKey(day)) && !it.startsWith(weekKey(week)) }
+    }
+
+    private fun refill(hero: Hero, log: QuestLog, now: Long, dice: Dice) {
+        val step = rules.board.refillHours * QuestClock.HOUR
+        val due = if (log.refilledAt <= 0) rules.board.size.toLong() else (now - log.refilledAt) / step
+        if (due <= 0) return
+        repeat(minOf(due, (rules.board.size - log.offers.size).toLong()).toInt()) { roll(hero, QuestKind.CONTRACT, dice, now)?.let { log.offers += it } }
+        log.refilledAt = if (log.refilledAt <= 0 || log.offers.size >= rules.board.size) now else log.refilledAt + due * step
+    }
+
+    private fun storyStep(hero: Hero, log: QuestLog): Quest? {
+        val chapter = rules.story.getOrNull(log.chapter) ?: return null
+        val step = chapter.steps.getOrNull(log.step) ?: return null
+        val region = index.campaign.regions.first { it.code == chapter.region }
+        val level = step.zone.takeIf { it.isNotEmpty() }?.let { index.zone(it)?.level } ?: region.zones.maxOf { it.level }
+        val counted = step.zone.isNotEmpty() && step.counter !in QuestCounter.DERIVED
+        return Quest(
+            ObjectId().toHexString(), QuestKind.STORY, step.code, step.counter, step.rarity, step.target,
+            zones = if (counted) listOf(step.zone) else emptyList(), place = step.zone.ifEmpty { region.code },
+            reward = reward(hero, QuestKind.STORY, step.rarity, minOf(level, hero.level).coerceAtLeast(1), Dice.system()),
+        ).also { derive(hero, it) }
+    }
+
+    private fun rollMany(hero: Hero, kind: QuestKind, dice: Dice, now: Long): MutableList<Quest> {
+        val quests = mutableListOf<Quest>()
+        repeat(rules.kind(kind)?.count ?: 0) { roll(hero, kind, dice, now, quests.map { it.goal }.toSet())?.let { quests += it } }
+        return quests
+    }
+
+    /** Одно задание вида [kind]: редкость по весам, цель без повтора [taken], зоны и условия, награда. */
+    fun roll(hero: Hero, kind: QuestKind, dice: Dice, now: Long, taken: Set<String> = emptySet()): Quest? {
+        val kindRule = rules.kind(kind) ?: return null
+        val rarity = weighted(kindRule.rarities.mapNotNull { rules.rarity(it) }, dice) { it.weight }?.rarity ?: return null
+        val candidates = rules.goals.filter { kind in it.kinds && it.minLevel <= hero.level && it.code !in taken && feasible(hero, it) }
+        val goal = weighted(candidates, dice) { it.weight } ?: return null
+        val rarityRule = rules.rarity(rarity)!!
+        val level = hero.level
+        var target = ((goal.base + goal.perLevel * level) * rarityRule.target * kindRule.target).toLong().coerceAtLeast(1)
+        if (goal.max > 0) target = target.coerceAtMost(goal.max)
+        var zones = emptyList<String>()
+        var place = ""
+        if (goal.scope == QuestScope.REGION) {
+            val region = frontierRegion(hero)
+            zones = unlocked(hero).filter { code -> region.zones.any { it.code == code } }
+            place = region.code
+        }
+        val conditions = if (!goal.conditional) mutableListOf() else dice.shuffled(QuestCondition.entries).take(rarityRule.conditions).toMutableList()
+        if (QuestCondition.HIGH_ZONE in conditions) {
+            val high = (zones.ifEmpty { unlocked(hero) }).filter { (index.zone(it)?.level ?: 0) >= level - rules.highZoneSlack }
+            if (high.isEmpty()) conditions -= QuestCondition.HIGH_ZONE else zones = high
+        }
+        val start = if (goal.counter in QuestCounter.DERIVED) derivedValue(hero, goal.counter, "") else 0
+        return Quest(
+            ObjectId().toHexString(), kind, goal.code, goal.counter, rarity, target, start = start, zones = zones, place = place,
+            conditions = conditions.sortedBy { it.ordinal }, reward = reward(hero, kind, rarity, level, dice),
+            expiresAt = if (kind == QuestKind.CONTRACT) now + hours(rarity) else 0,
+        )
+    }
+
+    /** Награда: золото и опыт по уровню и множителям, сферы - из таблицы редкости; гильдейскому - знаки и опыт гильдии. */
+    fun reward(hero: Hero, kind: QuestKind, rarity: Rarity, level: Int, dice: Dice): QuestReward {
+        val kindRule = rules.kind(kind)!!
+        val rarityRule = rules.rarity(rarity)!!
+        val scale = rarityRule.reward * kindRule.reward
+        val gold = rules.gold(level, scale)
+        val orbs = HashMap<String, Long>()
+        repeat(kindRule.orbs) { weighted(rarityRule.orbs, dice) { it.weight }?.let { orbs.merge(it.code, it.amount, Long::plus) } }
+        val guild = kind == QuestKind.GUILD
+        return QuestReward(
+            gold, rules.experience(index.classes, level, scale), orbs,
+            guildExperience = if (guild) (gold * rules.guild.experience).toLong() else 0,
+            marks = if (guild) index.guilds.marksFor(gold) else 0,
+        )
+    }
+
+    /** Награда ложится на героя; золото не двигает задания «заработать» - иначе награда платила бы сама за себя. */
+    fun grant(hero: Hero, reward: QuestReward) {
+        hero.money += reward.gold
+        Counter.add(hero.counters, Counter.GOLD_EARNED, reward.gold)
+        if (reward.experience > 0) Rewards.addExperience(hero, reward.experience, index)
+        reward.orbs.forEach { (code, amount) -> if (index.item(code) != null) hero.earn(code, amount, index.rules.maxStack) }
+        hero.guildMarks += reward.marks
+    }
+
+    /**
+     * Общие цели гильдии вида [kind] с ключами `<prefix><номер>`: цель = база на уровне `guild.sharedLevel` × [members] ×
+     * множители; опыт гильдии - золото на том же уровне × участники × `guild.experience`.
+     */
+    fun sharedGoals(kind: QuestKind, prefix: String, members: Int, dice: Dice): MutableList<GuildGoal> {
+        val kindRule = rules.kind(kind) ?: return mutableListOf()
+        val level = rules.guild.sharedLevel.coerceAtLeast(1)
+        val count = members.coerceAtLeast(1)
+        val goals = mutableListOf<GuildGoal>()
+        repeat(kindRule.count) { number ->
+            val rarityRule = weighted(kindRule.rarities.mapNotNull { rules.rarity(it) }, dice) { it.weight } ?: return@repeat
+            val goal = weighted(rules.goals.filter { g -> kind in g.kinds && g.minLevel <= level && goals.none { it.goal == g.code } }, dice) { it.weight } ?: return@repeat
+            val target = ((goal.base + goal.perLevel * level) * count * rarityRule.target * kindRule.target).toLong().coerceAtLeast(1)
+            val orbs = HashMap<String, Long>()
+            repeat(kindRule.orbs) { weighted(rarityRule.orbs, dice) { it.weight }?.let { orbs.merge(it.code, it.amount, Long::plus) } }
+            val experience = (rules.gold(level, rarityRule.reward * kindRule.reward) * count * rules.guild.experience).toLong()
+            goals += GuildGoal("$prefix$number", kind, goal.code, goal.counter, rarityRule.rarity, target, orbs, experience)
+        }
+        return goals
+    }
+
+    /** Доля участника в общей цели: золото и опыт по его уровню, сферы - закреплённые целью. */
+    fun sharedReward(hero: Hero, goal: GuildGoal): QuestReward {
+        val scale = (rules.rarity(goal.rarity)?.reward ?: 1.0) * (rules.kind(goal.kind)?.reward ?: 1.0)
+        return QuestReward(rules.gold(hero.level, scale), rules.experience(index.classes, hero.level, scale), goal.orbs)
+    }
+
+    fun requireClaimable(quest: Quest, method: String) {
+        if (quest.claimed) throw QuestExceptions.funExceptionClaimed(method, quest.id)
+        if (!quest.done) throw QuestExceptions.funExceptionNotDone(method, quest.id)
+    }
+
+    fun view(hero: Hero, now: Long): QuestBoard {
+        val log = hero.quests
+        val full = log.offers.size >= rules.board.size
+        return QuestBoard(
+            log.daily, log.weekly, log.offers, log.contracts, log.story, log.chapter, log.step,
+            QuestClock.dayEnd(now), QuestClock.weekEnd(now),
+            if (full || log.refilledAt <= 0) 0 else log.refilledAt + rules.board.refillHours * QuestClock.HOUR,
+            rerollPrice(hero), rules.board.refreshPerLevel * hero.level, rules.board.active, hero.money,
+        )
+    }
+
+    // ==================== ПОМОЩНИКИ ====================
+
+    private fun rerollPrice(hero: Hero): Long = if (hero.quests.rerolls < rules.reroll.free) 0 else rules.reroll.goldPerLevel * hero.level
+
+    private fun hours(rarity: Rarity): Long = (rules.rarity(rarity)?.contractHours ?: 1) * QuestClock.HOUR
+
+    /** Выводимые цели считаются от состояния героя: прогресс - прирост с выдачи (шаг сюжета - само значение). */
+    private fun derive(hero: Hero, quest: Quest) {
+        if (!quest.derived || quest.claimed) return
+        val value = derivedValue(hero, quest.counter, quest.place)
+        quest.progress = (value - quest.start).coerceIn(0, quest.target)
+    }
+
+    private fun derivedValue(hero: Hero, counter: String, zone: String): Long =
+        QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, zone)
+
+    /** Недостижимое не выдаётся: уровень на потолке, все зоны пройдены. */
+    private fun feasible(hero: Hero, goal: QuestGoal): Boolean = when (goal.counter) {
+        QuestCounter.LEVEL -> hero.level + goal.base.toInt() <= index.classes.maxLevel
+        QuestCounter.ZONES -> hero.campaign.cleared.size < index.campaign.zones.size
+        else -> true
+    }
+
+    private fun unlocked(hero: Hero): List<String> = index.world.unlocked(hero.campaign.cleared)
+
+    /** Регион, где герой сейчас: самая высокая открытая зона не выше его уровня (+2), иначе первая. */
+    private fun frontierRegion(hero: Hero) = unlocked(hero).mapNotNull { index.zone(it) }
+        .filter { it.level <= hero.level + 2 }.maxByOrNull { it.level }
+        ?.let { zone -> index.campaign.regions.first { region -> region.zones.any { it.code == zone.code } } }
+        ?: index.campaign.regions.first()
+
+    private fun <T> weighted(items: List<T>, dice: Dice, weight: (T) -> Int): T? {
+        val total = items.sumOf(weight)
+        if (total <= 0) return null
+        var left = dice.nextInt(total)
+        return items.firstOrNull { left -= weight(it); left < 0 }
+    }
+
+    companion object {
+        fun dayKey(day: Long) = "D$day:"
+        fun weekKey(week: Long) = "W$week:"
+    }
+}
