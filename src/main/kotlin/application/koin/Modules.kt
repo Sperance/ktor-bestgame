@@ -8,6 +8,10 @@ import features.caches.BlockListCache
 import features.data.auction.AuctionLotRepository
 import features.data.auction.AuctionLotRoute
 import features.data.auth.AuthSessionRepository
+import features.data.guild.GuildChatRepository
+import features.data.guild.GuildEventRepository
+import features.data.guild.GuildRepository
+import features.data.guild.GuildRoute
 import features.data.blockList.BlockListRepository
 import features.data.hero.HeroRepository
 import features.data.hero.HeroRoute
@@ -35,6 +39,9 @@ val repositoryModule = module {
     single { AuthSessionRepository() }
     single { HeroRepository() }
     single { AuctionLotRepository() }
+    single { GuildRepository() }
+    single { GuildEventRepository() }
+    single { GuildChatRepository() }
     single { BlockListRepository() }
     single { RedemptionCodesRepository() }
     single { InventoryService() }
@@ -58,6 +65,7 @@ val routeModule = module {
                 UserRoute(get(), get()),
                 HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
+                GuildRoute(get()),
                 RedemptionCodesRoute(get()),
             )
         )

@@ -70,6 +70,12 @@ data class Hero(
     var petCombat: String = "",
     var petHelper: String = "",
     var campaign: CampaignState = CampaignState(),
+    /** Гильдия героя (1.20.0): то, что нужно листу и скидкам без чтения гильдии; null - не состоит. */
+    var guild: HeroGuild? = null,
+    /** Знаки гильдии: копятся вкладами и остаются при выходе. */
+    var guildMarks: Long = 0,
+    /** Когда герой вышел или был исключён (мс эпохи): вступить снова можно через `rejoinHours` правил. */
+    var guildLeftAt: Long = 0,
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -143,6 +149,13 @@ data class Hero(
         fun newItemId(): String = ObjectId().toHexString()
     }
 }
+
+/**
+ * Членство героя в гильдии, продублированное из её документа: [level] гильдии и индекс ранга [rank] героя
+ * гильдия переписывает сама, когда они меняются, - лист, торговец и аукцион читают только героя.
+ */
+@Serializable
+data class HeroGuild(val id: String, val patron: String, val level: Int = 1, val rank: Int = 0)
 
 /**
  * Кампания героя: пройденные зоны, окна сундуков, кристаллов и расщелин по зонам, боссы (когда

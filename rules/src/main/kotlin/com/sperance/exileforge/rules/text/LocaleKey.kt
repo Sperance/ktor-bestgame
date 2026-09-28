@@ -1,5 +1,8 @@
 package com.sperance.exileforge.rules.text
 
+import com.sperance.exileforge.rules.content.GuildLogKind
+import com.sperance.exileforge.rules.content.GuildMode
+import com.sperance.exileforge.rules.content.GuildRole
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.StatDef
 import com.sperance.exileforge.rules.content.StatGroup
@@ -25,6 +28,7 @@ object LocaleKey {
     const val ATLAS_NODE = "atlas.node"
     const val SKILL = "skill"
     const val ESSENCE = "essence"
+    const val GUILD = "guild"
     const val NAME = "name"
     const val DESCRIPTION = "description"
     const val TRADE = "trade"
@@ -56,6 +60,13 @@ object LocaleKey {
     fun enumLabel(enumName: String, value: String) = "$ENUM.$enumName.$value"
     fun rarity(value: Rarity) = enumLabel("EnumRarity", value.name)
     fun error(code: String) = "$ERROR.$code"
+    fun guildPatronName(code: String) = key("$GUILD.patron", code, NAME)
+    fun guildPatronDescription(code: String) = key("$GUILD.patron", code, DESCRIPTION)
+    fun guildRank(code: String) = "$GUILD.rank.$code"
+    fun guildRole(role: GuildRole) = "$GUILD.role.${role.name}"
+    fun guildMode(mode: GuildMode) = "$GUILD.mode.${mode.name}"
+    fun guildEmblem(code: String) = "$GUILD.emblem.$code"
+    fun guildLog(kind: GuildLogKind) = "$GUILD.log.${kind.name}"
 
     /** Подпись характеристики: прежние перечисления - по группе реестра. */
     fun statLabel(stat: StatDef): String = enumLabel(when (stat.group) {

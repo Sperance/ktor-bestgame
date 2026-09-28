@@ -17,6 +17,7 @@ import extensions.now
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.logic.hero.Stash
+import features.logic.hero.guildBonus
 import features.logic.locale.LocaleCache
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
@@ -99,9 +100,11 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         val lot = requireOpenLot(lotId, method)
         if (lot.sellerId == heroId) throw AuctionExceptions.funExceptionOwnLot(method, lotId)
         val seller = heroes.findById(lot.sellerId) ?: throw CharacterExceptions.funExceptionNotFound(method, lot.sellerId)
-        if (buyer.money < lot.fee) throw CharacterExceptions.funExceptionGold(method, lot.fee.toString())
+        // Сбор лота - прейскурант; покупателю из гильдии торговли он дешевле
+        val fee = index.guildBonus(buyer).discounted(lot.fee)
+        if (buyer.money < fee) throw CharacterExceptions.funExceptionGold(method, fee.toString())
         buyer.spend(lot.priceOrb, lot.price, method)
-        buyer.pay(lot.fee)
+        buyer.pay(fee)
         seller.earn(lot.priceOrb, lot.price, index.rules.maxStack)
         deliver(lot, buyer)
         buyer.count(Counter.AUCTION_BOUGHT)

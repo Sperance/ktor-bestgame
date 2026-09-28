@@ -31,8 +31,9 @@ object ContentFiles {
     const val RULES = "rules.json"
     const val ACHIEVEMENTS = "achievements.json"
     const val PETS = "pets.json"
+    const val GUILDS = "guilds.json"
 
-    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES, ACHIEVEMENTS, PETS)
+    val ALL = listOf(STATS, MODIFIERS, TABLES, EQUIPMENT, ITEMS, CAMPAIGN, ATLAS, TREE, CLASSES, SKILLS, ESSENCES, POWERS, PROFESSIONS, RULES, ACHIEVEMENTS, PETS, GUILDS)
 }
 
 /** Рецепт верстака: верстачное описание в одном тире и его цена; выводится из CRAFTED-вариантов и лестницы цен правил. */
@@ -69,6 +70,7 @@ class Content(
     val rules: EngineRules,
     val achievements: AchievementsFile = AchievementsFile(),
     val pets: PetsFile = PetsFile(),
+    val guilds: GuildRules = GuildRules(),
     val hashes: Map<String, String> = emptyMap(),
 ) {
     /** Отпечаток всего контента: по нему сервер и клиент узнают, что видят один мир. */
@@ -103,6 +105,7 @@ object ContentLoader {
             rules = parse(ContentFiles.RULES, EngineRules.serializer()),
             achievements = parse(ContentFiles.ACHIEVEMENTS, AchievementsFile.serializer()),
             pets = parse(ContentFiles.PETS, PetsFile.serializer()),
+            guilds = parse(ContentFiles.GUILDS, GuildRules.serializer()),
             hashes = texts.mapValues { sha256(it.value) },
         )
         return ContentIndex(content).also { it.validate() }
@@ -129,6 +132,7 @@ class ContentIndex(val content: Content) {
     val atlas: AtlasTree get() = content.atlas
     val achievements: AchievementsFile get() = content.achievements
     val pets: PetsFile get() = content.pets
+    val guilds: GuildRules get() = content.guilds
     val hash: String get() = content.hash
 
     val families: Map<String, ModifierFamily> = (content.modifiers.families + content.equipment.templates.flatMap { it.uniqueFamilies() }).associateBy { it.code }
@@ -253,6 +257,7 @@ class ContentIndex(val content: Content) {
         rules.bench.costs.forEach { if (items[it.orb.name] == null) fail("rules: bench orb ${it.orb}") }
         achievements.validate()
         pets.validate(this)
+        guilds.validate(stats)
         CampaignValidator(this).validate()
     }
 }

@@ -7,6 +7,7 @@ import base.exception.model.AuthExceptions
 import base.exception.model.CampaignExceptions
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
+import base.exception.model.GuildExceptions
 import base.exception.model.LocaleExceptions
 import base.exception.model.ProfessionExceptions
 import base.exception.model.ProgressionExceptions
@@ -14,6 +15,9 @@ import base.exception.model.RedemptionCodesExceptions
 import base.exception.model.SkillExceptions
 import base.exception.model.SkillTreeExceptions
 import base.exception.model.UserExceptions
+import com.sperance.exileforge.rules.content.GuildLogKind
+import com.sperance.exileforge.rules.content.GuildMode
+import com.sperance.exileforge.rules.content.GuildRole
 import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.MonsterRarity
 import com.sperance.exileforge.rules.content.Op
@@ -67,7 +71,7 @@ class LocalizationTest {
     private val exceptionObjects: List<KClass<*>> = listOf(
         ApplicationExceptions::class, BaseRepositoryExceptions::class, BaseRouteExceptions::class, AuctionExceptions::class, AuthExceptions::class,
         CampaignExceptions::class, CharacterExceptions::class, CurrencyExceptions::class, LocaleExceptions::class, ProgressionExceptions::class,
-        RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class, ProfessionExceptions::class, SkillExceptions::class,
+        RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class, ProfessionExceptions::class, SkillExceptions::class, GuildExceptions::class,
     )
 
     private val currencyKeys = listOf(
@@ -103,6 +107,12 @@ class LocalizationTest {
         index.stats.stats.forEach { add(LocaleKey.statLabel(it)) }
         enums.forEach { (name, values) -> values.forEach { add(LocaleKey.enumLabel(name, it)) } }
         errorCodes().forEach { add(LocaleKey.error(it)) }
+        index.guilds.patrons.forEach { add(LocaleKey.guildPatronName(it.code)); add(LocaleKey.guildPatronDescription(it.code)) }
+        index.guilds.ranks.forEach { add(LocaleKey.guildRank(it.code)) }
+        index.guilds.emblems.forEach { add(LocaleKey.guildEmblem(it)) }
+        GuildRole.entries.forEach { add(LocaleKey.guildRole(it)) }
+        GuildMode.entries.forEach { add(LocaleKey.guildMode(it)) }
+        GuildLogKind.entries.forEach { add(LocaleKey.guildLog(it)) }
         addAll(currencyKeys)
         addAll(systemKeys)
     }

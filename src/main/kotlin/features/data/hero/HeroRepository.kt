@@ -1,5 +1,7 @@
 package features.data.hero
 
+import CONST_FIELD_UPDATED
+import CONST_FIELD_VERSION
 import base.exception.model.AuthExceptions
 import base.exception.model.CharacterExceptions
 import base.exception.model.ProgressionExceptions
@@ -7,6 +9,7 @@ import base.repository.BaseRepository
 import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Projections
+import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.HeroClass
@@ -17,18 +20,24 @@ import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import config.ContentStore
 import config.MongoFactory.transactionExecute
+import extensions.now
 import features.data.auction.AuctionLotRepository
+import features.data.guild.GuildRepository
 import features.data.user.User
 import features.data.user.UserRepository
 import features.logic.auth.caller
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.toList
+import kotlinx.datetime.LocalDateTime
 import org.bson.Document
+import org.bson.conversions.Bson
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     private val users: UserRepository by inject()
     private val lots: AuctionLotRepository by inject()
+    private val guilds: GuildRepository by inject()
     private val content: ContentStore by inject()
     private val index: ContentIndex get() = content.index
 
@@ -78,6 +87,7 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
 
     override suspend fun validateAfterDelete(entity: Hero, session: ClientSession) {
         lots.deleteActiveBySeller(entity._id, session)
+        guilds.forget(entity, session)
         // Место под героя освобождается, иначе после трёх удалений нового не создать
         users.findByField(User::_id, entity.userId, session)?.let { owner ->
             owner.countCharacters = (owner.countCharacters - 1).coerceAtLeast(0)
@@ -96,6 +106,22 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         collection.withDocumentClass<Document>().find(readFilter(Filters.eq("_id", heroId)))
             .projection(Projections.include("userId")).limit(1).firstOrNull()?.getString("userId")
 
+    /** Имя, класс и уровень героев [ids] - три поля без тайника: для состава и заявок гильдии. */
+    suspend fun cards(ids: Collection<String>): Map<String, HeroCard> {
+        if (ids.isEmpty()) return emptyMap()
+        return collection.withDocumentClass<Document>().find(readFilter(Filters.`in`("_id", ids)))
+            .projection(Projections.include("name", "heroClass", "level")).toList()
+            .associate { doc -> doc.getString("_id") to HeroCard(doc.getString("_id"), doc.getString("name").orEmpty(), doc.getString("heroClass").orEmpty(), doc.getInteger("level", 1)) }
+    }
+
+    /**
+     * Правка гильдии у нескольких героев разом, мимо объектов в памяти: версия каждого растёт, так что
+     * копия, прочитанная до правки, запишется только гонкой и перечитается.
+     */
+    suspend fun patchGuild(filter: Bson, update: Bson, session: ClientSession) {
+        collection.updateMany(session, readFilter(filter), Updates.combine(update, Updates.inc(CONST_FIELD_VERSION, 1L), Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now())))
+    }
+
     suspend fun requireHero(heroId: String, method: String): Hero =
         requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) }
 
@@ -105,6 +131,9 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         return hero
     }
 }
+
+/** Герой в составе гильдии: только то, что видно в списке. */
+data class HeroCard(val id: String, val name: String, val heroClass: String, val level: Int)
 
 /**
  * Стартовый набор нового героя (1.12.0): узел класса, первые умения, золото на первые покупки, оружие и броня

@@ -13,6 +13,7 @@ import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.logic.hero.Stash
+import features.logic.hero.guildBonus
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -41,7 +42,8 @@ data class MerchantOrbPurchase(val code: String, val money: Long, val next: Long
  * Торговец: раз в окно правил выкладывает вещи уровня героя по весам редкости таблицы и полку фляг;
  * копия роллится при выкладке, поэтому игрок видит ровно то, что купит. Цена - то, что торговец дал
  * бы за такую вещь, умноженное на наценку: купить и сразу продать всегда в убыток. Полка низших сфер
- * за золото - бездонный сток золота: каждая покупка дороже, пока окно не сменится.
+ * за золото - бездонный сток золота: каждая покупка дороже, пока окно не сменится. Цены витрины - прейскурант:
+ * скидка гильдии (покровитель торговли) списывается при покупке.
  */
 class MerchantService : KoinComponent {
     private val heroes: HeroRepository by inject()
@@ -90,8 +92,9 @@ class MerchantService : KoinComponent {
         val hero = heroes.requireHero(heroId, method)
         val stock = restock(hero)
         val offer = stock.offers.firstOrNull { it.id == offerId } ?: throw CharacterExceptions.funExceptionOfferNotFound(method, offerId)
-        if (hero.money < offer.price) throw CharacterExceptions.funExceptionGold(method, offer.price.toString())
-        hero.pay(offer.price)
+        val price = index.guildBonus(hero).discounted(offer.price)
+        if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
+        hero.pay(price)
         hero.merchant = stock.copy(offers = stock.offers - offer)
         Stash.receive(hero, offer.item, index)
         heroes.save(hero, method)
@@ -104,8 +107,9 @@ class MerchantService : KoinComponent {
         val hero = heroes.requireHero(heroId, method)
         val stock = restock(hero)
         val orb = stock.orbs.firstOrNull { it.code == code } ?: throw CharacterExceptions.funExceptionOfferNotFound(method, code)
-        if (hero.money < orb.price) throw CharacterExceptions.funExceptionGold(method, orb.price.toString())
-        hero.pay(orb.price)
+        val price = index.guildBonus(hero).discounted(orb.price)
+        if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
+        hero.pay(price)
         hero.earn(code, 1, index.rules.maxStack)
         val next = orb.copy(price = orbPrice(code, orb.bought + 1), bought = orb.bought + 1)
         hero.merchant = stock.copy(orbs = stock.orbs.map { if (it.code == code) next else it })
