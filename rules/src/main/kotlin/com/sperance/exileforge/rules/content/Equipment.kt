@@ -124,8 +124,6 @@ data class ItemTemplate(
     /** Все закреплённые описания копии: имплиситы шаблона и строки уникалки. */
     val fixedCodes: List<String> get() = fixed + lines.indices.map(::lineCode)
 
-    /** Цена торговца за базу: своя или единица - шаблон без цены стоит столько, сколько скажут редкость и строки. */
-    val basePrice: Long get() = price ?: 1L
 
     /** Семейства строк уникалки: по одному тиру на уровне предмета, как в файле. */
     fun uniqueFamilies(): List<ModifierFamily> = lines.mapIndexed { index, line ->

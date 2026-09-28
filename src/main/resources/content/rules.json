@@ -50,11 +50,21 @@
         "ORB_OF_REGRET"
       ],
       "markup": 2.0,
-      "growth": 1.25
+      "growth": 1.25,
+      "stock": {
+        "ORB_OF_TRANSMUTATION": 5,
+        "ORB_OF_AUGMENTATION": 4,
+        "ORB_OF_ALTERATION": 3,
+        "ORB_OF_REGRET": 2
+      },
+      "defaultStock": 3
     }
   },
   "sell": {
+    "base": 10.0,
     "affixShare": 0.15,
+    "qualityFloor": 0.5,
+    "neutralQuality": 0.5,
     "rarity": {
       "COMMON": 1.0,
       "UNCOMMON": 1.5,

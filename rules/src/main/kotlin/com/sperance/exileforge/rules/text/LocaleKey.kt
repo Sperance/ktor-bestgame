@@ -3,6 +3,7 @@ package com.sperance.exileforge.rules.text
 import com.sperance.exileforge.rules.content.GuildLogKind
 import com.sperance.exileforge.rules.content.GuildMode
 import com.sperance.exileforge.rules.content.GuildRole
+import com.sperance.exileforge.rules.content.QuestKind
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.StatDef
 import com.sperance.exileforge.rules.content.StatGroup
@@ -29,6 +30,7 @@ object LocaleKey {
     const val SKILL = "skill"
     const val ESSENCE = "essence"
     const val GUILD = "guild"
+    const val QUEST = "quest"
     const val NAME = "name"
     const val DESCRIPTION = "description"
     const val TRADE = "trade"
@@ -67,6 +69,9 @@ object LocaleKey {
     fun guildMode(mode: GuildMode) = "$GUILD.mode.${mode.name}"
     fun guildEmblem(code: String) = "$GUILD.emblem.$code"
     fun guildLog(kind: GuildLogKind) = "$GUILD.log.${kind.name}"
+
+    /** Название задания: шаг сюжета - `quest.story.<код>.name`, остальные - шаблон цели `quest.goal.<код>`. */
+    fun questTitle(kind: QuestKind, goal: String) = if (kind == QuestKind.STORY) key("$QUEST.story", goal, NAME) else "$QUEST.goal.$goal"
 
     /** Подпись характеристики: прежние перечисления - по группе реестра. */
     fun statLabel(stat: StatDef): String = enumLabel(when (stat.group) {

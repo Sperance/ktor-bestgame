@@ -3515,22 +3515,6 @@
       "entries": [
         {
           "ref": "item:ORB_OF_TRANSMUTATION",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ORB_OF_AUGMENTATION",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ORB_OF_ALTERATION",
           "chance": 0.02,
           "amount": [
             1,
@@ -3538,7 +3522,7 @@
           ]
         },
         {
-          "ref": "item:ORB_OF_REGRET",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.01,
           "amount": [
             1,
@@ -4007,7 +3991,7 @@
       "entries": [
         {
           "ref": "item:ORB_OF_TRANSMUTATION",
-          "chance": 0.6,
+          "chance": 0.2,
           "amount": [
             1,
             2
@@ -4015,23 +3999,7 @@
         },
         {
           "ref": "item:ORB_OF_AUGMENTATION",
-          "chance": 0.4,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ORB_OF_ALTERATION",
-          "chance": 0.35,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
-          "ref": "item:ORB_OF_REGRET",
-          "chance": 0.2,
+          "chance": 0.1333,
           "amount": [
             1,
             1
@@ -4040,54 +4008,6 @@
         {
           "ref": "table:drop",
           "chance": 0.7
-        },
-        {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_GROWTH",
-          "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
         }
       ],
       "gold": [

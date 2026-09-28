@@ -168,11 +168,23 @@ object Requirements {
     private fun check(name: String, required: Int, actual: Int): String? = if (required <= actual) null else "$name: need $required, have $actual"
 }
 
-/** Цена торговца: база шаблона × редкость × доля за каждую строку × `STOCK_GOLD`; никогда не ноль. */
+/**
+ * Цена торговца (1.22.0), одна для продажи и витрины (витрина - она же × наценка): своя цена шаблона или база,
+ * растущая с его уровнем как золото с монстров, × редкость × доля за каждую строку × качество роллов × `STOCK_GOLD`;
+ * никогда не ноль.
+ */
 object SellPrice {
-    fun of(index: ContentIndex, template: ItemTemplate, rarity: Rarity, rolled: Int, stats: Map<String, Double>): Long {
+    fun of(index: ContentIndex, template: ItemTemplate, item: ItemInstance, stats: Map<String, Double> = emptyMap()): Long {
         val rules = index.rules.sell
-        val price = template.basePrice * (rules.rarity[rarity] ?: 1.0) * (1.0 + rules.affixShare * rolled) * (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0)
+        val price = base(index, template) * (rules.rarity[item.rarity] ?: 1.0) * (1.0 + rules.affixShare * item.rolls.size) *
+            (rules.qualityFloor + quality(item.rolls, rules.neutralQuality)) * (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0)
         return floor(price).toLong().coerceAtLeast(1L)
     }
+
+    /** База шаблона: своя цена или [SellRules.base] × рост золота до уровня шаблона. */
+    fun base(index: ContentIndex, template: ItemTemplate): Double =
+        template.price?.toDouble() ?: (index.rules.sell.base * index.rules.loot.goldScale(template.level, index.campaign.growthTaper))
+
+    /** Качество роллов 0..1: средняя доля строк; без строк - [neutral]. */
+    fun quality(rolls: List<Roll>, neutral: Double): Double = if (rolls.isEmpty()) neutral else rolls.sumOf { it.share.coerceIn(0.0, 1.0) } / rolls.size
 }

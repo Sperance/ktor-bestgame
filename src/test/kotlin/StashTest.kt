@@ -11,7 +11,7 @@ import kotlin.test.assertTrue
 class StashTest {
     private val index = ContentStore.load().index
     private val rules = index.rules.stash
-    private val template = index.templates.values.first { !it.unique && it.basePrice > 0 }
+    private val template = index.templates.values.first { !it.unique }
 
     private fun item(id: String) = ItemInstance(id, template.code, Rarity.COMMON)
 

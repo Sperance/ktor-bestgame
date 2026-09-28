@@ -48,7 +48,7 @@ object Stash {
                 hero.items.size < capacity -> { hero.items += item; Received(stashed = 1) }
                 hero.overflow.size < overflowMax -> { hero.overflow += item; Received(overflowed = 1) }
                 else -> {
-                    val gold = index.template(item.template)?.let { SellPrice.of(index, it, item.rarity, item.rolls.size, sheet) } ?: 0L
+                    val gold = index.template(item.template)?.let { SellPrice.of(index, it, item, sheet) } ?: 0L
                     hero.gain(gold)
                     hero.count(Counter.ITEMS_SOLD)
                     Received(sold = 1, gold = gold)
@@ -75,7 +75,7 @@ object Stash {
         val method = "stashSell"
         val item = hero.overflow.firstOrNull { it.id == itemId } ?: throw CharacterExceptions.funExceptionItemNotFound(method, itemId)
         val template = index.template(item.template) ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.template)
-        val gold = SellPrice.of(index, template, item.rarity, item.rolls.size, index.sheetOf(hero).stats)
+        val gold = SellPrice.of(index, template, item, index.sheetOf(hero).stats)
         hero.overflow.remove(item)
         hero.gain(gold)
         hero.count(Counter.ITEMS_SOLD)

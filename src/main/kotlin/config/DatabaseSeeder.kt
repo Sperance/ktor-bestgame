@@ -83,10 +83,10 @@ object DatabaseSeeder : KoinComponent {
         printLog("  → ${seeded.size} users created")
     }
 
-    /** По герою каждому сидовому аккаунту: стартовый набор выдаёт сам репозиторий. */
+    /** По герою каждому сидовому игроку; администратор создаёт персонажа сам. Стартовый набор выдаёт сам репозиторий. */
     private suspend fun seedHeroes(session: ClientSession) {
         if (heroes.count(includeDeleted = true) > 0) return
-        val all = users.findAll(session)
+        val all = users.findAll(session).filter { it.role != EnumUserRoles.ADMIN }
         if (all.isEmpty()) return
         val classes = content.index.classes.classes.map { it.code }
         all.forEachIndexed { i, user ->

@@ -29,6 +29,7 @@ object CharacterExceptions {
     fun funExceptionMenagerieFull(errorMethod: String, value: String? = "") = CharacterException("The menagerie is full: $value", errorMethod, "CH_024", listOf(value.orEmpty()))
     fun funExceptionPetOrbIdle(errorMethod: String, value: String? = "") = CharacterException("The orb does nothing to this pet: $value", errorMethod, "CH_025", listOf(value.orEmpty()))
     fun funExceptionNotPetItem(errorMethod: String, value: String? = "") = CharacterException("Not an egg or a pet orb: $value", errorMethod, "CH_026", listOf(value.orEmpty()))
+    fun funExceptionOrbSoldOut(errorMethod: String, value: String? = "") = CharacterException("The merchant has no more $value this window", errorMethod, "CH_027", listOf(value.orEmpty()))
     fun funExceptionTitleLocked(errorMethod: String, value: String? = "") = CharacterException("Title $value is not earned yet", errorMethod, "CH_022", listOf(value.orEmpty()))
     fun funExceptionSellSocketed(errorMethod: String, value: String? = "") = CharacterException("Jewel $value must be taken out of its socket before it is sold", errorMethod, "CH_015", listOf(value.orEmpty()))
     fun funExceptionExperience(errorMethod: String, value: String? = "") = CharacterException("Experience amount $value must not be negative", errorMethod, "CH_012", listOf(value.orEmpty()))

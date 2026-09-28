@@ -158,14 +158,13 @@ class HeroRoute(
             post("/buyOrb") { call.respondWithHero(merchant.buyOrb(call.heroId, call.queryParam("code"))) }
         }
 
-        // Задания (1.21.0): доска героя, награда, замена ежедневного, контракты с доски, новая доска за золото.
+        // Задания (1.21.0): доска героя, награда, всё выполненное разом (1.22.0), контракты с доски.
         route("/quests") {
             get { call.respondOk(quests.board(call.heroId)) }
             post("/claim") { call.respondWithHero(quests.claim(call.heroId, call.queryParam("questId"))) }
-            post("/reroll") { call.respondWithHero(quests.reroll(call.heroId, call.queryParam("questId"))) }
+            post("/claimAll") { call.respondWithHero(quests.claimAll(call.heroId)) }
             post("/take") { call.respondWithHero(quests.take(call.heroId, call.queryParam("offerId"))) }
             post("/abandon") { call.respondWithHero(quests.abandon(call.heroId, call.queryParam("questId"))) }
-            post("/renew") { call.respondWithHero(quests.renew(call.heroId)) }
         }
 
         // Кампания по семени: вход выдаёт семя и контекст, журнал событий проигрывается сервером.

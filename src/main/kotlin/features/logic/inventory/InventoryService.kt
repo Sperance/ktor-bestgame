@@ -114,7 +114,7 @@ class InventoryService : KoinComponent {
         val template = template(item, method)
         if (item.socketed) throw CharacterExceptions.funExceptionSellSocketed(method, template.code)
         if (item.equipped) throw CharacterExceptions.funExceptionSellEquipped(method, template.code)
-        val gold = SellPrice.of(index, template, item.rarity, item.rolls.size, index.sheetOf(hero).stats)
+        val gold = SellPrice.of(index, template, item, index.sheetOf(hero).stats)
         hero.items.remove(item)
         hero.gain(gold)
         hero.count(Counter.ITEMS_SOLD)

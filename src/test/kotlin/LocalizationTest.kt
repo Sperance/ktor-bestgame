@@ -11,6 +11,7 @@ import base.exception.model.GuildExceptions
 import base.exception.model.LocaleExceptions
 import base.exception.model.ProfessionExceptions
 import base.exception.model.ProgressionExceptions
+import base.exception.model.QuestExceptions
 import base.exception.model.RedemptionCodesExceptions
 import base.exception.model.SkillExceptions
 import base.exception.model.SkillTreeExceptions
@@ -22,6 +23,7 @@ import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.MonsterRarity
 import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.Orb
+import com.sperance.exileforge.rules.content.QuestKind
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.Slot
@@ -72,6 +74,7 @@ class LocalizationTest {
         ApplicationExceptions::class, BaseRepositoryExceptions::class, BaseRouteExceptions::class, AuctionExceptions::class, AuthExceptions::class,
         CampaignExceptions::class, CharacterExceptions::class, CurrencyExceptions::class, LocaleExceptions::class, ProgressionExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class, ProfessionExceptions::class, SkillExceptions::class, GuildExceptions::class,
+        QuestExceptions::class,
     )
 
     private val currencyKeys = listOf(
@@ -109,6 +112,9 @@ class LocalizationTest {
         errorCodes().forEach { add(LocaleKey.error(it)) }
         index.guilds.patrons.forEach { add(LocaleKey.guildPatronName(it.code)); add(LocaleKey.guildPatronDescription(it.code)) }
         index.guilds.ranks.forEach { add(LocaleKey.guildRank(it.code)) }
+        // Название задания в ответе «сдать всё» (1.22.0) - ключ словаря: у каждой цели и шага сюжета он свой
+        index.quests.goals.forEach { add(LocaleKey.questTitle(QuestKind.DAILY, it.code)) }
+        index.quests.story.flatMap { it.steps }.forEach { add(LocaleKey.questTitle(QuestKind.STORY, it.code)) }
         index.guilds.emblems.forEach { add(LocaleKey.guildEmblem(it)) }
         GuildRole.entries.forEach { add(LocaleKey.guildRole(it)) }
         GuildMode.entries.forEach { add(LocaleKey.guildMode(it)) }

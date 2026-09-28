@@ -96,13 +96,9 @@ data class QuestKindRule(
 @Serializable
 data class QuestRewardRule(val goldBase: Double = 40.0, val goldPower: Double = 1.3, val experienceShare: Double = 5.0, val experienceCap: Double = 100.0)
 
-/** Доска контрактов: листков на доске, активных сразу, новый листок раз в [refillHours], обновить доску - [refreshPerLevel] × уровень. */
+/** Доска контрактов: листков на доске, активных сразу, новый листок раз в [refillHours]. */
 @Serializable
-data class QuestBoardRule(val size: Int = 6, val active: Int = 3, val refillHours: Int = 2, val refreshPerLevel: Long = 50)
-
-/** Замена ежедневного: [free] раз в сутки даром, дальше [goldPerLevel] × уровень. */
-@Serializable
-data class QuestRerollRule(val free: Int = 1, val goldPerLevel: Long = 250)
+data class QuestBoardRule(val size: Int = 6, val active: Int = 3, val refillHours: Int = 2)
 
 /**
  * Гильдейские: [personal] - личных на сутки; общая цель = `base × участники`, в долю входит тот, кто внёс не меньше
@@ -127,7 +123,6 @@ data class QuestRules(
     val kinds: List<QuestKindRule> = emptyList(),
     val reward: QuestRewardRule = QuestRewardRule(),
     val board: QuestBoardRule = QuestBoardRule(),
-    val reroll: QuestRerollRule = QuestRerollRule(),
     val guild: GuildQuestRule = GuildQuestRule(),
     /** HIGH_ZONE: зона не ниже уровня героя минус столько. */
     val highZoneSlack: Int = 2,
@@ -177,8 +172,7 @@ data class QuestRules(
                 if (goals.none { kind in it.kinds }) fail("quests: kind $kind has no goals")
             }
         }
-        if (board.size < 1 || board.active < 1 || board.refillHours < 1 || board.refreshPerLevel < 0) fail("quests: board")
-        if (reroll.free < 0 || reroll.goldPerLevel < 0) fail("quests: reroll")
+        if (board.size < 1 || board.active < 1 || board.refillHours < 1) fail("quests: board")
         if (guild.fairShare < 0.0 || guild.experience < 0.0) fail("quests: guild")
         if (reward.goldBase <= 0.0 || reward.goldPower < 0.0 || reward.experienceShare < 0.0 || reward.experienceCap <= 0.0) fail("quests: reward")
         val regions = index.campaign.regions.map { it.code }
@@ -254,7 +248,7 @@ data class GuildQuestLog(
 )
 
 /**
- * Задания героя. [day]/[week] - к каким суткам и неделе относятся [daily]/[weekly], [rerolls] - замен за сутки;
+ * Задания героя. [day]/[week] - к каким суткам и неделе относятся [daily]/[weekly];
  * [offers] - листки доски, [contracts] - взятые, [refilledAt] - когда доска пополнялась; [chapter]/[step] - где он
  * в сюжете, [story] - текущий шаг.
  */
@@ -264,7 +258,6 @@ data class QuestLog(
     var week: Long = -1,
     var daily: MutableList<Quest> = mutableListOf(),
     var weekly: MutableList<Quest> = mutableListOf(),
-    var rerolls: Int = 0,
     var offers: MutableList<Quest> = mutableListOf(),
     var contracts: MutableList<Quest> = mutableListOf(),
     var refilledAt: Long = 0,
@@ -273,12 +266,14 @@ data class QuestLog(
     var story: Quest? = null,
     var guild: GuildQuestLog? = null,
 ) {
-    /** Все задания, которые идут прямо сейчас (листки доски - нет). */
-    fun active(): Sequence<Quest> = sequence {
+    /** Личные задания, которые идут прямо сейчас: ежедневные, недельные, контракты, шаг сюжета (листки доски - нет). */
+    fun personal(): Sequence<Quest> = sequence {
         yieldAll(daily); yieldAll(weekly); yieldAll(contracts)
         story?.let { yield(it) }
-        guild?.let { yieldAll(it.quests) }
     }
+
+    /** Все задания, которые идут прямо сейчас: личные и гильдейские. */
+    fun active(): Sequence<Quest> = personal() + guild?.quests.orEmpty()
 
     fun find(id: String): Quest? = active().firstOrNull { it.id == id }
 }
@@ -310,8 +305,7 @@ data class GuildQuestBoard(
 
 /**
  * Доска заданий героя: ежедневные, недельные, листки доски и взятые контракты, шаг сюжета. [dayEndsAt]/[weekEndsAt] -
- * смена суток и недели (мс эпохи), [nextOfferAt] - следующий листок, [rerollPrice] - цена замены (0 - даром),
- * [refreshPrice] - обновить доску.
+ * смена суток и недели (мс эпохи), [nextOfferAt] - следующий листок.
  */
 @Serializable
 data class QuestBoard(
@@ -325,8 +319,6 @@ data class QuestBoard(
     val dayEndsAt: Long = 0,
     val weekEndsAt: Long = 0,
     val nextOfferAt: Long = 0,
-    val rerollPrice: Long = 0,
-    val refreshPrice: Long = 0,
     val activeLimit: Int = 0,
     val money: Long = 0,
 )
@@ -353,6 +345,17 @@ data class GuildQuests(
     val weekEndsAt: Long = 0,
     val money: Long = 0,
 )
+
+/**
+ * Сданное разом задание (1.22.0): [questId] - id личного или ключ общей цели гильдии, [title] - ключ словаря названия
+ * ([com.sperance.exileforge.rules.text.LocaleKey.questTitle]), [rewards] - что легло на героя.
+ */
+@Serializable
+data class QuestClaimed(val questId: String, val kind: QuestKind, val title: String, val rewards: QuestReward)
+
+/** Итог «сдать всё» (1.22.0): сданное по порядку, доска после сдачи и золото героя. */
+@Serializable
+data class QuestClaimAll(val claimed: List<QuestClaimed> = emptyList(), val board: QuestBoard = QuestBoard(), val money: Long = 0)
 
 // ==================== ЛОГИКА ====================
 

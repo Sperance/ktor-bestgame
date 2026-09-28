@@ -580,12 +580,7 @@
   "board": {
     "size": 6,
     "active": 3,
-    "refillHours": 2,
-    "refreshPerLevel": 50
-  },
-  "reroll": {
-    "free": 1,
-    "goldPerLevel": 250
+    "refillHours": 2
   },
   "guild": {
     "fairShare": 0.25,

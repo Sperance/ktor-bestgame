@@ -22,9 +22,14 @@ import org.koin.core.component.inject
 @Serializable
 data class MerchantOffer(val id: String, val item: ItemInstance, val price: Long)
 
-/** Сфера на полке (1.13.0): цена следующей и сколько куплено за окно. */
+/**
+ * Сфера на полке (1.13.0): цена следующей, сколько куплено за окно и сколько ещё осталось (1.22.0);
+ * [UNKNOWN] - окно, выложенное до запаса, - досчитывается при чтении.
+ */
 @Serializable
-data class MerchantOrb(val code: String, val price: Long, val bought: Int = 0)
+data class MerchantOrb(val code: String, val price: Long, val bought: Int = 0, val left: Int = UNKNOWN) {
+    companion object { const val UNKNOWN = -1 }
+}
 
 /** Витрина героя: что на ней, полка сфер и когда торговец выложит новую (мс эпохи). */
 @Serializable
@@ -63,7 +68,7 @@ class MerchantService : KoinComponent {
     }
 
     fun lay(current: MerchantStock?, level: Int, now: Long, dice: Dice): MerchantStock {
-        if (current != null && now < current.refreshAt) return current
+        if (current != null && now < current.refreshAt) return current.copy(orbs = current.orbs.map { if (it.left == MerchantOrb.UNKNOWN) it.copy(left = left(it.code, it.bought)) else it })
         val rules = index.rules.merchant
         val factory = ItemFactory(index)
         val (flasks, gear) = index.templatePool(rules.tables).partition { it.value.slot.isFlask }
@@ -78,7 +83,7 @@ class MerchantService : KoinComponent {
                 template to factory.create(Hero.newItemId(), template, rarity, dice)
             }.firstOrNull { (template, item) -> factory.meetsFloor(template, item) }
                 ?: (Tables.draw(from, dice) ?: from.first().value).let { it to factory.create(Hero.newItemId(), it, Rarity.COMMON, dice) }
-            return MerchantOffer(item.id, item, SellPrice.of(index, template, item.rarity, item.rolls.size, emptyMap()) * rules.markup)
+            return MerchantOffer(item.id, item, SellPrice.of(index, template, item) * rules.markup)
         }
         val offers = if (near.isEmpty()) emptyList() else List(dice.between(rules.minOffers, rules.maxOffers)) { offer(near) }
         val shelf = flasks.filter { it.value.requiredLevel <= level }
@@ -101,23 +106,26 @@ class MerchantService : KoinComponent {
         return MerchantPurchase(offer.item, hero.money)
     }
 
-    /** Покупка сферы с полки: золото торговцу, сфера в сумку, следующая того же вида дороже до конца окна. */
+    /** Покупка сферы с полки: золото торговцу, сфера в сумку, следующая того же вида дороже до конца окна; кончился запас - отказ. */
     suspend fun buyOrb(heroId: String, code: String): MerchantOrbPurchase {
         val method = "merchantBuyOrb"
         val hero = heroes.requireHero(heroId, method)
         val stock = restock(hero)
         val orb = stock.orbs.firstOrNull { it.code == code } ?: throw CharacterExceptions.funExceptionOfferNotFound(method, code)
+        if (orb.left <= 0) throw CharacterExceptions.funExceptionOrbSoldOut(method, code)
         val price = index.guildBonus(hero).discounted(orb.price)
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
         hero.pay(price)
         hero.earn(code, 1, index.rules.maxStack)
-        val next = orb.copy(price = orbPrice(code, orb.bought + 1), bought = orb.bought + 1)
+        val next = orb.copy(price = orbPrice(code, orb.bought + 1), bought = orb.bought + 1, left = orb.left - 1)
         hero.merchant = stock.copy(orbs = stock.orbs.map { if (it.code == code) next else it })
         heroes.save(hero, method)
         return MerchantOrbPurchase(code, hero.money, next.price)
     }
 
-    private fun shelf(bought: Int): List<MerchantOrb> = index.rules.merchant.orbs.codes.map { MerchantOrb(it, orbPrice(it, bought), bought) }
+    private fun shelf(bought: Int): List<MerchantOrb> = index.rules.merchant.orbs.codes.map { MerchantOrb(it, orbPrice(it, bought), bought, left(it, bought)) }
+
+    private fun left(code: String, bought: Int): Int = (index.rules.merchant.orbs.stockOf(code) - bought).coerceAtLeast(0)
 
     private fun orbPrice(code: String, bought: Int): Long = index.rules.merchant.orbs.price(index.item(code)?.price ?: 0, bought)
 

@@ -21,6 +21,9 @@ import com.sperance.exileforge.rules.content.GuildGoalView
 import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.GuildQuests
 import com.sperance.exileforge.rules.content.Item
+import com.sperance.exileforge.rules.content.Quest
+import com.sperance.exileforge.rules.content.QuestClaimed
+import com.sperance.exileforge.rules.content.QuestReward
 import com.sperance.exileforge.rules.content.QuestClock
 import com.sperance.exileforge.rules.content.QuestKind
 import com.sperance.exileforge.rules.roll.Dice
@@ -357,12 +360,10 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val hero = change.actor
         questService.refresh(hero, change.now, Dice.system())
         val log = hero.quests.guild ?: throw QuestExceptions.funExceptionNotFound(method, questId ?: goal)
-        val grown = if (questId != null) {
+        if (questId != null) {
             val quest = log.quests.firstOrNull { it.id == questId } ?: throw QuestExceptions.funExceptionNotFound(method, questId)
             questService.requireClaimable(quest, method)
-            questService.grant(hero, quest.reward)
-            quest.claimed = true
-            change.grow(quest.reward.guildExperience, hero.name)
+            settle(change, hero, quest)
         } else {
             val board = change.guild.quests
             val target = (board.daily + board.weekly).firstOrNull { it.key == goal } ?: throw QuestExceptions.funExceptionNotFound(method, goal)
@@ -371,17 +372,60 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             if (shares.values.sum() < target.target) throw QuestExceptions.funExceptionNotDone(method, target.key)
             val need = need(change.guild, target)
             if ((shares[heroId] ?: 0) < need) throw QuestExceptions.funExceptionShare(method, need.toString())
-            questService.grant(hero, questService.sharedReward(hero, target))
-            log.claimed += target.key
-            if (target.key !in board.paid) {
-                board.paid += target.key
-                change.grow(target.guildExperience, hero.name)
-            } else false
+            settle(change, hero, log, target)
         }
         change.touch(hero)
         change.sync(hero)
-        commit(change, method, grown)
+        commit(change, method, change.grown)
         return questsView(change, hero)
+    }
+
+    /**
+     * Сдать все гильдейские разом (1.22.0, из «сдать всё» заданий): выполненные личные и долю в каждой закрытой общей
+     * цели, где вклад героя не ниже порога. Вне гильдии - ничего.
+     */
+    suspend fun claimAllQuests(heroId: String, method: String): List<QuestClaimed> {
+        if (guildOf(heroId) == null) return emptyList()
+        val change = acting(heroId, method)
+        val hero = change.actor
+        questService.refresh(hero, change.now, Dice.system())
+        val log = hero.quests.guild ?: return emptyList()
+        val claimed = mutableListOf<QuestClaimed>()
+        log.quests.filter { it.done && !it.claimed }.forEach { quest ->
+            settle(change, hero, quest)
+            claimed += questService.claimedOf(quest.id, quest.kind, quest.goal, quest.reward)
+        }
+        val board = change.guild.quests
+        val tallies = tallies(change, hero)
+        (board.daily + board.weekly).filter { it.key !in log.claimed }.forEach { target ->
+            val shares = shares(tallies, change.guild, target)
+            if (shares.values.sum() < target.target || (shares[heroId] ?: 0) < need(change.guild, target)) return@forEach
+            claimed += questService.claimedOf(target.key, target.kind, target.goal, settle(change, hero, log, target))
+        }
+        change.touch(hero)
+        change.sync(hero)
+        commit(change, method, change.grown)
+        return claimed
+    }
+
+    /** Личное гильдейское: награда на героя, опыт гильдии - за каждое. */
+    private fun settle(change: Change, hero: Hero, quest: Quest) {
+        questService.grant(hero, quest.reward)
+        quest.claimed = true
+        change.grow(quest.reward.guildExperience, hero.name)
+    }
+
+    /** Доля общей цели: награда по уровню героя; опыт гильдии - один раз, первым, кто забрал долю. */
+    private fun settle(change: Change, hero: Hero, log: GuildQuestLog, target: GuildGoal): QuestReward {
+        val reward = questService.sharedReward(hero, target)
+        questService.grant(hero, reward)
+        log.claimed += target.key
+        val board = change.guild.quests
+        if (target.key !in board.paid) {
+            board.paid += target.key
+            change.grow(target.guildExperience, hero.name)
+        }
+        return reward
     }
 
     private suspend fun questsView(change: Change, hero: Hero): GuildQuests {
@@ -562,6 +606,10 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
 
         fun touch(hero: Hero) { touched[hero._id] = hero }
 
+        /** Уровень гильдии вырос за эту команду: копии уровня у участников надо переписать. */
+        var grown = false
+            private set
+
         /** Опыт гильдии; вырос уровень - запись в журнал и true: копии уровня у участников надо переписать. */
         fun grow(value: Long, heroName: String): Boolean {
             guild.experience += value
@@ -569,6 +617,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             if (level <= guild.level) return false
             guild.level = level
             log(GuildLogKind.LEVEL_UP, heroName, level.toString())
+            grown = true
             return true
         }
 

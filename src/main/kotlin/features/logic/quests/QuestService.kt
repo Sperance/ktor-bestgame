@@ -1,6 +1,5 @@
 package features.logic.quests
 
-import base.exception.model.CharacterExceptions
 import base.exception.model.QuestExceptions
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
@@ -8,6 +7,8 @@ import com.sperance.exileforge.rules.content.GuildGoal
 import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.Quest
 import com.sperance.exileforge.rules.content.QuestBoard
+import com.sperance.exileforge.rules.content.QuestClaimAll
+import com.sperance.exileforge.rules.content.QuestClaimed
 import com.sperance.exileforge.rules.content.QuestClock
 import com.sperance.exileforge.rules.content.QuestCondition
 import com.sperance.exileforge.rules.content.QuestCounter
@@ -20,7 +21,9 @@ import com.sperance.exileforge.rules.content.QuestRules
 import com.sperance.exileforge.rules.content.QuestScope
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.roll.Dice
+import com.sperance.exileforge.rules.text.LocaleKey
 import config.ContentStore
+import features.data.guild.GuildRepository
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.logic.hero.Rewards
@@ -35,6 +38,7 @@ import org.koin.core.component.inject
  */
 class QuestService : KoinComponent {
     private val heroes: HeroRepository by inject()
+    private val guilds: GuildRepository by inject()
     private val content: ContentStore by inject()
     private val index: ContentIndex get() = content.index
     private val rules: QuestRules get() = index.quests
@@ -50,6 +54,31 @@ class QuestService : KoinComponent {
     suspend fun claim(heroId: String, questId: String): QuestBoard = command(heroId, "questClaim") { hero, log, now, dice ->
         val quest = log.find(questId)?.takeIf { it.kind != QuestKind.GUILD } ?: throw QuestExceptions.funExceptionNotFound("questClaim", questId)
         requireClaimable(quest, "questClaim")
+        settle(hero, log, quest, now, dice)
+    }
+
+    /**
+     * Сдать всё выполненное (1.22.0): долю героя в гильдейских - через гильдию, своей транзакцией, затем личные -
+     * ежедневные, недельные, контракты и шаги сюжета подряд, пока следующий шаг уже выполнен.
+     */
+    suspend fun claimAll(heroId: String): QuestClaimAll {
+        val method = "questClaimAll"
+        val claimed = guilds.claimAllQuests(heroId, method).toMutableList()
+        val board = command(heroId, method) { hero, log, now, dice ->
+            while (true) {
+                val quest = log.personal().firstOrNull { it.done && !it.claimed } ?: break
+                settle(hero, log, quest, now, dice)
+                claimed += claimedOf(quest.id, quest.kind, quest.goal, quest.reward)
+            }
+        }
+        return QuestClaimAll(claimed, board, board.money)
+    }
+
+    /** Что сдано - для ответа «сдать всё»: название ключом словаря. */
+    fun claimedOf(id: String, kind: QuestKind, goal: String, reward: QuestReward) = QuestClaimed(id, kind, LocaleKey.questTitle(kind, goal), reward)
+
+    /** Награда личного задания на героя: контракт уходит с доски, шаг сюжета сменяется следующим. */
+    private fun settle(hero: Hero, log: QuestLog, quest: Quest, now: Long, dice: Dice) {
         grant(hero, quest.reward)
         quest.claimed = true
         when (quest.kind) {
@@ -64,19 +93,6 @@ class QuestService : KoinComponent {
         }
     }
 
-    /** Замена ежедневного: первые `reroll.free` за сутки даром, дальше за золото. */
-    suspend fun reroll(heroId: String, questId: String): QuestBoard = command(heroId, "questReroll") { hero, log, now, dice ->
-        val method = "questReroll"
-        val quest = log.daily.firstOrNull { it.id == questId } ?: throw QuestExceptions.funExceptionReroll(method, questId)
-        if (quest.claimed) throw QuestExceptions.funExceptionClaimed(method, questId)
-        val price = rerollPrice(hero)
-        if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
-        if (price > 0) hero.pay(price)
-        log.rerolls++
-        val fresh = roll(hero, QuestKind.DAILY, dice, now, log.daily.map { it.goal }.toSet()) ?: return@command
-        log.daily[log.daily.indexOf(quest)] = fresh
-    }
-
     /** Взять листок с доски: срок контракта считается с этой минуты. */
     suspend fun take(heroId: String, offerId: String): QuestBoard = command(heroId, "questTake") { _, log, now, _ ->
         val method = "questTake"
@@ -89,15 +105,6 @@ class QuestService : KoinComponent {
     /** Отказ от контракта: листок сгорает. */
     suspend fun abandon(heroId: String, questId: String): QuestBoard = command(heroId, "questAbandon") { _, log, _, _ ->
         if (!log.contracts.removeIf { it.id == questId }) throw QuestExceptions.funExceptionNotFound("questAbandon", questId)
-    }
-
-    /** Новая доска целиком за золото. */
-    suspend fun renew(heroId: String): QuestBoard = command(heroId, "questRenew") { hero, log, now, dice ->
-        val price = rules.board.refreshPerLevel * hero.level
-        if (hero.money < price) throw CharacterExceptions.funExceptionGold("questRenew", price.toString())
-        hero.pay(price)
-        log.offers = MutableList(rules.board.size) { roll(hero, QuestKind.CONTRACT, dice, now) }.filterNotNull().toMutableList()
-        log.refilledAt = now
     }
 
     private suspend fun command(heroId: String, method: String, block: (Hero, QuestLog, Long, Dice) -> Unit): QuestBoard {
@@ -125,7 +132,6 @@ class QuestService : KoinComponent {
         val week = QuestClock.week(now)
         if (log.day != day) {
             log.day = day
-            log.rerolls = 0
             log.daily = rollMany(hero, QuestKind.DAILY, dice, now)
         }
         if (log.week != week) {
@@ -276,13 +282,11 @@ class QuestService : KoinComponent {
             log.daily, log.weekly, log.offers, log.contracts, log.story, log.chapter, log.step,
             QuestClock.dayEnd(now), QuestClock.weekEnd(now),
             if (full || log.refilledAt <= 0) 0 else log.refilledAt + rules.board.refillHours * QuestClock.HOUR,
-            rerollPrice(hero), rules.board.refreshPerLevel * hero.level, rules.board.active, hero.money,
+            rules.board.active, hero.money,
         )
     }
 
     // ==================== ПОМОЩНИКИ ====================
-
-    private fun rerollPrice(hero: Hero): Long = if (hero.quests.rerolls < rules.reroll.free) 0 else rules.reroll.goldPerLevel * hero.level
 
     private fun hours(rarity: Rarity): Long = (rules.rarity(rarity)?.contractHours ?: 1) * QuestClock.HOUR
 

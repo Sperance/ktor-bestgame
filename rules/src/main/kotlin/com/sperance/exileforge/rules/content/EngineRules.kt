@@ -42,16 +42,35 @@ data class MerchantRules(
 
 /**
  * Полка сфер торговца (1.13.0): сферы [codes] за золото, цена - цена сферы с наценкой [markup], и каждая
- * покупка того же вида за окно дороже в [growth] раз; новое окно сбрасывает рост.
+ * покупка того же вида за окно дороже в [growth] раз; новое окно сбрасывает рост. Запас на окно [stock]
+ * (1.22.0): сферы, которой нет в нём, не больше [defaultStock].
  */
 @Serializable
-data class OrbShelf(val codes: List<String> = emptyList(), val markup: Double = 2.0, val growth: Double = 1.25) {
+data class OrbShelf(
+    val codes: List<String> = emptyList(),
+    val markup: Double = 2.0,
+    val growth: Double = 1.25,
+    val stock: Map<String, Int> = emptyMap(),
+    val defaultStock: Int = 3,
+) {
+    fun stockOf(code: String): Int = stock[code] ?: defaultStock
+
     fun price(orbPrice: Long, bought: Int): Long = Math.round(orbPrice * markup * Math.pow(growth, bought.toDouble()))
 }
 
-/** Цена торговца: доля базы за аффикс и множитель редкости. */
+/**
+ * Цена торговца (1.22.0): база [base] шаблона без своей цены растёт с его уровнем, как золото с монстров;
+ * доля базы за аффикс, множитель редкости и качество роллов - [qualityFloor] + средняя доля роллов 0..1
+ * (вещь без роллов считается средней, [neutralQuality]).
+ */
 @Serializable
-data class SellRules(val affixShare: Double = 0.15, val rarity: Map<Rarity, Double> = mapOf(Rarity.COMMON to 1.0, Rarity.UNCOMMON to 1.5, Rarity.RARE to 2.5, Rarity.UNIQUE to 8.0, Rarity.MYTHICAL to 20.0))
+data class SellRules(
+    val base: Double = 10.0,
+    val affixShare: Double = 0.15,
+    val qualityFloor: Double = 0.5,
+    val neutralQuality: Double = 0.5,
+    val rarity: Map<Rarity, Double> = mapOf(Rarity.COMMON to 1.0, Rarity.UNCOMMON to 1.5, Rarity.RARE to 2.5, Rarity.UNIQUE to 8.0, Rarity.MYTHICAL to 20.0),
+)
 
 @Serializable data class BenchCost(val orb: Orb, val amount: Long)
 
@@ -150,7 +169,10 @@ data class LootRules(
     val rarityWeights: Map<Rarity, Double> = mapOf(Rarity.COMMON to 100.0, Rarity.UNCOMMON to 40.0, Rarity.RARE to 15.0, Rarity.UNIQUE to 1.0, Rarity.MYTHICAL to 0.2),
     val uniqueReach: Int = 10,
     val recipeChance: Double = 0.10,
-)
+) {
+    /** Во сколько раз золото на уровне [level] больше, чем на первом: рост со своим спадом или спадом роста монстров [fallback]. */
+    fun goldScale(level: Int, fallback: GrowthTaper): Double = Math.pow(goldGrowth, (goldTaper ?: fallback).steps(level))
+}
 
 /**
  * Штраф опыта за разницу уровней героя и зоны (1.16.0), как в PoE: окно [base] + уровень / [perLevel] без
