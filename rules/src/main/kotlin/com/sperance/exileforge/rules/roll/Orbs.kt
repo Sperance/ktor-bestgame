@@ -170,7 +170,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
                 if (corruption != null) item.rolls = item.rolls.filterNot { affixes.definition(it)?.source == Source.IMPLICIT } + corruption
                 outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
             }
-            VaalOutcome.RARE -> if (item.rarity == Rarity.UNIQUE || template.slot.isFlask) outcome(item, template, "currency.vaal_nothing") else {
+            VaalOutcome.RARE -> if (item.rarity.fixed || template.slot.isFlask) outcome(item, template, "currency.vaal_nothing") else {
                 val kept = affixes.fractured(item.rolls)
                 item.rarity = Rarity.RARE
                 item.rolls = affixes.permanent(item.rolls) + kept + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, kept)
@@ -186,7 +186,8 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
 
     private fun chance(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         requireRarity(item, template, Rarity.COMMON)
-        val unique = Tables.draw(index.templatePool(rules.orbs.chanceUniques).filter { it.value.slot == template.slot }, dice)
+        // Уникалка не выше уровня базы и её дальности (1.18.0): из базы первого уровня не выйдет вещь семидесятого
+        val unique = Tables.draw(index.templatePoolUpTo(rules.orbs.chanceUniques, template.level + index.rules.loot.uniqueReach).filter { it.value.slot == template.slot }, dice)
         if (unique != null && dice.percent(rules.orbs.chanceUniquePercent)) {
             val reborn = factory.create(item.id, unique, Rarity.UNIQUE, dice)
             return OrbOutcome(reborn.also { it.slot = item.slot; it.socket = item.socket; it.quality = item.quality }, null, "currency.chance_unique", listOf(name(template), name(unique)))

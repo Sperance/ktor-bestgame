@@ -208,6 +208,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val extra = listOfNotNull(
             loot.unique(bosses.tables, zone.level, dice).takeIf { dice.chance(uniqueChance(bosses.uniqueChance * relative(AtlasStat.BOSS_UNIQUE.code))) },
             Tables.draw(index.templatePool(template.tables), dice).takeIf { template.tables.isNotEmpty() && dice.chance(uniqueChance(bosses.ownUniqueChance * relative(AtlasStat.BOSS_UNIQUE.code))) },
+            if (context.active != null) mythic(bosses.mythicTables, bosses.mythicChance, dice) else null,
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
         return grant(dice, template.loot, zone.level, rule, "b$n", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
@@ -221,7 +222,11 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val dice = streams.of("corrupt", n)
         val template = index.monster(zone.corrupted)!!
         val rule = campaign.rarity(MonsterRarity.UNIQUE)
-        val extra = listOfNotNull(loot.unique(campaign.corruption.tables, zone.level, dice).takeIf { dice.chance(uniqueChance(campaign.corruption.uniqueChance * relative(AtlasStat.VAAL_UNIQUE.code))) })
+        val corruption = campaign.corruption
+        val extra = listOfNotNull(
+            loot.unique(corruption.tables, zone.level, dice).takeIf { dice.chance(uniqueChance(corruption.uniqueChance * relative(AtlasStat.VAAL_UNIQUE.code))) },
+            mythic(corruption.mythicTables, corruption.mythicChance, dice),
+        )
         return grant(dice, template.loot, zone.level, rule, "v$n", experienceFor(template, rule, zoneBonus), extra, zoneBonus = zoneBonus)
     }
 
@@ -271,6 +276,10 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     private fun experienceFor(monster: Monster, rule: RarityRule, zoneBonus: VaalZone?): Double =
         loot.experience(monster, zone.level, rule, context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code],
             context.heroLevel)
+
+    /** Мифическая вещь (1.18.0): бросок только при шансе и таблицах, чтобы кости прежних наград не сдвигались. */
+    private fun mythic(tables: List<String>, chance: Double, dice: Dice): ItemTemplate? =
+        if (chance <= 0 || tables.isEmpty() || !dice.chance(uniqueChance(chance))) null else loot.unique(tables, zone.level, dice)
 
     private fun uniqueChance(chance: Double): Double = chance * (1 + context.bonus(MonsterRarity.UNIQUE).unique / 100)
     private fun relative(atlasStat: String) = (1 + context[atlasStat] / 100).coerceAtLeast(0.0)

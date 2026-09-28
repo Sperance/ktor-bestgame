@@ -171,7 +171,8 @@ class CraftsService : KoinComponent {
         return when (job.kind) {
             JobKind.EQUIPMENT -> {
                 if (dice.percent(crafting.uniqueChance * (1 + level / 50.0))) {
-                    Tables.draw(index.templatePool(crafting.uniques), dice)?.let { return factory.create(Hero.newItemId(), it, Rarity.UNIQUE, dice) }
+                    // Уникалка по уровню ремесла и дальности уникалок (1.18.0), а не любая из таблицы
+                    Tables.draw(index.templatePoolUpTo(crafting.uniques, level + index.rules.loot.uniqueReach), dice)?.let { return factory.create(Hero.newItemId(), it, Rarity.UNIQUE, dice) }
                 }
                 val base = Tables.draw(bases, dice) ?: return null
                 val rarity = Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.COMMON

@@ -151,12 +151,18 @@ data class BossRule(
     val earlyRolls: List<Int> = rolls, val earlyUntil: Int = 0,
     /** Потолок шанса блока стража со всеми строками (1.8.0), ниже общего [CombatRules.blockCap]. */
     val blockCap: Double = 100.0,
+    /** Мифическая вещь с босса карты (1.18.0): шанс и таблицы. */
+    val mythicChance: Double = 0.0, val mythicTables: List<String> = emptyList(),
 ) {
     fun rollsAt(level: Int): List<Int> = if (level < earlyUntil) earlyRolls else rolls
 }
 
 @Serializable
-data class CorruptionRule(val chance: Double = 0.0, val uniqueChance: Double = 0.0, val tables: List<String> = emptyList())
+data class CorruptionRule(
+    val chance: Double = 0.0, val uniqueChance: Double = 0.0, val tables: List<String> = emptyList(),
+    /** Мифическая вещь со стража Ваал-зоны (1.18.0). */
+    val mythicChance: Double = 0.0, val mythicTables: List<String> = emptyList(),
+)
 
 /** Ваал-зона: строки из таблицы [pool], лучшего тира уровня карты и в [power] раз сильнее. */
 @Serializable
