@@ -238,6 +238,11 @@ class ContentIndex(val content: Content) {
             val weapon = template(heroClass.weapon) ?: fail("classes: weapon ${heroClass.weapon} of ${heroClass.code}")
             if (weapon.weaponType == null || weapon.unique || weapon.requiredLevel > 1) fail("classes: ${heroClass.weapon} of ${heroClass.code} is no plain first-level weapon")
         }
+        classes.classes.forEach { heroClass ->
+            val armour = heroClass.armour.map { code -> template(code) ?: fail("classes: armour $code of ${heroClass.code}") }
+            if (armour.any { it.kind != TemplateKind.ARMOR || it.unique || it.requiredLevel > 1 } || armour.map { it.slot }.toSet().size != armour.size)
+                fail("classes: armour of ${heroClass.code} is not plain first-level armour, one to a slot")
+        }
         atlasGraph.validate(atlas, stats, ::modifier)
         professions.validate({ it in items }, ::template, { it in zones }, { classes.heroClass(it) != null })
         rules.bench.costs.forEach { if (items[it.orb.name] == null) fail("rules: bench orb ${it.orb}") }

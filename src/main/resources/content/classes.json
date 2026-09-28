@@ -10,7 +10,12 @@
         "STOCK_INTELLECT": 14.0,
         "STOCK_MANA": 35
       },
-      "weapon": "STONE_AXE"
+      "weapon": "STONE_AXE",
+      "armour": [
+        "IRON_HAT",
+        "PLATE_VEST",
+        "IRON_GREAVES"
+      ]
     },
     {
       "code": "RANGER",
@@ -22,7 +27,12 @@
         "STOCK_INTELLECT": 14.0,
         "STOCK_MANA": 45
       },
-      "weapon": "CRUDE_BOW"
+      "weapon": "CRUDE_BOW",
+      "armour": [
+        "LEATHER_CAP",
+        "SCALE_VEST",
+        "RAWHIDE_BOOTS"
+      ]
     },
     {
       "code": "WITCH",
@@ -34,7 +44,12 @@
         "STOCK_INTELLECT": 32.0,
         "STOCK_MANA": 65
       },
-      "weapon": "DRIFTWOOD_WAND"
+      "weapon": "DRIFTWOOD_WAND",
+      "armour": [
+        "VINE_CIRCLET",
+        "SIMPLE_ROBE",
+        "WOOL_SHOES"
+      ]
     },
     {
       "code": "DUELIST",
@@ -46,7 +61,12 @@
         "STOCK_INTELLECT": 14.0,
         "STOCK_MANA": 40
       },
-      "weapon": "RUSTED_SWORD"
+      "weapon": "RUSTED_SWORD",
+      "armour": [
+        "BATTERED_HELM",
+        "SCALE_VEST",
+        "LEATHERSCALE_BOOTS"
+      ]
     },
     {
       "code": "TEMPLAR",
@@ -58,7 +78,12 @@
         "STOCK_INTELLECT": 23.0,
         "STOCK_MANA": 55
       },
-      "weapon": "RUSTED_HATCHET"
+      "weapon": "RUSTED_HATCHET",
+      "armour": [
+        "IRON_HAT",
+        "CHAINMAIL_VEST",
+        "IRON_GREAVES"
+      ]
     },
     {
       "code": "SHADOW",
@@ -70,7 +95,12 @@
         "STOCK_INTELLECT": 23.0,
         "STOCK_MANA": 55
       },
-      "weapon": "RUSTED_SPIKE"
+      "weapon": "RUSTED_SPIKE",
+      "armour": [
+        "SCARE_MASK",
+        "PADDED_VEST",
+        "RAWHIDE_BOOTS"
+      ]
     },
     {
       "code": "SCION",
@@ -82,7 +112,12 @@
         "STOCK_INTELLECT": 20.0,
         "STOCK_MANA": 50
       },
-      "weapon": "CORRODED_BLADE"
+      "weapon": "CORRODED_BLADE",
+      "armour": [
+        "BATTERED_HELM",
+        "CHAINMAIL_VEST",
+        "LEATHERSCALE_BOOTS"
+      ]
     }
   ],
   "experience": [

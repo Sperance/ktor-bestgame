@@ -10,7 +10,6 @@ import com.mongodb.client.model.Projections
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.HeroClass
-import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.TakenNode
@@ -108,9 +107,9 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
 }
 
 /**
- * Стартовый набор нового героя: узел класса, первые умения, сферы, оружие класса в руках, фляга на
- * поясе, инструмент каждой профессии в своём слоте и по вещи на редкость правила. Заполняет только
- * пустое - администратор может прислать героя готовым.
+ * Стартовый набор нового героя (1.12.0): узел класса, первые умения, золото на первые покупки, оружие и броня
+ * класса надетыми, фляга на поясе и инструмент каждой профессии в своём слоте. Заполняет только пустое -
+ * администратор может прислать героя готовым.
  */
 object Starter {
     fun grant(hero: Hero, index: ContentIndex, heroClass: HeroClass) {
@@ -119,23 +118,19 @@ object Starter {
         val rules = index.rules.starter
         if (hero.tree.isEmpty()) hero.tree += TakenNode(heroClass.startNode)
         if (hero.skills.learned.isEmpty()) hero.skills = index.skillRules.starter(heroClass.code)
-        if (hero.bag.isEmpty()) Orb.entries.forEach { orb -> hero.bag[orb.name] = rules.orbs }
         if (hero.items.isNotEmpty()) return
+        hero.money += rules.gold
         index.template(index.rules.flasks.starter)?.let { flask ->
             hero.items += factory.create(Hero.newItemId(), flask, flask.rarity, dice).also { it.slot = Slot.FLASK }
         }
-        // Оружие класса - обычное, надетое сразу (1.2.0): герой не выходит на первую карту с пустыми руками
-        index.template(heroClass.weapon)?.let { weapon ->
-            hero.items += factory.create(Hero.newItemId(), weapon, Rarity.COMMON, dice).also { it.slot = weapon.slot }
+        // Оружие (1.2.0) и броня (1.12.0) класса - обычные, надетые сразу: герой не выходит на первую карту с пустыми руками
+        (listOf(heroClass.weapon) + heroClass.armour).mapNotNull(index::template).forEach { gear ->
+            hero.items += factory.create(Hero.newItemId(), gear, Rarity.COMMON, dice).also { it.slot = gear.slot }
         }
         index.professions.professions.forEach { profession ->
             index.templatesBySlot[profession.tool]?.firstOrNull { it.code.startsWith(rules.toolPrefix) }?.let { tool ->
                 hero.items += factory.create(Hero.newItemId(), tool, Rarity.COMMON, dice).also { it.slot = tool.slot }
             }
-        }
-        rules.gear.forEach { rarity ->
-            dice.pickOrNull(index.content.equipment.templates.filter { it.rarity == rarity && !it.slot.isTool && !it.slot.isFlask && !it.slot.isJewelLike })
-                ?.let { hero.items += factory.create(Hero.newItemId(), it, rarity, dice) }
         }
     }
 }

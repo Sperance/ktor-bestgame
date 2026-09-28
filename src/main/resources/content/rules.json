@@ -114,12 +114,8 @@
     ]
   },
   "starter": {
-    "orbs": 20,
-    "toolPrefix": "BRONZE_",
-    "gear": [
-      "COMMON",
-      "UNIQUE"
-    ]
+    "gold": 25,
+    "toolPrefix": "BRONZE_"
   },
   "auction": {
     "baseSlots": 5,

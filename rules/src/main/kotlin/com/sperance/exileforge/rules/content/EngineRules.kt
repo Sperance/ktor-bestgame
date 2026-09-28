@@ -79,9 +79,12 @@ data class FlaskRules(
     val orbs: List<Orb> = listOf(Orb.ORB_OF_TRANSMUTATION, Orb.ORB_OF_ALTERATION, Orb.ORB_OF_AUGMENTATION, Orb.ORB_OF_SCOURING, Orb.ORB_OF_CHANCE, Orb.BLESSED_ORB, Orb.DIVINE_ORB, Orb.VAAL_ORB, Orb.GLASSBLOWERS_BAUBLE),
 )
 
-/** Стартовый набор героя: сферы, инструменты по префиксу, вещи по редкостям, фляга. */
+/**
+ * Стартовый набор героя (1.12.0): золото на первые покупки у торговца и инструменты по префиксу; оружие и броня -
+ * у класса, фляга - в правилах фляг. Сфер и случайных вещей нет: их находят в первой же зоне.
+ */
 @Serializable
-data class StarterRules(val orbs: Long = 20, val toolPrefix: String = "BRONZE_", val gear: List<Rarity> = listOf(Rarity.COMMON, Rarity.UNIQUE))
+data class StarterRules(val gold: Long = 0, val toolPrefix: String = "BRONZE_")
 
 @Serializable
 data class AuctionRules(val baseSlots: Int = 5, val maxSlots: Int = 20, val firstSlotPrice: Double = 500.0, val slotGrowth: Double = 1.5, val minLevel: Int = 1) {
