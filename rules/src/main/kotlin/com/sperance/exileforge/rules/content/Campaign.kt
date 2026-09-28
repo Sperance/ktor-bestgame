@@ -48,7 +48,7 @@ data class AilmentRule(
 @Serializable data class RetreatRule(val delay: Double)
 @Serializable data class DeathRule(val fromLevel: Int, val experienceShare: Double)
 @Serializable data class LoneWolfRule(val dealt: Double = 10.0, val taken: Double = 10.0)
-@Serializable data class ManaRule(val regen: Double = 2.0)
+@Serializable data class ManaRule(val regen: Double = 3.0)
 @Serializable data class FlaskRule(val perKill: Map<MonsterRarity, Double> = mapOf(MonsterRarity.NORMAL to 1.0, MonsterRarity.MAGIC to 2.0, MonsterRarity.RARE to 3.0, MonsterRarity.UNIQUE to 5.0))
 
 /**

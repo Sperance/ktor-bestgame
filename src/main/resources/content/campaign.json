@@ -6893,7 +6893,7 @@
       }
     ],
     "mana": {
-      "regen": 2.0
+      "regen": 3.0
     },
     "flasks": {
       "perKill": {

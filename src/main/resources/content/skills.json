@@ -307,7 +307,7 @@
       "type": "AURA",
       "unlock": 1,
       "icon": "armour",
-      "reserve": 50,
+      "reserve": 30,
       "stats": [
         {
           "stat": "STOCK_ARMOR",
@@ -366,7 +366,7 @@
       "type": "AURA",
       "unlock": 16,
       "icon": "fire",
-      "reserve": 50,
+      "reserve": 30,
       "stats": [
         {
           "stat": "STOCK_ATTACK_FIRE",
@@ -580,8 +580,8 @@
         "targets": 0,
         "hits": 2,
         "weapon": [
-          72.0,
-          124.0
+          100.8,
+          173.6
         ]
       }
     },
@@ -658,7 +658,7 @@
       "type": "AURA",
       "unlock": 1,
       "icon": "evasion",
-      "reserve": 50,
+      "reserve": 30,
       "stats": [
         {
           "stat": "STOCK_EVASION",
@@ -708,7 +708,7 @@
       "type": "AURA",
       "unlock": 16,
       "icon": "speed",
-      "reserve": 50,
+      "reserve": 30,
       "stats": [
         {
           "stat": "STOCK_ATTACK_SPEED",
@@ -846,12 +846,12 @@
         "spell": {
           "element": "FIRE",
           "min": [
-            8.0,
-            329.0
+            28.0,
+            279.6
           ],
           "max": [
-            11.0,
-            493.0
+            38.5,
+            419.1
           ]
         },
         "ailments": [
@@ -886,12 +886,12 @@
         "spell": {
           "element": "COLD",
           "min": [
-            6.0,
-            291.0
+            21.0,
+            247.3
           ],
           "max": [
-            10.0,
-            436.0
+            35.0,
+            370.6
           ]
         },
         "ailments": [
@@ -926,12 +926,12 @@
         "spell": {
           "element": "LIGHTNING",
           "min": [
-            2.5,
-            88.0
+            8.8,
+            74.8
           ],
           "max": [
-            15.0,
-            531.0
+            52.5,
+            451.3
           ]
         },
         "ailments": [
@@ -995,12 +995,12 @@
         "targets": 1,
         "element": "CHAOS",
         "min": [
-          25.0,
-          569.0
+          87.5,
+          483.6
         ],
         "max": [
-          38.0,
-          860.0
+          133.0,
+          731.0
         ],
         "duration": 4,
         "ailments": [
@@ -1053,7 +1053,7 @@
       "type": "AURA",
       "unlock": 1,
       "icon": "shield_energy",
-      "reserve": 35,
+      "reserve": 25,
       "stats": [
         {
           "stat": "STOCK_ENERGY_SHIELD",
@@ -1216,8 +1216,8 @@
         "targets": 1,
         "hits": 2,
         "weapon": [
-          98.0,
-          172.0
+          73.5,
+          129.0
         ]
       }
     },
@@ -1375,7 +1375,7 @@
       "type": "AURA",
       "unlock": 1,
       "icon": "critical",
-      "reserve": 35,
+      "reserve": 25,
       "stats": [
         {
           "stat": "STOCK_CRITICAL_CHANCE",
@@ -1440,7 +1440,7 @@
       "type": "AURA",
       "unlock": 16,
       "icon": "bleeding",
-      "reserve": 35,
+      "reserve": 25,
       "stats": [
         {
           "stat": "STOCK_BLEED_CHANCE",
@@ -1585,12 +1585,12 @@
         "spell": {
           "element": "FIRE",
           "min": [
-            4.5,
-            192.0
+            15.8,
+            163.2
           ],
           "max": [
-            7.0,
-            282.0
+            24.5,
+            239.7
           ]
         }
       }
@@ -1616,12 +1616,12 @@
         "spell": {
           "element": "LIGHTNING",
           "min": [
-            6.0,
-            203.0
+            37.8,
+            310.6
           ],
           "max": [
-            17.0,
-            610.0
+            107.1,
+            933.3
           ]
         },
         "ailments": [
@@ -1726,7 +1726,7 @@
       "type": "AURA",
       "unlock": 1,
       "icon": "resist",
-      "reserve": 35,
+      "reserve": 25,
       "stats": [
         {
           "stat": "STOCK_RESIST_ALL",
@@ -1791,7 +1791,7 @@
       "type": "AURA",
       "unlock": 16,
       "icon": "lightning",
-      "reserve": 50,
+      "reserve": 30,
       "stats": [
         {
           "stat": "STOCK_ATTACK_LIGHTNING",
@@ -2012,12 +2012,12 @@
         "targets": 0,
         "element": "CHAOS",
         "min": [
-          19.0,
-          443.0
+          66.5,
+          376.6
         ],
         "max": [
-          28.0,
-          658.0
+          98.0,
+          559.3
         ],
         "duration": 4,
         "ailments": [
@@ -2087,8 +2087,8 @@
       "hit": {
         "targets": 1,
         "weapon": [
-          190.0,
-          316.0
+          342.0,
+          568.8
         ],
         "finisher": [
           300,
@@ -2102,7 +2102,7 @@
       "type": "AURA",
       "unlock": 1,
       "icon": "dark",
-      "reserve": 50,
+      "reserve": 30,
       "stats": [
         {
           "stat": "STOCK_BURNING_DAMAGE",
@@ -2187,7 +2187,7 @@
       "type": "AURA",
       "unlock": 16,
       "icon": "speed",
-      "reserve": 35,
+      "reserve": 25,
       "stats": [
         {
           "stat": "STOCK_ATTACK_SPEED",
@@ -2351,12 +2351,12 @@
         "spell": {
           "element": "LIGHTNING",
           "min": [
-            3.4,
-            127.0
+            16.1,
+            145.7
           ],
           "max": [
-            10.0,
-            381.0
+            47.3,
+            437.2
           ]
         }
       }
@@ -2458,7 +2458,7 @@
       "type": "AURA",
       "unlock": 1,
       "icon": "orb",
-      "reserve": 35,
+      "reserve": 25,
       "stats": [
         {
           "stat": "STOCK_STRENGTH",
@@ -2520,7 +2520,7 @@
       "type": "AURA",
       "unlock": 16,
       "icon": "magical",
-      "reserve": 50,
+      "reserve": 30,
       "stats": [
         {
           "stat": "STOCK_DAMAGE",
