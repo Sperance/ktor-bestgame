@@ -1983,6 +1983,20 @@
               80.0
             ]
           }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_PHYSICAL_REDUCTION",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_BLOCK",
+            "values": [
+              3
+            ]
+          }
         ]
       ],
       "x": 322,
@@ -3108,6 +3122,12 @@
           "values": [
             0.0
           ]
+        },
+        {
+          "code": "PASSIVE_ADD_MAXIMUM_PHYSICAL_REDUCTION",
+          "values": [
+            5
+          ]
         }
       ],
       "x": 1070,
@@ -3440,6 +3460,12 @@
           "values": [
             1
           ]
+        },
+        {
+          "code": "PASSIVE_ADD_MAXIMUM_BLOCK",
+          "values": [
+            5
+          ]
         }
       ],
       "x": 824,
@@ -3569,6 +3595,12 @@
           "code": "ADD_LIFE_ON_KILL",
           "values": [
             8
+          ]
+        },
+        {
+          "code": "SKILL_PREPARATION",
+          "values": [
+            15
           ]
         }
       ],
@@ -4269,6 +4301,20 @@
               40
             ]
           }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_EVASION",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "INCREASED_EVASION_RATING",
+            "values": [
+              30
+            ]
+          }
         ]
       ],
       "x": 1029,
@@ -4714,6 +4760,20 @@
               10
             ]
           }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_CRITICAL_CHANCE",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+            "values": [
+              52.0
+            ]
+          }
         ]
       ],
       "x": 919,
@@ -5029,6 +5089,20 @@
               50.0
             ]
           }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_EVASION",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "INCREASED_EVASION_RATING",
+            "values": [
+              38.0
+            ]
+          }
         ]
       ],
       "x": 602,
@@ -5230,6 +5304,12 @@
           "code": "INCREASED_ATTACK_SPEED",
           "values": [
             11.0
+          ]
+        },
+        {
+          "code": "SKILL_PREPARATION",
+          "values": [
+            15
           ]
         }
       ],
@@ -5879,6 +5959,20 @@
               10
             ]
           }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_CRITICAL_CHANCE",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+            "values": [
+              38.0
+            ]
+          }
         ]
       ],
       "x": 379,
@@ -6381,6 +6475,12 @@
           "values": [
             0.0
           ]
+        },
+        {
+          "code": "PASSIVE_ADD_MAXIMUM_EVASION",
+          "values": [
+            5
+          ]
         }
       ],
       "x": 73,
@@ -6697,6 +6797,20 @@
             "code": "ADD_LIFE_ON_KILL",
             "values": [
               10
+            ]
+          }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_CRITICAL_CHANCE",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+            "values": [
+              56.0
             ]
           }
         ]
@@ -7117,6 +7231,12 @@
           "code": "INCREASED_COOLDOWN_RECOVERY",
           "values": [
             16.0
+          ]
+        },
+        {
+          "code": "SKILL_PREPARATION",
+          "values": [
+            15
           ]
         }
       ],
@@ -7865,6 +7985,20 @@
             "code": "ADD_EVASION_RATING",
             "values": [
               50.0
+            ]
+          }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_EVASION",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "INCREASED_EVASION_RATING",
+            "values": [
+              38.0
             ]
           }
         ]
@@ -9206,6 +9340,12 @@
           "values": [
             35.0
           ]
+        },
+        {
+          "code": "SKILL_PREPARATION",
+          "values": [
+            15
+          ]
         }
       ],
       "connections": [
@@ -10268,6 +10408,20 @@
               40
             ]
           }
+        ],
+        [
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_PHYSICAL_REDUCTION",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "PASSIVE_ADD_MAXIMUM_BLOCK",
+            "values": [
+              3
+            ]
+          }
         ]
       ],
       "x": -695,
@@ -11295,6 +11449,12 @@
           "code": "PASSIVE_SET_CRITICAL_DAMAGE",
           "values": [
             0.0
+          ]
+        },
+        {
+          "code": "PASSIVE_ADD_MAXIMUM_BLOCK",
+          "values": [
+            5
           ]
         }
       ],

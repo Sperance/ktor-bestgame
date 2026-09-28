@@ -419,13 +419,14 @@ private class CampaignValidator(private val index: ContentIndex) {
         val damage = stats.stats.map { it.code }.filter { it.startsWith("STOCK_ATTACK_") }.toSet()
         fun positive(value: Double, name: String) { if (value <= 0) fail("combat: $name") }
         fun percent(value: Double, name: String) { if (value !in 0.0..100.0) fail("combat: $name") }
-        percent(rules.variance, "variance"); percent(rules.resistCap, "resistCap"); percent(rules.blockCap, "blockCap")
+        percent(rules.variance, "variance"); percent(rules.resistCap, "resistCap")
+        rules.ceilings.all.forEach { percent(it.base, "ceiling ${it.raise}"); percent(it.hard, "ceiling ${it.raise}"); if (it.hard < it.base || it.raise !in stats) fail("combat: ceiling ${it.raise}") }
         percent(rules.resistHardCap, "resistHardCap"); percent(rules.ailmentDurationCap, "ailmentDurationCap")
         if (rules.resistHardCap < rules.resistCap) fail("combat: resistHardCap")
         positive(rules.unarmed.damage, "unarmed.damage"); positive(rules.unarmed.speed, "unarmed.speed")
         percent(rules.critical.chance, "critical.chance"); if (rules.critical.multiplier < 100) fail("combat: critical.multiplier")
-        positive(rules.armour.factor, "armour.factor"); percent(rules.armour.cap, "armour.cap")
-        positive(rules.evasion.base, "evasion.base"); percent(rules.evasion.cap, "evasion.cap")
+        positive(rules.armour.factor, "armour.factor")
+        positive(rules.evasion.base, "evasion.base")
         if (rules.evasion.perLevel < 0 || rules.stun.share < 0 || rules.stun.duration < 0) fail("combat: stun")
         if (rules.shield.rechargeDelay < 0 || rules.shield.rechargePerSecond < 0) fail("combat: shield")
         if (rules.retreat.delay < 0) fail("combat: retreat.delay")

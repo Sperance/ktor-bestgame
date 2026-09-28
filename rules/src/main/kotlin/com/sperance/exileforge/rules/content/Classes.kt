@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 /**
  * Класс героя (`classes.json`): база на первом уровне, прирост за уровень, стартовый узел дерева,
  * закреплённые строки - конверсии атрибутов, общие для всех классов, - и [weapon], обычное оружие,
- * которое новый герой класса получает надетым (1.2.0).
+ * которое новый герой класса получает надетым (1.2.0), и [difficulty] - сложность освоения от 1 до 3 для экрана выбора.
  */
 @Serializable
 data class HeroClass(
@@ -16,6 +16,7 @@ data class HeroClass(
     val perLevel: Map<String, Double> = emptyMap(),
     val lines: List<Line> = emptyList(),
     val weapon: String = "",
+    val difficulty: Int = 0,
 ) {
     fun baseOn(level: Int): Map<String, Double> {
         val steps = (level - 1).coerceAtLeast(0)

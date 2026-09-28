@@ -126,6 +126,26 @@
       "order": 149
     },
     {
+      "code": "STOCK_BLOCK_MAX",
+      "group": "HERO",
+      "order": 150
+    },
+    {
+      "code": "STOCK_EVASION_MAX",
+      "group": "HERO",
+      "order": 151
+    },
+    {
+      "code": "STOCK_PHYSICAL_REDUCTION_MAX",
+      "group": "HERO",
+      "order": 152
+    },
+    {
+      "code": "STOCK_CRITICAL_MAX",
+      "group": "HERO",
+      "order": 153
+    },
+    {
       "code": "STOCK_ATTACK_PHYSICAL",
       "group": "HERO",
       "order": 200
@@ -290,6 +310,12 @@
       "code": "STOCK_COOLDOWN_RECOVERY",
       "group": "HERO",
       "order": 243,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SKILL_PREPARATION",
+      "group": "HERO",
+      "order": 244,
       "kind": "PERCENT"
     },
     {

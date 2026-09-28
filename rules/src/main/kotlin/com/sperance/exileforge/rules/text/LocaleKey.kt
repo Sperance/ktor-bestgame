@@ -40,6 +40,8 @@ object LocaleKey {
     fun skillNodeDescription(code: String) = key(SKILL_NODE, code, DESCRIPTION)
     fun className(code: String) = key(CHARACTER_CLASS, code, NAME)
     fun classDescription(code: String) = key(CHARACTER_CLASS, code, DESCRIPTION)
+    /** Текст экрана выбора класса: [ClassText] - роль, история, стиль, сильные и слабые стороны, архетипы. */
+    fun classText(code: String, field: ClassText) = key(CHARACTER_CLASS, code, field.key)
     fun regionName(code: String) = key(REGION, code, NAME)
     fun mapName(code: String) = key(MAP, code, NAME)
     fun mapDescription(code: String) = key(MAP, code, DESCRIPTION)
@@ -65,3 +67,6 @@ object LocaleKey {
 
     private fun key(section: String, code: String, field: String) = "$section.$code.$field"
 }
+
+/** Поля описания класса на экране выбора; списки (сильные и слабые стороны) - строки через перевод строки. */
+enum class ClassText(val key: String) { ROLE("role"), LORE("lore"), STYLE("style"), PROS("pros"), CONS("cons"), BUILDS("builds") }

@@ -70,6 +70,8 @@ data class SkillDefinition(
     val hit: SkillHit? = null, val dot: SkillDot? = null, val buff: SkillBuff? = null, val curse: SkillCurse? = null, val heal: SkillHeal? = null,
     val shield: Scale? = null, val barrier: SkillBarrier? = null, val stats: List<SkillStat> = emptyList(), val lowLife: Boolean = false,
     val trigger: SkillTrigger? = null,
+    /** Подготовка (3.13.0 клиента): сколько процентов перезарядки идёт в начале боя, от первого уровня умения к последнему. */
+    val prepare: Scale? = null,
 ) {
     val kind: SkillKind get() = type.kind
     val book: String get() = SkillRules.book(code)

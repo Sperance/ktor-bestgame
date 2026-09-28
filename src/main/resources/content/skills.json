@@ -111,6 +111,10 @@
         20
       ],
       "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -168,6 +172,10 @@
         34
       ],
       "cooldown": 6.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "ENEMIES_3",
       "hit": {
         "targets": 0,
@@ -192,6 +200,10 @@
         36
       ],
       "cooldown": 5.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -226,6 +238,10 @@
         40
       ],
       "cooldown": 15.0,
+      "prepare": [
+        30.0,
+        10.0
+      ],
       "condition": "RARE_OR_BOSS",
       "curse": {
         "duration": 8,
@@ -259,6 +275,10 @@
         34
       ],
       "cooldown": 20.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "LIFE_50",
       "buff": {
         "duration": 8,
@@ -449,6 +469,10 @@
         20
       ],
       "cooldown": 2.5,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 3,
@@ -469,6 +493,10 @@
         28
       ],
       "cooldown": 5.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -498,6 +526,10 @@
         32
       ],
       "cooldown": 5.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -539,6 +571,10 @@
         40
       ],
       "cooldown": 8.0,
+      "prepare": [
+        60.0,
+        30.0
+      ],
       "condition": "ENEMIES_3",
       "hit": {
         "targets": 0,
@@ -560,6 +596,10 @@
         36
       ],
       "cooldown": 14.0,
+      "prepare": [
+        30.0,
+        10.0
+      ],
       "condition": "RARE_OR_BOSS",
       "curse": {
         "duration": 8,
@@ -593,6 +633,10 @@
         32
       ],
       "cooldown": 16.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "LIFE_50",
       "buff": {
         "duration": 5,
@@ -792,6 +836,10 @@
         24
       ],
       "cooldown": 2.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -828,6 +876,10 @@
         26
       ],
       "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 2,
@@ -864,6 +916,10 @@
         30
       ],
       "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "ENEMIES_3",
       "hit": {
         "targets": 4,
@@ -900,6 +956,10 @@
         38
       ],
       "cooldown": 14.0,
+      "prepare": [
+        30.0,
+        10.0
+      ],
       "condition": "RARE_OR_BOSS",
       "curse": {
         "duration": 8,
@@ -926,6 +986,10 @@
         34
       ],
       "cooldown": 6.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "READY",
       "dot": {
         "targets": 1,
@@ -961,6 +1025,10 @@
         40
       ],
       "cooldown": 20.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "SHIELD_BROKEN",
       "buff": {
         "duration": 6,
@@ -1139,6 +1207,10 @@
         20
       ],
       "cooldown": 2.5,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -1160,6 +1232,10 @@
         26
       ],
       "cooldown": 4.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -1189,6 +1265,10 @@
         36
       ],
       "cooldown": 8.0,
+      "prepare": [
+        60.0,
+        30.0
+      ],
       "condition": "ENEMIES_3",
       "hit": {
         "targets": 0,
@@ -1236,6 +1316,10 @@
         36
       ],
       "cooldown": 15.0,
+      "prepare": [
+        30.0,
+        10.0
+      ],
       "condition": "RARE_OR_BOSS",
       "curse": {
         "duration": 8,
@@ -1263,6 +1347,10 @@
         32
       ],
       "cooldown": 18.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "LIFE_50",
       "buff": {
         "duration": 6,
@@ -1449,6 +1537,10 @@
         22
       ],
       "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -1483,6 +1575,10 @@
         28
       ],
       "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "ENEMIES_3",
       "hit": {
         "targets": 0,
@@ -1510,6 +1606,10 @@
         32
       ],
       "cooldown": 5.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -1546,6 +1646,10 @@
         40
       ],
       "cooldown": 18.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "LIFE_50",
       "heal": {
         "life": [
@@ -1566,6 +1670,10 @@
         38
       ],
       "cooldown": 14.0,
+      "prepare": [
+        30.0,
+        10.0
+      ],
       "condition": "RARE_OR_BOSS",
       "curse": {
         "duration": 8,
@@ -1599,6 +1707,10 @@
         42
       ],
       "cooldown": 24.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "LIFE_35",
       "barrier": {
         "life": [
@@ -1802,6 +1914,10 @@
         20
       ],
       "cooldown": 2.5,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -1831,6 +1947,10 @@
         28
       ],
       "cooldown": 5.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "ENEMIES_3",
       "hit": {
         "targets": 0,
@@ -1852,6 +1972,10 @@
         30
       ],
       "cooldown": 16.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "LIFE_50",
       "buff": {
         "duration": 4,
@@ -1879,6 +2003,10 @@
         36
       ],
       "cooldown": 7.0,
+      "prepare": [
+        50.0,
+        20.0
+      ],
       "condition": "ENEMIES_3",
       "dot": {
         "targets": 0,
@@ -1914,6 +2042,10 @@
         38
       ],
       "cooldown": 14.0,
+      "prepare": [
+        30.0,
+        10.0
+      ],
       "condition": "RARE_OR_BOSS",
       "curse": {
         "duration": 8,
@@ -1947,6 +2079,10 @@
         38
       ],
       "cooldown": 10.0,
+      "prepare": [
+        60.0,
+        30.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -2143,6 +2279,10 @@
         22
       ],
       "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 1,
@@ -2177,6 +2317,10 @@
         26
       ],
       "cooldown": 3.5,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "READY",
       "hit": {
         "targets": 2,
@@ -2197,6 +2341,10 @@
         32
       ],
       "cooldown": 4.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
       "condition": "ENEMIES_3",
       "hit": {
         "targets": 4,
@@ -2257,6 +2405,10 @@
         38
       ],
       "cooldown": 15.0,
+      "prepare": [
+        30.0,
+        10.0
+      ],
       "condition": "RARE_OR_BOSS",
       "curse": {
         "duration": 8,
@@ -2284,6 +2436,10 @@
         42
       ],
       "cooldown": 20.0,
+      "prepare": [
+        40.0,
+        15.0
+      ],
       "condition": "LIFE_50",
       "heal": {
         "life": [

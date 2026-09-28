@@ -41,8 +41,8 @@ data class AilmentRule(
 
 @Serializable data class UnarmedRule(val damage: Double, val speed: Double)
 @Serializable data class CriticalRule(val chance: Double, val multiplier: Double)
-@Serializable data class ArmourRule(val factor: Double, val cap: Double)
-@Serializable data class EvasionRule(val base: Double, val perLevel: Double, val cap: Double)
+@Serializable data class ArmourRule(val factor: Double)
+@Serializable data class EvasionRule(val base: Double, val perLevel: Double)
 @Serializable data class StunRule(val share: Double, val duration: Double)
 @Serializable data class ShieldRule(val rechargeDelay: Double, val rechargePerSecond: Double)
 @Serializable data class RetreatRule(val delay: Double)
@@ -51,12 +51,27 @@ data class AilmentRule(
 @Serializable data class ManaRule(val regen: Double = 2.0)
 @Serializable data class FlaskRule(val perKill: Map<MonsterRarity, Double> = mapOf(MonsterRarity.NORMAL to 1.0, MonsterRarity.MAGIC to 2.0, MonsterRarity.RARE to 3.0, MonsterRarity.UNIQUE to 5.0))
 
+/**
+ * Предел характеристики (сервер 1.11.0), устроенный как у сопротивлений: [base] без поднятий, строки [raise]
+ * поднимают его, но не выше жёсткого [hard].
+ */
+@Serializable
+data class Ceiling(val base: Double, val hard: Double, val raise: String) {
+    fun at(raised: Double): Double = (base + raised).coerceIn(0.0, hard)
+}
+
+/** Пределы бойца: шанс блока, шанс уклонения, снижение физического урона (бронёй и строками) и шанс крита. */
+@Serializable
+data class Ceilings(val block: Ceiling, val evasion: Ceiling, val physical: Ceiling, val critical: Ceiling) {
+    val all: List<Ceiling> get() = listOf(block, evasion, physical, critical)
+}
+
 /** Правила боя: числа, по которым клиент считает автобой. */
 @Serializable
 data class CombatRules(
     val variance: Double,
     val resistCap: Double,
-    val blockCap: Double,
+    val ceilings: Ceilings,
     val unarmed: UnarmedRule,
     val critical: CriticalRule,
     val armour: ArmourRule,
@@ -76,7 +91,16 @@ data class CombatRules(
      * от залпа всех слотов в первый же кадр. Умения с условием «начало боя» готовы сразу.
      */
     val opening: Double = 0.0,
-)
+    /** Потолок «быстрой подготовки» (3.13.0 клиента): на сколько процентов она укорачивает подготовку умения в начале боя. */
+    val preparationCap: Double = 75.0,
+) {
+    /**
+     * Какая доля перезарядки умения идёт в начале боя: подготовка умения на его уровне (или [opening], если своей нет),
+     * укороченная быстрой подготовкой героя [quickness] в пределах [preparationCap].
+     */
+    fun preparation(skill: SkillDefinition, level: Int, quickness: Double): Double =
+        (skill.prepare?.at(level) ?: opening).coerceIn(0.0, 100.0) / 100 * (1 - quickness.coerceIn(0.0, preparationCap) / 100)
+}
 
 /**
  * Монстр на первом уровне: характеристики растут по `growth`, [loot] - тег таблицы добычи, [fixed] -

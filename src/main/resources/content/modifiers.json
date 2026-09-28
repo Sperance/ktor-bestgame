@@ -1773,6 +1773,126 @@
       ]
     },
     {
+      "code": "PASSIVE_ADD_MAXIMUM_BLOCK",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_BLOCK_MAX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "block",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_ADD_MAXIMUM_EVASION",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_EVASION_MAX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "evasion",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_ADD_MAXIMUM_PHYSICAL_REDUCTION",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_PHYSICAL_REDUCTION_MAX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "physical",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_ADD_MAXIMUM_CRITICAL_CHANCE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_MAX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "critical",
+        "passive"
+      ]
+    },
+    {
       "code": "AVOID_STUN",
       "source": "SUFFIX",
       "effects": [
@@ -17499,6 +17619,39 @@
           [
             5,
             8
+          ]
+        ]
+      },
+      "tags": [
+        "skill",
+        "speed"
+      ]
+    },
+    {
+      "code": "SKILL_PREPARATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SKILL_PREPARATION",
+          "op": "ADD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          30,
+          1
+        ],
+        "top": [
+          [
+            16,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            9
           ]
         ]
       },

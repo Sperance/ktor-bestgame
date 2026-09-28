@@ -9889,6 +9889,15 @@
         ],
         [
           {
+            "stat": "STOCK_CRITICAL_MAX",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
             "stat": "POWER_BEAST_FURY",
             "range": [
               8.0,
@@ -10025,6 +10034,15 @@
             "range": [
               -8.0,
               -6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PHYSICAL_REDUCTION_MAX",
+            "range": [
+              3.0,
+              5.0
             ]
           }
         ],
@@ -10177,6 +10195,15 @@
         ],
         [
           {
+            "stat": "STOCK_EVASION_MAX",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
             "stat": "POWER_CARCASS_BURST",
             "range": [
               15.0,
@@ -10295,6 +10322,15 @@
             "range": [
               8.0,
               12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_MAX",
+            "range": [
+              5.0,
+              8.0
             ]
           }
         ],
@@ -11189,6 +11225,15 @@
         ],
         [
           {
+            "stat": "STOCK_BLOCK_MAX",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
             "stat": "POWER_REMORSEFUL_GUARD",
             "range": [
               1.5,
@@ -11332,6 +11377,15 @@
             "range": [
               -10.0,
               -8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_BLOCK_MAX",
+            "range": [
+              4.0,
+              6.0
             ]
           }
         ],

@@ -7,6 +7,23 @@
 Новая запись добавляется **сверху**, в день, когда изменения прошли проверки и уехали в ветку.
 Коротко: что поменялось и, если что-то чинилось, в чём была причина.
 
+## 1.11.0 — 2026-09-28
+
+Работает с ExileForge 3.13.0 (ревизия API 16), база не очищается.
+
+- Классы: поле `difficulty` (1–3) и тексты экрана выбора `class.<КЛАСС>.role/lore/style/pros/cons/builds` на ru/en
+  (`LocaleKey.classText`, `ClassText`).
+- Подготовка умений: у активных умений `prepare` — доля перезарядки в начале боя от 1-го к 20-му уровню;
+  `CombatRules.preparation` и `preparationCap` (75). Характеристика `STOCK_SKILL_PREPARATION` «Быстрая подготовка»,
+  суффикс `SKILL_PREPARATION` (перчатки, амулеты; 6–9 … 16–20%), +15% на значимых SHA_C2_2, WIT_C4_2, DUE_C1_1, RAN_C1_2.
+- Пределы: `blockCap`, `armour.cap`, `evasion.cap` заменены на `combat.ceilings` (`Ceiling`: база, жёсткий потолок,
+  поднимающая характеристика): блок 50/75, уклонение 50/75, физическое снижение 75/90, крит 70/90. Характеристики
+  `STOCK_BLOCK_MAX`, `STOCK_EVASION_MAX`, `STOCK_PHYSICAL_REDUCTION_MAX`, `STOCK_CRITICAL_MAX` с пассивными
+  модификаторами: новый вариант мастерств (+3%: броня MAR/TEM — физ. и блок, уклонение DUE/RAN/SHA, крит DUE/RAN/SHA),
+  ключевые узлы +5% (MAR_K5, RAN_K5, TEM_K5, DUE_K0), шесть уникальных вещей (Saffell's Frame, Lioneye's Remorse,
+  Carcass Jack, Belly of the Beast, Maligaro's Virtuosity, Starkonja's Head). Локализация ru/en, описания пределов
+  обновлены.
+
 ## 1.10.0 — 2026-09-27
 
 Работает с ExileForge 3.11.0 (ревизия API 16), база не очищается.

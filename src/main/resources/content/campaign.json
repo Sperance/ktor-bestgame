@@ -6784,7 +6784,28 @@
   "combat": {
     "variance": 20,
     "resistCap": 75,
-    "blockCap": 75,
+    "ceilings": {
+      "block": {
+        "base": 50,
+        "hard": 75,
+        "raise": "STOCK_BLOCK_MAX"
+      },
+      "evasion": {
+        "base": 50,
+        "hard": 75,
+        "raise": "STOCK_EVASION_MAX"
+      },
+      "physical": {
+        "base": 75,
+        "hard": 90,
+        "raise": "STOCK_PHYSICAL_REDUCTION_MAX"
+      },
+      "critical": {
+        "base": 70,
+        "hard": 90,
+        "raise": "STOCK_CRITICAL_MAX"
+      }
+    },
     "resistHardCap": 90,
     "ailmentDurationCap": 75,
     "unarmed": {
@@ -6796,13 +6817,11 @@
       "multiplier": 150
     },
     "armour": {
-      "factor": 5,
-      "cap": 90
+      "factor": 5
     },
     "evasion": {
       "base": 150,
-      "perLevel": 40,
-      "cap": 75
+      "perLevel": 40
     },
     "stun": {
       "share": 15,
@@ -6884,7 +6903,8 @@
         "UNIQUE": 5.0
       }
     },
-    "opening": 50
+    "opening": 50,
+    "preparationCap": 75
   },
   "behaviour": {
     "default": {
