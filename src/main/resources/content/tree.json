@@ -357,7 +357,8 @@
         }
       ],
       "connections": [
-        "SCN_R1"
+        "SCN_R1",
+        "SCN_WA_1"
       ],
       "x": 212,
       "y": -268
@@ -408,7 +409,8 @@
         }
       ],
       "connections": [
-        "SCN_R2"
+        "SCN_R2",
+        "SCN_MP_1"
       ],
       "x": 350,
       "y": 56
@@ -505,7 +507,8 @@
         }
       ],
       "connections": [
-        "SCN_R4"
+        "SCN_R4",
+        "SCN_EE_1"
       ],
       "x": -205,
       "y": 256
@@ -604,7 +607,8 @@
         }
       ],
       "connections": [
-        "SCN_R0"
+        "SCN_R0",
+        "SCN_TM_1"
       ],
       "x": -112,
       "y": -313
@@ -1442,6 +1446,2054 @@
       "y": 130
     },
     {
+      "code": "SCN_WA_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_2"
+      ],
+      "x": 322,
+      "y": -270
+    },
+    {
+      "code": "SCN_WA_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            4.5
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_3"
+      ],
+      "x": 272,
+      "y": -320
+    },
+    {
+      "code": "SCN_WA_3",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            16,
+            16
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            12,
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_4"
+      ],
+      "x": 216,
+      "y": -360
+    },
+    {
+      "code": "SCN_WA_4",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_5"
+      ],
+      "x": 153,
+      "y": -391
+    },
+    {
+      "code": "SCN_WA_5",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            4.5
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_6"
+      ],
+      "x": 195,
+      "y": -450
+    },
+    {
+      "code": "SCN_WA_6",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_7"
+      ],
+      "x": 257,
+      "y": -417
+    },
+    {
+      "code": "SCN_WA_7",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            33
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            10,
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_8"
+      ],
+      "x": 313,
+      "y": -377
+    },
+    {
+      "code": "SCN_WA_8",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_9"
+      ],
+      "x": 364,
+      "y": -328
+    },
+    {
+      "code": "SCN_WA_9",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            4.5
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_10"
+      ],
+      "x": 406,
+      "y": -386
+    },
+    {
+      "code": "SCN_WA_10",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_11"
+      ],
+      "x": 354,
+      "y": -434
+    },
+    {
+      "code": "SCN_WA_11",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR_AND_EVASION",
+          "values": [
+            16,
+            16
+          ]
+        },
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_12"
+      ],
+      "x": 298,
+      "y": -474
+    },
+    {
+      "code": "SCN_WA_12",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            4.5
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_13"
+      ],
+      "x": 236,
+      "y": -508
+    },
+    {
+      "code": "SCN_WA_13",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_14"
+      ],
+      "x": 277,
+      "y": -566
+    },
+    {
+      "code": "SCN_WA_14",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_K0",
+        "SCN_WA_15"
+      ],
+      "x": 338,
+      "y": -531
+    },
+    {
+      "code": "SCN_K0",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "CONVERT_STRENGTH_TO_PHYSICAL_DAMAGE",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "CONVERT_DEXTERITY_TO_EVASION",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "PASSIVE_LESS_MAXIMUM_MANA",
+          "values": [
+            -30
+          ]
+        }
+      ],
+      "x": 355,
+      "y": -615
+    },
+    {
+      "code": "SCN_WA_15",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_16"
+      ],
+      "x": 395,
+      "y": -491
+    },
+    {
+      "code": "SCN_WA_16",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "CHANCE_TO_BLEED",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+          "values": [
+            19
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_WA_17"
+      ],
+      "x": 447,
+      "y": -444
+    },
+    {
+      "code": "SCN_WA_17",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            16,
+            16
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "x": 466,
+      "y": -529
+    },
+    {
+      "code": "SCN_WA_M",
+      "type": "MASTERY",
+      "connections": [
+        "SCN_WA_7",
+        "SCN_WA_11"
+      ],
+      "options": [
+        [
+          {
+            "code": "INCREASED_PHYSICAL_DAMAGE",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              4.5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_ARMOUR",
+            "values": [
+              30
+            ]
+          },
+          {
+            "code": "INCREASED_EVASION_RATING",
+            "values": [
+              30
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_LIFE_ON_HIT",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "ADD_STRENGTH_AND_DEXTERITY",
+            "values": [
+              8,
+              8
+            ]
+          }
+        ]
+      ],
+      "x": 306,
+      "y": -426
+    },
+    {
+      "code": "SCN_EE_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_2"
+      ],
+      "x": -323,
+      "y": 268
+    },
+    {
+      "code": "SCN_EE_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_3"
+      ],
+      "x": -274,
+      "y": 318
+    },
+    {
+      "code": "SCN_EE_3",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            20,
+            20,
+            20
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            12,
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_4"
+      ],
+      "x": -218,
+      "y": 359
+    },
+    {
+      "code": "SCN_EE_4",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_5"
+      ],
+      "x": -155,
+      "y": 390
+    },
+    {
+      "code": "SCN_EE_5",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_6"
+      ],
+      "x": -197,
+      "y": 449
+    },
+    {
+      "code": "SCN_EE_6",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_7"
+      ],
+      "x": -259,
+      "y": 416
+    },
+    {
+      "code": "SCN_EE_7",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_LIGHTNING_DAMAGE",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "CHANCE_TO_SHOCK",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            9
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_8"
+      ],
+      "x": -316,
+      "y": 375
+    },
+    {
+      "code": "SCN_EE_8",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_9"
+      ],
+      "x": -366,
+      "y": 326
+    },
+    {
+      "code": "SCN_EE_9",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_10"
+      ],
+      "x": -408,
+      "y": 384
+    },
+    {
+      "code": "SCN_EE_10",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_11"
+      ],
+      "x": -357,
+      "y": 431
+    },
+    {
+      "code": "SCN_EE_11",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_COLD_DAMAGE",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "CHANCE_TO_FREEZE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            16,
+            16
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_12"
+      ],
+      "x": -300,
+      "y": 473
+    },
+    {
+      "code": "SCN_EE_12",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_13"
+      ],
+      "x": -239,
+      "y": 506
+    },
+    {
+      "code": "SCN_EE_13",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_14"
+      ],
+      "x": -281,
+      "y": 564
+    },
+    {
+      "code": "SCN_EE_14",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_FIRE_DAMAGE",
+          "values": [
+            24
+          ]
+        },
+        {
+          "code": "CHANCE_TO_IGNITE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_K1",
+        "SCN_EE_15"
+      ],
+      "x": -342,
+      "y": 529
+    },
+    {
+      "code": "SCN_K1",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_MORE_ELEMENTAL_DAMAGE",
+          "values": [
+            40,
+            40,
+            40
+          ]
+        },
+        {
+          "code": "PASSIVE_LESS_PHYSICAL_DAMAGE",
+          "values": [
+            -50
+          ]
+        }
+      ],
+      "x": -359,
+      "y": 613
+    },
+    {
+      "code": "SCN_EE_15",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            6,
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_16"
+      ],
+      "x": -398,
+      "y": 488
+    },
+    {
+      "code": "SCN_EE_16",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            16,
+            16
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_EE_17"
+      ],
+      "x": -450,
+      "y": 441
+    },
+    {
+      "code": "SCN_EE_17",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+          "values": [
+            19
+          ]
+        },
+        {
+          "code": "INCREASED_ELEMENTAL_DAMAGE",
+          "values": [
+            17,
+            17,
+            17
+          ]
+        }
+      ],
+      "x": -469,
+      "y": 526
+    },
+    {
+      "code": "SCN_EE_M",
+      "type": "MASTERY",
+      "connections": [
+        "SCN_EE_7",
+        "SCN_EE_11"
+      ],
+      "options": [
+        [
+          {
+            "code": "INCREASED_ELEMENTAL_DAMAGE",
+            "values": [
+              21,
+              21,
+              21
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              3
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "ADD_ENERGY_SHIELD",
+            "values": [
+              20
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+            "values": [
+              30
+            ]
+          },
+          {
+            "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+            "values": [
+              12
+            ]
+          }
+        ]
+      ],
+      "x": -309,
+      "y": 425
+    },
+    {
+      "code": "SCN_TM_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_2"
+      ],
+      "x": -52,
+      "y": -417
+    },
+    {
+      "code": "SCN_TM_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            13
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_3"
+      ],
+      "x": -121,
+      "y": -402
+    },
+    {
+      "code": "SCN_TM_3",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            22
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            22
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            12,
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_4"
+      ],
+      "x": -186,
+      "y": -377
+    },
+    {
+      "code": "SCN_TM_4",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_5"
+      ],
+      "x": -246,
+      "y": -341
+    },
+    {
+      "code": "SCN_TM_5",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_6"
+      ],
+      "x": -272,
+      "y": -407
+    },
+    {
+      "code": "SCN_TM_6",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_7"
+      ],
+      "x": -212,
+      "y": -442
+    },
+    {
+      "code": "SCN_TM_7",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            35
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            13
+          ]
+        },
+        {
+          "code": "REDUCED_SKILL_COST",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_8"
+      ],
+      "x": -146,
+      "y": -468
+    },
+    {
+      "code": "SCN_TM_8",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_9"
+      ],
+      "x": -78,
+      "y": -484
+    },
+    {
+      "code": "SCN_TM_9",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            13
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_10"
+      ],
+      "x": -104,
+      "y": -550
+    },
+    {
+      "code": "SCN_TM_10",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_11"
+      ],
+      "x": -172,
+      "y": -533
+    },
+    {
+      "code": "SCN_TM_11",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_12"
+      ],
+      "x": -237,
+      "y": -507
+    },
+    {
+      "code": "SCN_TM_12",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_13"
+      ],
+      "x": -299,
+      "y": -474
+    },
+    {
+      "code": "SCN_TM_13",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_14"
+      ],
+      "x": -325,
+      "y": -540
+    },
+    {
+      "code": "SCN_TM_14",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_SKILL_HEALING",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_K2",
+        "SCN_TM_15"
+      ],
+      "x": -263,
+      "y": -573
+    },
+    {
+      "code": "SCN_K2",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "CONVERT_INTELLIGENCE_TO_LIFE",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_ELEMENTAL_RESISTANCES",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            0
+          ]
+        }
+      ],
+      "x": -324,
+      "y": -632
+    },
+    {
+      "code": "SCN_TM_15",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_16"
+      ],
+      "x": -198,
+      "y": -598
+    },
+    {
+      "code": "SCN_TM_16",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_AURA_EFFECT",
+          "values": [
+            9
+          ]
+        },
+        {
+          "code": "INCREASED_RESERVATION_EFFICIENCY",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_TM_17"
+      ],
+      "x": -130,
+      "y": -616
+    },
+    {
+      "code": "SCN_TM_17",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            16
+          ]
+        }
+      ],
+      "x": -192,
+      "y": -678
+    },
+    {
+      "code": "SCN_TM_M",
+      "type": "MASTERY",
+      "connections": [
+        "SCN_TM_7",
+        "SCN_TM_11"
+      ],
+      "options": [
+        [
+          {
+            "code": "INCREASED_MAXIMUM_LIFE",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "INCREASED_ENERGY_SHIELD",
+            "values": [
+              12
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "ADD_CHAOS_RESISTANCE",
+            "values": [
+              10
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_SPELL_DAMAGE",
+            "values": [
+              40
+            ]
+          },
+          {
+            "code": "INCREASED_CAST_SPEED",
+            "values": [
+              8
+            ]
+          }
+        ]
+      ],
+      "x": -192,
+      "y": -489
+    },
+    {
+      "code": "SCN_MP_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_2"
+      ],
+      "x": 393,
+      "y": 147
+    },
+    {
+      "code": "SCN_MP_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_3"
+      ],
+      "x": 412,
+      "y": 80
+    },
+    {
+      "code": "SCN_MP_3",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            10,
+            10,
+            10
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_4"
+      ],
+      "x": 420,
+      "y": 11
+    },
+    {
+      "code": "SCN_MP_4",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_SKILL_DAMAGE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_5"
+      ],
+      "x": 416,
+      "y": -59
+    },
+    {
+      "code": "SCN_MP_5",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_6"
+      ],
+      "x": 487,
+      "y": -52
+    },
+    {
+      "code": "SCN_MP_6",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            4.8
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_7"
+      ],
+      "x": 490,
+      "y": 18
+    },
+    {
+      "code": "SCN_MP_7",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_SKILL_DAMAGE",
+          "values": [
+            26
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            9
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            13
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_8"
+      ],
+      "x": 482,
+      "y": 88
+    },
+    {
+      "code": "SCN_MP_8",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_9"
+      ],
+      "x": 465,
+      "y": 155
+    },
+    {
+      "code": "SCN_MP_9",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_10"
+      ],
+      "x": 536,
+      "y": 163
+    },
+    {
+      "code": "SCN_MP_10",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_SKILL_DAMAGE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_11"
+      ],
+      "x": 552,
+      "y": 95
+    },
+    {
+      "code": "SCN_MP_11",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            16
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_12"
+      ],
+      "x": 559,
+      "y": 26
+    },
+    {
+      "code": "SCN_MP_12",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_13"
+      ],
+      "x": 558,
+      "y": -44
+    },
+    {
+      "code": "SCN_MP_13",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            4.8
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_14"
+      ],
+      "x": 629,
+      "y": -37
+    },
+    {
+      "code": "SCN_MP_14",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "INCREASED_SKILL_DAMAGE",
+          "values": [
+            26
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            8,
+            8,
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_K3",
+        "SCN_MP_15"
+      ],
+      "x": 629,
+      "y": 33
+    },
+    {
+      "code": "SCN_K3",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_MORE_MAXIMUM_LIFE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "PASSIVE_MORE_DAMAGE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "ADD_ALL_RESISTANCES",
+          "values": [
+            10,
+            10
+          ]
+        },
+        {
+          "code": "PASSIVE_REDUCE_MAXIMUM_BLOCK",
+          "values": [
+            -5
+          ]
+        },
+        {
+          "code": "PASSIVE_REDUCE_MAXIMUM_EVASION",
+          "values": [
+            -5
+          ]
+        }
+      ],
+      "x": 710,
+      "y": 7
+    },
+    {
+      "code": "SCN_MP_15",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_16"
+      ],
+      "x": 622,
+      "y": 103
+    },
+    {
+      "code": "SCN_MP_16",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "INCREASED_STUN_THRESHOLD",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_MP_17"
+      ],
+      "x": 606,
+      "y": 171
+    },
+    {
+      "code": "SCN_MP_17",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "x": 690,
+      "y": 145
+    },
+    {
+      "code": "SCN_MP_M",
+      "type": "MASTERY",
+      "connections": [
+        "SCN_MP_7",
+        "SCN_MP_11"
+      ],
+      "options": [
+        [
+          {
+            "code": "INCREASED_MAXIMUM_LIFE",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "ADD_LIFE_REGENERATION",
+            "values": [
+              5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "ADD_CHAOS_RESISTANCE",
+            "values": [
+              10
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_SKILL_DAMAGE",
+            "values": [
+              19
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              3
+            ]
+          }
+        ]
+      ],
+      "x": 522,
+      "y": 57
+    },
+    {
       "code": "STR_START",
       "type": "START",
       "connections": [
@@ -1454,8 +3506,8 @@
         "MAR_IN_2"
       ],
       "cost": 0,
-      "x": 316,
-      "y": -452
+      "x": 517,
+      "y": -739
     },
     {
       "code": "MAR_IN_1",
@@ -1477,8 +3529,8 @@
       "connections": [
         "MAR_IN_2"
       ],
-      "x": 75,
-      "y": -408
+      "x": 138,
+      "y": -752
     },
     {
       "code": "MAR_IN_2",
@@ -1497,8 +3549,8 @@
           ]
         }
       ],
-      "x": 196,
-      "y": -448
+      "x": 336,
+      "y": -769
     },
     {
       "code": "MAR_B0_1",
@@ -1520,8 +3572,8 @@
       "connections": [
         "MAR_B0_2"
       ],
-      "x": 186,
-      "y": -580
+      "x": 293,
+      "y": -913
     },
     {
       "code": "MAR_B0_2",
@@ -1543,8 +3595,8 @@
       "connections": [
         "MAR_C0_0"
       ],
-      "x": 140,
-      "y": -617
+      "x": 217,
+      "y": -958
     },
     {
       "code": "MAR_C0_0",
@@ -1566,8 +3618,8 @@
       "connections": [
         "MAR_C0_1"
       ],
-      "x": 138,
-      "y": -706
+      "x": 205,
+      "y": -1049
     },
     {
       "code": "MAR_C0_1",
@@ -1595,8 +3647,8 @@
       "connections": [
         "MAR_C0_2"
       ],
-      "x": 49,
-      "y": -786
+      "x": 71,
+      "y": -1135
     },
     {
       "code": "MAR_C0_2",
@@ -1619,8 +3671,8 @@
         "MAR_C0_3",
         "MAR_T0_1"
       ],
-      "x": 133,
-      "y": -849
+      "x": 187,
+      "y": -1195
     },
     {
       "code": "MAR_C0_3",
@@ -1648,8 +3700,8 @@
       "connections": [
         "MAR_C0_0"
       ],
-      "x": 199,
-      "y": -772
+      "x": 286,
+      "y": -1111
     },
     {
       "code": "MAR_C0_M",
@@ -1702,8 +3754,8 @@
           }
         ]
       ],
-      "x": 127,
-      "y": -777
+      "x": 183,
+      "y": -1122
     },
     {
       "code": "MAR_T0_1",
@@ -1725,8 +3777,8 @@
       "connections": [
         "MAR_K0"
       ],
-      "x": 142,
-      "y": -896
+      "x": 197,
+      "y": -1242
     },
     {
       "code": "MAR_K0",
@@ -1745,8 +3797,8 @@
           ]
         }
       ],
-      "x": 136,
-      "y": -992
+      "x": 184,
+      "y": -1339
     },
     {
       "code": "MAR_B1_1",
@@ -1780,8 +3832,8 @@
           }
         ]
       ],
-      "x": 295,
-      "y": -593
+      "x": 451,
+      "y": -906
     },
     {
       "code": "MAR_B1_2",
@@ -1803,8 +3855,8 @@
       "connections": [
         "MAR_B1_3"
       ],
-      "x": 281,
-      "y": -705
+      "x": 411,
+      "y": -1030
     },
     {
       "code": "MAR_B1_3",
@@ -1826,8 +3878,8 @@
       "connections": [
         "MAR_C1_0"
       ],
-      "x": 308,
-      "y": -799
+      "x": 434,
+      "y": -1126
     },
     {
       "code": "MAR_C1_0",
@@ -1849,8 +3901,8 @@
       "connections": [
         "MAR_C1_1"
       ],
-      "x": 303,
-      "y": -947
+      "x": 410,
+      "y": -1280
     },
     {
       "code": "MAR_C1_1",
@@ -1872,8 +3924,8 @@
       "connections": [
         "MAR_C1_2"
       ],
-      "x": 258,
-      "y": -1035
+      "x": 343,
+      "y": -1375
     },
     {
       "code": "MAR_C1_2",
@@ -1902,8 +3954,8 @@
         "MAR_C1_3",
         "MAR_T1_1"
       ],
-      "x": 361,
-      "y": -1084
+      "x": 472,
+      "y": -1416
     },
     {
       "code": "MAR_C1_3",
@@ -1931,8 +3983,8 @@
       "connections": [
         "MAR_C1_0"
       ],
-      "x": 390,
-      "y": -987
+      "x": 519,
+      "y": -1313
     },
     {
       "code": "MAR_C1_M",
@@ -1999,8 +4051,8 @@
           }
         ]
       ],
-      "x": 322,
-      "y": -1018
+      "x": 428,
+      "y": -1352
     },
     {
       "code": "MAR_T1_1",
@@ -2022,14 +4074,14 @@
       "connections": [
         "MAR_J1"
       ],
-      "x": 399,
-      "y": -1110
+      "x": 517,
+      "y": -1439
     },
     {
       "code": "MAR_J1",
       "type": "JEWEL_SOCKET",
-      "x": 425,
-      "y": -1230
+      "x": 539,
+      "y": -1561
     },
     {
       "code": "MAR_B2_1",
@@ -2063,8 +4115,8 @@
           }
         ]
       ],
-      "x": 306,
-      "y": -497
+      "x": 490,
+      "y": -795
     },
     {
       "code": "MAR_B2_2",
@@ -2087,8 +4139,8 @@
         "MAR_C2_0",
         "MAR_X2"
       ],
-      "x": 329,
-      "y": -563
+      "x": 506,
+      "y": -865
     },
     {
       "code": "MAR_C2_0",
@@ -2110,8 +4162,8 @@
       "connections": [
         "MAR_C2_1"
       ],
-      "x": 378,
-      "y": -615
+      "x": 561,
+      "y": -913
     },
     {
       "code": "MAR_C2_1",
@@ -2133,8 +4185,8 @@
       "connections": [
         "MAR_C2_2"
       ],
-      "x": 310,
-      "y": -655
+      "x": 460,
+      "y": -971
     },
     {
       "code": "MAR_C2_2",
@@ -2156,8 +4208,8 @@
       "connections": [
         "MAR_C2_3"
       ],
-      "x": 324,
-      "y": -744
+      "x": 464,
+      "y": -1065
     },
     {
       "code": "MAR_C2_3",
@@ -2185,8 +4237,8 @@
       "connections": [
         "MAR_C2_4"
       ],
-      "x": 397,
-      "y": -753
+      "x": 560,
+      "y": -1063
     },
     {
       "code": "MAR_C2_4",
@@ -2214,8 +4266,8 @@
       "connections": [
         "MAR_C2_5"
       ],
-      "x": 452,
-      "y": -715
+      "x": 639,
+      "y": -1011
     },
     {
       "code": "MAR_C2_5",
@@ -2243,8 +4295,8 @@
       "connections": [
         "MAR_C2_0"
       ],
-      "x": 440,
-      "y": -610
+      "x": 645,
+      "y": -894
     },
     {
       "code": "MAR_C2_M",
@@ -2298,8 +4350,8 @@
           }
         ]
       ],
-      "x": 384,
-      "y": -683
+      "x": 556,
+      "y": -988
     },
     {
       "code": "MAR_B3_1",
@@ -2333,8 +4385,8 @@
           }
         ]
       ],
-      "x": 387,
-      "y": -535
+      "x": 592,
+      "y": -819
     },
     {
       "code": "MAR_B3_2",
@@ -2356,8 +4408,8 @@
       "connections": [
         "MAR_B3_3"
       ],
-      "x": 467,
-      "y": -562
+      "x": 691,
+      "y": -831
     },
     {
       "code": "MAR_B3_3",
@@ -2379,8 +4431,8 @@
       "connections": [
         "MAR_C3_0"
       ],
-      "x": 520,
-      "y": -658
+      "x": 737,
+      "y": -933
     },
     {
       "code": "MAR_C3_0",
@@ -2402,8 +4454,8 @@
       "connections": [
         "MAR_C3_1"
       ],
-      "x": 639,
-      "y": -735
+      "x": 869,
+      "y": -999
     },
     {
       "code": "MAR_C3_1",
@@ -2425,8 +4477,8 @@
       "connections": [
         "MAR_C3_2"
       ],
-      "x": 641,
-      "y": -818
+      "x": 857,
+      "y": -1093
     },
     {
       "code": "MAR_C3_2",
@@ -2454,8 +4506,8 @@
       "connections": [
         "MAR_C3_3"
       ],
-      "x": 694,
-      "y": -834
+      "x": 918,
+      "y": -1103
     },
     {
       "code": "MAR_C3_3",
@@ -2477,8 +4529,8 @@
       "connections": [
         "MAR_C3_4"
       ],
-      "x": 757,
-      "y": -793
+      "x": 999,
+      "y": -1046
     },
     {
       "code": "MAR_C3_4",
@@ -2506,8 +4558,8 @@
       "connections": [
         "MAR_C3_0"
       ],
-      "x": 725,
-      "y": -724
+      "x": 973,
+      "y": -971
     },
     {
       "code": "MAR_C3_M",
@@ -2560,8 +4612,8 @@
           }
         ]
       ],
-      "x": 689,
-      "y": -781
+      "x": 921,
+      "y": -1043
     },
     {
       "code": "MAR_B4_1",
@@ -2595,8 +4647,8 @@
           }
         ]
       ],
-      "x": 417,
-      "y": -426
+      "x": 662,
+      "y": -676
     },
     {
       "code": "MAR_B4_2",
@@ -2618,8 +4670,8 @@
       "connections": [
         "MAR_C4_0"
       ],
-      "x": 463,
-      "y": -471
+      "x": 708,
+      "y": -721
     },
     {
       "code": "MAR_C4_0",
@@ -2641,8 +4693,8 @@
       "connections": [
         "MAR_C4_1"
       ],
-      "x": 542,
-      "y": -471
+      "x": 806,
+      "y": -701
     },
     {
       "code": "MAR_C4_1",
@@ -2670,8 +4722,8 @@
       "connections": [
         "MAR_C4_2"
       ],
-      "x": 537,
-      "y": -542
+      "x": 783,
+      "y": -791
     },
     {
       "code": "MAR_C4_2",
@@ -2693,8 +4745,8 @@
       "connections": [
         "MAR_C4_3"
       ],
-      "x": 604,
-      "y": -577
+      "x": 857,
+      "y": -819
     },
     {
       "code": "MAR_C4_3",
@@ -2722,8 +4774,8 @@
       "connections": [
         "MAR_C4_4"
       ],
-      "x": 679,
-      "y": -554
+      "x": 950,
+      "y": -775
     },
     {
       "code": "MAR_C4_4",
@@ -2751,8 +4803,8 @@
       "connections": [
         "MAR_C4_5"
       ],
-      "x": 679,
-      "y": -467
+      "x": 967,
+      "y": -665
     },
     {
       "code": "MAR_C4_5",
@@ -2774,8 +4826,8 @@
       "connections": [
         "MAR_C4_0"
       ],
-      "x": 613,
-      "y": -421
+      "x": 902,
+      "y": -619
     },
     {
       "code": "MAR_C4_M",
@@ -2829,8 +4881,8 @@
           }
         ]
       ],
-      "x": 608,
-      "y": -512
+      "x": 876,
+      "y": -737
     },
     {
       "code": "MAR_B5_1",
@@ -2852,8 +4904,8 @@
       "connections": [
         "MAR_B5_2"
       ],
-      "x": 492,
-      "y": -435
+      "x": 754,
+      "y": -667
     },
     {
       "code": "MAR_B5_2",
@@ -2875,8 +4927,8 @@
       "connections": [
         "MAR_B5_3"
       ],
-      "x": 606,
-      "y": -467
+      "x": 883,
+      "y": -681
     },
     {
       "code": "MAR_B5_3",
@@ -2899,8 +4951,8 @@
         "BR0_1",
         "MAR_C5_0"
       ],
-      "x": 693,
-      "y": -511
+      "x": 975,
+      "y": -719
     },
     {
       "code": "MAR_C5_0",
@@ -2922,8 +4974,8 @@
       "connections": [
         "MAR_C5_1"
       ],
-      "x": 869,
-      "y": -503
+      "x": 1172,
+      "y": -678
     },
     {
       "code": "MAR_C5_1",
@@ -2951,8 +5003,8 @@
       "connections": [
         "MAR_C5_2"
       ],
-      "x": 867,
-      "y": -599
+      "x": 1155,
+      "y": -798
     },
     {
       "code": "MAR_C5_2",
@@ -2975,8 +5027,8 @@
         "MAR_C5_3",
         "MAR_T5_1"
       ],
-      "x": 955,
-      "y": -613
+      "x": 1250,
+      "y": -802
     },
     {
       "code": "MAR_C5_3",
@@ -3004,8 +5056,8 @@
       "connections": [
         "MAR_C5_4"
       ],
-      "x": 1001,
-      "y": -520
+      "x": 1312,
+      "y": -681
     },
     {
       "code": "MAR_C5_4",
@@ -3027,8 +5079,8 @@
       "connections": [
         "MAR_C5_0"
       ],
-      "x": 928,
-      "y": -455
+      "x": 1242,
+      "y": -609
     },
     {
       "code": "MAR_C5_M",
@@ -3075,8 +5127,8 @@
           }
         ]
       ],
-      "x": 920,
-      "y": -541
+      "x": 1222,
+      "y": -718
     },
     {
       "code": "MAR_T5_1",
@@ -3098,8 +5150,8 @@
       "connections": [
         "MAR_K5"
       ],
-      "x": 1053,
-      "y": -567
+      "x": 1361,
+      "y": -733
     },
     {
       "code": "MAR_K5",
@@ -3130,8 +5182,8 @@
           ]
         }
       ],
-      "x": 1070,
-      "y": -727
+      "x": 1359,
+      "y": -924
     },
     {
       "code": "MAR_X2",
@@ -3153,8 +5205,8 @@
       "connections": [
         "MAR_B3_3"
       ],
-      "x": 459,
-      "y": -651
+      "x": 661,
+      "y": -937
     },
     {
       "code": "STR_DEX_START",
@@ -3169,8 +5221,8 @@
         "DUE_IN_2"
       ],
       "cost": 0,
-      "x": 538,
-      "y": -27
+      "x": 888,
+      "y": -45
     },
     {
       "code": "DUE_IN_1",
@@ -3193,8 +5245,8 @@
       "connections": [
         "DUE_IN_2"
       ],
-      "x": 352,
-      "y": -159
+      "x": 671,
+      "y": -303
     },
     {
       "code": "DUE_IN_2",
@@ -3214,8 +5266,8 @@
           ]
         }
       ],
-      "x": 462,
-      "y": -99
+      "x": 804,
+      "y": -172
     },
     {
       "code": "DUE_B0_1",
@@ -3237,8 +5289,8 @@
       "connections": [
         "DUE_C0_0"
       ],
-      "x": 539,
-      "y": -211
+      "x": 865,
+      "y": -339
     },
     {
       "code": "DUE_C0_0",
@@ -3260,8 +5312,8 @@
       "connections": [
         "DUE_C0_1"
       ],
-      "x": 567,
-      "y": -325
+      "x": 871,
+      "y": -499
     },
     {
       "code": "DUE_C0_1",
@@ -3289,8 +5341,8 @@
       "connections": [
         "DUE_C0_2"
       ],
-      "x": 569,
-      "y": -434
+      "x": 847,
+      "y": -646
     },
     {
       "code": "DUE_C0_2",
@@ -3313,8 +5365,8 @@
         "DUE_C0_3",
         "DUE_T0_1"
       ],
-      "x": 662,
-      "y": -424
+      "x": 957,
+      "y": -613
     },
     {
       "code": "DUE_C0_3",
@@ -3342,8 +5394,8 @@
       "connections": [
         "DUE_C0_4"
       ],
-      "x": 718,
-      "y": -371
+      "x": 1029,
+      "y": -532
     },
     {
       "code": "DUE_C0_4",
@@ -3365,8 +5417,8 @@
       "connections": [
         "DUE_C0_0"
       ],
-      "x": 662,
-      "y": -288
+      "x": 983,
+      "y": -428
     },
     {
       "code": "DUE_C0_M",
@@ -3419,8 +5471,8 @@
           }
         ]
       ],
-      "x": 631,
-      "y": -366
+      "x": 934,
+      "y": -542
     },
     {
       "code": "DUE_T0_1",
@@ -3442,8 +5494,8 @@
       "connections": [
         "DUE_K0"
       ],
-      "x": 725,
-      "y": -470
+      "x": 1019,
+      "y": -660
     },
     {
       "code": "DUE_K0",
@@ -3468,8 +5520,8 @@
           ]
         }
       ],
-      "x": 824,
-      "y": -500
+      "x": 1123,
+      "y": -682
     },
     {
       "code": "DUE_B1_1",
@@ -3503,8 +5555,8 @@
           }
         ]
       ],
-      "x": 620,
-      "y": -125
+      "x": 963,
+      "y": -194
     },
     {
       "code": "DUE_B1_2",
@@ -3526,8 +5578,8 @@
       "connections": [
         "DUE_B1_3"
       ],
-      "x": 701,
-      "y": -181
+      "x": 1040,
+      "y": -269
     },
     {
       "code": "DUE_B1_3",
@@ -3549,8 +5601,8 @@
       "connections": [
         "DUE_C1_0"
       ],
-      "x": 787,
-      "y": -257
+      "x": 1120,
+      "y": -366
     },
     {
       "code": "DUE_C1_0",
@@ -3572,8 +5624,8 @@
       "connections": [
         "DUE_C1_1"
       ],
-      "x": 902,
-      "y": -328
+      "x": 1231,
+      "y": -448
     },
     {
       "code": "DUE_C1_1",
@@ -3607,8 +5659,8 @@
       "connections": [
         "DUE_C1_2"
       ],
-      "x": 951,
-      "y": -409
+      "x": 1273,
+      "y": -547
     },
     {
       "code": "DUE_C1_2",
@@ -3631,8 +5683,8 @@
         "DUE_C1_3",
         "DUE_T1_1"
       ],
-      "x": 1040,
-      "y": -394
+      "x": 1367,
+      "y": -518
     },
     {
       "code": "DUE_C1_3",
@@ -3660,8 +5712,8 @@
       "connections": [
         "DUE_C1_4"
       ],
-      "x": 1040,
-      "y": -288
+      "x": 1377,
+      "y": -381
     },
     {
       "code": "DUE_C1_4",
@@ -3683,8 +5735,8 @@
       "connections": [
         "DUE_C1_0"
       ],
-      "x": 954,
-      "y": -266
+      "x": 1291,
+      "y": -360
     },
     {
       "code": "DUE_C1_M",
@@ -3737,8 +5789,8 @@
           }
         ]
       ],
-      "x": 974,
-      "y": -340
+      "x": 1304,
+      "y": -455
     },
     {
       "code": "DUE_T1_1",
@@ -3760,14 +5812,14 @@
       "connections": [
         "DUE_J1"
       ],
-      "x": 1092,
-      "y": -416
+      "x": 1419,
+      "y": -541
     },
     {
       "code": "DUE_J1",
       "type": "JEWEL_SOCKET",
-      "x": 1182,
-      "y": -404
+      "x": 1513,
+      "y": -517
     },
     {
       "code": "DUE_B2_1",
@@ -3801,8 +5853,8 @@
           }
         ]
       ],
-      "x": 565,
-      "y": -73
+      "x": 912,
+      "y": -118
     },
     {
       "code": "DUE_B2_2",
@@ -3824,8 +5876,8 @@
       "connections": [
         "DUE_C2_0"
       ],
-      "x": 609,
-      "y": -58
+      "x": 957,
+      "y": -91
     },
     {
       "code": "DUE_C2_0",
@@ -3847,8 +5899,8 @@
       "connections": [
         "DUE_C2_1"
       ],
-      "x": 688,
-      "y": -101
+      "x": 1034,
+      "y": -152
     },
     {
       "code": "DUE_C2_1",
@@ -3870,8 +5922,8 @@
       "connections": [
         "DUE_C2_2"
       ],
-      "x": 746,
-      "y": -174
+      "x": 1087,
+      "y": -254
     },
     {
       "code": "DUE_C2_2",
@@ -3899,8 +5951,8 @@
       "connections": [
         "DUE_C2_3"
       ],
-      "x": 816,
-      "y": -155
+      "x": 1160,
+      "y": -220
     },
     {
       "code": "DUE_C2_3",
@@ -3928,8 +5980,8 @@
       "connections": [
         "DUE_C2_4"
       ],
-      "x": 807,
-      "y": -57
+      "x": 1156,
+      "y": -82
     },
     {
       "code": "DUE_C2_4",
@@ -3951,8 +6003,8 @@
       "connections": [
         "DUE_C2_0"
       ],
-      "x": 727,
-      "y": -33
+      "x": 1077,
+      "y": -49
     },
     {
       "code": "DUE_C2_M",
@@ -4005,8 +6057,8 @@
           }
         ]
       ],
-      "x": 752,
-      "y": -106
+      "x": 1099,
+      "y": -155
     },
     {
       "code": "DUE_B3_1",
@@ -4040,8 +6092,8 @@
           }
         ]
       ],
-      "x": 628,
-      "y": 19
+      "x": 978,
+      "y": 30
     },
     {
       "code": "DUE_B3_2",
@@ -4064,8 +6116,8 @@
       "connections": [
         "DUE_B3_3"
       ],
-      "x": 721,
-      "y": 37
+      "x": 1071,
+      "y": 55
     },
     {
       "code": "DUE_B3_3",
@@ -4087,8 +6139,8 @@
       "connections": [
         "DUE_C3_0"
       ],
-      "x": 851,
-      "y": 9
+      "x": 1201,
+      "y": 13
     },
     {
       "code": "DUE_C3_0",
@@ -4110,8 +6162,8 @@
       "connections": [
         "DUE_C3_1"
       ],
-      "x": 958,
-      "y": 67
+      "x": 1307,
+      "y": 91
     },
     {
       "code": "DUE_C3_1",
@@ -4140,8 +6192,8 @@
       "connections": [
         "DUE_C3_2"
       ],
-      "x": 1000,
-      "y": 21
+      "x": 1350,
+      "y": 28
     },
     {
       "code": "DUE_C3_2",
@@ -4170,8 +6222,8 @@
       "connections": [
         "DUE_C3_3"
       ],
-      "x": 1059,
-      "y": 7
+      "x": 1409,
+      "y": 9
     },
     {
       "code": "DUE_C3_3",
@@ -4200,8 +6252,8 @@
       "connections": [
         "DUE_C3_4"
       ],
-      "x": 1096,
-      "y": 59
+      "x": 1445,
+      "y": 78
     },
     {
       "code": "DUE_C3_4",
@@ -4224,8 +6276,8 @@
       "connections": [
         "DUE_C3_5"
       ],
-      "x": 1058,
-      "y": 136
+      "x": 1405,
+      "y": 181
     },
     {
       "code": "DUE_C3_5",
@@ -4248,8 +6300,8 @@
       "connections": [
         "DUE_C3_0"
       ],
-      "x": 1003,
-      "y": 133
+      "x": 1350,
+      "y": 179
     },
     {
       "code": "DUE_C3_M",
@@ -4317,8 +6369,8 @@
           }
         ]
       ],
-      "x": 1029,
-      "y": 73
+      "x": 1378,
+      "y": 98
     },
     {
       "code": "DUE_B4_1",
@@ -4352,8 +6404,8 @@
           }
         ]
       ],
-      "x": 588,
-      "y": 56
+      "x": 936,
+      "y": 89
     },
     {
       "code": "DUE_B4_2",
@@ -4375,8 +6427,8 @@
       "connections": [
         "DUE_C4_0"
       ],
-      "x": 614,
-      "y": 93
+      "x": 960,
+      "y": 145
     },
     {
       "code": "DUE_C4_0",
@@ -4398,8 +6450,8 @@
       "connections": [
         "DUE_C4_1"
       ],
-      "x": 670,
-      "y": 124
+      "x": 1014,
+      "y": 188
     },
     {
       "code": "DUE_C4_1",
@@ -4427,8 +6479,8 @@
       "connections": [
         "DUE_C4_2"
       ],
-      "x": 771,
-      "y": 104
+      "x": 1118,
+      "y": 151
     },
     {
       "code": "DUE_C4_2",
@@ -4456,8 +6508,8 @@
       "connections": [
         "DUE_C4_3"
       ],
-      "x": 814,
-      "y": 208
+      "x": 1153,
+      "y": 295
     },
     {
       "code": "DUE_C4_3",
@@ -4479,8 +6531,8 @@
       "connections": [
         "DUE_C4_0"
       ],
-      "x": 689,
-      "y": 248
+      "x": 1018,
+      "y": 367
     },
     {
       "code": "DUE_C4_M",
@@ -4533,8 +6585,8 @@
           }
         ]
       ],
-      "x": 741,
-      "y": 176
+      "x": 1082,
+      "y": 257
     },
     {
       "code": "DUE_B5_1",
@@ -4556,8 +6608,8 @@
       "connections": [
         "DUE_B5_2"
       ],
-      "x": 634,
-      "y": 151
+      "x": 974,
+      "y": 232
     },
     {
       "code": "DUE_B5_2",
@@ -4580,8 +6632,8 @@
         "BR1_1",
         "DUE_C5_0"
       ],
-      "x": 729,
-      "y": 226
+      "x": 1063,
+      "y": 330
     },
     {
       "code": "DUE_C5_0",
@@ -4603,8 +6655,8 @@
       "connections": [
         "DUE_C5_1"
       ],
-      "x": 841,
-      "y": 322
+      "x": 1168,
+      "y": 447
     },
     {
       "code": "DUE_C5_1",
@@ -4626,8 +6678,8 @@
       "connections": [
         "DUE_C5_2"
       ],
-      "x": 909,
-      "y": 264
+      "x": 1245,
+      "y": 362
     },
     {
       "code": "DUE_C5_2",
@@ -4656,8 +6708,8 @@
         "DUE_C5_3",
         "DUE_T5_1"
       ],
-      "x": 998,
-      "y": 297
+      "x": 1333,
+      "y": 397
     },
     {
       "code": "DUE_C5_3",
@@ -4685,8 +6737,8 @@
       "connections": [
         "DUE_C5_4"
       ],
-      "x": 976,
-      "y": 408
+      "x": 1299,
+      "y": 543
     },
     {
       "code": "DUE_C5_4",
@@ -4708,8 +6760,8 @@
       "connections": [
         "DUE_C5_0"
       ],
-      "x": 868,
-      "y": 417
+      "x": 1183,
+      "y": 569
     },
     {
       "code": "DUE_C5_M",
@@ -4776,8 +6828,8 @@
           }
         ]
       ],
-      "x": 919,
-      "y": 342
+      "x": 1247,
+      "y": 464
     },
     {
       "code": "DUE_T5_1",
@@ -4799,8 +6851,8 @@
       "connections": [
         "DUE_K5"
       ],
-      "x": 1062,
-      "y": 332
+      "x": 1396,
+      "y": 436
     },
     {
       "code": "DUE_K5",
@@ -4825,8 +6877,8 @@
           ]
         }
       ],
-      "x": 1109,
-      "y": 432
+      "x": 1435,
+      "y": 559
     },
     {
       "code": "DEX_START",
@@ -4841,8 +6893,8 @@
         "RAN_IN_2"
       ],
       "cost": 0,
-      "x": 255,
-      "y": 531
+      "x": 407,
+      "y": 847
     },
     {
       "code": "RAN_IN_1",
@@ -4864,8 +6916,8 @@
       "connections": [
         "RAN_IN_2"
       ],
-      "x": 307,
-      "y": 280
+      "x": 566,
+      "y": 516
     },
     {
       "code": "RAN_IN_2",
@@ -4884,8 +6936,8 @@
           ]
         }
       ],
-      "x": 291,
-      "y": 406
+      "x": 495,
+      "y": 690
     },
     {
       "code": "RAN_B0_1",
@@ -4907,8 +6959,8 @@
       "connections": [
         "RAN_C0_0"
       ],
-      "x": 443,
-      "y": 446
+      "x": 690,
+      "y": 694
     },
     {
       "code": "RAN_C0_0",
@@ -4930,8 +6982,8 @@
       "connections": [
         "RAN_C0_1"
       ],
-      "x": 557,
-      "y": 418
+      "x": 837,
+      "y": 628
     },
     {
       "code": "RAN_C0_1",
@@ -4953,8 +7005,8 @@
       "connections": [
         "RAN_C0_2"
       ],
-      "x": 634,
-      "y": 428
+      "x": 924,
+      "y": 624
     },
     {
       "code": "RAN_C0_2",
@@ -4977,8 +7029,8 @@
         "RAN_C0_3",
         "RAN_T0_1"
       ],
-      "x": 662,
-      "y": 496
+      "x": 942,
+      "y": 706
     },
     {
       "code": "RAN_C0_3",
@@ -5007,8 +7059,8 @@
       "connections": [
         "RAN_C0_4"
       ],
-      "x": 609,
-      "y": 524
+      "x": 874,
+      "y": 752
     },
     {
       "code": "RAN_C0_4",
@@ -5037,8 +7089,8 @@
       "connections": [
         "RAN_C0_0"
       ],
-      "x": 540,
-      "y": 486
+      "x": 800,
+      "y": 720
     },
     {
       "code": "RAN_C0_M",
@@ -5105,8 +7157,8 @@
           }
         ]
       ],
-      "x": 602,
-      "y": 472
+      "x": 877,
+      "y": 688
     },
     {
       "code": "RAN_T0_1",
@@ -5128,17 +7180,23 @@
       "connections": [
         "RAN_K0"
       ],
-      "x": 681,
-      "y": 540
+      "x": 955,
+      "y": 757
     },
     {
       "code": "RAN_K0",
       "type": "KEYSTONE",
       "lines": [
         {
-          "code": "PASSIVE_SET_EVASION_RATING",
+          "code": "INCREASED_EVASION_RATING",
           "values": [
-            2000.0
+            60
+          ]
+        },
+        {
+          "code": "PASSIVE_SET_ARMOUR",
+          "values": [
+            0
           ]
         },
         {
@@ -5148,8 +7206,8 @@
           ]
         }
       ],
-      "x": 785,
-      "y": 606
+      "x": 1062,
+      "y": 820
     },
     {
       "code": "RAN_B1_1",
@@ -5183,8 +7241,8 @@
           }
         ]
       ],
-      "x": 375,
-      "y": 580
+      "x": 565,
+      "y": 874
     },
     {
       "code": "RAN_B1_2",
@@ -5206,8 +7264,8 @@
       "connections": [
         "RAN_B1_3"
       ],
-      "x": 512,
-      "y": 620
+      "x": 735,
+      "y": 890
     },
     {
       "code": "RAN_B1_3",
@@ -5229,8 +7287,8 @@
       "connections": [
         "RAN_C1_0"
       ],
-      "x": 618,
-      "y": 669
+      "x": 855,
+      "y": 926
     },
     {
       "code": "RAN_C1_0",
@@ -5252,8 +7310,8 @@
       "connections": [
         "RAN_C1_1"
       ],
-      "x": 697,
-      "y": 746
+      "x": 936,
+      "y": 1002
     },
     {
       "code": "RAN_C1_1",
@@ -5281,8 +7339,8 @@
       "connections": [
         "RAN_C1_2"
       ],
-      "x": 777,
-      "y": 721
+      "x": 1034,
+      "y": 959
     },
     {
       "code": "RAN_C1_2",
@@ -5316,8 +7374,8 @@
       "connections": [
         "RAN_C1_3"
       ],
-      "x": 835,
-      "y": 779
+      "x": 1091,
+      "y": 1018
     },
     {
       "code": "RAN_C1_3",
@@ -5346,8 +7404,8 @@
         "RAN_C1_4",
         "RAN_T1_1"
       ],
-      "x": 813,
-      "y": 852
+      "x": 1055,
+      "y": 1105
     },
     {
       "code": "RAN_C1_4",
@@ -5369,8 +7427,8 @@
       "connections": [
         "RAN_C1_5"
       ],
-      "x": 730,
-      "y": 874
+      "x": 954,
+      "y": 1143
     },
     {
       "code": "RAN_C1_5",
@@ -5392,8 +7450,8 @@
       "connections": [
         "RAN_C1_0"
       ],
-      "x": 682,
-      "y": 830
+      "x": 904,
+      "y": 1100
     },
     {
       "code": "RAN_C1_M",
@@ -5447,8 +7505,8 @@
           }
         ]
       ],
-      "x": 755,
-      "y": 798
+      "x": 996,
+      "y": 1052
     },
     {
       "code": "RAN_T1_1",
@@ -5470,14 +7528,14 @@
       "connections": [
         "RAN_J1"
       ],
-      "x": 876,
-      "y": 850
+      "x": 1127,
+      "y": 1094
     },
     {
       "code": "RAN_J1",
       "type": "JEWEL_SOCKET",
-      "x": 866,
-      "y": 983
+      "x": 1097,
+      "y": 1246
     },
     {
       "code": "RAN_B2_1",
@@ -5511,8 +7569,8 @@
           }
         ]
       ],
-      "x": 337,
-      "y": 554
+      "x": 519,
+      "y": 853
     },
     {
       "code": "RAN_C2_0",
@@ -5534,8 +7592,8 @@
       "connections": [
         "RAN_C2_1"
       ],
-      "x": 413,
-      "y": 607
+      "x": 610,
+      "y": 896
     },
     {
       "code": "RAN_C2_1",
@@ -5563,8 +7621,8 @@
       "connections": [
         "RAN_C2_2"
       ],
-      "x": 469,
-      "y": 603
+      "x": 684,
+      "y": 879
     },
     {
       "code": "RAN_C2_2",
@@ -5586,8 +7644,8 @@
       "connections": [
         "RAN_C2_3"
       ],
-      "x": 487,
-      "y": 683
+      "x": 690,
+      "y": 968
     },
     {
       "code": "RAN_C2_3",
@@ -5609,8 +7667,8 @@
       "connections": [
         "RAN_C2_4"
       ],
-      "x": 421,
-      "y": 710
+      "x": 600,
+      "y": 1011
     },
     {
       "code": "RAN_C2_4",
@@ -5638,8 +7696,8 @@
       "connections": [
         "RAN_C2_0"
       ],
-      "x": 370,
-      "y": 652
+      "x": 543,
+      "y": 956
     },
     {
       "code": "RAN_C2_M",
@@ -5692,8 +7750,8 @@
           }
         ]
       ],
-      "x": 431,
-      "y": 657
+      "x": 623,
+      "y": 950
     },
     {
       "code": "RAN_B3_1",
@@ -5727,8 +7785,8 @@
           }
         ]
       ],
-      "x": 286,
-      "y": 660
+      "x": 425,
+      "y": 981
     },
     {
       "code": "RAN_B3_2",
@@ -5750,8 +7808,8 @@
       "connections": [
         "RAN_C3_0"
       ],
-      "x": 284,
-      "y": 763
+      "x": 406,
+      "y": 1091
     },
     {
       "code": "RAN_C3_0",
@@ -5773,8 +7831,8 @@
       "connections": [
         "RAN_C3_1"
       ],
-      "x": 372,
-      "y": 913
+      "x": 504,
+      "y": 1237
     },
     {
       "code": "RAN_C3_1",
@@ -5802,8 +7860,8 @@
       "connections": [
         "RAN_C3_2"
       ],
-      "x": 439,
-      "y": 922
+      "x": 589,
+      "y": 1238
     },
     {
       "code": "RAN_C3_2",
@@ -5825,8 +7883,8 @@
       "connections": [
         "RAN_C3_3"
       ],
-      "x": 454,
-      "y": 1017
+      "x": 597,
+      "y": 1337
     },
     {
       "code": "RAN_C3_3",
@@ -5848,8 +7906,8 @@
       "connections": [
         "RAN_C3_4"
       ],
-      "x": 386,
-      "y": 1044
+      "x": 507,
+      "y": 1372
     },
     {
       "code": "RAN_C3_4",
@@ -5877,8 +7935,8 @@
       "connections": [
         "RAN_C3_5"
       ],
-      "x": 319,
-      "y": 1010
+      "x": 424,
+      "y": 1344
     },
     {
       "code": "RAN_C3_5",
@@ -5906,8 +7964,8 @@
       "connections": [
         "RAN_C3_0"
       ],
-      "x": 307,
-      "y": 942
+      "x": 415,
+      "y": 1275
     },
     {
       "code": "RAN_C3_M",
@@ -5975,8 +8033,8 @@
           }
         ]
       ],
-      "x": 379,
-      "y": 977
+      "x": 506,
+      "y": 1303
     },
     {
       "code": "RAN_B4_1",
@@ -6010,8 +8068,8 @@
           }
         ]
       ],
-      "x": 162,
-      "y": 600
+      "x": 253,
+      "y": 938
     },
     {
       "code": "RAN_C4_0",
@@ -6033,8 +8091,8 @@
       "connections": [
         "RAN_C4_1"
       ],
-      "x": 134,
-      "y": 691
+      "x": 201,
+      "y": 1035
     },
     {
       "code": "RAN_C4_1",
@@ -6056,8 +8114,8 @@
       "connections": [
         "RAN_C4_2"
       ],
-      "x": 228,
-      "y": 735
+      "x": 332,
+      "y": 1069
     },
     {
       "code": "RAN_C4_2",
@@ -6085,8 +8143,8 @@
       "connections": [
         "RAN_C4_3"
       ],
-      "x": 215,
-      "y": 822
+      "x": 304,
+      "y": 1161
     },
     {
       "code": "RAN_C4_3",
@@ -6114,8 +8172,8 @@
       "connections": [
         "RAN_C4_4"
       ],
-      "x": 157,
-      "y": 825
+      "x": 222,
+      "y": 1169
     },
     {
       "code": "RAN_C4_4",
@@ -6137,8 +8195,8 @@
       "connections": [
         "RAN_C4_0"
       ],
-      "x": 100,
-      "y": 757
+      "x": 146,
+      "y": 1104
     },
     {
       "code": "RAN_C4_M",
@@ -6191,8 +8249,8 @@
           }
         ]
       ],
-      "x": 168,
-      "y": 768
+      "x": 243,
+      "y": 1110
     },
     {
       "code": "RAN_B5_1",
@@ -6214,8 +8272,8 @@
       "connections": [
         "RAN_B5_2"
       ],
-      "x": 177,
-      "y": 710
+      "x": 262,
+      "y": 1050
     },
     {
       "code": "RAN_B5_2",
@@ -6238,8 +8296,8 @@
         "BR2_1",
         "RAN_C5_0"
       ],
-      "x": 113,
-      "y": 813
+      "x": 161,
+      "y": 1160
     },
     {
       "code": "RAN_C5_0",
@@ -6261,8 +8319,8 @@
       "connections": [
         "RAN_C5_1"
       ],
-      "x": 60,
-      "y": 966
+      "x": 82,
+      "y": 1315
     },
     {
       "code": "RAN_C5_1",
@@ -6284,8 +8342,8 @@
       "connections": [
         "RAN_C5_2"
       ],
-      "x": 124,
-      "y": 1043
+      "x": 165,
+      "y": 1391
     },
     {
       "code": "RAN_C5_2",
@@ -6316,8 +8374,8 @@
         "RAN_C5_3",
         "RAN_T5_1"
       ],
-      "x": 86,
-      "y": 1135
+      "x": 112,
+      "y": 1484
     },
     {
       "code": "RAN_C5_3",
@@ -6339,8 +8397,8 @@
       "connections": [
         "RAN_C5_4"
       ],
-      "x": -12,
-      "y": 1099
+      "x": -16,
+      "y": 1449
     },
     {
       "code": "RAN_C5_4",
@@ -6370,8 +8428,8 @@
       "connections": [
         "RAN_C5_0"
       ],
-      "x": -5,
-      "y": 1013
+      "x": -7,
+      "y": 1363
     },
     {
       "code": "RAN_C5_M",
@@ -6426,8 +8484,8 @@
           }
         ]
       ],
-      "x": 48,
-      "y": 1058
+      "x": 64,
+      "y": 1408
     },
     {
       "code": "RAN_T5_1",
@@ -6451,8 +8509,8 @@
       "connections": [
         "RAN_K5"
       ],
-      "x": 21,
-      "y": 1172
+      "x": 27,
+      "y": 1522
     },
     {
       "code": "RAN_K5",
@@ -6483,8 +8541,8 @@
           ]
         }
       ],
-      "x": 73,
-      "y": 1301
+      "x": 93,
+      "y": 1650
     },
     {
       "code": "DEX_INT_START",
@@ -6499,8 +8557,8 @@
         "SHA_IN_2"
       ],
       "cost": 0,
-      "x": -237,
-      "y": 533
+      "x": -379,
+      "y": 853
     },
     {
       "code": "SHA_IN_1",
@@ -6522,8 +8580,8 @@
       "connections": [
         "SHA_IN_2"
       ],
-      "x": -37,
-      "y": 402
+      "x": -69,
+      "y": 751
     },
     {
       "code": "SHA_IN_2",
@@ -6543,8 +8601,8 @@
           ]
         }
       ],
-      "x": -146,
-      "y": 487
+      "x": -247,
+      "y": 822
     },
     {
       "code": "SHA_B0_1",
@@ -6566,8 +8624,8 @@
       "connections": [
         "SHA_B0_2"
       ],
-      "x": -123,
-      "y": 614
+      "x": -192,
+      "y": 957
     },
     {
       "code": "SHA_B0_2",
@@ -6589,8 +8647,8 @@
       "connections": [
         "SHA_C0_0"
       ],
-      "x": -32,
-      "y": 662
+      "x": -49,
+      "y": 1012
     },
     {
       "code": "SHA_C0_0",
@@ -6612,8 +8670,8 @@
       "connections": [
         "SHA_C0_1"
       ],
-      "x": -5,
-      "y": 719
+      "x": -7,
+      "y": 1069
     },
     {
       "code": "SHA_C0_1",
@@ -6641,8 +8699,8 @@
       "connections": [
         "SHA_C0_2"
       ],
-      "x": 55,
-      "y": 748
+      "x": 81,
+      "y": 1097
     },
     {
       "code": "SHA_C0_2",
@@ -6664,8 +8722,8 @@
       "connections": [
         "SHA_C0_3"
       ],
-      "x": 67,
-      "y": 813
+      "x": 96,
+      "y": 1162
     },
     {
       "code": "SHA_C0_3",
@@ -6694,8 +8752,8 @@
         "SHA_C0_4",
         "SHA_T0_1"
       ],
-      "x": 26,
-      "y": 833
+      "x": 37,
+      "y": 1183
     },
     {
       "code": "SHA_C0_4",
@@ -6717,8 +8775,8 @@
       "connections": [
         "SHA_C0_5"
       ],
-      "x": -40,
-      "y": 834
+      "x": -57,
+      "y": 1184
     },
     {
       "code": "SHA_C0_5",
@@ -6746,8 +8804,8 @@
       "connections": [
         "SHA_C0_0"
       ],
-      "x": -51,
-      "y": 780
+      "x": -74,
+      "y": 1129
     },
     {
       "code": "SHA_C0_M",
@@ -6815,8 +8873,8 @@
           }
         ]
       ],
-      "x": 5,
-      "y": 791
+      "x": 7,
+      "y": 1141
     },
     {
       "code": "SHA_T0_1",
@@ -6838,8 +8896,8 @@
       "connections": [
         "SHA_K0"
       ],
-      "x": -30,
-      "y": 911
+      "x": -42,
+      "y": 1261
     },
     {
       "code": "SHA_K0",
@@ -6858,8 +8916,8 @@
           ]
         }
       ],
-      "x": 46,
-      "y": 1011
+      "x": 62,
+      "y": 1361
     },
     {
       "code": "SHA_B1_1",
@@ -6893,8 +8951,8 @@
           }
         ]
       ],
-      "x": -170,
-      "y": 697
+      "x": -253,
+      "y": 1037
     },
     {
       "code": "SHA_B1_2",
@@ -6916,8 +8974,8 @@
       "connections": [
         "SHA_C1_0"
       ],
-      "x": -115,
-      "y": 818
+      "x": -164,
+      "y": 1165
     },
     {
       "code": "SHA_C1_0",
@@ -6939,8 +8997,8 @@
       "connections": [
         "SHA_C1_1"
       ],
-      "x": -107,
-      "y": 957
+      "x": -146,
+      "y": 1305
     },
     {
       "code": "SHA_C1_1",
@@ -6962,8 +9020,8 @@
       "connections": [
         "SHA_C1_2"
       ],
-      "x": -47,
-      "y": 993
+      "x": -64,
+      "y": 1343
     },
     {
       "code": "SHA_C1_2",
@@ -6986,8 +9044,8 @@
         "SHA_C1_3",
         "SHA_T1_1"
       ],
-      "x": -77,
-      "y": 1091
+      "x": -102,
+      "y": 1440
     },
     {
       "code": "SHA_C1_3",
@@ -7015,8 +9073,8 @@
       "connections": [
         "SHA_C1_4"
       ],
-      "x": -176,
-      "y": 1087
+      "x": -232,
+      "y": 1433
     },
     {
       "code": "SHA_C1_4",
@@ -7044,8 +9102,8 @@
       "connections": [
         "SHA_C1_0"
       ],
-      "x": -189,
-      "y": 1005
+      "x": -254,
+      "y": 1349
     },
     {
       "code": "SHA_C1_M",
@@ -7098,8 +9156,8 @@
           }
         ]
       ],
-      "x": -113,
-      "y": 1027
+      "x": -151,
+      "y": 1375
     },
     {
       "code": "SHA_T1_1",
@@ -7121,14 +9179,14 @@
       "connections": [
         "SHA_J1"
       ],
-      "x": -67,
-      "y": 1169
+      "x": -87,
+      "y": 1518
     },
     {
       "code": "SHA_J1",
       "type": "JEWEL_SOCKET",
-      "x": -100,
-      "y": 1264
+      "x": -128,
+      "y": 1613
     },
     {
       "code": "SHA_B2_1",
@@ -7162,8 +9220,8 @@
           }
         ]
       ],
-      "x": -249,
-      "y": 601
+      "x": -383,
+      "y": 924
     },
     {
       "code": "SHA_C2_0",
@@ -7185,8 +9243,8 @@
       "connections": [
         "SHA_C2_1"
       ],
-      "x": -250,
-      "y": 683
+      "x": -370,
+      "y": 1012
     },
     {
       "code": "SHA_C2_1",
@@ -7208,8 +9266,8 @@
       "connections": [
         "SHA_C2_2"
       ],
-      "x": -204,
-      "y": 757
+      "x": -295,
+      "y": 1095
     },
     {
       "code": "SHA_C2_2",
@@ -7243,8 +9301,8 @@
       "connections": [
         "SHA_C2_3"
       ],
-      "x": -280,
-      "y": 798
+      "x": -396,
+      "y": 1128
     },
     {
       "code": "SHA_C2_3",
@@ -7272,8 +9330,8 @@
       "connections": [
         "SHA_C2_0"
       ],
-      "x": -312,
-      "y": 739
+      "x": -448,
+      "y": 1061
     },
     {
       "code": "SHA_C2_M",
@@ -7320,8 +9378,8 @@
           }
         ]
       ],
-      "x": -259,
-      "y": 746
+      "x": -374,
+      "y": 1077
     },
     {
       "code": "SHA_B3_1",
@@ -7355,8 +9413,8 @@
           }
         ]
       ],
-      "x": -296,
-      "y": 623
+      "x": -446,
+      "y": 939
     },
     {
       "code": "SHA_B3_2",
@@ -7378,8 +9436,8 @@
       "connections": [
         "SHA_B3_3"
       ],
-      "x": -347,
-      "y": 710
+      "x": -501,
+      "y": 1024
     },
     {
       "code": "SHA_B3_3",
@@ -7402,8 +9460,8 @@
       "connections": [
         "SHA_C3_0"
       ],
-      "x": -382,
-      "y": 804
+      "x": -532,
+      "y": 1120
     },
     {
       "code": "SHA_C3_0",
@@ -7426,8 +9484,8 @@
       "connections": [
         "SHA_C3_1"
       ],
-      "x": -462,
-      "y": 883
+      "x": -624,
+      "y": 1193
     },
     {
       "code": "SHA_C3_1",
@@ -7455,8 +9513,8 @@
       "connections": [
         "SHA_C3_2"
       ],
-      "x": -415,
-      "y": 962
+      "x": -554,
+      "y": 1283
     },
     {
       "code": "SHA_C3_2",
@@ -7485,8 +9543,8 @@
       "connections": [
         "SHA_C3_3"
       ],
-      "x": -450,
-      "y": 1038
+      "x": -589,
+      "y": 1359
     },
     {
       "code": "SHA_C3_3",
@@ -7508,8 +9566,8 @@
       "connections": [
         "SHA_C3_4"
       ],
-      "x": -562,
-      "y": 1008
+      "x": -732,
+      "y": 1314
     },
     {
       "code": "SHA_C3_4",
@@ -7532,8 +9590,8 @@
       "connections": [
         "SHA_C3_0"
       ],
-      "x": -560,
-      "y": 910
+      "x": -743,
+      "y": 1208
     },
     {
       "code": "SHA_C3_M",
@@ -7586,8 +9644,8 @@
           }
         ]
       ],
-      "x": -490,
-      "y": 956
+      "x": -650,
+      "y": 1267
     },
     {
       "code": "SHA_B4_1",
@@ -7621,8 +9679,8 @@
           }
         ]
       ],
-      "x": -385,
-      "y": 503
+      "x": -598,
+      "y": 781
     },
     {
       "code": "SHA_C4_0",
@@ -7644,8 +9702,8 @@
       "connections": [
         "SHA_C4_1"
       ],
-      "x": -451,
-      "y": 523
+      "x": -680,
+      "y": 788
     },
     {
       "code": "SHA_C4_1",
@@ -7673,8 +9731,8 @@
       "connections": [
         "SHA_C4_2"
       ],
-      "x": -462,
-      "y": 638
+      "x": -667,
+      "y": 921
     },
     {
       "code": "SHA_C4_2",
@@ -7696,8 +9754,8 @@
       "connections": [
         "SHA_C4_3"
       ],
-      "x": -561,
-      "y": 640
+      "x": -792,
+      "y": 903
     },
     {
       "code": "SHA_C4_3",
@@ -7725,8 +9783,8 @@
       "connections": [
         "SHA_C4_0"
       ],
-      "x": -546,
-      "y": 534
+      "x": -796,
+      "y": 779
     },
     {
       "code": "SHA_C4_M",
@@ -7779,8 +9837,8 @@
           }
         ]
       ],
-      "x": -504,
-      "y": 586
+      "x": -732,
+      "y": 851
     },
     {
       "code": "SHA_B5_1",
@@ -7802,8 +9860,8 @@
       "connections": [
         "SHA_B5_2"
       ],
-      "x": -420,
-      "y": 558
+      "x": -630,
+      "y": 838
     },
     {
       "code": "SHA_B5_2",
@@ -7827,8 +9885,8 @@
         "BR3_1",
         "SHA_C5_0"
       ],
-      "x": -552,
-      "y": 595
+      "x": -790,
+      "y": 852
     },
     {
       "code": "SHA_C5_0",
@@ -7851,8 +9909,8 @@
       "connections": [
         "SHA_C5_1"
       ],
-      "x": -730,
-      "y": 636
+      "x": -994,
+      "y": 866
     },
     {
       "code": "SHA_C5_1",
@@ -7881,8 +9939,8 @@
       "connections": [
         "SHA_C5_2"
       ],
-      "x": -741,
-      "y": 752
+      "x": -987,
+      "y": 1001
     },
     {
       "code": "SHA_C5_2",
@@ -7905,8 +9963,8 @@
         "SHA_C5_3",
         "SHA_T5_1"
       ],
-      "x": -833,
-      "y": 720
+      "x": -1098,
+      "y": 949
     },
     {
       "code": "SHA_C5_3",
@@ -7935,8 +9993,8 @@
       "connections": [
         "SHA_C5_0"
       ],
-      "x": -837,
-      "y": 636
+      "x": -1116,
+      "y": 848
     },
     {
       "code": "SHA_C5_M",
@@ -8003,8 +10061,8 @@
           }
         ]
       ],
-      "x": -784,
-      "y": 688
+      "x": -1047,
+      "y": 919
     },
     {
       "code": "SHA_T5_1",
@@ -8027,8 +10085,8 @@
       "connections": [
         "SHA_K5"
       ],
-      "x": -830,
-      "y": 790
+      "x": -1084,
+      "y": 1031
     },
     {
       "code": "SHA_K5",
@@ -8053,8 +10111,8 @@
           ]
         }
       ],
-      "x": -1008,
-      "y": 820
+      "x": -1280,
+      "y": 1041
     },
     {
       "code": "INT_START",
@@ -8069,8 +10127,8 @@
         "WIT_IN_2"
       ],
       "cost": 0,
-      "x": -535,
-      "y": -38
+      "x": -884,
+      "y": -63
     },
     {
       "code": "WIT_IN_1",
@@ -8092,8 +10150,8 @@
       "connections": [
         "WIT_IN_2"
       ],
-      "x": -371,
-      "y": 118
+      "x": -705,
+      "y": 224
     },
     {
       "code": "WIT_IN_2",
@@ -8112,8 +10170,8 @@
           ]
         }
       ],
-      "x": -457,
-      "y": 72
+      "x": -803,
+      "y": 126
     },
     {
       "code": "WIT_B0_1",
@@ -8136,8 +10194,8 @@
       "connections": [
         "WIT_B0_2"
       ],
-      "x": -551,
-      "y": 100
+      "x": -895,
+      "y": 162
     },
     {
       "code": "WIT_B0_2",
@@ -8159,8 +10217,8 @@
       "connections": [
         "WIT_C0_0"
       ],
-      "x": -597,
-      "y": 175
+      "x": -933,
+      "y": 273
     },
     {
       "code": "WIT_C0_0",
@@ -8182,8 +10240,8 @@
       "connections": [
         "WIT_C0_1"
       ],
-      "x": -619,
-      "y": 268
+      "x": -940,
+      "y": 407
     },
     {
       "code": "WIT_C0_1",
@@ -8205,8 +10263,8 @@
       "connections": [
         "WIT_C0_2"
       ],
-      "x": -643,
-      "y": 326
+      "x": -955,
+      "y": 484
     },
     {
       "code": "WIT_C0_2",
@@ -8235,8 +10293,8 @@
       "connections": [
         "WIT_C0_3"
       ],
-      "x": -728,
-      "y": 352
+      "x": -1043,
+      "y": 504
     },
     {
       "code": "WIT_C0_3",
@@ -8266,8 +10324,8 @@
         "WIT_C0_4",
         "WIT_T0_1"
       ],
-      "x": -773,
-      "y": 295
+      "x": -1100,
+      "y": 420
     },
     {
       "code": "WIT_C0_4",
@@ -8296,8 +10354,8 @@
       "connections": [
         "WIT_C0_5"
       ],
-      "x": -746,
-      "y": 221
+      "x": -1082,
+      "y": 320
     },
     {
       "code": "WIT_C0_5",
@@ -8320,8 +10378,8 @@
       "connections": [
         "WIT_C0_0"
       ],
-      "x": -680,
-      "y": 208
+      "x": -1015,
+      "y": 310
     },
     {
       "code": "WIT_C0_M",
@@ -8375,8 +10433,8 @@
           }
         ]
       ],
-      "x": -695,
-      "y": 279
+      "x": -1020,
+      "y": 409
     },
     {
       "code": "WIT_T0_1",
@@ -8398,8 +10456,8 @@
       "connections": [
         "WIT_K0"
       ],
-      "x": -805,
-      "y": 327
+      "x": -1129,
+      "y": 459
     },
     {
       "code": "WIT_K0",
@@ -8412,9 +10470,9 @@
           ]
         },
         {
-          "code": "PASSIVE_SET_CHAOS_RESISTANCE",
+          "code": "PASSIVE_CHAOS_IMMUNITY",
           "values": [
-            100.0
+            1
           ]
         },
         {
@@ -8424,8 +10482,8 @@
           ]
         }
       ],
-      "x": -907,
-      "y": 337
+      "x": -1235,
+      "y": 459
     },
     {
       "code": "WIT_B1_1",
@@ -8459,8 +10517,8 @@
           }
         ]
       ],
-      "x": -659,
-      "y": 95
+      "x": -1005,
+      "y": 145
     },
     {
       "code": "WIT_B1_2",
@@ -8483,8 +10541,8 @@
         "WIT_C1_0",
         "WIT_X1"
       ],
-      "x": -752,
-      "y": 163
+      "x": -1094,
+      "y": 237
     },
     {
       "code": "WIT_C1_0",
@@ -8506,8 +10564,8 @@
       "connections": [
         "WIT_C1_1"
       ],
-      "x": -904,
-      "y": 238
+      "x": -1242,
+      "y": 327
     },
     {
       "code": "WIT_C1_1",
@@ -8537,8 +10595,8 @@
       "connections": [
         "WIT_C1_2"
       ],
-      "x": -950,
-      "y": 292
+      "x": -1285,
+      "y": 395
     },
     {
       "code": "WIT_C1_2",
@@ -8561,8 +10619,8 @@
         "WIT_C1_3",
         "WIT_T1_1"
       ],
-      "x": -1031,
-      "y": 264
+      "x": -1370,
+      "y": 351
     },
     {
       "code": "WIT_C1_3",
@@ -8584,8 +10642,8 @@
       "connections": [
         "WIT_C1_4"
       ],
-      "x": -1022,
-      "y": 200
+      "x": -1365,
+      "y": 267
     },
     {
       "code": "WIT_C1_4",
@@ -8613,8 +10671,8 @@
       "connections": [
         "WIT_C1_0"
       ],
-      "x": -950,
-      "y": 172
+      "x": -1294,
+      "y": 234
     },
     {
       "code": "WIT_C1_M",
@@ -8669,8 +10727,8 @@
           }
         ]
       ],
-      "x": -972,
-      "y": 236
+      "x": -1312,
+      "y": 319
     },
     {
       "code": "WIT_T1_1",
@@ -8692,14 +10750,14 @@
       "connections": [
         "WIT_J1"
       ],
-      "x": -1073,
-      "y": 285
+      "x": -1411,
+      "y": 375
     },
     {
       "code": "WIT_J1",
       "type": "JEWEL_SOCKET",
-      "x": -1185,
-      "y": 333
+      "x": -1522,
+      "y": 428
     },
     {
       "code": "WIT_B2_1",
@@ -8733,8 +10791,8 @@
           }
         ]
       ],
-      "x": -585,
-      "y": 10
+      "x": -935,
+      "y": 16
     },
     {
       "code": "WIT_B2_2",
@@ -8756,8 +10814,8 @@
       "connections": [
         "WIT_C2_0"
       ],
-      "x": -628,
-      "y": 24
+      "x": -978,
+      "y": 37
     },
     {
       "code": "WIT_C2_0",
@@ -8779,8 +10837,8 @@
       "connections": [
         "WIT_C2_1"
       ],
-      "x": -685,
-      "y": 58
+      "x": -1034,
+      "y": 88
     },
     {
       "code": "WIT_C2_1",
@@ -8808,8 +10866,8 @@
       "connections": [
         "WIT_C2_2"
       ],
-      "x": -720,
-      "y": 130
+      "x": -1064,
+      "y": 192
     },
     {
       "code": "WIT_C2_2",
@@ -8831,8 +10889,8 @@
       "connections": [
         "WIT_C2_3"
       ],
-      "x": -843,
-      "y": 101
+      "x": -1191,
+      "y": 143
     },
     {
       "code": "WIT_C2_3",
@@ -8854,8 +10912,8 @@
       "connections": [
         "WIT_C2_4"
       ],
-      "x": -812,
-      "y": -9
+      "x": -1162,
+      "y": -13
     },
     {
       "code": "WIT_C2_4",
@@ -8883,8 +10941,8 @@
       "connections": [
         "WIT_C2_0"
       ],
-      "x": -729,
-      "y": -32
+      "x": -1079,
+      "y": -47
     },
     {
       "code": "WIT_C2_M",
@@ -8937,8 +10995,8 @@
           }
         ]
       ],
-      "x": -760,
-      "y": 52
+      "x": -1109,
+      "y": 76
     },
     {
       "code": "WIT_B3_1",
@@ -8972,8 +11030,8 @@
           }
         ]
       ],
-      "x": -650,
-      "y": -79
+      "x": -997,
+      "y": -121
     },
     {
       "code": "WIT_B3_2",
@@ -8995,8 +11053,8 @@
       "connections": [
         "WIT_C3_0"
       ],
-      "x": -766,
-      "y": -97
+      "x": -1113,
+      "y": -141
     },
     {
       "code": "WIT_C3_0",
@@ -9018,8 +11076,8 @@
       "connections": [
         "WIT_C3_1"
       ],
-      "x": -953,
-      "y": -118
+      "x": -1300,
+      "y": -161
     },
     {
       "code": "WIT_C3_1",
@@ -9047,8 +11105,8 @@
       "connections": [
         "WIT_C3_2"
       ],
-      "x": -995,
-      "y": -81
+      "x": -1344,
+      "y": -109
     },
     {
       "code": "WIT_C3_2",
@@ -9076,8 +11134,8 @@
       "connections": [
         "WIT_C3_3"
       ],
-      "x": -1069,
-      "y": -116
+      "x": -1417,
+      "y": -154
     },
     {
       "code": "WIT_C3_3",
@@ -9105,8 +11163,8 @@
       "connections": [
         "WIT_C3_4"
       ],
-      "x": -1061,
-      "y": -196
+      "x": -1405,
+      "y": -260
     },
     {
       "code": "WIT_C3_4",
@@ -9128,8 +11186,8 @@
       "connections": [
         "WIT_C3_5"
       ],
-      "x": -1013,
-      "y": -215
+      "x": -1355,
+      "y": -288
     },
     {
       "code": "WIT_C3_5",
@@ -9151,8 +11209,8 @@
       "connections": [
         "WIT_C3_0"
       ],
-      "x": -950,
-      "y": -195
+      "x": -1293,
+      "y": -265
     },
     {
       "code": "WIT_C3_M",
@@ -9206,8 +11264,8 @@
           }
         ]
       ],
-      "x": -1003,
-      "y": -151
+      "x": -1349,
+      "y": -203
     },
     {
       "code": "WIT_B4_1",
@@ -9241,8 +11299,8 @@
           }
         ]
       ],
-      "x": -557,
-      "y": -125
+      "x": -899,
+      "y": -202
     },
     {
       "code": "WIT_B4_2",
@@ -9264,8 +11322,8 @@
       "connections": [
         "WIT_C4_0"
       ],
-      "x": -610,
-      "y": -163
+      "x": -948,
+      "y": -253
     },
     {
       "code": "WIT_C4_0",
@@ -9287,8 +11345,8 @@
       "connections": [
         "WIT_C4_1"
       ],
-      "x": -666,
-      "y": -224
+      "x": -998,
+      "y": -336
     },
     {
       "code": "WIT_C4_1",
@@ -9316,8 +11374,8 @@
       "connections": [
         "WIT_C4_2"
       ],
-      "x": -722,
-      "y": -202
+      "x": -1059,
+      "y": -296
     },
     {
       "code": "WIT_C4_2",
@@ -9351,8 +11409,8 @@
       "connections": [
         "WIT_C4_3"
       ],
-      "x": -797,
-      "y": -205
+      "x": -1136,
+      "y": -292
     },
     {
       "code": "WIT_C4_3",
@@ -9374,8 +11432,8 @@
       "connections": [
         "WIT_C4_4"
       ],
-      "x": -813,
-      "y": -286
+      "x": -1143,
+      "y": -402
     },
     {
       "code": "WIT_C4_4",
@@ -9397,8 +11455,8 @@
       "connections": [
         "WIT_C4_5"
       ],
-      "x": -755,
-      "y": -331
+      "x": -1076,
+      "y": -472
     },
     {
       "code": "WIT_C4_5",
@@ -9426,8 +11484,8 @@
       "connections": [
         "WIT_C4_0"
       ],
-      "x": -696,
-      "y": -309
+      "x": -1016,
+      "y": -451
     },
     {
       "code": "WIT_C4_M",
@@ -9475,8 +11533,8 @@
           }
         ]
       ],
-      "x": -742,
-      "y": -262
+      "x": -1072,
+      "y": -379
     },
     {
       "code": "WIT_B5_1",
@@ -9498,8 +11556,8 @@
       "connections": [
         "WIT_B5_2"
       ],
-      "x": -589,
-      "y": -204
+      "x": -920,
+      "y": -319
     },
     {
       "code": "WIT_B5_2",
@@ -9521,8 +11579,8 @@
       "connections": [
         "WIT_B5_3"
       ],
-      "x": -696,
-      "y": -259
+      "x": -1024,
+      "y": -381
     },
     {
       "code": "WIT_B5_3",
@@ -9545,8 +11603,8 @@
         "BR4_1",
         "WIT_C5_0"
       ],
-      "x": -782,
-      "y": -368
+      "x": -1099,
+      "y": -517
     },
     {
       "code": "WIT_C5_0",
@@ -9568,8 +11626,8 @@
       "connections": [
         "WIT_C5_1"
       ],
-      "x": -868,
-      "y": -486
+      "x": -1173,
+      "y": -657
     },
     {
       "code": "WIT_C5_1",
@@ -9597,8 +11655,8 @@
       "connections": [
         "WIT_C5_2"
       ],
-      "x": -943,
-      "y": -469
+      "x": -1256,
+      "y": -625
     },
     {
       "code": "WIT_C5_2",
@@ -9621,8 +11679,8 @@
         "WIT_C5_3",
         "WIT_T5_1"
       ],
-      "x": -978,
-      "y": -513
+      "x": -1288,
+      "y": -676
     },
     {
       "code": "WIT_C5_3",
@@ -9644,8 +11702,8 @@
       "connections": [
         "WIT_C5_4"
       ],
-      "x": -931,
-      "y": -581
+      "x": -1228,
+      "y": -766
     },
     {
       "code": "WIT_C5_4",
@@ -9673,8 +11731,8 @@
       "connections": [
         "WIT_C5_0"
       ],
-      "x": -858,
-      "y": -555
+      "x": -1152,
+      "y": -745
     },
     {
       "code": "WIT_C5_M",
@@ -9721,8 +11779,8 @@
           }
         ]
       ],
-      "x": -915,
-      "y": -520
+      "x": -1219,
+      "y": -693
     },
     {
       "code": "WIT_T5_1",
@@ -9744,8 +11802,8 @@
       "connections": [
         "WIT_K5"
       ],
-      "x": -997,
-      "y": -633
+      "x": -1292,
+      "y": -821
     },
     {
       "code": "WIT_K5",
@@ -9772,8 +11830,8 @@
           ]
         }
       ],
-      "x": -1169,
-      "y": -565
+      "x": -1484,
+      "y": -717
     },
     {
       "code": "WIT_X1",
@@ -9795,8 +11853,8 @@
       "connections": [
         "WIT_B2_2"
       ],
-      "x": -758,
-      "y": 103
+      "x": -1105,
+      "y": 150
     },
     {
       "code": "STR_INT_START",
@@ -9811,8 +11869,8 @@
         "TEM_IN_2"
       ],
       "cost": 0,
-      "x": -260,
-      "y": -539
+      "x": -412,
+      "y": -854
     },
     {
       "code": "TEM_IN_1",
@@ -9836,8 +11894,8 @@
       "connections": [
         "TEM_IN_2"
       ],
-      "x": -316,
-      "y": -288
+      "x": -575,
+      "y": -524
     },
     {
       "code": "TEM_IN_2",
@@ -9858,8 +11916,8 @@
           ]
         }
       ],
-      "x": -323,
-      "y": -412
+      "x": -539,
+      "y": -687
     },
     {
       "code": "TEM_B0_1",
@@ -9882,8 +11940,8 @@
         "TEM_C0_0",
         "TEM_X0"
       ],
-      "x": -429,
-      "y": -477
+      "x": -663,
+      "y": -737
     },
     {
       "code": "TEM_C0_0",
@@ -9905,8 +11963,8 @@
       "connections": [
         "TEM_C0_1"
       ],
-      "x": -599,
-      "y": -435
+      "x": -882,
+      "y": -641
     },
     {
       "code": "TEM_C0_1",
@@ -9930,8 +11988,8 @@
       "connections": [
         "TEM_C0_2"
       ],
-      "x": -656,
-      "y": -412
+      "x": -952,
+      "y": -598
     },
     {
       "code": "TEM_C0_2",
@@ -9961,8 +12019,8 @@
       "connections": [
         "TEM_C0_3"
       ],
-      "x": -698,
-      "y": -456
+      "x": -991,
+      "y": -647
     },
     {
       "code": "TEM_C0_3",
@@ -9991,8 +12049,8 @@
         "TEM_C0_4",
         "TEM_T0_1"
       ],
-      "x": -696,
-      "y": -513
+      "x": -978,
+      "y": -721
     },
     {
       "code": "TEM_C0_4",
@@ -10014,8 +12072,8 @@
       "connections": [
         "TEM_C0_5"
       ],
-      "x": -632,
-      "y": -532
+      "x": -900,
+      "y": -757
     },
     {
       "code": "TEM_C0_5",
@@ -10045,8 +12103,8 @@
       "connections": [
         "TEM_C0_0"
       ],
-      "x": -584,
-      "y": -502
+      "x": -849,
+      "y": -730
     },
     {
       "code": "TEM_C0_M",
@@ -10102,8 +12160,8 @@
           }
         ]
       ],
-      "x": -646,
-      "y": -475
+      "x": -928,
+      "y": -682
     },
     {
       "code": "TEM_T0_1",
@@ -10125,8 +12183,8 @@
       "connections": [
         "TEM_K0"
       ],
-      "x": -744,
-      "y": -553
+      "x": -1025,
+      "y": -762
     },
     {
       "code": "TEM_K0",
@@ -10147,8 +12205,8 @@
           ]
         }
       ],
-      "x": -802,
-      "y": -638
+      "x": -1076,
+      "y": -856
     },
     {
       "code": "TEM_B1_1",
@@ -10182,8 +12240,8 @@
           }
         ]
       ],
-      "x": -393,
-      "y": -569
+      "x": -592,
+      "y": -857
     },
     {
       "code": "TEM_B1_2",
@@ -10205,8 +12263,8 @@
       "connections": [
         "TEM_B1_3"
       ],
-      "x": -475,
-      "y": -659
+      "x": -680,
+      "y": -943
     },
     {
       "code": "TEM_B1_3",
@@ -10228,8 +12286,8 @@
       "connections": [
         "TEM_C1_0"
       ],
-      "x": -518,
-      "y": -735
+      "x": -720,
+      "y": -1021
     },
     {
       "code": "TEM_C1_0",
@@ -10251,8 +12309,8 @@
       "connections": [
         "TEM_C1_1"
       ],
-      "x": -622,
-      "y": -781
+      "x": -840,
+      "y": -1055
     },
     {
       "code": "TEM_C1_1",
@@ -10280,8 +12338,8 @@
       "connections": [
         "TEM_C1_2"
       ],
-      "x": -728,
-      "y": -766
+      "x": -969,
+      "y": -1020
     },
     {
       "code": "TEM_C1_2",
@@ -10304,8 +12362,8 @@
         "TEM_C1_3",
         "TEM_T1_1"
       ],
-      "x": -778,
-      "y": -855
+      "x": -1014,
+      "y": -1114
     },
     {
       "code": "TEM_C1_3",
@@ -10333,8 +12391,8 @@
       "connections": [
         "TEM_C1_4"
       ],
-      "x": -703,
-      "y": -908
+      "x": -917,
+      "y": -1185
     },
     {
       "code": "TEM_C1_4",
@@ -10356,8 +12414,8 @@
       "connections": [
         "TEM_C1_0"
       ],
-      "x": -632,
-      "y": -877
+      "x": -837,
+      "y": -1161
     },
     {
       "code": "TEM_C1_M",
@@ -10424,8 +12482,8 @@
           }
         ]
       ],
-      "x": -695,
-      "y": -832
+      "x": -919,
+      "y": -1101
     },
     {
       "code": "TEM_T1_1",
@@ -10447,14 +12505,14 @@
       "connections": [
         "TEM_J1"
       ],
-      "x": -777,
-      "y": -934
+      "x": -1001,
+      "y": -1203
     },
     {
       "code": "TEM_J1",
       "type": "JEWEL_SOCKET",
-      "x": -841,
-      "y": -987
+      "x": -1068,
+      "y": -1253
     },
     {
       "code": "TEM_B2_1",
@@ -10488,8 +12546,8 @@
           }
         ]
       ],
-      "x": -314,
-      "y": -566
+      "x": -484,
+      "y": -872
     },
     {
       "code": "TEM_C2_0",
@@ -10511,8 +12569,8 @@
       "connections": [
         "TEM_C2_1"
       ],
-      "x": -421,
-      "y": -606
+      "x": -621,
+      "y": -893
     },
     {
       "code": "TEM_C2_1",
@@ -10534,8 +12592,8 @@
       "connections": [
         "TEM_C2_2"
       ],
-      "x": -499,
-      "y": -620
+      "x": -718,
+      "y": -893
     },
     {
       "code": "TEM_C2_2",
@@ -10557,8 +12615,8 @@
       "connections": [
         "TEM_C2_3"
       ],
-      "x": -514,
-      "y": -690
+      "x": -723,
+      "y": -971
     },
     {
       "code": "TEM_C2_3",
@@ -10586,8 +12644,8 @@
       "connections": [
         "TEM_C2_4"
       ],
-      "x": -435,
-      "y": -744
+      "x": -612,
+      "y": -1046
     },
     {
       "code": "TEM_C2_4",
@@ -10615,8 +12673,8 @@
       "connections": [
         "TEM_C2_0"
       ],
-      "x": -377,
-      "y": -671
+      "x": -548,
+      "y": -976
     },
     {
       "code": "TEM_C2_M",
@@ -10669,8 +12727,8 @@
           }
         ]
       ],
-      "x": -433,
-      "y": -677
+      "x": -622,
+      "y": -972
     },
     {
       "code": "TEM_B3_1",
@@ -10704,8 +12762,8 @@
           }
         ]
       ],
-      "x": -283,
-      "y": -623
+      "x": -428,
+      "y": -942
     },
     {
       "code": "TEM_B3_2",
@@ -10727,8 +12785,8 @@
       "connections": [
         "TEM_B3_3"
       ],
-      "x": -266,
-      "y": -749
+      "x": -383,
+      "y": -1079
     },
     {
       "code": "TEM_B3_3",
@@ -10751,8 +12809,8 @@
         "TEM_C3_0",
         "TEM_X3"
       ],
-      "x": -353,
-      "y": -832
+      "x": -490,
+      "y": -1154
     },
     {
       "code": "TEM_C3_0",
@@ -10774,8 +12832,8 @@
       "connections": [
         "TEM_C3_1"
       ],
-      "x": -346,
-      "y": -977
+      "x": -463,
+      "y": -1307
     },
     {
       "code": "TEM_C3_1",
@@ -10803,8 +12861,8 @@
       "connections": [
         "TEM_C3_2"
       ],
-      "x": -410,
-      "y": -983
+      "x": -545,
+      "y": -1306
     },
     {
       "code": "TEM_C3_2",
@@ -10832,8 +12890,8 @@
       "connections": [
         "TEM_C3_3"
       ],
-      "x": -448,
-      "y": -1038
+      "x": -587,
+      "y": -1359
     },
     {
       "code": "TEM_C3_3",
@@ -10861,8 +12919,8 @@
       "connections": [
         "TEM_C3_4"
       ],
-      "x": -397,
-      "y": -1086
+      "x": -517,
+      "y": -1415
     },
     {
       "code": "TEM_C3_4",
@@ -10884,8 +12942,8 @@
       "connections": [
         "TEM_C3_5"
       ],
-      "x": -346,
-      "y": -1088
+      "x": -452,
+      "y": -1422
     },
     {
       "code": "TEM_C3_5",
@@ -10907,8 +12965,8 @@
       "connections": [
         "TEM_C3_0"
       ],
-      "x": -315,
-      "y": -1036
+      "x": -417,
+      "y": -1371
     },
     {
       "code": "TEM_C3_M",
@@ -10956,8 +13014,8 @@
           }
         ]
       ],
-      "x": -373,
-      "y": -1034
+      "x": -492,
+      "y": -1363
     },
     {
       "code": "TEM_B4_1",
@@ -10991,8 +13049,8 @@
           }
         ]
       ],
-      "x": -143,
-      "y": -611
+      "x": -223,
+      "y": -952
     },
     {
       "code": "TEM_C4_0",
@@ -11014,8 +13072,8 @@
       "connections": [
         "TEM_C4_1"
       ],
-      "x": -117,
-      "y": -698
+      "x": -175,
+      "y": -1043
     },
     {
       "code": "TEM_C4_1",
@@ -11043,8 +13101,8 @@
       "connections": [
         "TEM_C4_2"
       ],
-      "x": -220,
-      "y": -749
+      "x": -319,
+      "y": -1085
     },
     {
       "code": "TEM_C4_2",
@@ -11072,8 +13130,8 @@
       "connections": [
         "TEM_C4_3"
       ],
-      "x": -175,
-      "y": -853
+      "x": -245,
+      "y": -1196
     },
     {
       "code": "TEM_C4_3",
@@ -11095,8 +13153,8 @@
       "connections": [
         "TEM_C4_4"
       ],
-      "x": -89,
-      "y": -861
+      "x": -125,
+      "y": -1209
     },
     {
       "code": "TEM_C4_4",
@@ -11118,8 +13176,8 @@
       "connections": [
         "TEM_C4_0"
       ],
-      "x": -57,
-      "y": -761
+      "x": -83,
+      "y": -1110
     },
     {
       "code": "TEM_C4_M",
@@ -11172,8 +13230,8 @@
           }
         ]
       ],
-      "x": -133,
-      "y": -778
+      "x": -192,
+      "y": -1123
     },
     {
       "code": "TEM_B5_1",
@@ -11195,8 +13253,8 @@
       "connections": [
         "TEM_B5_2"
       ],
-      "x": -158,
-      "y": -717
+      "x": -233,
+      "y": -1059
     },
     {
       "code": "TEM_B5_2",
@@ -11219,8 +13277,8 @@
         "BR5_1",
         "TEM_C5_0"
       ],
-      "x": -92,
-      "y": -816
+      "x": -131,
+      "y": -1164
     },
     {
       "code": "TEM_C5_0",
@@ -11243,8 +13301,8 @@
       "connections": [
         "TEM_C5_1"
       ],
-      "x": 18,
-      "y": -1001
+      "x": 24,
+      "y": -1351
     },
     {
       "code": "TEM_C5_1",
@@ -11266,8 +13324,8 @@
       "connections": [
         "TEM_C5_2"
       ],
-      "x": -43,
-      "y": -1063
+      "x": -57,
+      "y": -1413
     },
     {
       "code": "TEM_C5_2",
@@ -11290,8 +13348,8 @@
         "TEM_C5_3",
         "TEM_T5_1"
       ],
-      "x": -4,
-      "y": -1133
+      "x": -5,
+      "y": -1483
     },
     {
       "code": "TEM_C5_3",
@@ -11319,8 +13377,8 @@
       "connections": [
         "TEM_C5_4"
       ],
-      "x": 67,
-      "y": -1124
+      "x": 88,
+      "y": -1473
     },
     {
       "code": "TEM_C5_4",
@@ -11349,8 +13407,8 @@
       "connections": [
         "TEM_C5_0"
       ],
-      "x": 87,
-      "y": -1025
+      "x": 117,
+      "y": -1374
     },
     {
       "code": "TEM_C5_M",
@@ -11403,8 +13461,8 @@
           }
         ]
       ],
-      "x": 21,
-      "y": -1066
+      "x": 28,
+      "y": -1416
     },
     {
       "code": "TEM_T5_1",
@@ -11426,8 +13484,8 @@
       "connections": [
         "TEM_K5"
       ],
-      "x": 6,
-      "y": -1180
+      "x": 8,
+      "y": -1530
     },
     {
       "code": "TEM_K5",
@@ -11458,8 +13516,8 @@
           ]
         }
       ],
-      "x": 23,
-      "y": -1292
+      "x": 29,
+      "y": -1642
     },
     {
       "code": "TEM_X0",
@@ -11481,8 +13539,8 @@
       "connections": [
         "TEM_B1_3"
       ],
-      "x": -593,
-      "y": -557
+      "x": -848,
+      "y": -797
     },
     {
       "code": "TEM_X3",
@@ -11504,8 +13562,8 @@
       "connections": [
         "TEM_B4_1"
       ],
-      "x": -206,
-      "y": -792
+      "x": -294,
+      "y": -1131
     },
     {
       "code": "BR0_1",
@@ -11527,8 +13585,8 @@
       "connections": [
         "BR0_2"
       ],
-      "x": 711,
-      "y": -417
+      "x": 1013,
+      "y": -594
     },
     {
       "code": "BR0_2",
@@ -11562,8 +13620,8 @@
           }
         ]
       ],
-      "x": 754,
-      "y": -432
+      "x": 1058,
+      "y": -606
     },
     {
       "code": "BR1_1",
@@ -11585,8 +13643,8 @@
       "connections": [
         "BR1_2"
       ],
-      "x": 729,
-      "y": 359
+      "x": 1043,
+      "y": 514
     },
     {
       "code": "BR1_2",
@@ -11620,8 +13678,8 @@
           }
         ]
       ],
-      "x": 706,
-      "y": 442
+      "x": 1003,
+      "y": 628
     },
     {
       "code": "BR2_1",
@@ -11643,8 +13701,8 @@
       "connections": [
         "BR2_2"
       ],
-      "x": 49,
-      "y": 872
+      "x": 69,
+      "y": 1221
     },
     {
       "code": "BR2_2",
@@ -11678,8 +13736,8 @@
           }
         ]
       ],
-      "x": 16,
-      "y": 904
+      "x": 22,
+      "y": 1254
     },
     {
       "code": "BR3_1",
@@ -11701,8 +13759,8 @@
       "connections": [
         "BR3_2"
       ],
-      "x": -686,
-      "y": 478
+      "x": -973,
+      "y": 678
     },
     {
       "code": "BR3_2",
@@ -11736,8 +13794,8 @@
           }
         ]
       ],
-      "x": -752,
-      "y": 408
+      "x": -1060,
+      "y": 575
     },
     {
       "code": "BR4_1",
@@ -11759,8 +13817,8 @@
       "connections": [
         "BR4_2"
       ],
-      "x": -744,
-      "y": -453
+      "x": -1043,
+      "y": -635
     },
     {
       "code": "BR4_2",
@@ -11794,8 +13852,8 @@
           }
         ]
       ],
-      "x": -740,
-      "y": -498
+      "x": -1030,
+      "y": -693
     },
     {
       "code": "BR5_1",
@@ -11817,8 +13875,8 @@
       "connections": [
         "BR5_2"
       ],
-      "x": 56,
-      "y": -864
+      "x": 79,
+      "y": -1213
     },
     {
       "code": "BR5_2",
@@ -11852,8 +13910,8 @@
           }
         ]
       ],
-      "x": 99,
-      "y": -881
+      "x": 138,
+      "y": -1229
     }
   ]
 }

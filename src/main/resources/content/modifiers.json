@@ -1849,6 +1849,66 @@
       ]
     },
     {
+      "code": "PASSIVE_REDUCE_MAXIMUM_BLOCK",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_BLOCK_MAX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            -1,
+            -1
+          ]
+        ],
+        "bottom": [
+          [
+            -1,
+            -1
+          ]
+        ]
+      },
+      "tags": [
+        "block",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_REDUCE_MAXIMUM_EVASION",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_EVASION_MAX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            -1,
+            -1
+          ]
+        ],
+        "bottom": [
+          [
+            -1,
+            -1
+          ]
+        ]
+      },
+      "tags": [
+        "evasion",
+        "passive"
+      ]
+    },
+    {
       "code": "AVOID_STUN",
       "source": "SUFFIX",
       "effects": [
@@ -17470,6 +17530,38 @@
       ]
     },
     {
+      "code": "CONVERT_INTELLIGENCE_TO_LIFE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "perStat": "STOCK_INTELLECT",
+          "perAmount": 2
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "passive",
+        "conversion"
+      ]
+    },
+    {
       "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
       "source": "PASSIVE",
       "effects": [
@@ -17560,6 +17652,36 @@
       ]
     },
     {
+      "code": "PASSIVE_SET_ARMOUR",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "op": "SET"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "passive"
+      ]
+    },
+    {
       "code": "PASSIVE_SET_CHAOS_RESISTANCE",
       "source": "PASSIVE",
       "effects": [
@@ -17586,6 +17708,36 @@
         ]
       },
       "tags": [
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_CHAOS_IMMUNITY",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_CHAOS_IMMUNE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "chaos",
         "passive"
       ]
     },
@@ -17880,6 +18032,99 @@
         ]
       },
       "tags": [
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_MORE_DAMAGE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_LESS_PHYSICAL_DAMAGE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "op": "MORE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            -1,
+            -1
+          ]
+        ],
+        "bottom": [
+          [
+            -1,
+            -1
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "physical",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_LESS_MAXIMUM_MANA",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_MANA",
+          "op": "MORE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            -1,
+            -1
+          ]
+        ],
+        "bottom": [
+          [
+            -1,
+            -1
+          ]
+        ]
+      },
+      "tags": [
+        "mana",
         "passive"
       ]
     },
