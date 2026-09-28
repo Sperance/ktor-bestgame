@@ -136,6 +136,8 @@ data class MapRule(
     val risk: Map<String, Double>,
     val rarityBonus: Map<Rarity, Double> = emptyMap(),
     val rarities: String = "rarity:map",
+    /** Уникалка с босса карты (1.19.0): шанс и собственный пул карт. */
+    val uniqueChance: Double = 0.0, val uniqueTables: List<String> = emptyList(),
 )
 
 /**

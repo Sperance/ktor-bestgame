@@ -115,6 +115,9 @@ data class ItemTemplate(
     val unique: Boolean get() = rarity.fixed
     val demanding: Boolean get() = requiredLevel > 1 || requiredStrength > 0 || requiredDexterity > 0 || requiredIntelligence > 0
 
+    /** Сколько у уникалки своих эффектов (1.19.0): строк силы `POWER_*` и особых строк фляги `FLASK_*`. */
+    val uniqueEffects: Int get() = lines.count { line -> line.any { it.stat.startsWith(POWER_PREFIX) || it.stat.startsWith(FLASK_PREFIX) } }
+
     /** Код описания строки уникалки [index]. */
     fun lineCode(index: Int): String = "UNIQUE_${code}_$index"
 
@@ -135,6 +138,9 @@ data class ItemTemplate(
         )
     }
 }
+
+private const val POWER_PREFIX = "POWER_"
+private const val FLASK_PREFIX = "FLASK_"
 
 @Serializable
 data class EquipmentFile(val templates: List<ItemTemplate> = emptyList())

@@ -11,6 +11,8 @@ import kotlinx.serialization.Serializable
 data class CrystalRule(
     val count: List<Int>, val refreshHours: Double, val essences: List<Int>, val lowerChance: Double,
     val modifiers: List<String>, val bookChance: Double, val vaal: String = "vaal:crystal", val stronger: Double,
+    /** Уникалка со стража кристалла (1.19.0): шанс и собственный пул механики. */
+    val uniqueChance: Double = 0.0, val uniqueTables: List<String> = emptyList(),
 )
 
 @Serializable data class CondenseRule(val inputs: Int, val levels: List<Int>, val seconds: Int)
