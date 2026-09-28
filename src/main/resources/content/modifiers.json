@@ -782,28 +782,6 @@
           }
         },
         {
-          "kind": "IMPLICIT",
-          "grid": {
-            "levels": [
-              45,
-              20,
-              1
-            ],
-            "top": [
-              [
-                90,
-                120
-              ]
-            ],
-            "bottom": [
-              [
-                15,
-                25
-              ]
-            ]
-          }
-        },
-        {
           "kind": "CORRUPTED",
           "grid": {
             "levels": [
@@ -1637,28 +1615,6 @@
           "slots": [
             "SHIELD"
           ]
-        },
-        {
-          "kind": "IMPLICIT",
-          "grid": {
-            "levels": [
-              45,
-              20,
-              1
-            ],
-            "top": [
-              [
-                4,
-                5
-              ]
-            ],
-            "bottom": [
-              [
-                1,
-                2
-              ]
-            ]
-          }
         },
         {
           "kind": "CORRUPTED",
@@ -4387,28 +4343,6 @@
           }
         },
         {
-          "kind": "IMPLICIT",
-          "grid": {
-            "levels": [
-              45,
-              20,
-              1
-            ],
-            "top": [
-              [
-                6,
-                12
-              ]
-            ],
-            "bottom": [
-              [
-                2,
-                4
-              ]
-            ]
-          }
-        },
-        {
           "kind": "CORRUPTED",
           "grid": {
             "levels": [
@@ -4605,28 +4539,6 @@
               [
                 2,
                 5
-              ]
-            ]
-          }
-        },
-        {
-          "kind": "IMPLICIT",
-          "grid": {
-            "levels": [
-              45,
-              20,
-              1
-            ],
-            "top": [
-              [
-                6,
-                12
-              ]
-            ],
-            "bottom": [
-              [
-                2,
-                4
               ]
             ]
           }
@@ -9018,28 +8930,6 @@
           }
         },
         {
-          "kind": "IMPLICIT",
-          "grid": {
-            "levels": [
-              45,
-              20,
-              1
-            ],
-            "top": [
-              [
-                20,
-                30
-              ]
-            ],
-            "bottom": [
-              [
-                4,
-                8
-              ]
-            ]
-          }
-        },
-        {
           "kind": "CORRUPTED",
           "grid": {
             "levels": [
@@ -9714,28 +9604,6 @@
         "light"
       ],
       "variants": [
-        {
-          "kind": "IMPLICIT",
-          "grid": {
-            "levels": [
-              45,
-              20,
-              1
-            ],
-            "top": [
-              [
-                15,
-                20
-              ]
-            ],
-            "bottom": [
-              [
-                6,
-                10
-              ]
-            ]
-          }
-        },
         {
           "kind": "ENCHANT",
           "grid": {
@@ -12445,6 +12313,1229 @@
       "tags": [
         "jewel",
         "energy_shield"
+      ]
+    },
+    {
+      "code": "JEWEL_ADD_CRITICAL_VAMPIRE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_VAMPIRE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            0.7,
+            1.0
+          ]
+        ],
+        "bottom": [
+          [
+            0.2,
+            0.3
+          ]
+        ],
+        "precision": 1
+      },
+      "tags": [
+        "jewel",
+        "critical",
+        "leech"
+      ]
+    },
+    {
+      "code": "JEWEL_CHANCE_TO_BLEED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_BLEED_CHANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            6,
+            7
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "physical"
+      ]
+    },
+    {
+      "code": "JEWEL_CHANCE_TO_FREEZE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FREEZE_CHANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            6,
+            7
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "cold"
+      ]
+    },
+    {
+      "code": "JEWEL_CHANCE_TO_IGNITE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IGNITE_CHANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            6,
+            7
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "fire"
+      ]
+    },
+    {
+      "code": "JEWEL_CHANCE_TO_POISON",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_POISON_CHANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            6,
+            7
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "chaos"
+      ]
+    },
+    {
+      "code": "JEWEL_CHANCE_TO_SHOCK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SHOCK_CHANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            6,
+            7
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "lightning"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_ARMOUR_AND_ENERGY_SHIELD",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ENERGY_SHIELD",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "armour",
+        "energy_shield",
+        "hybrid",
+        "defences"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_BLEED_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_BLEED_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "physical"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_CHILL_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CHILL_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "cold"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_DAMAGE_VS_BLEEDING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_VS_BLEEDING"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "physical",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_DAMAGE_VS_BURNING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_VS_BURNING"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "fire",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_DAMAGE_VS_CHILLED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_VS_CHILLED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "cold",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_DAMAGE_VS_POISONED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_VS_POISONED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "chaos",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_DAMAGE_VS_SHOCKED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_VS_SHOCKED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "lightning",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_ENERGY_REGENERATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ENERGY_REGEN",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "regen",
+        "energy_shield"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_EVASION_AND_ENERGY_SHIELD",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_EVASION",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ENERGY_SHIELD",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "evasion",
+        "energy_shield",
+        "hybrid",
+        "defences"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_EVASION_RATING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_EVASION",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            3,
+            4
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "evasion",
+        "defences"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_FREEZE_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FREEZE_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "cold"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_IGNITE_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_IGNITE_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "fire"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_POISON_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_POISON_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "chaos"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_SHIELD_RECHARGE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SHIELD_RECHARGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            10,
+            12
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "energy_shield",
+        "regen"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_SHOCK_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SHOCK_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "ailment",
+        "lightning"
+      ]
+    },
+    {
+      "code": "JEWEL_PENETRATE_CHAOS_RESISTANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PENETRATE_CHAOS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "penetration",
+        "chaos",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_PENETRATE_COLD_RESISTANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PENETRATE_COLD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "penetration",
+        "cold",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_PENETRATE_FIRE_RESISTANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PENETRATE_FIRE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "penetration",
+        "fire",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_PENETRATE_LIGHTNING_RESISTANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PENETRATE_LIGHTNING"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "penetration",
+        "lightning",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_RISK_ATTACK_SPEED_FOR_ARMOUR",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ARMOR",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            5,
+            5
+          ],
+          [
+            -7,
+            -7
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ],
+          [
+            -7,
+            -7
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "risk",
+        "speed",
+        "armour",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "JEWEL_RISK_ATTACK_SPEED_FOR_RESISTANCES",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_RESIST_ALL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            4,
+            5
+          ],
+          [
+            -4,
+            -4
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ],
+          [
+            -4,
+            -4
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "risk",
+        "speed",
+        "resistance",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "JEWEL_RISK_CRITICAL_MULTIPLIER_FOR_LIFE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_MULTIPLIER"
+        },
+        {
+          "stat": "STOCK_HEALTH"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            16
+          ],
+          [
+            -8,
+            -8
+          ]
+        ],
+        "bottom": [
+          [
+            7,
+            9
+          ],
+          [
+            -8,
+            -8
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "risk",
+        "critical",
+        "life",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "JEWEL_RISK_DAMAGE_FOR_DAMAGE_TAKEN",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_DAMAGE_TAKEN"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            15,
+            18
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "bottom": [
+          [
+            7,
+            9
+          ],
+          [
+            3,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "risk",
+        "damage",
+        "physical",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "JEWEL_RISK_ELEMENTAL_DAMAGE_FOR_CHAOS_RESISTANCE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_RESIST_CHAOS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            10,
+            12
+          ],
+          [
+            10,
+            12
+          ],
+          [
+            10,
+            12
+          ],
+          [
+            -5,
+            -5
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            -5,
+            -5
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "risk",
+        "damage",
+        "elemental",
+        "chaos",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "JEWEL_RISK_LIFE_FOR_ENERGY_SHIELD",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ENERGY_SHIELD",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            4,
+            5
+          ],
+          [
+            -10,
+            -10
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            2
+          ],
+          [
+            -10,
+            -10
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "risk",
+        "life",
+        "energy_shield",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "JEWEL_RISK_PHYSICAL_DAMAGE_FOR_LIFE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_HEALTH"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            13,
+            16
+          ],
+          [
+            -10,
+            -10
+          ]
+        ],
+        "bottom": [
+          [
+            7,
+            10
+          ],
+          [
+            -10,
+            -10
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "risk",
+        "damage",
+        "physical",
+        "life",
+        "hybrid"
       ]
     },
     {
@@ -20587,15 +21678,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            80,
-            100
+            100,
+            125
           ]
         ],
         "bottom": [
@@ -20622,15 +21714,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            35,
-            45
+            44,
+            56
           ]
         ],
         "bottom": [
@@ -20657,15 +21750,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            50,
-            65
+            62,
+            81
           ]
         ],
         "bottom": [
@@ -20691,15 +21785,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ]
         ],
         "bottom": [
@@ -20725,15 +21820,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ]
         ],
         "bottom": [
@@ -20759,15 +21855,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ]
         ],
         "bottom": [
@@ -20793,15 +21890,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            4,
-            5
+            5,
+            6
           ]
         ],
         "bottom": [
@@ -20827,15 +21925,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
-            55
+            50,
+            69
           ]
         ],
         "bottom": [
@@ -20861,15 +21960,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
-            55
+            50,
+            69
           ]
         ],
         "bottom": [
@@ -20895,15 +21995,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            2,
-            3
+            2.5,
+            3.8
           ]
         ],
         "bottom": [
@@ -20930,15 +22031,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            30,
-            40
+            38,
+            50
           ]
         ],
         "bottom": [
@@ -20968,9 +22070,10 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -20979,8 +22082,8 @@
             1
           ],
           [
-            35,
-            45
+            44,
+            56
           ]
         ],
         "bottom": [
@@ -21011,15 +22114,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            30,
-            40
+            38,
+            50
           ]
         ],
         "bottom": [
@@ -21045,15 +22149,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            15,
-            20
+            19,
+            25
           ]
         ],
         "bottom": [
@@ -21079,15 +22184,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            20,
-            28
+            25,
+            35
           ]
         ],
         "bottom": [
@@ -21116,19 +22222,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            50,
-            60
+            62,
+            75
           ],
           [
-            3,
-            4
+            4,
+            5
           ]
         ],
         "bottom": [
@@ -21162,19 +22269,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            50,
-            60
+            62,
+            75
           ],
           [
-            3,
-            4
+            4,
+            5
           ]
         ],
         "bottom": [
@@ -21208,19 +22316,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            50,
-            60
+            62,
+            75
           ],
           [
-            3,
-            4
+            4,
+            5
           ]
         ],
         "bottom": [
@@ -21254,19 +22363,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            50,
-            60
+            62,
+            75
           ],
           [
             2,
-            3
+            4
           ]
         ],
         "bottom": [
@@ -21300,19 +22410,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            30,
-            40
+            38,
+            50
           ],
           [
-            40,
-            60
+            50,
+            75
           ]
         ],
         "bottom": [
@@ -21346,19 +22457,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            25,
-            35
+            31,
+            44
           ],
           [
-            40,
-            60
+            50,
+            75
           ]
         ],
         "bottom": [
@@ -21392,19 +22504,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            25,
-            35
+            31,
+            44
           ],
           [
-            40,
-            60
+            50,
+            75
           ]
         ],
         "bottom": [
@@ -21438,19 +22551,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            30,
-            40
+            38,
+            50
           ],
           [
-            40,
-            60
+            50,
+            75
           ]
         ],
         "bottom": [
@@ -21484,19 +22598,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            30,
-            40
+            38,
+            50
           ],
           [
-            40,
-            60
+            50,
+            75
           ]
         ],
         "bottom": [
@@ -21527,15 +22642,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            25,
-            30
+            31,
+            38
           ]
         ],
         "bottom": [
@@ -21561,15 +22677,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ]
         ],
         "bottom": [
@@ -21598,19 +22715,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            15,
-            20
+            19,
+            25
           ],
           [
-            60,
-            80
+            75,
+            100
           ]
         ],
         "bottom": [
@@ -21645,19 +22763,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            25,
-            30
+            31,
+            38
           ]
         ],
         "bottom": [
@@ -21692,19 +22811,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            150,
-            200
+            188,
+            250
           ],
           [
-            15,
-            20
+            19,
+            25
           ]
         ],
         "bottom": [
@@ -21741,23 +22861,24 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            4,
-            5
+            5,
+            6
           ],
           [
-            4,
-            5
+            5,
+            6
           ],
           [
-            4,
-            5
+            5,
+            6
           ]
         ],
         "bottom": [
@@ -21795,19 +22916,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            60,
-            80
+            75,
+            100
           ],
           [
-            3,
-            4
+            4,
+            5
           ]
         ],
         "bottom": [
@@ -21845,23 +22967,24 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            6
+            6,
+            8
           ],
           [
-            30,
-            40
+            38,
+            50
           ],
           [
-            30,
-            40
+            38,
+            50
           ]
         ],
         "bottom": [
@@ -21895,15 +23018,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            20,
-            25
+            25,
+            31
           ]
         ],
         "bottom": [
@@ -21929,15 +23053,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            25,
-            35
+            31,
+            44
           ]
         ],
         "bottom": [
@@ -21963,15 +23088,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            20,
-            30
+            25,
+            38
           ]
         ],
         "bottom": [
@@ -22000,19 +23126,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            80,
-            100
+            100,
+            125
           ],
           [
-            80,
-            100
+            100,
+            125
           ]
         ],
         "bottom": [
@@ -22043,9 +23170,10 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -22077,15 +23205,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            8,
-            12
+            10,
+            15
           ]
         ],
         "bottom": [
@@ -22111,15 +23240,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
-            60
+            50,
+            75
           ]
         ],
         "bottom": [
@@ -22146,15 +23276,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            60,
-            80
+            75,
+            100
           ]
         ],
         "bottom": [
@@ -22180,15 +23311,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            20,
-            25
+            25,
+            31
           ]
         ],
         "bottom": [
@@ -22214,15 +23346,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            15,
-            20
+            19,
+            25
           ]
         ],
         "bottom": [
@@ -22248,15 +23381,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            15,
-            20
+            19,
+            25
           ]
         ],
         "bottom": [
@@ -22282,15 +23416,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            30,
-            40
+            38,
+            50
           ]
         ],
         "bottom": [
@@ -22317,15 +23452,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
-            50
+            50,
+            62
           ]
         ],
         "bottom": [
@@ -22356,15 +23492,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            50,
-            60
+            62,
+            75
           ],
           [
             -20,
@@ -22404,15 +23541,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            70,
-            90
+            88,
+            112
           ],
           [
             -30,
@@ -22452,19 +23590,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            60,
-            80
+            75,
+            100
           ],
           [
-            80,
-            100
+            100,
+            125
           ]
         ],
         "bottom": [
@@ -22512,31 +23651,32 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            40,
-            50
+            50,
+            62
           ]
         ],
         "bottom": [
@@ -22586,23 +23726,24 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            100,
-            150
+            125,
+            188
           ],
           [
-            100,
-            150
+            125,
+            188
           ],
           [
-            30,
-            40
+            38,
+            50
           ]
         ],
         "bottom": [
@@ -22639,19 +23780,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            20,
-            25
+            25,
+            31
           ],
           [
-            20,
-            25
+            25,
+            31
           ]
         ],
         "bottom": [
@@ -22687,23 +23829,24 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            20,
-            25
+            25,
+            31
           ],
           [
-            80,
-            100
+            100,
+            125
           ],
           [
-            40,
-            50
+            50,
+            62
           ]
         ],
         "bottom": [
@@ -22743,23 +23886,24 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            50,
-            60
+            62,
+            75
           ],
           [
-            50,
-            60
+            62,
+            75
           ],
           [
-            80,
-            100
+            100,
+            125
           ]
         ],
         "bottom": [
@@ -22802,27 +23946,28 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            40,
-            50
+            50,
+            62
           ],
           [
-            25,
-            30
+            31,
+            38
           ]
         ],
         "bottom": [
@@ -22867,23 +24012,24 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            6
+            6.2,
+            7.5
           ],
           [
-            8,
-            10
+            10.0,
+            12.5
           ],
           [
-            50,
-            60
+            62.5,
+            75.0
           ]
         ],
         "bottom": [
@@ -22925,19 +24071,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            30,
-            40
+            38,
+            50
           ],
           [
-            40,
-            60
+            50,
+            75
           ],
           [
             -20,
@@ -22984,23 +24131,24 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            40,
+            50,
+            62
+          ],
+          [
+            38,
             50
           ],
           [
-            30,
-            40
-          ],
-          [
-            20,
-            25
+            25,
+            31
           ]
         ],
         "bottom": [
@@ -23039,6 +24187,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23053,12 +24202,12 @@
         ],
         "bottom": [
           [
-            60,
-            60
+            30,
+            30
           ],
           [
-            2,
-            2
+            1,
+            1
           ]
         ]
       },
@@ -23079,6 +24228,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23089,8 +24239,8 @@
         ],
         "bottom": [
           [
-            40,
-            40
+            20,
+            20
           ]
         ]
       },
@@ -23113,19 +24263,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ],
           [
-            50,
-            50
+            62,
+            62
           ]
         ],
         "bottom": [
@@ -23155,6 +24306,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23165,8 +24317,8 @@
         ],
         "bottom": [
           [
-            50,
-            50
+            25,
+            25
           ]
         ]
       },
@@ -23186,6 +24338,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23196,8 +24349,8 @@
         ],
         "bottom": [
           [
-            10,
-            10
+            5,
+            5
           ]
         ]
       },
@@ -23220,19 +24373,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ],
           [
-            30,
-            30
+            38,
+            38
           ]
         ],
         "bottom": [
@@ -23265,19 +24419,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ],
           [
-            30,
-            30
+            38,
+            38
           ]
         ],
         "bottom": [
@@ -23310,19 +24465,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            4,
-            5
+            5,
+            6
           ],
           [
-            30,
-            30
+            38,
+            38
           ]
         ],
         "bottom": [
@@ -23352,6 +24508,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23362,8 +24519,8 @@
         ],
         "bottom": [
           [
-            25,
-            25
+            12,
+            12
           ]
         ]
       },
@@ -23389,6 +24546,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23407,16 +24565,16 @@
         ],
         "bottom": [
           [
-            30,
-            30
+            15,
+            15
           ],
           [
-            30,
-            30
+            15,
+            15
           ],
           [
-            30,
-            30
+            15,
+            15
           ]
         ]
       },
@@ -23436,6 +24594,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23446,8 +24605,8 @@
         ],
         "bottom": [
           [
-            10,
-            10
+            5,
+            5
           ]
         ]
       },
@@ -23467,6 +24626,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23477,8 +24637,8 @@
         ],
         "bottom": [
           [
-            30,
-            30
+            15,
+            15
           ]
         ]
       },
@@ -23498,6 +24658,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23508,8 +24669,8 @@
         ],
         "bottom": [
           [
-            15,
-            15
+            8,
+            8
           ]
         ]
       },
@@ -23530,6 +24691,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23540,8 +24702,8 @@
         ],
         "bottom": [
           [
-            30,
-            30
+            15,
+            15
           ]
         ]
       },
@@ -23561,6 +24723,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23571,8 +24734,8 @@
         ],
         "bottom": [
           [
-            15,
-            15
+            8,
+            8
           ]
         ]
       },
@@ -23592,6 +24755,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23602,8 +24766,8 @@
         ],
         "bottom": [
           [
-            5,
-            5
+            2,
+            2
           ]
         ]
       },
@@ -23623,6 +24787,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23633,8 +24798,8 @@
         ],
         "bottom": [
           [
-            20,
-            20
+            10,
+            10
           ]
         ]
       },
@@ -23657,6 +24822,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23671,12 +24837,12 @@
         ],
         "bottom": [
           [
-            40,
-            40
+            20,
+            20
           ],
           [
-            50,
-            50
+            25,
+            25
           ]
         ]
       },
@@ -23696,6 +24862,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23706,8 +24873,8 @@
         ],
         "bottom": [
           [
-            30,
-            30
+            15,
+            15
           ]
         ]
       },
@@ -23727,6 +24894,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23737,8 +24905,8 @@
         ],
         "bottom": [
           [
-            20,
-            20
+            10,
+            10
           ]
         ]
       },
@@ -23758,6 +24926,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23793,6 +24962,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23807,8 +24977,8 @@
         ],
         "bottom": [
           [
-            50,
-            50
+            25,
+            25
           ],
           [
             -30,
@@ -23832,6 +25002,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23842,8 +25013,8 @@
         ],
         "bottom": [
           [
-            20,
-            20
+            10,
+            10
           ]
         ]
       },
@@ -23863,6 +25034,7 @@
       ],
       "grid": {
         "levels": [
+          20,
           1
         ],
         "top": [
@@ -23873,8 +25045,8 @@
         ],
         "bottom": [
           [
-            100,
-            100
+            50,
+            50
           ]
         ]
       },
@@ -24847,19 +26019,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            5,
-            7
+            6,
+            9
           ],
           [
-            30,
-            40
+            38,
+            50
           ]
         ],
         "bottom": [
@@ -24893,19 +26066,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            4,
-            6
+            5,
+            8
           ],
           [
-            6,
-            9
+            8,
+            11
           ]
         ],
         "bottom": [
@@ -24939,19 +26113,20 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            18,
-            24
+            22,
+            30
           ],
           [
-            10,
-            15
+            12,
+            19
           ]
         ],
         "bottom": [
@@ -24983,15 +26158,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            10,
-            14
+            12,
+            18
           ]
         ],
         "bottom": [
@@ -25019,15 +26195,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            15,
-            20
+            19,
+            25
           ]
         ],
         "bottom": [
@@ -25055,15 +26232,16 @@
       ],
       "grid": {
         "levels": [
-          16,
-          10,
-          5,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
           [
-            25,
-            35
+            31,
+            44
           ]
         ],
         "bottom": [

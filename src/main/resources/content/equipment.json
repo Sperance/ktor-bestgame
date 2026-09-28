@@ -6038,9 +6038,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {
@@ -6071,9 +6069,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {
@@ -6104,9 +6100,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {
@@ -6137,9 +6131,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {
@@ -6170,9 +6162,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {
@@ -6203,9 +6193,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {
@@ -6236,9 +6224,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {
@@ -6269,9 +6255,7 @@
         "IMPLICIT_INCREASED_SPELL_DAMAGE"
       ],
       "tables": [
-        "wand",
-        "local:attack_physical",
-        "local:attack_speed"
+        "wand"
       ]
     },
     {

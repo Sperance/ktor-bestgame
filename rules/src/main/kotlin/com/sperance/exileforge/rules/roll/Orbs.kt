@@ -242,7 +242,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         return step.coerceAtMost(rules.flasks.maxQuality - item.quality).coerceAtLeast(0)
     }
 
-    private fun harmful(def: ModifierDef): Boolean = def.effects.any { it.stat in index.campaign.maps.risk }
+    private fun harmful(def: ModifierDef): Boolean = def.effects.any { (index.campaign.maps.risk[it.stat] ?: 0.0) > 0 }
 
     private fun empower(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         var raised = 0

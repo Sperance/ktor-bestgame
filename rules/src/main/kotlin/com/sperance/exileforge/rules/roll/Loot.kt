@@ -93,8 +93,12 @@ class LootRoller(private val index: ContentIndex) {
     fun mapRarity(dice: Dice, rareBonus: Double = 0.0): Rarity =
         Tables.value<Rarity>(index.tables, campaign.maps.rarities, dice) { if (it == Rarity.RARE) 1 + rareBonus / 100 else 1.0 } ?: Rarity.COMMON
 
-    /** Сколько процентов даёт риск карты: единица каждой вредной строки по её весу. */
-    fun risk(effects: Map<String, Double>): Double = Math.round(effects.entries.sumOf { (stat, value) -> value * (campaign.maps.risk[stat] ?: 0.0) } * 10) / 10.0
+    /**
+     * Сколько процентов даёт риск карты: единица каждой вредной строки по её весу; бафы героя (1.14.0) весят
+     * меньше нуля и срезают награду, но не ниже нуля.
+     */
+    fun risk(effects: Map<String, Double>): Double =
+        Math.round(effects.entries.sumOf { (stat, value) -> value * (campaign.maps.risk[stat] ?: 0.0) }.coerceAtLeast(0.0) * 10) / 10.0
 
     /** Карта в действии: риск и прямые строки - к количеству, редкости и опыту; редкость самой карты - к первым двум. */
     fun activeMap(mapCode: String, effects: Map<String, Double>, rarity: Rarity = Rarity.COMMON): ActiveMap {

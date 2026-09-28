@@ -7145,7 +7145,12 @@
       "MAP_ABYSS_LIFE": 0.1,
       "MAP_ABYSS_DAMAGE": 0.15,
       "MAP_ABYSS_SWARM": 0.1,
-      "MAP_ABYSS_LEADER": 0.1
+      "MAP_ABYSS_LEADER": 0.1,
+      "MAP_BOSS_POWER": 0.6,
+      "MAP_HERO_HASTE": -0.4,
+      "MAP_HERO_ATTACK_SPEED": -0.5,
+      "MAP_HERO_LIFE": -0.5,
+      "MAP_HERO_LEECH": -2.5
     }
   },
   "abyss": {

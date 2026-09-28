@@ -332,7 +332,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         content.maps.let { rule ->
             if (listOf(rule.dropChance, rule.bossChance, rule.nextChance).any { it !in 0.0..1.0 }) fail("campaign: maps")
             if (index.tables.kind(rule.rarities) != TableKind.VALUE) fail("campaign: maps.rarities")
-            rule.risk.forEach { (name, weight) -> stat(name); if (weight <= 0) fail("campaign: maps.risk $name") }
+            rule.risk.forEach { (name, weight) -> stat(name); if (weight == 0.0) fail("campaign: maps.risk $name") }
             if (rule.rarityBonus.values.any { it < 0 }) fail("campaign: maps.rarityBonus")
         }
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }
