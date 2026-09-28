@@ -145,11 +145,26 @@ data class StashRules(
 data class LootRules(
     val goldGrowth: Double = 1.1,
     val goldTaper: GrowthTaper? = null,
+    val experienceWindow: ExperienceWindow = ExperienceWindow(),
     val experiencePower: Double = 1.9,
     val rarityWeights: Map<Rarity, Double> = mapOf(Rarity.COMMON to 100.0, Rarity.UNCOMMON to 40.0, Rarity.RARE to 15.0, Rarity.UNIQUE to 1.0, Rarity.MYTHICAL to 0.2),
     val uniqueReach: Int = 10,
     val recipeChance: Double = 0.10,
 )
+
+/**
+ * Штраф опыта за разницу уровней героя и зоны (1.16.0), как в PoE: окно [base] + уровень / [perLevel] без
+ * штрафа, сверх него доля `((герой + 5) / (герой + 5 + разница^[power]))^[outer]`, не ниже [floor].
+ */
+@Serializable
+data class ExperienceWindow(val base: Double = 3.0, val perLevel: Double = 16.0, val power: Double = 2.5, val outer: Double = 1.5, val floor: Double = 0.01) {
+    fun share(heroLevel: Int, zoneLevel: Int): Double {
+        val excess = Math.abs(heroLevel - zoneLevel) - (base + heroLevel / perLevel).toInt()
+        if (excess <= 0) return 1.0
+        val hero = heroLevel + 5.0
+        return Math.pow(hero / (hero + Math.pow(excess.toDouble(), power)), outer).coerceAtLeast(floor)
+    }
+}
 
 /** Заход: бросить открытый заход ради нового семени - не чаще [newSeedSeconds]; вход без карты в ту же зону продолжает прежний. */
 @Serializable

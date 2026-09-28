@@ -258,7 +258,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             rare = sum(MapStat.ABYSS_RARE.code, AtlasStat.ABYSS_RARE.code),
             orbs = 1 + sum(MapStat.ABYSS_ORBS.code, AtlasStat.ABYSS_ORBS.code) / 100,
             unique = uniqueChance(1 + sum(MapStat.ABYSS_UNIQUE.code, AtlasStat.ABYSS_UNIQUE.code) / 100),
-            experience = rule.monsters.mapNotNull(index::monster).map { loot.experience(it, zone.level, normal, bonus) }.average(),
+            experience = rule.monsters.mapNotNull(index::monster).map { loot.experience(it, zone.level, normal, bonus, context.heroLevel) }.average(),
         )
     }
 
@@ -269,7 +269,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     fun vaalZone(): VaalZone = com.sperance.exileforge.rules.roll.VaalZones(index).roll(zone.code, zone.level, streams.of("vaal"), com.sperance.exileforge.rules.content.AtlasBonuses(context.atlas))
 
     private fun experienceFor(monster: Monster, rule: RarityRule, zoneBonus: VaalZone?): Double =
-        loot.experience(monster, zone.level, rule, context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code])
+        loot.experience(monster, zone.level, rule, context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code],
+            context.heroLevel)
 
     private fun uniqueChance(chance: Double): Double = chance * (1 + context.bonus(MonsterRarity.UNIQUE).unique / 100)
     private fun relative(atlasStat: String) = (1 + context[atlasStat] / 100).coerceAtLeast(0.0)

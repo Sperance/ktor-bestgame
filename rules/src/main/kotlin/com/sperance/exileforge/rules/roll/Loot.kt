@@ -36,10 +36,17 @@ data class ActiveMap(
 class LootRoller(private val index: ContentIndex) {
     private val rules get() = index.rules.loot
     private val campaign get() = index.campaign
+    private val topZoneLevel: Int get() = campaign.zones.maxOfOrNull { it.level } ?: Int.MAX_VALUE
 
-    /** Опыт за монстра: база, уровень зоны в степени, редкость и бонус героя в процентах. */
-    fun experience(monster: Monster, level: Int, rarity: RarityRule, bonus: Double): Double =
-        Math.round(monster.experience * level.toDouble().pow(rules.experiencePower) * rarity.experience * (1 + bonus / 100)).toDouble()
+    /**
+     * Опыт за монстра: база, уровень зоны в степени, редкость и бонус героя в процентах; с [heroLevel] - и
+     * штраф за разницу уровней героя и зоны.
+     */
+    fun experience(monster: Monster, level: Int, rarity: RarityRule, bonus: Double, heroLevel: Int? = null): Double {
+        // Выше самой высокой зоны герою некуда идти: разница считается от её уровня, а не от его
+        val window = heroLevel?.let { rules.experienceWindow.share(minOf(it, topZoneLevel), level) } ?: 1.0
+        return Math.round(monster.experience * level.toDouble().pow(rules.experiencePower) * rarity.experience * (1 + bonus / 100) * window).toDouble()
+    }
 
     /**
      * Броски по таблице добычи [tag]: количество - множитель шанса каждой строки, шанс больше единицы -

@@ -85,6 +85,8 @@ data class CombatRules(
     val ailmentDurationCap: Double = 75.0,
     val loneWolf: LoneWolfRule = LoneWolfRule(),
     val mana: ManaRule = ManaRule(),
+    /** Штраф сопротивлений героя по актам (1.16.0): по месту региона зоны, на карте - последний. */
+    val resistPenalty: List<Double> = emptyList(),
     val flasks: FlaskRule = FlaskRule(),
     /**
      * Сколько процентов перезарядки активного умения героя ещё идёт в начале боя (1.8.0): стая не падает
@@ -268,6 +270,14 @@ data class CampaignFile(
     fun range(monster: Monster): MonsterRange = monster.range ?: if (monster.form in rangedForms) MonsterRange.RANGED else MonsterRange.MELEE
 
     fun behaviourOf(monster: Monster): BehaviourRule = monster.behaviour ?: behaviour.forms[monster.form] ?: behaviour.default
+
+    /** Насколько меньше сопротивления у героя в зоне [zoneCode]: по акту, на карте - по последнему (1.16.0). */
+    fun resistPenalty(zoneCode: String, onMap: Boolean): Double {
+        val steps = combat.resistPenalty.ifEmpty { return 0.0 }
+        if (onMap) return steps.last()
+        val act = regions.indexOfFirst { region -> region.zones.any { it.code == zoneCode } }
+        return if (act < 0) 0.0 else steps.getOrElse(act) { steps.last() }
+    }
 }
 
 /** Связи зон карты мира: зона открыта, когда пройдена хоть одна из тех, что ведут к ней; стартовая - всегда. */

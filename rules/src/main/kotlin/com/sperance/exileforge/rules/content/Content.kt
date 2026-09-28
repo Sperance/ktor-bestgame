@@ -428,6 +428,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         percent(rules.variance, "variance"); percent(rules.resistCap, "resistCap")
         rules.ceilings.all.forEach { percent(it.base, "ceiling ${it.raise}"); percent(it.hard, "ceiling ${it.raise}"); if (it.hard < it.base || it.raise !in stats) fail("combat: ceiling ${it.raise}") }
         percent(rules.resistHardCap, "resistHardCap"); percent(rules.ailmentDurationCap, "ailmentDurationCap")
+        rules.resistPenalty.forEach { percent(it, "resistPenalty") }
         if (rules.resistHardCap < rules.resistCap) fail("combat: resistHardCap")
         positive(rules.unarmed.damage, "unarmed.damage"); positive(rules.unarmed.speed, "unarmed.speed")
         percent(rules.critical.chance, "critical.chance"); if (rules.critical.multiplier < 100) fail("combat: critical.multiplier")
