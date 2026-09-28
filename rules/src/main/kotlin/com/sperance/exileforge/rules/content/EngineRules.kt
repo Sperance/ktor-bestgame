@@ -37,7 +37,17 @@ enum class Orb {
 data class MerchantRules(
     val windowHours: Double = 4.0, val minOffers: Int = 12, val maxOffers: Int = 16, val levelSpread: Int = 2, val markup: Int = 3,
     val tables: List<String> = listOf("merchant"), val rarities: String = "rarity:merchant", val flasks: List<Int> = listOf(1, 2),
+    val orbs: OrbShelf = OrbShelf(),
 )
+
+/**
+ * Полка сфер торговца (1.13.0): сферы [codes] за золото, цена - цена сферы с наценкой [markup], и каждая
+ * покупка того же вида за окно дороже в [growth] раз; новое окно сбрасывает рост.
+ */
+@Serializable
+data class OrbShelf(val codes: List<String> = emptyList(), val markup: Double = 2.0, val growth: Double = 1.25) {
+    fun price(orbPrice: Long, bought: Int): Long = Math.round(orbPrice * markup * Math.pow(growth, bought.toDouble()))
+}
 
 /** Цена торговца: доля базы за аффикс и множитель редкости. */
 @Serializable
@@ -87,8 +97,14 @@ data class FlaskRules(
 data class StarterRules(val gold: Long = 0, val toolPrefix: String = "BRONZE_")
 
 @Serializable
-data class AuctionRules(val baseSlots: Int = 5, val maxSlots: Int = 20, val firstSlotPrice: Double = 500.0, val slotGrowth: Double = 1.5, val minLevel: Int = 1) {
+data class AuctionRules(
+    val baseSlots: Int = 5, val maxSlots: Int = 20, val firstSlotPrice: Double = 500.0, val slotGrowth: Double = 1.5, val minLevel: Int = 1,
+    val buyerFee: Double = 0.0,
+) {
     fun slotPrice(bought: Int): Long = Math.round(firstSlotPrice * Math.pow(slotGrowth, bought.toDouble()))
+
+    /** Сбор с покупателя золотом (1.13.0): [buyerFee] процентов цены лота в ценах сфер [orbPrice]. */
+    fun fee(orbPrice: Long, price: Long): Long = Math.round(orbPrice * price * buyerFee / 100)
 }
 
 /**
@@ -121,10 +137,14 @@ data class StashRules(
     }
 }
 
-/** Добыча: рост золота с уровнем, степень опыта, веса редкости шаблона в тяге, дальность уникалок боссов, шанс рецепта. */
+/**
+ * Добыча: рост золота с уровнем и его спад [goldTaper] (1.13.0; нет - спад роста монстров), степень опыта,
+ * веса редкости шаблона в тяге, дальность уникалок боссов, шанс рецепта.
+ */
 @Serializable
 data class LootRules(
     val goldGrowth: Double = 1.1,
+    val goldTaper: GrowthTaper? = null,
     val experiencePower: Double = 1.9,
     val rarityWeights: Map<Rarity, Double> = mapOf(Rarity.COMMON to 100.0, Rarity.UNCOMMON to 40.0, Rarity.RARE to 15.0, Rarity.UNIQUE to 1.0, Rarity.MYTHICAL to 0.2),
     val uniqueReach: Int = 10,
@@ -176,9 +196,10 @@ data class EngineRules(
         }
         if (bench.costs.isEmpty() || bench.maxMapLevel < 1) fail("rules: bench")
         if (merchant.minOffers < 0 || merchant.minOffers > merchant.maxOffers || merchant.markup < 1 || merchant.windowHours <= 0) fail("rules: merchant")
+        if (merchant.orbs.markup < 1 || merchant.orbs.growth < 1) fail("rules: merchant orbs")
         if (orbs.vaalShift.size != 2 || orbs.vaalShift[0] > orbs.vaalShift[1] || orbs.fractureMinAffixes < 1 || orbs.maxAlchemyLines < 0) fail("rules: orbs")
         if (loot.rarityWeights.keys != Rarity.entries.toSet()) fail("rules: loot rarity weights")
-        if (auction.baseSlots < 0 || auction.maxSlots < auction.baseSlots) fail("rules: auction")
+        if (auction.baseSlots < 0 || auction.maxSlots < auction.baseSlots || auction.buyerFee < 0) fail("rules: auction")
         stash.validate()
         if (run.newSeedSeconds < 0) fail("rules: run")
         if (pets.cap < 1 || pets.releaseGold.values.any { it < 0 }) fail("rules: pets")

@@ -3807,6 +3807,22 @@
         {
           "ref": "table:drop",
           "chance": 0.11
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.001,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.0005,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -3893,6 +3909,22 @@
         {
           "ref": "table:drop",
           "chance": 0.12
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.001,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4443,6 +4475,14 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.005,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4561,6 +4601,22 @@
         {
           "ref": "item:PET_ORB_GROWTH",
           "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.005,
           "amount": [
             1,
             1
@@ -5115,6 +5171,22 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:SHAPERS_ORB",
+          "chance": 0.005,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ELDER_ORB",
+          "chance": 0.005,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -5237,6 +5309,30 @@
         {
           "ref": "item:PET_ORB_GROWTH",
           "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:SHAPERS_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ELDER_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
           "amount": [
             1,
             1
@@ -5645,6 +5741,22 @@
         {
           "ref": "table:drop",
           "chance": 0.75
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:MIRROR_OF_KALANDRA",
+          "chance": 0.0005,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -5747,15 +5859,18 @@
       "tag": "orbs:abyss",
       "kind": "ITEM",
       "entries": {
-        "ABYSS_ORB": 20,
-        "CHAOS_ORB": 18,
-        "ORB_OF_ALCHEMY": 18,
-        "REGAL_ORB": 12,
-        "BLESSED_ORB": 10,
-        "VAAL_ORB": 10,
-        "ORB_OF_SCOURING": 8,
-        "EXALTED_ORB": 2,
-        "DIVINE_ORB": 2
+        "ABYSS_ORB": 200,
+        "CHAOS_ORB": 180,
+        "ORB_OF_ALCHEMY": 180,
+        "REGAL_ORB": 120,
+        "BLESSED_ORB": 100,
+        "VAAL_ORB": 100,
+        "ORB_OF_SCOURING": 80,
+        "EXALTED_ORB": 20,
+        "DIVINE_ORB": 20,
+        "ORB_OF_ANNULMENT": 10,
+        "FRACTURING_ORB": 5,
+        "MIRROR_OF_KALANDRA": 1
       }
     }
   ]

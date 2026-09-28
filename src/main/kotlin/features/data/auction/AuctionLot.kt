@@ -35,6 +35,8 @@ data class AuctionLot(
     var amount: Long = 1,
     var priceOrb: String = "",
     var price: Long = 0,
+    /** Сбор с покупателя золотом (1.13.0), посчитанный при выставлении. */
+    var fee: Long = 0,
     var itemCode: String = "",
     var slot: Slot? = null,
     var rarity: Rarity? = null,
@@ -52,13 +54,13 @@ data class AuctionLot(
     fun isOnSale(): Boolean = status == LotStatus.ACTIVE
 
     companion object {
-        fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long): AuctionLot = AuctionLot(
+        fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long, fee: Long): AuctionLot = AuctionLot(
             sellerId = seller._id, sellerName = seller.name, kind = LotKind.EQUIPMENT, equipment = item.copy(slot = null, socket = null),
-            priceOrb = priceOrb, price = price, itemCode = template.code, slot = template.slot, rarity = item.rarity, itemLevel = template.level,
+            priceOrb = priceOrb, price = price, fee = fee, itemCode = template.code, slot = template.slot, rarity = item.rarity, itemLevel = template.level,
         )
 
-        fun forItem(seller: Hero, code: String, amount: Long, priceOrb: String, price: Long): AuctionLot = AuctionLot(
-            sellerId = seller._id, sellerName = seller.name, kind = LotKind.ITEM, item = code, amount = amount, priceOrb = priceOrb, price = price, itemCode = code,
+        fun forItem(seller: Hero, code: String, amount: Long, priceOrb: String, price: Long, fee: Long): AuctionLot = AuctionLot(
+            sellerId = seller._id, sellerName = seller.name, kind = LotKind.ITEM, item = code, amount = amount, priceOrb = priceOrb, price = price, fee = fee, itemCode = code,
         )
     }
 }

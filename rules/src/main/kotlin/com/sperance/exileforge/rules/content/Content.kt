@@ -198,6 +198,7 @@ class ContentIndex(val content: Content) {
     fun validate() {
         stats.validate()
         rules.validate()
+        rules.merchant.orbs.codes.forEach { if (orb(it) == null) fail("rules: merchant orb $it") }
         families.values.forEach { family -> family.problem()?.let { fail("modifiers: $it") } }
         if (definitions.size != byCode.size) fail("modifiers: duplicate definition codes")
         definitions.forEach { def ->

@@ -41,7 +41,17 @@
     "flasks": [
       1,
       2
-    ]
+    ],
+    "orbs": {
+      "codes": [
+        "ORB_OF_TRANSMUTATION",
+        "ORB_OF_AUGMENTATION",
+        "ORB_OF_ALTERATION",
+        "ORB_OF_REGRET"
+      ],
+      "markup": 2.0,
+      "growth": 1.25
+    }
   },
   "sell": {
     "affixShare": 0.15,
@@ -122,10 +132,33 @@
     "maxSlots": 20,
     "firstSlotPrice": 500.0,
     "slotGrowth": 1.5,
-    "minLevel": 1
+    "minLevel": 1,
+    "buyerFee": 10.0
   },
   "loot": {
     "goldGrowth": 1.1,
+    "goldTaper": {
+      "from": 10,
+      "rate": 0.16,
+      "bends": [
+        {
+          "from": 25,
+          "rate": 0.45
+        },
+        {
+          "from": 37,
+          "rate": 0.25
+        },
+        {
+          "from": 49,
+          "rate": 0.15
+        },
+        {
+          "from": 61,
+          "rate": 0.05
+        }
+      ]
+    },
     "experiencePower": 1.9,
     "rarityWeights": {
       "COMMON": 100.0,

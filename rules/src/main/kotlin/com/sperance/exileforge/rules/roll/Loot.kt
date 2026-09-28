@@ -43,13 +43,13 @@ class LootRoller(private val index: ContentIndex) {
 
     /**
      * Броски по таблице добычи [tag]: количество - множитель шанса каждой строки, шанс больше единицы -
-     * гарантированные выпадения и остаток шансом; золото растёт со спадом роста монстров.
+     * гарантированные выпадения и остаток шансом; золото растёт со своим спадом или спадом роста монстров.
      */
     fun roll(tag: String, level: Int, rarity: RarityRule, quantity: Double, goldBonus: Double, dice: Dice, goldShare: Double = 1.0, orbShare: Double = 1.0): RolledLoot {
         val entries = index.tables.loot(tag).orEmpty()
         val goldRange = index.tables.gold(tag) ?: listOf(0L, 0L)
         val multiplier = rarity.quantity * (1 + quantity / 100)
-        val gold = dice.betweenLong(goldRange) * rules.goldGrowth.pow(campaign.growthTaper.steps(level)) * rarity.quantity * (1 + goldBonus / 100) * goldShare
+        val gold = dice.betweenLong(goldRange) * rules.goldGrowth.pow((rules.goldTaper ?: campaign.growthTaper).steps(level)) * rarity.quantity * (1 + goldBonus / 100) * goldShare
         val items = mutableMapOf<String, Long>()
         val equipment = mutableListOf<List<String>>()
         entries.forEach { entry ->

@@ -69,7 +69,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         seller.items.remove(item)
         return transactionExecute("auction $method $itemId") { session ->
             heroes.update(seller, session)
-            insert(AuctionLot.forEquipment(seller, item, template, priceOrb, price), session)
+            insert(AuctionLot.forEquipment(seller, item, template, priceOrb, price, fee(priceOrb, price)), session)
         }
     }
 
@@ -85,18 +85,23 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         seller.spend(code, amount, method)
         return transactionExecute("auction $method $code") { session ->
             heroes.update(seller, session)
-            insert(AuctionLot.forItem(seller, code, amount, priceOrb, price), session)
+            insert(AuctionLot.forItem(seller, code, amount, priceOrb, price, fee(priceOrb, price)), session)
         }
     }
 
-    /** Покупка: сферы уходят продавцу, товар - покупателю; не хватило сфер - откат, товар остаётся на витрине. */
+    /**
+     * Покупка: сферы уходят продавцу, товар - покупателю, сбор золотом сгорает; не хватило сфер или золота -
+     * откат, товар остаётся на витрине.
+     */
     suspend fun buy(heroId: String, lotId: String): AuctionLot {
         val method = "buy"
         val buyer = requireTrader(heroId, method)
         val lot = requireOpenLot(lotId, method)
         if (lot.sellerId == heroId) throw AuctionExceptions.funExceptionOwnLot(method, lotId)
         val seller = heroes.findById(lot.sellerId) ?: throw CharacterExceptions.funExceptionNotFound(method, lot.sellerId)
+        if (buyer.money < lot.fee) throw CharacterExceptions.funExceptionGold(method, lot.fee.toString())
         buyer.spend(lot.priceOrb, lot.price, method)
+        buyer.pay(lot.fee)
         seller.earn(lot.priceOrb, lot.price, index.rules.maxStack)
         deliver(lot, buyer)
         buyer.count(Counter.AUCTION_BOUGHT)
@@ -119,6 +124,8 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
             close(lot, LotStatus.CANCELLED, null, session)
         }
     }
+
+    private fun fee(priceOrb: String, price: Long): Long = index.rules.auction.fee(index.item(priceOrb)?.price ?: 0, price)
 
     private fun deliver(lot: AuctionLot, owner: Hero) {
         when (lot.kind) {

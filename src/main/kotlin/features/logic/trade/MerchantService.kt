@@ -21,18 +21,27 @@ import org.koin.core.component.inject
 @Serializable
 data class MerchantOffer(val id: String, val item: ItemInstance, val price: Long)
 
-/** Витрина героя: что на ней и когда торговец выложит новую (мс эпохи). */
+/** Сфера на полке (1.13.0): цена следующей и сколько куплено за окно. */
 @Serializable
-data class MerchantStock(val refreshAt: Long = 0, val offers: List<MerchantOffer> = emptyList())
+data class MerchantOrb(val code: String, val price: Long, val bought: Int = 0)
+
+/** Витрина героя: что на ней, полка сфер и когда торговец выложит новую (мс эпохи). */
+@Serializable
+data class MerchantStock(val refreshAt: Long = 0, val offers: List<MerchantOffer> = emptyList(), val orbs: List<MerchantOrb> = emptyList())
 
 /** Чем кончилась покупка: копия уже в тайнике, и сколько золота осталось. */
 @Serializable
 data class MerchantPurchase(val item: ItemInstance, val money: Long)
 
+/** Чем кончилась покупка сферы: она в сумке, сколько золота осталось и почём следующая. */
+@Serializable
+data class MerchantOrbPurchase(val code: String, val money: Long, val next: Long)
+
 /**
  * Торговец: раз в окно правил выкладывает вещи уровня героя по весам редкости таблицы и полку фляг;
  * копия роллится при выкладке, поэтому игрок видит ровно то, что купит. Цена - то, что торговец дал
- * бы за такую вещь, умноженное на наценку: купить и сразу продать всегда в убыток.
+ * бы за такую вещь, умноженное на наценку: купить и сразу продать всегда в убыток. Полка низших сфер
+ * за золото - бездонный сток золота: каждая покупка дороже, пока окно не сменится.
  */
 class MerchantService : KoinComponent {
     private val heroes: HeroRepository by inject()
@@ -72,7 +81,7 @@ class MerchantService : KoinComponent {
         val offers = if (near.isEmpty()) emptyList() else List(dice.between(rules.minOffers, rules.maxOffers)) { offer(near) }
         val shelf = flasks.filter { it.value.requiredLevel <= level }
         val bottles = if (shelf.isEmpty()) emptyList() else List(dice.between(rules.flasks)) { offer(shelf) }
-        return MerchantStock(now + (rules.windowHours * 3_600_000).toLong(), offers + bottles)
+        return MerchantStock(now + (rules.windowHours * 3_600_000).toLong(), offers + bottles, shelf(0))
     }
 
     /** Покупка: золото уходит торговцу, копия - в тайник, строка - с витрины. */
@@ -88,6 +97,25 @@ class MerchantService : KoinComponent {
         heroes.save(hero, method)
         return MerchantPurchase(offer.item, hero.money)
     }
+
+    /** Покупка сферы с полки: золото торговцу, сфера в сумку, следующая того же вида дороже до конца окна. */
+    suspend fun buyOrb(heroId: String, code: String): MerchantOrbPurchase {
+        val method = "merchantBuyOrb"
+        val hero = heroes.requireHero(heroId, method)
+        val stock = restock(hero)
+        val orb = stock.orbs.firstOrNull { it.code == code } ?: throw CharacterExceptions.funExceptionOfferNotFound(method, code)
+        if (hero.money < orb.price) throw CharacterExceptions.funExceptionGold(method, orb.price.toString())
+        hero.pay(orb.price)
+        hero.earn(code, 1, index.rules.maxStack)
+        val next = orb.copy(price = orbPrice(code, orb.bought + 1), bought = orb.bought + 1)
+        hero.merchant = stock.copy(orbs = stock.orbs.map { if (it.code == code) next else it })
+        heroes.save(hero, method)
+        return MerchantOrbPurchase(code, hero.money, next.price)
+    }
+
+    private fun shelf(bought: Int): List<MerchantOrb> = index.rules.merchant.orbs.codes.map { MerchantOrb(it, orbPrice(it, bought), bought) }
+
+    private fun orbPrice(code: String, bought: Int): Long = index.rules.merchant.orbs.price(index.item(code)?.price ?: 0, bought)
 
     private companion object {
         /** Сколько шаблонов торговец перебирает, прежде чем выложить вещь обычной. */

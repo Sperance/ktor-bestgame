@@ -623,7 +623,7 @@
         {
           "code": "DIVINE_BREW",
           "level": 40,
-          "seconds": 600,
+          "seconds": 1800,
           "nothing": 55,
           "output": "DIVINE_ORB",
           "experience": 45,
@@ -632,18 +632,22 @@
           "inputs": [
             {
               "item": "VOID_ROOT",
-              "amount": 2
+              "amount": 4
             },
             {
               "item": "MITHRIL_ORE",
-              "amount": 2
+              "amount": 4
+            },
+            {
+              "item": "CHAOS_ORB",
+              "amount": 5
             }
           ]
         },
         {
           "code": "EXALTED_BREW",
           "level": 45,
-          "seconds": 600,
+          "seconds": 1800,
           "nothing": 60,
           "output": "EXALTED_ORB",
           "experience": 55,
@@ -652,11 +656,15 @@
           "inputs": [
             {
               "item": "VOID_ROOT",
-              "amount": 3
+              "amount": 6
             },
             {
               "item": "RUBY",
-              "amount": 2
+              "amount": 4
+            },
+            {
+              "item": "REGAL_ORB",
+              "amount": 5
             }
           ]
         },

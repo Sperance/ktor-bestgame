@@ -149,10 +149,11 @@ class HeroRoute(
             post("/stop") { call.respondWithHero(crafts.stop(call.heroId)) }
         }
 
-        // Торговец: витрина героя раз в окно правил и покупка с неё за золото.
+        // Торговец: витрина героя раз в окно правил, покупка с неё и полка сфер за золото.
         route("/merchant") {
             get { call.respondOk(merchant.stock(call.heroId)) }
             post("/buy") { call.respondWithHero(merchant.buy(call.heroId, call.queryParam("offerId"))) }
+            post("/buyOrb") { call.respondWithHero(merchant.buyOrb(call.heroId, call.queryParam("code"))) }
         }
 
         // Кампания по семени: вход выдаёт семя и контекст, журнал событий проигрывается сервером.
