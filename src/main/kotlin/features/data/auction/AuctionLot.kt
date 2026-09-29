@@ -8,6 +8,8 @@ import com.sperance.exileforge.rules.roll.ItemInstance
 import extensions.now
 import features.data.hero.Hero
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
@@ -55,6 +57,16 @@ data class AuctionLot(
 ) : VersionedEntity {
 
     fun isOnSale(now: Long = System.currentTimeMillis()): Boolean = status == LotStatus.ACTIVE && (expiresAt == 0L || now < expiresAt)
+
+    /**
+     * Старому лоту без срока (1.30.2) срок выводится из [createdAt] (UTC) плюс [lotMillis], чтобы клиент всегда
+     * получал настоящую дату снятия. Возвращает true, если срок был проставлен и лот нужно переписать.
+     */
+    fun assignDeadline(lotMillis: Long): Boolean {
+        if (expiresAt != 0L) return false
+        expiresAt = createdAt.toInstant(TimeZone.UTC).toEpochMilliseconds() + lotMillis
+        return true
+    }
 
     companion object {
         fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long, fee: Long, expiresAt: Long): AuctionLot = AuctionLot(

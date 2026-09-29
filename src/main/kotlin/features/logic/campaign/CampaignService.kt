@@ -15,6 +15,7 @@ import com.sperance.exileforge.rules.content.Zone
 import com.sperance.exileforge.rules.roll.AbyssRifts
 import com.sperance.exileforge.rules.roll.AbyssRun
 import com.sperance.exileforge.rules.roll.Chests
+import com.sperance.exileforge.rules.roll.Crystal
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.EssenceCrystals
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -53,9 +54,17 @@ data class RewardView(val experience: Double = 0.0, val gold: Long = 0, val item
     }
 }
 
-/** Что принесло одно принятое событие журнала [n] вида [kind] (1.30.0): добычу катит только сервер, клиент её показывает. */
+/**
+ * Что принесло одно принятое событие журнала [n] вида [kind] (1.30.0): добычу катит только сервер, клиент её показывает.
+ * [crystal] (1.30.2) - исход события над кристаллом, меняющего его, а не забирающего (сфера Ваал): клиент подменяет
+ * кристалл сразу, не дожидаясь чтения героя; у прочих событий null.
+ */
 @Serializable
-data class EventReward(val n: Int, val kind: RunEventKind, val reward: RewardView)
+data class EventReward(val n: Int, val kind: RunEventKind, val reward: RewardView, val crystal: CrystalOutcome? = null)
+
+/** Кристалл после события: [index] - его номер в окне зоны, как его назвало событие, [crystal] - каким он стал. */
+@Serializable
+data class CrystalOutcome(val index: Int, val crystal: Crystal)
 
 /**
  * Итог журнала: сколько событий принято всего ([applied]), какие из присланных отклонены правилом
@@ -221,7 +230,7 @@ class CampaignService : KoinComponent {
                 received += Rewards.grant(hero, outcome.reward, index)
                 total += outcome.reward
                 lost += outcome.lost
-                rewards += EventReward(event.n, event.kind, RewardView.of(outcome.reward))
+                rewards += EventReward(event.n, event.kind, RewardView.of(outcome.reward), outcome.crystal)
             }
             // Выход или гибель закрыли заход: что журнал прислал после них, уже ни к чему не относится
             if (hero.campaign.run == null) break
@@ -232,7 +241,7 @@ class CampaignService : KoinComponent {
             received, rewards)
     }
 
-    private class Outcome(val reward: Reward = Reward.NONE, val lost: Double = 0.0)
+    private class Outcome(val reward: Reward = Reward.NONE, val lost: Double = 0.0, val crystal: CrystalOutcome? = null)
 
     /** Одно событие журнала; null - правило его не пустило. Кости наград - из потока героя [draws]. */
     private fun apply(hero: Hero, state: RunState, zone: Zone, event: RunEvent, run: Run, bonuses: AtlasBonuses, draws: RewardDraws): Outcome? {
@@ -308,7 +317,7 @@ class CampaignService : KoinComponent {
                 hero.spend(Orb.VAAL_ORB.name, 1, "crystalVaal")
                 val (_, changed) = run.crystalVaal(crystal, draws)
                 campaignState.crystals[mapCode] = window.copy(crystals = window.crystals.toMutableList().also { it[event.index] = changed })
-                Outcome()
+                Outcome(crystal = CrystalOutcome(event.index, changed))
             }
             RunEventKind.ABYSS_OPEN -> {
                 val rule = campaign.abyss ?: return null
