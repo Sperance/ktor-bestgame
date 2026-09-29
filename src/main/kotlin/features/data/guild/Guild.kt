@@ -40,7 +40,7 @@ data class GuildInvite(val heroId: String, val by: String, val at: Long)
 
 /**
  * Гильдия (1.20.0) - коллекция `Guild`: состав, заявки и приглашения внутри документа (их не больше
- * потолка состава), журнал и чат - своими коллекциями [GuildEvent] и [GuildChat]. Название уникально без
+ * потолка состава), журнал - своей коллекцией [GuildEvent]. Название уникально без
  * учёта регистра ([nameKey]), тег хранится заглавными и тоже уникален. Фракция (1.25.0) не меняется никогда.
  */
 @Serializable
@@ -85,17 +85,6 @@ data class GuildEvent(
     val kind: GuildLogKind,
     val heroName: String,
     val value: String = "",
-    override var _id: String = ObjectId().toHexString(),
-) : StockEntity
-
-/** Сообщение чата гильдии; хранится не больше `chat.keep` последних на гильдию. */
-@Serializable
-data class GuildChat(
-    val guildId: String,
-    val at: Long,
-    val heroId: String,
-    val heroName: String,
-    val text: String,
     override var _id: String = ObjectId().toHexString(),
 ) : StockEntity
 
@@ -173,13 +162,6 @@ data class GuildContribution(val guild: GuildView, val me: GuildMember, val mone
 
 @Serializable
 data class GuildLogEntry(val at: Long, val kind: GuildLogKind, val heroName: String, val value: String)
-
-@Serializable
-data class GuildMessage(val id: String, val at: Long, val heroId: String, val heroName: String, val text: String)
-
-/** Тело `POST /guild/chat`. */
-@Serializable
-data class GuildChatBody(val text: String)
 
 /** Тело `POST /guild/settings`, если объявление пришло не параметром. */
 @Serializable

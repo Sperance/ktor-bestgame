@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 /*
  * Гильдии (1.20.0). Файл `guilds.json`: цена основания, состав по уровню, опыт уровней, ранги по вкладу,
- * фракции, гербы, чат. Фракция выбирается при основании навсегда (1.25.0) и бонусов не даёт; ранги - только статус.
+ * фракции, гербы, объявление. Фракция выбирается при основании навсегда (1.25.0) и бонусов не даёт; ранги - только статус.
  */
 
 /** Роль в гильдии: глава - всё, офицер - состав, участник - вклад и выход. */
@@ -39,9 +39,6 @@ data class GuildRank(val code: String, val from: Long)
 @Serializable
 data class GuildFaction(val code: String, val icon: String = "", val color: String = "")
 
-@Serializable
-data class GuildChatRule(val keep: Int = 100, val length: Int = 200, val cooldownSeconds: Int = 3)
-
 /** Правила гильдий - файл `guilds.json`. */
 @Serializable
 data class GuildRules(
@@ -57,7 +54,6 @@ data class GuildRules(
     val factions: List<GuildFaction> = emptyList(),
     val emblems: List<String> = emptyList(),
     val colors: List<String> = emptyList(),
-    val chat: GuildChatRule = GuildChatRule(),
     /** Длина объявления главы. */
     val announcement: Int = 200,
     /** Длина названия: от и до. */
@@ -95,7 +91,7 @@ data class GuildRules(
         if (colors.isEmpty() || colors.any { !COLOR.matches(it) }) fail("guilds: colors")
         if (name.size != 2 || name[0] < 1 || name[0] > name[1] || tag.size != 2 || tag[0] < 1 || tag[0] > tag[1]) fail("guilds: name or tag length")
         if (members.base < 1 || members.max < members.base || officers < 0 || create.level < 1 || create.gold < 0) fail("guilds: members or create")
-        if (chat.keep < 1 || chat.length < 1 || chat.cooldownSeconds < 0 || announcement < 0) fail("guilds: chat")
+        if (announcement < 0) fail("guilds: announcement")
     }
 
     // Не private: плагин сериализации вешает serializer() на companion, и приватный прячет его от ContentLoader

@@ -8,7 +8,6 @@ import features.caches.BlockListCache
 import features.data.auction.AuctionLotRepository
 import features.data.auction.AuctionLotRoute
 import features.data.auth.AuthSessionRepository
-import features.data.guild.GuildChatRepository
 import features.data.guild.GuildEventRepository
 import features.data.guild.GuildRepository
 import features.data.guild.GuildRoute
@@ -42,7 +41,6 @@ val repositoryModule = module {
     single { AuctionLotRepository() }
     single { GuildRepository() }
     single { GuildEventRepository() }
-    single { GuildChatRepository() }
     single { BlockListRepository() }
     single { RedemptionCodesRepository() }
     single { InventoryService() }

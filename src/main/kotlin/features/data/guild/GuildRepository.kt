@@ -49,7 +49,6 @@ import java.util.regex.Pattern
 class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
     private val heroes: HeroRepository by inject()
     private val events: GuildEventRepository by inject()
-    private val chats: GuildChatRepository by inject()
     private val content: ContentStore by inject()
     private val questService: QuestService by inject()
     private val index: ContentIndex get() = content.index
@@ -94,11 +93,6 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
     suspend fun log(heroId: String, page: Int, size: Int): List<GuildLogEntry> {
         val change = reading(heroId, "guildLog")
         return events.page(change.guild._id, page, size)
-    }
-
-    suspend fun chat(heroId: String, after: Long): List<GuildMessage> {
-        val change = reading(heroId, "guildChat")
-        return chats.after(change.guild._id, after, rules.chat.keep).map(::message)
     }
 
     // ==================== ОСНОВАНИЕ И СОСТАВ ====================
@@ -262,7 +256,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         return view(change, change.record(heroId))
     }
 
-    /** Роспуск главой: гильдия, её журнал и чат удаляются, у героев состава пропадает гильдия; вступить можно сразу. */
+    /** Роспуск главой: гильдия и её журнал удаляются, у героев состава пропадает гильдия; вступить можно сразу. */
     suspend fun disband(heroId: String): GuildMine {
         val method = "guildDisband"
         val change = acting(heroId, method, leader = true)
@@ -271,7 +265,6 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             deleteById(guild, session)
             heroes.patchGuild(Filters.`in`("_id", guild.members.map { it.heroId }), Updates.unset("guild"), session)
             events.deleteByGuild(guild._id, session)
-            chats.deleteByGuild(guild._id, session)
         }
         return outside(heroes.requireHero(heroId, method))
     }
@@ -466,38 +459,6 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
     private suspend fun tallies(change: Change, hero: Hero): Map<String, GuildQuestLog> =
         heroes.guildTallies(change.guild.members.map { it.heroId }.filter { it != hero._id }) + listOfNotNull(hero.quests.guild?.let { hero._id to it })
 
-    // ==================== ЧАТ ====================
-
-    suspend fun say(heroId: String, text: String): GuildMessage {
-        val method = "guildChatPost"
-        val change = acting(heroId, method)
-        val body = text.trim()
-        if (body.isEmpty() || body.length > rules.chat.length) throw GuildExceptions.funExceptionChatText(method, rules.chat.length.toString())
-        val cooldown = rules.chat.cooldownSeconds * 1000L
-        chats.lastAt(change.guild._id, heroId)?.let { last ->
-            val wait = last + cooldown - change.now
-            if (wait > 0) throw GuildExceptions.funExceptionChatCooldown(method, ((wait + 999) / 1000).toString())
-        }
-        val message = GuildChat(change.guild._id, change.now, heroId, change.actor.name, body)
-        transactionExecute("guild $method ${change.guild._id}") { session ->
-            change.write(session, quiet = true)
-            chats.post(message, rules.chat.keep, session)
-        }
-        return message(message)
-    }
-
-    /** Глава и офицеры убирают сообщение из чата своей гильдии. */
-    suspend fun unsay(heroId: String, messageId: String): GuildMessage {
-        val method = "guildChatDelete"
-        val change = acting(heroId, method, staff = true)
-        val message = chats.findById(messageId)?.takeIf { it.guildId == change.guild._id } ?: throw GuildExceptions.funExceptionMessage(method, messageId)
-        transactionExecute("guild $method ${change.guild._id}") { session ->
-            change.write(session, quiet = true)
-            chats.deleteById(message, session)
-        }
-        return message(message)
-    }
-
     // ==================== ГЕРОЙ УДАЛЁН ====================
 
     /** Удалённый герой уходит из гильдии той же транзакцией; последний участник уносит гильдию с собой. */
@@ -507,7 +468,6 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         if (guild.members.size == 1) {
             deleteById(guild, session)
             events.deleteByGuild(guild._id, session)
-            chats.deleteByGuild(guild._id, session)
             return
         }
         val change = Change(guild).also { it.actor = hero }
@@ -644,7 +604,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
 
         /**
          * Гильдия, тронутые герои и журнал. [fresh] - гильдия только что вставлена; [quiet] - команда гильдию
-         * не меняла (чат), и она пишется, только если её тронуло обслуживание.
+         * не меняла, и она пишется, только если её тронуло обслуживание.
          */
         suspend fun write(session: ClientSession, fresh: Boolean = false, quiet: Boolean = false) {
             if (!fresh && (!quiet || dirty)) update(guild, session)
@@ -815,14 +775,12 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         guild._id, guild.name, guild.tag, guild.emblem, guild.color, guild.faction, guild.level, guild.members.size, rules.capacity(guild.level), guild.mode, guild.minLevel,
     )
 
-    private fun message(chat: GuildChat) = GuildMessage(chat._id, chat.at, chat.heroId, chat.heroName, chat.text)
-
     private companion object {
         const val GOLD = "GOLD"
         const val MINUTE = 60_000L
         const val HOUR = 3_600_000L
         const val DAY = 86_400_000L
-        /** Отметка захода пишется не чаще раза в столько: чтение не должно переписывать гильдию на каждый опрос чата. */
+        /** Отметка захода пишется не чаще раза в столько: чтение не должно переписывать гильдию на каждый опрос. */
         const val SEEN_STEP = 10 * MINUTE
         const val MAX_MIN_LEVEL = 1000
         val SPACES = Regex("\\s+")

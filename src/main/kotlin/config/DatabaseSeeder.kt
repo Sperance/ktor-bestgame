@@ -7,7 +7,6 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.printLog
 import features.data.auction.AuctionLotRepository
-import features.data.guild.GuildChatRepository
 import features.data.guild.GuildEventRepository
 import features.data.guild.GuildRepository
 import features.data.auth.AuthSessionRepository
@@ -39,7 +38,6 @@ object DatabaseSeeder : KoinComponent {
     private val lots: AuctionLotRepository by inject()
     private val guilds: GuildRepository by inject()
     private val guildEvents: GuildEventRepository by inject()
-    private val guildChats: GuildChatRepository by inject()
     private val blockList: BlockListRepository by inject()
     private val codes: RedemptionCodesRepository by inject()
     private val blockListCache: BlockListCache by inject()
@@ -69,7 +67,7 @@ object DatabaseSeeder : KoinComponent {
 
     /** Индексы - до транзакции: создание индекса меняет каталог MongoDB и рвёт открытую транзакцию. */
     private suspend fun ensureIndexes() = coroutineScope {
-        listOf(users, sessions, heroes, lots, guilds, guildEvents, guildChats, blockList, codes).map { async { it.ensureIndexes() } }.awaitAll()
+        listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes).map { async { it.ensureIndexes() } }.awaitAll()
         printLog("  → indexes ensured")
     }
 

@@ -10,7 +10,6 @@ import base.route.respondOk
 import com.sperance.exileforge.rules.content.GuildMode
 import features.logic.hero.respondWithHero
 import io.ktor.server.application.ApplicationCall
-import io.ktor.server.request.receive
 import io.ktor.server.request.receiveText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
@@ -57,9 +56,6 @@ class GuildRoute(private val repo: GuildRepository) : BaseRoute<Guild>(
         get("/quests") { call.respondOk(repo.quests(call.heroId)) }
         post("/quests/claim") { call.respondWithHero(repo.claimQuest(call.heroId, call.optionalParam("questId"), call.optionalParam("goal"))) }
         get("/log") { call.respondOk(repo.log(call.heroId, call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT))) }
-        get("/chat") { call.respondOk(repo.chat(call.heroId, call.queryParam("after", 0L))) }
-        post("/chat") { call.respondOk(repo.say(call.heroId, call.receive<GuildChatBody>().text)) }
-        post("/chat/delete") { call.respondOk(repo.unsay(call.heroId, call.queryParam("messageId"))) }
     }
 
     private fun ApplicationCall.mode(): GuildMode? = optionalParam("mode")?.let { raw ->

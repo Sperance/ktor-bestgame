@@ -29,11 +29,6 @@
   ],
   "emblems": ["SWORD", "SHIELD", "AXE", "HAMMER", "CROWN", "SKULL", "WOLF", "EAGLE", "TOWER", "FLAME", "SUN", "COIN"],
   "colors": ["#B23A3A", "#D98C2B", "#D9C23A", "#4F9A3C", "#2F8F8F", "#3A64B2", "#7A45B2", "#8A8A8A"],
-  "chat": {
-    "keep": 100,
-    "length": 200,
-    "cooldownSeconds": 3
-  },
   "announcement": 200,
   "name": [3, 24],
   "tag": [2, 4]
