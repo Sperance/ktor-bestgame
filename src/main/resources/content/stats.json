@@ -5057,22 +5057,22 @@
     {
       "code": "STOCK_WORN_EMPTY_SLOTS",
       "group": "HERO",
-      "order": 564
+      "order": 1
     },
     {
       "code": "STOCK_WORN_UNIQUES",
       "group": "HERO",
-      "order": 565
+      "order": 2
     },
     {
       "code": "STOCK_WORN_CORRUPTED",
       "group": "HERO",
-      "order": 566
+      "order": 3
     },
     {
       "code": "STOCK_WORN_JEWELS",
       "group": "HERO",
-      "order": 567
+      "order": 4
     },
     {
       "code": "STOCK_LIFE_DAMAGE_DELAYED",
@@ -5199,6 +5199,263 @@
       "group": "HERO",
       "order": 590,
       "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ACCURACY",
+      "group": "HERO",
+      "order": 3431
+    },
+    {
+      "code": "STOCK_PHYSICAL_AS_EXTRA_FIRE",
+      "group": "HERO",
+      "order": 3432,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PHYSICAL_AS_EXTRA_COLD",
+      "group": "HERO",
+      "order": 3433,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PHYSICAL_AS_EXTRA_LIGHTNING",
+      "group": "HERO",
+      "order": 3434,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_PHYSICAL_AS_EXTRA_CHAOS",
+      "group": "HERO",
+      "order": 3435,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SPELL_ADD_FIRE",
+      "group": "HERO",
+      "order": 3436
+    },
+    {
+      "code": "STOCK_SPELL_ADD_COLD",
+      "group": "HERO",
+      "order": 3437
+    },
+    {
+      "code": "STOCK_SPELL_ADD_LIGHTNING",
+      "group": "HERO",
+      "order": 3438
+    },
+    {
+      "code": "STOCK_SPELL_CRITICAL_CHANCE",
+      "group": "HERO",
+      "order": 3439,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DOUBLE_DAMAGE",
+      "group": "HERO",
+      "order": 3440,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_CULLING",
+      "group": "HERO",
+      "order": 3441,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_PER_FRENZY",
+      "group": "HERO",
+      "order": 3442,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_PER_POWER",
+      "group": "HERO",
+      "order": 3443,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DAMAGE_PER_ENDURANCE",
+      "group": "HERO",
+      "order": 3444,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SHOCK_EFFECT",
+      "group": "HERO",
+      "order": 3445,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_CHILL_EFFECT",
+      "group": "HERO",
+      "order": 3446,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FASTER_AILMENTS",
+      "group": "HERO",
+      "order": 3447,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ONSLAUGHT_ON_KILL",
+      "group": "HERO",
+      "order": 3448,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_UNHOLY_MIGHT_ON_KILL",
+      "group": "HERO",
+      "order": 3449,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ARCANE_SURGE_ON_KILL",
+      "group": "HERO",
+      "order": 3450,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_FORTIFY_ON_HIT",
+      "group": "HERO",
+      "order": 3451,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ONSLAUGHT_ALWAYS",
+      "group": "HERO",
+      "order": 3452
+    },
+    {
+      "code": "STOCK_UNHOLY_MIGHT_ALWAYS",
+      "group": "HERO",
+      "order": 3453
+    },
+    {
+      "code": "STOCK_ARCANE_SURGE_ALWAYS",
+      "group": "HERO",
+      "order": 3454
+    },
+    {
+      "code": "STOCK_FORTIFY_ALWAYS",
+      "group": "HERO",
+      "order": 3455
+    },
+    {
+      "code": "STOCK_BUFF_DURATION",
+      "group": "HERO",
+      "order": 3456,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_HIT_TAKEN",
+      "group": "HERO",
+      "order": 3457,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SPELL_SUPPRESSION",
+      "group": "HERO",
+      "order": 3458,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_DEFLECTION",
+      "group": "HERO",
+      "order": 3459,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_HEALTH_ON_BLOCK",
+      "group": "HERO",
+      "order": 3460
+    },
+    {
+      "code": "STOCK_MANA_ON_BLOCK",
+      "group": "HERO",
+      "order": 3461
+    },
+    {
+      "code": "STOCK_SHIELD_ON_BLOCK",
+      "group": "HERO",
+      "order": 3462
+    },
+    {
+      "code": "STOCK_HEALTH_ON_KILL_PERCENT",
+      "group": "HERO",
+      "order": 3463,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SHIELD_ON_KILL",
+      "group": "HERO",
+      "order": 3464
+    },
+    {
+      "code": "STOCK_LIFE_RECOUP",
+      "group": "HERO",
+      "order": 3465,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_ARMOUR_ELEMENTAL",
+      "group": "HERO",
+      "order": 3466,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_SHIELD_RECHARGE_START",
+      "group": "HERO",
+      "order": 3467,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_WORK_DOUBLE",
+      "group": "HERO",
+      "order": 3468,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_WORK_SAVE",
+      "group": "HERO",
+      "order": 3469,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "MAP_HERO_ENFEEBLE",
+      "group": "MAP",
+      "order": 3470
+    },
+    {
+      "code": "MAP_HERO_VULNERABILITY",
+      "group": "MAP",
+      "order": 3471
+    },
+    {
+      "code": "MAP_HERO_FLASK_EFFECT",
+      "group": "MAP",
+      "order": 3472
+    },
+    {
+      "code": "MAP_HERO_BUFF_DURATION",
+      "group": "MAP",
+      "order": 3473
+    },
+    {
+      "code": "MAP_MONSTER_ONSLAUGHT",
+      "group": "MAP",
+      "order": 3474
+    },
+    {
+      "code": "MAP_MONSTER_FORTIFY",
+      "group": "MAP",
+      "order": 3475
+    },
+    {
+      "code": "MAP_MONSTER_EXTRA_ELEMENTAL",
+      "group": "MAP",
+      "order": 3476
     }
   ]
 }

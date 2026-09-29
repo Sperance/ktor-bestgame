@@ -7352,7 +7352,14 @@
       "MAP_HERO_HASTE": -0.4,
       "MAP_HERO_ATTACK_SPEED": -0.5,
       "MAP_HERO_LIFE": -0.5,
-      "MAP_HERO_LEECH": -2.5
+      "MAP_HERO_LEECH": -2.5,
+      "MAP_HERO_ENFEEBLE": 0.6,
+      "MAP_HERO_VULNERABILITY": 0.5,
+      "MAP_HERO_FLASK_EFFECT": 0.3,
+      "MAP_HERO_BUFF_DURATION": 0.1,
+      "MAP_MONSTER_ONSLAUGHT": 15.0,
+      "MAP_MONSTER_FORTIFY": 12.0,
+      "MAP_MONSTER_EXTRA_ELEMENTAL": 0.6
     }
   },
   "abyss": {

@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.sheet
 
+import com.sperance.exileforge.rules.content.Condition
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.HeroClass
 import com.sperance.exileforge.rules.content.ItemTemplate
@@ -25,6 +26,8 @@ import kotlin.math.floor
 data class StatOperation(
     val stat: String, val op: Op, val value: Double, val perStat: String? = null, val perAmount: Double = 1.0,
     val source: StatSource? = null, val local: List<StatOperation> = emptyList(),
+    /** Условие боя (1.34.0): такая операция в свод листа не входит - её кладёт бой. */
+    val condition: Condition? = null,
 ) {
     /** У конверсии значение зависит от источника: неполный шаг не засчитывается. */
     fun resolve(source: Double): Double = when {
@@ -69,7 +72,7 @@ class SheetCalculator(private val index: ContentIndex) {
 
     fun expand(lines: Collection<Line>, source: StatSource? = null): List<StatOperation> = lines.flatMap { line ->
         val def = index.modifier(line.code) ?: return@flatMap emptyList()
-        def.effects.mapIndexedNotNull { i, effect -> line.values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source) } }
+        def.effects.mapIndexedNotNull { i, effect -> line.values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source, condition = effect.condition) } }
     }
 
     fun expand(lines: Collection<SourcedLine>): List<StatOperation> = lines.flatMap { expand(listOf(it.line), it.source) }
@@ -77,12 +80,12 @@ class SheetCalculator(private val index: ContentIndex) {
     fun expandRolls(rolls: Collection<Roll>, source: StatSource? = null): List<StatOperation> = rolls.flatMap { roll ->
         val def = index.modifier(roll.code) ?: return@flatMap emptyList()
         val values = roll.values(def)
-        def.effects.mapIndexedNotNull { i, effect -> values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source) } }
+        def.effects.mapIndexedNotNull { i, effect -> values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source, condition = effect.condition) } }
     }
 
     /** Свод до сил уникалок: характеристики в порядке реестра, источник конверсии посчитан раньше приёмника. */
     fun raw(base: Map<String, Double>, operations: Collection<StatOperation>): MutableMap<String, Double> {
-        val byStat = operations.groupBy { it.stat }
+        val byStat = operations.filter { it.condition == null }.groupBy { it.stat }
         val result = LinkedHashMap<String, Double>()
         (byStat.keys + base.keys).sortedBy { stats.order(it) }.forEach { stat ->
             val applied = byStat[stat].orEmpty().map { it.op to it.resolve(it.perStat?.let { s -> result[s] } ?: 0.0) }
@@ -108,6 +111,7 @@ class SheetCalculator(private val index: ContentIndex) {
 
     /** Что дают строки сами по себе - по строке на характеристику и операцию. */
     fun contributions(operations: Collection<StatOperation>): List<StatContribution> = operations
+        .filter { it.condition == null }
         .groupBy { it.stat to it.op }
         .mapNotNull { (key, group) ->
             val (stat, op) = key

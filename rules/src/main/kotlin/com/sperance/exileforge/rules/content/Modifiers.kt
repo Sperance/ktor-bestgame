@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.content
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -43,8 +44,28 @@ enum class VariantKind(val suffix: String?) {
 }
 
 /**
+ * Условие эффекта (1.34.0): такой эффект не входит в лист, его кладёт бой, пока условие держится. Условия
+ * героя ([target] = false) бой проверяет каждый шаг; условия цели - на каждом ударе, и им доступен только
+ * «увеличенный урон» ([TARGET_STAT]).
+ */
+@Serializable
+enum class Condition(val target: Boolean = false) {
+    LOW_LIFE, FULL_LIFE, FULL_SHIELD,
+    RECENT_KILL, RECENT_HIT_TAKEN, RECENT_BLOCK, RECENT_CRIT,
+    ONSLAUGHT, FORTIFIED, FRENZY_CHARGE, POWER_CHARGE, ENDURANCE_CHARGE, FLASK_ACTIVE, PET_ALIVE,
+    VS_RARE(true), VS_UNIQUE(true), VS_FULL_LIFE(true);
+
+    companion object {
+        /** Сколько секунд событие считается «недавним». */
+        const val RECENT = 4.0
+        const val TARGET_STAT = "STOCK_DAMAGE"
+    }
+}
+
+/**
  * Одно действие модификатора. С [perStat] это конверсия: значение умножается на то, сколько раз
  * [perAmount] укладывается в уже посчитанный источник; порядок источника обязан быть меньше порядка [stat].
+ * С [condition] (1.34.0) эффект работает только в бою, пока условие держится.
  */
 @Serializable
 data class Effect(
@@ -52,6 +73,7 @@ data class Effect(
     val op: Op = Op.ADD,
     val perStat: String? = null,
     val perAmount: Double = 1.0,
+    @SerialName("when") val condition: Condition? = null,
 )
 
 /** Диапазон `[min, max]` одного эффекта в тире. */
@@ -178,6 +200,9 @@ data class ModifierFamily(
         source != Source.MONSTER && minRarity != null -> "$code: minRarity on a non-monster modifier"
         variants.map { it.kind }.let { it.toSet().size != it.size || VariantKind.NATURAL in it } -> "$code: variants"
         variants.any { (it.kind == VariantKind.LOCAL || it.kind == VariantKind.CRAFTED) && !source.affix } -> "$code: a local or crafted variant of a non-affix"
+        effects.any { e -> e.condition?.target == true && (e.stat != Condition.TARGET_STAT || e.op != Op.INCREASED || e.perStat != null) } ->
+            "$code: a target condition takes only increased ${Condition.TARGET_STAT}"
+        effects.any { it.condition != null && (local || it.perStat != null) } -> "$code: a conditional effect is neither local nor a conversion"
         else -> (listOfNotNull(grid?.problem(effects.size)) + ownTiers().mapNotNull { it.problem(effects.size) } +
             variants.flatMap { v -> listOfNotNull(v.grid?.problem(effects.size)) + v.tiers.mapNotNull { it.problem(effects.size) } })
             .firstOrNull()?.let { "$code: $it" }

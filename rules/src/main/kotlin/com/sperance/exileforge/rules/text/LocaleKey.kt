@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.text
 
+import com.sperance.exileforge.rules.content.Condition
 import com.sperance.exileforge.rules.content.GuildLogKind
 import com.sperance.exileforge.rules.content.GuildMode
 import com.sperance.exileforge.rules.content.GuildRole
@@ -42,6 +43,8 @@ object LocaleKey {
     fun itemTrade(code: String) = key(ITEM, code, TRADE)
     fun itemDescription(code: String) = key(ITEM, code, DESCRIPTION)
     fun modifierName(code: String) = key(MODIFIER, code, NAME)
+    /** Хвост строки условного эффекта (1.34.0): «на низком здоровье». */
+    fun condition(condition: Condition) = "condition.${condition.name}"
     fun skillNodeName(code: String) = key(SKILL_NODE, code, NAME)
     fun skillNodeDescription(code: String) = key(SKILL_NODE, code, DESCRIPTION)
     fun className(code: String) = key(CHARACTER_CLASS, code, NAME)

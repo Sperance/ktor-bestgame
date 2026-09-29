@@ -56,12 +56,16 @@ data class WorkBonus(
     val luck: Double = 0.0,
     val experience: Double = 0.0,
     val find: Double = 0.0,
+    /** Шанс удвоить выход цикла и шанс вернуть его материалы (1.34.0), в процентах. */
+    val double: Double = 0.0,
+    val save: Double = 0.0,
 ) {
     companion object {
         /** Бонусы из листа: характеристики `STOCK_WORK_*`. */
         fun of(stats: Map<String, Double>) = WorkBonus(
             stats[CoreStat.WORK_SPEED.code] ?: 0.0, stats[CoreStat.WORK_YIELD.code] ?: 0.0, stats[CoreStat.WORK_LUCK.code] ?: 0.0,
             stats[CoreStat.WORK_EXPERIENCE.code] ?: 0.0, stats[CoreStat.WORK_FIND.code] ?: 0.0,
+            stats[CoreStat.WORK_DOUBLE.code] ?: 0.0, stats[CoreStat.WORK_SAVE.code] ?: 0.0,
         )
     }
 }
@@ -142,7 +146,9 @@ object Work {
             if (dice.percent(nothingChance(rules, job, bonus))) { nothing++; continue }
             val extraUnits = max(0.0, bonus.yield) / 100
             val whole = floor(extraUnits).toLong()
-            val units = 1 + whole + if (dice.chance(extraUnits - whole)) 1 else 0
+            // Броски удвоения и возврата (1.34.0) - только при своих бонусах, чтобы прежние циклы катились как прежде.
+            val units = (1 + whole + if (dice.chance(extraUnits - whole)) 1 else 0) * if (bonus.double > 0 && dice.percent(bonus.double)) 2 else 1
+            if (bonus.save > 0 && dice.percent(bonus.save)) need.forEach { (item, amount) -> left.merge(item, amount, Long::plus); spent.merge(item, -amount, Long::plus) }
             if (job.kind == JobKind.ITEM) items.merge(job.output, units, Long::plus) else made += units.toInt()
             job.extra.forEach { extra -> if (dice.percent(findChance(rules, extra, level, bonus))) items.merge(extra.item, 1, Long::plus) }
             val xp = job.experience * (1 + max(0.0, bonus.experience) / 100)

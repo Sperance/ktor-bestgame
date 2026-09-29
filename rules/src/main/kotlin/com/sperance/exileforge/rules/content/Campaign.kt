@@ -95,6 +95,10 @@ data class CombatRules(
     val opening: Double = 0.0,
     /** Потолок «быстрой подготовки» (3.13.0 клиента): на сколько процентов она укорачивает подготовку умения в начале боя. */
     val preparationCap: Double = 75.0,
+    /** Меткость против уклонения (1.34.0): заменяет прежнюю формулу [evasion]. */
+    val accuracy: AccuracyRule = AccuracyRule(),
+    val buffs: BuffRules = BuffRules(),
+    val defence: DefenceRule = DefenceRule(),
 ) {
     /**
      * Какая доля перезарядки умения идёт в начале боя: подготовка умения на его уровне (или [opening], если своей нет),

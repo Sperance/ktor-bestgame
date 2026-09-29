@@ -29,6 +29,7 @@ class ModifierText(private val stats: StatRegistry, private val strings: (String
             var text = strings(templateKey(effect, negative)) ?: generic(effect) ?: return null
             text = text.replace("{v}", value)
             effect.perStat?.let { source -> text = text.replace("{n}", number(effect.perAmount)).replace("{s}", label(source) ?: return null) }
+            effect.condition?.let { condition -> text = "$text ${strings(LocaleKey.condition(condition)) ?: return null}" }
             text
         }
         val join = if (parts.size > 1) strings(JOIN) ?: return null else ""

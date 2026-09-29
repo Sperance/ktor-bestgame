@@ -27944,6 +27944,2670 @@
         "charge",
         "passive"
       ]
+    },
+    {
+      "code": "ADD_ACCURACY_RATING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ACCURACY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          69,
+          56,
+          44,
+          32,
+          20,
+          10,
+          1
+        ],
+        "top": [
+          [
+            330,
+            400
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "attack",
+        "accuracy"
+      ]
+    },
+    {
+      "code": "INCREASED_ACCURACY_RATING",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ACCURACY",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          59,
+          38,
+          17,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "attack",
+        "accuracy"
+      ]
+    },
+    {
+      "code": "PHYSICAL_AS_EXTRA_FIRE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PHYSICAL_AS_EXTRA_FIRE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          60,
+          40
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "physical",
+        "fire"
+      ]
+    },
+    {
+      "code": "PHYSICAL_AS_EXTRA_COLD",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PHYSICAL_AS_EXTRA_COLD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          60,
+          40
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "physical",
+        "cold"
+      ]
+    },
+    {
+      "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PHYSICAL_AS_EXTRA_LIGHTNING"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          60,
+          40
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "physical",
+        "lightning"
+      ]
+    },
+    {
+      "code": "PHYSICAL_AS_EXTRA_CHAOS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PHYSICAL_AS_EXTRA_CHAOS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          60,
+          40
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "physical",
+        "chaos"
+      ]
+    },
+    {
+      "code": "ADD_FIRE_DAMAGE_TO_SPELLS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_ADD_FIRE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          69,
+          56,
+          44,
+          32,
+          20,
+          10,
+          1
+        ],
+        "top": [
+          [
+            45,
+            60
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "caster",
+        "fire"
+      ]
+    },
+    {
+      "code": "ADD_COLD_DAMAGE_TO_SPELLS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_ADD_COLD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          69,
+          56,
+          44,
+          32,
+          20,
+          10,
+          1
+        ],
+        "top": [
+          [
+            45,
+            60
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "caster",
+        "cold"
+      ]
+    },
+    {
+      "code": "ADD_LIGHTNING_DAMAGE_TO_SPELLS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_ADD_LIGHTNING"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          69,
+          56,
+          44,
+          32,
+          20,
+          10,
+          1
+        ],
+        "top": [
+          [
+            45,
+            60
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "caster",
+        "lightning"
+      ]
+    },
+    {
+      "code": "INCREASED_SPELL_CRITICAL_CHANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_CRITICAL_CHANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            80,
+            100
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            19
+          ]
+        ]
+      },
+      "tags": [
+        "critical",
+        "caster"
+      ]
+    },
+    {
+      "code": "DOUBLE_DAMAGE_CHANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DOUBLE_DAMAGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          60,
+          40
+        ],
+        "top": [
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "damage"
+      ]
+    },
+    {
+      "code": "CULLING_STRIKE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CULLING"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50
+        ],
+        "top": [
+          [
+            10,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "damage"
+      ]
+    },
+    {
+      "code": "DAMAGE_PER_FRENZY_CHARGE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_PER_FRENZY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            5,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "charges"
+      ]
+    },
+    {
+      "code": "DAMAGE_PER_POWER_CHARGE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_PER_POWER"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            5,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "charges"
+      ]
+    },
+    {
+      "code": "DAMAGE_PER_ENDURANCE_CHARGE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_PER_ENDURANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            5,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "charges"
+      ]
+    },
+    {
+      "code": "INCREASED_SHOCK_EFFECT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SHOCK_EFFECT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "ailment",
+        "lightning"
+      ]
+    },
+    {
+      "code": "INCREASED_CHILL_EFFECT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CHILL_EFFECT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "ailment",
+        "cold"
+      ]
+    },
+    {
+      "code": "FASTER_DAMAGING_AILMENTS",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FASTER_AILMENTS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            7
+          ]
+        ]
+      },
+      "tags": [
+        "ailment",
+        "damage"
+      ]
+    },
+    {
+      "code": "ONSLAUGHT_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ONSLAUGHT_ON_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          72,
+          45,
+          20
+        ],
+        "top": [
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "buff",
+        "speed"
+      ]
+    },
+    {
+      "code": "UNHOLY_MIGHT_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_UNHOLY_MIGHT_ON_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            10,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "buff",
+        "chaos"
+      ]
+    },
+    {
+      "code": "ARCANE_SURGE_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ARCANE_SURGE_ON_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          72,
+          45,
+          20
+        ],
+        "top": [
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "buff",
+        "caster"
+      ]
+    },
+    {
+      "code": "FORTIFY_ON_HIT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_FORTIFY_ON_HIT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          72,
+          45,
+          20
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "buff",
+        "defences"
+      ]
+    },
+    {
+      "code": "SPELL_SUPPRESSION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_SUPPRESSION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            13,
+            16
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "defences"
+      ]
+    },
+    {
+      "code": "DEFLECTION_CHANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DEFLECTION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          59,
+          38,
+          17,
+          1
+        ],
+        "top": [
+          [
+            9,
+            11
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "defences"
+      ]
+    },
+    {
+      "code": "ADD_LIFE_ON_BLOCK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH_ON_BLOCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            40,
+            55
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "life",
+        "block"
+      ]
+    },
+    {
+      "code": "ADD_MANA_ON_BLOCK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA_ON_BLOCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            20,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "mana",
+        "block"
+      ]
+    },
+    {
+      "code": "ADD_ENERGY_SHIELD_ON_BLOCK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SHIELD_ON_BLOCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            30,
+            45
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "energy_shield",
+        "block"
+      ]
+    },
+    {
+      "code": "RECOVER_LIFE_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH_ON_KILL_PERCENT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          25
+        ],
+        "top": [
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "life"
+      ]
+    },
+    {
+      "code": "ADD_ENERGY_SHIELD_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SHIELD_ON_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            30,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "energy_shield"
+      ]
+    },
+    {
+      "code": "REDUCED_CRITICAL_DAMAGE_TAKEN",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_TAKEN"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            -40,
+            -31
+          ]
+        ],
+        "bottom": [
+          [
+            -15,
+            -10
+          ]
+        ]
+      },
+      "tags": [
+        "defences",
+        "critical"
+      ]
+    },
+    {
+      "code": "LIFE_RECOUP",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_LIFE_RECOUP"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            10,
+            12
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "life"
+      ]
+    },
+    {
+      "code": "ARMOUR_APPLIES_TO_ELEMENTAL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOUR_ELEMENTAL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "defences",
+        "armour"
+      ]
+    },
+    {
+      "code": "FASTER_SHIELD_RECHARGE_START",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SHIELD_RECHARGE_START"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            40,
+            50
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "energy_shield"
+      ]
+    },
+    {
+      "code": "ADD_MAXIMUM_BLOCK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_BLOCK_MAX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          45
+        ],
+        "top": [
+          [
+            3,
+            4
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "block"
+      ]
+    },
+    {
+      "code": "ADD_SPELL_BLOCK_CHANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_BLOCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          59,
+          38,
+          17,
+          1
+        ],
+        "top": [
+          [
+            10,
+            12
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "block",
+        "caster"
+      ]
+    },
+    {
+      "code": "PET_INCREASED_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PET_DAMAGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            35,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "pet",
+        "damage"
+      ]
+    },
+    {
+      "code": "PET_INCREASED_LIFE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PET_HEALTH"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            30,
+            35
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "pet",
+        "life"
+      ]
+    },
+    {
+      "code": "PET_ATTACK_SPEED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PET_ATTACK_SPEED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "pet",
+        "speed"
+      ]
+    },
+    {
+      "code": "PET_RESISTANCES",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PET_RESIST"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "pet",
+        "resistance"
+      ]
+    },
+    {
+      "code": "PET_ADD_ARMOUR",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PET_ARMOR"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            150,
+            200
+          ]
+        ],
+        "bottom": [
+          [
+            20,
+            40
+          ]
+        ]
+      },
+      "tags": [
+        "pet",
+        "armour"
+      ]
+    },
+    {
+      "code": "PET_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_PET_LEVEL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          75,
+          40
+        ],
+        "top": [
+          [
+            2,
+            2
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "pet"
+      ]
+    },
+    {
+      "code": "DAMAGE_PER_STRENGTH",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "perStat": "STOCK_STRENGTH",
+          "perAmount": 10
+        }
+      ],
+      "grid": {
+        "levels": [
+          40
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "attribute"
+      ]
+    },
+    {
+      "code": "EVASION_PER_DEXTERITY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_EVASION",
+          "op": "INCREASED",
+          "perStat": "STOCK_AGILITY",
+          "perAmount": 10
+        }
+      ],
+      "grid": {
+        "levels": [
+          40
+        ],
+        "top": [
+          [
+            2,
+            2
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "evasion",
+        "attribute"
+      ]
+    },
+    {
+      "code": "ENERGY_SHIELD_PER_INTELLIGENCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ENERGY_SHIELD",
+          "op": "INCREASED",
+          "perStat": "STOCK_INTELLECT",
+          "perAmount": 10
+        }
+      ],
+      "grid": {
+        "levels": [
+          40
+        ],
+        "top": [
+          [
+            2,
+            2
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "energy_shield",
+        "attribute"
+      ]
+    },
+    {
+      "code": "LIFE_PER_CONSTITUTION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "op": "INCREASED",
+          "perStat": "STOCK_CONSTITUTION",
+          "perAmount": 10
+        }
+      ],
+      "grid": {
+        "levels": [
+          40
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "life",
+        "attribute"
+      ]
+    },
+    {
+      "code": "DAMAGE_PER_CORRUPTED_ITEM",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "perStat": "STOCK_WORN_CORRUPTED",
+          "perAmount": 1
+        }
+      ],
+      "grid": {
+        "levels": [
+          70,
+          35
+        ],
+        "top": [
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "damage",
+        "worn"
+      ]
+    },
+    {
+      "code": "LIFE_PER_UNIQUE_ITEM",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH",
+          "op": "INCREASED",
+          "perStat": "STOCK_WORN_UNIQUES",
+          "perAmount": 1
+        }
+      ],
+      "grid": {
+        "levels": [
+          70,
+          35
+        ],
+        "top": [
+          [
+            2,
+            3
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "life",
+        "worn"
+      ]
+    },
+    {
+      "code": "RESISTANCES_PER_JEWEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_ALL",
+          "perStat": "STOCK_WORN_JEWELS",
+          "perAmount": 1
+        }
+      ],
+      "grid": {
+        "levels": [
+          70,
+          35
+        ],
+        "top": [
+          [
+            2,
+            2
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "resistance",
+        "worn"
+      ]
+    },
+    {
+      "code": "WORK_DOUBLE_OUTPUT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_DOUBLE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          40,
+          25,
+          10
+        ],
+        "top": [
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "work"
+      ]
+    },
+    {
+      "code": "WORK_MATERIAL_SAVE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_SAVE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          40,
+          25,
+          10
+        ],
+        "top": [
+          [
+            10,
+            12
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "work"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_LOW_LIFE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "LOW_LIFE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            30,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_ATTACK_SPEED_FULL_LIFE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "op": "INCREASED",
+          "when": "FULL_LIFE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_RESISTANCES_FULL_SHIELD",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_ALL",
+          "when": "FULL_SHIELD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_RECENT_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "RECENT_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_REGEN_RECENT_HIT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_LIFE_REGEN_PERCENT",
+          "when": "RECENT_HIT_TAKEN"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            1.5,
+            2
+          ]
+        ],
+        "bottom": [
+          [
+            0.5,
+            0.8
+          ]
+        ],
+        "precision": 1
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_TAKEN_RECENT_BLOCK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE_TAKEN",
+          "when": "RECENT_BLOCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            -10,
+            -8
+          ]
+        ],
+        "bottom": [
+          [
+            -4,
+            -3
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_CRIT_MULTIPLIER_RECENT_CRIT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_MULTIPLIER",
+          "when": "RECENT_CRIT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_ONSLAUGHT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "ONSLAUGHT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_ARMOUR_FORTIFIED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "op": "INCREASED",
+          "when": "FORTIFIED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            40,
+            50
+          ]
+        ],
+        "bottom": [
+          [
+            15,
+            20
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_SPEED_FRENZY_CHARGE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "op": "INCREASED",
+          "when": "FRENZY_CHARGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_CRIT_POWER_CHARGE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "op": "INCREASED",
+          "when": "POWER_CHARGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            40,
+            50
+          ]
+        ],
+        "bottom": [
+          [
+            15,
+            20
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_ARMOUR_ENDURANCE_CHARGE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "op": "INCREASED",
+          "when": "ENDURANCE_CHARGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            30,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_FLASK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "FLASK_ACTIVE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_PET_ALIVE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "PET_ALIVE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_VS_RARE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "VS_RARE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          52,
+          24,
+          1
+        ],
+        "top": [
+          [
+            30,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_VS_UNIQUE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "VS_UNIQUE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            35,
+            45
+          ]
+        ],
+        "bottom": [
+          [
+            12,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "COND_DAMAGE_VS_FULL_LIFE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_DAMAGE",
+          "op": "INCREASED",
+          "when": "VS_FULL_LIFE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          38,
+          1
+        ],
+        "top": [
+          [
+            40,
+            50
+          ]
+        ],
+        "bottom": [
+          [
+            12,
+            18
+          ]
+        ]
+      },
+      "tags": [
+        "conditional"
+      ]
+    },
+    {
+      "code": "MOB_ONSLAUGHT",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ONSLAUGHT_ALWAYS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          20
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "monster",
+        "buff"
+      ],
+      "minRarity": "MAGIC"
+    },
+    {
+      "code": "MOB_FORTIFIED",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_FORTIFY_ALWAYS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "monster",
+        "buff"
+      ],
+      "minRarity": "MAGIC"
+    },
+    {
+      "code": "MOB_UNHOLY",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_UNHOLY_MIGHT_ALWAYS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          40
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "monster",
+        "buff"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MOB_ACCURATE",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_ACCURACY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            80,
+            120
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            20
+          ]
+        ]
+      },
+      "tags": [
+        "monster",
+        "accuracy"
+      ],
+      "minRarity": "MAGIC"
+    },
+    {
+      "code": "MOB_SUPPRESSING",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_SUPPRESSION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50,
+          30,
+          10
+        ],
+        "top": [
+          [
+            30,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "monster",
+        "defences"
+      ],
+      "minRarity": "RARE"
+    },
+    {
+      "code": "MAP_HERO_ENFEEBLE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_HERO_ENFEEBLE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "hero"
+      ]
+    },
+    {
+      "code": "MAP_HERO_VULNERABILITY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_HERO_VULNERABILITY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "hero"
+      ]
+    },
+    {
+      "code": "MAP_HERO_FLASK_EFFECT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_HERO_FLASK_EFFECT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "hero"
+      ]
+    },
+    {
+      "code": "MAP_HERO_BUFF_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "MAP_HERO_BUFF_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            40,
+            50
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "hero"
+      ]
+    },
+    {
+      "code": "MAP_MONSTER_ONSLAUGHT",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_MONSTER_ONSLAUGHT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "monster"
+      ]
+    },
+    {
+      "code": "MAP_MONSTER_FORTIFY",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_MONSTER_FORTIFY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          40
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "monster"
+      ]
+    },
+    {
+      "code": "MAP_MONSTER_EXTRA_ELEMENTAL",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_MONSTER_EXTRA_ELEMENTAL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "monster"
+      ]
+    },
+    {
+      "code": "MAP_MAGIC_MONSTERS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_MAGIC_MONSTERS",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "reward"
+      ]
+    },
+    {
+      "code": "MAP_RARE_MONSTERS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "MAP_RARE_MONSTERS",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          40,
+          20,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "map",
+        "reward"
+      ]
     }
   ]
 }

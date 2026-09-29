@@ -9757,6 +9757,15 @@
               20.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "STOCK_ARCANE_SURGE_ON_KILL",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
         ]
       ]
     },
@@ -10434,6 +10443,15 @@
             "range": [
               40.0,
               60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ONSLAUGHT_ON_KILL",
+            "range": [
+              15.0,
+              25.0
             ]
           }
         ]
@@ -11323,6 +11341,15 @@
               8.0
             ]
           }
+        ],
+        [
+          {
+            "stat": "STOCK_FORTIFY_ON_HIT",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
         ]
       ]
     },
@@ -11980,6 +12007,15 @@
             "range": [
               0.3,
               0.5
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_UNHOLY_MIGHT_ON_KILL",
+            "range": [
+              10.0,
+              20.0
             ]
           }
         ]
