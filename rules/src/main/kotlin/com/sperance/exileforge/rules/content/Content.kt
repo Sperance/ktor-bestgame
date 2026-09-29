@@ -88,9 +88,10 @@ class Content(
 /**
  * Версия кода правил (1.29.0): поднимается при каждой правке, меняющей исход забега по тому же семени и контенту
  * (размер пачек, роллы, бой), - иначе забег, начатый до обновления, не сойдётся с сервером. 2 - награды захода
- * катятся потоком наград героя на сервере, а не семенем захода (1.30.0).
+ * катятся потоком наград героя на сервере, а не семенем захода (1.30.0). 3 - уникалка Атласа с босса захода по карте
+ * и новые механики сил: зачистка этапа, натиск, эхо, отмщение (1.31.0).
  */
-const val RULES_VERSION = 2
+const val RULES_VERSION = 3
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -387,6 +388,8 @@ private class CampaignValidator(private val index: ContentIndex) {
             if (index.tables.kind(rule.rarities) != TableKind.VALUE) fail("campaign: maps.rarities")
             rule.risk.forEach { (name, weight) -> stat(name); if (weight == 0.0) fail("campaign: maps.risk $name") }
             if (rule.rarityBonus.values.any { it < 0 }) fail("campaign: maps.rarityBonus")
+            if (rule.uniqueChance !in 0.0..1.0 || rule.atlasUniqueChance !in 0.0..1.0 || rule.atlasUniqueNodes <= 0) fail("campaign: maps unique chances")
+            (rule.uniqueTables + rule.atlasUniqueTables).forEach(::templateTable)
         }
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }
         content.abyss?.let(::validateAbyss)

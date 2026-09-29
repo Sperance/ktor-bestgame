@@ -2473,7 +2473,19 @@
         "WIDOWMAKER": 100,
         "CINDERTWIG": 100,
         "UMBRAL_BRANCH": 100,
-        "STARWEAVER": 100
+        "STARWEAVER": 100,
+        "GULLWING_CLOAK": 100,
+        "LIGHTHOUSE_OIL": 60,
+        "SALTCRUSTED_HOOD": 100,
+        "SUNSCORCHED_OPAL": 100,
+        "HIVE_AMBER_JEWEL": 100,
+        "HIVESTING_QUIVER": 100,
+        "TIDEGLASS_JEWEL": 100,
+        "EMBERSEED_JEWEL": 100,
+        "FROSTWEEP_JEWEL": 100,
+        "PYREHEART_JEWEL": 100,
+        "PENITENTS_BEAD": 100,
+        "CINDERWALK_BOOTS": 100
       }
     },
     {
@@ -3210,7 +3222,19 @@
         "WIDOWMAKER": 100,
         "CINDERTWIG": 100,
         "UMBRAL_BRANCH": 100,
-        "STARWEAVER": 100
+        "STARWEAVER": 100,
+        "GULLWING_CLOAK": 100,
+        "LIGHTHOUSE_OIL": 60,
+        "SALTCRUSTED_HOOD": 100,
+        "SUNSCORCHED_OPAL": 100,
+        "HIVE_AMBER_JEWEL": 100,
+        "HIVESTING_QUIVER": 100,
+        "TIDEGLASS_JEWEL": 100,
+        "EMBERSEED_JEWEL": 100,
+        "FROSTWEEP_JEWEL": 100,
+        "PYREHEART_JEWEL": 100,
+        "PENITENTS_BEAD": 100,
+        "CINDERWALK_BOOTS": 100
       }
     },
     {
@@ -3292,7 +3316,19 @@
         "WIDOWMAKER": 100,
         "CINDERTWIG": 100,
         "UMBRAL_BRANCH": 100,
-        "STARWEAVER": 100
+        "STARWEAVER": 100,
+        "GULLWING_CLOAK": 100,
+        "LIGHTHOUSE_OIL": 60,
+        "SALTCRUSTED_HOOD": 100,
+        "SUNSCORCHED_OPAL": 100,
+        "HIVE_AMBER_JEWEL": 100,
+        "HIVESTING_QUIVER": 100,
+        "TIDEGLASS_JEWEL": 100,
+        "EMBERSEED_JEWEL": 100,
+        "FROSTWEEP_JEWEL": 100,
+        "PYREHEART_JEWEL": 100,
+        "PENITENTS_BEAD": 100,
+        "CINDERWALK_BOOTS": 100
       }
     },
     {
@@ -3439,6 +3475,223 @@
       }
     },
     {
+      "tag": "boss:BOSS_SORROW_CAPTAIN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "SORROWMOOR_ANCHOR": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_LAMP_WARDEN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "LIGHTKEEPERS_VANES": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_FERRYMAN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "FERRYMANS_WADERS": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_SMUGGLER_KING",
+      "kind": "TEMPLATE",
+      "entries": {
+        "SMUGGLERS_CACHE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_OLD_WEREWOLF",
+      "kind": "TEMPLATE",
+      "entries": {
+        "OLD_WOLFS_PAWS": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_BARROW_CHIEFTAIN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "BARROWKINGS_GREATBLADE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_FOREMAN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "FOREMANS_TALLY": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_GEODE_SPINNER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "GEODE_SPINNERS_EYE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_RIME_LICH",
+      "kind": "TEMPLATE",
+      "entries": {
+        "RIME_LICHS_PHYLACTERY": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_THUNDER_CALLER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "STORMCLEAVER": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_ABYSS_HERALD",
+      "kind": "TEMPLATE",
+      "entries": {
+        "HERALDS_DESCENT": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_FROSTFANG",
+      "kind": "TEMPLATE",
+      "entries": {
+        "FROSTFANG_VENOM": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_CARAVAN_BUTCHER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CARAVAN_CLEAVER": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_DUNE_SIREN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "SIRENS_DUNE_VEIL": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_SCORPION_MATRIARCH",
+      "kind": "TEMPLATE",
+      "entries": {
+        "STINGTAIL_GREAVES": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_MUMMY_KING",
+      "kind": "TEMPLATE",
+      "entries": {
+        "DUNE_KINGS_GRAVEWRAP": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_STORM_ROC",
+      "kind": "TEMPLATE",
+      "entries": {
+        "ROC_FEATHER_QUIVER": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_SHADOW_PANTHER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "PANTHERS_VELVET": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_WASP_MATRON",
+      "kind": "TEMPLATE",
+      "entries": {
+        "WASP_MATRONS_BROOD": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_SERPENT_ORACLE",
+      "kind": "TEMPLATE",
+      "entries": {
+        "ORACLES_VENOM_VIAL": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_SPORE_LORD",
+      "kind": "TEMPLATE",
+      "entries": {
+        "SPORELORDS_MANTLE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_MANTIS_PRINCE",
+      "kind": "TEMPLATE",
+      "entries": {
+        "MANTIS_PRINCES_SCYTHE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_TURNCOAT_GENERAL",
+      "kind": "TEMPLATE",
+      "entries": {
+        "TURNCOATS_BANNER": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_LAVA_WYRM",
+      "kind": "TEMPLATE",
+      "entries": {
+        "WYRMTONGUE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_FURNACE_MASTER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "FURNACE_MASTERS_TONGS": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_WARSMITH",
+      "kind": "TEMPLATE",
+      "entries": {
+        "WARSMITHS_CHAIN": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_VENT_DRAGON",
+      "kind": "TEMPLATE",
+      "entries": {
+        "VENT_DRAGONS_WINGS": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_FALLEN_ABBOT",
+      "kind": "TEMPLATE",
+      "entries": {
+        "FALLEN_ABBOTS_COWL": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_PLAGUE_DOCTOR",
+      "kind": "TEMPLATE",
+      "entries": {
+        "PLAGUE_DOCTORS_TINCTURE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_VOID_KRAKEN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "KRAKENS_BEAK": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_ECLIPSE_PRIESTESS",
+      "kind": "TEMPLATE",
+      "entries": {
+        "ECLIPSE_BAND": 100
+      }
+    },
+    {
       "tag": "unique:smith",
       "kind": "TEMPLATE",
       "entries": {
@@ -3459,7 +3712,9 @@
         "RIVET_HAMMER": 100,
         "CRUCIBLE_GREATAXE": 100,
         "QUENCHING_SASH": 100,
-        "EMBER_LOCKET": 100
+        "EMBER_LOCKET": 100,
+        "TEMPERERS_MALLET": 100,
+        "ANNEALED_BAND": 100
       }
     },
     {
@@ -3470,7 +3725,10 @@
         "HUSH_OF_THE_DEEP": 100,
         "MAW_OF_THE_CHASM": 100,
         "UMBRAL_CARAPACE": 100,
-        "ENTROPY_SIGIL": 100
+        "ENTROPY_SIGIL": 100,
+        "DEPTHWARDEN_GREAVES": 100,
+        "ABYSSAL_TETHER": 100,
+        "HOLLOW_CHORUS": 100
       }
     },
     {
@@ -3482,7 +3740,10 @@
         "ALTAR_SKIN": 100,
         "BAND_OF_CORRUPTION": 100,
         "SACRIFICIAL_CLEAVER": 100,
-        "HEART_OF_THE_VAAL": 100
+        "HEART_OF_THE_VAAL": 100,
+        "VAAL_BLOODPRICE": 100,
+        "ALTARBREAKER": 100,
+        "BLIGHTSTEP": 100
       }
     },
     {
@@ -3494,7 +3755,10 @@
         "ATLAS_CINCH": 100,
         "WINGS_OF_THE_WANDERER": 100,
         "PATHFINDERS_QUIVER": 100,
-        "CROWN_OF_THE_ATLAS": 100
+        "CROWN_OF_THE_ATLAS": 100,
+        "PACKBREAKER": 100,
+        "CARTOGRAPHERS_FLETCH": 100,
+        "WAYSTONE_WARD": 100
       }
     },
     {
@@ -3506,7 +3770,20 @@
         "ESSENCE_LOOP": 100,
         "CRYSTALGRIP": 100,
         "GEODE_CARAPACE": 100,
-        "PRISMSTRING": 100
+        "PRISMSTRING": 100,
+        "ESSENCE_DRINKER": 100,
+        "PRISM_PINIONS": 100
+      }
+    },
+    {
+      "tag": "unique:atlas",
+      "kind": "TEMPLATE",
+      "entries": {
+        "ATLASWARDENS_SASH": 100,
+        "ATLAS_BEARERS_YOKE": 100,
+        "MERIDIAN_STRIDERS": 100,
+        "HORIZONS_EDGE": 100,
+        "WINGS_OF_THE_UNCHARTED": 100
       }
     },
     {

@@ -4566,6 +4566,1763 @@
           "duration": 10
         }
       ]
+    },
+    {
+      "stat": "POWER_ANCHOR_DRAG",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "act": "ECHO",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEAD_WEIGHT",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "DELAY",
+          "duration": 0.4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SWEEPING_BEAM",
+      "on": "EVERY",
+      "every": 6,
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_EVASION",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 2
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BEAM_MARK",
+      "on": "EVADE",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FERRY_TOLL",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "RETALIATE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PAID_PASSAGE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SMUGGLERS_PERSISTENCE",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "scale": "MOMENTUM",
+              "cap": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_QUICK_DRAW",
+      "roll": "CHANCE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "RUSH"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GNAWING_FURY",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "scale": "MOMENTUM",
+              "cap": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FEED_ON_THE_FALLEN",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "LIFE_BELOW",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ANCESTRAL_WRATH",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_PHYSICAL",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4,
+          "stacks": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BARROW_WARD",
+      "on": "LOW_LIFE",
+      "cooldown": 15,
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GULLS_SWERVE",
+      "on": "EVADE",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SHORE_WIND",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_EVASION",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LAMPBLACK_SIGHT",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_CHANCE",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WICK_FLARE",
+      "roll": "CHANCE",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "IGNITE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BRINE_SPRAY",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "CHILL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TIDE_TURNS",
+      "on": "LOW_LIFE",
+      "cooldown": 10,
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SHIFT_CHANGE",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "CHARGES"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PICK_AND_HAUL",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 4
+        }
+      ],
+      "effects": [
+        {
+          "act": "STUN",
+          "duration": 0.8
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GEODE_RESONANCE",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "SHOCK"
+        }
+      ],
+      "effects": [
+        {
+          "act": "ECHO",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPINNERS_SPARK",
+      "roll": "CHANCE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "SHOCK"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GRAVE_FROST",
+      "roll": "CHANCE",
+      "on": "BLOCK",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "CHILL",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LICHS_FOCUS",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "SHIELD_FULL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_SPELL_DAMAGE",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_THUNDERCLAP",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "ECHO",
+          "duration": 0.5,
+          "type": "LIGHTNING"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LEAPING_BOLT",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "of": "TARGET_LIFE",
+          "type": "LIGHTNING",
+          "to": "RANDOM"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEEPER_STILL",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE"
+            }
+          ],
+          "duration": 8
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STAIR_BREATH",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GLACIAL_BITE",
+      "roll": "CHANCE",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "FREEZE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VENOM_CHILL",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_COLD",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BUTCHERS_RHYTHM",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_PHYSICAL",
+              "op": "INCREASED",
+              "scale": "MOMENTUM",
+              "cap": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BLOODED_TAKINGS",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "BLEED"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DUNE_SONG",
+      "roll": "CHANCE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "CURSE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LURED_PREY",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "TARGET_CURSED"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CARAPACE_STING",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "RETALIATE",
+          "type": "CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MATRIARCHS_VENOM",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "POISON"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_UNWILLING_DEATH",
+      "on": "DEATH",
+      "cooldown": -1,
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_EMBALMED_VIGOUR",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "LIFE_BELOW",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_RECOVERY_RATE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SKY_ECHO",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "ECHO",
+          "amount": 100,
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_UPDRAFT_GUST",
+      "on": "EVERY",
+      "every": 6,
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 2
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BLOOD_TITHE",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "HURT",
+          "of": "LIFE",
+          "amount": 10
+        },
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE"
+            }
+          ],
+          "duration": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TAINTED_VIGOUR",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_LEECH_ALL"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DISTILLED_EDGE",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_PENETRATE_ELEMENTAL"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CRYSTAL_DRAUGHT",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "SHIELD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WAYPOINT_WARD",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SURVEYORS_TITHE",
+      "world": {
+        "gain": "GOLD"
+      }
+    },
+    {
+      "stat": "POWER_ANVIL_PEAL",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 4
+        }
+      ],
+      "effects": [
+        {
+          "act": "STUN",
+          "duration": 0.8
+        }
+      ]
+    },
+    {
+      "stat": "POWER_QUENCH_TEMPO",
+      "on": "STUN",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ZENITH_GLARE",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "LIFE_FULL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_MULTIPLIER"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DUSK_TITHE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "MANA"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STALKING_FOCUS",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_CHANCE",
+              "op": "INCREASED",
+              "scale": "MOMENTUM",
+              "cap": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_POUNCE",
+      "roll": "CHANCE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "RUSH"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SECOND_STING",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "act": "ECHO",
+          "duration": 1,
+          "type": "CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SWARMING_FRENZY",
+      "on": "INFLICT",
+      "checks": [
+        {
+          "check": "AILMENT",
+          "word": "POISON"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3,
+          "stacks": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FORESEEN_STRIKE",
+      "roll": "CHANCE",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "NEXT_CRIT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SERPENT_INSIGHT",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_PENETRATE_CHAOS"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPORE_BURST",
+      "on": "HIT_TAKEN",
+      "checks": [
+        {
+          "check": "SELF_AILED"
+        }
+      ],
+      "effects": [
+        {
+          "act": "RETALIATE",
+          "type": "CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CHOKING_CLOUD",
+      "on": "AILED",
+      "cooldown": 6,
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN"
+            }
+          ],
+          "duration": 3,
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PRAYING_STRIKE",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "TARGET_LIFE_BELOW",
+          "value": 30
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PRINCES_APPETITE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_MULTIPLIER"
+            }
+          ],
+          "duration": 4,
+          "stacks": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CROWD_FEVER",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "scale": "FOES",
+              "cap": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SCATTER_THE_PACK",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "FOES_AT_LEAST",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DESECRATED_OFFERING",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "HURT",
+          "of": "LIFE",
+          "amount": 2
+        },
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_PHYSICAL",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4,
+          "stacks": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CORRUPT_ZEAL",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "LIFE_BELOW",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_MULTIPLIER"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TEMPERED_SPINES",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_ARMOR",
+          "to": "STOCK_THORNS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_QUENCHED_SKIN",
+      "on": "HIT_TAKEN",
+      "checks": [
+        {
+          "check": "DAMAGE_TYPE",
+          "word": "PHYSICAL"
+        }
+      ],
+      "cooldown": 4,
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ARMOR",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WARDEN_BOUNTY",
+      "world": {
+        "gain": "EXPERIENCE",
+        "against": [
+          "UNIQUE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_TROPHY_BREATH",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_RARE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_REFRACTED_EDGE",
+      "on": "INFLICT",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_PENETRATE_ELEMENTAL"
+            }
+          ],
+          "duration": 4,
+          "stacks": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PRISM_VEIL",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "SHIELD_FULL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ELEMENTAL_TAKEN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DESCENT_STRIDE",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 6
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HELD_GROUND",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "FOES_AT_LEAST",
+          "value": 4
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_EVASION",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ROYAL_JELLY",
+      "on": "INFLICT",
+      "checks": [
+        {
+          "check": "AILMENT",
+          "word": "POISON"
+        }
+      ],
+      "cooldown": 1,
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HIVE_TEMPO",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "scale": "AILED_FOES",
+              "cap": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HIVE_VOLLEY",
+      "on": "INFLICT",
+      "checks": [
+        {
+          "check": "AILMENT",
+          "word": "POISON"
+        },
+        {
+          "check": "NTH",
+          "value": 5
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DRONE_HASTE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GLASS_BREATH",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FIRST_WAVE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_KINDLING",
+      "on": "INFLICT",
+      "checks": [
+        {
+          "check": "AILMENT",
+          "word": "IGNITE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE"
+            }
+          ],
+          "duration": 3,
+          "stacks": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SMOULDER_SIGHT",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "IGNITE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_CHANCE",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WEEPING_GUARD",
+      "roll": "CHANCE",
+      "on": "BLOCK",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "CHILL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STILL_POSTURE",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "SELF_CLEAN"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_BLOCK_CHANCE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PYRE_WARD",
+      "on": "LOW_LIFE",
+      "cooldown": 15,
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_EMBER_DRINK",
+      "on": "HIT_TAKEN",
+      "checks": [
+        {
+          "check": "DAMAGE_TYPE",
+          "word": "FIRE"
+        }
+      ],
+      "cooldown": 2,
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MURMURED_LITANY",
+      "on": "SKILL_USE",
+      "checks": [
+        {
+          "check": "SPELL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "COOLDOWNS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PENANCE",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "TARGET_CURSED"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_SPELL_DAMAGE",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RALLY_THE_LINE",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SWITCHED_SIDES",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN"
+            }
+          ],
+          "duration": 5,
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MOLTEN_ECHO",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "IGNITE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "ECHO",
+          "duration": 1,
+          "type": "FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ERUPTION",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "IGNITE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "of": "TARGET_LIFE",
+          "type": "FIRE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STOKED_GRIP",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_FIRE",
+              "op": "INCREASED",
+              "scale": "MOMENTUM",
+              "cap": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WHITE_HEAT",
+      "roll": "CHANCE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "IGNITE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HAMMERED_BACK",
+      "on": "HIT_TAKEN",
+      "checks": [
+        {
+          "check": "DAMAGE_TYPE",
+          "word": "PHYSICAL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "RETALIATE",
+          "type": "FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WARFORGE_TEMPER",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "LIFE_ABOVE",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ARMOR",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VENT_GUST",
+      "on": "EVERY",
+      "every": 5,
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "of": "LIFE",
+          "type": "FIRE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RISING_HEAT",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_KINDLED_PACE",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "IGNITE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SCORCHED_ARRIVAL",
+      "roll": "CHANCE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "IGNITE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_UNBROKEN_LINE",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "scale": "MOMENTUM",
+              "cap": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEPTH_SIGHT",
+      "roll": "CHANCE",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "NEXT_CRIT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VAAL_SKIN",
+      "on": "HIT_TAKEN",
+      "checks": [
+        {
+          "check": "DAMAGE_TYPE",
+          "word": "CHAOS"
+        }
+      ],
+      "cooldown": 3,
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPREADING_ROT",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "scale": "AILED_FOES",
+              "cap": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CHARTED_SPOILS",
+      "world": {
+        "gain": "QUANTITY",
+        "against": [
+          "RARE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_SIDESTEP",
+      "roll": "CHANCE",
+      "on": "EVADE",
+      "effects": [
+        {
+          "act": "RUSH"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CROWDED_MAP",
+      "on": "FIGHT_START",
+      "checks": [
+        {
+          "check": "FOES_AT_LEAST",
+          "value": 4
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE"
+            }
+          ],
+          "duration": 6
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MARKED_ROUTES",
+      "world": {
+        "gain": "MAP"
+      }
+    },
+    {
+      "stat": "POWER_VESPERS",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "COOLDOWNS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HERETICS_MARK",
+      "roll": "CHANCE",
+      "on": "SKILL_USE",
+      "checks": [
+        {
+          "check": "SPELL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "CURSE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SHARED_MALADY",
+      "roll": "CHANCE",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "POISON",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DOCTORS_CRUELTY",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_VS_POISONED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TENTACLE_SWEEP",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 4
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_INK_CLOUD",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TOTALITY",
+      "on": "EVERY",
+      "every": 8,
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_CHANCE",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_UMBRA",
+      "roll": "DURATION",
+      "on": "CRIT_TAKEN",
+      "cooldown": 10,
+      "effects": [
+        {
+          "act": "INVULNERABLE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ANSWERING_DARK",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "FOES_AT_LEAST",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "act": "ECHO",
+          "duration": 1,
+          "type": "CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEEP_REFILL",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "SHIELD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PRIZE_OF_THE_ROAD",
+      "world": {
+        "gain": "RARITY",
+        "against": [
+          "RARE",
+          "UNIQUE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_BESIEGED_GUARD",
+      "on": "BLOCK",
+      "checks": [
+        {
+          "check": "FOES_AT_LEAST",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DISTANT_THUNDER",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "TARGET_RARE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "ECHO",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FAR_TROPHIES",
+      "world": {
+        "gain": "RARITY",
+        "against": [
+          "UNIQUE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_UNMAPPED_ARRIVAL",
+      "roll": "DURATION",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "INVULNERABLE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FRONTIER_FIND",
+      "world": {
+        "gain": "MAP"
+      }
     }
   ]
 }

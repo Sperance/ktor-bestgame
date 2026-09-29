@@ -7,7 +7,8 @@ import com.sperance.exileforge.rules.content.Rarity
 
 /**
  * Копии из шаблонов. Самоцвет и карта не бывают обычными (без аффикса они ничего не дают), фляга не
- * бывает редкой, волшебная и редкая копия никогда не пуста - одно место на все пути появления.
+ * бывает редкой, волшебная и редкая копия никогда не пуста - одно место на все пути появления. Уникальный
+ * самоцвет (1.31.0) - уникалка как все: редкость закреплена шаблоном, строки - его.
  */
 class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRoller(index)) {
 
@@ -37,9 +38,9 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
     fun meetsFloor(template: ItemTemplate, item: ItemInstance): Boolean =
         item.rarity.fixed || item.rolls.count(affixes::isAffix) >= index.limits(item.rarity, template.slot).floor
 
-    /** Пустой ли самоцвет или карта: обычный или без единого аффикса. */
+    /** Пустой ли самоцвет или карта: обычный или без единого аффикса; уникальный самоцвет (1.31.0) несёт строки шаблона и пустым не бывает. */
     fun empty(template: ItemTemplate, item: ItemInstance): Boolean =
-        template.slot.isJewelLike && (item.rarity == Rarity.COMMON || item.rolls.none(affixes::isAffix))
+        template.slot.isJewelLike && !item.rarity.fixed && (item.rarity == Rarity.COMMON || item.rolls.none(affixes::isAffix))
 
     /**
      * Сверка старой копии с шаблоном: недопустимая редкость (обычный самоцвет или карта, редкая фляга)

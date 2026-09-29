@@ -138,7 +138,15 @@ data class MapRule(
     val rarities: String = "rarity:map",
     /** Уникалка с босса карты (1.19.0): шанс и собственный пул карт. */
     val uniqueChance: Double = 0.0, val uniqueTables: List<String> = emptyList(),
-)
+    /**
+     * Уникалка Атласа с босса захода по карте-предмету (1.31.0): шанс [atlasUniqueChance] растёт с узлами атласа героя -
+     * × (1 + узлы / [atlasUniqueNodes]), то есть вдвое на [atlasUniqueNodes] узлах.
+     */
+    val atlasUniqueChance: Double = 0.0, val atlasUniqueTables: List<String> = emptyList(), val atlasUniqueNodes: Double = 100.0,
+) {
+    /** Шанс уникалки Атласа героя с [nodes] взятыми узлами атласа. */
+    fun atlasChance(nodes: Int): Double = atlasUniqueChance * (1 + nodes.coerceAtLeast(0) / atlasUniqueNodes)
+}
 
 /**
  * Боссы: страж выхода; [tables] - таблицы мировых уникалок, [modifiers] - таблицы их строк; [goldShare] и

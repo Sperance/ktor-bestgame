@@ -58,6 +58,8 @@ data class RunContext(
     val next: List<String> = emptyList(),
     /** Известные рецепты верстака: новый рецепт с редкого монстра - только незнакомый. */
     val recipes: List<String> = emptyList(),
+    /** Взятых узлов атласа (1.31.0), без стартового: от них растёт шанс уникалки Атласа с босса карты. */
+    val atlasNodes: Int = 0,
 ) {
     fun bonus(rarity: MonsterRarity): RarityBonus = bonuses[rarity.name] ?: RarityBonus()
     operator fun get(atlasStat: String): Double = atlas[atlasStat] ?: 0.0
@@ -217,7 +219,10 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         return grant(draw, zone.chestLoot, zone.level, rule, "c", 0.0, extraQuantity = context[AtlasStat.CHEST_LOOT.code])
     }
 
-    /** Босс убит: его таблица уникальной редкостью, шанс мировой и собственной уникалки, книга своего класса чаще. */
+    /**
+     * Босс убит: его таблица уникальной редкостью, шанс мировой и собственной уникалки, книга своего класса чаще; в заходе
+     * по карте-предмету - ещё мифик, уникалка карт и уникалка Атласа (1.31.0), чей шанс растёт с узлами атласа героя.
+     */
     fun boss(draws: RewardDraws): Reward {
         val draw = draws.next()
         val dice = draw.dice
@@ -229,6 +234,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             Tables.draw(index.templatePool(template.tables), dice).takeIf { template.tables.isNotEmpty() && dice.chance(uniqueChance(bosses.ownUniqueChance * relative(AtlasStat.BOSS_UNIQUE.code))) },
             if (context.active != null) pooled(bosses.mythicTables, bosses.mythicChance, dice) else null,
             if (context.active != null) pooled(campaign.maps.uniqueTables, campaign.maps.uniqueChance, dice) else null,
+            if (context.active != null) pooled(campaign.maps.atlasUniqueTables, campaign.maps.atlasChance(context.atlasNodes), dice) else null,
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
         return grant(draw, template.loot, zone.level, rule, "b", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,

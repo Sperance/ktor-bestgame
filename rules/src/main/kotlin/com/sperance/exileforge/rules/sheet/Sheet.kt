@@ -7,6 +7,7 @@ import com.sperance.exileforge.rules.content.Line
 import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SheetStep
+import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.StatRegistry
 import com.sperance.exileforge.rules.content.tenths
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -131,12 +132,17 @@ class SheetCalculator(private val index: ContentIndex) {
         var stale = false
         val active = mutableListOf<String>()
         val inactive = mutableListOf<InactiveItem>()
+        val uniqueJewels = HashSet<String>()
         equipped.sortedBy { it.slot?.ordinal ?: Int.MAX_VALUE }.forEach { item ->
             val template = index.template(item.template) ?: return@forEach
             if (template.slot.isTool || template.slot.isFlask) return@forEach
             val socket = item.socket
             if (!socket.isNullOrBlank() && socket !in takenNodes) {
                 inactive += InactiveItem(item.id, template.code, listOf("socket: need $socket, have none")); return@forEach
+            }
+            // Уникальный самоцвет - один такой на героя (1.31.0): второй, вставленный в обход правила, не работает.
+            if (template.slot == Slot.JEWEL && template.unique && !uniqueJewels.add(template.code)) {
+                inactive += InactiveItem(item.id, template.code, listOf("unique jewel: one ${template.code} per hero")); return@forEach
             }
             if (template.demanding) {
                 if (stale) { stats = compute(base, operations); stale = false }

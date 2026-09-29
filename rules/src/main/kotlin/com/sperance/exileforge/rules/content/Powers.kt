@@ -33,6 +33,11 @@ data class PowerBook(val powers: List<Power> = emptyList()) {
                 if (effect.act in AMOUNTED && effect.amount == null && !rolled) fail("powers: $code ${effect.act} has no amount")
                 if (effect.act in TIMED && effect.duration == null && power.roll != PowerRoll.DURATION && power.on != PowerEvent.STANDING) fail("powers: $code ${effect.act} has no duration")
                 if (effect.act == PowerAct.AILMENT && effect.ailment == null) fail("powers: $code AILMENT names none")
+                if (effect.act == PowerAct.ECHO && (power.on !in HIT_EVENTS || effect.to != PowerTarget.TARGET || (effect.duration ?: 1.0) <= 0))
+                    fail("powers: $code ECHO repeats the hero's own hit on its foe, after a delay")
+                if (effect.act == PowerAct.RETALIATE && (power.on !in TAKEN_EVENTS || effect.to != PowerTarget.TARGET)) fail("powers: $code RETALIATE answers a hit taken")
+                if (power.on == PowerEvent.STAGE_CLEAR && effect.act in MOMENT_ACTS) fail("powers: $code ${effect.act} needs a blow, a stage clear has none")
+                effect.lines.forEach { line -> if (line.scale == PowerScale.MOMENTUM && line.cap <= 0) fail("powers: $code MOMENTUM needs a cap") }
             }
             power.world?.against?.forEach { rarity -> if (MonsterRarity.of(rarity) == null) fail("powers: $code against $rarity") }
         }
@@ -74,8 +79,16 @@ data class PowerBook(val powers: List<Power> = emptyList()) {
             .sumOf { sheet[it.stat] ?: 0.0 }
 
     companion object {
-        private val AMOUNTED = setOf(PowerAct.HEAL, PowerAct.HURT, PowerAct.BARRIER, PowerAct.DAMAGE, PowerAct.EXECUTE, PowerAct.CHARGES, PowerAct.COOLDOWNS)
-        private val TIMED = setOf(PowerAct.BUFF, PowerAct.HEX, PowerAct.BARRIER, PowerAct.STUN, PowerAct.DELAY, PowerAct.INVULNERABLE)
+        private val AMOUNTED = setOf(
+            PowerAct.HEAL, PowerAct.HURT, PowerAct.BARRIER, PowerAct.DAMAGE, PowerAct.EXECUTE, PowerAct.CHARGES, PowerAct.COOLDOWNS, PowerAct.ECHO, PowerAct.RETALIATE,
+        )
+        private val TIMED = setOf(PowerAct.BUFF, PowerAct.HEX, PowerAct.BARRIER, PowerAct.STUN, PowerAct.DELAY, PowerAct.INVULNERABLE, PowerAct.ECHO)
+        /** События удара героя: у них есть свой удар и его цель - то, что повторяет [PowerAct.ECHO]. */
+        private val HIT_EVENTS = setOf(PowerEvent.HIT, PowerEvent.CRIT, PowerEvent.STUN, PowerEvent.INFLICT)
+        /** События принятого удара: у них есть урон и атакующий - то, чем отвечает [PowerAct.RETALIATE]. */
+        private val TAKEN_EVENTS = setOf(PowerEvent.HIT_TAKEN, PowerEvent.CRIT_TAKEN)
+        /** Действия, которым нужен удар события; у зачистки этапа его нет. */
+        private val MOMENT_ACTS = setOf(PowerAct.ECHO, PowerAct.RETALIATE, PowerAct.SPREAD, PowerAct.EXECUTE)
     }
 }
 
@@ -93,8 +106,12 @@ data class SheetStep(val power: String, val stat: String, val delta: Double, val
 
 @Serializable enum class SheetOp { CONVERT, GAIN, PER, SET, MORE }
 
+/**
+ * Событие силы. [STAGE_CLEAR] (1.31.0) - этап поэтапного боя выигран и следующий вот-вот начнётся (глубина Бездны,
+ * очередь большой волны, волна автозабега): эффекты силы ложатся в начале следующего этапа, до его [FIGHT_START].
+ */
 @Serializable
-enum class PowerEvent { STANDING, FIGHT_START, EVERY, HIT, CRIT, KILL, HIT_TAKEN, CRIT_TAKEN, BLOCK, EVADE, SKILL_USE, FLASK, LOW_LIFE, SHIELD_BROKEN, INFLICT, AILED, STUN, DEATH }
+enum class PowerEvent { STANDING, FIGHT_START, EVERY, HIT, CRIT, KILL, HIT_TAKEN, CRIT_TAKEN, BLOCK, EVADE, SKILL_USE, FLASK, LOW_LIFE, SHIELD_BROKEN, INFLICT, AILED, STUN, DEATH, STAGE_CLEAR }
 
 @Serializable data class PowerCheck(val check: PowerCheckKind, val value: Double = 0.0, val word: String? = null)
 
@@ -111,11 +128,21 @@ data class PowerEffect(
     val of: PowerBase = PowerBase.WEAPON, val type: String? = null, val to: PowerTarget = PowerTarget.TARGET, val ailment: String? = null, val leech: Double = 0.0,
 )
 
+/**
+ * Что делает эффект силы. С 1.31.0: [ECHO] - удар события повторяется через `duration` секунд на `amount`% своего урона
+ * по той же цели, если она жива (с `type` - весь стихией `type`); [RETALIATE] - `amount`% только что принятого урона
+ * бьёт всех врагов в ряду атакующего (с `type` - стихией `type`).
+ */
 @Serializable
-enum class PowerAct { BUFF, HEX, HEAL, HURT, BARRIER, DAMAGE, AILMENT, CURSE, EXECUTE, STUN, DELAY, RUSH, CHARGES, COOLDOWNS, NEXT_CRIT, INVULNERABLE, CLEANSE, SPREAD }
+enum class PowerAct { BUFF, HEX, HEAL, HURT, BARRIER, DAMAGE, AILMENT, CURSE, EXECUTE, STUN, DELAY, RUSH, CHARGES, COOLDOWNS, NEXT_CRIT, INVULNERABLE, CLEANSE, SPREAD, ECHO, RETALIATE }
 
 @Serializable data class PowerLine(val stat: String, val op: Op = Op.ADD, val value: Double? = null, val scale: PowerScale? = null, val cap: Double = 0.0)
-@Serializable enum class PowerScale { FOES, MISSING_LIFE, SECONDS, KILLS, CURSED_FOES, AILED_FOES, SHIELD, MANA, CHARGES }
+
+/**
+ * Счёт боя, с которым растёт строка. [MOMENTUM] (1.31.0) - удары героя подряд по одной цели: смена цели сбрасывает счёт,
+ * между этапами поэтапного боя он сохраняется; строке с ним обязателен потолок `cap`.
+ */
+@Serializable enum class PowerScale { FOES, MISSING_LIFE, SECONDS, KILLS, CURSED_FOES, AILED_FOES, SHIELD, MANA, CHARGES, MOMENTUM }
 @Serializable enum class PowerBase { WEAPON, LIFE, SHIELD, MANA, ARMOUR, EVASION, TAKEN, DEALT, TARGET_LIFE, STRENGTH, AGILITY, INTELLECT }
 @Serializable enum class PowerTarget { TARGET, ALL, RANDOM, OTHERS, SELF }
 @Serializable data class WorldGain(val gain: WorldKind, val against: List<String> = emptyList())

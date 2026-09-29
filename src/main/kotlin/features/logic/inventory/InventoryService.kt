@@ -11,6 +11,7 @@ import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.content.TreeAllocation
 import com.sperance.exileforge.rules.roll.Bench
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -87,7 +88,7 @@ class InventoryService : KoinComponent {
         return item
     }
 
-    /** Самоцвет в гнездо дерева: гнездо должно быть взято героем и свободно. */
+    /** Самоцвет в гнездо дерева: гнездо должно быть взято героем и свободно, уникальный самоцвет - не второй такой же (1.31.0). */
     suspend fun socket(heroId: String, itemId: String, nodeCode: String): ItemInstance {
         val method = "socket"
         val hero = heroes.requireHero(heroId, method)
@@ -98,6 +99,7 @@ class InventoryService : KoinComponent {
         if (node.type != SkillNodeType.JEWEL_SOCKET) throw SkillTreeExceptions.funExceptionNotSocket(method, nodeCode)
         if (hero.tree.none { it.code == nodeCode }) throw SkillTreeExceptions.funExceptionNotTaken(method, nodeCode)
         if (hero.items.any { it.socket == nodeCode && it.id != item.id }) throw SkillTreeExceptions.funExceptionSocketBusy(method, nodeCode)
+        TreeAllocation.requireUniqueJewelFree(template, hero.items.filter { it.socketed && it.id != item.id }.map { it.template })
         item.slot = Slot.JEWEL
         item.socket = nodeCode
         heroes.save(hero, method)

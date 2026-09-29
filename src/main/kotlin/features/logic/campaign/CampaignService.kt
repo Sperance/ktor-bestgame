@@ -178,7 +178,8 @@ class CampaignService : KoinComponent {
         }
         val atlasBonuses = atlas.bonuses(hero)
         return RunContext(hero.heroClass, hero.level, bonuses, atlasBonuses.effects, hero.campaign.activeMap?.takeIf { it.mapCode == zone.code },
-            hero.campaign.vaalZone?.takeIf { it.mapCode == zone.code }, atlasBonuses.extraRareMods, index.world.next(zone.code), hero.recipes.toList())
+            hero.campaign.vaalZone?.takeIf { it.mapCode == zone.code }, atlasBonuses.extraRareMods, index.world.next(zone.code), hero.recipes.toList(),
+            atlasNodes = hero.atlas.size)
     }
 
     /**

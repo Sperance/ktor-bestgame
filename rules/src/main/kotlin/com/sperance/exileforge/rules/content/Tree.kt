@@ -2,6 +2,7 @@ package com.sperance.exileforge.rules.content
 
 import com.sperance.exileforge.rules.RuleViolation
 import com.sperance.exileforge.rules.fail
+import com.sperance.exileforge.rules.text.LocaleKey
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -118,5 +119,13 @@ object TreeAllocation {
 
     fun requireSocketEmpty(node: TreeNode, socketed: Collection<String>) {
         if (node.type == SkillNodeType.JEWEL_SOCKET && node.code in socketed) throw RuleViolation("ST_014", listOf(node.code))
+    }
+
+    /**
+     * Уникальный самоцвет - один такой на героя (1.31.0): [others] - шаблоны самоцветов, уже стоящих в других гнёздах.
+     * Отказ `ST_022` с ключом имени самоцвета.
+     */
+    fun requireUniqueJewelFree(template: ItemTemplate, others: Collection<String>) {
+        if (template.slot == Slot.JEWEL && template.unique && template.code in others) throw RuleViolation("ST_022", listOf(LocaleKey.equipmentName(template.code)))
     }
 }
