@@ -60,9 +60,12 @@ class HeroRoute(
     entitySerializer = Hero.serializer(),
     operations = setOf(Crud.READ, Crud.COUNT, Crud.CREATE, Crud.UPDATE, Crud.DELETE),
 ) {
+    /** Герой клиенту - без семени наград (1.30.0): его не видит никто, кроме сервера. */
+    override fun present(entity: Hero): Hero = entity.copy(rewards = RewardStream())
+
     override fun additionalRoutes(route: Route) = with(route) {
         get("/byUser") {
-            call.respondOk(repo.findByUser(call.queryParam("userId")))
+            call.respondOk(repo.findByUser(call.queryParam("userId")).map(::present))
         }
 
         // Герой одним запросом - тот же снимок, что приходит в ответ команды, с ETag.

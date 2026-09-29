@@ -260,10 +260,11 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         return outcome(item, template, "currency.mercy")
     }
 
+    /** Вредный аффикс обычным роллером одного аффикса: потолок редкости, места префиксов и суффиксов и группы держатся. */
     private fun peril(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
-        val taken = affixes.definitions(item.rolls).map { it.groupKey }.toSet()
-        val pool = affixes.affixPool(template).filter { (def) -> harmful(def) && def.groupKey !in taken }
-        val added = Tables.draw(pool, dice)?.let { affixes.roll(it, template.level, dice) } ?: throw RuleViolation("CR_021", listOf(name(template)))
+        if (item.rarity.fixed || affixes.affixes(item.rolls).size >= index.limits(item.rarity, template.slot).ceiling) throw RuleViolation("CR_007", listOf(name(template)))
+        val pool = affixes.affixPool(template).filter { (def) -> harmful(def) }
+        val added = affixes.rollExtraFrom(pool, template, item.rarity, item.rolls, dice) ?: throw RuleViolation("CR_021", listOf(name(template)))
         item.rolls = item.rolls + added
         return outcome(item, template, "currency.peril")
     }

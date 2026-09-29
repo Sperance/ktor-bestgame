@@ -91,9 +91,13 @@ object HeroSnapshots : KoinComponent {
             if (name.isEmpty() || hash.isEmpty()) null else name to hash
         }.toMap()
 
-    /** Снимок героя сейчас; работа ремесла досчитывается первой, иначе сумка отстала бы от добытого. */
+    /**
+     * Снимок героя сейчас; работа ремесла досчитывается первой, иначе сумка отстала бы от добытого, а копии
+     * сверяются с контентом (1.30.0): клиент видит вещь такой, какой её выдаст запись.
+     */
     suspend fun of(heroId: String, known: Map<String, String> = emptyMap()): HeroSnapshot {
-        val hero = heroes.requireHero(heroId, "heroView")
+        var hero = heroes.requireHero(heroId, "heroView")
+        if (heroes.reconcile(hero)) hero = heroes.save(hero, "heroView")
         crafts.settle(hero)
         return of(hero, known)
     }

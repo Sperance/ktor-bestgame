@@ -42,11 +42,18 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         template.slot.isJewelLike && (item.rarity == Rarity.COMMON || item.rolls.none(affixes::isAffix))
 
     /**
-     * Сверка старой копии с шаблоном: пропавшие закреплённые описания уходят, новые закреплённые
-     * дороллены, волшебная и редкая доведена до дна. True - копия изменилась.
+     * Сверка старой копии с шаблоном: недопустимая редкость (обычный самоцвет или карта, редкая фляга)
+     * исправлена первой - лишние аффиксы сняты по местам новой редкости, - пропавшие закреплённые описания
+     * уходят, новые закреплённые дороллены, волшебная и редкая доведена до дна. True - копия изменилась.
      */
     fun reconcile(template: ItemTemplate, item: ItemInstance, dice: Dice): Boolean {
         var changed = false
+        val rarity = rarityFor(template, item.rarity)
+        if (rarity != item.rarity) {
+            item.rarity = rarity
+            affixes.normalize(template, rarity, item.rolls, dice, item.influence)?.let { item.rolls = it }
+            changed = true
+        }
         val known = item.rolls.filter { index.modifier(it.code) != null }
         if (known.size != item.rolls.size) { item.rolls = known; changed = true }
         val fixed = template.fixedCodes.filter { code -> index.modifier(code)?.source?.permanent == true }

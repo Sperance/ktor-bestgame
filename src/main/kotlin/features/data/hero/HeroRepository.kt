@@ -14,6 +14,7 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.HeroClass
+import com.sperance.exileforge.rules.content.QuestProgress
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.TakenNode
@@ -60,11 +61,37 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
      * она не ляжет.
      */
     override suspend fun settle(entity: Hero) {
+        reconcile(entity)
+        trackPeaks(entity)
+    }
+
+    /**
+     * Рекорды выводимых счётчиков заданий (1.30.0) растут на каждой записи: откатить узлы до записи рекорда, чтобы
+     * взять их снова «с нуля», нельзя - откат сам пишет героя.
+     */
+    private fun trackPeaks(hero: Hero) {
+        QuestProgress.PEAKED.forEach { counter ->
+            val value = QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, "")
+            if (value > (hero.peaks[counter] ?: 0L)) hero.peaks[counter] = value
+        }
+    }
+
+    /**
+     * Сверка копий героя с контентом (1.30.0 - и на чтении): показанное клиенту равно тому, что ляжет
+     * записью. True - копии изменились, и читающему их стоит записать, иначе следующее чтение докатит иначе.
+     */
+    fun reconcile(hero: Hero): Boolean {
         val factory = ItemFactory(index)
         val dice by lazy { Dice.system() }
-        (entity.items.asSequence() + entity.overflow.asSequence() + entity.merchant?.offers.orEmpty().asSequence().map { it.item })
-            .forEach { item -> index.template(item.template)?.let { factory.reconcile(it, item, dice) } }
+        var changed = false
+        (hero.items.asSequence() + hero.overflow.asSequence() + hero.merchant?.offers.orEmpty().asSequence().map { it.item })
+            .forEach { item -> index.template(item.template)?.let { if (factory.reconcile(it, item, dice)) changed = true } }
+        forgetUnknownAtlas(hero)
+        return changed
     }
+
+    /** Узлы атласа, которых контент больше не знает, уходят (1.30.0): они не держат возврат и не едят очко. */
+    private fun forgetUnknownAtlas(hero: Hero): Hero = hero.also { it.atlas.retainAll { code -> index.atlasGraph.node(code) != null } }
 
     override suspend fun validateBeforeInsert(entity: Hero, session: ClientSession) {
         val method = "validateBeforeInsert"
@@ -141,7 +168,7 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     }
 
     suspend fun requireHero(heroId: String, method: String): Hero =
-        requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) }
+        forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })
 
     /** Одна запись героя своей транзакцией: версия проверяется, объект в памяти идёт в ногу с базой. */
     suspend fun save(hero: Hero, method: String): Hero {

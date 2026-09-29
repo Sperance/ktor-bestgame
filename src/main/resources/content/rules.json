@@ -143,7 +143,8 @@
     "firstSlotPrice": 500.0,
     "slotGrowth": 1.5,
     "minLevel": 1,
-    "buyerFee": 10.0
+    "buyerFee": 10.0,
+    "lotDays": 30
   },
   "loot": {
     "goldGrowth": 1.1,

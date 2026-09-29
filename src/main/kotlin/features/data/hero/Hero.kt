@@ -78,6 +78,10 @@ data class Hero(
     var guildLeftAt: Long = 0,
     /** Задания (1.21.0): ежедневные, недельные, контракты, сюжет и гильдейские; прогресс двигает [count]. */
     var quests: QuestLog = QuestLog(),
+    /** Поток наград захода (1.30.0): его семя клиенту не отдаётся никогда - ни снимком, ни общим CRUD. */
+    var rewards: RewardStream = RewardStream(),
+    /** Рекорды производных заданий (1.30.0): сколько узлов дерева, атласа и пройденных зон у героя бывало. */
+    var peaks: MutableMap<String, Long> = mutableMapOf(),
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -152,6 +156,19 @@ data class Hero(
 
     companion object {
         fun newItemId(): String = ObjectId().toHexString()
+    }
+}
+
+/**
+ * Поток наград героя (1.30.0): [seed] катится один раз при первой награде, [drawn] - сколько наград
+ * уже выдано. Награды захода берут кости отсюда, а не из семени захода: клиент их не предскажет.
+ */
+@Serializable
+data class RewardStream(var seed: Long = 0, var drawn: Long = 0) {
+    /** Кости наград; семя появляется при первом обращении. */
+    fun draws(): com.sperance.exileforge.rules.run.RewardDraws {
+        while (seed == 0L) seed = java.security.SecureRandom().nextLong()
+        return com.sperance.exileforge.rules.run.RewardDraws(seed, drawn)
     }
 }
 

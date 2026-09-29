@@ -256,14 +256,19 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         return view(change, change.record(heroId))
     }
 
-    /** Роспуск главой: гильдия и её журнал удаляются, у героев состава пропадает гильдия; вступить можно сразу. */
+    /**
+     * Роспуск главой: гильдия и её журнал удаляются, у героев состава пропадает гильдия. С 1.30.0 роспуск - тот же
+     * выход: `guildLeftAt` ставится всему составу, и новая гильдия - только через `rejoinHours`, иначе роспуском
+     * перебирали бы гильдейские задания.
+     */
     suspend fun disband(heroId: String): GuildMine {
         val method = "guildDisband"
         val change = acting(heroId, method, leader = true)
         val guild = change.guild
         transactionExecute("guild $method ${guild._id}") { session ->
             deleteById(guild, session)
-            heroes.patchGuild(Filters.`in`("_id", guild.members.map { it.heroId }), Updates.unset("guild"), session)
+            heroes.patchGuild(Filters.`in`("_id", guild.members.map { it.heroId }),
+                Updates.combine(Updates.unset("guild"), Updates.set("guildLeftAt", System.currentTimeMillis())), session)
             events.deleteByGuild(guild._id, session)
         }
         return outside(heroes.requireHero(heroId, method))

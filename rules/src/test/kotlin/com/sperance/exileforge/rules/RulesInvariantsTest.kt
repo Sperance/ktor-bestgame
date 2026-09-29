@@ -12,15 +12,17 @@ import com.sperance.exileforge.rules.content.PetOrbAction
 import com.sperance.exileforge.rules.roll.OrbApplier
 import com.sperance.exileforge.rules.run.Run
 import com.sperance.exileforge.rules.run.RunContext
-import com.sperance.exileforge.rules.run.RunTally
+import com.sperance.exileforge.rules.run.RewardDraws
+import com.sperance.exileforge.rules.content.Source
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 /**
- * Правила, которые нельзя нарушить ни одним путём: волшебная и редкая копия не пуста - ни из фабрики,
- * ни после любой сферы; заход не выдаёт одну и ту же награду дважды и одинаково катится у клиента и сервера.
+ * Правила, которые нельзя нарушить ни одним путём: волшебная и редкая копия не пуста и не переполнена - ни из
+ * фабрики, ни после любой сферы и их цепочки от обычной; заход не выдаёт одну и ту же награду дважды, а награда
+ * определяется только потоком наград сервера.
  */
 class RulesInvariantsTest {
     private val index: ContentIndex by lazy {
@@ -30,10 +32,14 @@ class RulesInvariantsTest {
 
     private fun affixes(item: ItemInstance) = item.rolls.count { index.modifier(it.code)?.affix == true }
 
+    /** Дно и потолок редкости: волшебная и редкая - от дна до потолка, в пределах мест префиксов и суффиксов. */
     private fun floorHeld(item: ItemInstance): Boolean {
         val template = index.template(item.template) ?: return true
-        if (item.rarity != Rarity.UNCOMMON && item.rarity != Rarity.RARE) return true
-        return affixes(item) >= index.limits(item.rarity, template.slot).floor
+        if (item.rarity.fixed) return true
+        val limits = index.limits(item.rarity, template.slot)
+        val sources = item.rolls.mapNotNull { index.modifier(it.code) }.filter { it.affix }.groupingBy { it.source }.eachCount()
+        val floor = if (item.rarity == Rarity.UNCOMMON || item.rarity == Rarity.RARE) limits.floor else 0
+        return affixes(item) in floor..limits.ceiling && (sources[Source.PREFIX] ?: 0) <= limits.prefixes && (sources[Source.SUFFIX] ?: 0) <= limits.suffixes
     }
 
     @Test
@@ -51,6 +57,26 @@ class RulesInvariantsTest {
                     val outcome = runCatching { orbs.apply(orb, item.copy(rolls = item.rolls.toList()), template, Dice(100L + n++)) { "new" } }.getOrNull() ?: return@forEach
                     assertTrue(floorHeld(outcome.item), "${template.code} $rarity after $orb: ${outcome.item.rarity} ${affixes(outcome.item)} affixes")
                     outcome.created?.let { assertTrue(floorHeld(it), "${template.code} copy of $orb") }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun aChainOfOrbsFromCommonHoldsFloorAndCeiling() {
+        val factory = ItemFactory(index)
+        val orbs = OrbApplier(index)
+        val templates = index.templates.values.filter { !it.unique && it.tables.isNotEmpty() && factory.rarityFor(it, Rarity.COMMON) == Rarity.COMMON }.distinctBy { it.slot }
+        val starts = listOf(Orb.ORB_OF_TRANSMUTATION, Orb.ORB_OF_ALCHEMY, Orb.ORB_OF_CHANCE)
+        var n = 0L
+        templates.forEach { template ->
+            starts.forEach { start ->
+                val dice = Dice(500L + n++)
+                var item = factory.create("i", template, Rarity.COMMON, dice)
+                (listOf(start) + List(6) { Orb.entries[dice.nextInt(Orb.entries.size)] }).forEach { orb ->
+                    if (orb == Orb.MIRROR_OF_KALANDRA) return@forEach
+                    item = runCatching { orbs.apply(orb, item.copy(rolls = item.rolls.toList()), template, dice) { "new" }.item }.getOrNull() ?: item
+                    assertTrue(floorHeld(item), "${template.code} after $start..$orb: ${item.rarity} ${affixes(item)} affixes")
                 }
             }
         }
@@ -90,12 +116,19 @@ class RulesInvariantsTest {
         val zone = index.zones.values.first { it.boss.isNotBlank() && it.chestLoot.isNotBlank() }
         val context = RunContext("", zone.level)
         val run = Run(index, zone, 99L, context)
-        val chests = List(3) { run.chest() }
-        val ids = chests.flatMap { reward -> reward.equipment.map { it.id } } + List(2) { run.boss() }.flatMap { reward -> reward.equipment.map { it.id } }
+        val draws = RewardDraws(7L, 0)
+        val chests = List(3) { run.chest(draws) }
+        val ids = chests.flatMap { reward -> reward.equipment.map { it.id } } + List(2) { run.boss(draws) }.flatMap { reward -> reward.equipment.map { it.id } }
         assertEquals(ids.size, ids.toSet().size, "item ids repeat: $ids")
-        assertEquals(RunTally(chests = 3, bosses = 2), run.tally)
-        // Сервер строит заход со счётом, который сохранил: следующая награда - та же, что у клиента
-        val replay = Run(index, zone, 99L, context, RunTally(chests = 3, bosses = 2))
-        assertEquals(run.chest(), replay.chest())
+        assertEquals(5L, draws.drawn)
+        // Награду решает поток наград, а не семя захода: тот же номер потока - та же награда и на заходе с другим семенем
+        val stream = RewardDraws(7L, 5)
+        val next = run.chest(draws)
+        val other = Run(index, zone, 12345L, context).chest(stream)
+        assertEquals(next.items, other.items)
+        assertEquals(next.equipment.map { it.template to it.rolls }, other.equipment.map { it.template to it.rolls })
+        // Отклонённое убийство (нет такого жетона) номер не тянет
+        assertEquals(null, run.kill(run.count, 0, false, draws))
+        assertEquals(6L, draws.drawn)
     }
 }

@@ -60,6 +60,15 @@ object Stash {
         return received
     }
 
+    /**
+     * Возврат своей вещи (1.30.0) - снятый или истёкший лот аукциона: в тайник, а без места - в переполнение
+     * сверх его мест. Торговцу своя вещь не уходит никогда.
+     */
+    fun giveBack(hero: Hero, item: ItemInstance, index: ContentIndex) {
+        val own = if (hero.items.none { it.id == item.id } && hero.overflow.none { it.id == item.id }) item else item.copy(id = Hero.newItemId())
+        if (hero.items.size < capacity(hero, index)) hero.items += own else hero.overflow += own
+    }
+
     /** Забрать из переполнения в тайник вещь [itemId] или, без неё, столько по порядку, сколько влезет. */
     fun claim(hero: Hero, itemId: String?, index: ContentIndex): Int {
         val method = "stashClaim"

@@ -74,9 +74,13 @@ class AffixRoller(private val index: ContentIndex) {
     }
 
     /** Один аффикс сверх имеющихся на свободное место; null - мест нет или таблица исчерпана. */
-    fun rollExtraAffix(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence? = null): Roll? {
+    fun rollExtraAffix(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence? = null): Roll? =
+        rollExtraFrom(affixPool(template, influence), template, rarity, current, dice)
+
+    /** Один аффикс из [pool] сверх имеющихся - в пределах потолка, мест префиксов и суффиксов и групп; null - нельзя. */
+    fun rollExtraFrom(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice): Roll? {
         if (current.count(::isAffix) >= index.limits(rarity, template.slot).ceiling) return null
-        return rollOne(affixPool(template, influence), template, rarity, current, dice)
+        return rollOne(pool, template, rarity, current, dice)
     }
 
     /** Один модификатор таблицы влияния - то, что делает сфера влияния. */

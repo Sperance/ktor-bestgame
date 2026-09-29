@@ -24,8 +24,10 @@ data class AuctionSearch(
     val sellerId: String? = null,
     val excludeSellerId: String? = null,
 ) {
-    fun toFilter(): Bson {
-        val conditions = mutableListOf<Bson>(Filters.eq("status", LotStatus.ACTIVE.name))
+    /** Фильтр на момент [now]: истёкший лот (1.30.0) не показывается, даже если его ещё не закрыли. */
+    fun toFilter(now: Long = System.currentTimeMillis()): Bson {
+        val conditions = mutableListOf<Bson>(Filters.eq("status", LotStatus.ACTIVE.name),
+            Filters.or(Filters.exists("expiresAt", false), Filters.eq("expiresAt", 0L), Filters.gt("expiresAt", now)))
         kind?.let { conditions.add(Filters.eq("kind", it.name)) }
         slot?.let { conditions.add(Filters.eq("slot", it.name)) }
         rarity?.let { conditions.add(Filters.eq("rarity", it.name)) }

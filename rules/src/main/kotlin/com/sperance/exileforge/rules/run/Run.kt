@@ -40,8 +40,8 @@ data class RarityBonus(
 )
 
 /**
- * Контекст захода: всё, что сервер посчитал о герое на входе в зону и по чему обе стороны катают
- * добычу одинаково. Замораживается на заход, чтобы предпросмотр клиента совпал с начислением.
+ * Контекст захода: всё, что сервер посчитал о герое на входе в зону. Замораживается на заход: по нему
+ * клиент ставит монстров, а сервер катит добычу.
  */
 @Serializable
 data class RunContext(
@@ -84,10 +84,11 @@ data class RunEvent(
 )
 
 /**
- * Заход, выданный сервером на вход в зону: по [seed] и [context] клиент катает монстров и добычу тем
- * же кодом, сервер проигрывает журнал событий тем же семенем. [count] - жетонов в зоне. Вход заново в
- * открытый заход (1.1.0) возвращает его же: [applied] - с какого номера журнал продолжается, [killed] и
- * [vaalKilled] - уже убитые жетоны `i*8+m`, [tally] - сколько наград каждого вида уже выдано.
+ * Заход, выданный сервером на вход в зону: по [seed] и [context] клиент ставит карту, монстров и бои,
+ * сервер проигрывает журнал событий тем же семенем. Добычу семя захода не решает (1.30.0): её катит
+ * только сервер потоком наград героя. [count] - жетонов в зоне. Вход заново в открытый заход (1.1.0)
+ * возвращает его же: [applied] - с какого номера журнал продолжается, [killed] и [vaalKilled] - уже
+ * убитые жетоны `i*8+m`, [tally] - сколько наград каждого вида уже выдано (только счёт для показа).
  */
 @Serializable
 data class RunStart(
@@ -110,22 +111,41 @@ data class Reward(
 }
 
 /**
- * Сколько наград каждого вида заход уже выдал (1.1.0). Поток костей сундука, босса, стража, кристалла и
- * копилки берёт порядковый номер своей награды, а не то, что назвал клиент: повтор события или другой
- * номер сундука дают следующую награду, а не ту же самую второй раз. Сервер хранит счёт в заходе,
- * клиент ведёт свой в [Run] - на одних и тех же принятых событиях они совпадают.
+ * Сколько наград каждого вида заход уже выдал (1.1.0). С 1.30.0 - только счёт для показа: кости наград
+ * берутся из [RewardDraws], а не из номера награды в заходе.
  */
 @Serializable
 data class RunTally(var chests: Int = 0, var bosses: Int = 0, var corrupts: Int = 0, var crystals: Int = 0, var hoards: Int = 0)
+
+/** Кости одной награды: поток [dice] и метка [tag], из которой складываются id её копий. */
+class Draw(val dice: Dice, val tag: String)
+
+/**
+ * Поток наград героя (1.30.0): постоянное семя [seed], которого клиент не знает, и счёт [drawn] выданных
+ * наград. Номер тянется, только когда награда действительно катится: отклонённое событие счёт не двигает,
+ * а переброс семени захода (гибелью, выходом) не даёт ничего - следующая награда та же, какой была бы.
+ */
+class RewardDraws(private val seed: Long, drawn: Long) {
+    var drawn: Long = drawn
+        private set
+
+    fun next(): Draw {
+        val n = drawn++
+        return Draw(Dice(Streams.mix(seed, STREAM, n)), "w${n.toString(36)}")
+    }
+
+    private companion object { const val STREAM = 0x5245574152445FL }
+}
 
 /** Жетон карты: пак монстров, стоящий на одном месте; первый - вожак. */
 data class Spawn(val index: Int, val pack: List<RolledMonster>)
 
 /**
- * Заход по семени: потоки костей на каждое событие независимы от порядка, поэтому клиент играет
- * заход как хочет, а сервер проигрывает журнал событие за событием тем же кодом.
+ * Заход по семени: карта, жетоны и монстры - на потоках семени захода, независимых от порядка, поэтому
+ * клиент играет заход как хочет, а сервер проигрывает журнал тем же кодом. Награды (1.30.0) катятся
+ * только на сервере - на костях [RewardDraws], которые клиенту не выдаются.
  */
-class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: RunContext, val tally: RunTally = RunTally()) {
+class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: RunContext) {
     val streams = Streams(seed)
     val monsters = MonsterRoller(index)
     val loot = LootRoller(index)
@@ -175,33 +195,32 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         return campaign.rarity(rarity)
     }
 
-    /** Убит член [m] жетона [i]: добыча его таблицы, опыт, карта, книга и рецепт - на потоке события. */
-    fun kill(i: Int, m: Int, vaal: Boolean = false): Reward? {
+    /** Убит член [m] жетона [i]: добыча его таблицы, опыт, карта, книга и рецепт; null - такого монстра нет, кость не тянется. */
+    fun kill(i: Int, m: Int, vaal: Boolean, draws: RewardDraws): Reward? {
         if (vaal && context.vaal == null) return null
         if (i !in 0 until (if (vaal) vaalCount else count)) return null
         val monster = spawn(i, vaal).pack.getOrNull(m) ?: return null
         val template = index.monster(monster.code) ?: return null
         val rule = campaign.rarity(monster.rarity)
-        val dice = streams.of(if (vaal) "vaalLoot" else "loot", i * PACK_SLOTS + m)
+        val draw = draws.next()
         val zoneBonus = if (vaal) context.vaal else null
-        return grant(dice, template.loot, zone.level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus),
+        return grant(draw, template.loot, zone.level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus),
             mapChance = campaign.maps.dropChance * rule.quantity, zoneBonus = zoneBonus, rare = monster.rarity == MonsterRarity.RARE,
             book = if (monster.rarity == MonsterRarity.RARE) index.skills.rules.books.rare else 0.0,
             egg = if (monster.rarity == MonsterRarity.RARE) index.pets.eggChance.rare else 0.0)
     }
 
     /** Открыт очередной сундук захода: таблица сундуков зоны с множителями правила и атласа. */
-    fun chest(): Reward {
-        val k = tally.chests++
-        val dice = streams.of("chest", k)
+    fun chest(draws: RewardDraws): Reward {
+        val draw = draws.next()
         val rule = Chests.rarity(campaign.chests)
-        return grant(dice, zone.chestLoot, zone.level, rule, "c$k", 0.0, extraQuantity = context[AtlasStat.CHEST_LOOT.code])
+        return grant(draw, zone.chestLoot, zone.level, rule, "c", 0.0, extraQuantity = context[AtlasStat.CHEST_LOOT.code])
     }
 
     /** Босс убит: его таблица уникальной редкостью, шанс мировой и собственной уникалки, книга своего класса чаще. */
-    fun boss(): Reward {
-        val n = tally.bosses++
-        val dice = streams.of("boss", n)
+    fun boss(draws: RewardDraws): Reward {
+        val draw = draws.next()
+        val dice = draw.dice
         val template = index.monster(zone.boss)!!
         val rule = campaign.rarity(MonsterRarity.UNIQUE)
         val bosses = campaign.bosses
@@ -212,15 +231,15 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             if (context.active != null) pooled(campaign.maps.uniqueTables, campaign.maps.uniqueChance, dice) else null,
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
-        return grant(dice, template.loot, zone.level, rule, "b$n", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
+        return grant(draw, template.loot, zone.level, rule, "b", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
             book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass, goldShare = bosses.goldShare, orbShare = bosses.orbShare, egg = index.pets.eggChance.boss)
     }
 
     /** Страж Ваал-зоны убит: своя таблица порчи с бонусом зоны и шанс уникалки порчи. */
-    fun corrupt(): Reward? {
+    fun corrupt(draws: RewardDraws): Reward? {
         val zoneBonus = context.vaal ?: return null
-        val n = tally.corrupts++
-        val dice = streams.of("corrupt", n)
+        val draw = draws.next()
+        val dice = draw.dice
         val template = index.monster(zone.corrupted)!!
         val rule = campaign.rarity(MonsterRarity.UNIQUE)
         val corruption = campaign.corruption
@@ -228,32 +247,32 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             loot.unique(corruption.tables, zone.level, dice).takeIf { dice.chance(uniqueChance(corruption.uniqueChance * relative(AtlasStat.VAAL_UNIQUE.code))) },
             pooled(corruption.mythicTables, corruption.mythicChance, dice),
         )
-        return grant(dice, template.loot, zone.level, rule, "v$n", experienceFor(template, rule, zoneBonus), extra, zoneBonus = zoneBonus)
+        return grant(draw, template.loot, zone.level, rule, "v", experienceFor(template, rule, zoneBonus), extra, zoneBonus = zoneBonus)
     }
 
     /** Страж кристалла [crystal] пал: эссенции кристалла, добыча редкого монстра и с шансом книга. */
-    fun crystal(crystal: Crystal): Reward {
-        val k = tally.crystals++
-        val dice = streams.of("crystal", k)
+    fun crystal(crystal: Crystal, draws: RewardDraws): Reward {
+        val draw = draws.next()
+        val dice = draw.dice
         val template = index.monster(crystal.guardian)!!
         val rule = campaign.rarity(MonsterRarity.RARE)
         val essences = crystal.essences.groupingBy { it }.eachCount().mapValues { it.value.toLong() }
         val crystals = index.essences.crystals
         val extra = listOfNotNull(pooled(crystals.uniqueTables, crystals.uniqueChance, dice))
-        return grant(dice, template.loot, zone.level, rule, "e$k", experienceFor(template, rule, null), extra, extraItems = essences, book = crystals.bookChance)
+        return grant(draw, template.loot, zone.level, rule, "e", experienceFor(template, rule, null), extra, extraItems = essences, book = crystals.bookChance)
     }
 
     /** Копилка Бездны за [depth] ступеней: волшебные и редкие базы с влиянием Бездны, сферы, уникалка, опыт; [keep] - уцелевшая доля. */
-    fun hoard(depth: Int, keep: Double): Reward {
+    fun hoard(depth: Int, keep: Double, draws: RewardDraws): Reward {
         val rule = campaign.abyss ?: return Reward.NONE
-        val n = tally.hoards++
-        val dice = streams.of("hoard", n * HOARD_DEPTHS + depth)
+        val draw = draws.next()
+        val dice = draw.dice
         val rifts = AbyssRifts(index)
         val roll = rifts.roll(rule, depth, hoardBonus(rule), keep, dice)
         val bases = index.templatePoolUpTo(rule.tables, zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE && template.slot.influenceable }
-        val equipment = roll.items.mapIndexedNotNull { i, rarity -> Tables.draw(bases, dice)?.let { factory.createInfluenced("h$n-$depth-$i", it, rarity, Influence.ABYSS, dice) } } +
-            listOfNotNull(loot.unique(rule.uniques, zone.level, dice).takeIf { roll.unique }?.let { factory.create("h$n-$depth-u", it, Rarity.UNIQUE, dice) })
-        return Reward(roll.experience, 0, roll.orbs, equipment.map { it.copy(id = itemId(it.id)) })
+        val equipment = roll.items.mapIndexedNotNull { i, rarity -> Tables.draw(bases, dice)?.let { factory.createInfluenced("h$depth-$i", it, rarity, Influence.ABYSS, dice) } } +
+            listOfNotNull(loot.unique(rule.uniques, zone.level, dice).takeIf { roll.unique }?.let { factory.create("h$depth-u", it, Rarity.UNIQUE, dice) })
+        return Reward(roll.experience, 0, roll.orbs, equipment.map { it.copy(id = itemId(draw, it.id)) })
     }
 
     /** Прибавки к копилке героя в зоне: строки карты, атлас, силы уникалок; опыт единицы - обычный монстр Бездны с бонусом героя. */
@@ -270,11 +289,12 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         )
     }
 
-    /** Сфера Ваал на кристалле [k]: исход и кристалл после неё - на потоке кристалла. */
-    fun crystalVaal(k: Int, crystal: Crystal): Pair<String, Crystal> = com.sperance.exileforge.rules.roll.EssenceCrystals(index).vaal(crystal, streams.of("crystalVaal", k))
+    /** Сфера Ваал на кристалле: исход и кристалл после неё - это награда, кости из потока наград. */
+    fun crystalVaal(crystal: Crystal, draws: RewardDraws): Pair<String, Crystal> = com.sperance.exileforge.rules.roll.EssenceCrystals(index).vaal(crystal, draws.next().dice)
 
-    /** Ваал-зона этого захода - катится на своём потоке один раз. */
-    fun vaalZone(): VaalZone = com.sperance.exileforge.rules.roll.VaalZones(index).roll(zone.code, zone.level, streams.of("vaal"), com.sperance.exileforge.rules.content.AtlasBonuses(context.atlas))
+    /** Ваал-зона этого захода: её бонусы к добыче - тоже награда, кости из потока наград. */
+    fun vaalZone(draws: RewardDraws): VaalZone =
+        com.sperance.exileforge.rules.roll.VaalZones(index).roll(zone.code, zone.level, draws.next().dice, com.sperance.exileforge.rules.content.AtlasBonuses(context.atlas))
 
     private fun experienceFor(monster: Monster, rule: RarityRule, zoneBonus: VaalZone?): Double =
         loot.experience(monster, zone.level, rule, context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code],
@@ -292,14 +312,15 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
 
     /**
      * Добыча по таблице: сферы в стопки, вещи из таблиц строк с бонусом редкости, карта с шансом, книга
-     * умения и рецепт верстака. Копии получают детерминированные id `<семя>-<событие>-<номер>`.
+     * умения и рецепт верстака. Копии получают id `r<семя>-<метка награды>-<событие>-<номер>`.
      */
     private fun grant(
-        dice: Dice, table: String, level: Int, rule: RarityRule, event: String, experience: Double,
+        draw: Draw, table: String, level: Int, rule: RarityRule, event: String, experience: Double,
         extra: List<ItemTemplate> = emptyList(), mapChance: Double = 0.0, zoneBonus: VaalZone? = null, extraQuantity: Double = 0.0,
         extraItems: Map<String, Long> = emptyMap(), rare: Boolean = false, book: Double = 0.0, ownShare: Double = 0.0,
         goldShare: Double = 1.0, orbShare: Double = 1.0, egg: Double = 0.0,
     ): Reward {
+        val dice = draw.dice
         val bonus = context.bonus(rule.rarity)
         val active = context.active
         val quantity = bonus.quantity + (active?.quantity ?: 0.0) + (zoneBonus?.quantity ?: 0.0) + context[AtlasStat.QUANTITY.code] + extraQuantity
@@ -307,10 +328,10 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val rolled = loot.roll(table, level, rule, quantity, gold, dice, goldShare, orbShare)
         val rarityBonus = rule.rarityBonus + bonus.rarity + (active?.rarity ?: 0.0) + (zoneBonus?.rarity ?: 0.0) + context[AtlasStat.RARITY.code]
         val templates = extra + rolled.equipment.mapNotNull { pools -> loot.pickFrom(pools, level, rarityBonus, dice) }
-        val equipment = templates.mapIndexed { n, template -> factory.create(itemId("$event-$n"), template, template.rarity, dice) }.toMutableList()
+        val equipment = templates.mapIndexed { n, template -> factory.create(itemId(draw, "$event-$n"), template, template.rarity, dice) }.toMutableList()
         loot.mapDrop(mapChance * relative(AtlasStat.MAP_DROP.code) * (1 + quantity / 100) * (1 + bonus.map / 100), zone.code, context.next, dice, context[AtlasStat.MAP_NEXT.code])
             ?.let { code -> index.template(loot.mapTemplate(code)) }?.let { template ->
-                val map = factory.create(itemId("$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice)
+                val map = factory.create(itemId(draw, "$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice)
                 if (dice.percent(context[AtlasStat.MAP_AFFIX.code])) factory.affixes.rollExtraAffix(template, map.rarity, map.rolls, dice)?.let { map.rolls = map.rolls + it }
                 equipment += map
             }
@@ -327,8 +348,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         return Reward(experience, rolled.gold, items, equipment, recipe)
     }
 
-    /** Id копии этого захода: семя и событие, одинаковые на клиенте и сервере. */
-    fun itemId(event: String): String = "r${java.lang.Long.toHexString(seed)}-$event"
+    /** Id копии этого захода: семя захода, метка награды и событие - у героя не повторяются. */
+    private fun itemId(draw: Draw, event: String): String = "r${java.lang.Long.toHexString(seed)}-${draw.tag}-$event"
 
     companion object {
         const val PACK_CHANCE = 0.35
@@ -336,7 +357,5 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         const val PACK_MAX = 6
         /** Шаг жетона убийства `i * PACK_SLOTS + m`: не меньше [PACK_MAX], иначе жетоны разных стай совпадут. */
         const val PACK_SLOTS = 8
-        /** Глубин на одну копилку в потоке: номер копилки и глубина не пересекаются. */
-        const val HOARD_DEPTHS = 1000
     }
 }

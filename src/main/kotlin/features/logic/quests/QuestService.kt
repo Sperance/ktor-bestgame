@@ -1,10 +1,10 @@
 package features.logic.quests
 
 import base.exception.model.QuestExceptions
+import com.sperance.exileforge.rules.content.AtlasPoints
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.GuildGoal
-import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.Quest
 import com.sperance.exileforge.rules.content.QuestBoard
 import com.sperance.exileforge.rules.content.QuestClaimAll
@@ -93,13 +93,14 @@ class QuestService : KoinComponent {
         }
     }
 
-    /** Взять листок с доски: срок контракта считается с этой минуты. */
-    suspend fun take(heroId: String, offerId: String): QuestBoard = command(heroId, "questTake") { _, log, now, _ ->
+    /** Взять листок с доски: срок контракта и начало выводимой цели (1.30.0) считаются с этой минуты. */
+    suspend fun take(heroId: String, offerId: String): QuestBoard = command(heroId, "questTake") { hero, log, now, _ ->
         val method = "questTake"
         val offer = log.offers.firstOrNull { it.id == offerId } ?: throw QuestExceptions.funExceptionOffer(method, offerId)
         if (log.contracts.size >= rules.board.active) throw QuestExceptions.funExceptionContracts(method, log.contracts.size.toString())
         log.offers.remove(offer)
-        log.contracts += offer.copy(expiresAt = now + hours(offer.rarity))
+        val start = if (offer.derived) derivedValue(hero, offer.counter, offer.place) else offer.start
+        log.contracts += offer.copy(expiresAt = now + hours(offer.rarity), start = start).also { derive(hero, it) }
     }
 
     /** Отказ от контракта: листок сгорает. */
@@ -147,13 +148,11 @@ class QuestService : KoinComponent {
         return log != before
     }
 
-    /** Личные гильдейские на сутки; вне гильдии гильдейской части нет. */
+    /** Личные гильдейские на сутки; вне гильдии гильдейской части нет, смена гильдии обнуляет только вклад. */
     private fun refreshGuild(hero: Hero, log: QuestLog, day: Long, week: Long, now: Long, dice: Dice) {
         val guildId = hero.guild?.id
         if (guildId == null) { log.guild = null; return }
-        val guild = log.guild?.takeIf { it.id == guildId } ?: GuildQuestLog(guildId, day, week).also { log.guild = it }
-        if (guild.day != day) { guild.day = day; guild.dayCounts = mutableMapOf() }
-        if (guild.week != week) { guild.week = week; guild.weekCounts = mutableMapOf() }
+        val guild = QuestProgress.guildLog(log, guildId, day, week)
         if (guild.rolled != day) {
             guild.rolled = day
             guild.quests = rollMany(hero, QuestKind.GUILD, dice, now)
@@ -192,12 +191,15 @@ class QuestService : KoinComponent {
     fun roll(hero: Hero, kind: QuestKind, dice: Dice, now: Long, taken: Set<String> = emptySet()): Quest? {
         val kindRule = rules.kind(kind) ?: return null
         val rarity = weighted(kindRule.rarities.mapNotNull { rules.rarity(it) }, dice) { it.weight }?.rarity ?: return null
-        val candidates = rules.goals.filter { kind in it.kinds && it.minLevel <= hero.level && it.code !in taken && feasible(hero, it) }
-        val goal = weighted(candidates, dice) { it.weight } ?: return null
         val rarityRule = rules.rarity(rarity)!!
         val level = hero.level
-        var target = ((goal.base + goal.perLevel * level) * rarityRule.target * kindRule.target).toLong().coerceAtLeast(1)
-        if (goal.max > 0) target = target.coerceAtMost(goal.max)
+        fun targetOf(goal: QuestGoal): Long {
+            val target = ((goal.base + goal.perLevel * level) * rarityRule.target * kindRule.target).toLong().coerceAtLeast(1)
+            return if (goal.max > 0) target.coerceAtMost(goal.max) else target
+        }
+        val candidates = rules.goals.filter { kind in it.kinds && it.minLevel <= hero.level && it.code !in taken && feasible(hero, it.counter, targetOf(it)) }
+        val goal = weighted(candidates, dice) { it.weight } ?: return null
+        val target = targetOf(goal)
         var zones = emptyList<String>()
         var place = ""
         if (goal.scope == QuestScope.REGION) {
@@ -287,7 +289,10 @@ class QuestService : KoinComponent {
 
     private fun hours(rarity: Rarity): Long = (rules.rarity(rarity)?.contractHours ?: 1) * QuestClock.HOUR
 
-    /** Выводимые цели считаются от состояния героя: прогресс - прирост с выдачи (шаг сюжета - само значение). */
+    /**
+     * Выводимые цели считаются от состояния героя: прогресс - прирост с выдачи (шаг сюжета - само значение). Узлы
+     * дерева и атласа, уровень и зоны меряются рекордом героя (1.30.0): откат и повторное взятие узлов цель не двигают.
+     */
     private fun derive(hero: Hero, quest: Quest) {
         if (!quest.derived || quest.claimed) return
         val value = derivedValue(hero, quest.counter, quest.place)
@@ -295,12 +300,33 @@ class QuestService : KoinComponent {
     }
 
     private fun derivedValue(hero: Hero, counter: String, zone: String): Long =
-        QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, zone)
+        if (counter in QuestProgress.PEAKED) peak(hero, counter)
+        else QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, zone)
 
-    /** Недостижимое не выдаётся: уровень на потолке, все зоны пройдены. */
-    private fun feasible(hero: Hero, goal: QuestGoal): Boolean = when (goal.counter) {
-        QuestCounter.LEVEL -> hero.level + goal.base.toInt() <= index.classes.maxLevel
-        QuestCounter.ZONES -> hero.campaign.cleared.size < index.campaign.zones.size
+    /** Рекорд счётчика: сохранённый и нынешнее значение - что больше; запись героя держит его сама ([features.data.hero.HeroRepository]). */
+    private fun peak(hero: Hero, counter: String): Long {
+        val value = maxOf(hero.peaks[counter] ?: 0L, QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, ""))
+        hero.peaks[counter] = value
+        return value
+    }
+
+    /**
+     * Недостижимое не выдаётся (1.30.0 - по посчитанной цели [target]): уровень и зоны до потолка, узлы атласа - в
+     * пределах очков, что вообще можно заработать, и узлов атласа; узлы дерева - в пределах очков до потолка уровня.
+     */
+    private fun feasible(hero: Hero, counter: String, target: Long): Boolean = when (counter) {
+        QuestCounter.LEVEL -> hero.level + target <= index.classes.maxLevel
+        QuestCounter.ZONES -> hero.campaign.cleared.size + target <= index.campaign.zones.size
+        QuestCounter.ATLAS -> {
+            val atlas = index.atlas
+            val earnable = index.zones.size.toLong() * AtlasPoints.KINDS.sumOf { atlas.points[it] ?: 0 }
+            val reachable = minOf(earnable, atlas.cap.toLong(), atlas.nodes.size - 1L)
+            peak(hero, counter) + target <= reachable
+        }
+        QuestCounter.TREE -> {
+            val points = index.classes.pointsTotal(index.classes.maxLevel) - index.tree.spent(hero.tree)
+            peak(hero, counter) + target <= minOf(hero.tree.size.toLong() + points, index.tree.byCode.size.toLong())
+        }
         else -> true
     }
 

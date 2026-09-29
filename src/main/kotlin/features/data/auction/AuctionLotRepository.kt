@@ -10,10 +10,16 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.Item
+import com.sperance.exileforge.rules.roll.Dice
+import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.text.LocaleKey
 import config.ContentStore
 import config.MongoFactory.transactionExecute
 import extensions.now
+import extensions.printLog
+import kotlinx.coroutines.CancellationException
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.logic.hero.Stash
@@ -26,6 +32,11 @@ import org.koin.core.component.inject
 /**
  * Аукцион игроков. Товар на время торгов лежит в лоте: выставить одну вещь дважды или надеть
  * выставленную нельзя. Оплата, передача товара и закрытие лота идут одной транзакцией.
+ *
+ * С 1.30.0 лот стоит на витрине `auction.lotDays` дней: истёкший закрывается [LotStatus.EXPIRED] лениво - на
+ * витрине, в своих лотах и на любом запросе продавца, - товар возвращается продавцу, сбор не возвращается.
+ * Стопка на аукционе не сгорает: покупка, при которой стопка продавца или покупателя перелилась бы через
+ * `maxStack`, отклоняется, ничего не списав. Вещь лота сверяется с контентом, когда лот показывают.
  */
 class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), KoinComponent {
     private val heroes: HeroRepository by inject()
@@ -33,11 +44,13 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     private val index: ContentIndex get() = content.index
     private val rules get() = index.rules.auction
 
-    override val indexes = listOf(IndexSpec.on("status", "_id"), IndexSpec.on("sellerId", "status"), IndexSpec.on("itemCode"))
+    override val indexes = listOf(IndexSpec.on("status", "_id"), IndexSpec.on("sellerId", "status"), IndexSpec.on("itemCode"), IndexSpec.on("status", "expiresAt"))
 
     suspend fun search(heroId: String, search: AuctionSearch, page: Int, size: Int): PagedMongoResponse<AuctionLot> {
         requireTrader(heroId, "search")
-        return findPaged(search.toFilter(), page, size)
+        expireDue(null)
+        val found = findPaged(search.toFilter(), page, size)
+        return found.copy(items = found.items.map { reconciled(it) })
     }
 
     /** Поисковый текст - в коды предметов по словарю языка: названий в лотах нет, а поиск остаётся на сервере. */
@@ -53,7 +66,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     suspend fun findBySeller(heroId: String): List<AuctionLot> {
         requireTrader(heroId, "findBySeller")
-        return findByFilter(Filters.eq("sellerId", heroId))
+        return findByFilter(Filters.eq("sellerId", heroId)).map { reconciled(it) }
     }
 
     /** Выставляет вещь: она уходит из документа героя в лот, надетую сначала снимают. */
@@ -70,7 +83,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         seller.items.remove(item)
         return transactionExecute("auction $method $itemId") { session ->
             heroes.update(seller, session)
-            insert(AuctionLot.forEquipment(seller, item, template, priceOrb, price, fee(priceOrb, price)), session)
+            insert(AuctionLot.forEquipment(seller, item, template, priceOrb, price, fee(priceOrb, price), expiry()), session)
         }
     }
 
@@ -86,13 +99,14 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         seller.spend(code, amount, method)
         return transactionExecute("auction $method $code") { session ->
             heroes.update(seller, session)
-            insert(AuctionLot.forItem(seller, code, amount, priceOrb, price, fee(priceOrb, price)), session)
+            insert(AuctionLot.forItem(seller, code, amount, priceOrb, price, fee(priceOrb, price), expiry()), session)
         }
     }
 
     /**
-     * Покупка: сферы уходят продавцу, товар - покупателю, сбор золотом сгорает; не хватило сфер или золота -
-     * откат, товар остаётся на витрине.
+     * Покупка: сферы уходят продавцу, товар - покупателю, сбор золотом сгорает; не хватило сфер или золота,
+     * стопка продавца (`AU_015`) или покупателя (`AU_016`) перелилась бы через потолок - отказ, ничего не
+     * списано, товар остаётся на витрине.
      */
     suspend fun buy(heroId: String, lotId: String): AuctionLot {
         val method = "buy"
@@ -102,9 +116,12 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         val seller = heroes.findById(lot.sellerId) ?: throw CharacterExceptions.funExceptionNotFound(method, lot.sellerId)
         val fee = lot.fee
         if (buyer.money < fee) throw CharacterExceptions.funExceptionGold(method, fee.toString())
+        val cap = index.rules.maxStack
+        if (!fits(seller, lot.priceOrb, lot.price)) throw AuctionExceptions.funExceptionSellerStackFull(method, cap.toString())
         buyer.spend(lot.priceOrb, lot.price, method)
+        if (lot.kind == LotKind.ITEM && !fits(buyer, lot.item, lot.amount)) throw AuctionExceptions.funExceptionStackFull(method, cap.toString())
         buyer.pay(fee)
-        seller.earn(lot.priceOrb, lot.price, index.rules.maxStack)
+        seller.earn(lot.priceOrb, lot.price, cap)
         deliver(lot, buyer)
         buyer.count(Counter.AUCTION_BOUGHT)
         seller.count(Counter.AUCTION_SOLD)
@@ -120,7 +137,8 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         val seller = requireTrader(heroId, method)
         val lot = requireOpenLot(lotId, method)
         if (lot.sellerId != heroId) throw AuctionExceptions.funExceptionNotSeller(method, lotId)
-        deliver(lot, seller)
+        if (lot.kind == LotKind.ITEM && !fits(seller, lot.item, lot.amount)) throw AuctionExceptions.funExceptionStackFull(method, index.rules.maxStack.toString())
+        giveBack(lot, seller)
         return transactionExecute("auction $method $lotId") { session ->
             heroes.update(seller, session)
             close(lot, LotStatus.CANCELLED, null, session)
@@ -131,9 +149,73 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     private fun deliver(lot: AuctionLot, owner: Hero) {
         when (lot.kind) {
-            LotKind.EQUIPMENT -> Stash.receive(owner, (lot.equipment ?: throw AuctionExceptions.funExceptionLotBroken("deliver", lot._id)).copy(slot = null, socket = null), index)
+            LotKind.EQUIPMENT -> Stash.receive(owner, goods(lot), index)
             LotKind.ITEM -> owner.earn(lot.item, lot.amount, index.rules.maxStack)
         }
+    }
+
+    /** Товар обратно продавцу: вещь - в тайник или переполнение, не торговцу; стопку вызывающий уже проверил на место. */
+    private fun giveBack(lot: AuctionLot, owner: Hero) {
+        when (lot.kind) {
+            LotKind.EQUIPMENT -> Stash.giveBack(owner, goods(lot), index)
+            LotKind.ITEM -> owner.earn(lot.item, lot.amount, index.rules.maxStack)
+        }
+    }
+
+    private fun goods(lot: AuctionLot) = (lot.equipment ?: throw AuctionExceptions.funExceptionLotBroken("deliver", lot._id)).copy(slot = null, socket = null)
+
+    /** Влезет ли [amount] предмета [code] в сумку героя, не перелившись через потолок стопки. */
+    private fun fits(hero: Hero, code: String, amount: Long): Boolean = (hero.bag[code] ?: 0L) <= index.rules.maxStack - amount
+
+    private fun expiry(): Long = System.currentTimeMillis() + rules.lotMillis
+
+    /**
+     * Лот, каким его показывают: вещь сверена с контентом так же, как её сверит запись героя. Изменилась -
+     * лот переписывается, иначе следующий показ докатил бы её иначе; сбой записи показа не срывает.
+     */
+    private suspend fun reconciled(lot: AuctionLot): AuctionLot {
+        val item = lot.equipment ?: return lot
+        val template = index.template(item.template) ?: return lot
+        if (!ItemFactory(index).reconcile(template, item, Dice.system())) return lot
+        lot.rarity = item.rarity
+        quietly("reconcile ${lot._id}") { transactionExecute("auction reconcile ${lot._id}") { session -> update(lot, session) } }
+        return lot
+    }
+
+    /**
+     * Истёкшие лоты - продавца [sellerId] или, без него, все - закрываются: товар возвращается продавцу, сбор
+     * сгорел при покупке и не возвращается. Старому лоту без срока он сперва выводится из даты выставления.
+     * Стопка, которой продавцу некуда лечь, ждёт на витрине, пока место не появится: сгореть она не должна.
+     */
+    private suspend fun expireDue(sellerId: String?) {
+        val now = System.currentTimeMillis()
+        val scope = listOfNotNull(Filters.eq("status", LotStatus.ACTIVE.name), sellerId?.let { Filters.eq("sellerId", it) })
+        findByFilter(Filters.and(scope + Filters.or(Filters.exists("expiresAt", false), Filters.eq("expiresAt", 0L)))).forEach { lot ->
+            lot.expiresAt = lot.createdAt.toInstant(TimeZone.UTC).toEpochMilliseconds() + rules.lotMillis
+            quietly("deadline ${lot._id}") { transactionExecute("auction deadline ${lot._id}") { session -> update(lot, session) } }
+        }
+        findByFilter(Filters.and(scope + Filters.gt("expiresAt", 0L) + Filters.lte("expiresAt", now))).forEach { lot ->
+            quietly("expire ${lot._id}") { expire(lot) }
+        }
+    }
+
+    private suspend fun expire(lot: AuctionLot) {
+        val seller = heroes.findById(lot.sellerId)
+        if (seller != null) {
+            if (lot.kind == LotKind.ITEM && !fits(seller, lot.item, lot.amount)) return
+            giveBack(lot, seller)
+        }
+        transactionExecute("auction expire ${lot._id}") { session ->
+            seller?.let { heroes.update(it, session) }
+            close(lot, LotStatus.EXPIRED, null, session)
+        }
+    }
+
+    /** Попутная работа (срок, сверка): гонка версий или сбой базы её откладывает до следующего запроса, но не срывает запрос. */
+    private suspend fun quietly(what: String, block: suspend () -> Unit) {
+        try { block() }
+        catch (e: CancellationException) { throw e }
+        catch (e: Exception) { printLog("[Auction] $what: ${e.message}") }
     }
 
     private suspend fun close(lot: AuctionLot, status: LotStatus, buyerId: String?, session: ClientSession): AuctionLot {
@@ -177,16 +259,22 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         if (active(seller._id) >= limit) throw AuctionExceptions.funExceptionLotLimit(method, limit.toString())
     }
 
+    /** Герой аукциона; сперва закрываются его истёкшие лоты - товар возвращается прежде, чем он что-то сделает. */
     private suspend fun requireTrader(heroId: String, method: String): Hero {
+        expireDue(heroId)
         val hero = heroes.requireHero(heroId, method)
         if (hero.level < rules.minLevel) throw AuctionExceptions.funExceptionLevel(method, "${hero.level}, need ${rules.minLevel}")
         return hero
     }
 
+    /** Лот на витрине; истёкший - закрыт (товар ушёл продавцу) и не продаётся: `AU_004`. */
     private suspend fun requireOpenLot(lotId: String, method: String): AuctionLot {
         val lot = findById(lotId) ?: throw AuctionExceptions.funExceptionLotNotFound(method, lotId)
-        if (!lot.isOnSale()) throw AuctionExceptions.funExceptionLotClosed(method, lotId)
-        return lot
+        if (!lot.isOnSale()) {
+            if (lot.status == LotStatus.ACTIVE) quietly("expire $lotId") { expire(lot) }
+            throw AuctionExceptions.funExceptionLotClosed(method, lotId)
+        }
+        return reconciled(lot)
     }
 
     private fun requireOrb(code: String, method: String) {
@@ -194,8 +282,10 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         if (item.category != Item.CURRENCY) throw AuctionExceptions.funExceptionPriceNotOrb(method, code)
     }
 
+    /** Цена больше нуля и не больше потолка стопки: такую сумму продавец иначе не смог бы получить. */
     private fun requirePrice(price: Long, method: String) {
         if (price <= 0) throw AuctionExceptions.funExceptionPrice(method, price.toString())
+        if (price > index.rules.maxStack) throw AuctionExceptions.funExceptionPriceTooHigh(method, index.rules.maxStack.toString())
     }
 }
 

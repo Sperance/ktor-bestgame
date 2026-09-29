@@ -15,13 +15,14 @@ import org.bson.types.ObjectId
 enum class LotKind { EQUIPMENT, ITEM }
 
 @Serializable
-enum class LotStatus { ACTIVE, SOLD, CANCELLED }
+enum class LotStatus { ACTIVE, SOLD, CANCELLED, EXPIRED }
 
 /**
  * Лот аукциона - отдельная коллекция `AuctionLot`. Пока лот на витрине, товар лежит в нём, а не у
  * продавца: копия вещи уходит из документа героя, стопка списывается из сумки. Цена - только в сферах
  * ([priceOrb] - код предмета категории CURRENCY). Поля витрины - снимок вещи на момент выставления,
  * чтобы фильтр работал одним запросом к Mongo без справочников; названий нет - клиент берёт текст по коду.
+ * Лот живёт до [expiresAt] (1.30.0): потом он закрывается [LotStatus.EXPIRED], товар возвращается продавцу.
  */
 @Serializable
 data class AuctionLot(
@@ -44,6 +45,8 @@ data class AuctionLot(
     var status: LotStatus = LotStatus.ACTIVE,
     var buyerId: String? = null,
     var closedAt: LocalDateTime? = null,
+    /** Когда лот снимается с витрины, мс эпохи UTC (1.30.0); ноль - старый лот, срок выводится из [createdAt]. */
+    var expiresAt: Long = 0,
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -51,16 +54,18 @@ data class AuctionLot(
     override var updatedAt: LocalDateTime = LocalDateTime.now(),
 ) : VersionedEntity {
 
-    fun isOnSale(): Boolean = status == LotStatus.ACTIVE
+    fun isOnSale(now: Long = System.currentTimeMillis()): Boolean = status == LotStatus.ACTIVE && (expiresAt == 0L || now < expiresAt)
 
     companion object {
-        fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long, fee: Long): AuctionLot = AuctionLot(
+        fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long, fee: Long, expiresAt: Long): AuctionLot = AuctionLot(
             sellerId = seller._id, sellerName = seller.name, kind = LotKind.EQUIPMENT, equipment = item.copy(slot = null, socket = null),
             priceOrb = priceOrb, price = price, fee = fee, itemCode = template.code, slot = template.slot, rarity = item.rarity, itemLevel = template.level,
+            expiresAt = expiresAt,
         )
 
-        fun forItem(seller: Hero, code: String, amount: Long, priceOrb: String, price: Long, fee: Long): AuctionLot = AuctionLot(
+        fun forItem(seller: Hero, code: String, amount: Long, priceOrb: String, price: Long, fee: Long, expiresAt: Long): AuctionLot = AuctionLot(
             sellerId = seller._id, sellerName = seller.name, kind = LotKind.ITEM, item = code, amount = amount, priceOrb = priceOrb, price = price, fee = fee, itemCode = code,
+            expiresAt = expiresAt,
         )
     }
 }

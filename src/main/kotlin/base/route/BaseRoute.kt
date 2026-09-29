@@ -98,15 +98,18 @@ open class BaseRoute<T : StockEntity>(
 
     protected open fun additionalRoutes(route: Route): Route = route
 
+    /** Документ, каким он уходит клиенту: наследник прячет здесь служебные поля, которых клиенту видеть нельзя. */
+    protected open fun present(entity: T): T = entity
+
     private fun Route.readRoute() = get {
         val id = call.request.queryParameters["id"].orEmpty()
         when {
             id.isNotEmpty() -> {
                 val key = requireId(id, "readRoute")
-                call.respondJson(oneResponse, ApiMongoResponse.ok(cache?.findById(key) ?: repository.findById(key)))
+                call.respondJson(oneResponse, ApiMongoResponse.ok((cache?.findById(key) ?: repository.findById(key))?.let(::present)))
             }
             cache != null -> call.respondText(cachedList(cache), ContentType.Application.Json)
-            else -> call.respondJson(listResponse, ApiMongoResponse.ok(repository.findAll()))
+            else -> call.respondJson(listResponse, ApiMongoResponse.ok(repository.findAll().map(::present)))
         }
     }
 
@@ -136,7 +139,7 @@ open class BaseRoute<T : StockEntity>(
             val created = transactionExecute("[$basePath::createRoute] $entities") { session ->
                 repository.insertMany(entities, session)
             }
-            call.respondJson(listResponse, ApiMongoResponse.ok(created))
+            call.respondJson(listResponse, ApiMongoResponse.ok(created.map(::present)))
         }
     }
 
@@ -150,7 +153,7 @@ open class BaseRoute<T : StockEntity>(
             val updated = transactionExecute("[$basePath::updateRoute] $id") { session ->
                 repository.updateFields(id, updates, session)
             }
-            call.respondJson(oneResponse, ApiMongoResponse.ok(updated))
+            call.respondJson(oneResponse, ApiMongoResponse.ok(updated?.let(::present)))
         }
     }
 

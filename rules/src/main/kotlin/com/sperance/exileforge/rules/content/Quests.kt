@@ -388,14 +388,31 @@ object QuestProgress {
             quest.progress = (quest.progress + amount).coerceAtMost(quest.target)
         }
         if (guildId == null) return
-        val day = QuestClock.day(now)
-        val week = QuestClock.week(now)
-        val guild = log.guild?.takeIf { it.id == guildId } ?: GuildQuestLog(guildId, day, week).also { log.guild = it }
-        if (guild.day != day) { guild.day = day; guild.dayCounts = mutableMapOf() }
-        if (guild.week != week) { guild.week = week; guild.weekCounts = mutableMapOf() }
+        val guild = guildLog(log, guildId, QuestClock.day(now), QuestClock.week(now))
         guild.dayCounts.merge(counter, amount, Long::plus)
         guild.weekCounts.merge(counter, amount, Long::plus)
     }
+
+    /**
+     * Гильдейская часть героя в гильдии [guildId] на сутки [day] и неделю [week]. Сменилась гильдия (1.30.0) - с нуля
+     * только счётчики вклада: выданные на сутки задания, их прогресс и забранные доли остаются, иначе переходом
+     * между гильдиями задания перебирались бы, а доли забирались дважды.
+     */
+    fun guildLog(log: QuestLog, guildId: String, day: Long, week: Long): GuildQuestLog {
+        val current = log.guild
+        val guild = when {
+            current == null -> GuildQuestLog(guildId, day, week)
+            current.id == guildId -> current
+            else -> current.copy(id = guildId, day = day, week = week, dayCounts = mutableMapOf(), weekCounts = mutableMapOf())
+        }
+        log.guild = guild
+        if (guild.day != day) { guild.day = day; guild.dayCounts = mutableMapOf() }
+        if (guild.week != week) { guild.week = week; guild.weekCounts = mutableMapOf() }
+        return guild
+    }
+
+    /** Выводимые счётчики, которые меряются рекордом героя (1.30.0): откат узлов их не опускает. */
+    val PEAKED = setOf(QuestCounter.LEVEL, QuestCounter.ZONES, QuestCounter.ATLAS, QuestCounter.TREE)
 
     /** Значение выводимого счётчика по состоянию героя. */
     fun derived(counter: String, level: Int, zones: Collection<String>, atlas: Int, tree: Int, zone: String): Long = when (counter) {
