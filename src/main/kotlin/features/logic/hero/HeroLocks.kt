@@ -3,13 +3,9 @@ package features.logic.hero
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCallPipeline
 import io.ktor.server.application.call
-import io.ktor.server.request.path
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.concurrent.ConcurrentHashMap
-
-/** Путь сокета лобби: единственный маршрут с `heroId`, который не встаёт в очередь героя. */
-const val PARTY_SOCKET = "/party/ws"
 
 /**
  * Запросы одного героя идут по очереди: два запроса, пришедшие разом, писали бы один документ в
@@ -35,7 +31,6 @@ object HeroLocks {
 fun Application.installHeroLocks() {
     intercept(ApplicationCallPipeline.Call) {
         val heroId = call.request.queryParameters["heroId"]
-        // Сокет лобби (1.23.0) открыт весь заход: под замком героя он держал бы все его запросы
-        if (heroId.isNullOrBlank() || call.request.path().endsWith(PARTY_SOCKET)) proceed() else HeroLocks.withLock(heroId) { proceed() }
+        if (heroId.isNullOrBlank()) proceed() else HeroLocks.withLock(heroId) { proceed() }
     }
 }

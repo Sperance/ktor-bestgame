@@ -5961,13 +5961,5 @@
   "quest.story.S6_STAIR.name": "The Endless Stair",
   "quest.story.S6_STAIR.description": "The stair leads down to the throne. Slay the guardian of the Endless Stair.",
   "quest.story.S6_THRONE.name": "The Abyssal Throne",
-  "quest.story.S6_THRONE.description": "On the throne sits what called every exile here. Slay the guardian of the Throne of the Abyss.",
-  "error.PT_001": "Party {0} not found",
-  "error.PT_002": "The hero is already in party {0}",
-  "error.PT_003": "Hero {0} is not in a party",
-  "error.PT_004": "The party is full: {0} heroes at most",
-  "error.PT_005": "Party {0} has already set out",
-  "error.PT_006": "Only the party's host can do this: {0}",
-  "error.PT_007": "Nobody has joined party {0} yet",
-  "error.PT_008": "Hero {0} is not connected"
+  "quest.story.S6_THRONE.description": "On the throne sits what called every exile here. Slay the guardian of the Throne of the Abyss."
 }

@@ -5205,7 +5205,6 @@
       "requiredStrength": 1,
       "requiredDexterity": 1,
       "weaponType": "SWORD",
-      "durability": 101,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5236,7 +5235,6 @@
       "requiredStrength": 6,
       "requiredDexterity": 6,
       "weaponType": "SWORD",
-      "durability": 105,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5267,7 +5265,6 @@
       "requiredStrength": 17,
       "requiredDexterity": 17,
       "weaponType": "SWORD",
-      "durability": 114,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5298,7 +5295,6 @@
       "requiredStrength": 28,
       "requiredDexterity": 28,
       "weaponType": "SWORD",
-      "durability": 123,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5329,7 +5325,6 @@
       "requiredStrength": 40,
       "requiredDexterity": 40,
       "weaponType": "SWORD",
-      "durability": 133,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5360,7 +5355,6 @@
       "requiredStrength": 50,
       "requiredDexterity": 50,
       "weaponType": "SWORD",
-      "durability": 142,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5391,7 +5385,6 @@
       "requiredStrength": 62,
       "requiredDexterity": 62,
       "weaponType": "SWORD",
-      "durability": 152,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5422,7 +5415,6 @@
       "requiredStrength": 70,
       "requiredDexterity": 70,
       "weaponType": "SWORD",
-      "durability": 159,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5453,7 +5445,6 @@
       "requiredStrength": 79,
       "requiredDexterity": 79,
       "weaponType": "SWORD",
-      "durability": 166,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5482,7 +5473,6 @@
       "requiredLevel": 1,
       "requiredDexterity": 7,
       "weaponType": "BLADE",
-      "durability": 103,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5515,7 +5505,6 @@
       "requiredLevel": 7,
       "requiredDexterity": 15,
       "weaponType": "BLADE",
-      "durability": 107,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5548,7 +5537,6 @@
       "requiredLevel": 17,
       "requiredDexterity": 37,
       "weaponType": "BLADE",
-      "durability": 117,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5581,7 +5569,6 @@
       "requiredLevel": 26,
       "requiredDexterity": 57,
       "weaponType": "BLADE",
-      "durability": 126,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5614,7 +5601,6 @@
       "requiredLevel": 36,
       "requiredDexterity": 79,
       "weaponType": "BLADE",
-      "durability": 136,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5647,7 +5633,6 @@
       "requiredLevel": 47,
       "requiredDexterity": 103,
       "weaponType": "BLADE",
-      "durability": 147,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5680,7 +5665,6 @@
       "requiredLevel": 58,
       "requiredDexterity": 128,
       "weaponType": "BLADE",
-      "durability": 158,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5713,7 +5697,6 @@
       "requiredLevel": 68,
       "requiredDexterity": 150,
       "weaponType": "BLADE",
-      "durability": 168,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5744,7 +5727,6 @@
       "requiredStrength": 1,
       "requiredDexterity": 1,
       "weaponType": "AXE",
-      "durability": 101,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5775,7 +5757,6 @@
       "requiredStrength": 7,
       "requiredDexterity": 7,
       "weaponType": "AXE",
-      "durability": 106,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5806,7 +5787,6 @@
       "requiredStrength": 13,
       "requiredDexterity": 13,
       "weaponType": "AXE",
-      "durability": 111,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5837,7 +5817,6 @@
       "requiredStrength": 25,
       "requiredDexterity": 25,
       "weaponType": "AXE",
-      "durability": 121,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5868,7 +5847,6 @@
       "requiredStrength": 37,
       "requiredDexterity": 37,
       "weaponType": "AXE",
-      "durability": 131,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5899,7 +5877,6 @@
       "requiredStrength": 50,
       "requiredDexterity": 50,
       "weaponType": "AXE",
-      "durability": 142,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5930,7 +5907,6 @@
       "requiredStrength": 62,
       "requiredDexterity": 62,
       "weaponType": "AXE",
-      "durability": 152,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5961,7 +5937,6 @@
       "requiredStrength": 74,
       "requiredDexterity": 74,
       "weaponType": "AXE",
-      "durability": 162,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -5992,7 +5967,6 @@
       "requiredStrength": 85,
       "requiredDexterity": 85,
       "weaponType": "AXE",
-      "durability": 171,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6019,7 +5993,6 @@
       "kind": "WEAPON",
       "requiredIntelligence": 2,
       "weaponType": "WAND",
-      "durability": 101,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6050,7 +6023,6 @@
       "requiredLevel": 6,
       "requiredIntelligence": 13,
       "weaponType": "WAND",
-      "durability": 106,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6081,7 +6053,6 @@
       "requiredLevel": 12,
       "requiredIntelligence": 26,
       "weaponType": "WAND",
-      "durability": 112,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6112,7 +6083,6 @@
       "requiredLevel": 24,
       "requiredIntelligence": 53,
       "weaponType": "WAND",
-      "durability": 124,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6143,7 +6113,6 @@
       "requiredLevel": 36,
       "requiredIntelligence": 79,
       "weaponType": "WAND",
-      "durability": 136,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6174,7 +6143,6 @@
       "requiredLevel": 47,
       "requiredIntelligence": 103,
       "weaponType": "WAND",
-      "durability": 147,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6205,7 +6173,6 @@
       "requiredLevel": 59,
       "requiredIntelligence": 130,
       "weaponType": "WAND",
-      "durability": 159,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6236,7 +6203,6 @@
       "requiredLevel": 68,
       "requiredIntelligence": 150,
       "weaponType": "WAND",
-      "durability": 168,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6264,7 +6230,6 @@
       "kind": "WEAPON",
       "requiredDexterity": 2,
       "weaponType": "BOW",
-      "durability": 101,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6294,7 +6259,6 @@
       "requiredLevel": 5,
       "requiredDexterity": 11,
       "weaponType": "BOW",
-      "durability": 105,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6324,7 +6288,6 @@
       "requiredLevel": 12,
       "requiredDexterity": 27,
       "weaponType": "BOW",
-      "durability": 112,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6354,7 +6317,6 @@
       "requiredLevel": 18,
       "requiredDexterity": 40,
       "weaponType": "BOW",
-      "durability": 118,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6384,7 +6346,6 @@
       "requiredLevel": 28,
       "requiredDexterity": 62,
       "weaponType": "BOW",
-      "durability": 128,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6414,7 +6375,6 @@
       "requiredLevel": 37,
       "requiredDexterity": 82,
       "weaponType": "BOW",
-      "durability": 137,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6444,7 +6404,6 @@
       "requiredLevel": 46,
       "requiredDexterity": 101,
       "weaponType": "BOW",
-      "durability": 146,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6474,7 +6433,6 @@
       "requiredLevel": 56,
       "requiredDexterity": 123,
       "weaponType": "BOW",
-      "durability": 156,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6504,7 +6462,6 @@
       "requiredLevel": 68,
       "requiredDexterity": 150,
       "weaponType": "BOW",
-      "durability": 168,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6532,7 +6489,6 @@
       "requiredStrength": 1,
       "requiredDexterity": 1,
       "weaponType": "LONGSWORD",
-      "durability": 101,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6563,7 +6519,6 @@
       "requiredStrength": 10,
       "requiredDexterity": 10,
       "weaponType": "LONGSWORD",
-      "durability": 108,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6594,7 +6549,6 @@
       "requiredStrength": 14,
       "requiredDexterity": 14,
       "weaponType": "LONGSWORD",
-      "durability": 112,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6625,7 +6579,6 @@
       "requiredStrength": 20,
       "requiredDexterity": 20,
       "weaponType": "LONGSWORD",
-      "durability": 117,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6656,7 +6609,6 @@
       "requiredStrength": 34,
       "requiredDexterity": 34,
       "weaponType": "LONGSWORD",
-      "durability": 129,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6687,7 +6639,6 @@
       "requiredStrength": 49,
       "requiredDexterity": 49,
       "weaponType": "LONGSWORD",
-      "durability": 141,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6718,7 +6669,6 @@
       "requiredStrength": 64,
       "requiredDexterity": 64,
       "weaponType": "LONGSWORD",
-      "durability": 153,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6749,7 +6699,6 @@
       "requiredStrength": 78,
       "requiredDexterity": 78,
       "weaponType": "LONGSWORD",
-      "durability": 165,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6779,7 +6728,6 @@
       "requiredStrength": 26,
       "requiredDexterity": 26,
       "weaponType": "DOUBLESWORD",
-      "durability": 122,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6810,7 +6758,6 @@
       "requiredStrength": 32,
       "requiredDexterity": 32,
       "weaponType": "DOUBLESWORD",
-      "durability": 127,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6841,7 +6788,6 @@
       "requiredStrength": 41,
       "requiredDexterity": 41,
       "weaponType": "DOUBLESWORD",
-      "durability": 134,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6872,7 +6818,6 @@
       "requiredStrength": 48,
       "requiredDexterity": 48,
       "weaponType": "DOUBLESWORD",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6903,7 +6848,6 @@
       "requiredStrength": 62,
       "requiredDexterity": 62,
       "weaponType": "DOUBLESWORD",
-      "durability": 152,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6934,7 +6878,6 @@
       "requiredStrength": 77,
       "requiredDexterity": 77,
       "weaponType": "DOUBLESWORD",
-      "durability": 164,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6965,7 +6908,6 @@
       "requiredStrength": 80,
       "requiredDexterity": 80,
       "weaponType": "DOUBLESWORD",
-      "durability": 167,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -6994,7 +6936,6 @@
       "requiredLevel": 1,
       "requiredStrength": 9,
       "weaponType": "DOUBLEAXE",
-      "durability": 104,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7024,7 +6965,6 @@
       "requiredLevel": 9,
       "requiredStrength": 20,
       "weaponType": "DOUBLEAXE",
-      "durability": 109,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7054,7 +6994,6 @@
       "requiredLevel": 13,
       "requiredStrength": 29,
       "weaponType": "DOUBLEAXE",
-      "durability": 113,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7084,7 +7023,6 @@
       "requiredLevel": 24,
       "requiredStrength": 53,
       "weaponType": "DOUBLEAXE",
-      "durability": 124,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7114,7 +7052,6 @@
       "requiredLevel": 34,
       "requiredStrength": 75,
       "weaponType": "DOUBLEAXE",
-      "durability": 134,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7144,7 +7081,6 @@
       "requiredLevel": 45,
       "requiredStrength": 99,
       "weaponType": "DOUBLEAXE",
-      "durability": 145,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7174,7 +7110,6 @@
       "requiredLevel": 55,
       "requiredStrength": 121,
       "weaponType": "DOUBLEAXE",
-      "durability": 155,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7204,7 +7139,6 @@
       "requiredLevel": 66,
       "requiredStrength": 145,
       "weaponType": "DOUBLEAXE",
-      "durability": 166,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -7234,7 +7168,6 @@
       "requiredLevel": 68,
       "requiredStrength": 150,
       "weaponType": "DOUBLEAXE",
-      "durability": 168,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -11753,7 +11686,6 @@
       "requiredLevel": 50,
       "requiredDexterity": 100,
       "weaponType": "BLADE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -11926,7 +11858,6 @@
       "requiredLevel": 70,
       "requiredDexterity": 140,
       "weaponType": "BOW",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -12000,7 +11931,6 @@
       "requiredLevel": 50,
       "requiredStrength": 100,
       "weaponType": "DOUBLEAXE",
-      "durability": 200,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -12064,7 +11994,6 @@
       "requiredLevel": 75,
       "requiredStrength": 150,
       "weaponType": "DOUBLESWORD",
-      "durability": 220,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -12147,7 +12076,6 @@
       "requiredLevel": 65,
       "requiredStrength": 130,
       "weaponType": "LONGSWORD",
-      "durability": 180,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -12608,7 +12536,6 @@
       "requiredLevel": 15,
       "requiredDexterity": 26,
       "weaponType": "BLADE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -12811,7 +12738,6 @@
       "requiredLevel": 22,
       "requiredStrength": 40,
       "weaponType": "LONGSWORD",
-      "durability": 200,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -13265,7 +13191,6 @@
       "requiredLevel": 30,
       "requiredDexterity": 60,
       "weaponType": "BLADE",
-      "durability": 150,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -13339,7 +13264,6 @@
       "requiredLevel": 45,
       "requiredStrength": 90,
       "weaponType": "LONGSWORD",
-      "durability": 220,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -14025,7 +13949,6 @@
       "requiredLevel": 47,
       "requiredDexterity": 94,
       "weaponType": "BLADE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -14181,7 +14104,6 @@
       "requiredLevel": 59,
       "requiredStrength": 118,
       "weaponType": "LONGSWORD",
-      "durability": 200,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -15870,7 +15792,6 @@
       "requiredLevel": 40,
       "requiredDexterity": 80,
       "weaponType": "BLADE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -15944,7 +15865,6 @@
       "requiredLevel": 27,
       "requiredIntelligence": 54,
       "weaponType": "WAND",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -16018,7 +15938,6 @@
       "requiredLevel": 55,
       "requiredStrength": 110,
       "weaponType": "DOUBLEAXE",
-      "durability": 200,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -16091,7 +16010,6 @@
       "requiredLevel": 35,
       "requiredStrength": 70,
       "weaponType": "DOUBLESWORD",
-      "durability": 200,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -16415,7 +16333,6 @@
       "requiredLevel": 40,
       "requiredStrength": 80,
       "weaponType": "AXE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -16488,7 +16405,6 @@
       "requiredLevel": 60,
       "requiredStrength": 120,
       "weaponType": "DOUBLEAXE",
-      "durability": 200,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -17179,7 +17095,6 @@
       "requiredStrength": 35,
       "requiredDexterity": 35,
       "weaponType": "SWORD",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -17421,7 +17336,6 @@
       "requiredLevel": 12,
       "requiredDexterity": 26,
       "weaponType": "BLADE",
-      "durability": 112,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -17782,7 +17696,6 @@
       "requiredLevel": 15,
       "requiredDexterity": 34,
       "weaponType": "BOW",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -17865,7 +17778,6 @@
       "requiredLevel": 40,
       "requiredDexterity": 88,
       "weaponType": "BOW",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -17948,7 +17860,6 @@
       "requiredLevel": 65,
       "requiredDexterity": 143,
       "weaponType": "BOW",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18042,7 +17953,6 @@
       "requiredStrength": 18,
       "requiredDexterity": 18,
       "weaponType": "SWORD",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18126,7 +18036,6 @@
       "requiredStrength": 48,
       "requiredDexterity": 48,
       "weaponType": "SWORD",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18210,7 +18119,6 @@
       "requiredStrength": 78,
       "requiredDexterity": 78,
       "weaponType": "SWORD",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18303,7 +18211,6 @@
       "requiredStrength": 18,
       "requiredDexterity": 18,
       "weaponType": "AXE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18386,7 +18293,6 @@
       "requiredStrength": 48,
       "requiredDexterity": 48,
       "weaponType": "AXE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18470,7 +18376,6 @@
       "requiredStrength": 78,
       "requiredDexterity": 78,
       "weaponType": "AXE",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18561,7 +18466,6 @@
       "requiredLevel": 15,
       "requiredIntelligence": 33,
       "weaponType": "WAND",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18644,7 +18548,6 @@
       "requiredLevel": 40,
       "requiredIntelligence": 88,
       "weaponType": "WAND",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18728,7 +18631,6 @@
       "requiredLevel": 65,
       "requiredIntelligence": 143,
       "weaponType": "WAND",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -18821,7 +18723,6 @@
       "requiredLevel": 20,
       "requiredDexterity": 44,
       "weaponType": "BLADE",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -19130,7 +19031,6 @@
       "requiredLevel": 60,
       "requiredStrength": 132,
       "weaponType": "DOUBLEAXE",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -19740,7 +19640,6 @@
       "requiredLevel": 15,
       "requiredIntelligence": 33,
       "weaponType": "WAND",
-      "durability": 120,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -20116,7 +20015,6 @@
       "requiredLevel": 65,
       "requiredDexterity": 143,
       "weaponType": "BOW",
-      "durability": 140,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -20528,7 +20426,6 @@
       "requiredLevel": 70,
       "requiredDexterity": 40,
       "weaponType": "BLADE",
-      "durability": 150,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -20611,7 +20508,6 @@
       "requiredLevel": 70,
       "requiredStrength": 40,
       "weaponType": "DOUBLEAXE",
-      "durability": 250,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",
@@ -20994,7 +20890,6 @@
       "requiredLevel": 70,
       "requiredStrength": 30,
       "weaponType": "DOUBLEAXE",
-      "durability": 200,
       "base": [
         {
           "code": "BASE_PHYSICAL_DAMAGE",

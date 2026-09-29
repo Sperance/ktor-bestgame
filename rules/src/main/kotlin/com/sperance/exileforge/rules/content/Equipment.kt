@@ -105,7 +105,6 @@ data class ItemTemplate(
     val requiredDexterity: Int = 0,
     val requiredIntelligence: Int = 0,
     val weaponType: WeaponType? = null,
-    val durability: Int = 100,
     val price: Long? = null,
     val base: List<Line> = emptyList(),
     val fixed: List<String> = emptyList(),
