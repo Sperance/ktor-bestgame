@@ -906,6 +906,11 @@
       "order": 481
     },
     {
+      "code": "MAP_ITEM_LEVEL",
+      "group": "MAP",
+      "order": 3024
+    },
+    {
       "code": "MAP_CRYSTALS",
       "group": "MAP",
       "order": 480

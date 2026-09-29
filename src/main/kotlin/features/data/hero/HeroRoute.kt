@@ -96,7 +96,7 @@ class HeroRoute(
                 val code = call.queryParam("template")
                 val template = content.index.template(code) ?: throw base.exception.model.CharacterExceptions.funExceptionEquipmentNotFound("grantEquipment", code)
                 val rarity = call.optionalParam("rarity")?.let { Rarity.of(it) } ?: template.rarity
-                val item = ItemFactory(content.index).create(Hero.newItemId(), template, rarity, Dice.system())
+                val item = ItemFactory(content.index).create(Hero.newItemId(), template, rarity, Dice.system(), level = content.index.rules.loot.itemLevel(hero.level))
                 Stash.receive(hero, item, content.index)
                 repo.save(hero, "grantEquipment")
                 call.respondWithHero(item)

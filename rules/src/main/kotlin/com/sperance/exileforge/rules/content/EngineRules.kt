@@ -173,7 +173,23 @@ data class LootRules(
     val rarityWeights: Map<Rarity, Double> = mapOf(Rarity.COMMON to 100.0, Rarity.UNCOMMON to 40.0, Rarity.RARE to 15.0, Rarity.UNIQUE to 1.0, Rarity.MYTHICAL to 0.2),
     val uniqueReach: Int = 10,
     val recipeChance: Double = 0.10,
+    /** Уровень предмета (ilvl, 1.33.0): потолок и прибавка к уровню зоны от редкости убитого монстра. */
+    val maxItemLevel: Int = 85,
+    val itemLevelBonus: Map<MonsterRarity, Int> = mapOf(MonsterRarity.MAGIC to 1, MonsterRarity.RARE to 2, MonsterRarity.UNIQUE to 3),
+    /** Прибавка к ilvl вещи ремесла на предельном уровне профессии; на промежуточных - по доле уровня. */
+    val craftItemLevelBonus: Int = 10,
 ) {
+    /** Уровень выпавшей копии: зона [level], редкость источника [rarity] и прибавка карты [extra], не выше потолка. */
+    fun itemLevel(level: Int, rarity: MonsterRarity, extra: Int = 0): Int =
+        (level + (itemLevelBonus[rarity] ?: 0) + extra).coerceIn(1, maxItemLevel)
+
+    /** Уровень копии, созданной не добычей (торговец, ремесло, награда): уровень героя [heroLevel]. */
+    fun itemLevel(heroLevel: Int): Int = heroLevel.coerceIn(1, maxItemLevel)
+
+    /** Уровень вещи ремесла: уровень героя и доля уровня профессии [craftLevel] из [craftMax]. */
+    fun craftedItemLevel(heroLevel: Int, craftLevel: Int, craftMax: Int): Int =
+        itemLevel(heroLevel + craftItemLevelBonus * craftLevel.coerceIn(0, craftMax) / craftMax.coerceAtLeast(1))
+
     /** Во сколько раз золото на уровне [level] больше, чем на первом: рост со своим спадом или спадом роста монстров [fallback]. */
     fun goldScale(level: Int, fallback: GrowthTaper): Double = Math.pow(goldGrowth, (goldTaper ?: fallback).steps(level))
 }

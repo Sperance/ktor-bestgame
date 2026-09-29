@@ -19,18 +19,23 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         else -> wanted
     }
 
-    fun create(id: String, template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null): ItemInstance {
+    /** Новая копия на уровне предмета [level] (1.33.0): добыча - уровень зоны с прибавками, прочее - уровень героя. */
+    fun create(id: String, template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, level: Int = template.level): ItemInstance {
         val actual = rarityFor(template, rarity)
-        val item = ItemInstance(id, template.code, actual, affixes.roll(template, actual, dice, influence), influence = influence, corrupted = template.corrupted)
+        val itemLevel = level.coerceIn(1, index.rules.loot.maxItemLevel)
+        val item = ItemInstance(
+            id, template.code, actual, affixes.roll(template, actual, dice, influence, itemLevel),
+            influence = influence, corrupted = template.corrupted, itemLevel = itemLevel,
+        )
         affixes.ensureAffixes(template, item, dice)
         return item
     }
 
     /** Копия под влиянием со строкой влияния наверняка - добыча Бездны. */
-    fun createInfluenced(id: String, template: ItemTemplate, rarity: Rarity, influence: Influence, dice: Dice): ItemInstance {
-        val item = create(id, template, rarity, dice, influence)
+    fun createInfluenced(id: String, template: ItemTemplate, rarity: Rarity, influence: Influence, dice: Dice, level: Int = template.level): ItemInstance {
+        val item = create(id, template, rarity, dice, influence, level)
         val rolls = item.rolls.toMutableList()
-        if (affixes.forceInfluenced(template, item.rarity, rolls, influence, dice)) item.rolls = rolls
+        if (affixes.forceInfluenced(template, item.rarity, rolls, influence, dice, item.itemLevel)) item.rolls = rolls
         return item
     }
 
@@ -52,7 +57,7 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         val rarity = rarityFor(template, item.rarity)
         if (rarity != item.rarity) {
             item.rarity = rarity
-            affixes.normalize(template, rarity, item.rolls, dice, item.influence)?.let { item.rolls = it }
+            affixes.normalize(template, rarity, item.rolls, dice, item.influence, item.level(template))?.let { item.rolls = it }
             changed = true
         }
         val known = item.rolls.filter { index.modifier(it.code) != null }

@@ -276,8 +276,9 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val rifts = AbyssRifts(index)
         val roll = rifts.roll(rule, depth, hoardBonus(rule), keep, dice)
         val bases = index.templatePoolUpTo(rule.tables, zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE && template.slot.influenceable }
-        val equipment = roll.items.mapIndexedNotNull { i, rarity -> Tables.draw(bases, dice)?.let { factory.createInfluenced("h$depth-$i", it, rarity, Influence.ABYSS, dice) } } +
-            listOfNotNull(loot.unique(rule.uniques, zone.level, dice).takeIf { roll.unique }?.let { factory.create("h$depth-u", it, Rarity.UNIQUE, dice) })
+        val itemLevel = itemLevel(zone.level, MonsterRarity.RARE)
+        val equipment = roll.items.mapIndexedNotNull { i, rarity -> Tables.draw(bases, dice)?.let { factory.createInfluenced("h$depth-$i", it, rarity, Influence.ABYSS, dice, itemLevel) } } +
+            listOfNotNull(loot.unique(rule.uniques, zone.level, dice).takeIf { roll.unique }?.let { factory.create("h$depth-u", it, Rarity.UNIQUE, dice, level = itemLevel) })
         return Reward(roll.experience, 0, roll.orbs, equipment.map { it.copy(id = itemId(draw, it.id)) })
     }
 
@@ -334,11 +335,12 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val rolled = loot.roll(table, level, rule, quantity, gold, dice, goldShare, orbShare)
         val rarityBonus = rule.rarityBonus + bonus.rarity + (active?.rarity ?: 0.0) + (zoneBonus?.rarity ?: 0.0) + context[AtlasStat.RARITY.code]
         val templates = extra + rolled.equipment.mapNotNull { pools -> loot.pickFrom(pools, level, rarityBonus, dice) }
-        val equipment = templates.mapIndexed { n, template -> factory.create(itemId(draw, "$event-$n"), template, template.rarity, dice) }.toMutableList()
+        val itemLevel = itemLevel(level, rule.rarity)
+        val equipment = templates.mapIndexed { n, template -> factory.create(itemId(draw, "$event-$n"), template, template.rarity, dice, level = itemLevel) }.toMutableList()
         loot.mapDrop(mapChance * relative(AtlasStat.MAP_DROP.code) * (1 + quantity / 100) * (1 + bonus.map / 100), zone.code, context.next, dice, context[AtlasStat.MAP_NEXT.code])
-            ?.let { code -> index.template(loot.mapTemplate(code)) }?.let { template ->
-                val map = factory.create(itemId(draw, "$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice)
-                if (dice.percent(context[AtlasStat.MAP_AFFIX.code])) factory.affixes.rollExtraAffix(template, map.rarity, map.rolls, dice)?.let { map.rolls = map.rolls + it }
+            ?.let { code -> index.template(loot.mapTemplate(code))?.let { it to (index.zone(code)?.level ?: zone.level) } }?.let { (template, mapLevel) ->
+                val map = factory.create(itemId(draw, "$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice, level = mapLevel)
+                if (dice.percent(context[AtlasStat.MAP_AFFIX.code])) factory.affixes.rollExtraAffix(template, map.rarity, map.rolls, dice, level = mapLevel)?.let { map.rolls = map.rolls + it }
                 equipment += map
             }
         val items = rolled.items.toMutableMap()
@@ -353,6 +355,9 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         if (egg > 0 && dice.chance((egg * (1 + quantity / 100)).coerceAtMost(1.0))) index.pets.eggs[zone.biome]?.let { items.merge(it, 1L, Long::plus) }
         return Reward(experience, rolled.gold, items, equipment, recipe)
     }
+
+    /** Уровень выпавшей вещи (1.33.0): уровень зоны, прибавка за редкость источника и строки карты `MAP_ITEM_LEVEL`. */
+    private fun itemLevel(level: Int, rarity: MonsterRarity): Int = index.rules.loot.itemLevel(level, rarity, mapEffect(MapStat.ITEM_LEVEL.code).toInt())
 
     /** Id копии этого захода: семя захода, метка награды и событие - у героя не повторяются. */
     private fun itemId(draw: Draw, event: String): String = "r${java.lang.Long.toHexString(seed)}-${draw.tag}-$event"

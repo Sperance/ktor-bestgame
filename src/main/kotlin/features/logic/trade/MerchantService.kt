@@ -69,6 +69,7 @@ class MerchantService : KoinComponent {
         if (current != null && now < current.refreshAt) return current.copy(orbs = current.orbs.map { if (it.left == MerchantOrb.UNKNOWN) it.copy(left = left(it.code, it.bought)) else it })
         val rules = index.rules.merchant
         val factory = ItemFactory(index)
+        val itemLevel = index.rules.loot.itemLevel(level)
         val (flasks, gear) = index.templatePool(rules.tables).partition { it.value.slot.isFlask }
         val near = gear.filter { it.value.requiredLevel in (level - rules.levelSpread)..(level + rules.levelSpread) }
             .ifEmpty { gear.filter { it.value.requiredLevel <= level + rules.levelSpread } }
@@ -78,9 +79,9 @@ class MerchantService : KoinComponent {
             val rarity = Tables.value<Rarity>(index.tables, rules.rarities, dice) ?: Rarity.COMMON
             val (template, item) = (1..OFFER_TRIES).asSequence().map {
                 val template = Tables.draw(from, dice) ?: from.first().value
-                template to factory.create(Hero.newItemId(), template, rarity, dice)
+                template to factory.create(Hero.newItemId(), template, rarity, dice, level = itemLevel)
             }.firstOrNull { (template, item) -> factory.meetsFloor(template, item) }
-                ?: (Tables.draw(from, dice) ?: from.first().value).let { it to factory.create(Hero.newItemId(), it, Rarity.COMMON, dice) }
+                ?: (Tables.draw(from, dice) ?: from.first().value).let { it to factory.create(Hero.newItemId(), it, Rarity.COMMON, dice, level = itemLevel) }
             return MerchantOffer(item.id, item, SellPrice.of(index, template, item) * rules.markup)
         }
         val offers = if (near.isEmpty()) emptyList() else List(dice.between(rules.minOffers, rules.maxOffers)) { offer(near) }

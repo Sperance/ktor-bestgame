@@ -96,27 +96,27 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         val kept = affixes.fractured(item.rolls).filterNot { held -> affixes.definitions(listOf(held)).any { it.groupKey in group } }
         val around = if (affixes.isAffix(forced)) kept + forced else kept
         item.rarity = Rarity.RARE
-        item.rolls = affixes.permanent(item.rolls) + kept + forced + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, around)
+        item.rolls = affixes.permanent(item.rolls) + kept + forced + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, around, level = item.level(template))
         return outcome(item, template, "currency.essence", essenceName)
     }
 
     private fun upgrade(item: ItemInstance, template: ItemTemplate, from: Rarity, to: Rarity, dice: Dice, below: Int = 0): OrbOutcome {
         requireRarity(item, template, from)
         item.rarity = to
-        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, to, dice, item.influence, below = below)
+        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, to, dice, item.influence, below = below, level = item.level(template))
         return outcome(item, template, "currency.upgraded", LocaleKey.rarity(to), affixes.affixes(item.rolls).size.toString())
     }
 
     private fun reroll(item: ItemInstance, template: ItemTemplate, required: Rarity, dice: Dice): OrbOutcome {
         requireRarity(item, template, required)
         val kept = affixes.fractured(item.rolls)
-        item.rolls = affixes.permanent(item.rolls) + kept + affixes.rollAffixes(template, item.rarity, dice, item.influence, kept)
+        item.rolls = affixes.permanent(item.rolls) + kept + affixes.rollAffixes(template, item.rarity, dice, item.influence, kept, level = item.level(template))
         return outcome(item, template, "currency.rerolled", affixes.affixes(item.rolls).size.toString())
     }
 
     private fun augment(item: ItemInstance, template: ItemTemplate, required: Rarity, dice: Dice): OrbOutcome {
         requireRarity(item, template, required)
-        val added = affixes.rollExtraAffix(template, item.rarity, item.rolls, dice, item.influence) ?: throw RuleViolation("CR_007", listOf(name(template)))
+        val added = affixes.rollExtraAffix(template, item.rarity, item.rolls, dice, item.influence, item.level(template)) ?: throw RuleViolation("CR_007", listOf(name(template)))
         item.rolls = item.rolls + added
         return outcome(item, template, "currency.augmented")
     }
@@ -124,8 +124,8 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     private fun regal(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         requireRarity(item, template, Rarity.UNCOMMON)
         item.rarity = Rarity.RARE
-        affixes.rollExtraAffix(template, item.rarity, item.rolls, dice, item.influence)?.let { item.rolls = item.rolls + it }
-        affixes.normalize(template, item.rarity, item.rolls, dice, item.influence)?.let { item.rolls = it }
+        affixes.rollExtraAffix(template, item.rarity, item.rolls, dice, item.influence, item.level(template))?.let { item.rolls = item.rolls + it }
+        affixes.normalize(template, item.rarity, item.rolls, dice, item.influence, item.level(template))?.let { item.rolls = it }
         return outcome(item, template, "currency.regal", affixes.affixes(item.rolls).size.toString())
     }
 
@@ -166,14 +166,14 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         return when (dice.pick(VaalOutcome.entries)) {
             VaalOutcome.NOTHING -> outcome(item, template, "currency.vaal_nothing")
             VaalOutcome.IMPLICIT -> {
-                val corruption = affixes.rollFrom(listOf(AffixRoller.corruptionTag(template.slot)), template.level, dice)
+                val corruption = affixes.rollFrom(listOf(AffixRoller.corruptionTag(template.slot)), item.level(template), dice)
                 if (corruption != null) item.rolls = item.rolls.filterNot { affixes.definition(it)?.source == Source.IMPLICIT } + corruption
                 outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
             }
             VaalOutcome.RARE -> if (item.rarity.fixed || template.slot.isFlask) outcome(item, template, "currency.vaal_nothing") else {
                 val kept = affixes.fractured(item.rolls)
                 item.rarity = Rarity.RARE
-                item.rolls = affixes.permanent(item.rolls) + kept + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, kept)
+                item.rolls = affixes.permanent(item.rolls) + kept + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, kept, level = item.level(template))
                 outcome(item, template, "currency.vaal_rare", affixes.affixes(item.rolls).size.toString())
             }
             VaalOutcome.SHIFT -> {
@@ -189,13 +189,13 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         // Уникалка не выше уровня базы и её дальности (1.18.0): из базы первого уровня не выйдет вещь семидесятого
         val unique = Tables.draw(index.templatePoolUpTo(rules.orbs.chanceUniques, template.level + index.rules.loot.uniqueReach).filter { it.value.slot == template.slot }, dice)
         if (unique != null && dice.percent(rules.orbs.chanceUniquePercent)) {
-            val reborn = factory.create(item.id, unique, Rarity.UNIQUE, dice)
+            val reborn = factory.create(item.id, unique, Rarity.UNIQUE, dice, level = item.level(template))
             return OrbOutcome(reborn.also { it.slot = item.slot; it.socket = item.socket; it.quality = item.quality }, null, "currency.chance_unique", listOf(name(template), name(unique)))
         }
         val wanted = Tables.value<Rarity>(index.tables, rules.orbs.chanceRarities, dice) ?: Rarity.COMMON
         val rarity = factory.rarityFor(template, wanted)
         item.rarity = rarity
-        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, rarity, dice, item.influence)
+        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, rarity, dice, item.influence, level = item.level(template))
         return outcome(item, template, "currency.chance_rarity", LocaleKey.rarity(rarity))
     }
 
@@ -216,7 +216,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         if (!template.slot.influenceable) throw RuleViolation("CR_013", listOf(name(template)))
         if (item.rarity != Rarity.RARE) throw RuleViolation("CR_005", listOf(item.rarity.name))
         if (item.influence != null) throw RuleViolation("CR_014", listOf(name(template)))
-        val added = affixes.rollInfluenced(template, item.rarity, item.rolls, influence, dice) ?: throw RuleViolation("CR_007", listOf(name(template)))
+        val added = affixes.rollInfluenced(template, item.rarity, item.rolls, influence, dice, item.level(template)) ?: throw RuleViolation("CR_007", listOf(name(template)))
         item.influence = influence
         item.rolls = item.rolls + added
         return outcome(item, template, "currency.influenced", LocaleKey.enumLabel("EnumInfluence", influence.name))
@@ -225,7 +225,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     private fun enchant(item: ItemInstance, template: ItemTemplate, orb: Orb, dice: Dice): OrbOutcome {
         val slot = orb.enchantSlot ?: throw RuleViolation("CR_009", listOf(orb.name))
         if (template.slot.tag != slot) throw RuleViolation("CR_026", listOf(orbName(orb)))
-        val enchantment = affixes.rollFrom(listOf(AffixRoller.enchantTag(slot)), template.level, dice) ?: throw RuleViolation("CR_026", listOf(orbName(orb)))
+        val enchantment = affixes.rollFrom(listOf(AffixRoller.enchantTag(slot)), item.level(template), dice) ?: throw RuleViolation("CR_026", listOf(orbName(orb)))
         item.rolls = item.rolls.filterNot { affixes.definition(it)?.source == Source.ENCHANTMENT } + enchantment
         return outcome(item, template, "currency.enchanted")
     }
@@ -264,7 +264,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     private fun peril(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         if (item.rarity.fixed || affixes.affixes(item.rolls).size >= index.limits(item.rarity, template.slot).ceiling) throw RuleViolation("CR_007", listOf(name(template)))
         val pool = affixes.affixPool(template).filter { (def) -> harmful(def) }
-        val added = affixes.rollExtraFrom(pool, template, item.rarity, item.rolls, dice) ?: throw RuleViolation("CR_021", listOf(name(template)))
+        val added = affixes.rollExtraFrom(pool, template, item.rarity, item.rolls, dice, item.level(template)) ?: throw RuleViolation("CR_021", listOf(name(template)))
         item.rolls = item.rolls + added
         return outcome(item, template, "currency.peril")
     }
@@ -272,7 +272,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     private fun alchemyLine(item: ItemInstance, template: ItemTemplate, code: String, dice: Dice): OrbOutcome {
         val lines = affixes.definitions(item.rolls).filter { it.source == Source.ALCHEMY }
         if (lines.size >= rules.orbs.maxAlchemyLines || lines.any { it.code == code }) throw RuleViolation("CR_022", listOf(name(template)))
-        item.rolls = item.rolls + (affixes.rollCode(code, template.level, dice) ?: throw RuleViolation("CR_022", listOf(name(template))))
+        item.rolls = item.rolls + (affixes.rollCode(code, item.level(template), dice) ?: throw RuleViolation("CR_022", listOf(name(template))))
         return outcome(item, template, "currency.alchemy_line")
     }
 

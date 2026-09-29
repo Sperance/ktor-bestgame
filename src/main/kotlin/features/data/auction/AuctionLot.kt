@@ -71,7 +71,7 @@ data class AuctionLot(
     companion object {
         fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long, fee: Long, expiresAt: Long): AuctionLot = AuctionLot(
             sellerId = seller._id, sellerName = seller.name, kind = LotKind.EQUIPMENT, equipment = item.copy(slot = null, socket = null),
-            priceOrb = priceOrb, price = price, fee = fee, itemCode = template.code, slot = template.slot, rarity = item.rarity, itemLevel = template.level,
+            priceOrb = priceOrb, price = price, fee = fee, itemCode = template.code, slot = template.slot, rarity = item.rarity, itemLevel = item.level(template),
             expiresAt = expiresAt,
         )
 

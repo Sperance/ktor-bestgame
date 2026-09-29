@@ -27,9 +27,9 @@ class AffixRoller(private val index: ContentIndex) {
     fun permanent(rolls: Collection<Roll>): List<Roll> = rolls.filterNot { isAffix(it) || isEssence(it) }
     fun fractured(rolls: Collection<Roll>): List<Roll> = rolls.filter { it.fractured }
 
-    /** Новая копия: закреплённые строки шаблона и аффиксы под редкость. */
-    fun roll(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null): List<Roll> =
-        rollPermanent(template, dice) + rollAffixes(template, rarity, dice, influence)
+    /** Новая копия: закреплённые строки шаблона и аффиксы под редкость на уровне предмета [level]. */
+    fun roll(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, level: Int = template.level): List<Roll> =
+        rollPermanent(template, dice) + rollAffixes(template, rarity, dice, influence, level = level)
 
     /** Закреплённые описания шаблона: имплиситы, зачарования, порча, строки уникалки. */
     fun rollPermanent(template: ItemTemplate, dice: Dice): List<Roll> =
@@ -38,21 +38,24 @@ class AffixRoller(private val index: ContentIndex) {
     /**
      * Случайные префиксы и суффиксы на места, которые оставила редкость: взвешенно и без повторов
      * группы; [kept] - аффиксы, что остаются на копии и занимают свои места и группы; [below] - на
-     * сколько потолок редкости ниже обычного (сфера алхимии не даёт полного набора).
+     * сколько потолок редкости ниже обычного (сфера алхимии не даёт полного набора); [level] - уровень предмета.
      */
-    fun rollAffixes(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, kept: Collection<Roll> = emptyList(), below: Int = 0): List<Roll> {
+    fun rollAffixes(
+        template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, kept: Collection<Roll> = emptyList(), below: Int = 0,
+        level: Int = template.level,
+    ): List<Roll> {
         val keptDefs = definitions(kept)
         val (prefixes, suffixes) = freeSlots(rarity, keptDefs, template.slot)
         val limits = index.limits(rarity, template.slot)
         val limit = (dice.between(limits.floor, (limits.ceiling - below).coerceAtLeast(limits.floor)) - kept.size).coerceAtLeast(0)
-        return pickAffixes(affixPool(template, influence), prefixes, suffixes, keptDefs.map { it.groupKey }, limit, dice).mapNotNull { roll(it, template.level, dice) }
+        return pickAffixes(affixPool(template, influence), prefixes, suffixes, keptDefs.map { it.groupKey }, limit, dice).mapNotNull { roll(it, level, dice) }
     }
 
     /**
      * Доводит аффиксы копии до правил её редкости: лишние сверх мест снимаются, недостающие до дна
      * дороллены; закреплённые не трогаются. Null - копия уже в порядке.
      */
-    fun normalize(template: ItemTemplate, rarity: Rarity, rolls: List<Roll>, dice: Dice, influence: Influence? = null): List<Roll>? {
+    fun normalize(template: ItemTemplate, rarity: Rarity, rolls: List<Roll>, dice: Dice, influence: Influence? = null, level: Int = template.level): List<Roll>? {
         if (rarity.fixed) return null
         val result = rolls.toMutableList()
         val limits = index.limits(rarity, template.slot)
@@ -61,7 +64,7 @@ class AffixRoller(private val index: ContentIndex) {
             val over = result.count { definition(it)?.source == source } - cap
             if (over > 0) result.removeAll(removable.takeLast(over).toSet())
         }
-        while (result.count(::isAffix) < limits.floor) result += rollExtraAffix(template, rarity, result, dice, influence) ?: break
+        while (result.count(::isAffix) < limits.floor) result += rollExtraAffix(template, rarity, result, dice, influence, level) ?: break
         return result.takeIf { it != rolls }
     }
 
@@ -69,37 +72,37 @@ class AffixRoller(private val index: ContentIndex) {
     fun ensureAffixes(template: ItemTemplate, item: ItemInstance, dice: Dice): Boolean {
         val floor = index.limits(item.rarity, template.slot).floor
         if (item.rarity.fixed || floor == 0 || item.rolls.count(::isAffix) >= floor) return false
-        item.rolls = normalize(template, item.rarity, item.rolls, dice, item.influence) ?: return false
+        item.rolls = normalize(template, item.rarity, item.rolls, dice, item.influence, item.level(template)) ?: return false
         return true
     }
 
     /** Один аффикс сверх имеющихся на свободное место; null - мест нет или таблица исчерпана. */
-    fun rollExtraAffix(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence? = null): Roll? =
-        rollExtraFrom(affixPool(template, influence), template, rarity, current, dice)
+    fun rollExtraAffix(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence? = null, level: Int = template.level): Roll? =
+        rollExtraFrom(affixPool(template, influence), template, rarity, current, dice, level)
 
     /** Один аффикс из [pool] сверх имеющихся - в пределах потолка, мест префиксов и суффиксов и групп; null - нельзя. */
-    fun rollExtraFrom(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice): Roll? {
+    fun rollExtraFrom(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, level: Int = template.level): Roll? {
         if (current.count(::isAffix) >= index.limits(rarity, template.slot).ceiling) return null
-        return rollOne(pool, template, rarity, current, dice)
+        return rollOne(pool, template, rarity, current, dice, level)
     }
 
     /** Один модификатор таблицы влияния - то, что делает сфера влияния. */
-    fun rollInfluenced(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, influence: Influence, dice: Dice): Roll? =
-        rollOne(index.affixPool(influenceTags(influence, template.slot)), template, rarity, current, dice)
+    fun rollInfluenced(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, influence: Influence, dice: Dice, level: Int = template.level): Roll? =
+        rollOne(index.affixPool(influenceTags(influence, template.slot)), template, rarity, current, dice, level)
 
     /** Модификатор влияния наверняка: на свободное место, а без него - вместо случайного незакреплённого аффикса. */
-    fun forceInfluenced(template: ItemTemplate, rarity: Rarity, rolls: MutableList<Roll>, influence: Influence, dice: Dice): Boolean {
-        rollInfluenced(template, rarity, rolls, influence, dice)?.let { rolls += it; return true }
+    fun forceInfluenced(template: ItemTemplate, rarity: Rarity, rolls: MutableList<Roll>, influence: Influence, dice: Dice, level: Int = template.level): Boolean {
+        rollInfluenced(template, rarity, rolls, influence, dice, level)?.let { rolls += it; return true }
         dice.shuffled(rolls.filter { isAffix(it) && !it.fractured }).forEach { old ->
-            rollInfluenced(template, rarity, rolls - old, influence, dice)?.let { rolls[rolls.indexOf(old)] = it; return true }
+            rollInfluenced(template, rarity, rolls - old, influence, dice, level)?.let { rolls[rolls.indexOf(old)] = it; return true }
         }
         return false
     }
 
-    private fun rollOne(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice): Roll? {
+    private fun rollOne(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, level: Int): Roll? {
         val defs = definitions(current)
         val (prefixes, suffixes) = freeSlots(rarity, defs, template.slot)
-        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), defs.map { it.groupKey }, 1, dice).firstOrNull()?.let { roll(it, template.level, dice) }
+        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), defs.map { it.groupKey }, 1, dice).firstOrNull()?.let { roll(it, level, dice) }
     }
 
     /** Взвешенный выбор аффиксов на свободные места без повторов группы: места двух видов тянутся из одного мешка. */
