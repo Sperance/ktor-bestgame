@@ -16584,6 +16584,8 @@
       "code": "TIDECALLER_CONCH",
       "slot": "AMULET",
       "rarity": "UNIQUE",
+      "level": 1,
+      "requiredLevel": 1,
       "requiredIntelligence": 2,
       "lines": [
         [

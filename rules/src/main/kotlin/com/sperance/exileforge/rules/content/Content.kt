@@ -10,6 +10,9 @@ import com.sperance.exileforge.rules.table.TablesFile
 import com.sperance.exileforge.rules.table.Weighted
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 
@@ -121,7 +124,16 @@ object ContentLoader {
             quests = parse(ContentFiles.QUESTS, QuestRules.serializer()),
             hashes = texts.mapValues { sha256(it.value) },
         )
+        requireStatedLevels(texts.getValue(ContentFiles.EQUIPMENT))
         return ContentIndex(content).also { it.validate() }
+    }
+
+    /** Уникалка и мифик называют `level` и `requiredLevel` сами: молчаливая единица по умолчанию прячет ошибку уровня. */
+    private fun requireStatedLevels(equipment: String) {
+        val fixed = Rarity.entries.filter { it.fixed }.map { it.name }.toSet()
+        RulesJson.parseToJsonElement(equipment).jsonObject["templates"]?.jsonArray.orEmpty().map { it.jsonObject }
+            .filter { it["rarity"]?.jsonPrimitive?.content in fixed }
+            .forEach { if ("level" !in it || "requiredLevel" !in it) fail("equipment: ${it["code"]?.jsonPrimitive?.content} states no level") }
     }
 }
 
@@ -284,6 +296,22 @@ private class CampaignValidator(private val index: ContentIndex) {
     private val content = index.campaign
     private val stats = index.stats
 
+    /**
+     * Уникалка босса требует не выше уровня его локации + `uniqueReach`, а любая уникалка - не выше последней
+     * локации + `uniqueReach`: тот же потолок, что у мировых уникалок ([com.sperance.exileforge.rules.roll.Loot.unique]).
+     */
+    private fun validateUniqueLevels() {
+        val reach = index.rules.loot.uniqueReach
+        content.zones.forEach { zone ->
+            val boss = index.monster(zone.boss) ?: return@forEach
+            index.templatePool(boss.tables).forEach { (template) ->
+                if (maxOf(template.level, template.requiredLevel) > zone.level + reach) fail("campaign: ${template.code} of ${boss.code} is above ${zone.code} level ${zone.level} + $reach")
+            }
+        }
+        val cap = content.zones.maxOf { it.level } + reach
+        index.content.equipment.templates.filter { it.unique && maxOf(it.level, it.requiredLevel) > cap }.forEach { fail("equipment: ${it.code} is above level cap $cap") }
+    }
+
     fun validate() {
         (content.defaults.keys + content.growth.keys).forEach(::stat)
         if (content.rarities.map { it.rarity }.toSet() != MonsterRarity.entries.toSet()) fail("campaign: rarities")
@@ -342,6 +370,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         }
         val bosses = content.zones.map { it.boss }
         if (bosses.toSet().size != bosses.size) fail("campaign: a boss guards two zones")
+        validateUniqueLevels()
         content.monsters.filter { it.corrupted }.forEach { guardian ->
             if (guardian.boss) fail("campaign: corrupted boss ${guardian.code}")
             if (guardian.tables.isNotEmpty() || guardian.fixed.any { it !in bossModifiers }) fail("campaign: corrupted ${guardian.code}")
