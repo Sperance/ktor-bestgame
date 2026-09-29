@@ -26,7 +26,7 @@ class GuildRoute(private val repo: GuildRepository) : BaseRoute<Guild>(
     override fun additionalRoutes(route: Route) = with(route) {
         get("/mine") { call.respondOk(repo.mine(call.heroId)) }
         get("/search") {
-            call.respondOk(repo.search(call.heroId, call.optionalParam("text"), call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
+            call.respondOk(repo.search(call.heroId, call.optionalParam("text"), call.optionalParam("faction"), call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
         }
         post("/create") {
             call.respondWithHero(repo.create(

@@ -79,11 +79,14 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         return inside(change, hero)
     }
 
-    suspend fun search(heroId: String, text: String?, page: Int, size: Int): PagedMongoResponse<GuildCard> {
+    /** Поиск по имени или тегу [text]; [faction] - только гильдии этой фракции. Порядок - по опыту (рейтинг). */
+    suspend fun search(heroId: String, text: String?, faction: String?, page: Int, size: Int): PagedMongoResponse<GuildCard> {
         heroes.requireHero(heroId, "guildSearch")
-        val filter = text?.trim()?.takeIf { it.isNotEmpty() }?.let {
-            Filters.or(Filters.regex("name", Pattern.quote(it), "i"), Filters.eq("tag", it.uppercase()))
-        } ?: Filters.empty()
+        val filters = listOfNotNull(
+            text?.trim()?.takeIf { it.isNotEmpty() }?.let { Filters.or(Filters.regex("name", Pattern.quote(it), "i"), Filters.eq("tag", it.uppercase())) },
+            faction?.trim()?.takeIf { it.isNotEmpty() }?.let { Filters.eq("faction", it) },
+        )
+        val filter = if (filters.isEmpty()) Filters.empty() else Filters.and(filters)
         val found = findPaged(filter, page, size, Sorts.orderBy(Sorts.descending("experience"), Sorts.ascending("_id")))
         return PagedMongoResponse(found.items.map(::card), found.page, found.totalItems, found.totalPages)
     }
@@ -326,7 +329,6 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val week = week(change.now)
         if (me.week != week) { me.week = week; me.weekContribution = 0 }
         me.weekContribution += value
-        hero.guildMarks += rules.marksFor(value)
         change.touch(hero)
         change.log(GuildLogKind.CONTRIBUTED, hero.name, "$amount ${if (gold) GOLD else item}")
         val rankAfter = rules.rankIndex(me.contribution)

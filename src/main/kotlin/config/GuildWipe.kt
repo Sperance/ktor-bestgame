@@ -36,9 +36,9 @@ object GuildWipe {
         printLog("Guild wipe $MARKER")
         listOf(Guild::class, GuildEvent::class, GuildChat::class).forEach { database.getCollection(it.simpleName!!, Document::class.java).drop() }
         val heroes = database.getCollection(Hero::class.simpleName!!, Document::class.java).updateMany(
-            Filters.or(Filters.ne("guild", null), Filters.ne("guildLeftAt", 0L), Filters.ne("guildMarks", 0L), Filters.ne("quests.guild", null)),
+            Filters.or(Filters.ne("guild", null), Filters.ne("guildLeftAt", 0L), Filters.exists("guildMarks"), Filters.ne("quests.guild", null)),
             Updates.combine(
-                Updates.set("guild", null), Updates.set("guildLeftAt", 0L), Updates.set("guildMarks", 0L), Updates.set("quests.guild", null),
+                Updates.set("guild", null), Updates.set("guildLeftAt", 0L), Updates.unset("guildMarks"), Updates.set("quests.guild", null),
                 Updates.inc(CONST_FIELD_VERSION, 1L), Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now()),
             ),
         )

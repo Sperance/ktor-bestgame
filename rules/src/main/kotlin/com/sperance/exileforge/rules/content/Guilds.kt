@@ -27,9 +27,9 @@ data class GuildCreateRule(val level: Int = 20, val gold: Long = 10_000)
 @Serializable
 data class GuildMembersRule(val base: Int = 10, val perLevel: Int = 5, val max: Int = 30)
 
-/** Суточный потолок вклада героя - [dailyPerLevel] × уровень героя в золотой стоимости; знак гильдии - за каждые [marksPer] золота. */
+/** Суточный потолок вклада героя - [dailyPerLevel] × уровень героя в золотой стоимости. */
 @Serializable
-data class GuildContributionRule(val dailyPerLevel: Long = 2000, val marksPer: Long = 100)
+data class GuildContributionRule(val dailyPerLevel: Long = 2000)
 
 /** Ранг участника с личного вклада [from] за всё время в гильдии; подпись - `guild.rank.<code>`. */
 @Serializable
@@ -84,9 +84,6 @@ data class GuildRules(
 
     /** Сколько золотой стоимости герой уровня [heroLevel] вносит за сутки. */
     fun dailyLimit(heroLevel: Int): Long = contribution.dailyPerLevel * heroLevel
-
-    /** Знаков гильдии за вклад стоимостью [value]. */
-    fun marksFor(value: Long): Long = if (contribution.marksPer <= 0) 0 else value / contribution.marksPer
 
     fun validate() {
         if (levels.isEmpty() || levels.first() != 0L || levels.zipWithNext().any { (a, b) -> b <= a }) fail("guilds: levels must start at 0 and grow")

@@ -102,7 +102,7 @@ data class QuestBoardRule(val size: Int = 6, val active: Int = 3, val refillHour
 
 /**
  * Гильдейские: [personal] - личных на сутки; общая цель = `base × участники`, в долю входит тот, кто внёс не меньше
- * [fairShare] средней доли; опыт гильдии - золото награды × [experience], знаки - золото награды / `marksPer` гильдии.
+ * [fairShare] средней доли; опыт гильдии - золото награды × [experience].
  */
 @Serializable
 data class GuildQuestRule(val fairShare: Double = 0.25, val experience: Double = 1.0, val sharedLevel: Int = 0)
@@ -195,14 +195,13 @@ data class QuestRules(
 
 // ==================== СОСТОЯНИЕ ====================
 
-/** Награда задания: выроллена заранее, игрок видит ровно то, что получит. [guildExperience] и [marks] - только гильдейские. */
+/** Награда задания: выроллена заранее, игрок видит ровно то, что получит. [guildExperience] - только гильдейский. */
 @Serializable
 data class QuestReward(
     val gold: Long = 0,
     val experience: Double = 0.0,
     val orbs: Map<String, Long> = emptyMap(),
     val guildExperience: Long = 0,
-    val marks: Long = 0,
 )
 
 /**

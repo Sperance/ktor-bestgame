@@ -49,13 +49,11 @@ data class HeroView(
     /** Летопись (1.3.0): накопленные счётчики - выводимые клиент добавит сам - и титул у имени. */
     val counters: Map<String, Long> = emptyMap(),
     val title: String = "",
-    /** Знаки гильдии (1.20.0). */
-    val guildMarks: Long = 0,
 ) {
     companion object {
         fun of(hero: Hero) = HeroView(hero._id, hero.userId, hero.name, hero.description, hero.heroClass, hero.level, hero.experience, hero.money,
             hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.auctionSlots, hero.version, hero.stashSlots,
-            hero.counters.toMap(), hero.title, hero.guildMarks)
+            hero.counters.toMap(), hero.title)
     }
 }
 

@@ -145,11 +145,11 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     /** Жетонов в Ваал-зоне: бросок зоны на своём потоке. */
     val vaalCount: Int by lazy { streams.of("vaalCount").between(zone.count).coerceAtLeast(1) }
 
-    /** Жетон [i]: вожак и до двух спутников с шансом [PACK_CHANCE]; редкость каждого - по таблице зоны и строкам карты. */
+    /** Жетон [i]: вожак, а с шансом [PACK_CHANCE] - стая из 2..[PACK_MAX] (вожак и 1..5 спутников); редкость каждого - по таблице зоны и строкам карты. */
     fun spawn(i: Int, vaal: Boolean = false): Spawn {
         val dice = streams.of(if (vaal) "vaalMonster" else "monster", i)
         val packDice = streams.of(if (vaal) "vaalPack" else "pack", i)
-        val size = if (packDice.chance(PACK_CHANCE)) 1 + packDice.nextInt(PACK_MAX) else 1
+        val size = if (packDice.chance(PACK_CHANCE)) 2 + packDice.nextInt(PACK_MAX - 1) else 1
         val members = List(size) { m -> if (m == 0) roll(dice) else roll(packDice) }
         return Spawn(i, members)
     }
@@ -331,8 +331,10 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     fun itemId(event: String): String = "r${java.lang.Long.toHexString(seed)}-$event"
 
     companion object {
-        const val PACK_CHANCE = 0.20
-        const val PACK_MAX = 3
+        const val PACK_CHANCE = 0.35
+        /** Жёсткий предел стаи вместе с вожаком. */
+        const val PACK_MAX = 6
+        /** Шаг жетона убийства `i * PACK_SLOTS + m`: не меньше [PACK_MAX], иначе жетоны разных стай совпадут. */
         const val PACK_SLOTS = 8
         /** Глубин на одну копилку в потоке: номер копилки и глубина не пересекаются. */
         const val HOARD_DEPTHS = 1000

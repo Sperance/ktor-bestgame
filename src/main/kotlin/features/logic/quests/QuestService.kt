@@ -226,11 +226,9 @@ class QuestService : KoinComponent {
         val gold = rules.gold(level, scale)
         val orbs = HashMap<String, Long>()
         repeat(kindRule.orbs) { weighted(rarityRule.orbs, dice) { it.weight }?.let { orbs.merge(it.code, it.amount, Long::plus) } }
-        val guild = kind == QuestKind.GUILD
         return QuestReward(
             gold, rules.experience(index.classes, level, scale), orbs,
-            guildExperience = if (guild) (gold * rules.guild.experience).toLong() else 0,
-            marks = if (guild) index.guilds.marksFor(gold) else 0,
+            guildExperience = if (kind == QuestKind.GUILD) (gold * rules.guild.experience).toLong() else 0,
         )
     }
 
@@ -240,7 +238,6 @@ class QuestService : KoinComponent {
         Counter.add(hero.counters, Counter.GOLD_EARNED, reward.gold)
         if (reward.experience > 0) Rewards.addExperience(hero, reward.experience, index)
         reward.orbs.forEach { (code, amount) -> if (index.item(code) != null) hero.earn(code, amount, index.rules.maxStack) }
-        hero.guildMarks += reward.marks
     }
 
     /**
