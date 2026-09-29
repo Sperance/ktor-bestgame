@@ -13988,6 +13988,213 @@
       ],
       "x": 138,
       "y": -1229
+    },
+    {
+      "code": "CHG_MAR_0",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "MAXIMUM_ENDURANCE_CHARGES",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_T5_1"
+      ],
+      "x": 1436,
+      "y": -773
+    },
+    {
+      "code": "CHG_MAR_1",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ENDURANCE_CHARGE_WHEN_HIT",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            40.0
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_T1_1"
+      ],
+      "x": 581,
+      "y": -1495
+    },
+    {
+      "code": "CHG_RAN_0",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "MAXIMUM_FRENZY_CHARGES",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            6.0
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_T1_1"
+      ],
+      "x": 1188,
+      "y": 1153
+    },
+    {
+      "code": "CHG_RAN_1",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "FRENZY_CHARGE_ON_HIT",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_T5_1"
+      ],
+      "x": 29,
+      "y": 1607
+    },
+    {
+      "code": "CHG_WIT_0",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "MAXIMUM_POWER_CHARGES",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_T5_1"
+      ],
+      "x": -1364,
+      "y": -867
+    },
+    {
+      "code": "CHG_WIT_1",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "POWER_CHARGE_ON_CRIT",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            20.0
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_T1_1"
+      ],
+      "x": -1494,
+      "y": 355
+    },
+    {
+      "code": "CHG_DUE_0",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "FRENZY_CHARGE_ON_KILL",
+          "values": [
+            12.0
+          ]
+        },
+        {
+          "code": "ENDURANCE_CHARGE_ON_KILL",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_T1_1"
+      ],
+      "x": 1474,
+      "y": -606
+    },
+    {
+      "code": "CHG_TEM_0",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ENDURANCE_CHARGE_ON_KILL",
+          "values": [
+            12.0
+          ]
+        },
+        {
+          "code": "POWER_CHARGE_ON_KILL",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_T1_1"
+      ],
+      "x": -1017,
+      "y": -1286
+    },
+    {
+      "code": "CHG_SHA_0",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "FRENZY_CHARGE_ON_KILL",
+          "values": [
+            10.0
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_T1_1"
+      ],
+      "x": -51,
+      "y": 1595
     }
   ]
 }

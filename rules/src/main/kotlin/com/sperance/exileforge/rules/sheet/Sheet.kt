@@ -8,6 +8,9 @@ import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SheetStep
 import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.content.SlotOp
+import com.sperance.exileforge.rules.content.SlotPick
+import com.sperance.exileforge.rules.content.SlotRule
 import com.sperance.exileforge.rules.content.StatRegistry
 import com.sperance.exileforge.rules.content.tenths
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -90,7 +93,7 @@ class SheetCalculator(private val index: ContentIndex) {
 
     /** Итог по операциям: свод и силы уникалок поверх; [trace] слышит каждый шаг сил. */
     fun compute(base: Map<String, Double>, operations: Collection<StatOperation>, trace: ((SheetStep) -> Unit)? = null): Map<String, Double> =
-        index.powers.applySheet(raw(base, operations), trace)
+        index.powers.applySheet(raw(base, operations), trace, stats::isPercent)
 
     /** Строки вещи в операции над героем: локальные свёрнуты внутри от нулевой базы и отданы прибавкой. */
     fun foldItem(template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null): List<StatOperation> {
@@ -128,6 +131,8 @@ class SheetCalculator(private val index: ContentIndex) {
         val base = heroClass?.baseOn(level).orEmpty()
         val operations = ArrayList<StatOperation>(expand(heroClass?.lines.orEmpty(), heroClass?.let { StatSource(SourceKind.CLASS, it.code) }))
         operations += expand(lines)
+        val own = operations.size
+        val worn = mutableListOf<Worn>()
         var stats = compute(base, operations)
         var stale = false
         val active = mutableListOf<String>()
@@ -150,11 +155,91 @@ class SheetCalculator(private val index: ContentIndex) {
                 if (unmet.isNotEmpty()) { inactive += InactiveItem(item.id, template.code, unmet); return@forEach }
             }
             active += item.id
-            operations += foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id))
+            val folded = foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id))
+            worn += Worn(item, template, folded)
+            operations += folded
             stale = true
         }
-        if (stale) stats = compute(base, operations)
-        return SheetResult(stats, active, inactive, base, operations)
+        // Счёт надетого и силы слотов (1.32.0) ложатся на готовый набор: требования вещей их не видят.
+        val counted = base + WornCount.of(equipped, worn.map { it.item to it.template })
+        val slotted = slotted(worn)
+        if (slotted != null) { operations.subList(own, operations.size).clear(); operations += slotted }
+        if (stale || slotted != null || counted.size != base.size) stats = compute(counted, operations)
+        return SheetResult(stats, active, inactive, counted, operations)
+    }
+
+    /** Работающая вещь героя: копия, шаблон и её операции. */
+    private class Worn(val item: ItemInstance, val template: ItemTemplate, val ops: List<StatOperation>)
+
+    /**
+     * Силы слотов ([SlotRule], 1.32.0) над работающими вещами: зеркало копирует строки второго кольца в носителя, усиление множит
+     * строки выбранных вещей. Доля - ролл силы на носителе, строки самих сил слотов не множатся и не копируются. Null - сил слотов нет.
+     */
+    private fun slotted(worn: List<Worn>): List<StatOperation>? {
+        val rules = index.powers.slotPowers
+        if (rules.isEmpty() || worn.none { w -> w.ops.any { it.stat in rules } }) return null
+        val factor = DoubleArray(worn.size) { 1.0 }
+        val mirrored = Array(worn.size) { emptyList<StatOperation>() }
+        worn.forEachIndexed { i, holder ->
+            val other = otherRing(holder, worn)
+            rules.forEach { (power, rule) ->
+                val rolled = holder.ops.filter { it.stat == power && it.op == Op.ADD }.sumOf { it.value }
+                if (rolled == 0.0) return@forEach
+                if (rule.ifOtherUnique && other?.template?.unique != true) return@forEach
+                val value = rule.value ?: rolled
+                when (rule.op) {
+                    SlotOp.MIRROR -> other?.let { source ->
+                        mirrored[i] = mirrored[i] + source.ops.filter { it.stat !in rules }.map { it.scaled(value / 100).copy(source = StatSource(SourceKind.ITEM, holder.item.id)) }
+                    }
+                    SlotOp.AMPLIFY -> worn.indices.filter { j -> reaches(rule, holder, worn[j], i == j) }.forEach { j -> factor[j] *= (1 + value / 100).coerceAtLeast(0.0) }
+                }
+            }
+        }
+        return worn.flatMapIndexed { i, w -> (w.ops + mirrored[i]).map { op -> if (op.stat in rules || factor[i] == 1.0) op else op.scaled(factor[i]) } }
+    }
+
+    private fun otherRing(holder: Worn, worn: List<Worn>): Worn? = otherRingPlace(holder.item.slot)?.let { place -> worn.firstOrNull { it.item.slot == place } }
+
+    private fun reaches(rule: SlotRule, holder: Worn, target: Worn, self: Boolean): Boolean {
+        if (rule.rarity != null && target.item.rarity != rule.rarity) return false
+        return when (rule.pick) {
+            SlotPick.SELF -> self
+            SlotPick.OTHER_RING -> !self && target.item.slot != null && target.item.slot == otherRingPlace(holder.item.slot)
+            SlotPick.SLOTS -> !self && (target.item.slot in rule.slots || target.template.slot in rule.slots)
+        }
+    }
+
+    private fun otherRingPlace(slot: Slot?): Slot? = when (slot) { Slot.RING -> Slot.RING_2; Slot.RING_2 -> Slot.RING; else -> null }
+}
+
+/** Операция, умноженная на [factor]: SET остаётся как есть. */
+private fun StatOperation.scaled(factor: Double): StatOperation = if (op == Op.SET) this else copy(value = value * factor)
+
+/**
+ * Счёт надетого (1.32.0) - база листа для правил сил: `STOCK_WORN_EMPTY_SLOTS` - пустые места тела (9 мест, основная рука и вторая:
+ * двуручное занимает обе), `STOCK_WORN_UNIQUES`, `STOCK_WORN_CORRUPTED`, `STOCK_WORN_JEWELS` - работающие уникалки, осквернённые вещи
+ * и самоцветы. Ноль в базу не пишется.
+ */
+object WornCount {
+    const val EMPTY_SLOTS = "STOCK_WORN_EMPTY_SLOTS"
+    const val UNIQUES = "STOCK_WORN_UNIQUES"
+    const val CORRUPTED = "STOCK_WORN_CORRUPTED"
+    const val JEWELS = "STOCK_WORN_JEWELS"
+    val STATS = listOf(EMPTY_SLOTS, UNIQUES, CORRUPTED, JEWELS)
+    private val BODY = listOf(Slot.HELMET, Slot.BODY, Slot.GLOVES, Slot.BOOTS, Slot.WINGS, Slot.BELT, Slot.AMULET, Slot.RING, Slot.RING_2)
+
+    /** Счёт по надетому [equipped] (места тела) и работающим вещам [active] с их шаблонами. */
+    fun of(equipped: Collection<ItemInstance>, active: List<Pair<ItemInstance, ItemTemplate>>): Map<String, Double> {
+        val taken = equipped.filter { !it.socketed }.mapNotNullTo(HashSet()) { it.slot }
+        val mainHand = Slot.WEAPON_1H in taken || Slot.WEAPON_2H in taken
+        val offHand = Slot.WEAPON_2H in taken || Slot.SHIELD in taken || Slot.QUIVER in taken
+        val empty = BODY.count { it !in taken } + (if (mainHand) 0 else 1) + (if (offHand) 0 else 1)
+        return mapOf(
+            EMPTY_SLOTS to empty.toDouble(),
+            UNIQUES to active.count { (_, template) -> template.unique }.toDouble(),
+            CORRUPTED to active.count { (item, _) -> item.corrupted }.toDouble(),
+            JEWELS to active.count { (_, template) -> template.slot == Slot.JEWEL }.toDouble(),
+        ).filterValues { it != 0.0 }
     }
 }
 

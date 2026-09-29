@@ -203,6 +203,47 @@ data class PetRules(val cap: Int = 20, val releaseGold: Map<Rarity, Long> = mapO
 }
 
 /**
+ * Заряды героя (1.32.0): ярость, сила, выносливость. Максимум вида - [maximum] + стат [ChargeRule.max] листа (не меньше нуля), срок -
+ * [duration] с × (1 + [durationStat]/100); получение заряда вида обновляет срок всех его зарядов, конец боя их снимает, этап поэтапного
+ * боя передаёт следующему. Каждый заряд кладёт на героя строки [ChargeRule.lines]. Получают заряды только силы и умения.
+ */
+@Serializable
+data class ChargeRules(
+    val maximum: Int = 3,
+    val duration: Double = 10.0,
+    val durationStat: String = "STOCK_CHARGE_DURATION",
+    val kinds: Map<ChargeKind, ChargeRule> = mapOf(
+        ChargeKind.FRENZY to ChargeRule(
+            "STOCK_MAX_FRENZY_CHARGES",
+            listOf(PowerLine("STOCK_ATTACK_SPEED", Op.INCREASED, 2.0), PowerLine("STOCK_CAST_SPEED", Op.INCREASED, 2.0), PowerLine("STOCK_DAMAGE", Op.MORE, 2.0)),
+        ),
+        ChargeKind.POWER to ChargeRule("STOCK_MAX_POWER_CHARGES", listOf(PowerLine("STOCK_CRITICAL_CHANCE", Op.INCREASED, 20.0))),
+        ChargeKind.ENDURANCE to ChargeRule(
+            "STOCK_MAX_ENDURANCE_CHARGES", listOf(PowerLine("STOCK_PHYSICAL_REDUCTION", Op.ADD, 2.0), PowerLine("STOCK_RESIST_ALL", Op.ADD, 2.0)),
+        ),
+    ),
+) {
+    /** Сколько зарядов вида [kind] держит герой с листом [sheet]. */
+    fun max(kind: ChargeKind, sheet: Map<String, Double>): Int =
+        kinds[kind]?.let { (maximum + (sheet[it.max] ?: 0.0).toInt()).coerceAtLeast(0) } ?: 0
+
+    /** Срок заряда у героя с листом [sheet], секунды. */
+    fun lifetime(sheet: Map<String, Double>): Double = (duration * (1 + (sheet[durationStat] ?: 0.0) / 100)).coerceAtLeast(0.0)
+
+    fun validate(stats: StatRegistry) {
+        if (maximum < 0 || duration <= 0 || durationStat !in stats) fail("rules: charges")
+        if (kinds.keys != ChargeKind.REAL.toSet()) fail("rules: charges of ${kinds.keys}, need ${ChargeKind.REAL}")
+        kinds.forEach { (kind, rule) ->
+            if (rule.max !in stats || rule.lines.isEmpty() || rule.lines.any { it.stat !in stats || it.value == null || it.scale != null }) fail("rules: charge $kind")
+        }
+    }
+}
+
+/** Вид заряда: стат прибавки к максимуму и строки одного заряда (значение в строке обязательно). */
+@Serializable
+data class ChargeRule(val max: String, val lines: List<PowerLine>)
+
+/**
  * Правила движка (`rules.json`): всё, что раньше было константами кода, - места аффиксов редкостей,
  * торговец, цена, верстак, сферы, фляги, стартовый набор, аукцион, добыча, тайник, заход.
  */
@@ -223,6 +264,7 @@ data class EngineRules(
     val stash: StashRules = StashRules(),
     val run: RunRules = RunRules(),
     val pets: PetRules = PetRules(),
+    val charges: ChargeRules = ChargeRules(),
     val maxCharacters: Int = 3,
     val maxStack: Long = 100_000_000_000L,
 ) {

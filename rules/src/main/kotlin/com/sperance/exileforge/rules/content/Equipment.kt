@@ -110,6 +110,8 @@ data class ItemTemplate(
     val fixed: List<String> = emptyList(),
     val tables: List<String> = emptyList(),
     val lines: List<List<UniqueLine>> = emptyList(),
+    /** Копия всегда осквернена (1.32.0): сферы её не меняют - уникалки Алтаря, зеркальное кольцо. */
+    val corrupted: Boolean = false,
 ) {
     val unique: Boolean get() = rarity.fixed
     val demanding: Boolean get() = requiredLevel > 1 || requiredStrength > 0 || requiredDexterity > 0 || requiredIntelligence > 0

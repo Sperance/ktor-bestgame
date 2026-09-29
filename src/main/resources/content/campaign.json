@@ -1192,6 +1192,9 @@
       "fixed": [
         "BOSS_EXECUTIONER",
         "MOB_SWIFT"
+      ],
+      "tables": [
+        "boss:BOSS_NEST_QUEEN"
       ]
     },
     {
@@ -1299,6 +1302,9 @@
       "fixed": [
         "BOSS_PLAGUEBEARER",
         "MOB_TOXIC"
+      ],
+      "tables": [
+        "boss:BOSS_MIRE_SERPENT"
       ]
     },
     {
@@ -1542,6 +1548,9 @@
       "fixed": [
         "BOSS_COLOSSAL",
         "MOB_REGENERATING"
+      ],
+      "tables": [
+        "boss:BOSS_ELDER_TROLL"
       ]
     },
     {
@@ -1886,6 +1895,9 @@
       "fixed": [
         "BOSS_WARLORD",
         "MOB_STALWART"
+      ],
+      "tables": [
+        "boss:BOSS_SAND_MAGISTRATE"
       ]
     },
     {
@@ -1909,6 +1921,9 @@
       "fixed": [
         "BOSS_DEVASTATING",
         "MOB_HUNGERING"
+      ],
+      "tables": [
+        "boss:BOSS_CARRION_MOTHER"
       ]
     },
     {
@@ -1982,6 +1997,9 @@
       "fixed": [
         "BOSS_WARLORD",
         "MOB_MERCILESS"
+      ],
+      "tables": [
+        "boss:BOSS_RAIDER_KHAN"
       ]
     },
     {
@@ -2037,6 +2055,9 @@
       "fixed": [
         "BOSS_DREAD",
         "MOB_EVASIVE"
+      ],
+      "tables": [
+        "boss:BOSS_MIRAGE_WEAVER"
       ]
     },
     {
@@ -2142,6 +2163,9 @@
       "fixed": [
         "BOSS_PLAGUEBEARER",
         "MOB_WITHERING"
+      ],
+      "tables": [
+        "boss:BOSS_HIGH_EMBALMER"
       ]
     },
     {
@@ -2170,6 +2194,9 @@
       "fixed": [
         "BOSS_DREAD",
         "MOB_FLAMING"
+      ],
+      "tables": [
+        "boss:BOSS_SUN_PRIEST"
       ]
     },
     {
@@ -2323,6 +2350,9 @@
       "fixed": [
         "BOSS_DREAD",
         "MOB_LINGERING"
+      ],
+      "tables": [
+        "boss:BOSS_ORCHID_DRYAD"
       ]
     },
     {
@@ -2484,6 +2514,9 @@
       "fixed": [
         "BOSS_DEVASTATING",
         "MOB_BLIGHTED"
+      ],
+      "tables": [
+        "boss:BOSS_CANOPY_HORROR"
       ]
     },
     {
@@ -2609,6 +2642,9 @@
       "fixed": [
         "BOSS_SIEGE",
         "MOB_THORNY"
+      ],
+      "tables": [
+        "boss:BOSS_TREE_WARDEN"
       ]
     },
     {
@@ -2745,6 +2781,9 @@
       "fixed": [
         "BOSS_PLAGUEBEARER",
         "MOB_TOXIC"
+      ],
+      "tables": [
+        "boss:BOSS_SULPHUR_KING"
       ]
     },
     {
@@ -2872,6 +2911,9 @@
       "fixed": [
         "BOSS_SIEGE",
         "MOB_CRUSHING"
+      ],
+      "tables": [
+        "boss:BOSS_ETERNAL_BESIEGER"
       ]
     },
     {
@@ -2998,6 +3040,9 @@
       "fixed": [
         "BOSS_DREAD",
         "MOB_ELEMENTALIST"
+      ],
+      "tables": [
+        "boss:BOSS_SMOULDERING_LICH"
       ]
     },
     {
@@ -3186,6 +3231,9 @@
       "fixed": [
         "BOSS_DREAD",
         "MOB_WITHERING"
+      ],
+      "tables": [
+        "boss:BOSS_RIFT_WATCHER"
       ]
     },
     {
@@ -3210,6 +3258,9 @@
       "fixed": [
         "BOSS_EXECUTIONER",
         "MOB_BLIGHTED"
+      ],
+      "tables": [
+        "boss:BOSS_PLAGUE_REAPER"
       ]
     },
     {
@@ -3268,6 +3319,9 @@
       "fixed": [
         "BOSS_DEVASTATING",
         "MOB_FROSTBORN"
+      ],
+      "tables": [
+        "boss:BOSS_WHISPERER"
       ]
     },
     {
@@ -3291,6 +3345,9 @@
       "fixed": [
         "BOSS_PLAGUEBEARER",
         "MOB_REGENERATING"
+      ],
+      "tables": [
+        "boss:BOSS_ROT_GARDENER"
       ]
     },
     {
@@ -3343,6 +3400,9 @@
       "fixed": [
         "BOSS_COLOSSAL",
         "MOB_STURDY"
+      ],
+      "tables": [
+        "boss:BOSS_BONE_COLLECTOR"
       ]
     },
     {
@@ -3396,6 +3456,9 @@
       "fixed": [
         "BOSS_DREAD",
         "MOB_LINGERING"
+      ],
+      "tables": [
+        "boss:BOSS_SPORE_CARDINAL"
       ]
     },
     {
@@ -3421,6 +3484,9 @@
       "fixed": [
         "BOSS_TEMPEST",
         "MOB_STORMBORN"
+      ],
+      "tables": [
+        "boss:BOSS_STAR_SPAWN"
       ]
     },
     {
@@ -3445,6 +3511,9 @@
       "fixed": [
         "BOSS_DEVASTATING",
         "MOB_HUNGERING"
+      ],
+      "tables": [
+        "boss:BOSS_CATACOMB_WORM"
       ]
     },
     {
@@ -3471,6 +3540,9 @@
       "fixed": [
         "BOSS_SIEGE",
         "MOB_WITHERING"
+      ],
+      "tables": [
+        "boss:BOSS_WITHERED_GIANT"
       ]
     },
     {
@@ -3527,6 +3599,9 @@
       "fixed": [
         "BOSS_EXECUTIONER",
         "MOB_VENOMOUS"
+      ],
+      "tables": [
+        "boss:BOSS_EYELESS_ONE"
       ]
     },
     {
@@ -3551,6 +3626,9 @@
       "fixed": [
         "BOSS_IMMORTAL",
         "MOB_BLIGHTED"
+      ],
+      "tables": [
+        "boss:BOSS_MOTHER_BLIGHT"
       ]
     },
     {
@@ -3578,6 +3656,9 @@
       "fixed": [
         "BOSS_MIRROR_SHELL",
         "MOB_MIRRORED"
+      ],
+      "tables": [
+        "boss:BOSS_VEIL_WEAVER"
       ]
     },
     {
@@ -3602,6 +3683,9 @@
       "fixed": [
         "BOSS_WARLORD",
         "MOB_RELENTLESS"
+      ],
+      "tables": [
+        "boss:BOSS_ENDLESS_WARDEN"
       ]
     },
     {

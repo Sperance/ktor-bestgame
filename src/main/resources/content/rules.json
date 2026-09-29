@@ -193,5 +193,55 @@
   },
   "run": {
     "newSeedSeconds": 30
+  },
+  "charges": {
+    "maximum": 3,
+    "duration": 10.0,
+    "durationStat": "STOCK_CHARGE_DURATION",
+    "kinds": {
+      "FRENZY": {
+        "max": "STOCK_MAX_FRENZY_CHARGES",
+        "lines": [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "value": 2.0
+          },
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "op": "INCREASED",
+            "value": 2.0
+          },
+          {
+            "stat": "STOCK_DAMAGE",
+            "op": "MORE",
+            "value": 2.0
+          }
+        ]
+      },
+      "POWER": {
+        "max": "STOCK_MAX_POWER_CHARGES",
+        "lines": [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "value": 20.0
+          }
+        ]
+      },
+      "ENDURANCE": {
+        "max": "STOCK_MAX_ENDURANCE_CHARGES",
+        "lines": [
+          {
+            "stat": "STOCK_PHYSICAL_REDUCTION",
+            "value": 2.0
+          },
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "value": 2.0
+          }
+        ]
+      }
+    }
   }
 }

@@ -21,7 +21,7 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
 
     fun create(id: String, template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null): ItemInstance {
         val actual = rarityFor(template, rarity)
-        val item = ItemInstance(id, template.code, actual, affixes.roll(template, actual, dice, influence), influence = influence)
+        val item = ItemInstance(id, template.code, actual, affixes.roll(template, actual, dice, influence), influence = influence, corrupted = template.corrupted)
         affixes.ensureAffixes(template, item, dice)
         return item
     }
@@ -64,6 +64,7 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
             changed = true
         }
         if (affixes.ensureAffixes(template, item, dice)) changed = true
+        if (template.corrupted && !item.corrupted) { item.corrupted = true; changed = true }
         return changed
     }
 }

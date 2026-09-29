@@ -6323,6 +6323,3001 @@
       "world": {
         "gain": "MAP"
       }
+    },
+    {
+      "stat": "POWER_FRENZY_ON_KILL",
+      "roll": "CHANCE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "CHARGE",
+          "charge": "FRENZY"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_POWER_ON_KILL",
+      "roll": "CHANCE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "CHARGE",
+          "charge": "POWER"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ENDURANCE_ON_KILL",
+      "roll": "CHANCE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "CHARGE",
+          "charge": "ENDURANCE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FRENZY_ON_HIT",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "cooldown": 0.5,
+      "effects": [
+        {
+          "act": "CHARGE",
+          "charge": "FRENZY"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_POWER_ON_CRIT",
+      "roll": "CHANCE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "CHARGE",
+          "charge": "POWER"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ENDURANCE_WHEN_HIT",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "CHARGE",
+          "charge": "ENDURANCE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RANDOM_CHARGE_ON_KILL",
+      "roll": "CHANCE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "CHARGE",
+          "charge": "RANDOM"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LAST_THUNDER_RELAY",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "ATTACK"
+        }
+      ],
+      "cooldown": 0.3,
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "LIGHTNING",
+          "of": "INTELLECT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LAST_PEAL",
+      "roll": "CHANCE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "SHOCK"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GULL_SNATCH",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPRIG_KINDLING",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "SPELL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BEACON_GLEAM",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CAST_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VOID_RESONANCE",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_SPELL_DAMAGE",
+              "op": "INCREASED",
+              "scale": "POWER_CHARGES",
+              "cap": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HARP_DIRGE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HARP_OPENING_CHORD",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_MULTIPLIER"
+            }
+          ],
+          "duration": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GALE_SHATTER",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "FREEZE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "COLD",
+          "of": "TARGET_LIFE",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GALE_SPOILS",
+      "world": {
+        "gain": "RARITY",
+        "against": [
+          "RARE",
+          "UNIQUE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_COUNCIL_VERDICT",
+      "sheet": [
+        {
+          "op": "MORE",
+          "to": "STOCK_DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SUNLIT_ARROWS",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 4
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "FIRE",
+          "to": "RANDOM"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FEATHER_WEIGHT",
+      "sheet": [
+        {
+          "op": "MORE",
+          "to": "STOCK_DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FEATHER_FLURRY",
+      "roll": "CHANCE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "RUSH"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MIRAGE_DOUBLE",
+      "sheet": [
+        {
+          "op": "MORE",
+          "to": "STOCK_ATTACK_PHYSICAL"
+        },
+        {
+          "op": "MORE",
+          "to": "STOCK_ATTACK_FIRE"
+        },
+        {
+          "op": "MORE",
+          "to": "STOCK_ATTACK_COLD"
+        },
+        {
+          "op": "MORE",
+          "to": "STOCK_ATTACK_LIGHTNING"
+        },
+        {
+          "op": "MORE",
+          "to": "STOCK_ATTACK_CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MIRAGE_DRAG",
+      "sheet": [
+        {
+          "op": "MORE",
+          "to": "STOCK_ATTACK_SPEED"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_COAL_KINDLE",
+      "roll": "DURATION",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "IGNITE",
+          "to": "SELF"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_COAL_FERVOUR",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "SELF_AILED"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            },
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "value": 20
+            },
+            {
+              "stat": "STOCK_ATTACK_FIRE",
+              "op": "INCREASED",
+              "value": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_COAL_HEART",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RIME_DISCHARGE",
+      "on": "CRIT",
+      "checks": [
+        {
+          "check": "ATTACK"
+        }
+      ],
+      "cooldown": 0.25,
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "COLD",
+          "of": "INTELLECT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RIME_BRITTLE",
+      "roll": "CHANCE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "FREEZE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HERON_STANCE",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_EVASION",
+          "to": "STOCK_DAMAGE",
+          "per": 450
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HERON_STRIKE",
+      "roll": "CHANCE",
+      "on": "EVADE",
+      "effects": [
+        {
+          "act": "RUSH"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HOUND_BITE",
+      "on": "CRIT",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "DEALT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DARK_CONSUMPTION",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_FIRE",
+          "to": "STOCK_ATTACK_CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DARK_FEAST",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "POISON"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ALTAR_WRATH",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ALTAR_VAAL_SIGHT",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_CORRUPTED",
+          "to": "STOCK_DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BONE_BINDING",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_PET_LEVEL",
+          "value": 1
+        },
+        {
+          "op": "ADD",
+          "to": "STOCK_PET_HEALTH"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BONE_BURST",
+      "on": "PET_DEATH",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "of": "PET_LIFE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ANVIL_SPARK",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_RANDOM_ELEMENT_HITS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ANVIL_FORGE",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FEAST_CORPSE_BLAST",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "PHYSICAL",
+          "of": "TARGET_LIFE",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FEAST_GORGE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3,
+          "stacks": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VENT_ERUPTION",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "cooldown": 0.5,
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "FIRE",
+          "to": "ALL",
+          "amount": 100
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VENT_MAW",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STONE_RESOLVE",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_CRITICAL_CHANCE",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STONE_CRUSH",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "STUN",
+          "duration": 0.5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DISFAVOUR_REND",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "ATTACK"
+        }
+      ],
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "BLEED",
+          "stacks": 2
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TROLL_BELLOW",
+      "roll": "CHANCE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "STUN",
+          "to": "ALL",
+          "duration": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LADLE_SHARE",
+      "on": "PET_HIT",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "DEALT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LADLE_BROTH",
+      "on": "HIT",
+      "cooldown": 0.5,
+      "effects": [
+        {
+          "act": "HEAL",
+          "to": "PET"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BLIND_DEVOTION",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_SPELL_DAMAGE",
+          "to": "STOCK_DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ABBOT_BLINDNESS",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "value": -20
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BILGE_SCURRY",
+      "on": "EVADE",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BILGE_PLAGUE",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "POISON"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BARON_MARROW",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_STRENGTH",
+          "to": "STOCK_PET_HEALTH",
+          "per": 10
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BARON_LEGION",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_STRENGTH",
+          "to": "STOCK_PET_LEVEL",
+          "per": 50,
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VISAGE_ABYSS_GAZE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN"
+            }
+          ],
+          "duration": 3,
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VISAGE_DEPTHS",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "LIFE_BELOW",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_MULTIPLIER"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LAMP_SPIRIT_BURST",
+      "roll": "CHANCE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "to": "RANDOM",
+          "amount": 50
+        },
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "to": "RANDOM",
+          "amount": 50
+        },
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "to": "RANDOM",
+          "amount": 50
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LAMP_HOARD",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_JEWELS",
+          "to": "STOCK_DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_THORN_PRICK",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "HURT",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_THORN_RETORT",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "RETALIATE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TRIBUNAL_MIND",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_MANA_BEFORE_LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TRIBUNAL_VERDICT",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "MANA_ABOVE",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_LIGHTNING",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_INDIGO_MIND",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_MANA",
+          "to": "STOCK_SPELL_DAMAGE",
+          "per": 10,
+          "cap": 150
+        }
+      ]
+    },
+    {
+      "stat": "POWER_INDIGO_SURGE",
+      "on": "SKILL_USE",
+      "checks": [
+        {
+          "check": "MANA_ABOVE",
+          "value": 80
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CAST_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SAILCLOTH_FAIR_WIND",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SAILCLOTH_SALVAGE",
+      "world": {
+        "gain": "GOLD"
+      }
+    },
+    {
+      "stat": "POWER_PROTOTYPE_BULWARK",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_HIGHEST_RESIST_TAKEN"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PROTOTYPE_PLATING",
+      "sheet": [
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_CORRUPTED",
+          "to": "STOCK_ARMOR"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_COIL_GROUNDING",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_PHYSICAL_TAKEN_AS_LIGHTNING"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_COIL_DISCHARGE",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "SHOCK"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FLAMECLOAK_HEARTH",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_PHYSICAL_TAKEN_AS_FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FLAMECLOAK_EMBERS",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "IGNITE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEFIANCE_WILL",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_MANA_BEFORE_LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEFIANCE_RESOLVE",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "MANA_ABOVE",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_PHYSICAL_REDUCTION"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_THICKET_GRACE",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_EVASION",
+          "to": "STOCK_MOVEMENT_SPEED",
+          "per": 1000
+        },
+        {
+          "op": "PER",
+          "from": "STOCK_EVASION",
+          "to": "STOCK_CAST_SPEED",
+          "per": 1000,
+          "value": 0.5
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_EVASION",
+          "to": "STOCK_ATTACK_SPEED",
+          "per": 1000,
+          "value": 0.5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_QUEEN_BARE_BARK",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_ARMOR",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STORMBROKEN_BURST",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "SHOCK"
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "LIGHTNING",
+          "of": "TARGET_LIFE",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STORMBROKEN_PULSE",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "SHOCK"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FORGE_DOME_TEMPER",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_CRITICAL_TAKEN",
+          "value": -100
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FORGE_DOME_ANVIL",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ARMOR",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4,
+          "stacks": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DOCTOR_TRANSFUSION",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_HEALTH",
+          "to": "STOCK_PET_LIFE"
+        },
+        {
+          "op": "GAIN",
+          "from": "STOCK_ARMOR",
+          "to": "STOCK_PET_ARMOR"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DOCTOR_MIASMA",
+      "roll": "CHANCE",
+      "on": "PET_HIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "POISON"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_EMBALMED",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_HEALTH",
+          "value": 1
+        },
+        {
+          "op": "SET",
+          "to": "STOCK_CHAOS_IMMUNE",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_EMBALMERS_SEAL",
+      "roll": "DURATION",
+      "on": "SHIELD_BROKEN",
+      "cooldown": 20,
+      "effects": [
+        {
+          "act": "INVULNERABLE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RIMESORROW_GRIP",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_COLD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RIMESORROW_NUMB",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "value": -15
+            }
+          ],
+          "duration": 2
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CRYSTAL_STRENGTH",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_STRENGTH",
+          "to": "STOCK_DAMAGE",
+          "per": 10
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CRYSTAL_MIND",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_INTELLECT",
+          "to": "STOCK_ENERGY_SHIELD",
+          "per": 2
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CRYSTAL_GRACE",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_AGILITY",
+          "to": "STOCK_EVASION"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CARESS_DEVOTION",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_CORRUPTED",
+          "to": "STOCK_DAMAGE",
+          "cap": 48
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_CORRUPTED",
+          "to": "STOCK_ARMOR",
+          "value": 4,
+          "cap": 32
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_CORRUPTED",
+          "to": "STOCK_EVASION",
+          "value": 4,
+          "cap": 32
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_CORRUPTED",
+          "to": "STOCK_ENERGY_SHIELD",
+          "value": 4,
+          "cap": 32
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ALTAR_SCORN",
+      "sheet": [
+        {
+          "op": "ADD",
+          "from": "STOCK_WORN_CORRUPTED",
+          "to": "STOCK_DAMAGE",
+          "under": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DEEP_EMBRACE",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED",
+              "scale": "FRENZY_CHARGES",
+              "cap": 10
+            },
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED",
+              "scale": "POWER_CHARGES",
+              "cap": 10
+            },
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED",
+              "scale": "ENDURANCE_CHARGES",
+              "cap": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_KEEPER_OARS",
+      "sheet": [
+        {
+          "op": "MORE",
+          "from": "STOCK_INTELLECT",
+          "to": "STOCK_ATTACK_SPEED",
+          "per": 25
+        }
+      ]
+    },
+    {
+      "stat": "POWER_KEEPER_LOGBOOK",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_AGILITY",
+          "to": "STOCK_SPELL_DAMAGE",
+          "per": 10
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ORACLE_CURSE",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "CURSE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ORACLE_DOOM",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_CURSED"
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "of": "TARGET_LIFE",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ROOTS_GROUNDED",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_EVASION",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ROOTS_REGROWTH",
+      "on": "EVERY",
+      "every": 5,
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TURNCOAT_BETRAYAL",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_STRENGTH",
+          "to": "STOCK_ATTACK_CHAOS",
+          "per": 8
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TURNCOAT_SWITCH",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "RETALIATE",
+          "amount": 20,
+          "type": "CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PLAGUE_TRAIL_HOARD",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_JEWELS",
+          "to": "STOCK_DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PLAGUE_TRAIL_BURST",
+      "roll": "CHANCE",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "PHYSICAL",
+          "of": "TARGET_LIFE",
+          "to": "OTHERS",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RIFT_STEP",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_EVASION",
+              "op": "INCREASED",
+              "scale": "FRENZY_CHARGES",
+              "cap": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STORMWAKE_BOLT",
+      "on": "EVERY",
+      "every": 2,
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "LIGHTNING",
+          "to": "RANDOM"
+        },
+        {
+          "act": "AILMENT",
+          "ailment": "SHOCK",
+          "to": "RANDOM"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STORMWAKE_STRIDE",
+      "on": "EVADE",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_LIGHTNING",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LUCKDASH_GAMBLE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_MOVEMENT_SPEED",
+              "op": "INCREASED",
+              "value": -20,
+              "upto": 40
+            },
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "value": -10,
+              "upto": 20
+            }
+          ],
+          "duration": 3600
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LUCKDASH_WINDFALL",
+      "world": {
+        "gain": "GOLD"
+      }
+    },
+    {
+      "stat": "POWER_LOYAL_BANNER",
+      "sheet": [
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_UNIQUES",
+          "to": "STOCK_ARMOR",
+          "cap": 60
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_UNIQUES",
+          "to": "STOCK_EVASION",
+          "cap": 60
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_UNIQUES",
+          "to": "STOCK_ENERGY_SHIELD",
+          "cap": 60
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_UNIQUES",
+          "to": "STOCK_HEALTH",
+          "value": 3,
+          "cap": 36
+        }
+      ]
+    },
+    {
+      "stat": "POWER_LOYAL_OATH",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CARRION_FEAST",
+      "on": "EVADE",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RAIDER_CHARGE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_RAIDER_PLUNDER",
+      "world": {
+        "gain": "GOLD"
+      }
+    },
+    {
+      "stat": "POWER_FERRY_TOGETHER",
+      "on": "PET_KILL",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FERRY_TOLL_PAID",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "HEAL",
+          "to": "PET"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WORLDBLOOD_FLOW",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_FLASKS_AUTO"
+        },
+        {
+          "op": "MORE",
+          "to": "STOCK_FLASK_DURATION",
+          "value": 1000
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WORLDBLOOD_THIRST",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_FLASK_RECOVERY",
+          "value": -100
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TINKER_TUNING",
+      "slots": {
+        "op": "AMPLIFY",
+        "slots": [
+          "RING",
+          "RING_2"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_TINKER_GEARWORK",
+      "roll": "CHANCE",
+      "on": "SKILL_USE",
+      "effects": [
+        {
+          "act": "COOLDOWNS",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ENTHRONED_REIGN",
+      "slots": {
+        "op": "AMPLIFY",
+        "slots": [
+          "JEWEL"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_ENTHRONED_SHADOW",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_JEWELS",
+          "to": "STOCK_RESIST_ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPECTRAL_LEECH",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_LEECH_TO_SHIELD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TETHER_DECAY",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_SHIELD_RECHARGE",
+          "value": -100
+        },
+        {
+          "op": "ADD",
+          "to": "STOCK_SHIELD_DEGEN_PERCENT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_UMBILICUS_TIDE",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "LIFE_BELOW",
+          "value": 50
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_LIFE_REGEN_PERCENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_UMBILICUS_DROUGHT",
+      "sheet": [
+        {
+          "op": "SET",
+          "to": "STOCK_FLASK_CHARGES_GAINED",
+          "value": -100
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SERPENT_COIL_FORTUNE",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "ONE_OF",
+          "options": [
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_DAMAGE",
+                  "op": "INCREASED",
+                  "value": 30
+                }
+              ],
+              "duration": 3600
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_DAMAGE",
+                  "op": "INCREASED",
+                  "value": -20
+                }
+              ],
+              "duration": 3600
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SERPENT_CONSTRICT",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "STUN",
+          "duration": 0.4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_REFLECTED_IMAGE",
+      "slots": {
+        "op": "MIRROR",
+        "pick": "OTHER_RING"
+      }
+    },
+    {
+      "stat": "POWER_REFLECTED_SHEEN",
+      "slots": {
+        "op": "AMPLIFY",
+        "pick": "OTHER_RING"
+      }
+    },
+    {
+      "stat": "POWER_BIT_OF_LUCK",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "ONE_OF",
+          "options": [
+            {
+              "act": "HEAL",
+              "of": "LIFE",
+              "amount": 2
+            },
+            {
+              "act": "HEAL",
+              "of": "MANA",
+              "amount": 5
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_ATTACK_SPEED",
+                  "op": "INCREASED",
+                  "value": 10
+                }
+              ],
+              "duration": 3
+            },
+            {
+              "act": "CHARGE",
+              "charge": "RANDOM"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BIT_OF_GOLD",
+      "world": {
+        "gain": "GOLD"
+      }
+    },
+    {
+      "stat": "POWER_SEAL_HARMONY",
+      "slots": {
+        "op": "AMPLIFY",
+        "pick": "SELF",
+        "ifOtherUnique": true
+      }
+    },
+    {
+      "stat": "POWER_SEAL_FACET",
+      "on": "CRIT",
+      "checks": [
+        {
+          "check": "SPELL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "MANA"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TORMENT_SOLE",
+      "slots": {
+        "op": "AMPLIFY",
+        "pick": "OTHER_RING",
+        "value": -100
+      }
+    },
+    {
+      "stat": "POWER_TORMENT_BRIBE",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "CLEANSE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BROTHERHOOD_CURRENT",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_LIGHTNING",
+          "to": "STOCK_ATTACK_COLD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BROTHERHOOD_MIST",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "value": -10
+            }
+          ],
+          "duration": 2
+        }
+      ]
+    },
+    {
+      "stat": "POWER_EMERALD_VENOM",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "POISON"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_EMERALD_PULSE",
+      "on": "EVERY",
+      "every": 5,
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_AVARICE_HOARD",
+      "world": {
+        "gain": "RARITY",
+        "against": [
+          "RARE",
+          "UNIQUE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_AVARICE_GREED",
+      "world": {
+        "gain": "GOLD"
+      }
+    },
+    {
+      "stat": "POWER_BLACKFLAME_PACT",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_IGNITE_AS_CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BLACKFLAME_KINDLE",
+      "roll": "CHANCE",
+      "on": "HIT",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "IGNITE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DREAMSHARD_GLINT",
+      "roll": "CHANCE",
+      "on": "SKILL_USE",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "MANA",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_DREAMSHARD_SLEEP",
+      "roll": "CHANCE",
+      "on": "HIT_TAKEN",
+      "effects": [
+        {
+          "act": "STUN",
+          "duration": 0.5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STAR_ASHFALL",
+      "on": "EVERY",
+      "every": 6,
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "FIRE",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_EYELESS_SIGHT",
+      "world": {
+        "gain": "QUANTITY",
+        "against": [
+          "RARE",
+          "UNIQUE"
+        ]
+      }
+    },
+    {
+      "stat": "POWER_EYELESS_GAZE",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "TARGET_RARE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN"
+            }
+          ],
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MAIDEN_TIDE",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_MANA",
+          "to": "STOCK_ENERGY_SHIELD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_MAIDEN_WHIM",
+      "roll": "CHANCE",
+      "on": "SKILL_USE",
+      "effects": [
+        {
+          "act": "COOLDOWNS",
+          "amount": 0.5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SHOREWATCH_VIGIL",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ARMOR",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SHOREWATCH_BEACON",
+      "on": "KILL",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SOVEREIGN_BLOOD",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SOVEREIGN_PYRE",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "IGNITE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "FIRE",
+          "of": "TARGET_LIFE",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HUSH_FROSTBITE",
+      "on": "INFLICT",
+      "checks": [
+        {
+          "check": "AILMENT",
+          "word": "CHILL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_RESIST_COLD"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HUSH_STILLNESS",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "FREEZE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "MANA"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPRING_BOND",
+      "on": "PET_KILL",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPRING_RENEWAL",
+      "on": "EVERY",
+      "every": 5,
+      "effects": [
+        {
+          "act": "HEAL",
+          "to": "PET"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SIREN_LUCK",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_LUCKY_CRIT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SIREN_LURE",
+      "sheet": [
+        {
+          "op": "ADD",
+          "to": "STOCK_NON_CRIT_DAMAGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_AURORA_WARD",
+      "on": "BLOCK",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "SHIELD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_AURORA_ECLIPSE",
+      "on": "STANDING",
+      "checks": [
+        {
+          "check": "SHIELD_FULL"
+        }
+      ],
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_BLOCK_CHANCE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GIANT_WITHER",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_HEALTH",
+          "to": "STOCK_SPELL_DAMAGE",
+          "per": 10,
+          "cap": 100
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GIANT_ROOTS",
+      "on": "BLOCK",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ELDER_MIRROR",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_BLOCK_CHANCE",
+          "to": "STOCK_SPELL_BLOCK"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ELDER_REBUKE",
+      "on": "BLOCK",
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CHARITY_SHARE",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_ARMOR",
+          "to": "STOCK_PET_ARMOR"
+        },
+        {
+          "op": "ADD",
+          "to": "STOCK_PET_RESIST",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CHARITY_RALLY",
+      "on": "BLOCK",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4,
+          "to": "PET"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GLACIER_TIP",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_COLD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GLACIER_SHARD",
+      "on": "KILL",
+      "checks": [
+        {
+          "check": "TARGET_AILMENT",
+          "word": "FREEZE"
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "COLD",
+          "of": "TARGET_LIFE",
+          "to": "OTHERS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BEACON_FLARE",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_FIRE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BEACON_CALL",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN"
+            }
+          ],
+          "duration": 3,
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PRISM_REFRACTION",
+      "on": "HIT",
+      "checks": [
+        {
+          "check": "NTH",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "act": "ONE_OF",
+          "options": [
+            {
+              "act": "DAMAGE",
+              "type": "FIRE"
+            },
+            {
+              "act": "DAMAGE",
+              "type": "COLD"
+            },
+            {
+              "act": "DAMAGE",
+              "type": "LIGHTNING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_PRISM_HARMONY",
+      "on": "INFLICT",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4,
+          "stacks": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FLETCHING_VOID_SHOT",
+      "on": "SKILL_USE",
+      "checks": [
+        {
+          "check": "CHARGES_AT_LEAST",
+          "value": 1,
+          "word": "POWER"
+        }
+      ],
+      "effects": [
+        {
+          "act": "DAMAGE",
+          "type": "CHAOS",
+          "scale": "POWER_CHARGES"
+        },
+        {
+          "act": "CHARGE",
+          "charge": "POWER",
+          "consume": true
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPITE_CHILL",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_PHYSICAL_TAKEN_AS_COLD"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SPITE_BITE",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_COLD",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STONEBLOOD_CLOT",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_LIFE_DAMAGE_DELAYED"
+            },
+            {
+              "stat": "STOCK_LIFE_DAMAGE_DELAY",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STONEBLOOD_STILL",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "BARRIER",
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CARDINAL_SPORES",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "HEX",
+          "lines": [
+            {
+              "stat": "STOCK_RESIST_ALL"
+            }
+          ],
+          "duration": 6,
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_CARDINAL_FAITH",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_CRITICAL_CHANCE",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SUNSET_ARMY",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_SKILL_TARGETS"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SUNSET_GLORY",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STORM_VESSEL_CHARGE",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_SHOCK_CHANCE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_STORM_VESSEL_DRAIN",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_LEECH_ALL"
+            },
+            {
+              "stat": "STOCK_ATTACK_LIGHTNING",
+              "op": "INCREASED",
+              "value": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SURF_ROAR",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "MORE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SURF_BREAKER",
+      "roll": "CHANCE",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "STUN",
+          "to": "ALL",
+          "duration": 0.5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BOG_DRAUGHT_GULP",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BOG_DRAUGHT_ROT",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_LIFE_DEGEN_PERCENT"
+            }
+          ],
+          "duration": 4
+        }
+      ]
+    },
+    {
+      "stat": "POWER_OAK_BARK",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_HIGHEST_RESIST_ELEMENT_TAKEN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_OAK_ROOT",
+      "on": "STANDING",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_LOWEST_RESIST_PENETRATE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ROT_WINE_BOON",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "ONE_OF",
+          "options": [
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_DAMAGE",
+                  "op": "INCREASED",
+                  "value": 30
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_ATTACK_SPEED",
+                  "op": "INCREASED",
+                  "value": 20
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_CAST_SPEED",
+                  "op": "INCREASED",
+                  "value": 20
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_CRITICAL_CHANCE",
+                  "op": "INCREASED",
+                  "value": 60
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_ARMOR",
+                  "op": "INCREASED",
+                  "value": 40
+                },
+                {
+                  "stat": "STOCK_EVASION",
+                  "op": "INCREASED",
+                  "value": 40
+                },
+                {
+                  "stat": "STOCK_ENERGY_SHIELD",
+                  "op": "INCREASED",
+                  "value": 40
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_LIFE_REGEN_PERCENT",
+                  "value": 3
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_LEECH_ALL",
+                  "value": 2
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_RESIST_ALL",
+                  "value": 20
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_PHYSICAL_REDUCTION",
+                  "value": 10
+                }
+              ],
+              "duration": 6
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_DAMAGE",
+                  "op": "INCREASED",
+                  "value": -10
+                },
+                {
+                  "stat": "STOCK_ATTACK_SPEED",
+                  "op": "INCREASED",
+                  "value": -10
+                },
+                {
+                  "stat": "STOCK_RESIST_ALL",
+                  "value": -10
+                }
+              ],
+              "duration": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_ROT_WINE_SPORES",
+      "roll": "CHANCE",
+      "on": "FLASK",
+      "effects": [
+        {
+          "act": "AILMENT",
+          "ailment": "POISON",
+          "to": "ALL"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_GHOST_CHILL",
+      "sheet": [
+        {
+          "op": "MORE",
+          "to": "STOCK_SHIELD_RECHARGE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HOLLOW_INSTINCT",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_EMPTY_SLOTS",
+          "to": "STOCK_DAMAGE"
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_EMPTY_SLOTS",
+          "to": "STOCK_ARMOR",
+          "value": 4
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_EMPTY_SLOTS",
+          "to": "STOCK_EVASION",
+          "value": 4
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_EMPTY_SLOTS",
+          "to": "STOCK_ENERGY_SHIELD",
+          "value": 4
+        },
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_EMPTY_SLOTS",
+          "to": "STOCK_CAST_SPEED",
+          "value": 2
+        },
+        {
+          "op": "MORE",
+          "from": "STOCK_WORN_EMPTY_SLOTS",
+          "to": "STOCK_ATTACK_SPEED",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "stat": "POWER_HOLLOW_LIGHTNESS",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_WORN_EMPTY_SLOTS",
+          "to": "STOCK_MOVEMENT_SPEED"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FINERY_GLEAM",
+      "slots": {
+        "op": "AMPLIFY",
+        "slots": [
+          "JEWEL"
+        ],
+        "rarity": "UNCOMMON"
+      }
+    },
+    {
+      "stat": "POWER_FINERY_TRAVEL",
+      "world": {
+        "gain": "EXPERIENCE"
+      }
+    },
+    {
+      "stat": "POWER_TIMELESS_BOON",
+      "on": "FIGHT_START",
+      "effects": [
+        {
+          "act": "ONE_OF",
+          "options": [
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_DAMAGE",
+                  "op": "INCREASED",
+                  "value": 30
+                }
+              ],
+              "duration": 3600
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_ARMOR",
+                  "op": "INCREASED",
+                  "value": 30
+                },
+                {
+                  "stat": "STOCK_EVASION",
+                  "op": "INCREASED",
+                  "value": 30
+                },
+                {
+                  "stat": "STOCK_ENERGY_SHIELD",
+                  "op": "INCREASED",
+                  "value": 30
+                }
+              ],
+              "duration": 3600
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_ATTACK_SPEED",
+                  "op": "INCREASED",
+                  "value": 20
+                },
+                {
+                  "stat": "STOCK_CAST_SPEED",
+                  "op": "INCREASED",
+                  "value": 20
+                }
+              ],
+              "duration": 3600
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_LIFE_REGEN_PERCENT",
+                  "value": 3
+                }
+              ],
+              "duration": 3600
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_CRITICAL_CHANCE",
+                  "op": "INCREASED",
+                  "value": 15
+                }
+              ],
+              "duration": 3600
+            },
+            {
+              "act": "BUFF",
+              "lines": [
+                {
+                  "stat": "STOCK_RESIST_ALL",
+                  "value": 20
+                }
+              ],
+              "duration": 3600
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stat": "POWER_TIMELESS_DAWN",
+      "on": "STAGE_CLEAR",
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BUTCHER_ANATOMY",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_INTELLECT",
+          "to": "STOCK_HEALTH",
+          "per": 3
+        }
+      ]
+    },
+    {
+      "stat": "POWER_INNER_TIDE_FLOW",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_HEALTH",
+          "to": "STOCK_ENERGY_SHIELD"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_INNER_TIDE_EBB",
+      "on": "SHIELD_BROKEN",
+      "cooldown": 15,
+      "effects": [
+        {
+          "act": "HEAL",
+          "of": "LIFE"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_QUARRY_SOLUTION",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_STRENGTH",
+          "to": "STOCK_INTELLECT"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_QUARRY_GRIT",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_STRENGTH",
+          "to": "STOCK_ARMOR",
+          "per": 5
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SOBER_CLARITY",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_HEALTH",
+          "to": "STOCK_MANA"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SOBER_ABSTINENCE",
+      "sheet": [
+        {
+          "op": "MORE",
+          "to": "STOCK_HEALTH"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FURY_UNRESTED",
+      "on": "PET_KILL",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 4,
+          "to": "PET"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_FURY_RETURN",
+      "on": "PET_DEATH",
+      "effects": [
+        {
+          "act": "BUFF",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED"
+            }
+          ],
+          "duration": 6
+        }
+      ]
     }
   ]
 }

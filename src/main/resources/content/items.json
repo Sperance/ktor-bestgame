@@ -271,6 +271,12 @@
       "price": 176
     },
     {
+      "code": "BOOK_ENDURING_ROAR",
+      "category": "BOOK",
+      "subCategory": "MARAUDER",
+      "price": 170
+    },
+    {
       "code": "BOOK_SPLIT_ARROW",
       "category": "BOOK",
       "subCategory": "RANGER",
@@ -353,6 +359,12 @@
       "category": "BOOK",
       "subCategory": "RANGER",
       "price": 176
+    },
+    {
+      "code": "BOOK_FRENZY_STRIKE",
+      "category": "BOOK",
+      "subCategory": "RANGER",
+      "price": 170
     },
     {
       "code": "BOOK_FIREBALL",
@@ -439,6 +451,12 @@
       "price": 176
     },
     {
+      "code": "BOOK_POWER_SIPHON",
+      "category": "BOOK",
+      "subCategory": "WITCH",
+      "price": 170
+    },
+    {
       "code": "BOOK_DOUBLE_STRIKE",
       "category": "BOOK",
       "subCategory": "DUELIST",
@@ -521,6 +539,12 @@
       "category": "BOOK",
       "subCategory": "DUELIST",
       "price": 176
+    },
+    {
+      "code": "BOOK_CHARGED_DASH",
+      "category": "BOOK",
+      "subCategory": "DUELIST",
+      "price": 170
     },
     {
       "code": "BOOK_SMITE",
@@ -607,6 +631,12 @@
       "price": 176
     },
     {
+      "code": "BOOK_EARTHEN_RELEASE",
+      "category": "BOOK",
+      "subCategory": "TEMPLAR",
+      "price": 170
+    },
+    {
       "code": "BOOK_VIPER_STRIKE",
       "category": "BOOK",
       "subCategory": "SHADOW",
@@ -689,6 +719,12 @@
       "category": "BOOK",
       "subCategory": "SHADOW",
       "price": 176
+    },
+    {
+      "code": "BOOK_DISCHARGE",
+      "category": "BOOK",
+      "subCategory": "SHADOW",
+      "price": 170
     },
     {
       "code": "BOOK_ELEMENTAL_HIT",

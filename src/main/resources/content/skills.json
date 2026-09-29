@@ -302,6 +302,42 @@
       }
     },
     {
+      "code": "ENDURING_ROAR",
+      "heroClass": "MARAUDER",
+      "type": "WARCRY",
+      "unlock": 50,
+      "icon": "armour",
+      "mana": [
+        14,
+        34
+      ],
+      "cooldown": 10.0,
+      "prepare": [
+        60.0,
+        30.0
+      ],
+      "condition": "FIGHT_START",
+      "buff": {
+        "duration": 4,
+        "stats": [
+          {
+            "stat": "STOCK_PHYSICAL_REDUCTION",
+            "value": [
+              2,
+              6
+            ]
+          }
+        ]
+      },
+      "charges": {
+        "kind": "ENDURANCE",
+        "gain": [
+          1,
+          3
+        ]
+      }
+    },
+    {
       "code": "DETERMINATION",
       "heroClass": "MARAUDER",
       "type": "AURA",
@@ -649,6 +685,37 @@
               80
             ]
           }
+        ]
+      }
+    },
+    {
+      "code": "FRENZY_STRIKE",
+      "heroClass": "RANGER",
+      "type": "ATTACK",
+      "unlock": 50,
+      "icon": "speed",
+      "mana": [
+        8,
+        24
+      ],
+      "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          110.0,
+          170.0
+        ]
+      },
+      "charges": {
+        "kind": "FRENZY",
+        "gain": [
+          1,
+          1
         ]
       }
     },
@@ -1048,6 +1115,44 @@
       ]
     },
     {
+      "code": "POWER_SIPHON",
+      "heroClass": "WITCH",
+      "type": "SPELL",
+      "unlock": 50,
+      "icon": "chaos",
+      "mana": [
+        10,
+        28
+      ],
+      "cooldown": 3.0,
+      "prepare": [
+        50.0,
+        25.0
+      ],
+      "condition": "READY",
+      "hit": {
+        "targets": 1,
+        "spell": {
+          "element": "CHAOS",
+          "min": [
+            30.0,
+            300.0
+          ],
+          "max": [
+            45.0,
+            450.0
+          ]
+        }
+      },
+      "charges": {
+        "kind": "POWER",
+        "gain": [
+          1,
+          1
+        ]
+      }
+    },
+    {
       "code": "DISCIPLINE",
       "heroClass": "WITCH",
       "type": "AURA",
@@ -1366,6 +1471,38 @@
         "counter": [
           100,
           200
+        ]
+      }
+    },
+    {
+      "code": "CHARGED_DASH",
+      "heroClass": "DUELIST",
+      "type": "ATTACK",
+      "unlock": 50,
+      "icon": "dual",
+      "mana": [
+        14,
+        34
+      ],
+      "cooldown": 6.0,
+      "prepare": [
+        40.0,
+        20.0
+      ],
+      "condition": "READY",
+      "hit": {
+        "targets": 2,
+        "weapon": [
+          70.0,
+          120.0
+        ]
+      },
+      "charges": {
+        "kind": "FRENZY",
+        "consume": true,
+        "perCharge": [
+          30,
+          60
         ]
       }
     },
@@ -1718,6 +1855,42 @@
           35
         ],
         "duration": 6
+      }
+    },
+    {
+      "code": "EARTHEN_RELEASE",
+      "heroClass": "TEMPLAR",
+      "type": "ATTACK",
+      "unlock": 50,
+      "icon": "earth",
+      "mana": [
+        16,
+        38
+      ],
+      "cooldown": 6.0,
+      "prepare": [
+        40.0,
+        20.0
+      ],
+      "condition": "READY",
+      "hit": {
+        "targets": 0,
+        "weapon": [
+          60.0,
+          110.0
+        ],
+        "stun": [
+          10,
+          30
+        ]
+      },
+      "charges": {
+        "kind": "ENDURANCE",
+        "consume": true,
+        "perCharge": [
+          40,
+          80
+        ]
       }
     },
     {
@@ -2093,6 +2266,45 @@
         "finisher": [
           300,
           500
+        ]
+      }
+    },
+    {
+      "code": "DISCHARGE",
+      "heroClass": "SHADOW",
+      "type": "SPELL",
+      "unlock": 50,
+      "icon": "lightning",
+      "mana": [
+        18,
+        40
+      ],
+      "cooldown": 8.0,
+      "prepare": [
+        40.0,
+        20.0
+      ],
+      "condition": "READY",
+      "hit": {
+        "targets": 0,
+        "spell": {
+          "element": "LIGHTNING",
+          "min": [
+            10.0,
+            90.0
+          ],
+          "max": [
+            20.0,
+            160.0
+          ]
+        }
+      },
+      "charges": {
+        "kind": "ALL",
+        "consume": true,
+        "perCharge": [
+          60,
+          120
         ]
       }
     },

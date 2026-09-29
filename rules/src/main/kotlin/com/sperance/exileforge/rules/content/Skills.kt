@@ -63,6 +63,14 @@ data class SkillTrigger(
     val ailment: String? = null, val twice: Boolean = false, val refund: Boolean = false,
 )
 
+/**
+ * Заряды умения (1.32.0). Генератор: [gain] - сколько зарядов вида [kind] даёт применение (удар умения попал хотя бы по одному врагу,
+ * клич или иное без удара - при применении); `RANDOM` - каждый наугад. Трата: [consume] - применение снимает все заряды вида [kind]
+ * (`ALL` - всех трёх видов), урон удара умения растёт на [perCharge]% за каждый снятый заряд.
+ */
+@Serializable
+data class SkillCharges(val kind: ChargeKind, val gain: Scale? = null, val consume: Boolean = false, val perCharge: Scale? = null)
+
 @Serializable
 data class SkillDefinition(
     val code: String, val heroClass: String, val type: SkillType, val unlock: Int, val icon: String,
@@ -72,6 +80,8 @@ data class SkillDefinition(
     val trigger: SkillTrigger? = null,
     /** Подготовка (3.13.0 клиента): сколько процентов перезарядки идёт в начале боя, от первого уровня умения к последнему. */
     val prepare: Scale? = null,
+    /** Заряды героя (1.32.0): даёт или тратит. */
+    val charges: SkillCharges? = null,
 ) {
     val kind: SkillKind get() = type.kind
     val book: String get() = SkillRules.book(code)
@@ -116,7 +126,9 @@ data class SkillBook(val rules: SkillBookRules, val classes: List<ClassSkills>, 
         skills.forEach { validate(it, known, stats) }
         this.classes.forEach { heroClass ->
             val own = ofClass(heroClass.code)
-            if (own.count { it.kind == SkillKind.ACTIVE } != ACTIVE_PER_CLASS || own.count { it.kind == SkillKind.PASSIVE } != PASSIVE_PER_CLASS) fail("skills: skills of ${heroClass.code}")
+            val charged = own.count { it.charges != null }
+            if (own.count { it.kind == SkillKind.ACTIVE && it.charges == null } != ACTIVE_PER_CLASS || own.count { it.kind == SkillKind.PASSIVE } != PASSIVE_PER_CLASS ||
+                charged > CHARGE_SKILLS_PER_CLASS) fail("skills: skills of ${heroClass.code}")
             if (own.none { it.kind == SkillKind.ACTIVE && it.unlock == 1 } || own.none { it.kind == SkillKind.PASSIVE && it.unlock == 1 }) fail("skills: first skills of ${heroClass.code}")
         }
         val monster = monsterSkills.map { it.code }
@@ -150,6 +162,11 @@ data class SkillBook(val rules: SkillBookRules, val classes: List<ClassSkills>, 
         }
         skill.hit?.let { hit(it, code) }
         skill.trigger?.hit?.let { hit(it, code) }
+        skill.charges?.let { charges ->
+            if (skill.kind != SkillKind.ACTIVE || charges.consume == (charges.gain != null)) fail("skills: charges of $code either gained or spent by an active skill")
+            if (charges.gain != null && (charges.kind == ChargeKind.ALL || charges.gain.from < 1)) fail("skills: charges gained by $code")
+            if (charges.consume && (charges.kind == ChargeKind.RANDOM || charges.perCharge == null || skill.hit == null)) fail("skills: charges spent by $code")
+        }
         skill.dot?.let { if (it.element !in ELEMENTS || it.duration <= 0) fail("skills: dot of $code") }
         (skill.stats + skill.buff?.stats.orEmpty() + skill.curse?.stats.orEmpty() + skill.trigger?.buff?.stats.orEmpty()).forEach { stat ->
             if (stat.stat !in stats) fail("skills: stat ${stat.stat} of $code")
@@ -166,6 +183,8 @@ data class SkillBook(val rules: SkillBookRules, val classes: List<ClassSkills>, 
     companion object {
         const val ACTIVE_PER_CLASS = 6
         const val PASSIVE_PER_CLASS = 8
+        /** Умений зарядов (1.32.0) на класс - сверх [ACTIVE_PER_CLASS] активных. */
+        const val CHARGE_SKILLS_PER_CLASS = 1
         private const val RANDOM = "RANDOM"
         val ELEMENTS = setOf("PHYSICAL", "FIRE", "COLD", "LIGHTNING", "CHAOS")
         val AILMENTS = setOf("IGNITE", "CHILL", "FREEZE", "SHOCK", "POISON", "BLEED", "ELEMENT")

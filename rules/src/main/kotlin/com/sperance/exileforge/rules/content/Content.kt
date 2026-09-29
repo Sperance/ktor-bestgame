@@ -4,6 +4,7 @@ import com.sperance.exileforge.rules.ContentException
 import com.sperance.exileforge.rules.RulesJson
 import com.sperance.exileforge.rules.fail
 import com.sperance.exileforge.rules.roll.Dice
+import com.sperance.exileforge.rules.sheet.WornCount
 import com.sperance.exileforge.rules.table.TableKind
 import com.sperance.exileforge.rules.table.TableSet
 import com.sperance.exileforge.rules.table.TablesFile
@@ -89,9 +90,10 @@ class Content(
  * Версия кода правил (1.29.0): поднимается при каждой правке, меняющей исход забега по тому же семени и контенту
  * (размер пачек, роллы, бой), - иначе забег, начатый до обновления, не сойдётся с сервером. 2 - награды захода
  * катятся потоком наград героя на сервере, а не семенем захода (1.30.0). 3 - уникалка Атласа с босса захода по карте
- * и новые механики сил: зачистка этапа, натиск, эхо, отмщение (1.31.0).
+ * и новые механики сил: зачистка этапа, натиск, эхо, отмщение (1.31.0). 4 - заряды ярости, силы и выносливости, силы слотов
+ * (зеркало, усиление), счёт надетого и новые правила листа, питомец в событиях сил, случайные блага (1.32.0).
  */
-const val RULES_VERSION = 3
+const val RULES_VERSION = 4
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -231,6 +233,7 @@ class ContentIndex(val content: Content) {
 
     fun validate() {
         stats.validate()
+        WornCount.STATS.forEach { if (it !in stats) fail("stats: worn count $it is missing") }
         rules.validate()
         rules.merchant.orbs.codes.forEach { if (orb(it) == null) fail("rules: merchant orb $it") }
         families.values.forEach { family -> family.problem()?.let { fail("modifiers: $it") } }
@@ -268,6 +271,7 @@ class ContentIndex(val content: Content) {
         skills.validate(stats, classes.classes.map { it.code })
         skills.skills.forEach { if (items[it.book]?.category != Item.BOOK) fail("items: book of ${it.code} has no item") }
         powers.validate(stats)
+        rules.charges.validate(stats)
         tree.validate(::modifier)
         classes.validate(stats, ::modifier, tree)
         classes.classes.filter { it.weapon.isNotBlank() }.forEach { heroClass ->

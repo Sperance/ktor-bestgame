@@ -27335,6 +27335,313 @@
       "tags": [
         "rarity"
       ]
+    },
+    {
+      "code": "MAXIMUM_FRENZY_CHARGES",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MAX_FRENZY_CHARGES"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "speed"
+      ]
+    },
+    {
+      "code": "MAXIMUM_POWER_CHARGES",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MAX_POWER_CHARGES"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "critical"
+      ]
+    },
+    {
+      "code": "MAXIMUM_ENDURANCE_CHARGES",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MAX_ENDURANCE_CHARGES"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "defences"
+      ]
+    },
+    {
+      "code": "INCREASED_CHARGE_DURATION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CHARGE_DURATION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          60,
+          36,
+          12
+        ],
+        "top": [
+          [
+            25,
+            30
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "charge"
+      ]
+    },
+    {
+      "code": "FRENZY_CHARGE_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "POWER_FRENZY_ON_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          30,
+          10
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "speed"
+      ]
+    },
+    {
+      "code": "POWER_CHARGE_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "POWER_POWER_ON_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          30,
+          10
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "critical"
+      ]
+    },
+    {
+      "code": "ENDURANCE_CHARGE_ON_KILL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "POWER_ENDURANCE_ON_KILL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          30,
+          10
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "defences"
+      ]
+    },
+    {
+      "code": "FRENZY_CHARGE_ON_HIT",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_FRENZY_ON_HIT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "passive"
+      ]
+    },
+    {
+      "code": "POWER_CHARGE_ON_CRIT",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_POWER_ON_CRIT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "passive"
+      ]
+    },
+    {
+      "code": "ENDURANCE_CHARGE_WHEN_HIT",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_ENDURANCE_WHEN_HIT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "charge",
+        "passive"
+      ]
     }
   ]
 }
