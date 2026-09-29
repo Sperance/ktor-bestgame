@@ -42,13 +42,13 @@ class AffixRoller(private val index: ContentIndex) {
      */
     fun rollAffixes(
         template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, kept: Collection<Roll> = emptyList(), below: Int = 0,
-        level: Int = template.level,
+        level: Int = template.level, side: Source? = null,
     ): List<Roll> {
         val keptDefs = definitions(kept)
         val (prefixes, suffixes) = freeSlots(rarity, keptDefs, template.slot)
         val limits = index.limits(rarity, template.slot)
         val limit = (dice.between(limits.floor, (limits.ceiling - below).coerceAtLeast(limits.floor)) - kept.size).coerceAtLeast(0)
-        return pickAffixes(affixPool(template, influence), prefixes, suffixes, keptDefs.map { it.groupKey }, limit, dice).mapNotNull { roll(it, level, dice) }
+        return pickAffixes(affixPool(template, influence).onSide(side), prefixes, suffixes, keptDefs.map { it.groupKey }, limit, dice).mapNotNull { roll(it, level, dice) }
     }
 
     /**
@@ -77,8 +77,12 @@ class AffixRoller(private val index: ContentIndex) {
     }
 
     /** Один аффикс сверх имеющихся на свободное место; null - мест нет или таблица исчерпана. */
-    fun rollExtraAffix(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence? = null, level: Int = template.level): Roll? =
-        rollExtraFrom(affixPool(template, influence), template, rarity, current, dice, level)
+    fun rollExtraAffix(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence? = null, level: Int = template.level,
+                       side: Source? = null): Roll? =
+        rollExtraFrom(affixPool(template, influence).onSide(side), template, rarity, current, dice, level)
+
+    /** Пул одной стороны аффиксов - знамение (1.35.0); null - обе. */
+    private fun List<Weighted<ModifierDef>>.onSide(side: Source?): List<Weighted<ModifierDef>> = if (side == null) this else filter { it.value.source == side }
 
     /** Один аффикс из [pool] сверх имеющихся - в пределах потолка, мест префиксов и суффиксов и групп; null - нельзя. */
     fun rollExtraFrom(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, level: Int = template.level): Roll? {

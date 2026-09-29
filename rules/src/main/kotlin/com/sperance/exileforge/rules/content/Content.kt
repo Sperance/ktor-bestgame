@@ -93,9 +93,10 @@ class Content(
  * и новые механики сил: зачистка этапа, натиск, эхо, отмщение (1.31.0). 4 - заряды ярости, силы и выносливости, силы слотов
  * (зеркало, усиление), счёт надетого и новые правила листа, питомец в событиях сил, случайные блага (1.32.0). 5 - уровень
  * предмета: аффиксы добычи катаются по уровню зоны с прибавками, тиры пересчитаны под 1–85 (1.33.0). 6 - меткость, баффы,
- * подавление и отклонение, условные строки, удвоение и возврат в работе (1.34.0).
+ * подавление и отклонение, условные строки, удвоение и возврат в работе (1.34.0). 7 - скрытые аффиксы добычи, новые
+ * сферы в таблицах добычи, качество в листе (1.35.0).
  */
-const val RULES_VERSION = 6
+const val RULES_VERSION = 7
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -268,6 +269,7 @@ class ContentIndex(val content: Content) {
         }
         content.items.items.let { list -> if (list.map { it.code }.toSet().size != list.size) fail("items: duplicate codes") }
         Orb.entries.forEach { if (items[it.name]?.category != Item.CURRENCY) fail("items: orb ${it.name} has no item") }
+        Omen.entries.forEach { if (items[it.code]?.category != Item.OMEN) fail("items: omen ${it.code} has no item") }
         essences.validate(::modifier)
         essences.essences.keys.forEach { if (items[it]?.category != Item.ESSENCE) fail("items: essence $it has no item") }
         skills.validate(stats, classes.classes.map { it.code })

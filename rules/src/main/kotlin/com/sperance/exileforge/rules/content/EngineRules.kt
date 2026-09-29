@@ -14,11 +14,15 @@ enum class Orb {
     SHAPERS_ORB, ELDER_ORB, ABYSS_ORB, ORB_OF_REGRET,
     EMPOWERING_ORB, MERCY_ORB, PERIL_ORB, HORDE_ORB, MAGUS_ORB, ELITE_ORB, BOUNTY_ORB, TREASURE_ORB, GILDED_ORB, WARDEN_ORB, ESSENCE_ORB, SCRIBE_ORB,
     GLASSBLOWERS_BAUBLE,
-    HELMET_SCROLL, GLOVES_SCROLL, BOOTS_SCROLL, WEAPON_SCROLL;
+    HELMET_SCROLL, GLOVES_SCROLL, BOOTS_SCROLL, WEAPON_SCROLL,
+    /** 1.35.0: качество оружия и брони, сфера раскрытия скрытого модификатора, катализаторы по виду. */
+    WHETSTONE, ARMOURERS_SCRAP, UNVEILING_ORB,
+    CATALYST_LIFE, CATALYST_DEFENCE, CATALYST_ELEMENTAL, CATALYST_PHYSICAL, CATALYST_CHAOS, CATALYST_SPEED, CATALYST_ATTRIBUTE, CATALYST_CASTER;
 
     val mapOnly: Boolean get() = ordinal >= EMPOWERING_ORB.ordinal && ordinal <= SCRIBE_ORB.ordinal
     val flaskOnly: Boolean get() = this == GLASSBLOWERS_BAUBLE
     val enchantSlot: String? get() = when (this) { HELMET_SCROLL -> "helmet"; GLOVES_SCROLL -> "gloves"; BOOTS_SCROLL -> "boots"; WEAPON_SCROLL -> "weapon"; else -> null }
+    val catalyst: Catalyst? get() = if (name.startsWith("CATALYST_")) Catalyst.valueOf(name.removePrefix("CATALYST_")) else null
     val influence: Influence? get() = when (this) { SHAPERS_ORB -> Influence.SHAPER; ELDER_ORB -> Influence.ELDER; ABYSS_ORB -> Influence.ABYSS; else -> null }
     /** Строка «Алхимия», которую кладёт сфера алхимика; null у прочих. */
     val alchemyLine: String? get() = when (this) {
@@ -281,6 +285,7 @@ data class EngineRules(
     val run: RunRules = RunRules(),
     val pets: PetRules = PetRules(),
     val charges: ChargeRules = ChargeRules(),
+    val quality: QualityRules = QualityRules(),
     val maxCharacters: Int = 3,
     val maxStack: Long = 100_000_000_000L,
 ) {

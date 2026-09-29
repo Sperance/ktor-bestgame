@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.roll
 
+import com.sperance.exileforge.rules.content.Catalyst
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.ItemTemplate
@@ -41,6 +42,8 @@ data class Roll(
  * [locked] (1.28.0) - замок игрока: такую вещь не продать торговцу, не выставить на аукцион и не
  * продать самой при переполнении тайника; сферы и ремесло замок не держит.
  * [itemLevel] (1.33.0) - уровень предмета: по нему открываются тиры аффиксов; 0 - копия до ilvl, её уровень - уровень шаблона.
+ * [catalyst] (1.35.0) - вид качества: с ним [quality] усиливает модификаторы вида, без него - базу; [unveil] - варианты
+ * раскрытия скрытого модификатора, что ждут выбора игрока.
  */
 @Serializable
 data class ItemInstance(
@@ -56,6 +59,8 @@ data class ItemInstance(
     @SerialName("q") var quality: Int = 0,
     val locked: Boolean = false,
     @SerialName("il") var itemLevel: Int = 0,
+    @SerialName("ct") var catalyst: Catalyst? = null,
+    @SerialName("uv") var unveil: List<Roll> = emptyList(),
 ) {
     /** Уровень, на котором катаются аффиксы копии. */
     fun level(template: ItemTemplate): Int = if (itemLevel > 0) itemLevel else template.level

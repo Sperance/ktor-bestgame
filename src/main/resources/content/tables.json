@@ -2257,7 +2257,8 @@
         "MOB_VENOMOUS": 60,
         "MOB_VICIOUS": 40,
         "MOB_WARDED": 70,
-        "MOB_WITHERING": 40
+        "MOB_WITHERING": 40,
+        "MOB_VEILED": 30
       }
     },
     {
@@ -2345,7 +2346,8 @@
         "MOB_VENOMOUS": 60,
         "MOB_VICIOUS": 40,
         "MOB_WARDED": 70,
-        "MOB_WITHERING": 40
+        "MOB_WITHERING": 40,
+        "MOB_VEILED": 40
       }
     },
     {
@@ -3113,7 +3115,12 @@
         "BRANDED_KITE_SHIELD": 100,
         "COMPOUND_SPIKED_SHIELD": 100,
         "GLEAMING_SPIKED_SHIELD": 100,
-        "SOLDIER_BELT": 100
+        "SOLDIER_BELT": 100,
+        "LEATHER_COLLAR": 60,
+        "STUDDED_COLLAR": 60,
+        "BRASS_COLLAR": 60,
+        "RUNED_COLLAR": 60,
+        "ALPHA_COLLAR": 60
       }
     },
     {
@@ -4438,6 +4445,22 @@
         {
           "ref": "table:drop",
           "chance": 0.08
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4508,6 +4531,22 @@
         {
           "ref": "table:drop",
           "chance": 0.09
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4594,6 +4633,86 @@
         {
           "ref": "table:drop",
           "chance": 0.1
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4680,6 +4799,86 @@
         {
           "ref": "table:drop",
           "chance": 0.1
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4782,6 +4981,86 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -4880,6 +5159,86 @@
         {
           "ref": "item:FRACTURING_ORB",
           "chance": 0.001,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0015,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0015,
           "amount": [
             1,
             1
@@ -5610,6 +5969,14 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.015,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -5708,6 +6075,14 @@
         {
           "ref": "item:PET_ORB_GROWTH",
           "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.02,
           "amount": [
             1,
             1
@@ -5830,6 +6205,102 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.025,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -5944,6 +6415,102 @@
         {
           "ref": "item:PET_ORB_GROWTH",
           "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.004,
           "amount": [
             1,
             1
@@ -6078,6 +6645,102 @@
         {
           "ref": "item:ELDER_ORB",
           "chance": 0.005,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.034999999999999996,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.004,
           "amount": [
             1,
             1
@@ -6228,6 +6891,102 @@
         {
           "ref": "item:ORB_OF_ANNULMENT",
           "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.004,
           "amount": [
             1,
             1
@@ -6765,7 +7524,59 @@
         "DIVINE_ORB": 20,
         "ORB_OF_ANNULMENT": 10,
         "FRACTURING_ORB": 5,
-        "MIRROR_OF_KALANDRA": 1
+        "MIRROR_OF_KALANDRA": 1,
+        "OMEN_SINISTRAL_CHAOS": 6,
+        "OMEN_DEXTRAL_CHAOS": 6,
+        "OMEN_SINISTRAL_EXALTATION": 6,
+        "OMEN_DEXTRAL_EXALTATION": 6,
+        "OMEN_GREATER_EXALTATION": 6,
+        "OMEN_SINISTRAL_CORONATION": 6,
+        "OMEN_DEXTRAL_CORONATION": 6,
+        "OMEN_SINISTRAL_ANNULMENT": 6,
+        "OMEN_DEXTRAL_ANNULMENT": 6,
+        "OMEN_LIGHT": 6,
+        "OMEN_CORRUPTION": 6,
+        "UNVEILING_ORB": 15
+      }
+    },
+    {
+      "tag": "veiled:prefix",
+      "kind": "MODIFIER",
+      "entries": {
+        "VEILED_LIFE_AND_ATTACK_SPEED": 100,
+        "VEILED_SHIELD_AND_CAST_SPEED": 100,
+        "VEILED_PHYSICAL_AND_ACCURACY": 100,
+        "VEILED_ELEMENTAL_AND_PENETRATION": 100,
+        "VEILED_ARMOUR_AND_FORTIFY": 100
+      }
+    },
+    {
+      "tag": "veiled:suffix",
+      "kind": "MODIFIER",
+      "entries": {
+        "VEILED_RESISTANCES_AND_REGEN": 100,
+        "VEILED_CRITICAL_CHANCE_AND_MULTIPLIER": 100,
+        "VEILED_ATTRIBUTES_AND_RESISTANCE": 100,
+        "VEILED_SUPPRESSION_AND_DEFLECTION": 100,
+        "VEILED_ONSLAUGHT_AND_SPEED": 100
+      }
+    },
+    {
+      "tag": "collar",
+      "kind": "MODIFIER",
+      "entries": {
+        "ADD_ALL_ELEMENTAL_RESISTANCES": 200,
+        "ADD_COLD_RESISTANCE": 300,
+        "ADD_FIRE_RESISTANCE": 300,
+        "ADD_LIGHTNING_RESISTANCE": 300,
+        "ADD_MAXIMUM_LIFE": 400,
+        "COND_DAMAGE_PET_ALIVE": 300,
+        "PET_ADD_ARMOUR": 800,
+        "PET_ATTACK_SPEED": 800,
+        "PET_INCREASED_DAMAGE": 1000,
+        "PET_INCREASED_LIFE": 1000,
+        "PET_LEVEL": 200,
+        "PET_RESISTANCES": 800
       }
     }
   ]

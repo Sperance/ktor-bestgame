@@ -7,7 +7,9 @@ import kotlinx.serialization.Serializable
 enum class Slot {
     HELMET, BODY, GLOVES, RING, BOOTS, WINGS, BELT, WEAPON_1H, WEAPON_2H, QUIVER, SHIELD, AMULET, RING_2, JEWEL, MAP,
     FLASK, FLASK_2, FLASK_3,
-    TOOL_MINING, TOOL_HERBALISM, TOOL_WOODCUTTING, TOOL_SMITHING, TOOL_ALCHEMY, TOOL_CARTOGRAPHY, TOOL_ENCHANTING;
+    TOOL_MINING, TOOL_HERBALISM, TOOL_WOODCUTTING, TOOL_SMITHING, TOOL_ALCHEMY, TOOL_CARTOGRAPHY, TOOL_ENCHANTING,
+    /** Ошейник питомца (1.35.0): место героя, чьи строки `STOCK_PET_*` доходят до питомца; только ремесло кузнеца. */
+    COLLAR;
 
     val isTool: Boolean get() = name.startsWith("TOOL_")
     val isFlask: Boolean get() = this == FLASK || this == FLASK_2 || this == FLASK_3
@@ -15,7 +17,9 @@ enum class Slot {
     /** Самоцвет и карта: не носятся на теле, не бывают обычными и пустыми. */
     val isJewelLike: Boolean get() = this == JEWEL || this == MAP
     /** Может ли нести влияние: не самоцвет, не карта, не инструмент и не фляга. */
-    val influenceable: Boolean get() = !isJewelLike && !isTool && !isFlask
+    val influenceable: Boolean get() = !isJewelLike && !isTool && !isFlask && this != COLLAR
+    /** Броня под обрезки брони (1.35.0). */
+    val isArmour: Boolean get() = this == HELMET || this == BODY || this == GLOVES || this == BOOTS || this == SHIELD || this == WINGS
 
     /** Тег слота в таблицах: оба оружия - `weapon`, инструменты - `tool`, места фляг - `flask`, второе кольцо - `ring`. */
     val tag: String get() = when {
@@ -154,6 +158,8 @@ data class Item(val code: String, val category: String, val subCategory: String 
         const val MATERIAL = "MATERIAL"
         /** Яйца и сферы питомцев (1.5.0). */
         const val PET = "PET"
+        /** Знамения (1.35.0): тратятся вместе со сферой и меняют её действие. */
+        const val OMEN = "OMEN"
     }
 }
 

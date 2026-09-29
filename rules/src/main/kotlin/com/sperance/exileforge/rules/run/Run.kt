@@ -209,7 +209,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         return grant(draw, template.loot, zone.level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus),
             mapChance = campaign.maps.dropChance * rule.quantity, zoneBonus = zoneBonus, rare = monster.rarity == MonsterRarity.RARE,
             book = if (monster.rarity == MonsterRarity.RARE) index.skills.rules.books.rare else 0.0,
-            egg = if (monster.rarity == MonsterRarity.RARE) index.pets.eggChance.rare else 0.0)
+            egg = if (monster.rarity == MonsterRarity.RARE) index.pets.eggChance.rare else 0.0,
+            veiled = (monster.stats[com.sperance.exileforge.rules.roll.Veils.LOOT] ?: 0.0) > 0)
     }
 
     /** Открыт очередной сундук захода: таблица сундуков зоны с множителями правила и атласа. */
@@ -325,7 +326,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         draw: Draw, table: String, level: Int, rule: RarityRule, event: String, experience: Double,
         extra: List<ItemTemplate> = emptyList(), mapChance: Double = 0.0, zoneBonus: VaalZone? = null, extraQuantity: Double = 0.0,
         extraItems: Map<String, Long> = emptyMap(), rare: Boolean = false, book: Double = 0.0, ownShare: Double = 0.0,
-        goldShare: Double = 1.0, orbShare: Double = 1.0, egg: Double = 0.0,
+        goldShare: Double = 1.0, orbShare: Double = 1.0, egg: Double = 0.0, veiled: Boolean = false,
     ): Reward {
         val dice = draw.dice
         val bonus = context.bonus(rule.rarity)
@@ -337,6 +338,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val templates = extra + rolled.equipment.mapNotNull { pools -> loot.pickFrom(pools, level, rarityBonus, dice) }
         val itemLevel = itemLevel(level, rule.rarity)
         val equipment = templates.mapIndexed { n, template -> factory.create(itemId(draw, "$event-$n"), template, template.rarity, dice, level = itemLevel) }.toMutableList()
+        // Добыча монстра со скрытой строкой (1.35.0): её волшебные и редкие вещи несут скрытый аффикс.
+        if (veiled) equipment.forEachIndexed { n, item -> com.sperance.exileforge.rules.roll.Veils(index, factory.affixes).veil(templates[n], item, dice) }
         loot.mapDrop(mapChance * relative(AtlasStat.MAP_DROP.code) * (1 + quantity / 100) * (1 + bonus.map / 100), zone.code, context.next, dice, context[AtlasStat.MAP_NEXT.code])
             ?.let { code -> index.template(loot.mapTemplate(code))?.let { it to (index.zone(code)?.level ?: zone.level) } }?.let { (template, mapLevel) ->
                 val map = factory.create(itemId(draw, "$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice, level = mapLevel)

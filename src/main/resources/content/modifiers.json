@@ -29132,6 +29132,30 @@
       "tags": [
         "pet",
         "damage"
+      ],
+      "variants": [
+        {
+          "kind": "IMPLICIT",
+          "grid": {
+            "levels": [
+              45,
+              20,
+              1
+            ],
+            "top": [
+              [
+                20,
+                25
+              ]
+            ],
+            "bottom": [
+              [
+                8,
+                12
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29167,6 +29191,30 @@
       "tags": [
         "pet",
         "life"
+      ],
+      "variants": [
+        {
+          "kind": "IMPLICIT",
+          "grid": {
+            "levels": [
+              45,
+              20,
+              1
+            ],
+            "top": [
+              [
+                20,
+                25
+              ]
+            ],
+            "bottom": [
+              [
+                8,
+                12
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29200,6 +29248,30 @@
       "tags": [
         "pet",
         "speed"
+      ],
+      "variants": [
+        {
+          "kind": "IMPLICIT",
+          "grid": {
+            "levels": [
+              45,
+              20,
+              1
+            ],
+            "top": [
+              [
+                10,
+                12
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29233,6 +29305,30 @@
       "tags": [
         "pet",
         "resistance"
+      ],
+      "variants": [
+        {
+          "kind": "IMPLICIT",
+          "grid": {
+            "levels": [
+              45,
+              20,
+              1
+            ],
+            "top": [
+              [
+                15,
+                20
+              ]
+            ],
+            "bottom": [
+              [
+                6,
+                10
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29266,6 +29362,30 @@
       "tags": [
         "pet",
         "armour"
+      ],
+      "variants": [
+        {
+          "kind": "IMPLICIT",
+          "grid": {
+            "levels": [
+              45,
+              20,
+              1
+            ],
+            "top": [
+              [
+                100,
+                140
+              ]
+            ],
+            "bottom": [
+              [
+                20,
+                40
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -30608,6 +30728,584 @@
         "map",
         "reward"
       ]
+    },
+    {
+      "code": "VEILED_LIFE_AND_ATTACK_SPEED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HEALTH"
+        },
+        {
+          "stat": "STOCK_ATTACK_SPEED",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            50,
+            60
+          ],
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            20,
+            25
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "life",
+        "speed"
+      ]
+    },
+    {
+      "code": "VEILED_SHIELD_AND_CAST_SPEED",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ENERGY_SHIELD"
+        },
+        {
+          "stat": "STOCK_CAST_SPEED",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            35,
+            45
+          ],
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            12,
+            18
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "energy_shield",
+        "caster"
+      ]
+    },
+    {
+      "code": "VEILED_PHYSICAL_AND_ACCURACY",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_PHYSICAL"
+        },
+        {
+          "stat": "STOCK_ACCURACY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            18,
+            24
+          ],
+          [
+            150,
+            200
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            9
+          ],
+          [
+            50,
+            70
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "physical",
+        "accuracy"
+      ]
+    },
+    {
+      "code": "VEILED_ELEMENTAL_AND_PENETRATION",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_PENETRATE_ELEMENTAL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            12
+          ],
+          [
+            10,
+            12
+          ],
+          [
+            10,
+            12
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "elemental"
+      ]
+    },
+    {
+      "code": "VEILED_ARMOUR_AND_FORTIFY",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ARMOR",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_FORTIFY_ON_HIT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            30,
+            40
+          ],
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            12,
+            15
+          ],
+          [
+            5,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "armour",
+        "buff"
+      ]
+    },
+    {
+      "code": "VEILED_RESISTANCES_AND_REGEN",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_RESIST_ALL"
+        },
+        {
+          "stat": "STOCK_HEALTH_REGEN"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            12,
+            15
+          ],
+          [
+            8,
+            12
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            7
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "resistance",
+        "regen"
+      ]
+    },
+    {
+      "code": "VEILED_CRITICAL_CHANCE_AND_MULTIPLIER",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CRITICAL_CHANCE",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_CRITICAL_MULTIPLIER"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            25,
+            30
+          ],
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            12
+          ],
+          [
+            8,
+            10
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "critical"
+      ]
+    },
+    {
+      "code": "VEILED_ATTRIBUTES_AND_RESISTANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_STRENGTH"
+        },
+        {
+          "stat": "STOCK_AGILITY"
+        },
+        {
+          "stat": "STOCK_INTELLECT"
+        },
+        {
+          "stat": "STOCK_RESIST_CHAOS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            15,
+            20
+          ],
+          [
+            15,
+            20
+          ],
+          [
+            15,
+            20
+          ],
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            8
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            6,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "attribute",
+        "chaos"
+      ]
+    },
+    {
+      "code": "VEILED_SUPPRESSION_AND_DEFLECTION",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_SUPPRESSION"
+        },
+        {
+          "stat": "STOCK_DEFLECTION"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            8,
+            10
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "defences"
+      ]
+    },
+    {
+      "code": "VEILED_ONSLAUGHT_AND_SPEED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ONSLAUGHT_ON_KILL"
+        },
+        {
+          "stat": "STOCK_MOVEMENT_SPEED",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          55,
+          30
+        ],
+        "top": [
+          [
+            15,
+            20
+          ],
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            5,
+            8
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "buff",
+        "speed"
+      ]
+    },
+    {
+      "code": "VEILED_PREFIX",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_VEILED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            0,
+            0
+          ]
+        ],
+        "bottom": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "tags": [
+        "veiled"
+      ]
+    },
+    {
+      "code": "VEILED_SUFFIX",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_VEILED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            0,
+            0
+          ]
+        ],
+        "bottom": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "tags": [
+        "veiled"
+      ]
+    },
+    {
+      "code": "MOB_VEILED",
+      "source": "MONSTER",
+      "effects": [
+        {
+          "stat": "STOCK_VEILED_LOOT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "monster",
+        "veiled"
+      ],
+      "minRarity": "RARE"
     }
   ]
 }

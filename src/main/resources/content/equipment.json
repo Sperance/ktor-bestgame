@@ -31018,6 +31018,66 @@
           }
         ]
       ]
+    },
+    {
+      "code": "LEATHER_COLLAR",
+      "slot": "COLLAR",
+      "level": 1,
+      "requiredLevel": 1,
+      "fixed": [
+        "PET_INCREASED_LIFE@IMPLICIT"
+      ],
+      "tables": [
+        "collar"
+      ]
+    },
+    {
+      "code": "STUDDED_COLLAR",
+      "slot": "COLLAR",
+      "level": 15,
+      "requiredLevel": 15,
+      "fixed": [
+        "PET_ADD_ARMOUR@IMPLICIT"
+      ],
+      "tables": [
+        "collar"
+      ]
+    },
+    {
+      "code": "BRASS_COLLAR",
+      "slot": "COLLAR",
+      "level": 30,
+      "requiredLevel": 30,
+      "fixed": [
+        "PET_ATTACK_SPEED@IMPLICIT"
+      ],
+      "tables": [
+        "collar"
+      ]
+    },
+    {
+      "code": "RUNED_COLLAR",
+      "slot": "COLLAR",
+      "level": 45,
+      "requiredLevel": 45,
+      "fixed": [
+        "PET_RESISTANCES@IMPLICIT"
+      ],
+      "tables": [
+        "collar"
+      ]
+    },
+    {
+      "code": "ALPHA_COLLAR",
+      "slot": "COLLAR",
+      "level": 60,
+      "requiredLevel": 60,
+      "fixed": [
+        "PET_INCREASED_DAMAGE@IMPLICIT"
+      ],
+      "tables": [
+        "collar"
+      ]
     }
   ]
 }

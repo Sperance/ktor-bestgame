@@ -2033,6 +2033,138 @@
       "category": "PET",
       "subCategory": "PET_ORB",
       "price": 90
+    },
+    {
+      "code": "WHETSTONE",
+      "category": "CURRENCY",
+      "subCategory": "WHETSTONE",
+      "price": 40
+    },
+    {
+      "code": "ARMOURERS_SCRAP",
+      "category": "CURRENCY",
+      "subCategory": "ARMOURERS_SCRAP",
+      "price": 30
+    },
+    {
+      "code": "UNVEILING_ORB",
+      "category": "CURRENCY",
+      "subCategory": "UNVEILING_ORB",
+      "price": 400
+    },
+    {
+      "code": "CATALYST_LIFE",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_LIFE",
+      "price": 60
+    },
+    {
+      "code": "CATALYST_DEFENCE",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_DEFENCE",
+      "price": 60
+    },
+    {
+      "code": "CATALYST_ELEMENTAL",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_ELEMENTAL",
+      "price": 60
+    },
+    {
+      "code": "CATALYST_PHYSICAL",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_PHYSICAL",
+      "price": 60
+    },
+    {
+      "code": "CATALYST_CHAOS",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_CHAOS",
+      "price": 60
+    },
+    {
+      "code": "CATALYST_SPEED",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_SPEED",
+      "price": 60
+    },
+    {
+      "code": "CATALYST_ATTRIBUTE",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_ATTRIBUTE",
+      "price": 60
+    },
+    {
+      "code": "CATALYST_CASTER",
+      "category": "CURRENCY",
+      "subCategory": "CATALYST_CASTER",
+      "price": 60
+    },
+    {
+      "code": "OMEN_SINISTRAL_CHAOS",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_DEXTRAL_CHAOS",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_SINISTRAL_EXALTATION",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_DEXTRAL_EXALTATION",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_GREATER_EXALTATION",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_SINISTRAL_CORONATION",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_DEXTRAL_CORONATION",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_SINISTRAL_ANNULMENT",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_DEXTRAL_ANNULMENT",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_LIGHT",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
+    },
+    {
+      "code": "OMEN_CORRUPTION",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 800
     }
   ]
 }

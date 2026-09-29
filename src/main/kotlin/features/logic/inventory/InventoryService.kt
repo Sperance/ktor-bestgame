@@ -8,6 +8,7 @@ import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.EquipSlots
 import com.sperance.exileforge.rules.content.ItemTemplate
+import com.sperance.exileforge.rules.content.Omen
 import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.Slot
@@ -143,15 +144,26 @@ class InventoryService : KoinComponent {
     }
 
     /** Сфера [orbCode] на копию: списывается и применяется одной записью, отказ правила не съедает сферу. */
-    suspend fun applyOrb(heroId: String, itemId: String, orbCode: String): CurrencyApplyResponse {
+    suspend fun applyOrb(heroId: String, itemId: String, orbCode: String, omenCode: String? = null): CurrencyApplyResponse {
         val method = "applyOrb"
         val hero = heroes.requireHero(heroId, method)
         val item = hero.requireItem(itemId, method)
         val orb = index.orb(orbCode) ?: throw CurrencyExceptions.funExceptionNotCurrency(method, orbCode)
+        // Знамение (1.35.0) тратится той же записью, что и сфера.
+        val omen = omenCode?.takeIf { it.isNotBlank() }?.let { Omen.of(it) ?: throw CurrencyExceptions.funExceptionNotCurrency(method, it) }
         hero.spend(orbCode, 1, method)
+        omen?.let { hero.spend(it.code, 1, method) }
         hero.count(Counter.ORBS_USED)
         if (orb == Orb.MIRROR_OF_KALANDRA) hero.count(Counter.MIRRORS)
-        return finish(hero, orbs.apply(orb, item, template(item, method), Dice.system()) { Hero.newItemId() }, method)
+        return finish(hero, orbs.apply(orb, item, template(item, method), Dice.system(), omen) { Hero.newItemId() }, method)
+    }
+
+    /** Выбор [choice] из вариантов, что предложила сфера раскрытия (1.35.0): бесплатно, одной записью. */
+    suspend fun unveil(heroId: String, itemId: String, choice: Int): CurrencyApplyResponse {
+        val method = "unveil"
+        val hero = heroes.requireHero(heroId, method)
+        val item = hero.requireItem(itemId, method)
+        return finish(hero, orbs.reveal(item, template(item, method), choice), method)
     }
 
     /** Эссенция [essenceCode] на копию - так же, одной записью со списанием. */

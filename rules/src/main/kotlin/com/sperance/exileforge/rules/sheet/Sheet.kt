@@ -1,11 +1,13 @@
 package com.sperance.exileforge.rules.sheet
 
+import com.sperance.exileforge.rules.content.Catalyst
 import com.sperance.exileforge.rules.content.Condition
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.HeroClass
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Line
 import com.sperance.exileforge.rules.content.Op
+import com.sperance.exileforge.rules.content.QualityRules
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SheetStep
 import com.sperance.exileforge.rules.content.Slot
@@ -99,14 +101,20 @@ class SheetCalculator(private val index: ContentIndex) {
         index.powers.applySheet(raw(base, operations), trace, stats::isPercent)
 
     /** Строки вещи в операции над героем: локальные свёрнуты внутри от нулевой базы и отданы прибавкой. */
-    fun foldItem(template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null): List<StatOperation> {
+    fun foldItem(template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null, quality: Int = 0, catalyst: Catalyst? = null): List<StatOperation> {
+        // Качество (1.35.0): с катализатором - модификаторы его вида, без него - база и локальная защита или физический урон.
+        val share = 1 + quality.coerceAtLeast(0) / 100.0
+        val boosted: (Roll) -> Boolean = { roll -> catalyst != null && quality > 0 && index.modifier(roll.code)?.let { catalyst.covers(it.tags) } == true }
+        fun own(rolls: Collection<Roll>) = rolls.flatMap { roll -> expandRolls(listOf(roll), source).let { ops -> if (boosted(roll)) ops.map { it.copy(value = it.value * share) } else ops } }
+        fun based(ops: List<StatOperation>) = if (catalyst != null || quality <= 0) ops
+            else ops.map { if (it.stat in QualityRules.BASE_STATS && it.op == Op.ADD) it.copy(value = it.value * share) else it }
         val (local, global) = rolls.partition { index.modifier(it.code)?.local == true }
-        val baseOps = expand(template.base, source)
-        if (local.isEmpty()) return baseOps + expandRolls(global, source)
-        val localOps = expandRolls(local, source)
+        val baseOps = based(expand(template.base, source))
+        if (local.isEmpty()) return baseOps + own(global)
+        val localOps = own(local)
         val folded = compute(emptyMap(), localOps).filterValues { it != 0.0 }
             .map { (stat, value) -> StatOperation(stat, Op.ADD, value, source = source, local = localOps.filter { it.stat == stat }) }
-        return baseOps + folded + expandRolls(global, source)
+        return baseOps + based(folded) + own(global)
     }
 
     /** Что дают строки сами по себе - по строке на характеристику и операцию. */
@@ -159,7 +167,7 @@ class SheetCalculator(private val index: ContentIndex) {
                 if (unmet.isNotEmpty()) { inactive += InactiveItem(item.id, template.code, unmet); return@forEach }
             }
             active += item.id
-            val folded = foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id))
+            val folded = foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id), item.quality, item.catalyst)
             worn += Worn(item, template, folded)
             operations += folded
             stale = true

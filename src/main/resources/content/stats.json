@@ -5456,6 +5456,16 @@
       "code": "MAP_MONSTER_EXTRA_ELEMENTAL",
       "group": "MAP",
       "order": 3476
+    },
+    {
+      "code": "STOCK_VEILED",
+      "group": "HERO",
+      "order": 3477
+    },
+    {
+      "code": "STOCK_VEILED_LOOT",
+      "group": "HERO",
+      "order": 3478
     }
   ]
 }
