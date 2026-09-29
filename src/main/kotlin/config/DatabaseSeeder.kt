@@ -55,6 +55,7 @@ object DatabaseSeeder : KoinComponent {
 
         printLog("Database seeding started")
         DatabaseWipe.runOnce()
+        GuildWipe.runOnce()
         ensureIndexes()
 
         transactionExecute { session ->

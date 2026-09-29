@@ -30,7 +30,7 @@ class GuildRoute(private val repo: GuildRepository) : BaseRoute<Guild>(
         }
         post("/create") {
             call.respondWithHero(repo.create(
-                call.heroId, call.queryParam("name"), call.queryParam("tag"), call.queryParam("patron"), call.queryParam("emblem"), call.queryParam("color"),
+                call.heroId, call.queryParam("name"), call.queryParam("tag"), call.queryParam("faction"), call.queryParam("emblem"), call.queryParam("color"),
                 call.mode() ?: GuildMode.OPEN, call.queryParam("minLevel", 1),
             ))
         }

@@ -41,14 +41,14 @@ data class GuildInvite(val heroId: String, val by: String, val at: Long)
 /**
  * Гильдия (1.20.0) - коллекция `Guild`: состав, заявки и приглашения внутри документа (их не больше
  * потолка состава), журнал и чат - своими коллекциями [GuildEvent] и [GuildChat]. Название уникально без
- * учёта регистра ([nameKey]), тег хранится заглавными и тоже уникален. Покровитель не меняется никогда.
+ * учёта регистра ([nameKey]), тег хранится заглавными и тоже уникален. Фракция (1.25.0) не меняется никогда.
  */
 @Serializable
 data class Guild(
     var name: String,
     var nameKey: String = name.lowercase(),
     var tag: String,
-    val patron: String,
+    val faction: String,
     var emblem: String,
     var color: String,
     var mode: GuildMode = GuildMode.OPEN,
@@ -129,7 +129,7 @@ data class GuildView(
     val tag: String,
     val emblem: String,
     val color: String,
-    val patron: String,
+    val faction: String,
     val level: Int,
     val experience: Long,
     val next: Long,
@@ -152,7 +152,7 @@ data class GuildCard(
     val tag: String,
     val emblem: String,
     val color: String,
-    val patron: String,
+    val faction: String,
     val level: Int,
     val members: Int,
     val capacity: Int,

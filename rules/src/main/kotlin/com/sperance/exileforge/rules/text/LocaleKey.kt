@@ -62,8 +62,8 @@ object LocaleKey {
     fun enumLabel(enumName: String, value: String) = "$ENUM.$enumName.$value"
     fun rarity(value: Rarity) = enumLabel("EnumRarity", value.name)
     fun error(code: String) = "$ERROR.$code"
-    fun guildPatronName(code: String) = key("$GUILD.patron", code, NAME)
-    fun guildPatronDescription(code: String) = key("$GUILD.patron", code, DESCRIPTION)
+    fun guildFactionName(code: String) = key("$GUILD.faction", code, NAME)
+    fun guildFactionDescription(code: String) = key("$GUILD.faction", code, DESCRIPTION)
     fun guildRank(code: String) = "$GUILD.rank.$code"
     fun guildRole(role: GuildRole) = "$GUILD.role.${role.name}"
     fun guildMode(mode: GuildMode) = "$GUILD.mode.${mode.name}"

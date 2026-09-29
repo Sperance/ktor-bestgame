@@ -8,8 +8,8 @@ import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.TreeGraph
 import com.sperance.exileforge.rules.content.tenths
 
-/** Чем бывает источник характеристики; [StatSource.ref] - код класса, узла, силы, эффекта, покровителя гильдии или id вещи и питомца. */
-enum class SourceKind { CLASS, NODE, ITEM, PET, POWER, MAP, ATLAS, GUILD }
+/** Чем бывает источник характеристики; [StatSource.ref] - код класса, узла, силы, эффекта или id вещи и питомца. */
+enum class SourceKind { CLASS, NODE, ITEM, PET, POWER, MAP, ATLAS }
 
 data class StatSource(val kind: SourceKind, val ref: String)
 

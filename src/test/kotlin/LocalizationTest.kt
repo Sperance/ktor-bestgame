@@ -110,7 +110,7 @@ class LocalizationTest {
         index.stats.stats.forEach { add(LocaleKey.statLabel(it)) }
         enums.forEach { (name, values) -> values.forEach { add(LocaleKey.enumLabel(name, it)) } }
         errorCodes().forEach { add(LocaleKey.error(it)) }
-        index.guilds.patrons.forEach { add(LocaleKey.guildPatronName(it.code)); add(LocaleKey.guildPatronDescription(it.code)) }
+        index.guilds.factions.forEach { add(LocaleKey.guildFactionName(it.code)); add(LocaleKey.guildFactionDescription(it.code)) }
         index.guilds.ranks.forEach { add(LocaleKey.guildRank(it.code)) }
         // Название задания в ответе «сдать всё» (1.22.0) - ключ словаря: у каждой цели и шага сюжета он свой
         index.quests.goals.forEach { add(LocaleKey.questTitle(QuestKind.DAILY, it.code)) }

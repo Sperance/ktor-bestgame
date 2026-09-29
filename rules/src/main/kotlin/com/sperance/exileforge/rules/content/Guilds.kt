@@ -1,16 +1,11 @@
 package com.sperance.exileforge.rules.content
 
 import com.sperance.exileforge.rules.fail
-import com.sperance.exileforge.rules.sheet.SourceKind
-import com.sperance.exileforge.rules.sheet.StatOperation
-import com.sperance.exileforge.rules.sheet.StatSource
 import kotlinx.serialization.Serializable
-import kotlin.math.ceil
 
 /*
  * Гильдии (1.20.0). Файл `guilds.json`: цена основания, состав по уровню, опыт уровней, ранги по вкладу,
- * покровители со строками бонуса, гербы, чат. Покровитель выбирается при основании навсегда; его строки
- * растут с уровнем гильдии и рангом участника и ложатся в лист героя источником [SourceKind.GUILD].
+ * фракции, гербы, чат. Фракция выбирается при основании навсегда (1.25.0) и бонусов не даёт; ранги - только статус.
  */
 
 /** Роль в гильдии: глава - всё, офицер - состав, участник - вклад и выход. */
@@ -40,48 +35,12 @@ data class GuildContributionRule(val dailyPerLevel: Long = 2000, val marksPer: L
 @Serializable
 data class GuildRank(val code: String, val from: Long)
 
-/** Строка покровителя: характеристика героя и операция, [perLevel] - прибавка за уровень гильдии. */
+/** Фракция гильдии: код (`guild.faction.<code>.name` / `.description`), иконка (ключ icons.json) и цвет `#rrggbb`. Бонусов нет. */
 @Serializable
-data class GuildLineRule(val stat: String, val op: Op, val perLevel: Double)
-
-/**
- * Покровитель: код (`guild.patron.<code>.name` / `.description`), иконка, строки листа героя и [discount] -
- * процент скидки торговца и сбора аукциона за уровень гильдии (у торговли нет стата листа, поэтому отдельно).
- */
-@Serializable
-data class GuildPatron(val code: String, val icon: String = "", val lines: List<GuildLineRule> = emptyList(), val discount: Double = 0.0)
+data class GuildFaction(val code: String, val icon: String = "", val color: String = "")
 
 @Serializable
 data class GuildChatRule(val keep: Int = 100, val length: Int = 200, val cooldownSeconds: Int = 3)
-
-/** Одна строка бонуса гильдии, уже посчитанная для героя. */
-@Serializable
-data class GuildLine(val stat: String, val op: Op, val value: Double)
-
-/**
- * Бонус гильдии героя - часть снимка `guild`: пустой [patron] - героя в гильдии нет. [rank] - код ранга,
- * [discount] - процент скидки торговца и сбора аукциона.
- */
-@Serializable
-data class GuildBonus(
-    val patron: String = "",
-    val level: Int = 0,
-    val rank: String = "",
-    val lines: List<GuildLine> = emptyList(),
-    val discount: Double = 0.0,
-) {
-    val active: Boolean get() = patron.isNotEmpty()
-
-    /** Строки бонуса операциями листа: [com.sperance.exileforge.rules.sheet.SheetCalculator.calculate] берёт их в `extra`. */
-    fun operations(): List<StatOperation> =
-        lines.map { StatOperation(it.stat, it.op, it.value, source = StatSource(SourceKind.GUILD, patron)) }
-
-    /** Цена со скидкой гильдии; ненулевая цена остаётся ненулевой. */
-    fun discounted(price: Long): Long {
-        if (discount <= 0.0 || price <= 0) return price
-        return ceil(price * (1.0 - discount / 100.0)).toLong().coerceIn(1L, price)
-    }
-}
 
 /** Правила гильдий - файл `guilds.json`. */
 @Serializable
@@ -95,9 +54,7 @@ data class GuildRules(
     /** Опыт, с которого начинается уровень 1..N; первый всегда 0. */
     val levels: List<Long> = listOf(0),
     val ranks: List<GuildRank> = listOf(GuildRank("NOVICE", 0)),
-    /** Процент к бонусу покровителя за каждый ранг выше первого. */
-    val rankBonus: Double = 10.0,
-    val patrons: List<GuildPatron> = emptyList(),
+    val factions: List<GuildFaction> = emptyList(),
     val emblems: List<String> = emptyList(),
     val colors: List<String> = emptyList(),
     val chat: GuildChatRule = GuildChatRule(),
@@ -110,7 +67,7 @@ data class GuildRules(
 ) {
     val maxLevel: Int get() = levels.size
 
-    fun patron(code: String): GuildPatron? = patrons.firstOrNull { it.code == code }
+    fun faction(code: String): GuildFaction? = factions.firstOrNull { it.code == code }
 
     /** Мест в составе на уровне гильдии [level]. */
     fun capacity(level: Int): Int = (members.base + members.perLevel * (level - 1).coerceAtLeast(0)).coerceAtMost(members.max)
@@ -125,40 +82,18 @@ data class GuildRules(
 
     fun rankFor(contribution: Long): GuildRank = ranks[rankIndex(contribution)]
 
-    /** Строки покровителя на уровне [level] для ранга [rankIndex]: `perLevel × уровень × (1 + rankBonus% × ранг)`. */
-    fun bonusLines(patron: String, level: Int, rankIndex: Int): List<GuildLine> {
-        val rule = patron(patron) ?: return emptyList()
-        val factor = level * rankFactor(rankIndex)
-        return rule.lines.map { GuildLine(it.stat, it.op, tenths(it.perLevel * factor)) }
-    }
-
-    fun bonus(patron: String, level: Int, rankIndex: Int): GuildBonus {
-        val rule = patron(patron) ?: return GuildBonus()
-        val rank = ranks.getOrNull(rankIndex.coerceIn(0, ranks.lastIndex))?.code.orEmpty()
-        return GuildBonus(patron, level, rank, bonusLines(patron, level, rankIndex), tenths(rule.discount * level * rankFactor(rankIndex)))
-    }
-
     /** Сколько золотой стоимости герой уровня [heroLevel] вносит за сутки. */
     fun dailyLimit(heroLevel: Int): Long = contribution.dailyPerLevel * heroLevel
 
     /** Знаков гильдии за вклад стоимостью [value]. */
     fun marksFor(value: Long): Long = if (contribution.marksPer <= 0) 0 else value / contribution.marksPer
 
-    private fun rankFactor(rankIndex: Int): Double = 1.0 + rankBonus / 100.0 * rankIndex.coerceIn(0, ranks.lastIndex)
-
-    fun validate(stats: StatRegistry) {
+    fun validate() {
         if (levels.isEmpty() || levels.first() != 0L || levels.zipWithNext().any { (a, b) -> b <= a }) fail("guilds: levels must start at 0 and grow")
         if (ranks.isEmpty() || ranks.first().from != 0L || ranks.zipWithNext().any { (a, b) -> b.from <= a.from }) fail("guilds: ranks must start at 0 and grow")
         if (ranks.map { it.code }.toSet().size != ranks.size) fail("guilds: duplicate rank codes")
-        if (patrons.isEmpty() || patrons.map { it.code }.toSet().size != patrons.size) fail("guilds: patrons")
-        patrons.forEach { patron ->
-            patron.lines.forEach { line ->
-                val def = stats[line.stat] ?: fail("guilds: ${patron.code} names unknown stat ${line.stat}")
-                if (def.group != StatGroup.HERO) fail("guilds: ${patron.code} names ${line.stat} outside the hero sheet")
-                if (line.perLevel <= 0.0) fail("guilds: ${patron.code} ${line.stat} perLevel")
-            }
-            if (patron.discount < 0.0 || patron.discount * maxLevel * rankFactor(ranks.lastIndex) >= 100.0) fail("guilds: ${patron.code} discount")
-        }
+        if (factions.isEmpty() || factions.map { it.code }.toSet().size != factions.size) fail("guilds: factions")
+        factions.firstOrNull { !COLOR.matches(it.color) }?.let { fail("guilds: ${it.code} color") }
         if (emblems.isEmpty() || emblems.toSet().size != emblems.size) fail("guilds: emblems")
         if (colors.isEmpty() || colors.any { !COLOR.matches(it) }) fail("guilds: colors")
         if (name.size != 2 || name[0] < 1 || name[0] > name[1] || tag.size != 2 || tag[0] < 1 || tag[0] > tag[1]) fail("guilds: name or tag length")

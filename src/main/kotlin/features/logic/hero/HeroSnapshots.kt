@@ -2,7 +2,6 @@ package features.logic.hero
 
 import base.route.ApiMongoResponse
 import com.sperance.exileforge.rules.RulesJson
-import com.sperance.exileforge.rules.content.GuildBonus
 import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.sha256
@@ -81,8 +80,6 @@ object HeroSnapshots : KoinComponent {
     const val CRAFTS = "crafts"
     const val MERCHANT = "merchant"
     const val PETS = "pets"
-    /** Бонус гильдии [GuildBonus] (1.20.0): строки листа героя и скидка торговли; пустой - вне гильдии. */
-    const val GUILD = "guild"
 
     private val heroes: HeroRepository by inject()
     private val crafts: CraftsService by inject()
@@ -121,7 +118,6 @@ object HeroSnapshots : KoinComponent {
         part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work))
         part(MERCHANT, MerchantStock.serializer(), hero.merchant ?: MerchantStock())
         part(PETS, PetState.serializer(), PetState.of(hero, content.index.rules.pets.cap))
-        part(GUILD, GuildBonus.serializer(), content.index.guildBonus(hero))
         return HeroSnapshot(hero.version.toString(), parts)
     }
 

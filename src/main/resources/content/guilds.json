@@ -23,41 +23,10 @@
     { "code": "CHAMPION", "from": 100000 },
     { "code": "LEGEND", "from": 400000 }
   ],
-  "rankBonus": 10,
-  "patrons": [
-    {
-      "code": "KARUI",
-      "icon": "stat.POWER_KARUI_GRIT",
-      "lines": [
-        { "stat": "STOCK_DAMAGE", "op": "ADD", "perLevel": 1.0 },
-        { "stat": "STOCK_HEALTH", "op": "INCREASED", "perLevel": 0.8 }
-      ]
-    },
-    {
-      "code": "LIGHT",
-      "icon": "stat.POWER_FIRST_LIGHT",
-      "lines": [
-        { "stat": "STOCK_ARMOR", "op": "INCREASED", "perLevel": 1.5 },
-        { "stat": "STOCK_EVASION", "op": "INCREASED", "perLevel": 1.5 },
-        { "stat": "STOCK_RESIST_ALL", "op": "ADD", "perLevel": 0.8 }
-      ]
-    },
-    {
-      "code": "LEAGUE",
-      "icon": "stat.POWER_GOLDEN_PURSE",
-      "lines": [
-        { "stat": "STOCK_GOLD", "op": "ADD", "perLevel": 1.5 }
-      ],
-      "discount": 1.0
-    },
-    {
-      "code": "CRAFT",
-      "icon": "stat.POWER_ANVIL_HEART",
-      "lines": [
-        { "stat": "STOCK_WORK_SPEED", "op": "ADD", "perLevel": 1.5 },
-        { "stat": "STOCK_WORK_FIND", "op": "ADD", "perLevel": 1.0 }
-      ]
-    }
+  "factions": [
+    { "code": "WARDENS", "icon": "guild.faction.WARDENS", "color": "#f0a23a" },
+    { "code": "HEEDING", "icon": "guild.faction.HEEDING", "color": "#7cc8f0" },
+    { "code": "DEEPBOUND", "icon": "guild.faction.DEEPBOUND", "color": "#a36cf0" }
   ],
   "emblems": ["SWORD", "SHIELD", "AXE", "HAMMER", "CROWN", "SKULL", "WOLF", "EAGLE", "TOWER", "FLAME", "SUN", "COIN"],
   "colors": ["#B23A3A", "#D98C2B", "#D9C23A", "#4F9A3C", "#2F8F8F", "#3A64B2", "#7A45B2", "#8A8A8A"],

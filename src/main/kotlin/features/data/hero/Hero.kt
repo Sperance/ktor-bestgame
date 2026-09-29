@@ -72,7 +72,7 @@ data class Hero(
     var petCombat: String = "",
     var petHelper: String = "",
     var campaign: CampaignState = CampaignState(),
-    /** Гильдия героя (1.20.0): то, что нужно листу и скидкам без чтения гильдии; null - не состоит. */
+    /** Гильдия героя (1.20.0): копия членства без чтения гильдии; null - не состоит. */
     var guild: HeroGuild? = null,
     /** Знаки гильдии: копятся вкладами и остаются при выходе. */
     var guildMarks: Long = 0,
@@ -159,10 +159,10 @@ data class Hero(
 
 /**
  * Членство героя в гильдии, продублированное из её документа: [level] гильдии и индекс ранга [rank] героя
- * гильдия переписывает сама, когда они меняются, - лист, торговец и аукцион читают только героя.
+ * гильдия переписывает сама, когда они меняются, - задания гильдии читают только героя.
  */
 @Serializable
-data class HeroGuild(val id: String, val patron: String, val level: Int = 1, val rank: Int = 0)
+data class HeroGuild(val id: String, val level: Int = 1, val rank: Int = 0)
 
 /**
  * Кампания героя: пройденные зоны, окна сундуков, кристаллов и расщелин по зонам, боссы (когда

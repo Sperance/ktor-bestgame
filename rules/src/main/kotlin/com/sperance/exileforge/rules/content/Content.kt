@@ -261,7 +261,7 @@ class ContentIndex(val content: Content) {
         rules.bench.costs.forEach { if (items[it.orb.name] == null) fail("rules: bench orb ${it.orb}") }
         achievements.validate()
         pets.validate(this)
-        guilds.validate(stats)
+        guilds.validate()
         quests.validate(this)
         CampaignValidator(this).validate()
     }

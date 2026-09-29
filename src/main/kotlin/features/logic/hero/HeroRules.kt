@@ -2,7 +2,6 @@ package features.logic.hero
 
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
-import com.sperance.exileforge.rules.content.GuildBonus
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.roll.Menagerie
 import com.sperance.exileforge.rules.run.Reward
@@ -11,17 +10,10 @@ import com.sperance.exileforge.rules.sheet.SheetResult
 import com.sperance.exileforge.rules.sheet.sourcedLines
 import features.data.hero.Hero
 
-/**
- * Лист героя правилами `rules`: класс на уровне, строки дерева, питомцы, бонус гильдии, надетое и гнёзда - то же,
- * что считает клиент (бонус гильдии он берёт из части снимка `guild`).
- */
+/** Лист героя правилами `rules`: класс на уровне, строки дерева, питомцы, надетое и гнёзда - то же, что считает клиент. */
 fun ContentIndex.sheetOf(hero: Hero): SheetResult =
     SheetCalculator(this).calculate(hero.level, heroClass(hero.heroClass), tree.sourcedLines(hero.tree) + Menagerie(this).helperSourced(hero.activePets()), hero.equipped,
-        hero.tree.mapTo(HashSet()) { it.code }, guildBonus(hero).operations())
-
-/** Бонус покровителя гильдии героя на её уровне и его ранге; вне гильдии - пустой. */
-fun ContentIndex.guildBonus(hero: Hero): GuildBonus =
-    hero.guild?.let { guilds.bonus(it.patron, it.level, it.rank) } ?: GuildBonus()
+        hero.tree.mapTo(HashSet()) { it.code })
 
 /** Награда ложится на героя: стопки в сумку до потолка, опыт с уровнем, золото, рецепт и копии вещей - через тайник. */
 object Rewards {

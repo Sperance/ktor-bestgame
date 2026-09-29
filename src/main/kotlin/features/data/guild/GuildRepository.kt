@@ -42,7 +42,7 @@ import org.koin.core.component.inject
 import java.util.regex.Pattern
 
 /**
- * Гильдии (1.20.0). Правда о составе - документ гильдии; у героя лежит копия [HeroGuild] для листа и скидок,
+ * Гильдии (1.20.0). Правда о составе - документ гильдии; у героя лежит копия [HeroGuild],
  * и каждое чтение гильдии героем сверяет её. Любое чтение и запись гильдии сначала обслуживают её: отмечают,
  * что участник заходил, и передают главенство, если глава не заходил дольше `leaderIdleDays`.
  */
@@ -100,18 +100,18 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
 
     // ==================== ОСНОВАНИЕ И СОСТАВ ====================
 
-    suspend fun create(heroId: String, name: String, tag: String, patron: String, emblem: String, color: String, mode: GuildMode, minLevel: Int): GuildMine {
+    suspend fun create(heroId: String, name: String, tag: String, faction: String, emblem: String, color: String, mode: GuildMode, minLevel: Int): GuildMine {
         val method = "guildCreate"
         val hero = requireFree(heroId, method)
         if (hero.level < rules.create.level) throw GuildExceptions.funExceptionCreateLevel(method, rules.create.level.toString())
         val title = requireName(name, method)
         val code = requireTag(tag, method)
-        if (rules.patron(patron) == null) throw GuildExceptions.funExceptionPatron(method, patron)
+        if (rules.faction(faction) == null) throw GuildExceptions.funExceptionFaction(method, faction)
         requireLook(emblem, color, method)
         requireMinLevel(minLevel, method)
         if (hero.money < rules.create.gold) throw CharacterExceptions.funExceptionGold(method, rules.create.gold.toString())
         hero.pay(rules.create.gold)
-        val guild = Guild(name = title, tag = code, patron = patron, emblem = emblem, color = color, mode = mode, minLevel = minLevel)
+        val guild = Guild(name = title, tag = code, faction = faction, emblem = emblem, color = color, mode = mode, minLevel = minLevel)
         val change = Change(guild)
         change.enlist(hero, GuildRole.LEADER)
         change.log(GuildLogKind.CREATED, hero.name, title)
@@ -600,7 +600,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         /** Копия гильдии у героя - как в документе гильдии. */
         fun sync(hero: Hero) {
             val me = guild.member(hero._id) ?: return
-            val expected = HeroGuild(guild._id, guild.patron, guild.level, rules.rankIndex(me.contribution))
+            val expected = HeroGuild(guild._id, guild.level, rules.rankIndex(me.contribution))
             if (hero.guild != expected) { hero.guild = expected; touched[hero._id] = hero }
         }
 
@@ -665,7 +665,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         }
     }
 
-    /** Запись команды; вырос уровень гильдии - он же в копии у каждого участника: бонус покровителя растёт у всех сразу. */
+    /** Запись команды; вырос уровень гильдии - он же в копии у каждого участника. */
     private suspend fun commit(change: Change, method: String, grown: Boolean) {
         val guild = change.guild
         transactionExecute("guild $method ${guild._id}") { session ->
@@ -798,7 +798,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             cards[application.heroId]?.let { GuildApplicant(it.id, it.name, it.heroClass, it.level, application.at) }
         }
         return GuildView(
-            guild._id, guild.name, guild.tag, guild.emblem, guild.color, guild.patron, guild.level, guild.experience, rules.next(guild.level),
+            guild._id, guild.name, guild.tag, guild.emblem, guild.color, guild.faction, guild.level, guild.experience, rules.next(guild.level),
             rules.capacity(guild.level), guild.mode, guild.minLevel, guild.announcement, guild.treasuryGold, guild.treasuryOrbs.toMap(),
             members, applicants, members.filter { it.weekContribution > 0 }.associate { it.heroId to it.weekContribution },
         )
@@ -810,7 +810,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
     )
 
     private fun card(guild: Guild) = GuildCard(
-        guild._id, guild.name, guild.tag, guild.emblem, guild.color, guild.patron, guild.level, guild.members.size, rules.capacity(guild.level), guild.mode, guild.minLevel,
+        guild._id, guild.name, guild.tag, guild.emblem, guild.color, guild.faction, guild.level, guild.members.size, rules.capacity(guild.level), guild.mode, guild.minLevel,
     )
 
     private fun message(chat: GuildChat) = GuildMessage(chat._id, chat.at, chat.heroId, chat.heroName, chat.text)

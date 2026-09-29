@@ -17,7 +17,7 @@ object GuildExceptions {
     fun funExceptionNameTaken(errorMethod: String, value: String? = "") = GuildException("Guild name $value is taken", errorMethod, "GU_006", listOf(value.orEmpty()))
     fun funExceptionTag(errorMethod: String, value: String? = "") = GuildException("Guild tag must be $value letters or digits", errorMethod, "GU_007", listOf(value.orEmpty()))
     fun funExceptionTagTaken(errorMethod: String, value: String? = "") = GuildException("Guild tag $value is taken", errorMethod, "GU_008", listOf(value.orEmpty()))
-    fun funExceptionPatron(errorMethod: String, value: String? = "") = GuildException("Unknown guild patron $value", errorMethod, "GU_009", listOf(value.orEmpty()))
+    fun funExceptionFaction(errorMethod: String, value: String? = "") = GuildException("Unknown guild faction $value", errorMethod, "GU_009", listOf(value.orEmpty()))
     fun funExceptionEmblem(errorMethod: String, value: String? = "") = GuildException("Unknown guild emblem or color $value", errorMethod, "GU_010", listOf(value.orEmpty()))
     fun funExceptionRights(errorMethod: String, value: String? = "") = GuildException("Guild role $value may not do this", errorMethod, "GU_011", listOf(value.orEmpty()))
     fun funExceptionFull(errorMethod: String, value: String? = "") = GuildException("Guild is full: $value members", errorMethod, "GU_012", listOf(value.orEmpty()))

@@ -119,18 +119,14 @@ class SheetCalculator(private val index: ContentIndex) {
 
     /**
      * Лист героя. [lines] - строки взятых узлов и помощников со своими источниками, [equipped] - надетые копии,
-     * [takenNodes] - взятые узлы (самоцвет считается, пока взято его гнездо), [extra] - готовые операции героя
-     * вне строк контента (бонус гильдии - [com.sperance.exileforge.rules.content.GuildBonus.operations]); они
-     * считаются вместе с деревом, до вещей. Инструменты и фляги в лист не входят.
+     * [takenNodes] - взятые узлы (самоцвет считается, пока взято его гнездо). Инструменты и фляги в лист не входят.
      */
     fun calculate(
         level: Int, heroClass: HeroClass?, lines: Collection<SourcedLine>, equipped: Collection<ItemInstance>, takenNodes: Set<String>,
-        extra: Collection<StatOperation> = emptyList(),
     ): SheetResult {
         val base = heroClass?.baseOn(level).orEmpty()
         val operations = ArrayList<StatOperation>(expand(heroClass?.lines.orEmpty(), heroClass?.let { StatSource(SourceKind.CLASS, it.code) }))
         operations += expand(lines)
-        operations += extra
         var stats = compute(base, operations)
         var stale = false
         val active = mutableListOf<String>()
