@@ -43,6 +43,7 @@ fun Application.configureRouting() {
     val routeRegistry by inject<RouteRegistry>()
     val content by inject<ContentStore>()
     installHeroLocks()
+    installIdempotency()
     routing {
         // Словари, иконки и портреты - статичные файлы с манифестами; отпечатки считает сервер,
         // и те же манифесты собраны в static/index.json.

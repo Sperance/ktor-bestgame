@@ -65,6 +65,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         requirePrice(price, method)
         val item = seller.requireItem(itemId, method)
         if (item.equipped || item.socketed) throw AuctionExceptions.funExceptionItemEquipped(method, itemId)
+        if (item.locked) throw AuctionExceptions.funExceptionItemLocked(method, itemId)
         val template = index.template(item.template) ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.template)
         seller.items.remove(item)
         return transactionExecute("auction $method $itemId") { session ->

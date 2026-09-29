@@ -1,5 +1,6 @@
 package features.data.hero
 
+import base.exception.BaseRouteExceptions
 import base.exception.model.SkillExceptions
 import base.exception.model.SkillTreeExceptions
 import base.route.BaseRoute
@@ -113,6 +114,14 @@ class HeroRoute(
         get("/bench") { call.respondOk(inventory.bench(repo.requireHero(call.heroId, "bench"))) }
         post("/craft") { call.respondWithHero(inventory.craft(call.heroId, call.itemId, call.queryParam("recipe"))) }
         post("/uncraft") { call.respondWithHero(inventory.uncraft(call.heroId, call.itemId)) }
+
+        // Замок на вещь (1.28.0): `locked=true|false`, в тайнике, надетую или в переполнении.
+        route("/item") {
+            post("/lock") {
+                val locked = call.queryParam("locked").toBooleanStrictOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("lock", "locked")
+                call.respondWithHero(inventory.lock(call.heroId, call.itemId, locked))
+            }
+        }
 
         // Титул у имени: только из открытых достижениями, пустой - снять.
         post("/title") {

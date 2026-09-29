@@ -114,12 +114,30 @@ class InventoryService : KoinComponent {
         val template = template(item, method)
         if (item.socketed) throw CharacterExceptions.funExceptionSellSocketed(method, template.code)
         if (item.equipped) throw CharacterExceptions.funExceptionSellEquipped(method, template.code)
+        if (item.locked) throw CharacterExceptions.funExceptionItemLocked(method, template.code)
         val gold = SellPrice.of(index, template, item, index.sheetOf(hero).stats)
         hero.items.remove(item)
         hero.gain(gold)
         hero.count(Counter.ITEMS_SOLD)
         heroes.save(hero, method)
         return SellOutcome(itemId, template.code, gold, hero.money)
+    }
+
+    /**
+     * Замок на вещь (1.28.0): в тайнике, надетую или в переполнении. Запертую нельзя продать и выставить
+     * на аукцион, и переполнение не продаёт её само; сферы и ремесло замок не держит.
+     */
+    suspend fun lock(heroId: String, itemId: String, locked: Boolean): ItemInstance {
+        val method = "lock"
+        val hero = heroes.requireHero(heroId, method)
+        val item = hero.item(itemId) ?: hero.overflow.firstOrNull { it.id == itemId }
+            ?: throw CharacterExceptions.funExceptionItemNotFound(method, itemId)
+        if (item.locked == locked) return item
+        val changed = item.copy(locked = locked)
+        val at = hero.overflow.indexOfFirst { it === item }
+        if (at >= 0) hero.overflow[at] = changed else hero.replace(changed)
+        heroes.save(hero, method)
+        return changed
     }
 
     /** Сфера [orbCode] на копию: списывается и применяется одной записью, отказ правила не съедает сферу. */

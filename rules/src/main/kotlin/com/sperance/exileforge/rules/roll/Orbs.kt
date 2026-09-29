@@ -200,7 +200,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     }
 
     private fun mirror(item: ItemInstance, template: ItemTemplate, newId: () -> String): OrbOutcome =
-        OrbOutcome(item, item.copy(id = newId(), rolls = item.rolls.toList(), slot = null, socket = null, mirrored = true), "currency.mirrored", listOf(name(template)))
+        OrbOutcome(item, item.copy(id = newId(), rolls = item.rolls.toList(), slot = null, socket = null, mirrored = true, locked = false), "currency.mirrored", listOf(name(template)))
 
     private fun fracture(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         if (item.rarity != Rarity.RARE) throw RuleViolation("CR_005", listOf(item.rarity.name))

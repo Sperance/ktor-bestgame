@@ -22,7 +22,8 @@ data class StashState(val used: Int, val capacity: Int, val max: Int, val price:
  * Тайник героя (1.1.0): копий не больше мест - база правил `stash` и докупленные пачки, потолок
  * [com.sperance.exileforge.rules.content.StashRules.HARD_CAP] считая надетое. Любая вещь, что приходит
  * герою - добыча, ремесло, торговец, аукцион, промокод, выдача, Зеркало, - идёт через [receive]: не
- * влезла в тайник - ждёт в переполнении, не влезла и туда - продаётся торговцу по его цене.
+ * влезла в тайник - ждёт в переполнении, не влезла и туда - продаётся торговцу по его цене; запертая
+ * ([ItemInstance.locked], 1.28.0) не продаётся и остаётся в переполнении.
  */
 object Stash {
     fun capacity(hero: Hero, index: ContentIndex): Int = index.rules.stash.capacity(hero.stashSlots)
@@ -46,7 +47,8 @@ object Stash {
             val item = if (taken.add(incoming.id)) incoming else incoming.copy(id = Hero.newItemId()).also { taken += it.id }
             received += when {
                 hero.items.size < capacity -> { hero.items += item; Received(stashed = 1) }
-                hero.overflow.size < overflowMax -> { hero.overflow += item; Received(overflowed = 1) }
+                // Запертую вещь торговец сам не забирает: она ждёт в переполнении и сверх его мест
+                hero.overflow.size < overflowMax || item.locked -> { hero.overflow += item; Received(overflowed = 1) }
                 else -> {
                     val gold = index.template(item.template)?.let { SellPrice.of(index, it, item, sheet) } ?: 0L
                     hero.gain(gold)
@@ -75,6 +77,7 @@ object Stash {
         val method = "stashSell"
         val item = hero.overflow.firstOrNull { it.id == itemId } ?: throw CharacterExceptions.funExceptionItemNotFound(method, itemId)
         val template = index.template(item.template) ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.template)
+        if (item.locked) throw CharacterExceptions.funExceptionItemLocked(method, template.code)
         val gold = SellPrice.of(index, template, item, index.sheetOf(hero).stats)
         hero.overflow.remove(item)
         hero.gain(gold)

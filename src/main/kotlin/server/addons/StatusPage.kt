@@ -3,6 +3,7 @@ package server.addons
 import base.exception.BaseException
 import com.sperance.exileforge.rules.RuleViolation
 import base.exception.model.AuthExceptions
+import base.exception.model.IdempotencyExceptions
 import extensions.printLog
 import base.route.ApiMongoResponse
 import io.ktor.http.HttpStatusCode
@@ -51,6 +52,11 @@ fun Application.configureStatusPages() {
 
         // ── Отказ в доступе: 401 - войдите, 403 - нельзя ──
         exception<AuthExceptions.AuthException> { call, cause ->
+            call.respond(HttpStatusCode.fromValue(cause.status), ApiMongoResponse.error(cause))
+        }
+
+        // ── Повтор команды (1.28.0): 409 - та же команда ещё выполняется, 400 - ключ негоден ──
+        exception<IdempotencyExceptions.IdempotencyException> { call, cause ->
             call.respond(HttpStatusCode.fromValue(cause.status), ApiMongoResponse.error(cause))
         }
 

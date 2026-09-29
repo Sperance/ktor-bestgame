@@ -37,6 +37,8 @@ data class Roll(
 /**
  * Копия предмета - в документе героя, на витрине, в лоте и на проводе. Хранит только своё: шаблон
  * [template], редкость, роллы, порчу, копирование, место, гнездо, влияние и качество фляги.
+ * [locked] (1.28.0) - замок игрока: такую вещь не продать торговцу, не выставить на аукцион и не
+ * продать самой при переполнении тайника; сферы и ремесло замок не держит.
  */
 @Serializable
 data class ItemInstance(
@@ -50,6 +52,7 @@ data class ItemInstance(
     @SerialName("sk") var socket: String? = null,
     @SerialName("i") var influence: Influence? = null,
     @SerialName("q") var quality: Int = 0,
+    val locked: Boolean = false,
 ) {
     val equipped: Boolean get() = slot != null
     val socketed: Boolean get() = !socket.isNullOrBlank()

@@ -13,6 +13,7 @@ import features.data.auth.AuthSessionRepository
 import features.data.blockList.BlockListRepository
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.data.idempotency.IdempotentReplyStore
 import features.data.redemptionCodes.RedemptionCodes
 import features.data.redemptionCodes.RedemptionCodesRepository
 import features.data.redemptionCodes.RedemptionItem
@@ -67,7 +68,8 @@ object DatabaseSeeder : KoinComponent {
 
     /** Индексы - до транзакции: создание индекса меняет каталог MongoDB и рвёт открытую транзакцию. */
     private suspend fun ensureIndexes() = coroutineScope {
-        listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes).map { async { it.ensureIndexes() } }.awaitAll()
+        (listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes).map { async { it.ensureIndexes() } } +
+            async { IdempotentReplyStore.ensureIndexes() }).awaitAll()
         printLog("  → indexes ensured")
     }
 
