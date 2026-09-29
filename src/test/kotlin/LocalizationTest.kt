@@ -8,6 +8,7 @@ import base.exception.model.CampaignExceptions
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
 import base.exception.model.GuildExceptions
+import base.exception.model.IdempotencyExceptions
 import base.exception.model.LocaleExceptions
 import base.exception.model.ProfessionExceptions
 import base.exception.model.ProgressionExceptions
@@ -74,7 +75,7 @@ class LocalizationTest {
         ApplicationExceptions::class, BaseRepositoryExceptions::class, BaseRouteExceptions::class, AuctionExceptions::class, AuthExceptions::class,
         CampaignExceptions::class, CharacterExceptions::class, CurrencyExceptions::class, LocaleExceptions::class, ProgressionExceptions::class,
         RedemptionCodesExceptions::class, SkillTreeExceptions::class, UserExceptions::class, ProfessionExceptions::class, SkillExceptions::class, GuildExceptions::class,
-        QuestExceptions::class,
+        QuestExceptions::class, IdempotencyExceptions::class,
     )
 
     private val currencyKeys = listOf(

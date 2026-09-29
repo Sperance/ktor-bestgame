@@ -5,13 +5,14 @@ import CONST_FIELD_VERSION
 import SERVER_VERSION
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
+import extensions.now
 import extensions.printLog
 import features.data.guild.Guild
 import features.data.guild.GuildEvent
 import features.data.hero.Hero
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.datetime.LocalDateTime
 import org.bson.Document
-import java.time.LocalDateTime
 import java.util.Date
 
 /**

@@ -2241,6 +2241,7 @@
   "error.BRT_003": "Missing query parameter '{0}'",
   "error.IDEM_001": "The same command is still being processed, try again in a moment",
   "error.IDEM_002": "Invalid Idempotency-Key: {0}",
+  "error.IDEM_003": "Idempotency-Key {0} was already used for another request",
   "error.BRY_001": "Repository error: {0}",
   "error.BRY_002": "Concurrent modification: {0}. Refetch and try again",
   "error.BRY_003": "Invalid insertion data",

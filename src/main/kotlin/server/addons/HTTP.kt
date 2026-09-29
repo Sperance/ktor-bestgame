@@ -1,6 +1,7 @@
 package server.addons
 
 import CORS_HOSTS
+import features.logic.hero.HeroSnapshots
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.cors.routing.*
@@ -19,6 +20,9 @@ fun Application.configureHTTP() {
         allowMethod(HttpMethod.Patch)
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.ContentType)
+        allowHeader(Idempotency.HEADER)
+        allowHeader(HeroSnapshots.HEADER)
+        exposeHeader(Idempotency.REPLAY_HEADER)
         CORS_HOSTS.forEach { host ->
             val scheme = host.substringBefore("://", "https")
             allowHost(host.substringAfter("://"), schemes = listOf(scheme))

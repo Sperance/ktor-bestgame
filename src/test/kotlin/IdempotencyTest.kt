@@ -20,17 +20,22 @@ import kotlin.test.assertNull
 class IdempotencyTest {
 
     private class MemoryStore : ReplyStore {
-        private val replies = ConcurrentHashMap<String, Any>()
-        override suspend fun claim(account: String, key: String): Claim =
-            when (val found = replies.putIfAbsent("$account:$key", PENDING)) {
-                null -> Claim.Taken
-                is StoredReply -> Claim.Done(found)
+        private val replies = ConcurrentHashMap<String, Pair<String, StoredReply?>>()
+        override suspend fun claim(account: String, key: String, request: String): Claim {
+            val found = replies.putIfAbsent("$account:$key", request to null) ?: return Claim.Taken
+            val reply = found.second
+            return when {
+                found.first != request -> Claim.Mismatch
+                reply != null -> Claim.Done(reply)
                 else -> Claim.Busy
             }
-        override suspend fun complete(account: String, key: String, reply: StoredReply) { replies["$account:$key"] = reply }
-        override suspend fun release(account: String, key: String) { replies.remove("$account:$key", PENDING) }
-
-        private companion object { val PENDING = Any() }
+        }
+        override suspend fun complete(account: String, key: String, reply: StoredReply) {
+            replies.computeIfPresent("$account:$key") { _, (request, _) -> request to reply }
+        }
+        override suspend fun release(account: String, key: String) {
+            replies.computeIfPresent("$account:$key") { _, found -> found.takeIf { it.second != null } }
+        }
     }
 
     @Test

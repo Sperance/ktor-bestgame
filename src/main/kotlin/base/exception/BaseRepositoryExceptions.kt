@@ -3,10 +3,15 @@ package base.exception
 object BaseRepositoryExceptions {
 
     open class BaseRepositoryException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "BaseRepository", errorMethod, errorCode, messageArgs) {
+        /** Ошибка драйвера (таймаут, сеть, WriteConflict) и гонка версий проходят на повторе. */
+        override val isTransient: Boolean get() = errorCode in TRANSIENT_CODES
+
         override fun toString(): String {
             return "{BaseRepositoryException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
         }
     }
+
+    private val TRANSIENT_CODES = setOf("BRY_001", "BRY_002")
 
     fun funException(errorMethod: String, value: String? = "") = BaseRepositoryException(value, errorMethod, "BRY_001", listOf(value.orEmpty()))
     fun funExceptionRace(errorMethod: String, value: String? = "") = BaseRepositoryException("Error in race condition: $value. Refetch and try again", errorMethod, "BRY_002", listOf(value.orEmpty()))

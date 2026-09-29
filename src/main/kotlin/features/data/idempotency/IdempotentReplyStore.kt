@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
  * `аккаунт:ключ`, так что уникальность пары держит сама база: из двух одновременных вставок
  * проходит одна. Документ сперва «в работе», после ответа - «готов» со статусом и телом; TTL-индекс
  * по `createdAt` убирает его через сутки. Брошенный «в работе» (сервер упал посреди команды)
- * через [STALE_MS] считается свободным.
+ * через [STALE_MS] считается свободным. Ключ привязан к отпечатку запроса `request`.
  */
 object IdempotentReplyStore : ReplyStore {
     private const val COLLECTION = "IdempotentReply"
@@ -43,22 +43,30 @@ object IdempotentReplyStore : ReplyStore {
         }
     }
 
-    override suspend fun claim(account: String, key: String): Claim {
+    override suspend fun claim(account: String, key: String, request: String): Claim {
         val id = id(account, key)
         repeat(2) {
             try {
                 collection.insertOne(Document("_id", id).append("account", account).append("key", key)
-                    .append("state", PENDING).append("createdAt", Date()))
+                    .append("request", request).append("state", PENDING).append("createdAt", Date()))
                 return Claim.Taken
             } catch (e: MongoWriteException) {
                 if (e.code != DUPLICATE_KEY) throw e
             }
             val found = collection.find(Filters.eq("_id", id)).firstOrNull() ?: return@repeat
+            // Ответы до привязки к запросу отпечатка не несут - им верим
+            if (found.getString("request")?.let { it != request } == true) return Claim.Mismatch
             if (found.getString("state") == DONE) return Claim.Done(
                 StoredReply(found.getInteger("status"), found.getString("contentType"), found.get("body", Binary::class.java).data))
-            val since = found.getDate("createdAt")?.time ?: 0L
-            if (System.currentTimeMillis() - since < STALE_MS) return Claim.Busy
-            collection.deleteOne(Filters.and(Filters.eq("_id", id), Filters.eq("state", PENDING)))
+            val since = found.getDate("createdAt") ?: Date(0)
+            if (System.currentTimeMillis() - since.time < STALE_MS) return Claim.Busy
+            // Перехват брошенного ключа - одной записью и только того, что прочитан: из двух
+            // одновременных перехватов createdAt совпадёт лишь у первого
+            val takeover = collection.updateOne(
+                Filters.and(Filters.eq("_id", id), Filters.eq("state", PENDING), Filters.eq("createdAt", since)),
+                Updates.combine(Updates.set("createdAt", Date()), Updates.set("request", request)),
+            )
+            if (takeover.modifiedCount == 1L) return Claim.Taken
         }
         return Claim.Busy
     }

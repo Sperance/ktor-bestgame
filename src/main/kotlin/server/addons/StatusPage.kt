@@ -9,6 +9,7 @@ import base.route.ApiMongoResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.JsonConvertException
 import io.ktor.server.application.Application
+import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.install
 import io.ktor.server.plugins.BadRequestException
 import io.ktor.server.plugins.UnsupportedMediaTypeException
@@ -50,25 +51,9 @@ fun Application.configureStatusPages() {
             )
         }
 
-        // ── Отказ в доступе: 401 - войдите, 403 - нельзя ──
-        exception<AuthExceptions.AuthException> { call, cause ->
-            call.respond(HttpStatusCode.fromValue(cause.status), ApiMongoResponse.error(cause))
-        }
-
-        // ── Повтор команды (1.28.0): 409 - та же команда ещё выполняется, 400 - ключ негоден ──
-        exception<IdempotencyExceptions.IdempotencyException> { call, cause ->
-            call.respond(HttpStatusCode.fromValue(cause.status), ApiMongoResponse.error(cause))
-        }
-
-        // ── Бизнес-исключения приложения ──
-        exception<BaseException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(cause))
-        }
-
-        // ── Отказ правил игры (1.0.0): код и аргументы шаблона словаря, как у отказов сервера ──
-        exception<RuleViolation> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.message, "Rules", null, cause.code, cause.args)))
-        }
+        // ── Отказы приложения и правил игры: код и тело - см. [refusal] ──
+        exception<BaseException> { call, cause -> call.respondRefusal(cause) }
+        exception<RuleViolation> { call, cause -> call.respondRefusal(cause) }
 
         exception<JsonConvertException> { call, cause ->
             call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_100")))
@@ -93,4 +78,23 @@ fun Application.configureStatusPages() {
             call.respond(HttpStatusCode.InternalServerError, ApiMongoResponse.error(BaseException("Internal server error", "StatusPage", null, "SP_500")))
         }
     }
+}
+/**
+ * Бизнес-отказ как ответ: 401/403 доступа и 409/400/422 повтора команды - своим кодом, прочие отказы
+ * приложения и правил игры - 400. `null` - не отказ, а сбой: его отвечает общий обработчик.
+ */
+fun refusal(cause: Throwable): Pair<HttpStatusCode, BaseException>? = when (cause) {
+    is AuthExceptions.AuthException -> HttpStatusCode.fromValue(cause.status) to cause
+    is IdempotencyExceptions.IdempotencyException -> HttpStatusCode.fromValue(cause.status) to cause
+    is BaseException -> HttpStatusCode.BadRequest to cause
+    // Отказ правил игры (1.0.0): код и аргументы шаблона словаря, как у отказов сервера
+    is RuleViolation -> HttpStatusCode.BadRequest to BaseException(cause.message, "Rules", null, cause.code, cause.args)
+    else -> null
+}
+
+/** Отвечает бизнес-отказом [cause]; `false` - это не отказ, ответа не было. */
+suspend fun ApplicationCall.respondRefusal(cause: Throwable): Boolean {
+    val (status, error) = refusal(cause) ?: return false
+    respond(status, ApiMongoResponse.error(error))
+    return true
 }
