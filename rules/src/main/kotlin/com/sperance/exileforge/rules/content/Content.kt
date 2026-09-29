@@ -75,9 +75,18 @@ class Content(
     val quests: QuestRules = QuestRules(),
     val hashes: Map<String, String> = emptyMap(),
 ) {
-    /** Отпечаток всего контента: по нему сервер и клиент узнают, что видят один мир. */
-    val hash: String by lazy { sha256(ContentFiles.ALL.joinToString(",") { "$it=${hashes[it].orEmpty()}" }) }
+    /**
+     * Отпечаток всего контента и версии правил: по нему сервер и клиент узнают, что видят один мир,
+     * а незаконченный забег закрывается и при смене одного кода правил ([RULES_VERSION]).
+     */
+    val hash: String by lazy { sha256(ContentFiles.ALL.joinToString(",") { "$it=${hashes[it].orEmpty()}" } + ",rules=$RULES_VERSION") }
 }
+
+/**
+ * Версия кода правил (1.29.0): поднимается при каждой правке, меняющей исход забега по тому же семени и контенту
+ * (размер пачек, роллы, бой), - иначе забег, начатый до обновления, не сойдётся с сервером.
+ */
+const val RULES_VERSION = 1
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
