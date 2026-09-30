@@ -1,6 +1,7 @@
 package features.logic.campaign
 
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.CoreStat
 import com.sperance.exileforge.rules.roll.RolledMonster
 import extensions.printLog
 import features.data.hero.Hero
@@ -40,16 +41,25 @@ object Plausibility {
     /** С какой метки за сутки невозможные события отклоняются. */
     const val REJECT_AFTER = 3
     private const val DAY_MS = 24 * 3_600_000L
+    private const val CRITICAL_DAMAGE = "STOCK_CRITICAL_DAMAGE"
 
-    /** Урон героя в секунду по листу: сумма ударов всех стихий на скорость атаки с ожиданием крита; без оружия - кулаки. */
+    /**
+     * Урон героя в секунду по листу: сумма ударов всех стихий на скорость атаки с ожиданием крита; без оружия - кулаки.
+     * Крит (1.56.0) - больший из атак и заклинаний: у заклинаний свои шанс и множитель, а журнал не говорит, чем убито.
+     */
     fun dps(index: ContentIndex, sheet: Map<String, Double>): Double {
-        val unarmed = index.campaign.combat.unarmed
-        val hit = ATTACKS.sumOf { (sheet[it] ?: 0.0).coerceAtLeast(0.0) }.takeIf { it > 0 } ?: unarmed.damage
-        val speed = (sheet["STOCK_ATTACK_SPEED"] ?: 0.0).takeIf { it > 0 }?.coerceIn(0.3, 5.0) ?: unarmed.speed
-        val critChance = ((sheet["STOCK_CRITICAL_CHANCE"] ?: 5.0) / 100).coerceIn(0.0, 1.0)
-        val critMultiplier = ((sheet["STOCK_CRITICAL_MULTIPLIER"] ?: 150.0) + (sheet["STOCK_CRITICAL_DAMAGE"] ?: 0.0)).coerceAtLeast(100.0) / 100
-        return (hit * speed * (1 + critChance * (critMultiplier - 1))).coerceAtLeast(1.0)
+        val combat = index.campaign.combat
+        val hit = ATTACKS.sumOf { (sheet[it] ?: 0.0).coerceAtLeast(0.0) }.takeIf { it > 0 } ?: combat.unarmed.damage
+        val speed = (sheet["STOCK_ATTACK_SPEED"] ?: 0.0).takeIf { it > 0 }?.coerceIn(0.3, 5.0) ?: combat.unarmed.speed
+        val critical = combat.critical
+        val attack = critFactor(sheet[CoreStat.CRITICAL_CHANCE.code] ?: critical.chance, (sheet[CoreStat.CRITICAL_MULTIPLIER.code] ?: critical.multiplier) + (sheet[CRITICAL_DAMAGE] ?: 0.0))
+        val spell = critFactor(sheet[CoreStat.SPELL_CRITICAL_CHANCE.code] ?: critical.spellChance, sheet[CoreStat.SPELL_CRITICAL_MULTIPLIER.code] ?: critical.spellMultiplier)
+        return (hit * speed * maxOf(attack, spell)).coerceAtLeast(1.0)
     }
+
+    /** Ожидаемый множитель урона от крита: шанс и множитель в процентах. */
+    private fun critFactor(chance: Double, multiplier: Double): Double =
+        1 + (chance / 100).coerceIn(0.0, 1.0) * (multiplier.coerceAtLeast(100.0) / 100 - 1)
 
     /** Ожидаемые секунды боя со стаей: сильнейший её монстр на урон героя - нижняя оценка, удар по площади кладёт стаю разом. */
     fun packSeconds(pack: List<RolledMonster>, dps: Double): Double =

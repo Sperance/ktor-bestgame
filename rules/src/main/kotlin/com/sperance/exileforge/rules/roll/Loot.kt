@@ -38,8 +38,11 @@ data class ActiveMap(
     val influence: Influence? = null,
 )
 
-/** Добыча, опыт, карты и смерть - правила без состояния над [ContentIndex] и [Dice]. */
-class LootRoller(private val index: ContentIndex) {
+/**
+ * Добыча, опыт, карты и смерть - правила без состояния над [ContentIndex] и [Dice]; с [heroLevel] вещи тянутся
+ * только из того, что герою уже выпадает ([ContentIndex.forHero]).
+ */
+class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = null) {
     private val rules get() = index.rules.loot
     private val campaign get() = index.campaign
     private val topZoneLevel: Int get() = campaign.zones.maxOfOrNull { it.level } ?: Int.MAX_VALUE
@@ -91,12 +94,12 @@ class LootRoller(private val index: ContentIndex) {
     /** Шаблон из таблиц [tags] на уровне [level] с бонусом редкости; прямой шаблон ([Ref.table] нет) - сам. */
     fun pickFrom(pools: List<String>, level: Int, bonus: Double, dice: Dice): ItemTemplate? {
         val tags = pools.map { if (Ref.isTable(it)) Ref.code(it) else it }
-        return pick(index.templatePoolUpTo(tags, level), bonus, dice)
+        return pick(index.forHero(index.templatePoolUpTo(tags, level), heroLevel), bonus, dice)
     }
 
     /** Уникалка из таблиц [tags] не старше `level + uniqueReach`; за неимением - любая из них. */
     fun unique(tags: List<String>, level: Int, dice: Dice): ItemTemplate? =
-        Tables.draw(index.templatePoolUpTo(tags, level + rules.uniqueReach).ifEmpty { index.templatePool(tags) }, dice)
+        Tables.draw(index.forHero(index.templatePoolUpTo(tags, level + rules.uniqueReach), heroLevel).ifEmpty { index.forHero(index.templatePool(tags), heroLevel) }, dice)
 
     /** Выпала ли карта: [chance] уже с количеством; карта следующей зоны - одна из [next] наугад. */
     fun mapDrop(chance: Double, mapCode: String, next: List<String>, dice: Dice, nextBonus: Double = 0.0): String? {

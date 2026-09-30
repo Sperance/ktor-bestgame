@@ -15,5 +15,6 @@ object ProfessionExceptions {
     fun funExceptionLocation(errorMethod: String, value: String? = "") = ProfessionException("Location $value is not open", errorMethod, "CF_005", listOf(value.orEmpty()))
     fun funExceptionMaterials(errorMethod: String, value: String? = "") = ProfessionException("Not enough materials for $value", errorMethod, "CF_006", listOf(value.orEmpty()))
     fun funExceptionAdditive(errorMethod: String, value: String? = "") = ProfessionException("Additive $value does not fit", errorMethod, "CF_007", listOf(value.orEmpty()))
+    fun funExceptionHeroLevel(errorMethod: String, value: String? = "") = ProfessionException("Jewel cutting opens at hero level $value", errorMethod, "CF_008", listOf(value.orEmpty()))
     fun funExceptionNoTool(errorMethod: String, value: String? = "") = ProfessionException("No tool in the $value slot", errorMethod, "CF_004", listOf(value.orEmpty()))
 }

@@ -140,7 +140,8 @@ class SheetCalculator(private val index: ContentIndex) {
     fun calculate(
         level: Int, heroClass: HeroClass?, lines: Collection<SourcedLine>, equipped: Collection<ItemInstance>, takenNodes: Set<String>,
     ): SheetResult {
-        val base = heroClass?.baseOn(level).orEmpty()
+        // База крита (1.56.0) - из правил боя: увеличения атак и заклинаний ложатся на свои 5% и 150%, а не на ноль.
+        val base = index.campaign.combat.critical.sheetBase + heroClass?.baseOn(level).orEmpty()
         val operations = ArrayList<StatOperation>(expand(heroClass?.lines.orEmpty(), heroClass?.let { StatSource(SourceKind.CLASS, it.code) }))
         operations += expand(lines)
         val own = operations.size

@@ -533,18 +533,6 @@
       "focus": "AURA"
     },
     {
-      "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
-      "kind": "HELPER",
-      "values": [
-        [
-          5,
-          12
-        ]
-      ],
-      "weight": 100,
-      "focus": "AURA"
-    },
-    {
       "code": "INCREASED_ITEM_QUANTITY",
       "kind": "HELPER",
       "values": [

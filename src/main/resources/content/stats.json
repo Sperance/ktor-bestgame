@@ -224,6 +224,16 @@
       "order": 224
     },
     {
+      "code": "STOCK_SPELL_CRITICAL_CHANCE",
+      "group": "HERO",
+      "order": 225
+    },
+    {
+      "code": "STOCK_SPELL_CRITICAL_MULTIPLIER",
+      "group": "HERO",
+      "order": 225
+    },
+    {
       "code": "STOCK_PENETRATE_FIRE",
       "group": "HERO",
       "order": 226,
@@ -470,11 +480,6 @@
       "code": "STOCK_CHILL_DURATION_ON_SELF",
       "group": "HERO",
       "order": 295
-    },
-    {
-      "code": "STOCK_DESECRATION_EFFECT",
-      "group": "HERO",
-      "order": 3021
     },
     {
       "code": "STOCK_FREEZE_DURATION_ON_SELF",
@@ -5243,12 +5248,6 @@
       "code": "STOCK_SPELL_ADD_LIGHTNING",
       "group": "HERO",
       "order": 3438
-    },
-    {
-      "code": "STOCK_SPELL_CRITICAL_CHANCE",
-      "group": "HERO",
-      "order": 3439,
-      "kind": "PERCENT"
     },
     {
       "code": "STOCK_DOUBLE_DAMAGE",

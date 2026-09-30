@@ -179,7 +179,12 @@ data class LootRules(
     val itemLevelBonus: Map<MonsterRarity, Int> = mapOf(MonsterRarity.MAGIC to 1, MonsterRarity.RARE to 2, MonsterRarity.UNIQUE to 3),
     /** Прибавка к ilvl вещи ремесла на предельном уровне профессии; на промежуточных - по доле уровня. */
     val craftItemLevelBonus: Int = 10,
+    /** С какого уровня героя ему выпадают самоцветы - из любого источника: добыча, награды, торговец, ремесло, коды. */
+    val jewelHeroLevel: Int = 5,
 ) {
+    /** Может ли герой уровня [heroLevel] получить новую вещь шаблона [template]: самоцвет - не раньше [jewelHeroLevel]. */
+    fun obtainable(template: ItemTemplate, heroLevel: Int): Boolean = template.slot != Slot.JEWEL || heroLevel >= jewelHeroLevel
+
     /** Уровень выпавшей копии: зона [level], редкость источника [rarity] и прибавка карты [extra], не выше потолка. */
     fun itemLevel(level: Int, rarity: MonsterRarity, extra: Int = 0): Int =
         (level + (itemLevelBonus[rarity] ?: 0) + extra).coerceIn(1, maxItemLevel)
@@ -234,7 +239,9 @@ data class ChargeRules(
             "STOCK_MAX_FRENZY_CHARGES",
             listOf(PowerLine("STOCK_ATTACK_SPEED", Op.INCREASED, 2.0), PowerLine("STOCK_CAST_SPEED", Op.INCREASED, 2.0), PowerLine("STOCK_DAMAGE", Op.MORE, 2.0)),
         ),
-        ChargeKind.POWER to ChargeRule("STOCK_MAX_POWER_CHARGES", listOf(PowerLine("STOCK_CRITICAL_CHANCE", Op.INCREASED, 20.0))),
+        ChargeKind.POWER to ChargeRule(
+            "STOCK_MAX_POWER_CHARGES", listOf(PowerLine("STOCK_CRITICAL_CHANCE", Op.INCREASED, 20.0), PowerLine("STOCK_SPELL_CRITICAL_CHANCE", Op.INCREASED, 20.0)),
+        ),
         ChargeKind.ENDURANCE to ChargeRule(
             "STOCK_MAX_ENDURANCE_CHARGES", listOf(PowerLine("STOCK_PHYSICAL_REDUCTION", Op.ADD, 2.0), PowerLine("STOCK_RESIST_ALL", Op.ADD, 2.0)),
         ),

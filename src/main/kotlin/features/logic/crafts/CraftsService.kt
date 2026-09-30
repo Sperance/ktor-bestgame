@@ -95,6 +95,7 @@ class CraftsService : KoinComponent {
         val chosen = additives.filter { it.isNotBlank() }.distinct()
         chosen.firstOrNull { !job.additives || it !in crafting.additives }?.let { throw ProfessionExceptions.funExceptionAdditive(method, LocaleKey.itemName(it)) }
         if (chosen.size > crafting.maxAdditives) throw ProfessionExceptions.funExceptionAdditive(method, LocaleKey.itemName(chosen.last()))
+        if (job.kind == JobKind.JEWEL && hero.level < index.rules.loot.jewelHeroLevel) throw ProfessionExceptions.funExceptionHeroLevel(method, index.rules.loot.jewelHeroLevel.toString())
         if (job.kind == JobKind.MAP && charted(hero, job).isEmpty()) throw ProfessionExceptions.funExceptionLocation(method, LocaleKey.regionName(job.region))
         if (Work.perCycle(job, chosen).any { (item, amount) -> (hero.bag[item] ?: 0) < amount }) throw ProfessionExceptions.funExceptionMaterials(method, LocaleKey.jobName(job.code))
         val now = System.currentTimeMillis()
@@ -126,13 +127,14 @@ class CraftsService : KoinComponent {
         // Кости циклов - с потока героя (1.53.0): семя не уходит клиенту, а перезапуск работы продолжает поток, а не катит новый
         val result = Work.settle(file.rules, job, progress, bonus(hero, profession), work.settledAt, System.currentTimeMillis(), hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
-        val bases = when (job.kind) {
+        // Самоцветы - не раньше `loot.jewelHeroLevel`: огранка ниже него ничего не даёт, кузнец тянет другую базу
+        val bases = index.forHero(when (job.kind) {
             JobKind.EQUIPMENT -> craftBases(job).filter { base -> SmithChoice.of(work.choice)?.fits(base.value) == true }
             JobKind.JEWEL -> index.templatesBySlot[Slot.JEWEL].orEmpty().filter { !it.unique && it.level in job.band[0]..job.band[1] }.map { Weighted(it, 1) }
             else -> emptyList()
-        }
+        }, hero.level)
         val zones = if (job.kind == JobKind.MAP) charted(hero, job) else emptyList()
-        val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, index.rules.loot.craftedItemLevel(hero.level, result.progress.level, file.rules.maxLevel), dice, bases, zones) }.filterNotNull()
+        val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, index.rules.loot.craftedItemLevel(hero.level, result.progress.level, file.rules.maxLevel), dice, bases, zones, hero.level) }.filterNotNull()
         hero.professions[profession.code] = result.progress
         val gains = result.gains.copy(equipment = made)
         hero.rewards.crafted += result.gains.cycles
@@ -200,13 +202,13 @@ class CraftsService : KoinComponent {
      * Вещь кузнеца, карта картографа или фляга алхимика за удачный цикл: база своего диапазона (или с
      * шансом уникалка), редкость по таблице, ручная работа от примесей и ещё одна с шансом.
      */
-    private fun craft(job: Job, additives: List<String>, level: Int, itemLevel: Int, dice: Dice, bases: List<Weighted<ItemTemplate>>, zones: List<String>): ItemInstance? {
+    private fun craft(job: Job, additives: List<String>, level: Int, itemLevel: Int, dice: Dice, bases: List<Weighted<ItemTemplate>>, zones: List<String>, heroLevel: Int): ItemInstance? {
         val crafting = file.crafting
         return when (job.kind) {
             JobKind.EQUIPMENT -> {
                 if (dice.percent(crafting.uniqueChance * (1 + level / 50.0))) {
                     // Уникалка по уровню ремесла и дальности уникалок (1.18.0), а не любая из таблицы
-                    Tables.draw(index.templatePoolUpTo(crafting.uniques, level + index.rules.loot.uniqueReach), dice)?.let { return factory.create(Hero.newItemId(), it, Rarity.UNIQUE, dice, level = itemLevel) }
+                    Tables.draw(index.forHero(index.templatePoolUpTo(crafting.uniques, level + index.rules.loot.uniqueReach), heroLevel), dice)?.let { return factory.create(Hero.newItemId(), it, Rarity.UNIQUE, dice, level = itemLevel) }
                 }
                 val base = Tables.draw(bases, dice) ?: return null
                 val rarity = Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.COMMON

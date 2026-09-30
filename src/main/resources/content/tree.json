@@ -2895,6 +2895,12 @@
           "values": [
             0
           ]
+        },
+        {
+          "code": "PASSIVE_SET_SPELL_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            0
+          ]
         }
       ],
       "only": "SCION_START",
@@ -5196,9 +5202,9 @@
         ],
         [
           {
-            "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
+            "code": "REDUCED_ELEMENTAL_DAMAGE_TAKEN",
             "values": [
-              39.0
+              -6.0
             ]
           },
           {
@@ -9363,7 +9369,8 @@
         }
       ],
       "connections": [
-        "SHA_C2_2"
+        "SHA_C2_2",
+        "SHA_SC_1"
       ],
       "x": -369,
       "y": 1369
@@ -9479,6 +9486,79 @@
       ],
       "x": -468,
       "y": 1346
+    },
+    {
+      "code": "SHA_SC_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_SPELL_CRITICAL_CHANCE",
+          "values": [
+            16
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            8,
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_SC_2"
+      ],
+      "x": -291,
+      "y": 1414
+    },
+    {
+      "code": "SHA_SC_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_SPELL_CRITICAL_MULTIPLIER",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_SC_3"
+      ],
+      "x": -291,
+      "y": 1509
+    },
+    {
+      "code": "SHA_SC_3",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_SPELL_CRITICAL_MULTIPLIER",
+          "values": [
+            29
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_CRITICAL_CHANCE",
+          "values": [
+            45
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": -257,
+      "y": 1603
     },
     {
       "code": "SHA_B3_1",
@@ -11514,7 +11594,8 @@
         }
       ],
       "connections": [
-        "WIT_C4_3"
+        "WIT_C4_3",
+        "WIT_SC_1"
       ],
       "x": -1420,
       "y": -365
@@ -11642,6 +11723,78 @@
       ],
       "x": -1379,
       "y": -449
+    },
+    {
+      "code": "WIT_SC_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_SPELL_CRITICAL_CHANCE",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_SC_2"
+      ],
+      "x": -1502,
+      "y": -328
+    },
+    {
+      "code": "WIT_SC_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_SPELL_CRITICAL_MULTIPLIER",
+          "values": [
+            9
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_CRITICAL_CHANCE",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_SC_3"
+      ],
+      "x": -1611,
+      "y": -407
+    },
+    {
+      "code": "WIT_SC_3",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_SPELL_CRITICAL_CHANCE",
+          "values": [
+            40
+          ]
+        },
+        {
+          "code": "ADD_SPELL_CRITICAL_MULTIPLIER",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "x": -1750,
+      "y": -422
     },
     {
       "code": "WIT_B5_1",
@@ -11874,9 +12027,9 @@
         ],
         [
           {
-            "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
+            "code": "REDUCED_ELEMENTAL_DAMAGE_TAKEN",
             "values": [
-              25
+              -4
             ]
           },
           {
@@ -11935,6 +12088,12 @@
           "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
           "values": [
             0.0
+          ]
+        },
+        {
+          "code": "PASSIVE_SET_SPELL_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            0
           ]
         }
       ],
@@ -13111,9 +13270,9 @@
         ],
         [
           {
-            "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
+            "code": "REDUCED_ELEMENTAL_DAMAGE_TAKEN",
             "values": [
-              39.0
+              -6.0
             ]
           },
           {
@@ -20474,6 +20633,12 @@
         },
         {
           "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            0
+          ]
+        },
+        {
+          "code": "PASSIVE_SET_SPELL_CRITICAL_STRIKE_CHANCE",
           "values": [
             0
           ]

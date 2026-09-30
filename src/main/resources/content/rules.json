@@ -180,7 +180,8 @@
       "MYTHICAL": 0.2
     },
     "uniqueReach": 10,
-    "recipeChance": 0.1
+    "recipeChance": 0.1,
+    "jewelHeroLevel": 5
   },
   "maxCharacters": 3,
   "stash": {
@@ -224,6 +225,11 @@
         "lines": [
           {
             "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "value": 20.0
+          },
+          {
+            "stat": "STOCK_SPELL_CRITICAL_CHANCE",
             "op": "INCREASED",
             "value": 20.0
           }

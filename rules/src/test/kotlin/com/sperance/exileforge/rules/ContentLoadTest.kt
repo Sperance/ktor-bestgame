@@ -50,8 +50,7 @@ class ContentLoadTest {
         listOf("en", "ru").forEach { language ->
             val words = RulesJson.decodeFromString(strings, File(resources, "locale/$language.json").readText())
             val keys = index.achievements.achievements.flatMap { listOf("achievement.${it.code}.name", "achievement.${it.code}.desc") } +
-                index.achievements.achievements.filter { it.title.isNotBlank() }.map { "title.${it.title}" } +
-                index.campaign.desecration?.kinds.orEmpty().flatMap { listOf("desecration.${it.code}", "desecration.group.${it.group}") }
+                index.achievements.achievements.filter { it.title.isNotBlank() }.map { "title.${it.title}" }
             val missing = keys.filter { words[it].isNullOrBlank() }
             assertTrue(missing.isEmpty(), "$language: $missing")
         }

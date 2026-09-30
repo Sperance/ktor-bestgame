@@ -40,7 +40,17 @@ data class AilmentRule(
 )
 
 @Serializable data class UnarmedRule(val damage: Double, val speed: Double)
-@Serializable data class CriticalRule(val chance: Double, val multiplier: Double)
+/**
+ * Крит (1.56.0): шанс и множитель атак и свои - у заклинаний ([spellChance], [spellMultiplier]; без них - как у атак).
+ * [sheetBase] - база листа героя: увеличения шанса и прибавки к множителю ложатся на неё, а не на ноль.
+ */
+@Serializable
+data class CriticalRule(val chance: Double, val multiplier: Double, val spellChance: Double = chance, val spellMultiplier: Double = multiplier) {
+    val sheetBase: Map<String, Double> get() = mapOf(
+        CoreStat.CRITICAL_CHANCE.code to chance, CoreStat.CRITICAL_MULTIPLIER.code to multiplier,
+        CoreStat.SPELL_CRITICAL_CHANCE.code to spellChance, CoreStat.SPELL_CRITICAL_MULTIPLIER.code to spellMultiplier,
+    )
+}
 @Serializable data class ArmourRule(val factor: Double)
 @Serializable data class EvasionRule(val base: Double, val perLevel: Double)
 @Serializable data class StunRule(val share: Double, val duration: Double)
@@ -317,8 +327,6 @@ data class CampaignFile(
     val vaal: VaalRule = VaalRule(),
     val rangedForms: Set<String> = emptySet(),
     val abyss: AbyssRule? = null,
-    /** Осквернение (1.4.0): пятна на земле зон; нет раздела - нет пятен. */
-    val desecration: DesecrationRule? = null,
     /** Испытания (1.47.0): босс-раш и башня; нет раздела - нет испытаний. */
     val trials: TrialRules? = null,
     /** Таблица весов редкостей монстров. */

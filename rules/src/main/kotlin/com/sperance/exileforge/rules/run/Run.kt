@@ -157,7 +157,7 @@ data class Spawn(val index: Int, val pack: List<RolledMonster>)
 class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: RunContext) {
     val streams = Streams(seed)
     val monsters = MonsterRoller(index)
-    val loot = LootRoller(index)
+    val loot = LootRoller(index, context.heroLevel)
     val factory = ItemFactory(index)
     val pool: List<MonsterMod> = monsters.zonePool(zone)
     private val campaign get() = index.campaign
@@ -240,7 +240,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val bosses = campaign.bosses
         val extra = listOfNotNull(
             loot.unique(bosses.tables, zone.level, dice).takeIf { dice.chance(uniqueChance(bosses.uniqueChance * relative(AtlasStat.BOSS_UNIQUE.code))) },
-            Tables.draw(index.templatePool(template.tables), dice).takeIf { template.tables.isNotEmpty() && dice.chance(uniqueChance(bosses.ownUniqueChance * relative(AtlasStat.BOSS_UNIQUE.code))) },
+            Tables.draw(ownPool(template.tables), dice).takeIf { template.tables.isNotEmpty() && dice.chance(uniqueChance(bosses.ownUniqueChance * relative(AtlasStat.BOSS_UNIQUE.code))) },
             if (context.active != null) pooled(bosses.mythicTables, bosses.mythicChance, dice) else null,
             if (context.active != null) pooled(campaign.maps.uniqueTables, campaign.maps.uniqueChance, dice) else null,
             if (context.active != null) pooled(campaign.maps.atlasUniqueTables, campaign.maps.atlasChance(context.atlasNodes), dice) else null,
@@ -318,8 +318,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val full = bosses.isNotEmpty() && fallen.size == bosses.size
         val own = bosses.flatMap { it.tables }.distinct()
         val prize = if (!full) null
-            else own.takeIf { it.isNotEmpty() }?.let { Tables.draw(index.templatePool(it), dice) } ?: loot.unique(rule.uniqueTables.ifEmpty { campaign.bosses.tables }, zone.level, dice)
-        val bases = index.templatePoolUpTo(rule.itemTables, zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE }
+            else own.takeIf { it.isNotEmpty() }?.let { Tables.draw(ownPool(it), dice) } ?: loot.unique(rule.uniqueTables.ifEmpty { campaign.bosses.tables }, zone.level, dice)
+        val bases = index.forHero(index.templatePoolUpTo(rule.itemTables, zone.level), context.heroLevel).filter { (template) -> template.rarity < Rarity.UNIQUE }
         val rares = if (fast && full) List(rule.fastItems) { Tables.draw(bases, dice) }.filterNotNull() else emptyList()
         val equipment = listOfNotNull(prize?.let { factory.create(itemId(draw, "rush-u"), it, Rarity.UNIQUE, dice, level = itemLevel) }) +
             rares.mapIndexed { n, template -> factory.create(itemId(draw, "rush-$n"), template, Rarity.RARE, dice, level = itemLevel) }
@@ -364,6 +364,9 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         context[AtlasStat.CATALYSTS.code].takeIf { it != 0.0 }?.let { put("CATALYST_", it) }
         context[AtlasStat.QUALITY_ORBS.code].takeIf { it != 0.0 }?.let { put("WHETSTONE", it); put("ARMOURERS_SCRAP", it) }
     }
+
+    /** Собственные таблицы боссов: только то, что герою уже выпадает. */
+    private fun ownPool(tables: List<String>) = index.forHero(index.templatePool(tables), context.heroLevel)
 
     private fun uniqueChance(chance: Double): Double = chance * (1 + context.bonus(MonsterRarity.UNIQUE).unique / 100)
     private fun relative(atlasStat: String) = (1 + context[atlasStat] / 100).coerceAtLeast(0.0)

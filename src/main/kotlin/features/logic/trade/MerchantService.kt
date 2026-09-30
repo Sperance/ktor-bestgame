@@ -70,7 +70,7 @@ class MerchantService : KoinComponent {
         val rules = index.rules.merchant
         val factory = ItemFactory(index)
         val itemLevel = index.rules.loot.itemLevel(level)
-        val (flasks, gear) = index.templatePool(rules.tables).partition { it.value.slot.isFlask }
+        val (flasks, gear) = index.forHero(index.templatePool(rules.tables), level).partition { it.value.slot.isFlask }
         val near = gear.filter { it.value.requiredLevel in (level - rules.levelSpread)..(level + rules.levelSpread) }
             .ifEmpty { gear.filter { it.value.requiredLevel <= level + rules.levelSpread } }
         // Волшебная и редкая на витрине не бывает пустой: шаблон, чья таблица не дотягивает до дна редкости,

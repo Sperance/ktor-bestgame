@@ -13,7 +13,9 @@ import com.sperance.exileforge.rules.roll.OrbApplier
 import com.sperance.exileforge.rules.run.Run
 import com.sperance.exileforge.rules.run.RunContext
 import com.sperance.exileforge.rules.run.RewardDraws
+import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.Source
+import com.sperance.exileforge.rules.table.Weighted
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.TreeAllocation
 import java.io.File
@@ -132,6 +134,32 @@ class RulesInvariantsTest {
         // Отклонённое убийство (нет такого жетона) номер не тянет
         assertEquals(null, run.kill(run.count, 0, false, draws))
         assertEquals(6L, draws.drawn)
+    }
+
+    /** Самоцвет не выпадает герою ниже `loot.jewelHeroLevel` ни из пула, ни из наград захода; с него - выпадает. */
+    @Test
+    fun jewelsWaitForTheirHeroLevel() {
+        val gate = index.rules.loot.jewelHeroLevel
+        val all = index.templates.values.map { Weighted(it, 1) }
+        assertTrue(index.forHero(all, gate - 1).none { it.value.slot == Slot.JEWEL })
+        assertTrue(index.forHero(all, gate).any { it.value.slot == Slot.JEWEL })
+        val zone = index.zones.values.filter { it.boss.isNotBlank() && it.chestLoot.isNotBlank() }.maxBy { it.level }
+        val run = Run(index, zone, 99L, RunContext("", gate - 1))
+        val draws = RewardDraws(7L, 0)
+        val dropped = (List(200) { run.chest(draws) } + List(50) { run.boss(draws) }).flatMap { it.equipment }
+        assertTrue(dropped.none { index.template(it.template)?.slot == Slot.JEWEL }, "a jewel below hero level $gate")
+    }
+
+    /** Обычные аффиксы предметов (префиксы и суффиксы, кроме строк карт) - без минусов: ни одна строка не вредит герою. */
+    @Test
+    fun ordinaryAffixesCarryNoDebuff() {
+        val debuffs = index.definitions.filter { it.source.affix && it.effects.none { e -> e.stat.startsWith("MAP_") } }.flatMap { def ->
+            def.effects.withIndex().filter { (i, effect) ->
+                val values = def.tiers.flatMap { it.values.getOrNull(i).orEmpty() }
+                if (effect.stat.endsWith("_TAKEN")) values.any { it > 0 } else values.any { it < 0 }
+            }.map { (_, effect) -> "${def.code}: ${effect.stat}" }
+        }
+        assertTrue(debuffs.isEmpty(), "affix debuffs: $debuffs")
     }
 
     /** Путь к дальнему узлу (1.37.0): кратчайший, от взятого, узел с выбором - только целью, и каждый его шаг - законное взятие. */

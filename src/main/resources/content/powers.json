@@ -6893,6 +6893,11 @@
           "op": "SET",
           "to": "STOCK_CRITICAL_CHANCE",
           "value": 0
+        },
+        {
+          "op": "SET",
+          "to": "STOCK_SPELL_CRITICAL_CHANCE",
+          "value": 0
         }
       ]
     },

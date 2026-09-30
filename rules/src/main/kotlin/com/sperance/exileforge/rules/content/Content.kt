@@ -110,8 +110,9 @@ class Content(
  * 21 - задания без зон и условия «высокие зоны», новые группы статистики (1.52.0).
  * 22 - потолок башни `tower.maxFloor`, Empowering не выше тира уровня карты, сдвиг Ваала только аффиксов, кап `STOCK_GOLD` цены продажи (1.53.0).
  * 23 - сумка без лимита стака (`maxStack` убран), отказы дерева с ключами имён узлов (1.54.0).
+ * 24 - свой шанс и множитель крита чар, база крита в листе, без осквернённой земли, самоцветы с 5 уровня героя, аффиксы без минусов (1.56.0).
  */
-const val RULES_VERSION = 23
+const val RULES_VERSION = 24
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -233,6 +234,13 @@ class ContentIndex(val content: Content) {
 
     /** Шаблоны таблиц, доступные по требуемому уровню на [level]: что падает на локации этого уровня. */
     fun templatePoolUpTo(tags: List<String>, level: Int): List<Weighted<ItemTemplate>> = templatePool(tags).filter { it.value.requiredLevel <= level }
+
+    /**
+     * Пул [pool] без того, что герою уровня [heroLevel] ещё не выпадает (самоцветы - до `loot.jewelHeroLevel`): тяга из
+     * остатка заменяет такую вещь другой, так что количество добычи не падает; пустой остаток - ничего.
+     */
+    fun forHero(pool: List<Weighted<ItemTemplate>>, heroLevel: Int?): List<Weighted<ItemTemplate>> =
+        if (heroLevel == null) pool else pool.filter { rules.loot.obtainable(it.value, heroLevel) }
 
     /** Взвешенный ролл тира описания [code] на уровне [level]: номер и тир; ни одного открытого - самый слабый. */
     fun rollTier(code: String, level: Int, dice: Dice): Pair<Int, Tier>? = ladders[code]?.pick(level) { total -> dice.nextLong(total) }
@@ -422,7 +430,6 @@ private class CampaignValidator(private val index: ContentIndex) {
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }
         content.abyss?.let(::validateAbyss)
         content.trials?.let { if (content.abyss == null) fail("trials: the tower needs the Abyss"); it.validate(index) }
-        content.desecration?.let(::validateDesecration)
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) fail("campaign: behaviour of form $it") }
         (listOf(content.behaviour.default, content.bosses.behaviour) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validateBehaviour)
@@ -461,16 +468,6 @@ private class CampaignValidator(private val index: ContentIndex) {
             }
         }
         index.world.unreachable().takeIf { it.isNotEmpty() }?.let { fail("world: unreachable $it") }
-    }
-
-    private fun validateDesecration(rule: DesecrationRule) {
-        if (rule.count.size != 2 || rule.count[0] < 0 || rule.count[0] > rule.count[1] || rule.radius <= 0 || rule.trail < 0 || rule.growth < 0 || rule.minLevel < 1) fail("desecration: rule")
-        if (rule.kinds.isEmpty() || rule.kinds.map { it.code }.toSet().size != rule.kinds.size) fail("desecration: kinds")
-        if (rule.kinds.map { it.group }.toSet() != DesecrationGroup.entries.toSet()) fail("desecration: groups")
-        rule.kinds.forEach { kind ->
-            if (kind.weight <= 0 || kind.lines.isEmpty() || kind.lines.keys.any { it !in DesecrationRule.HERO_LINES }) fail("desecration: kind ${kind.code}")
-        }
-        stat(DesecrationRule.GUARD)
     }
 
     private fun validateAbyss(rule: AbyssRule) {
@@ -517,6 +514,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         if (rules.resistHardCap < rules.resistCap) fail("combat: resistHardCap")
         positive(rules.unarmed.damage, "unarmed.damage"); positive(rules.unarmed.speed, "unarmed.speed")
         percent(rules.critical.chance, "critical.chance"); if (rules.critical.multiplier < 100) fail("combat: critical.multiplier")
+        percent(rules.critical.spellChance, "critical.spellChance"); if (rules.critical.spellMultiplier < 100) fail("combat: critical.spellMultiplier")
         positive(rules.armour.factor, "armour.factor")
         positive(rules.evasion.base, "evasion.base")
         if (rules.evasion.perLevel < 0 || rules.stun.share < 0 || rules.stun.duration < 0) fail("combat: stun")

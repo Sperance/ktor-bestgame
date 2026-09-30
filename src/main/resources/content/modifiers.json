@@ -8334,50 +8334,6 @@
       ]
     },
     {
-      "code": "REDUCED_DESECRATION_EFFECT_ON_SELF",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_DESECRATION_EFFECT"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            34,
-            39
-          ]
-        ],
-        "bottom": [
-          [
-            8,
-            12
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              39,
-              46
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "defences",
-        "chaos"
-      ]
-    },
-    {
       "code": "AVOID_FREEZE",
       "source": "SUFFIX",
       "effects": [
@@ -10985,9 +10941,6 @@
         {
           "stat": "STOCK_ATTACK_PHYSICAL",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_HEALTH"
         }
       ],
       "grid": {
@@ -11000,29 +10953,18 @@
           [
             40,
             49
-          ],
-          [
-            -30,
-            -30
           ]
         ],
         "bottom": [
           [
             20,
             29
-          ],
-          [
-            -30,
-            -30
           ]
         ]
       },
       "tags": [
-        "risk",
         "damage",
-        "physical",
-        "life",
-        "hybrid"
+        "physical"
       ]
     },
     {
@@ -11032,9 +10974,6 @@
         {
           "stat": "STOCK_ATTACK_SPEED",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_RESIST_ALL"
         }
       ],
       "grid": {
@@ -11047,28 +10986,17 @@
           [
             12,
             15
-          ],
-          [
-            -12,
-            -12
           ]
         ],
         "bottom": [
           [
             6,
             8
-          ],
-          [
-            -12,
-            -12
           ]
         ]
       },
       "tags": [
-        "risk",
-        "speed",
-        "resistance",
-        "hybrid"
+        "speed"
       ]
     },
     {
@@ -11077,9 +11005,6 @@
       "effects": [
         {
           "stat": "STOCK_BLOCK_CHANCE"
-        },
-        {
-          "stat": "STOCK_CRITICAL_MULTIPLIER"
         }
       ],
       "grid": {
@@ -11092,28 +11017,17 @@
           [
             8,
             10
-          ],
-          [
-            -20,
-            -20
           ]
         ],
         "bottom": [
           [
             3,
             5
-          ],
-          [
-            -20,
-            -20
           ]
         ]
       },
       "tags": [
-        "risk",
-        "block",
-        "critical",
-        "hybrid"
+        "block"
       ]
     },
     {
@@ -11122,9 +11036,6 @@
       "effects": [
         {
           "stat": "STOCK_CRITICAL_MULTIPLIER"
-        },
-        {
-          "stat": "STOCK_HEALTH"
         }
       ],
       "grid": {
@@ -11137,28 +11048,17 @@
           [
             40,
             48
-          ],
-          [
-            -25,
-            -25
           ]
         ],
         "bottom": [
           [
             20,
             26
-          ],
-          [
-            -25,
-            -25
           ]
         ]
       },
       "tags": [
-        "risk",
-        "critical",
-        "life",
-        "hybrid"
+        "critical"
       ]
     },
     {
@@ -11167,9 +11067,6 @@
       "effects": [
         {
           "stat": "STOCK_LEECH_ALL"
-        },
-        {
-          "stat": "STOCK_RESIST_ALL"
         }
       ],
       "grid": {
@@ -11182,29 +11079,18 @@
           [
             1.5,
             2
-          ],
-          [
-            -10,
-            -10
           ]
         ],
         "bottom": [
           [
             0.6,
             1
-          ],
-          [
-            -10,
-            -10
           ]
         ],
         "precision": 1
       },
       "tags": [
-        "risk",
-        "leech",
-        "resistance",
-        "hybrid"
+        "leech"
       ]
     },
     {
@@ -11214,9 +11100,6 @@
         {
           "stat": "STOCK_ATTACK_PHYSICAL",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_DAMAGE_TAKEN"
         }
       ],
       "grid": {
@@ -11229,28 +11112,18 @@
           [
             45,
             55
-          ],
-          [
-            8,
-            8
           ]
         ],
         "bottom": [
           [
             20,
             28
-          ],
-          [
-            8,
-            8
           ]
         ]
       },
       "tags": [
-        "risk",
         "damage",
-        "physical",
-        "hybrid"
+        "physical"
       ]
     },
     {
@@ -11259,10 +11132,6 @@
       "effects": [
         {
           "stat": "STOCK_ATTACK_SPEED",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ARMOR",
           "op": "INCREASED"
         }
       ],
@@ -11276,28 +11145,17 @@
           [
             14,
             16
-          ],
-          [
-            -20,
-            -20
           ]
         ],
         "bottom": [
           [
             6,
             8
-          ],
-          [
-            -20,
-            -20
           ]
         ]
       },
       "tags": [
-        "risk",
-        "speed",
-        "armour",
-        "hybrid"
+        "speed"
       ]
     },
     {
@@ -11307,9 +11165,6 @@
         {
           "stat": "STOCK_RARITY",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_HEALTH"
         }
       ],
       "grid": {
@@ -11322,28 +11177,17 @@
           [
             40,
             50
-          ],
-          [
-            -20,
-            -20
           ]
         ],
         "bottom": [
           [
             15,
             22
-          ],
-          [
-            -20,
-            -20
           ]
         ]
       },
       "tags": [
-        "risk",
-        "rarity",
-        "life",
-        "hybrid"
+        "rarity"
       ]
     },
     {
@@ -11361,9 +11205,6 @@
         {
           "stat": "STOCK_ATTACK_LIGHTNING",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_RESIST_CHAOS"
         }
       ],
       "grid": {
@@ -11384,10 +11225,6 @@
           [
             30,
             36
-          ],
-          [
-            -15,
-            -15
           ]
         ],
         "bottom": [
@@ -11402,19 +11239,12 @@
           [
             12,
             16
-          ],
-          [
-            -15,
-            -15
           ]
         ]
       },
       "tags": [
-        "risk",
         "damage",
-        "elemental",
-        "chaos",
-        "hybrid"
+        "elemental"
       ]
     },
     {
@@ -11424,10 +11254,6 @@
         {
           "stat": "STOCK_MOVEMENT_SPEED",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_EVASION",
-          "op": "INCREASED"
         }
       ],
       "grid": {
@@ -11440,28 +11266,17 @@
           [
             25,
             30
-          ],
-          [
-            -25,
-            -25
           ]
         ],
         "bottom": [
           [
             10,
             14
-          ],
-          [
-            -25,
-            -25
           ]
         ]
       },
       "tags": [
-        "risk",
-        "speed",
-        "evasion",
-        "hybrid"
+        "speed"
       ]
     },
     {
@@ -11470,9 +11285,6 @@
       "effects": [
         {
           "stat": "STOCK_RECOVERY_RATE"
-        },
-        {
-          "stat": "STOCK_RESIST_MAX_ALL"
         }
       ],
       "grid": {
@@ -11485,28 +11297,17 @@
           [
             25,
             30
-          ],
-          [
-            -2,
-            -2
           ]
         ],
         "bottom": [
           [
             10,
             14
-          ],
-          [
-            -2,
-            -2
           ]
         ]
       },
       "tags": [
-        "risk",
-        "regen",
-        "resistance",
-        "hybrid"
+        "regen"
       ]
     },
     {
@@ -11515,10 +11316,6 @@
       "effects": [
         {
           "stat": "STOCK_HEALTH",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ENERGY_SHIELD",
           "op": "INCREASED"
         }
       ],
@@ -11532,28 +11329,17 @@
           [
             12,
             15
-          ],
-          [
-            -30,
-            -30
           ]
         ],
         "bottom": [
           [
             5,
             7
-          ],
-          [
-            -30,
-            -30
           ]
         ]
       },
       "tags": [
-        "risk",
-        "life",
-        "energy_shield",
-        "hybrid"
+        "life"
       ]
     },
     {
@@ -14516,10 +14302,6 @@
         {
           "stat": "STOCK_ATTACK_SPEED",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ARMOR",
-          "op": "INCREASED"
         }
       ],
       "grid": {
@@ -14531,29 +14313,18 @@
           [
             5,
             5
-          ],
-          [
-            -7,
-            -7
           ]
         ],
         "bottom": [
           [
             2,
             3
-          ],
-          [
-            -7,
-            -7
           ]
         ]
       },
       "tags": [
         "jewel",
-        "risk",
-        "speed",
-        "armour",
-        "hybrid"
+        "speed"
       ]
     },
     {
@@ -14563,9 +14334,6 @@
         {
           "stat": "STOCK_ATTACK_SPEED",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_RESIST_ALL"
         }
       ],
       "grid": {
@@ -14577,29 +14345,18 @@
           [
             4,
             5
-          ],
-          [
-            -4,
-            -4
           ]
         ],
         "bottom": [
           [
             2,
             3
-          ],
-          [
-            -4,
-            -4
           ]
         ]
       },
       "tags": [
         "jewel",
-        "risk",
-        "speed",
-        "resistance",
-        "hybrid"
+        "speed"
       ]
     },
     {
@@ -14608,9 +14365,6 @@
       "effects": [
         {
           "stat": "STOCK_CRITICAL_MULTIPLIER"
-        },
-        {
-          "stat": "STOCK_HEALTH"
         }
       ],
       "grid": {
@@ -14622,29 +14376,18 @@
           [
             13,
             16
-          ],
-          [
-            -8,
-            -8
           ]
         ],
         "bottom": [
           [
             7,
             9
-          ],
-          [
-            -8,
-            -8
           ]
         ]
       },
       "tags": [
         "jewel",
-        "risk",
-        "critical",
-        "life",
-        "hybrid"
+        "critical"
       ]
     },
     {
@@ -14654,9 +14397,6 @@
         {
           "stat": "STOCK_ATTACK_PHYSICAL",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_DAMAGE_TAKEN"
         }
       ],
       "grid": {
@@ -14668,29 +14408,19 @@
           [
             15,
             18
-          ],
-          [
-            3,
-            3
           ]
         ],
         "bottom": [
           [
             7,
             9
-          ],
-          [
-            3,
-            3
           ]
         ]
       },
       "tags": [
         "jewel",
-        "risk",
         "damage",
-        "physical",
-        "hybrid"
+        "physical"
       ]
     },
     {
@@ -14708,9 +14438,6 @@
         {
           "stat": "STOCK_ATTACK_LIGHTNING",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_RESIST_CHAOS"
         }
       ],
       "grid": {
@@ -14730,10 +14457,6 @@
           [
             10,
             12
-          ],
-          [
-            -5,
-            -5
           ]
         ],
         "bottom": [
@@ -14748,20 +14471,13 @@
           [
             4,
             5
-          ],
-          [
-            -5,
-            -5
           ]
         ]
       },
       "tags": [
         "jewel",
-        "risk",
         "damage",
-        "elemental",
-        "chaos",
-        "hybrid"
+        "elemental"
       ]
     },
     {
@@ -14771,10 +14487,6 @@
         {
           "stat": "STOCK_HEALTH",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ENERGY_SHIELD",
-          "op": "INCREASED"
         }
       ],
       "grid": {
@@ -14786,29 +14498,18 @@
           [
             4,
             5
-          ],
-          [
-            -10,
-            -10
           ]
         ],
         "bottom": [
           [
             2,
             2
-          ],
-          [
-            -10,
-            -10
           ]
         ]
       },
       "tags": [
         "jewel",
-        "risk",
-        "life",
-        "energy_shield",
-        "hybrid"
+        "life"
       ]
     },
     {
@@ -14818,9 +14519,6 @@
         {
           "stat": "STOCK_ATTACK_PHYSICAL",
           "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_HEALTH"
         }
       ],
       "grid": {
@@ -14832,30 +14530,19 @@
           [
             13,
             16
-          ],
-          [
-            -10,
-            -10
           ]
         ],
         "bottom": [
           [
             7,
             10
-          ],
-          [
-            -10,
-            -10
           ]
         ]
       },
       "tags": [
         "jewel",
-        "risk",
         "damage",
-        "physical",
-        "life",
-        "hybrid"
+        "physical"
       ]
     },
     {
@@ -22159,10 +21846,6 @@
       "effects": [
         {
           "stat": "FLASK_INSTANT"
-        },
-        {
-          "stat": "STOCK_FLASK_RECOVERY",
-          "op": "INCREASED"
         }
       ],
       "grid": {
@@ -22173,20 +21856,12 @@
           [
             100,
             100
-          ],
-          [
-            -25,
-            -25
           ]
         ],
         "bottom": [
           [
             100,
             100
-          ],
-          [
-            -25,
-            -25
           ]
         ]
       },
@@ -31369,7 +31044,8 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_SPELL_CRITICAL_CHANCE"
+          "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+          "op": "INCREASED"
         }
       ],
       "grid": {
@@ -31406,6 +31082,217 @@
       "tags": [
         "critical",
         "caster"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                65,
+                80
+              ]
+            ],
+            "bottom": [
+              [
+                10,
+                19
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  84,
+                  94
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "code": "ADD_SPELL_CRITICAL_MULTIPLIER",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_CRITICAL_MULTIPLIER"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            35,
+            38
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            14
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              40,
+              45
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "critical",
+        "caster"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                28,
+                32
+              ]
+            ],
+            "bottom": [
+              [
+                10,
+                14
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  34,
+                  38
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_SPELL_CRITICAL_CHANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            9
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "critical",
+        "caster"
+      ]
+    },
+    {
+      "code": "JEWEL_ADD_SPELL_CRITICAL_MULTIPLIER",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_CRITICAL_MULTIPLIER"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            9
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "critical",
+        "caster"
+      ]
+    },
+    {
+      "code": "PASSIVE_SET_SPELL_CRITICAL_STRIKE_CHANCE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+          "op": "SET"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "passive"
       ]
     },
     {

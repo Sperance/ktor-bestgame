@@ -30510,6 +30510,7 @@
         [
           {
             "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
             "range": [
               40.0,
               60.0
@@ -31151,6 +31152,7 @@
         [
           {
             "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
             "range": [
               50.0,
               70.0
@@ -32645,6 +32647,7 @@
         [
           {
             "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
             "range": [
               50.0,
               70.0
@@ -33786,6 +33789,7 @@
         [
           {
             "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
             "range": [
               60.0,
               80.0
@@ -35755,6 +35759,7 @@
         [
           {
             "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
             "range": [
               80.0,
               110.0
@@ -36895,6 +36900,7 @@
         [
           {
             "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
             "range": [
               100.0,
               130.0

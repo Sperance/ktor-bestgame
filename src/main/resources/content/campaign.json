@@ -9861,7 +9861,9 @@
     },
     "critical": {
       "chance": 5,
-      "multiplier": 150
+      "multiplier": 150,
+      "spellChance": 5,
+      "spellMultiplier": 150
     },
     "armour": {
       "factor": 5
@@ -10439,75 +10441,6 @@
     "modifiers": [
       "mob:abyss",
       "mob:monster"
-    ]
-  },
-  "desecration": {
-    "count": [
-      2,
-      5
-    ],
-    "radius": 1.8,
-    "trail": 4.0,
-    "growth": 0.015,
-    "minLevel": 1,
-    "kinds": [
-      {
-        "code": "BURNING_GROUND",
-        "group": "ELEMENTAL",
-        "lines": {
-          "MAP_HERO_DEGEN": 1.5,
-          "MAP_HERO_RESIST": 25
-        },
-        "weight": 100
-      },
-      {
-        "code": "CHILLED_GROUND",
-        "group": "ELEMENTAL",
-        "lines": {
-          "MAP_HERO_HASTE": -30,
-          "MAP_HERO_ATTACK_SPEED": -15
-        },
-        "weight": 100
-      },
-      {
-        "code": "SHOCKED_GROUND",
-        "group": "ELEMENTAL",
-        "lines": {
-          "MAP_HERO_DAMAGE_TAKEN": 20,
-          "MAP_HERO_BLOCK": 10
-        },
-        "weight": 100
-      },
-      {
-        "code": "CAUSTIC_GROUND",
-        "group": "POISON",
-        "lines": {
-          "MAP_HERO_DEGEN": 2.5,
-          "MAP_HERO_REGEN": 50,
-          "MAP_HERO_RECOVERY": 30
-        },
-        "weight": 100
-      },
-      {
-        "code": "CORROSION",
-        "group": "DEFENCE",
-        "lines": {
-          "MAP_HERO_DEFENCES": 30,
-          "MAP_HERO_BLOCK": 15,
-          "MAP_HERO_MAX_RESIST": 8
-        },
-        "weight": 100
-      },
-      {
-        "code": "ENERVATION",
-        "group": "WEAKNESS",
-        "lines": {
-          "MAP_HERO_LIFE": -12,
-          "MAP_HERO_CRIT": 30,
-          "MAP_HERO_LEECH": -2
-        },
-        "weight": 100
-      }
     ]
   },
   "trials": {
