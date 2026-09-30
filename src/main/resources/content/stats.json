@@ -16,7 +16,7 @@
       "order": 12
     },
     {
-      "code": "STOCK_CONSTITUTION",
+      "code": "STOCK_ALL_ATTRIBUTES",
       "group": "HERO",
       "order": 13
     },
@@ -101,6 +101,11 @@
       "order": 144
     },
     {
+      "code": "STOCK_ALL_RESISTANCES",
+      "group": "HERO",
+      "order": 3498
+    },
+    {
       "code": "STOCK_RESIST_MAX_FIRE",
       "group": "HERO",
       "order": 145
@@ -174,6 +179,11 @@
       "code": "STOCK_ATTACK_CHAOS",
       "group": "HERO",
       "order": 205
+    },
+    {
+      "code": "STOCK_ELEMENTAL_DAMAGE",
+      "group": "HERO",
+      "order": 210
     },
     {
       "code": "STOCK_DAMAGE",
@@ -397,6 +407,11 @@
       "order": 272
     },
     {
+      "code": "STOCK_ENERGY_REGEN_PERCENT",
+      "group": "HERO",
+      "order": 273
+    },
+    {
       "code": "STOCK_LIFE_DEGEN_PERCENT",
       "group": "HERO",
       "order": 3022
@@ -470,6 +485,11 @@
       "code": "STOCK_AVOID_BLEED",
       "group": "HERO",
       "order": 293
+    },
+    {
+      "code": "STOCK_AVOID_ELEMENTAL_AILMENTS",
+      "group": "HERO",
+      "order": 3499
     },
     {
       "code": "STOCK_IGNITE_DURATION_ON_SELF",

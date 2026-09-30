@@ -350,7 +350,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -377,7 +376,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ],
       "level": 12,
@@ -409,7 +407,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -439,7 +436,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -469,7 +465,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -499,7 +494,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -529,7 +523,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -558,7 +551,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -588,7 +580,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -618,7 +609,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -648,7 +638,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -678,7 +667,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -708,7 +696,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -735,7 +722,6 @@
       "tables": [
         "helmet",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -765,7 +751,6 @@
       "tables": [
         "helmet",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -795,7 +780,6 @@
       "tables": [
         "helmet",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -825,7 +809,6 @@
       "tables": [
         "helmet",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -855,7 +838,6 @@
       "tables": [
         "helmet",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -1295,7 +1277,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -1325,7 +1306,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -1355,7 +1335,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -1385,7 +1364,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -1415,7 +1393,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -1445,7 +1422,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -1472,7 +1448,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -1502,7 +1477,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -1532,7 +1506,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -1562,7 +1535,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -1592,7 +1564,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -1622,7 +1593,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -1652,7 +1622,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -1679,7 +1648,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -1709,7 +1677,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -1739,7 +1706,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -1769,7 +1735,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -1799,7 +1764,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -1829,7 +1793,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -1859,7 +1822,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -2318,7 +2280,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -2348,7 +2309,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -2378,7 +2338,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -2408,7 +2367,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -2438,7 +2396,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -2468,7 +2425,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -2498,7 +2454,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -2527,7 +2482,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -2557,7 +2511,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -2587,7 +2540,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -2617,7 +2569,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -2647,7 +2598,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -2677,7 +2627,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -2706,7 +2655,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -2736,7 +2684,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -2766,7 +2713,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -2796,7 +2742,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -2826,7 +2771,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -2856,7 +2800,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -2886,7 +2829,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -3345,7 +3287,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -3375,7 +3316,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -3405,7 +3345,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -3435,7 +3374,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -3465,7 +3403,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -3495,7 +3432,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -3524,7 +3460,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -3554,7 +3489,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -3584,7 +3518,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -3614,7 +3547,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -3644,7 +3576,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -3674,7 +3605,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -3703,7 +3633,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -3733,7 +3662,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -3763,7 +3691,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -3793,7 +3720,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -3823,7 +3749,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -3853,7 +3778,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -3883,7 +3807,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -4476,7 +4399,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -4512,7 +4434,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -4548,7 +4469,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -4584,7 +4504,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -4620,7 +4539,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -4656,7 +4574,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -4692,7 +4609,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -4727,7 +4643,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -4763,7 +4678,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -4799,7 +4713,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -4835,7 +4748,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -4871,7 +4783,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -4907,7 +4818,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -4943,7 +4853,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -4978,7 +4887,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -5014,7 +4922,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -5050,7 +4957,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -5086,7 +4992,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -5122,7 +5027,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -5158,7 +5062,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -5194,7 +5097,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -34253,7 +34155,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -34283,7 +34184,6 @@
       "tables": [
         "body",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -34355,7 +34255,6 @@
       "tables": [
         "body",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -34406,7 +34305,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -34436,7 +34334,6 @@
       "tables": [
         "boots",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -34508,7 +34405,6 @@
       "tables": [
         "boots",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -34559,7 +34455,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -34589,7 +34484,6 @@
       "tables": [
         "gloves",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -34661,7 +34555,6 @@
       "tables": [
         "gloves",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -34712,7 +34605,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -34742,7 +34634,6 @@
       "tables": [
         "helmet",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -34814,7 +34705,6 @@
       "tables": [
         "helmet",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },
@@ -34871,7 +34761,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+energy_shield",
         "local:energy_shield"
       ]
     },
@@ -34907,7 +34796,6 @@
       "tables": [
         "shield",
         "local:armor",
-        "local:armor+evasion",
         "local:evasion"
       ]
     },
@@ -34997,7 +34885,6 @@
       "tables": [
         "shield",
         "local:energy_shield",
-        "local:energy_shield+evasion",
         "local:evasion"
       ]
     },

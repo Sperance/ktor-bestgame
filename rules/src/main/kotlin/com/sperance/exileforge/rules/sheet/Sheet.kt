@@ -3,7 +3,6 @@ package com.sperance.exileforge.rules.sheet
 import com.sperance.exileforge.rules.content.Catalyst
 import com.sperance.exileforge.rules.content.Condition
 import com.sperance.exileforge.rules.content.ContentIndex
-import com.sperance.exileforge.rules.content.GenericDamage
 import com.sperance.exileforge.rules.content.HeroClass
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Line
@@ -16,6 +15,7 @@ import com.sperance.exileforge.rules.content.SlotOp
 import com.sperance.exileforge.rules.content.SlotPick
 import com.sperance.exileforge.rules.content.SlotRule
 import com.sperance.exileforge.rules.content.StatRegistry
+import com.sperance.exileforge.rules.content.StatSpread
 import com.sperance.exileforge.rules.content.tenths
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.Roll
@@ -86,9 +86,12 @@ class SheetCalculator(private val index: ContentIndex) {
         def.effects.mapIndexedNotNull { i, effect -> values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source, condition = effect.condition) } }
     }
 
-    /** Операция там, где она считается: увеличение урона вообще ([GenericDamage], 1.57.0) - в каждом виде удара. */
+    /**
+     * Операция там, где она считается ([StatSpread]): увеличение урона вообще ([GenericDamage], 1.57.0) - в каждом виде удара,
+     * общая характеристика «ко всем X» ([GenericStat], 1.58.0) - в каждом своём члене.
+     */
     fun spread(operation: StatOperation): List<StatOperation> =
-        GenericDamage.targets(operation.stat, operation.op).map { if (it == operation.stat) operation else operation.copy(stat = it) }
+        StatSpread.targets(operation.stat, operation.op).map { if (it == operation.stat) operation else operation.copy(stat = it) }
 
     /** Свод до сил уникалок: характеристики в порядке реестра, источник конверсии посчитан раньше приёмника. */
     fun raw(base: Map<String, Double>, operations: Collection<StatOperation>): MutableMap<String, Double> {

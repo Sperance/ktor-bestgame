@@ -211,68 +211,6 @@
       ]
     },
     {
-      "code": "ADD_MAXIMUM_LIFE_AND_LIFE_REGENERATION",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_HEALTH"
-        },
-        {
-          "stat": "STOCK_HEALTH_REGEN"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            60,
-            70
-          ],
-          [
-            6,
-            8
-          ]
-        ],
-        "bottom": [
-          [
-            8,
-            12
-          ],
-          [
-            1,
-            1.5
-          ]
-        ],
-        "precision": 1,
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              69.0,
-              82.6
-            ],
-            [
-              6.9,
-              9.4
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "life",
-        "regen",
-        "hybrid",
-        "defences"
-      ]
-    },
-    {
       "code": "ADD_ENERGY_SHIELD",
       "source": "PREFIX",
       "effects": [
@@ -550,68 +488,6 @@
           ]
         }
       ]
-    },
-    {
-      "code": "ADD_ENERGY_SHIELD_AND_LIFE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ENERGY_SHIELD"
-        },
-        {
-          "stat": "STOCK_HEALTH"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            45,
-            56
-          ],
-          [
-            34,
-            45
-          ]
-        ],
-        "bottom": [
-          [
-            3,
-            5
-          ],
-          [
-            4,
-            8
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              52,
-              66
-            ],
-            [
-              39,
-              53
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "energy_shield",
-        "life",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
     },
     {
       "code": "ADD_ARMOUR",
@@ -1073,200 +949,8 @@
       ]
     },
     {
-      "code": "ADD_ARMOUR_AND_EVASION",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR"
-        },
-        {
-          "stat": "STOCK_EVASION"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          69,
-          56,
-          44,
-          32,
-          20,
-          10,
-          1
-        ],
-        "top": [
-          [
-            200,
-            240
-          ],
-          [
-            200,
-            240
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            10
-          ],
-          [
-            6,
-            10
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              230,
-              283
-            ],
-            [
-              230,
-              283
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "armour",
-        "evasion",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
-    },
-    {
-      "code": "ADD_ARMOUR_AND_ENERGY_SHIELD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR"
-        },
-        {
-          "stat": "STOCK_ENERGY_SHIELD"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          69,
-          56,
-          44,
-          32,
-          20,
-          10,
-          1
-        ],
-        "top": [
-          [
-            200,
-            240
-          ],
-          [
-            40,
-            50
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            10
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              230,
-              283
-            ],
-            [
-              46,
-              59
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "armour",
-        "energy_shield",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
-    },
-    {
-      "code": "ADD_EVASION_AND_ENERGY_SHIELD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_EVASION"
-        },
-        {
-          "stat": "STOCK_ENERGY_SHIELD"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          69,
-          56,
-          44,
-          32,
-          20,
-          10,
-          1
-        ],
-        "top": [
-          [
-            200,
-            240
-          ],
-          [
-            40,
-            50
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            10
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              230,
-              283
-            ],
-            [
-              46,
-              59
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "evasion",
-        "energy_shield",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
-    },
-    {
-      "code": "INCREASED_ARMOUR_AND_EVASION",
-      "source": "PREFIX",
+      "code": "PASSIVE_INCREASED_ARMOUR_AND_EVASION",
+      "source": "PASSIVE",
       "effects": [
         {
           "stat": "STOCK_ARMOR",
@@ -1279,194 +963,39 @@
       ],
       "grid": {
         "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
           1
         ],
         "top": [
           [
-            9,
-            11
+            1,
+            1
           ],
           [
-            9,
-            11
+            1,
+            1
           ]
         ],
         "bottom": [
           [
-            3,
-            4
+            1,
+            1
           ],
           [
-            3,
-            4
+            1,
+            1
           ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              10,
-              13
-            ],
-            [
-              10,
-              13
-            ]
-          ]
-        }
+        ]
       },
       "tags": [
         "armour",
         "evasion",
-        "hybrid",
-        "defences"
-      ],
-      "variants": [
-        {
-          "kind": "LOCAL",
-          "grid": {
-            "levels": [
-              82,
-              69,
-              56,
-              44,
-              32,
-              20,
-              10,
-              1
-            ],
-            "top": [
-              [
-                70,
-                80
-              ],
-              [
-                70,
-                80
-              ]
-            ],
-            "bottom": [
-              [
-                6,
-                12
-              ],
-              [
-                6,
-                12
-              ]
-            ]
-          }
-        }
+        "defences",
+        "passive"
       ]
     },
     {
-      "code": "INCREASED_ARMOUR_AND_ENERGY_SHIELD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ENERGY_SHIELD",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            9,
-            11
-          ],
-          [
-            9,
-            11
-          ]
-        ],
-        "bottom": [
-          [
-            3,
-            4
-          ],
-          [
-            3,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              10,
-              13
-            ],
-            [
-              10,
-              13
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "armour",
-        "energy_shield",
-        "hybrid",
-        "defences"
-      ],
-      "variants": [
-        {
-          "kind": "LOCAL",
-          "grid": {
-            "levels": [
-              82,
-              69,
-              56,
-              44,
-              32,
-              20,
-              10,
-              1
-            ],
-            "top": [
-              [
-                70,
-                80
-              ],
-              [
-                70,
-                80
-              ]
-            ],
-            "bottom": [
-              [
-                6,
-                12
-              ],
-              [
-                6,
-                12
-              ]
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
-      "source": "PREFIX",
+      "code": "PASSIVE_INCREASED_EVASION_AND_ENERGY_SHIELD",
+      "source": "PASSIVE",
       "effects": [
         {
           "stat": "STOCK_EVASION",
@@ -1479,403 +1008,35 @@
       ],
       "grid": {
         "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
           1
         ],
         "top": [
           [
-            9,
-            11
+            1,
+            1
           ],
           [
-            9,
-            11
+            1,
+            1
           ]
         ],
         "bottom": [
           [
-            3,
-            4
+            1,
+            1
           ],
           [
-            3,
-            4
+            1,
+            1
           ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              10,
-              13
-            ],
-            [
-              10,
-              13
-            ]
-          ]
-        }
+        ]
       },
       "tags": [
         "evasion",
         "energy_shield",
-        "hybrid",
-        "defences"
-      ],
-      "variants": [
-        {
-          "kind": "LOCAL",
-          "grid": {
-            "levels": [
-              82,
-              69,
-              56,
-              44,
-              32,
-              20,
-              10,
-              1
-            ],
-            "top": [
-              [
-                70,
-                80
-              ],
-              [
-                70,
-                80
-              ]
-            ],
-            "bottom": [
-              [
-                6,
-                12
-              ],
-              [
-                6,
-                12
-              ]
-            ]
-          }
-        }
+        "defences",
+        "passive"
       ]
-    },
-    {
-      "code": "ADD_ARMOUR_AND_LIFE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR"
-        },
-        {
-          "stat": "STOCK_HEALTH"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            134,
-            168
-          ],
-          [
-            34,
-            45
-          ]
-        ],
-        "bottom": [
-          [
-            8,
-            14
-          ],
-          [
-            4,
-            8
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              154,
-              198
-            ],
-            [
-              39,
-              53
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "armour",
-        "life",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
-    },
-    {
-      "code": "ADD_EVASION_RATING_AND_LIFE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_EVASION"
-        },
-        {
-          "stat": "STOCK_HEALTH"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            134,
-            168
-          ],
-          [
-            34,
-            45
-          ]
-        ],
-        "bottom": [
-          [
-            8,
-            14
-          ],
-          [
-            4,
-            8
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              154,
-              198
-            ],
-            [
-              39,
-              53
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "evasion",
-        "life",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
-    },
-    {
-      "code": "INCREASED_ARMOUR_AND_STUN_THRESHOLD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_STUN_THRESHOLD"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            56,
-            67
-          ],
-          [
-            17,
-            22
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            12
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              64,
-              79
-            ],
-            [
-              20,
-              26
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "armour",
-        "stun",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
-    },
-    {
-      "code": "INCREASED_EVASION_RATING_AND_STUN_THRESHOLD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_EVASION",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_STUN_THRESHOLD"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            56,
-            67
-          ],
-          [
-            17,
-            22
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            12
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              64,
-              79
-            ],
-            [
-              20,
-              26
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "evasion",
-        "stun",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
-    },
-    {
-      "code": "INCREASED_ENERGY_SHIELD_AND_STUN_THRESHOLD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ENERGY_SHIELD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_STUN_THRESHOLD"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            56,
-            67
-          ],
-          [
-            17,
-            22
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            12
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              64,
-              79
-            ],
-            [
-              20,
-              26
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "energy_shield",
-        "stun",
-        "hybrid",
-        "defences"
-      ],
-      "local": true
     },
     {
       "code": "ADD_BLOCK_CHANCE",
@@ -3083,10 +2244,7 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_RESIST_ALL"
-        },
-        {
-          "stat": "STOCK_RESIST_CHAOS"
+          "stat": "STOCK_ALL_RESISTANCES"
         }
       ],
       "grid": {
@@ -3099,20 +2257,12 @@
           [
             10,
             12
-          ],
-          [
-            8,
-            10
           ]
         ],
         "bottom": [
           [
             3,
             4
-          ],
-          [
-            2,
-            3
           ]
         ],
         "apex": {
@@ -3121,10 +2271,6 @@
             [
               12,
               14
-            ],
-            [
-              9,
-              12
             ]
           ]
         }
@@ -3132,380 +2278,7 @@
       "tags": [
         "resistance",
         "elemental",
-        "chaos",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "ADD_FIRE_AND_COLD_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RESIST_FIRE"
-        },
-        {
-          "stat": "STOCK_RESIST_COLD"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            22,
-            26
-          ],
-          [
-            22,
-            26
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            8
-          ],
-          [
-            4,
-            8
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              25,
-              31
-            ],
-            [
-              25,
-              31
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "resistance",
-        "elemental",
-        "fire",
-        "cold",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "ADD_FIRE_AND_LIGHTNING_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RESIST_FIRE"
-        },
-        {
-          "stat": "STOCK_RESIST_LIGHTNING"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            22,
-            26
-          ],
-          [
-            22,
-            26
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            8
-          ],
-          [
-            4,
-            8
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              25,
-              31
-            ],
-            [
-              25,
-              31
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "resistance",
-        "elemental",
-        "fire",
-        "lightning",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "ADD_COLD_AND_LIGHTNING_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RESIST_COLD"
-        },
-        {
-          "stat": "STOCK_RESIST_LIGHTNING"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            22,
-            26
-          ],
-          [
-            22,
-            26
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            8
-          ],
-          [
-            4,
-            8
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              25,
-              31
-            ],
-            [
-              25,
-              31
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "resistance",
-        "elemental",
-        "cold",
-        "lightning",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "ADD_FIRE_AND_CHAOS_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RESIST_FIRE"
-        },
-        {
-          "stat": "STOCK_RESIST_CHAOS"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            20,
-            25
-          ],
-          [
-            11,
-            15
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            7
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              23,
-              30
-            ],
-            [
-              13,
-              18
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "resistance",
-        "elemental",
-        "chaos",
-        "fire",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "ADD_COLD_AND_CHAOS_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RESIST_COLD"
-        },
-        {
-          "stat": "STOCK_RESIST_CHAOS"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            20,
-            25
-          ],
-          [
-            11,
-            15
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            7
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              23,
-              30
-            ],
-            [
-              13,
-              18
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "resistance",
-        "elemental",
-        "chaos",
-        "cold",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "ADD_LIGHTNING_AND_CHAOS_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RESIST_LIGHTNING"
-        },
-        {
-          "stat": "STOCK_RESIST_CHAOS"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            20,
-            25
-          ],
-          [
-            11,
-            15
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            7
-          ],
-          [
-            2,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              23,
-              30
-            ],
-            [
-              13,
-              18
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "resistance",
-        "elemental",
-        "chaos",
-        "lightning",
-        "hybrid"
+        "chaos"
       ]
     },
     {
@@ -3531,7 +2304,7 @@
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ],
         "apex": {
@@ -3596,7 +2369,7 @@
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ],
         "apex": {
@@ -3661,7 +2434,7 @@
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ],
         "apex": {
@@ -3726,7 +2499,7 @@
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ],
         "apex": {
@@ -3785,13 +2558,13 @@
         "top": [
           [
             2,
-            3
+            4
           ]
         ],
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ],
         "apex": {
@@ -4256,52 +3029,8 @@
       ]
     },
     {
-      "code": "ADD_CONSTITUTION",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_CONSTITUTION"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            22,
-            27
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            6
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              25,
-              32
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "attribute",
-        "constitution"
-      ]
-    },
-    {
-      "code": "ADD_STRENGTH_AND_DEXTERITY",
-      "source": "SUFFIX",
+      "code": "PASSIVE_ADD_STRENGTH_AND_DEXTERITY",
+      "source": "PASSIVE",
       "effects": [
         {
           "stat": "STOCK_STRENGTH"
@@ -4312,57 +3041,39 @@
       ],
       "grid": {
         "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
           1
         ],
         "top": [
           [
-            27,
-            31
+            1,
+            1
           ],
           [
-            27,
-            31
+            1,
+            1
           ]
         ],
         "bottom": [
           [
-            4,
-            7
+            1,
+            1
           ],
           [
-            4,
-            7
+            1,
+            1
           ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              31,
-              37
-            ],
-            [
-              31,
-              37
-            ]
-          ]
-        }
+        ]
       },
       "tags": [
         "attribute",
         "strength",
         "dexterity",
-        "hybrid"
+        "passive"
       ]
     },
     {
-      "code": "ADD_STRENGTH_AND_INTELLIGENCE",
-      "source": "SUFFIX",
+      "code": "PASSIVE_ADD_STRENGTH_AND_INTELLIGENCE",
+      "source": "PASSIVE",
       "effects": [
         {
           "stat": "STOCK_STRENGTH"
@@ -4373,57 +3084,39 @@
       ],
       "grid": {
         "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
           1
         ],
         "top": [
           [
-            27,
-            31
+            1,
+            1
           ],
           [
-            27,
-            31
+            1,
+            1
           ]
         ],
         "bottom": [
           [
-            4,
-            7
+            1,
+            1
           ],
           [
-            4,
-            7
+            1,
+            1
           ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              31,
-              37
-            ],
-            [
-              31,
-              37
-            ]
-          ]
-        }
+        ]
       },
       "tags": [
         "attribute",
         "strength",
         "intelligence",
-        "hybrid"
+        "passive"
       ]
     },
     {
-      "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
-      "source": "SUFFIX",
+      "code": "PASSIVE_ADD_DEXTERITY_AND_INTELLIGENCE",
+      "source": "PASSIVE",
       "effects": [
         {
           "stat": "STOCK_AGILITY"
@@ -4434,52 +3127,34 @@
       ],
       "grid": {
         "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
           1
         ],
         "top": [
           [
-            27,
-            31
+            1,
+            1
           ],
           [
-            27,
-            31
+            1,
+            1
           ]
         ],
         "bottom": [
           [
-            4,
-            7
+            1,
+            1
           ],
           [
-            4,
-            7
+            1,
+            1
           ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              31,
-              37
-            ],
-            [
-              31,
-              37
-            ]
-          ]
-        }
+        ]
       },
       "tags": [
         "attribute",
         "dexterity",
         "intelligence",
-        "hybrid"
+        "passive"
       ]
     },
     {
@@ -4487,13 +3162,7 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_STRENGTH"
-        },
-        {
-          "stat": "STOCK_AGILITY"
-        },
-        {
-          "stat": "STOCK_INTELLECT"
+          "stat": "STOCK_ALL_ATTRIBUTES"
         }
       ],
       "grid": {
@@ -4509,25 +3178,9 @@
           [
             20,
             25
-          ],
-          [
-            20,
-            25
-          ],
-          [
-            20,
-            25
           ]
         ],
         "bottom": [
-          [
-            3,
-            5
-          ],
-          [
-            3,
-            5
-          ],
           [
             3,
             5
@@ -4539,21 +3192,12 @@
             [
               23,
               30
-            ],
-            [
-              23,
-              30
-            ],
-            [
-              23,
-              30
             ]
           ]
         }
       },
       "tags": [
-        "attribute",
-        "hybrid"
+        "attribute"
       ],
       "variants": [
         {
@@ -4568,25 +3212,9 @@
               [
                 10,
                 14
-              ],
-              [
-                10,
-                14
-              ],
-              [
-                10,
-                14
               ]
             ],
             "bottom": [
-              [
-                4,
-                6
-              ],
-              [
-                4,
-                6
-              ],
               [
                 4,
                 6
@@ -4605,25 +3233,9 @@
               [
                 14,
                 18
-              ],
-              [
-                14,
-                18
-              ],
-              [
-                14,
-                18
               ]
             ],
             "bottom": [
-              [
-                6,
-                8
-              ],
-              [
-                6,
-                8
-              ],
               [
                 6,
                 8
@@ -4897,70 +3509,6 @@
           }
         }
       ]
-    },
-    {
-      "code": "INCREASED_PHYSICAL_DAMAGE_AND_CRITICAL_MULTIPLIER",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_CRITICAL_MULTIPLIER"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            78,
-            90
-          ],
-          [
-            22,
-            28
-          ]
-        ],
-        "bottom": [
-          [
-            10,
-            15
-          ],
-          [
-            5,
-            8
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              90,
-              106
-            ],
-            [
-              25,
-              33
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "damage",
-        "physical",
-        "critical",
-        "hybrid",
-        "attack"
-      ],
-      "local": true
     },
     {
       "code": "ADD_FIRE_DAMAGE",
@@ -5721,15 +4269,7 @@
       "source": "PREFIX",
       "effects": [
         {
-          "stat": "STOCK_ATTACK_FIRE",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
+          "stat": "STOCK_ELEMENTAL_DAMAGE",
           "op": "INCREASED"
         }
       ],
@@ -5750,25 +4290,9 @@
           [
             27,
             31
-          ],
-          [
-            27,
-            31
-          ],
-          [
-            27,
-            31
           ]
         ],
         "bottom": [
-          [
-            5,
-            8
-          ],
-          [
-            5,
-            8
-          ],
           [
             5,
             8
@@ -5780,22 +4304,13 @@
             [
               31,
               37
-            ],
-            [
-              31,
-              37
-            ],
-            [
-              31,
-              37
             ]
           ]
         }
       },
       "tags": [
         "damage",
-        "elemental",
-        "hybrid"
+        "elemental"
       ],
       "variants": [
         {
@@ -5813,25 +4328,9 @@
               [
                 15,
                 18
-              ],
-              [
-                15,
-                18
-              ],
-              [
-                15,
-                18
               ]
             ],
             "bottom": [
-              [
-                4,
-                6
-              ],
-              [
-                4,
-                6
-              ],
               [
                 4,
                 6
@@ -5840,14 +4339,6 @@
             "apex": {
               "level": 80,
               "values": [
-                [
-                  17,
-                  21
-                ],
-                [
-                  17,
-                  21
-                ],
                 [
                   17,
                   21
@@ -5875,25 +4366,9 @@
               [
                 20,
                 26
-              ],
-              [
-                20,
-                26
-              ],
-              [
-                20,
-                26
               ]
             ],
             "bottom": [
-              [
-                8,
-                12
-              ],
-              [
-                8,
-                12
-              ],
               [
                 8,
                 12
@@ -5908,15 +4383,7 @@
       "source": "PREFIX",
       "effects": [
         {
-          "stat": "STOCK_ATTACK_FIRE",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
+          "stat": "STOCK_ELEMENTAL_DAMAGE",
           "op": "INCREASED"
         }
       ],
@@ -5937,25 +4404,9 @@
           [
             40,
             47
-          ],
-          [
-            40,
-            47
-          ],
-          [
-            40,
-            47
           ]
         ],
         "bottom": [
-          [
-            6,
-            10
-          ],
-          [
-            6,
-            10
-          ],
           [
             6,
             10
@@ -5964,14 +4415,6 @@
         "apex": {
           "level": 92,
           "values": [
-            [
-              46,
-              55
-            ],
-            [
-              46,
-              55
-            ],
             [
               46,
               55
@@ -5982,134 +4425,9 @@
       "tags": [
         "damage",
         "elemental",
-        "hybrid",
         "attack"
       ],
       "group": "INCREASED_ELEMENTAL_DAMAGE"
-    },
-    {
-      "code": "ADD_PHYSICAL_AND_FIRE_DAMAGE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL"
-        },
-        {
-          "stat": "STOCK_ATTACK_FIRE"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            9,
-            16
-          ],
-          [
-            11,
-            20
-          ]
-        ],
-        "bottom": [
-          [
-            1,
-            2
-          ],
-          [
-            1,
-            3
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              10,
-              19
-            ],
-            [
-              13,
-              24
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "damage",
-        "physical",
-        "fire",
-        "hybrid",
-        "attack"
-      ]
-    },
-    {
-      "code": "ADD_COLD_AND_LIGHTNING_DAMAGE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_COLD"
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          64,
-          46,
-          29,
-          14,
-          1
-        ],
-        "top": [
-          [
-            9,
-            18
-          ],
-          [
-            4,
-            27
-          ]
-        ],
-        "bottom": [
-          [
-            1,
-            2
-          ],
-          [
-            1,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              10,
-              21
-            ],
-            [
-              5,
-              32
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "damage",
-        "cold",
-        "lightning",
-        "hybrid",
-        "attack"
-      ]
     },
     {
       "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
@@ -6616,14 +4934,14 @@
         ],
         "top": [
           [
-            39,
-            39
+            35,
+            43
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -6653,22 +4971,22 @@
             ],
             "top": [
               [
-                22,
-                22
+                20,
+                24
               ]
             ],
             "bottom": [
               [
-                7,
-                7
+                6,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  26,
-                  26
+                  23,
+                  29
                 ]
               ]
             }
@@ -6688,14 +5006,14 @@
             ],
             "top": [
               [
-                15,
-                15
+                13,
+                17
               ]
             ],
             "bottom": [
               [
-                5,
-                5
+                4,
+                6
               ]
             ]
           }
@@ -6721,65 +5039,6 @@
             ]
           }
         }
-      ]
-    },
-    {
-      "code": "INCREASED_LIGHT_RADIUS_AND_MOVEMENT_SPEED",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_LIGHT_RADIUS",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_MOVEMENT_SPEED",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            20,
-            25
-          ],
-          [
-            8,
-            10
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            10
-          ],
-          [
-            3,
-            4
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              23,
-              30
-            ],
-            [
-              9,
-              12
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "light",
-        "speed",
-        "hybrid"
       ]
     },
     {
@@ -6974,8 +5233,7 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_ENERGY_REGEN",
-          "op": "INCREASED"
+          "stat": "STOCK_ENERGY_REGEN_PERCENT"
         }
       ],
       "grid": {
@@ -6989,22 +5247,23 @@
         ],
         "top": [
           [
-            45,
-            56
+            1.0,
+            1.3
           ]
         ],
         "bottom": [
           [
-            10,
-            15
+            0.2,
+            0.3
           ]
         ],
+        "precision": 1,
         "apex": {
           "level": 92,
           "values": [
             [
-              52,
-              66
+              1.3,
+              1.5
             ]
           ]
         }
@@ -7012,6 +5271,38 @@
       "tags": [
         "regen",
         "energy_shield"
+      ]
+    },
+    {
+      "code": "PASSIVE_INCREASED_ENERGY_REGENERATION",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_ENERGY_REGEN",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "regen",
+        "energy_shield",
+        "passive"
       ]
     },
     {
@@ -9054,13 +7345,7 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_AVOID_IGNITE"
-        },
-        {
-          "stat": "STOCK_AVOID_CHILL"
-        },
-        {
-          "stat": "STOCK_AVOID_SHOCK"
+          "stat": "STOCK_AVOID_ELEMENTAL_AILMENTS"
         }
       ],
       "grid": {
@@ -9073,25 +7358,9 @@
           [
             20,
             25
-          ],
-          [
-            20,
-            25
-          ],
-          [
-            20,
-            25
           ]
         ],
         "bottom": [
-          [
-            6,
-            8
-          ],
-          [
-            6,
-            8
-          ],
           [
             6,
             8
@@ -9103,14 +7372,6 @@
             [
               23,
               30
-            ],
-            [
-              23,
-              30
-            ],
-            [
-              23,
-              30
             ]
           ]
         }
@@ -9118,8 +7379,7 @@
       "tags": [
         "ailment",
         "elemental",
-        "defences",
-        "hybrid"
+        "defences"
       ]
     },
     {
@@ -10925,65 +9185,6 @@
       ]
     },
     {
-      "code": "INCREASED_CHEST_QUANTITY_AND_ITEM_RARITY",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_CHEST_QUANTITY",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_RARITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            15,
-            20
-          ],
-          [
-            10,
-            14
-          ]
-        ],
-        "bottom": [
-          [
-            5,
-            8
-          ],
-          [
-            3,
-            5
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              17,
-              24
-            ],
-            [
-              12,
-              17
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "loot",
-        "rarity",
-        "hybrid"
-      ]
-    },
-    {
       "code": "INCREASED_SELL_VALUE",
       "source": "SUFFIX",
       "effects": [
@@ -11049,66 +9250,6 @@
             ]
           }
         }
-      ]
-    },
-    {
-      "code": "INCREASED_SELL_VALUE_AND_ITEM_QUANTITY",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_GOLD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_QUANTITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            12,
-            16
-          ],
-          [
-            4,
-            6
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            6
-          ],
-          [
-            1,
-            2
-          ]
-        ],
-        "apex": {
-          "level": 92,
-          "values": [
-            [
-              14,
-              19
-            ],
-            [
-              5,
-              7
-            ]
-          ]
-        }
-      },
-      "tags": [
-        "gold",
-        "quantity",
-        "loot",
-        "hybrid"
       ]
     },
     {
@@ -11244,414 +9385,6 @@
       "tags": [
         "defences",
         "corruption"
-      ]
-    },
-    {
-      "code": "RISK_PHYSICAL_DAMAGE_FOR_LIFE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            40,
-            49
-          ]
-        ],
-        "bottom": [
-          [
-            20,
-            29
-          ]
-        ]
-      },
-      "tags": [
-        "damage",
-        "physical"
-      ]
-    },
-    {
-      "code": "RISK_ATTACK_SPEED_FOR_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_SPEED",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            12,
-            15
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            8
-          ]
-        ]
-      },
-      "tags": [
-        "speed"
-      ]
-    },
-    {
-      "code": "RISK_BLOCK_FOR_CRITICAL_MULTIPLIER",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_BLOCK_CHANCE"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            8,
-            10
-          ]
-        ],
-        "bottom": [
-          [
-            3,
-            5
-          ]
-        ]
-      },
-      "tags": [
-        "block"
-      ]
-    },
-    {
-      "code": "RISK_CRITICAL_MULTIPLIER_FOR_LIFE",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_CRITICAL_MULTIPLIER"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            40,
-            48
-          ]
-        ],
-        "bottom": [
-          [
-            20,
-            26
-          ]
-        ]
-      },
-      "tags": [
-        "critical"
-      ]
-    },
-    {
-      "code": "RISK_LEECH_FOR_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_LEECH_ALL"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            1.5,
-            2
-          ]
-        ],
-        "bottom": [
-          [
-            0.6,
-            1
-          ]
-        ],
-        "precision": 1
-      },
-      "tags": [
-        "leech"
-      ]
-    },
-    {
-      "code": "RISK_DAMAGE_FOR_DAMAGE_TAKEN",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            45,
-            55
-          ]
-        ],
-        "bottom": [
-          [
-            20,
-            28
-          ]
-        ]
-      },
-      "tags": [
-        "damage",
-        "physical"
-      ]
-    },
-    {
-      "code": "RISK_ATTACK_SPEED_FOR_ARMOUR",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_SPEED",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            14,
-            16
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            8
-          ]
-        ]
-      },
-      "tags": [
-        "speed"
-      ]
-    },
-    {
-      "code": "RISK_RARITY_FOR_LIFE",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RARITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            40,
-            50
-          ]
-        ],
-        "bottom": [
-          [
-            15,
-            22
-          ]
-        ]
-      },
-      "tags": [
-        "rarity"
-      ]
-    },
-    {
-      "code": "RISK_ELEMENTAL_DAMAGE_FOR_CHAOS_RESISTANCE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_FIRE",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            30,
-            36
-          ],
-          [
-            30,
-            36
-          ],
-          [
-            30,
-            36
-          ]
-        ],
-        "bottom": [
-          [
-            12,
-            16
-          ],
-          [
-            12,
-            16
-          ],
-          [
-            12,
-            16
-          ]
-        ]
-      },
-      "tags": [
-        "damage",
-        "elemental"
-      ]
-    },
-    {
-      "code": "RISK_MOVEMENT_SPEED_FOR_EVASION",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_MOVEMENT_SPEED",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            25,
-            30
-          ]
-        ],
-        "bottom": [
-          [
-            10,
-            14
-          ]
-        ]
-      },
-      "tags": [
-        "speed"
-      ]
-    },
-    {
-      "code": "RISK_RECOVERY_FOR_MAXIMUM_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_RECOVERY_RATE"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            25,
-            30
-          ]
-        ],
-        "bottom": [
-          [
-            10,
-            14
-          ]
-        ]
-      },
-      "tags": [
-        "regen"
-      ]
-    },
-    {
-      "code": "RISK_LIFE_FOR_ENERGY_SHIELD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_HEALTH",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          82,
-          38,
-          1
-        ],
-        "top": [
-          [
-            12,
-            15
-          ]
-        ],
-        "bottom": [
-          [
-            5,
-            7
-          ]
-        ]
-      },
-      "tags": [
-        "life"
       ]
     },
     {
@@ -12257,6 +9990,104 @@
       ]
     },
     {
+      "code": "JEWEL_INCREASED_SPELL_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_DAMAGE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            14,
+            18
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "caster",
+        "damage"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_MAXIMUM_MANA",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_MANA",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "mana"
+      ]
+    },
+    {
+      "code": "JEWEL_INCREASED_CAST_SPEED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CAST_SPEED",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30,
+          1
+        ],
+        "top": [
+          [
+            4,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "jewel",
+        "caster",
+        "speed"
+      ]
+    },
+    {
       "code": "JEWEL_INCREASED_ARMOUR",
       "source": "PREFIX",
       "effects": [
@@ -12318,52 +10149,6 @@
       "tags": [
         "jewel",
         "evasion"
-      ]
-    },
-    {
-      "code": "JEWEL_INCREASED_ARMOUR_AND_EVASION",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_EVASION",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            8,
-            10
-          ],
-          [
-            8,
-            10
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            6
-          ],
-          [
-            4,
-            6
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "armour",
-        "evasion",
-        "hybrid"
       ]
     },
     {
@@ -12536,15 +10321,7 @@
       "source": "PREFIX",
       "effects": [
         {
-          "stat": "STOCK_ATTACK_FIRE",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
+          "stat": "STOCK_ELEMENTAL_DAMAGE",
           "op": "INCREASED"
         }
       ],
@@ -12557,25 +10334,9 @@
           [
             10,
             12
-          ],
-          [
-            10,
-            12
-          ],
-          [
-            10,
-            12
           ]
         ],
         "bottom": [
-          [
-            6,
-            8
-          ],
-          [
-            6,
-            8
-          ],
           [
             6,
             8
@@ -12585,8 +10346,7 @@
       "tags": [
         "jewel",
         "damage",
-        "elemental",
-        "hybrid"
+        "elemental"
       ]
     },
     {
@@ -12946,13 +10706,7 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_STRENGTH"
-        },
-        {
-          "stat": "STOCK_AGILITY"
-        },
-        {
-          "stat": "STOCK_INTELLECT"
+          "stat": "STOCK_ALL_ATTRIBUTES"
         }
       ],
       "grid": {
@@ -12964,25 +10718,9 @@
           [
             6,
             8
-          ],
-          [
-            6,
-            8
-          ],
-          [
-            6,
-            8
           ]
         ],
         "bottom": [
-          [
-            3,
-            5
-          ],
-          [
-            3,
-            5
-          ],
           [
             3,
             5
@@ -12991,108 +10729,7 @@
       },
       "tags": [
         "jewel",
-        "attribute",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "JEWEL_CHANCE_TO_AILMENTS",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_IGNITE_CHANCE"
-        },
-        {
-          "stat": "STOCK_FREEZE_CHANCE"
-        },
-        {
-          "stat": "STOCK_SHOCK_CHANCE"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            6,
-            8
-          ],
-          [
-            6,
-            8
-          ],
-          [
-            6,
-            8
-          ]
-        ],
-        "bottom": [
-          [
-            3,
-            5
-          ],
-          [
-            3,
-            5
-          ],
-          [
-            3,
-            5
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "ailment",
-        "elemental",
-        "hybrid"
-      ]
-    },
-    {
-      "code": "JEWEL_CHANCE_TO_POISON_AND_BLEED",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_POISON_CHANCE"
-        },
-        {
-          "stat": "STOCK_BLEED_CHANCE"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            6,
-            8
-          ],
-          [
-            6,
-            8
-          ]
-        ],
-        "bottom": [
-          [
-            3,
-            5
-          ],
-          [
-            3,
-            5
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "ailment",
-        "chaos",
-        "physical",
-        "hybrid"
+        "attribute"
       ]
     },
     {
@@ -13409,7 +11046,8 @@
       "tags": [
         "jewel",
         "speed"
-      ]
+      ],
+      "group": "INCREASED_MOVEMENT_SPEED"
     },
     {
       "code": "JEWEL_INCREASED_ITEM_RARITY",
@@ -13785,14 +11423,14 @@
         ],
         "top": [
           [
-            6,
-            7
+            9,
+            11
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -13817,14 +11455,14 @@
         ],
         "top": [
           [
-            6,
-            7
+            9,
+            11
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -13849,14 +11487,14 @@
         ],
         "top": [
           [
-            6,
-            7
+            9,
+            11
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -13881,14 +11519,14 @@
         ],
         "top": [
           [
-            6,
-            7
+            9,
+            11
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -13913,14 +11551,14 @@
         ],
         "top": [
           [
-            6,
-            7
+            9,
+            11
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -13928,53 +11566,6 @@
         "jewel",
         "ailment",
         "lightning"
-      ]
-    },
-    {
-      "code": "JEWEL_INCREASED_ARMOUR_AND_ENERGY_SHIELD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ARMOR",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ENERGY_SHIELD",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            3,
-            3
-          ],
-          [
-            3,
-            3
-          ]
-        ],
-        "bottom": [
-          [
-            1,
-            1
-          ],
-          [
-            1,
-            1
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "armour",
-        "energy_shield",
-        "hybrid",
-        "defences"
       ]
     },
     {
@@ -14211,8 +11802,7 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_ENERGY_REGEN",
-          "op": "INCREASED"
+          "stat": "STOCK_ENERGY_REGEN_PERCENT"
         }
       ],
       "grid": {
@@ -14222,101 +11812,22 @@
         ],
         "top": [
           [
-            13,
-            17
+            0.3,
+            0.5
           ]
         ],
         "bottom": [
           [
-            3,
-            5
+            0.1,
+            0.2
           ]
-        ]
+        ],
+        "precision": 1
       },
       "tags": [
         "jewel",
         "regen",
         "energy_shield"
-      ]
-    },
-    {
-      "code": "JEWEL_INCREASED_EVASION_AND_ENERGY_SHIELD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_EVASION",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ENERGY_SHIELD",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            3,
-            3
-          ],
-          [
-            3,
-            3
-          ]
-        ],
-        "bottom": [
-          [
-            1,
-            1
-          ],
-          [
-            1,
-            1
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "evasion",
-        "energy_shield",
-        "hybrid",
-        "defences"
-      ]
-    },
-    {
-      "code": "JEWEL_INCREASED_EVASION_RATING",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_EVASION",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            3,
-            4
-          ]
-        ],
-        "bottom": [
-          [
-            1,
-            1
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "evasion",
-        "defences"
       ]
     },
     {
@@ -14494,14 +12005,14 @@
         ],
         "top": [
           [
-            4,
-            5
+            6,
+            8
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -14527,14 +12038,14 @@
         ],
         "top": [
           [
-            4,
-            5
+            6,
+            8
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -14560,14 +12071,14 @@
         ],
         "top": [
           [
-            4,
-            5
+            6,
+            8
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -14593,14 +12104,14 @@
         ],
         "top": [
           [
-            4,
-            5
+            6,
+            8
           ]
         ],
         "bottom": [
           [
-            1,
-            2
+            2,
+            3
           ]
         ]
       },
@@ -14609,256 +12120,6 @@
         "penetration",
         "lightning",
         "damage"
-      ]
-    },
-    {
-      "code": "JEWEL_RISK_ATTACK_SPEED_FOR_ARMOUR",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_SPEED",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            5,
-            5
-          ]
-        ],
-        "bottom": [
-          [
-            2,
-            3
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "speed"
-      ]
-    },
-    {
-      "code": "JEWEL_RISK_ATTACK_SPEED_FOR_RESISTANCES",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_SPEED",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            4,
-            5
-          ]
-        ],
-        "bottom": [
-          [
-            2,
-            3
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "speed"
-      ]
-    },
-    {
-      "code": "JEWEL_RISK_CRITICAL_MULTIPLIER_FOR_LIFE",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_CRITICAL_MULTIPLIER"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            13,
-            16
-          ]
-        ],
-        "bottom": [
-          [
-            7,
-            9
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "critical"
-      ]
-    },
-    {
-      "code": "JEWEL_RISK_DAMAGE_FOR_DAMAGE_TAKEN",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            15,
-            18
-          ]
-        ],
-        "bottom": [
-          [
-            7,
-            9
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "damage",
-        "physical"
-      ]
-    },
-    {
-      "code": "JEWEL_RISK_ELEMENTAL_DAMAGE_FOR_CHAOS_RESISTANCE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_FIRE",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            10,
-            12
-          ],
-          [
-            10,
-            12
-          ],
-          [
-            10,
-            12
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            5
-          ],
-          [
-            4,
-            5
-          ],
-          [
-            4,
-            5
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "damage",
-        "elemental"
-      ]
-    },
-    {
-      "code": "JEWEL_RISK_LIFE_FOR_ENERGY_SHIELD",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_HEALTH",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            4,
-            5
-          ]
-        ],
-        "bottom": [
-          [
-            2,
-            2
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "life"
-      ]
-    },
-    {
-      "code": "JEWEL_RISK_PHYSICAL_DAMAGE_FOR_LIFE",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_PHYSICAL",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          30,
-          1
-        ],
-        "top": [
-          [
-            13,
-            16
-          ]
-        ],
-        "bottom": [
-          [
-            7,
-            10
-          ]
-        ]
-      },
-      "tags": [
-        "jewel",
-        "damage",
-        "physical"
       ]
     },
     {
@@ -15128,15 +12389,7 @@
       "source": "PREFIX",
       "effects": [
         {
-          "stat": "STOCK_ATTACK_FIRE",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_COLD",
-          "op": "INCREASED"
-        },
-        {
-          "stat": "STOCK_ATTACK_LIGHTNING",
+          "stat": "STOCK_ELEMENTAL_DAMAGE",
           "op": "INCREASED"
         }
       ],
@@ -15153,25 +12406,9 @@
           [
             34,
             40
-          ],
-          [
-            34,
-            40
-          ],
-          [
-            34,
-            40
           ]
         ],
         "bottom": [
-          [
-            12,
-            16
-          ],
-          [
-            12,
-            16
-          ],
           [
             12,
             16
@@ -15183,14 +12420,6 @@
             [
               39,
               47
-            ],
-            [
-              39,
-              47
-            ],
-            [
-              39,
-              47
             ]
           ]
         }
@@ -15198,8 +12427,7 @@
       "tags": [
         "influence",
         "damage",
-        "elemental",
-        "hybrid"
+        "elemental"
       ],
       "influence": "SHAPER"
     },
@@ -15251,13 +12479,7 @@
       "source": "SUFFIX",
       "effects": [
         {
-          "stat": "STOCK_AVOID_IGNITE"
-        },
-        {
-          "stat": "STOCK_AVOID_CHILL"
-        },
-        {
-          "stat": "STOCK_AVOID_SHOCK"
+          "stat": "STOCK_AVOID_ELEMENTAL_AILMENTS"
         }
       ],
       "grid": {
@@ -15270,25 +12492,9 @@
           [
             35,
             45
-          ],
-          [
-            35,
-            45
-          ],
-          [
-            35,
-            45
           ]
         ],
         "bottom": [
-          [
-            15,
-            20
-          ],
-          [
-            15,
-            20
-          ],
           [
             15,
             20
@@ -15300,22 +12506,13 @@
             [
               40,
               53
-            ],
-            [
-              40,
-              53
-            ],
-            [
-              40,
-              53
             ]
           ]
         }
       },
       "tags": [
         "influence",
-        "ailment",
-        "hybrid"
+        "ailment"
       ],
       "influence": "SHAPER"
     },
@@ -15406,7 +12603,8 @@
         "influence",
         "speed"
       ],
-      "influence": "SHAPER"
+      "influence": "SHAPER",
+      "group": "INCREASED_MOVEMENT_SPEED"
     },
     {
       "code": "SHAPER_REDUCED_ELEMENTAL_DAMAGE_TAKEN",
@@ -16106,7 +13304,7 @@
         ],
         "top": [
           [
-            -6,
+            -7,
             -5
           ]
         ],
@@ -20141,7 +17339,7 @@
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ],
         "apex": {
@@ -20296,8 +17494,8 @@
         ],
         "top": [
           [
-            1,
-            1
+            2,
+            2
           ]
         ],
         "bottom": [
@@ -20306,7 +17504,16 @@
             1
           ]
         ],
-        "ratio": 0.2
+        "ratio": 0.2,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              3,
+              3
+            ]
+          ]
+        }
       },
       "tags": [
         "skill",
@@ -20412,8 +17619,8 @@
         ],
         "top": [
           [
-            1,
-            1
+            2,
+            2
           ]
         ],
         "bottom": [
@@ -20422,7 +17629,16 @@
             1
           ]
         ],
-        "ratio": 0.3
+        "ratio": 0.3,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              3,
+              3
+            ]
+          ]
+        }
       },
       "tags": [
         "skill",
@@ -20444,8 +17660,8 @@
         ],
         "top": [
           [
-            1,
-            1
+            2,
+            2
           ]
         ],
         "bottom": [
@@ -20454,7 +17670,16 @@
             1
           ]
         ],
-        "ratio": 0.3
+        "ratio": 0.3,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              3,
+              3
+            ]
+          ]
+        }
       },
       "tags": [
         "skill",
@@ -20476,8 +17701,8 @@
         ],
         "top": [
           [
-            1,
-            1
+            2,
+            2
           ]
         ],
         "bottom": [
@@ -20486,13 +17711,65 @@
             1
           ]
         ],
-        "ratio": 0.3
+        "ratio": 0.3,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              3,
+              3
+            ]
+          ]
+        }
       },
       "tags": [
         "skill",
         "level",
         "aura"
       ]
+    },
+    {
+      "code": "PREFIX_ADD_AURA_SKILL_LEVEL",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_AURA_LEVEL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          1
+        ],
+        "top": [
+          [
+            2,
+            2
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ],
+        "ratio": 0.3,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              3,
+              3
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "skill",
+        "level",
+        "aura"
+      ],
+      "group": "ADD_AURA_SKILL_LEVEL"
     },
     {
       "code": "ADD_PASSIVE_SKILL_LEVEL",
@@ -20509,8 +17786,8 @@
         ],
         "top": [
           [
-            1,
-            1
+            2,
+            2
           ]
         ],
         "bottom": [
@@ -20519,7 +17796,16 @@
             1
           ]
         ],
-        "ratio": 0.3
+        "ratio": 0.3,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              3,
+              3
+            ]
+          ]
+        }
       },
       "tags": [
         "skill",
@@ -20923,8 +18209,8 @@
         ],
         "top": [
           [
-            1,
-            1
+            2,
+            2
           ]
         ],
         "bottom": [
@@ -20933,7 +18219,16 @@
             1
           ]
         ],
-        "ratio": 0.2
+        "ratio": 0.2,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              3,
+              3
+            ]
+          ]
+        }
       },
       "tags": [
         "skill",
@@ -21875,14 +19170,14 @@
         ],
         "top": [
           [
-            45,
-            45
+            40,
+            50
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -21918,14 +19213,14 @@
         ],
         "top": [
           [
-            28,
-            28
+            25,
+            31
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -21962,14 +19257,14 @@
         ],
         "top": [
           [
-            56,
-            56
+            50,
+            62
           ]
         ],
         "bottom": [
           [
-            20,
-            20
+            18,
+            22
           ]
         ],
         "apex": {
@@ -22006,14 +19301,14 @@
         ],
         "top": [
           [
-            50,
-            50
+            45,
+            55
           ]
         ],
         "bottom": [
           [
-            15,
-            15
+            13,
+            17
           ]
         ],
         "apex": {
@@ -22050,14 +19345,14 @@
         ],
         "top": [
           [
-            28,
-            28
+            25,
+            31
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -22088,14 +19383,14 @@
         ],
         "top": [
           [
-            50,
-            50
+            45,
+            55
           ]
         ],
         "bottom": [
           [
-            50,
-            50
+            45,
+            55
           ]
         ]
       },
@@ -22152,14 +19447,14 @@
         ],
         "top": [
           [
-            50,
-            50
+            45,
+            55
           ]
         ],
         "bottom": [
           [
-            15,
-            15
+            13,
+            17
           ]
         ],
         "apex": {
@@ -22238,14 +19533,14 @@
         ],
         "top": [
           [
-            28,
-            28
+            25,
+            31
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -22281,14 +19576,14 @@
         ],
         "top": [
           [
-            28,
-            28
+            25,
+            31
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -22324,14 +19619,14 @@
         ],
         "top": [
           [
-            56,
-            56
+            50,
+            62
           ]
         ],
         "bottom": [
           [
-            20,
-            20
+            18,
+            22
           ]
         ],
         "apex": {
@@ -22367,14 +19662,14 @@
         ],
         "top": [
           [
-            28,
-            28
+            25,
+            31
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -22410,14 +19705,14 @@
         ],
         "top": [
           [
-            67,
-            67
+            60,
+            74
           ]
         ],
         "bottom": [
           [
-            30,
-            30
+            27,
+            33
           ]
         ],
         "apex": {
@@ -22453,14 +19748,14 @@
         ],
         "top": [
           [
-            1.3,
-            1.3
+            1.2,
+            1.4
           ]
         ],
         "bottom": [
           [
-            0.5,
-            0.5
+            0.4,
+            0.6
           ]
         ],
         "precision": 1,
@@ -22468,8 +19763,8 @@
           "level": 92,
           "values": [
             [
-              1.5,
-              1.5
+              1.3,
+              1.7
             ]
           ]
         }
@@ -22708,14 +20003,14 @@
         ],
         "top": [
           [
-            67,
-            67
+            60,
+            74
           ]
         ],
         "bottom": [
           [
-            30,
-            30
+            27,
+            33
           ]
         ],
         "apex": {
@@ -22752,14 +20047,14 @@
         ],
         "top": [
           [
-            67,
-            67
+            60,
+            74
           ]
         ],
         "bottom": [
           [
-            30,
-            30
+            27,
+            33
           ]
         ],
         "apex": {
@@ -22795,14 +20090,14 @@
         ],
         "top": [
           [
-            28,
-            28
+            25,
+            31
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -22839,22 +20134,22 @@
         ],
         "top": [
           [
-            17,
-            17
+            15,
+            19
           ]
         ],
         "bottom": [
           [
-            8,
-            8
+            7,
+            9
           ]
         ],
         "apex": {
           "level": 92,
           "values": [
             [
-              20,
-              20
+              18,
+              22
             ]
           ]
         }
@@ -22883,14 +20178,14 @@
         ],
         "top": [
           [
-            45,
-            45
+            40,
+            50
           ]
         ],
         "bottom": [
           [
-            20,
-            20
+            18,
+            22
           ]
         ],
         "apex": {
@@ -22926,14 +20221,14 @@
         ],
         "top": [
           [
-            1.7,
-            1.7
+            1.5,
+            1.9
           ]
         ],
         "bottom": [
           [
-            0.5,
-            0.5
+            0.4,
+            0.6
           ]
         ],
         "precision": 1,
@@ -22941,8 +20236,8 @@
           "level": 92,
           "values": [
             [
-              2.0,
-              2.0
+              1.8,
+              2.2
             ]
           ]
         }
@@ -22971,14 +20266,14 @@
         ],
         "top": [
           [
-            22,
-            22
+            20,
+            24
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "apex": {
@@ -23014,22 +20309,22 @@
         ],
         "top": [
           [
-            11,
-            11
+            10,
+            12
           ]
         ],
         "bottom": [
           [
-            4,
-            4
+            3,
+            5
           ]
         ],
         "apex": {
           "level": 92,
           "values": [
             [
-              13,
-              13
+              12,
+              14
             ]
           ]
         }
@@ -23058,14 +20353,14 @@
         ],
         "top": [
           [
-            22,
-            22
+            20,
+            24
           ]
         ],
         "bottom": [
           [
-            8,
-            8
+            7,
+            9
           ]
         ],
         "apex": {
@@ -23102,14 +20397,14 @@
         ],
         "top": [
           [
-            67,
-            67
+            60,
+            74
           ]
         ],
         "bottom": [
           [
-            30,
-            30
+            27,
+            33
           ]
         ],
         "apex": {
@@ -23145,14 +20440,14 @@
         ],
         "top": [
           [
-            22,
-            22
+            20,
+            24
           ]
         ],
         "bottom": [
           [
-            8,
-            8
+            7,
+            9
           ]
         ],
         "apex": {
@@ -29247,8 +26542,8 @@
         ],
         "bottom": [
           [
-            -2,
-            -2
+            -3,
+            -1
           ]
         ],
         "apex": {
@@ -30971,7 +28266,8 @@
         "damage",
         "physical",
         "fire"
-      ]
+      ],
+      "group": "PHYSICAL_AS_EXTRA"
     },
     {
       "code": "PHYSICAL_AS_EXTRA_COLD",
@@ -31013,7 +28309,8 @@
         "damage",
         "physical",
         "cold"
-      ]
+      ],
+      "group": "PHYSICAL_AS_EXTRA"
     },
     {
       "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
@@ -31055,7 +28352,8 @@
         "damage",
         "physical",
         "lightning"
-      ]
+      ],
+      "group": "PHYSICAL_AS_EXTRA"
     },
     {
       "code": "PHYSICAL_AS_EXTRA_CHAOS",
@@ -31097,7 +28395,8 @@
         "damage",
         "physical",
         "chaos"
-      ]
+      ],
+      "group": "PHYSICAL_AS_EXTRA"
     },
     {
       "code": "ADD_FIRE_DAMAGE_TO_SPELLS",
@@ -31562,14 +28861,14 @@
         ],
         "top": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            9,
+            11
           ]
         ]
       },
@@ -31594,7 +28893,7 @@
         "top": [
           [
             5,
-            6
+            7
           ]
         ],
         "bottom": [
@@ -31635,7 +28934,7 @@
         "top": [
           [
             5,
-            6
+            7
           ]
         ],
         "bottom": [
@@ -31676,7 +28975,7 @@
         "top": [
           [
             5,
-            6
+            7
           ]
         ],
         "bottom": [
@@ -32889,16 +30188,17 @@
         ],
         "top": [
           [
-            1,
-            1
+            0.9,
+            1.1
           ]
         ],
         "bottom": [
           [
-            1,
-            1
+            0.9,
+            1.1
           ]
-        ]
+        ],
+        "precision": 1
       },
       "tags": [
         "damage",
@@ -32922,16 +30222,17 @@
         ],
         "top": [
           [
-            2,
-            2
+            1.8,
+            2.2
           ]
         ],
         "bottom": [
           [
-            2,
-            2
+            1.8,
+            2.2
           ]
-        ]
+        ],
+        "precision": 1
       },
       "tags": [
         "evasion",
@@ -32955,52 +30256,20 @@
         ],
         "top": [
           [
-            2,
-            2
+            1.8,
+            2.2
           ]
         ],
         "bottom": [
           [
-            2,
-            2
+            1.8,
+            2.2
           ]
-        ]
+        ],
+        "precision": 1
       },
       "tags": [
         "energy_shield",
-        "attribute"
-      ]
-    },
-    {
-      "code": "LIFE_PER_CONSTITUTION",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "STOCK_HEALTH",
-          "op": "INCREASED",
-          "perStat": "STOCK_CONSTITUTION",
-          "perAmount": 10
-        }
-      ],
-      "grid": {
-        "levels": [
-          40
-        ],
-        "top": [
-          [
-            1,
-            1
-          ]
-        ],
-        "bottom": [
-          [
-            1,
-            1
-          ]
-        ]
-      },
-      "tags": [
-        "life",
         "attribute"
       ]
     },
@@ -33089,14 +30358,14 @@
         ],
         "top": [
           [
-            2,
-            2
+            1,
+            3
           ]
         ],
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ]
       },
@@ -34746,7 +32015,7 @@
           ],
           [
             5,
-            6
+            7
           ]
         ],
         "bottom": [
@@ -35077,7 +32346,7 @@
           ],
           [
             5,
-            6
+            7
           ]
         ],
         "bottom": [

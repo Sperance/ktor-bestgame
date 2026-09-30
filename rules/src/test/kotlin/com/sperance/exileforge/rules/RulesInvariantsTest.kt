@@ -19,6 +19,7 @@ import com.sperance.exileforge.rules.table.Weighted
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.TreeAllocation
 import com.sperance.exileforge.rules.content.GenericDamage
+import com.sperance.exileforge.rules.content.GenericStat
 import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.tenths
 import com.sperance.exileforge.rules.roll.Roll
@@ -166,6 +167,22 @@ class RulesInvariantsTest {
             }.map { (_, effect) -> "${def.code}: ${effect.stat}" }
         }
         assertTrue(debuffs.isEmpty(), "affix debuffs: $debuffs")
+    }
+
+    /**
+     * Обычный аффикс предмета и самоцвета (1.58.0) даёт ровно одно: гибриды ушли, «ко всем X» - один общий стат ([GenericStat]),
+     * который лист раскладывает по членам. Строки влияния, завесы и инструментов профессий - свои пулы, их правило не трогает.
+     */
+    @Test
+    fun ordinaryAffixesGiveOneThing() {
+        val hybrids = index.definitions.filter { it.source.affix && it.influence == null && "veiled" !in it.tags && "work" !in it.tags && it.effects.size > 1 }
+        assertTrue(hybrids.isEmpty(), "hybrid affixes: ${hybrids.map { it.code }}")
+        val calc = SheetCalculator(index)
+        GenericStat.entries.forEach { generic ->
+            val sheet = calc.raw(emptyMap(), listOf(StatOperation(generic.code, Op.ADD, 7.0)))
+            generic.members.forEach { assertEquals(7.0, sheet[it], "${generic.code} -> $it") }
+            assertEquals(null, sheet[generic.code])
+        }
     }
 
     /** Путь к дальнему узлу (1.37.0): кратчайший, от взятого, узел с выбором - только целью, и каждый его шаг - законное взятие. */

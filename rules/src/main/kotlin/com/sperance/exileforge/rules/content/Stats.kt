@@ -66,6 +66,28 @@ object GenericDamage {
     fun targets(stat: String, op: Op): List<String> = if (spreads(stat, op)) HITS else listOf(stat)
 }
 
+/**
+ * Общая характеристика (1.58.0): модификатор «ко всем X» - одна строка и один стат, как увеличение урона вообще ([GenericDamage]):
+ * лист раскладывает любую его операцию на каждого из [members], и дальше она считается там.
+ */
+enum class GenericStat(val code: String, val members: List<String>) {
+    ALL_ATTRIBUTES("STOCK_ALL_ATTRIBUTES", listOf(CoreStat.STRENGTH, CoreStat.AGILITY, CoreStat.INTELLECT).map { it.code }),
+    /** Все сопротивления - стихиям (их общий `STOCK_RESIST_ALL`, его читает бой) и хаосу. */
+    ALL_RESISTANCES("STOCK_ALL_RESISTANCES", listOf("STOCK_RESIST_ALL", "STOCK_RESIST_CHAOS")),
+    ELEMENTAL_DAMAGE("STOCK_ELEMENTAL_DAMAGE", listOf(CoreStat.ATTACK_FIRE, CoreStat.ATTACK_COLD, CoreStat.ATTACK_LIGHTNING).map { it.code }),
+    AVOID_ELEMENTAL_AILMENTS("STOCK_AVOID_ELEMENTAL_AILMENTS", listOf("STOCK_AVOID_IGNITE", "STOCK_AVOID_CHILL", "STOCK_AVOID_FREEZE", "STOCK_AVOID_SHOCK"));
+
+    companion object {
+        private val byCode: Map<String, GenericStat> = entries.associateBy { it.code }
+        fun of(stat: String): GenericStat? = byCode[stat]
+    }
+}
+
+/** Куда лист кладёт операцию [op] над [stat]: общая характеристика - в своих членов, увеличение урона вообще - в каждый вид удара, остальное - в свой стат. */
+object StatSpread {
+    fun targets(stat: String, op: Op): List<String> = GenericStat.of(stat)?.members ?: GenericDamage.targets(stat, op)
+}
+
 /** Реестр характеристик: порядок подсчёта, проценты, группы. */
 class StatRegistry(val stats: List<StatDef>) {
     private val byCode: Map<String, StatDef> = stats.associateBy { it.code }
@@ -85,6 +107,7 @@ class StatRegistry(val stats: List<StatDef>) {
         CoreStat.entries.forEach { if (it.code !in byCode) fail("stats: engine stat ${it.code} is missing") }
         MapStat.entries.forEach { if (it.code !in byCode) fail("stats: map stat ${it.code} is missing") }
         AtlasStat.entries.forEach { if (it.code !in byCode) fail("stats: atlas stat ${it.code} is missing") }
+        GenericStat.entries.forEach { generic -> (generic.members + generic.code).forEach { if (it !in byCode) fail("stats: generic ${generic.code} names missing $it") } }
         if (stats.any { it.code.isBlank() }) fail("stats: blank code")
     }
 
