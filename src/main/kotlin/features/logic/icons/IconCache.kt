@@ -35,6 +35,7 @@ object IconCache {
     private val json = Json { ignoreUnknownKeys = true }
 
     private var document: String = "{}"
+    private var gzipped: ByteArray = features.logic.locale.Gzip.of("{}")
     private var fingerprint: String = ""
     private var sprites: Int = 0
     private var keys: Int = 0
@@ -43,6 +44,9 @@ object IconCache {
      * Тело набора - тот же текст, что отдаётся клиенту.
      */
     fun document(): String = document
+
+    /** То же тело, сжатое gzip (1.53.1): набор иконок в 0,9 МБ клиент качает при каждой смене отпечатка. */
+    fun gzip(): ByteArray = gzipped
 
     /**
      * Отпечаток тела: по нему клиент решает, качать заново или нет.
@@ -58,6 +62,7 @@ object IconCache {
 
     fun initializeCache() {
         document = resource(FILE)
+        gzipped = features.logic.locale.Gzip.of(document)
         fingerprint = sha256(document)
 
         val parsed = json.parseToJsonElement(document).jsonObject

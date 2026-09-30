@@ -6206,8 +6206,10 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
+         ifNoneMatch = ; //  | 
+         acceptEncoding = ; //  | 
         try {
-            apiInstance.iconsIconsJsonGet();
+            apiInstance.iconsIconsJsonGet(ifNoneMatch, acceptEncoding);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#iconsIconsJsonGet");
             e.printStackTrace();
@@ -6223,8 +6225,10 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
+         ifNoneMatch = ; //  | 
+         acceptEncoding = ; //  | 
         try {
-            apiInstance.iconsIconsJsonGet();
+            apiInstance.iconsIconsJsonGet(ifNoneMatch, acceptEncoding);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#iconsIconsJsonGet");
             e.printStackTrace();
@@ -6237,11 +6241,14 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-iconsIconsJsonGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                              <pre class="prettyprint"><code class="language-cpp"> *ifNoneMatch = ; //  (optional)
+ *acceptEncoding = ; //  (optional)
+
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-[apiInstance iconsIconsJsonGetWithCompletionHandler: 
-              ^(NSError* error) {
+[apiInstance iconsIconsJsonGetWith:ifNoneMatch
+    acceptEncoding:acceptEncoding
+              completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -6253,6 +6260,10 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var MyApi = require('my_api');
 
 var api = new MyApi.DefaultApi()
+var opts = { 
+  'ifNoneMatch': , // {{}} 
+  'acceptEncoding':  // {{}} 
+};
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -6260,7 +6271,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.iconsIconsJsonGet(callback);
+api.iconsIconsJsonGet(opts, callback);
 </code></pre>
                             </div>
 
@@ -6282,10 +6293,12 @@ namespace Example
         {
 
             var apiInstance = new DefaultApi();
+            var ifNoneMatch = new (); //  |  (optional) 
+            var acceptEncoding = new (); //  |  (optional) 
 
             try
             {
-                apiInstance.iconsIconsJsonGet();
+                apiInstance.iconsIconsJsonGet(ifNoneMatch, acceptEncoding);
             }
             catch (Exception e)
             {
@@ -6302,9 +6315,11 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiDefaultApi();
+$ifNoneMatch = ; //  | 
+$acceptEncoding = ; //  | 
 
 try {
-    $api_instance->iconsIconsJsonGet();
+    $api_instance->iconsIconsJsonGet($ifNoneMatch, $acceptEncoding);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->iconsIconsJsonGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -6317,9 +6332,11 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $ifNoneMatch = ; #  | 
+my $acceptEncoding = ; #  | 
 
 eval { 
-    $api_instance->iconsIconsJsonGet();
+    $api_instance->iconsIconsJsonGet(ifNoneMatch => $ifNoneMatch, acceptEncoding => $acceptEncoding);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->iconsIconsJsonGet: $@\n";
@@ -6335,9 +6352,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
+ifNoneMatch =  #  |  (optional)
+acceptEncoding =  #  |  (optional)
 
 try: 
-    api_instance.icons_icons_json_get()
+    api_instance.icons_icons_json_get(ifNoneMatch=ifNoneMatch, acceptEncoding=acceptEncoding)
 except ApiException as e:
     print("Exception when calling DefaultApi->iconsIconsJsonGet: %s\n" % e)</code></pre>
                             </div>
@@ -6346,17 +6365,126 @@ except ApiException as e:
                           <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">If-None-Match</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_iconsIconsJsonGet_ifNoneMatch">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                                  <tr><td style="width:150px;">Accept-Encoding</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_iconsIconsJsonGet_acceptEncoding">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
 
 
 
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 -  </h3>
+                            <h3> Status: 304 -  </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-iconsIconsJsonGet-304-headers">Headers</a>
+                                </li>
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-iconsIconsJsonGet-304-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3> Status: 200 -  </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-iconsIconsJsonGet-200-headers">Headers</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-iconsIconsJsonGet-200-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
 
                         </article>
@@ -6785,8 +6913,7 @@ except ApiException as e:
                       <article id="api-Default-localeLanguageJsonGet-0" data-group="User" data-name="localeLanguageJsonGet" data-version="0">
                         <div class="pull-left">
                           <h1>localeLanguageJsonGet</h1>
-                          <p>Словари, иконки и портреты - статичные файлы с манифестами; отпечатки считает сервер,
-и те же манифесты собраны в static/index.json.</p>
+                          <p>Словарь как контент (1.53.1): отпечаток в ETag, 304 при совпадении, тело сжато, если клиент принимает</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -6833,8 +6960,10 @@ public class DefaultApiExample {
         
         DefaultApi apiInstance = new DefaultApi();
          language = ; //  | 
+         ifNoneMatch = ; //  | 
+         acceptEncoding = ; //  | 
         try {
-            apiInstance.localeLanguageJsonGet(language);
+            apiInstance.localeLanguageJsonGet(language, ifNoneMatch, acceptEncoding);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#localeLanguageJsonGet");
             e.printStackTrace();
@@ -6851,8 +6980,10 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
          language = ; //  | 
+         ifNoneMatch = ; //  | 
+         acceptEncoding = ; //  | 
         try {
-            apiInstance.localeLanguageJsonGet(language);
+            apiInstance.localeLanguageJsonGet(language, ifNoneMatch, acceptEncoding);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#localeLanguageJsonGet");
             e.printStackTrace();
@@ -6866,12 +6997,15 @@ public class DefaultApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Default-localeLanguageJsonGet-0-objc">
                               <pre class="prettyprint"><code class="language-cpp"> *language = ; // 
+ *ifNoneMatch = ; //  (optional)
+ *acceptEncoding = ; //  (optional)
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// Словари, иконки и портреты - статичные файлы с манифестами; отпечатки считает сервер,
-и те же манифесты собраны в static/index.json.
+// Словарь как контент (1.53.1): отпечаток в ETag, 304 при совпадении, тело сжато, если клиент принимает
 [apiInstance localeLanguageJsonGetWith:language
+    ifNoneMatch:ifNoneMatch
+    acceptEncoding:acceptEncoding
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -6885,7 +7019,10 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new MyApi.DefaultApi()
 var language = ; // {{}} 
-
+var opts = { 
+  'ifNoneMatch': , // {{}} 
+  'acceptEncoding':  // {{}} 
+};
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -6893,7 +7030,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.localeLanguageJsonGet(language, callback);
+api.localeLanguageJsonGet(language, opts, callback);
 </code></pre>
                             </div>
 
@@ -6916,12 +7053,13 @@ namespace Example
 
             var apiInstance = new DefaultApi();
             var language = new (); //  | 
+            var ifNoneMatch = new (); //  |  (optional) 
+            var acceptEncoding = new (); //  |  (optional) 
 
             try
             {
-                // Словари, иконки и портреты - статичные файлы с манифестами; отпечатки считает сервер,
-и те же манифесты собраны в static/index.json.
-                apiInstance.localeLanguageJsonGet(language);
+                // Словарь как контент (1.53.1): отпечаток в ETag, 304 при совпадении, тело сжато, если клиент принимает
+                apiInstance.localeLanguageJsonGet(language, ifNoneMatch, acceptEncoding);
             }
             catch (Exception e)
             {
@@ -6939,9 +7077,11 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiDefaultApi();
 $language = ; //  | 
+$ifNoneMatch = ; //  | 
+$acceptEncoding = ; //  | 
 
 try {
-    $api_instance->localeLanguageJsonGet($language);
+    $api_instance->localeLanguageJsonGet($language, $ifNoneMatch, $acceptEncoding);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->localeLanguageJsonGet: ', $e->getMessage(), PHP_EOL;
 }
@@ -6955,9 +7095,11 @@ use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 my $language = ; #  | 
+my $ifNoneMatch = ; #  | 
+my $acceptEncoding = ; #  | 
 
 eval { 
-    $api_instance->localeLanguageJsonGet(language => $language);
+    $api_instance->localeLanguageJsonGet(language => $language, ifNoneMatch => $ifNoneMatch, acceptEncoding => $acceptEncoding);
 };
 if ($@) {
     warn "Exception when calling DefaultApi->localeLanguageJsonGet: $@\n";
@@ -6974,11 +7116,12 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
 language =  #  | 
+ifNoneMatch =  #  |  (optional)
+acceptEncoding =  #  |  (optional)
 
 try: 
-    # Словари, иконки и портреты - статичные файлы с манифестами; отпечатки считает сервер,
-и те же манифесты собраны в static/index.json.
-    api_instance.locale_language_json_get(language)
+    # Словарь как контент (1.53.1): отпечаток в ETag, 304 при совпадении, тело сжато, если клиент принимает
+    api_instance.locale_language_json_get(language, ifNoneMatch=ifNoneMatch, acceptEncoding=acceptEncoding)
 except ApiException as e:
     print("Exception when calling DefaultApi->localeLanguageJsonGet: %s\n" % e)</code></pre>
                             </div>
@@ -7013,17 +7156,126 @@ except ApiException as e:
                                   </tr>
                             </table>
 
+                            <div class="methodsubtabletitle">Header parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                  <tr><td style="width:150px;">If-None-Match</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_localeLanguageJsonGet_ifNoneMatch">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                                  <tr><td style="width:150px;">Accept-Encoding</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_localeLanguageJsonGet_acceptEncoding">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      
+                                                  </span>
+                                  
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
 
 
 
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 -  </h3>
+                            <h3> Status: 304 -  </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-localeLanguageJsonGet-304-headers">Headers</a>
+                                </li>
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-localeLanguageJsonGet-304-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3> Status: 200 -  </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="">
+                                  <a data-toggle="tab" href="#responses-localeLanguageJsonGet-200-headers">Headers</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane" id="responses-localeLanguageJsonGet-200-headers">
+                                    <table>
+                                        <tr>
+                                            <th width="150px">Name</th>
+                                            <th width="100px">Type</th>
+                                            <th width="100px">Format</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
 
                         </article>

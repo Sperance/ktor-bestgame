@@ -23,6 +23,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.openapi.OpenApiInfo
+import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.Application
 import io.ktor.server.plugins.openapi.openAPI
 import io.ktor.server.response.header
@@ -51,10 +52,12 @@ fun Application.configureRouting() {
             get("/${LocaleCache.MANIFEST}") {
                 call.respondText(Json.encodeToString(LocaleManifest.serializer(), LocaleCache.manifest()), ContentType.Application.Json)
             }
+            // Словарь как контент (1.53.1): отпечаток в ETag, 304 при совпадении, тело сжато, если клиент принимает
             get("/{language}.json") {
                 val language = call.parameters["language"].orEmpty()
                 LocaleCache.bundle(language)
-                call.respondText(LocaleCache.document(language), ContentType.Application.Json)
+                val hash = LocaleCache.manifest().languages.firstOrNull { it.code == language }?.hash.orEmpty()
+                call.respondStatic(hash, { LocaleCache.document(language) }, { LocaleCache.gzip(language) })
             }
         }
         route("/${IconCache.FOLDER}") {
@@ -62,7 +65,7 @@ fun Application.configureRouting() {
                 call.respondText(Json.encodeToString(IconManifest.serializer(), IconCache.manifest()), ContentType.Application.Json)
             }
             get("/${IconCache.FILE}") {
-                call.respondText(IconCache.document(), ContentType.Application.Json)
+                call.respondStatic(IconCache.hash(), IconCache::document, IconCache::gzip)
             }
         }
         route("/${PortraitCache.FOLDER}") {
@@ -83,14 +86,7 @@ fun Application.configureRouting() {
         route("/content") {
             get("/{file}") {
                 val chunk = content.chunk(call.parameters["file"].orEmpty()) ?: return@get call.respond(HttpStatusCode.NotFound)
-                val etag = "\"${chunk.hash}\""
-                call.response.header(HttpHeaders.ETag, etag)
-                call.response.header(HttpHeaders.CacheControl, "no-cache")
-                if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) return@get call.respond(HttpStatusCode.NotModified)
-                if (call.request.headers[HttpHeaders.AcceptEncoding]?.contains("gzip") == true) {
-                    call.response.header(HttpHeaders.ContentEncoding, "gzip")
-                    call.respondBytes(chunk.gzip, ContentType.Application.Json)
-                } else call.respondText(chunk.text, ContentType.Application.Json)
+                call.respondStatic(chunk.hash, { chunk.text }, { chunk.gzip })
             }
         }
 
@@ -154,3 +150,18 @@ data class StaticManifest(
     val portraits: PortraitManifest,
     val content: ContentManifest,
 )
+
+/**
+ * Статичный JSON с отпечатком [hash] (1.53.1, прежде так уходил только контент): ETag и 304 при совпадении, тело
+ * сжатым [gzip], если клиент принимает gzip, иначе [text].
+ */
+private suspend fun ApplicationCall.respondStatic(hash: String, text: () -> String, gzip: () -> ByteArray) {
+    val etag = "\"$hash\""
+    response.header(HttpHeaders.ETag, etag)
+    response.header(HttpHeaders.CacheControl, "no-cache")
+    if (request.headers[HttpHeaders.IfNoneMatch] == etag) return respond(HttpStatusCode.NotModified)
+    if (request.headers[HttpHeaders.AcceptEncoding]?.contains("gzip") == true) {
+        response.header(HttpHeaders.ContentEncoding, "gzip")
+        respondBytes(gzip(), ContentType.Application.Json)
+    } else respondText(text(), ContentType.Application.Json)
+}

@@ -72,6 +72,11 @@ object LocaleCache {
      * Ключ, который есть и в общем, и в языковом файле, - ошибка старта: какая из двух строк
      * верная, сервер решать не берётся, а тихий выбор одной спрятал бы вторую навсегда.
      */
+    /** Тело словаря языка, сжатое gzip (1.53.1): для клиента, который принимает сжатие. */
+    fun gzip(language: String): ByteArray = gzips[language] ?: throw LocaleExceptions.funExceptionUnknownLanguage("gzip", language)
+
+    private var gzips: Map<String, ByteArray> = emptyMap()
+
     fun initializeCache() {
         val declared = json.decodeFromString(LocaleManifest.serializer(), resource(MANIFEST))
         val common = json.decodeFromString(strings, resource(COMMON))
@@ -87,6 +92,8 @@ object LocaleCache {
             language.code to LocaleBundle(language.code, merged.toSortedMap())
         }
         documents = bundles.mapValues { (_, bundle) -> output.encodeToString(strings, bundle.strings) }
+        // Сжатые тела считаются один раз (1.53.1): словарь в 0,8 МБ уходил на телефон как есть при каждой смене отпечатка
+        gzips = documents.mapValues { (_, text) -> Gzip.of(text) }
 
         // Отпечаток считается из того, что отдаётся, а не берётся из манифеста: отпечаток,
         // который правят руками, перестаёт работать ровно тогда, когда он нужен -
