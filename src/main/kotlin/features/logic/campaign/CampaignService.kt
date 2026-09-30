@@ -223,7 +223,8 @@ class CampaignService : KoinComponent {
         val runs = Runs(hero, state, zone)
         val bonuses = atlas.bonuses(hero)
         val draws = hero.rewards.draws()
-        val pace = Plausibility.Pace(index, hero)
+        // Лист героя - до событий, и только для батча с убийством: батч сундука или итога боя его не считает
+        val pace = lazy { Plausibility.Pace(index, hero) }.apply { if (events.any { it.kind == RunEventKind.KILL }) value }
         var total = Reward.NONE
         var lost = 0.0
         var received = Received()
@@ -253,7 +254,7 @@ class CampaignService : KoinComponent {
     private class Outcome(val reward: Reward = Reward.NONE, val lost: Double = 0.0, val crystal: CrystalOutcome? = null)
 
     /** Одно событие журнала; null - правило его не пустило. Кости наград - из потока героя [draws]. */
-    private fun apply(hero: Hero, state: RunState, zone: Zone, event: RunEvent, run: Run, bonuses: AtlasBonuses, draws: RewardDraws, pace: Plausibility.Pace): Outcome? {
+    private fun apply(hero: Hero, state: RunState, zone: Zone, event: RunEvent, run: Run, bonuses: AtlasBonuses, draws: RewardDraws, pace: Lazy<Plausibility.Pace>): Outcome? {
         val campaignState = hero.campaign
         val mapCode = zone.code
         val now = System.currentTimeMillis()
@@ -265,7 +266,7 @@ class CampaignService : KoinComponent {
                 val pack = run.spawn(event.i, event.vaal).pack
                 val monster = pack.getOrNull(event.m) ?: return null
                 // Темп раньше награды (1.53.0): невозможное убийство не тратит ни жетон, ни кость награды
-                if (!Plausibility.kill(hero, state, now, pace, pack, (0 until Run.PACK_SLOTS).none { event.i * Run.PACK_SLOTS + it in killed })) return null
+                if (!Plausibility.kill(hero, state, now, pace.value, pack, (0 until Run.PACK_SLOTS).none { event.i * Run.PACK_SLOTS + it in killed })) return null
                 val reward = run.kill(event.i, event.m, event.vaal, draws) ?: return null
                 killed += key
                 hero.count(Counter.KILLS)

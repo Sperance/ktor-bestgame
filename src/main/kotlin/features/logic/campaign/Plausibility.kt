@@ -31,6 +31,12 @@ object Plausibility {
     const val MARGIN = 3.0
     /** Секунд сверх расчёта, которые заход получает даром: стая у входа и пауза до первого батча. */
     const val SLACK_SECONDS = 10.0
+    /**
+     * Секунд, которые убийство получает сверх прошедших: клиент шлёт убийство ручного боя, едва враг пал, а не после
+     * трёх секунд тишины и конца боя, как прежде, - честный заход мерится так же строго, как до того. Постоянная на
+     * заход, а не на убийство: ускоренному клиенту она даёт не больше прежней задержки журнала.
+     */
+    const val PROMPT_SECONDS = 4.0
     /** С какой метки за сутки невозможные события отклоняются. */
     const val REJECT_AFTER = 3
     private const val DAY_MS = 24 * 3_600_000L
@@ -59,7 +65,7 @@ object Plausibility {
      * с прошедшим; `false` - событие отклонить (метка уже стоит, и за сутки их не меньше [REJECT_AFTER]).
      */
     fun kill(hero: Hero, state: RunState, now: Long, pace: Pace, pack: List<RolledMonster>, firstOfPack: Boolean): Boolean {
-        val seconds = seconds(state, now)
+        val seconds = seconds(state, now) + PROMPT_SECONDS
         val kills = state.killed.size + state.vaalKilled.size + 1
         val work = state.work + if (firstOfPack) packSeconds(pack, pace.dps) else 0.0
         val tooFast = when {
