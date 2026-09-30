@@ -4732,6 +4732,29 @@
       },
       "tags": [
         "critical"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                18,
+                24
+              ]
+            ],
+            "bottom": [
+              [
+                8,
+                11
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -7380,6 +7403,47 @@
         "ailment",
         "elemental",
         "defences"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                11,
+                14
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  13,
+                  16
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "BOOTS",
+            "SHIELD",
+            "BELT"
+          ]
+        }
       ]
     },
     {
@@ -7510,6 +7574,49 @@
       "tags": [
         "ailment",
         "fire"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                27,
+                34
+              ]
+            ],
+            "bottom": [
+              [
+                7,
+                10
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  31,
+                  40
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
+        }
       ]
     },
     {
@@ -7554,6 +7661,49 @@
       "tags": [
         "ailment",
         "cold"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                27,
+                34
+              ]
+            ],
+            "bottom": [
+              [
+                7,
+                10
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  31,
+                  40
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
+        }
       ]
     },
     {
@@ -7598,6 +7748,49 @@
       "tags": [
         "ailment",
         "cold"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                27,
+                34
+              ]
+            ],
+            "bottom": [
+              [
+                7,
+                10
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  31,
+                  40
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
+        }
       ]
     },
     {
@@ -7642,6 +7835,49 @@
       "tags": [
         "ailment",
         "lightning"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                27,
+                34
+              ]
+            ],
+            "bottom": [
+              [
+                7,
+                10
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  31,
+                  40
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
+        }
       ]
     },
     {
@@ -9182,6 +9418,47 @@
       },
       "tags": [
         "loot"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                14,
+                18
+              ]
+            ],
+            "bottom": [
+              [
+                6,
+                8
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  16,
+                  21
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "BOOTS",
+            "BELT"
+          ]
+        }
       ]
     },
     {
@@ -10856,6 +11133,29 @@
       "tags": [
         "jewel",
         "regen"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                6,
+                9
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -10887,6 +11187,45 @@
       "tags": [
         "jewel",
         "defences"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                -2,
+                -1
+              ]
+            ],
+            "bottom": [
+              [
+                -1,
+                -1
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  -2,
+                  -1
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -10950,6 +11289,29 @@
       "tags": [
         "jewel",
         "thorns"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                4,
+                7
+              ]
+            ],
+            "bottom": [
+              [
+                3,
+                4
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -11014,6 +11376,29 @@
       "tags": [
         "jewel",
         "block"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                2,
+                3
+              ]
+            ],
+            "bottom": [
+              [
+                1,
+                2
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -11275,6 +11660,29 @@
       "tags": [
         "jewel",
         "critical"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                6,
+                9
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -11311,6 +11719,29 @@
         "jewel",
         "thorns",
         "physical"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                24,
+                36
+              ]
+            ],
+            "bottom": [
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -11406,6 +11837,30 @@
         "jewel",
         "critical",
         "leech"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                0.6,
+                0.9
+              ]
+            ],
+            "bottom": [
+              [
+                0.2,
+                0.4
+              ]
+            ],
+            "precision": 1
+          }
+        }
       ]
     },
     {
@@ -11598,6 +12053,45 @@
         "jewel",
         "ailment",
         "physical"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                3,
+                4
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                4
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  3,
+                  5
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -11630,6 +12124,45 @@
         "jewel",
         "ailment",
         "cold"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                3,
+                4
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                4
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  3,
+                  5
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -11860,6 +12393,45 @@
         "jewel",
         "ailment",
         "cold"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                3,
+                4
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                4
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  3,
+                  5
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -11892,6 +12464,45 @@
         "jewel",
         "ailment",
         "fire"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                3,
+                4
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                4
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  3,
+                  5
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -11924,6 +12535,45 @@
         "jewel",
         "ailment",
         "chaos"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                3,
+                4
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                4
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  3,
+                  5
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -11988,6 +12638,45 @@
         "jewel",
         "ailment",
         "lightning"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                3,
+                4
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                4
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  3,
+                  5
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -12054,6 +12743,45 @@
         "penetration",
         "cold",
         "damage"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                2,
+                3
+              ]
+            ],
+            "bottom": [
+              [
+                1,
+                2
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  2,
+                  3
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -12087,6 +12815,45 @@
         "penetration",
         "fire",
         "damage"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                2,
+                3
+              ]
+            ],
+            "bottom": [
+              [
+                1,
+                2
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  2,
+                  3
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -12120,6 +12887,45 @@
         "penetration",
         "lightning",
         "damage"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                2,
+                3
+              ]
+            ],
+            "bottom": [
+              [
+                1,
+                2
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  2,
+                  3
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "JEWEL"
+          ]
+        }
       ]
     },
     {
@@ -28880,6 +29686,49 @@
       "tags": [
         "attack",
         "accuracy"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                14,
+                17
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                7
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  16,
+                  20
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "HELMET",
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
+        }
       ]
     },
     {
@@ -29571,6 +30420,29 @@
       "tags": [
         "damage",
         "charges"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                4,
+                6
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                3
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29612,6 +30484,29 @@
       "tags": [
         "damage",
         "charges"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                4,
+                6
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                3
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29653,6 +30548,29 @@
       "tags": [
         "damage",
         "charges"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                4,
+                6
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                3
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29695,6 +30613,48 @@
       "tags": [
         "ailment",
         "lightning"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                17,
+                20
+              ]
+            ],
+            "bottom": [
+              [
+                6,
+                8
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  19,
+                  24
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "AMULET"
+          ]
+        }
       ]
     },
     {
@@ -29737,6 +30697,48 @@
       "tags": [
         "ailment",
         "cold"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                17,
+                20
+              ]
+            ],
+            "bottom": [
+              [
+                6,
+                8
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  19,
+                  24
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "AMULET"
+          ]
+        }
       ]
     },
     {
@@ -29778,6 +30780,29 @@
       "tags": [
         "ailment",
         "damage"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                10,
+                14
+              ]
+            ],
+            "bottom": [
+              [
+                5,
+                7
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -29851,6 +30876,29 @@
       "tags": [
         "buff",
         "chaos"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                8,
+                14
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -30172,6 +31220,47 @@
       },
       "tags": [
         "life"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                2,
+                3
+              ]
+            ],
+            "bottom": [
+              [
+                1,
+                1
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  2,
+                  4
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "BODY",
+            "GLOVES",
+            "BELT"
+          ]
+        }
       ]
     },
     {
@@ -30662,6 +31751,45 @@
               ]
             ]
           }
+        },
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                11,
+                14
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  12,
+                  16
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "AMULET",
+            "COLLAR"
+          ]
         }
       ]
     },
@@ -30728,6 +31856,45 @@
               ]
             ]
           }
+        },
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                13,
+                17
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                7
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  15,
+                  20
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "BODY",
+            "BELT",
+            "COLLAR"
+          ]
         }
       ]
     },
@@ -30961,6 +32128,29 @@
       "tags": [
         "damage",
         "worn"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                3,
+                4
+              ]
+            ],
+            "bottom": [
+              [
+                2,
+                3
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -30995,6 +32185,29 @@
       "tags": [
         "life",
         "worn"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                2,
+                3
+              ]
+            ],
+            "bottom": [
+              [
+                1,
+                2
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31028,6 +32241,29 @@
       "tags": [
         "resistance",
         "worn"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                1,
+                3
+              ]
+            ],
+            "bottom": [
+              [
+                1,
+                2
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31232,6 +32468,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                24,
+                36
+              ]
+            ],
+            "bottom": [
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31274,6 +32533,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                10,
+                14
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31315,6 +32597,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                10,
+                14
+              ]
+            ],
+            "bottom": [
+              [
+                4,
+                6
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31358,6 +32663,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                20,
+                27
+              ]
+            ],
+            "bottom": [
+              [
+                9,
+                12
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31608,6 +32936,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                6,
+                9
+              ]
+            ],
+            "bottom": [
+              [
+                3,
+                4
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31692,6 +33043,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                24,
+                36
+              ]
+            ],
+            "bottom": [
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31861,6 +33235,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                28,
+                40
+              ]
+            ],
+            "bottom": [
+              [
+                12,
+                18
+              ]
+            ]
+          }
+        }
       ]
     },
     {
@@ -31903,6 +33300,29 @@
       },
       "tags": [
         "conditional"
+      ],
+      "variants": [
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                32,
+                45
+              ]
+            ],
+            "bottom": [
+              [
+                14,
+                20
+              ]
+            ]
+          }
+        }
       ]
     },
     {

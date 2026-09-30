@@ -749,6 +749,28 @@ UNIQUE_ART = {
     "DAWNBRINGER": ("#f2c53a", "#e8602a", "SUN", "#fff6d0"),
     "WORLDSPINE": ("#827c73", "#3a78e8", "GLOBE", "#f0e2c0"),
     "GODKINGS_MANDATE": ("#f0d890", "#6a3ab0", "CROWN", "#f2c53a"),
+    # Uniques built around the mechanics taken out of the ordinary affix pools.
+    "TREASURE_DELVERS_HOOD": ("#e8b04a", "#5e3b22", "COMPASS", "#fff0b0"),
+    "STONEWARDENS_HAUBERK": ("#8e97a3", "#6a5a44", "MOUNTAIN", "#e4dcc4"),
+    "BRAWLERS_ABANDON": ("#c8742a", "#3c3a44", "HANDS", "#f2c53a"),
+    "DESERTERS_STRIDE": ("#9fd8e8", "#7a5234", "ROAD", "#ffffff"),
+    "TORTOISE_OATH": ("#5f9a4e", "#8a5a34", "GEODE", "#e4dcc4"),
+    "STORMHAWK_PINIONS": ("#3a78e8", "#e8602a", "BOLT", "#fff6a0"),
+    "SCARKNIT_CORD": ("#c02a3a", "#e4dcc4", "NOOSE", "#f0e2c0"),
+    "GIANTSLAYERS_TITHE": ("#a8322a", "#8e97a3", "MAW", "#f2c53a"),
+    "HOARFROST_SEAL": ("#bfe3ef", "#3a5fa0", "SNOW", "#ffffff"),
+    "ORACLES_TALLY": ("#8a6ae0", "#f0d890", "HOURGLASS", "#f0e2c0"),
+    "GLASSCUTTERS_PENDANT": ("#dfeef6", "#9fd8e8", "SHARD", "#e0405a"),
+    "THE_BARBED_HUNT": ("#b01a2a", "#7fcf4a", "THORN", "#7fcf4a"),
+    "SHARD_OF_ABANDON": ("#e0405a", "#15171a", "CLAW", "#f2c53a"),
+    "THE_FIRST_CUT": ("#dfe6ee", "#b01a2a", "FANG", "#e0405a"),
+    "MERCYS_END": ("#c8ccd4", "#2b1d2e", "CROSSHAIR", "#e0405a"),
+    "REAVERS_FERVOUR": ("#d83a3a", "#5e3b22", "HOWL", "#ffd070"),
+    "FINAL_ARGUMENT": ("#827c73", "#c02a3a", "ANVIL", "#f2c53a"),
+    "TAINTED_RAINBOW": ("#9b59d6", "#7fcf4a", "PRISM", "#f2e04a"),
+    "TEMPEST_NEEDLE": ("#f2e04a", "#1e2240", "WHIRL", "#fff6a0"),
+    "THE_SLOW_PYRE": ("#ef6a3a", "#2b1d2e", "SPIRAL", "#ffd070"),
+    "MARTYRS_SCEPTRE": ("#f0e2c0", "#b01a2a", "ANKH", "#e0405a"),
 }
 
 

@@ -45,6 +45,8 @@
     {
       "code": "GREED",
       "weapon": "ADD_LIFE_ON_HIT",
+      "caster": "ADD_MAXIMUM_LIFE",
+      "quiver": "ADD_MAXIMUM_LIFE",
       "armour": "ADD_MAXIMUM_LIFE",
       "jewellery": "ADD_MAXIMUM_LIFE",
       "monster": "MOB_ESS_GREED"
@@ -52,55 +54,72 @@
     {
       "code": "CONTEMPT",
       "weapon": "INCREASED_PHYSICAL_DAMAGE@LOCAL",
-      "armour": "INCREASED_ARMOUR",
+      "caster": "INCREASED_PHYSICAL_DAMAGE",
+      "quiver": "ADD_PHYSICAL_DAMAGE",
+      "armour": "ADD_PHYSICAL_DAMAGE_REDUCTION",
       "jewellery": "ADD_PHYSICAL_DAMAGE",
+      "belt": "ADD_PHYSICAL_DAMAGE_REDUCTION",
       "monster": "MOB_ESS_CONTEMPT"
     },
     {
       "code": "HATRED",
       "weapon": "ADD_COLD_DAMAGE@LOCAL",
+      "caster": "ADD_COLD_DAMAGE_TO_SPELLS",
+      "quiver": "ADD_COLD_DAMAGE",
       "armour": "ADD_COLD_RESISTANCE",
       "jewellery": "ADD_COLD_DAMAGE",
+      "belt": "ADD_COLD_RESISTANCE",
       "monster": "MOB_ESS_HATRED"
     },
     {
       "code": "WOE",
-      "weapon": "INCREASED_SPELL_DAMAGE",
-      "armour": "ADD_ENERGY_SHIELD",
+      "weapon": "ADD_ENERGY_SHIELD_ON_KILL",
+      "armour": "ADD_ENERGY_SHIELD@LOCAL",
       "jewellery": "INCREASED_ENERGY_SHIELD",
+      "belt": "ADD_ENERGY_SHIELD",
       "monster": "MOB_ESS_WOE"
     },
     {
       "code": "FEAR",
-      "weapon": "INCREASED_CRITICAL_STRIKE_CHANCE",
-      "armour": "INCREASED_EVASION_RATING",
+      "weapon": "ADD_ACCURACY_RATING",
+      "caster": "ADD_DEXTERITY",
+      "armour": "ADD_EVASION_RATING@LOCAL",
       "jewellery": "ADD_DEXTERITY",
       "monster": "MOB_ESS_FEAR"
     },
     {
       "code": "ANGER",
       "weapon": "ADD_FIRE_DAMAGE@LOCAL",
+      "caster": "ADD_FIRE_DAMAGE_TO_SPELLS",
+      "quiver": "ADD_FIRE_DAMAGE",
       "armour": "ADD_FIRE_RESISTANCE",
       "jewellery": "ADD_FIRE_DAMAGE",
+      "belt": "ADD_FIRE_RESISTANCE",
       "monster": "MOB_ESS_ANGER"
     },
     {
       "code": "TORMENT",
       "weapon": "ADD_LIGHTNING_DAMAGE@LOCAL",
+      "caster": "ADD_LIGHTNING_DAMAGE_TO_SPELLS",
+      "quiver": "ADD_LIGHTNING_DAMAGE",
       "armour": "ADD_LIGHTNING_RESISTANCE",
       "jewellery": "ADD_LIGHTNING_DAMAGE",
+      "belt": "ADD_LIGHTNING_RESISTANCE",
       "monster": "MOB_ESS_TORMENT"
     },
     {
       "code": "SORROW",
       "weapon": "ADD_CHAOS_DAMAGE@LOCAL",
+      "caster": "INCREASED_CHAOS_DAMAGE",
+      "quiver": "ADD_CHAOS_DAMAGE",
       "armour": "ADD_CHAOS_RESISTANCE",
       "jewellery": "ADD_CHAOS_DAMAGE",
+      "belt": "ADD_CHAOS_RESISTANCE",
       "monster": "MOB_ESS_SORROW"
     },
     {
       "code": "RAGE",
-      "weapon": "INCREASED_PHYSICAL_DAMAGE@LOCAL",
+      "weapon": "DAMAGE_PER_STRENGTH",
       "armour": "ADD_STRENGTH",
       "jewellery": "ADD_STRENGTH",
       "monster": "MOB_ESS_RAGE"
@@ -108,20 +127,23 @@
     {
       "code": "SUFFERING",
       "weapon": "INCREASED_DAMAGE_VS_AILED",
-      "armour": "ADD_STUN_THRESHOLD",
+      "armour": "AVOID_ELEMENTAL_AILMENTS",
       "jewellery": "INCREASED_BLEED_DAMAGE",
+      "belt": "REDUCED_BLEED_DURATION_ON_SELF",
       "monster": "MOB_ESS_SUFFERING"
     },
     {
       "code": "WRATH",
-      "weapon": "INCREASED_SPELL_DAMAGE",
+      "weapon": "INCREASED_SKILL_DAMAGE",
+      "caster": "INCREASED_SPELL_DAMAGE",
       "armour": "INCREASED_SPELL_DAMAGE",
-      "jewellery": "ADD_MAXIMUM_MANA",
+      "jewellery": "INCREASED_SPELL_DAMAGE",
       "monster": "MOB_ESS_WRATH"
     },
     {
       "code": "DOUBT",
       "weapon": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+      "caster": "ADD_SPELL_CRITICAL_MULTIPLIER",
       "armour": "INCREASED_CRITICAL_STRIKE_CHANCE",
       "jewellery": "INCREASED_CRITICAL_STRIKE_CHANCE",
       "monster": "MOB_ESS_DOUBT"
@@ -129,13 +151,16 @@
     {
       "code": "LOATHING",
       "weapon": "PENETRATE_CHAOS_RESISTANCE",
-      "armour": "ADD_CHAOS_RESISTANCE",
+      "armour": "REDUCED_CHAOS_DAMAGE_TAKEN",
       "jewellery": "INCREASED_CHAOS_DAMAGE",
+      "belt": "REDUCED_CHAOS_DAMAGE_TAKEN",
       "monster": "MOB_ESS_LOATHING"
     },
     {
       "code": "ZEAL",
       "weapon": "INCREASED_ATTACK_SPEED@LOCAL",
+      "caster": "FRENZY_CHARGE_ON_KILL",
+      "quiver": "INCREASED_ATTACK_SPEED",
       "armour": "INCREASED_ATTACK_SPEED",
       "jewellery": "INCREASED_ATTACK_SPEED",
       "monster": "MOB_ESS_ZEAL"
@@ -145,18 +170,21 @@
       "weapon": "PENETRATE_ELEMENTAL_RESISTANCES",
       "armour": "ADD_ALL_ELEMENTAL_RESISTANCES",
       "jewellery": "INCREASED_ELEMENTAL_DAMAGE",
+      "belt": "ADD_ALL_ELEMENTAL_RESISTANCES",
       "monster": "MOB_ESS_ANGUISH"
     },
     {
       "code": "SPITE",
       "weapon": "ADD_MANA_ON_HIT",
+      "caster": "ADD_MAXIMUM_MANA",
       "armour": "ADD_MAXIMUM_MANA",
       "jewellery": "INCREASED_MANA_REGENERATION",
+      "belt": "ADD_MAXIMUM_MANA",
       "monster": "MOB_ESS_SPITE"
     },
     {
       "code": "SCORN",
-      "weapon": "INCREASED_SKILL_DAMAGE",
+      "weapon": "SKILL_PREPARATION",
       "armour": "INCREASED_COOLDOWN_RECOVERY",
       "jewellery": "REDUCED_SKILL_COST",
       "monster": "MOB_ESS_SCORN"
@@ -164,21 +192,24 @@
     {
       "code": "ENVY",
       "weapon": "CHANCE_TO_POISON",
-      "armour": "ADD_CHAOS_RESISTANCE",
+      "armour": "AVOID_POISON",
       "jewellery": "INCREASED_POISON_DAMAGE",
+      "belt": "REDUCED_POISON_DURATION_ON_SELF",
       "monster": "MOB_ESS_ENVY"
     },
     {
       "code": "MISERY",
-      "weapon": "INCREASED_CAST_SPEED",
-      "armour": "INCREASED_ENERGY_SHIELD",
+      "weapon": "ONSLAUGHT_ON_KILL",
+      "caster": "INCREASED_CAST_SPEED",
+      "armour": "INCREASED_CAST_SPEED",
       "jewellery": "INCREASED_CAST_SPEED",
       "monster": "MOB_ESS_MISERY"
     },
     {
       "code": "DREAD",
-      "weapon": "ADD_BLOCK_CHANCE",
-      "armour": "INCREASED_ARMOUR",
+      "weapon": "FORTIFY_ON_HIT",
+      "armour": "ADD_ARMOUR@LOCAL",
+      "shield": "ADD_BLOCK_CHANCE",
       "jewellery": "ADD_ARMOUR",
       "monster": "MOB_ESS_DREAD"
     }

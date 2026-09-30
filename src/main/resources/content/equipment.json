@@ -40262,6 +40262,1746 @@
           }
         ]
       ]
+    },
+    {
+      "code": "TREASURE_DELVERS_HOOD",
+      "slot": "HELMET",
+      "kind": "ARMOR",
+      "rarity": "UNIQUE",
+      "level": 32,
+      "requiredLevel": 32,
+      "requiredDexterity": 70,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            140.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_EVASION",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LIGHT_RADIUS",
+            "op": "INCREASED",
+            "range": [
+              25.0,
+              35.0
+            ]
+          },
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "op": "INCREASED",
+            "range": [
+              10.0,
+              14.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CHEST_QUANTITY",
+            "op": "INCREASED",
+            "range": [
+              20.0,
+              30.0
+            ]
+          },
+          {
+            "stat": "STOCK_RARITY",
+            "op": "INCREASED",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WAYFINDER",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WARDENS_KEYS",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "STONEWARDENS_HAUBERK",
+      "slot": "BODY",
+      "kind": "ARMOR",
+      "rarity": "UNIQUE",
+      "level": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 112,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            420.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "range": [
+              180.0,
+              240.0
+            ]
+          },
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "op": "INCREASED",
+            "range": [
+              60.0,
+              80.0
+            ]
+          },
+          {
+            "stat": "STOCK_STUN_THRESHOLD",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "op": "INCREASED",
+            "range": [
+              40.0,
+              60.0
+            ],
+            "when": "ENDURANCE_CHARGE"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ENDURANCE_WHEN_HIT",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_WARDENS_VOW",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "BRAWLERS_ABANDON",
+      "slot": "GLOVES",
+      "kind": "ARMOR",
+      "rarity": "UNIQUE",
+      "level": 45,
+      "requiredLevel": 45,
+      "requiredDexterity": 99,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            108.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              16.0,
+              20.0
+            ]
+          },
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "range": [
+              -15.0,
+              -10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ONSLAUGHT_ON_KILL",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              25.0,
+              35.0
+            ],
+            "when": "ONSLAUGHT"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BLOOD_SCENT",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PACK_TACTICS",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "DESERTERS_STRIDE",
+      "slot": "BOOTS",
+      "kind": "ARMOR",
+      "rarity": "UNIQUE",
+      "level": 34,
+      "requiredLevel": 34,
+      "requiredDexterity": 75,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            90.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "op": "INCREASED",
+            "range": [
+              30.0,
+              35.0
+            ]
+          },
+          {
+            "stat": "STOCK_EVASION",
+            "op": "INCREASED",
+            "range": [
+              -30.0,
+              -20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CHILL_DURATION_ON_SELF",
+            "range": [
+              35.0,
+              45.0
+            ]
+          },
+          {
+            "stat": "STOCK_FREEZE_DURATION_ON_SELF",
+            "range": [
+              35.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TRAILBLAZE",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FLEETING_STEP",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "TORTOISE_OATH",
+      "slot": "SHIELD",
+      "kind": "ARMOR",
+      "rarity": "UNIQUE",
+      "level": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 108,
+      "base": [
+        {
+          "code": "BASE_ARMOUR",
+          "values": [
+            314.0
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            24.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "range": [
+              8.0,
+              12.0
+            ]
+          },
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "range": [
+              -30.0,
+              -20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_FORTIFY_ON_HIT",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ],
+            "when": "FORTIFIED"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SHIELD_BASH",
+            "range": [
+              0.3,
+              0.5
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_REMORSEFUL_GUARD",
+            "range": [
+              1.5,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "STORMHAWK_PINIONS",
+      "slot": "WINGS",
+      "kind": "ARMOR",
+      "rarity": "UNIQUE",
+      "level": 36,
+      "requiredLevel": 36,
+      "requiredDexterity": 72,
+      "base": [
+        {
+          "code": "BASE_EVASION",
+          "values": [
+            111.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "range": [
+              25.0,
+              30.0
+            ]
+          },
+          {
+            "stat": "STOCK_RESIST_LIGHTNING",
+            "range": [
+              25.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AVOID_IGNITE",
+            "range": [
+              30.0,
+              40.0
+            ]
+          },
+          {
+            "stat": "STOCK_AVOID_SHOCK",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_EVASION",
+            "op": "INCREASED",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MOVEMENT_SPEED",
+            "op": "INCREASED",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STATIC_DODGE",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_COIL_DISCHARGE",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "SCARKNIT_CORD",
+      "slot": "BELT",
+      "rarity": "UNIQUE",
+      "level": 42,
+      "requiredLevel": 42,
+      "requiredStrength": 84,
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              60.0,
+              80.0
+            ]
+          },
+          {
+            "stat": "STOCK_HEALTH_REGEN",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LIFE_REGEN_PERCENT",
+            "range": [
+              1.5,
+              2.5
+            ],
+            "when": "RECENT_HIT_TAKEN"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LIFE_RECOUP",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HEARTBEAT",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BRINE_MEND",
+            "range": [
+              4.0,
+              7.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "GIANTSLAYERS_TITHE",
+      "slot": "RING",
+      "rarity": "UNIQUE",
+      "level": 48,
+      "requiredLevel": 48,
+      "requiredStrength": 96,
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              40.0,
+              55.0
+            ]
+          },
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              -40.0,
+              -30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              35.0,
+              50.0
+            ],
+            "when": "VS_UNIQUE"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "range": [
+              5.0,
+              9.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_LEVIATHAN_BITE",
+            "range": [
+              0.5,
+              1.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_QUEENS_PRECISION",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "HOARFROST_SEAL",
+      "slot": "RING",
+      "rarity": "UNIQUE",
+      "level": 36,
+      "requiredLevel": 36,
+      "requiredIntelligence": 72,
+      "lines": [
+        [
+          {
+            "stat": "STOCK_CHILL_DURATION",
+            "range": [
+              40.0,
+              60.0
+            ]
+          },
+          {
+            "stat": "STOCK_FREEZE_DURATION",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CHILL_EFFECT",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_COLD",
+            "range": [
+              6.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SHATTER",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_COLD_DRAW",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "ORACLES_TALLY",
+      "slot": "AMULET",
+      "rarity": "UNIQUE",
+      "level": 58,
+      "requiredLevel": 58,
+      "requiredIntelligence": 116,
+      "lines": [
+        [
+          {
+            "stat": "STOCK_DAMAGE_PER_POWER",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              40.0,
+              60.0
+            ],
+            "when": "POWER_CHARGE"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_POWER_ON_CRIT",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VOID_RESONANCE",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "GLASSCUTTERS_PENDANT",
+      "slot": "AMULET",
+      "rarity": "UNIQUE",
+      "level": 64,
+      "requiredLevel": 64,
+      "requiredDexterity": 128,
+      "lines": [
+        [
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "range": [
+              40.0,
+              55.0
+            ]
+          },
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              -45.0,
+              -35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "range": [
+              25.0,
+              35.0
+            ],
+            "when": "RECENT_CRIT"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VIRTUOSO_TEMPO",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FORESIGHT",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "THE_BARBED_HUNT",
+      "slot": "QUIVER",
+      "rarity": "UNIQUE",
+      "level": 44,
+      "requiredLevel": 44,
+      "requiredDexterity": 88,
+      "lines": [
+        [
+          {
+            "stat": "STOCK_BLEED_DURATION",
+            "range": [
+              40.0,
+              60.0
+            ]
+          },
+          {
+            "stat": "STOCK_POISON_DURATION",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ACCURACY",
+            "op": "INCREASED",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_BLEED_CHANCE",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_FASTER_AILMENTS",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BLOOD_FRENZY",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SPREADING_STING",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "SHARD_OF_ABANDON",
+      "slot": "JEWEL",
+      "rarity": "UNIQUE",
+      "level": 40,
+      "requiredLevel": 40,
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              15.0,
+              20.0
+            ]
+          },
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "range": [
+              3.0,
+              4.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              5.0,
+              7.0
+            ]
+          },
+          {
+            "stat": "STOCK_ARMOR",
+            "op": "INCREASED",
+            "range": [
+              -8.0,
+              -6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEFIANCE",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ANCESTRAL_WRATH",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "THE_FIRST_CUT",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 52,
+      "requiredLevel": 52,
+      "requiredStrength": 62,
+      "requiredDexterity": 62,
+      "weaponType": "SWORD",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.5
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              70.0,
+              90.0
+            ]
+          },
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "range": [
+              8.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              40.0,
+              60.0
+            ],
+            "when": "VS_FULL_LIFE"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "range": [
+              12.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MOUNTAIN_BREAK",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_AMBUSH",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "MERCYS_END",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 47,
+      "requiredLevel": 47,
+      "requiredDexterity": 100,
+      "weaponType": "BLADE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            55.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.55
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              80.0,
+              100.0
+            ]
+          },
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CULLING",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_AGILITY",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PREDATOR_SENSE",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ACUITY_DRAIN",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "REAVERS_FERVOUR",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 42,
+      "requiredLevel": 42,
+      "requiredStrength": 50,
+      "requiredDexterity": 50,
+      "weaponType": "AXE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            50.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_DAMAGE_PER_FRENZY",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              10.0,
+              15.0
+            ],
+            "when": "FRENZY_CHARGE"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              70.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_LEECH_PHYSICAL",
+            "range": [
+              1.0,
+              1.5
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FRENZY_ON_HIT",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BLOOD_SCENT",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "FINAL_ARGUMENT",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 55,
+      "requiredLevel": 55,
+      "requiredStrength": 121,
+      "weaponType": "DOUBLEAXE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            195.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            0.9
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_DAMAGE_PER_ENDURANCE",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              40.0,
+              60.0
+            ],
+            "when": "LOW_LIFE"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_PHYSICAL",
+            "op": "INCREASED",
+            "range": [
+              120.0,
+              160.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ENDURANCE_ON_KILL",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_LAST_STAND",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "TAINTED_RAINBOW",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 46,
+      "requiredLevel": 46,
+      "requiredDexterity": 101,
+      "weaponType": "BOW",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            72.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "op": "INCREASED",
+            "range": [
+              35.0,
+              45.0
+            ]
+          },
+          {
+            "stat": "STOCK_ATTACK_COLD",
+            "op": "INCREASED",
+            "range": [
+              35.0,
+              45.0
+            ]
+          },
+          {
+            "stat": "STOCK_ATTACK_LIGHTNING",
+            "op": "INCREASED",
+            "range": [
+              35.0,
+              45.0
+            ]
+          },
+          {
+            "stat": "STOCK_RESIST_CHAOS",
+            "range": [
+              -25.0,
+              -20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PENETRATE_ELEMENTAL",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_COLD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BEREKS_STORM",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STORM_VOLLEY",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "TEMPEST_NEEDLE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 47,
+      "requiredLevel": 47,
+      "requiredIntelligence": 103,
+      "weaponType": "WAND",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.4
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SHOCK_DURATION",
+            "range": [
+              40.0,
+              60.0
+            ]
+          },
+          {
+            "stat": "STOCK_SHOCK_EFFECT",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              30.0,
+              45.0
+            ],
+            "when": "VS_RARE"
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SHOCK_CHANCE",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CATALYST_SURGE",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STORMCALL",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "THE_SLOW_PYRE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 48,
+      "requiredLevel": 48,
+      "requiredIntelligence": 106,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            57.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_IGNITE_DURATION",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PENETRATE_FIRE",
+            "range": [
+              12.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              80.0,
+              110.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_IGNITE_CHANCE",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBERHEART",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ASHEN_END",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "MARTYRS_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 50,
+      "requiredLevel": 50,
+      "requiredStrength": 60,
+      "requiredIntelligence": 60,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            34.5
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_RECOVERY_RATE",
+            "range": [
+              25.0,
+              35.0
+            ]
+          },
+          {
+            "stat": "STOCK_RESIST_MAX_ALL",
+            "range": [
+              -2.0,
+              -2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBALMED_VIGOUR",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_LULLABY",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
     }
   ]
 }

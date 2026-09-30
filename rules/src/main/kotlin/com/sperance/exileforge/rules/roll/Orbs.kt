@@ -109,7 +109,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         val essenceName = LocaleKey.itemName(essence.code)
         if (item.corrupted) throw RuleViolation("CR_004", listOf(name(template)))
         if (item.mirrored) throw RuleViolation("CR_010", listOf(name(template)))
-        val line = essence.guarantee(template.slot) ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
+        val line = essence.guarantee(template) ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
         val tiers = index.essences.tiers
         when (item.rarity) {
             Rarity.COMMON -> Unit

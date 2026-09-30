@@ -4,7 +4,25 @@ import com.sperance.exileforge.rules.fail
 import kotlinx.serialization.Serializable
 
 @Serializable data class EssenceTier(val code: String, val level: Int, val rerollsRare: Boolean = false)
-@Serializable data class EssenceKind(val code: String, val weapon: String, val armour: String, val jewellery: String, val monster: String)
+/**
+ * Вид эссенции: гарантированная строка по роду вещи. [weapon] - оружие атак, [armour] - броня, [jewellery] - кольцо и амулет;
+ * необязательные [caster] (жезл, посох, скипетр), [quiver], [shield] и [belt] без своего значения берут [weapon], [weapon], [armour] и [jewellery].
+ */
+@Serializable
+data class EssenceKind(
+    val code: String,
+    val weapon: String,
+    val armour: String,
+    val jewellery: String,
+    val monster: String,
+    val caster: String? = null,
+    val quiver: String? = null,
+    val shield: String? = null,
+    val belt: String? = null,
+) {
+    /** Все гарантированные строки вида, без повторов. */
+    val lines: List<String> get() = listOfNotNull(weapon, caster, quiver, armour, shield, jewellery, belt).distinct()
+}
 
 /** Кристаллы зоны: окно как у сундуков; [vaal] - таблица исходов сферы Ваал, [modifiers] - таблицы строк стражей. */
 @Serializable
@@ -31,7 +49,7 @@ data class EssenceBook(val tiers: List<EssenceTier>, val kinds: List<EssenceKind
         val codes = (kinds + specials).map { it.code }
         if (codes.toSet().size != codes.size) fail("essences: kinds")
         (kinds + specials).forEach { kind ->
-            listOf(kind.weapon, kind.armour, kind.jewellery, kind.monster).forEach { if (modifier(it) == null) fail("essences: modifier $it of ${kind.code}") }
+            (kind.lines + kind.monster).forEach { if (modifier(it) == null) fail("essences: modifier $it of ${kind.code}") }
         }
         val rule = crystals
         if (rule.count.size != 2 || rule.count[0] > rule.count[1] || rule.essences.size != 2 || rule.essences[0] < 1 || rule.essences[0] > rule.essences[1]) fail("essences: crystals")
@@ -52,11 +70,14 @@ data class EssenceBook(val tiers: List<EssenceTier>, val kinds: List<EssenceKind
 data class Essence(val kind: EssenceKind, val tier: Int, val special: Boolean) {
     val code: String get() = EssenceBook.code(kind.code, tier, special)
 
-    /** Код гарантированной строки на вещи слота [slot]; null - вещь эссенцию не берёт. */
-    fun guarantee(slot: Slot): String? = when (slot) {
-        Slot.WEAPON_1H, Slot.WEAPON_2H, Slot.QUIVER -> kind.weapon
-        Slot.HELMET, Slot.BODY, Slot.GLOVES, Slot.BOOTS, Slot.SHIELD, Slot.WINGS -> kind.armour
-        Slot.RING, Slot.RING_2, Slot.AMULET, Slot.BELT -> kind.jewellery
+    /** Код гарантированной строки на вещи шаблона [template]; null - вещь эссенцию не берёт. Оружие чар ([WeaponType.spell]) берёт строку заклинателя. */
+    fun guarantee(template: ItemTemplate): String? = when (template.slot) {
+        Slot.WEAPON_1H, Slot.WEAPON_2H -> if (template.weaponType?.spell == true) kind.caster ?: kind.weapon else kind.weapon
+        Slot.QUIVER -> kind.quiver ?: kind.weapon
+        Slot.SHIELD -> kind.shield ?: kind.armour
+        Slot.HELMET, Slot.BODY, Slot.GLOVES, Slot.BOOTS, Slot.WINGS -> kind.armour
+        Slot.BELT -> kind.belt ?: kind.jewellery
+        Slot.RING, Slot.RING_2, Slot.AMULET -> kind.jewellery
         else -> null
     }
 }

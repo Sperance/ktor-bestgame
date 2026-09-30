@@ -16,7 +16,9 @@ import com.sperance.exileforge.rules.run.RunContext
 import com.sperance.exileforge.rules.run.RewardDraws
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.Source
+import com.sperance.exileforge.rules.table.TableKind
 import com.sperance.exileforge.rules.table.Weighted
+import com.sperance.exileforge.rules.content.VariantKind
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.TreeAllocation
 import com.sperance.exileforge.rules.content.GenericDamage
@@ -186,6 +188,22 @@ class RulesInvariantsTest {
         }
     }
 
+    /**
+     * Суффикс или префикс, ушедший из всех пулов слотов, не пропадает из игры: его семейство ставит верстак
+     * (CRAFTED-вариант) или порча (осквернённый вариант в таблице `corruption:*`).
+     */
+    @Test
+    fun everyAffixFamilyStaysObtainable() {
+        val (corruption, natural) = index.tables.tags.filter { index.tables.kind(it) == TableKind.MODIFIER }
+            .partition { it.startsWith(CORRUPTION_TABLES) }
+        fun families(tags: List<String>) = tags.flatMap { tag -> index.tables.members(tag).values.filter { it.weight > 0 }.mapNotNull { index.modifier(it.code) } }
+        val obtainable = families(natural).map { it.family }.toSet() +
+            families(corruption).filter { it.variant == VariantKind.CORRUPTED }.map { it.family } +
+            index.definitions.filter { it.crafted }.map { it.family }
+        val lost = index.definitions.filter { it.affix && it.variant == VariantKind.NATURAL && it.rolls && !it.veiled && it.family !in obtainable }
+        assertTrue(lost.isEmpty(), "affix families nowhere to get: ${lost.map { it.code }}")
+    }
+
     /** Путь к дальнему узлу (1.37.0): кратчайший, от взятого, узел с выбором - только целью, и каждый его шаг - законное взятие. */
     @Test
     fun treePathIsShortestAndLegal() {
@@ -274,5 +292,6 @@ class RulesInvariantsTest {
 
     private companion object {
         const val PHYSICAL = "STOCK_ATTACK_PHYSICAL"
+        const val CORRUPTION_TABLES = "corruption:"
     }
 }
