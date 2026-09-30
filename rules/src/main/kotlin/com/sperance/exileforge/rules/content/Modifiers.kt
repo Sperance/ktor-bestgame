@@ -82,9 +82,10 @@ typealias Range = List<Double>
 /**
  * Тир: [level] - уровень предмета (карты), с которого он открыт, [weight] - вес среди открытых
  * тиров, [values] - диапазон на каждый эффект. Тир 1 - первый в списке и лучший, как в PoE.
+ * [apex] (1.40.0) - вершина сетки, тир уровня 71–100 поверх прежнего лучшего.
  */
 @Serializable
-data class Tier(val level: Int = 1, val weight: Int = 0, val values: List<Range> = emptyList()) {
+data class Tier(val level: Int = 1, val weight: Int = 0, val values: List<Range> = emptyList(), val apex: Boolean = false) {
     /** Значения тира при доле ролла [p]: 0 - дно, 1 - потолок; одна доля на все эффекты. */
     fun at(p: Double): List<Double> = values.map { (min, max) -> tenths(min + (max - min) * p) }
 
@@ -100,6 +101,7 @@ data class Tier(val level: Int = 1, val weight: Int = 0, val values: List<Range>
 /**
  * Сетка тиров: уровни от лучшего к худшему, диапазоны лучшего ([top]) и худшего ([bottom]) тира
  * по эффекту, прямая между ними. Вес тира - `1000 × ratio^(позиция снизу)`: чем лучше, тем реже.
+ * [apex] (1.40.0) - тир над сеткой для уровней 71–100: он становится тиром 1, прямая между [top] и [bottom] не сдвигается.
  */
 @Serializable
 data class TierGrid(
@@ -108,10 +110,12 @@ data class TierGrid(
     val bottom: List<Range>,
     val precision: Int = 0,
     val ratio: Double = 0.72,
+    val apex: Apex? = null,
 ) {
     fun expand(): List<Tier> {
         val n = levels.size
-        return levels.mapIndexed { i, level ->
+        val crown = apex?.let { Tier(it.level, round(1000 * Math.pow(ratio, n.toDouble()), 0).toInt(), it.values, apex = true) }
+        return listOfNotNull(crown) + levels.mapIndexed { i, level ->
             val frac = if (n > 1) (n - 1 - i).toDouble() / (n - 1) else 1.0
             val values = top.zip(bottom).map { (t, b) ->
                 var lo = round(b[0] + (t[0] - b[0]) * frac, precision)
@@ -126,6 +130,7 @@ data class TierGrid(
     fun problem(effects: Int): String? = when {
         levels.isEmpty() -> "empty grid"
         top.size != effects || bottom.size != effects -> "$effects effects, ${top.size}/${bottom.size} ranges"
+        apex != null && (apex.values.size != effects || apex.values.any { it.size != 2 || it[0] > it[1] } || apex.level <= (levels.maxOrNull() ?: 0)) -> "apex"
         (top + bottom).any { it.size != 2 } -> "a [min, max] per effect"
         ratio <= 0 -> "ratio $ratio"
         else -> null
@@ -134,6 +139,9 @@ data class TierGrid(
     private fun round(value: Double, precision: Int): Double =
         BigDecimal.valueOf(value).setScale(precision, RoundingMode.HALF_EVEN).toDouble()
 }
+
+/** Вершина сетки (1.40.0): уровень, с которого открыта, и диапазон на каждый эффект. */
+@Serializable data class Apex(val level: Int, val values: List<Range>)
 
 /** Вариант семейства в файле: без своей сетки наследует тиры семейства. */
 @Serializable

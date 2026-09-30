@@ -34,6 +34,11 @@
       "code": "DEAFENING",
       "level": 66,
       "rerollsRare": true
+    },
+    {
+      "code": "EXALTED",
+      "level": 84,
+      "rerollsRare": true
     }
   ],
   "kinds": [
@@ -237,7 +242,8 @@
       24,
       32,
       38,
-      45
+      45,
+      50
     ],
     "seconds": 300
   }

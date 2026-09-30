@@ -223,7 +223,7 @@
     4250334444
   ],
   "pointsPerLevel": 1,
-  "bonusEvery": 10,
+  "bonusEvery": 5,
   "sharedBase": {
     "STOCK_HEALTH": 38.0,
     "STOCK_LIGHT_RADIUS": 5.0

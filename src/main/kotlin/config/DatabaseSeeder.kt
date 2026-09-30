@@ -57,6 +57,7 @@ object DatabaseSeeder : KoinComponent {
         GuildWipe.runOnce()
         ItemWipe.runOnce(content.index)
         TreeWipe.runOnce(content.index)
+        TierShift.runOnce(content.index)
         ensureIndexes()
 
         transactionExecute { session ->

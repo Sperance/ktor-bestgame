@@ -27356,6 +27356,372 @@
           "color": "#f2c53a"
         }
       ]
+    },
+    "gl_map_9fd8e8": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M8 12 L24 7 L40 13 L56 8 L56 52 L40 57 L24 51 L8 56Z",
+          "color": "#e6d4a6"
+        },
+        {
+          "d": "M24 7 L40 13 L40 57 L24 51Z",
+          "color": "#000000",
+          "alpha": 0.12
+        },
+        {
+          "d": "M14 46 C20 38 26 44 30 36 C33 30 38 32 42 28",
+          "color": "#b8322a",
+          "line": 1.6
+        },
+        {
+          "d": "M39 20 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0Z",
+          "color": "#9fd8e8"
+        },
+        {
+          "d": "M42.5 18.5 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#ffffff",
+          "alpha": 0.5
+        }
+      ]
+    },
+    "gl_map_38b8b0": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M8 12 L24 7 L40 13 L56 8 L56 52 L40 57 L24 51 L8 56Z",
+          "color": "#e6d4a6"
+        },
+        {
+          "d": "M24 7 L40 13 L40 57 L24 51Z",
+          "color": "#000000",
+          "alpha": 0.12
+        },
+        {
+          "d": "M14 46 C20 38 26 44 30 36 C33 30 38 32 42 28",
+          "color": "#b8322a",
+          "line": 1.6
+        },
+        {
+          "d": "M39 20 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0Z",
+          "color": "#38b8b0"
+        },
+        {
+          "d": "M42.5 18.5 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#ffffff",
+          "alpha": 0.5
+        }
+      ]
+    },
+    "gl_map_c86ad6": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M8 12 L24 7 L40 13 L56 8 L56 52 L40 57 L24 51 L8 56Z",
+          "color": "#e6d4a6"
+        },
+        {
+          "d": "M24 7 L40 13 L40 57 L24 51Z",
+          "color": "#000000",
+          "alpha": 0.12
+        },
+        {
+          "d": "M14 46 C20 38 26 44 30 36 C33 30 38 32 42 28",
+          "color": "#b8322a",
+          "line": 1.6
+        },
+        {
+          "d": "M39 20 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0Z",
+          "color": "#c86ad6"
+        },
+        {
+          "d": "M42.5 18.5 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#ffffff",
+          "alpha": 0.5
+        }
+      ]
+    },
+    "gl_egg_skyreach": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#bfe3ef"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#bfe3ef"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#bfe3ef"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#bfe3ef"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_glasswaste": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#9fd8e8"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#9fd8e8"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#9fd8e8"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#9fd8e8"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_stormpeak": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#b88af0"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#b88af0"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#b88af0"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#b88af0"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_sunken": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#3a6a8a"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#3a6a8a"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#3a6a8a"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#3a6a8a"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_coral": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#e86a7a"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#e86a7a"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#e86a7a"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#e86a7a"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_tidevault": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#38b8b0"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#38b8b0"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#38b8b0"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#38b8b0"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_godhall": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_astral": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#5a62e0"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#5a62e0"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#5a62e0"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#5a62e0"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_egg_oblivion": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C44 4 52 24 52 38 C52 52 43 60 32 60 C21 60 12 52 12 38 C12 24 20 4 32 4Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M20.5 30 a4.5 4.5 0 1 0 9 0 a4.5 4.5 0 1 0 -9 0Z",
+          "color": "#3c3a44"
+        },
+        {
+          "d": "M35.5 44 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#3c3a44"
+        },
+        {
+          "d": "M35 18 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#3c3a44"
+        },
+        {
+          "d": "M19 48 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#3c3a44"
+        },
+        {
+          "d": "M20 22 C22 14 26 9 30 8 L30 11 C27 13 24 17 23 23Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
     }
   },
   "icons": {
@@ -29625,6 +29991,80 @@
     "equipment.KINGDOMGRINDER": "gl_u_kingdomgrinder",
     "equipment.BULWARK_OF_ENDLESS_DAWN": "gl_u_bulwark_of_endless_dawn",
     "equipment.CROWN_OF_SPORES_AND_ASH": "gl_u_crown_of_spores_and_ash",
-    "equipment.THE_CHARGED_HEART": "gl_u_the_charged_heart"
+    "equipment.THE_CHARGED_HEART": "gl_u_the_charged_heart",
+    "equipment.MAP_C7_SKY_LANDING": "gl_map_9fd8e8",
+    "equipment.MAP_C7_GLASS_DUNES": "gl_map_9fd8e8",
+    "equipment.MAP_C7_THUNDER_STEPS": "gl_map_9fd8e8",
+    "equipment.MAP_C7_BROKEN_BRIDGE": "gl_map_9fd8e8",
+    "equipment.MAP_C7_MIRROR_FLATS": "gl_map_9fd8e8",
+    "equipment.MAP_C7_LIGHTNING_SPIRE": "gl_map_9fd8e8",
+    "equipment.MAP_C7_WIND_TEMPLE": "gl_map_9fd8e8",
+    "equipment.MAP_C7_SHATTERED_CROWN": "gl_map_9fd8e8",
+    "equipment.MAP_C7_CLOUD_CITADEL": "gl_map_9fd8e8",
+    "equipment.MAP_C7_STORMWALL": "gl_map_9fd8e8",
+    "equipment.MAP_C7_PRISM_CANYON": "gl_map_9fd8e8",
+    "equipment.MAP_C7_FALLEN_ORRERY": "gl_map_9fd8e8",
+    "equipment.MAP_C7_EYE_OF_THE_STORM": "gl_map_9fd8e8",
+    "equipment.MAP_C7_SINGING_GLASS": "gl_map_9fd8e8",
+    "equipment.MAP_C7_SHATTERED_THRONE": "gl_map_9fd8e8",
+    "equipment.MAP_C8_SUNKEN_GATE": "gl_map_38b8b0",
+    "equipment.MAP_C8_CORAL_GARDENS": "gl_map_38b8b0",
+    "equipment.MAP_C8_TIDE_VAULTS": "gl_map_38b8b0",
+    "equipment.MAP_C8_DROWNED_FORUM": "gl_map_38b8b0",
+    "equipment.MAP_C8_PEARL_REEF": "gl_map_38b8b0",
+    "equipment.MAP_C8_FLOODED_AQUEDUCT": "gl_map_38b8b0",
+    "equipment.MAP_C8_LEGION_BARRACKS": "gl_map_38b8b0",
+    "equipment.MAP_C8_KELP_CATHEDRAL": "gl_map_38b8b0",
+    "equipment.MAP_C8_SEALED_CISTERN": "gl_map_38b8b0",
+    "equipment.MAP_C8_SUNKEN_MARKET": "gl_map_38b8b0",
+    "equipment.MAP_C8_BLEACHED_ATOLL": "gl_map_38b8b0",
+    "equipment.MAP_C8_TIDAL_ENGINE": "gl_map_38b8b0",
+    "equipment.MAP_C8_IMPERIAL_BATHS": "gl_map_38b8b0",
+    "equipment.MAP_C8_ABYSSAL_TRENCH": "gl_map_38b8b0",
+    "equipment.MAP_C8_DROWNED_THRONE": "gl_map_38b8b0",
+    "equipment.MAP_C9_GODS_THRESHOLD": "gl_map_c86ad6",
+    "equipment.MAP_C9_ASTRAL_SHORE": "gl_map_c86ad6",
+    "equipment.MAP_C9_FIELDS_OF_OBLIVION": "gl_map_c86ad6",
+    "equipment.MAP_C9_HALL_OF_JUDGEMENT": "gl_map_c86ad6",
+    "equipment.MAP_C9_CONSTELLATION_BRIDGE": "gl_map_c86ad6",
+    "equipment.MAP_C9_NAMELESS_ARCHIVE": "gl_map_c86ad6",
+    "equipment.MAP_C9_SUNFORGE": "gl_map_c86ad6",
+    "equipment.MAP_C9_ASTRAL_ORCHARD": "gl_map_c86ad6",
+    "equipment.MAP_C9_HOLLOW_PANTHEON": "gl_map_c86ad6",
+    "equipment.MAP_C9_HALL_OF_WAR": "gl_map_c86ad6",
+    "equipment.MAP_C9_STARLESS_VOID": "gl_map_c86ad6",
+    "equipment.MAP_C9_CELESTIAL_OBSERVATORY": "gl_map_c86ad6",
+    "equipment.MAP_C9_THRONE_ROAD": "gl_map_c86ad6",
+    "equipment.MAP_C9_EDGE_OF_NOTHING": "gl_map_c86ad6",
+    "equipment.MAP_C9_LAST_THRONE": "gl_map_c86ad6",
+    "item.PET_EGG_SKYREACH": "gl_egg_skyreach",
+    "item.PET_EGG_GLASSWASTE": "gl_egg_glasswaste",
+    "item.PET_EGG_STORMPEAK": "gl_egg_stormpeak",
+    "item.PET_EGG_SUNKEN": "gl_egg_sunken",
+    "item.PET_EGG_CORAL": "gl_egg_coral",
+    "item.PET_EGG_TIDEVAULT": "gl_egg_tidevault",
+    "item.PET_EGG_GODHALL": "gl_egg_godhall",
+    "item.PET_EGG_ASTRAL": "gl_egg_astral",
+    "item.PET_EGG_OBLIVION": "gl_egg_oblivion",
+    "item.ESSENCE_GREED_8": "gl_essence_greed_2",
+    "item.ESSENCE_CONTEMPT_8": "gl_essence_contempt_2",
+    "item.ESSENCE_HATRED_8": "gl_essence_hatred_2",
+    "item.ESSENCE_WOE_8": "gl_essence_woe_2",
+    "item.ESSENCE_FEAR_8": "gl_essence_fear_2",
+    "item.ESSENCE_ANGER_8": "gl_essence_anger_2",
+    "item.ESSENCE_TORMENT_8": "gl_essence_torment_2",
+    "item.ESSENCE_SORROW_8": "gl_essence_sorrow_2",
+    "item.ESSENCE_RAGE_8": "gl_essence_rage_2",
+    "item.ESSENCE_SUFFERING_8": "gl_essence_suffering_2",
+    "item.ESSENCE_WRATH_8": "gl_essence_wrath_2",
+    "item.ESSENCE_DOUBT_8": "gl_essence_doubt_2",
+    "item.ESSENCE_LOATHING_8": "gl_essence_loathing_2",
+    "item.ESSENCE_ZEAL_8": "gl_essence_zeal_2",
+    "item.ESSENCE_ANGUISH_8": "gl_essence_anguish_2",
+    "item.ESSENCE_SPITE_8": "gl_essence_spite_2",
+    "item.ESSENCE_SCORN_8": "gl_essence_scorn_2",
+    "item.ESSENCE_ENVY_8": "gl_essence_envy_2",
+    "item.ESSENCE_MISERY_8": "gl_essence_misery_2",
+    "item.ESSENCE_DREAD_8": "gl_essence_dread_2"
   }
 }

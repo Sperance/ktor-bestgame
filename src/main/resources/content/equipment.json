@@ -35053,6 +35053,366 @@
           }
         ]
       ]
+    },
+    {
+      "code": "MAP_C7_SKY_LANDING",
+      "slot": "MAP",
+      "level": 71,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_GLASS_DUNES",
+      "slot": "MAP",
+      "level": 71,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_THUNDER_STEPS",
+      "slot": "MAP",
+      "level": 71,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_BROKEN_BRIDGE",
+      "slot": "MAP",
+      "level": 73,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_MIRROR_FLATS",
+      "slot": "MAP",
+      "level": 73,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_LIGHTNING_SPIRE",
+      "slot": "MAP",
+      "level": 73,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_WIND_TEMPLE",
+      "slot": "MAP",
+      "level": 73,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_SHATTERED_CROWN",
+      "slot": "MAP",
+      "level": 75,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_CLOUD_CITADEL",
+      "slot": "MAP",
+      "level": 75,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_STORMWALL",
+      "slot": "MAP",
+      "level": 75,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_PRISM_CANYON",
+      "slot": "MAP",
+      "level": 75,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_FALLEN_ORRERY",
+      "slot": "MAP",
+      "level": 78,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_EYE_OF_THE_STORM",
+      "slot": "MAP",
+      "level": 78,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_SINGING_GLASS",
+      "slot": "MAP",
+      "level": 78,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C7_SHATTERED_THRONE",
+      "slot": "MAP",
+      "level": 80,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_SUNKEN_GATE",
+      "slot": "MAP",
+      "level": 81,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_CORAL_GARDENS",
+      "slot": "MAP",
+      "level": 81,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_TIDE_VAULTS",
+      "slot": "MAP",
+      "level": 81,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_DROWNED_FORUM",
+      "slot": "MAP",
+      "level": 83,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_PEARL_REEF",
+      "slot": "MAP",
+      "level": 83,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_FLOODED_AQUEDUCT",
+      "slot": "MAP",
+      "level": 83,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_LEGION_BARRACKS",
+      "slot": "MAP",
+      "level": 83,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_KELP_CATHEDRAL",
+      "slot": "MAP",
+      "level": 85,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_SEALED_CISTERN",
+      "slot": "MAP",
+      "level": 85,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_SUNKEN_MARKET",
+      "slot": "MAP",
+      "level": 85,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_BLEACHED_ATOLL",
+      "slot": "MAP",
+      "level": 85,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_TIDAL_ENGINE",
+      "slot": "MAP",
+      "level": 88,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_IMPERIAL_BATHS",
+      "slot": "MAP",
+      "level": 88,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_ABYSSAL_TRENCH",
+      "slot": "MAP",
+      "level": 88,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C8_DROWNED_THRONE",
+      "slot": "MAP",
+      "level": 90,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_GODS_THRESHOLD",
+      "slot": "MAP",
+      "level": 91,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_ASTRAL_SHORE",
+      "slot": "MAP",
+      "level": 91,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_FIELDS_OF_OBLIVION",
+      "slot": "MAP",
+      "level": 91,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_HALL_OF_JUDGEMENT",
+      "slot": "MAP",
+      "level": 93,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_CONSTELLATION_BRIDGE",
+      "slot": "MAP",
+      "level": 93,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_NAMELESS_ARCHIVE",
+      "slot": "MAP",
+      "level": 93,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_SUNFORGE",
+      "slot": "MAP",
+      "level": 93,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_ASTRAL_ORCHARD",
+      "slot": "MAP",
+      "level": 95,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_HOLLOW_PANTHEON",
+      "slot": "MAP",
+      "level": 95,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_HALL_OF_WAR",
+      "slot": "MAP",
+      "level": 95,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_STARLESS_VOID",
+      "slot": "MAP",
+      "level": 95,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_CELESTIAL_OBSERVATORY",
+      "slot": "MAP",
+      "level": 98,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_THRONE_ROAD",
+      "slot": "MAP",
+      "level": 98,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_EDGE_OF_NOTHING",
+      "slot": "MAP",
+      "level": 98,
+      "tables": [
+        "map"
+      ]
+    },
+    {
+      "code": "MAP_C9_LAST_THRONE",
+      "slot": "MAP",
+      "level": 100,
+      "tables": [
+        "map"
+      ]
     }
   ]
 }

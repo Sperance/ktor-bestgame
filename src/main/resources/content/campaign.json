@@ -4002,11 +4002,1521 @@
         "ABYSS_MOB_ENTROPIC",
         "ABYSS_MOB_UMBRAL"
       ]
+    },
+    {
+      "code": "STORM_HARPY",
+      "form": "BAT",
+      "experience": 28,
+      "loot": "loot:T7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.8,
+        "STOCK_HEALTH": 15.45,
+        "STOCK_ATTACK_PHYSICAL": 3.09,
+        "STOCK_ATTACK_LIGHTNING": 4.12,
+        "STOCK_EVASION": 40
+      }
+    },
+    {
+      "code": "GLASS_STALKER",
+      "form": "CRYSTAL",
+      "experience": 30,
+      "loot": "loot:T7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.4,
+        "STOCK_HEALTH": 22.66,
+        "STOCK_ATTACK_PHYSICAL": 6.18,
+        "STOCK_ATTACK_COLD": 3.09,
+        "STOCK_ARMOR": 40
+      }
+    },
+    {
+      "code": "SKY_SENTINEL",
+      "form": "CONSTRUCT",
+      "experience": 29,
+      "loot": "loot:T7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 35.02,
+        "STOCK_ATTACK_PHYSICAL": 7.21,
+        "STOCK_ARMOR": 80,
+        "STOCK_RESIST_ALL": 20
+      }
+    },
+    {
+      "code": "THUNDER_DRAKE",
+      "form": "DRAGON",
+      "experience": 27,
+      "loot": "loot:T7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 28.84,
+        "STOCK_ATTACK_LIGHTNING": 8.24,
+        "STOCK_RESIST_LIGHTNING": 60
+      }
+    },
+    {
+      "code": "SHARD_GOLEM",
+      "form": "GOLEM",
+      "experience": 27,
+      "loot": "loot:T7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 37.08,
+        "STOCK_ATTACK_PHYSICAL": 8.24,
+        "STOCK_ARMOR": 60
+      }
+    },
+    {
+      "code": "FALLEN_SERAPH",
+      "range": "RANGED",
+      "form": "ANGEL",
+      "experience": 27,
+      "loot": "loot:T7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 16.48,
+        "STOCK_ENERGY_SHIELD": 16,
+        "STOCK_ATTACK_LIGHTNING": 3.09,
+        "STOCK_ATTACK_MAGICAL": 5.15,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 45,
+        "STOCK_MANA_REGEN": 3
+      }
+    },
+    {
+      "code": "ZEPHYR_WRAITH",
+      "range": "RANGED",
+      "form": "WRAITH",
+      "experience": 27,
+      "loot": "loot:T7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.3,
+        "STOCK_HEALTH": 14.42,
+        "STOCK_ENERGY_SHIELD": 14,
+        "STOCK_ATTACK_COLD": 4.12,
+        "STOCK_ATTACK_MAGICAL": 4.63,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 40,
+        "STOCK_MANA_REGEN": 3
+      }
+    },
+    {
+      "code": "CORRUPTED_7",
+      "form": "ANGEL",
+      "experience": 290,
+      "loot": "loot:CORRUPT_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 200,
+        "STOCK_ATTACK_LIGHTNING": 22,
+        "STOCK_ENERGY_SHIELD": 80,
+        "STOCK_RESIST_LIGHTNING": 75
+      },
+      "corrupted": true,
+      "fixed": [
+        "MOB_SHOCKING",
+        "MOB_WARDED"
+      ]
+    },
+    {
+      "code": "BOSS_WIND_HERALD",
+      "form": "ANGEL",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 18.147,
+        "STOCK_ENERGY_SHIELD": 12.214,
+        "STOCK_ATTACK_COLD": 3.138,
+        "STOCK_RESIST_COLD": 70,
+        "STOCK_ATTACK_MAGICAL": 2.095,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ICE_BOLT"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_CHILLING"
+      ]
+    },
+    {
+      "code": "BOSS_GLASS_MATRIARCH",
+      "form": "CRYSTAL",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 3.676,
+        "STOCK_ATTACK_FIRE": 1.734,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_EVASION": 70,
+        "STOCK_CRITICAL_CHANCE": 10,
+        "STOCK_MOVEMENT_SPEED": 15,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_FLAMING"
+      ]
+    },
+    {
+      "code": "BOSS_THUNDER_WYRM",
+      "form": "DRAGON",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.15,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 2.647,
+        "STOCK_ARMOR": 50,
+        "STOCK_HEALTH_REGEN": 0.428,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_STRONG"
+      ]
+    },
+    {
+      "code": "BOSS_BRIDGE_KEEPER",
+      "form": "CONSTRUCT",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 2.377,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_STEADFAST"
+      ]
+    },
+    {
+      "code": "BOSS_MIRROR_KNIGHT",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 3.451,
+        "STOCK_CRITICAL_CHANCE": 8,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_EVASIVE"
+      ]
+    },
+    {
+      "code": "BOSS_SPIRE_TYRANT",
+      "form": "GOLEM",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 2.303,
+        "STOCK_ATTACK_FIRE": 1.045,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_JUGGERNAUT"
+      ]
+    },
+    {
+      "code": "BOSS_BELL_WARDEN",
+      "form": "CONSTRUCT",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 2.477,
+        "STOCK_ATTACK_FIRE": 1.12,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_FIREPROOF"
+      ]
+    },
+    {
+      "code": "BOSS_CROWN_SHARD",
+      "form": "CRYSTAL",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 3.491,
+        "STOCK_EVASION": 70,
+        "STOCK_CRITICAL_CHANCE": 10,
+        "STOCK_MOVEMENT_SPEED": 15,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_SWIFT"
+      ]
+    },
+    {
+      "code": "BOSS_CLOUD_MARSHAL",
+      "form": "ANGEL",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 19.085,
+        "STOCK_ENERGY_SHIELD": 11.276,
+        "STOCK_ATTACK_LIGHTNING": 2.6,
+        "STOCK_RESIST_LIGHTNING": 70,
+        "STOCK_ATTACK_MAGICAL": 2.034,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ZAP",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
+      ]
+    },
+    {
+      "code": "BOSS_STORM_TITAN",
+      "form": "BRUTE",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 3.105,
+        "STOCK_ATTACK_FIRE": 3.105,
+        "STOCK_RESIST_FIRE": 60,
+        "STOCK_IGNITE_CHANCE": 25,
+        "STOCK_PENETRATE_ELEMENTAL": 10,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "MOB_BURNING",
+        "BOSS_WARLORD"
+      ]
+    },
+    {
+      "code": "BOSS_PRISM_HUNTER",
+      "form": "CRYSTAL",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 4.718,
+        "STOCK_EVASION": 80,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MOVEMENT_SPEED": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "MOB_HASTED",
+        "BOSS_EXECUTIONER"
+      ]
+    },
+    {
+      "code": "BOSS_ORRERY_ENGINE",
+      "form": "CONSTRUCT",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 30.361,
+        "STOCK_ATTACK_PHYSICAL": 2.303,
+        "STOCK_ATTACK_FIRE": 1.045,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_JUGGERNAUT"
+      ]
+    },
+    {
+      "code": "BOSS_STILL_EYE",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 19.085,
+        "STOCK_ENERGY_SHIELD": 11.276,
+        "STOCK_ATTACK_LIGHTNING": 2.6,
+        "STOCK_RESIST_LIGHTNING": 70,
+        "STOCK_ATTACK_MAGICAL": 2.034,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ZAP",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
+      ]
+    },
+    {
+      "code": "BOSS_GLASS_CHOIR",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 18.147,
+        "STOCK_ENERGY_SHIELD": 12.214,
+        "STOCK_ATTACK_COLD": 3.138,
+        "STOCK_RESIST_COLD": 70,
+        "STOCK_ATTACK_MAGICAL": 2.095,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ICE_BOLT"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_CHILLING"
+      ]
+    },
+    {
+      "code": "BOSS_SKY_SOVEREIGN",
+      "form": "DRAGON",
+      "experience": 60,
+      "loot": "loot:BOSS_7",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.15,
+        "STOCK_HEALTH": 34.916,
+        "STOCK_ATTACK_PHYSICAL": 2.397,
+        "STOCK_ATTACK_CHAOS": 1.675,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_ARMOR": 50,
+        "STOCK_HEALTH_REGEN": 0.346,
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_RESIST_ALL": 15,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "BOSS_DREAD"
+      ],
+      "tables": [
+        "boss:BOSS_SKY_SOVEREIGN"
+      ]
+    },
+    {
+      "code": "DROWNED_LEGIONARY",
+      "form": "UNDEAD",
+      "experience": 30,
+      "loot": "loot:T8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 32.1,
+        "STOCK_ATTACK_PHYSICAL": 7.49,
+        "STOCK_ARMOR": 60,
+        "STOCK_BLOCK_CHANCE": 20
+      }
+    },
+    {
+      "code": "CORAL_BEHEMOTH",
+      "form": "CRAB",
+      "experience": 32,
+      "loot": "loot:T8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 40.66,
+        "STOCK_ATTACK_PHYSICAL": 8.56,
+        "STOCK_ARMOR": 90
+      }
+    },
+    {
+      "code": "ABYSSAL_EEL",
+      "form": "SERPENT",
+      "experience": 29,
+      "loot": "loot:T8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 21.4,
+        "STOCK_ATTACK_LIGHTNING": 6.42,
+        "STOCK_EVASION": 40
+      }
+    },
+    {
+      "code": "TIDE_CONSTRUCT",
+      "form": "CONSTRUCT",
+      "experience": 32,
+      "loot": "loot:T8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 38.52,
+        "STOCK_ATTACK_COLD": 7.49,
+        "STOCK_ARMOR": 70,
+        "STOCK_RESIST_COLD": 60
+      }
+    },
+    {
+      "code": "PEARL_SIREN",
+      "range": "RANGED",
+      "form": "ANGEL",
+      "experience": 29,
+      "loot": "loot:T8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 17.12,
+        "STOCK_ENERGY_SHIELD": 18,
+        "STOCK_ATTACK_COLD": 3.21,
+        "STOCK_ATTACK_MAGICAL": 5.89,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 45,
+        "STOCK_MANA_REGEN": 3
+      }
+    },
+    {
+      "code": "DEEP_LURKER",
+      "form": "SLUG",
+      "experience": 29,
+      "loot": "loot:T8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 36.38,
+        "STOCK_ATTACK_CHAOS": 6.42,
+        "STOCK_RESIST_CHAOS": 50,
+        "STOCK_HEALTH_REGEN": 1.5
+      }
+    },
+    {
+      "code": "BRINE_DRAKE",
+      "form": "DRAGON",
+      "experience": 32,
+      "loot": "loot:T8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 32.1,
+        "STOCK_ATTACK_COLD": 8.56,
+        "STOCK_RESIST_COLD": 60
+      }
+    },
+    {
+      "code": "CORRUPTED_8",
+      "form": "SERPENT",
+      "experience": 310,
+      "loot": "loot:CORRUPT_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 230,
+        "STOCK_ATTACK_COLD": 24,
+        "STOCK_ARMOR": 120,
+        "STOCK_RESIST_COLD": 75
+      },
+      "corrupted": true,
+      "fixed": [
+        "MOB_FREEZING",
+        "MOB_STURDY"
+      ]
+    },
+    {
+      "code": "BOSS_GATE_PRAETOR",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 3.209,
+        "STOCK_ATTACK_COLD": 2.136,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_LEECH_ALL": 3,
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_DRAINING"
+      ]
+    },
+    {
+      "code": "BOSS_CORAL_QUEEN",
+      "form": "CRAB",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 3.82,
+        "STOCK_ARMOR": 55,
+        "STOCK_BLOCK_CHANCE": 20,
+        "STOCK_STUN_THRESHOLD": 10,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_STRONG"
+      ]
+    },
+    {
+      "code": "BOSS_VAULT_WARDEN",
+      "form": "CONSTRUCT",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.392,
+        "STOCK_ATTACK_FIRE": 1.085,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "MOB_JUGGERNAUT"
+      ]
+    },
+    {
+      "code": "BOSS_DROWNED_ORATOR",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.757,
+        "STOCK_BLOCK_CHANCE": 20,
+        "STOCK_ARMOR": 40,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_CRUSHING"
+      ]
+    },
+    {
+      "code": "BOSS_PEARL_EATER",
+      "form": "SERPENT",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.565,
+        "STOCK_ATTACK_CHAOS": 2.252,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_TOXIC"
+      ]
+    },
+    {
+      "code": "BOSS_AQUEDUCT_HORROR",
+      "form": "SLUG",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.14,
+        "STOCK_HEALTH_REGEN": 0.474,
+        "STOCK_ARMOR": 40,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_HUNGERING"
+      ]
+    },
+    {
+      "code": "BOSS_LEGION_TRIBUNE",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.997,
+        "STOCK_ATTACK_LIGHTNING": 1.797,
+        "STOCK_RESIST_LIGHTNING": 40,
+        "STOCK_CRITICAL_CHANCE": 8,
+        "STOCK_ATTACK_MAGICAL": 2.085,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
+      ]
+    },
+    {
+      "code": "BOSS_KELP_PRIEST",
+      "form": "ANGEL",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 19.708,
+        "STOCK_ENERGY_SHIELD": 11.832,
+        "STOCK_ATTACK_CHAOS": 2.414,
+        "STOCK_RESIST_CHAOS": 70,
+        "STOCK_ATTACK_MAGICAL": 1.877,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_POISON_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SPIT",
+        "MOB_HEAL"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_WITHERING"
+      ]
+    },
+    {
+      "code": "BOSS_CISTERN_THING",
+      "form": "DEMON",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.15,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.748,
+        "STOCK_ATTACK_FIRE": 1.928,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 50,
+        "STOCK_HEALTH_REGEN": 0.424,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_WARDED"
+      ]
+    },
+    {
+      "code": "BOSS_MARKET_BARON",
+      "form": "BRUTE",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.265,
+        "STOCK_ATTACK_CHAOS": 1.026,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_HEALTH_REGEN": 0.459,
+        "STOCK_STUN_THRESHOLD": 15,
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_WITHERING"
+      ]
+    },
+    {
+      "code": "BOSS_ATOLL_MAW",
+      "form": "SERPENT",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.193,
+        "STOCK_ATTACK_COLD": 1.907,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_CHILLING"
+      ]
+    },
+    {
+      "code": "BOSS_TIDE_ENGINEER",
+      "form": "CONSTRUCT",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.621,
+        "STOCK_ATTACK_LIGHTNING": 1.2,
+        "STOCK_RESIST_LIGHTNING": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_JUGGERNAUT"
+      ]
+    },
+    {
+      "code": "BOSS_BATH_MATRON",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 18.852,
+        "STOCK_ENERGY_SHIELD": 12.688,
+        "STOCK_ATTACK_COLD": 3.26,
+        "STOCK_RESIST_COLD": 70,
+        "STOCK_ATTACK_MAGICAL": 2.177,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ICE_BOLT"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_CHILLING"
+      ]
+    },
+    {
+      "code": "BOSS_TRENCH_DRAKE",
+      "form": "DRAGON",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.15,
+        "STOCK_HEALTH": 31.54,
+        "STOCK_ATTACK_PHYSICAL": 2.727,
+        "STOCK_ATTACK_LIGHTNING": 1.907,
+        "STOCK_RESIST_LIGHTNING": 40,
+        "STOCK_ARMOR": 50,
+        "STOCK_HEALTH_REGEN": 0.411,
+        "STOCK_SHOCK_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_STORMBORN"
+      ]
+    },
+    {
+      "code": "BOSS_DROWNED_EMPEROR",
+      "form": "UNDEAD",
+      "experience": 60,
+      "loot": "loot:BOSS_8",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 36.271,
+        "STOCK_ATTACK_PHYSICAL": 2.576,
+        "STOCK_ATTACK_FIRE": 1.724,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_LEECH_ALL": 3,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_RESIST_ALL": 15,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "BOSS_DREAD",
+        "BOSS_WARLORD"
+      ],
+      "tables": [
+        "boss:BOSS_DROWNED_EMPEROR"
+      ]
+    },
+    {
+      "code": "DIVINE_WARDEN",
+      "form": "CONSTRUCT",
+      "experience": 31,
+      "loot": "loot:T9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.9,
+        "STOCK_HEALTH": 42.18,
+        "STOCK_ATTACK_PHYSICAL": 6.66,
+        "STOCK_ATTACK_FIRE": 3.33,
+        "STOCK_ARMOR": 90,
+        "STOCK_RESIST_ALL": 25
+      }
+    },
+    {
+      "code": "ASTRAL_BEAST",
+      "form": "CRYSTAL",
+      "experience": 31,
+      "loot": "loot:T9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.5,
+        "STOCK_HEALTH": 26.64,
+        "STOCK_ATTACK_PHYSICAL": 5.55,
+        "STOCK_ATTACK_LIGHTNING": 4.44,
+        "STOCK_EVASION": 50
+      }
+    },
+    {
+      "code": "GODSWORN_ZEALOT",
+      "form": "HUMANOID",
+      "experience": 33,
+      "loot": "loot:T9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.3,
+        "STOCK_HEALTH": 31.08,
+        "STOCK_ATTACK_PHYSICAL": 6.66,
+        "STOCK_ATTACK_FIRE": 4.44,
+        "STOCK_BLOCK_CHANCE": 20
+      }
+    },
+    {
+      "code": "OBLIVION_SHADE",
+      "range": "RANGED",
+      "form": "WRAITH",
+      "experience": 34,
+      "loot": "loot:T9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 17.76,
+        "STOCK_ENERGY_SHIELD": 18,
+        "STOCK_ATTACK_CHAOS": 4.44,
+        "STOCK_ATTACK_MAGICAL": 6.11,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 45,
+        "STOCK_MANA_REGEN": 3,
+        "STOCK_RESIST_CHAOS": 60
+      }
+    },
+    {
+      "code": "STAR_DRAGON",
+      "form": "DRAGON",
+      "experience": 32,
+      "loot": "loot:T9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 37.74,
+        "STOCK_ATTACK_FIRE": 5.55,
+        "STOCK_ATTACK_LIGHTNING": 5.55,
+        "STOCK_RESIST_ALL": 20
+      }
+    },
+    {
+      "code": "FALLEN_ARCHON",
+      "range": "RANGED",
+      "form": "ANGEL",
+      "experience": 33,
+      "loot": "loot:T9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 19.98,
+        "STOCK_ENERGY_SHIELD": 20,
+        "STOCK_ATTACK_FIRE": 3.33,
+        "STOCK_ATTACK_MAGICAL": 6.66,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 50,
+        "STOCK_MANA_REGEN": 3
+      }
+    },
+    {
+      "code": "VOID_TITAN",
+      "form": "BRUTE",
+      "experience": 31,
+      "loot": "loot:T9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 46.62,
+        "STOCK_ATTACK_PHYSICAL": 7.77,
+        "STOCK_ATTACK_CHAOS": 4.44,
+        "STOCK_RESIST_CHAOS": 60
+      }
+    },
+    {
+      "code": "CORRUPTED_9",
+      "form": "CONSTRUCT",
+      "experience": 330,
+      "loot": "loot:CORRUPT_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 260,
+        "STOCK_ATTACK_FIRE": 16,
+        "STOCK_ATTACK_CHAOS": 12,
+        "STOCK_ENERGY_SHIELD": 90,
+        "STOCK_RESIST_ALL": 30
+      },
+      "corrupted": true,
+      "fixed": [
+        "MOB_BURNING",
+        "MOB_UNDYING"
+      ]
+    },
+    {
+      "code": "BOSS_THRESHOLD_GUARDIAN",
+      "form": "CONSTRUCT",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 2.482,
+        "STOCK_ATTACK_CHAOS": 1.125,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_PLAGUEBEARER",
+        "MOB_TOXIC"
+      ]
+    },
+    {
+      "code": "BOSS_STAR_TIDE",
+      "form": "CRYSTAL",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 4.262,
+        "STOCK_EVASION": 70,
+        "STOCK_CRITICAL_CHANCE": 10,
+        "STOCK_MOVEMENT_SPEED": 15,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_BERSERK"
+      ]
+    },
+    {
+      "code": "BOSS_FORGETTING",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 20.426,
+        "STOCK_ENERGY_SHIELD": 12.294,
+        "STOCK_ATTACK_COLD": 2.324,
+        "STOCK_RESIST_COLD": 70,
+        "STOCK_ATTACK_MAGICAL": 1.79,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ICE_BOLT",
+        "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_MIRRORED"
+      ]
+    },
+    {
+      "code": "BOSS_JUDGE_OF_SOULS",
+      "form": "ANGEL",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 19.557,
+        "STOCK_ENERGY_SHIELD": 13.163,
+        "STOCK_ATTACK_COLD": 3.382,
+        "STOCK_RESIST_COLD": 70,
+        "STOCK_ATTACK_MAGICAL": 2.258,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ICE_BOLT"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_CHILLING"
+      ]
+    },
+    {
+      "code": "BOSS_CONSTELLATION_BEAST",
+      "form": "CRYSTAL",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.6,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 4.262,
+        "STOCK_EVASION": 70,
+        "STOCK_CRITICAL_CHANCE": 10,
+        "STOCK_MOVEMENT_SPEED": 15,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_VULNERABILITY"
+      ],
+      "fixed": [
+        "BOSS_EXECUTIONER",
+        "MOB_BERSERK"
+      ]
+    },
+    {
+      "code": "BOSS_ARCHIVIST",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 20.568,
+        "STOCK_ENERGY_SHIELD": 12.152,
+        "STOCK_ATTACK_LIGHTNING": 2.801,
+        "STOCK_RESIST_LIGHTNING": 70,
+        "STOCK_ATTACK_MAGICAL": 2.192,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ZAP",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_SHOCKING"
+      ]
+    },
+    {
+      "code": "BOSS_SUN_SMITH",
+      "form": "CONSTRUCT",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 0.8,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 2.67,
+        "STOCK_ATTACK_FIRE": 1.207,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 90,
+        "STOCK_BLOCK_CHANCE": 25,
+        "STOCK_STUN_THRESHOLD": 22,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_STONESKIN"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_FIREPROOF"
+      ]
+    },
+    {
+      "code": "BOSS_ORCHARD_KEEPER",
+      "form": "ANGEL",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 19.557,
+        "STOCK_ENERGY_SHIELD": 13.163,
+        "STOCK_ATTACK_COLD": 3.382,
+        "STOCK_RESIST_COLD": 70,
+        "STOCK_ATTACK_MAGICAL": 2.258,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ICE_BOLT"
+      ],
+      "fixed": [
+        "BOSS_DREAD",
+        "MOB_CHILLING"
+      ]
+    },
+    {
+      "code": "BOSS_HOLLOW_GOD",
+      "form": "DEMON",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.15,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 2.794,
+        "STOCK_ARMOR": 50,
+        "STOCK_HEALTH_REGEN": 0.412,
+        "STOCK_BLEED_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_ENFEEBLE"
+      ],
+      "fixed": [
+        "BOSS_WARLORD",
+        "MOB_RELENTLESS"
+      ]
+    },
+    {
+      "code": "BOSS_WAR_AVATAR",
+      "form": "HUMANOID",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.1,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 3.129,
+        "STOCK_ATTACK_COLD": 1.88,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_CRITICAL_CHANCE": 8,
+        "STOCK_ATTACK_MAGICAL": 2.19,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_FREEZE_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_MIRROR_SHELL",
+        "MOB_ARCANE"
+      ]
+    },
+    {
+      "code": "BOSS_VOID_MOTHER",
+      "form": "SPIDER",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.4,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 2.362,
+        "STOCK_ATTACK_CHAOS": 3.04,
+        "STOCK_RESIST_CHAOS": 40,
+        "STOCK_CRITICAL_CHANCE": 12,
+        "STOCK_POISON_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SPIT",
+        "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_DEVASTATING",
+        "MOB_BLIGHTED"
+      ]
+    },
+    {
+      "code": "BOSS_STARGAZER",
+      "form": "DRAGON",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.15,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 2.879,
+        "STOCK_ATTACK_FIRE": 2.002,
+        "STOCK_RESIST_FIRE": 40,
+        "STOCK_ARMOR": 50,
+        "STOCK_HEALTH_REGEN": 0.476,
+        "STOCK_IGNITE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM",
+        "MOB_WARCRY"
+      ],
+      "fixed": [
+        "BOSS_SIEGE",
+        "MOB_FIREPROOF"
+      ]
+    },
+    {
+      "code": "BOSS_CROWN_COLLECTOR",
+      "form": "BRUTE",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.0,
+        "STOCK_HEALTH": 32.719,
+        "STOCK_ATTACK_PHYSICAL": 2.582,
+        "STOCK_ATTACK_COLD": 1.164,
+        "STOCK_RESIST_COLD": 40,
+        "STOCK_HEALTH_REGEN": 0.793,
+        "STOCK_STUN_THRESHOLD": 15,
+        "STOCK_FREEZE_CHANCE": 20,
+        "STOCK_MANA": 30
+      },
+      "boss": true,
+      "skills": [
+        "MOB_SLAM"
+      ],
+      "fixed": [
+        "BOSS_COLOSSAL",
+        "MOB_REGENERATING"
+      ]
+    },
+    {
+      "code": "BOSS_NOTHING_WALKER",
+      "form": "WRAITH",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 20.488,
+        "STOCK_ENERGY_SHIELD": 12.231,
+        "STOCK_ATTACK_LIGHTNING": 2.54,
+        "STOCK_RESIST_LIGHTNING": 70,
+        "STOCK_ATTACK_MAGICAL": 1.987,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 55,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ZAP",
+        "MOB_MANA_DRAIN"
+      ],
+      "fixed": [
+        "BOSS_TEMPEST",
+        "MOB_STORMBORN"
+      ]
+    },
+    {
+      "code": "BOSS_LAST_GOD",
+      "form": "ANGEL",
+      "experience": 60,
+      "loot": "loot:BOSS_9",
+      "stats": {
+        "STOCK_ATTACK_SPEED": 1.2,
+        "STOCK_HEALTH": 23.556,
+        "STOCK_ENERGY_SHIELD": 14.071,
+        "STOCK_ATTACK_LIGHTNING": 2.843,
+        "STOCK_RESIST_LIGHTNING": 70,
+        "STOCK_ATTACK_MAGICAL": 2.202,
+        "STOCK_CAST_SPEED": 1.0,
+        "STOCK_MANA": 60,
+        "STOCK_MANA_REGEN": 4,
+        "STOCK_SHOCK_CHANCE": 20
+      },
+      "boss": true,
+      "skills": [
+        "MOB_ZAP"
+      ],
+      "fixed": [
+        "BOSS_IMMORTAL",
+        "BOSS_DREAD",
+        "BOSS_TEMPEST"
+      ],
+      "tables": [
+        "boss:BOSS_LAST_GOD"
+      ]
     }
   ],
   "world": {
     "width": 1100,
-    "height": 5500
+    "height": 8280
   },
   "regions": [
     {
@@ -6950,6 +8460,1291 @@
           "chestLoot": "loot:CHEST_6",
           "boss": "BOSS_ABYSS_KING",
           "corrupted": "CORRUPTED_6",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "REGION_7",
+      "label": {
+        "x": 880,
+        "y": 5410
+      },
+      "zones": [
+        {
+          "code": "C7_SKY_LANDING",
+          "biome": "SKYREACH",
+          "level": 71,
+          "x": 298,
+          "y": 5483,
+          "from": [
+            "C6_ABYSSAL_THRONE"
+          ],
+          "monsters": [
+            "STORM_HARPY",
+            "FALLEN_SERAPH",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_WIND_HERALD",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_GLASS_DUNES",
+          "biome": "GLASSWASTE",
+          "level": 71,
+          "x": 522,
+          "y": 5486,
+          "from": [
+            "C6_ABYSSAL_THRONE"
+          ],
+          "monsters": [
+            "GLASS_STALKER",
+            "SHARD_GOLEM",
+            "SKY_SENTINEL"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_GLASS_MATRIARCH",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_THUNDER_STEPS",
+          "biome": "STORMPEAK",
+          "level": 71,
+          "x": 753,
+          "y": 5482,
+          "from": [
+            "C6_ABYSSAL_THRONE"
+          ],
+          "monsters": [
+            "THUNDER_DRAKE",
+            "SKY_SENTINEL",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_THUNDER_WYRM",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_BROKEN_BRIDGE",
+          "biome": "SKYREACH",
+          "level": 73,
+          "x": 229,
+          "y": 5622,
+          "from": [
+            "C7_SKY_LANDING"
+          ],
+          "monsters": [
+            "STORM_HARPY",
+            "FALLEN_SERAPH",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_BRIDGE_KEEPER",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_MIRROR_FLATS",
+          "biome": "GLASSWASTE",
+          "level": 73,
+          "x": 433,
+          "y": 5623,
+          "from": [
+            "C7_SKY_LANDING",
+            "C7_GLASS_DUNES"
+          ],
+          "monsters": [
+            "GLASS_STALKER",
+            "SHARD_GOLEM",
+            "SKY_SENTINEL"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_MIRROR_KNIGHT",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_LIGHTNING_SPIRE",
+          "biome": "STORMPEAK",
+          "level": 73,
+          "x": 633,
+          "y": 5624,
+          "from": [
+            "C7_GLASS_DUNES",
+            "C7_THUNDER_STEPS"
+          ],
+          "monsters": [
+            "THUNDER_DRAKE",
+            "SKY_SENTINEL",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_SPIRE_TYRANT",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_WIND_TEMPLE",
+          "biome": "SKYREACH",
+          "level": 73,
+          "x": 844,
+          "y": 5619,
+          "from": [
+            "C7_THUNDER_STEPS"
+          ],
+          "monsters": [
+            "STORM_HARPY",
+            "FALLEN_SERAPH",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_BELL_WARDEN",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_SHATTERED_CROWN",
+          "biome": "GLASSWASTE",
+          "level": 75,
+          "x": 223,
+          "y": 5764,
+          "from": [
+            "C7_BROKEN_BRIDGE",
+            "C7_MIRROR_FLATS"
+          ],
+          "monsters": [
+            "GLASS_STALKER",
+            "SHARD_GOLEM",
+            "SKY_SENTINEL"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_CROWN_SHARD",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_CLOUD_CITADEL",
+          "biome": "SKYREACH",
+          "level": 75,
+          "x": 437,
+          "y": 5770,
+          "from": [
+            "C7_BROKEN_BRIDGE",
+            "C7_MIRROR_FLATS",
+            "C7_LIGHTNING_SPIRE"
+          ],
+          "monsters": [
+            "STORM_HARPY",
+            "FALLEN_SERAPH",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_CLOUD_MARSHAL",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_STORMWALL",
+          "biome": "STORMPEAK",
+          "level": 75,
+          "x": 631,
+          "y": 5776,
+          "from": [
+            "C7_MIRROR_FLATS",
+            "C7_LIGHTNING_SPIRE",
+            "C7_WIND_TEMPLE"
+          ],
+          "monsters": [
+            "THUNDER_DRAKE",
+            "SKY_SENTINEL",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_STORM_TITAN",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_PRISM_CANYON",
+          "biome": "GLASSWASTE",
+          "level": 75,
+          "x": 847,
+          "y": 5767,
+          "from": [
+            "C7_LIGHTNING_SPIRE",
+            "C7_WIND_TEMPLE"
+          ],
+          "monsters": [
+            "GLASS_STALKER",
+            "SHARD_GOLEM",
+            "SKY_SENTINEL"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_PRISM_HUNTER",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_FALLEN_ORRERY",
+          "biome": "SKYREACH",
+          "level": 78,
+          "x": 308,
+          "y": 5911,
+          "from": [
+            "C7_SHATTERED_CROWN",
+            "C7_CLOUD_CITADEL"
+          ],
+          "monsters": [
+            "STORM_HARPY",
+            "FALLEN_SERAPH",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_ORRERY_ENGINE",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_EYE_OF_THE_STORM",
+          "biome": "STORMPEAK",
+          "level": 78,
+          "x": 526,
+          "y": 5918,
+          "from": [
+            "C7_CLOUD_CITADEL",
+            "C7_STORMWALL"
+          ],
+          "monsters": [
+            "THUNDER_DRAKE",
+            "SKY_SENTINEL",
+            "ZEPHYR_WRAITH"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_STILL_EYE",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_SINGING_GLASS",
+          "biome": "GLASSWASTE",
+          "level": 78,
+          "x": 768,
+          "y": 5914,
+          "from": [
+            "C7_STORMWALL",
+            "C7_PRISM_CANYON"
+          ],
+          "monsters": [
+            "GLASS_STALKER",
+            "SHARD_GOLEM",
+            "SKY_SENTINEL"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_GLASS_CHOIR",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C7_SHATTERED_THRONE",
+          "biome": "STORMPEAK",
+          "level": 80,
+          "x": 524,
+          "y": 6052,
+          "from": [
+            "C7_FALLEN_ORRERY",
+            "C7_EYE_OF_THE_STORM"
+          ],
+          "finale": true,
+          "monsters": [
+            "THUNDER_DRAKE",
+            "SKY_SENTINEL",
+            "ZEPHYR_WRAITH",
+            "SHARD_GOLEM"
+          ],
+          "count": [
+            46,
+            60
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_7",
+          "boss": "BOSS_SKY_SOVEREIGN",
+          "corrupted": "CORRUPTED_7",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "REGION_8",
+      "label": {
+        "x": 880,
+        "y": 6310
+      },
+      "zones": [
+        {
+          "code": "C8_SUNKEN_GATE",
+          "biome": "SUNKEN",
+          "level": 81,
+          "x": 303,
+          "y": 6375,
+          "from": [
+            "C7_SHATTERED_THRONE"
+          ],
+          "monsters": [
+            "DROWNED_LEGIONARY",
+            "DEEP_LURKER",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_GATE_PRAETOR",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_CORAL_GARDENS",
+          "biome": "CORAL",
+          "level": 81,
+          "x": 536,
+          "y": 6372,
+          "from": [
+            "C7_SHATTERED_THRONE"
+          ],
+          "monsters": [
+            "CORAL_BEHEMOTH",
+            "PEARL_SIREN",
+            "ABYSSAL_EEL"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_CORAL_QUEEN",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_TIDE_VAULTS",
+          "biome": "TIDEVAULT",
+          "level": 81,
+          "x": 767,
+          "y": 6379,
+          "from": [
+            "C7_SHATTERED_THRONE"
+          ],
+          "monsters": [
+            "TIDE_CONSTRUCT",
+            "ABYSSAL_EEL",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_VAULT_WARDEN",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_DROWNED_FORUM",
+          "biome": "SUNKEN",
+          "level": 83,
+          "x": 233,
+          "y": 6530,
+          "from": [
+            "C8_SUNKEN_GATE"
+          ],
+          "monsters": [
+            "DROWNED_LEGIONARY",
+            "DEEP_LURKER",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_DROWNED_ORATOR",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_PEARL_REEF",
+          "biome": "CORAL",
+          "level": 83,
+          "x": 425,
+          "y": 6531,
+          "from": [
+            "C8_SUNKEN_GATE",
+            "C8_CORAL_GARDENS"
+          ],
+          "monsters": [
+            "CORAL_BEHEMOTH",
+            "PEARL_SIREN",
+            "ABYSSAL_EEL"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_PEARL_EATER",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_FLOODED_AQUEDUCT",
+          "biome": "TIDEVAULT",
+          "level": 83,
+          "x": 649,
+          "y": 6528,
+          "from": [
+            "C8_CORAL_GARDENS",
+            "C8_TIDE_VAULTS"
+          ],
+          "monsters": [
+            "TIDE_CONSTRUCT",
+            "ABYSSAL_EEL",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_AQUEDUCT_HORROR",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_LEGION_BARRACKS",
+          "biome": "SUNKEN",
+          "level": 83,
+          "x": 849,
+          "y": 6527,
+          "from": [
+            "C8_TIDE_VAULTS"
+          ],
+          "monsters": [
+            "DROWNED_LEGIONARY",
+            "DEEP_LURKER",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_LEGION_TRIBUNE",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_KELP_CATHEDRAL",
+          "biome": "CORAL",
+          "level": 85,
+          "x": 221,
+          "y": 6668,
+          "from": [
+            "C8_DROWNED_FORUM",
+            "C8_PEARL_REEF"
+          ],
+          "monsters": [
+            "CORAL_BEHEMOTH",
+            "PEARL_SIREN",
+            "ABYSSAL_EEL"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_KELP_PRIEST",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_SEALED_CISTERN",
+          "biome": "TIDEVAULT",
+          "level": 85,
+          "x": 425,
+          "y": 6672,
+          "from": [
+            "C8_DROWNED_FORUM",
+            "C8_PEARL_REEF",
+            "C8_FLOODED_AQUEDUCT"
+          ],
+          "monsters": [
+            "TIDE_CONSTRUCT",
+            "ABYSSAL_EEL",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_CISTERN_THING",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_SUNKEN_MARKET",
+          "biome": "SUNKEN",
+          "level": 85,
+          "x": 632,
+          "y": 6678,
+          "from": [
+            "C8_PEARL_REEF",
+            "C8_FLOODED_AQUEDUCT",
+            "C8_LEGION_BARRACKS"
+          ],
+          "monsters": [
+            "DROWNED_LEGIONARY",
+            "DEEP_LURKER",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_MARKET_BARON",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_BLEACHED_ATOLL",
+          "biome": "CORAL",
+          "level": 85,
+          "x": 856,
+          "y": 6665,
+          "from": [
+            "C8_FLOODED_AQUEDUCT",
+            "C8_LEGION_BARRACKS"
+          ],
+          "monsters": [
+            "CORAL_BEHEMOTH",
+            "PEARL_SIREN",
+            "ABYSSAL_EEL"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_ATOLL_MAW",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_TIDAL_ENGINE",
+          "biome": "TIDEVAULT",
+          "level": 88,
+          "x": 296,
+          "y": 6822,
+          "from": [
+            "C8_KELP_CATHEDRAL",
+            "C8_SEALED_CISTERN"
+          ],
+          "monsters": [
+            "TIDE_CONSTRUCT",
+            "ABYSSAL_EEL",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_TIDE_ENGINEER",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_IMPERIAL_BATHS",
+          "biome": "SUNKEN",
+          "level": 88,
+          "x": 520,
+          "y": 6821,
+          "from": [
+            "C8_SEALED_CISTERN",
+            "C8_SUNKEN_MARKET"
+          ],
+          "monsters": [
+            "DROWNED_LEGIONARY",
+            "DEEP_LURKER",
+            "BRINE_DRAKE"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_BATH_MATRON",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_ABYSSAL_TRENCH",
+          "biome": "CORAL",
+          "level": 88,
+          "x": 764,
+          "y": 6816,
+          "from": [
+            "C8_SUNKEN_MARKET",
+            "C8_BLEACHED_ATOLL"
+          ],
+          "monsters": [
+            "CORAL_BEHEMOTH",
+            "PEARL_SIREN",
+            "ABYSSAL_EEL"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_TRENCH_DRAKE",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C8_DROWNED_THRONE",
+          "biome": "TIDEVAULT",
+          "level": 90,
+          "x": 521,
+          "y": 6957,
+          "from": [
+            "C8_TIDAL_ENGINE",
+            "C8_IMPERIAL_BATHS"
+          ],
+          "finale": true,
+          "monsters": [
+            "TIDE_CONSTRUCT",
+            "ABYSSAL_EEL",
+            "BRINE_DRAKE",
+            "PEARL_SIREN"
+          ],
+          "count": [
+            48,
+            62
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_8",
+          "boss": "BOSS_DROWNED_EMPEROR",
+          "corrupted": "CORRUPTED_8",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "REGION_9",
+      "label": {
+        "x": 880,
+        "y": 7210
+      },
+      "zones": [
+        {
+          "code": "C9_GODS_THRESHOLD",
+          "biome": "GODHALL",
+          "level": 91,
+          "x": 306,
+          "y": 7277,
+          "from": [
+            "C8_DROWNED_THRONE"
+          ],
+          "monsters": [
+            "DIVINE_WARDEN",
+            "FALLEN_ARCHON",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_THRESHOLD_GUARDIAN",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_ASTRAL_SHORE",
+          "biome": "ASTRAL",
+          "level": 91,
+          "x": 536,
+          "y": 7272,
+          "from": [
+            "C8_DROWNED_THRONE"
+          ],
+          "monsters": [
+            "ASTRAL_BEAST",
+            "STAR_DRAGON",
+            "GODSWORN_ZEALOT"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_STAR_TIDE",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_FIELDS_OF_OBLIVION",
+          "biome": "OBLIVION",
+          "level": 91,
+          "x": 764,
+          "y": 7278,
+          "from": [
+            "C8_DROWNED_THRONE"
+          ],
+          "monsters": [
+            "OBLIVION_SHADE",
+            "GODSWORN_ZEALOT",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_FORGETTING",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_HALL_OF_JUDGEMENT",
+          "biome": "GODHALL",
+          "level": 93,
+          "x": 240,
+          "y": 7430,
+          "from": [
+            "C9_GODS_THRESHOLD"
+          ],
+          "monsters": [
+            "DIVINE_WARDEN",
+            "FALLEN_ARCHON",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_JUDGE_OF_SOULS",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_CONSTELLATION_BRIDGE",
+          "biome": "ASTRAL",
+          "level": 93,
+          "x": 424,
+          "y": 7423,
+          "from": [
+            "C9_GODS_THRESHOLD",
+            "C9_ASTRAL_SHORE"
+          ],
+          "monsters": [
+            "ASTRAL_BEAST",
+            "STAR_DRAGON",
+            "GODSWORN_ZEALOT"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_CONSTELLATION_BEAST",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_NAMELESS_ARCHIVE",
+          "biome": "OBLIVION",
+          "level": 93,
+          "x": 645,
+          "y": 7422,
+          "from": [
+            "C9_ASTRAL_SHORE",
+            "C9_FIELDS_OF_OBLIVION"
+          ],
+          "monsters": [
+            "OBLIVION_SHADE",
+            "GODSWORN_ZEALOT",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_ARCHIVIST",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_SUNFORGE",
+          "biome": "GODHALL",
+          "level": 93,
+          "x": 852,
+          "y": 7426,
+          "from": [
+            "C9_FIELDS_OF_OBLIVION"
+          ],
+          "monsters": [
+            "DIVINE_WARDEN",
+            "FALLEN_ARCHON",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_SUN_SMITH",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_ASTRAL_ORCHARD",
+          "biome": "ASTRAL",
+          "level": 95,
+          "x": 226,
+          "y": 7563,
+          "from": [
+            "C9_HALL_OF_JUDGEMENT",
+            "C9_CONSTELLATION_BRIDGE"
+          ],
+          "monsters": [
+            "ASTRAL_BEAST",
+            "STAR_DRAGON",
+            "GODSWORN_ZEALOT"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_ORCHARD_KEEPER",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_HOLLOW_PANTHEON",
+          "biome": "OBLIVION",
+          "level": 95,
+          "x": 428,
+          "y": 7568,
+          "from": [
+            "C9_HALL_OF_JUDGEMENT",
+            "C9_CONSTELLATION_BRIDGE",
+            "C9_NAMELESS_ARCHIVE"
+          ],
+          "monsters": [
+            "OBLIVION_SHADE",
+            "GODSWORN_ZEALOT",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_HOLLOW_GOD",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_HALL_OF_WAR",
+          "biome": "GODHALL",
+          "level": 95,
+          "x": 638,
+          "y": 7564,
+          "from": [
+            "C9_CONSTELLATION_BRIDGE",
+            "C9_NAMELESS_ARCHIVE",
+            "C9_SUNFORGE"
+          ],
+          "monsters": [
+            "DIVINE_WARDEN",
+            "FALLEN_ARCHON",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_WAR_AVATAR",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_STARLESS_VOID",
+          "biome": "OBLIVION",
+          "level": 95,
+          "x": 858,
+          "y": 7577,
+          "from": [
+            "C9_NAMELESS_ARCHIVE",
+            "C9_SUNFORGE"
+          ],
+          "monsters": [
+            "OBLIVION_SHADE",
+            "GODSWORN_ZEALOT",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_VOID_MOTHER",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_CELESTIAL_OBSERVATORY",
+          "biome": "ASTRAL",
+          "level": 98,
+          "x": 294,
+          "y": 7710,
+          "from": [
+            "C9_ASTRAL_ORCHARD",
+            "C9_HOLLOW_PANTHEON"
+          ],
+          "monsters": [
+            "ASTRAL_BEAST",
+            "STAR_DRAGON",
+            "GODSWORN_ZEALOT"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.9,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_STARGAZER",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_THRONE_ROAD",
+          "biome": "GODHALL",
+          "level": 98,
+          "x": 528,
+          "y": 7716,
+          "from": [
+            "C9_HOLLOW_PANTHEON",
+            "C9_HALL_OF_WAR"
+          ],
+          "monsters": [
+            "DIVINE_WARDEN",
+            "FALLEN_ARCHON",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_CROWN_COLLECTOR",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_EDGE_OF_NOTHING",
+          "biome": "OBLIVION",
+          "level": 98,
+          "x": 753,
+          "y": 7711,
+          "from": [
+            "C9_HALL_OF_WAR",
+            "C9_STARLESS_VOID"
+          ],
+          "monsters": [
+            "OBLIVION_SHADE",
+            "GODSWORN_ZEALOT",
+            "VOID_TITAN"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.7,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_NOTHING_WALKER",
+          "corrupted": "CORRUPTED_9",
+          "size": 72,
+          "tables": [
+            "mob:monster"
+          ]
+        },
+        {
+          "code": "C9_LAST_THRONE",
+          "biome": "GODHALL",
+          "level": 100,
+          "x": 533,
+          "y": 7856,
+          "from": [
+            "C9_CELESTIAL_OBSERVATORY",
+            "C9_THRONE_ROAD",
+            "C9_EDGE_OF_NOTHING"
+          ],
+          "finale": true,
+          "monsters": [
+            "DIVINE_WARDEN",
+            "FALLEN_ARCHON",
+            "VOID_TITAN",
+            "STAR_DRAGON"
+          ],
+          "count": [
+            50,
+            64
+          ],
+          "light": 0.8,
+          "chestLoot": "loot:CHEST_9",
+          "boss": "BOSS_LAST_GOD",
+          "corrupted": "CORRUPTED_9",
           "size": 72,
           "tables": [
             "mob:monster"

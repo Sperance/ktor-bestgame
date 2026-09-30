@@ -549,7 +549,8 @@ SHIELD_BY_DEFENCE = {"BASE_ARMOUR": "TOWER", "BASE_EVASION": "BUCKLER", "BASE_EN
 FLASK_LIQUID = {"LIFE": "#d33b3b", "MANA": "#3a6fe0", "QUICKSILVER": "#dfe6ee", "RUBY": "#e0304a", "SAPPHIRE": "#3a78e8",
                 "TOPAZ": "#f2c53a", "GRANITE": "#8e8a84", "JADE": "#4fbf7a", "SILVER": "#eef2f6", "BASALT": "#4a4540",
                 "DIAMOND": "#cfefff", "QUARTZ": "#e8e0f0", "AMETHYST": "#9b59d6", "SULPHUR": "#c8d040"}
-MAP_SEAL = {"C1": "#c8c8c8", "C2": "#6fa0e0", "C3": "#4fbf7a", "C4": "#f2c53a", "C5": "#ef8a3a", "C6": "#e0304a"}
+MAP_SEAL = {"C1": "#c8c8c8", "C2": "#6fa0e0", "C3": "#4fbf7a", "C4": "#f2c53a", "C5": "#ef8a3a", "C6": "#e0304a",
+            "C7": "#9fd8e8", "C8": "#38b8b0", "C9": "#c86ad6"}  # 1.40.0: разбитое небо, утонувшая империя, чертоги богов
 TOOL_METAL = {"BRONZE": "bronze", "STEEL": "steel", "RUNIC": "runic"}
 BOOK_COVER = {"MARAUDER": "#a8322a", "RANGER": "#3f8a3a", "WITCH": "#3a5fc0", "DUELIST": "#c8742a", "TEMPLAR": "#d8c080",
               "SHADOW": "#2f7f86", "SCION": "#c8ccd4"}
@@ -565,7 +566,9 @@ FLUX = {"BLOOD": "#c02a3a", "STONE": "#9a948c", "FIRE": "#f07a2a", "FROST": "#7f
 EGG = {"JUNGLE": "#4f9f3e", "ABYSS": "#6a3ab0", "CRYPT": "#8a8474", "ASH": "#d86a3a", "TEMPLE": "#d8b040", "DESERT": "#d8b078",
        "VOLCANO": "#d83a2a", "CITADEL": "#5a7aa8", "MINES": "#8a6a48", "FROST": "#7fc8f0", "CANYON": "#c8643a",
        "BLIGHT": "#8ab83a", "MIRE": "#5a7a4a", "RUINS": "#9a9488", "HIVE": "#e8a82a", "SHORE": "#3ab8c8", "CAVE": "#5a5660",
-       "FOREST": "#2f7a3e"}
+       "FOREST": "#2f7a3e",
+       # 1.40.0: the lands 71–100.
+       "SKYREACH": "#bfe3ef", "GLASSWASTE": "#9fd8e8", "STORMPEAK": "#b88af0", "SUNKEN": "#3a6a8a", "CORAL": "#e86a7a", "TIDEVAULT": "#38b8b0", "GODHALL": "#f2c53a", "ASTRAL": "#5a62e0", "OBLIVION": "#3c3a44"}
 
 
 # Base tiers by the template's level: < 25 plain, 25–54 worked, 55+ ornate with a set stone.

@@ -853,6 +853,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_GREED_8",
+      "category": "ESSENCE",
+      "subCategory": "GREED",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_CONTEMPT_1",
       "category": "ESSENCE",
       "subCategory": "CONTEMPT",
@@ -893,6 +899,12 @@
       "category": "ESSENCE",
       "subCategory": "CONTEMPT",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_CONTEMPT_8",
+      "category": "ESSENCE",
+      "subCategory": "CONTEMPT",
+      "price": 640
     },
     {
       "code": "ESSENCE_HATRED_1",
@@ -937,6 +949,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_HATRED_8",
+      "category": "ESSENCE",
+      "subCategory": "HATRED",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_WOE_1",
       "category": "ESSENCE",
       "subCategory": "WOE",
@@ -977,6 +995,12 @@
       "category": "ESSENCE",
       "subCategory": "WOE",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_WOE_8",
+      "category": "ESSENCE",
+      "subCategory": "WOE",
+      "price": 640
     },
     {
       "code": "ESSENCE_FEAR_1",
@@ -1021,6 +1045,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_FEAR_8",
+      "category": "ESSENCE",
+      "subCategory": "FEAR",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_ANGER_1",
       "category": "ESSENCE",
       "subCategory": "ANGER",
@@ -1061,6 +1091,12 @@
       "category": "ESSENCE",
       "subCategory": "ANGER",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_ANGER_8",
+      "category": "ESSENCE",
+      "subCategory": "ANGER",
+      "price": 640
     },
     {
       "code": "ESSENCE_TORMENT_1",
@@ -1105,6 +1141,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_TORMENT_8",
+      "category": "ESSENCE",
+      "subCategory": "TORMENT",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_SORROW_1",
       "category": "ESSENCE",
       "subCategory": "SORROW",
@@ -1145,6 +1187,12 @@
       "category": "ESSENCE",
       "subCategory": "SORROW",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_SORROW_8",
+      "category": "ESSENCE",
+      "subCategory": "SORROW",
+      "price": 640
     },
     {
       "code": "ESSENCE_RAGE_1",
@@ -1189,6 +1237,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_RAGE_8",
+      "category": "ESSENCE",
+      "subCategory": "RAGE",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_SUFFERING_1",
       "category": "ESSENCE",
       "subCategory": "SUFFERING",
@@ -1229,6 +1283,12 @@
       "category": "ESSENCE",
       "subCategory": "SUFFERING",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_SUFFERING_8",
+      "category": "ESSENCE",
+      "subCategory": "SUFFERING",
+      "price": 640
     },
     {
       "code": "ESSENCE_WRATH_1",
@@ -1273,6 +1333,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_WRATH_8",
+      "category": "ESSENCE",
+      "subCategory": "WRATH",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_DOUBT_1",
       "category": "ESSENCE",
       "subCategory": "DOUBT",
@@ -1313,6 +1379,12 @@
       "category": "ESSENCE",
       "subCategory": "DOUBT",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_DOUBT_8",
+      "category": "ESSENCE",
+      "subCategory": "DOUBT",
+      "price": 640
     },
     {
       "code": "ESSENCE_LOATHING_1",
@@ -1357,6 +1429,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_LOATHING_8",
+      "category": "ESSENCE",
+      "subCategory": "LOATHING",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_ZEAL_1",
       "category": "ESSENCE",
       "subCategory": "ZEAL",
@@ -1397,6 +1475,12 @@
       "category": "ESSENCE",
       "subCategory": "ZEAL",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_ZEAL_8",
+      "category": "ESSENCE",
+      "subCategory": "ZEAL",
+      "price": 640
     },
     {
       "code": "ESSENCE_ANGUISH_1",
@@ -1441,6 +1525,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_ANGUISH_8",
+      "category": "ESSENCE",
+      "subCategory": "ANGUISH",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_SPITE_1",
       "category": "ESSENCE",
       "subCategory": "SPITE",
@@ -1481,6 +1571,12 @@
       "category": "ESSENCE",
       "subCategory": "SPITE",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_SPITE_8",
+      "category": "ESSENCE",
+      "subCategory": "SPITE",
+      "price": 640
     },
     {
       "code": "ESSENCE_SCORN_1",
@@ -1525,6 +1621,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_SCORN_8",
+      "category": "ESSENCE",
+      "subCategory": "SCORN",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_ENVY_1",
       "category": "ESSENCE",
       "subCategory": "ENVY",
@@ -1565,6 +1667,12 @@
       "category": "ESSENCE",
       "subCategory": "ENVY",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_ENVY_8",
+      "category": "ESSENCE",
+      "subCategory": "ENVY",
+      "price": 640
     },
     {
       "code": "ESSENCE_MISERY_1",
@@ -1609,6 +1717,12 @@
       "price": 320
     },
     {
+      "code": "ESSENCE_MISERY_8",
+      "category": "ESSENCE",
+      "subCategory": "MISERY",
+      "price": 640
+    },
+    {
       "code": "ESSENCE_DREAD_1",
       "category": "ESSENCE",
       "subCategory": "DREAD",
@@ -1649,6 +1763,12 @@
       "category": "ESSENCE",
       "subCategory": "DREAD",
       "price": 320
+    },
+    {
+      "code": "ESSENCE_DREAD_8",
+      "category": "ESSENCE",
+      "subCategory": "DREAD",
+      "price": 640
     },
     {
       "code": "ESSENCE_INSANITY",
@@ -2165,6 +2285,60 @@
       "category": "OMEN",
       "subCategory": "OMEN",
       "price": 800
+    },
+    {
+      "code": "PET_EGG_SKYREACH",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_GLASSWASTE",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_STORMPEAK",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_SUNKEN",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_CORAL",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_TIDEVAULT",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_GODHALL",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_ASTRAL",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
+    },
+    {
+      "code": "PET_EGG_OBLIVION",
+      "category": "PET",
+      "subCategory": "EGG",
+      "price": 250
     }
   ]
 }

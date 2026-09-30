@@ -5910,6 +5910,1131 @@
             }
           ],
           "map": "C6_ABYSSAL_THRONE"
+        },
+        {
+          "code": "CHART_C7_SKY_LANDING",
+          "level": 50,
+          "seconds": 650,
+          "nothing": 25,
+          "output": "",
+          "experience": 72,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_SKY_LANDING"
+        },
+        {
+          "code": "CHART_C7_GLASS_DUNES",
+          "level": 50,
+          "seconds": 654,
+          "nothing": 25,
+          "output": "",
+          "experience": 72,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_GLASS_DUNES"
+        },
+        {
+          "code": "CHART_C7_THUNDER_STEPS",
+          "level": 50,
+          "seconds": 658,
+          "nothing": 25,
+          "output": "",
+          "experience": 72,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_THUNDER_STEPS"
+        },
+        {
+          "code": "CHART_C7_BROKEN_BRIDGE",
+          "level": 50,
+          "seconds": 662,
+          "nothing": 25,
+          "output": "",
+          "experience": 72,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_BROKEN_BRIDGE"
+        },
+        {
+          "code": "CHART_C7_MIRROR_FLATS",
+          "level": 50,
+          "seconds": 666,
+          "nothing": 25,
+          "output": "",
+          "experience": 72,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_MIRROR_FLATS"
+        },
+        {
+          "code": "CHART_C7_LIGHTNING_SPIRE",
+          "level": 50,
+          "seconds": 670,
+          "nothing": 25,
+          "output": "",
+          "experience": 73,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_LIGHTNING_SPIRE"
+        },
+        {
+          "code": "CHART_C7_WIND_TEMPLE",
+          "level": 50,
+          "seconds": 674,
+          "nothing": 25,
+          "output": "",
+          "experience": 73,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_WIND_TEMPLE"
+        },
+        {
+          "code": "CHART_C7_SHATTERED_CROWN",
+          "level": 50,
+          "seconds": 678,
+          "nothing": 25,
+          "output": "",
+          "experience": 73,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_SHATTERED_CROWN"
+        },
+        {
+          "code": "CHART_C7_CLOUD_CITADEL",
+          "level": 50,
+          "seconds": 682,
+          "nothing": 25,
+          "output": "",
+          "experience": 73,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_CLOUD_CITADEL"
+        },
+        {
+          "code": "CHART_C7_STORMWALL",
+          "level": 50,
+          "seconds": 686,
+          "nothing": 25,
+          "output": "",
+          "experience": 73,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_STORMWALL"
+        },
+        {
+          "code": "CHART_C7_PRISM_CANYON",
+          "level": 50,
+          "seconds": 690,
+          "nothing": 25,
+          "output": "",
+          "experience": 74,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_PRISM_CANYON"
+        },
+        {
+          "code": "CHART_C7_FALLEN_ORRERY",
+          "level": 50,
+          "seconds": 694,
+          "nothing": 25,
+          "output": "",
+          "experience": 74,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_FALLEN_ORRERY"
+        },
+        {
+          "code": "CHART_C7_EYE_OF_THE_STORM",
+          "level": 50,
+          "seconds": 698,
+          "nothing": 25,
+          "output": "",
+          "experience": 74,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_EYE_OF_THE_STORM"
+        },
+        {
+          "code": "CHART_C7_SINGING_GLASS",
+          "level": 50,
+          "seconds": 702,
+          "nothing": 25,
+          "output": "",
+          "experience": 74,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_SINGING_GLASS"
+        },
+        {
+          "code": "CHART_C7_SHATTERED_THRONE",
+          "level": 50,
+          "seconds": 706,
+          "nothing": 25,
+          "output": "",
+          "experience": 74,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C7_SHATTERED_THRONE"
+        },
+        {
+          "code": "CHART_C8_SUNKEN_GATE",
+          "level": 50,
+          "seconds": 710,
+          "nothing": 25,
+          "output": "",
+          "experience": 75,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_SUNKEN_GATE"
+        },
+        {
+          "code": "CHART_C8_CORAL_GARDENS",
+          "level": 50,
+          "seconds": 714,
+          "nothing": 25,
+          "output": "",
+          "experience": 75,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_CORAL_GARDENS"
+        },
+        {
+          "code": "CHART_C8_TIDE_VAULTS",
+          "level": 50,
+          "seconds": 718,
+          "nothing": 25,
+          "output": "",
+          "experience": 75,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_TIDE_VAULTS"
+        },
+        {
+          "code": "CHART_C8_DROWNED_FORUM",
+          "level": 50,
+          "seconds": 722,
+          "nothing": 25,
+          "output": "",
+          "experience": 75,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_DROWNED_FORUM"
+        },
+        {
+          "code": "CHART_C8_PEARL_REEF",
+          "level": 50,
+          "seconds": 726,
+          "nothing": 25,
+          "output": "",
+          "experience": 75,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_PEARL_REEF"
+        },
+        {
+          "code": "CHART_C8_FLOODED_AQUEDUCT",
+          "level": 50,
+          "seconds": 730,
+          "nothing": 25,
+          "output": "",
+          "experience": 76,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_FLOODED_AQUEDUCT"
+        },
+        {
+          "code": "CHART_C8_LEGION_BARRACKS",
+          "level": 50,
+          "seconds": 734,
+          "nothing": 25,
+          "output": "",
+          "experience": 76,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_LEGION_BARRACKS"
+        },
+        {
+          "code": "CHART_C8_KELP_CATHEDRAL",
+          "level": 50,
+          "seconds": 738,
+          "nothing": 25,
+          "output": "",
+          "experience": 76,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_KELP_CATHEDRAL"
+        },
+        {
+          "code": "CHART_C8_SEALED_CISTERN",
+          "level": 50,
+          "seconds": 742,
+          "nothing": 25,
+          "output": "",
+          "experience": 76,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_SEALED_CISTERN"
+        },
+        {
+          "code": "CHART_C8_SUNKEN_MARKET",
+          "level": 50,
+          "seconds": 746,
+          "nothing": 25,
+          "output": "",
+          "experience": 76,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_SUNKEN_MARKET"
+        },
+        {
+          "code": "CHART_C8_BLEACHED_ATOLL",
+          "level": 50,
+          "seconds": 750,
+          "nothing": 25,
+          "output": "",
+          "experience": 77,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_BLEACHED_ATOLL"
+        },
+        {
+          "code": "CHART_C8_TIDAL_ENGINE",
+          "level": 50,
+          "seconds": 754,
+          "nothing": 25,
+          "output": "",
+          "experience": 77,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_TIDAL_ENGINE"
+        },
+        {
+          "code": "CHART_C8_IMPERIAL_BATHS",
+          "level": 50,
+          "seconds": 758,
+          "nothing": 25,
+          "output": "",
+          "experience": 77,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_IMPERIAL_BATHS"
+        },
+        {
+          "code": "CHART_C8_ABYSSAL_TRENCH",
+          "level": 50,
+          "seconds": 762,
+          "nothing": 25,
+          "output": "",
+          "experience": 77,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_ABYSSAL_TRENCH"
+        },
+        {
+          "code": "CHART_C8_DROWNED_THRONE",
+          "level": 50,
+          "seconds": 766,
+          "nothing": 25,
+          "output": "",
+          "experience": 77,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C8_DROWNED_THRONE"
+        },
+        {
+          "code": "CHART_C9_GODS_THRESHOLD",
+          "level": 50,
+          "seconds": 770,
+          "nothing": 25,
+          "output": "",
+          "experience": 78,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_GODS_THRESHOLD"
+        },
+        {
+          "code": "CHART_C9_ASTRAL_SHORE",
+          "level": 50,
+          "seconds": 774,
+          "nothing": 25,
+          "output": "",
+          "experience": 78,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_ASTRAL_SHORE"
+        },
+        {
+          "code": "CHART_C9_FIELDS_OF_OBLIVION",
+          "level": 50,
+          "seconds": 778,
+          "nothing": 25,
+          "output": "",
+          "experience": 78,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_FIELDS_OF_OBLIVION"
+        },
+        {
+          "code": "CHART_C9_HALL_OF_JUDGEMENT",
+          "level": 50,
+          "seconds": 782,
+          "nothing": 25,
+          "output": "",
+          "experience": 78,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_HALL_OF_JUDGEMENT"
+        },
+        {
+          "code": "CHART_C9_CONSTELLATION_BRIDGE",
+          "level": 50,
+          "seconds": 786,
+          "nothing": 25,
+          "output": "",
+          "experience": 78,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_CONSTELLATION_BRIDGE"
+        },
+        {
+          "code": "CHART_C9_NAMELESS_ARCHIVE",
+          "level": 50,
+          "seconds": 790,
+          "nothing": 25,
+          "output": "",
+          "experience": 79,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_NAMELESS_ARCHIVE"
+        },
+        {
+          "code": "CHART_C9_SUNFORGE",
+          "level": 50,
+          "seconds": 794,
+          "nothing": 25,
+          "output": "",
+          "experience": 79,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_SUNFORGE"
+        },
+        {
+          "code": "CHART_C9_ASTRAL_ORCHARD",
+          "level": 50,
+          "seconds": 798,
+          "nothing": 25,
+          "output": "",
+          "experience": 79,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_ASTRAL_ORCHARD"
+        },
+        {
+          "code": "CHART_C9_HOLLOW_PANTHEON",
+          "level": 50,
+          "seconds": 802,
+          "nothing": 25,
+          "output": "",
+          "experience": 79,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_HOLLOW_PANTHEON"
+        },
+        {
+          "code": "CHART_C9_HALL_OF_WAR",
+          "level": 50,
+          "seconds": 806,
+          "nothing": 25,
+          "output": "",
+          "experience": 79,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_HALL_OF_WAR"
+        },
+        {
+          "code": "CHART_C9_STARLESS_VOID",
+          "level": 50,
+          "seconds": 810,
+          "nothing": 25,
+          "output": "",
+          "experience": 80,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_STARLESS_VOID"
+        },
+        {
+          "code": "CHART_C9_CELESTIAL_OBSERVATORY",
+          "level": 50,
+          "seconds": 814,
+          "nothing": 25,
+          "output": "",
+          "experience": 80,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_CELESTIAL_OBSERVATORY"
+        },
+        {
+          "code": "CHART_C9_THRONE_ROAD",
+          "level": 50,
+          "seconds": 818,
+          "nothing": 25,
+          "output": "",
+          "experience": 80,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_THRONE_ROAD"
+        },
+        {
+          "code": "CHART_C9_EDGE_OF_NOTHING",
+          "level": 50,
+          "seconds": 822,
+          "nothing": 25,
+          "output": "",
+          "experience": 80,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_EDGE_OF_NOTHING"
+        },
+        {
+          "code": "CHART_C9_LAST_THRONE",
+          "level": 50,
+          "seconds": 826,
+          "nothing": 25,
+          "output": "",
+          "experience": 80,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 5
+            },
+            {
+              "item": "GHOST_ASH_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ],
+          "map": "C9_LAST_THRONE"
         }
       ]
     },

@@ -233,6 +233,123 @@
       "kind": "HELPER",
       "biome": "FOREST",
       "focus": "CRAFT"
+    },
+    {
+      "code": "SKY_GRIFFIN",
+      "kind": "COMBAT",
+      "biome": "SKYREACH",
+      "role": "FIGHTER",
+      "element": "LIGHTNING"
+    },
+    {
+      "code": "CLOUD_SPRITE",
+      "kind": "HELPER",
+      "biome": "SKYREACH",
+      "focus": "AURA"
+    },
+    {
+      "code": "GLASS_SCARAB",
+      "kind": "COMBAT",
+      "biome": "GLASSWASTE",
+      "role": "TANK",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "MIRAGE_FOX",
+      "kind": "HELPER",
+      "biome": "GLASSWASTE",
+      "focus": "LOOT"
+    },
+    {
+      "code": "THUNDER_RAM",
+      "kind": "COMBAT",
+      "biome": "STORMPEAK",
+      "role": "FIGHTER",
+      "element": "LIGHTNING"
+    },
+    {
+      "code": "STATIC_MOUSE",
+      "kind": "HELPER",
+      "biome": "STORMPEAK",
+      "focus": "CRAFT"
+    },
+    {
+      "code": "DROWNED_HOUND",
+      "kind": "COMBAT",
+      "biome": "SUNKEN",
+      "role": "TANK",
+      "element": "COLD"
+    },
+    {
+      "code": "ANCHOR_CRAB",
+      "kind": "HELPER",
+      "biome": "SUNKEN",
+      "focus": "LOOT"
+    },
+    {
+      "code": "CORAL_EEL",
+      "kind": "COMBAT",
+      "biome": "CORAL",
+      "role": "FIGHTER",
+      "element": "COLD"
+    },
+    {
+      "code": "PEARL_SEAHORSE",
+      "kind": "HELPER",
+      "biome": "CORAL",
+      "focus": "AURA"
+    },
+    {
+      "code": "TIDE_GOLEMLING",
+      "kind": "COMBAT",
+      "biome": "TIDEVAULT",
+      "role": "TANK",
+      "element": "PHYSICAL"
+    },
+    {
+      "code": "CLOCKWORK_OCTOPUS",
+      "kind": "HELPER",
+      "biome": "TIDEVAULT",
+      "focus": "CRAFT"
+    },
+    {
+      "code": "GOLDEN_LION",
+      "kind": "COMBAT",
+      "biome": "GODHALL",
+      "role": "FIGHTER",
+      "element": "FIRE"
+    },
+    {
+      "code": "TEMPLE_DOVE",
+      "kind": "HELPER",
+      "biome": "GODHALL",
+      "focus": "AURA"
+    },
+    {
+      "code": "STAR_WHELP",
+      "kind": "COMBAT",
+      "biome": "ASTRAL",
+      "role": "SUPPORT",
+      "element": "LIGHTNING"
+    },
+    {
+      "code": "COMET_CAT",
+      "kind": "HELPER",
+      "biome": "ASTRAL",
+      "focus": "LOOT"
+    },
+    {
+      "code": "VOID_WISP",
+      "kind": "COMBAT",
+      "biome": "OBLIVION",
+      "role": "SUPPORT",
+      "element": "CHAOS"
+    },
+    {
+      "code": "LETHE_OWL",
+      "kind": "HELPER",
+      "biome": "OBLIVION",
+      "focus": "CRAFT"
     }
   ],
   "lines": [
@@ -604,7 +721,16 @@
     "HIVE": "PET_EGG_HIVE",
     "SHORE": "PET_EGG_SHORE",
     "CAVE": "PET_EGG_CAVE",
-    "FOREST": "PET_EGG_FOREST"
+    "FOREST": "PET_EGG_FOREST",
+    "SKYREACH": "PET_EGG_SKYREACH",
+    "GLASSWASTE": "PET_EGG_GLASSWASTE",
+    "STORMPEAK": "PET_EGG_STORMPEAK",
+    "SUNKEN": "PET_EGG_SUNKEN",
+    "CORAL": "PET_EGG_CORAL",
+    "TIDEVAULT": "PET_EGG_TIDEVAULT",
+    "GODHALL": "PET_EGG_GODHALL",
+    "ASTRAL": "PET_EGG_ASTRAL",
+    "OBLIVION": "PET_EGG_OBLIVION"
   },
   "rarities": {
     "COMMON": {

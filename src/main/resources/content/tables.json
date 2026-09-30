@@ -323,7 +323,7 @@
         "FRENZY_CHARGE_ON_KILL": 120,
         "INCREASED_ACCURACY_RATING": 200,
         "INCREASED_AILMENT_DURATION": 250,
-        "INCREASED_ATTACK_SPEED": 800,
+        "INCREASED_ATTACK_SPEED": 400,
         "INCREASED_BLEED_DAMAGE": 100,
         "INCREASED_BLEED_DURATION": 120,
         "INCREASED_BURNING_DAMAGE": 100,
@@ -414,7 +414,7 @@
       ],
       "entries": {
         "ADD_ALL_RESISTANCES": 100,
-        "ADD_BLOCK_CHANCE": 1000,
+        "ADD_BLOCK_CHANCE": 500,
         "ADD_COLD_DAMAGE_TO_SPELLS": 200,
         "ADD_ENERGY_SHIELD": 0,
         "ADD_ENERGY_SHIELD_ON_BLOCK": 200,
@@ -552,7 +552,7 @@
         "ADD_MAXIMUM_FIRE_RESISTANCE": 100,
         "ADD_MAXIMUM_LIFE_AND_LIFE_REGENERATION": 250,
         "ADD_MAXIMUM_LIGHTNING_RESISTANCE": 100,
-        "ADD_MAXIMUM_MANA": 800,
+        "ADD_MAXIMUM_MANA": 300,
         "ADD_PASSIVE_SKILL_LEVEL": 80,
         "ADD_PHYSICAL_DAMAGE": 400,
         "ADD_PHYSICAL_LIFE_LEECH": 300,
@@ -613,7 +613,7 @@
         "INCREASED_ITEM_RARITY": 400,
         "INCREASED_LIGHTNING_DAMAGE": 300,
         "INCREASED_LIGHT_RADIUS": 150,
-        "INCREASED_MANA_REGENERATION": 600,
+        "INCREASED_MANA_REGENERATION": 300,
         "INCREASED_MAXIMUM_MANA": 400,
         "INCREASED_PHYSICAL_DAMAGE": 250,
         "INCREASED_POISON_DAMAGE": 200,
@@ -687,7 +687,7 @@
         "ADD_LIGHTNING_DAMAGE_TO_SPELLS": 150,
         "ADD_MANA_LEECH": 250,
         "ADD_MANA_ON_KILL": 300,
-        "ADD_MAXIMUM_MANA": 800,
+        "ADD_MAXIMUM_MANA": 400,
         "ADD_PHYSICAL_AND_FIRE_DAMAGE": 200,
         "ADD_PHYSICAL_DAMAGE": 700,
         "ADD_PHYSICAL_LIFE_LEECH": 300,
@@ -756,7 +756,7 @@
       "entries": {
         "ADD_ALL_ATTRIBUTES": 200,
         "ADD_ALL_RESISTANCES": 150,
-        "ADD_ARMOUR": 800,
+        "ADD_ARMOUR": 400,
         "ADD_CONSTITUTION": 200,
         "ADD_EVASION_RATING": 0,
         "ADD_LIFE_ON_KILL": 200,
@@ -2258,7 +2258,14 @@
         "MOB_VICIOUS": 40,
         "MOB_WARDED": 70,
         "MOB_WITHERING": 40,
-        "MOB_VEILED": 30
+        "MOB_VEILED": 30,
+        "MOB_CELESTIAL": 40,
+        "MOB_DEFLECTING": 40,
+        "MOB_SUPPRESSING": 40,
+        "MOB_DOUBLING": 40,
+        "MOB_RECOUPING": 40,
+        "BOSS_GODLIKE": 80,
+        "BOSS_ASTRAL": 80
       }
     },
     {
@@ -2334,7 +2341,7 @@
         "MOB_STORMBORN": 50,
         "MOB_STRONG": 120,
         "MOB_STURDY": 70,
-        "MOB_SUPPRESSING": 40,
+        "MOB_SUPPRESSING": 50,
         "MOB_SWIFT": 60,
         "MOB_TAUNTING": 60,
         "MOB_THORNY": 50,
@@ -2347,7 +2354,11 @@
         "MOB_VICIOUS": 40,
         "MOB_WARDED": 70,
         "MOB_WITHERING": 40,
-        "MOB_VEILED": 40
+        "MOB_VEILED": 40,
+        "MOB_CELESTIAL": 50,
+        "MOB_DEFLECTING": 50,
+        "MOB_DOUBLING": 50,
+        "MOB_RECOUPING": 50
       }
     },
     {
@@ -7683,6 +7694,2004 @@
         "PET_INCREASED_LIFE": 1000,
         "PET_LEVEL": 200,
         "PET_RESISTANCES": 800
+      }
+    },
+    {
+      "tag": "loot:T7",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.055,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.033,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.0165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.0198,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.0132,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.0088,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0022,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.0165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.0275,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.132
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.0022,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.0011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.0165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.00165,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        40,
+        121
+      ]
+    },
+    {
+      "tag": "loot:CHEST_7",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.55,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.198,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.165,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.11,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.088,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.022,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.385,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 1.0
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.605
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.033,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.055,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.033,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.033,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.055,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.0055,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        690,
+        1495
+      ]
+    },
+    {
+      "tag": "loot:BOSS_7",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.385,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.132,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.11,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.088,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.066,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.022,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.275,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.396
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.066,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.088,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.11,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.066,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.066,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.11,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:SHAPERS_ORB",
+          "chance": 0.011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ELDER_ORB",
+          "chance": 0.011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        747,
+        1495
+      ]
+    },
+    {
+      "tag": "loot:CORRUPT_7",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.308,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.308,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.242,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.176,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.088,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.022,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.385,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 1.0
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.825
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.011,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:MIRROR_OF_KALANDRA",
+          "chance": 0.00055,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        1380,
+        2530
+      ]
+    },
+    {
+      "tag": "loot:T8",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.036,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.0216,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.0144,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.0096,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0024,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.144
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.0024,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.0012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0018,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        45,
+        136
+      ]
+    },
+    {
+      "tag": "loot:CHEST_8",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.216,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.18,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.12,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.096,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.024,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.42,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 1.0
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.66
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.036,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.036,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.036,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.06,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.006,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        780,
+        1690
+      ]
+    },
+    {
+      "tag": "loot:BOSS_8",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.42,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.144,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.12,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.096,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.072,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.024,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.432
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.072,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.096,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.12,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.072,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.072,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.12,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:SHAPERS_ORB",
+          "chance": 0.012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ELDER_ORB",
+          "chance": 0.012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        845,
+        1690
+      ]
+    },
+    {
+      "tag": "loot:CORRUPT_8",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.336,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.336,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.264,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.192,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.096,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.024,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.42,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 1.0
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.9
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.012,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:MIRROR_OF_KALANDRA",
+          "chance": 0.0006,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        1560,
+        2860
+      ]
+    },
+    {
+      "tag": "loot:T9",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.065,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.039,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.0195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.0234,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.0156,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.0104,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0026,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.0195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.0325,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.156
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.0026,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.0013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:WHETSTONE",
+          "chance": 0.013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ARMOURERS_SCRAP",
+          "chance": 0.0195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.00195,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        51,
+        152
+      ]
+    },
+    {
+      "tag": "loot:CHEST_9",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.65,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.234,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.195,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.13,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.104,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.026,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.455,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 1.0
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.715
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.039,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.065,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.039,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.039,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.065,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.0065,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        870,
+        1885
+      ]
+    },
+    {
+      "tag": "loot:BOSS_9",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.455,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.156,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.13,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.104,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.078,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.026,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.325,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.468
+        },
+        {
+          "ref": "item:PET_ORB_UPGRADE",
+          "chance": 0.078,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_REROLL",
+          "chance": 0.104,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_AUGMENT",
+          "chance": 0.13,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_DIVINE",
+          "chance": 0.078,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_ANNUL",
+          "chance": 0.078,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 0.13,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:SHAPERS_ORB",
+          "chance": 0.013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ELDER_ORB",
+          "chance": 0.013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        942,
+        1885
+      ]
+    },
+    {
+      "tag": "loot:CORRUPT_9",
+      "kind": "LOOT",
+      "entries": [
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.364,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.364,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.286,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.208,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.104,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.026,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.455,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "table:drop",
+          "chance": 1.0
+        },
+        {
+          "ref": "table:drop",
+          "chance": 0.975
+        },
+        {
+          "ref": "item:FRACTURING_ORB",
+          "chance": 0.013,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:MIRROR_OF_KALANDRA",
+          "chance": 0.00065,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ],
+      "gold": [
+        1740,
+        3190
+      ]
+    },
+    {
+      "tag": "boss:BOSS_SKY_SOVEREIGN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CROWN_OF_THE_ABYSS": 100,
+        "VOIDHEART": 100,
+        "ABYSSAL_MANTLE": 100,
+        "VOID_ANVIL": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_DROWNED_EMPEROR",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CROWN_OF_THE_ABYSS": 100,
+        "VOIDHEART": 100,
+        "ABYSSAL_MANTLE": 100,
+        "VOID_ANVIL": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_LAST_GOD",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CROWN_OF_THE_ABYSS": 100,
+        "VOIDHEART": 100,
+        "ABYSSAL_MANTLE": 100,
+        "VOID_ANVIL": 100
       }
     }
   ]

@@ -866,6 +866,147 @@
           "rarity": "UNIQUE"
         }
       ]
+    },
+    {
+      "region": "REGION_7",
+      "steps": [
+        {
+          "code": "S7_1",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C7_SKY_LANDING",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S7_2",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C7_MIRROR_FLATS",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S7_3",
+          "counter": "KILLS",
+          "target": 140,
+          "zone": "C7_WIND_TEMPLE",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S7_4",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C7_CLOUD_CITADEL",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S7_5",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C7_EYE_OF_THE_STORM",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S7_6",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C7_SHATTERED_THRONE",
+          "rarity": "UNIQUE"
+        }
+      ]
+    },
+    {
+      "region": "REGION_8",
+      "steps": [
+        {
+          "code": "S8_1",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C8_SUNKEN_GATE",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S8_2",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C8_PEARL_REEF",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S8_3",
+          "counter": "KILLS",
+          "target": 140,
+          "zone": "C8_LEGION_BARRACKS",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S8_4",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C8_SEALED_CISTERN",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S8_5",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C8_IMPERIAL_BATHS",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S8_6",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C8_DROWNED_THRONE",
+          "rarity": "UNIQUE"
+        }
+      ]
+    },
+    {
+      "region": "REGION_9",
+      "steps": [
+        {
+          "code": "S9_1",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C9_GODS_THRESHOLD",
+          "rarity": "COMMON"
+        },
+        {
+          "code": "S9_2",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C9_CONSTELLATION_BRIDGE",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S9_3",
+          "counter": "KILLS",
+          "target": 140,
+          "zone": "C9_SUNFORGE",
+          "rarity": "UNCOMMON"
+        },
+        {
+          "code": "S9_4",
+          "counter": "CLEAR",
+          "target": 1,
+          "zone": "C9_HOLLOW_PANTHEON",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S9_5",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C9_THRONE_ROAD",
+          "rarity": "RARE"
+        },
+        {
+          "code": "S9_6",
+          "counter": "BOSSES",
+          "target": 1,
+          "zone": "C9_LAST_THRONE",
+          "rarity": "UNIQUE"
+        }
+      ]
     }
   ]
 }
