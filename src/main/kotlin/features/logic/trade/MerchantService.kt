@@ -115,7 +115,7 @@ class MerchantService : KoinComponent {
         val price = orb.price
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
         hero.pay(price)
-        hero.earn(code, 1, index.rules.maxStack)
+        hero.earn(code, 1)
         val next = orb.copy(price = orbPrice(code, orb.bought + 1), bought = orb.bought + 1, left = orb.left - 1)
         hero.merchant = stock.copy(orbs = stock.orbs.map { if (it.code == code) next else it })
         heroes.save(hero, method)

@@ -139,7 +139,7 @@ class CraftsService : KoinComponent {
         hero.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles, totals = work.totals + gains)
         // Возврат материалов (1.53.0) мог вернуть весь расход цикла: нулевое списание - не отказ
         gains.spent.forEach { (code, amount) -> if (amount > 0) hero.spend(code, amount, method) }
-        gains.items.forEach { (code, amount) -> hero.earn(code, amount, index.rules.maxStack) }
+        gains.items.forEach { (code, amount) -> hero.earn(code, amount) }
         Stash.receive(hero, made, index)
         hero.count(Counter.CRAFT_CYCLES, result.gains.cycles.toLong())
         hero.stats.add(com.sperance.exileforge.rules.content.Stat.JOB, job.code, result.gains.cycles.toLong())

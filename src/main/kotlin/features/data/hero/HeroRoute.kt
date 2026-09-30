@@ -93,7 +93,7 @@ class HeroRoute(
                 val hero = repo.requireHero(call.heroId, "grantItem")
                 val code = call.queryParam("code")
                 content.index.item(code) ?: throw base.exception.model.CharacterExceptions.funExceptionItemNotFound("grantItem", code)
-                hero.earn(code, call.queryParam("amount", 1L), content.index.rules.maxStack)
+                hero.earn(code, call.queryParam("amount", 1L))
                 call.respondWithHero(repo.save(hero, "grantItem").bag)
             }
             post("/equipment") {

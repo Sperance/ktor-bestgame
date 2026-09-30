@@ -227,7 +227,7 @@ class QuestService : KoinComponent {
         hero.money += reward.gold
         Counter.add(hero.counters, Counter.GOLD_EARNED, reward.gold)
         if (reward.experience > 0) Rewards.addExperience(hero, reward.experience, index)
-        reward.orbs.forEach { (code, amount) -> if (index.item(code) != null) hero.earn(code, amount, index.rules.maxStack) }
+        reward.orbs.forEach { (code, amount) -> if (index.item(code) != null) hero.earn(code, amount) }
     }
 
     /**

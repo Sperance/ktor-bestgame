@@ -83,7 +83,7 @@ class SkillService : KoinComponent {
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
         books.forEach { spendBook(hero, it, method) }
         hero.pay(price)
-        hero.earn(SkillRules.book(code), 1, index.rules.maxStack)
+        hero.earn(SkillRules.book(code), 1)
         return heroes.save(hero, method).skills
     }
 

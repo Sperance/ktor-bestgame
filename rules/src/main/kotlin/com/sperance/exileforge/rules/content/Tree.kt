@@ -127,28 +127,28 @@ object TreeAllocation {
     fun requireAllocatable(graph: TreeGraph, node: TreeNode, taken: Collection<String>, startNode: String, available: Int, choice: Int?) {
         if (node.options.isEmpty() != (choice == null) || (choice != null && choice !in node.options.indices))
             throw RuleViolation("ST_018", listOf("${node.code}: $choice of ${node.options.size}"))
-        if (node.code in taken) throw RuleViolation("ST_005", listOf(node.code))
+        if (node.code in taken) throw RuleViolation("ST_005", listOf(LocaleKey.skillNodeName(node.code)))
         if (node.type == SkillNodeType.START) {
-            if (taken.isNotEmpty()) throw RuleViolation("ST_009", listOf(taken.first()))
-            if (node.code != startNode) throw RuleViolation("ST_013", listOf("${node.code}, class starts at $startNode"))
+            if (taken.isNotEmpty()) throw RuleViolation("ST_009", listOf(LocaleKey.skillNodeName(taken.first())))
+            if (node.code != startNode) throw RuleViolation("ST_013", listOf(LocaleKey.skillNodeName(startNode)))
         } else {
             if (taken.isEmpty()) throw RuleViolation("ST_010", listOf(node.code))
-            if (!graph.isAdjacentTo(node.code, taken)) throw RuleViolation("ST_007", listOf(node.code))
-            if (!node.openTo(startNode)) throw RuleViolation("ST_021", listOf(node.code))
+            if (!graph.isAdjacentTo(node.code, taken)) throw RuleViolation("ST_007", listOf(LocaleKey.skillNodeName(node.code)))
+            if (!node.openTo(startNode)) throw RuleViolation("ST_021", listOf(LocaleKey.skillNodeName(node.code)))
         }
-        if (node.cost > available) throw RuleViolation("ST_008", listOf("need ${node.cost}, available $available"))
+        if (node.cost > available) throw RuleViolation("ST_008", listOf(node.cost.toString(), available.toString()))
     }
 
     fun requireRefundable(graph: TreeGraph, node: TreeNode, taken: Collection<String>) {
-        if (node.code !in taken) throw RuleViolation("ST_006", listOf(node.code))
-        if (node.type == SkillNodeType.START) throw RuleViolation("ST_012", listOf(node.code))
-        if (!graph.isConnected(taken.filterNot { it == node.code })) throw RuleViolation("ST_011", listOf(node.code))
+        if (node.code !in taken) throw RuleViolation("ST_006", listOf(LocaleKey.skillNodeName(node.code)))
+        if (node.type == SkillNodeType.START) throw RuleViolation("ST_012", listOf(LocaleKey.skillNodeName(node.code)))
+        if (!graph.isConnected(taken.filterNot { it == node.code })) throw RuleViolation("ST_011", listOf(LocaleKey.skillNodeName(node.code)))
     }
 
     /** Ветка узла (1.52.0): он сам и всё взятое, что без него отрывается от старта, - снимается одним откатом. */
     fun branch(graph: TreeGraph, node: TreeNode, taken: Collection<String>): List<String> {
-        if (node.code !in taken) throw RuleViolation("ST_006", listOf(node.code))
-        if (node.type == SkillNodeType.START) throw RuleViolation("ST_012", listOf(node.code))
+        if (node.code !in taken) throw RuleViolation("ST_006", listOf(LocaleKey.skillNodeName(node.code)))
+        if (node.type == SkillNodeType.START) throw RuleViolation("ST_012", listOf(LocaleKey.skillNodeName(node.code)))
         return listOf(node.code) + graph.detached(taken.filterNot { it == node.code })
     }
 

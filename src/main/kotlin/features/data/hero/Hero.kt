@@ -117,11 +117,11 @@ data class Hero(
         stats.add(com.sperance.exileforge.rules.content.Stat.SPENT, code, amount)
     }
 
-    /** Кладёт в сумку до потолка стопки [cap]: излишек сгорает, а не срывает выдачу. */
-    fun earn(code: String, amount: Long, cap: Long) {
+    /** Кладёт в сумку: стопки не ограничены - место в тайнике считают только вещи; сумма лишь не переливается через `Long`. */
+    fun earn(code: String, amount: Long) {
         if (amount <= 0) return
         val owned = bag[code] ?: 0L
-        bag[code] = (owned + amount).coerceAtMost(maxOf(cap, owned))
+        bag[code] = if (owned > Long.MAX_VALUE - amount) Long.MAX_VALUE else owned + amount
     }
 
     /** Счётчик летописи: сумма или рекорд - как велит его вид; тот же прирост двигает задания героя в зоне открытого захода. */

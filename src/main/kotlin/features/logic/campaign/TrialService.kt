@@ -73,7 +73,7 @@ class TrialService : KoinComponent {
         val rules = rules(method)
         val hero = heroes.requireHero(heroId, method)
         hero.spend(TrialRules.CREST, rules.rush.key.toLong(), method)
-        hero.earn(TrialRules.KEY, 1, index.rules.maxStack)
+        hero.earn(TrialRules.KEY, 1)
         return heroes.save(hero, method)
     }
 

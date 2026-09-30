@@ -183,7 +183,6 @@
     "recipeChance": 0.1
   },
   "maxCharacters": 3,
-  "maxStack": 100000000000,
   "stash": {
     "baseSlots": 200,
     "maxSlots": 1000,

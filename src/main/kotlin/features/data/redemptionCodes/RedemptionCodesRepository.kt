@@ -71,7 +71,7 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(RedemptionCode
         val dice = Dice.system()
         treasure.forEach { reward ->
             when (reward.kind) {
-                RedemptionKind.ITEM -> hero.earn(reward.item, reward.amount.toLong(), index.rules.maxStack)
+                RedemptionKind.ITEM -> hero.earn(reward.item, reward.amount.toLong())
                 RedemptionKind.EXPERIENCE -> Rewards.addExperience(hero, reward.amount, index)
                 RedemptionKind.GOLD -> hero.gain(reward.amount.toLong())
                 RedemptionKind.EQUIPMENT -> index.template(reward.item)?.let { template ->

@@ -25,7 +25,7 @@ object Rewards {
     fun grant(hero: Hero, reward: Reward, index: ContentIndex): Received {
         reward.items.forEach { (code, amount) ->
             val item = index.item(code) ?: return@forEach
-            hero.earn(code, amount, index.rules.maxStack)
+            hero.earn(code, amount)
             hero.stats.add(Stat.FOUND, code, amount)
             when (item.category) {
                 Item.CURRENCY -> hero.count(Counter.ORBS_FOUND, amount)

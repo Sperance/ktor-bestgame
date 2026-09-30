@@ -284,7 +284,6 @@ data class EngineRules(
     val charges: ChargeRules = ChargeRules(),
     val quality: QualityRules = QualityRules(),
     val maxCharacters: Int = 3,
-    val maxStack: Long = 100_000_000_000L,
 ) {
     /** Места аффиксов редкости на предмете слота: `<редкость>:<слот>` перекрывает `<редкость>`. */
     fun limits(rarity: Rarity, slot: Slot? = null): RarityLimits =
