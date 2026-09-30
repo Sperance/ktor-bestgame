@@ -1228,5 +1228,6 @@
   "item.WORLDTREE_LOG.trade": "Worldtree Log",
   "item.STAR_FLUX.trade": "Star Flux",
   "item.CREST_FRAGMENT.trade": "Crest Fragment",
-  "item.TOWER_SEAL.trade": "Tower Seal"
+  "item.TOWER_SEAL.trade": "Tower Seal",
+  "item.RUSH_KEY.trade": "Rush Key"
 }

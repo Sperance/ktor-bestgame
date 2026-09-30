@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class TowerMod(val stat: String, val op: Op, val value: Double)
 
 /**
- * Босс-раш (1.47.0): вход - [key] фрагментов герба; между боссами герой получает [life]% здоровья и [flaskCharges] зарядов
+ * Босс-раш (1.47.0): вход - ключ раша [TrialRules.KEY], собранный из [key] фрагментов герба (1.48.0); между боссами герой получает [life]% здоровья и [flaskCharges] зарядов
  * каждой фляги. Сундук в конце: [orbs] сфер таблицы [orbTable] и опыт за каждого убитого босса; полная зачистка - уникалка
  * из собственных таблиц боссов региона (или [uniqueTables]); уложился в [seconds] секунд на босса - ещё [fastItems] редких вещей.
  */
@@ -95,11 +95,13 @@ data class TrialRules(
         tower.mods.forEach { if (it.stat !in index.stats) fail("trials: tower mod ${it.stat} is no stat") }
         if (rush.key < 1 || tower.levelStep < 1 || tower.hoardEvery < 1 || tower.modEvery < 1 || tower.checkpoint < 1 || atlasFloors < 1) fail("trials: steps must be positive")
         if (rush.orbs.size != 2 || rush.orbs[0] < 0 || rush.orbs[0] > rush.orbs[1]) fail("trials: rush orbs")
-        listOf(CREST, SEAL).forEach { if (index.items[it] == null) fail("trials: item $it missing") }
+        listOf(CREST, KEY, SEAL).forEach { if (index.items[it] == null) fail("trials: item $it missing") }
     }
 
     companion object {
         const val CREST = "CREST_FRAGMENT"
+        /** Ключ раша (1.48.0): собирается из фрагментов герба, открывает раш любого зачищенного региона. */
+        const val KEY = "RUSH_KEY"
         const val SEAL = "TOWER_SEAL"
 
         /** Арена испытания на уровне [level]: зона кампании не выше него (иначе первая) - её биом и таблицы, но уровень испытания. */

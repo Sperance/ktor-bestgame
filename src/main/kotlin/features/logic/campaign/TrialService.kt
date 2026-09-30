@@ -45,7 +45,7 @@ data class TrialReport(
  * Испытания (1.47.0): босс-раш зачищенного региона и бесконечная башня. Бой, как и в зонах, считает клиент; сервер
  * лишь пускает события по порядку - босс раша за боссом, этаж башни за этажом - и катит награды потоком героя:
  * клад на каждом [com.sperance.exileforge.rules.content.TowerRule.hoardEvery]-м этаже и сундук раша в конце.
- * Вход тратит ключ - пять фрагментов герба или печать башни; новый вход закрывает прежнее испытание без награды.
+ * Вход тратит ключ раша (из пяти фрагментов герба) или печать башни; новый вход закрывает прежнее испытание без награды.
  */
 class TrialService : KoinComponent {
     private val heroes: HeroRepository by inject()
@@ -55,15 +55,25 @@ class TrialService : KoinComponent {
 
     private fun rules(method: String): TrialRules = index.campaign.trials ?: throw CampaignExceptions.funExceptionContent(method, "trials")
 
-    /** Босс-раш региона [regionCode]: все его зоны зачищены, ключ из фрагментов герба тратится. */
+    /** Босс-раш региона [regionCode]: все его зоны зачищены, ключ раша тратится. */
     suspend fun rush(heroId: String, regionCode: String): TrialStart {
         val method = "rush"
         val rules = rules(method)
         val hero = heroes.requireHero(heroId, method)
         val region = region(regionCode, method)
         if (!RushPlan.open(region, hero.campaign.cleared)) throw CampaignExceptions.funExceptionRegionClosed(method, regionCode)
-        hero.spend(TrialRules.CREST, rules.rush.key.toLong(), method)
+        hero.spend(TrialRules.KEY, 1, method)
         return open(hero, TrialKind.RUSH, region.code, 1, method)
+    }
+
+    /** Ключ раша (1.48.0): фрагменты герба по правилу раша - в один ключ. */
+    suspend fun forgeKey(heroId: String): Hero {
+        val method = "forgeKey"
+        val rules = rules(method)
+        val hero = heroes.requireHero(heroId, method)
+        hero.spend(TrialRules.CREST, rules.rush.key.toLong(), method)
+        hero.earn(TrialRules.KEY, 1, index.rules.maxStack)
+        return heroes.save(hero, method)
     }
 
     /** Башня с последнего чекпоинта: печать тратится. */

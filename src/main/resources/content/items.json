@@ -2365,6 +2365,12 @@
       "price": 150
     },
     {
+      "code": "RUSH_KEY",
+      "category": "MATERIAL",
+      "subCategory": "TRIAL",
+      "price": 750
+    },
+    {
       "code": "TOWER_SEAL",
       "category": "MATERIAL",
       "subCategory": "TRIAL",

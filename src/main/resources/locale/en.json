@@ -8115,9 +8115,11 @@
   "choice.ARMOUR_INT.name": "Armour of Intelligence",
   "choice.JEWELLERY.name": "Jewellery",
   "item.CREST_FRAGMENT.name": "Crest Fragment",
-  "item.CREST_FRAGMENT.description": "Five fragments open the boss rush of a cleared region",
+  "item.CREST_FRAGMENT.description": "Five fragments are forged into a rush key",
   "item.TOWER_SEAL.name": "Tower Seal",
   "item.TOWER_SEAL.description": "Opens the endless tower from the last checkpoint",
   "error.CP_022": "Region {0} is not fully cleared yet",
-  "error.CP_023": "No trial is open: enter one first"
+  "error.CP_023": "No trial is open: enter one first",
+  "item.RUSH_KEY.name": "Rush Key",
+  "item.RUSH_KEY.description": "Forged from five crest fragments: opens the boss rush of any cleared region"
 }

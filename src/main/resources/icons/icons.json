@@ -28892,6 +28892,32 @@
           "color": "#6a1f2c"
         }
       ]
+    },
+    "gl_trial_key": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M20 8 A12 12 0 1 1 19.9 8Z",
+          "color": "#8a6a2a",
+          "line": 2.4
+        },
+        {
+          "d": "M20 12 A8 8 0 1 1 19.9 12Z",
+          "color": "#d9b24c",
+          "alpha": 0.95
+        },
+        {
+          "d": "M27 27 L54 54 M44 44 L50 38 M50 50 L56 44",
+          "color": "#d9b24c",
+          "line": 4.2
+        },
+        {
+          "d": "M17 17 L23 23 M23 17 L17 23",
+          "color": "#6b5220",
+          "line": 1.8
+        }
+      ]
     }
   },
   "icons": {
@@ -31174,6 +31200,7 @@
     "item.WORLDTREE_LOG": "gl_log_worldtree",
     "item.STAR_FLUX": "gl_flux_star",
     "item.CREST_FRAGMENT": "gl_trial_crest",
-    "item.TOWER_SEAL": "gl_trial_seal"
+    "item.TOWER_SEAL": "gl_trial_seal",
+    "item.RUSH_KEY": "gl_trial_key"
   }
 }

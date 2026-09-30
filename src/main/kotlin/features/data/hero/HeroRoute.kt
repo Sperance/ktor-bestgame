@@ -219,6 +219,7 @@ class HeroRoute(
         route("/trials") {
             post("/rush") { call.respondWithHero(trials.rush(call.heroId, call.queryParam("region"))) }
             post("/tower") { call.respondWithHero(trials.tower(call.heroId)) }
+            post("/key") { call.respondWithHero(trials.forgeKey(call.heroId).bag) }
             post("/events") { call.respondWithHero(trials.events(call.heroId, call.receive<List<TrialEvent>>())) }
         }
 
