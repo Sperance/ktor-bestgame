@@ -6,7 +6,9 @@ import base.route.heroId
 import base.route.queryParam
 import features.logic.hero.respondWithHero
 import io.ktor.server.routing.Route
+import io.ktor.server.plugins.ratelimit.rateLimit
 import io.ktor.server.routing.post
+import server.addons.REDEEM_LIMIT
 
 /** Промокоды: администратор их заводит и удаляет, игрок - погашает. */
 class RedemptionCodesRoute(private val repo: RedemptionCodesRepository) : BaseRoute<RedemptionCodes>(
@@ -15,8 +17,10 @@ class RedemptionCodesRoute(private val repo: RedemptionCodesRepository) : BaseRo
     operations = setOf(Crud.READ, Crud.CREATE, Crud.DELETE),
 ) {
     override fun additionalRoutes(route: Route) = with(route) {
-        post("/redeem") {
-            call.respondWithHero(repo.redeem(call.heroId, call.queryParam("code")))
+        rateLimit(REDEEM_LIMIT) {
+            post("/redeem") {
+                call.respondWithHero(repo.redeem(call.heroId, call.queryParam("code")))
+            }
         }
     }
 }

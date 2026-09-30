@@ -12,6 +12,7 @@ import kotlinx.datetime.LocalDateTime
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import features.logic.auth.Passwords
+import features.logic.auth.Tokens
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -94,31 +95,25 @@ class UserRepository : BaseRepository<User>(User::class) {
         return findByField(User::login, login, includeDeleted)
     }
 
-    suspend fun createByDevice(deviceId: String): User {
-        if (deviceId.trim().isEmpty()) throw UserExceptions.funExceptionEmptyDevice("createByDevice")
-
-        val findedUser = findByField(User::device_id, deviceId)
-        if (findedUser != null) throw UserExceptions.funExceptionDoubleDevice("createByDevice", deviceId)
-
-        val newUser = User()
-        newUser.device_id = deviceId
-
-        return transactionExecute("Create by Device_id") { session ->
-            insert(newUser, session, false)
-        }
+    /**
+     * Аккаунт устройства (1.46.0): сервер сам выдаёт устройству случайный секрет, в базе - только его хеш.
+     * Устройство ничего о себе не сообщает: модель и ANDROID_ID больше не ключ к аккаунту, и чужой по ним не войти.
+     * Отвечает аккаунтом и секретом - второй раз его взять неоткуда.
+     */
+    suspend fun createByDevice(): Pair<User, String> {
+        val secret = Tokens.issue()
+        val user = User().apply { device_id = Tokens.hash(secret) }
+        return transactionExecute("Create by device") { session -> insert(user, session, false) } to secret
     }
 
-    suspend fun findByDeviceId(deviceId: String): User {
-        if (deviceId.trim().isEmpty()) throw UserExceptions.funExceptionEmptyDevice("createByDevice")
-
-        val user = findByField(User::device_id, deviceId)?.takeIf { it.isActive }
-            ?: throw UserExceptions.funExceptionDeviceNotFound("createByDevice", deviceId)
-
+    /** Вход по секрету устройства; неизвестный секрет - `US_015` без эха самого секрета. */
+    suspend fun findByDeviceId(secret: String): User {
+        val method = "findByDeviceId"
+        if (secret.isBlank() || secret.length > Tokens.MAX_LENGTH) throw UserExceptions.funExceptionEmptyDevice(method)
+        val user = findByField(User::device_id, Tokens.hash(secret))?.takeIf { it.isActive }
+            ?: throw UserExceptions.funExceptionDeviceNotFound(method)
         user.lastLoginDate = LocalDateTime.now()
-        transactionExecute("Correct login date from DeviceId") { session ->
-            update(user, session)
-        }
-
+        transactionExecute("Device login date") { session -> update(user, session) }
         return user
     }
 
@@ -135,8 +130,10 @@ class UserRepository : BaseRepository<User>(User::class) {
         ).modifiedCount == 1L
 
     suspend fun authenticate(login: String, password: String): User {
-        val user = findByLogin(login)
-            ?.takeIf { offCpu { Passwords.verify(password, it.password) } }
+        val found = findByLogin(login)
+        // Неизвестный логин проверяется против подставного хеша (1.46.0): по времени ответа не узнать, какие логины есть.
+        val user = found?.takeIf { offCpu { Passwords.verify(password, it.password) } }
+            ?: run { if (found == null) offCpu { Passwords.verify(password, Passwords.DECOY) }; null }
             ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
 
         if (!user.isActive) throw UserExceptions.funExceptionInactive("authenticate", user.login)

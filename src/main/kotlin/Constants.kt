@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.45.0"
+const val SERVER_VERSION = "1.46.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -24,8 +24,10 @@ const val SERVER_VERSION = "1.45.0"
  * с зоной `mz`, работы с выбором (`choice`, `options`, `JobKind.CONDENSE`), регион картографа, редкость `MAGIC` (1.43.0).
  * 27 - `JobKind.REFINE`/`JEWEL`, выбор кузнеца, поля работ `chain`/`ratio`/`tier` (1.44.0).
  * 28 - план дерева `skilltree/plan`, фильтр добычи `hero/autosell`, места аукциона без докупки (без `POST auctionlot/slots`) (1.45.0).
+ * 29 - секрет устройства от сервера (`user/byDeviceId` без тела отвечает `deviceSecret`, вход - по секрету), отчёты
+ *      об ошибках `POST bugreport`, 403 `AUTH_006` блокировки (1.46.0).
  */
-const val API_REVISION = 28
+const val API_REVISION = 29
 
 /**
  * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой

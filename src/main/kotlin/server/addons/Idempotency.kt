@@ -15,7 +15,11 @@ import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.ApplicationCallPipeline
 import io.ktor.server.application.call
 import io.ktor.server.request.httpMethod
+import io.ktor.server.application.install
+import io.ktor.server.application.pluginOrNull
+import io.ktor.server.plugins.doublereceive.DoubleReceive
 import io.ktor.server.request.path
+import io.ktor.server.request.receiveText
 import io.ktor.server.response.ApplicationSendPipeline
 import io.ktor.server.response.header
 import io.ktor.server.response.respond
@@ -88,13 +92,17 @@ object Idempotency {
 
     fun valid(key: String): Boolean = FORMAT.matches(key)
 
-    /** Отпечаток запроса: SHA-256 от метода, пути и параметров, упорядоченных по имени и значению. */
-    fun fingerprint(call: ApplicationCall): String {
+    /**
+     * Отпечаток запроса: SHA-256 от метода, пути, параметров, упорядоченных по имени и значению, и (1.46.0) тела -
+     * тот же ключ с другим журналом захода больше не получает чужой ответ. Тело читается повторно ([DoubleReceive]).
+     */
+    suspend fun fingerprint(call: ApplicationCall): String {
         val query = call.request.queryParameters.entries()
             .flatMap { (name, values) -> values.map { name to it } }
             .sortedWith(compareBy({ it.first }, { it.second }))
             .joinToString("&") { (name, value) -> "$name=$value" }
-        val text = "${call.request.httpMethod.value} ${call.request.path()}?$query"
+        val body = runCatching { call.receiveText() }.getOrDefault("")
+        val text = "${call.request.httpMethod.value} ${call.request.path()}?$query\n$body"
         return MessageDigest.getInstance("SHA-256").digest(text.toByteArray()).joinToString("") { "%02x".format(it) }
     }
 
@@ -140,6 +148,7 @@ fun Application.installIdempotency(
     store: ReplyStore = IdempotentReplyStore,
     accountOf: suspend (ApplicationCall) -> String? = { caller()?.user?._id },
 ) {
+    if (pluginOrNull(DoubleReceive) == null) install(DoubleReceive)
     intercept(ApplicationCallPipeline.Call) {
         if (call.request.httpMethod != HttpMethod.Post) return@intercept
         val key = call.request.headers[Idempotency.HEADER] ?: return@intercept

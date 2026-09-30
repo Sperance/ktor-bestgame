@@ -22,16 +22,19 @@ object AccessPolicy {
         "/api/v1/user/login",
         "/api/v1/user/login/byDeviceId",
         "/api/v1/user/byDeviceId",
+        // Отчёт об ошибке (1.46.0) шлют и до входа - ошибка входа тоже ошибка; лимит - по адресу.
+        "/api/v1/bugreport",
     )
 
-    private val publicSystem = setOf("/system/routes", "/system/health")
+    /** Карта маршрутов и swagger (1.46.0) - только администратору: они показывают и закрытые маршруты. */
+    private val publicSystem = setOf("/system/health")
 
     /**
      * Коллекции, в которых лежат чужие данные: аккаунты, персонажи, их вещи, лоты, промокоды.
      * Целиком их читает только администратор; игрок видит своё через игровые маршруты.
      */
     val privateCollections = setOf(
-        "user", "hero", "auctionlot", "redemptioncodes", "blocklist", "authsession", "guild", "guildevent",
+        "user", "hero", "auctionlot", "redemptioncodes", "blocklist", "authsession", "guild", "guildevent", "bugreport",
     )
 
     /** Игровые маршруты, которыми администратор выдаёт что-то из ничего. */
@@ -60,6 +63,7 @@ object AccessPolicy {
         if (verb == "POST" && path in publicPosts) return Need.PUBLIC
         if (path.startsWith(ADMIN_PREFIX)) return Need.ADMIN
         if (path.startsWith("/system/")) return Need.ADMIN
+        if (path == "/swagger" || path.startsWith("/swagger/")) return Need.ADMIN
         if (!path.startsWith("/api/")) return Need.PUBLIC
 
         val segments = path.removePrefix("/api/v1/").split('/')

@@ -37,6 +37,7 @@ fun Application.configureAccess() {
     val sessions by inject<AuthSessionRepository>()
     val users by inject<UserRepository>()
     val heroes by inject<HeroRepository>()
+    val blocks by inject<features.caches.BlockListCache>()
 
     intercept(ApplicationCallPipeline.Plugins) {
         if (call.request.httpMethod == HttpMethod.Options) return@intercept
@@ -50,6 +51,10 @@ fun Application.configureAccess() {
         val session = sessions.resolve(token) ?: throw AuthExceptions.funExceptionBadToken("access", path)
         val user = users.findById(session.userId)?.takeIf { it.isActive }
             ?: throw AuthExceptions.funExceptionBadToken("access", path)
+        if (blocks.isUserBlocked(user._id)) {
+            sessions.revokeAll(user._id)
+            throw AuthExceptions.funExceptionBlocked("access")
+        }
         val caller = Caller(user, token)
 
         if (need == Need.ADMIN && !caller.isAdmin) throw AuthExceptions.funExceptionAdminOnly("access", path)

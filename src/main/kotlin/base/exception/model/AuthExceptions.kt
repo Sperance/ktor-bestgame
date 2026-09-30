@@ -16,5 +16,6 @@ object AuthExceptions {
     fun funExceptionBadToken(errorMethod: String, value: String? = "") = AuthException("The session has expired or is not valid", errorMethod, "AUTH_002", listOf(value.orEmpty()), 401)
     fun funExceptionAdminOnly(errorMethod: String, value: String? = "") = AuthException("Administrator rights required for $value", errorMethod, "AUTH_003", listOf(value.orEmpty()), 403)
     fun funExceptionNotYourCharacter(errorMethod: String, value: String? = "") = AuthException("Character $value belongs to another account", errorMethod, "AUTH_004", listOf(value.orEmpty()), 403)
+    fun funExceptionBlocked(errorMethod: String) = AuthException("Access is blocked", errorMethod, "AUTH_006", emptyList(), 403)
     fun funExceptionNotYourAccount(errorMethod: String, value: String? = "") = AuthException("Account $value is not yours", errorMethod, "AUTH_005", listOf(value.orEmpty()), 403)
 }

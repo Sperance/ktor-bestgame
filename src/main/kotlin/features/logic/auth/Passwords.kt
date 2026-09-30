@@ -19,6 +19,9 @@ object Passwords {
 
     private val random = SecureRandom()
 
+    /** Подставной хеш (1.46.0): с ним сверяется пароль неизвестного логина, чтобы ответ шёл столько же, сколько с известным. */
+    val DECOY: String by lazy { hash("decoy-${random.nextLong()}") }
+
     fun hash(password: String, iterations: Int = ITERATIONS): String {
         val salt = ByteArray(SALT_BYTES).also(random::nextBytes)
         return encode(iterations, salt, derive(password, salt, iterations))

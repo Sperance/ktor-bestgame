@@ -10,6 +10,7 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import server.addons.CallerKey
 import server.addons.LOGIN_LIMIT
+import server.addons.PASSWORD_LIMIT
 
 /**
  * Аккаунт: вход, сессия, пароль. Общего CRUD у аккаунтов нет - клиент его не зовёт.
@@ -33,7 +34,8 @@ class UserRoute(
                 call.respondOk(signedIn(repo.authenticate(request.login, request.password)))
             }
             post("/byDeviceId") {
-                call.respondOk(signedIn(repo.createByDevice(call.receive<DeviceRequest>().deviceId)))
+                val (user, secret) = repo.createByDevice()
+                call.respondOk(signedIn(user).copy(deviceSecret = secret))
             }
             post("/login/byDeviceId") {
                 call.respondOk(signedIn(repo.findByDeviceId(call.receive<DeviceRequest>().deviceId)))
@@ -49,12 +51,14 @@ class UserRoute(
         }
         // Меняет пароль своего аккаунта и гасит все остальные его сессии: тот, кто знал
         // старый пароль, выходит сразу, а не через тридцать дней.
-        post("/changePassword") {
-            val caller = call.attributes[CallerKey]
-            val change = call.receive<PasswordChange>()
-            val result = repo.changePassword(caller.user._id, change.password, change.newPassword)
-            sessions.revokeAll(caller.user._id, except = caller.token)
-            call.respondOk(result)
+        rateLimit(PASSWORD_LIMIT) {
+            post("/changePassword") {
+                val caller = call.attributes[CallerKey]
+                val change = call.receive<PasswordChange>()
+                val result = repo.changePassword(caller.user._id, change.password, change.newPassword)
+                sessions.revokeAll(caller.user._id, except = caller.token)
+                call.respondOk(result)
+            }
         }
     }
 

@@ -56,7 +56,7 @@ fun User.toResponse(): UserResponse = UserResponse(
  * Ответ на вход: аккаунт и токен сессии.
  */
 @Serializable
-data class LoginResponse(val user: UserResponse, val token: String)
+data class LoginResponse(val user: UserResponse, val token: String, val deviceSecret: String? = null)
 
 /** Тело входа по логину и паролю. Пароль идёт в теле, а не в строке запроса. */
 @Serializable

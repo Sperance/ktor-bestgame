@@ -16,6 +16,9 @@ object Tokens {
     private val random = SecureRandom()
     private val encoder = Base64.getUrlEncoder().withoutPadding()
 
+    /** Длиннее токенов и секретов устройства не бывает: всё, что длиннее, отвергается без хеширования. */
+    const val MAX_LENGTH = 200
+
     fun issue(): String = encoder.encodeToString(ByteArray(32).also(random::nextBytes))
 
     fun hash(token: String): String =
@@ -26,6 +29,6 @@ object Tokens {
         if (header == null) return null
         val (scheme, value) = header.trim().split(' ', limit = 2).takeIf { it.size == 2 } ?: return null
         if (!scheme.equals("Bearer", ignoreCase = true)) return null
-        return value.trim().takeIf { it.length in 20..200 }
+        return value.trim().takeIf { it.length in 20..MAX_LENGTH }
     }
 }

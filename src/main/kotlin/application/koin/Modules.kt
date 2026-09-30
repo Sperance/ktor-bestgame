@@ -43,6 +43,7 @@ val repositoryModule = module {
     single { GuildEventRepository() }
     single { BlockListRepository() }
     single { RedemptionCodesRepository() }
+    single { features.data.bugReport.BugReportRepository() }
     single { InventoryService() }
     single { TreeService() }
     single { AtlasService() }
@@ -67,6 +68,7 @@ val routeModule = module {
                 AuctionLotRoute(get()),
                 GuildRoute(get()),
                 RedemptionCodesRoute(get()),
+                features.data.bugReport.BugReportRoute(get(), get()),
             )
         )
     }

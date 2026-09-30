@@ -32,6 +32,9 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
          * час точности на тридцати днях ничего не меняет.
          */
         private val TOUCH_EVERY: Duration = 1.hours
+
+        /** Живых сессий на аккаунт (1.46.0): новая вытесняет самую старую по последнему входу. */
+        const val MAX_PER_USER = 5
     }
 
     override val indexes = listOf(IndexSpec.unique("idx_unique_token", "tokenHash"), IndexSpec.on("userId"))
@@ -43,9 +46,11 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
         // Заодно подчищаются истёкшие сессии этого аккаунта, чтобы коллекция не росла вечно.
         // Сроки сравниваются здесь, а не запросом к базе: даты хранятся в том виде, в каком их
         // пишет сериализатор, и сравнивать их на стороне Mongo значит полагаться на формат.
-        val expired = collection.find(Filters.eq("userId", userId)).toList().filter { it.expiresAt < now }.map { it._id }
+        val (expired, alive) = collection.find(Filters.eq("userId", userId)).toList().partition { it.expiresAt < now }
+        val crowded = alive.sortedBy { it.lastUsedAt }.dropLast(MAX_PER_USER - 1)
+        val gone = (expired + crowded).map { it._id }
         transactionExecute("auth issue") { session ->
-            if (expired.isNotEmpty()) collection.deleteMany(session, Filters.`in`("_id", expired))
+            if (gone.isNotEmpty()) collection.deleteMany(session, Filters.`in`("_id", gone))
             insert(AuthSession(userId = userId, tokenHash = Tokens.hash(token), expiresAt = now.plus(LIFETIME)), session)
         }
         return token

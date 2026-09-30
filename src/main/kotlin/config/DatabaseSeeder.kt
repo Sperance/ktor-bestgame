@@ -41,6 +41,7 @@ object DatabaseSeeder : KoinComponent {
     private val guildEvents: GuildEventRepository by inject()
     private val blockList: BlockListRepository by inject()
     private val codes: RedemptionCodesRepository by inject()
+    private val bugs: features.data.bugReport.BugReportRepository by inject()
     private val blockListCache: BlockListCache by inject()
     private val content: ContentStore by inject()
 
@@ -67,7 +68,7 @@ object DatabaseSeeder : KoinComponent {
 
     /** Индексы - до транзакции: создание индекса меняет каталог MongoDB и рвёт открытую транзакцию. */
     private suspend fun ensureIndexes() = coroutineScope {
-        (listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes).map { async { it.ensureIndexes() } } +
+        (listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes, bugs).map { async { it.ensureIndexes() } } +
             async { IdempotentReplyStore.ensureIndexes() }).awaitAll()
         printLog("  → indexes ensured")
     }

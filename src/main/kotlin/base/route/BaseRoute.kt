@@ -136,7 +136,7 @@ open class BaseRoute<T : StockEntity>(
     private fun Route.createRoute() = post {
         guarded("createRoute") {
             val entities = AppJson.decodeFromJsonElement(listSerializer, call.receive<JsonArray>())
-            val created = transactionExecute("[$basePath::createRoute] $entities") { session ->
+            val created = transactionExecute("[$basePath::createRoute] ${entities.size}") { session ->
                 repository.insertMany(entities, session)
             }
             call.respondJson(listResponse, ApiMongoResponse.ok(created.map(::present)))

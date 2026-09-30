@@ -21,7 +21,7 @@ object DatabaseWipe {
     const val COLLECTION = "Migration"
 
     /** Метка последней очистки. Новая очистка - новая метка. */
-    const val MARKER = "wipe-1.45.0"
+    const val MARKER = "wipe-1.46.0"
 
     /** Сносит базу, если метки ещё нет. Зовётся до индексов и до первой транзакции сидера. */
     suspend fun runOnce() {
