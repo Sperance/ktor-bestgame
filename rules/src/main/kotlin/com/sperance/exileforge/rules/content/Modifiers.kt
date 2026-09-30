@@ -243,6 +243,8 @@ data class ModifierDef(
     /** Группа исключения: два описания одной группы на одном носителе не встают. */
     val groupKey: String get() = group ?: family
     val affix: Boolean get() = source.affix
+    /** Скрытый гибрид (тег [VEILED]): его группы исключения шире своей - см. [ContentIndex.groups]. */
+    val veiled: Boolean get() = VEILED in tags
     val monster: Boolean get() = source == Source.MONSTER
     val rolls: Boolean get() = tiers.isNotEmpty()
 
@@ -256,6 +258,10 @@ data class ModifierDef(
     }
 
     fun stats(): List<String> = effects.map { it.stat }
+
+    companion object {
+        const val VEILED = "veiled"
+    }
 }
 
 /** Одна десятая - точность всех значений ролла. */

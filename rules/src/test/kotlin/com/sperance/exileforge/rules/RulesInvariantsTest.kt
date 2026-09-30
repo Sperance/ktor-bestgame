@@ -10,6 +10,7 @@ import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.Menagerie
 import com.sperance.exileforge.rules.content.PetOrbAction
 import com.sperance.exileforge.rules.roll.OrbApplier
+import com.sperance.exileforge.rules.roll.Veils
 import com.sperance.exileforge.rules.run.Run
 import com.sperance.exileforge.rules.run.RunContext
 import com.sperance.exileforge.rules.run.RewardDraws
@@ -246,6 +247,29 @@ class RulesInvariantsTest {
         assertEquals(150.0, sheet[PHYSICAL])
         assertEquals(0.0, sheet[GenericDamage.STAT] ?: 0.0)
         assertEquals(150.0, index.campaign.combat.critical.effective(150.0, null))
+    }
+
+    /**
+     * Раскрытие скрытого аффикса держит правило «одна группа на предмет»: гибрид, повторяющий эффект строки копии
+     * (натиск и скорость передвижения рядом со скоростью передвижения), не предлагается, и раскрытая копия групп не повторяет.
+     */
+    @Test
+    fun unveilingNeverRepeatsAGroupOfTheItem() {
+        val veils = Veils(index)
+        val template = index.templates.values.first { !it.unique && it.tables.isNotEmpty() && !it.slot.isJewelLike && !it.slot.isFlask && !it.slot.isTool }
+        val hybrids = index.definitions.filter { it.veiled && it.affix && index.groups(it).size > 1 }
+        assertTrue(hybrids.isNotEmpty(), "no veiled hybrid repeats an affix")
+        hybrids.forEach { hybrid ->
+            val twin = index.definitions.first { it.affix && !it.veiled && !it.crafted && it.rolls && it.groupKey != hybrid.groupKey && it.groupKey in index.groups(hybrid) }
+            val veil = if (hybrid.source == Source.PREFIX) Veils.PREFIX else Veils.SUFFIX
+            repeat(40) { seed ->
+                val item = ItemInstance("i", template.code, Rarity.RARE, listOf(Roll(twin.code, twin.tiers.size, 0.5), Roll(veil, 1, 0.0)))
+                val offered = veils.offer(item, template, Dice(seed.toLong())).item.unveil
+                assertTrue(offered.isNotEmpty() && offered.none { it.code == hybrid.code }, "${hybrid.code} offered next to ${twin.code}")
+                val groups = veils.reveal(item, template, seed % offered.size).item.rolls.mapNotNull { index.modifier(it.code) }.flatMap(index::groups)
+                assertEquals(groups.size, groups.toSet().size, "a group twice after unveiling next to ${twin.code}: $groups")
+            }
+        }
     }
 
     private companion object {

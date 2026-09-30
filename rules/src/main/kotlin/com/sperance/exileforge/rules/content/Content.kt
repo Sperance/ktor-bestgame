@@ -113,8 +113,9 @@ class Content(
  * 24 - свой шанс и множитель крита чар, база крита в листе, без осквернённой земли, самоцветы с 5 уровня героя, аффиксы без минусов (1.56.0).
  * 25 - локальные % от базы предмета, база урона крита 100, «увеличенный урон» складывается, проклятие ударившего, ремесло и эссенции по тиру уровня, кап уникальных ×3, моды профессий `STOCK_WORK_*`, без темноты и замедления карт (1.57.0).
  * 26 - один модификатор - одна вещь: без гибридов, рисковых и телосложения; общие статы «ко всем» с разносом листом, реген ЭЩ % от максимума, лестницы уровней навыков, ±10% у фиксированных тиров (1.58.0).
+ * 27 - посохи и скипетры (`WeaponType.STAFF`/`SCEPTRE`, `spell`), группы модов на всех путях добавления, снятие завесы без повтора группы (1.59.0).
  */
-const val RULES_VERSION = 26
+const val RULES_VERSION = 27
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -188,6 +189,18 @@ class ContentIndex(val content: Content) {
     val families: Map<String, ModifierFamily> = (content.modifiers.families + content.equipment.templates.flatMap { it.uniqueFamilies() }).associateBy { it.code }
     val definitions: List<ModifierDef> = families.values.flatMap { it.definitions() }
     private val byCode: Map<String, ModifierDef> = definitions.associateBy { it.code }
+    /**
+     * Группы исключения описаний: у всех - своя [ModifierDef.groupKey]; скрытый гибрид (тег `veiled`) сверх неё занимает
+     * группу каждого одноэффектного аффикса, чей эффект он повторяет (тот же стат, операция, пересчёт и условие, та же
+     * локальность). «Натиск и скорость передвижения» занимает группу скорости передвижения - вторая такая строка на
+     * предмет не встаёт ни с какой стороны. Прочие гибриды (влияние, инструменты) держат только свою группу.
+     */
+    private val groupsByCode: Map<String, Set<String>> = run {
+        val single = definitions.filter { it.affix && !it.veiled && it.effects.size == 1 }.groupBy({ it.effects.single() to it.local }, { it.groupKey })
+        definitions.associate { def ->
+            def.code to if (def.affix && def.veiled) def.effects.flatMapTo(linkedSetOf(def.groupKey)) { single[it to def.local].orEmpty() } else setOf(def.groupKey)
+        }
+    }
     private val ladders: Map<String, TierLadder> = definitions.associate { it.code to TierLadder(it.tiers) }
     val monsterModifiers: List<ModifierDef> = definitions.filter { it.monster }
 
@@ -217,6 +230,8 @@ class ContentIndex(val content: Content) {
     private val templatePools = ConcurrentHashMap<List<String>, List<Weighted<ItemTemplate>>>()
 
     fun modifier(code: String): ModifierDef? = byCode[code]
+    /** Группы, которые описание занимает на носителе: два описания с общей группой на одном носителе не встают. */
+    fun groups(def: ModifierDef): Set<String> = groupsByCode[def.code] ?: setOf(def.groupKey)
     fun template(code: String): ItemTemplate? = templates[code]
     fun item(code: String): Item? = items[code]
     fun monster(code: String): Monster? = monsters[code]

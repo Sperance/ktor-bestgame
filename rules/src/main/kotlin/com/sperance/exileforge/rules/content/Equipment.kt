@@ -38,8 +38,14 @@ enum class Slot {
     }
 }
 
+/** Вид оружия. Оружие заклинаний - жезл, посох (двуручный, блокирует) и скипетр ([spell]). */
 @Serializable
-enum class WeaponType { SWORD, LONGSWORD, BOW, WAND, AXE, DOUBLEAXE, DOUBLESWORD, BLADE }
+enum class WeaponType {
+    SWORD, LONGSWORD, BOW, WAND, AXE, DOUBLEAXE, DOUBLESWORD, BLADE, STAFF, SCEPTRE;
+
+    /** Оружие заклинателя: его таблицы катят строки заклинаний, а носитель бьёт из второго ряда, как с жезлом. */
+    val spell: Boolean get() = this == WAND || this == STAFF || this == SCEPTRE
+}
 
 /**
  * Куда встаёт надеваемая вещь и что она снимает - руки и кольца PoE: двуручное занимает обе руки,

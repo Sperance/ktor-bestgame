@@ -17141,6 +17141,662 @@
       ]
     },
     {
+      "code": "STAFF_ADD_FIRE_DAMAGE_TO_SPELLS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_ADD_FIRE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          69,
+          56,
+          44,
+          32,
+          20,
+          10,
+          1
+        ],
+        "top": [
+          [
+            81,
+            108
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            7
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              94,
+              128
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "damage",
+        "caster",
+        "fire",
+        "staff"
+      ],
+      "group": "ADD_FIRE_DAMAGE_TO_SPELLS"
+    },
+    {
+      "code": "STAFF_ADD_COLD_DAMAGE_TO_SPELLS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_ADD_COLD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          69,
+          56,
+          44,
+          32,
+          20,
+          10,
+          1
+        ],
+        "top": [
+          [
+            81,
+            108
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            7
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              94,
+              128
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "damage",
+        "caster",
+        "cold",
+        "staff"
+      ],
+      "group": "ADD_COLD_DAMAGE_TO_SPELLS"
+    },
+    {
+      "code": "STAFF_ADD_LIGHTNING_DAMAGE_TO_SPELLS",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_ADD_LIGHTNING"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          69,
+          56,
+          44,
+          32,
+          20,
+          10,
+          1
+        ],
+        "top": [
+          [
+            81,
+            108
+          ]
+        ],
+        "bottom": [
+          [
+            4,
+            7
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              94,
+              128
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "damage",
+        "caster",
+        "lightning",
+        "staff"
+      ],
+      "group": "ADD_LIGHTNING_DAMAGE_TO_SPELLS"
+    },
+    {
+      "code": "STAFF_INCREASED_SPELL_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_DAMAGE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          72,
+          62,
+          52,
+          42,
+          33,
+          24,
+          15,
+          7,
+          1
+        ],
+        "top": [
+          [
+            112,
+            158
+          ]
+        ],
+        "bottom": [
+          [
+            18,
+            34
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              128,
+              187
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "caster",
+        "damage",
+        "staff"
+      ],
+      "group": "INCREASED_SPELL_DAMAGE"
+    },
+    {
+      "code": "STAFF_INCREASED_SPELL_CRITICAL_CHANCE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            144,
+            180
+          ]
+        ],
+        "bottom": [
+          [
+            18,
+            34
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              166,
+              212
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "critical",
+        "caster",
+        "staff"
+      ],
+      "group": "INCREASED_SPELL_CRITICAL_CHANCE"
+    },
+    {
+      "code": "STAFF_ADD_SPELL_CRITICAL_MULTIPLIER",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_CRITICAL_MULTIPLIER"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            63,
+            68
+          ]
+        ],
+        "bottom": [
+          [
+            18,
+            25
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              72,
+              81
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "critical",
+        "caster",
+        "staff"
+      ],
+      "group": "ADD_SPELL_CRITICAL_MULTIPLIER"
+    },
+    {
+      "code": "STAFF_INCREASED_CAST_SPEED",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_CAST_SPEED",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            34,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            9,
+            14
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              40,
+              47
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "caster",
+        "speed",
+        "staff"
+      ],
+      "group": "INCREASED_CAST_SPEED"
+    },
+    {
+      "code": "STAFF_ADD_SPELL_SKILL_LEVEL",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_LEVEL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          1
+        ],
+        "top": [
+          [
+            3,
+            3
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ],
+        "ratio": 0.3,
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              4,
+              4
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "skill",
+        "level",
+        "caster",
+        "staff"
+      ],
+      "group": "ADD_SPELL_SKILL_LEVEL"
+    },
+    {
+      "code": "STAFF_INCREASED_FIRE_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_FIRE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          72,
+          62,
+          52,
+          42,
+          33,
+          24,
+          15,
+          7,
+          1
+        ],
+        "top": [
+          [
+            61,
+            72
+          ]
+        ],
+        "bottom": [
+          [
+            11,
+            18
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              70,
+              85
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "damage",
+        "elemental",
+        "fire",
+        "staff"
+      ],
+      "group": "INCREASED_FIRE_DAMAGE"
+    },
+    {
+      "code": "STAFF_INCREASED_COLD_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_COLD",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          72,
+          62,
+          52,
+          42,
+          33,
+          24,
+          15,
+          7,
+          1
+        ],
+        "top": [
+          [
+            61,
+            72
+          ]
+        ],
+        "bottom": [
+          [
+            11,
+            18
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              70,
+              85
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "damage",
+        "elemental",
+        "cold",
+        "staff"
+      ],
+      "group": "INCREASED_COLD_DAMAGE"
+    },
+    {
+      "code": "STAFF_INCREASED_LIGHTNING_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_LIGHTNING",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          72,
+          62,
+          52,
+          42,
+          33,
+          24,
+          15,
+          7,
+          1
+        ],
+        "top": [
+          [
+            61,
+            72
+          ]
+        ],
+        "bottom": [
+          [
+            11,
+            18
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              70,
+              85
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "damage",
+        "elemental",
+        "lightning",
+        "staff"
+      ],
+      "group": "INCREASED_LIGHTNING_DAMAGE"
+    },
+    {
+      "code": "STAFF_INCREASED_CHAOS_DAMAGE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ATTACK_CHAOS",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          72,
+          62,
+          52,
+          42,
+          33,
+          24,
+          15,
+          7,
+          1
+        ],
+        "top": [
+          [
+            56,
+            68
+          ]
+        ],
+        "bottom": [
+          [
+            11,
+            18
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              65,
+              81
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "damage",
+        "chaos",
+        "staff"
+      ],
+      "group": "INCREASED_CHAOS_DAMAGE"
+    },
+    {
+      "code": "IMPLICIT_STAFF_SPELL_DAMAGE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_SPELL_DAMAGE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          45,
+          20,
+          1
+        ],
+        "top": [
+          [
+            36,
+            45
+          ]
+        ],
+        "bottom": [
+          [
+            14,
+            22
+          ]
+        ]
+      },
+      "tags": [
+        "implicit",
+        "caster"
+      ]
+    },
+    {
+      "code": "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE",
+      "source": "IMPLICIT",
+      "effects": [
+        {
+          "stat": "STOCK_ELEMENTAL_DAMAGE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          45,
+          20,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "implicit",
+        "damage",
+        "elemental"
+      ]
+    },
+    {
       "code": "ADD_MAXIMUM_MANA",
       "source": "PREFIX",
       "effects": [

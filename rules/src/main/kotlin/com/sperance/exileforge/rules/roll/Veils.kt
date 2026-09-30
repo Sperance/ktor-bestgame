@@ -30,11 +30,19 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
         return true
     }
 
-    /** Варианты раскрытия скрытого аффикса [item]: разные гибриды его стороны на уровне копии. */
+    /**
+     * Варианты раскрытия скрытого аффикса [item]: разные гибриды его стороны на уровне копии, чьи группы ([ContentIndex.groups])
+     * не заняты остальными строками копии. Все гибриды стороны заняты - обычные аффиксы этой стороны из таблиц копии, так что
+     * скрытый аффикс раскрывается всегда. Ждущий выбор, который строки копии с тех пор перекрыли целиком, предлагается заново.
+     */
     fun offer(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         val veil = veiled(item) ?: throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))
-        if (item.unveil.isNotEmpty()) throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))
-        val pool = index.modifierPool(listOf(if (veil.code == PREFIX) "$TABLE:prefix" else "$TABLE:suffix")).toMutableList()
+        val taken = affixes.groups(item.rolls.filterNot { it === veil })
+        if (item.unveil.any { fits(it, taken) }) throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))
+        val side = if (veil.code == PREFIX) Source.PREFIX else Source.SUFFIX
+        val pool = index.modifierPool(listOf("$TABLE:${side.name.lowercase()}")).filter { affixes.fits(it.value, taken) }
+            .ifEmpty { affixes.affixPool(template, item.influence).filter { it.value.source == side && affixes.fits(it.value, taken) } }
+            .toMutableList()
         val options = mutableListOf<Roll>()
         while (options.size < index.rules.quality.unveilChoices && pool.isNotEmpty()) {
             val def = Tables.draw(pool, dice) ?: break
@@ -46,15 +54,18 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
         return OrbOutcome(item, null, "currency.unveil_offer", listOf(LocaleKey.equipmentName(template.code), options.size.toString()))
     }
 
-    /** Выбор игрока [choice] встаёт на место скрытого аффикса. */
+    /** Выбор игрока [choice] встаёт на место скрытого аффикса; вариант, чью группу копия с тех пор заняла, не встаёт. */
     fun reveal(item: ItemInstance, template: ItemTemplate, choice: Int): OrbOutcome {
         val veil = veiled(item)
         val option = item.unveil.getOrNull(choice)
         if (veil == null || option == null) throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))
+        if (!fits(option, affixes.groups(item.rolls.filterNot { it === veil }))) throw RuleViolation("CR_016", listOf(LocaleKey.equipmentName(template.code)))
         item.rolls = item.rolls.map { if (it === veil) option else it }
         item.unveil = emptyList()
         return OrbOutcome(item, null, "currency.unveiled", listOf(LocaleKey.equipmentName(template.code)))
     }
+
+    private fun fits(option: Roll, taken: Set<String>): Boolean = affixes.definition(option)?.let { affixes.fits(it, taken) } == true
 
     companion object {
         const val PREFIX = "VEILED_PREFIX"

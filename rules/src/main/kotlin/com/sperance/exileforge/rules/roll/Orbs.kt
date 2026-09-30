@@ -118,26 +118,31 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         }
         val share = if (essence.special) 1.0 else (essence.tier - 1).toDouble() / (tiers.size - 1)
         val forced = affixes.rollShare(line, share, dice, item.level(template)) ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
-        val group = affixes.definitions(listOf(forced)).map { it.groupKey }.toSet()
-        val kept = affixes.fractured(item.rolls).filterNot { held -> affixes.definitions(listOf(held)).any { it.groupKey in group } }
-        val around = if (affixes.isAffix(forced)) kept + forced else kept
+        // Закреплённый аффикс той же группы уступает гарантии; имплисит - нет: эссенция его группы на копию не идёт
+        val permanent = affixes.permanent(item.rolls)
+        val taken = affixes.groups(listOf(forced))
+        if (affixes.groups(permanent).any { it in taken }) throw RuleViolation("CR_016", listOf(name(template)))
+        val kept = affixes.fractured(item.rolls).filter { held -> affixes.groups(listOf(held)).none { it in taken } }
+        val around = permanent + kept + forced
         item.rarity = Rarity.RARE
-        item.rolls = affixes.permanent(item.rolls) + kept + forced + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, around, level = item.level(template))
+        item.rolls = around + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, around, level = item.level(template))
         return outcome(item, template, "currency.essence", essenceName)
     }
 
     private fun upgrade(item: ItemInstance, template: ItemTemplate, from: Rarity, to: Rarity, dice: Dice, below: Int = 0): OrbOutcome {
         requireRarity(item, template, from)
         item.rarity = to
-        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, to, dice, item.influence, below = below, level = item.level(template))
+        val permanent = affixes.permanent(item.rolls)
+        item.rolls = permanent + affixes.rollAffixes(template, to, dice, item.influence, permanent, below = below, level = item.level(template))
         return outcome(item, template, "currency.upgraded", LocaleKey.rarity(to), affixes.affixes(item.rolls).size.toString())
     }
 
     private fun reroll(item: ItemInstance, template: ItemTemplate, required: Rarity, dice: Dice, side: Source? = null): OrbOutcome {
         requireRarity(item, template, required)
         // Знамение стороны (1.35.0): другая сторона остаётся как есть, перекатывается только своя.
-        val kept = affixes.fractured(item.rolls) + if (side == null) emptyList() else affixes.affixes(item.rolls).filter { !it.fractured && affixes.definition(it)?.source != side }
-        item.rolls = affixes.permanent(item.rolls) + kept + affixes.rollAffixes(template, item.rarity, dice, item.influence, kept, level = item.level(template), side = side)
+        val kept = affixes.permanent(item.rolls) + affixes.fractured(item.rolls) +
+            if (side == null) emptyList() else affixes.affixes(item.rolls).filter { !it.fractured && affixes.definition(it)?.source != side }
+        item.rolls = kept + affixes.rollAffixes(template, item.rarity, dice, item.influence, kept, level = item.level(template), side = side)
         return outcome(item, template, "currency.rerolled", affixes.affixes(item.rolls).size.toString())
     }
 
@@ -203,14 +208,15 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         return when (dice.pick(if (sure) VaalOutcome.entries - VaalOutcome.NOTHING else VaalOutcome.entries)) {
             VaalOutcome.NOTHING -> outcome(item, template, "currency.vaal_nothing")
             VaalOutcome.IMPLICIT -> {
-                val corruption = affixes.rollFrom(listOf(AffixRoller.corruptionTag(template.slot)), item.level(template), dice)
-                if (corruption != null) item.rolls = item.rolls.filterNot { affixes.definition(it)?.source == Source.IMPLICIT } + corruption
+                val rest = item.rolls.filterNot { affixes.definition(it)?.source == Source.IMPLICIT }
+                val corruption = affixes.rollFrom(listOf(AffixRoller.corruptionTag(template.slot)), item.level(template), dice, rest)
+                if (corruption != null) item.rolls = rest + corruption
                 outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
             }
             VaalOutcome.RARE -> if (item.rarity.fixed || template.slot.isFlask) outcome(item, template, "currency.vaal_nothing") else {
-                val kept = affixes.fractured(item.rolls)
+                val kept = affixes.permanent(item.rolls) + affixes.fractured(item.rolls)
                 item.rarity = Rarity.RARE
-                item.rolls = affixes.permanent(item.rolls) + kept + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, kept, level = item.level(template))
+                item.rolls = kept + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, kept, level = item.level(template))
                 outcome(item, template, "currency.vaal_rare", affixes.affixes(item.rolls).size.toString())
             }
             VaalOutcome.SHIFT -> {
@@ -233,7 +239,8 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         val wanted = Tables.value<Rarity>(index.tables, rules.orbs.chanceRarities, dice) ?: Rarity.COMMON
         val rarity = factory.rarityFor(template, wanted)
         item.rarity = rarity
-        item.rolls = affixes.permanent(item.rolls) + affixes.rollAffixes(template, rarity, dice, item.influence, level = item.level(template))
+        val permanent = affixes.permanent(item.rolls)
+        item.rolls = permanent + affixes.rollAffixes(template, rarity, dice, item.influence, permanent, level = item.level(template))
         return outcome(item, template, "currency.chance_rarity", LocaleKey.rarity(rarity))
     }
 

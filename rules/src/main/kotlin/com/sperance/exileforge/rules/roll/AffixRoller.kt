@@ -27,9 +27,14 @@ class AffixRoller(private val index: ContentIndex) {
     fun permanent(rolls: Collection<Roll>): List<Roll> = rolls.filterNot { isAffix(it) || isEssence(it) }
     fun fractured(rolls: Collection<Roll>): List<Roll> = rolls.filter { it.fractured }
 
+    /** Группы исключения, занятые строками [rolls] - все строки копии, имплиситы и скрытые гибриды тоже: правило «одна группа на предмет» одно на все пути. */
+    fun groups(rolls: Collection<Roll>): Set<String> = definitions(rolls).flatMapTo(HashSet(), index::groups)
+    /** Встанет ли [def] рядом с занятыми группами [taken]: ни одной общей группы. */
+    fun fits(def: ModifierDef, taken: Set<String>): Boolean = index.groups(def).none { it in taken }
+
     /** Новая копия: закреплённые строки шаблона и аффиксы под редкость на уровне предмета [level]. */
     fun roll(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, level: Int = template.level): List<Roll> =
-        rollPermanent(template, dice) + rollAffixes(template, rarity, dice, influence, level = level)
+        rollPermanent(template, dice).let { permanent -> permanent + rollAffixes(template, rarity, dice, influence, permanent, level = level) }
 
     /** Закреплённые описания шаблона: имплиситы, зачарования, порча, строки уникалки. */
     fun rollPermanent(template: ItemTemplate, dice: Dice): List<Roll> =
@@ -37,7 +42,7 @@ class AffixRoller(private val index: ContentIndex) {
 
     /**
      * Случайные префиксы и суффиксы на места, которые оставила редкость: взвешенно и без повторов
-     * группы; [kept] - аффиксы, что остаются на копии и занимают свои места и группы; [below] - на
+     * группы; [kept] - строки, что остаются на копии: аффиксы занимают места, все - группы; [below] - на
      * сколько потолок редкости ниже обычного (сфера алхимии не даёт полного набора); [level] - уровень предмета.
      */
     fun rollAffixes(
@@ -47,8 +52,8 @@ class AffixRoller(private val index: ContentIndex) {
         val keptDefs = definitions(kept)
         val (prefixes, suffixes) = freeSlots(rarity, keptDefs, template.slot)
         val limits = index.limits(rarity, template.slot)
-        val limit = (dice.between(limits.floor, (limits.ceiling - below).coerceAtLeast(limits.floor)) - kept.size).coerceAtLeast(0)
-        return pickAffixes(affixPool(template, influence).onSide(side), prefixes, suffixes, keptDefs.map { it.groupKey }, limit, dice).mapNotNull { roll(it, level, dice) }
+        val limit = (dice.between(limits.floor, (limits.ceiling - below).coerceAtLeast(limits.floor)) - keptDefs.count { it.affix }).coerceAtLeast(0)
+        return pickAffixes(affixPool(template, influence).onSide(side), prefixes, suffixes, groups(kept), limit, dice).mapNotNull { roll(it, level, dice) }
     }
 
     /**
@@ -106,22 +111,26 @@ class AffixRoller(private val index: ContentIndex) {
     private fun rollOne(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, level: Int): Roll? {
         val defs = definitions(current)
         val (prefixes, suffixes) = freeSlots(rarity, defs, template.slot)
-        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), defs.map { it.groupKey }, 1, dice).firstOrNull()?.let { roll(it, level, dice) }
+        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), groups(current), 1, dice).firstOrNull()?.let { roll(it, level, dice) }
     }
 
-    /** Взвешенный выбор аффиксов на свободные места без повторов группы: места двух видов тянутся из одного мешка. */
-    fun pickAffixes(pool: Collection<Weighted<ModifierDef>>, prefixes: Int, suffixes: Int, taken: Collection<String>, limit: Int, dice: Dice): List<ModifierDef> {
+    /**
+     * Взвешенный выбор аффиксов на свободные места без повторов группы: места двух видов тянутся из одного мешка;
+     * [taken] - группы, уже занятые копией ([groups]).
+     */
+    fun pickAffixes(pool: Collection<Weighted<ModifierDef>>, prefixes: Int, suffixes: Int, taken: Set<String>, limit: Int, dice: Dice): List<ModifierDef> {
         val groups = taken.toHashSet()
         var freePrefixes = prefixes
         var freeSuffixes = suffixes
-        val candidates = pool.filterTo(ArrayList()) { (def) -> def.groupKey !in groups && def.affix }
+        val candidates = pool.filterTo(ArrayList()) { (def) -> def.affix && fits(def, groups) }
         val picked = mutableListOf<ModifierDef>()
         while (picked.size < limit && candidates.isNotEmpty()) {
             val live = candidates.filter { (def) -> if (def.source == Source.PREFIX) freePrefixes > 0 else freeSuffixes > 0 }
             val next = Tables.draw(live, dice) ?: break
             picked += next
+            groups += index.groups(next)
             if (next.source == Source.PREFIX) freePrefixes-- else freeSuffixes--
-            candidates.removeAll { (def) -> def.groupKey == next.groupKey || (def.source == Source.PREFIX && freePrefixes == 0) || (def.source == Source.SUFFIX && freeSuffixes == 0) }
+            candidates.removeAll { (def) -> !fits(def, groups) || (def.source == Source.PREFIX && freePrefixes == 0) || (def.source == Source.SUFFIX && freeSuffixes == 0) }
         }
         return picked
     }
@@ -139,8 +148,11 @@ class AffixRoller(private val index: ContentIndex) {
         if (!filter(def) || def.tier(roll.tier) == null) roll else roll.copy(share = dice.share(), scale = null)
     }
 
-    /** Один модификатор таблиц [tags] по весам - порча, ручная работа. */
-    fun rollFrom(tags: List<String>, level: Int, dice: Dice): Roll? = Tables.draw(index.modifierPool(tags), dice)?.let { roll(it, level, dice) }
+    /** Один модификатор таблиц [tags] по весам - порча; [around] - строки, что остаются на копии: их группы он не повторяет. */
+    fun rollFrom(tags: List<String>, level: Int, dice: Dice, around: Collection<Roll> = emptyList()): Roll? {
+        val taken = groups(around)
+        return Tables.draw(index.modifierPool(tags).filter { fits(it.value, taken) }, dice)?.let { roll(it, level, dice) }
+    }
 
     /** Ролл описания: тир по уровню, доля внутри него; null у описания без тиров. */
     fun roll(def: ModifierDef, level: Int, dice: Dice): Roll? {

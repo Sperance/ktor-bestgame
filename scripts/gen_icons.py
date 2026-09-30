@@ -126,6 +126,20 @@ def wand(gem, shaft):
             piece("M28.5 19 h7 v4 h-7z", "gold"), glaze("M32 3 L32 22 L25 13Z", "white", .3)]
 
 
+def staff(orb, shaft):
+    """A long two-handed staff: an orb held by two curled prongs over a banded shaft."""
+    return [piece("M30.5 18 h3 v42 h-3z", shaft), piece("M24.5 21 C21 13 25 5 31 2.5 C27.5 8 27 14 30 19Z", shaft),
+            piece("M39.5 21 C43 13 39 5 33 2.5 C36.5 8 37 14 34 19Z", shaft), piece(circ(32, 11, 6), orb),
+            glaze(circ(30, 9, 2), "white", .6), piece("M27.5 19 h9 v4 h-9z", "gold"), piece("M29.5 58 h5 v4.5 h-5z", "gold")]
+
+
+def sceptre(head, gem, shaft):
+    """A one-handed sceptre: a flanged crown head with a set gem, a short grip and a pommel."""
+    return [piece("M30 29 h4 v25 h-4z", shaft), piece("M32 3 L43 11 L40.5 27 L23.5 27 L21 11Z", head),
+            glaze("M32 3 L32 27 L23.5 27 L21 11Z", "black", .2), piece("M32 9 L37.5 16 L32 23 L26.5 16Z", gem),
+            glaze("M32 9 L32 23 L26.5 16Z", "white", .35), piece("M25 26 h14 v4 h-14z", "gold"), piece(circ(32, 57, 3.5), "gold")]
+
+
 def bow(limb, grip):
     return [piece("M22 5 C45 15 45 49 22 59 L25 61 C50 49 50 15 25 3Z", limb), line("M23 6 V58", "#e6d4a6", 1.2),
             piece("M37 27 h7 v10 h-7z", grip)]
@@ -542,6 +556,7 @@ def defences(t):
 WEAPONS = {
     "SWORD": (sword, 40), "BLADE": (rapier, 40), "LONGSWORD": (longsword, 45), "DOUBLESWORD": (greatsword, 45),
     "AXE": (axe, -25), "DOUBLEAXE": (doubleaxe, -20), "WAND": (wand, 35), "BOW": (bow, 30),
+    "STAFF": (staff, 40), "SCEPTRE": (sceptre, 35),
 }
 ARMOUR = {"HELMET": helmet, "BODY": body, "GLOVES": gloves, "BOOTS": boots}
 SHIELD_SHAPES = ["TOWER", "BUCKLER", "SPIRIT", "ROUND", "KITE", "SPIKED"]
@@ -585,6 +600,9 @@ TIER_MAT = {
 TIER_METAL = ["bronze", "steel", "#e8eef6"]
 TIER_GUARD = ["#8a5a34", "gold", "gold"]
 TIER_STONE = "#e0405a"
+# Staves and sceptres (the spell weapons beside the wand): a staff's orb and a sceptre's set gem by tier.
+TIER_ORB = ["#6fd3c8", "#3a78e8", "#9b59d6"]
+TIER_SCEPTRE_GEM = ["#3a9ae8", "#e0405a", "#f2c53a"]
 
 # A unique's theme, read from its name: its glass, its second colour, the sign it bears and the sign's colour.
 THEMES = [
@@ -704,6 +722,33 @@ UNIQUE_ART = {
     "BULWARK_OF_ENDLESS_DAWN": ("#f2c53a", "#dfe6ee", "SUN", "#f2c53a"),
     "CROWN_OF_SPORES_AND_ASH": ("#ef6a3a", "#7fcf4a", "FLAME", "#7fcf4a"),
     "THE_CHARGED_HEART": ("#c02a3a", "#3a78e8", "TRIAD", "#f2c53a"),
+    # Staves and sceptres: the spell weapons beside the wand.
+    "FIRSTSPRING_SAPLING": ("#7fcf4a", "#8a5a34", "LEAF", "#f0e2c0"),
+    "EMBERSPIRE": ("#e8602a", "#3c3a44", "FLAME", "#ffd070"),
+    "RIMEWARD": ("#7fd8f0", "#dfe6ee", "SNOW", "#ffffff"),
+    "SKYPIERCER": ("#f2e04a", "#3a3a8a", "BOLT", "#fff6a0"),
+    "PILGRIMS_BURDEN": ("#e6d4a6", "#8a5a34", "ROAD", "#8a5a34"),
+    "TIDEBINDER": ("#2fa8b0", "#1f5a8a", "WAVE", "#bff0f0"),
+    "WITCHWOOD_CROOK": ("#5a3a8a", "#2b1d2e", "THORN", "#80c060"),
+    "PRISMSPIRE": ("#bfe3ef", "#9b59d6", "PRISM", "#eaf6ff"),
+    "SEVENFOLD_SKY": ("#1e2240", "#f0d890", "STAR", "#fff6d0"),
+    "LICHBONE_STAFF": ("#6fc8f0", "#e4dcc4", "SKULL", "#bfe3ef"),
+    "WORLDTREE_BOUGH": ("#5f9a4e", "#5e3b22", "ROOT", "#e4dcc4"),
+    "VOIDSPIRE": ("#15171a", "#8a4fe8", "RIFT", "#a26bff"),
+    "ARCHMAGES_BULWARK": ("#8a6ae0", "#d9a53a", "GATE", "#f0e2c0"),
+    "CHIEFTAINS_EMBER": ("#c8742a", "#5e3b22", "HORN", "#f2c53a"),
+    "GLACIAL_EDICT": ("#9fd8e8", "#3a5fa0", "SNOW", "#ffffff"),
+    "SUNBRAND": ("#f2c53a", "#c98a4a", "FLAME", "#fff6d0"),
+    "STORMCROWN_SCEPTRE": ("#3a78e8", "#f2e04a", "BOLT", "#fff6a0"),
+    "OATHBINDER": ("#dfe6ee", "#8a5a34", "SCALES", "#f0e2c0"),
+    "USURPERS_SCEPTRE": ("#b01a2a", "#d9a53a", "CROWN", "#f2c53a"),
+    "PENITENTS_ROD": ("#d8c080", "#3c3a44", "BELL", "#f0e2c0"),
+    "TRIUNE_REGALIA": ("#9b59d6", "#e8bb45", "TRIAD", "#f0e2c0"),
+    "PYRE_OF_KINGS": ("#d83a3a", "#15171a", "SKULL", "#ffd070"),
+    "IRON_MANDATE": ("#8e97a3", "#c02a3a", "ANVIL", "#dfe6ee"),
+    "DAWNBRINGER": ("#f2c53a", "#e8602a", "SUN", "#fff6d0"),
+    "WORLDSPINE": ("#827c73", "#3a78e8", "GLOBE", "#f0e2c0"),
+    "GODKINGS_MANDATE": ("#f0d890", "#6a3ab0", "CROWN", "#f2c53a"),
 }
 
 
@@ -801,6 +846,7 @@ ANCHOR = {
     "QUIVER": (33, 40, 11), "WINGS": (32, 32, 11),
     # 1.36.0: only the hand-drawn uniques bear a sign on these.
     "RING": (32, 40, 11), "AMULET": (32, 47, 12), "JEWEL": (32, 32, 16), "COLLAR": (32, 26, 14), "WAND_SIGN": (32, 42, 10),
+    "STAFF": (32, 38, 10), "SCEPTRE": (32, 42, 9),
 }
 
 
@@ -845,6 +891,14 @@ def equipment(atlas, t):
         if draw is wand:
             gem = glass or stone(code)
             put(f"wand_{gem[1:]}", drawn(wand(gem, "darkwood"), "WAND_SIGN"), rot)
+            return
+        if draw is staff:
+            orb = glass or TIER_ORB[lv]
+            put(f"staff_{orb[1:]}_{lv}", mark(staff(orb, glass2 or ["wood", "darkwood", "darkwood"][lv]), look, anchor(wt)), rot)
+            return
+        if draw is sceptre:
+            parts = sceptre(glass or TIER_METAL[lv], glass2 or TIER_SCEPTRE_GEM[lv], "darkwood")
+            put(f"sceptre_{lv}", mark(parts, look, anchor(wt)), rot)
             return
         if draw is bow:
             parts = bow(glass2 or ["wood", "#7a3a26", "#5e3b22"][lv], "leather")

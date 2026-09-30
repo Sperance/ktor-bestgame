@@ -867,6 +867,77 @@
       }
     },
     {
+      "tag": "staff",
+      "kind": "MODIFIER",
+      "includes": [
+        "weapon"
+      ],
+      "entries": {
+        "STAFF_ADD_COLD_DAMAGE_TO_SPELLS": 600,
+        "ADD_ENERGY_SHIELD_ON_KILL": 100,
+        "STAFF_ADD_FIRE_DAMAGE_TO_SPELLS": 600,
+        "ADD_INTELLIGENCE": 900,
+        "STAFF_ADD_LIGHTNING_DAMAGE_TO_SPELLS": 600,
+        "ADD_MAXIMUM_MANA": 700,
+        "STAFF_ADD_SPELL_SKILL_LEVEL": 150,
+        "ADD_STRENGTH": 0,
+        "ARCANE_SURGE_ON_KILL": 150,
+        "CHANCE_TO_BLEED": 0,
+        "INCREASED_BLEED_DAMAGE": 0,
+        "STAFF_INCREASED_CAST_SPEED": 800,
+        "STAFF_INCREASED_CHAOS_DAMAGE": 500,
+        "STAFF_INCREASED_COLD_DAMAGE": 700,
+        "INCREASED_CRITICAL_STRIKE_CHANCE": 900,
+        "STAFF_INCREASED_FIRE_DAMAGE": 700,
+        "STAFF_INCREASED_LIGHTNING_DAMAGE": 700,
+        "INCREASED_MANA_REGENERATION": 600,
+        "STAFF_INCREASED_SPELL_CRITICAL_CHANCE": 400,
+        "STAFF_ADD_SPELL_CRITICAL_MULTIPLIER": 400,
+        "STAFF_INCREASED_SPELL_DAMAGE": 1000,
+        "PENETRATE_COLD_RESISTANCE": 400,
+        "PENETRATE_FIRE_RESISTANCE": 400,
+        "PENETRATE_LIGHTNING_RESISTANCE": 400,
+        "PET_INCREASED_DAMAGE": 150,
+        "INCREASED_FIRE_DAMAGE": 0,
+        "INCREASED_COLD_DAMAGE": 0,
+        "INCREASED_LIGHTNING_DAMAGE": 0,
+        "INCREASED_CHAOS_DAMAGE": 0,
+        "ADD_BLOCK_CHANCE": 600,
+        "ADD_SPELL_BLOCK_CHANCE": 300
+      }
+    },
+    {
+      "tag": "sceptre",
+      "kind": "MODIFIER",
+      "includes": [
+        "weapon"
+      ],
+      "entries": {
+        "ADD_COLD_DAMAGE_TO_SPELLS": 600,
+        "ADD_FIRE_DAMAGE_TO_SPELLS": 600,
+        "ADD_LIGHTNING_DAMAGE_TO_SPELLS": 600,
+        "ADD_INTELLIGENCE": 700,
+        "ADD_STRENGTH": 900,
+        "ADD_MAXIMUM_MANA": 500,
+        "ADD_SPELL_SKILL_LEVEL": 120,
+        "CHANCE_TO_BLEED": 0,
+        "INCREASED_BLEED_DAMAGE": 0,
+        "INCREASED_CAST_SPEED": 700,
+        "INCREASED_SPELL_DAMAGE": 900,
+        "INCREASED_SPELL_CRITICAL_CHANCE": 400,
+        "ADD_SPELL_CRITICAL_MULTIPLIER": 400,
+        "INCREASED_ELEMENTAL_DAMAGE": 900,
+        "INCREASED_FIRE_DAMAGE": 700,
+        "INCREASED_COLD_DAMAGE": 700,
+        "INCREASED_LIGHTNING_DAMAGE": 700,
+        "PENETRATE_FIRE_RESISTANCE": 400,
+        "PENETRATE_COLD_RESISTANCE": 400,
+        "PENETRATE_LIGHTNING_RESISTANCE": 400,
+        "PENETRATE_ELEMENTAL_RESISTANCES": 250,
+        "INCREASED_MANA_REGENERATION": 400
+      }
+    },
+    {
       "tag": "tool:alchemy",
       "kind": "MODIFIER",
       "includes": [
@@ -2733,7 +2804,47 @@
         "ASTRAL_AMULET": 100,
         "GODSTEEL_BELT": 100,
         "ECLIPSE_RING": 100,
-        "STARLIGHT_QUIVER": 100
+        "STARLIGHT_QUIVER": 100,
+        "GNARLED_BRANCH": 100,
+        "PRIMITIVE_STAFF": 100,
+        "LONG_STAFF": 100,
+        "IRON_STAFF": 100,
+        "COILED_STAFF": 100,
+        "VILE_STAFF": 100,
+        "MILITARY_STAFF": 100,
+        "SERPENTINE_STAFF": 100,
+        "CELESTIAL_STAFF": 100,
+        "DRIFTWOOD_SCEPTRE": 100,
+        "DARKWOOD_SCEPTRE": 100,
+        "BRONZE_SCEPTRE": 100,
+        "QUARTZ_SCEPTRE": 100,
+        "IRON_SCEPTRE": 100,
+        "RITUAL_SCEPTRE": 100,
+        "CRYSTAL_SCEPTRE": 100,
+        "VOID_SCEPTRE": 100,
+        "CELESTIAL_SCEPTRE": 100,
+        "FIRSTSPRING_SAPLING": 100,
+        "EMBERSPIRE": 100,
+        "RIMEWARD": 100,
+        "SKYPIERCER": 100,
+        "PILGRIMS_BURDEN": 100,
+        "TIDEBINDER": 100,
+        "WITCHWOOD_CROOK": 100,
+        "SEVENFOLD_SKY": 100,
+        "LICHBONE_STAFF": 100,
+        "WORLDTREE_BOUGH": 100,
+        "ARCHMAGES_BULWARK": 100,
+        "CHIEFTAINS_EMBER": 100,
+        "GLACIAL_EDICT": 100,
+        "SUNBRAND": 100,
+        "STORMCROWN_SCEPTRE": 100,
+        "OATHBINDER": 100,
+        "USURPERS_SCEPTRE": 100,
+        "PENITENTS_ROD": 100,
+        "PYRE_OF_KINGS": 100,
+        "IRON_MANDATE": 100,
+        "DAWNBRINGER": 100,
+        "GODKINGS_MANDATE": 100
       }
     },
     {
@@ -3085,7 +3196,25 @@
         "ASTRAL_AMULET": 100,
         "GODSTEEL_BELT": 100,
         "ECLIPSE_RING": 100,
-        "STARLIGHT_QUIVER": 100
+        "STARLIGHT_QUIVER": 100,
+        "GNARLED_BRANCH": 100,
+        "PRIMITIVE_STAFF": 100,
+        "LONG_STAFF": 100,
+        "IRON_STAFF": 100,
+        "COILED_STAFF": 100,
+        "VILE_STAFF": 100,
+        "MILITARY_STAFF": 100,
+        "SERPENTINE_STAFF": 100,
+        "CELESTIAL_STAFF": 100,
+        "DRIFTWOOD_SCEPTRE": 100,
+        "DARKWOOD_SCEPTRE": 100,
+        "BRONZE_SCEPTRE": 100,
+        "QUARTZ_SCEPTRE": 100,
+        "IRON_SCEPTRE": 100,
+        "RITUAL_SCEPTRE": 100,
+        "CRYSTAL_SCEPTRE": 100,
+        "VOID_SCEPTRE": 100,
+        "CELESTIAL_SCEPTRE": 100
       }
     },
     {
@@ -3479,7 +3608,25 @@
         "ASTRAL_AMULET": 100,
         "GODSTEEL_BELT": 100,
         "ECLIPSE_RING": 100,
-        "STARLIGHT_QUIVER": 100
+        "STARLIGHT_QUIVER": 100,
+        "GNARLED_BRANCH": 100,
+        "PRIMITIVE_STAFF": 100,
+        "LONG_STAFF": 100,
+        "IRON_STAFF": 100,
+        "COILED_STAFF": 100,
+        "VILE_STAFF": 100,
+        "MILITARY_STAFF": 100,
+        "SERPENTINE_STAFF": 100,
+        "CELESTIAL_STAFF": 100,
+        "DRIFTWOOD_SCEPTRE": 100,
+        "DARKWOOD_SCEPTRE": 100,
+        "BRONZE_SCEPTRE": 100,
+        "QUARTZ_SCEPTRE": 100,
+        "IRON_SCEPTRE": 100,
+        "RITUAL_SCEPTRE": 100,
+        "CRYSTAL_SCEPTRE": 100,
+        "VOID_SCEPTRE": 100,
+        "CELESTIAL_SCEPTRE": 100
       }
     },
     {
@@ -3618,7 +3765,29 @@
         "CHARGEBEARERS_YOKE": 100,
         "SIGIL_OF_THE_HIDDEN": 100,
         "CRESTFALL_PAULDRONS": 100,
-        "EXECUTIONERS_ASSIZE": 100
+        "EXECUTIONERS_ASSIZE": 100,
+        "FIRSTSPRING_SAPLING": 100,
+        "EMBERSPIRE": 100,
+        "RIMEWARD": 100,
+        "SKYPIERCER": 100,
+        "PILGRIMS_BURDEN": 100,
+        "TIDEBINDER": 100,
+        "WITCHWOOD_CROOK": 100,
+        "SEVENFOLD_SKY": 100,
+        "LICHBONE_STAFF": 100,
+        "WORLDTREE_BOUGH": 100,
+        "ARCHMAGES_BULWARK": 100,
+        "CHIEFTAINS_EMBER": 100,
+        "GLACIAL_EDICT": 100,
+        "SUNBRAND": 100,
+        "STORMCROWN_SCEPTRE": 100,
+        "OATHBINDER": 100,
+        "USURPERS_SCEPTRE": 100,
+        "PENITENTS_ROD": 100,
+        "PYRE_OF_KINGS": 100,
+        "IRON_MANDATE": 100,
+        "DAWNBRINGER": 100,
+        "GODKINGS_MANDATE": 100
       }
     },
     {
@@ -3757,7 +3926,29 @@
         "CHARGEBEARERS_YOKE": 100,
         "SIGIL_OF_THE_HIDDEN": 100,
         "CRESTFALL_PAULDRONS": 100,
-        "EXECUTIONERS_ASSIZE": 100
+        "EXECUTIONERS_ASSIZE": 100,
+        "FIRSTSPRING_SAPLING": 100,
+        "EMBERSPIRE": 100,
+        "RIMEWARD": 100,
+        "SKYPIERCER": 100,
+        "PILGRIMS_BURDEN": 100,
+        "TIDEBINDER": 100,
+        "WITCHWOOD_CROOK": 100,
+        "SEVENFOLD_SKY": 100,
+        "LICHBONE_STAFF": 100,
+        "WORLDTREE_BOUGH": 100,
+        "ARCHMAGES_BULWARK": 100,
+        "CHIEFTAINS_EMBER": 100,
+        "GLACIAL_EDICT": 100,
+        "SUNBRAND": 100,
+        "STORMCROWN_SCEPTRE": 100,
+        "OATHBINDER": 100,
+        "USURPERS_SCEPTRE": 100,
+        "PENITENTS_ROD": 100,
+        "PYRE_OF_KINGS": 100,
+        "IRON_MANDATE": 100,
+        "DAWNBRINGER": 100,
+        "GODKINGS_MANDATE": 100
       }
     },
     {
@@ -4431,7 +4622,8 @@
         "CHASM_HUNGER_BELT": 100,
         "TWINFANG_DIRK": 100,
         "ABYSSAL_ONSLAUGHT_GREAVES": 100,
-        "HEART_OF_THE_UNDERTOW": 100
+        "HEART_OF_THE_UNDERTOW": 100,
+        "VOIDSPIRE": 100
       }
     },
     {
@@ -4494,7 +4686,9 @@
         "BALANCED_PRISM": 100,
         "PRISMSIGHT_LENS": 100,
         "SHARDBLOOD_EDGE": 100,
-        "GEODE_OF_PATIENCE": 100
+        "GEODE_OF_PATIENCE": 100,
+        "PRISMSPIRE": 100,
+        "TRIUNE_REGALIA": 100
       }
     },
     {
@@ -4508,7 +4702,8 @@
         "WINGS_OF_THE_UNCHARTED": 100,
         "INSTINCT_OF_THE_HOLLOW": 100,
         "BURDEN_OF_ATLAS": 100,
-        "STARFALL_SCEPTRE": 100
+        "STARFALL_SCEPTRE": 100,
+        "WORLDSPINE": 100
       }
     },
     {

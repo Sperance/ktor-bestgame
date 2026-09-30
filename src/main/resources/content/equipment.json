@@ -37697,6 +37697,2571 @@
           }
         ]
       ]
+    },
+    {
+      "code": "GNARLED_BRANCH",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "requiredIntelligence": 2,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            7.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "PRIMITIVE_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "MAGIC",
+      "level": 7,
+      "requiredLevel": 7,
+      "requiredIntelligence": 15,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            14.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "LONG_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 13,
+      "requiredLevel": 13,
+      "requiredIntelligence": 29,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            19.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            13.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "IRON_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 25,
+      "requiredLevel": 25,
+      "requiredIntelligence": 55,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            27.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            14.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "COILED_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 37,
+      "requiredLevel": 37,
+      "requiredIntelligence": 81,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            38.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "VILE_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 48,
+      "requiredLevel": 48,
+      "requiredIntelligence": 106,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            53.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "MILITARY_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 60,
+      "requiredLevel": 60,
+      "requiredIntelligence": 132,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            72.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            17.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "SERPENTINE_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 69,
+      "requiredLevel": 69,
+      "requiredIntelligence": 152,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            82.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "CELESTIAL_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 88,
+      "requiredLevel": 88,
+      "requiredIntelligence": 194,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            94.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            19.0
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_STAFF_SPELL_DAMAGE"
+      ],
+      "tables": [
+        "staff"
+      ]
+    },
+    {
+      "code": "FIRSTSPRING_SAPLING",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 4,
+      "requiredLevel": 4,
+      "requiredIntelligence": 9,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            11.6
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            12.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_LEVEL",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              45.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SPRIG_KINDLING",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GIANT_ROOTS",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "EMBERSPIRE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredIntelligence": 33,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            22.4
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            13.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_FIRE",
+            "range": [
+              10.0,
+              16.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              38.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "op": "INCREASED",
+            "range": [
+              14.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HEARTH_GLOW",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FANNED_FLAMES",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "RIMEWARD",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredIntelligence": 33,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            22.4
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            13.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_COLD",
+            "range": [
+              10.0,
+              16.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MANA",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_RIME_BLOCK",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HUSH_STILLNESS",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "SKYPIERCER",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 27,
+      "requiredLevel": 27,
+      "requiredIntelligence": 59,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            31.7
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            14.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_LIGHTNING",
+            "range": [
+              18.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PENETRATE_LIGHTNING",
+            "range": [
+              6.0,
+              9.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ESSENCE_SPARK",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CATALYSIS",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "PILGRIMS_BURDEN",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 30,
+      "requiredLevel": 30,
+      "requiredIntelligence": 66,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            34.7
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            14.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MANA",
+            "range": [
+              45.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "range": [
+              5.0,
+              7.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MANA_REGEN",
+            "op": "INCREASED",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_FLOATING_PRAYER",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DREAMSHARD_GLINT",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "TIDEBINDER",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 36,
+      "requiredLevel": 36,
+      "requiredIntelligence": 79,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            40.8
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_COLD",
+            "range": [
+              22.0,
+              34.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              70.0,
+              95.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_MANA",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TIDE_SONG",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SEA_HUM",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "WITCHWOOD_CROOK",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredIntelligence": 88,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            46.3
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            15.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CURSE_EFFECT",
+            "op": "INCREASED",
+            "range": [
+              12.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_CAST_SPEED",
+            "op": "INCREASED",
+            "range": [
+              18.0,
+              26.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ROT_SPELL",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_HERETICS_MARK",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "PRISMSPIRE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 45,
+      "requiredLevel": 45,
+      "requiredIntelligence": 99,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            53.8
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            16.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PENETRATE_ELEMENTAL",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "range": [
+              10.0,
+              14.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CRYSTAL_RESONANCE",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_REFRACTED_EDGE",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "SEVENFOLD_SKY",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 60,
+      "requiredLevel": 60,
+      "requiredIntelligence": 132,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            79.2
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            17.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_CRITICAL_CHANCE",
+            "op": "INCREASED",
+            "range": [
+              120.0,
+              160.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_CRITICAL_MULTIPLIER",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              110.0,
+              140.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_STAR_THREAD",
+            "range": [
+              60.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SEAL_FACET",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "LICHBONE_STAFF",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 60,
+      "requiredLevel": 60,
+      "requiredIntelligence": 132,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            79.2
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            17.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "range": [
+              60.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              100.0,
+              130.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_LICHS_FOCUS",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_DEEP_MIND",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "WORLDTREE_BOUGH",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 66,
+      "requiredLevel": 66,
+      "requiredIntelligence": 145,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            86.5
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GIANT_WITHER",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_REMORSEFUL_GUARD",
+            "range": [
+              1.5,
+              3.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "VOIDSPIRE",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 68,
+      "requiredLevel": 68,
+      "requiredIntelligence": 150,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            89.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            18.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_MAX_POWER_CHARGES",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_CHAOS",
+            "op": "INCREASED",
+            "range": [
+              70.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              80.0,
+              110.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSSAL_TIDE",
+            "range": [
+              100.0,
+              150.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_VOID_RESONANCE",
+            "range": [
+              20.0,
+              25.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "ARCHMAGES_BULWARK",
+      "slot": "WEAPON_2H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 85,
+      "requiredLevel": 85,
+      "requiredIntelligence": 187,
+      "weaponType": "STAFF",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            101.3
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.2
+          ]
+        },
+        {
+          "code": "BASE_BLOCK_CHANCE",
+          "values": [
+            19.0
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_BLOCK",
+            "range": [
+              12.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              130.0,
+              170.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ELDER_MIRROR",
+            "range": [
+              100.0,
+              100.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_AURORA_WARD",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "DRIFTWOOD_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "requiredStrength": 1,
+      "requiredIntelligence": 1,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            4.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "DARKWOOD_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "MAGIC",
+      "level": 7,
+      "requiredLevel": 7,
+      "requiredStrength": 8,
+      "requiredIntelligence": 8,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "BRONZE_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 13,
+      "requiredLevel": 13,
+      "requiredStrength": 16,
+      "requiredIntelligence": 16,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            11.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "QUARTZ_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 25,
+      "requiredLevel": 25,
+      "requiredStrength": 30,
+      "requiredIntelligence": 30,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "IRON_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 37,
+      "requiredLevel": 37,
+      "requiredStrength": 44,
+      "requiredIntelligence": 44,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            22.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "RITUAL_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 48,
+      "requiredLevel": 48,
+      "requiredStrength": 58,
+      "requiredIntelligence": 58,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "CRYSTAL_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 72,
+      "requiredIntelligence": 72,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            41.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "VOID_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 69,
+      "requiredLevel": 69,
+      "requiredStrength": 83,
+      "requiredIntelligence": 83,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            46.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "CELESTIAL_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "RARE",
+      "level": 88,
+      "requiredLevel": 88,
+      "requiredStrength": 106,
+      "requiredIntelligence": 106,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            53.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "fixed": [
+        "IMPLICIT_INCREASED_ELEMENTAL_DAMAGE"
+      ],
+      "tables": [
+        "sceptre"
+      ]
+    },
+    {
+      "code": "CHIEFTAINS_EMBER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 4,
+      "requiredLevel": 4,
+      "requiredStrength": 5,
+      "requiredIntelligence": 5,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            6.6
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_FIRE",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_KINDLING",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ASHEN_UPDRAFT",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "GLACIAL_EDICT",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 18,
+      "requiredIntelligence": 18,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            12.8
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_COLD",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_COLD",
+            "op": "INCREASED",
+            "range": [
+              20.0,
+              28.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              12.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SHATTER",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BEREKS_FROST",
+            "range": [
+              2.0,
+              4.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "SUNBRAND",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 15,
+      "requiredLevel": 15,
+      "requiredStrength": 18,
+      "requiredIntelligence": 18,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            12.8
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_FIRE",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "op": "INCREASED",
+            "range": [
+              20.0,
+              28.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              12.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SMELT",
+            "range": [
+              30.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBERHEART",
+            "range": [
+              6.0,
+              10.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "STORMCROWN_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 27,
+      "requiredLevel": 27,
+      "requiredStrength": 32,
+      "requiredIntelligence": 32,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            17.8
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_LIGHTNING",
+            "range": [
+              10.0,
+              18.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_LIGHTNING",
+            "op": "INCREASED",
+            "range": [
+              28.0,
+              38.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "range": [
+              16.0,
+              22.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TRIBUNAL_VERDICT",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CRYSTAL_SHATTER",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "OATHBINDER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 30,
+      "requiredLevel": 30,
+      "requiredStrength": 36,
+      "requiredIntelligence": 36,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            19.7
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              25.0,
+              35.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_QUARRY_SOLUTION",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ASTRAL_HARMONY",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "USURPERS_SCEPTRE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 36,
+      "requiredLevel": 36,
+      "requiredStrength": 43,
+      "requiredIntelligence": 43,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            23.6
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              40.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              35.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ABYSSAL_HEART",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CRYSTAL_STRENGTH",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "PENITENTS_ROD",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 40,
+      "requiredLevel": 40,
+      "requiredStrength": 48,
+      "requiredIntelligence": 48,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            26.6
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_CURSE_EFFECT",
+            "op": "INCREASED",
+            "range": [
+              15.0,
+              20.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              45.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PENANCE",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_MURMURED_LITANY",
+            "range": [
+              0.2,
+              0.3
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "TRIUNE_REGALIA",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 48,
+      "requiredLevel": 48,
+      "requiredStrength": 58,
+      "requiredIntelligence": 58,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            33.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "range": [
+              10.0,
+              15.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              45.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PENETRATE_ELEMENTAL",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_EMBER_WARD",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ESSENCE_INFUSION",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "PYRE_OF_KINGS",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 60,
+      "requiredLevel": 60,
+      "requiredStrength": 72,
+      "requiredIntelligence": 72,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            45.1
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_FIRE",
+            "range": [
+              25.0,
+              38.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ATTACK_FIRE",
+            "op": "INCREASED",
+            "range": [
+              45.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SOVEREIGN_PYRE",
+            "range": [
+              4.0,
+              5.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_KAOMS_BLAZE",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "IRON_MANDATE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 62,
+      "requiredLevel": 62,
+      "requiredStrength": 74,
+      "requiredIntelligence": 74,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            46.3
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              40.0,
+              55.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ARMOR",
+            "range": [
+              150.0,
+              250.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_CRUCIBLE",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_QUARRY_GRIT",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "DAWNBRINGER",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 66,
+      "requiredLevel": 66,
+      "requiredStrength": 79,
+      "requiredIntelligence": 79,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            48.8
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_ADD_FIRE",
+            "range": [
+              30.0,
+              45.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_SPELL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              60.0,
+              80.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HEALTH",
+            "range": [
+              50.0,
+              70.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PHOENIX_FLARE",
+            "range": [
+              4.0,
+              6.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_SOLAR_FLARE",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "WORLDSPINE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 68,
+      "requiredLevel": 68,
+      "requiredStrength": 82,
+      "requiredIntelligence": 82,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            50.0
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              55.0,
+              75.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_INTELLECT",
+            "range": [
+              30.0,
+              40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ENTHRONED_SHADOW",
+            "range": [
+              2.0,
+              3.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_TIMELESS_BOON",
+            "range": [
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "GODKINGS_MANDATE",
+      "slot": "WEAPON_1H",
+      "kind": "WEAPON",
+      "rarity": "UNIQUE",
+      "level": 86,
+      "requiredLevel": 86,
+      "requiredStrength": 103,
+      "requiredIntelligence": 103,
+      "weaponType": "SCEPTRE",
+      "base": [
+        {
+          "code": "BASE_PHYSICAL_DAMAGE",
+          "values": [
+            57.5
+          ]
+        },
+        {
+          "code": "BASE_ATTACK_SPEED",
+          "values": [
+            1.3
+          ]
+        }
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_SPELL_LEVEL",
+            "range": [
+              1.0,
+              2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_STRENGTH",
+            "range": [
+              45.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_ELEMENTAL_DAMAGE",
+            "op": "INCREASED",
+            "range": [
+              70.0,
+              90.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_BLIND_DEVOTION",
+            "range": [
+              50.0,
+              60.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_LAST_THUNDER_RELAY",
+            "range": [
+              140.0,
+              160.0
+            ]
+          }
+        ]
+      ]
     }
   ]
 }
