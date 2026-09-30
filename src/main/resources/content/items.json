@@ -1969,30 +1969,6 @@
       "price": 1800
     },
     {
-      "code": "HELMET_SCROLL",
-      "category": "CURRENCY",
-      "subCategory": "HELMET_SCROLL",
-      "price": 1500
-    },
-    {
-      "code": "GLOVES_SCROLL",
-      "category": "CURRENCY",
-      "subCategory": "GLOVES_SCROLL",
-      "price": 1500
-    },
-    {
-      "code": "BOOTS_SCROLL",
-      "category": "CURRENCY",
-      "subCategory": "BOOTS_SCROLL",
-      "price": 1500
-    },
-    {
-      "code": "WEAPON_SCROLL",
-      "category": "CURRENCY",
-      "subCategory": "WEAPON_SCROLL",
-      "price": 2000
-    },
-    {
       "code": "ESSENCE_ORB",
       "category": "CURRENCY",
       "subCategory": "ESSENCE_ORB",

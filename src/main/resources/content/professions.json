@@ -7043,88 +7043,8 @@
       "tool": "TOOL_ENCHANTING",
       "jobs": [
         {
-          "code": "HELMET_SCROLL_SCRIBING",
-          "level": 1,
-          "seconds": 320,
-          "nothing": 30,
-          "output": "HELMET_SCROLL",
-          "experience": 10,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "GLOWCAP",
-              "amount": 2
-            },
-            {
-              "item": "BARK",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "BOOTS_SCROLL_SCRIBING",
-          "level": 8,
-          "seconds": 360,
-          "nothing": 30,
-          "output": "BOOTS_SCROLL",
-          "experience": 16,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "MOON_LOTUS",
-              "amount": 2
-            },
-            {
-              "item": "BARK",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "GLOVES_SCROLL_SCRIBING",
-          "level": 16,
-          "seconds": 400,
-          "nothing": 32,
-          "output": "GLOVES_SCROLL",
-          "experience": 24,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "SHADEBLOOM",
-              "amount": 2
-            },
-            {
-              "item": "SAPPHIRE",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "WEAPON_SCROLL_SCRIBING",
-          "level": 26,
-          "seconds": 480,
-          "nothing": 34,
-          "output": "WEAPON_SCROLL",
-          "experience": 36,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "VOID_ROOT",
-              "amount": 2
-            },
-            {
-              "item": "RUBY",
-              "amount": 1
-            }
-          ]
-        },
-        {
           "code": "BOOK_MARAUDER_1",
-          "level": 10,
+          "level": 1,
           "seconds": 600,
           "nothing": 35,
           "output": "MARAUDER",
@@ -7201,7 +7121,7 @@
         },
         {
           "code": "BOOK_RANGER_1",
-          "level": 10,
+          "level": 1,
           "seconds": 600,
           "nothing": 35,
           "output": "RANGER",
@@ -7278,7 +7198,7 @@
         },
         {
           "code": "BOOK_WITCH_1",
-          "level": 10,
+          "level": 1,
           "seconds": 600,
           "nothing": 35,
           "output": "WITCH",
@@ -7355,7 +7275,7 @@
         },
         {
           "code": "BOOK_DUELIST_1",
-          "level": 10,
+          "level": 1,
           "seconds": 600,
           "nothing": 35,
           "output": "DUELIST",
@@ -7432,7 +7352,7 @@
         },
         {
           "code": "BOOK_TEMPLAR_1",
-          "level": 10,
+          "level": 1,
           "seconds": 600,
           "nothing": 35,
           "output": "TEMPLAR",
@@ -7509,7 +7429,7 @@
         },
         {
           "code": "BOOK_SHADOW_1",
-          "level": 10,
+          "level": 1,
           "seconds": 600,
           "nothing": 35,
           "output": "SHADOW",
@@ -7586,7 +7506,7 @@
         },
         {
           "code": "BOOK_SCION_1",
-          "level": 10,
+          "level": 1,
           "seconds": 600,
           "nothing": 35,
           "output": "SCION",

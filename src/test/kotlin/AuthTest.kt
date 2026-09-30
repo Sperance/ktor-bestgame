@@ -2,7 +2,6 @@ import features.logic.auth.AccessPolicy
 import features.logic.auth.AccessPolicy.Need
 import features.logic.auth.Passwords
 import features.logic.auth.Tokens
-import java.security.MessageDigest
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -28,16 +27,6 @@ class AuthTest {
         assertFalse(Passwords.verify("", hash))
         // Соль своя у каждого хеша: один пароль не даёт двух одинаковых строк.
         assertNotEquals(hash, Passwords.hash("Secret1", iterations = 1_000))
-    }
-
-    @Test
-    fun a_hash_from_before_0_21_still_signs_in_and_asks_to_be_rewritten() {
-        val salt = "abc123"
-        val legacy = MessageDigest.getInstance("SHA-256").digest("$salt:Secret1".toByteArray())
-            .joinToString("") { "%02x".format(it) }
-        assertTrue(Passwords.verify("Secret1", legacy, salt))
-        assertFalse(Passwords.verify("Secret2", legacy, salt))
-        assertTrue(Passwords.needsRehash(legacy))
     }
 
     @Test

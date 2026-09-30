@@ -74,13 +74,7 @@ val routeModule = module {
 
 val backupModule = module {
     single(createdAtStart = true) {
-        MongoBackupManager(
-            maxDays = 7,
-            maxBackupsCount = 5,
-            compress = true
-        ).apply {
-            start()
-        }
+        MongoBackupManager(intervalDays = 7, keep = 5).apply { start() }
     }
 }
 

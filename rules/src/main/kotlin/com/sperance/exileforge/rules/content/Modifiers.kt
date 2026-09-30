@@ -15,7 +15,7 @@ enum class Op { ADD, INCREASED, MORE, SET }
  */
 @Serializable
 enum class Source {
-    IMPLICIT, PREFIX, SUFFIX, UNIQUE, ENCHANTMENT, CORRUPTION, PASSIVE, HANDCRAFTED, ALCHEMY, MONSTER, ESSENCE,
+    IMPLICIT, PREFIX, SUFFIX, UNIQUE, CORRUPTION, PASSIVE, HANDCRAFTED, ALCHEMY, MONSTER, ESSENCE,
     /** Прибавка узла атласа: значения фиксирует узел, тиров нет. */
     ATLAS,
     /** Строка редкости монстра или базы класса: значения фиксированы носителем. */
@@ -24,7 +24,7 @@ enum class Source {
     val affix: Boolean get() = this == PREFIX || this == SUFFIX
 
     /** Закреплённые носителем строки - сидят на каждой копии, сферы аффиксов их не трогают. */
-    val permanent: Boolean get() = this == IMPLICIT || this == ENCHANTMENT || this == CORRUPTION || this == UNIQUE
+    val permanent: Boolean get() = this == IMPLICIT || this == CORRUPTION || this == UNIQUE
 }
 
 /**
@@ -33,7 +33,7 @@ enum class Source {
  */
 @Serializable
 enum class VariantKind(val suffix: String?) {
-    NATURAL(null), LOCAL("LOCAL"), CRAFTED("CRAFTED"), IMPLICIT("IMPLICIT"), CORRUPTED("CORRUPTED"), ENCHANT("ENCHANT");
+    NATURAL(null), LOCAL("LOCAL"), CRAFTED("CRAFTED"), IMPLICIT("IMPLICIT"), CORRUPTED("CORRUPTED");
 
     companion object {
         const val SEPARATOR = "@"
@@ -185,7 +185,6 @@ data class ModifierFamily(
         source = when (kind) {
             VariantKind.IMPLICIT -> Source.IMPLICIT
             VariantKind.CORRUPTED -> Source.CORRUPTION
-            VariantKind.ENCHANT -> Source.ENCHANTMENT
             else -> source
         },
         effects = effects,

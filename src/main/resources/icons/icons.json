@@ -15703,142 +15703,6 @@
         }
       ]
     },
-    "gl_orb_helmet_scroll": {
-      "viewBox": 64,
-      "style": "glass",
-      "paths": [
-        {
-          "d": "M 8.96 32 A 23.04 23.04 0 0 0 55.04 32 A 23.04 23.04 0 0 0 8.96 32 Z",
-          "color": "#c8b8e8"
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 1 51.2 44.8 L 32 32 Z",
-          "color": "#ffffff",
-          "alpha": 0.25
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 0 12.8 44.8 L 32 32 Z",
-          "color": "#000000",
-          "alpha": 0.12
-        },
-        {
-          "d": "M 19.84 32 A 12.16 12.16 0 0 0 44.16 32 A 12.16 12.16 0 0 0 19.84 32 Z",
-          "color": "#15171a"
-        },
-        {
-          "d": "M 32 23.68 L 32 40.32 M 32 27.52 L 36.48 24.32 M 32 32 L 27.52 28.8 M 32 32 L 36.48 35.84",
-          "color": "#c8b8e8",
-          "line": 3.2
-        },
-        {
-          "d": "M 16.64 23.04 C 19.2 16.64 24.32 12.8 29.44 11.52 L 29.44 14.08 C 24.96 15.36 20.48 19.2 18.56 24.32 Z",
-          "color": "#ffffff",
-          "alpha": 0.55
-        }
-      ]
-    },
-    "gl_orb_gloves_scroll": {
-      "viewBox": 64,
-      "style": "glass",
-      "paths": [
-        {
-          "d": "M 8.96 32 A 23.04 23.04 0 0 0 55.04 32 A 23.04 23.04 0 0 0 8.96 32 Z",
-          "color": "#b8c8e8"
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 1 51.2 44.8 L 32 32 Z",
-          "color": "#ffffff",
-          "alpha": 0.25
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 0 12.8 44.8 L 32 32 Z",
-          "color": "#000000",
-          "alpha": 0.12
-        },
-        {
-          "d": "M 19.84 32 A 12.16 12.16 0 0 0 44.16 32 A 12.16 12.16 0 0 0 19.84 32 Z",
-          "color": "#15171a"
-        },
-        {
-          "d": "M 32 23.68 L 32 40.32 M 32 27.52 L 36.48 24.32 M 32 32 L 27.52 28.8 M 32 32 L 36.48 35.84",
-          "color": "#b8c8e8",
-          "line": 3.2
-        },
-        {
-          "d": "M 16.64 23.04 C 19.2 16.64 24.32 12.8 29.44 11.52 L 29.44 14.08 C 24.96 15.36 20.48 19.2 18.56 24.32 Z",
-          "color": "#ffffff",
-          "alpha": 0.55
-        }
-      ]
-    },
-    "gl_orb_boots_scroll": {
-      "viewBox": 64,
-      "style": "glass",
-      "paths": [
-        {
-          "d": "M 8.96 32 A 23.04 23.04 0 0 0 55.04 32 A 23.04 23.04 0 0 0 8.96 32 Z",
-          "color": "#b8e0c8"
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 1 51.2 44.8 L 32 32 Z",
-          "color": "#ffffff",
-          "alpha": 0.25
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 0 12.8 44.8 L 32 32 Z",
-          "color": "#000000",
-          "alpha": 0.12
-        },
-        {
-          "d": "M 19.84 32 A 12.16 12.16 0 0 0 44.16 32 A 12.16 12.16 0 0 0 19.84 32 Z",
-          "color": "#15171a"
-        },
-        {
-          "d": "M 32 23.68 L 32 40.32 M 32 27.52 L 36.48 24.32 M 32 32 L 27.52 28.8 M 32 32 L 36.48 35.84",
-          "color": "#b8e0c8",
-          "line": 3.2
-        },
-        {
-          "d": "M 16.64 23.04 C 19.2 16.64 24.32 12.8 29.44 11.52 L 29.44 14.08 C 24.96 15.36 20.48 19.2 18.56 24.32 Z",
-          "color": "#ffffff",
-          "alpha": 0.55
-        }
-      ]
-    },
-    "gl_orb_weapon_scroll": {
-      "viewBox": 64,
-      "style": "glass",
-      "paths": [
-        {
-          "d": "M 8.96 32 A 23.04 23.04 0 0 0 55.04 32 A 23.04 23.04 0 0 0 8.96 32 Z",
-          "color": "#e8c0b0"
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 1 51.2 44.8 L 32 32 Z",
-          "color": "#ffffff",
-          "alpha": 0.25
-        },
-        {
-          "d": "M 32 8.96 A 23.04 23.04 0 0 0 12.8 44.8 L 32 32 Z",
-          "color": "#000000",
-          "alpha": 0.12
-        },
-        {
-          "d": "M 19.84 32 A 12.16 12.16 0 0 0 44.16 32 A 12.16 12.16 0 0 0 19.84 32 Z",
-          "color": "#15171a"
-        },
-        {
-          "d": "M 32 23.68 L 32 40.32 M 32 27.52 L 36.48 24.32 M 32 32 L 27.52 28.8 M 32 32 L 36.48 35.84",
-          "color": "#e8c0b0",
-          "line": 3.2
-        },
-        {
-          "d": "M 16.64 23.04 C 19.2 16.64 24.32 12.8 29.44 11.52 L 29.44 14.08 C 24.96 15.36 20.48 19.2 18.56 24.32 Z",
-          "color": "#ffffff",
-          "alpha": 0.55
-        }
-      ]
-    },
     "gl_orb_essence_orb": {
       "viewBox": 64,
       "style": "glass",
@@ -29703,7 +29567,6 @@
     "item.BOOK_CHARGED_DASH": "gl_book_duelist",
     "item.BOOK_POWER_SIPHON": "gl_book_witch",
     "item.BOOK_DISCHARGE": "gl_book_shadow",
-    "item.BOOTS_SCROLL": "gl_orb_boots_scroll",
     "item.BOUNTY_ORB": "gl_orb_bounty_orb",
     "item.CAVE_MUSHROOM": "gl_herb_cave_mushroom",
     "item.CHAOS_ORB": "gl_orb_chaos_orb",
@@ -29864,9 +29727,7 @@
     "item.GHOST_ASH_LOG": "gl_log_ghost_ash",
     "item.GILDED_ORB": "gl_orb_gilded_orb",
     "item.GLASSBLOWERS_BAUBLE": "gl_orb_glassblowers_bauble",
-    "item.GLOVES_SCROLL": "gl_orb_gloves_scroll",
     "item.GLOWCAP": "gl_herb_glowcap",
-    "item.HELMET_SCROLL": "gl_orb_helmet_scroll",
     "item.HORDE_ORB": "gl_orb_horde_orb",
     "item.IRONWOOD_LOG": "gl_log_ironwood",
     "item.IRON_ORE": "gl_ore_iron",
@@ -29901,7 +29762,6 @@
     "item.VAAL_ORB": "gl_orb_vaal_orb",
     "item.VOID_ROOT": "gl_herb_void_root",
     "item.WARDEN_ORB": "gl_orb_warden_orb",
-    "item.WEAPON_SCROLL": "gl_orb_weapon_scroll",
     "item.WOOD_LOG": "gl_log_wood",
     "item.WORMWOOD": "gl_herb_wormwood",
     "item.YEW_LOG": "gl_log_yew",

@@ -172,6 +172,5 @@ class AffixRoller(private val index: ContentIndex) {
     companion object {
         fun influenceTags(influence: Influence, slot: Slot): List<String> = listOf("influence:${influence.name}:${slot.tag}", "influence:${influence.name}")
         fun corruptionTag(slot: Slot): String = "corruption:${slot.tag}"
-        fun enchantTag(slotTag: String): String = "enchant:$slotTag"
     }
 }

@@ -168,13 +168,11 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     private fun expiry(): Long = System.currentTimeMillis() + rules.lotMillis
 
     /**
-     * Лот, каким его показывают: старому лоту без срока он выводится из даты выставления (1.30.2), вещь сверена
-     * с контентом так же, как её сверит запись героя. Изменилось что-то - лот переписывается, иначе следующий
-     * показ докатил бы вещь иначе; сбой записи показа не срывает, срок отдаётся клиенту в любом случае.
+     * Лот, каким его показывают: вещь сверена с контентом так же, как её сверит запись героя. Изменилось
+     * что-то - лот переписывается, иначе следующий показ докатил бы вещь иначе; сбой записи показа не срывает.
      */
     private suspend fun reconciled(lot: AuctionLot): AuctionLot {
-        val dated = lot.assignDeadline(rules.lotMillis)
-        if (reconcileItem(lot) || dated) quietly("reconcile ${lot._id}") { transactionExecute("auction reconcile ${lot._id}") { session -> update(lot, session) } }
+        if (reconcileItem(lot)) quietly("reconcile ${lot._id}") { transactionExecute("auction reconcile ${lot._id}") { session -> update(lot, session) } }
         return lot
     }
 
@@ -189,17 +187,13 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     /**
      * Истёкшие лоты - продавца [sellerId] или, без него, все - закрываются: товар возвращается продавцу, сбор
-     * сгорел при покупке и не возвращается. Старому лоту без срока он сперва выводится из даты выставления.
+     * сгорел при покупке и не возвращается.
      * Стопка, которой продавцу некуда лечь, ждёт на витрине, пока место не появится: сгореть она не должна.
      */
     private suspend fun expireDue(sellerId: String?) {
         val now = System.currentTimeMillis()
         val scope = listOfNotNull(Filters.eq("status", LotStatus.ACTIVE.name), sellerId?.let { Filters.eq("sellerId", it) })
-        findByFilter(Filters.and(scope + Filters.or(Filters.exists("expiresAt", false), Filters.eq("expiresAt", 0L)))).forEach { lot ->
-            lot.assignDeadline(rules.lotMillis)
-            quietly("deadline ${lot._id}") { transactionExecute("auction deadline ${lot._id}") { session -> update(lot, session) } }
-        }
-        findByFilter(Filters.and(scope + Filters.gt("expiresAt", 0L) + Filters.lte("expiresAt", now))).forEach { lot ->
+        findByFilter(Filters.and(scope + Filters.lte("expiresAt", now))).forEach { lot ->
             quietly("expire ${lot._id}") { expire(lot) }
         }
     }

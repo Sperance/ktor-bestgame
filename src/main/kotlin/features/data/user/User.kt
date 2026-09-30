@@ -13,7 +13,6 @@ data class User(
     var email: String = "",
     var login: String = "",
     var password: String = "",
-    var salt: String = "",
     var age: Int? = null,
     var isActive: Boolean = true,
     var role: EnumUserRoles = EnumUserRoles.USER,
@@ -55,9 +54,6 @@ fun User.toResponse(): UserResponse = UserResponse(
 
 /**
  * Ответ на вход: аккаунт и токен сессии.
- *
- * `device_id` в [UserResponse] больше нет: до 0.21.0 его отдавал открытый список
- * пользователей, а по нему же входили в аккаунт - два запроса, и ты любой игрок.
  */
 @Serializable
 data class LoginResponse(val user: UserResponse, val token: String)

@@ -109,16 +109,11 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     /** Индексы коллекции; создаются при старте [ensureIndexes], а не на первом обращении. */
     protected open val indexes: List<IndexSpec> get() = emptyList()
 
-    /** Имена индексов прежних версий, которые снимаются при старте до создания [indexes]. */
-    protected open val retiredIndexes: List<String> get() = emptyList()
-
     /**
      * Создаёт объявленные индексы. Вызывается при старте до первой транзакции: создание индекса
-     * меняет каталог MongoDB, и открытая транзакция упала бы с WriteConflict. Одиночный индекс по `version` прежних версий снимается: `_id` и так
-     * находит документ, а лишний индекс только замедлял каждую запись.
+     * меняет каталог MongoDB, и открытая транзакция упала бы с WriteConflict.
      */
     suspend fun ensureIndexes() {
-        retiredIndexes.forEach { name -> runCatching { collection.dropIndex(name) } }
         indexes.forEach { spec ->
             val options = IndexOptions().unique(spec.unique).sparse(spec.sparse)
                 .apply { spec.name?.let(::name) }
@@ -131,7 +126,6 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
                 if (e.code !in INDEX_CONFLICTS) printLog("❌ [$collectionName] index ${spec.fields} not created: ${e.errorMessage}", true)
             }
         }
-        runCatching { collection.dropIndex(Indexes.ascending(CONST_FIELD_VERSION)) }
     }
 
     // ==================== CREATE ====================

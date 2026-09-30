@@ -81,7 +81,7 @@ class LocalizationTest {
     private val currencyKeys = listOf(
         "upgraded", "rerolled", "augmented", "regal", "divine", "blessed", "annulled", "scoured", "vaal_modifier", "vaal_nothing", "vaal_rare",
         "vaal_shift", "chance_unique", "chance_rarity", "mirrored", "scoured_fractured", "fractured", "influenced", "crafted", "uncrafted",
-        "empowered", "mercy", "peril", "alchemy_line", "enchanted", "bauble", "essence",
+        "empowered", "mercy", "peril", "alchemy_line", "bauble", "essence",
     ).map { "${LocaleKey.CURRENCY}.$it" }
 
     private val systemKeys = listOf("success", "no_changes", "deleted", "access_denied", "blocked").map { "system.$it" }

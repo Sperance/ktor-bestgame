@@ -25,13 +25,11 @@ class UserRepository : BaseRepository<User>(User::class) {
         IndexSpec.uniqueFilled("idx_unique_device_filled", "device_id"),
     )
 
-    override val retiredIndexes = listOf("idx_unique_email", "idx_unique_login", "device_id_1")
 
     override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
         if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
         if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert")
-        if (entity.salt != "") throw UserExceptions.funExceptionSalt("validateBeforeInsert", "salt")
         // Уникальность проверяется и по мягко удалённым: их документы никуда
         // не делись, и уникальный индекс всё равно не даст занять логин или почту
         if (findByLogin(entity.login, includeDeleted = true) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)
@@ -61,18 +59,17 @@ class UserRepository : BaseRepository<User>(User::class) {
             }
         }
 
-        // Пароль, соль и идентификатор устройства - это ключи от аккаунта. Общий PUT записал
+        // Пароль и идентификатор устройства - это ключи от аккаунта. Общий PUT записал
         // бы пароль как есть, без хеша, а device_id - это вход без пароля; меняются они только
         // своими маршрутами.
-        listOf("password", "salt", "device_id").forEach { field ->
+        listOf("password", "device_id").forEach { field ->
             if (changes.containsKey(field)) throw UserExceptions.funExceptionSalt("validateBeforeUpdate", field)
         }
     }
 
     private suspend fun generatePassword(entity: User) {
-        // Соль и число итераций живут внутри строки хеша, поле salt нужно только старым хешам.
+        // Соль и число итераций живут внутри строки хеша.
         entity.password = offCpu { Passwords.hash(entity.password) }
-        entity.salt = ""
     }
 
     private fun checkPassword(password: String) {
@@ -139,12 +136,12 @@ class UserRepository : BaseRepository<User>(User::class) {
 
     suspend fun authenticate(login: String, password: String): User {
         val user = findByLogin(login)
-            ?.takeIf { offCpu { Passwords.verify(password, it.password, it.salt) } }
+            ?.takeIf { offCpu { Passwords.verify(password, it.password) } }
             ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
 
         if (!user.isActive) throw UserExceptions.funExceptionInactive("authenticate", user.login)
 
-        // Хеш старого образца переписывается сразу, пока пароль в руках: другого случая
+        // Хеш со слабым числом итераций переписывается сразу, пока пароль в руках: другого случая
         // пересчитать его не будет, а сбрасывать пароли всем игрокам незачем.
         if (Passwords.needsRehash(user.password)) {
             storeHash(user._id, offCpu { Passwords.hash(password) })
@@ -159,14 +156,14 @@ class UserRepository : BaseRepository<User>(User::class) {
     }
 
     /**
-     * Записывает хеш пароля в обход общего обновления: оно запрещает менять пароль и соль,
+     * Записывает хеш пароля в обход общего обновления: оно запрещает менять пароль,
      * потому что через него пароль лёг бы в базу открытым текстом. Версия всё равно растёт -
      * чужая запись, начатая раньше, не перетрёт новый хеш.
      */
     private suspend fun storeHash(userId: String, hash: String) {
         collection.updateOne(
             Filters.eq("_id", userId),
-            Updates.combine(Updates.set("password", hash), Updates.set("salt", ""), Updates.inc("version", 1L))
+            Updates.combine(Updates.set("password", hash), Updates.inc("version", 1L))
         )
     }
 
@@ -180,7 +177,7 @@ class UserRepository : BaseRepository<User>(User::class) {
         val user = findById(id)
             ?: throw UserExceptions.funExceptionFoundUserId("changePassword", id)
 
-        if (!offCpu { Passwords.verify(password, user.password, user.salt) }) {
+        if (!offCpu { Passwords.verify(password, user.password) }) {
             throw UserExceptions.funExceptionPasswordLoginPass("changePassword", user.login)
         }
 

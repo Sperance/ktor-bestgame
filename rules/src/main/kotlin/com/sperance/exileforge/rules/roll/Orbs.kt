@@ -64,7 +64,6 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
             Orb.MERCY_ORB -> mercy(item, template, dice)
             Orb.PERIL_ORB -> peril(item, template, dice)
             Orb.GLASSBLOWERS_BAUBLE -> bauble(item, template)
-            Orb.HELMET_SCROLL, Orb.GLOVES_SCROLL, Orb.BOOTS_SCROLL, Orb.WEAPON_SCROLL -> enchant(item, template, orb, dice)
             Orb.WHETSTONE -> quality(item, template, template.slot.isWeapon, null)
             Orb.ARMOURERS_SCRAP -> quality(item, template, template.slot.isArmour, null)
             Orb.UNVEILING_ORB -> veils.offer(item, template, dice)
@@ -258,14 +257,6 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         item.influence = influence
         item.rolls = item.rolls + added
         return outcome(item, template, "currency.influenced", LocaleKey.enumLabel("EnumInfluence", influence.name))
-    }
-
-    private fun enchant(item: ItemInstance, template: ItemTemplate, orb: Orb, dice: Dice): OrbOutcome {
-        val slot = orb.enchantSlot ?: throw RuleViolation("CR_009", listOf(orb.name))
-        if (template.slot.tag != slot) throw RuleViolation("CR_026", listOf(orbName(orb)))
-        val enchantment = affixes.rollFrom(listOf(AffixRoller.enchantTag(slot)), item.level(template), dice) ?: throw RuleViolation("CR_026", listOf(orbName(orb)))
-        item.rolls = item.rolls.filterNot { affixes.definition(it)?.source == Source.ENCHANTMENT } + enchantment
-        return outcome(item, template, "currency.enchanted")
     }
 
     private fun bauble(item: ItemInstance, template: ItemTemplate): OrbOutcome {
