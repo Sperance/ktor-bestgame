@@ -129,7 +129,7 @@ class CampaignService : KoinComponent {
         val template = item?.let { index.template(it.template) }
         if (item != null && (template == null || template.slot != Slot.MAP || template.code != loot.mapTemplate(mapCode) || item.equipped))
             throw CampaignExceptions.funExceptionMapItem(method, template?.code ?: item.template)
-        val active = item?.let { loot.activeMap(mapCode, loot.mapEffects(it, bonuses.mapEffect), it.rarity) }
+        val active = item?.let { loot.activeMap(mapCode, loot.atlasPowers(loot.mapEffects(it, bonuses.mapEffect), bonuses.effects), it.rarity, it.mapTier) }
         val sheet = index.sheetOf(hero).stats
         val chests = Chests.window(state.chests[mapCode], System.currentTimeMillis(), campaign.chests, sheet[CoreStat.CHEST_QUANTITY.code] ?: 0.0, bonuses.chests, dice)
         state.chests[mapCode] = chests.copy(left = chests.left + (active?.effects?.get(CoreStat.MAP_CHESTS.code)?.toInt() ?: 0))

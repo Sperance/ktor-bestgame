@@ -4,7 +4,7 @@
     "rare": 1,
     "vaal": 1
   },
-  "cap": 100,
+  "cap": 132,
   "respec": {
     "perNode": 500,
     "perLevel": 50
@@ -17,9 +17,9 @@
       "kind": "START"
     },
     {
-      "code": "ATLAS_LOOT_1",
-      "x": -2.2,
-      "y": 1.2,
+      "code": "ATLAS_LOOT_T1",
+      "x": 0.62,
+      "y": -1.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -34,16 +34,130 @@
       ]
     },
     {
-      "code": "ATLAS_LOOT_2",
-      "x": -3.4,
-      "y": 2.3,
+      "code": "ATLAS_LOOT_T2",
+      "x": 1.08,
+      "y": -3.33,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_1"
+        "ATLAS_LOOT_T1"
       ],
       "lines": [
         {
           "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_T3",
+      "x": 1.55,
+      "y": -4.76,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GOLD",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_N1",
+      "x": 2.01,
+      "y": -6.18,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "ATLAS_RARITY",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_L1",
+      "x": 1.25,
+      "y": -7.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_L2",
+      "x": 1.49,
+      "y": -9.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_L3",
+      "x": 1.72,
+      "y": -10.86,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_N2",
+      "x": 1.96,
+      "y": -12.35,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GOLD",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "ATLAS_QUANTITY",
           "values": [
             3.0
           ]
@@ -51,166 +165,63 @@
       ]
     },
     {
-      "code": "ATLAS_LOOT_FORK",
-      "x": -4.2,
-      "y": 3.6,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            4.0
-          ]
-        },
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            6.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_Q1",
-      "x": -5.8,
-      "y": 4.2,
+      "code": "ATLAS_LOOT_LX",
+      "x": 1.46,
+      "y": -13.92,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_FORK"
+        "ATLAS_LOOT_N2"
       ],
       "lines": [
         {
-          "code": "ATLAS_QUANTITY",
+          "code": "ATLAS_GOLD",
           "values": [
-            2.0
+            8.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_LOOT_Q2",
-      "x": -7.0,
-      "y": 5.1,
+      "code": "ATLAS_LOOT_L4",
+      "x": 2.91,
+      "y": -13.69,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_Q1"
+        "ATLAS_LOOT_N2"
       ],
       "lines": [
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            2.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_Q3",
-      "x": -7.6,
-      "y": 6.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_Q2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            2.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_HOARD",
-      "x": -8.1,
-      "y": 7.9,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_Q3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            6.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_KEY",
-      "x": -8.9,
-      "y": 9.6,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_LOOT_HOARD"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            15.0
-          ]
-        },
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            15.0
-          ]
-        },
         {
           "code": "ATLAS_EXPERIENCE",
           "values": [
-            -25.0
+            2.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_LOOT_R1",
-      "x": -4.8,
-      "y": 4.8,
+      "code": "ATLAS_LOOT_L5",
+      "x": 3.22,
+      "y": -15.16,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_FORK"
+        "ATLAS_LOOT_L4"
       ],
       "lines": [
         {
-          "code": "ATLAS_RARITY",
+          "code": "ATLAS_QUANTITY",
           "values": [
-            4.0
+            2.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_LOOT_R2",
-      "x": -4.3,
-      "y": 7.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_R1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            4.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_GLITTER",
-      "x": -4.8,
-      "y": 8.2,
+      "code": "ATLAS_LOOT_N3",
+      "x": 3.53,
+      "y": -16.63,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_LOOT_R2"
+        "ATLAS_LOOT_L5"
       ],
       "lines": [
         {
@@ -218,16 +229,79 @@
           "values": [
             12.0
           ]
+        },
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            3.0
+          ]
         }
       ]
     },
     {
-      "code": "ATLAS_LOOT_X1",
-      "x": -2.5,
-      "y": 4.6,
+      "code": "ATLAS_LOOT_L6",
+      "x": 3.85,
+      "y": -18.1,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_FORK"
+        "ATLAS_LOOT_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_L7",
+      "x": 4.16,
+      "y": -19.56,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GOLD",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_K2",
+      "x": 4.47,
+      "y": -21.03,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_LOOT_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GOLD",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_C1",
+      "x": 2.47,
+      "y": -7.61,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_N1"
       ],
       "lines": [
         {
@@ -239,33 +313,50 @@
       ]
     },
     {
-      "code": "ATLAS_LOOT_SAGE",
-      "x": -2.6,
-      "y": 6.0,
-      "kind": "NOTABLE",
+      "code": "ATLAS_LOOT_C2",
+      "x": 2.94,
+      "y": -9.04,
+      "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_X1"
+        "ATLAS_LOOT_C1"
       ],
       "lines": [
         {
-          "code": "ATLAS_EXPERIENCE",
+          "code": "ATLAS_QUANTITY",
           "values": [
-            6.0
+            2.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_LOOT_M1",
-      "x": -5.0,
-      "y": 1.8,
+      "code": "ATLAS_LOOT_C3",
+      "x": 3.4,
+      "y": -10.46,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_2"
+        "ATLAS_LOOT_C2"
       ],
       "lines": [
         {
-          "code": "ATLAS_MAP_DROP",
+          "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_C4",
+      "x": 3.86,
+      "y": -11.89,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GOLD",
           "values": [
             8.0
           ]
@@ -273,33 +364,22 @@
       ]
     },
     {
-      "code": "ATLAS_LOOT_M2",
-      "x": -6.3,
-      "y": 2.2,
-      "kind": "SMALL",
+      "code": "ATLAS_LOOT_K1",
+      "x": 4.33,
+      "y": -13.31,
+      "kind": "KEYSTONE",
       "parents": [
-        "ATLAS_LOOT_M1"
+        "ATLAS_LOOT_C4"
       ],
       "lines": [
         {
-          "code": "ATLAS_MAP_DROP",
+          "code": "ATLAS_QUANTITY",
           "values": [
-            8.0
+            12.0
           ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_ATLAS",
-      "x": -7.6,
-      "y": 2.9,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_M2"
-      ],
-      "lines": [
+        },
         {
-          "code": "ATLAS_MAP_DROP",
+          "code": "ATLAS_RARITY",
           "values": [
             20.0
           ]
@@ -307,9 +387,2399 @@
       ]
     },
     {
-      "code": "ATLAS_VAAL_1",
-      "x": -0.8,
-      "y": 1.5,
+      "code": "ATLAS_LOOT_R1",
+      "x": 3.63,
+      "y": -7.13,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_R2",
+      "x": 4.31,
+      "y": -8.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_R3",
+      "x": 4.99,
+      "y": -9.8,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_N4",
+      "x": 5.67,
+      "y": -11.14,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            6.0
+          ]
+        },
+        {
+          "code": "ATLAS_GOLD",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_R4",
+      "x": 5.69,
+      "y": -12.79,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GOLD",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_R5",
+      "x": 6.3,
+      "y": -14.16,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_R4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_N5",
+      "x": 6.91,
+      "y": -15.53,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_LOOT_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            6.0
+          ]
+        },
+        {
+          "code": "ATLAS_EXPERIENCE",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_R6",
+      "x": 7.52,
+      "y": -16.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_R7",
+      "x": 8.13,
+      "y": -18.27,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARITY",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_LOOT_RX",
+      "x": 7.0,
+      "y": -12.12,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_LOOT_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GOLD",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_T1",
+      "x": 1.62,
+      "y": -1.18,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_T2",
+      "x": 2.83,
+      "y": -2.06,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_T1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_T3",
+      "x": 4.05,
+      "y": -2.94,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_N1",
+      "x": 5.26,
+      "y": -3.82,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_MAPS_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_L1",
+      "x": 5.66,
+      "y": -5.66,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_L2",
+      "x": 6.72,
+      "y": -6.72,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_L3",
+      "x": 7.78,
+      "y": -7.78,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_N2",
+      "x": 8.84,
+      "y": -8.84,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_MAPS_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_LX",
+      "x": 9.37,
+      "y": -10.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_L4",
+      "x": 10.4,
+      "y": -9.37,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_L5",
+      "x": 11.52,
+      "y": -10.37,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_N3",
+      "x": 12.63,
+      "y": -11.38,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_MAPS_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_L6",
+      "x": 13.75,
+      "y": -12.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_L7",
+      "x": 14.86,
+      "y": -13.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_K2",
+      "x": 15.98,
+      "y": -14.39,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_MAPS_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            50.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            60.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_C1",
+      "x": 6.47,
+      "y": -4.7,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_C2",
+      "x": 7.69,
+      "y": -5.58,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_C3",
+      "x": 8.9,
+      "y": -6.47,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_C4",
+      "x": 10.11,
+      "y": -7.35,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_K1",
+      "x": 11.33,
+      "y": -8.23,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_MAPS_C4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            40.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_R1",
+      "x": 7.13,
+      "y": -3.63,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_R2",
+      "x": 8.46,
+      "y": -4.31,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_R3",
+      "x": 9.8,
+      "y": -4.99,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_N4",
+      "x": 11.14,
+      "y": -5.67,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_MAPS_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_R4",
+      "x": 12.12,
+      "y": -7.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_R5",
+      "x": 13.42,
+      "y": -7.75,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_R4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_AFFIX",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_N5",
+      "x": 14.72,
+      "y": -8.5,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_MAPS_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            12.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            25.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_R6",
+      "x": 16.02,
+      "y": -9.25,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_DROP",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_R7",
+      "x": 17.32,
+      "y": -10.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_NEXT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_MAPS_RX",
+      "x": 12.79,
+      "y": -5.69,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_MAPS_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_RARE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_T1",
+      "x": 2.0,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_T2",
+      "x": 3.5,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_T1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_T3",
+      "x": 5.0,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_N1",
+      "x": 6.5,
+      "y": 0.0,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_TIERS_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_L1",
+      "x": 7.9,
+      "y": -1.25,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_L2",
+      "x": 9.38,
+      "y": -1.49,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_L3",
+      "x": 10.86,
+      "y": -1.72,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_N2",
+      "x": 12.35,
+      "y": -1.96,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_TIERS_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            12.0
+          ]
+        },
+        {
+          "code": "ATLAS_RARITY",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_LX",
+      "x": 13.69,
+      "y": -2.91,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_L4",
+      "x": 13.92,
+      "y": -1.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_L5",
+      "x": 15.42,
+      "y": -1.62,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_N3",
+      "x": 16.91,
+      "y": -1.78,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_TIERS_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            18.0
+          ]
+        },
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_L6",
+      "x": 18.4,
+      "y": -1.93,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_L7",
+      "x": 19.89,
+      "y": -2.09,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_K2",
+      "x": 21.38,
+      "y": -2.25,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_TIERS_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_C1",
+      "x": 8.0,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_C2",
+      "x": 9.5,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_C3",
+      "x": 11.0,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_C4",
+      "x": 12.5,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_K1",
+      "x": 14.0,
+      "y": 0.0,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_TIERS_C4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            50.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_R1",
+      "x": 7.9,
+      "y": 1.25,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_R2",
+      "x": 9.38,
+      "y": 1.49,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_R3",
+      "x": 10.86,
+      "y": 1.72,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_N4",
+      "x": 12.35,
+      "y": 1.96,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_TIERS_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            12.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_R4",
+      "x": 13.92,
+      "y": 1.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_R5",
+      "x": 15.42,
+      "y": 1.62,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_R4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUANTITY",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_N5",
+      "x": 16.91,
+      "y": 1.78,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_TIERS_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_RARITY",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_R6",
+      "x": 18.4,
+      "y": 1.93,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_R7",
+      "x": 19.89,
+      "y": 2.09,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_EFFECT",
+          "values": [
+            4.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_TIERS_RX",
+      "x": 13.69,
+      "y": 2.91,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_TIERS_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_TIER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_T1",
+      "x": 1.62,
+      "y": 1.18,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_T2",
+      "x": 2.83,
+      "y": 2.06,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_T1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_T3",
+      "x": 4.05,
+      "y": 2.94,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_N1",
+      "x": 5.26,
+      "y": 3.82,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSSES_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_L1",
+      "x": 7.13,
+      "y": 3.63,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_L2",
+      "x": 8.46,
+      "y": 4.31,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_L3",
+      "x": 9.8,
+      "y": 4.99,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_N2",
+      "x": 11.14,
+      "y": 5.67,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSSES_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_LX",
+      "x": 12.79,
+      "y": 5.69,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_L4",
+      "x": 12.12,
+      "y": 7.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_L5",
+      "x": 13.42,
+      "y": 7.75,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_N3",
+      "x": 14.72,
+      "y": 8.5,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSSES_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_L6",
+      "x": 16.02,
+      "y": 9.25,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_L7",
+      "x": 17.32,
+      "y": 10.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_K2",
+      "x": 18.62,
+      "y": 10.75,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_BOSSES_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            25.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_C1",
+      "x": 6.47,
+      "y": 4.7,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_C2",
+      "x": 7.69,
+      "y": 5.58,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_C3",
+      "x": 8.9,
+      "y": 6.47,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_C4",
+      "x": 10.11,
+      "y": 7.35,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_K1",
+      "x": 11.33,
+      "y": 8.23,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_BOSSES_C4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            40.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_R1",
+      "x": 5.66,
+      "y": 5.66,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_R2",
+      "x": 6.72,
+      "y": 6.72,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_R3",
+      "x": 7.78,
+      "y": 7.78,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_N4",
+      "x": 8.84,
+      "y": 8.84,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSSES_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_R4",
+      "x": 10.4,
+      "y": 9.37,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_R5",
+      "x": 11.52,
+      "y": 10.37,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_R4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_N5",
+      "x": 12.63,
+      "y": 11.38,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_BOSSES_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_R6",
+      "x": 13.75,
+      "y": 12.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_R7",
+      "x": 14.86,
+      "y": 13.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_RESPAWN",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_BOSSES_RX",
+      "x": 9.37,
+      "y": 10.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_BOSSES_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOSS_UNIQUE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_T1",
+      "x": 0.62,
+      "y": 1.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_T2",
+      "x": 1.08,
+      "y": 3.33,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_T1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_T3",
+      "x": 1.55,
+      "y": 4.76,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_N1",
+      "x": 2.01,
+      "y": 6.18,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_EXTRA",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_L1",
+      "x": 3.63,
+      "y": 7.13,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_L2",
+      "x": 4.31,
+      "y": 8.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_L3",
+      "x": 4.99,
+      "y": 9.8,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_N2",
+      "x": 5.67,
+      "y": 11.14,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_LX",
+      "x": 7.0,
+      "y": 12.12,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_L4",
+      "x": 5.69,
+      "y": 12.79,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_L5",
+      "x": 6.3,
+      "y": 14.16,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_N3",
+      "x": 6.91,
+      "y": 15.53,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_DEPTH",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_L6",
+      "x": 7.52,
+      "y": 16.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_L7",
+      "x": 8.13,
+      "y": 18.27,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_K2",
+      "x": 8.74,
+      "y": 19.64,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_ABYSS_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_UNIQUE",
+          "values": [
+            80.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_C1",
+      "x": 2.47,
+      "y": 7.61,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_C2",
+      "x": 2.94,
+      "y": 9.04,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_C3",
+      "x": 3.4,
+      "y": 10.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_C4",
+      "x": 3.86,
+      "y": 11.89,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_K1",
+      "x": 4.33,
+      "y": 13.31,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_ABYSS_C4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_DEPTH",
+          "values": [
+            2.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            40.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_R1",
+      "x": 1.25,
+      "y": 7.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_R2",
+      "x": 1.49,
+      "y": 9.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_R3",
+      "x": 1.72,
+      "y": 10.86,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_N4",
+      "x": 1.96,
+      "y": 12.35,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            10.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_UNIQUE",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_R4",
+      "x": 2.91,
+      "y": 13.69,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_R5",
+      "x": 3.22,
+      "y": 15.16,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_R4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_RARE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_N5",
+      "x": 3.53,
+      "y": 16.63,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_EXTRA",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_R6",
+      "x": 3.85,
+      "y": 18.1,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_CHANCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_R7",
+      "x": 4.16,
+      "y": 19.56,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_RX",
+      "x": 1.46,
+      "y": 13.92,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_ORBS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_T1",
+      "x": -0.62,
+      "y": 1.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -324,12 +2794,12 @@
       ]
     },
     {
-      "code": "ATLAS_VAAL_2",
-      "x": -1.1,
-      "y": 3.0,
+      "code": "ATLAS_VAAL_T2",
+      "x": -1.08,
+      "y": 3.33,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_VAAL_1"
+        "ATLAS_VAAL_T1"
       ],
       "lines": [
         {
@@ -341,29 +2811,69 @@
       ]
     },
     {
-      "code": "ATLAS_VAAL_FORK",
-      "x": -0.7,
-      "y": 4.4,
-      "kind": "NOTABLE",
+      "code": "ATLAS_VAAL_T3",
+      "x": -1.55,
+      "y": 4.76,
+      "kind": "SMALL",
       "parents": [
-        "ATLAS_VAAL_2"
+        "ATLAS_VAAL_T2"
       ],
       "lines": [
         {
-          "code": "ATLAS_VAAL_CHANCE",
+          "code": "ATLAS_VAAL_UNIQUE",
           "values": [
-            20.0
+            15.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_VAAL_C1",
-      "x": -1.5,
-      "y": 5.6,
+      "code": "ATLAS_VAAL_N1",
+      "x": -2.01,
+      "y": 6.18,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_VAAL_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_L1",
+      "x": -1.25,
+      "y": 7.9,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_VAAL_FORK"
+        "ATLAS_VAAL_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_L2",
+      "x": -1.49,
+      "y": 9.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_L1"
       ],
       "lines": [
         {
@@ -375,9 +2885,197 @@
       ]
     },
     {
+      "code": "ATLAS_VAAL_L3",
+      "x": -1.72,
+      "y": 10.86,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_N2",
+      "x": -1.96,
+      "y": 12.35,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_VAAL_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_VAAL_MIN_MODS",
+          "values": [
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_LX",
+      "x": -1.46,
+      "y": 13.92,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_L4",
+      "x": -2.91,
+      "y": 13.69,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_L5",
+      "x": -3.22,
+      "y": 15.16,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_N3",
+      "x": -3.53,
+      "y": 16.63,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_VAAL_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            35.0
+          ]
+        },
+        {
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_L6",
+      "x": -3.85,
+      "y": 18.1,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_L7",
+      "x": -4.16,
+      "y": 19.56,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_K2",
+      "x": -4.47,
+      "y": 21.03,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_VAAL_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_CHANCE",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "ATLAS_VAAL_UNIQUE",
+          "values": [
+            60.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_C1",
+      "x": -2.47,
+      "y": 7.61,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
       "code": "ATLAS_VAAL_C2",
-      "x": -1.9,
-      "y": 6.9,
+      "x": -2.94,
+      "y": 9.04,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_C1"
@@ -392,84 +3090,33 @@
       ]
     },
     {
-      "code": "ATLAS_VAAL_BEACON",
-      "x": -1.9,
-      "y": 8.5,
-      "kind": "NOTABLE",
+      "code": "ATLAS_VAAL_C3",
+      "x": -3.4,
+      "y": 10.46,
+      "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_C2"
       ],
       "lines": [
         {
-          "code": "ATLAS_VAAL_CHANCE",
+          "code": "ATLAS_VAAL_REWARD",
           "values": [
-            25.0
+            5.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_VAAL_W1",
-      "x": 0.2,
-      "y": 5.7,
+      "code": "ATLAS_VAAL_C4",
+      "x": -3.86,
+      "y": 11.89,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_VAAL_FORK"
+        "ATLAS_VAAL_C3"
       ],
       "lines": [
         {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            6.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_W2",
-      "x": 0.4,
-      "y": 7.2,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_W1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            6.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_W3",
-      "x": 0.4,
-      "y": 8.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_W2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            6.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_ALTAR",
-      "x": 0.5,
-      "y": 9.8,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_VAAL_W3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_REWARD",
+          "code": "ATLAS_VAAL_UNIQUE",
           "values": [
             15.0
           ]
@@ -477,113 +3124,73 @@
       ]
     },
     {
-      "code": "ATLAS_VAAL_KEY",
-      "x": -0.1,
-      "y": 11.9,
+      "code": "ATLAS_VAAL_K1",
+      "x": -4.33,
+      "y": 13.31,
       "kind": "KEYSTONE",
       "parents": [
-        "ATLAS_VAAL_ALTAR"
+        "ATLAS_VAAL_C4"
       ],
       "lines": [
+        {
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            45.0
+          ]
+        },
         {
           "code": "ATLAS_VAAL_MIN_MODS",
           "values": [
             2.0
           ]
-        },
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_R1",
+      "x": -3.63,
+      "y": 7.13,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_N1"
+      ],
+      "lines": [
         {
           "code": "ATLAS_VAAL_REWARD",
           "values": [
-            25.0
+            5.0
           ]
-        },
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_VAAL_R2",
+      "x": -4.31,
+      "y": 8.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_VAAL_R1"
+      ],
+      "lines": [
         {
           "code": "ATLAS_VAAL_CHANCE",
           "values": [
-            -30.0
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_VAAL_DEPTH",
-      "x": -2.4,
-      "y": 3.4,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_VAAL_2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_MIN_MODS",
-          "values": [
-            1.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_1",
-      "x": 1.0,
-      "y": 1.4,
+      "code": "ATLAS_VAAL_R3",
+      "x": -4.99,
+      "y": 9.8,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_START"
+        "ATLAS_VAAL_R2"
       ],
       "lines": [
         {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            3.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_2",
-      "x": 1.9,
-      "y": 2.7,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            3.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_FORK",
-      "x": 2.3,
-      "y": 4.1,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            8.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_R1",
-      "x": 1.6,
-      "y": 5.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_FORK"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
+          "code": "ATLAS_VAAL_REWARD",
           "values": [
             5.0
           ]
@@ -591,33 +3198,22 @@
       ]
     },
     {
-      "code": "ATLAS_CONT_R2",
-      "x": 1.9,
-      "y": 6.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_R1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            5.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_ELITE",
-      "x": 1.6,
-      "y": 8.3,
+      "code": "ATLAS_VAAL_N4",
+      "x": -5.67,
+      "y": 11.14,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_CONT_R2"
+        "ATLAS_VAAL_R3"
       ],
       "lines": [
         {
-          "code": "ATLAS_RARE_MONSTERS",
+          "code": "ATLAS_VAAL_REWARD",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "ATLAS_VAAL_UNIQUE",
           "values": [
             15.0
           ]
@@ -625,152 +3221,16 @@
       ]
     },
     {
-      "code": "ATLAS_CONT_T1",
-      "x": 3.4,
-      "y": 5.0,
+      "code": "ATLAS_VAAL_R4",
+      "x": -5.69,
+      "y": 12.79,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_CONT_FORK"
+        "ATLAS_VAAL_N4"
       ],
       "lines": [
         {
-          "code": "ATLAS_RARITY",
-          "values": [
-            3.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_TREASURE",
-      "x": 4.0,
-      "y": 6.2,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_T1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_CHESTS",
-          "values": [
-            1.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_T2",
-      "x": 4.4,
-      "y": 7.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_TREASURE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            3.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_VAULT",
-      "x": 5.2,
-      "y": 9.0,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_T2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_CHESTS",
-          "values": [
-            1.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_F1",
-      "x": 3.3,
-      "y": 2.4,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            2.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_SPRING",
-      "x": 4.4,
-      "y": 2.6,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_F1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_FOUNTAINS",
-          "values": [
-            1.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_1",
-      "x": 2.4,
-      "y": 0.8,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_START"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            5.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_2",
-      "x": 3.7,
-      "y": 1.1,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            5.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_FORK",
-      "x": 5.1,
-      "y": 1.6,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
+          "code": "ATLAS_VAAL_UNIQUE",
           "values": [
             15.0
           ]
@@ -778,2617 +3238,2300 @@
       ]
     },
     {
-      "code": "ATLAS_BOSS_S1",
-      "x": 6.2,
-      "y": 2.8,
+      "code": "ATLAS_VAAL_R5",
+      "x": -6.3,
+      "y": 14.16,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_BOSS_FORK"
+        "ATLAS_VAAL_R4"
       ],
       "lines": [
         {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            10.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S2",
-      "x": 6.9,
-      "y": 4.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_S1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            10.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_RELENTLESS",
-      "x": 7.6,
-      "y": 5.5,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_S2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            25.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_U1",
-      "x": 4.6,
-      "y": 3.7,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_FORK"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            8.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_U2",
-      "x": 5.0,
-      "y": 4.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_U1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            8.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_U3",
-      "x": 5.1,
-      "y": 6.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_U2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            8.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_TROPHY",
-      "x": 5.6,
-      "y": 7.7,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_U3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            25.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_L1",
-      "x": 6.3,
-      "y": 0.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_FORK"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_DROP",
-          "values": [
-            6.0
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_SPOILS",
-      "x": 7.6,
-      "y": 1.2,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_L1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_QUANTITY",
+          "code": "ATLAS_VAAL_REWARD",
           "values": [
             5.0
           ]
-        },
-        {
-          "code": "ATLAS_MAP_DROP",
-          "values": [
-            10.0
-          ]
         }
       ]
     },
     {
-      "code": "ATLAS_LOOT_G1",
-      "x": -6.1,
-      "y": 9.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_GLITTER"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_G2",
-      "x": -7.1,
-      "y": 10.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_G1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_MIDAS",
-      "x": -7.9,
-      "y": 12.0,
+      "code": "ATLAS_VAAL_N5",
+      "x": -6.91,
+      "y": 15.53,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_LOOT_G2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            20
-          ]
-        },
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_CH1",
-      "x": -0.8,
-      "y": 7.4,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_SAGE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_CHEST_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_CACHE",
-      "x": -0.7,
-      "y": 8.6,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_CH1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_CHEST_LOOT",
-          "values": [
-            25
-          ]
-        },
-        {
-          "code": "ATLAS_CHESTS",
-          "values": [
-            1
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_U1",
-      "x": -3.7,
-      "y": 4.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_DEPTH"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_UNIQUE",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_U2",
-      "x": -4.8,
-      "y": 6.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_U1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_UNIQUE",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_RELIC",
-      "x": -5.5,
-      "y": 7.2,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_VAAL_U2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_UNIQUE",
-          "values": [
-            40
-          ]
-        },
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_E1",
-      "x": -0.7,
-      "y": 9.8,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_BEACON"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_E2",
-      "x": 0.5,
-      "y": 10.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_E1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_AMPLIFY",
-      "x": 1.0,
-      "y": 12.3,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_VAAL_E2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_N1",
-      "x": 2.6,
-      "y": 9.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_ELITE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_NEXT",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_N2",
-      "x": 3.9,
-      "y": 11.1,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_N1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_NEXT",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_ASCENT",
-      "x": 4.5,
-      "y": 12.2,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_N2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_NEXT",
-          "values": [
-            40
-          ]
-        },
-        {
-          "code": "ATLAS_MAP_DROP",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_A1",
-      "x": 4.0,
-      "y": 9.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_VAULT"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_RARE",
-          "values": [
-            20
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_A2",
-      "x": 2.7,
-      "y": 11.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_A1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_AFFIX",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_CARTEL",
-      "x": 2.1,
-      "y": 12.9,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_A2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_RARE",
-          "values": [
-            50
-          ]
-        },
-        {
-          "code": "ATLAS_MAP_AFFIX",
-          "values": [
-            25
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_KEY",
-      "x": 1.3,
-      "y": 14.4,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_CONT_CARTEL"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            30
-          ]
-        },
-        {
-          "code": "ATLAS_MAP_AFFIX",
-          "values": [
-            50
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_M1",
-      "x": 5.8,
-      "y": 4.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_SPRING"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_LEGION",
-      "x": 6.5,
-      "y": 5.5,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_M1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MONSTER_MODS",
-          "values": [
-            1
-          ]
-        },
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_B1",
-      "x": 8.8,
-      "y": 2.4,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_SPOILS"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_B2",
-      "x": 9.8,
-      "y": 3.7,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_B1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_HOARD",
-      "x": 10.6,
-      "y": 5.1,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_B2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            30
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_KEY",
-      "x": 11.2,
-      "y": 6.7,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_BOSS_HOARD"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            50
-          ]
-        },
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            20
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_R1",
-      "x": 4.1,
-      "y": 8.7,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_TROPHY"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RECIPE",
-          "values": [
-            25
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_WORKSHOP",
-      "x": 3.0,
-      "y": 10.4,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_R1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RECIPE",
-          "values": [
-            75
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_C1",
-      "x": -8.9,
-      "y": 3.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_ATLAS"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_DROP",
-          "values": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_C2",
-      "x": -9.9,
-      "y": 4.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_C1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_NEXT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_SURVEYOR",
-      "x": -10.4,
-      "y": 6.0,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_C2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_DROP",
-          "values": [
-            12
-          ]
-        },
-        {
-          "code": "ATLAS_MAP_NEXT",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_C3",
-      "x": -10.5,
-      "y": 7.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_SURVEYOR"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_RARE",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_C4",
-      "x": -10.2,
-      "y": 9.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_C3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_AFFIX",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_ARCHIVE",
-      "x": -10.3,
-      "y": 10.6,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_C4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_RARE",
-          "values": [
-            30
-          ]
-        },
-        {
-          "code": "ATLAS_MAP_AFFIX",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_C5",
-      "x": -10.4,
-      "y": 12.1,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_ARCHIVE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_AFFIX",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_G3",
-      "x": -8.8,
-      "y": 13.2,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_MIDAS"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_G4",
-      "x": -9.3,
-      "y": 14.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_G3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            2
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_TREASURY",
-      "x": -9.2,
-      "y": 16.1,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_G4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            20
-          ]
-        },
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_G5",
-      "x": -8.6,
-      "y": 17.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_TREASURY"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            4
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_KEY2",
-      "x": -7.9,
-      "y": 18.9,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_LOOT_G5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            60
-          ]
-        },
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            10
-          ]
-        },
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            -20
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_G6",
-      "x": -10.4,
-      "y": 17.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_TREASURY"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_HOARDER",
-      "x": -10.5,
-      "y": 18.5,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_G6"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            15
-          ]
-        },
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            4
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_X2",
-      "x": -3.2,
-      "y": 7.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_SAGE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_X3",
-      "x": -3.4,
-      "y": 8.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_X2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_SCHOLAR",
-      "x": -3.1,
-      "y": 10.4,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_LOOT_X3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_X4",
-      "x": -3.9,
-      "y": 11.7,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_SCHOLAR"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_X5",
-      "x": -4.8,
-      "y": 12.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_X4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_LOOT_ENLIGHTEN",
-      "x": -5.6,
-      "y": 14.2,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_LOOT_X5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            30
-          ]
-        },
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            -15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_E3",
-      "x": 0.0,
-      "y": 13.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_AMPLIFY"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_E4",
-      "x": -0.6,
-      "y": 15.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_E3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_RESONANCE",
-      "x": -1.0,
-      "y": 16.5,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_VAAL_E4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            12
-          ]
-        },
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_E5",
-      "x": -1.2,
-      "y": 18.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_RESONANCE"
+        "ATLAS_VAAL_R5"
       ],
       "lines": [
         {
           "code": "ATLAS_VAAL_CHANCE",
           "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_E6",
-      "x": -1.0,
-      "y": 19.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_E5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_W4",
-      "x": -0.6,
-      "y": 21.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_E6"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_CHANCE",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_KEY2",
-      "x": -0.2,
-      "y": 22.6,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_VAAL_W4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            40
-          ]
-        },
-        {
-          "code": "ATLAS_VAAL_CHANCE",
-          "values": [
-            25
-          ]
-        },
-        {
-          "code": "ATLAS_MAP_EFFECT",
-          "values": [
-            -20
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_U3",
-      "x": -2.4,
-      "y": 17.2,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_RESONANCE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_UNIQUE",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_U4",
-      "x": -3.3,
-      "y": 18.4,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_U3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_UNIQUE",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_TEMPLE",
-      "x": -3.6,
-      "y": 19.9,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_VAAL_U4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_UNIQUE",
-          "values": [
-            30
-          ]
-        },
-        {
-          "code": "ATLAS_VAAL_CHANCE",
-          "values": [
-            15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_U5",
-      "x": -4.3,
-      "y": 21.2,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_VAAL_TEMPLE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_VAAL_BLOODPACT",
-      "x": -4.6,
-      "y": 22.7,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_VAAL_U5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_VAAL_REWARD",
-          "values": [
-            15
+            20.0
           ]
         },
         {
           "code": "ATLAS_VAAL_UNIQUE",
           "values": [
-            20
+            20.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_CONT_M2",
-      "x": 6.9,
-      "y": 7.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_LEGION"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_M3",
-      "x": 7.2,
-      "y": 8.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_M2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_WARBAND",
-      "x": 7.3,
-      "y": 10.0,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_M3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            12
-          ]
-        },
-        {
-          "code": "ATLAS_MONSTER_MODS",
-          "values": [
-            1
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_M4",
-      "x": 7.1,
-      "y": 11.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_WARBAND"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_M5",
-      "x": 6.9,
-      "y": 13.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_M4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_GAUNTLET",
-      "x": 6.8,
-      "y": 14.5,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_M5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            8
-          ]
-        },
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_M6",
-      "x": 6.7,
-      "y": 16.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_GAUNTLET"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_M7",
-      "x": 6.4,
-      "y": 17.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_M6"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_VETERAN",
-      "x": 6.1,
-      "y": 19.0,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_M7"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            6
-          ]
-        },
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_N3",
-      "x": 4.9,
-      "y": 13.7,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_ASCENT"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_NEXT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_N4",
-      "x": 5.1,
-      "y": 15.2,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_N3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_DROP",
-          "values": [
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_PATHFINDER",
-      "x": 5.0,
-      "y": 16.8,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_N4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_MAP_NEXT",
-          "values": [
-            25
-          ]
-        },
-        {
-          "code": "ATLAS_MAP_DROP",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_N5",
-      "x": 4.5,
-      "y": 18.2,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_PATHFINDER"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_N6",
-      "x": 3.8,
-      "y": 19.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_N5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_HORDE",
-      "x": 3.0,
-      "y": 20.8,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_N6"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            10
-          ]
-        },
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_N7",
-      "x": 2.3,
-      "y": 22.1,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_HORDE"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RARE_MONSTERS",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_KEY2",
-      "x": 2.0,
-      "y": 23.6,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_CONT_N7"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_PACK_SIZE",
-          "values": [
-            25
-          ]
-        },
-        {
-          "code": "ATLAS_MONSTER_MODS",
-          "values": [
-            1
-          ]
-        },
-        {
-          "code": "ATLAS_RARITY",
-          "values": [
-            -15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_T3",
-      "x": 3.0,
-      "y": 14.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_CARTEL"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_CHEST_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_STRONGBOX",
-      "x": 3.2,
-      "y": 15.9,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_T3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_CHEST_LOOT",
-          "values": [
-            20
-          ]
-        },
-        {
-          "code": "ATLAS_CHESTS",
-          "values": [
-            1
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_T5",
-      "x": 2.6,
-      "y": 17.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_STRONGBOX"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_CHEST_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_WELLSPRING",
-      "x": 1.8,
-      "y": 18.6,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_CONT_T5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_FOUNTAINS",
-          "values": [
-            1
-          ]
-        },
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            4
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CONT_T6",
-      "x": 1.0,
-      "y": 20.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_CONT_WELLSPRING"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_EXPERIENCE",
-          "values": [
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S3",
-      "x": 8.4,
-      "y": 6.9,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_RELENTLESS"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S4",
-      "x": 9.1,
-      "y": 8.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_S3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_HUNTSMAN",
-      "x": 9.5,
-      "y": 9.8,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_S4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            15
-          ]
-        },
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S5",
-      "x": 10.3,
-      "y": 11.1,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_HUNTSMAN"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S6",
-      "x": 10.5,
-      "y": 12.6,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_S5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_REGALIA",
-      "x": 10.3,
-      "y": 14.1,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_S6"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            20
-          ]
-        },
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S7",
-      "x": 9.8,
-      "y": 15.5,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_REGALIA"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S8",
-      "x": 9.2,
+      "code": "ATLAS_VAAL_R6",
+      "x": -7.52,
       "y": 16.9,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_BOSS_S7"
+        "ATLAS_VAAL_N5"
       ],
       "lines": [
         {
-          "code": "ATLAS_RECIPE",
+          "code": "ATLAS_VAAL_CHANCE",
           "values": [
-            25
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_BOSS_FORGEMASTER",
-      "x": 8.5,
-      "y": 18.2,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_S8"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_RECIPE",
-          "values": [
-            60
-          ]
-        },
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_S9",
-      "x": 7.8,
-      "y": 19.5,
+      "code": "ATLAS_VAAL_R7",
+      "x": -8.13,
+      "y": 18.27,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_BOSS_FORGEMASTER"
+        "ATLAS_VAAL_R6"
       ],
       "lines": [
         {
-          "code": "ATLAS_BOSS_LOOT",
+          "code": "ATLAS_VAAL_REWARD",
           "values": [
-            10
+            5.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_BOSS_KEY2",
-      "x": 7.2,
-      "y": 20.9,
-      "kind": "KEYSTONE",
-      "parents": [
-        "ATLAS_BOSS_S9"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            50
-          ]
-        },
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            25
-          ]
-        },
-        {
-          "code": "ATLAS_QUANTITY",
-          "values": [
-            -15
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_B3",
-      "x": 11.6,
-      "y": 15.0,
+      "code": "ATLAS_VAAL_RX",
+      "x": -7.0,
+      "y": 12.12,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_BOSS_REGALIA"
+        "ATLAS_VAAL_N4"
       ],
       "lines": [
         {
-          "code": "ATLAS_BOSS_LOOT",
+          "code": "ATLAS_VAAL_UNIQUE",
           "values": [
-            10
+            15.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_BOSS_B4",
-      "x": 12.1,
-      "y": 16.4,
+      "code": "ATLAS_CRYSTALS_T1",
+      "x": -1.62,
+      "y": 1.18,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_BOSS_B3"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_WARCHEST",
-      "x": 12.0,
-      "y": 17.9,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_B4"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_LOOT",
-          "values": [
-            25
-          ]
-        },
-        {
-          "code": "ATLAS_GOLD",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_B5",
-      "x": 11.7,
-      "y": 19.4,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_WARCHEST"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_B6",
-      "x": 11.1,
-      "y": 20.8,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_B5"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            8
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_BOSS_APEX",
-      "x": 10.4,
-      "y": 22.2,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_BOSS_B6"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_BOSS_UNIQUE",
-          "values": [
-            15
-          ]
-        },
-        {
-          "code": "ATLAS_BOSS_RESPAWN",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_CRYSTAL_1",
-      "x": -11.46,
-      "y": 5.29,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_LOOT_C2"
+        "ATLAS_START"
       ],
       "lines": [
         {
           "code": "ATLAS_CRYSTAL_CHANCE",
           "values": [
-            10
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_CRYSTAL_2",
-      "x": -12.71,
-      "y": 5.84,
+      "code": "ATLAS_CRYSTALS_T2",
+      "x": -2.83,
+      "y": 2.06,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_CRYSTAL_1"
+        "ATLAS_CRYSTALS_T1"
       ],
       "lines": [
         {
           "code": "ATLAS_CRYSTAL_ESSENCES",
           "values": [
-            20
+            15.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_CRYSTAL_3",
-      "x": -13.96,
-      "y": 6.39,
+      "code": "ATLAS_CRYSTALS_T3",
+      "x": -4.05,
+      "y": 2.94,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_CRYSTAL_2"
+        "ATLAS_CRYSTALS_T2"
       ],
       "lines": [
         {
           "code": "ATLAS_CRYSTAL_TIER",
           "values": [
-            10
+            8.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_CRYSTAL_KEEPER",
-      "x": -15.21,
-      "y": 6.94,
+      "code": "ATLAS_CRYSTALS_N1",
+      "x": -5.26,
+      "y": 3.82,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_CRYSTAL_3"
+        "ATLAS_CRYSTALS_T3"
       ],
       "lines": [
         {
           "code": "ATLAS_CRYSTALS",
           "values": [
-            1
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            15.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_CRYSTAL_KEY",
-      "x": -16.46,
-      "y": 7.49,
+      "code": "ATLAS_CRYSTALS_L1",
+      "x": -5.66,
+      "y": 5.66,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_L2",
+      "x": -6.72,
+      "y": 6.72,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_L3",
+      "x": -7.78,
+      "y": 7.78,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_N2",
+      "x": -8.84,
+      "y": 8.84,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRYSTALS_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_LX",
+      "x": -9.37,
+      "y": 10.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_L4",
+      "x": -10.4,
+      "y": 9.37,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_L5",
+      "x": -11.52,
+      "y": 10.37,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_N3",
+      "x": -12.63,
+      "y": 11.38,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRYSTALS_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_L6",
+      "x": -13.75,
+      "y": 12.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_L7",
+      "x": -14.86,
+      "y": 13.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_K2",
+      "x": -15.98,
+      "y": 14.39,
       "kind": "KEYSTONE",
       "parents": [
-        "ATLAS_CRYSTAL_KEEPER"
+        "ATLAS_CRYSTALS_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            40.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_C1",
+      "x": -6.47,
+      "y": 4.7,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_C2",
+      "x": -7.69,
+      "y": 5.58,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_C3",
+      "x": -8.9,
+      "y": 6.47,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_C4",
+      "x": -10.11,
+      "y": 7.35,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_K1",
+      "x": -11.33,
+      "y": 8.23,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_CRYSTALS_C4"
       ],
       "lines": [
         {
           "code": "ATLAS_CRYSTALS_MORE",
           "values": [
-            100
+            100.0
+          ]
+        },
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_R1",
+      "x": -7.13,
+      "y": 3.63,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_R2",
+      "x": -8.46,
+      "y": 4.31,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_R3",
+      "x": -9.8,
+      "y": 4.99,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_N4",
+      "x": -11.14,
+      "y": 5.67,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRYSTALS_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            20.0
           ]
         },
         {
           "code": "ATLAS_GUARDIAN_POWER",
           "values": [
-            100
+            20.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_BOOKS_1",
-      "x": -10.1,
-      "y": 2.8,
+      "code": "ATLAS_CRYSTALS_R4",
+      "x": -12.12,
+      "y": 7.0,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_LOOT_C1"
+        "ATLAS_CRYSTALS_N4"
       ],
       "lines": [
         {
-          "code": "ATLAS_BOOKS",
+          "code": "ATLAS_CRYSTAL_TIER",
           "values": [
-            15
+            8.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_BOOKS_LIBRARY",
-      "x": -11.3,
-      "y": 2.1,
-      "kind": "NOTABLE",
+      "code": "ATLAS_CRYSTALS_R5",
+      "x": -13.42,
+      "y": 7.75,
+      "kind": "SMALL",
       "parents": [
-        "ATLAS_BOOKS_1"
+        "ATLAS_CRYSTALS_R4"
       ],
       "lines": [
         {
-          "code": "ATLAS_BOOKS",
+          "code": "ATLAS_CRYSTAL_CHANCE",
           "values": [
-            30
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_N5",
+      "x": -14.72,
+      "y": 8.5,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRYSTALS_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTALS",
+          "values": [
+            1.0
           ]
         },
         {
-          "code": "ATLAS_BOOKS_OWN",
+          "code": "ATLAS_CRYSTAL_TIER",
           "values": [
-            50
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_FLASK_1",
-      "x": 11.99,
-      "y": 4.75,
+      "code": "ATLAS_CRYSTALS_R6",
+      "x": -16.02,
+      "y": 9.25,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_BOSS_B2"
+        "ATLAS_CRYSTALS_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_CHANCE",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_R7",
+      "x": -17.32,
+      "y": 10.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_RX",
+      "x": -12.79,
+      "y": 5.69,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CRYSTAL_TIER",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_T1",
+      "x": -2.0,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_T2",
+      "x": -3.5,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_T1"
       ],
       "lines": [
         {
           "code": "ATLAS_FLASK_CHARGES",
           "values": [
-            20
+            20.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_FLASK_2",
-      "x": 13.24,
-      "y": 5.35,
+      "code": "ATLAS_EXPEDITION_T3",
+      "x": -5.0,
+      "y": 0.0,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_FLASK_1"
+        "ATLAS_EXPEDITION_T2"
       ],
       "lines": [
         {
           "code": "ATLAS_FLASK_DURATION",
           "values": [
-            10
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_FLASK_APOTHECARY",
-      "x": 14.49,
-      "y": 5.95,
+      "code": "ATLAS_EXPEDITION_N1",
+      "x": -6.5,
+      "y": 0.0,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_FLASK_2"
+        "ATLAS_EXPEDITION_T3"
       ],
       "lines": [
         {
-          "code": "ATLAS_FLASK_RARE",
+          "code": "ATLAS_CHESTS",
           "values": [
-            1
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            20.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_MANA_1",
-      "x": 13.19,
-      "y": 4.0,
+      "code": "ATLAS_EXPEDITION_L1",
+      "x": -7.9,
+      "y": 1.25,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_FLASK_1"
+        "ATLAS_EXPEDITION_N1"
       ],
       "lines": [
         {
           "code": "ATLAS_MANA_REGEN",
           "values": [
-            10
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_MANA_WORD",
-      "x": 14.39,
-      "y": 3.25,
+      "code": "ATLAS_EXPEDITION_L2",
+      "x": -9.38,
+      "y": 1.49,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_L3",
+      "x": -10.86,
+      "y": 1.72,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_CHARGES",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_N2",
+      "x": -12.35,
+      "y": 1.96,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_MANA_1"
+        "ATLAS_EXPEDITION_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FOUNTAINS",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_FLASK_DURATION",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_LX",
+      "x": -13.69,
+      "y": 2.91,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_DURATION",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_L4",
+      "x": -13.92,
+      "y": 1.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MANA_REGEN",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_L5",
+      "x": -15.42,
+      "y": 1.62,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_N3",
+      "x": -16.91,
+      "y": 1.78,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_EXPEDITION_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_RARE",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_FLASK_CHARGES",
+          "values": [
+            25.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_L6",
+      "x": -18.4,
+      "y": 1.93,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_CHARGES",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_L7",
+      "x": -19.89,
+      "y": 2.09,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_DURATION",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_K2",
+      "x": -21.38,
+      "y": 2.25,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_EXPEDITION_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FOUNTAINS",
+          "values": [
+            2.0
+          ]
+        },
+        {
+          "code": "ATLAS_FLASK_DURATION",
+          "values": [
+            30.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_C1",
+      "x": -8.0,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MANA_REGEN",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_C2",
+      "x": -9.5,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_C3",
+      "x": -11.0,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_CHARGES",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_C4",
+      "x": -12.5,
+      "y": 0.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_DURATION",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_K1",
+      "x": -14.0,
+      "y": 0.0,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_EXPEDITION_C4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CHESTS",
+          "values": [
+            2.0
+          ]
+        },
+        {
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            40.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_R1",
+      "x": -7.9,
+      "y": -1.25,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MANA_REGEN",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_R2",
+      "x": -9.38,
+      "y": -1.49,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CHEST_LOOT",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_R3",
+      "x": -10.86,
+      "y": -1.72,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_CHARGES",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_N4",
+      "x": -12.35,
+      "y": -1.96,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_EXPEDITION_R3"
       ],
       "lines": [
         {
           "code": "ATLAS_SKILL_LEVEL",
           "values": [
-            1
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_ABYSS_A1",
-      "x": 11.0,
-      "y": 9.4,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_BOSS_HUNTSMAN"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_ABYSS_CHANCE",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_ABYSS_A2",
-      "x": 12.4,
-      "y": 9.0,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_ABYSS_A1"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_ABYSS_CHANCE",
-          "values": [
-            5
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_ABYSS_CALL",
-      "x": 13.8,
-      "y": 9.3,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_ABYSS_A2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_ABYSS_EXTRA",
-          "values": [
-            30
+            1.0
           ]
         },
         {
-          "code": "ATLAS_ABYSS_CHANCE",
+          "code": "ATLAS_MANA_REGEN",
           "values": [
-            5
+            15.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_H1",
-      "x": 14.6,
-      "y": 10.6,
+      "code": "ATLAS_EXPEDITION_R4",
+      "x": -13.92,
+      "y": -1.46,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_CALL"
+        "ATLAS_EXPEDITION_N4"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_HOARD",
+          "code": "ATLAS_FLASK_DURATION",
           "values": [
-            10
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_H2",
-      "x": 15.3,
-      "y": 11.9,
+      "code": "ATLAS_EXPEDITION_R5",
+      "x": -15.42,
+      "y": -1.62,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_H1"
+        "ATLAS_EXPEDITION_R4"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_ORBS",
+          "code": "ATLAS_MANA_REGEN",
           "values": [
-            15
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_H3",
-      "x": 15.8,
-      "y": 13.3,
-      "kind": "SMALL",
-      "parents": [
-        "ATLAS_ABYSS_H2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_ABYSS_HOARD",
-          "values": [
-            10
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_ABYSS_TREASURY",
-      "x": 17.0,
-      "y": 14.2,
+      "code": "ATLAS_EXPEDITION_N5",
+      "x": -16.91,
+      "y": -1.78,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_ABYSS_H3"
+        "ATLAS_EXPEDITION_R5"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_HOARD",
+          "code": "ATLAS_CHEST_LOOT",
           "values": [
-            20
+            25.0
           ]
         },
         {
-          "code": "ATLAS_ABYSS_ORBS",
+          "code": "ATLAS_FLASK_CHARGES",
           "values": [
-            20
+            20.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_H4",
-      "x": 18.2,
-      "y": 15.0,
+      "code": "ATLAS_EXPEDITION_R6",
+      "x": -18.4,
+      "y": -1.93,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_TREASURY"
+        "ATLAS_EXPEDITION_N5"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_ORBS",
+          "code": "ATLAS_CHEST_LOOT",
           "values": [
-            15
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_MAW",
-      "x": 19.4,
-      "y": 15.9,
+      "code": "ATLAS_EXPEDITION_R7",
+      "x": -19.89,
+      "y": -2.09,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_CHARGES",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_RX",
+      "x": -13.69,
+      "y": -2.91,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_FLASK_DURATION",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_T1",
+      "x": -1.62,
+      "y": -1.18,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_OMENS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_T2",
+      "x": -2.83,
+      "y": -2.06,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_T1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CATALYSTS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_T3",
+      "x": -4.05,
+      "y": -2.94,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUALITY_ORBS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_N1",
+      "x": -5.26,
+      "y": -3.82,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRAFT_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_OMENS",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_VEILED",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_L1",
+      "x": -7.13,
+      "y": -3.63,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VEILED",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_L2",
+      "x": -8.46,
+      "y": -4.31,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RECIPE",
+          "values": [
+            25.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_L3",
+      "x": -9.8,
+      "y": -4.99,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOOKS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_N2",
+      "x": -11.14,
+      "y": -5.67,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRAFT_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CATALYSTS",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_QUALITY_ORBS",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_LX",
+      "x": -12.79,
+      "y": -5.69,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_OMENS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_L4",
+      "x": -12.12,
+      "y": -7.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_CATALYSTS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_L5",
+      "x": -13.42,
+      "y": -7.75,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUALITY_ORBS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_N3",
+      "x": -14.72,
+      "y": -8.5,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRAFT_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RECIPE",
+          "values": [
+            60.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOOKS",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_L6",
+      "x": -16.02,
+      "y": -9.25,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VEILED",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_L7",
+      "x": -17.32,
+      "y": -10.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RECIPE",
+          "values": [
+            25.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_K2",
+      "x": -18.62,
+      "y": -10.75,
       "kind": "KEYSTONE",
       "parents": [
-        "ATLAS_ABYSS_H4"
+        "ATLAS_CRAFT_L7"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_POWER",
+          "code": "ATLAS_VEILED",
           "values": [
-            40
+            15.0
           ]
         },
         {
-          "code": "ATLAS_ABYSS_UNIQUE",
+          "code": "ATLAS_QUALITY_ORBS",
           "values": [
-            60
-          ]
-        },
-        {
-          "code": "ATLAS_ABYSS_RARE",
-          "values": [
-            15
+            50.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_D1",
-      "x": 15.3,
-      "y": 9.2,
+      "code": "ATLAS_CRAFT_C1",
+      "x": -6.47,
+      "y": -4.7,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_CALL"
+        "ATLAS_CRAFT_N1"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_RARE",
+          "code": "ATLAS_BOOKS",
           "values": [
-            5
+            15.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_D2",
-      "x": 16.7,
-      "y": 9.6,
+      "code": "ATLAS_CRAFT_C2",
+      "x": -7.69,
+      "y": -5.58,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_D1"
+        "ATLAS_CRAFT_C1"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_UNIQUE",
+          "code": "ATLAS_OMENS",
           "values": [
-            15
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_BOTTOMLESS",
-      "x": 18.0,
-      "y": 10.3,
-      "kind": "NOTABLE",
-      "parents": [
-        "ATLAS_ABYSS_D2"
-      ],
-      "lines": [
-        {
-          "code": "ATLAS_ABYSS_DEPTH",
-          "values": [
-            1
-          ]
-        }
-      ]
-    },
-    {
-      "code": "ATLAS_ABYSS_D3",
-      "x": 19.1,
-      "y": 11.3,
+      "code": "ATLAS_CRAFT_C3",
+      "x": -8.9,
+      "y": -6.47,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_BOTTOMLESS"
+        "ATLAS_CRAFT_C2"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_RARE",
+          "code": "ATLAS_CATALYSTS",
           "values": [
-            5
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_D4",
-      "x": 19.9,
-      "y": 12.6,
+      "code": "ATLAS_CRAFT_C4",
+      "x": -10.11,
+      "y": -7.35,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_D3"
+        "ATLAS_CRAFT_C3"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_UNIQUE",
+          "code": "ATLAS_QUALITY_ORBS",
           "values": [
-            15
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_DARKEST",
-      "x": 20.7,
-      "y": 13.9,
+      "code": "ATLAS_CRAFT_K1",
+      "x": -11.33,
+      "y": -8.23,
       "kind": "KEYSTONE",
       "parents": [
-        "ATLAS_ABYSS_D4"
+        "ATLAS_CRAFT_C4"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_DEPTH",
+          "code": "ATLAS_OMENS",
           "values": [
-            1
+            100.0
           ]
         },
         {
-          "code": "ATLAS_ABYSS_POWER",
+          "code": "ATLAS_CATALYSTS",
           "values": [
-            25
-          ]
-        },
-        {
-          "code": "ATLAS_ABYSS_HOARD",
-          "values": [
-            30
+            50.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_K1",
-      "x": 14.7,
-      "y": 8.0,
+      "code": "ATLAS_CRAFT_R1",
+      "x": -5.66,
+      "y": -5.66,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_CALL"
+        "ATLAS_CRAFT_N1"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_HOARD",
+          "code": "ATLAS_VEILED",
           "values": [
-            10
+            2.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_K2",
-      "x": 16.0,
-      "y": 7.4,
+      "code": "ATLAS_CRAFT_R2",
+      "x": -6.72,
+      "y": -6.72,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_K1"
+        "ATLAS_CRAFT_R1"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_HOARD",
+          "code": "ATLAS_RECIPE",
           "values": [
-            10
+            25.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_RETREAT",
-      "x": 17.4,
-      "y": 7.1,
+      "code": "ATLAS_CRAFT_R3",
+      "x": -7.78,
+      "y": -7.78,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOOKS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_N4",
+      "x": -8.84,
+      "y": -8.84,
       "kind": "NOTABLE",
       "parents": [
-        "ATLAS_ABYSS_K2"
+        "ATLAS_CRAFT_R3"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_HOARD",
+          "code": "ATLAS_VEILED",
           "values": [
-            25
+            6.0
+          ]
+        },
+        {
+          "code": "ATLAS_OMENS",
+          "values": [
+            15.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_K3",
-      "x": 18.7,
-      "y": 7.6,
+      "code": "ATLAS_CRAFT_R4",
+      "x": -10.4,
+      "y": -9.37,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_RETREAT"
+        "ATLAS_CRAFT_N4"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_CHANCE",
+          "code": "ATLAS_OMENS",
           "values": [
-            5
+            10.0
           ]
         }
       ]
     },
     {
-      "code": "ATLAS_ABYSS_K4",
-      "x": 19.9,
-      "y": 8.4,
+      "code": "ATLAS_CRAFT_R5",
+      "x": -11.52,
+      "y": -10.37,
       "kind": "SMALL",
       "parents": [
-        "ATLAS_ABYSS_K3"
+        "ATLAS_CRAFT_R4"
       ],
       "lines": [
         {
-          "code": "ATLAS_ABYSS_HOARD",
+          "code": "ATLAS_CATALYSTS",
           "values": [
-            10
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_N5",
+      "x": -12.63,
+      "y": -11.38,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRAFT_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUALITY_ORBS",
+          "values": [
+            35.0
+          ]
+        },
+        {
+          "code": "ATLAS_CATALYSTS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_R6",
+      "x": -13.75,
+      "y": -12.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_QUALITY_ORBS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_R7",
+      "x": -14.86,
+      "y": -13.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_VEILED",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_RX",
+      "x": -9.37,
+      "y": -10.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RECIPE",
+          "values": [
+            25.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_T1",
+      "x": -0.62,
+      "y": -1.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_T2",
+      "x": -1.08,
+      "y": -3.33,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_T1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_T3",
+      "x": -1.55,
+      "y": -4.76,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_N1",
+      "x": -2.01,
+      "y": -6.18,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_POWER_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            12.0
+          ]
+        },
+        {
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            10.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_L1",
+      "x": -3.63,
+      "y": -7.13,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_L2",
+      "x": -4.31,
+      "y": -8.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_SPEED",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_L3",
+      "x": -4.99,
+      "y": -9.8,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_N2",
+      "x": -5.67,
+      "y": -11.14,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_POWER_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_LX",
+      "x": -7.0,
+      "y": -12.12,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_L4",
+      "x": -5.69,
+      "y": -12.79,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_L5",
+      "x": -6.3,
+      "y": -14.16,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_N3",
+      "x": -6.91,
+      "y": -15.53,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_POWER_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_L6",
+      "x": -7.52,
+      "y": -16.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_SPEED",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_L7",
+      "x": -8.13,
+      "y": -18.27,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_K2",
+      "x": -8.74,
+      "y": -19.64,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_POWER_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            25.0
+          ]
+        },
+        {
+          "code": "ATLAS_MONSTER_MODS",
+          "values": [
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_C1",
+      "x": -2.47,
+      "y": -7.61,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_C2",
+      "x": -2.94,
+      "y": -9.04,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_C3",
+      "x": -3.4,
+      "y": -10.46,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_C4",
+      "x": -3.86,
+      "y": -11.89,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_SPEED",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_K1",
+      "x": -4.33,
+      "y": -13.31,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_POWER_C4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            30.0
+          ]
+        },
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_R1",
+      "x": -1.25,
+      "y": -7.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_R2",
+      "x": -1.49,
+      "y": -9.38,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_R3",
+      "x": -1.72,
+      "y": -10.86,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_N4",
+      "x": -1.96,
+      "y": -12.35,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_POWER_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_MODS",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            12.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_R4",
+      "x": -2.91,
+      "y": -13.69,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_RARE_MONSTERS",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_R5",
+      "x": -3.22,
+      "y": -15.16,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_R4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_SPEED",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_N5",
+      "x": -3.53,
+      "y": -16.63,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_POWER_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_SPEED",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_R6",
+      "x": -3.85,
+      "y": -18.1,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_LIFE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_R7",
+      "x": -4.16,
+      "y": -19.56,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MONSTER_DAMAGE",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_POWER_RX",
+      "x": -1.46,
+      "y": -13.92,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_POWER_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_PACK_SIZE",
+          "values": [
+            2.0
           ]
         }
       ]

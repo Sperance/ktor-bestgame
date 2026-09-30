@@ -2847,7 +2847,50 @@
         "KINGDOMGRINDER": 100,
         "BULWARK_OF_ENDLESS_DAWN": 100,
         "CROWN_OF_SPORES_AND_ASH": 100,
-        "THE_CHARGED_HEART": 100
+        "THE_CHARGED_HEART": 100,
+        "ASCENDANT_HAUBERK": 100,
+        "SKYFORGED_LAMELLAR": 100,
+        "GODSTEEL_PLATE": 100,
+        "ASTRAL_VESTMENT": 100,
+        "VOIDWEAVE_ARMOUR": 100,
+        "WINDRUNNER_GARB": 100,
+        "ASCENDANT_SABATONS": 100,
+        "STORMSCALE_BOOTS": 100,
+        "GODSTEEL_GREAVES": 100,
+        "ASTRAL_SLIPPERS": 100,
+        "VOIDSTEP_BOOTS": 100,
+        "WINDRUNNER_BOOTS": 100,
+        "ASCENDANT_GAUNTLETS": 100,
+        "STORMSCALE_GAUNTLETS": 100,
+        "GODSTEEL_GAUNTLETS": 100,
+        "ASTRAL_GLOVES": 100,
+        "VOIDGRASP_MITTS": 100,
+        "WINDRUNNER_GLOVES": 100,
+        "ASCENDANT_CROWN": 100,
+        "STORMSCALE_HELM": 100,
+        "GODSTEEL_HELM": 100,
+        "ASTRAL_DIADEM": 100,
+        "VOIDGAZE_MASK": 100,
+        "WINDRUNNER_HOOD": 100,
+        "ASCENDANT_KITE_SHIELD": 100,
+        "STORMSCALE_ROUND_SHIELD": 100,
+        "GODSTEEL_TOWER_SHIELD": 100,
+        "ASTRAL_SPIRIT_SHIELD": 100,
+        "VOIDTHORN_SHIELD": 100,
+        "WINDRUNNER_BUCKLER": 100,
+        "STARFALL_HATCHET": 100,
+        "ASTRAL_RAPIER": 100,
+        "SKYSPLITTER_BOW": 100,
+        "GODSTEEL_SWORD": 100,
+        "CELESTIAL_WAND": 100,
+        "WORLDSPLITTER_AXE": 100,
+        "GODSLAYER_GREATSWORD": 100,
+        "ASCENDANT_LONGSWORD": 100,
+        "SERAPH_WINGS": 100,
+        "ASTRAL_AMULET": 100,
+        "GODSTEEL_BELT": 100,
+        "ECLIPSE_RING": 100,
+        "STARLIGHT_QUIVER": 100
       }
     },
     {
@@ -3156,7 +3199,50 @@
         "STUDDED_COLLAR": 60,
         "BRASS_COLLAR": 60,
         "RUNED_COLLAR": 60,
-        "ALPHA_COLLAR": 60
+        "ALPHA_COLLAR": 60,
+        "ASCENDANT_HAUBERK": 100,
+        "SKYFORGED_LAMELLAR": 100,
+        "GODSTEEL_PLATE": 100,
+        "ASTRAL_VESTMENT": 100,
+        "VOIDWEAVE_ARMOUR": 100,
+        "WINDRUNNER_GARB": 100,
+        "ASCENDANT_SABATONS": 100,
+        "STORMSCALE_BOOTS": 100,
+        "GODSTEEL_GREAVES": 100,
+        "ASTRAL_SLIPPERS": 100,
+        "VOIDSTEP_BOOTS": 100,
+        "WINDRUNNER_BOOTS": 100,
+        "ASCENDANT_GAUNTLETS": 100,
+        "STORMSCALE_GAUNTLETS": 100,
+        "GODSTEEL_GAUNTLETS": 100,
+        "ASTRAL_GLOVES": 100,
+        "VOIDGRASP_MITTS": 100,
+        "WINDRUNNER_GLOVES": 100,
+        "ASCENDANT_CROWN": 100,
+        "STORMSCALE_HELM": 100,
+        "GODSTEEL_HELM": 100,
+        "ASTRAL_DIADEM": 100,
+        "VOIDGAZE_MASK": 100,
+        "WINDRUNNER_HOOD": 100,
+        "ASCENDANT_KITE_SHIELD": 100,
+        "STORMSCALE_ROUND_SHIELD": 100,
+        "GODSTEEL_TOWER_SHIELD": 100,
+        "ASTRAL_SPIRIT_SHIELD": 100,
+        "VOIDTHORN_SHIELD": 100,
+        "WINDRUNNER_BUCKLER": 100,
+        "STARFALL_HATCHET": 100,
+        "ASTRAL_RAPIER": 100,
+        "SKYSPLITTER_BOW": 100,
+        "GODSTEEL_SWORD": 100,
+        "CELESTIAL_WAND": 100,
+        "WORLDSPLITTER_AXE": 100,
+        "GODSLAYER_GREATSWORD": 100,
+        "ASCENDANT_LONGSWORD": 100,
+        "SERAPH_WINGS": 100,
+        "ASTRAL_AMULET": 100,
+        "GODSTEEL_BELT": 100,
+        "ECLIPSE_RING": 100,
+        "STARLIGHT_QUIVER": 100
       }
     },
     {
@@ -3507,7 +3593,50 @@
         "BRANDED_KITE_SHIELD": 100,
         "COMPOUND_SPIKED_SHIELD": 100,
         "GLEAMING_SPIKED_SHIELD": 100,
-        "SOLDIER_BELT": 100
+        "SOLDIER_BELT": 100,
+        "ASCENDANT_HAUBERK": 100,
+        "SKYFORGED_LAMELLAR": 100,
+        "GODSTEEL_PLATE": 100,
+        "ASTRAL_VESTMENT": 100,
+        "VOIDWEAVE_ARMOUR": 100,
+        "WINDRUNNER_GARB": 100,
+        "ASCENDANT_SABATONS": 100,
+        "STORMSCALE_BOOTS": 100,
+        "GODSTEEL_GREAVES": 100,
+        "ASTRAL_SLIPPERS": 100,
+        "VOIDSTEP_BOOTS": 100,
+        "WINDRUNNER_BOOTS": 100,
+        "ASCENDANT_GAUNTLETS": 100,
+        "STORMSCALE_GAUNTLETS": 100,
+        "GODSTEEL_GAUNTLETS": 100,
+        "ASTRAL_GLOVES": 100,
+        "VOIDGRASP_MITTS": 100,
+        "WINDRUNNER_GLOVES": 100,
+        "ASCENDANT_CROWN": 100,
+        "STORMSCALE_HELM": 100,
+        "GODSTEEL_HELM": 100,
+        "ASTRAL_DIADEM": 100,
+        "VOIDGAZE_MASK": 100,
+        "WINDRUNNER_HOOD": 100,
+        "ASCENDANT_KITE_SHIELD": 100,
+        "STORMSCALE_ROUND_SHIELD": 100,
+        "GODSTEEL_TOWER_SHIELD": 100,
+        "ASTRAL_SPIRIT_SHIELD": 100,
+        "VOIDTHORN_SHIELD": 100,
+        "WINDRUNNER_BUCKLER": 100,
+        "STARFALL_HATCHET": 100,
+        "ASTRAL_RAPIER": 100,
+        "SKYSPLITTER_BOW": 100,
+        "GODSTEEL_SWORD": 100,
+        "CELESTIAL_WAND": 100,
+        "WORLDSPLITTER_AXE": 100,
+        "GODSLAYER_GREATSWORD": 100,
+        "ASCENDANT_LONGSWORD": 100,
+        "SERAPH_WINGS": 100,
+        "ASTRAL_AMULET": 100,
+        "GODSTEEL_BELT": 100,
+        "ECLIPSE_RING": 100,
+        "STARLIGHT_QUIVER": 100
       }
     },
     {
@@ -9668,30 +9797,214 @@
       "tag": "boss:BOSS_SKY_SOVEREIGN",
       "kind": "TEMPLATE",
       "entries": {
-        "CROWN_OF_THE_ABYSS": 100,
-        "VOIDHEART": 100,
-        "ABYSSAL_MANTLE": 100,
-        "VOID_ANVIL": 100
+        "SOVEREIGNS_SKYCROWN": 100,
+        "SKYBREAKER_MAUL": 100
       }
     },
     {
       "tag": "boss:BOSS_DROWNED_EMPEROR",
       "kind": "TEMPLATE",
       "entries": {
-        "CROWN_OF_THE_ABYSS": 100,
-        "VOIDHEART": 100,
-        "ABYSSAL_MANTLE": 100,
-        "VOID_ANVIL": 100
+        "EMPERORS_DROWNED_CROWN": 100,
+        "TIDE_OF_EMPIRES": 100
       }
     },
     {
       "tag": "boss:BOSS_LAST_GOD",
       "kind": "TEMPLATE",
       "entries": {
-        "CROWN_OF_THE_ABYSS": 100,
-        "VOIDHEART": 100,
-        "ABYSSAL_MANTLE": 100,
-        "VOID_ANVIL": 100
+        "LAST_GODS_MANTLE": 100,
+        "GODSLAYER": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_WIND_HERALD",
+      "kind": "TEMPLATE",
+      "entries": {
+        "HERALDS_LAST_BREATH": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_GLASS_MATRIARCH",
+      "kind": "TEMPLATE",
+      "entries": {
+        "MATRIARCHS_GLASS_HEART": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_THUNDER_WYRM",
+      "kind": "TEMPLATE",
+      "entries": {
+        "THUNDERWYRM_FANG": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_BRIDGE_KEEPER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "BRIDGEKEEPERS_OATH": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_MIRROR_KNIGHT",
+      "kind": "TEMPLATE",
+      "entries": {
+        "MIRROR_KNIGHTS_VISOR": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_ORRERY_ENGINE",
+      "kind": "TEMPLATE",
+      "entries": {
+        "ORRERY_COG": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_STILL_EYE",
+      "kind": "TEMPLATE",
+      "entries": {
+        "STILL_EYE_OF_THE_STORM": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_PRISM_HUNTER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "PRISM_HUNTERS_TROPHY": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_GATE_PRAETOR",
+      "kind": "TEMPLATE",
+      "entries": {
+        "PRAETORS_DROWNED_SEAL": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_CORAL_QUEEN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CORAL_QUEENS_CARAPACE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_VAULT_WARDEN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "VAULT_WARDENS_KEY": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_DROWNED_ORATOR",
+      "kind": "TEMPLATE",
+      "entries": {
+        "ORATORS_SILENT_TONGUE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_PEARL_EATER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "PEARL_EATERS_COIL": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_LEGION_TRIBUNE",
+      "kind": "TEMPLATE",
+      "entries": {
+        "LEGION_TRIBUNES_STANDARD": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_KELP_PRIEST",
+      "kind": "TEMPLATE",
+      "entries": {
+        "KELP_PRIESTS_VESTMENT": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_TRENCH_DRAKE",
+      "kind": "TEMPLATE",
+      "entries": {
+        "TRENCH_DRAKE_SCALE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_THRESHOLD_GUARDIAN",
+      "kind": "TEMPLATE",
+      "entries": {
+        "THRESHOLD_GUARDIANS_WARD": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_JUDGE_OF_SOULS",
+      "kind": "TEMPLATE",
+      "entries": {
+        "JUDGE_OF_SOULS_SCALES": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_SUN_SMITH",
+      "kind": "TEMPLATE",
+      "entries": {
+        "SUNSMITHS_HAMMERHAND": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_HOLLOW_GOD",
+      "kind": "TEMPLATE",
+      "entries": {
+        "HOLLOW_GODS_EYE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_WAR_AVATAR",
+      "kind": "TEMPLATE",
+      "entries": {
+        "AVATAR_OF_WARS_GIRDLE": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_STARGAZER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "STARGAZERS_LENS": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_CROWN_COLLECTOR",
+      "kind": "TEMPLATE",
+      "entries": {
+        "CROWN_COLLECTORS_HOARD": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_NOTHING_WALKER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "WALKER_OF_NOTHINGS_STEP": 100
+      }
+    },
+    {
+      "tag": "boss:BOSS_VOID_MOTHER",
+      "kind": "TEMPLATE",
+      "entries": {
+        "VOID_MOTHERS_BROOD": 100
+      }
+    },
+    {
+      "tag": "unique:tier",
+      "kind": "TEMPLATE",
+      "entries": {
+        "ATLAS_OF_ASCENT": 100,
+        "TIERBREAKER": 100,
+        "PINNACLE_PLATE": 100,
+        "EVERCLIMB_GREAVES": 100,
+        "SUMMIT_SIGIL": 100,
+        "HIGHWATER_MARK": 100,
+        "APEX_CIRCLET": 100,
+        "CLIMBERS_GRIP": 100,
+        "ZENITH_BOW": 100
       }
     }
   ]

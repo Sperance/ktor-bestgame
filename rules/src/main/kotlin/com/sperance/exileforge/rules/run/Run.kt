@@ -210,7 +210,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             mapChance = campaign.maps.dropChance * rule.quantity, zoneBonus = zoneBonus, rare = monster.rarity == MonsterRarity.RARE,
             book = if (monster.rarity == MonsterRarity.RARE) index.skills.rules.books.rare else 0.0,
             egg = if (monster.rarity == MonsterRarity.RARE) index.pets.eggChance.rare else 0.0,
-            veiled = (monster.stats[com.sperance.exileforge.rules.roll.Veils.LOOT] ?: 0.0) > 0)
+            veiled = (monster.stats[com.sperance.exileforge.rules.roll.Veils.LOOT] ?: 0.0) > 0 ||
+                (monster.rarity >= MonsterRarity.MAGIC && draw.dice.percent(context[AtlasStat.VEILED.code])))
     }
 
     /** Открыт очередной сундук захода: таблица сундуков зоны с множителями правила и атласа. */
@@ -236,6 +237,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             if (context.active != null) pooled(bosses.mythicTables, bosses.mythicChance, dice) else null,
             if (context.active != null) pooled(campaign.maps.uniqueTables, campaign.maps.uniqueChance, dice) else null,
             if (context.active != null) pooled(campaign.maps.atlasUniqueTables, campaign.maps.atlasChance(context.atlasNodes), dice) else null,
+            // Уникалки тиров (1.41.0): с босса карты с тиром, шанс растёт со ступенью.
+            campaign.maps.tiers?.let { rule -> context.active?.tier?.takeIf { it > 0 }?.let { pooled(rule.uniqueTables, rule.uniqueChance * it, dice) } },
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
         return grant(draw, template.loot, zone.level, rule, "b", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
@@ -315,6 +318,13 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     private fun pooled(tables: List<String>, chance: Double, dice: Dice): ItemTemplate? =
         if (chance <= 0 || tables.isEmpty() || !dice.chance(uniqueChance(chance))) null else loot.unique(tables, zone.level, dice)
 
+    /** Ремесло атласа (1.41.0): проценты к шансу строк добычи по началу кода предмета. */
+    private fun craftBoosts(): Map<String, Double> = buildMap {
+        context[AtlasStat.OMENS.code].takeIf { it != 0.0 }?.let { put("OMEN_", it) }
+        context[AtlasStat.CATALYSTS.code].takeIf { it != 0.0 }?.let { put("CATALYST_", it) }
+        context[AtlasStat.QUALITY_ORBS.code].takeIf { it != 0.0 }?.let { put("WHETSTONE", it); put("ARMOURERS_SCRAP", it) }
+    }
+
     private fun uniqueChance(chance: Double): Double = chance * (1 + context.bonus(MonsterRarity.UNIQUE).unique / 100)
     private fun relative(atlasStat: String) = (1 + context[atlasStat] / 100).coerceAtLeast(0.0)
 
@@ -333,7 +343,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val active = context.active
         val quantity = bonus.quantity + (active?.quantity ?: 0.0) + (zoneBonus?.quantity ?: 0.0) + context[AtlasStat.QUANTITY.code] + extraQuantity
         val gold = bonus.gold + (active?.effects?.get(MapStat.GOLD.code) ?: 0.0) + context[AtlasStat.GOLD.code]
-        val rolled = loot.roll(table, level, rule, quantity, gold, dice, goldShare, orbShare)
+        val rolled = loot.roll(table, level, rule, quantity, gold, dice, goldShare, orbShare, craftBoosts())
         val rarityBonus = rule.rarityBonus + bonus.rarity + (active?.rarity ?: 0.0) + (zoneBonus?.rarity ?: 0.0) + context[AtlasStat.RARITY.code]
         val templates = extra + rolled.equipment.mapNotNull { pools -> loot.pickFrom(pools, level, rarityBonus, dice) }
         val itemLevel = itemLevel(level, rule.rarity)
@@ -343,6 +353,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         loot.mapDrop(mapChance * relative(AtlasStat.MAP_DROP.code) * (1 + quantity / 100) * (1 + bonus.map / 100), zone.code, context.next, dice, context[AtlasStat.MAP_NEXT.code])
             ?.let { code -> index.template(loot.mapTemplate(code))?.let { it to (index.zone(code)?.level ?: zone.level) } }?.let { (template, mapLevel) ->
                 val map = factory.create(itemId(draw, "$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice, level = mapLevel)
+                map.mapTier = loot.mapTier(mapLevel, active?.tier ?: 0, dice, context[AtlasStat.MAP_TIER.code])
                 if (dice.percent(context[AtlasStat.MAP_AFFIX.code])) factory.affixes.rollExtraAffix(template, map.rarity, map.rolls, dice, level = mapLevel)?.let { map.rolls = map.rolls + it }
                 equipment += map
             }

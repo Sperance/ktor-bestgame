@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#101824"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#6a30e0" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#6a30e0" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#6a30e0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="body" gradientUnits="userSpaceOnUse" x1="150" y1="60" x2="150" y2="400">
+      <stop offset="0" stop-color="#5129a0"/>
+      <stop offset="1" stop-color="#140a2a"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+
+  <path d="M10 400 L40 300 L100 270 L200 270 L260 300 L290 400 Z" fill="url(#body)"/>
+  <path d="M100 270 L60 180 L120 240 Z M200 270 L240 180 L180 240 Z" fill="#321669"/>
+  <path d="M84 150 C84 110 216 110 216 150 L230 210 C210 260 90 260 70 210 Z" fill="url(#body)" stroke="#0b041a" stroke-width="3"/>
+  <path d="M96 126 C70 90 60 60 72 40 C90 70 108 96 122 118 Z M204 126 C230 90 240 60 228 40 C210 70 192 96 178 118 Z" fill="#c0b0e0"/>
+  <path d="M108 168 L140 176 L134 188 L106 180 Z" fill="#7530ff"/>
+  <path d="M192 168 L160 176 L166 188 L194 180 Z" fill="#7530ff"/>
+  <path d="M112 226 L188 226 L176 244 L124 244 Z" fill="#140404"/>
+  <path d="M120 226 L126 238 L132 226 M146 226 L150 238 L154 226 M168 226 L174 238 L180 226" fill="#cec4e3"/>
+  <circle cx="150" cy="330" r="30" fill="#6a20ff" opacity="0.35"/>
+  <path d="M60 330 L90 350 M240 330 L210 350 M110 300 L120 330 M190 300 L180 330" fill="none" stroke="#0b041a" stroke-width="3" stroke-linecap="round"/>
+
+  <path d="M104 120 C80 90 70 60 84 36 C92 64 108 86 124 108 Z M196 120 C220 90 230 60 216 36 C208 64 192 86 176 108 Z" fill="#b0e051" stroke="#1a1208" stroke-width="3"/>
+  <path d="M120 150 L176 206" fill="none" stroke="#e57f4c" stroke-width="5" stroke-linecap="round" stroke-opacity="0.9"/>
+</svg>

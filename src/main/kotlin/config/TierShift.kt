@@ -26,7 +26,8 @@ object TierShift {
 
     fun shift(item: ItemInstance, index: ContentIndex) {
         item.rolls = item.rolls.map { roll ->
-            val crowned = roll.tier > 0 && index.modifier(roll.code)?.tiers?.firstOrNull()?.apex == true
+            // Вершины верстака (1.41.0) сдвигает свой [CraftShift]: здесь только тиры аффиксов 1.40.0.
+            val crowned = roll.tier > 0 && index.modifier(roll.code)?.let { !it.crafted && it.tiers.firstOrNull()?.apex == true } == true
             if (crowned) roll.copy(tier = roll.tier + 1) else roll
         }
     }

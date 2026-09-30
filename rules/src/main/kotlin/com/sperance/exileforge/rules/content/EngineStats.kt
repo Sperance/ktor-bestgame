@@ -28,7 +28,13 @@ enum class AtlasStat {
     BOOKS, BOOKS_OWN, BOSS_LOOT, BOSS_RESPAWN, BOSS_UNIQUE, CHESTS, CHEST_LOOT, CRYSTALS, CRYSTALS_MORE, CRYSTAL_CHANCE,
     CRYSTAL_ESSENCES, CRYSTAL_TIER, EXPERIENCE, FLASK_CHARGES, FLASK_DURATION, FLASK_RARE, FOUNTAINS, GOLD,
     GUARDIAN_POWER, MANA_REGEN, MAP_AFFIX, MAP_DROP, MAP_EFFECT, MAP_NEXT, MAP_RARE, MONSTER_MODS, PACK_SIZE, QUANTITY,
-    RARE_MONSTERS, RARITY, RECIPE, SKILL_LEVEL, VAAL_CHANCE, VAAL_MIN_MODS, VAAL_REWARD, VAAL_UNIQUE;
+    RARE_MONSTERS, RARITY, RECIPE, SKILL_LEVEL, VAAL_CHANCE, VAAL_MIN_MODS, VAAL_REWARD, VAAL_UNIQUE,
+    /** Ремесло (1.41.0): проценты к шансу знамений, катализаторов и сфер качества в добыче, шанс скрытой строки на добыче монстра. */
+    OMENS, CATALYSTS, QUALITY_ORBS, VEILED,
+    /** Силы монстров (1.41.0): проценты к здоровью, урону и скорости монстров карт - строками карты, с их наградой за риск. */
+    MONSTER_LIFE, MONSTER_DAMAGE, MONSTER_SPEED,
+    /** Тиры карт (1.41.0): проценты к шансу упавшей карты подняться на ступень. */
+    MAP_TIER;
 
     val code: String = "ATLAS_$name"
 }

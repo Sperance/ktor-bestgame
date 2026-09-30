@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.roll
 
+import com.sperance.exileforge.rules.content.AtlasStat
 import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Item
@@ -30,6 +31,8 @@ data class ActiveMap(
     val rarity: Double = 0.0,
     val experience: Double = 0.0,
     val itemRarity: Rarity = Rarity.COMMON,
+    /** Тир карты (1.41.0): его строки уже в [effects]; от него - тир упавшей карты и уникалки тиров. */
+    val tier: Int = 0,
 )
 
 /** Добыча, опыт, карты и смерть - правила без состояния над [ContentIndex] и [Dice]. */
@@ -52,7 +55,8 @@ class LootRoller(private val index: ContentIndex) {
      * Броски по таблице добычи [tag]: количество - множитель шанса каждой строки, шанс больше единицы -
      * гарантированные выпадения и остаток шансом; золото растёт со своим спадом или спадом роста монстров.
      */
-    fun roll(tag: String, level: Int, rarity: RarityRule, quantity: Double, goldBonus: Double, dice: Dice, goldShare: Double = 1.0, orbShare: Double = 1.0): RolledLoot {
+    fun roll(tag: String, level: Int, rarity: RarityRule, quantity: Double, goldBonus: Double, dice: Dice, goldShare: Double = 1.0, orbShare: Double = 1.0,
+             boosts: Map<String, Double> = emptyMap()): RolledLoot {
         val entries = index.tables.loot(tag).orEmpty()
         val goldRange = index.tables.gold(tag) ?: listOf(0L, 0L)
         val multiplier = rarity.quantity * (1 + quantity / 100)
@@ -61,7 +65,8 @@ class LootRoller(private val index: ContentIndex) {
         val equipment = mutableListOf<List<String>>()
         entries.forEach { entry ->
             val chance = entry.chance ?: return@forEach
-            val share = if (entry.kind == TableKind.ITEM && index.item(entry.code)?.category == Item.CURRENCY) orbShare else 1.0
+            val boost = if (entry.kind == TableKind.ITEM) boosts.entries.filter { entry.code.startsWith(it.key) }.sumOf { it.value } else 0.0
+            val share = (if (entry.kind == TableKind.ITEM && index.item(entry.code)?.category == Item.CURRENCY) orbShare else 1.0) * (1 + boost / 100).coerceAtLeast(0.0)
             repeat(dice.times(chance * multiplier * share)) {
                 when {
                     Ref.isTable(entry.ref) -> equipment += listOf(entry.code)
@@ -108,10 +113,32 @@ class LootRoller(private val index: ContentIndex) {
         Math.round(effects.entries.sumOf { (stat, value) -> value * (campaign.maps.risk[stat] ?: 0.0) }.coerceAtLeast(0.0) * 10) / 10.0
 
     /** Карта в действии: риск и прямые строки - к количеству, редкости и опыту; редкость самой карты - к первым двум. */
-    fun activeMap(mapCode: String, effects: Map<String, Double>, rarity: Rarity = Rarity.COMMON): ActiveMap {
+    fun activeMap(mapCode: String, effects: Map<String, Double>, rarity: Rarity = Rarity.COMMON, tier: Int = 0): ActiveMap {
         val risk = risk(effects)
         val own = campaign.maps.rarityBonus[rarity] ?: 0.0
-        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), risk + own + (effects[MapStat.RARITY.code] ?: 0.0), risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0), rarity)
+        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), risk + own + (effects[MapStat.RARITY.code] ?: 0.0), risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0), rarity, tier)
+    }
+
+    /**
+     * Тир упавшей карты уровня [mapLevel] (1.41.0): ниже порога тиров - 0; иначе тир карты захода (не меньше 1) и с шансом
+     * `climb` - на ступень выше, до потолка.
+     */
+    fun mapTier(mapLevel: Int, activeTier: Int, dice: Dice, climbBonus: Double = 0.0): Int {
+        val rule = campaign.maps.tiers ?: return 0
+        if (mapLevel < rule.fromLevel) return 0
+        val base = activeTier.coerceAtLeast(1)
+        return (if (dice.percent(rule.climb * (1 + climbBonus / 100))) base + 1 else base).coerceAtMost(rule.max)
+    }
+
+    /**
+     * Силы монстров атласа (1.41.0) - строками карты: здоровье, урон и скорость монстров карты-предмета, риск которых
+     * сам даёт награду. [atlas] - сложенные строки атласа героя.
+     */
+    fun atlasPowers(effects: Map<String, Double>, atlas: Map<String, Double>): Map<String, Double> {
+        val powers = mapOf(AtlasStat.MONSTER_LIFE to MapStat.MONSTER_LIFE, AtlasStat.MONSTER_DAMAGE to MapStat.MONSTER_DAMAGE, AtlasStat.MONSTER_SPEED to MapStat.MONSTER_SPEED)
+        val out = effects.toMutableMap()
+        powers.forEach { (from, to) -> atlas[from.code]?.takeIf { it != 0.0 }?.let { out.merge(to.code, it, Double::plus) } }
+        return out
     }
 
     /** Строки карты-предмета, сложенные по характеристикам, с множителем атласа. */
@@ -122,6 +149,8 @@ class LootRoller(private val index: ContentIndex) {
             val values = roll.values(def)
             def.effects.forEachIndexed { i, effect -> effects.merge(effect.stat, values.getOrElse(i) { 0.0 }, Double::plus) }
         }
+        // Тир карты (1.41.0): его строки за каждую ступень - поверх строк самой карты.
+        campaign.maps.tiers?.takeIf { item.mapTier > 0 }?.effects?.forEach { (stat, perTier) -> effects.merge(stat, perTier * item.mapTier, Double::plus) }
         return effects.mapValues { (_, value) -> Math.round(value * atlasEffect * 10) / 10.0 }
     }
 

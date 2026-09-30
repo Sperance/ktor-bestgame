@@ -99,8 +99,9 @@ class Content(
  * 10 - дерево расширено: 28 кластеров новых механик, 14 ключевых, заполнители пустот, силы в узлах (1.38.0).
  * 11 - 19 гнёзд самоцветов, каждое открыто всем классам: мосты к гнёздам Ведьмы, Тени и Дуэлянта (1.39.0).
  * 12 - уровни 71–100: регионы 7–9, вершина сетки тиров (apex, ур. 92), ilvl до 100, моды монстров 71–100, ступень эссенций 8 (1.40.0).
+ * 13 - тиры карт 1–16 (`mapTier`), вершина верстака, 43 топ-базы, 40 уникалок 75–100, новый Атлас из 10 ветвей (1.41.0).
  */
-const val RULES_VERSION = 12
+const val RULES_VERSION = 13
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -401,6 +402,11 @@ private class CampaignValidator(private val index: ContentIndex) {
             rule.risk.forEach { (name, weight) -> stat(name); if (weight == 0.0) fail("campaign: maps.risk $name") }
             if (rule.rarityBonus.values.any { it < 0 }) fail("campaign: maps.rarityBonus")
             if (rule.uniqueChance !in 0.0..1.0 || rule.atlasUniqueChance !in 0.0..1.0 || rule.atlasUniqueNodes <= 0) fail("campaign: maps unique chances")
+            rule.tiers?.let { tiers ->
+                if (tiers.max < 1 || tiers.climb !in 0.0..100.0 || tiers.uniqueChance !in 0.0..1.0) fail("campaign: maps.tiers")
+                tiers.effects.keys.forEach(::stat)
+                tiers.uniqueTables.forEach(::templateTable)
+            }
             (rule.uniqueTables + rule.atlasUniqueTables).forEach(::templateTable)
         }
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }

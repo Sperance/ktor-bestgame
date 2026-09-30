@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#101824"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#6097c7" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#6097c7" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#6097c7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="body" gradientUnits="userSpaceOnUse" x1="150" y1="60" x2="150" y2="400">
+      <stop offset="0" stop-color="#90adc8"/>
+      <stop offset="1" stop-color="#2e3f4d"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+
+  <path d="M30 400 L40 300 L96 272 L204 272 L260 300 L270 400 Z" fill="url(#body)"/>
+  <path d="M40 300 L20 250 L60 236 L96 272 Z M260 300 L280 250 L240 236 L204 272 Z" fill="url(#body)" stroke="#182129" stroke-width="3"/>
+  <path d="M104 96 L196 96 L214 128 L208 236 L150 262 L92 236 L86 128 Z" fill="url(#body)" stroke="#182129" stroke-width="3"/>
+  <path d="M104 150 L196 150 L196 176 L104 176 Z" fill="#141008"/>
+  <circle cx="126" cy="163" r="8" fill="#6fbbff"/>
+  <circle cx="174" cy="163" r="8" fill="#6fbbff"/>
+  <path d="M150 96 L150 70 M130 100 L120 78 M170 100 L180 78" fill="none" stroke="#6097c7" stroke-width="5" stroke-linecap="round"/>
+  <path d="M120 206 L180 206 M126 222 L174 222" fill="none" stroke="#182129" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="150" cy="320" r="26" fill="#6fbbff" opacity="0.35"/>
+  <path d="M150 300 L150 340 M130 320 L170 320" fill="none" stroke="#bfe1ff" stroke-width="4" stroke-linecap="round"/>
+
+  <path d="M96 110 L86 70 L112 100 Z M122 96 L118 52 L138 92 Z M162 92 L182 52 L178 96 Z M188 100 L214 70 L204 110 Z" fill="#e09451" stroke="#1a1208" stroke-width="2"/>
+  <circle cx="150" cy="330" r="22" fill="#e54c9e" opacity="0.55"/><circle cx="150" cy="330" r="10" fill="#ffffff" opacity="0.6"/>
+</svg>

@@ -77,6 +77,10 @@
     "costs": [
       {
         "orb": "DIVINE_ORB",
+        "amount": 3
+      },
+      {
+        "orb": "DIVINE_ORB",
         "amount": 1
       },
       {
@@ -101,7 +105,7 @@
       }
     ],
     "uncraftOrb": "ORB_OF_SCOURING",
-    "maxMapLevel": 20
+    "maxMapLevel": 100
   },
   "orbs": {
     "chanceUniquePercent": 5.0,

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#1c1606"/>
+      <stop offset="1" stop-color="#0b0605"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#c86c59" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#c86c59" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#c86c59" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mist" gradientUnits="userSpaceOnUse" x1="150" y1="60" x2="150" y2="400">
+      <stop offset="0" stop-color="#e0a59a" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#6a342a" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="void" gradientUnits="userSpaceOnUse" cx="150" cy="180" r="80">
+      <stop offset="0" stop-color="#000000"/>
+      <stop offset="1" stop-color="#200d0a"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M150 260 C100 200 40 190 12 210 C40 240 30 280 60 300 Z M150 260 C200 200 260 190 288 210 C260 240 270 280 240 300 Z" fill="#4ce565" opacity="0.45"/>
+
+  <path d="M60 400 Q70 300 80 240 Q70 120 150 70 Q230 120 220 240 Q230 300 240 400 Q220 360 200 390 Q180 350 160 392 Q140 352 120 392 Q100 356 84 394 Z" fill="url(#mist)"/>
+  <path d="M104 200 Q100 130 150 116 Q200 130 196 200 Q194 250 150 268 Q106 250 104 200 Z" fill="url(#void)"/>
+  <circle cx="128" cy="186" r="14" fill="#ffc3b8" opacity="0.25"/>
+  <circle cx="172" cy="186" r="14" fill="#ffc3b8" opacity="0.25"/>
+  <ellipse cx="128" cy="186" rx="7" ry="4" fill="#ffe4df"/>
+  <ellipse cx="172" cy="186" rx="7" ry="4" fill="#ffe4df"/>
+  <path d="M40 300 Q20 250 50 220" fill="none" stroke="#e0a59a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+  <path d="M260 300 Q280 250 250 220" fill="none" stroke="#e0a59a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+
+  <path d="M104 120 C80 90 70 60 84 36 C92 64 108 86 124 108 Z M196 120 C220 90 230 60 216 36 C208 64 192 86 176 108 Z" fill="#51c8e0" stroke="#1a1208" stroke-width="3"/>
+</svg>

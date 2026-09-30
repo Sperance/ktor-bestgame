@@ -5786,6 +5786,46 @@
       "code": "POWER_SHARED_SOUL",
       "group": "POWER",
       "order": 3494
+    },
+    {
+      "code": "ATLAS_OMENS",
+      "group": "ATLAS",
+      "order": 790
+    },
+    {
+      "code": "ATLAS_CATALYSTS",
+      "group": "ATLAS",
+      "order": 791
+    },
+    {
+      "code": "ATLAS_QUALITY_ORBS",
+      "group": "ATLAS",
+      "order": 792
+    },
+    {
+      "code": "ATLAS_VEILED",
+      "group": "ATLAS",
+      "order": 793
+    },
+    {
+      "code": "ATLAS_MONSTER_LIFE",
+      "group": "ATLAS",
+      "order": 794
+    },
+    {
+      "code": "ATLAS_MONSTER_DAMAGE",
+      "group": "ATLAS",
+      "order": 795
+    },
+    {
+      "code": "ATLAS_MONSTER_SPEED",
+      "group": "ATLAS",
+      "order": 796
+    },
+    {
+      "code": "ATLAS_MAP_TIER",
+      "group": "ATLAS",
+      "order": 797
     }
   ]
 }

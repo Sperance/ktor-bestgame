@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#1c1606"/>
+      <stop offset="1" stop-color="#070a04"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#608a19" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#608a19" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#608a19" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="hide" gradientUnits="userSpaceOnUse" cx="150" cy="190" r="170">
+      <stop offset="0" stop-color="#66892a"/>
+      <stop offset="0.65" stop-color="#354a12"/>
+      <stop offset="1" stop-color="#151d06"/>
+    </radialGradient>
+    <linearGradient id="horn" gradientUnits="userSpaceOnUse" x1="150" y1="30" x2="150" y2="160">
+      <stop offset="0" stop-color="#d9e7c0"/>
+      <stop offset="1" stop-color="#4c5936"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+  <path d="M150 260 C100 200 40 190 12 210 C40 240 30 280 60 300 Z M150 260 C200 200 260 190 288 210 C260 240 270 280 240 300 Z" fill="#4cade5" opacity="0.45"/>
+
+  <path d="M16 400 Q36 296 108 266 L192 266 Q264 296 284 400 Z" fill="url(#hide)"/>
+  <path d="M60 310 Q92 292 118 300 M240 310 Q208 292 182 300" fill="none" stroke="#151d06" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="150" cy="338" r="30" fill="#adff20" opacity="0.3"/>
+  <path d="M150 316 L160 336 L150 360 L140 336 Z" fill="#b8ff40" opacity="0.8"/>
+  <path d="M110 152 Q54 124 58 34 Q84 104 132 124 Z" fill="url(#horn)"/>
+  <path d="M190 152 Q246 124 242 34 Q216 104 168 124 Z" fill="url(#horn)"/>
+  <path d="M96 190 Q96 120 150 112 Q204 120 204 190 Q204 244 176 266 L150 284 L124 266 Q96 244 96 190 Z" fill="url(#hide)"/>
+  <path d="M106 172 L146 184 L150 174 L154 184 L194 172 L190 160 L150 168 L110 160 Z" fill="#1d2a07"/>
+  <path d="M114 186 L142 194 L118 202 Z" fill="#b3ff30"/>
+  <path d="M186 186 L158 194 L182 202 Z" fill="#b3ff30"/>
+  <path d="M140 214 L150 226 L160 214" fill="none" stroke="#1d2a07" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M120 238 Q150 262 180 238 Q150 250 120 238 Z" fill="#140404"/>
+  <path d="M128 241 L134 256 L138 244 Z" fill="#e7f0d7"/>
+  <path d="M172 241 L166 256 L162 244 Z" fill="#e7f0d7"/>
+
+  <path d="M104 120 C80 90 70 60 84 36 C92 64 108 86 124 108 Z M196 120 C220 90 230 60 216 36 C208 64 192 86 176 108 Z" fill="#8551e0" stroke="#1a1208" stroke-width="3"/>
+</svg>

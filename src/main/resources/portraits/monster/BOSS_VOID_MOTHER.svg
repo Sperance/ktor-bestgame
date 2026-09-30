@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="150" y1="0" x2="150" y2="400">
+      <stop offset="0" stop-color="#1c1606"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="150" cy="170" r="210">
+      <stop offset="0" stop-color="#8a6f39" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#8a6f39" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#8a6f39" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="chitin" gradientUnits="userSpaceOnUse" cx="150" cy="190" r="120">
+      <stop offset="0" stop-color="#524731"/>
+      <stop offset="1" stop-color="#15120c"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="0" y="0" width="300" height="400" fill="url(#glow)"/>
+
+  <path d="M90 150 L30 100 L5 180" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 200 L15 150 L-10 230" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 260 L10 210 L-15 290" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 320 L20 270 L-5 350" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 150 L270 100 L295 180" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 200 L285 150 L310 230" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 260 L290 210 L315 290" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M210 320 L280 270 L305 350" fill="none" stroke="#262117" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="150" cy="330" rx="90" ry="80" fill="url(#chitin)"/>
+  <path d="M92 200 Q92 130 150 124 Q208 130 208 200 Q208 260 150 276 Q92 260 92 200 Z" fill="url(#chitin)"/>
+  <circle cx="134" cy="176" r="9" fill="#ffb82a"/>
+  <circle cx="131.3" cy="173.3" r="2.6999999999999997" fill="#ffeac0"/>
+  <circle cx="166" cy="176" r="9" fill="#ffb82a"/>
+  <circle cx="163.3" cy="173.3" r="2.6999999999999997" fill="#ffeac0"/>
+  <circle cx="118" cy="164" r="6" fill="#ffb82a"/>
+  <circle cx="116.2" cy="162.2" r="1.7999999999999998" fill="#ffeac0"/>
+  <circle cx="182" cy="164" r="6" fill="#ffb82a"/>
+  <circle cx="180.2" cy="162.2" r="1.7999999999999998" fill="#ffeac0"/>
+  <circle cx="128" cy="150" r="4" fill="#ffb82a"/>
+  <circle cx="126.8" cy="148.8" r="1.2" fill="#ffeac0"/>
+  <circle cx="172" cy="150" r="4" fill="#ffb82a"/>
+  <circle cx="170.8" cy="148.8" r="1.2" fill="#ffeac0"/>
+  <circle cx="142" cy="196" r="4" fill="#ffb82a"/>
+  <circle cx="140.8" cy="194.8" r="1.2" fill="#ffeac0"/>
+  <circle cx="158" cy="196" r="4" fill="#ffb82a"/>
+  <circle cx="156.8" cy="194.8" r="1.2" fill="#ffeac0"/>
+  <path d="M130 240 Q126 272 138 282 Q138 262 144 248 Z" fill="#8e7b55"/>
+  <path d="M170 240 Q174 272 162 282 Q162 262 156 248 Z" fill="#8e7b55"/>
+
+  <path d="M104 120 C80 90 70 60 84 36 C92 64 108 86 124 108 Z M196 120 C220 90 230 60 216 36 C208 64 192 86 176 108 Z" fill="#5181e0" stroke="#1a1208" stroke-width="3"/>
+  <path d="M100 300 L110 280 L120 300 M140 290 L160 290 M150 280 L150 300 M180 300 L190 280 L200 300" fill="none" stroke="#4ce5b2" stroke-width="4" stroke-linecap="round" stroke-opacity="0.85"/>
+</svg>

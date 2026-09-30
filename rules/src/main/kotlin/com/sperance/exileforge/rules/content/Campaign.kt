@@ -147,10 +147,23 @@ data class MapRule(
      * × (1 + узлы / [atlasUniqueNodes]), то есть вдвое на [atlasUniqueNodes] узлах.
      */
     val atlasUniqueChance: Double = 0.0, val atlasUniqueTables: List<String> = emptyList(), val atlasUniqueNodes: Double = 100.0,
+    /** Тиры карт (1.41.0): карты верхних зон несут ступень 1..max; нет раздела - тиров нет. */
+    val tiers: MapTierRule? = null,
 ) {
     /** Шанс уникалки Атласа героя с [nodes] взятыми узлами атласа. */
     fun atlasChance(nodes: Int): Double = atlasUniqueChance * (1 + nodes.coerceAtLeast(0) / atlasUniqueNodes)
 }
+
+/**
+ * Тиры карт (1.41.0): карта уровня [fromLevel] и выше выпадает со ступенью 1..[max]; каждая ступень прибавляет [effects]
+ * (строки карты: сила монстров, размер стай, количество и редкость), упавшая с неё карта с шансом [climb]% - на ступень выше,
+ * босс карты с тиром роняет уникалку из [uniqueTables] с шансом [uniqueChance] за ступень.
+ */
+@Serializable
+data class MapTierRule(
+    val fromLevel: Int, val max: Int, val effects: Map<String, Double> = emptyMap(), val climb: Double = 30.0,
+    val uniqueChance: Double = 0.0, val uniqueTables: List<String> = emptyList(),
+)
 
 /**
  * Боссы: страж выхода; [tables] - таблицы мировых уникалок, [modifiers] - таблицы их строк; [goldShare] и
