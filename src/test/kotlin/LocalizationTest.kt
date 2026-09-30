@@ -122,6 +122,8 @@ class LocalizationTest {
         GuildRole.entries.forEach { add(LocaleKey.guildRole(it)) }
         GuildMode.entries.forEach { add(LocaleKey.guildMode(it)) }
         GuildLogKind.entries.forEach { add(LocaleKey.guildLog(it)) }
+        // Достижения и их титулы (1.52.0): имя и условие у каждого, титул - у каждого, что его даёт
+        index.achievements.achievements.forEach { add("achievement.${it.code}.name"); add("achievement.${it.code}.desc"); if (it.title.isNotBlank()) add("title.${it.title}") }
         addAll(currencyKeys)
         addAll(systemKeys)
     }
