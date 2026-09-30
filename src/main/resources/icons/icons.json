@@ -24049,6 +24049,910 @@
           "color": "#3b352e"
         }
       ]
+    },
+    "gl_u_galewhisper": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 36.84 3.62 C 51.76 23.78 34.76 53.22 9.84 50.38 L 11.44 53.61 C 39.09 55.72 56.09 26.28 40.44 3.39 Z",
+          "color": "#282c65"
+        },
+        {
+          "d": "M 37.21 4.98 L 11.21 50.02",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M 38.83 30.17 l 6.06 3.5 l -5 8.66 l -6.06 -3.5 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 35.46 34 a 4.5 4.5 30 0 0 7.79 4.5 a 4.5 4.5 30 0 0 -7.79 -4.5 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 41.31 32.87 L 37.41 39.63 M 40.41 34.43 L 42.98 34.18 M 39.36 36.25 L 38.29 33.9 M 39.36 36.25 L 40.28 38.86",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
+    },
+    "gl_u_ironhail": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 36.84 3.62 C 51.76 23.78 34.76 53.22 9.84 50.38 L 11.44 53.61 C 39.09 55.72 56.09 26.28 40.44 3.39 Z",
+          "color": "#395d21"
+        },
+        {
+          "d": "M 37.21 4.98 L 11.21 50.02",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M 38.83 30.17 l 6.06 3.5 l -5 8.66 l -6.06 -3.5 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 35.46 34 a 4.5 4.5 30 0 0 7.79 4.5 a 4.5 4.5 30 0 0 -7.79 -4.5 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 41.31 32.87 L 37.41 39.63 M 40.41 34.43 L 42.98 34.18 M 39.36 36.25 L 38.29 33.9 M 39.36 36.25 L 40.28 38.86",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
+    },
+    "gl_u_stormsplinter": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 36.84 3.62 C 51.76 23.78 34.76 53.22 9.84 50.38 L 11.44 53.61 C 39.09 55.72 56.09 26.28 40.44 3.39 Z",
+          "color": "#6a5ae0"
+        },
+        {
+          "d": "M 37.21 4.98 L 11.21 50.02",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M 38.83 30.17 l 6.06 3.5 l -5 8.66 l -6.06 -3.5 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 35.46 34 a 4.5 4.5 30 0 0 7.79 4.5 a 4.5 4.5 30 0 0 -7.79 -4.5 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 42.65 32.95 L 36.98 35.57 L 39.06 36.77 L 36.07 39.55 L 42.15 36.82 L 40.07 35.62 Z",
+          "color": "#fff6a0"
+        }
+      ]
+    },
+    "gl_u_squires_vow": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 50.64 9.78 L 49.21 17.72 L 29.54 40.38 L 24.18 35.88 L 43.08 12.58 Z",
+          "color": "#3a9ae8"
+        },
+        {
+          "d": "M 44.96 15.46 l 1.07 0.9 l -17.36 20.68 l -1.07 -0.9 z",
+          "color": "#000000",
+          "alpha": 0.35
+        },
+        {
+          "d": "M 16.9 29.77 l 19.92 16.71 l -3.21 3.83 l -19.92 -16.71 z",
+          "color": "#1a4568"
+        },
+        {
+          "d": "M 21.73 40.35 l 3.83 3.21 l -7.07 8.43 l -3.83 -3.21 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 11.64 50.82 a 3.5 3.5 40 0 0 5.36 4.5 a 3.5 3.5 40 0 0 -5.36 -4.5 Z",
+          "color": "#1a4568"
+        },
+        {
+          "d": "M 21.8 37.15 a 4.5 4.5 40 0 0 6.89 5.79 a 4.5 4.5 40 0 0 -6.89 -5.79 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27.76 37.06 L 22.74 43.03 M 26.6 38.43 L 29.17 38.64 M 25.25 40.04 L 24.61 37.54 M 25.25 40.04 L 25.7 42.77",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
+    },
+    "gl_u_bloodletter": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 50.64 9.78 L 49.21 17.72 L 29.54 40.38 L 24.18 35.88 L 43.08 12.58 Z",
+          "color": "#b01a2a"
+        },
+        {
+          "d": "M 44.96 15.46 l 1.07 0.9 l -17.36 20.68 l -1.07 -0.9 z",
+          "color": "#000000",
+          "alpha": 0.35
+        },
+        {
+          "d": "M 16.9 29.77 l 19.92 16.71 l -3.21 3.83 l -19.92 -16.71 z",
+          "color": "#3a1a1a"
+        },
+        {
+          "d": "M 21.73 40.35 l 3.83 3.21 l -7.07 8.43 l -3.83 -3.21 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 11.64 50.82 a 3.5 3.5 40 0 0 5.36 4.5 a 3.5 3.5 40 0 0 -5.36 -4.5 Z",
+          "color": "#3a1a1a"
+        },
+        {
+          "d": "M 21.8 37.15 a 4.5 4.5 40 0 0 6.89 5.79 a 4.5 4.5 40 0 0 -6.89 -5.79 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27.56 37.29 Q 27.28 41.36 26.32 42.51 A 2.4 2.4 40 0 1 22.64 39.42 Q 23.61 38.27 27.56 37.29 Z",
+          "color": "#ff7a7a"
+        }
+      ]
+    },
+    "gl_u_duskreaver": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 50.64 9.78 L 49.21 17.72 L 29.54 40.38 L 24.18 35.88 L 43.08 12.58 Z",
+          "color": "#e0405a"
+        },
+        {
+          "d": "M 44.96 15.46 l 1.07 0.9 l -17.36 20.68 l -1.07 -0.9 z",
+          "color": "#000000",
+          "alpha": 0.35
+        },
+        {
+          "d": "M 16.9 29.77 l 19.92 16.71 l -3.21 3.83 l -19.92 -16.71 z",
+          "color": "#651d28"
+        },
+        {
+          "d": "M 21.73 40.35 l 3.83 3.21 l -7.07 8.43 l -3.83 -3.21 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 11.64 50.82 a 3.5 3.5 40 0 0 5.36 4.5 a 3.5 3.5 40 0 0 -5.36 -4.5 Z",
+          "color": "#651d28"
+        },
+        {
+          "d": "M 21.8 37.15 a 4.5 4.5 40 0 0 6.89 5.79 a 4.5 4.5 40 0 0 -6.89 -5.79 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27.76 37.06 L 22.74 43.03 M 26.6 38.43 L 29.17 38.64 M 25.25 40.04 L 24.61 37.54 M 25.25 40.04 L 25.7 42.77",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
+    },
+    "gl_u_emberbite": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 21.74 14.72 l 3.63 -1.69 l 20.29 43.5 l -3.63 1.69 z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M 24.52 11.22 C 34.61 2.1 45.72 4.64 50.43 12.37 C 53.33 20.95 47.29 29.29 33.81 31.15 Z",
+          "color": "#e8602a"
+        },
+        {
+          "d": "M 22.58 16.53 L 16.54 24.87 L 27.23 26.5 Z",
+          "color": "#e8602a"
+        },
+        {
+          "d": "M 20.83 15.14 l 5.44 -2.54 l 1.69 3.63 l -5.44 2.54 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 35.05 18.44 a 5.5 5.5 -25 0 0 9.97 -4.65 a 5.5 5.5 -25 0 0 -9.97 4.65 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 38.03 11.79 Q 42.08 13.55 42.17 16.34 Q 43.52 14.9 43.78 17.2 A 2.94 2.94 -25 0 1 38.31 19.35 Q 36.72 17.66 38.25 15.74 Q 39.02 17.4 40.02 16.93 Q 37.45 14.89 38.03 11.79 Z",
+          "color": "#ffd070"
+        }
+      ]
+    },
+    "gl_u_skullsplitter": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 21.74 14.72 l 3.63 -1.69 l 20.29 43.5 l -3.63 1.69 z",
+          "color": "#6c3e1a"
+        },
+        {
+          "d": "M 24.52 11.22 C 34.61 2.1 45.72 4.64 50.43 12.37 C 53.33 20.95 47.29 29.29 33.81 31.15 Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M 22.58 16.53 L 16.54 24.87 L 27.23 26.5 Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M 20.83 15.14 l 5.44 -2.54 l 1.69 3.63 l -5.44 2.54 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 35.05 18.44 a 5.5 5.5 -25 0 0 9.97 -4.65 a 5.5 5.5 -25 0 0 -9.97 4.65 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 38.03 11.79 L 42.05 20.43 M 38.95 13.79 L 40.51 11.04 M 40.04 16.11 L 36.94 15.54 M 40.04 16.11 L 43.3 17.02",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_widowmaker": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 21.74 14.72 l 3.63 -1.69 l 20.29 43.5 l -3.63 1.69 z",
+          "color": "#5f244f"
+        },
+        {
+          "d": "M 24.52 11.22 C 34.61 2.1 45.72 4.64 50.43 12.37 C 53.33 20.95 47.29 29.29 33.81 31.15 Z",
+          "color": "#d44fb0"
+        },
+        {
+          "d": "M 22.58 16.53 L 16.54 24.87 L 27.23 26.5 Z",
+          "color": "#d44fb0"
+        },
+        {
+          "d": "M 20.83 15.14 l 5.44 -2.54 l 1.69 3.63 l -5.44 2.54 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 35.05 18.44 a 5.5 5.5 -25 0 0 9.97 -4.65 a 5.5 5.5 -25 0 0 -9.97 4.65 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 38.03 11.79 L 42.05 20.43 M 38.95 13.79 L 40.51 11.04 M 40.04 16.11 L 36.94 15.54 M 40.04 16.11 L 43.3 17.02",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_cindertwig": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 37.24 21.02 L 40.52 23.32 L 16.19 56.33 L 14.55 55.18 Z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M 48.63 8.24 L 48.63 20.45 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M 36.59 19.34 l 5.73 4.02 l -2.29 3.28 l -5.73 -4.02 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 48.63 8.24 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_u_umbral_branch": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 37.24 21.02 L 40.52 23.32 L 16.19 56.33 L 14.55 55.18 Z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M 48.63 8.24 L 48.63 20.45 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#e0405a"
+        },
+        {
+          "d": "M 36.59 19.34 l 5.73 4.02 l -2.29 3.28 l -5.73 -4.02 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 48.63 8.24 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_u_starweaver": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 37.24 21.02 L 40.52 23.32 L 16.19 56.33 L 14.55 55.18 Z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M 48.63 8.24 L 48.63 20.45 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#f0d890"
+        },
+        {
+          "d": "M 36.59 19.34 l 5.73 4.02 l -2.29 3.28 l -5.73 -4.02 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 48.63 8.24 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_u_sacrificial_fang": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 49.87 9.14 L 51.41 10.43 L 28.39 39.41 L 25.33 36.84 Z",
+          "color": "#b01a2a"
+        },
+        {
+          "d": "M 17.15 32.59 C 22.29 26.46 39.14 40.6 34 46.73 L 31.43 49.8 L 14.57 35.65 Z",
+          "color": "#3a1a1a"
+        },
+        {
+          "d": "M 21.09 41.12 l 3.83 3.21 l -6.43 7.66 l -3.83 -3.21 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 12.35 50.75 a 3 3 40 0 0 4.6 3.86 a 3 3 40 0 0 -4.6 -3.86 Z",
+          "color": "#3a1a1a"
+        },
+        {
+          "d": "M 22.77 36 a 4.5 4.5 40 0 0 6.89 5.79 a 4.5 4.5 40 0 0 -6.89 -5.79 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 28.53 36.14 Q 28.25 40.21 27.28 41.36 A 2.4 2.4 40 0 1 23.61 38.27 Q 24.57 37.12 28.53 36.14 Z",
+          "color": "#ff7a7a"
+        }
+      ]
+    },
+    "gl_u_mask_of_the_sacrifice": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M12 42 C12 18 22 7 32 7 C42 7 52 18 52 42 L46 56 L40 44 C38 40 26 40 24 44 L18 56Z",
+          "color": "#7fd8f0"
+        },
+        {
+          "d": "M13 36 C24 31 40 31 51 36 L51 41 C40 36 24 36 13 41Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M20 16 C24 11 28 9 32 9 L32 13 C28 13 24 15 22 19Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        },
+        {
+          "d": "M26 24 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 18.4 L 32 29.6 M 27.2 21.2 L 36.8 26.8 M 36.8 21.2 L 27.2 26.8",
+          "color": "#ffffff",
+          "line": 1.8
+        }
+      ]
+    },
+    "gl_u_altar_skin": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 10 L26 8 C28 14 36 14 38 8 L46 10 L56 18 L52 30 L48 28 L48 57 L16 57 L16 28 L12 30 L8 18Z",
+          "color": "#d44fb0"
+        },
+        {
+          "d": "M8 18 L18 10 L20 21 L12 30Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M56 18 L46 10 L44 21 L52 30Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M31 16 h2 v26 h-2z",
+          "color": "#000000",
+          "alpha": 0.4
+        },
+        {
+          "d": "M16 42 h32 v5 h-32z",
+          "color": "#5f244f"
+        },
+        {
+          "d": "M26 30 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 24.8 L 32 35.2 M 32 27.2 L 34.8 25.2 M 32 30 L 29.2 28 M 32 30 L 34.8 32.4",
+          "color": "#f2c53a",
+          "line": 1.8
+        }
+      ]
+    },
+    "gl_u_band_of_corruption": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M14 40 a18 18 0 1 0 36 0 a18 18 0 1 0 -36 0ZM19.5 40 a12.5 12.5 0 1 0 25 0 a12.5 12.5 0 1 0 -25 0Z",
+          "color": "#d9a53a",
+          "evenOdd": true
+        },
+        {
+          "d": "M25 21 h14 v5 h-14z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M32 5 L42 14 L32 24 L22 14Z",
+          "color": "#7fcf4a"
+        },
+        {
+          "d": "M32 5 L32 24 L22 14Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_u_sacrificial_cleaver": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 21.23 8.25 l 3.76 -1.37 l 19.15 52.62 l -3.76 1.37 z",
+          "color": "#6c3e1a"
+        },
+        {
+          "d": "M 26.35 10.64 C 35.58 0.9 48.65 4.66 52.76 15.93 C 56.18 25.33 47.89 34.73 34.56 33.2 Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M 22.6 12.01 C 9.27 10.48 1.67 21.76 5.77 33.03 C 9.19 42.43 21.58 44.31 30.8 34.56 Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M 20.5 10.64 l 6.58 -2.39 l 1.37 3.76 l -6.58 2.39 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 27.04 12.52 C 35.07 5.34 44.64 8.25 49.25 15.08 L 30.46 21.92 Z",
+          "color": "#ffffff",
+          "alpha": 0.25
+        },
+        {
+          "d": "M 23.41 24.48 a 5.5 5.5 -20 0 0 10.34 -3.76 a 5.5 5.5 -20 0 0 -10.34 3.76 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 26.95 18.12 L 30.21 27.08 M 27.7 20.19 L 29.49 17.59 M 28.58 22.6 L 25.54 21.76 M 28.58 22.6 L 31.74 23.79",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_heart_of_the_vaal": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M14 5 C14 28 26 36 32 38 C38 36 50 28 50 5 L47 5 C47 26 36 33 32 34 C28 33 17 26 17 5Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M20 47 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M25 47 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0Z",
+          "color": "#b01a2a"
+        },
+        {
+          "d": "M27.5 45 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_u_cartographers_stride": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 6 h18 v30 L50 42 C57 44 57 54 50 56 L18 56Z",
+          "color": "#c8d6e6"
+        },
+        {
+          "d": "M16 5 h22 v7 h-22z",
+          "color": "#5a6068"
+        },
+        {
+          "d": "M20 18 H34 M20 24 H34 M20 30 H34",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M16 54 h39 v5 h-39z",
+          "color": "#26211d"
+        },
+        {
+          "d": "M21.5 22 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27 17.23 L 27 26.77 M 27 19.43 L 29.57 17.6 M 27 22 L 24.43 20.17 M 27 22 L 29.57 24.2",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_surveyors_grasp": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 40 L18 22 C18 18 22 18 22 22 L22 12 C22 8 27 8 27 12 L27 10 C27 6 32 6 32 10 L32 12 C32 8 37 8 37 12 L37 26 L42 20 C45 17 49 20 46 24 L42 34 L42 40Z",
+          "color": "#38b8b0"
+        },
+        {
+          "d": "M18 27 h19 v4 h-19z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M17 40 h26 v18 h-26z",
+          "color": "#19534f"
+        },
+        {
+          "d": "M21.5 31 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27 26.23 L 27 35.77 M 27 28.43 L 29.57 26.6 M 27 31 L 24.43 29.17 M 27 31 L 29.57 33.2",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_atlas_cinch": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M3 25 h58 v14 h-58z",
+          "color": "#462860"
+        },
+        {
+          "d": "M24 20 h16 v24 h-16zM28 25 h8 v14 h-8z",
+          "color": "#d9a53a",
+          "evenOdd": true
+        },
+        {
+          "d": "M31 30 h14 v4 h-14z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M6.8 32 a2.2 2.2 0 1 0 4.4 0 a2.2 2.2 0 1 0 -4.4 0Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M13.8 32 a2.2 2.2 0 1 0 4.4 0 a2.2 2.2 0 1 0 -4.4 0Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M45.8 32 a2.2 2.2 0 1 0 4.4 0 a2.2 2.2 0 1 0 -4.4 0Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M52.8 32 a2.2 2.2 0 1 0 4.4 0 a2.2 2.2 0 1 0 -4.4 0Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M27 32 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 27.67 L 32 36.33 M 32 29.67 L 34.33 28 M 32 32 L 29.67 30.33 M 32 32 L 34.33 34",
+          "color": "#f2c53a",
+          "line": 1.5
+        }
+      ]
+    },
+    "gl_u_wings_of_the_wanderer": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 30 L20 8 L4 14 L10 22 L4 30 L12 34 L8 44 L22 38 L30 36Z",
+          "color": "#9b59d6"
+        },
+        {
+          "d": "M32 30 L44 8 L60 14 L54 22 L60 30 L52 34 L56 44 L42 38 L34 36Z",
+          "color": "#9b59d6"
+        },
+        {
+          "d": "M30 32 L20 8 M30 32 L10 22 M30 32 L12 34 M34 32 L44 8 M34 32 L54 22 M34 32 L52 34",
+          "color": "#e4dcc4",
+          "line": 1.4
+        },
+        {
+          "d": "M28 32 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M26.5 32 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 27.23 L 32 36.77 M 32 29.43 L 34.57 27.6 M 32 32 L 29.43 30.17 M 32 32 L 34.57 34.2",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_pathfinders_quiver": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M36 4 L40 5 L37 20 L33 19Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M44 7 L48 9 L42 22 L38 20Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M27 6 L31 6 L31 20 L27 20Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M18 20 L44 16 L50 54 L28 60Z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M18 20 L44 16 L45 23 L19 27Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M26 34 L46 30",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M27.5 40 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 33 35.23 L 33 44.77 M 33 37.43 L 35.57 35.6 M 33 40 L 30.43 38.17 M 33 40 L 35.57 42.2",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_crown_of_the_atlas": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M12 36 C12 18 22 7 32 7 C42 7 52 18 52 36 L52 51 L42 55 L42 39 L22 39 L22 55 L12 51Z",
+          "color": "#e0405a"
+        },
+        {
+          "d": "M30 6 h4 v30 h-4z",
+          "color": "#651d28"
+        },
+        {
+          "d": "M12 33 h40 v5 h-40z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M30 38 h4 v13 h-4z",
+          "color": "#e0405a"
+        },
+        {
+          "d": "M26 22 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 16.8 L 32 27.2 M 32 19.2 L 34.8 17.2 M 32 22 L 29.2 20 M 32 22 L 34.8 24.4",
+          "color": "#f2c53a",
+          "line": 1.8
+        }
+      ]
+    },
+    "gl_u_shardcaller": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 37.24 21.02 L 40.52 23.32 L 16.19 56.33 L 14.55 55.18 Z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M 48.63 8.24 L 48.63 20.45 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#3a9ae8"
+        },
+        {
+          "d": "M 36.59 19.34 l 5.73 4.02 l -2.29 3.28 l -5.73 -4.02 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 48.63 8.24 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_u_prism_ward": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 4 C48 4 54 18 54 32 C54 48 44 60 32 60 C20 60 10 48 10 32 C10 18 16 4 32 4Z",
+          "color": "#6c3e1a"
+        },
+        {
+          "d": "M32 10 C43 10 48 20 48 32 C48 44 41 54 32 54 C23 54 16 44 16 32 C16 20 21 10 32 10Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M32 20 L40 32 L32 44 L24 32Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M32 20 L32 44 L24 32Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        },
+        {
+          "d": "M24 32 a8 8 0 1 0 16 0 a8 8 0 1 0 -16 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 25.07 L 32 38.93 M 32 28.27 L 35.73 25.6 M 32 32 L 28.27 29.33 M 32 32 L 35.73 35.2",
+          "color": "#f2c53a",
+          "line": 2.4
+        }
+      ]
+    },
+    "gl_u_essence_loop": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M14 40 a18 18 0 1 0 36 0 a18 18 0 1 0 -36 0ZM19.5 40 a12.5 12.5 0 1 0 25 0 a12.5 12.5 0 1 0 -25 0Z",
+          "color": "#d9a53a",
+          "evenOdd": true
+        },
+        {
+          "d": "M25 21 h14 v5 h-14z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M32 5 L42 14 L32 24 L22 14Z",
+          "color": "#7fcf4a"
+        },
+        {
+          "d": "M32 5 L32 24 L22 14Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_u_crystalgrip": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 40 L18 22 C18 18 22 18 22 22 L22 12 C22 8 27 8 27 12 L27 10 C27 6 32 6 32 10 L32 12 C32 8 37 8 37 12 L37 26 L42 20 C45 17 49 20 46 24 L42 34 L42 40Z",
+          "color": "#d44fb0"
+        },
+        {
+          "d": "M16 40 h28 v18 h-28z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M27 26 L31 31 L27 36 L23 31Z",
+          "color": "#5f244f"
+        },
+        {
+          "d": "M21.5 31 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27 26.23 L 27 35.77 M 27 28.43 L 29.57 26.6 M 27 31 L 24.43 29.17 M 27 31 L 29.57 33.2",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_geode_carapace": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 10 L26 8 C28 14 36 14 38 8 L46 10 L56 18 L52 30 L48 28 L48 57 L16 57 L16 28 L12 30 L8 18Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M8 18 L18 10 L20 21 L12 30Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M56 18 L46 10 L44 21 L52 30Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M31 16 h2 v26 h-2z",
+          "color": "#000000",
+          "alpha": 0.4
+        },
+        {
+          "d": "M16 42 h32 v5 h-32z",
+          "color": "#6d591a"
+        },
+        {
+          "d": "M26 30 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 24.8 L 32 35.2 M 32 27.2 L 34.8 25.2 M 32 30 L 29.2 28 M 32 30 L 34.8 32.4",
+          "color": "#f2c53a",
+          "line": 1.8
+        }
+      ]
+    },
+    "gl_u_prismstring": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 36.84 3.62 C 51.76 23.78 34.76 53.22 9.84 50.38 L 11.44 53.61 C 39.09 55.72 56.09 26.28 40.44 3.39 Z",
+          "color": "#19534f"
+        },
+        {
+          "d": "M 37.21 4.98 L 11.21 50.02",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M 38.83 30.17 l 6.06 3.5 l -5 8.66 l -6.06 -3.5 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 35.46 34 a 4.5 4.5 30 0 0 7.79 4.5 a 4.5 4.5 30 0 0 -7.79 -4.5 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 41.31 32.87 L 37.41 39.63 M 40.41 34.43 L 42.98 34.18 M 39.36 36.25 L 38.29 33.9 M 39.36 36.25 L 40.28 38.86",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
     }
   },
   "icons": {
@@ -24056,7 +24960,7 @@
     "equipment.AEGIS_OF_DAWN": "gl_u_aegis_of_dawn",
     "equipment.ALLOYED_SPIKED_SHIELD": "gl_shield_spiked_5f9a4e_0",
     "equipment.ALPHAS_FANG": "gl_u_alphas_fang",
-    "equipment.ALTAR_SKIN": "gl_body_base_armour_base_energy_shield_1",
+    "equipment.ALTAR_SKIN": "gl_u_altar_skin",
     "equipment.AMBER_AMULET": "gl_amulet_e89a2a",
     "equipment.AMBER_NECTAR": "gl_u_amber_nectar",
     "equipment.AMETHYST_RING": "gl_ring_9b59d6",
@@ -24066,12 +24970,12 @@
     "equipment.ASHGRIP": "gl_u_ashgrip",
     "equipment.ASSASSIN_S_GARB": "gl_body_base_evasion_none_2",
     "equipment.ASTRAMENTIS": "gl_u_astramentis",
-    "equipment.ATLAS_CINCH": "gl_belt_studs",
+    "equipment.ATLAS_CINCH": "gl_u_atlas_cinch",
     "equipment.ATZIRIS_PROMISE": "gl_u_atziris_promise",
     "equipment.ATZIRI_S_ACUITY": "gl_u_atziri_s_acuity",
     "equipment.AVENTAIL_HELMET": "gl_helmet_base_armour_base_energy_shield_1",
     "equipment.BAND_OF_BORROWED_TIME": "gl_u_band_of_borrowed_time",
-    "equipment.BAND_OF_CORRUPTION": "gl_ring_9b59d6",
+    "equipment.BAND_OF_CORRUPTION": "gl_u_band_of_corruption",
     "equipment.BARBUTE_HELMET": "gl_helmet_base_armour_none_0",
     "equipment.BASKET_RAPIER": "gl_blade_0",
     "equipment.BASTARD_SWORD": "gl_longsword_0",
@@ -24081,7 +24985,7 @@
     "equipment.BEREK_S_GRIP": "gl_u_berek_s_grip",
     "equipment.BINO_S_KITCHEN_KNIFE": "gl_u_bino_s_kitchen_knife",
     "equipment.BISCO_S_COLLAR": "gl_u_bisco_s_collar",
-    "equipment.BLOODLETTER": "gl_sword_1",
+    "equipment.BLOODLETTER": "gl_u_bloodletter",
     "equipment.BLUNT_ARROW_QUIVER": "gl_quiver_e6d4a6",
     "equipment.BOARDING_AXE": "gl_axe_0",
     "equipment.BOGROOT_SANDALS": "gl_u_bogroot_sandals",
@@ -24111,7 +25015,7 @@
     "equipment.CARDINAL_ROUND_SHIELD": "gl_shield_round_b9c2cf_2",
     "equipment.CARNAGE_HEART": "gl_u_carnage_heart",
     "equipment.CARNAL_ARMOUR": "gl_body_base_evasion_base_energy_shield_2",
-    "equipment.CARTOGRAPHERS_STRIDE": "gl_boots_base_evasion_none_2",
+    "equipment.CARTOGRAPHERS_STRIDE": "gl_u_cartographers_stride",
     "equipment.CARVED_WAND": "gl_wand_5a62e0",
     "equipment.CHAINBINDER": "gl_u_chainbinder",
     "equipment.CHAINMAIL_TUNIC": "gl_body_base_armour_base_energy_shield_0",
@@ -24121,7 +25025,7 @@
     "equipment.CHAIN_GLOVES": "gl_gloves_base_armour_base_energy_shield_0",
     "equipment.CHESTPLATE": "gl_body_base_armour_none_0",
     "equipment.CHRONOBAND": "gl_u_chronoband",
-    "equipment.CINDERTWIG": "gl_wand_5a62e0",
+    "equipment.CINDERTWIG": "gl_u_cindertwig",
     "equipment.CINDER_CROWN": "gl_u_cinder_crown",
     "equipment.CLASPED_BOOTS": "gl_boots_base_evasion_base_energy_shield_1",
     "equipment.CLASPED_MITTS": "gl_gloves_base_evasion_base_energy_shield_1",
@@ -24133,14 +25037,14 @@
     "equipment.CORRODED_BLADE": "gl_longsword_0",
     "equipment.CORRODED_TOWER_SHIELD": "gl_shield_tower_b9c2cf_0",
     "equipment.CROWN_OF_THE_ABYSS": "gl_u_crown_of_the_abyss",
-    "equipment.CROWN_OF_THE_ATLAS": "gl_helmet_base_armour_base_energy_shield_2",
+    "equipment.CROWN_OF_THE_ATLAS": "gl_u_crown_of_the_atlas",
     "equipment.CROWN_OF_THE_VOID": "gl_u_crown_of_the_void",
     "equipment.CRUCIBLE_GREATAXE": "gl_u_crucible_greataxe",
     "equipment.CRUDE_BOW": "gl_bow_0",
     "equipment.CRUSADER_BOOTS": "gl_boots_base_armour_base_energy_shield_2",
     "equipment.CRUSADER_GLOVES": "gl_gloves_base_armour_base_energy_shield_2",
     "equipment.CRYPT_SHROUD": "gl_u_crypt_shroud",
-    "equipment.CRYSTALGRIP": "gl_gloves_base_energy_shield_none_1",
+    "equipment.CRYSTALGRIP": "gl_u_crystalgrip",
     "equipment.DEERSKIN_BOOTS": "gl_boots_base_evasion_none_0",
     "equipment.DEERSKIN_GLOVES": "gl_gloves_base_evasion_none_0",
     "equipment.DEICIDE_MASK": "gl_helmet_base_evasion_base_energy_shield_2",
@@ -24155,17 +25059,17 @@
     "equipment.DRIFTWOOD_WAND": "gl_wand_f2c53a",
     "equipment.DRILLNECK": "gl_u_drillneck",
     "equipment.DROWNED_IDOL": "gl_u_drowned_idol",
-    "equipment.DUSKREAVER": "gl_sword_2",
+    "equipment.DUSKREAVER": "gl_u_duskreaver",
     "equipment.EARTHSHAKER_MAUL": "gl_u_earthshaker_maul",
     "equipment.EELSKIN_GLOVES": "gl_gloves_base_evasion_none_1",
-    "equipment.EMBERBITE": "gl_axe_0",
+    "equipment.EMBERBITE": "gl_u_emberbite",
     "equipment.EMBERGRIP": "gl_u_embergrip",
     "equipment.EMBERHEART_GIRDLE": "gl_u_emberheart_girdle",
     "equipment.EMBERWALK_SABATONS": "gl_u_emberwalk_sabatons",
     "equipment.EMBER_LOCKET": "gl_u_ember_locket",
     "equipment.EMBROIDERED_GLOVES": "gl_gloves_base_energy_shield_none_1",
     "equipment.ENTROPY_SIGIL": "gl_u_entropy_sigil",
-    "equipment.ESSENCE_LOOP": "gl_ring_9b59d6",
+    "equipment.ESSENCE_LOOP": "gl_u_essence_loop",
     "equipment.ETCHED_GREATSWORD": "gl_doublesword_0",
     "equipment.ETERNAL_BURGONET": "gl_helmet_base_armour_none_2",
     "equipment.ETERNAL_FEAST": "gl_u_eternal_feast",
@@ -24210,9 +25114,9 @@
     "equipment.FRONTIER_LEATHER": "gl_body_base_evasion_none_1",
     "equipment.FROSTFEATHER_QUIVER": "gl_u_frostfeather_quiver",
     "equipment.FULL_SCALE_ARMOUR": "gl_body_base_armour_base_evasion_1",
-    "equipment.GALEWHISPER": "gl_bow_0",
+    "equipment.GALEWHISPER": "gl_u_galewhisper",
     "equipment.GEMSTONE_SWORD": "gl_sword_1",
-    "equipment.GEODE_CARAPACE": "gl_body_base_armour_none_1",
+    "equipment.GEODE_CARAPACE": "gl_u_geode_carapace",
     "equipment.GHOSTSTEP_TREADS": "gl_u_ghoststep_treads",
     "equipment.GIRDLE_OF_THE_GLUTTON": "gl_u_girdle_of_the_glutton",
     "equipment.GIRDLE_OF_TITANS": "gl_u_girdle_of_titans",
@@ -24236,7 +25140,7 @@
     "equipment.HARMONIC_SPIKED_SHIELD": "gl_shield_spiked_5f9a4e_2",
     "equipment.HEADHUNTER": "gl_u_headhunter",
     "equipment.HEART_OF_THE_ABYSS": "gl_u_heart_of_the_abyss",
-    "equipment.HEART_OF_THE_VAAL": "gl_amulet_3c3a44",
+    "equipment.HEART_OF_THE_VAAL": "gl_u_heart_of_the_vaal",
     "equipment.HEAVY_BELT": "gl_belt_studs",
     "equipment.HEGEMONY_S_ERA": "gl_u_hegemony_s_era",
     "equipment.HIVEMIND_CARAPACE": "gl_u_hivemind_carapace",
@@ -24247,7 +25151,7 @@
     "equipment.IMBUED_WAND": "gl_wand_7fcf4a",
     "equipment.IMPERIAL_BUCKLER": "gl_shield_buckler_5f9a4e_2",
     "equipment.INFERNAL_SWORD": "gl_doublesword_2",
-    "equipment.IRONHAIL": "gl_bow_1",
+    "equipment.IRONHAIL": "gl_u_ironhail",
     "equipment.IRONSCALE_BOOTS": "gl_boots_base_armour_base_evasion_0",
     "equipment.IRONSCALE_GAUNTLETS": "gl_gloves_base_armour_base_evasion_0",
     "equipment.IRONSTRIDE": "gl_u_ironstride",
@@ -24388,7 +25292,7 @@
     "equipment.MAP_C6_WHISPERING_CHASM": "gl_map_e0304a",
     "equipment.MAP_C6_WITHERED_WOOD": "gl_map_e0304a",
     "equipment.MAROHI_ERQI": "gl_u_marohi_erqi",
-    "equipment.MASK_OF_THE_SACRIFICE": "gl_helmet_base_evasion_base_energy_shield_0",
+    "equipment.MASK_OF_THE_SACRIFICE": "gl_u_mask_of_the_sacrifice",
     "equipment.MAW_OF_THE_CHASM": "gl_u_maw_of_the_chasm",
     "equipment.MEGINORD_S_GIRDLE": "gl_u_meginord_s_girdle",
     "equipment.MESH_BOOTS": "gl_boots_base_armour_base_energy_shield_1",
@@ -24414,7 +25318,7 @@
     "equipment.PADDED_JACKET": "gl_body_base_evasion_base_energy_shield_0",
     "equipment.PADDED_VEST": "gl_body_base_evasion_base_energy_shield_0",
     "equipment.PAINTED_BUCKLER": "gl_shield_buckler_5f9a4e_0",
-    "equipment.PATHFINDERS_QUIVER": "gl_quiver_f07a2a",
+    "equipment.PATHFINDERS_QUIVER": "gl_u_pathfinders_quiver",
     "equipment.PAUA_AMULET": "gl_amulet_38b8b0",
     "equipment.PAUA_RING": "gl_ring_38b8b0",
     "equipment.PENDANT_OF_THE_HOLLOW": "gl_u_pendant_of_the_hollow",
@@ -24425,8 +25329,8 @@
     "equipment.PLATED_GREAVES": "gl_boots_base_armour_none_0",
     "equipment.PLATE_VEST": "gl_body_base_armour_none_0",
     "equipment.PRAETOR_CROWN": "gl_helmet_base_armour_base_energy_shield_2",
-    "equipment.PRISMSTRING": "gl_bow_2",
-    "equipment.PRISM_WARD": "gl_shield_spirit_8a6ae0_0",
+    "equipment.PRISMSTRING": "gl_u_prismstring",
+    "equipment.PRISM_WARD": "gl_u_prism_ward",
     "equipment.QUEENS_STINGER": "gl_u_queens_stinger",
     "equipment.QUENCHED_TORC": "gl_u_quenched_torc",
     "equipment.QUENCHING_SASH": "gl_u_quenching_sash",
@@ -24465,8 +25369,8 @@
     "equipment.RUSTED_SPIKE": "gl_blade_0",
     "equipment.RUSTED_SWORD": "gl_sword_0",
     "equipment.RUSTIC_SASH": "gl_belt_plain",
-    "equipment.SACRIFICIAL_CLEAVER": "gl_doubleaxe_2",
-    "equipment.SACRIFICIAL_FANG": "gl_blade_0",
+    "equipment.SACRIFICIAL_CLEAVER": "gl_u_sacrificial_cleaver",
+    "equipment.SACRIFICIAL_FANG": "gl_u_sacrificial_fang",
     "equipment.SAFFELL_S_FRAME": "gl_u_saffell_s_frame",
     "equipment.SAINTLY_CHAINMAIL": "gl_body_base_armour_base_energy_shield_2",
     "equipment.SAINTS_TEARS": "gl_u_saints_tears",
@@ -24487,7 +25391,7 @@
     "equipment.SEVEN_LEAGUE_STEP": "gl_u_seven_league_step",
     "equipment.SHABBY_JERKIN": "gl_body_base_evasion_none_0",
     "equipment.SHACKLED_BOOTS": "gl_boots_base_evasion_base_energy_shield_1",
-    "equipment.SHARDCALLER": "gl_wand_5a62e0",
+    "equipment.SHARDCALLER": "gl_u_shardcaller",
     "equipment.SHARDFANG": "gl_u_shardfang",
     "equipment.SHARD_CIRCLET": "gl_u_shard_circlet",
     "equipment.SHARKTOOTH_ARROW_QUIVER": "gl_quiver_e6d4a6",
@@ -24498,7 +25402,7 @@
     "equipment.SILK_GLOVES": "gl_gloves_base_energy_shield_none_1",
     "equipment.SILK_SLIPPERS": "gl_boots_base_energy_shield_none_0",
     "equipment.SIMPLE_ROBE": "gl_body_base_energy_shield_none_0",
-    "equipment.SKULLSPLITTER": "gl_axe_1",
+    "equipment.SKULLSPLITTER": "gl_u_skullsplitter",
     "equipment.SLAGPLATE_CUIRASS": "gl_u_slagplate_cuirass",
     "equipment.SLINK_BOOTS": "gl_boots_base_evasion_none_2",
     "equipment.SLINK_GLOVES": "gl_gloves_base_evasion_none_2",
@@ -24510,12 +25414,12 @@
     "equipment.SOVEREIGNS_BRAND": "gl_u_sovereigns_brand",
     "equipment.SPIKED_BUNDLE": "gl_shield_spiked_5f9a4e_0",
     "equipment.SPLINTERED_TOWER_SHIELD": "gl_shield_tower_b9c2cf_0",
-    "equipment.SQUIRES_VOW": "gl_sword_0",
+    "equipment.SQUIRES_VOW": "gl_u_squires_vow",
     "equipment.STARFALL": "gl_u_starfall",
     "equipment.STARFORGE": "gl_u_starforge",
     "equipment.STARKONJA_S_HEAD": "gl_u_starkonja_s_head",
     "equipment.STARLIGHT_ELIXIR": "gl_u_starlight_elixir",
-    "equipment.STARWEAVER": "gl_wand_3a9ae8",
+    "equipment.STARWEAVER": "gl_u_starweaver",
     "equipment.STEELSCALE_BOOTS": "gl_boots_base_armour_base_evasion_1",
     "equipment.STEELSCALE_GAUNTLETS": "gl_gloves_base_armour_base_evasion_1",
     "equipment.STEEL_ALEMBIC": "gl_tool_alchemy_steel",
@@ -24529,7 +25433,7 @@
     "equipment.STEEL_STYLUS": "gl_tool_enchanting_steel",
     "equipment.STONE_AXE": "gl_doubleaxe_0",
     "equipment.STORMHIDE_JERKIN": "gl_u_stormhide_jerkin",
-    "equipment.STORMSPLINTER": "gl_bow_2",
+    "equipment.STORMSPLINTER": "gl_u_stormsplinter",
     "equipment.STRAPPED_BOOTS": "gl_boots_base_evasion_base_energy_shield_0",
     "equipment.STRAPPED_LEATHER": "gl_body_base_evasion_none_0",
     "equipment.STRAPPED_MITTS": "gl_gloves_base_evasion_base_energy_shield_0",
@@ -24538,7 +25442,7 @@
     "equipment.STUDDED_ROUND_SHIELD": "gl_shield_round_b9c2cf_0",
     "equipment.SUNSPEAR": "gl_u_sunspear",
     "equipment.SUN_KINGS_DIADEM": "gl_u_sun_kings_diadem",
-    "equipment.SURVEYORS_GRASP": "gl_gloves_base_armour_base_evasion_2",
+    "equipment.SURVEYORS_GRASP": "gl_u_surveyors_grasp",
     "equipment.SWARM_QUIVER": "gl_u_swarm_quiver",
     "equipment.TARNISHED_SPIRIT_SHIELD": "gl_shield_spirit_8a6ae0_0",
     "equipment.TATTERED_WINGS": "gl_wings_b_7a5234",
@@ -24560,7 +25464,7 @@
     "equipment.TWO_HANDED_SWORD": "gl_longsword_0",
     "equipment.TWO_POINT_ARROW_QUIVER": "gl_quiver_e6d4a6",
     "equipment.TWO_STONE_RING": "gl_ring_ef8a3a",
-    "equipment.UMBRAL_BRANCH": "gl_wand_f2c53a",
+    "equipment.UMBRAL_BRANCH": "gl_u_umbral_branch",
     "equipment.UMBRAL_CARAPACE": "gl_u_umbral_carapace",
     "equipment.UNYIELDING_BASTION": "gl_u_unyielding_bastion",
     "equipment.URSINE_PELT": "gl_helmet_base_evasion_none_2",
@@ -24584,10 +25488,10 @@
     "equipment.WARDENS_OATH": "gl_u_wardens_oath",
     "equipment.WHALEBONE_RAPIER": "gl_blade_0",
     "equipment.WHISPERBLADE": "gl_u_whisperblade",
-    "equipment.WIDOWMAKER": "gl_axe_2",
+    "equipment.WIDOWMAKER": "gl_u_widowmaker",
     "equipment.WINGS_OF_ASH": "gl_u_wings_of_ash",
     "equipment.WINGS_OF_THE_FALLEN_GOD": "gl_u_wings_of_the_fallen_god",
-    "equipment.WINGS_OF_THE_WANDERER": "gl_wings_f_f0ecdc",
+    "equipment.WINGS_OF_THE_WANDERER": "gl_u_wings_of_the_wanderer",
     "equipment.WINGS_OF_VASTIRI": "gl_u_wings_of_vastiri",
     "equipment.WINTERS_GRASP": "gl_u_winters_grasp",
     "equipment.WOODSPLITTER": "gl_doubleaxe_0",
