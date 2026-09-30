@@ -20,7 +20,27 @@
           "nothing": 0,
           "output": "COPPER_ORE",
           "experience": 4,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "ore"
+        },
+        {
+          "code": "MINING_REFINE",
+          "level": 5,
+          "seconds": 240,
+          "nothing": 0,
+          "output": "",
+          "experience": 5,
+          "kind": "REFINE",
+          "ratio": 5
         },
         {
           "code": "IRON_VEIN",
@@ -29,7 +49,17 @@
           "nothing": 0,
           "output": "IRON_ORE",
           "experience": 9,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "ore"
         },
         {
           "code": "TOPAZ_DEPOSIT",
@@ -38,7 +68,17 @@
           "nothing": 0,
           "output": "TOPAZ",
           "experience": 18,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "gem"
         },
         {
           "code": "SILVER_VEIN",
@@ -47,7 +87,17 @@
           "nothing": 0,
           "output": "SILVER_ORE",
           "experience": 16,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "ore"
         },
         {
           "code": "SAPPHIRE_DEPOSIT",
@@ -56,7 +106,17 @@
           "nothing": 0,
           "output": "SAPPHIRE",
           "experience": 30,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "gem"
         },
         {
           "code": "MITHRIL_VEIN",
@@ -65,7 +125,17 @@
           "nothing": 0,
           "output": "MITHRIL_ORE",
           "experience": 26,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "ore"
         },
         {
           "code": "RUBY_DEPOSIT",
@@ -74,7 +144,17 @@
           "nothing": 0,
           "output": "RUBY",
           "experience": 45,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "gem"
         },
         {
           "code": "ADAMANT_VEIN",
@@ -83,7 +163,55 @@
           "nothing": 0,
           "output": "ADAMANT_ORE",
           "experience": 40,
-          "extra": []
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "ore"
+        },
+        {
+          "code": "STARMETAL_VEIN",
+          "level": 45,
+          "seconds": 900,
+          "nothing": 0,
+          "output": "STARMETAL_ORE",
+          "experience": 40,
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "ore"
+        },
+        {
+          "code": "ONYX_DEPOSIT",
+          "level": 50,
+          "seconds": 2200,
+          "nothing": 0,
+          "output": "ONYX",
+          "experience": 60,
+          "extra": [
+            {
+              "item": "WHETSTONE",
+              "chance": 3
+            },
+            {
+              "item": "ARMOURERS_SCRAP",
+              "chance": 2
+            }
+          ],
+          "chain": "gem"
         }
       ]
     },
@@ -98,7 +226,13 @@
           "nothing": 0,
           "output": "WORMWOOD",
           "experience": 4,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_GREED_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
         },
         {
           "code": "CAVE_MUSHROOMS",
@@ -107,7 +241,23 @@
           "nothing": 0,
           "output": "CAVE_MUSHROOM",
           "experience": 6,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_CONTEMPT_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
+        },
+        {
+          "code": "HERBALISM_REFINE",
+          "level": 5,
+          "seconds": 240,
+          "nothing": 0,
+          "output": "",
+          "experience": 5,
+          "kind": "REFINE",
+          "ratio": 5
         },
         {
           "code": "BLOODWORT_PATCH",
@@ -116,7 +266,13 @@
           "nothing": 0,
           "output": "BLOODWORT",
           "experience": 9,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_HATRED_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
         },
         {
           "code": "AMBER_TAPPING",
@@ -125,7 +281,13 @@
           "nothing": 0,
           "output": "AMBER_RESIN",
           "experience": 12,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_WOE_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
         },
         {
           "code": "SHADEBLOOM_PATCH",
@@ -134,7 +296,13 @@
           "nothing": 0,
           "output": "SHADEBLOOM",
           "experience": 16,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_FEAR_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
         },
         {
           "code": "GLOWCAP_GROTTO",
@@ -143,7 +311,13 @@
           "nothing": 0,
           "output": "GLOWCAP",
           "experience": 22,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_ANGER_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
         },
         {
           "code": "MOON_LOTUS_POND",
@@ -152,7 +326,13 @@
           "nothing": 0,
           "output": "MOON_LOTUS",
           "experience": 26,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_TORMENT_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
         },
         {
           "code": "VOID_ROOT_BED",
@@ -161,7 +341,43 @@
           "nothing": 0,
           "output": "VOID_ROOT",
           "experience": 40,
-          "extra": []
+          "extra": [
+            {
+              "item": "ESSENCE_SORROW_1",
+              "chance": 5
+            }
+          ],
+          "chain": "herb"
+        },
+        {
+          "code": "STARBLOOM_PATCH",
+          "level": 45,
+          "seconds": 900,
+          "nothing": 0,
+          "output": "STARBLOOM",
+          "experience": 40,
+          "chain": "herb",
+          "extra": [
+            {
+              "item": "ESSENCE_RAGE_1",
+              "chance": 5
+            }
+          ]
+        },
+        {
+          "code": "WORLDROOT_GROVE",
+          "level": 50,
+          "seconds": 1300,
+          "nothing": 0,
+          "output": "WORLDROOT",
+          "experience": 55,
+          "chain": "herb",
+          "extra": [
+            {
+              "item": "ESSENCE_SUFFERING_1",
+              "chance": 5
+            }
+          ]
         }
       ]
     },
@@ -180,8 +396,27 @@
             {
               "item": "BARK",
               "chance": 8
+            },
+            {
+              "item": "GLASSBLOWERS_BAUBLE",
+              "chance": 3
+            },
+            {
+              "item": "PET_EGG_JUNGLE",
+              "chance": 2
             }
-          ]
+          ],
+          "chain": "wood"
+        },
+        {
+          "code": "WOODCUTTING_REFINE",
+          "level": 5,
+          "seconds": 240,
+          "nothing": 0,
+          "output": "",
+          "experience": 5,
+          "kind": "REFINE",
+          "ratio": 5
         },
         {
           "code": "OAK_GROVE",
@@ -194,8 +429,17 @@
             {
               "item": "BARK",
               "chance": 8
+            },
+            {
+              "item": "GLASSBLOWERS_BAUBLE",
+              "chance": 3
+            },
+            {
+              "item": "PET_EGG_ABYSS",
+              "chance": 2
             }
-          ]
+          ],
+          "chain": "wood"
         },
         {
           "code": "YEW_GROVE",
@@ -208,8 +452,17 @@
             {
               "item": "BARK",
               "chance": 8
+            },
+            {
+              "item": "GLASSBLOWERS_BAUBLE",
+              "chance": 3
+            },
+            {
+              "item": "PET_EGG_CRYPT",
+              "chance": 2
             }
-          ]
+          ],
+          "chain": "wood"
         },
         {
           "code": "IRONWOOD_GROVE",
@@ -222,8 +475,17 @@
             {
               "item": "BARK",
               "chance": 8
+            },
+            {
+              "item": "GLASSBLOWERS_BAUBLE",
+              "chance": 3
+            },
+            {
+              "item": "PET_EGG_ASH",
+              "chance": 2
             }
-          ]
+          ],
+          "chain": "wood"
         },
         {
           "code": "GHOST_ASH_GROVE",
@@ -236,6 +498,61 @@
             {
               "item": "BARK",
               "chance": 8
+            },
+            {
+              "item": "GLASSBLOWERS_BAUBLE",
+              "chance": 3
+            },
+            {
+              "item": "PET_EGG_TEMPLE",
+              "chance": 2
+            }
+          ],
+          "chain": "wood"
+        },
+        {
+          "code": "ELDERHEART_GROVE",
+          "level": 45,
+          "seconds": 900,
+          "nothing": 0,
+          "output": "ELDERHEART_LOG",
+          "experience": 40,
+          "chain": "wood",
+          "extra": [
+            {
+              "item": "BARK",
+              "chance": 8
+            },
+            {
+              "item": "GLASSBLOWERS_BAUBLE",
+              "chance": 3
+            },
+            {
+              "item": "PET_EGG_DESERT",
+              "chance": 2
+            }
+          ]
+        },
+        {
+          "code": "WORLDTREE_GROVE",
+          "level": 50,
+          "seconds": 1300,
+          "nothing": 0,
+          "output": "WORLDTREE_LOG",
+          "experience": 55,
+          "chain": "wood",
+          "extra": [
+            {
+              "item": "BARK",
+              "chance": 8
+            },
+            {
+              "item": "GLASSBLOWERS_BAUBLE",
+              "chance": 3
+            },
+            {
+              "item": "PET_EGG_VOLCANO",
+              "chance": 2
             }
           ]
         }
@@ -365,6 +682,60 @@
             100
           ],
           "additives": true
+        },
+        {
+          "code": "STARMETAL_FORGING",
+          "level": 45,
+          "seconds": 700,
+          "nothing": 35,
+          "output": "",
+          "experience": 102,
+          "extra": [],
+          "kind": "EQUIPMENT",
+          "inputs": [
+            {
+              "item": "STARMETAL_ORE",
+              "amount": 5
+            },
+            {
+              "item": "ELDERHEART_LOG",
+              "amount": 1
+            }
+          ],
+          "band": [
+            75,
+            90
+          ],
+          "additives": true
+        },
+        {
+          "code": "WORLD_FORGING",
+          "level": 50,
+          "seconds": 800,
+          "nothing": 35,
+          "output": "",
+          "experience": 119,
+          "extra": [],
+          "kind": "EQUIPMENT",
+          "inputs": [
+            {
+              "item": "STARMETAL_ORE",
+              "amount": 5
+            },
+            {
+              "item": "WORLDTREE_LOG",
+              "amount": 1
+            },
+            {
+              "item": "ONYX",
+              "amount": 1
+            }
+          ],
+          "band": [
+            85,
+            100
+          ],
+          "additives": true
         }
       ]
     },
@@ -393,106 +764,6 @@
           ]
         },
         {
-          "code": "STONE_FLUX_BREW",
-          "level": 5,
-          "seconds": 200,
-          "nothing": 25,
-          "output": "STONE_FLUX",
-          "experience": 8,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "CAVE_MUSHROOM",
-              "amount": 2
-            },
-            {
-              "item": "COPPER_ORE",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "FIRE_FLUX_BREW",
-          "level": 10,
-          "seconds": 250,
-          "nothing": 27,
-          "output": "FIRE_FLUX",
-          "experience": 12,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "BLOODWORT",
-              "amount": 3
-            },
-            {
-              "item": "TOPAZ",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "FROST_FLUX_BREW",
-          "level": 15,
-          "seconds": 250,
-          "nothing": 28,
-          "output": "FROST_FLUX",
-          "experience": 15,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "SHADEBLOOM",
-              "amount": 3
-            },
-            {
-              "item": "SAPPHIRE",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "STORM_FLUX_BREW",
-          "level": 20,
-          "seconds": 300,
-          "nothing": 30,
-          "output": "STORM_FLUX",
-          "experience": 18,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "AMBER_RESIN",
-              "amount": 3
-            },
-            {
-              "item": "TOPAZ",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "QUICK_FLUX_BREW",
-          "level": 25,
-          "seconds": 300,
-          "nothing": 32,
-          "output": "QUICK_FLUX",
-          "experience": 22,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "GLOWCAP",
-              "amount": 3
-            },
-            {
-              "item": "RUBY",
-              "amount": 1
-            }
-          ]
-        },
-        {
           "code": "TRANSMUTATION_BREW",
           "level": 1,
           "seconds": 150,
@@ -505,378 +776,6 @@
             {
               "item": "WORMWOOD",
               "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "AUGMENTATION_BREW",
-          "level": 5,
-          "seconds": 150,
-          "nothing": 25,
-          "output": "ORB_OF_AUGMENTATION",
-          "experience": 5,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "WORMWOOD",
-              "amount": 3
-            }
-          ]
-        },
-        {
-          "code": "ALTERATION_BREW",
-          "level": 8,
-          "seconds": 200,
-          "nothing": 28,
-          "output": "ORB_OF_ALTERATION",
-          "experience": 7,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "BLOODWORT",
-              "amount": 2
-            },
-            {
-              "item": "COPPER_ORE",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "SCOURING_BREW",
-          "level": 12,
-          "seconds": 200,
-          "nothing": 30,
-          "output": "ORB_OF_SCOURING",
-          "experience": 9,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "AMBER_RESIN",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "ALCHEMY_BREW",
-          "level": 15,
-          "seconds": 300,
-          "nothing": 32,
-          "output": "ORB_OF_ALCHEMY",
-          "experience": 14,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "SHADEBLOOM",
-              "amount": 2
-            },
-            {
-              "item": "TOPAZ",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "CHAOS_BREW",
-          "level": 25,
-          "seconds": 450,
-          "nothing": 38,
-          "output": "CHAOS_ORB",
-          "experience": 24,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "GLOWCAP",
-              "amount": 2
-            },
-            {
-              "item": "SAPPHIRE",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "REGAL_BREW",
-          "level": 30,
-          "seconds": 450,
-          "nothing": 40,
-          "output": "REGAL_ORB",
-          "experience": 28,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "MOON_LOTUS",
-              "amount": 2
-            },
-            {
-              "item": "SILVER_ORE",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "DIVINE_BREW",
-          "level": 40,
-          "seconds": 1800,
-          "nothing": 55,
-          "output": "DIVINE_ORB",
-          "experience": 45,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "VOID_ROOT",
-              "amount": 4
-            },
-            {
-              "item": "MITHRIL_ORE",
-              "amount": 4
-            },
-            {
-              "item": "CHAOS_ORB",
-              "amount": 5
-            }
-          ]
-        },
-        {
-          "code": "EXALTED_BREW",
-          "level": 45,
-          "seconds": 1800,
-          "nothing": 60,
-          "output": "EXALTED_ORB",
-          "experience": 55,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "VOID_ROOT",
-              "amount": 6
-            },
-            {
-              "item": "RUBY",
-              "amount": 4
-            },
-            {
-              "item": "REGAL_ORB",
-              "amount": 5
-            }
-          ]
-        },
-        {
-          "code": "HORDE_BREW",
-          "level": 10,
-          "seconds": 300,
-          "nothing": 30,
-          "output": "HORDE_ORB",
-          "experience": 12,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "AMBER_RESIN",
-              "amount": 2
-            },
-            {
-              "item": "BARK",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "MAGUS_BREW",
-          "level": 15,
-          "seconds": 300,
-          "nothing": 30,
-          "output": "MAGUS_ORB",
-          "experience": 15,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "GLOWCAP",
-              "amount": 1
-            },
-            {
-              "item": "BARK",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "PERIL_BREW",
-          "level": 18,
-          "seconds": 350,
-          "nothing": 32,
-          "output": "PERIL_ORB",
-          "experience": 17,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "BLOODWORT",
-              "amount": 3
-            },
-            {
-              "item": "BARK",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "MERCY_BREW",
-          "level": 20,
-          "seconds": 400,
-          "nothing": 35,
-          "output": "MERCY_ORB",
-          "experience": 20,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "SHADEBLOOM",
-              "amount": 2
-            },
-            {
-              "item": "BARK",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "ELITE_BREW",
-          "level": 25,
-          "seconds": 400,
-          "nothing": 35,
-          "output": "ELITE_ORB",
-          "experience": 24,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "GLOWCAP",
-              "amount": 2
-            },
-            {
-              "item": "SAPPHIRE",
-              "amount": 1
-            },
-            {
-              "item": "BARK",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "BOUNTY_BREW",
-          "level": 30,
-          "seconds": 450,
-          "nothing": 38,
-          "output": "BOUNTY_ORB",
-          "experience": 28,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "MOON_LOTUS",
-              "amount": 2
-            },
-            {
-              "item": "TOPAZ",
-              "amount": 1
-            },
-            {
-              "item": "BARK",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "EMPOWERING_BREW",
-          "level": 35,
-          "seconds": 600,
-          "nothing": 45,
-          "output": "EMPOWERING_ORB",
-          "experience": 35,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "MOON_LOTUS",
-              "amount": 2
-            },
-            {
-              "item": "RUBY",
-              "amount": 1
-            },
-            {
-              "item": "BARK",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "TREASURE_BREW",
-          "level": 30,
-          "seconds": 450,
-          "nothing": 38,
-          "output": "TREASURE_ORB",
-          "experience": 32,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "SHADEBLOOM",
-              "amount": 3
-            },
-            {
-              "item": "SILVER_ORE",
-              "amount": 2
-            }
-          ]
-        },
-        {
-          "code": "GILDED_BREW",
-          "level": 34,
-          "seconds": 450,
-          "nothing": 38,
-          "output": "GILDED_ORB",
-          "experience": 32,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "AMBER_RESIN",
-              "amount": 3
-            },
-            {
-              "item": "TOPAZ",
-              "amount": 1
-            }
-          ]
-        },
-        {
-          "code": "WARDEN_BREW",
-          "level": 42,
-          "seconds": 450,
-          "nothing": 38,
-          "output": "WARDEN_ORB",
-          "experience": 32,
-          "extra": [],
-          "kind": "ITEM",
-          "inputs": [
-            {
-              "item": "VOID_ROOT",
-              "amount": 2
-            },
-            {
-              "item": "RUBY",
-              "amount": 1
             }
           ]
         },
@@ -901,126 +800,6 @@
           ]
         },
         {
-          "code": "MEDIUM_LIFE_FLASK_BREW",
-          "level": 7,
-          "seconds": 272,
-          "nothing": 26,
-          "output": "FLASK_MEDIUM_LIFE",
-          "experience": 12,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 1
-            },
-            {
-              "item": "BLOODWORT",
-              "amount": 3
-            }
-          ]
-        },
-        {
-          "code": "LARGE_LIFE_FLASK_BREW",
-          "level": 14,
-          "seconds": 304,
-          "nothing": 28,
-          "output": "FLASK_LARGE_LIFE",
-          "experience": 16,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 1
-            },
-            {
-              "item": "BLOODWORT",
-              "amount": 4
-            }
-          ]
-        },
-        {
-          "code": "GREATER_LIFE_FLASK_BREW",
-          "level": 22,
-          "seconds": 344,
-          "nothing": 30,
-          "output": "FLASK_GREATER_LIFE",
-          "experience": 21,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 2
-            },
-            {
-              "item": "BLOODWORT",
-              "amount": 5
-            }
-          ]
-        },
-        {
-          "code": "GRAND_LIFE_FLASK_BREW",
-          "level": 30,
-          "seconds": 384,
-          "nothing": 32,
-          "output": "FLASK_GRAND_LIFE",
-          "experience": 26,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 2
-            },
-            {
-              "item": "BLOODWORT",
-              "amount": 6
-            }
-          ]
-        },
-        {
-          "code": "GIANT_LIFE_FLASK_BREW",
-          "level": 40,
-          "seconds": 432,
-          "nothing": 34,
-          "output": "FLASK_GIANT_LIFE",
-          "experience": 32,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 2
-            },
-            {
-              "item": "BLOODWORT",
-              "amount": 7
-            }
-          ]
-        },
-        {
-          "code": "DIVINE_LIFE_FLASK_BREW",
-          "level": 50,
-          "seconds": 480,
-          "nothing": 37,
-          "output": "FLASK_DIVINE_LIFE",
-          "experience": 38,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 3
-            },
-            {
-              "item": "BLOODWORT",
-              "amount": 8
-            }
-          ]
-        },
-        {
           "code": "SMALL_MANA_FLASK_BREW",
           "level": 1,
           "seconds": 244,
@@ -1041,126 +820,6 @@
           ]
         },
         {
-          "code": "MEDIUM_MANA_FLASK_BREW",
-          "level": 7,
-          "seconds": 272,
-          "nothing": 26,
-          "output": "FLASK_MEDIUM_MANA",
-          "experience": 12,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 1
-            },
-            {
-              "item": "GLOWCAP",
-              "amount": 3
-            }
-          ]
-        },
-        {
-          "code": "LARGE_MANA_FLASK_BREW",
-          "level": 14,
-          "seconds": 304,
-          "nothing": 28,
-          "output": "FLASK_LARGE_MANA",
-          "experience": 16,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 1
-            },
-            {
-              "item": "GLOWCAP",
-              "amount": 4
-            }
-          ]
-        },
-        {
-          "code": "GREATER_MANA_FLASK_BREW",
-          "level": 22,
-          "seconds": 344,
-          "nothing": 30,
-          "output": "FLASK_GREATER_MANA",
-          "experience": 21,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 2
-            },
-            {
-              "item": "GLOWCAP",
-              "amount": 5
-            }
-          ]
-        },
-        {
-          "code": "GRAND_MANA_FLASK_BREW",
-          "level": 30,
-          "seconds": 384,
-          "nothing": 32,
-          "output": "FLASK_GRAND_MANA",
-          "experience": 26,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 2
-            },
-            {
-              "item": "MOON_LOTUS",
-              "amount": 6
-            }
-          ]
-        },
-        {
-          "code": "GIANT_MANA_FLASK_BREW",
-          "level": 40,
-          "seconds": 432,
-          "nothing": 34,
-          "output": "FLASK_GIANT_MANA",
-          "experience": 32,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 2
-            },
-            {
-              "item": "MOON_LOTUS",
-              "amount": 7
-            }
-          ]
-        },
-        {
-          "code": "DIVINE_MANA_FLASK_BREW",
-          "level": 50,
-          "seconds": 480,
-          "nothing": 37,
-          "output": "FLASK_DIVINE_MANA",
-          "experience": 38,
-          "extra": [],
-          "kind": "FLASK",
-          "inputs": [
-            {
-              "item": "STONE_POLISHED",
-              "amount": 3
-            },
-            {
-              "item": "MOON_LOTUS",
-              "amount": 8
-            }
-          ]
-        },
-        {
           "code": "QUICKSILVER_FLASK_BREW",
           "level": 4,
           "seconds": 256,
@@ -1177,6 +836,82 @@
             {
               "item": "SILVER_ORE",
               "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "STONE_FLUX_BREW",
+          "level": 5,
+          "seconds": 200,
+          "nothing": 25,
+          "output": "STONE_FLUX",
+          "experience": 8,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "CAVE_MUSHROOM",
+              "amount": 2
+            },
+            {
+              "item": "COPPER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "AUGMENTATION_BREW",
+          "level": 5,
+          "seconds": 150,
+          "nothing": 25,
+          "output": "ORB_OF_AUGMENTATION",
+          "experience": 5,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "WORMWOOD",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "MEDIUM_LIFE_FLASK_BREW",
+          "level": 7,
+          "seconds": 272,
+          "nothing": 26,
+          "output": "FLASK_MEDIUM_LIFE",
+          "experience": 12,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "MEDIUM_MANA_FLASK_BREW",
+          "level": 7,
+          "seconds": 272,
+          "nothing": 26,
+          "output": "FLASK_MEDIUM_MANA",
+          "experience": 12,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 3
             }
           ]
         },
@@ -1241,6 +976,26 @@
           ]
         },
         {
+          "code": "ALTERATION_BREW",
+          "level": 8,
+          "seconds": 200,
+          "nothing": 28,
+          "output": "ORB_OF_ALTERATION",
+          "experience": 7,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 2
+            },
+            {
+              "item": "COPPER_ORE",
+              "amount": 1
+            }
+          ]
+        },
+        {
           "code": "CONDENSE_ESSENCE",
           "level": 8,
           "seconds": 300,
@@ -1249,6 +1004,46 @@
           "experience": 18,
           "kind": "CONDENSE",
           "step": 4
+        },
+        {
+          "code": "FIRE_FLUX_BREW",
+          "level": 10,
+          "seconds": 250,
+          "nothing": 27,
+          "output": "FIRE_FLUX",
+          "experience": 12,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "HORDE_BREW",
+          "level": 10,
+          "seconds": 300,
+          "nothing": 30,
+          "output": "HORDE_ORB",
+          "experience": 12,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            },
+            {
+              "item": "BARK",
+              "amount": 1
+            }
+          ]
         },
         {
           "code": "GRANITE_FLASK_BREW",
@@ -1291,6 +1086,142 @@
           ]
         },
         {
+          "code": "SCOURING_BREW",
+          "level": 12,
+          "seconds": 200,
+          "nothing": 30,
+          "output": "ORB_OF_SCOURING",
+          "experience": 9,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "BAUBLE_BREW",
+          "level": 12,
+          "seconds": 300,
+          "nothing": 30,
+          "output": "GLASSBLOWERS_BAUBLE",
+          "experience": 14,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "LARGE_LIFE_FLASK_BREW",
+          "level": 14,
+          "seconds": 304,
+          "nothing": 28,
+          "output": "FLASK_LARGE_LIFE",
+          "experience": 16,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 4
+            }
+          ]
+        },
+        {
+          "code": "LARGE_MANA_FLASK_BREW",
+          "level": 14,
+          "seconds": 304,
+          "nothing": 28,
+          "output": "FLASK_LARGE_MANA",
+          "experience": 16,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 1
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 4
+            }
+          ]
+        },
+        {
+          "code": "FROST_FLUX_BREW",
+          "level": 15,
+          "seconds": 250,
+          "nothing": 28,
+          "output": "FROST_FLUX",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 3
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "ALCHEMY_BREW",
+          "level": 15,
+          "seconds": 300,
+          "nothing": 32,
+          "output": "ORB_OF_ALCHEMY",
+          "experience": 14,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "MAGUS_BREW",
+          "level": 15,
+          "seconds": 300,
+          "nothing": 30,
+          "output": "MAGUS_ORB",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
           "code": "SILVER_FLASK_BREW",
           "level": 17,
           "seconds": 320,
@@ -1306,6 +1237,66 @@
             },
             {
               "item": "SILVER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "PERIL_BREW",
+          "level": 18,
+          "seconds": 350,
+          "nothing": 32,
+          "output": "PERIL_ORB",
+          "experience": 17,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "STORM_FLUX_BREW",
+          "level": 20,
+          "seconds": 300,
+          "nothing": 30,
+          "output": "STORM_FLUX",
+          "experience": 18,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 3
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "MERCY_BREW",
+          "level": 20,
+          "seconds": 400,
+          "nothing": 35,
+          "output": "MERCY_ORB",
+          "experience": 20,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "BARK",
               "amount": 2
             }
           ]
@@ -1331,6 +1322,66 @@
           ]
         },
         {
+          "code": "GREATER_LIFE_FLASK_BREW",
+          "level": 22,
+          "seconds": 344,
+          "nothing": 30,
+          "output": "FLASK_GREATER_LIFE",
+          "experience": 21,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "code": "GREATER_MANA_FLASK_BREW",
+          "level": 22,
+          "seconds": 344,
+          "nothing": 30,
+          "output": "FLASK_GREATER_MANA",
+          "experience": 21,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "code": "ESSENCE_BREW",
+          "level": 22,
+          "seconds": 420,
+          "nothing": 36,
+          "output": "ESSENCE_ORB",
+          "experience": 26,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
           "code": "DIAMOND_FLASK_BREW",
           "level": 24,
           "seconds": 352,
@@ -1347,6 +1398,70 @@
             {
               "item": "MITHRIL_ORE",
               "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "QUICK_FLUX_BREW",
+          "level": 25,
+          "seconds": 300,
+          "nothing": 32,
+          "output": "QUICK_FLUX",
+          "experience": 22,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "CHAOS_BREW",
+          "level": 25,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "CHAOS_ORB",
+          "experience": 24,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "ELITE_BREW",
+          "level": 25,
+          "seconds": 400,
+          "nothing": 35,
+          "output": "ELITE_ORB",
+          "experience": 24,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 1
             }
           ]
         },
@@ -1391,6 +1506,130 @@
           ]
         },
         {
+          "code": "SCRIBE_BREW",
+          "level": 28,
+          "seconds": 420,
+          "nothing": 36,
+          "output": "SCRIBE_ORB",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 3
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "REGAL_BREW",
+          "level": 30,
+          "seconds": 450,
+          "nothing": 40,
+          "output": "REGAL_ORB",
+          "experience": 28,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "SILVER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "BOUNTY_BREW",
+          "level": 30,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "BOUNTY_ORB",
+          "experience": 28,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "TREASURE_BREW",
+          "level": 30,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "TREASURE_ORB",
+          "experience": 32,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "SHADEBLOOM",
+              "amount": 3
+            },
+            {
+              "item": "SILVER_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "GRAND_LIFE_FLASK_BREW",
+          "level": 30,
+          "seconds": 384,
+          "nothing": 32,
+          "output": "FLASK_GRAND_LIFE",
+          "experience": 26,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 6
+            }
+          ]
+        },
+        {
+          "code": "GRAND_MANA_FLASK_BREW",
+          "level": 30,
+          "seconds": 384,
+          "nothing": 32,
+          "output": "FLASK_GRAND_MANA",
+          "experience": 26,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 6
+            }
+          ]
+        },
+        {
           "code": "SULPHUR_FLASK_BREW",
           "level": 30,
           "seconds": 380,
@@ -1411,62 +1650,214 @@
           ]
         },
         {
-          "code": "BAUBLE_BREW",
-          "level": 12,
-          "seconds": 300,
-          "nothing": 30,
-          "output": "GLASSBLOWERS_BAUBLE",
-          "experience": 14,
+          "code": "GILDED_BREW",
+          "level": 34,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "GILDED_ORB",
+          "experience": 32,
           "extra": [],
           "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "AMBER_RESIN",
+              "amount": 3
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "EMPOWERING_BREW",
+          "level": 35,
+          "seconds": 600,
+          "nothing": 45,
+          "output": "EMPOWERING_ORB",
+          "experience": 35,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "DIVINE_BREW",
+          "level": 40,
+          "seconds": 1800,
+          "nothing": 55,
+          "output": "DIVINE_ORB",
+          "experience": 45,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 4
+            },
+            {
+              "item": "MITHRIL_ORE",
+              "amount": 4
+            },
+            {
+              "item": "CHAOS_ORB",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "code": "GIANT_LIFE_FLASK_BREW",
+          "level": 40,
+          "seconds": 432,
+          "nothing": 34,
+          "output": "FLASK_GIANT_LIFE",
+          "experience": 32,
+          "extra": [],
+          "kind": "FLASK",
           "inputs": [
             {
               "item": "STONE_POLISHED",
               "amount": 2
             },
             {
-              "item": "AMBER_RESIN",
-              "amount": 1
+              "item": "BLOODWORT",
+              "amount": 7
             }
           ]
         },
         {
-          "code": "ESSENCE_BREW",
-          "level": 22,
-          "seconds": 420,
-          "nothing": 36,
-          "output": "ESSENCE_ORB",
-          "experience": 26,
+          "code": "GIANT_MANA_FLASK_BREW",
+          "level": 40,
+          "seconds": 432,
+          "nothing": 34,
+          "output": "FLASK_GIANT_MANA",
+          "experience": 32,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 2
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 7
+            }
+          ]
+        },
+        {
+          "code": "WARDEN_BREW",
+          "level": 42,
+          "seconds": 450,
+          "nothing": 38,
+          "output": "WARDEN_ORB",
+          "experience": 32,
           "extra": [],
           "kind": "ITEM",
           "inputs": [
             {
-              "item": "SHADEBLOOM",
+              "item": "VOID_ROOT",
               "amount": 2
             },
             {
-              "item": "SAPPHIRE",
+              "item": "RUBY",
               "amount": 1
             }
           ]
         },
         {
-          "code": "SCRIBE_BREW",
-          "level": 28,
-          "seconds": 420,
-          "nothing": 36,
-          "output": "SCRIBE_ORB",
+          "code": "EXALTED_BREW",
+          "level": 45,
+          "seconds": 1800,
+          "nothing": 60,
+          "output": "EXALTED_ORB",
+          "experience": 55,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 6
+            },
+            {
+              "item": "RUBY",
+              "amount": 4
+            },
+            {
+              "item": "REGAL_ORB",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "code": "STAR_FLUX_BREW",
+          "level": 45,
+          "seconds": 300,
+          "nothing": 25,
+          "output": "STAR_FLUX",
           "experience": 30,
           "extra": [],
           "kind": "ITEM",
           "inputs": [
             {
-              "item": "BARK",
+              "item": "STARBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "WORLDROOT",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "DIVINE_LIFE_FLASK_BREW",
+          "level": 50,
+          "seconds": 480,
+          "nothing": 37,
+          "output": "FLASK_DIVINE_LIFE",
+          "experience": 38,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
               "amount": 3
             },
             {
-              "item": "GLOWCAP",
-              "amount": 2
+              "item": "BLOODWORT",
+              "amount": 8
+            }
+          ]
+        },
+        {
+          "code": "DIVINE_MANA_FLASK_BREW",
+          "level": 50,
+          "seconds": 480,
+          "nothing": 37,
+          "output": "FLASK_DIVINE_MANA",
+          "experience": 38,
+          "extra": [],
+          "kind": "FLASK",
+          "inputs": [
+            {
+              "item": "STONE_POLISHED",
+              "amount": 3
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 8
             }
           ]
         }
@@ -1692,6 +2083,32 @@
             }
           ],
           "region": "REGION_9"
+        },
+        {
+          "code": "CHART_TIERED",
+          "level": 50,
+          "seconds": 900,
+          "nothing": 25,
+          "output": "",
+          "experience": 90,
+          "extra": [],
+          "kind": "MAP",
+          "inputs": [
+            {
+              "item": "WORLDTREE_LOG",
+              "amount": 2
+            },
+            {
+              "item": "STARBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "ONYX",
+              "amount": 1
+            }
+          ],
+          "region": "REGION_9",
+          "tier": 3
         }
       ]
     },
@@ -1723,6 +2140,34 @@
           ]
         },
         {
+          "code": "CUT_JEWEL_1",
+          "level": 15,
+          "seconds": 700,
+          "nothing": 30,
+          "output": "",
+          "experience": 25,
+          "extra": [],
+          "kind": "JEWEL",
+          "inputs": [
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            },
+            {
+              "item": "BARK",
+              "amount": 2
+            }
+          ],
+          "band": [
+            1,
+            20
+          ]
+        },
+        {
           "code": "SCRIBE_BOOK_2",
           "level": 30,
           "seconds": 800,
@@ -1747,6 +2192,34 @@
           ],
           "band": [
             30
+          ]
+        },
+        {
+          "code": "CUT_JEWEL_2",
+          "level": 45,
+          "seconds": 1000,
+          "nothing": 30,
+          "output": "",
+          "experience": 55,
+          "extra": [],
+          "kind": "JEWEL",
+          "inputs": [
+            {
+              "item": "ONYX",
+              "amount": 1
+            },
+            {
+              "item": "STARBLOOM",
+              "amount": 2
+            },
+            {
+              "item": "ELDERHEART_LOG",
+              "amount": 1
+            }
+          ],
+          "band": [
+            20,
+            45
           ]
         },
         {
@@ -1791,7 +2264,8 @@
       "FIRE_FLUX": "HC_FIRE",
       "FROST_FLUX": "HC_COLD",
       "STORM_FLUX": "HC_LIGHTNING",
-      "QUICK_FLUX": "HC_SPEED"
+      "QUICK_FLUX": "HC_SPEED",
+      "STAR_FLUX": "HC_CRITICAL"
     },
     "tables": [
       "smith"

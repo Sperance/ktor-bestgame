@@ -60,6 +60,8 @@ object LocaleKey {
     fun professionName(code: String) = key(PROFESSION, code, NAME)
     fun professionDescription(code: String) = key(PROFESSION, code, DESCRIPTION)
     fun jobName(code: String) = key(JOB, code, NAME)
+    /** Выбор работы, что не предмет (1.44.0): группа и атрибут кузнеца. */
+    fun choiceName(code: String) = key("choice", code, NAME)
     fun atlasNodeName(code: String) = key(ATLAS_NODE, code, NAME)
     fun skillName(code: String) = key(SKILL, code, NAME)
     fun essenceTier(code: String) = "$ESSENCE.tier.$code"

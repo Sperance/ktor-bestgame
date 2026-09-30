@@ -49,6 +49,12 @@
       "price": 60
     },
     {
+      "code": "STARMETAL_ORE",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 80
+    },
+    {
       "code": "TOPAZ",
       "category": "MATERIAL",
       "subCategory": "MINING",
@@ -65,6 +71,12 @@
       "category": "MATERIAL",
       "subCategory": "MINING",
       "price": 65
+    },
+    {
+      "code": "ONYX",
+      "category": "MATERIAL",
+      "subCategory": "MINING",
+      "price": 95
     },
     {
       "code": "WORMWOOD",
@@ -115,6 +127,18 @@
       "price": 55
     },
     {
+      "code": "WORLDROOT",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 90
+    },
+    {
+      "code": "STARBLOOM",
+      "category": "MATERIAL",
+      "subCategory": "HERBALISM",
+      "price": 75
+    },
+    {
       "code": "BIRCH_LOG",
       "category": "MATERIAL",
       "subCategory": "WOODCUTTING",
@@ -145,6 +169,18 @@
       "price": 55
     },
     {
+      "code": "WORLDTREE_LOG",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 90
+    },
+    {
+      "code": "ELDERHEART_LOG",
+      "category": "MATERIAL",
+      "subCategory": "WOODCUTTING",
+      "price": 75
+    },
+    {
       "code": "BARK",
       "category": "MATERIAL",
       "subCategory": "WOODCUTTING",
@@ -155,6 +191,12 @@
       "category": "MATERIAL",
       "subCategory": "ALCHEMY",
       "price": 40
+    },
+    {
+      "code": "STAR_FLUX",
+      "category": "MATERIAL",
+      "subCategory": "ALCHEMY",
+      "price": 70
     },
     {
       "code": "STONE_FLUX",

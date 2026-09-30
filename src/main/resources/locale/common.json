@@ -1219,5 +1219,12 @@
   "equipment.HIGHWATER_MARK.trade": "Highwater Mark",
   "equipment.APEX_CIRCLET.trade": "Apex Circlet",
   "equipment.CLIMBERS_GRIP.trade": "Climber's Grip",
-  "equipment.ZENITH_BOW.trade": "Zenith"
+  "equipment.ZENITH_BOW.trade": "Zenith",
+  "item.STARMETAL_ORE.trade": "Starmetal Ore",
+  "item.ONYX.trade": "Onyx",
+  "item.STARBLOOM.trade": "Starbloom",
+  "item.WORLDROOT.trade": "Worldroot",
+  "item.ELDERHEART_LOG.trade": "Elderheart Log",
+  "item.WORLDTREE_LOG.trade": "Worldtree Log",
+  "item.STAR_FLUX.trade": "Star Flux"
 }

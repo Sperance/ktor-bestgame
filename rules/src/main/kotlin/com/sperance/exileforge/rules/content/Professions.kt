@@ -6,14 +6,14 @@ import kotlinx.serialization.Serializable
 @Serializable data class JobExtra(val item: String, val chance: Double)
 @Serializable data class JobInput(val item: String, val amount: Long)
 /**
- * Вид работы. [CONDENSE] и [BOOK] - с выбором (1.43.0): игрок называет, что делать (ступень и вид эссенции,
- * умение своего класса), и работа становится обычной [ITEM] - см. [JobRecipes]. [MAP] чертит случайную открытую
- * зону своего региона.
+ * Вид работы. С выбором (1.43.0, см. [JobRecipes]) - [CONDENSE], [BOOK], [REFINE] и [EQUIPMENT]: игрок называет,
+ * что делать (ступень и вид эссенции, умение своего класса, что перегнать, группа и атрибут вещи кузнеца), и работа
+ * получает свой вход и выход. [MAP] чертит случайную открытую зону своего региона, [JEWEL] - гранит самоцвет (1.44.0).
  */
 @Serializable enum class JobKind {
-    ITEM, EQUIPMENT, MAP, FLASK, BOOK, CONDENSE;
+    ITEM, EQUIPMENT, MAP, FLASK, BOOK, CONDENSE, REFINE, JEWEL;
 
-    val chosen: Boolean get() = this == BOOK || this == CONDENSE
+    val chosen: Boolean get() = this == BOOK || this == CONDENSE || this == REFINE || this == EQUIPMENT
 }
 
 @Serializable
@@ -23,6 +23,12 @@ data class Job(
     val band: List<Int> = emptyList(), val region: String = "", val additives: Boolean = false,
     /** Прибавка опыта за ступень выбора сверх первой (сгущение эссенций). */
     val step: Double = 0.0,
+    /** Цепочка добычи (1.44.0): выходы работ одной цепочки перегоняются [REFINE] по порядку уровней. */
+    val chain: String = "",
+    /** Перегонка (1.44.0): сколько единиц низшей ступени идёт на одну высшую. */
+    val ratio: Long = 0,
+    /** Картограф (1.44.0): карта с тиром до этого - только зоны не ниже [MapTierRule.fromLevel]. */
+    val tier: Int = 0,
 )
 
 /** Правила ремесла: шансы ручной работы и уникалки, таблицы баз, уникалок, строк и редкостей кузнеца и картографа. */
@@ -66,6 +72,8 @@ data class CraftsFile(val rules: CraftsRules, val professions: List<Profession>,
                 JobKind.FLASK -> if (template(job.output)?.slot?.isFlask != true) fail("professions: flask of ${job.code}")
                 JobKind.BOOK -> if (job.band.size != 1 || job.output.isNotEmpty()) fail("professions: book of ${job.code}")
                 JobKind.CONDENSE -> if (job.output.isNotEmpty() || job.inputs.isNotEmpty() || job.step < 0) fail("professions: condense of ${job.code}")
+                JobKind.REFINE -> if (job.output.isNotEmpty() || job.inputs.isNotEmpty() || job.ratio < 2) fail("professions: refine of ${job.code}")
+                JobKind.JEWEL -> if (job.band.size != 2 || job.band[0] > job.band[1]) fail("professions: jewel band of ${job.code}")
             }
         }
         professions.forEach { if (it.jobs.none { job -> job.level == 1 }) fail("professions: no first-level work in ${it.code}") }

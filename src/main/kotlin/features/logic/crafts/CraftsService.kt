@@ -14,6 +14,7 @@ import com.sperance.exileforge.rules.content.MAP_TEMPLATE
 import com.sperance.exileforge.rules.content.Profession
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SkillRules
+import com.sperance.exileforge.rules.content.SmithChoice
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.roll.ActiveWork
 import com.sperance.exileforge.rules.roll.AffixRoller
@@ -124,7 +125,11 @@ class CraftsService : KoinComponent {
         val dice = Dice.system()
         val result = Work.settle(file.rules, job, progress, bonus(hero, profession), work.settledAt, System.currentTimeMillis(), work.seed, work.cycles, hero.bag, work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
-        val bases = if (job.kind == JobKind.EQUIPMENT) craftBases(job) else emptyList()
+        val bases = when (job.kind) {
+            JobKind.EQUIPMENT -> craftBases(job).filter { base -> SmithChoice.of(work.choice)?.fits(base.value) == true }
+            JobKind.JEWEL -> index.templatesBySlot[Slot.JEWEL].orEmpty().filter { !it.unique && it.level in job.band[0]..job.band[1] }.map { Weighted(it, 1) }
+            else -> emptyList()
+        }
         val zones = if (job.kind == JobKind.MAP) charted(hero, job) else emptyList()
         val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, index.rules.loot.craftedItemLevel(hero.level, result.progress.level, file.rules.maxLevel), dice, bases, zones) }.filterNotNull()
         hero.professions[profession.code] = result.progress
@@ -179,7 +184,8 @@ class CraftsService : KoinComponent {
     private fun charted(hero: Hero, job: Job): List<String> {
         val region = index.campaign.regions.firstOrNull { it.code == job.region } ?: return emptyList()
         val unlocked = index.world.unlocked(hero.campaign.cleared).toSet()
-        return region.zones.map { it.code }.filter { it in unlocked }
+        val floor = if (job.tier > 0) index.campaign.maps.tiers?.fromLevel ?: Int.MAX_VALUE else 0
+        return region.zones.filter { it.code in unlocked && it.level >= floor }.map { it.code }
     }
 
     /** Базы кузнеца в диапазоне уровней работы - один раз на досчёт. */
@@ -208,6 +214,10 @@ class CraftsService : KoinComponent {
                 val handcrafted = (guaranteed + listOfNotNull(random)).distinct().take(crafting.maxHandcrafted)
                 item.also { it.rolls = it.rolls + handcrafted.mapNotNull { code -> affixes.rollCode(code, itemLevel, dice) } }
             }
+            JobKind.JEWEL -> {
+                val base = Tables.draw(bases, dice) ?: return null
+                factory.create(Hero.newItemId(), base, Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.MAGIC, dice, level = itemLevel)
+            }
             JobKind.FLASK -> {
                 val base = index.template(job.output) ?: return null
                 factory.create(Hero.newItemId(), base, if (dice.percent(crafting.flaskMagicChance)) Rarity.MAGIC else Rarity.COMMON, dice, level = itemLevel)
@@ -218,10 +228,11 @@ class CraftsService : KoinComponent {
                 val rarity = Tables.value<Rarity>(index.tables, crafting.mapRarities, dice) ?: Rarity.MAGIC
                 val mapLevel = index.zone(zone)?.level ?: itemLevel
                 val item = factory.create(Hero.newItemId(), base, rarity, dice, level = mapLevel).also { it.mapZone = zone }
+                if (job.tier > 0) item.mapTier = dice.between(1, job.tier)
                 val handcrafted = Tables.draw(index.modifierPool(crafting.mapModifiers), dice)?.code?.takeIf { dice.percent(crafting.mapHandcraftedChance) }
                 item.also { it.rolls = it.rolls + listOfNotNull(handcrafted?.let { code -> affixes.rollCode(code, itemLevel, dice) }) }
             }
-            JobKind.ITEM, JobKind.BOOK, JobKind.CONDENSE -> null
+            JobKind.ITEM, JobKind.BOOK, JobKind.CONDENSE, JobKind.REFINE -> null
         }
     }
 

@@ -104,6 +104,7 @@ class LocalizationTest {
             add(LocaleKey.professionName(profession.code)); add(LocaleKey.professionDescription(profession.code))
             profession.jobs.forEach { add(LocaleKey.jobName(it.code)) }
         }
+        com.sperance.exileforge.rules.content.SmithChoice.entries.forEach { add(LocaleKey.choiceName(it.name)) }
         index.atlas.nodes.forEach { add(LocaleKey.atlasNodeName(it.code)) }
         (index.skills.skills.map { it.code } + index.skills.monsterSkills.map { it.code }).forEach { add(LocaleKey.skillName(it)) }
         index.essences.tiers.forEach { add(LocaleKey.essenceTier(it.code)) }

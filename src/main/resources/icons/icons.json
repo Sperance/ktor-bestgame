@@ -28675,6 +28675,172 @@
           "line": 1.4
         }
       ]
+    },
+    "gl_ore_starmetal": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M8 44 L14 24 L28 14 L46 18 L56 34 L52 52 L30 58 L12 54Z",
+          "color": "#5b7fb8"
+        },
+        {
+          "d": "M22 30 L28 26 L30 34 L24 36Z",
+          "color": "#9b6bd6"
+        },
+        {
+          "d": "M38 36 L46 32 L48 42 L40 44Z",
+          "color": "#9b6bd6"
+        },
+        {
+          "d": "M30 44 L34 42 L35 48 L31 49Z",
+          "color": "#9b6bd6"
+        },
+        {
+          "d": "M14 24 L28 14 L30 22 L18 30Z",
+          "color": "#ffffff",
+          "alpha": 0.2
+        }
+      ]
+    },
+    "gl_gem_onyx": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 14 H46 L58 28 L32 58 L6 28Z",
+          "color": "#2a2a33"
+        },
+        {
+          "d": "M18 14 L24 28 H40 L46 14Z",
+          "color": "#ff3e60"
+        },
+        {
+          "d": "M6 28 H58 L32 58Z",
+          "color": "#b3263b"
+        },
+        {
+          "d": "M18 14 L6 28 H24Z",
+          "color": "#ffffff",
+          "alpha": 0.45
+        }
+      ]
+    },
+    "gl_herb_starbloom": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M28 4 h10 l-2 12 C44 24 46 36 38 46 L40 60 L34 50 L28 60 L30 46 C20 38 22 24 30 16Z",
+          "color": "#e6d36a"
+        },
+        {
+          "d": "M30 26 C34 30 36 34 34 40",
+          "color": "#26211d",
+          "line": 1.2
+        },
+        {
+          "d": "M30 16 C24 24 24 34 28 42 L30 42 C28 34 28 24 32 16Z",
+          "color": "#ffffff",
+          "alpha": 0.25
+        }
+      ]
+    },
+    "gl_herb_worldroot": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M28 4 h10 l-2 12 C44 24 46 36 38 46 L40 60 L34 50 L28 60 L30 46 C20 38 22 24 30 16Z",
+          "color": "#6b8e3a"
+        },
+        {
+          "d": "M30 26 C34 30 36 34 34 40",
+          "color": "#26211d",
+          "line": 1.2
+        },
+        {
+          "d": "M30 16 C24 24 24 34 28 42 L30 42 C28 34 28 24 32 16Z",
+          "color": "#ffffff",
+          "alpha": 0.25
+        }
+      ]
+    },
+    "gl_log_elderheart": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 22 H44 V48 H10Z",
+          "color": "#8a4b2a"
+        },
+        {
+          "d": "M16 28 H40 M14 36 H42 M18 43 H38",
+          "color": "#535c65",
+          "line": 1.2
+        },
+        {
+          "d": "M44 22 C52 22 56 28 56 35 C56 42 52 48 44 48 C36 48 32 42 32 35 C32 28 36 22 44 22Z",
+          "color": "#dce8f0"
+        },
+        {
+          "d": "M44 28 C48 28 50 31 50 35 C50 39 48 42 44 42 C40 42 38 39 38 35 C38 31 40 29 44 29",
+          "color": "#9aa2a8",
+          "line": 1.2
+        }
+      ]
+    },
+    "gl_log_worldtree": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 22 H44 V48 H10Z",
+          "color": "#c9a86a"
+        },
+        {
+          "d": "M16 28 H40 M14 36 H42 M18 43 H38",
+          "color": "#535c65",
+          "line": 1.2
+        },
+        {
+          "d": "M44 22 C52 22 56 28 56 35 C56 42 52 48 44 48 C36 48 32 42 32 35 C32 28 36 22 44 22Z",
+          "color": "#dce8f0"
+        },
+        {
+          "d": "M44 28 C48 28 50 31 50 35 C50 39 48 42 44 42 C40 42 38 39 38 35 C38 31 40 29 44 29",
+          "color": "#9aa2a8",
+          "line": 1.2
+        }
+      ]
+    },
+    "gl_flux_star": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 26 C10 36 12 58 32 58 C52 58 54 36 46 26Z",
+          "color": "#e0e0ff"
+        },
+        {
+          "d": "M22 18 H42 L46 26 H18Z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M20 25 H44",
+          "color": "#d9a53a",
+          "line": 1.6
+        },
+        {
+          "d": "M22 18 C24 8 40 8 42 18Z",
+          "color": "#c02a3a"
+        },
+        {
+          "d": "M29 13 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0Z",
+          "color": "#ffffff",
+          "alpha": 0.5
+        }
+      ]
     }
   },
   "icons": {
@@ -30948,6 +31114,13 @@
     "equipment.HIGHWATER_MARK": "gl_u_highwater_mark",
     "equipment.APEX_CIRCLET": "gl_u_apex_circlet",
     "equipment.CLIMBERS_GRIP": "gl_u_climbers_grip",
-    "equipment.ZENITH_BOW": "gl_u_zenith_bow"
+    "equipment.ZENITH_BOW": "gl_u_zenith_bow",
+    "item.STARMETAL_ORE": "gl_ore_starmetal",
+    "item.ONYX": "gl_gem_onyx",
+    "item.STARBLOOM": "gl_herb_starbloom",
+    "item.WORLDROOT": "gl_herb_worldroot",
+    "item.ELDERHEART_LOG": "gl_log_elderheart",
+    "item.WORLDTREE_LOG": "gl_log_worldtree",
+    "item.STAR_FLUX": "gl_flux_star"
   }
 }
