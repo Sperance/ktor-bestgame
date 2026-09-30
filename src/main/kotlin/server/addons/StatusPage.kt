@@ -3,6 +3,8 @@ package server.addons
 import base.exception.BaseException
 import com.sperance.exileforge.rules.RuleViolation
 import base.exception.model.AuthExceptions
+import base.exception.BaseRepositoryExceptions
+import base.exception.model.CampaignExceptions
 import base.exception.model.IdempotencyExceptions
 import extensions.printLog
 import base.route.ApiMongoResponse
@@ -55,15 +57,18 @@ fun Application.configureStatusPages() {
         exception<BaseException> { call, cause -> call.respondRefusal(cause) }
         exception<RuleViolation> { call, cause -> call.respondRefusal(cause) }
 
+        // Разбор тела (1.53.0): подробности - в лог, клиенту одно слово: текст kotlinx называет классы сервера
         exception<JsonConvertException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(cause.cause?.message?:cause.message, "StatusPage", null, "SP_100")))
+            printLog("[SP_100] ${call.request.uri.substringBefore("?")}: ${cause.cause?.message ?: cause.message}", true)
+            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException("Malformed request body", "StatusPage", null, "SP_100")))
         }
 
         // Ktor заворачивает ошибку разбора тела в BadRequestException, так что обработчик
         // JsonConvertException выше её не видит: без этого кривое тело отвечало 500
         exception<BadRequestException> { call, cause ->
             val reason = generateSequence(cause as Throwable) { it.cause }.last().message ?: cause.message
-            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException(reason, "StatusPage", null, "SP_100")))
+            printLog("[SP_100] ${call.request.uri.substringBefore("?")}: $reason", true)
+            call.respond(HttpStatusCode.BadRequest, ApiMongoResponse.error(BaseException("Malformed request body", "StatusPage", null, "SP_100")))
         }
 
         exception<UnsupportedMediaTypeException> { call, cause ->
@@ -86,6 +91,8 @@ fun Application.configureStatusPages() {
 fun refusal(cause: Throwable): Pair<HttpStatusCode, BaseException>? = when (cause) {
     is AuthExceptions.AuthException -> HttpStatusCode.fromValue(cause.status) to cause
     is IdempotencyExceptions.IdempotencyException -> HttpStatusCode.fromValue(cause.status) to cause
+    is CampaignExceptions.PayloadException -> HttpStatusCode.UnprocessableEntity to cause
+    is BaseRepositoryExceptions.BaseRepositoryException -> (if (cause.errorCode == BaseRepositoryExceptions.UNAVAILABLE) HttpStatusCode.ServiceUnavailable else HttpStatusCode.BadRequest) to cause
     is BaseException -> HttpStatusCode.BadRequest to cause
     // Отказ правил игры (1.0.0): код и аргументы шаблона словаря, как у отказов сервера
     is RuleViolation -> HttpStatusCode.BadRequest to BaseException(cause.message, "Rules", null, cause.code, cause.args)

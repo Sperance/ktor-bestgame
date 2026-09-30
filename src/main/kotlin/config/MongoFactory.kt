@@ -88,7 +88,7 @@ object MongoFactory {
                 val result = withContext(hooks) { body(session).also { hooks.runBeforeCommit(session) } }
                 if (session.hasActiveTransaction()) {
                     printLog("[TR::commit${session.hashCode()}] $transactionName ", true)
-                    session.commitTransaction()
+                    commitWithRetry(session)
                 }
                 // Кеши и журнал изменений узнают о правке только теперь: откат выше их не касается.
                 hooks.runAfterCommit()
@@ -96,10 +96,27 @@ object MongoFactory {
             } catch (e: Exception) {
                 if (session.hasActiveTransaction()) {
                     printLog("[TR::abort${session.hashCode()}] $transactionName ", true)
-                    session.abortTransaction()
+                    runCatching { session.abortTransaction() }
                 }
-                throw e
+                // Временный сбой базы (1.53.0) - 503 и повтор клиента, а не 500 и не бизнес-отказ
+                throw if (e is com.mongodb.MongoException) MongoErrors.translate(transactionName.ifBlank { "transaction" }, e) else e
             }
         }
     }
+
+    /** Коммит с повтором (1.53.0): исход неизвестен (сеть оборвалась на ответе) - драйвер разрешает повторить сам коммит. */
+    private suspend fun commitWithRetry(session: ClientSession) {
+        repeat(COMMIT_TRIES - 1) {
+            try {
+                return session.commitTransaction()
+            } catch (e: com.mongodb.MongoException) {
+                if (!e.hasErrorLabel(com.mongodb.MongoException.UNKNOWN_TRANSACTION_COMMIT_RESULT_LABEL)) throw e
+                printLog("[TR::commit-retry] ${e.message}", true)
+                delay(50.milliseconds * (it + 1))
+            }
+        }
+        session.commitTransaction()
+    }
+
+    private const val COMMIT_TRIES = 3
 }

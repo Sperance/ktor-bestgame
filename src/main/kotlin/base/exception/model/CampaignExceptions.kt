@@ -15,6 +15,10 @@ object CampaignExceptions {
     fun funExceptionMapItem(errorMethod: String, value: String? = "") = CampaignException("Item $value does not open this location", errorMethod, "CP_011", listOf(value.orEmpty()))
     fun funExceptionRarity(errorMethod: String, value: String? = "") = CampaignException("Unknown monster rarity $value", errorMethod, "CP_005", listOf(value.orEmpty()))
     fun funExceptionNoRun(errorMethod: String, value: String? = "") = CampaignException("No run is open on map $value", errorMethod, "CP_018", listOf(value.orEmpty()))
+    /** Тело больше потолка (1.53.0): 422, а не отказ правила. */
+    class PayloadException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : CampaignException(message, errorMethod, errorCode, messageArgs)
+
+    fun funExceptionTooManyEvents(errorMethod: String, value: String? = "") = PayloadException("A journal carries at most $value events", errorMethod, "CP_022", listOf(value.orEmpty()))
     fun funExceptionEventOrder(errorMethod: String, value: String? = "") = CampaignException("Run event $value is out of order", errorMethod, "CP_019", listOf(value.orEmpty()))
     fun funExceptionContentChanged(errorMethod: String, value: String? = "") = CampaignException("The world changed since run $value began: it is closed", errorMethod, "CP_020", listOf(value.orEmpty()))
     fun funExceptionSeedTooSoon(errorMethod: String, value: String? = "") = CampaignException("A new run can begin in $value s", errorMethod, "CP_021", listOf(value.orEmpty()))

@@ -89,6 +89,9 @@ data class RunReport(val applied: Int, val rejected: List<Int>, val reward: Rewa
  * `run.newSeedSeconds`, чем бы ни закрылся прежний заход; вход без карты в зону открытого захода продолжает
  * его, а заход, начатый на другом контенте, закрывается, а не проигрывается иначе, чем его видел клиент.
  */
+/** Событий в одном журнале не больше (1.53.0): клиент шлёт по шесть, офлайн-очередь режется на батчи. */
+const val MAX_EVENTS = 64
+
 class CampaignService : KoinComponent {
     private val heroes: HeroRepository by inject()
     private val atlas: AtlasService by inject()
@@ -206,6 +209,7 @@ class CampaignService : KoinComponent {
      */
     suspend fun events(heroId: String, events: List<RunEvent>): RunReport {
         val method = "events"
+        if (events.size > MAX_EVENTS) throw CampaignExceptions.funExceptionTooManyEvents(method, MAX_EVENTS.toString())
         val hero = heroes.requireHero(heroId, method)
         // Задания на сутки - до событий: сменившийся день не съедает прирост журнала
         quests.refresh(hero, System.currentTimeMillis(), Dice.system())
@@ -219,6 +223,7 @@ class CampaignService : KoinComponent {
         val runs = Runs(hero, state, zone)
         val bonuses = atlas.bonuses(hero)
         val draws = hero.rewards.draws()
+        val pace = Plausibility.Pace(index, hero)
         var total = Reward.NONE
         var lost = 0.0
         var received = Received()
@@ -227,7 +232,7 @@ class CampaignService : KoinComponent {
         for (event in events.sortedBy { it.n }) {
             if (event.n < state.applied) continue
             if (event.n > state.applied) throw CampaignExceptions.funExceptionEventOrder(method, "${event.n}, expected ${state.applied}")
-            val outcome = apply(hero, state, zone, event, runs.current(), bonuses, draws)
+            val outcome = apply(hero, state, zone, event, runs.current(), bonuses, draws, pace)
             state.applied++
             if (outcome == null) rejected += event.n
             else {
@@ -248,7 +253,7 @@ class CampaignService : KoinComponent {
     private class Outcome(val reward: Reward = Reward.NONE, val lost: Double = 0.0, val crystal: CrystalOutcome? = null)
 
     /** Одно событие журнала; null - правило его не пустило. Кости наград - из потока героя [draws]. */
-    private fun apply(hero: Hero, state: RunState, zone: Zone, event: RunEvent, run: Run, bonuses: AtlasBonuses, draws: RewardDraws): Outcome? {
+    private fun apply(hero: Hero, state: RunState, zone: Zone, event: RunEvent, run: Run, bonuses: AtlasBonuses, draws: RewardDraws, pace: Plausibility.Pace): Outcome? {
         val campaignState = hero.campaign
         val mapCode = zone.code
         val now = System.currentTimeMillis()
@@ -257,17 +262,19 @@ class CampaignService : KoinComponent {
                 val key = event.i * Run.PACK_SLOTS + event.m
                 val killed = if (event.vaal) state.vaalKilled else state.killed
                 if (key in killed) return null
+                val pack = run.spawn(event.i, event.vaal).pack
+                val monster = pack.getOrNull(event.m) ?: return null
+                // Темп раньше награды (1.53.0): невозможное убийство не тратит ни жетон, ни кость награды
+                if (!Plausibility.kill(hero, state, now, pace, pack, (0 until Run.PACK_SLOTS).none { event.i * Run.PACK_SLOTS + it in killed })) return null
                 val reward = run.kill(event.i, event.m, event.vaal, draws) ?: return null
                 killed += key
-                Plausibility.kills(hero, state, now)
                 hero.count(Counter.KILLS)
-                val monster = run.spawn(event.i, event.vaal).pack.getOrNull(event.m)
-                monster?.let {
+                monster.let {
                     hero.stats.add(Stat.KILL, it.code)
                     hero.stats.add(Stat.RARITY, it.rarity.name)
                     hero.stats.record(Stat.LEVEL_MAX, zone.level.toLong())
                 }
-                when (monster?.rarity) {
+                when (monster.rarity) {
                     MonsterRarity.MAGIC -> hero.count(Counter.KILLS_MAGIC)
                     MonsterRarity.RARE -> hero.count(Counter.KILLS_RARE)
                     else -> Unit
@@ -285,8 +292,8 @@ class CampaignService : KoinComponent {
             }
             RunEventKind.BOSS -> {
                 if (now < (campaignState.bosses[mapCode] ?: 0L)) return null
+                if (!Plausibility.boss(hero, state, now)) return null
                 campaignState.bosses[mapCode] = now + (bonuses.bossRespawnHours(campaign.bosses.respawnHours) * 3_600_000).toLong()
-                Plausibility.boss(hero, state, now)
                 if (mapCode !in campaignState.cleared) campaignState.cleared += mapCode
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
                 hero.count(Counter.BOSSES)

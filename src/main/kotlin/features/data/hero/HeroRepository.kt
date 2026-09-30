@@ -45,6 +45,13 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
 
     override val indexes = listOf(IndexSpec.unique("idx_unique_name", "name"), IndexSpec.on("userId"))
 
+    private companion object {
+        const val OWNERS_MAX = 50_000
+        const val MIN_NAME = 2
+        const val MAX_NAME = 24
+        const val MAX_DESCRIPTION = 200
+    }
+
     /**
      * Игрок создаёт героя общим POST и мог прислать в теле что угодно: десятый уровень, мешок золота.
      * От игрока берутся только имя, описание и класс, остальное начинается с нуля; администратор и
@@ -52,7 +59,7 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
      */
     override suspend fun admit(entity: Hero): Hero =
         if (caller()?.isAdmin != false) entity
-        else Hero(userId = entity.userId, name = entity.name.trim(), description = entity.description, heroClass = entity.heroClass)
+        else Hero(userId = entity.userId, name = entity.name.trim(), description = entity.description.trim().take(MAX_DESCRIPTION), heroClass = entity.heroClass)
 
     /**
      * Перед каждой записью героя его копии сверяются с контентом (1.1.0): пропавшие описания уходят,
@@ -90,6 +97,8 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         val player = caller()?.takeUnless { it.isAdmin }
         if (player != null && entity.userId != player.user._id) throw AuthExceptions.funExceptionNotYourAccount(method, entity.userId)
         if (entity.name.isBlank()) throw CharacterExceptions.funExceptionName(method)
+        // Длина имени (1.53.0): документ и уникальный индекс не раздуваются присланной простынёй
+        if (entity.name.length !in MIN_NAME..MAX_NAME) throw CharacterExceptions.funExceptionNameLength(method, "$MIN_NAME-$MAX_NAME")
         val heroClass = index.heroClass(entity.heroClass) ?: throw ProgressionExceptions.funExceptionClassNotFound(method, entity.heroClass)
         // Имя уникально в индексе, поэтому занятым считается и имя мягко удалённого героя
         if (findByField(Hero::name, entity.name, includeDeleted = true) != null) throw CharacterExceptions.funExceptionNameDuplicate(method, entity.name)
@@ -121,10 +130,11 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         return findByFilter(Filters.eq("userId", userId))
     }
 
-    /** Владелец героя - одно поле по `_id`: доступ спрашивает его на каждой команде. */
-    suspend fun ownerOf(heroId: String): String? =
-        collection.withDocumentClass<Document>().find(readFilter(Filters.eq("_id", heroId)))
-            .projection(Projections.include("userId")).limit(1).firstOrNull()?.getString("userId")
+    /** Владелец героя - одно поле по `_id`: доступ спрашивает его на каждой команде, а владелец не меняется, так что ответ помнится (1.53.0). */
+    suspend fun ownerOf(heroId: String): String? = owners[heroId] ?: collection.withDocumentClass<Document>().find(readFilter(Filters.eq("_id", heroId)))
+        .projection(Projections.include("userId")).limit(1).firstOrNull()?.getString("userId")?.also { if (owners.size >= OWNERS_MAX) owners.clear(); owners[heroId] = it }
+
+    private val owners = java.util.concurrent.ConcurrentHashMap<String, String>()
 
     /** Имя, класс и уровень героев [ids] - три поля без тайника: для состава и заявок гильдии. */
     suspend fun cards(ids: Collection<String>): Map<String, HeroCard> {
@@ -162,9 +172,9 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     suspend fun requireHero(heroId: String, method: String): Hero =
         forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })
 
-    /** Одна запись героя своей транзакцией: версия проверяется, объект в памяти идёт в ногу с базой. */
+    /** Одна запись героя без транзакции (1.53.0): один документ с фильтром по версии атомарен сам, объект в памяти идёт в ногу с базой. */
     suspend fun save(hero: Hero, method: String): Hero {
-        transactionExecute(method) { session -> update(hero, session) }
+        replace(hero, method)
         features.data.heroStats.HeroStatsStore.bump(hero._id, hero.stats)
         return hero
     }

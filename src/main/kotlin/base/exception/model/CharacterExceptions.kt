@@ -10,6 +10,7 @@ object CharacterExceptions {
     }
 
     fun funExceptionName(errorMethod: String, value: String? = "") = CharacterException("Character name is null or empty", errorMethod, "CH_002", listOf(value.orEmpty()))
+    fun funExceptionNameLength(errorMethod: String, value: String? = "") = CharacterException("Character name must be $value characters long", errorMethod, "CH_029", listOf(value.orEmpty()))
     fun funExceptionNameDuplicate(errorMethod: String, value: String? = "") = CharacterException("Character with name $value already exists", errorMethod, "CH_003", listOf(value.orEmpty()))
     fun funExceptionUserNotFound(errorMethod: String, value: String? = "") = CharacterException("User with id $value not found", errorMethod, "CH_004", listOf(value.orEmpty()))
     fun funExceptionMaxChars(errorMethod: String, value: String? = "") = CharacterException("User already has maximum amount of characters $value", errorMethod, "CH_005", listOf(value.orEmpty()))

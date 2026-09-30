@@ -107,6 +107,7 @@ class TrialService : KoinComponent {
      */
     suspend fun events(heroId: String, events: List<TrialEvent>): TrialReport {
         val method = "trialEvents"
+        if (events.size > MAX_EVENTS) throw CampaignExceptions.funExceptionTooManyEvents(method, MAX_EVENTS.toString())
         val rules = rules(method)
         val hero = heroes.requireHero(heroId, method)
         var run = hero.campaign.trials.run ?: throw CampaignExceptions.funExceptionNoTrial(method, "")
@@ -141,8 +142,8 @@ class TrialService : KoinComponent {
                 if (run.kind != TrialKind.RUSH) return null
                 val plan = RushPlan(region(run.region, "trialEvents"))
                 if (event.index != run.killed || run.killed >= plan.size) return null
+                if (!Plausibility.pace(hero, run.region, run.startedAt, now, run.killed + 1, Plausibility.BOSS_SECONDS, "rush_boss_seconds")) return null
                 hero.campaign.trials = trials.copy(run = run.copy(killed = run.killed + 1))
-                Plausibility.pace(hero, run.region, run.startedAt, now, run.killed + 1, Plausibility.BOSS_SECONDS, "rush_boss_seconds")
                 hero.count(Counter.BOSSES)
                 hero.count(Counter.RUSH_BOSSES)
                 plan.zones.getOrNull(event.index)?.let { hero.stats.add(Stat.BOSS, it.boss) }
@@ -154,10 +155,12 @@ class TrialService : KoinComponent {
                 if (run.kind != TrialKind.TOWER || event.index != run.floor) return null
                 val tower = rules.tower
                 val floor = run.floor
+                if (floor > tower.maxFloor) return null
                 val first = tower.start(trials.towerBest)
-                hero.campaign.trials = trials.copy(run = run.copy(floor = floor + 1, hoards = run.hoards + if (tower.hoard(floor)) 1 else 0),
+                if (!Plausibility.pace(hero, TOWER, run.startedAt, now, floor - first + 1, FLOOR_SECONDS, "tower_floor_seconds")) return null
+                // Потолок башни (1.53.0): последний этаж пройден - испытание закрыто, как по END
+                hero.campaign.trials = trials.copy(run = if (floor >= tower.maxFloor) null else run.copy(floor = floor + 1, hoards = run.hoards + if (tower.hoard(floor)) 1 else 0),
                     towerBest = maxOf(trials.towerBest, floor))
-                Plausibility.pace(hero, TOWER, run.startedAt, now, floor - first + 1, FLOOR_SECONDS, "tower_floor_seconds")
                 hero.count(Counter.TOWER_FLOOR, floor.toLong())
                 hero.stats.record(Stat.LEVEL_MAX, tower.level(run.heroLevel, floor).toLong())
                 if (floor % rules.atlasFloors == 0) AtlasPoints.earn(hero.earned, AtlasPoints.TOWER, floor.toString())

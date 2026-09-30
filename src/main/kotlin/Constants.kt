@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.52.0"
+const val SERVER_VERSION = "1.53.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -31,8 +31,10 @@ const val SERVER_VERSION = "1.52.0"
  * 32 - статистика героя: события `FIGHT` с итогом боя `fight`, `GET hero/stats`, новые счётчики летописи (1.49.0).
  * 33 - захваченные карты: `ActiveMap.influence`, сферы Создателя и Древнего на карте, ветка атласа «Влияние», атлас веером (1.50.0).
  * 34 - задания без зон (`Quest.zones`, `QuestScope`, `HIGH_ZONE` сняты), `POST hero/skilltree/refundBranch`, `FightTally.killer` (1.52.0).
+ * 35 - повтор по `Idempotency-Key` без тела (`data: null`), журнал не больше 64 событий (422 `CP_022`), 503 `BRY_007` при
+ *      недоступной базе, `WorkView.seed` всегда 0, потолок башни `tower.maxFloor`, отказ без `errorClass`/`errorMethod` (1.53.0).
  */
-const val API_REVISION = 34
+const val API_REVISION = 35
 
 /**
  * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой
@@ -50,6 +52,15 @@ val SEED_ADMIN_PASSWORD: String? = env("ADMIN_PASSWORD")
 
 /** Пароль сидового тестового игрока. Не задан - тестовый игрок не создаётся. */
 val SEED_TEST_PLAYER_PASSWORD: String? = env("TEST_PLAYER_PASSWORD")
+
+/**
+ * Доверенные прокси (1.53.0): адреса, с которых `X-Forwarded-For` / `X-Real-IP` считаются адресом игрока, через запятую;
+ * `*` - любой. Не задано - заголовки не читаются, и за прокси все игроки были бы одним адресом для лимитов и блок-листа.
+ */
+val TRUSTED_PROXIES: List<String> = env("TRUSTED_PROXIES")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()
+
+/** Разовая очистка базы (1.53.0) только по явному флагу: `WIPE_DB` равен метке [config.DatabaseWipe.MARKER]. */
+val WIPE_DB: String? = env("WIPE_DB")
 
 /** Адреса, которым разрешён доступ из браузера (CORS), через запятую. Не задано - никому. */
 val CORS_HOSTS: List<String> = env("CORS_HOSTS")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()

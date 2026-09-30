@@ -30,22 +30,36 @@ import kotlinx.coroutines.delay
 import kotlinx.serialization.json.JsonObject
 import java.security.MessageDigest
 
-/** Ответ команды ровно таким, каким он ушёл в первый раз: статус, тип и тело. */
-class StoredReply(val status: Int, val contentType: String?, val body: ByteArray) {
+/**
+ * Ответ команды: статус, тип и тело. С 1.53.0 тело хранится только у отказа (4xx): оно короткое и говорит, почему.
+ * Успех хранится без тела - повтор отвечает [REPLAY_OK], а клиент по [Idempotency.REPLAY_HEADER] сам перечитывает героя;
+ * так коллекция ответов не растёт на килобайт с каждой командой.
+ */
+class StoredReply(val status: Int, val contentType: String?, val body: ByteArray?) {
     /**
      * Тело для повтора - без снимка героя `hero`: он снят на момент первого ответа и мог устареть,
      * а клиент по [Idempotency.REPLAY_HEADER] сам перечитывает героя. Не JSON-объект - как есть.
      */
     fun replayBody(): ByteArray {
+        val body = body ?: return REPLAY_OK
         if (contentType?.let(ContentType::parse)?.match(ContentType.Application.Json) != true) return body
         val json = runCatching { AppJson.parseToJsonElement(body.decodeToString()) }.getOrNull() as? JsonObject ?: return body
         if (HERO_FIELD !in json) return body
         return AppJson.encodeToString(JsonObject.serializer(), JsonObject(json - HERO_FIELD)).encodeToByteArray()
     }
 
-    private companion object {
+    /** Тип тела повтора: у успеха без тела - JSON конверта [REPLAY_OK]. */
+    fun replayContentType(): ContentType? = if (body == null) ContentType.Application.Json else contentType?.let(ContentType::parse)
+
+    companion object {
         /** Поле снимка героя в [base.route.ApiMongoResponse]. */
-        const val HERO_FIELD = "hero"
+        private const val HERO_FIELD = "hero"
+
+        /** Конверт успешного повтора: команда прошла в первый раз, данных заново не считают. */
+        val REPLAY_OK: ByteArray = "{\"success\":true,\"data\":null}".encodeToByteArray()
+
+        /** Отказы длиннее не хранятся: такого тела у отказа не бывает, а хранить чужое незачем. */
+        const val MAX_REFUSAL_BYTES = 4_096
     }
 }
 
@@ -81,8 +95,8 @@ object Idempotency {
     /** Заголовок ответа-повтора: `true`, если команда не выполнялась, а ответ взят из хранилища. */
     const val REPLAY_HEADER = "Idempotent-Replay"
 
-    /** Сколько живёт сохранённый ответ. */
-    const val TTL_HOURS = 24L
+    /** Сколько живёт сохранённый ответ (1.53.0: час, как очередь команд клиента). */
+    const val TTL_HOURS = 1L
 
     /** Попыток записать ответ и пауза перед первым повтором (дальше - вдвое дольше). */
     private const val COMPLETE_TRIES = 3
@@ -159,7 +173,7 @@ fun Application.installIdempotency(
             Claim.Mismatch -> throw IdempotencyExceptions.funExceptionMismatch("idempotency", key)
             is Claim.Done -> {
                 call.response.header(Idempotency.REPLAY_HEADER, "true")
-                call.respondBytes(claim.reply.replayBody(), claim.reply.contentType?.let(ContentType::parse), HttpStatusCode.fromValue(claim.reply.status))
+                call.respondBytes(claim.reply.replayBody(), claim.reply.replayContentType(), HttpStatusCode.fromValue(claim.reply.status))
                 finish()
             }
             Claim.Taken -> {
@@ -194,7 +208,8 @@ fun Application.installIdempotency(
         val body = (outgoing as? OutgoingContent.ByteArrayContent)?.bytes()
         try {
             if (body == null || status.value >= 500) store.release(account, key)
-            else Idempotency.completeWithRetry(store, account, key, StoredReply(status.value, outgoing?.contentType?.toString(), body))
+            else Idempotency.completeWithRetry(store, account, key,
+                StoredReply(status.value, outgoing?.contentType?.toString(), body.takeIf { status.value >= 300 && it.size <= StoredReply.MAX_REFUSAL_BYTES }))
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

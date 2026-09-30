@@ -6,6 +6,7 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates
 import config.MongoFactory.transactionExecute
 import extensions.now
+import features.logic.auth.SessionCache
 import features.logic.auth.Tokens
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
@@ -72,11 +73,14 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
     }
 
     suspend fun revoke(token: String) {
-        collection.deleteOne(Filters.eq("tokenHash", Tokens.hash(token)))
+        val hash = Tokens.hash(token)
+        SessionCache.evictToken(hash)
+        collection.deleteOne(Filters.eq("tokenHash", hash))
     }
 
     /** Все сессии аккаунта, кроме, возможно, текущей - после смены пароля или блокировки. */
     suspend fun revokeAll(userId: String, except: String? = null) {
+        SessionCache.evictUser(userId)
         val filter = if (except == null) Filters.eq("userId", userId)
             else Filters.and(Filters.eq("userId", userId), Filters.ne("tokenHash", Tokens.hash(except)))
         collection.deleteMany(filter)

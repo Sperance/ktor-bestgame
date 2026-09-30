@@ -123,11 +123,12 @@ fun Application.configureRouting() {
                             "timestamp" to System.currentTimeMillis()
                         ).toString()))
                     } else {
-                        call.respond(ApiMongoResponse.error(ApplicationExceptions.funExceptionDisconnected("/health")))
+                        call.respond(HttpStatusCode.ServiceUnavailable, ApiMongoResponse.error(ApplicationExceptions.funExceptionDisconnected("/health")))
                     }
                 } catch (e: Exception) {
-                    printLog("Health check failed")
-                    call.respond(ApiMongoResponse.error(ApplicationExceptions.funExceptionError("/health")))
+                    // База недоступна - 503 (1.53.0): балансировщик и клиент видят это по статусу, а не по телу
+                    printLog("Health check failed: ${e.message}")
+                    call.respond(HttpStatusCode.ServiceUnavailable, ApiMongoResponse.error(ApplicationExceptions.funExceptionError("/health")))
                 }
             }
             // Готовность сервера и список маршрутов для проверки клиента (скрипт client-server в CI).

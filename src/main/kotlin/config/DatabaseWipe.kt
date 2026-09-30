@@ -1,6 +1,7 @@
 package config
 
 import MONGO_DB
+import WIPE_DB
 import SERVER_VERSION
 import com.mongodb.client.model.Filters
 import extensions.printLog
@@ -28,6 +29,12 @@ object DatabaseWipe {
         val database = MongoFactory.getDatabase()
         val markers = database.getCollection(COLLECTION, Document::class.java)
         if (markers.find(Filters.eq("_id", MARKER)).firstOrNull() != null) return
+        // Без флага (1.53.0) база остаётся: ошибка в MONGO_DB или восстановление из бэкапа без коллекции меток не теряет игроков
+        if (WIPE_DB != MARKER) {
+            printLog("Database wipe $MARKER skipped: WIPE_DB is not \"$MARKER\", $MONGO_DB kept as is")
+            markers.insertOne(Document("_id", MARKER).append("server", SERVER_VERSION).append("at", Date()).append("kept", true))
+            return
+        }
 
         printLog("Database wipe $MARKER: dropping $MONGO_DB")
         database.drop()

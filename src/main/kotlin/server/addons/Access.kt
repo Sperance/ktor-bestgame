@@ -7,6 +7,7 @@ import features.data.user.UserRepository
 import features.logic.auth.AccessPolicy
 import features.logic.auth.AccessPolicy.Need
 import features.logic.auth.Caller
+import features.logic.auth.SessionCache
 import features.logic.auth.Tokens
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
@@ -48,9 +49,14 @@ fun Application.configureAccess() {
 
         val token = Tokens.fromHeader(call.request.headers[HttpHeaders.Authorization])
             ?: throw AuthExceptions.funExceptionNoToken("access", path)
-        val session = sessions.resolve(token) ?: throw AuthExceptions.funExceptionBadToken("access", path)
-        val user = users.findById(session.userId)?.takeIf { it.isActive }
-            ?: throw AuthExceptions.funExceptionBadToken("access", path)
+        // Сессия и аккаунт - из кеша на минуту (1.53.0): две коллекции на каждую команду героя читать незачем
+        val tokenHash = Tokens.hash(token)
+        val (session, user) = SessionCache.get(tokenHash) ?: run {
+            val session = sessions.resolve(token) ?: throw AuthExceptions.funExceptionBadToken("access", path)
+            val user = users.findById(session.userId)?.takeIf { it.isActive } ?: throw AuthExceptions.funExceptionBadToken("access", path)
+            SessionCache.put(tokenHash, session, user)
+            session to user
+        }
         if (blocks.isUserBlocked(user._id)) {
             sessions.revokeAll(user._id)
             throw AuthExceptions.funExceptionBlocked("access")

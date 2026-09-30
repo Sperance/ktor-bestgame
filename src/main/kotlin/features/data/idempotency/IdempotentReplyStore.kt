@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
  * Ответы команд по `Idempotency-Key` в коллекции `IdempotentReply` (1.28.0). `_id` - пара
  * `аккаунт:ключ`, так что уникальность пары держит сама база: из двух одновременных вставок
  * проходит одна. Документ сперва «в работе», после ответа - «готов» со статусом и телом; TTL-индекс
- * по `createdAt` убирает его через сутки. Брошенный «в работе» (сервер упал посреди команды)
+ * по `createdAt` убирает его через [Idempotency.TTL_HOURS]. Брошенный «в работе» (сервер упал посреди команды)
  * через [STALE_MS] считается свободным. Ключ привязан к отпечатку запроса `request`.
  */
 object IdempotentReplyStore : ReplyStore {
@@ -57,7 +57,7 @@ object IdempotentReplyStore : ReplyStore {
             // Ответы до привязки к запросу отпечатка не несут - им верим
             if (found.getString("request")?.let { it != request } == true) return Claim.Mismatch
             if (found.getString("state") == DONE) return Claim.Done(
-                StoredReply(found.getInteger("status"), found.getString("contentType"), found.get("body", Binary::class.java).data))
+                StoredReply(found.getInteger("status"), found.getString("contentType"), found.get("body", Binary::class.java)?.data))
             val since = found.getDate("createdAt") ?: Date(0)
             if (System.currentTimeMillis() - since.time < STALE_MS) return Claim.Busy
             // Перехват брошенного ключа - одной записью и только того, что прочитан: из двух
@@ -76,7 +76,7 @@ object IdempotentReplyStore : ReplyStore {
             Updates.set("state", DONE),
             Updates.set("status", reply.status),
             Updates.set("contentType", reply.contentType),
-            Updates.set("body", Binary(reply.body)),
+            reply.body?.let { Updates.set("body", Binary(it)) } ?: Updates.unset("body"),
         ))
     }
 

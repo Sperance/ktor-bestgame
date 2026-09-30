@@ -276,9 +276,19 @@ object SellPrice {
     fun of(index: ContentIndex, template: ItemTemplate, item: ItemInstance, stats: Map<String, Double> = emptyMap()): Long {
         val rules = index.rules.sell
         val price = base(index, template, if (template.slot == Slot.MAP) item.level(template) else template.level) * (rules.rarity[item.rarity] ?: 1.0) * (1.0 + rules.affixShare * item.rolls.size) *
-            (rules.qualityFloor + quality(item.rolls, rules.neutralQuality)) * (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0)
+            (rules.qualityFloor + quality(item.rolls, rules.neutralQuality)) * goldBonus(index, stats)
         return floor(price).toLong().coerceAtLeast(1L)
     }
+
+    /**
+     * Множитель `STOCK_GOLD` (1.53.0) не выше [RESALE_SHARE] наценки торговца: витрина стоит базу × наценку, и продать ему
+     * купленное дороже покупки нельзя ни с каким листом - купить и сразу продать всегда в убыток.
+     */
+    fun goldBonus(index: ContentIndex, stats: Map<String, Double>): Double =
+        (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0).coerceAtMost(index.rules.merchant.markup * RESALE_SHARE)
+
+    /** Какая доля цены витрины - потолок продажи торговцу. */
+    const val RESALE_SHARE = 0.9
 
     /** База шаблона: своя цена или [SellRules.base] × рост золота до [level] - уровня шаблона, у карты - уровня её зоны. */
     fun base(index: ContentIndex, template: ItemTemplate, level: Int = template.level): Double =

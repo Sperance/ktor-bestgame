@@ -20,6 +20,8 @@ import extensions.printLog
 import kotlinx.coroutines.CancellationException
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.logic.hero.HeroLocks
+import kotlinx.coroutines.flow.toList
 import features.logic.hero.Stash
 import features.logic.locale.LocaleCache
 import kotlinx.datetime.LocalDateTime
@@ -46,7 +48,6 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     suspend fun search(heroId: String, search: AuctionSearch, page: Int, size: Int): PagedMongoResponse<AuctionLot> {
         requireTrader(heroId, "search")
-        expireDue(null)
         val found = findPaged(search.toFilter(), page, size)
         return found.copy(items = found.items.map { reconciled(it) })
     }
@@ -196,6 +197,13 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         findByFilter(Filters.and(scope + Filters.lte("expiresAt", now))).forEach { lot ->
             quietly("expire ${lot._id}") { expire(lot) }
         }
+    }
+
+    /** Просроченные лоты всех продавцов пачкой по [limit] (1.53.0), каждый под очередью своего продавца; зовёт [features.logic.trade.AuctionExpiry]. */
+    suspend fun expireDue(limit: Int) {
+        val due = collection.find(readFilter(Filters.and(Filters.eq("status", LotStatus.ACTIVE.name), Filters.lte("expiresAt", System.currentTimeMillis()))))
+            .limit(limit).toList()
+        due.forEach { lot -> quietly("expire ${lot._id}") { HeroLocks.withLock(lot.sellerId) { expire(lot) } } }
     }
 
     private suspend fun expire(lot: AuctionLot) {

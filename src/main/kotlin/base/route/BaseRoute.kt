@@ -172,7 +172,9 @@ open class BaseRoute<T : StockEntity>(
         } catch (e: BaseException) {
             throw e
         } catch (e: Exception) {
-            throw BaseRouteExceptions.funException(method, e.message)
+            // Текст исключения - в лог, не клиенту (1.53.0)
+            extensions.printLog("[BaseRoute] $method: ${e::class.simpleName}: ${e.message}", true)
+            throw BaseRouteExceptions.funException(method, e::class.simpleName)
         }
     }
 }
@@ -190,12 +192,20 @@ private fun JsonElement.toNative(): Any? = when (this) {
     is JsonObject -> mapValues { it.value.toNative() }
 }
 
+/** Отказ в конверте (1.53.0): код, готовое сообщение и его аргументы - без имён классов и методов сервера. */
+@Serializable
+data class ErrorView(val message: String?, val errorCode: String, val messageArgs: List<String> = emptyList()) {
+    companion object {
+        fun of(exception: BaseException) = ErrorView(exception.message, exception.errorCode, exception.messageArgs)
+    }
+}
+
 @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
 @Serializable
 data class ApiMongoResponse<T>(
     val success: Boolean,
     val data: T? = null,
-    val error: BaseException? = null,
+    val error: ErrorView? = null,
     /** Снимок героя после команды (с 0.48.0) - только тому, кто попросил его заголовком. */
     @kotlinx.serialization.EncodeDefault(kotlinx.serialization.EncodeDefault.Mode.NEVER)
     val hero: features.logic.hero.HeroSnapshot? = null,
@@ -203,7 +213,7 @@ data class ApiMongoResponse<T>(
     companion object {
         fun <T> ok(data: T?) = ApiMongoResponse(success = true, data = data)
 
-        fun error(exception: BaseException) = ApiMongoResponse<Unit>(success = false, error = exception)
+        fun error(exception: BaseException) = ApiMongoResponse<Unit>(success = false, error = ErrorView.of(exception))
     }
 }
 

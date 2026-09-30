@@ -52,7 +52,8 @@ class IdempotencyTest {
 
         assertEquals("run 1", first.bodyAsText())
         assertNull(first.headers[Idempotency.REPLAY_HEADER])
-        assertEquals("run 1", second.bodyAsText())
+        // Успех хранится без тела (1.53.0): повтор - конверт «прошло», клиент перечитывает героя сам
+        assertEquals(StoredReply.REPLAY_OK.decodeToString(), second.bodyAsText())
         assertEquals("true", second.headers[Idempotency.REPLAY_HEADER])
         assertEquals("run 2", other.bodyAsText())
         assertEquals(2, runs)

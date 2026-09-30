@@ -28,6 +28,7 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import config.MongoFactory
 import config.afterCommit
+import config.MongoErrors
 import extensions.now
 import extensions.printLog
 import kotlinx.coroutines.flow.firstOrNull
@@ -249,18 +250,37 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     suspend fun update(entity: T, session: ClientSession): UpdateResult {
         settle(entity)
         val encoded = encode(entity)
-        val loaded = (entity as? TrackedEntity)?.loaded
-        // Кодек не пишет null: поле, обнулённое в памяти (снятый предмет - equippedSlot), иначе осталось бы в базе
-        val cleared = fieldNames(entity).filterNot { it in encoded || it in CONST_SYSTEM_FIELDS || it in managedFields || (loaded != null && it !in loaded) }
-        val changed = if (loaded == null) encoded else encoded.filter { (field, value) -> loaded[field] != value }
-        val fields = changed.map { (field, value) -> Updates.set(field, value) } + cleared.map { Updates.unset(it) }
-        val result = writing("update") { collection.updateOne(session, identity(entity), Updates.combine(versionBump(entity) + fields)) }
+        val result = writing("update") { collection.updateOne(session, identity(entity), Updates.combine(versionBump(entity) + changes(entity, encoded))) }
         if (result.matchedCount == 0L) missed("update", entity)
         if (entity is VersionedEntity && result.modifiedCount > 0) entity.version += 1
         // Память документа сдвигается только с коммитом: откат оставляет её той, что лежит в базе
         if (entity is TrackedEntity) afterCommit { entity.loaded = encoded }
         validateAfterUpdate(entity, session)
         return result
+    }
+
+    /**
+     * Та же полная запись одного документа без транзакции (1.53.0): фильтр по `_id` и версии атомарен сам по себе, а
+     * транзакция на один документ лишь платит коммитом и журналом. Для коллекций без проверок после записи, которым
+     * нужна сессия: хуки кеша идут сразу.
+     */
+    suspend fun replace(entity: T, method: String): UpdateResult {
+        settle(entity)
+        val encoded = encode(entity)
+        val result = writing(method) { collection.updateOne(identity(entity), Updates.combine(versionBump(entity) + changes(entity, encoded))) }
+        if (result.matchedCount == 0L) missed(method, entity)
+        if (entity is VersionedEntity && result.modifiedCount > 0) entity.version += 1
+        if (entity is TrackedEntity) entity.loaded = encoded
+        cache?.updateItem(entity)
+        return result
+    }
+
+    /** Что пишется: изменившиеся с чтения поля и обнулённые в памяти (кодек не пишет null - поле иначе осталось бы в базе). */
+    private fun changes(entity: T, encoded: Map<String, BsonValue>): List<Bson> {
+        val loaded = (entity as? TrackedEntity)?.loaded
+        val cleared = fieldNames(entity).filterNot { it in encoded || it in CONST_SYSTEM_FIELDS || it in managedFields || (loaded != null && it !in loaded) }
+        val changed = if (loaded == null) encoded else encoded.filter { (field, value) -> loaded[field] != value }
+        return changed.map { (field, value) -> Updates.set(field, value) } + cleared.map { Updates.unset(it) }
     }
 
     /**
@@ -352,11 +372,15 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     } catch (e: BaseException) {
         throw e
     } catch (e: MongoWriteException) {
-        throw if (e.code == DUPLICATE_KEY) BaseRepositoryExceptions.funExceptionRace(method, e.message) else BaseRepositoryExceptions.funException(method, e.message)
+        // Текст драйвера (имя коллекции, индекса, ключ) - в лог, клиенту только код (1.53.0)
+        printLog("[$collectionName] $method: ${e.message}", true)
+        throw if (e.code == DUPLICATE_KEY) BaseRepositoryExceptions.funExceptionRace(method, "duplicate") else BaseRepositoryExceptions.funException(method, "write")
     } catch (e: MongoBulkWriteException) {
-        throw BaseRepositoryExceptions.funException(method, e.writeErrors.firstOrNull()?.message ?: e.message)
+        printLog("[$collectionName] $method: ${e.writeErrors.firstOrNull()?.message ?: e.message}", true)
+        throw BaseRepositoryExceptions.funException(method, "bulk")
     } catch (e: Exception) {
-        throw BaseRepositoryExceptions.funException(method, e.message)
+        printLog("[$collectionName] $method: ${e::class.simpleName}: ${e.message}", true)
+        throw MongoErrors.translate(method, e)
     }
 
     /**

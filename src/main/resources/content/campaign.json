@@ -10537,7 +10537,7 @@
       "hoardGrowth": 15.0,
       "modEvery": 10,
       "modHoard": 10.0,
-      "checkpoint": 10,
+      "checkpoint": 10, "maxFloor": 100,
       "mods": [
         {
           "stat": "MAP_MONSTER_LIFE",

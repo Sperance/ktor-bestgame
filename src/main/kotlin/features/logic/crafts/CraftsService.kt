@@ -98,7 +98,7 @@ class CraftsService : KoinComponent {
         if (job.kind == JobKind.MAP && charted(hero, job).isEmpty()) throw ProfessionExceptions.funExceptionLocation(method, LocaleKey.regionName(job.region))
         if (Work.perCycle(job, chosen).any { (item, amount) -> (hero.bag[item] ?: 0) < amount }) throw ProfessionExceptions.funExceptionMaterials(method, LocaleKey.jobName(job.code))
         val now = System.currentTimeMillis()
-        hero.work = ActiveWork(profession.code, job.code, now, now, chosen, kotlin.random.Random.nextLong(), choice = choice)
+        hero.work = ActiveWork(profession.code, job.code, now, now, chosen, choice = choice)
         return view(heroes.save(hero, method), gains)
     }
 
@@ -123,7 +123,8 @@ class CraftsService : KoinComponent {
         val (profession, job) = recipe(hero, work.job, work.choice) ?: return WorkGains()
         val progress = hero.professions[profession.code] ?: ProfessionProgress()
         val dice = Dice.system()
-        val result = Work.settle(file.rules, job, progress, bonus(hero, profession), work.settledAt, System.currentTimeMillis(), work.seed, work.cycles, hero.bag, work.additives)
+        // Кости циклов - с потока героя (1.53.0): семя не уходит клиенту, а перезапуск работы продолжает поток, а не катит новый
+        val result = Work.settle(file.rules, job, progress, bonus(hero, profession), work.settledAt, System.currentTimeMillis(), hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
         val bases = when (job.kind) {
             JobKind.EQUIPMENT -> craftBases(job).filter { base -> SmithChoice.of(work.choice)?.fits(base.value) == true }
@@ -134,8 +135,10 @@ class CraftsService : KoinComponent {
         val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, index.rules.loot.craftedItemLevel(hero.level, result.progress.level, file.rules.maxLevel), dice, bases, zones) }.filterNotNull()
         hero.professions[profession.code] = result.progress
         val gains = result.gains.copy(equipment = made)
+        hero.rewards.crafted += result.gains.cycles
         hero.work = if (result.gains.starved) null else work.copy(settledAt = result.settledAt, cycles = work.cycles + result.gains.cycles, totals = work.totals + gains)
-        gains.spent.forEach { (code, amount) -> hero.spend(code, amount, method) }
+        // Возврат материалов (1.53.0) мог вернуть весь расход цикла: нулевое списание - не отказ
+        gains.spent.forEach { (code, amount) -> if (amount > 0) hero.spend(code, amount, method) }
         gains.items.forEach { (code, amount) -> hero.earn(code, amount, index.rules.maxStack) }
         Stash.receive(hero, made, index)
         hero.count(Counter.CRAFT_CYCLES, result.gains.cycles.toLong())
@@ -164,7 +167,7 @@ class CraftsService : KoinComponent {
         val work = hero.work?.let { work ->
             professions.firstOrNull { it.code == work.profession }?.jobs?.firstOrNull { it.code == work.job }
                 ?.let { job -> job.options.firstOrNull { it.choice == work.choice } ?: job }?.let { job ->
-                WorkView(work.profession, work.job, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives, work.seed, work.cycles, work.startedAt, work.totals, work.choice)
+                WorkView(work.profession, work.job, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives, 0, work.cycles, work.startedAt, work.totals, work.choice)
             }
         }
         return CraftsState(System.currentTimeMillis(), rules, professions, work, gains, file.crafting.additives, file.crafting.maxAdditives)

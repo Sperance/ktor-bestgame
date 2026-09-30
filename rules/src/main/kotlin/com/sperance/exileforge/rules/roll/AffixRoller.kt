@@ -150,10 +150,11 @@ class AffixRoller(private val index: ContentIndex) {
 
     fun rollCode(code: String, level: Int, dice: Dice): Roll? = index.modifier(code)?.let { roll(it, level, dice) }
 
-    /** Тот же модификатор на тир выше: лучший остаётся собой, доля перебрасывается. */
-    fun raiseTier(roll: Roll, dice: Dice): Roll? {
+    /** Тот же модификатор на тир выше: лучший остаётся собой, доля перебрасывается; тир, закрытый уровнем [level] вещи (1.53.0), не берётся. */
+    fun raiseTier(roll: Roll, dice: Dice, level: Int = Int.MAX_VALUE): Roll? {
         if (roll.fractured || roll.tier <= 1) return null
-        definition(roll)?.tier(roll.tier - 1) ?: return null
+        val next = definition(roll)?.tier(roll.tier - 1) ?: return null
+        if (next.level > level) return null
         return roll.copy(tier = roll.tier - 1, share = dice.share())
     }
 

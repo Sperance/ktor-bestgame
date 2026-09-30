@@ -215,7 +215,8 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
             }
             VaalOutcome.SHIFT -> {
                 val (low, high) = rules.orbs.vaalShift
-                item.rolls = item.rolls.map { roll -> roll.copy(scale = com.sperance.exileforge.rules.content.tenths((roll.scale ?: 1.0) * (low + (high - low) * dice.nextDouble())).let { Math.round(it * 1000) / 1000.0 }) }
+                // Сдвиг (1.53.0) только аффиксов: имплиситы и закреплённые строки уникальных остаются в своём диапазоне
+                item.rolls = item.rolls.map { roll -> if (!affixes.isAffix(roll)) roll else roll.copy(scale = com.sperance.exileforge.rules.content.tenths((roll.scale ?: 1.0) * (low + (high - low) * dice.nextDouble())).let { Math.round(it * 1000) / 1000.0 }) }
                 outcome(item, template, "currency.vaal_shift")
             }
         }
@@ -283,7 +284,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
 
     private fun empower(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         var raised = 0
-        item.rolls = item.rolls.map { roll -> if (!affixes.isAffix(roll)) roll else affixes.raiseTier(roll, dice)?.also { raised++ } ?: roll }
+        item.rolls = item.rolls.map { roll -> if (!affixes.isAffix(roll)) roll else affixes.raiseTier(roll, dice, item.level(template))?.also { raised++ } ?: roll }
         if (raised == 0) throw RuleViolation("CR_006", listOf(name(template)))
         return outcome(item, template, "currency.empowered")
     }

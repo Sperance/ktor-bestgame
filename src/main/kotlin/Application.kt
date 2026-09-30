@@ -70,4 +70,5 @@ suspend fun Application.configureModules() {
 
     DatabaseSeeder.seed()
     features.data.routeTiming.RouteTimings.start(this)
+    features.logic.trade.AuctionExpiry(getKoin().get()).start(this)
 }

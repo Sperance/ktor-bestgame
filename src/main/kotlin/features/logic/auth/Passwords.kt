@@ -13,7 +13,8 @@ import javax.crypto.spec.PBEKeySpec
 object Passwords {
 
     private const val SCHEME = "pbkdf2"
-    const val ITERATIONS = 600_000
+    /** 210 000 (1.53.0, OWASP 2023): 600 000 стоили 0,6 с ядра на вход, и десяток входов в секунду клал сервер. */
+    const val ITERATIONS = 210_000
     private const val KEY_BITS = 256
     private const val SALT_BYTES = 16
 
@@ -36,9 +37,9 @@ object Passwords {
         return MessageDigest.isEqual(derive(password, salt, iterations), expected)
     }
 
-    /** Записан ли хеш чужим способом или с меньшим числом итераций, чем сейчас принято. */
+    /** Записан ли хеш чужим способом или с другим числом итераций, чем сейчас принято (1.53.0: и с большим - он дороже на каждом входе). */
     fun needsRehash(stored: String): Boolean =
-        !stored.startsWith("$SCHEME$") || stored.split('$').getOrNull(1)?.toIntOrNull()?.let { it < ITERATIONS } != false
+        !stored.startsWith("$SCHEME$") || stored.split('$').getOrNull(1)?.toIntOrNull()?.let { it != ITERATIONS } != false
 
     private fun derive(password: String, salt: ByteArray, iterations: Int): ByteArray {
         val spec = PBEKeySpec(password.toCharArray(), salt, iterations, KEY_BITS)

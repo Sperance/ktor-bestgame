@@ -42,6 +42,8 @@ data class TowerRule(
     val modHoard: Double = 10.0,
     val checkpoint: Int = 10,
     val mods: List<TowerMod> = emptyList(),
+    /** Последний этаж башни (1.53.0): пройден - испытание закрыто; клад и опыт этажей не растут без конца. */
+    val maxFloor: Int = 100,
 ) {
     /** Уровень монстров этажа [floor] у героя уровня [heroLevel]. */
     fun level(heroLevel: Int, floor: Int): Int = heroLevel + floor / levelStep

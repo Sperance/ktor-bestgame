@@ -174,11 +174,21 @@ data class Hero(
  * уже выдано. Награды захода берут кости отсюда, а не из семени захода: клиент их не предскажет.
  */
 @Serializable
-data class RewardStream(var seed: Long = 0, var drawn: Long = 0) {
+data class RewardStream(var seed: Long = 0, var drawn: Long = 0, /** Циклов ремесла (1.53.0), скатанных на потоке героя. */ var crafted: Long = 0) {
     /** Кости наград; семя появляется при первом обращении. */
     fun draws(): com.sperance.exileforge.rules.run.RewardDraws {
         while (seed == 0L) seed = java.security.SecureRandom().nextLong()
         return com.sperance.exileforge.rules.run.RewardDraws(seed, drawn)
+    }
+
+    /** Семя циклов ремесла (1.53.0): от потока героя, клиенту не выдаётся; остановка и новый запуск работы поток не сбрасывают. */
+    fun craftSeed(): Long {
+        draws()
+        return seed xor CRAFT_SALT
+    }
+
+    private companion object {
+        const val CRAFT_SALT = 0x5DEECE66DL
     }
 }
 
@@ -230,4 +240,6 @@ data class RunState(
     var vaalKilled: MutableSet<Int> = linkedSetOf(),
     val tally: RunTally = RunTally(),
     val content: String = "",
+    /** Ожидаемые секунды боёв принятых убийств (1.53.0): темп захода сверяется с ними, см. [features.logic.campaign.Plausibility]. */
+    var work: Double = 0.0,
 )
