@@ -152,4 +152,25 @@ class RulesInvariantsTest {
         assertEquals(target.first.code, target.second.last())
         assertEquals(null, TreeAllocation.path(tree, taken, start, target.first.code))
     }
+
+    /** Гнёзда самоцветов поровну (1.39.0): каждое гнездо, не закреплённое за классом, достижимо с каждого старта. */
+    @Test
+    fun everySocketIsOpenToEveryClass() {
+        val tree = index.tree
+        val starts = tree.byCode.values.filter { it.type == SkillNodeType.START }.map { it.code }
+        fun reach(start: String): Set<String> {
+            val seen = hashSetOf(start); val queue = ArrayDeque(listOf(start))
+            while (queue.isNotEmpty()) {
+                val current = queue.removeFirst()
+                if (tree.node(current)?.type == SkillNodeType.MASTERY) continue
+                tree.neighbours(current).filter { next -> tree.node(next)?.let { it.type != SkillNodeType.START && it.openTo(start) } == true && seen.add(next) }
+                    .forEach(queue::addLast)
+            }
+            return seen
+        }
+        val open = starts.associateWith(::reach)
+        val closed = tree.byCode.values.filter { it.type == SkillNodeType.JEWEL_SOCKET && it.only == null }
+            .flatMap { socket -> starts.filter { socket.code !in open.getValue(it) }.map { "${socket.code} от $it" } }
+        assertTrue(closed.isEmpty(), "гнездо закрыто: $closed")
+    }
 }

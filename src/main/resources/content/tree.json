@@ -6598,7 +6598,8 @@
         }
       ],
       "connections": [
-        "DUE_C4_3"
+        "DUE_C4_3",
+        "BRJ_DUE1_1"
       ],
       "x": 1441,
       "y": 369
@@ -10593,7 +10594,8 @@
       "code": "WIT_B1_1",
       "type": "ATTRIBUTE",
       "connections": [
-        "WIT_B1_2"
+        "WIT_B1_2",
+        "BRJ_WIT_1"
       ],
       "options": [
         [
@@ -15280,7 +15282,8 @@
         }
       ],
       "connections": [
-        "MAR_N0_4"
+        "MAR_N0_4",
+        "MAR_NJ0"
       ],
       "x": -148,
       "y": -998
@@ -15489,7 +15492,8 @@
         }
       ],
       "connections": [
-        "MAR_N1_4"
+        "MAR_N1_4",
+        "MAR_NJ1"
       ],
       "x": 766,
       "y": -566
@@ -16118,7 +16122,8 @@
         }
       ],
       "connections": [
-        "RAN_N0_4"
+        "RAN_N0_4",
+        "RAN_NJ0"
       ],
       "x": 872,
       "y": 374
@@ -16327,7 +16332,8 @@
         }
       ],
       "connections": [
-        "RAN_N1_4"
+        "RAN_N1_4",
+        "RAN_NJ1"
       ],
       "x": 991,
       "y": 1361
@@ -16980,7 +16986,8 @@
         }
       ],
       "connections": [
-        "WIT_N0_4"
+        "WIT_N0_4",
+        "WIT_NJ0"
       ],
       "x": -718,
       "y": 545
@@ -17166,7 +17173,8 @@
       ],
       "connections": [
         "WIT_N1_3",
-        "WIT_N1_M"
+        "WIT_N1_M",
+        "WIT_NJ1"
       ],
       "x": -1377,
       "y": 905
@@ -17796,7 +17804,8 @@
       ],
       "connections": [
         "DUE_N0_3",
-        "DUE_N0_M"
+        "DUE_N0_M",
+        "BRJ_DUE0_1"
       ],
       "x": 1736,
       "y": -265
@@ -17819,7 +17828,8 @@
         }
       ],
       "connections": [
-        "DUE_N0_4"
+        "DUE_N0_4",
+        "DUE_NJ0"
       ],
       "x": 1754,
       "y": -166
@@ -18029,7 +18039,8 @@
         }
       ],
       "connections": [
-        "DUE_N1_4"
+        "DUE_N1_4",
+        "DUE_NJ1"
       ],
       "x": 1968,
       "y": 443
@@ -18710,7 +18721,8 @@
       ],
       "connections": [
         "TEM_N0_5",
-        "TEM_N0_M"
+        "TEM_N0_M",
+        "TEM_NJ0"
       ],
       "x": -336,
       "y": -1765
@@ -18890,7 +18902,8 @@
         }
       ],
       "connections": [
-        "TEM_N1_4"
+        "TEM_N1_4",
+        "TEM_NJ1"
       ],
       "x": -905,
       "y": -1729
@@ -19467,7 +19480,8 @@
         }
       ],
       "connections": [
-        "SHA_N0_2"
+        "SHA_N0_2",
+        "SHA_NJ0"
       ],
       "x": -558,
       "y": 1654
@@ -19731,7 +19745,8 @@
         }
       ],
       "connections": [
-        "SHA_N1_4"
+        "SHA_N1_4",
+        "SHA_NJ1"
       ],
       "x": -1226,
       "y": 1421
@@ -21706,7 +21721,8 @@
       ],
       "connections": [
         "SHA_C2_1",
-        "SHA_C1_4"
+        "SHA_C1_4",
+        "BRJ_SHA_1"
       ],
       "x": -380,
       "y": 1510
@@ -22230,6 +22246,173 @@
       ],
       "x": 580,
       "y": -800
+    },
+    {
+      "code": "BRJ_SHA_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_2"
+      ],
+      "x": -420,
+      "y": 1594
+    },
+    {
+      "code": "BRJ_WIT_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_C0_5"
+      ],
+      "x": -1256,
+      "y": 298
+    },
+    {
+      "code": "MAR_NJ0",
+      "type": "JEWEL_SOCKET",
+      "x": -272,
+      "y": -983
+    },
+    {
+      "code": "MAR_NJ1",
+      "type": "JEWEL_SOCKET",
+      "x": 698,
+      "y": -461
+    },
+    {
+      "code": "RAN_NJ0",
+      "type": "JEWEL_SOCKET",
+      "x": 965,
+      "y": 291
+    },
+    {
+      "code": "RAN_NJ1",
+      "type": "JEWEL_SOCKET",
+      "x": 1066,
+      "y": 1261
+    },
+    {
+      "code": "WIT_NJ0",
+      "type": "JEWEL_SOCKET",
+      "x": -724,
+      "y": 670
+    },
+    {
+      "code": "WIT_NJ1",
+      "type": "JEWEL_SOCKET",
+      "x": -1282,
+      "y": 987
+    },
+    {
+      "code": "DUE_NJ0",
+      "type": "JEWEL_SOCKET",
+      "x": 1879,
+      "y": -160
+    },
+    {
+      "code": "BRJ_DUE0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N3_5"
+      ],
+      "x": 1828,
+      "y": -302
+    },
+    {
+      "code": "DUE_NJ1",
+      "type": "JEWEL_SOCKET",
+      "x": 2053,
+      "y": 534
+    },
+    {
+      "code": "BRJ_DUE1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_C5_0"
+      ],
+      "x": 1450,
+      "y": 464
+    },
+    {
+      "code": "TEM_NJ0",
+      "type": "JEWEL_SOCKET",
+      "x": -431,
+      "y": -1846
+    },
+    {
+      "code": "TEM_NJ1",
+      "type": "JEWEL_SOCKET",
+      "x": -849,
+      "y": -1841
+    },
+    {
+      "code": "SHA_NJ0",
+      "type": "JEWEL_SOCKET",
+      "x": -593,
+      "y": 1534
+    },
+    {
+      "code": "SHA_NJ1",
+      "type": "JEWEL_SOCKET",
+      "x": -1346,
+      "y": 1385
     }
   ]
 }
