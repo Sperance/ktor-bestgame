@@ -5751,6 +5751,41 @@
       "code": "POWER_CHARGED_EDGE",
       "group": "POWER",
       "order": 3487
+    },
+    {
+      "code": "POWER_IRON_BLOOD",
+      "group": "POWER",
+      "order": 3488
+    },
+    {
+      "code": "POWER_COLD_CALCULUS",
+      "group": "POWER",
+      "order": 3489
+    },
+    {
+      "code": "POWER_WARDSTONE",
+      "group": "POWER",
+      "order": 3490
+    },
+    {
+      "code": "POWER_BLADE_DANCE",
+      "group": "POWER",
+      "order": 3491
+    },
+    {
+      "code": "POWER_SKYFORGE",
+      "group": "POWER",
+      "order": 3492
+    },
+    {
+      "code": "POWER_VENOM_HEART",
+      "group": "POWER",
+      "order": 3493
+    },
+    {
+      "code": "POWER_SHARED_SOUL",
+      "group": "POWER",
+      "order": 3494
     }
   ]
 }

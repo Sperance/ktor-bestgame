@@ -3605,7 +3605,8 @@
         }
       ],
       "connections": [
-        "MAR_IN_2"
+        "MAR_IN_2",
+        "MAR_N0_0"
       ],
       "x": 172,
       "y": -940
@@ -4553,7 +4554,8 @@
         }
       ],
       "connections": [
-        "MAR_C3_2"
+        "MAR_C3_2",
+        "MAR_N2_0"
       ],
       "x": 1062,
       "y": -1369
@@ -4605,7 +4607,8 @@
         }
       ],
       "connections": [
-        "MAR_C3_4"
+        "MAR_C3_4",
+        "MAR_N3_0"
       ],
       "x": 1249,
       "y": -1308
@@ -4980,7 +4983,8 @@
         }
       ],
       "connections": [
-        "MAR_B5_2"
+        "MAR_B5_2",
+        "MAR_N1_0"
       ],
       "x": 943,
       "y": -844
@@ -5321,7 +5325,9 @@
         }
       ],
       "connections": [
-        "DUE_IN_2"
+        "DUE_IN_2",
+        "FIL_12",
+        "FIL_34"
       ],
       "x": 839,
       "y": -379
@@ -5365,7 +5371,8 @@
         }
       ],
       "connections": [
-        "DUE_C0_0"
+        "DUE_C0_0",
+        "FIL_34"
       ],
       "x": 1101,
       "y": -375
@@ -5700,7 +5707,8 @@
         }
       ],
       "connections": [
-        "DUE_C1_1"
+        "DUE_C1_1",
+        "FIL_49"
       ],
       "x": 1539,
       "y": -560
@@ -5788,7 +5796,8 @@
         }
       ],
       "connections": [
-        "DUE_C1_4"
+        "DUE_C1_4",
+        "DUE_NP3_1"
       ],
       "x": 1721,
       "y": -476
@@ -6027,7 +6036,8 @@
         }
       ],
       "connections": [
-        "DUE_C2_3"
+        "DUE_C2_3",
+        "DUE_N0_0"
       ],
       "x": 1450,
       "y": -275
@@ -6328,7 +6338,8 @@
         }
       ],
       "connections": [
-        "DUE_C3_4"
+        "DUE_C3_4",
+        "DUE_N2_0"
       ],
       "x": 1809,
       "y": 89
@@ -6352,7 +6363,8 @@
         }
       ],
       "connections": [
-        "DUE_C3_5"
+        "DUE_C3_5",
+        "DUE_N1_0"
       ],
       "x": 1763,
       "y": 222
@@ -6376,7 +6388,8 @@
         }
       ],
       "connections": [
-        "DUE_C3_0"
+        "DUE_C3_0",
+        "FIL_18"
       ],
       "x": 1688,
       "y": 224
@@ -6555,7 +6568,8 @@
         }
       ],
       "connections": [
-        "DUE_C4_2"
+        "DUE_C4_2",
+        "FIL_18"
       ],
       "x": 1398,
       "y": 189
@@ -6684,7 +6698,9 @@
         }
       ],
       "connections": [
-        "DUE_B5_2"
+        "DUE_B5_2",
+        "FIL_9",
+        "FIL_13"
       ],
       "x": 1218,
       "y": 290
@@ -6813,7 +6829,8 @@
         }
       ],
       "connections": [
-        "DUE_C5_4"
+        "DUE_C5_4",
+        "FIL_29"
       ],
       "x": 1624,
       "y": 679
@@ -6992,7 +7009,8 @@
         }
       ],
       "connections": [
-        "RAN_IN_2"
+        "RAN_IN_2",
+        "RAN_N0_0"
       ],
       "x": 708,
       "y": 645
@@ -7284,8 +7302,8 @@
           ]
         }
       ],
-      "x": 1328,
-      "y": 1025
+      "x": 1331,
+      "y": 1038
     },
     {
       "code": "RAN_B1_1",
@@ -7936,7 +7954,8 @@
         }
       ],
       "connections": [
-        "RAN_C3_2"
+        "RAN_C3_2",
+        "RAN_N1_0"
       ],
       "x": 736,
       "y": 1548
@@ -8395,7 +8414,8 @@
         }
       ],
       "connections": [
-        "RAN_C5_1"
+        "RAN_C5_1",
+        "RAN_N3_0"
       ],
       "x": 277,
       "y": 1708
@@ -9619,7 +9639,8 @@
         }
       ],
       "connections": [
-        "SHA_C3_3"
+        "SHA_C3_3",
+        "SHA_N0_0"
       ],
       "x": -736,
       "y": 1699
@@ -9642,7 +9663,8 @@
         }
       ],
       "connections": [
-        "SHA_C3_4"
+        "SHA_C3_4",
+        "SHA_N3_0"
       ],
       "x": -915,
       "y": 1642
@@ -9666,7 +9688,8 @@
         }
       ],
       "connections": [
-        "SHA_C3_0"
+        "SHA_C3_0",
+        "SHA_N1_0"
       ],
       "x": -929,
       "y": 1510
@@ -10069,7 +10092,8 @@
         }
       ],
       "connections": [
-        "SHA_C5_0"
+        "SHA_C5_0",
+        "SHA_NP2_1"
       ],
       "x": -1395,
       "y": 1060
@@ -10226,7 +10250,8 @@
         }
       ],
       "connections": [
-        "WIT_IN_2"
+        "WIT_IN_2",
+        "WIT_N0_0"
       ],
       "x": -881,
       "y": 280
@@ -10369,7 +10394,8 @@
         }
       ],
       "connections": [
-        "WIT_C0_3"
+        "WIT_C0_3",
+        "WIT_N1_0"
       ],
       "x": -1326,
       "y": 624
@@ -11181,7 +11207,8 @@
         }
       ],
       "connections": [
-        "WIT_C3_2"
+        "WIT_C3_2",
+        "WIT_N2_0"
       ],
       "x": -1680,
       "y": -136
@@ -11731,7 +11758,8 @@
         }
       ],
       "connections": [
-        "WIT_C5_2"
+        "WIT_C5_2",
+        "WIT_N3_0"
       ],
       "x": -1570,
       "y": -781
@@ -12438,7 +12466,8 @@
       ],
       "connections": [
         "TEM_C1_3",
-        "TEM_T1_1"
+        "TEM_T1_1",
+        "TEM_N3_0"
       ],
       "x": -1268,
       "y": -1392
@@ -12490,7 +12519,8 @@
         }
       ],
       "connections": [
-        "TEM_C1_0"
+        "TEM_C1_0",
+        "TEM_N1_0"
       ],
       "x": -1046,
       "y": -1451
@@ -13400,7 +13430,8 @@
         }
       ],
       "connections": [
-        "TEM_C5_2"
+        "TEM_C5_2",
+        "TEM_N0_0"
       ],
       "x": -71,
       "y": -1766
@@ -13453,7 +13484,8 @@
         }
       ],
       "connections": [
-        "TEM_C5_4"
+        "TEM_C5_4",
+        "TEM_N2_0"
       ],
       "x": 110,
       "y": -1841
@@ -13670,7 +13702,8 @@
       "code": "BR0_2",
       "type": "ATTRIBUTE",
       "connections": [
-        "DUE_B0_1"
+        "DUE_B0_1",
+        "FIL_49"
       ],
       "options": [
         [
@@ -13719,7 +13752,8 @@
         }
       ],
       "connections": [
-        "BR1_2"
+        "BR1_2",
+        "FIL_33"
       ],
       "x": 1304,
       "y": 642
@@ -13728,7 +13762,8 @@
       "code": "BR1_2",
       "type": "ATTRIBUTE",
       "connections": [
-        "RAN_B0_1"
+        "RAN_B0_1",
+        "FIL_13"
       ],
       "options": [
         [
@@ -13844,7 +13879,8 @@
       "code": "BR3_2",
       "type": "ATTRIBUTE",
       "connections": [
-        "WIT_B0_2"
+        "WIT_B0_2",
+        "FIL_2"
       ],
       "options": [
         [
@@ -13902,7 +13938,8 @@
       "code": "BR4_2",
       "type": "ATTRIBUTE",
       "connections": [
-        "TEM_B0_1"
+        "TEM_B0_1",
+        "FIL_3"
       ],
       "options": [
         [
@@ -13960,7 +13997,8 @@
       "code": "BR5_2",
       "type": "ATTRIBUTE",
       "connections": [
-        "MAR_B0_2"
+        "MAR_B0_2",
+        "FIL_5"
       ],
       "options": [
         [
@@ -14032,7 +14070,8 @@
         }
       ],
       "connections": [
-        "MAR_T1_1"
+        "MAR_T1_1",
+        "FIL_20"
       ],
       "x": 726,
       "y": -1869
@@ -14197,6 +14236,8000 @@
       ],
       "x": -64,
       "y": 1994
+    },
+    {
+      "code": "SCN_N0_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PET_INCREASED_DAMAGE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "PET_INCREASED_LIFE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N0_1",
+        "SCN_N0_5",
+        "SCN_R4_1"
+      ],
+      "x": -524,
+      "y": 39
+    },
+    {
+      "code": "SCN_N0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PET_ATTACK_SPEED",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_PET_ALIVE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N0_2"
+      ],
+      "x": -598,
+      "y": 107
+    },
+    {
+      "code": "SCN_N0_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_PACK_RALLY",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "PET_INCREASED_DAMAGE",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_PET_ALIVE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N0_3",
+        "SCN_N0_M"
+      ],
+      "x": -693,
+      "y": 78
+    },
+    {
+      "code": "SCN_N0_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PET_RESISTANCES",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "PET_INCREASED_LIFE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N0_4"
+      ],
+      "x": -716,
+      "y": -19
+    },
+    {
+      "code": "SCN_N0_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_GUARD_DOG",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "PET_INCREASED_LIFE",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "PET_RESISTANCES",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N0_5",
+        "SCN_N0_M"
+      ],
+      "x": -642,
+      "y": -87
+    },
+    {
+      "code": "SCN_N0_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PET_ATTACK_SPEED",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "PET_INCREASED_DAMAGE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "PET_ADD_ARMOUR",
+          "values": [
+            60
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N0_M"
+      ],
+      "x": -547,
+      "y": -58
+    },
+    {
+      "code": "SCN_N0_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "PET_INCREASED_DAMAGE",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "PET_ATTACK_SPEED",
+            "values": [
+              6
+            ]
+          }
+        ],
+        [
+          {
+            "code": "PET_INCREASED_LIFE",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "PET_RESISTANCES",
+            "values": [
+              12
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_PET_ALIVE",
+            "values": [
+              12
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              20
+            ]
+          }
+        ]
+      ],
+      "only": "SCION_START",
+      "x": -620,
+      "y": 10
+    },
+    {
+      "code": "SCN_N1_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PET_INCREASED_DAMAGE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "PET_INCREASED_LIFE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N1_1",
+        "SCN_N1_5",
+        "SCN_R2_1"
+      ],
+      "x": 322,
+      "y": 422
+    },
+    {
+      "code": "SCN_N1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PET_ATTACK_SPEED",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_PET_ALIVE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N1_2"
+      ],
+      "x": 416,
+      "y": 455
+    },
+    {
+      "code": "SCN_N1_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_PACK_RALLY",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "PET_INCREASED_DAMAGE",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_PET_ALIVE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N1_3",
+        "SCN_N1_M"
+      ],
+      "x": 434,
+      "y": 554
+    },
+    {
+      "code": "SCN_N1_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PET_RESISTANCES",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "PET_INCREASED_LIFE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N1_4"
+      ],
+      "x": 358,
+      "y": 618
+    },
+    {
+      "code": "SCN_N1_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_GUARD_DOG",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "PET_INCREASED_LIFE",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "PET_RESISTANCES",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N1_5",
+        "SCN_N1_M"
+      ],
+      "x": 264,
+      "y": 585
+    },
+    {
+      "code": "SCN_N1_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PET_ATTACK_SPEED",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "PET_INCREASED_DAMAGE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "PET_ADD_ARMOUR",
+          "values": [
+            60
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N1_M"
+      ],
+      "x": 246,
+      "y": 486
+    },
+    {
+      "code": "SCN_N1_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "PET_INCREASED_DAMAGE",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "PET_ATTACK_SPEED",
+            "values": [
+              6
+            ]
+          }
+        ],
+        [
+          {
+            "code": "PET_INCREASED_LIFE",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "PET_RESISTANCES",
+            "values": [
+              12
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_PET_ALIVE",
+            "values": [
+              12
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              20
+            ]
+          }
+        ]
+      ],
+      "only": "SCION_START",
+      "x": 340,
+      "y": 520
+    },
+    {
+      "code": "SCN_N2_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N2_1",
+        "SCN_N2_5",
+        "SCN_NP2_1"
+      ],
+      "x": -640,
+      "y": -308
+    },
+    {
+      "code": "SCN_N2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_ATTACK_SPEED_FULL_LIFE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N2_2",
+        "SCN_T7_1"
+      ],
+      "x": -737,
+      "y": -284
+    },
+    {
+      "code": "SCN_N2_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_CANTORS_BREATH",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_LOW_LIFE",
+          "values": [
+            22
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N2_3",
+        "SCN_N2_M"
+      ],
+      "x": -807,
+      "y": -356
+    },
+    {
+      "code": "SCN_N2_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_LOW_LIFE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N2_4"
+      ],
+      "x": -780,
+      "y": -452
+    },
+    {
+      "code": "SCN_N2_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_MARKSMANS_FOCUS",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "COND_ATTACK_SPEED_FULL_LIFE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "COND_CRIT_MULTIPLIER_RECENT_CRIT",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N2_5",
+        "SCN_N2_M"
+      ],
+      "x": -683,
+      "y": -476
+    },
+    {
+      "code": "SCN_N2_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_VS_FULL_LIFE",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            8,
+            8,
+            8
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N2_M"
+      ],
+      "x": -613,
+      "y": -404
+    },
+    {
+      "code": "SCN_N2_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "COND_DAMAGE_LOW_LIFE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              20
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_ATTACK_SPEED_FULL_LIFE",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "COND_CRIT_MULTIPLIER_RECENT_CRIT",
+            "values": [
+              12
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_RECENT_KILL",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "ADD_ALL_ATTRIBUTES",
+            "values": [
+              6,
+              6,
+              6
+            ]
+          }
+        ]
+      ],
+      "only": "SCION_START",
+      "x": -710,
+      "y": -380
+    },
+    {
+      "code": "SCN_NP2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_R4_2"
+      ],
+      "x": -529,
+      "y": -194
+    },
+    {
+      "code": "SCN_N3_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            2
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N3_1",
+        "SCN_N3_5",
+        "SCN_NP3_2"
+      ],
+      "x": 137,
+      "y": 750
+    },
+    {
+      "code": "SCN_N3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_ONSLAUGHT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N3_2",
+        "SCN_T6_1"
+      ],
+      "x": 220,
+      "y": 806
+    },
+    {
+      "code": "SCN_N3_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_WIND_AT_BACK",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N3_3",
+        "SCN_N3_M"
+      ],
+      "x": 213,
+      "y": 906
+    },
+    {
+      "code": "SCN_N3_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N3_4"
+      ],
+      "x": 123,
+      "y": 950
+    },
+    {
+      "code": "SCN_N3_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_KILLING_FEVER",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_ONSLAUGHT",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N3_5",
+        "SCN_N3_M"
+      ],
+      "x": 40,
+      "y": 894
+    },
+    {
+      "code": "SCN_N3_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_ONSLAUGHT",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_N3_M"
+      ],
+      "x": 47,
+      "y": 794
+    },
+    {
+      "code": "SCN_N3_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "ONSLAUGHT_ON_KILL",
+            "values": [
+              12
+            ]
+          },
+          {
+            "code": "INCREASED_MOVEMENT_SPEED",
+            "values": [
+              5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_ONSLAUGHT",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_RECENT_KILL",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "ADD_LIFE_ON_KILL",
+            "values": [
+              8
+            ]
+          }
+        ]
+      ],
+      "only": "SCION_START",
+      "x": 130,
+      "y": 850
+    },
+    {
+      "code": "SCN_NP3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            2
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_R2_2",
+        "SCN_NP3_2"
+      ],
+      "x": 154,
+      "y": 510
+    },
+    {
+      "code": "SCN_NP3_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_ONSLAUGHT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "x": 145,
+      "y": 630
+    },
+    {
+      "code": "MAR_N0_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N0_1",
+        "MAR_N0_5"
+      ],
+      "x": 48,
+      "y": -962
+    },
+    {
+      "code": "MAR_N0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_ARMOUR_FORTIFIED",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N0_2"
+      ],
+      "x": -16,
+      "y": -886
+    },
+    {
+      "code": "MAR_N0_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_TEMPERED_SOUL",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            60
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N0_3",
+        "MAR_N0_M"
+      ],
+      "x": -115,
+      "y": -904
+    },
+    {
+      "code": "MAR_N0_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N0_4"
+      ],
+      "x": -148,
+      "y": -998
+    },
+    {
+      "code": "MAR_N0_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_GRANITE_HIDE",
+          "values": [
+            -6
+          ]
+        },
+        {
+          "code": "COND_ARMOUR_FORTIFIED",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            25
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N0_5",
+        "MAR_N0_M"
+      ],
+      "x": -84,
+      "y": -1074
+    },
+    {
+      "code": "MAR_N0_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "COND_ARMOUR_FORTIFIED",
+          "values": [
+            35
+          ]
+        },
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N0_M"
+      ],
+      "x": 15,
+      "y": -1056
+    },
+    {
+      "code": "MAR_N0_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "FORTIFY_ON_HIT",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "ADD_ARMOUR",
+            "values": [
+              60
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_ARMOUR_FORTIFIED",
+            "values": [
+              30
+            ]
+          },
+          {
+            "code": "INCREASED_MAXIMUM_LIFE",
+            "values": [
+              5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_ARMOUR",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
+            "values": [
+              2
+            ]
+          }
+        ]
+      ],
+      "x": -50,
+      "y": -980
+    },
+    {
+      "code": "MAR_N1_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N1_1",
+        "MAR_N1_5"
+      ],
+      "x": 874,
+      "y": -734
+    },
+    {
+      "code": "MAR_N1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_VS_RARE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N1_2"
+      ],
+      "x": 920,
+      "y": -646
+    },
+    {
+      "code": "MAR_N1_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_HEADSMAN",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_VS_RARE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N1_3",
+        "MAR_N1_M"
+      ],
+      "x": 866,
+      "y": -561
+    },
+    {
+      "code": "MAR_N1_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_VS_RARE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N1_4"
+      ],
+      "x": 766,
+      "y": -566
+    },
+    {
+      "code": "MAR_N1_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_MOURNING_BELL",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N1_5",
+        "MAR_N1_M"
+      ],
+      "x": 720,
+      "y": -654
+    },
+    {
+      "code": "MAR_N1_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "CULLING_STRIKE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_VS_UNIQUE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N1_M"
+      ],
+      "x": 774,
+      "y": -739
+    },
+    {
+      "code": "MAR_N1_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "DOUBLE_DAMAGE_CHANCE",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "INCREASED_PHYSICAL_DAMAGE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_VS_RARE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+            "values": [
+              10
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_VS_UNIQUE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              5
+            ]
+          }
+        ]
+      ],
+      "x": 820,
+      "y": -650
+    },
+    {
+      "code": "MAR_N2_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N2_1",
+        "MAR_N2_5"
+      ],
+      "x": 969,
+      "y": -1415
+    },
+    {
+      "code": "MAR_N2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_ARMOUR_ENDURANCE_CHARGE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N2_2"
+      ],
+      "x": 886,
+      "y": -1360
+    },
+    {
+      "code": "MAR_N2_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_ENDURING_BLOCK",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "COND_ARMOUR_ENDURANCE_CHARGE",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N2_3",
+        "MAR_N2_M"
+      ],
+      "x": 797,
+      "y": -1405
+    },
+    {
+      "code": "MAR_N2_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N2_4"
+      ],
+      "x": 791,
+      "y": -1505
+    },
+    {
+      "code": "MAR_N2_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_VAAL_DEBT",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            25
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N2_5",
+        "MAR_N2_M",
+        "MAR_T7_1"
+      ],
+      "x": 874,
+      "y": -1560
+    },
+    {
+      "code": "MAR_N2_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "MAXIMUM_ENDURANCE_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "COND_ARMOUR_ENDURANCE_CHARGE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N2_M"
+      ],
+      "x": 963,
+      "y": -1515
+    },
+    {
+      "code": "MAR_N2_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "INCREASED_CHARGE_DURATION",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              25
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_ARMOUR_ENDURANCE_CHARGE",
+            "values": [
+              25
+            ]
+          },
+          {
+            "code": "ADD_ARMOUR",
+            "values": [
+              60
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_BLOCK_CHANCE",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "INCREASED_MAXIMUM_LIFE",
+            "values": [
+              5
+            ]
+          }
+        ]
+      ],
+      "x": 880,
+      "y": -1460
+    },
+    {
+      "code": "MAR_N3_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "REDUCED_CRITICAL_DAMAGE_TAKEN",
+          "values": [
+            -8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N3_1",
+        "MAR_N3_5"
+      ],
+      "x": 1358,
+      "y": -1260
+    },
+    {
+      "code": "MAR_N3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ARMOUR_APPLIES_TO_ELEMENTAL",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N3_2",
+        "MAR_T6_1"
+      ],
+      "x": 1439,
+      "y": -1319
+    },
+    {
+      "code": "MAR_N3_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_SHRUG_OFF",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "REDUCED_CRITICAL_DAMAGE_TAKEN",
+          "values": [
+            -15
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            60
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N3_3",
+        "MAR_N3_M"
+      ],
+      "x": 1531,
+      "y": -1279
+    },
+    {
+      "code": "MAR_N3_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "REDUCED_CRITICAL_DAMAGE_TAKEN",
+          "values": [
+            -8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N3_4"
+      ],
+      "x": 1542,
+      "y": -1180
+    },
+    {
+      "code": "MAR_N3_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_GRANITE_HIDE",
+          "values": [
+            -5
+          ]
+        },
+        {
+          "code": "ARMOUR_APPLIES_TO_ELEMENTAL",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N3_5",
+        "MAR_N3_M"
+      ],
+      "x": 1461,
+      "y": -1121
+    },
+    {
+      "code": "MAR_N3_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ARMOUR_APPLIES_TO_ELEMENTAL",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "REDUCED_CRITICAL_DAMAGE_TAKEN",
+          "values": [
+            -15
+          ]
+        },
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_N3_M"
+      ],
+      "x": 1369,
+      "y": -1161
+    },
+    {
+      "code": "MAR_N3_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "REDUCED_CRITICAL_DAMAGE_TAKEN",
+            "values": [
+              -15
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              25
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ARMOUR_APPLIES_TO_ELEMENTAL",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "INCREASED_ARMOUR",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+            "values": [
+              10
+            ]
+          },
+          {
+            "code": "ADD_ARMOUR",
+            "values": [
+              60
+            ]
+          }
+        ]
+      ],
+      "x": 1450,
+      "y": -1220
+    },
+    {
+      "code": "RAN_N0_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ACCURACY_RATING",
+          "values": [
+            40
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N0_1",
+        "RAN_N0_5"
+      ],
+      "x": 768,
+      "y": 546
+    },
+    {
+      "code": "RAN_N0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ACCURACY_RATING",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N0_2"
+      ],
+      "x": 720,
+      "y": 458
+    },
+    {
+      "code": "RAN_N0_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_MARKSMANS_FOCUS",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "ADD_ACCURACY_RATING",
+          "values": [
+            120
+          ]
+        },
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N0_3",
+        "RAN_N0_M"
+      ],
+      "x": 772,
+      "y": 372
+    },
+    {
+      "code": "RAN_N0_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ACCURACY_RATING",
+          "values": [
+            40
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N0_4"
+      ],
+      "x": 872,
+      "y": 374
+    },
+    {
+      "code": "RAN_N0_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_LONE_QUARRY",
+          "values": [
+            80
+          ]
+        },
+        {
+          "code": "INCREASED_ACCURACY_RATING",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N0_5",
+        "RAN_N0_M"
+      ],
+      "x": 920,
+      "y": 462
+    },
+    {
+      "code": "RAN_N0_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_ACCURACY_RATING",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "ADD_ACCURACY_RATING",
+          "values": [
+            150
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N0_M"
+      ],
+      "x": 868,
+      "y": 548
+    },
+    {
+      "code": "RAN_N0_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "ADD_ACCURACY_RATING",
+            "values": [
+              120
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_ACCURACY_RATING",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+            "values": [
+              20
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+            "values": [
+              12
+            ]
+          },
+          {
+            "code": "ADD_DEXTERITY",
+            "values": [
+              15
+            ]
+          }
+        ]
+      ],
+      "x": 820,
+      "y": 460
+    },
+    {
+      "code": "RAN_N1_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            2
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N1_1",
+        "RAN_N1_5"
+      ],
+      "x": 829,
+      "y": 1479
+    },
+    {
+      "code": "RAN_N1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_ONSLAUGHT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N1_2"
+      ],
+      "x": 818,
+      "y": 1380
+    },
+    {
+      "code": "RAN_N1_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_WIND_AT_BACK",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N1_3",
+        "RAN_N1_M"
+      ],
+      "x": 899,
+      "y": 1321
+    },
+    {
+      "code": "RAN_N1_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N1_4"
+      ],
+      "x": 991,
+      "y": 1361
+    },
+    {
+      "code": "RAN_N1_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_KILLING_FEVER",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_ONSLAUGHT",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N1_5",
+        "RAN_N1_M"
+      ],
+      "x": 1002,
+      "y": 1460
+    },
+    {
+      "code": "RAN_N1_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_ONSLAUGHT",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N1_M"
+      ],
+      "x": 921,
+      "y": 1519
+    },
+    {
+      "code": "RAN_N1_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "ONSLAUGHT_ON_KILL",
+            "values": [
+              12
+            ]
+          },
+          {
+            "code": "INCREASED_MOVEMENT_SPEED",
+            "values": [
+              5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_ONSLAUGHT",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_RECENT_KILL",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "ADD_LIFE_ON_KILL",
+            "values": [
+              8
+            ]
+          }
+        ]
+      ],
+      "x": 910,
+      "y": 1420
+    },
+    {
+      "code": "RAN_N2_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N2_1",
+        "RAN_N2_5",
+        "RAN_NP2_1"
+      ],
+      "x": 1440,
+      "y": 945
+    },
+    {
+      "code": "RAN_N2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N2_2"
+      ],
+      "x": 1486,
+      "y": 856
+    },
+    {
+      "code": "RAN_N2_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_TURNING_STEEL",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N2_3",
+        "RAN_N2_M"
+      ],
+      "x": 1586,
+      "y": 851
+    },
+    {
+      "code": "RAN_N2_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N2_4",
+        "RAN_T7_1"
+      ],
+      "x": 1640,
+      "y": 935
+    },
+    {
+      "code": "RAN_N2_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_SHROUDED_STEP",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N2_5",
+        "RAN_N2_M"
+      ],
+      "x": 1594,
+      "y": 1024
+    },
+    {
+      "code": "RAN_N2_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            60
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N2_M"
+      ],
+      "x": 1494,
+      "y": 1029
+    },
+    {
+      "code": "RAN_N2_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "DEFLECTION_CHANCE",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "ADD_EVASION_RATING",
+            "values": [
+              60
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_EVASION_RATING",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "INCREASED_MOVEMENT_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_BLOCK_CHANCE",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "DEFLECTION_CHANCE",
+            "values": [
+              3
+            ]
+          }
+        ]
+      ],
+      "x": 1540,
+      "y": 940
+    },
+    {
+      "code": "RAN_NP2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_T0_1"
+      ],
+      "x": 1315,
+      "y": 950
+    },
+    {
+      "code": "RAN_N3_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_COLD",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_COLD_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N3_1",
+        "RAN_N3_5"
+      ],
+      "x": 340,
+      "y": 1790
+    },
+    {
+      "code": "RAN_N3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "CHANCE_TO_FREEZE",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N3_2"
+      ],
+      "x": 439,
+      "y": 1778
+    },
+    {
+      "code": "RAN_N3_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_DEEP_FREEZE",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_COLD",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "ADD_COLD_RESISTANCE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N3_3",
+        "RAN_N3_M"
+      ],
+      "x": 499,
+      "y": 1857
+    },
+    {
+      "code": "RAN_N3_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_COLD",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "CHANCE_TO_FREEZE",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N3_4",
+        "RAN_T6_1"
+      ],
+      "x": 460,
+      "y": 1950
+    },
+    {
+      "code": "RAN_N3_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_PRISM_CLEAVE",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_COLD",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "CHANCE_TO_FREEZE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N3_5",
+        "RAN_N3_M"
+      ],
+      "x": 361,
+      "y": 1962
+    },
+    {
+      "code": "RAN_N3_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_COLD",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "CHANCE_TO_FREEZE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_N3_M"
+      ],
+      "x": 301,
+      "y": 1883
+    },
+    {
+      "code": "RAN_N3_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "PHYSICAL_AS_EXTRA_COLD",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "ADD_COLD_RESISTANCE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "CHANCE_TO_FREEZE",
+            "values": [
+              6
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_COLD_RESISTANCE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_DEXTERITY",
+            "values": [
+              15
+            ]
+          }
+        ]
+      ],
+      "x": 400,
+      "y": 1870
+    },
+    {
+      "code": "WIT_N0_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ARCANE_SURGE_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            13
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N0_1",
+        "WIT_N0_5"
+      ],
+      "x": -822,
+      "y": 375
+    },
+    {
+      "code": "WIT_N0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ARCANE_SURGE_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N0_2"
+      ],
+      "x": -723,
+      "y": 372
+    },
+    {
+      "code": "WIT_N0_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_CANTORS_BREATH",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "ARCANE_SURGE_ON_KILL",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N0_3",
+        "WIT_N0_M"
+      ],
+      "x": -670,
+      "y": 457
+    },
+    {
+      "code": "WIT_N0_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N0_4"
+      ],
+      "x": -718,
+      "y": 545
+    },
+    {
+      "code": "WIT_N0_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_ARCANE_TIDE",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "INCREASED_MANA_REGENERATION",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N0_5",
+        "WIT_N0_M"
+      ],
+      "x": -817,
+      "y": 548
+    },
+    {
+      "code": "WIT_N0_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ARCANE_SURGE_ON_KILL",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N0_M"
+      ],
+      "x": -870,
+      "y": 463
+    },
+    {
+      "code": "WIT_N0_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "ARCANE_SURGE_ON_KILL",
+            "values": [
+              12
+            ]
+          },
+          {
+            "code": "INCREASED_SPELL_DAMAGE",
+            "values": [
+              20
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_CAST_SPEED",
+            "values": [
+              5
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_MANA",
+            "values": [
+              25
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_MANA_REGENERATION",
+            "values": [
+              25
+            ]
+          },
+          {
+            "code": "ADD_INTELLIGENCE",
+            "values": [
+              15
+            ]
+          }
+        ]
+      ],
+      "x": -770,
+      "y": 460
+    },
+    {
+      "code": "WIT_N1_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FASTER_SHIELD_RECHARGE_START",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N1_1",
+        "WIT_N1_5"
+      ],
+      "x": -1383,
+      "y": 732
+    },
+    {
+      "code": "WIT_N1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_REGENERATION",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N1_2"
+      ],
+      "x": -1330,
+      "y": 816
+    },
+    {
+      "code": "WIT_N1_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_RECOUP_WARD",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "FASTER_SHIELD_RECHARGE_START",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N1_3",
+        "WIT_N1_M"
+      ],
+      "x": -1377,
+      "y": 905
+    },
+    {
+      "code": "WIT_N1_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FASTER_SHIELD_RECHARGE_START",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N1_4"
+      ],
+      "x": -1477,
+      "y": 908
+    },
+    {
+      "code": "WIT_N1_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_STAR_HEART",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_REGENERATION",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N1_5",
+        "WIT_N1_M"
+      ],
+      "x": -1530,
+      "y": 824
+    },
+    {
+      "code": "WIT_N1_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "FASTER_SHIELD_RECHARGE_START",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "INCREASED_ENERGY_SHIELD",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "COND_RESISTANCES_FULL_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N1_M"
+      ],
+      "x": -1483,
+      "y": 735
+    },
+    {
+      "code": "WIT_N1_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "FASTER_SHIELD_RECHARGE_START",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_ENERGY_SHIELD",
+            "values": [
+              30
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_ENERGY_SHIELD",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "INCREASED_ENERGY_REGENERATION",
+            "values": [
+              12
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_RESISTANCES_FULL_SHIELD",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+            "values": [
+              8
+            ]
+          }
+        ]
+      ],
+      "x": -1430,
+      "y": 820
+    },
+    {
+      "code": "WIT_N2_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N2_1",
+        "WIT_N2_5"
+      ],
+      "x": -1706,
+      "y": -27
+    },
+    {
+      "code": "WIT_N2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            13
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N2_2"
+      ],
+      "x": -1634,
+      "y": 42
+    },
+    {
+      "code": "WIT_N2_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_WHISPERED_DOOM",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N2_3",
+        "WIT_N2_M"
+      ],
+      "x": -1658,
+      "y": 139
+    },
+    {
+      "code": "WIT_N2_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N2_4",
+        "WIT_T7_1"
+      ],
+      "x": -1754,
+      "y": 167
+    },
+    {
+      "code": "WIT_N2_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_BLOOD_HEX",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N2_5",
+        "WIT_N2_M"
+      ],
+      "x": -1826,
+      "y": 98
+    },
+    {
+      "code": "WIT_N2_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            14
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N2_M"
+      ],
+      "x": -1802,
+      "y": 1
+    },
+    {
+      "code": "WIT_N2_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "INCREASED_CURSE_EFFECT",
+            "values": [
+              10
+            ]
+          },
+          {
+            "code": "ADD_INTELLIGENCE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_SPELL_DAMAGE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "INCREASED_CAST_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_CHAOS_RESISTANCE",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              25
+            ]
+          }
+        ]
+      ],
+      "x": -1730,
+      "y": 70
+    },
+    {
+      "code": "WIT_N3_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "SPELL_SUPPRESSION",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N3_1",
+        "WIT_N3_5"
+      ],
+      "x": -1624,
+      "y": -679
+    },
+    {
+      "code": "WIT_N3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "SPELL_SUPPRESSION",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N3_2"
+      ],
+      "x": -1570,
+      "y": -594
+    },
+    {
+      "code": "WIT_N3_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_WARDING_MANTRA",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "SPELL_SUPPRESSION",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N3_3",
+        "WIT_N3_M"
+      ],
+      "x": -1616,
+      "y": -506
+    },
+    {
+      "code": "WIT_N3_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "SPELL_SUPPRESSION",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N3_4",
+        "WIT_T6_1"
+      ],
+      "x": -1716,
+      "y": -501
+    },
+    {
+      "code": "WIT_N3_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_SHRUG_OFF",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "SPELL_SUPPRESSION",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N3_5",
+        "WIT_N3_M"
+      ],
+      "x": -1770,
+      "y": -586
+    },
+    {
+      "code": "WIT_N3_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "SPELL_SUPPRESSION",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_AND_ENERGY_SHIELD",
+          "values": [
+            12,
+            12
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_N3_M"
+      ],
+      "x": -1724,
+      "y": -674
+    },
+    {
+      "code": "WIT_N3_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "SPELL_SUPPRESSION",
+            "values": [
+              6
+            ]
+          },
+          {
+            "code": "ADD_ENERGY_SHIELD",
+            "values": [
+              30
+            ]
+          }
+        ],
+        [
+          {
+            "code": "SPELL_SUPPRESSION",
+            "values": [
+              5
+            ]
+          },
+          {
+            "code": "ADD_EVASION_RATING",
+            "values": [
+              60
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+            "values": [
+              10
+            ]
+          },
+          {
+            "code": "SPELL_SUPPRESSION",
+            "values": [
+              4
+            ]
+          }
+        ]
+      ],
+      "x": -1670,
+      "y": -590
+    },
+    {
+      "code": "DUE_N0_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N0_1",
+        "DUE_N0_5"
+      ],
+      "x": 1566,
+      "y": -234
+    },
+    {
+      "code": "DUE_N0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_VS_RARE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N0_2"
+      ],
+      "x": 1642,
+      "y": -298
+    },
+    {
+      "code": "DUE_N0_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_HEADSMAN",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_VS_RARE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N0_3",
+        "DUE_N0_M"
+      ],
+      "x": 1736,
+      "y": -265
+    },
+    {
+      "code": "DUE_N0_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_VS_RARE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N0_4"
+      ],
+      "x": 1754,
+      "y": -166
+    },
+    {
+      "code": "DUE_N0_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_MOURNING_BELL",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N0_5",
+        "DUE_N0_M"
+      ],
+      "x": 1678,
+      "y": -102
+    },
+    {
+      "code": "DUE_N0_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "CULLING_STRIKE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_VS_UNIQUE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N0_M"
+      ],
+      "x": 1584,
+      "y": -135
+    },
+    {
+      "code": "DUE_N0_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "DOUBLE_DAMAGE_CHANCE",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "INCREASED_PHYSICAL_DAMAGE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_VS_RARE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+            "values": [
+              10
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_VS_UNIQUE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              5
+            ]
+          }
+        ]
+      ],
+      "x": 1660,
+      "y": -200
+    },
+    {
+      "code": "DUE_N1_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_SPEED_FRENZY_CHARGE",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N1_1",
+        "DUE_N1_5"
+      ],
+      "x": 1832,
+      "y": 297
+    },
+    {
+      "code": "DUE_N1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N1_2"
+      ],
+      "x": 1930,
+      "y": 274
+    },
+    {
+      "code": "DUE_N1_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_KILLING_FEVER",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "COND_SPEED_FRENZY_CHARGE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N1_3",
+        "DUE_N1_M"
+      ],
+      "x": 1998,
+      "y": 348
+    },
+    {
+      "code": "DUE_N1_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_SPEED_FRENZY_CHARGE",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N1_4"
+      ],
+      "x": 1968,
+      "y": 443
+    },
+    {
+      "code": "DUE_N1_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_WIND_AT_BACK",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "COND_SPEED_FRENZY_CHARGE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N1_5",
+        "DUE_N1_M"
+      ],
+      "x": 1870,
+      "y": 466
+    },
+    {
+      "code": "DUE_N1_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "MAXIMUM_FRENZY_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "COND_SPEED_FRENZY_CHARGE",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N1_M"
+      ],
+      "x": 1802,
+      "y": 392
+    },
+    {
+      "code": "DUE_N1_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "COND_SPEED_FRENZY_CHARGE",
+            "values": [
+              6
+            ]
+          },
+          {
+            "code": "INCREASED_CHARGE_DURATION",
+            "values": [
+              12
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              5
+            ]
+          },
+          {
+            "code": "ADD_DEXTERITY",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_PHYSICAL_DAMAGE",
+            "values": [
+              18
+            ]
+          },
+          {
+            "code": "ADD_STRENGTH",
+            "values": [
+              15
+            ]
+          }
+        ]
+      ],
+      "x": 1900,
+      "y": 370
+    },
+    {
+      "code": "DUE_N2_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "LIFE_RECOUP",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N2_1",
+        "DUE_N2_5"
+      ],
+      "x": 1931,
+      "y": 26
+    },
+    {
+      "code": "DUE_N2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "LIFE_RECOUP",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            2
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N2_2"
+      ],
+      "x": 1936,
+      "y": -74
+    },
+    {
+      "code": "DUE_N2_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_VAAL_DEBT",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "LIFE_RECOUP",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            25
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N2_3",
+        "DUE_N2_M"
+      ],
+      "x": 2025,
+      "y": -120
+    },
+    {
+      "code": "DUE_N2_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_REGEN_RECENT_HIT",
+          "values": [
+            0.5
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N2_4",
+        "DUE_T7_1"
+      ],
+      "x": 2109,
+      "y": -66
+    },
+    {
+      "code": "DUE_N2_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_GUARD_DOG",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "LIFE_RECOUP",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "COND_REGEN_RECENT_HIT",
+          "values": [
+            1
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N2_5",
+        "DUE_N2_M"
+      ],
+      "x": 2104,
+      "y": 34
+    },
+    {
+      "code": "DUE_N2_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "LIFE_RECOUP",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_LIFE_REGENERATION",
+          "values": [
+            5
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N2_M"
+      ],
+      "x": 2015,
+      "y": 80
+    },
+    {
+      "code": "DUE_N2_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "LIFE_RECOUP",
+            "values": [
+              6
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              25
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_REGEN_RECENT_HIT",
+            "values": [
+              1
+            ]
+          },
+          {
+            "code": "INCREASED_MAXIMUM_LIFE",
+            "values": [
+              5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_LIFE_REGENERATION",
+            "values": [
+              6
+            ]
+          },
+          {
+            "code": "ADD_LIFE_ON_KILL",
+            "values": [
+              8
+            ]
+          }
+        ]
+      ],
+      "x": 2020,
+      "y": -20
+    },
+    {
+      "code": "DUE_N3_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_FIRE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N3_1",
+        "DUE_N3_5",
+        "DUE_NP3_1"
+      ],
+      "x": 1893,
+      "y": -434
+    },
+    {
+      "code": "DUE_N3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_FIRE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N3_2",
+        "DUE_T6_1"
+      ],
+      "x": 1962,
+      "y": -506
+    },
+    {
+      "code": "DUE_N3_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_FURNACE_CORE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_FIRE",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N3_3",
+        "DUE_N3_M"
+      ],
+      "x": 2059,
+      "y": -482
+    },
+    {
+      "code": "DUE_N3_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N3_4"
+      ],
+      "x": 2087,
+      "y": -386
+    },
+    {
+      "code": "DUE_N3_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_BLACK_SAP",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_FIRE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N3_5",
+        "DUE_N3_M"
+      ],
+      "x": 2018,
+      "y": -314
+    },
+    {
+      "code": "DUE_N3_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_FIRE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            7
+          ]
+        },
+        {
+          "code": "INCREASED_PHYSICAL_DAMAGE",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_N3_M"
+      ],
+      "x": 1921,
+      "y": -338
+    },
+    {
+      "code": "DUE_N3_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "PHYSICAL_AS_EXTRA_FIRE",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "ADD_FIRE_RESISTANCE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "FASTER_DAMAGING_AILMENTS",
+            "values": [
+              6
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_FIRE_RESISTANCE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_STRENGTH",
+            "values": [
+              15
+            ]
+          }
+        ]
+      ],
+      "x": 1990,
+      "y": -410
+    },
+    {
+      "code": "DUE_NP3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_FIRE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": 1807,
+      "y": -455
+    },
+    {
+      "code": "TEM_N0_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_CRIT_POWER_CHARGE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N0_1",
+        "TEM_N0_5"
+      ],
+      "x": -166,
+      "y": -1733
+    },
+    {
+      "code": "TEM_N0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            13
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N0_2"
+      ],
+      "x": -184,
+      "y": -1635
+    },
+    {
+      "code": "TEM_N0_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_UNDERTOW_PULL",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "COND_CRIT_POWER_CHARGE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N0_3",
+        "TEM_N0_M"
+      ],
+      "x": -279,
+      "y": -1602
+    },
+    {
+      "code": "TEM_N0_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_CRIT_POWER_CHARGE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N0_4"
+      ],
+      "x": -354,
+      "y": -1667
+    },
+    {
+      "code": "TEM_N0_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_SPELLSTORM",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N0_5",
+        "TEM_N0_M"
+      ],
+      "x": -336,
+      "y": -1765
+    },
+    {
+      "code": "TEM_N0_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "MAXIMUM_POWER_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "COND_CRIT_POWER_CHARGE",
+          "values": [
+            18
+          ]
+        },
+        {
+          "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N0_M"
+      ],
+      "x": -241,
+      "y": -1798
+    },
+    {
+      "code": "TEM_N0_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "COND_CRIT_POWER_CHARGE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "INCREASED_CHARGE_DURATION",
+            "values": [
+              12
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_CRITICAL_STRIKE_MULTIPLIER",
+            "values": [
+              12
+            ]
+          },
+          {
+            "code": "ADD_INTELLIGENCE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_CRITICAL_STRIKE_CHANCE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "INCREASED_SPELL_DAMAGE",
+            "values": [
+              15
+            ]
+          }
+        ]
+      ],
+      "x": -260,
+      "y": -1700
+    },
+    {
+      "code": "TEM_N1_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_SPELL_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N1_1",
+        "TEM_N1_5"
+      ],
+      "x": -995,
+      "y": -1551
+    },
+    {
+      "code": "TEM_N1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N1_2"
+      ],
+      "x": -1050,
+      "y": -1635
+    },
+    {
+      "code": "TEM_N1_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_ENDURING_BLOCK",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "ADD_SPELL_BLOCK_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N1_3",
+        "TEM_N1_M"
+      ],
+      "x": -1005,
+      "y": -1724
+    },
+    {
+      "code": "TEM_N1_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_SPELL_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N1_4"
+      ],
+      "x": -905,
+      "y": -1729
+    },
+    {
+      "code": "TEM_N1_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_TURNING_STEEL",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_SPELL_BLOCK_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "COND_DAMAGE_TAKEN_RECENT_BLOCK",
+          "values": [
+            -3
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N1_5",
+        "TEM_N1_M"
+      ],
+      "x": -850,
+      "y": -1645
+    },
+    {
+      "code": "TEM_N1_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "ADD_SPELL_BLOCK_CHANCE",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            30
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N1_M"
+      ],
+      "x": -895,
+      "y": -1556
+    },
+    {
+      "code": "TEM_N1_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "ADD_SPELL_BLOCK_CHANCE",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "ADD_ENERGY_SHIELD",
+            "values": [
+              30
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_BLOCK_CHANCE",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "ADD_ARMOUR",
+            "values": [
+              60
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_DAMAGE_TAKEN_RECENT_BLOCK",
+            "values": [
+              -3
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              20
+            ]
+          }
+        ]
+      ],
+      "x": -950,
+      "y": -1640
+    },
+    {
+      "code": "TEM_N2_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_LIGHTNING_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N2_1",
+        "TEM_N2_5"
+      ],
+      "x": 215,
+      "y": -1877
+    },
+    {
+      "code": "TEM_N2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_LIGHTNING_DAMAGE",
+          "values": [
+            9
+          ]
+        },
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N2_2",
+        "TEM_T7_1"
+      ],
+      "x": 234,
+      "y": -1976
+    },
+    {
+      "code": "TEM_N2_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_FLARE_UP",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "ADD_LIGHTNING_RESISTANCE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N2_3",
+        "TEM_N2_M"
+      ],
+      "x": 329,
+      "y": -2008
+    },
+    {
+      "code": "TEM_N2_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "INCREASED_LIGHTNING_DAMAGE",
+          "values": [
+            9
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N2_4"
+      ],
+      "x": 405,
+      "y": -1943
+    },
+    {
+      "code": "TEM_N2_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_CRYSTAL_SIGHT",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "INCREASED_LIGHTNING_DAMAGE",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N2_5",
+        "TEM_N2_M"
+      ],
+      "x": 386,
+      "y": -1844
+    },
+    {
+      "code": "TEM_N2_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_LIGHTNING_DAMAGE",
+          "values": [
+            22
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N2_M"
+      ],
+      "x": 291,
+      "y": -1812
+    },
+    {
+      "code": "TEM_N2_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "ADD_LIGHTNING_RESISTANCE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_LIGHTNING_DAMAGE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "INCREASED_CAST_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_LIGHTNING_RESISTANCE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_INTELLIGENCE",
+            "values": [
+              15
+            ]
+          }
+        ]
+      ],
+      "x": 310,
+      "y": -1910
+    },
+    {
+      "code": "TEM_N3_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N3_1",
+        "TEM_N3_5"
+      ],
+      "x": -1374,
+      "y": -1330
+    },
+    {
+      "code": "TEM_N3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_ARMOUR_FORTIFIED",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N3_2",
+        "TEM_T6_1"
+      ],
+      "x": -1373,
+      "y": -1230
+    },
+    {
+      "code": "TEM_N3_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_TEMPERED_SOUL",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            60
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N3_3",
+        "TEM_N3_M"
+      ],
+      "x": -1460,
+      "y": -1180
+    },
+    {
+      "code": "TEM_N3_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N3_4"
+      ],
+      "x": -1546,
+      "y": -1230
+    },
+    {
+      "code": "TEM_N3_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_GRANITE_HIDE",
+          "values": [
+            -6
+          ]
+        },
+        {
+          "code": "COND_ARMOUR_FORTIFIED",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            25
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N3_5",
+        "TEM_N3_M"
+      ],
+      "x": -1547,
+      "y": -1330
+    },
+    {
+      "code": "TEM_N3_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            20
+          ]
+        },
+        {
+          "code": "COND_ARMOUR_FORTIFIED",
+          "values": [
+            35
+          ]
+        },
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_N3_M"
+      ],
+      "x": -1460,
+      "y": -1380
+    },
+    {
+      "code": "TEM_N3_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "FORTIFY_ON_HIT",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "ADD_ARMOUR",
+            "values": [
+              60
+            ]
+          }
+        ],
+        [
+          {
+            "code": "COND_ARMOUR_FORTIFIED",
+            "values": [
+              30
+            ]
+          },
+          {
+            "code": "INCREASED_MAXIMUM_LIFE",
+            "values": [
+              5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_ARMOUR",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_PHYSICAL_DAMAGE_REDUCTION",
+            "values": [
+              2
+            ]
+          }
+        ]
+      ],
+      "x": -1460,
+      "y": -1280
+    },
+    {
+      "code": "SHA_N0_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "UNHOLY_MIGHT_ON_KILL",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            4.8
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_1",
+        "SHA_N0_5"
+      ],
+      "x": -627,
+      "y": 1726
+    },
+    {
+      "code": "SHA_N0_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_CHAOS",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_2"
+      ],
+      "x": -558,
+      "y": 1654
+    },
+    {
+      "code": "SHA_N0_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_BLACK_SAP",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "UNHOLY_MIGHT_ON_KILL",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_CHAOS",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_3",
+        "SHA_N0_M"
+      ],
+      "x": -461,
+      "y": 1678
+    },
+    {
+      "code": "SHA_N0_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "UNHOLY_MIGHT_ON_KILL",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_4"
+      ],
+      "x": -433,
+      "y": 1774
+    },
+    {
+      "code": "SHA_N0_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_TWIN_FANGS",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_CHAOS",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_5",
+        "SHA_N0_M"
+      ],
+      "x": -502,
+      "y": 1846
+    },
+    {
+      "code": "SHA_N0_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "UNHOLY_MIGHT_ON_KILL",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_CHAOS",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_DAMAGE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_M"
+      ],
+      "x": -599,
+      "y": 1822
+    },
+    {
+      "code": "SHA_N0_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "UNHOLY_MIGHT_ON_KILL",
+            "values": [
+              8
+            ]
+          },
+          {
+            "code": "ADD_CHAOS_DAMAGE",
+            "values": [
+              10
+            ]
+          }
+        ],
+        [
+          {
+            "code": "PHYSICAL_AS_EXTRA_CHAOS",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "ADD_CHAOS_RESISTANCE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_CHAOS_RESISTANCE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              20
+            ]
+          }
+        ]
+      ],
+      "x": -530,
+      "y": 1750
+    },
+    {
+      "code": "SHA_N1_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "CHANCE_TO_BLEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N1_1",
+        "SHA_N1_5"
+      ],
+      "x": -1034,
+      "y": 1479
+    },
+    {
+      "code": "SHA_N1_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N1_2"
+      ],
+      "x": -1107,
+      "y": 1547
+    },
+    {
+      "code": "SHA_N1_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_QUICK_ROT",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "CHANCE_TO_BLEED",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N1_3",
+        "SHA_N1_M"
+      ],
+      "x": -1203,
+      "y": 1519
+    },
+    {
+      "code": "SHA_N1_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "CHANCE_TO_BLEED",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N1_4"
+      ],
+      "x": -1226,
+      "y": 1421
+    },
+    {
+      "code": "SHA_N1_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_RAIDERS_TOLL",
+          "values": [
+            15
+          ]
+        },
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            12
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N1_5",
+        "SHA_N1_M"
+      ],
+      "x": -1153,
+      "y": 1353
+    },
+    {
+      "code": "SHA_N1_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "CHANCE_TO_BLEED",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N1_M"
+      ],
+      "x": -1057,
+      "y": 1381
+    },
+    {
+      "code": "SHA_N1_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "FASTER_DAMAGING_AILMENTS",
+            "values": [
+              6
+            ]
+          },
+          {
+            "code": "CHANCE_TO_BLEED",
+            "values": [
+              5
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_CHAOS_RESISTANCE",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "INCREASED_ATTACK_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "FASTER_DAMAGING_AILMENTS",
+            "values": [
+              5
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              20
+            ]
+          }
+        ]
+      ],
+      "x": -1130,
+      "y": 1450
+    },
+    {
+      "code": "SHA_N2_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N2_1",
+        "SHA_N2_5",
+        "SHA_NP2_1"
+      ],
+      "x": -1692,
+      "y": 992
+    },
+    {
+      "code": "SHA_N2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N2_2",
+        "SHA_T7_1"
+      ],
+      "x": -1760,
+      "y": 1066
+    },
+    {
+      "code": "SHA_N2_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_TURNING_STEEL",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N2_3",
+        "SHA_N2_M"
+      ],
+      "x": -1858,
+      "y": 1043
+    },
+    {
+      "code": "SHA_N2_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_BLOCK_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N2_4"
+      ],
+      "x": -1888,
+      "y": 948
+    },
+    {
+      "code": "SHA_N2_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_SHROUDED_STEP",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_EVASION_RATING",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N2_5",
+        "SHA_N2_M"
+      ],
+      "x": -1820,
+      "y": 874
+    },
+    {
+      "code": "SHA_N2_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            6
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            60
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N2_M"
+      ],
+      "x": -1722,
+      "y": 897
+    },
+    {
+      "code": "SHA_N2_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "DEFLECTION_CHANCE",
+            "values": [
+              4
+            ]
+          },
+          {
+            "code": "ADD_EVASION_RATING",
+            "values": [
+              60
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_EVASION_RATING",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "INCREASED_MOVEMENT_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_BLOCK_CHANCE",
+            "values": [
+              3
+            ]
+          },
+          {
+            "code": "DEFLECTION_CHANCE",
+            "values": [
+              3
+            ]
+          }
+        ]
+      ],
+      "x": -1790,
+      "y": 970
+    },
+    {
+      "code": "SHA_NP2_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "x": -1544,
+      "y": 1026
+    },
+    {
+      "code": "SHA_N3_0",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N3_1",
+        "SHA_N3_5"
+      ],
+      "x": -933,
+      "y": 1742
+    },
+    {
+      "code": "SHA_N3_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            13
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N3_2"
+      ],
+      "x": -856,
+      "y": 1806
+    },
+    {
+      "code": "SHA_N3_2",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_WHISPERED_DOOM",
+          "values": [
+            25
+          ]
+        },
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N3_3",
+        "SHA_N3_M"
+      ],
+      "x": -873,
+      "y": 1904
+    },
+    {
+      "code": "SHA_N3_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N3_4",
+        "SHA_T6_1"
+      ],
+      "x": -967,
+      "y": 1938
+    },
+    {
+      "code": "SHA_N3_4",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_BLOOD_HEX",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            15
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N3_5",
+        "SHA_N3_M"
+      ],
+      "x": -1044,
+      "y": 1874
+    },
+    {
+      "code": "SHA_N3_5",
+      "type": "NOTABLE",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            14
+          ]
+        },
+        {
+          "code": "INCREASED_CAST_SPEED",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_MANA",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N3_M"
+      ],
+      "x": -1027,
+      "y": 1776
+    },
+    {
+      "code": "SHA_N3_M",
+      "type": "MASTERY",
+      "options": [
+        [
+          {
+            "code": "INCREASED_CURSE_EFFECT",
+            "values": [
+              10
+            ]
+          },
+          {
+            "code": "ADD_INTELLIGENCE",
+            "values": [
+              15
+            ]
+          }
+        ],
+        [
+          {
+            "code": "INCREASED_SPELL_DAMAGE",
+            "values": [
+              20
+            ]
+          },
+          {
+            "code": "INCREASED_CAST_SPEED",
+            "values": [
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "code": "ADD_CHAOS_RESISTANCE",
+            "values": [
+              15
+            ]
+          },
+          {
+            "code": "ADD_MAXIMUM_LIFE",
+            "values": [
+              25
+            ]
+          }
+        ]
+      ],
+      "x": -950,
+      "y": 1840
+    },
+    {
+      "code": "MAR_T6_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "REDUCED_CRITICAL_DAMAGE_TAKEN",
+          "values": [
+            -8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "x": 1511,
+      "y": -1427
+    },
+    {
+      "code": "MAR_K6",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_FORTIFY_ALWAYS",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "MAXIMUM_ENDURANCE_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            -10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_T6_1"
+      ],
+      "x": 1589,
+      "y": -1544
+    },
+    {
+      "code": "MAR_T7_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CHARGE_DURATION",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "x": 952,
+      "y": -1664
+    },
+    {
+      "code": "MAR_K7",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_IRON_BLOOD",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "PASSIVE_SET_LIFE_REGENERATION",
+          "values": [
+            0
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_T7_1"
+      ],
+      "x": 1035,
+      "y": -1776
+    },
+    {
+      "code": "RAN_T6_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_COLD",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_COLD_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": 499,
+      "y": 2074
+    },
+    {
+      "code": "RAN_K6",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_ONSLAUGHT_ALWAYS",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "INCREASED_ACCURACY_RATING",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "INCREASED_ARMOUR",
+          "values": [
+            -30
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_T6_1"
+      ],
+      "x": 540,
+      "y": 2208
+    },
+    {
+      "code": "RAN_T7_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "x": 1743,
+      "y": 1015
+    },
+    {
+      "code": "RAN_K7",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_COLD_CALCULUS",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "PASSIVE_SET_CRITICAL_STRIKE_CHANCE",
+          "values": [
+            0
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_T7_1"
+      ],
+      "x": 1854,
+      "y": 1100
+    },
+    {
+      "code": "WIT_T6_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "SPELL_SUPPRESSION",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": -1837,
+      "y": -452
+    },
+    {
+      "code": "WIT_K6",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_ARCANE_SURGE_ALWAYS",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "INCREASED_SPELL_DAMAGE",
+          "values": [
+            30
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            -15
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_T6_1"
+      ],
+      "x": -1966,
+      "y": -399
+    },
+    {
+      "code": "WIT_T7_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": -1858,
+      "y": 244
+    },
+    {
+      "code": "WIT_K7",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_WARDSTONE",
+          "values": [
+            60
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_T7_1"
+      ],
+      "x": -1971,
+      "y": 327
+    },
+    {
+      "code": "DUE_T6_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_FIRE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_FIRE_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": 2015,
+      "y": -625
+    },
+    {
+      "code": "DUE_K6",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "CULLING_STRIKE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "DOUBLE_DAMAGE_CHANCE",
+          "values": [
+            10
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            -10
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_T6_1"
+      ],
+      "x": 2071,
+      "y": -753
+    },
+    {
+      "code": "DUE_T7_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "LIFE_RECOUP",
+          "values": [
+            3
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "x": 2238,
+      "y": -82
+    },
+    {
+      "code": "DUE_K7",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_BLADE_DANCE",
+          "values": [
+            2
+          ]
+        }
+      ],
+      "connections": [
+        "DUE_T7_1"
+      ],
+      "x": 2377,
+      "y": -100
+    },
+    {
+      "code": "TEM_T6_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "FORTIFY_ON_HIT",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ARMOUR",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "x": -1234,
+      "y": -1198
+    },
+    {
+      "code": "TEM_K6",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "MAXIMUM_ENDURANCE_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "MAXIMUM_POWER_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            -10
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_T6_1"
+      ],
+      "x": -1107,
+      "y": -1185
+    },
+    {
+      "code": "TEM_T7_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "PHYSICAL_AS_EXTRA_LIGHTNING",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_LIGHTNING_RESISTANCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": 214,
+      "y": -2104
+    },
+    {
+      "code": "TEM_K7",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_SKYFORGE",
+          "values": [
+            100
+          ]
+        },
+        {
+          "code": "INCREASED_LIGHTNING_DAMAGE",
+          "values": [
+            20
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_T7_1"
+      ],
+      "x": 193,
+      "y": -2242
+    },
+    {
+      "code": "SHA_T6_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "INCREASED_CURSE_EFFECT",
+          "values": [
+            4
+          ]
+        },
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "x": -1033,
+      "y": 2051
+    },
+    {
+      "code": "SHA_K6",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_UNHOLY_MIGHT_ALWAYS",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "PHYSICAL_AS_EXTRA_CHAOS",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "INCREASED_MAXIMUM_LIFE",
+          "values": [
+            -12
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_T6_1"
+      ],
+      "x": -1103,
+      "y": 2172
+    },
+    {
+      "code": "SHA_T7_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "DEFLECTION_CHANCE",
+          "values": [
+            2
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "x": -1811,
+      "y": 1185
+    },
+    {
+      "code": "SHA_K7",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_VENOM_HEART",
+          "values": [
+            100
+          ]
+        },
+        {
+          "code": "FASTER_DAMAGING_AILMENTS",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_T7_1"
+      ],
+      "x": -1866,
+      "y": 1314
+    },
+    {
+      "code": "SCN_T6_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ONSLAUGHT_ON_KILL",
+          "values": [
+            5
+          ]
+        },
+        {
+          "code": "INCREASED_MOVEMENT_SPEED",
+          "values": [
+            2
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "x": 346,
+      "y": 838
+    },
+    {
+      "code": "SCN_K6",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "MAXIMUM_FRENZY_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "MAXIMUM_POWER_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "MAXIMUM_ENDURANCE_CHARGES",
+          "values": [
+            1
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            -10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_T6_1"
+      ],
+      "x": 482,
+      "y": 872
+    },
+    {
+      "code": "SCN_T7_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "COND_DAMAGE_RECENT_KILL",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "x": -845,
+      "y": -211
+    },
+    {
+      "code": "SCN_K7",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_POWER_SHARED_SOUL",
+          "values": [
+            40
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_T7_1"
+      ],
+      "x": -961,
+      "y": -133
+    },
+    {
+      "code": "FIL_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_C3_2",
+        "MAR_T7_1"
+      ],
+      "x": 1240,
+      "y": -1580
+    },
+    {
+      "code": "FIL_2",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_C4_3"
+      ],
+      "x": -950,
+      "y": 760
+    },
+    {
+      "code": "FIL_3",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_B5_1"
+      ],
+      "x": -1010,
+      "y": -560
+    },
+    {
+      "code": "FIL_4",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_B0_1",
+        "SHA_IN_1"
+      ],
+      "x": -80,
+      "y": 1120
+    },
+    {
+      "code": "FIL_5",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_B5_1"
+      ],
+      "x": 10,
+      "y": -1310
+    },
+    {
+      "code": "FIL_6",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_EE_17",
+        "SHA_B4_1"
+      ],
+      "x": -710,
+      "y": 790
+    },
+    {
+      "code": "FIL_7",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_C3_3",
+        "RAN_T6_1"
+      ],
+      "x": 730,
+      "y": 1870
+    },
+    {
+      "code": "FIL_8",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_EE_13",
+        "SHA_IN_1"
+      ],
+      "x": -230,
+      "y": 820
+    },
+    {
+      "code": "FIL_9",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_MP_17"
+      ],
+      "x": 1030,
+      "y": 190
+    },
+    {
+      "code": "FIL_10",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_T1_1",
+        "RAN_T7_1"
+      ],
+      "x": 1540,
+      "y": 1270
+    },
+    {
+      "code": "FIL_11",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_TM_13",
+        "TEM_IN_1"
+      ],
+      "x": -560,
+      "y": -710
+    },
+    {
+      "code": "FIL_12",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_MP_13"
+      ],
+      "x": 820,
+      "y": -200
+    },
+    {
+      "code": "FIL_13",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "x": 1150,
+      "y": 430
+    },
+    {
+      "code": "FIL_14",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_C1_4",
+        "RAN_C3_2",
+        "FIL_36"
+      ],
+      "x": 1060,
+      "y": 1690
+    },
+    {
+      "code": "FIL_15",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_TM_17",
+        "TEM_B5_1"
+      ],
+      "x": -380,
+      "y": -980
+    },
+    {
+      "code": "FIL_16",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_C4_0",
+        "SHA_C0_0"
+      ],
+      "x": 160,
+      "y": 1180
+    },
+    {
+      "code": "FIL_17",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_IN_1",
+        "FIL_3"
+      ],
+      "x": -830,
+      "y": -740
+    },
+    {
+      "code": "FIL_18",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "x": 1540,
+      "y": 250
+    },
+    {
+      "code": "FIL_19",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_C3_2",
+        "WIT_T7_1"
+      ],
+      "x": -2000,
+      "y": -50
+    },
+    {
+      "code": "FIL_20",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_T7_1"
+      ],
+      "x": 820,
+      "y": -1760
+    },
+    {
+      "code": "FIL_21",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_WA_13",
+        "MAR_IN_1",
+        "FIL_48"
+      ],
+      "x": 280,
+      "y": -830
+    },
+    {
+      "code": "FIL_22",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_B1_3",
+        "RAN_T0_1"
+      ],
+      "x": 1180,
+      "y": 1090
+    },
+    {
+      "code": "FIL_23",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_C3_0",
+        "SHA_B5_1"
+      ],
+      "x": -800,
+      "y": 1360
+    },
+    {
+      "code": "FIL_24",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_B0_1",
+        "RAN_IN_1"
+      ],
+      "x": 790,
+      "y": 760
+    },
+    {
+      "code": "FIL_25",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_B0_2",
+        "MAR_IN_2"
+      ],
+      "x": 250,
+      "y": -1070
+    },
+    {
+      "code": "FIL_26",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_C5_2",
+        "SHA_NP2_1"
+      ],
+      "x": -1520,
+      "y": 1180
+    },
+    {
+      "code": "FIL_27",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_B0_2",
+        "WIT_IN_1"
+      ],
+      "x": -1040,
+      "y": 340
+    },
+    {
+      "code": "FIL_28",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_C2_3",
+        "RAN_B3_2"
+      ],
+      "x": 640,
+      "y": 1330
+    },
+    {
+      "code": "FIL_29",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_T7_1"
+      ],
+      "x": 1810,
+      "y": 850
+    },
+    {
+      "code": "FIL_30",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "WIT_IN_2",
+        "SCN_T7_1"
+      ],
+      "x": -890,
+      "y": 100
+    },
+    {
+      "code": "FIL_31",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_C1_1",
+        "MAR_T0_1"
+      ],
+      "x": 370,
+      "y": -1610
+    },
+    {
+      "code": "FIL_32",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_C2_1",
+        "SHA_C1_4"
+      ],
+      "x": -380,
+      "y": 1510
+    },
+    {
+      "code": "FIL_33",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_C0_1"
+      ],
+      "x": 1300,
+      "y": 790
+    },
+    {
+      "code": "FIL_34",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "x": 970,
+      "y": -410
+    },
+    {
+      "code": "FIL_35",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            6
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_C1_3",
+        "SHA_T1_1"
+      ],
+      "x": -260,
+      "y": 1930
+    },
+    {
+      "code": "FIL_36",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "connections": [
+        "RAN_C1_4"
+      ],
+      "x": 1240,
+      "y": 1540
+    },
+    {
+      "code": "FIL_37",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SCN_S5",
+        "SCN_S0"
+      ],
+      "x": -140,
+      "y": -260
+    },
+    {
+      "code": "FIL_38",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "WIT_B5_1",
+        "SCN_T7_1"
+      ],
+      "x": -1010,
+      "y": -320
+    },
+    {
+      "code": "FIL_39",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_C1_1",
+        "WIT_T1_1"
+      ],
+      "x": -1700,
+      "y": 580
+    },
+    {
+      "code": "FIL_40",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_B4_1",
+        "SHA_IN_2"
+      ],
+      "x": -530,
+      "y": 940
+    },
+    {
+      "code": "FIL_41",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_B3_3",
+        "TEM_C2_3"
+      ],
+      "x": -740,
+      "y": -1460
+    },
+    {
+      "code": "FIL_42",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_DEXTERITY",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_EVASION_RATING",
+          "values": [
+            18
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "RAN_B4_1",
+        "SCN_T6_1"
+      ],
+      "x": 340,
+      "y": 1030
+    },
+    {
+      "code": "FIL_43",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_X3",
+        "TEM_C3_0"
+      ],
+      "x": -470,
+      "y": -1520
+    },
+    {
+      "code": "FIL_44",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_MP_1",
+        "SCN_MP_16"
+      ],
+      "x": 580,
+      "y": 310
+    },
+    {
+      "code": "FIL_45",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_WA_16",
+        "SCN_WA_1"
+      ],
+      "x": 610,
+      "y": -410
+    },
+    {
+      "code": "FIL_46",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_EE_4",
+        "FIL_8"
+      ],
+      "x": -110,
+      "y": 580
+    },
+    {
+      "code": "FIL_47",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_B0_1",
+        "MAR_B1_2"
+      ],
+      "x": 400,
+      "y": -1250
+    },
+    {
+      "code": "FIL_48",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_WA_4"
+      ],
+      "x": 130,
+      "y": -590
+    },
+    {
+      "code": "FIL_49",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_DEXTERITY",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "INCREASED_ATTACK_SPEED",
+          "values": [
+            3
+          ]
+        }
+      ],
+      "x": 1420,
+      "y": -590
+    },
+    {
+      "code": "FIL_50",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_INTELLIGENCE",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_ENERGY_SHIELD",
+          "values": [
+            8
+          ]
+        }
+      ],
+      "connections": [
+        "WIT_B4_2",
+        "WIT_B3_1"
+      ],
+      "x": -1280,
+      "y": -260
+    },
+    {
+      "code": "FIL_51",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH_AND_INTELLIGENCE",
+          "values": [
+            6,
+            6
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            4
+          ]
+        }
+      ],
+      "connections": [
+        "TEM_T0_1",
+        "TEM_C0_4"
+      ],
+      "x": -1220,
+      "y": -1040
+    },
+    {
+      "code": "FIL_52",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_STRENGTH",
+          "values": [
+            8
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "MAR_C3_0",
+        "MAR_C4_3"
+      ],
+      "x": 1060,
+      "y": -1130
+    },
+    {
+      "code": "FIL_53",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_ALL_ATTRIBUTES",
+          "values": [
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "only": "SCION_START",
+      "connections": [
+        "SCN_WA_17",
+        "MAR_IN_2"
+      ],
+      "x": 580,
+      "y": -800
     }
   ]
 }

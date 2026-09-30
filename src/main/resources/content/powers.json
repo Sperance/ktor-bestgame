@@ -10145,6 +10145,97 @@
           ]
         }
       ]
+    },
+    {
+      "stat": "POWER_IRON_BLOOD",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_ARMOR",
+          "to": "STOCK_LIFE_RECOUP",
+          "per": 1000,
+          "cap": 25
+        }
+      ]
+    },
+    {
+      "stat": "POWER_COLD_CALCULUS",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_ACCURACY",
+          "to": "STOCK_DOUBLE_DAMAGE",
+          "per": 200,
+          "cap": 40
+        }
+      ]
+    },
+    {
+      "stat": "POWER_WARDSTONE",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_EVASION",
+          "to": "STOCK_ENERGY_SHIELD"
+        },
+        {
+          "op": "SET",
+          "to": "STOCK_EVASION",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "stat": "POWER_BLADE_DANCE",
+      "sheet": [
+        {
+          "op": "PER",
+          "from": "STOCK_EVASION",
+          "to": "STOCK_DEFLECTION",
+          "per": 500,
+          "cap": 30
+        },
+        {
+          "op": "SET",
+          "to": "STOCK_BLOCK_CHANCE",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SKYFORGE",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_LIGHTNING"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_VENOM_HEART",
+      "sheet": [
+        {
+          "op": "CONVERT",
+          "from": "STOCK_ATTACK_PHYSICAL",
+          "to": "STOCK_ATTACK_CHAOS"
+        }
+      ]
+    },
+    {
+      "stat": "POWER_SHARED_SOUL",
+      "sheet": [
+        {
+          "op": "GAIN",
+          "from": "STOCK_HEALTH",
+          "to": "STOCK_PET_LIFE"
+        },
+        {
+          "op": "MORE",
+          "to": "STOCK_HEALTH",
+          "value": -15
+        }
+      ]
     }
   ]
 }

@@ -31306,6 +31306,1322 @@
         "veiled"
       ],
       "minRarity": "RARE"
+    },
+    {
+      "code": "PASSIVE_POWER_ARCANE_TIDE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_ARCANE_TIDE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_BLACK_SAP",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_BLACK_SAP"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_BLADE_DANCE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_BLADE_DANCE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_BLOOD_HEX",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_BLOOD_HEX"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_CANTORS_BREATH",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_CANTORS_BREATH"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_COLD_CALCULUS",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_COLD_CALCULUS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_CRYSTAL_SIGHT",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_CRYSTAL_SIGHT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_DEEP_FREEZE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_DEEP_FREEZE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_ENDURING_BLOCK",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_ENDURING_BLOCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_FLARE_UP",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_FLARE_UP"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_FURNACE_CORE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_FURNACE_CORE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_GRANITE_HIDE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_GRANITE_HIDE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_GUARD_DOG",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_GUARD_DOG"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_HEADSMAN",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_HEADSMAN"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_IRON_BLOOD",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_IRON_BLOOD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_KILLING_FEVER",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_KILLING_FEVER"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_LONE_QUARRY",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_LONE_QUARRY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_MARKSMANS_FOCUS",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_MARKSMANS_FOCUS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_MOURNING_BELL",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_MOURNING_BELL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_PACK_RALLY",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_PACK_RALLY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_PRISM_CLEAVE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_PRISM_CLEAVE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_QUICK_ROT",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_QUICK_ROT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_RAIDERS_TOLL",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_RAIDERS_TOLL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_RECOUP_WARD",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_RECOUP_WARD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_SHARED_SOUL",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_SHARED_SOUL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_SHROUDED_STEP",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_SHROUDED_STEP"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_SHRUG_OFF",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_SHRUG_OFF"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_SKYFORGE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_SKYFORGE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_SPELLSTORM",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_SPELLSTORM"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_STAR_HEART",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_STAR_HEART"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_TEMPERED_SOUL",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_TEMPERED_SOUL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_TURNING_STEEL",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_TURNING_STEEL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_TWIN_FANGS",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_TWIN_FANGS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_UNDERTOW_PULL",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_UNDERTOW_PULL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_VAAL_DEBT",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_VAAL_DEBT"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_VENOM_HEART",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_VENOM_HEART"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_WARDING_MANTRA",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_WARDING_MANTRA"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_WARDSTONE",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_WARDSTONE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_WHISPERED_DOOM",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_WHISPERED_DOOM"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_POWER_WIND_AT_BACK",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "POWER_WIND_AT_BACK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "power",
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_FORTIFY_ALWAYS",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_FORTIFY_ALWAYS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_ONSLAUGHT_ALWAYS",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_ONSLAUGHT_ALWAYS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_ARCANE_SURGE_ALWAYS",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_ARCANE_SURGE_ALWAYS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "code": "PASSIVE_UNHOLY_MIGHT_ALWAYS",
+      "source": "PASSIVE",
+      "effects": [
+        {
+          "stat": "STOCK_UNHOLY_MIGHT_ALWAYS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          1
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "passive"
+      ]
     }
   ]
 }
