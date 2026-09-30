@@ -36720,6 +36720,66 @@
       "tags": [
         "atlas"
       ]
+    },
+    {
+      "code": "ATLAS_MAP_INFLUENCE",
+      "source": "ATLAS",
+      "effects": [
+        {
+          "stat": "ATLAS_MAP_INFLUENCE"
+        }
+      ],
+      "tags": [
+        "atlas"
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_ITEMS",
+      "source": "ATLAS",
+      "effects": [
+        {
+          "stat": "ATLAS_INFLUENCE_ITEMS"
+        }
+      ],
+      "tags": [
+        "atlas"
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_POWER",
+      "source": "ATLAS",
+      "effects": [
+        {
+          "stat": "ATLAS_INFLUENCE_POWER"
+        }
+      ],
+      "tags": [
+        "atlas"
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_SHAPER",
+      "source": "ATLAS",
+      "effects": [
+        {
+          "stat": "ATLAS_INFLUENCE_SHAPER"
+        }
+      ],
+      "tags": [
+        "atlas"
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_ELDER",
+      "source": "ATLAS",
+      "effects": [
+        {
+          "stat": "ATLAS_INFLUENCE_ELDER"
+        }
+      ],
+      "tags": [
+        "atlas"
+      ]
     }
   ]
 }

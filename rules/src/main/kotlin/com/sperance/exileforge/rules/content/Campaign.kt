@@ -149,9 +149,35 @@ data class MapRule(
     val atlasUniqueChance: Double = 0.0, val atlasUniqueTables: List<String> = emptyList(), val atlasUniqueNodes: Double = 100.0,
     /** Тиры карт (1.41.0): карты верхних зон несут ступень 1..max; нет раздела - тиров нет. */
     val tiers: MapTierRule? = null,
+    /** Карты, захваченные влиянием (1.50.0). */
+    val influence: MapInfluenceRule = MapInfluenceRule(),
 ) {
     /** Шанс уникалки Атласа героя с [nodes] взятыми узлами атласа. */
     fun atlasChance(nodes: Int): Double = atlasUniqueChance * (1 + nodes.coerceAtLeast(0) / atlasUniqueNodes)
+}
+
+/**
+ * Захваченная карта (1.50.0): упавшая карта с шансом [chance]% захвачена одним из [kinds] (или сферой влияния); на ней
+ * волшебная и редкая вещь с шансом [items]% несёт её влияние, монстры сильнее на [power]% здоровья и урона (риск карты
+ * платит за это), а босс всегда роняет редкую вещь её влияния.
+ */
+@Serializable
+data class MapInfluenceRule(
+    val chance: Double = 8.0,
+    val items: Double = 15.0,
+    val power: Double = 20.0,
+    val kinds: List<Influence> = listOf(Influence.SHAPER, Influence.ELDER),
+) {
+    /** Влияния случайного захвата при узлах атласа [atlas]: «только Создатель» или «только Древний»; оба - оба. */
+    fun pool(atlas: Map<String, Double>): List<Influence> {
+        val shaper = (atlas[AtlasStat.INFLUENCE_SHAPER.code] ?: 0.0) > 0
+        val elder = (atlas[AtlasStat.INFLUENCE_ELDER.code] ?: 0.0) > 0
+        return when {
+            shaper && !elder -> kinds.filter { it == Influence.SHAPER }
+            elder && !shaper -> kinds.filter { it == Influence.ELDER }
+            else -> kinds
+        }.ifEmpty { kinds }
+    }
 }
 
 /**

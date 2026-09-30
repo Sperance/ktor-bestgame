@@ -31201,6 +31201,11 @@
     "item.STAR_FLUX": "gl_flux_star",
     "item.CREST_FRAGMENT": "gl_trial_crest",
     "item.TOWER_SEAL": "gl_trial_seal",
-    "item.RUSH_KEY": "gl_trial_key"
+    "item.RUSH_KEY": "gl_trial_key",
+    "stat.ATLAS_MAP_INFLUENCE": "gl_orb_shapers_orb",
+    "stat.ATLAS_INFLUENCE_ITEMS": "gl_orb_elder_orb",
+    "stat.ATLAS_INFLUENCE_POWER": "damage",
+    "stat.ATLAS_INFLUENCE_SHAPER": "gl_orb_shapers_orb",
+    "stat.ATLAS_INFLUENCE_ELDER": "gl_orb_elder_orb"
   }
 }

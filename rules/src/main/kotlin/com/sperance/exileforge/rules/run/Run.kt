@@ -248,8 +248,13 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             campaign.maps.tiers?.let { rule -> context.active?.tier?.takeIf { it > 0 }?.let { pooled(rule.uniqueTables, rule.uniqueChance * it, dice) } },
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
-        return grant(draw, template.loot, zone.level, rule, "b", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
+        val reward = grant(draw, template.loot, zone.level, rule, "b", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
             book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass, goldShare = bosses.goldShare, orbShare = bosses.orbShare, egg = index.pets.eggChance.boss)
+        // Босс захваченной карты (1.50.0) всегда роняет редкую вещь её влияния.
+        val influence = context.active?.influence ?: return reward
+        val bases = index.templatePoolUpTo(campaign.abyss?.tables ?: listOf("drop"), zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE && template.slot.influenceable }
+        val base = Tables.draw(bases, dice) ?: return reward
+        return reward.copy(equipment = reward.equipment + factory.createInfluenced(itemId(draw, "b-inf"), base, Rarity.RARE, influence, dice, itemLevel(zone.level, MonsterRarity.UNIQUE)))
     }
 
     /** Страж Ваал-зоны убит: своя таблица порчи с бонусом зоны и шанс уникалки порчи. */
@@ -390,6 +395,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
                 val map = factory.create(itemId(draw, "$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice, level = mapLevel)
                 map.mapZone = code
                 map.mapTier = loot.mapTier(mapLevel, active?.tier ?: 0, dice, context[AtlasStat.MAP_TIER.code])
+                map.influence = loot.mapInfluence(dice, context.atlas)
                 if (dice.percent(context[AtlasStat.MAP_AFFIX.code])) factory.affixes.rollExtraAffix(template, map.rarity, map.rolls, dice, level = mapLevel)?.let { map.rolls = map.rolls + it }
                 equipment += map
             }
@@ -403,6 +409,16 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val recipe = if (rare && dice.chance(index.rules.loot.recipeChance * relative(AtlasStat.RECIPE.code))) com.sperance.exileforge.rules.roll.Bench(index).draw(context.recipes, level, dice)?.code else null
         // Яйцо питомца (1.5.0) - последним броском, чтобы прежние потоки не сдвинулись: биом зоны решает, чьё оно.
         if (egg > 0 && dice.chance((egg * (1 + quantity / 100)).coerceAtMost(1.0))) index.pets.eggs[zone.biome]?.let { items.merge(it, 1L, Long::plus) }
+        // Захваченная карта (1.50.0): волшебная и редкая вещь с неё с шансом несёт её влияние - после всех прежних бросков.
+        active?.influence?.let { influence ->
+            val chance = campaign.maps.influence.items + context[AtlasStat.INFLUENCE_ITEMS.code]
+            equipment.forEachIndexed { n, item ->
+                val template = templates.getOrNull(n) ?: return@forEachIndexed
+                if (item.influence != null || item.rarity !in INFLUENCEABLE || !template.slot.influenceable || !dice.percent(chance)) return@forEachIndexed
+                val rolls = item.rolls.toMutableList()
+                if (factory.affixes.forceInfluenced(template, item.rarity, rolls, influence, dice, item.level(template))) { item.rolls = rolls; item.influence = influence }
+            }
+        }
         // Фрагмент герба и печать башни (1.47.0) - ещё позже яйца: множитель количества редкости источника, прежние потоки не сдвигаются.
         campaign.trials?.let { trials ->
             if (dice.percent(trials.crest * rule.quantity)) items.merge(TrialRules.CREST, 1L, Long::plus)
@@ -423,5 +439,6 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         const val PACK_MAX = 6
         /** Шаг жетона убийства `i * PACK_SLOTS + m`: не меньше [PACK_MAX], иначе жетоны разных стай совпадут. */
         const val PACK_SLOTS = 8
+        private val INFLUENCEABLE = setOf(Rarity.MAGIC, Rarity.RARE)
     }
 }

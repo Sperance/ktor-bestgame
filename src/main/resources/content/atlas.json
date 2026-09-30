@@ -20,8 +20,8 @@
     },
     {
       "code": "ATLAS_LOOT_T1",
-      "x": 0.62,
-      "y": -1.9,
+      "x": -4.02,
+      "y": -5.97,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -37,8 +37,8 @@
     },
     {
       "code": "ATLAS_LOOT_T2",
-      "x": 1.08,
-      "y": -3.33,
+      "x": -5.37,
+      "y": -7.96,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_T1"
@@ -54,8 +54,8 @@
     },
     {
       "code": "ATLAS_LOOT_T3",
-      "x": 1.55,
-      "y": -4.76,
+      "x": -6.72,
+      "y": -9.95,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_T2"
@@ -71,8 +71,8 @@
     },
     {
       "code": "ATLAS_LOOT_N1",
-      "x": 2.01,
-      "y": -6.18,
+      "x": -8.06,
+      "y": -11.93,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_LOOT_T3"
@@ -94,8 +94,8 @@
     },
     {
       "code": "ATLAS_LOOT_L1",
-      "x": 1.25,
-      "y": -7.9,
+      "x": -10.35,
+      "y": -13.09,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N1"
@@ -111,8 +111,8 @@
     },
     {
       "code": "ATLAS_LOOT_L2",
-      "x": 1.49,
-      "y": -9.38,
+      "x": -11.87,
+      "y": -14.92,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_L1"
@@ -128,8 +128,8 @@
     },
     {
       "code": "ATLAS_LOOT_L3",
-      "x": 1.72,
-      "y": -10.86,
+      "x": -13.39,
+      "y": -16.75,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_L2"
@@ -145,8 +145,8 @@
     },
     {
       "code": "ATLAS_LOOT_N2",
-      "x": 1.96,
-      "y": -12.35,
+      "x": -14.92,
+      "y": -18.6,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_LOOT_L3"
@@ -168,8 +168,8 @@
     },
     {
       "code": "ATLAS_LOOT_LX",
-      "x": 1.46,
-      "y": -13.92,
+      "x": -16.91,
+      "y": -19.83,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N2"
@@ -185,8 +185,8 @@
     },
     {
       "code": "ATLAS_LOOT_L4",
-      "x": 2.91,
-      "y": -13.69,
+      "x": -15.92,
+      "y": -20.95,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N2"
@@ -202,8 +202,8 @@
     },
     {
       "code": "ATLAS_LOOT_L5",
-      "x": 3.22,
-      "y": -15.16,
+      "x": -17.39,
+      "y": -22.84,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_L4"
@@ -219,8 +219,8 @@
     },
     {
       "code": "ATLAS_LOOT_N3",
-      "x": 3.53,
-      "y": -16.63,
+      "x": -18.86,
+      "y": -24.73,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_LOOT_L5"
@@ -242,8 +242,8 @@
     },
     {
       "code": "ATLAS_LOOT_L6",
-      "x": 3.85,
-      "y": -18.1,
+      "x": -20.32,
+      "y": -26.63,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N3"
@@ -259,8 +259,8 @@
     },
     {
       "code": "ATLAS_LOOT_L7",
-      "x": 4.16,
-      "y": -19.56,
+      "x": -21.78,
+      "y": -28.51,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_L6"
@@ -276,8 +276,8 @@
     },
     {
       "code": "ATLAS_LOOT_K2",
-      "x": 4.47,
-      "y": -21.03,
+      "x": -23.25,
+      "y": -30.4,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_LOOT_L7"
@@ -299,8 +299,8 @@
     },
     {
       "code": "ATLAS_LOOT_C1",
-      "x": 2.47,
-      "y": -7.61,
+      "x": -9.41,
+      "y": -13.92,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N1"
@@ -316,8 +316,8 @@
     },
     {
       "code": "ATLAS_LOOT_C2",
-      "x": 2.94,
-      "y": -9.04,
+      "x": -10.75,
+      "y": -15.92,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_C1"
@@ -333,8 +333,8 @@
     },
     {
       "code": "ATLAS_LOOT_C3",
-      "x": 3.4,
-      "y": -10.46,
+      "x": -12.09,
+      "y": -17.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_C2"
@@ -350,8 +350,8 @@
     },
     {
       "code": "ATLAS_LOOT_C4",
-      "x": 3.86,
-      "y": -11.89,
+      "x": -13.44,
+      "y": -19.89,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_C3"
@@ -367,8 +367,8 @@
     },
     {
       "code": "ATLAS_LOOT_K1",
-      "x": 4.33,
-      "y": -13.31,
+      "x": -14.77,
+      "y": -21.88,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_LOOT_C4"
@@ -390,8 +390,8 @@
     },
     {
       "code": "ATLAS_LOOT_R1",
-      "x": 3.63,
-      "y": -7.13,
+      "x": -8.28,
+      "y": -14.49,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N1"
@@ -407,8 +407,8 @@
     },
     {
       "code": "ATLAS_LOOT_R2",
-      "x": 4.31,
-      "y": -8.46,
+      "x": -9.41,
+      "y": -16.58,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_R1"
@@ -424,8 +424,8 @@
     },
     {
       "code": "ATLAS_LOOT_R3",
-      "x": 4.99,
-      "y": -9.8,
+      "x": -10.54,
+      "y": -18.68,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_R2"
@@ -441,8 +441,8 @@
     },
     {
       "code": "ATLAS_LOOT_N4",
-      "x": 5.67,
-      "y": -11.14,
+      "x": -11.68,
+      "y": -20.78,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_LOOT_R3"
@@ -464,8 +464,8 @@
     },
     {
       "code": "ATLAS_LOOT_R4",
-      "x": 5.69,
-      "y": -12.79,
+      "x": -13.5,
+      "y": -22.59,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N4"
@@ -481,8 +481,8 @@
     },
     {
       "code": "ATLAS_LOOT_R5",
-      "x": 6.3,
-      "y": -14.16,
+      "x": -14.71,
+      "y": -24.66,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_R4"
@@ -498,8 +498,8 @@
     },
     {
       "code": "ATLAS_LOOT_N5",
-      "x": 6.91,
-      "y": -15.53,
+      "x": -15.91,
+      "y": -26.72,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_LOOT_R5"
@@ -521,8 +521,8 @@
     },
     {
       "code": "ATLAS_LOOT_R6",
-      "x": 7.52,
-      "y": -16.9,
+      "x": -17.12,
+      "y": -28.79,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N5"
@@ -538,8 +538,8 @@
     },
     {
       "code": "ATLAS_LOOT_R7",
-      "x": 8.13,
-      "y": -18.27,
+      "x": -18.32,
+      "y": -30.85,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_R6"
@@ -555,8 +555,8 @@
     },
     {
       "code": "ATLAS_LOOT_RX",
-      "x": 7.0,
-      "y": -12.12,
+      "x": -12.09,
+      "y": -23.1,
       "kind": "SMALL",
       "parents": [
         "ATLAS_LOOT_N4"
@@ -572,8 +572,8 @@
     },
     {
       "code": "ATLAS_MAPS_T1",
-      "x": 1.62,
-      "y": -1.18,
+      "x": -2.11,
+      "y": -6.89,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -589,8 +589,8 @@
     },
     {
       "code": "ATLAS_MAPS_T2",
-      "x": 2.83,
-      "y": -2.06,
+      "x": -2.81,
+      "y": -9.18,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_T1"
@@ -606,8 +606,8 @@
     },
     {
       "code": "ATLAS_MAPS_T3",
-      "x": 4.05,
-      "y": -2.94,
+      "x": -3.5,
+      "y": -11.49,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_T2"
@@ -623,8 +623,8 @@
     },
     {
       "code": "ATLAS_MAPS_N1",
-      "x": 5.26,
-      "y": -3.82,
+      "x": -4.2,
+      "y": -13.77,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_MAPS_T3"
@@ -646,8 +646,8 @@
     },
     {
       "code": "ATLAS_MAPS_L1",
-      "x": 5.66,
-      "y": -5.66,
+      "x": -6.06,
+      "y": -15.56,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N1"
@@ -663,8 +663,8 @@
     },
     {
       "code": "ATLAS_MAPS_L2",
-      "x": 6.72,
-      "y": -6.72,
+      "x": -6.97,
+      "y": -17.76,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_L1"
@@ -680,8 +680,8 @@
     },
     {
       "code": "ATLAS_MAPS_L3",
-      "x": 7.78,
-      "y": -7.78,
+      "x": -7.89,
+      "y": -19.96,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_L2"
@@ -697,8 +697,8 @@
     },
     {
       "code": "ATLAS_MAPS_N2",
-      "x": 8.84,
-      "y": -8.84,
+      "x": -8.8,
+      "y": -22.15,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_MAPS_L3"
@@ -720,8 +720,8 @@
     },
     {
       "code": "ATLAS_MAPS_LX",
-      "x": 9.37,
-      "y": -10.4,
+      "x": -10.34,
+      "y": -23.94,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N2"
@@ -737,8 +737,8 @@
     },
     {
       "code": "ATLAS_MAPS_L4",
-      "x": 10.4,
-      "y": -9.37,
+      "x": -9.07,
+      "y": -24.7,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N2"
@@ -754,8 +754,8 @@
     },
     {
       "code": "ATLAS_MAPS_L5",
-      "x": 11.52,
-      "y": -10.37,
+      "x": -9.91,
+      "y": -26.95,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_L4"
@@ -771,8 +771,8 @@
     },
     {
       "code": "ATLAS_MAPS_N3",
-      "x": 12.63,
-      "y": -11.38,
+      "x": -10.76,
+      "y": -29.18,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_MAPS_L5"
@@ -794,8 +794,8 @@
     },
     {
       "code": "ATLAS_MAPS_L6",
-      "x": 13.75,
-      "y": -12.38,
+      "x": -11.61,
+      "y": -31.42,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N3"
@@ -811,8 +811,8 @@
     },
     {
       "code": "ATLAS_MAPS_L7",
-      "x": 14.86,
-      "y": -13.38,
+      "x": -12.45,
+      "y": -33.65,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_L6"
@@ -828,8 +828,8 @@
     },
     {
       "code": "ATLAS_MAPS_K2",
-      "x": 15.98,
-      "y": -14.39,
+      "x": -13.3,
+      "y": -35.9,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_MAPS_L7"
@@ -851,8 +851,8 @@
     },
     {
       "code": "ATLAS_MAPS_C1",
-      "x": 6.47,
-      "y": -4.7,
+      "x": -4.9,
+      "y": -16.06,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N1"
@@ -868,8 +868,8 @@
     },
     {
       "code": "ATLAS_MAPS_C2",
-      "x": 7.69,
-      "y": -5.58,
+      "x": -5.6,
+      "y": -18.37,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_C1"
@@ -885,8 +885,8 @@
     },
     {
       "code": "ATLAS_MAPS_C3",
-      "x": 8.9,
-      "y": -6.47,
+      "x": -6.31,
+      "y": -20.66,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_C2"
@@ -902,8 +902,8 @@
     },
     {
       "code": "ATLAS_MAPS_C4",
-      "x": 10.11,
-      "y": -7.35,
+      "x": -7.01,
+      "y": -22.95,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_C3"
@@ -919,8 +919,8 @@
     },
     {
       "code": "ATLAS_MAPS_K1",
-      "x": 11.33,
-      "y": -8.23,
+      "x": -7.7,
+      "y": -25.26,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_MAPS_C4"
@@ -942,8 +942,8 @@
     },
     {
       "code": "ATLAS_MAPS_R1",
-      "x": 7.13,
-      "y": -3.63,
+      "x": -3.66,
+      "y": -16.28,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N1"
@@ -959,8 +959,8 @@
     },
     {
       "code": "ATLAS_MAPS_R2",
-      "x": 8.46,
-      "y": -4.31,
+      "x": -4.12,
+      "y": -18.61,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_R1"
@@ -976,8 +976,8 @@
     },
     {
       "code": "ATLAS_MAPS_R3",
-      "x": 9.8,
-      "y": -4.99,
+      "x": -4.59,
+      "y": -20.95,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_R2"
@@ -993,8 +993,8 @@
     },
     {
       "code": "ATLAS_MAPS_N4",
-      "x": 11.14,
-      "y": -5.67,
+      "x": -5.05,
+      "y": -23.29,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_MAPS_R3"
@@ -1016,8 +1016,8 @@
     },
     {
       "code": "ATLAS_MAPS_R4",
-      "x": 12.12,
-      "y": -7.0,
+      "x": -6.27,
+      "y": -25.55,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N4"
@@ -1033,8 +1033,8 @@
     },
     {
       "code": "ATLAS_MAPS_R5",
-      "x": 13.42,
-      "y": -7.75,
+      "x": -6.81,
+      "y": -27.88,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_R4"
@@ -1050,8 +1050,8 @@
     },
     {
       "code": "ATLAS_MAPS_N5",
-      "x": 14.72,
-      "y": -8.5,
+      "x": -7.36,
+      "y": -30.21,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_MAPS_R5"
@@ -1073,8 +1073,8 @@
     },
     {
       "code": "ATLAS_MAPS_R6",
-      "x": 16.02,
-      "y": -9.25,
+      "x": -7.9,
+      "y": -32.54,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N5"
@@ -1090,8 +1090,8 @@
     },
     {
       "code": "ATLAS_MAPS_R7",
-      "x": 17.32,
-      "y": -10.0,
+      "x": -8.45,
+      "y": -34.87,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_R6"
@@ -1107,8 +1107,8 @@
     },
     {
       "code": "ATLAS_MAPS_RX",
-      "x": 12.79,
-      "y": -5.69,
+      "x": -4.77,
+      "y": -25.63,
       "kind": "SMALL",
       "parents": [
         "ATLAS_MAPS_N4"
@@ -1124,8 +1124,8 @@
     },
     {
       "code": "ATLAS_TIERS_T1",
-      "x": 2.0,
-      "y": 0.0,
+      "x": 2.11,
+      "y": -6.89,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -1141,8 +1141,8 @@
     },
     {
       "code": "ATLAS_TIERS_T2",
-      "x": 3.5,
-      "y": 0.0,
+      "x": 2.81,
+      "y": -9.18,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_T1"
@@ -1158,8 +1158,8 @@
     },
     {
       "code": "ATLAS_TIERS_T3",
-      "x": 5.0,
-      "y": 0.0,
+      "x": 3.51,
+      "y": -11.48,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_T2"
@@ -1175,8 +1175,8 @@
     },
     {
       "code": "ATLAS_TIERS_N1",
-      "x": 6.5,
-      "y": 0.0,
+      "x": 4.21,
+      "y": -13.77,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_TIERS_T3"
@@ -1198,8 +1198,8 @@
     },
     {
       "code": "ATLAS_TIERS_L1",
-      "x": 7.9,
-      "y": -1.25,
+      "x": 3.67,
+      "y": -16.28,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N1"
@@ -1215,8 +1215,8 @@
     },
     {
       "code": "ATLAS_TIERS_L2",
-      "x": 9.38,
-      "y": -1.49,
+      "x": 4.13,
+      "y": -18.61,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_L1"
@@ -1232,8 +1232,8 @@
     },
     {
       "code": "ATLAS_TIERS_L3",
-      "x": 10.86,
-      "y": -1.72,
+      "x": 4.6,
+      "y": -20.94,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_L2"
@@ -1249,8 +1249,8 @@
     },
     {
       "code": "ATLAS_TIERS_N2",
-      "x": 12.35,
-      "y": -1.96,
+      "x": 5.07,
+      "y": -23.29,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_TIERS_L3"
@@ -1272,8 +1272,8 @@
     },
     {
       "code": "ATLAS_TIERS_LX",
-      "x": 13.69,
-      "y": -2.91,
+      "x": 4.79,
+      "y": -25.62,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N2"
@@ -1289,8 +1289,8 @@
     },
     {
       "code": "ATLAS_TIERS_L4",
-      "x": 13.92,
-      "y": -1.46,
+      "x": 6.28,
+      "y": -25.55,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N2"
@@ -1306,8 +1306,8 @@
     },
     {
       "code": "ATLAS_TIERS_L5",
-      "x": 15.42,
-      "y": -1.62,
+      "x": 6.83,
+      "y": -27.89,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_L4"
@@ -1323,8 +1323,8 @@
     },
     {
       "code": "ATLAS_TIERS_N3",
-      "x": 16.91,
-      "y": -1.78,
+      "x": 7.38,
+      "y": -30.22,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_TIERS_L5"
@@ -1346,8 +1346,8 @@
     },
     {
       "code": "ATLAS_TIERS_L6",
-      "x": 18.4,
-      "y": -1.93,
+      "x": 7.93,
+      "y": -32.54,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N3"
@@ -1363,8 +1363,8 @@
     },
     {
       "code": "ATLAS_TIERS_L7",
-      "x": 19.89,
-      "y": -2.09,
+      "x": 8.48,
+      "y": -34.87,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_L6"
@@ -1380,8 +1380,8 @@
     },
     {
       "code": "ATLAS_TIERS_K2",
-      "x": 21.38,
-      "y": -2.25,
+      "x": 9.02,
+      "y": -37.2,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_TIERS_L7"
@@ -1403,8 +1403,8 @@
     },
     {
       "code": "ATLAS_TIERS_C1",
-      "x": 8.0,
-      "y": 0.0,
+      "x": 4.91,
+      "y": -16.07,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N1"
@@ -1420,8 +1420,8 @@
     },
     {
       "code": "ATLAS_TIERS_C2",
-      "x": 9.5,
-      "y": 0.0,
+      "x": 5.61,
+      "y": -18.36,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_C1"
@@ -1437,8 +1437,8 @@
     },
     {
       "code": "ATLAS_TIERS_C3",
-      "x": 11.0,
-      "y": 0.0,
+      "x": 6.32,
+      "y": -20.66,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_C2"
@@ -1454,8 +1454,8 @@
     },
     {
       "code": "ATLAS_TIERS_C4",
-      "x": 12.5,
-      "y": 0.0,
+      "x": 7.02,
+      "y": -22.95,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_C3"
@@ -1471,8 +1471,8 @@
     },
     {
       "code": "ATLAS_TIERS_K1",
-      "x": 14.0,
-      "y": 0.0,
+      "x": 7.72,
+      "y": -25.25,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_TIERS_C4"
@@ -1494,8 +1494,8 @@
     },
     {
       "code": "ATLAS_TIERS_R1",
-      "x": 7.9,
-      "y": 1.25,
+      "x": 6.06,
+      "y": -15.55,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N1"
@@ -1511,8 +1511,8 @@
     },
     {
       "code": "ATLAS_TIERS_R2",
-      "x": 9.38,
-      "y": 1.49,
+      "x": 6.98,
+      "y": -17.74,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_R1"
@@ -1528,8 +1528,8 @@
     },
     {
       "code": "ATLAS_TIERS_R3",
-      "x": 10.86,
-      "y": 1.72,
+      "x": 7.89,
+      "y": -19.94,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_R2"
@@ -1545,8 +1545,8 @@
     },
     {
       "code": "ATLAS_TIERS_N4",
-      "x": 12.35,
-      "y": 1.96,
+      "x": 8.82,
+      "y": -22.15,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_TIERS_R3"
@@ -1568,8 +1568,8 @@
     },
     {
       "code": "ATLAS_TIERS_R4",
-      "x": 13.92,
-      "y": 1.46,
+      "x": 9.08,
+      "y": -24.7,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N4"
@@ -1585,8 +1585,8 @@
     },
     {
       "code": "ATLAS_TIERS_R5",
-      "x": 15.42,
-      "y": 1.62,
+      "x": 9.93,
+      "y": -26.95,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_R4"
@@ -1602,8 +1602,8 @@
     },
     {
       "code": "ATLAS_TIERS_N5",
-      "x": 16.91,
-      "y": 1.78,
+      "x": 10.78,
+      "y": -29.18,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_TIERS_R5"
@@ -1625,8 +1625,8 @@
     },
     {
       "code": "ATLAS_TIERS_R6",
-      "x": 18.4,
-      "y": 1.93,
+      "x": 11.62,
+      "y": -31.41,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N5"
@@ -1642,8 +1642,8 @@
     },
     {
       "code": "ATLAS_TIERS_R7",
-      "x": 19.89,
-      "y": 2.09,
+      "x": 12.47,
+      "y": -33.65,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_R6"
@@ -1659,8 +1659,8 @@
     },
     {
       "code": "ATLAS_TIERS_RX",
-      "x": 13.69,
-      "y": 2.91,
+      "x": 10.36,
+      "y": -23.92,
       "kind": "SMALL",
       "parents": [
         "ATLAS_TIERS_N4"
@@ -1676,8 +1676,8 @@
     },
     {
       "code": "ATLAS_BOSSES_T1",
-      "x": 1.62,
-      "y": 1.18,
+      "x": 4.03,
+      "y": -5.97,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -1693,8 +1693,8 @@
     },
     {
       "code": "ATLAS_BOSSES_T2",
-      "x": 2.83,
-      "y": 2.06,
+      "x": 5.37,
+      "y": -7.96,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_T1"
@@ -1710,8 +1710,8 @@
     },
     {
       "code": "ATLAS_BOSSES_T3",
-      "x": 4.05,
-      "y": 2.94,
+      "x": 6.71,
+      "y": -9.96,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_T2"
@@ -1727,8 +1727,8 @@
     },
     {
       "code": "ATLAS_BOSSES_N1",
-      "x": 5.26,
-      "y": 3.82,
+      "x": 8.05,
+      "y": -11.94,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_BOSSES_T3"
@@ -1750,8 +1750,8 @@
     },
     {
       "code": "ATLAS_BOSSES_L1",
-      "x": 7.13,
-      "y": 3.63,
+      "x": 8.26,
+      "y": -14.5,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N1"
@@ -1767,8 +1767,8 @@
     },
     {
       "code": "ATLAS_BOSSES_L2",
-      "x": 8.46,
-      "y": 4.31,
+      "x": 9.38,
+      "y": -16.59,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_L1"
@@ -1784,8 +1784,8 @@
     },
     {
       "code": "ATLAS_BOSSES_L3",
-      "x": 9.8,
-      "y": 4.99,
+      "x": 10.51,
+      "y": -18.69,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_L2"
@@ -1801,8 +1801,8 @@
     },
     {
       "code": "ATLAS_BOSSES_N2",
-      "x": 11.14,
-      "y": 5.67,
+      "x": 11.64,
+      "y": -20.79,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_BOSSES_L3"
@@ -1824,8 +1824,8 @@
     },
     {
       "code": "ATLAS_BOSSES_LX",
-      "x": 12.79,
-      "y": 5.69,
+      "x": 12.05,
+      "y": -23.11,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N2"
@@ -1841,8 +1841,8 @@
     },
     {
       "code": "ATLAS_BOSSES_L4",
-      "x": 12.12,
-      "y": 7.0,
+      "x": 13.46,
+      "y": -22.6,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N2"
@@ -1858,8 +1858,8 @@
     },
     {
       "code": "ATLAS_BOSSES_L5",
-      "x": 13.42,
-      "y": 7.75,
+      "x": 14.67,
+      "y": -24.67,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_L4"
@@ -1875,8 +1875,8 @@
     },
     {
       "code": "ATLAS_BOSSES_N3",
-      "x": 14.72,
-      "y": 8.5,
+      "x": 15.87,
+      "y": -26.74,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_BOSSES_L5"
@@ -1898,8 +1898,8 @@
     },
     {
       "code": "ATLAS_BOSSES_L6",
-      "x": 16.02,
-      "y": 9.25,
+      "x": 17.07,
+      "y": -28.81,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N3"
@@ -1915,8 +1915,8 @@
     },
     {
       "code": "ATLAS_BOSSES_L7",
-      "x": 17.32,
-      "y": 10.0,
+      "x": 18.28,
+      "y": -30.88,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_L6"
@@ -1932,8 +1932,8 @@
     },
     {
       "code": "ATLAS_BOSSES_K2",
-      "x": 18.62,
-      "y": 10.75,
+      "x": 19.48,
+      "y": -32.95,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_BOSSES_L7"
@@ -1955,8 +1955,8 @@
     },
     {
       "code": "ATLAS_BOSSES_C1",
-      "x": 6.47,
-      "y": 4.7,
+      "x": 9.38,
+      "y": -13.93,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N1"
@@ -1972,8 +1972,8 @@
     },
     {
       "code": "ATLAS_BOSSES_C2",
-      "x": 7.69,
-      "y": 5.58,
+      "x": 10.72,
+      "y": -15.93,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_C1"
@@ -1989,8 +1989,8 @@
     },
     {
       "code": "ATLAS_BOSSES_C3",
-      "x": 8.9,
-      "y": 6.47,
+      "x": 12.07,
+      "y": -17.92,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_C2"
@@ -2006,8 +2006,8 @@
     },
     {
       "code": "ATLAS_BOSSES_C4",
-      "x": 10.11,
-      "y": 7.35,
+      "x": 13.41,
+      "y": -19.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_C3"
@@ -2023,8 +2023,8 @@
     },
     {
       "code": "ATLAS_BOSSES_K1",
-      "x": 11.33,
-      "y": 8.23,
+      "x": 14.75,
+      "y": -21.9,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_BOSSES_C4"
@@ -2046,8 +2046,8 @@
     },
     {
       "code": "ATLAS_BOSSES_R1",
-      "x": 5.66,
-      "y": 5.66,
+      "x": 10.34,
+      "y": -13.11,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N1"
@@ -2063,8 +2063,8 @@
     },
     {
       "code": "ATLAS_BOSSES_R2",
-      "x": 6.72,
-      "y": 6.72,
+      "x": 11.86,
+      "y": -14.94,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_R1"
@@ -2080,8 +2080,8 @@
     },
     {
       "code": "ATLAS_BOSSES_R3",
-      "x": 7.78,
-      "y": 7.78,
+      "x": 13.38,
+      "y": -16.78,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_R2"
@@ -2097,8 +2097,8 @@
     },
     {
       "code": "ATLAS_BOSSES_N4",
-      "x": 8.84,
-      "y": 8.84,
+      "x": 14.9,
+      "y": -18.61,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_BOSSES_R3"
@@ -2120,8 +2120,8 @@
     },
     {
       "code": "ATLAS_BOSSES_R4",
-      "x": 10.4,
-      "y": 9.37,
+      "x": 15.9,
+      "y": -20.97,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N4"
@@ -2137,8 +2137,8 @@
     },
     {
       "code": "ATLAS_BOSSES_R5",
-      "x": 11.52,
-      "y": 10.37,
+      "x": 17.36,
+      "y": -22.87,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_R4"
@@ -2154,8 +2154,8 @@
     },
     {
       "code": "ATLAS_BOSSES_N5",
-      "x": 12.63,
-      "y": 11.38,
+      "x": 18.83,
+      "y": -24.76,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_BOSSES_R5"
@@ -2177,8 +2177,8 @@
     },
     {
       "code": "ATLAS_BOSSES_R6",
-      "x": 13.75,
-      "y": 12.38,
+      "x": 20.29,
+      "y": -26.66,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N5"
@@ -2194,8 +2194,8 @@
     },
     {
       "code": "ATLAS_BOSSES_R7",
-      "x": 14.86,
-      "y": 13.38,
+      "x": 21.74,
+      "y": -28.54,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_R6"
@@ -2211,8 +2211,8 @@
     },
     {
       "code": "ATLAS_BOSSES_RX",
-      "x": 9.37,
-      "y": 10.4,
+      "x": 16.89,
+      "y": -19.87,
       "kind": "SMALL",
       "parents": [
         "ATLAS_BOSSES_N4"
@@ -2228,8 +2228,8 @@
     },
     {
       "code": "ATLAS_ABYSS_T1",
-      "x": 0.62,
-      "y": 1.9,
+      "x": 5.59,
+      "y": -4.53,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -2245,8 +2245,8 @@
     },
     {
       "code": "ATLAS_ABYSS_T2",
-      "x": 1.08,
-      "y": 3.33,
+      "x": 7.47,
+      "y": -6.04,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_T1"
@@ -2262,8 +2262,8 @@
     },
     {
       "code": "ATLAS_ABYSS_T3",
-      "x": 1.55,
-      "y": 4.76,
+      "x": 9.34,
+      "y": -7.56,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_T2"
@@ -2279,8 +2279,8 @@
     },
     {
       "code": "ATLAS_ABYSS_N1",
-      "x": 2.01,
-      "y": 6.18,
+      "x": 11.19,
+      "y": -9.06,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_ABYSS_T3"
@@ -2302,8 +2302,8 @@
     },
     {
       "code": "ATLAS_ABYSS_L1",
-      "x": 3.63,
-      "y": 7.13,
+      "x": 12.16,
+      "y": -11.44,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N1"
@@ -2319,8 +2319,8 @@
     },
     {
       "code": "ATLAS_ABYSS_L2",
-      "x": 4.31,
-      "y": 8.46,
+      "x": 13.84,
+      "y": -13.11,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_L1"
@@ -2336,8 +2336,8 @@
     },
     {
       "code": "ATLAS_ABYSS_L3",
-      "x": 4.99,
-      "y": 9.8,
+      "x": 15.55,
+      "y": -14.78,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_L2"
@@ -2353,8 +2353,8 @@
     },
     {
       "code": "ATLAS_ABYSS_N2",
-      "x": 5.67,
-      "y": 11.14,
+      "x": 17.25,
+      "y": -16.46,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_ABYSS_L3"
@@ -2376,8 +2376,8 @@
     },
     {
       "code": "ATLAS_ABYSS_LX",
-      "x": 7.0,
-      "y": 12.12,
+      "x": 18.31,
+      "y": -18.56,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N2"
@@ -2393,8 +2393,8 @@
     },
     {
       "code": "ATLAS_ABYSS_L4",
-      "x": 5.69,
-      "y": 12.79,
+      "x": 19.52,
+      "y": -17.66,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N2"
@@ -2410,8 +2410,8 @@
     },
     {
       "code": "ATLAS_ABYSS_L5",
-      "x": 6.3,
-      "y": 14.16,
+      "x": 21.27,
+      "y": -19.28,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_L4"
@@ -2427,8 +2427,8 @@
     },
     {
       "code": "ATLAS_ABYSS_N3",
-      "x": 6.91,
-      "y": 15.53,
+      "x": 23.03,
+      "y": -20.9,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_ABYSS_L5"
@@ -2450,8 +2450,8 @@
     },
     {
       "code": "ATLAS_ABYSS_L6",
-      "x": 7.52,
-      "y": 16.9,
+      "x": 24.79,
+      "y": -22.53,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N3"
@@ -2467,8 +2467,8 @@
     },
     {
       "code": "ATLAS_ABYSS_L7",
-      "x": 8.13,
-      "y": 18.27,
+      "x": 26.54,
+      "y": -24.15,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_L6"
@@ -2484,8 +2484,8 @@
     },
     {
       "code": "ATLAS_ABYSS_K2",
-      "x": 8.74,
-      "y": 19.64,
+      "x": 28.3,
+      "y": -25.77,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_ABYSS_L7"
@@ -2507,8 +2507,8 @@
     },
     {
       "code": "ATLAS_ABYSS_C1",
-      "x": 2.47,
-      "y": 7.61,
+      "x": 13.06,
+      "y": -10.56,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N1"
@@ -2524,8 +2524,8 @@
     },
     {
       "code": "ATLAS_ABYSS_C2",
-      "x": 2.94,
-      "y": 9.04,
+      "x": 14.93,
+      "y": -12.08,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_C1"
@@ -2541,8 +2541,8 @@
     },
     {
       "code": "ATLAS_ABYSS_C3",
-      "x": 3.4,
-      "y": 10.46,
+      "x": 16.79,
+      "y": -13.58,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_C2"
@@ -2558,8 +2558,8 @@
     },
     {
       "code": "ATLAS_ABYSS_C4",
-      "x": 3.86,
-      "y": 11.89,
+      "x": 18.66,
+      "y": -15.09,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_C3"
@@ -2575,8 +2575,8 @@
     },
     {
       "code": "ATLAS_ABYSS_K1",
-      "x": 4.33,
-      "y": 13.31,
+      "x": 20.52,
+      "y": -16.6,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_ABYSS_C4"
@@ -2598,8 +2598,8 @@
     },
     {
       "code": "ATLAS_ABYSS_R1",
-      "x": 1.25,
-      "y": 7.9,
+      "x": 13.72,
+      "y": -9.49,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N1"
@@ -2615,8 +2615,8 @@
     },
     {
       "code": "ATLAS_ABYSS_R2",
-      "x": 1.49,
-      "y": 9.38,
+      "x": 15.71,
+      "y": -10.8,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_R1"
@@ -2632,8 +2632,8 @@
     },
     {
       "code": "ATLAS_ABYSS_R3",
-      "x": 1.72,
-      "y": 10.86,
+      "x": 17.7,
+      "y": -12.1,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_R2"
@@ -2649,8 +2649,8 @@
     },
     {
       "code": "ATLAS_ABYSS_N4",
-      "x": 1.96,
-      "y": 12.35,
+      "x": 19.7,
+      "y": -13.42,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_ABYSS_R3"
@@ -2672,8 +2672,8 @@
     },
     {
       "code": "ATLAS_ABYSS_R4",
-      "x": 2.91,
-      "y": 13.69,
+      "x": 21.35,
+      "y": -15.38,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N4"
@@ -2689,8 +2689,8 @@
     },
     {
       "code": "ATLAS_ABYSS_R5",
-      "x": 3.22,
-      "y": 15.16,
+      "x": 23.3,
+      "y": -16.76,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_R4"
@@ -2706,8 +2706,8 @@
     },
     {
       "code": "ATLAS_ABYSS_N5",
-      "x": 3.53,
-      "y": 16.63,
+      "x": 25.26,
+      "y": -18.14,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_ABYSS_R5"
@@ -2729,8 +2729,8 @@
     },
     {
       "code": "ATLAS_ABYSS_R6",
-      "x": 3.85,
-      "y": 18.1,
+      "x": 27.22,
+      "y": -19.53,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N5"
@@ -2746,8 +2746,8 @@
     },
     {
       "code": "ATLAS_ABYSS_R7",
-      "x": 4.16,
-      "y": 19.56,
+      "x": 29.16,
+      "y": -20.9,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_R6"
@@ -2763,8 +2763,8 @@
     },
     {
       "code": "ATLAS_ABYSS_RX",
-      "x": 1.46,
-      "y": 13.92,
+      "x": 21.97,
+      "y": -14.02,
       "kind": "SMALL",
       "parents": [
         "ATLAS_ABYSS_N4"
@@ -2780,8 +2780,8 @@
     },
     {
       "code": "ATLAS_VAAL_T1",
-      "x": -0.62,
-      "y": 1.9,
+      "x": 6.67,
+      "y": -2.7,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -2797,8 +2797,8 @@
     },
     {
       "code": "ATLAS_VAAL_T2",
-      "x": -1.08,
-      "y": 3.33,
+      "x": 8.9,
+      "y": -3.6,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_T1"
@@ -2814,8 +2814,8 @@
     },
     {
       "code": "ATLAS_VAAL_T3",
-      "x": -1.55,
-      "y": 4.76,
+      "x": 11.13,
+      "y": -4.5,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_T2"
@@ -2831,8 +2831,8 @@
     },
     {
       "code": "ATLAS_VAAL_N1",
-      "x": -2.01,
-      "y": 6.18,
+      "x": 13.35,
+      "y": -5.4,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_T3"
@@ -2854,8 +2854,8 @@
     },
     {
       "code": "ATLAS_VAAL_L1",
-      "x": -1.25,
-      "y": 7.9,
+      "x": 14.95,
+      "y": -7.4,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N1"
@@ -2871,8 +2871,8 @@
     },
     {
       "code": "ATLAS_VAAL_L2",
-      "x": -1.49,
-      "y": 9.38,
+      "x": 17.06,
+      "y": -8.5,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_L1"
@@ -2888,8 +2888,8 @@
     },
     {
       "code": "ATLAS_VAAL_L3",
-      "x": -1.72,
-      "y": 10.86,
+      "x": 19.17,
+      "y": -9.61,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_L2"
@@ -2905,8 +2905,8 @@
     },
     {
       "code": "ATLAS_VAAL_N2",
-      "x": -1.96,
-      "y": 12.35,
+      "x": 21.29,
+      "y": -10.72,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_L3"
@@ -2928,8 +2928,8 @@
     },
     {
       "code": "ATLAS_VAAL_LX",
-      "x": -1.46,
-      "y": 13.92,
+      "x": 22.91,
+      "y": -12.42,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N2"
@@ -2945,8 +2945,8 @@
     },
     {
       "code": "ATLAS_VAAL_L4",
-      "x": -2.91,
-      "y": 13.69,
+      "x": 23.8,
+      "y": -11.21,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N2"
@@ -2962,8 +2962,8 @@
     },
     {
       "code": "ATLAS_VAAL_L5",
-      "x": -3.22,
-      "y": 15.16,
+      "x": 25.96,
+      "y": -12.26,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_L4"
@@ -2979,8 +2979,8 @@
     },
     {
       "code": "ATLAS_VAAL_N3",
-      "x": -3.53,
-      "y": 16.63,
+      "x": 28.11,
+      "y": -13.3,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_L5"
@@ -3002,8 +3002,8 @@
     },
     {
       "code": "ATLAS_VAAL_L6",
-      "x": -3.85,
-      "y": 18.1,
+      "x": 30.27,
+      "y": -14.34,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N3"
@@ -3019,8 +3019,8 @@
     },
     {
       "code": "ATLAS_VAAL_L7",
-      "x": -4.16,
-      "y": 19.56,
+      "x": 32.42,
+      "y": -15.38,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_L6"
@@ -3036,8 +3036,8 @@
     },
     {
       "code": "ATLAS_VAAL_K2",
-      "x": -4.47,
-      "y": 21.03,
+      "x": 34.57,
+      "y": -16.42,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_VAAL_L7"
@@ -3059,8 +3059,8 @@
     },
     {
       "code": "ATLAS_VAAL_C1",
-      "x": -2.47,
-      "y": 7.61,
+      "x": 15.57,
+      "y": -6.31,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N1"
@@ -3076,8 +3076,8 @@
     },
     {
       "code": "ATLAS_VAAL_C2",
-      "x": -2.94,
-      "y": 9.04,
+      "x": 17.81,
+      "y": -7.2,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_C1"
@@ -3093,8 +3093,8 @@
     },
     {
       "code": "ATLAS_VAAL_C3",
-      "x": -3.4,
-      "y": 10.46,
+      "x": 20.02,
+      "y": -8.1,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_C2"
@@ -3110,8 +3110,8 @@
     },
     {
       "code": "ATLAS_VAAL_C4",
-      "x": -3.86,
-      "y": 11.89,
+      "x": 22.25,
+      "y": -9.01,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_C3"
@@ -3127,8 +3127,8 @@
     },
     {
       "code": "ATLAS_VAAL_K1",
-      "x": -4.33,
-      "y": 13.31,
+      "x": 24.47,
+      "y": -9.9,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_VAAL_C4"
@@ -3150,8 +3150,8 @@
     },
     {
       "code": "ATLAS_VAAL_R1",
-      "x": -3.63,
-      "y": 7.13,
+      "x": 15.9,
+      "y": -5.09,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N1"
@@ -3167,8 +3167,8 @@
     },
     {
       "code": "ATLAS_VAAL_R2",
-      "x": -4.31,
-      "y": 8.46,
+      "x": 18.18,
+      "y": -5.75,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_R1"
@@ -3184,8 +3184,8 @@
     },
     {
       "code": "ATLAS_VAAL_R3",
-      "x": -4.99,
-      "y": 9.8,
+      "x": 20.46,
+      "y": -6.43,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_R2"
@@ -3201,8 +3201,8 @@
     },
     {
       "code": "ATLAS_VAAL_N4",
-      "x": -5.67,
-      "y": 11.14,
+      "x": 22.75,
+      "y": -7.11,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_R3"
@@ -3224,8 +3224,8 @@
     },
     {
       "code": "ATLAS_VAAL_R4",
-      "x": -5.69,
-      "y": 12.79,
+      "x": 24.91,
+      "y": -8.51,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N4"
@@ -3241,8 +3241,8 @@
     },
     {
       "code": "ATLAS_VAAL_R5",
-      "x": -6.3,
-      "y": 14.16,
+      "x": 27.18,
+      "y": -9.26,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_R4"
@@ -3258,8 +3258,8 @@
     },
     {
       "code": "ATLAS_VAAL_N5",
-      "x": -6.91,
-      "y": 15.53,
+      "x": 29.45,
+      "y": -10.01,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_VAAL_R5"
@@ -3281,8 +3281,8 @@
     },
     {
       "code": "ATLAS_VAAL_R6",
-      "x": -7.52,
-      "y": 16.9,
+      "x": 31.72,
+      "y": -10.76,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N5"
@@ -3298,8 +3298,8 @@
     },
     {
       "code": "ATLAS_VAAL_R7",
-      "x": -8.13,
-      "y": 18.27,
+      "x": 33.99,
+      "y": -11.51,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_R6"
@@ -3315,8 +3315,8 @@
     },
     {
       "code": "ATLAS_VAAL_RX",
-      "x": -7.0,
-      "y": 12.12,
+      "x": 25.11,
+      "y": -7.02,
       "kind": "SMALL",
       "parents": [
         "ATLAS_VAAL_N4"
@@ -3332,8 +3332,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_T1",
-      "x": -1.62,
-      "y": 1.18,
+      "x": 7.18,
+      "y": -0.63,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -3349,8 +3349,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_T2",
-      "x": -2.83,
-      "y": 2.06,
+      "x": 9.56,
+      "y": -0.84,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_T1"
@@ -3366,8 +3366,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_T3",
-      "x": -4.05,
-      "y": 2.94,
+      "x": 11.96,
+      "y": -1.04,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_T2"
@@ -3383,8 +3383,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_N1",
-      "x": -5.26,
-      "y": 3.82,
+      "x": 14.35,
+      "y": -1.25,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRYSTALS_T3"
@@ -3406,8 +3406,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_L1",
-      "x": -5.66,
-      "y": 5.66,
+      "x": 16.48,
+      "y": -2.69,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N1"
@@ -3423,8 +3423,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_L2",
-      "x": -6.72,
-      "y": 6.72,
+      "x": 18.82,
+      "y": -3.13,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_L1"
@@ -3440,8 +3440,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_L3",
-      "x": -7.78,
-      "y": 7.78,
+      "x": 21.16,
+      "y": -3.57,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_L2"
@@ -3457,8 +3457,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_N2",
-      "x": -8.84,
-      "y": 8.84,
+      "x": 23.5,
+      "y": -4.0,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRYSTALS_L3"
@@ -3480,8 +3480,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_LX",
-      "x": -9.37,
-      "y": 10.4,
+      "x": 25.56,
+      "y": -5.14,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N2"
@@ -3497,8 +3497,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_L4",
-      "x": -10.4,
-      "y": 9.37,
+      "x": 26.05,
+      "y": -3.74,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N2"
@@ -3514,8 +3514,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_L5",
-      "x": -11.52,
-      "y": 10.37,
+      "x": 28.42,
+      "y": -4.09,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_L4"
@@ -3531,8 +3531,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_N3",
-      "x": -12.63,
-      "y": 11.38,
+      "x": 30.78,
+      "y": -4.46,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRYSTALS_L5"
@@ -3554,8 +3554,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_L6",
-      "x": -13.75,
-      "y": 12.38,
+      "x": 33.15,
+      "y": -4.82,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N3"
@@ -3571,8 +3571,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_L7",
-      "x": -14.86,
-      "y": 13.38,
+      "x": 35.51,
+      "y": -5.18,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_L6"
@@ -3588,8 +3588,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_K2",
-      "x": -15.98,
-      "y": 14.39,
+      "x": 37.88,
+      "y": -5.55,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_CRYSTALS_L7"
@@ -3611,8 +3611,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_C1",
-      "x": -6.47,
-      "y": 4.7,
+      "x": 16.73,
+      "y": -1.45,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N1"
@@ -3628,8 +3628,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_C2",
-      "x": -7.69,
-      "y": 5.58,
+      "x": 19.13,
+      "y": -1.66,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_C1"
@@ -3645,8 +3645,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_C3",
-      "x": -8.9,
-      "y": 6.47,
+      "x": 21.52,
+      "y": -1.87,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_C2"
@@ -3662,8 +3662,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_C4",
-      "x": -10.11,
-      "y": 7.35,
+      "x": 23.91,
+      "y": -2.08,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_C3"
@@ -3679,8 +3679,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_K1",
-      "x": -11.33,
-      "y": 8.23,
+      "x": 26.31,
+      "y": -2.28,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_CRYSTALS_C4"
@@ -3702,8 +3702,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_R1",
-      "x": -7.13,
-      "y": 3.63,
+      "x": 16.69,
+      "y": -0.19,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N1"
@@ -3719,8 +3719,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_R2",
-      "x": -8.46,
-      "y": 4.31,
+      "x": 19.06,
+      "y": -0.16,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_R1"
@@ -3736,8 +3736,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_R3",
-      "x": -9.8,
-      "y": 4.99,
+      "x": 21.44,
+      "y": -0.13,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_R2"
@@ -3753,8 +3753,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_N4",
-      "x": -11.14,
-      "y": 5.67,
+      "x": 23.83,
+      "y": -0.1,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRYSTALS_R3"
@@ -3776,8 +3776,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_R4",
-      "x": -12.12,
-      "y": 7.0,
+      "x": 26.3,
+      "y": -0.82,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N4"
@@ -3793,8 +3793,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_R5",
-      "x": -13.42,
-      "y": 7.75,
+      "x": 28.69,
+      "y": -0.87,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_R4"
@@ -3810,8 +3810,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_N5",
-      "x": -14.72,
-      "y": 8.5,
+      "x": 31.08,
+      "y": -0.92,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRYSTALS_R5"
@@ -3833,8 +3833,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_R6",
-      "x": -16.02,
-      "y": 9.25,
+      "x": 33.48,
+      "y": -0.97,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N5"
@@ -3850,8 +3850,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_R7",
-      "x": -17.32,
-      "y": 10.0,
+      "x": 35.87,
+      "y": -1.02,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_R6"
@@ -3867,8 +3867,8 @@
     },
     {
       "code": "ATLAS_CRYSTALS_RX",
-      "x": -12.79,
-      "y": 5.69,
+      "x": 26.06,
+      "y": 0.66,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRYSTALS_N4"
@@ -3884,8 +3884,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_T1",
-      "x": -2.0,
-      "y": 0.0,
+      "x": -7.17,
+      "y": -0.63,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -3901,8 +3901,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_T2",
-      "x": -3.5,
-      "y": 0.0,
+      "x": -9.56,
+      "y": -0.84,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_T1"
@@ -3918,8 +3918,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_T3",
-      "x": -5.0,
-      "y": 0.0,
+      "x": -11.95,
+      "y": -1.05,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_T2"
@@ -3935,8 +3935,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_N1",
-      "x": -6.5,
-      "y": 0.0,
+      "x": -14.35,
+      "y": -1.26,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_EXPEDITION_T3"
@@ -3958,8 +3958,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_L1",
-      "x": -7.9,
-      "y": 1.25,
+      "x": -16.69,
+      "y": -0.21,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N1"
@@ -3975,8 +3975,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_L2",
-      "x": -9.38,
-      "y": 1.49,
+      "x": -19.07,
+      "y": -0.17,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_L1"
@@ -3992,8 +3992,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_L3",
-      "x": -10.86,
-      "y": 1.72,
+      "x": -21.44,
+      "y": -0.15,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_L2"
@@ -4009,8 +4009,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_N2",
-      "x": -12.35,
-      "y": 1.96,
+      "x": -23.84,
+      "y": -0.12,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_EXPEDITION_L3"
@@ -4032,8 +4032,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_LX",
-      "x": -13.69,
-      "y": 2.91,
+      "x": -26.06,
+      "y": 0.64,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N2"
@@ -4049,8 +4049,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_L4",
-      "x": -13.92,
-      "y": 1.46,
+      "x": -26.3,
+      "y": -0.84,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N2"
@@ -4066,8 +4066,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_L5",
-      "x": -15.42,
-      "y": 1.62,
+      "x": -28.7,
+      "y": -0.89,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_L4"
@@ -4083,8 +4083,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_N3",
-      "x": -16.91,
-      "y": 1.78,
+      "x": -31.09,
+      "y": -0.93,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_EXPEDITION_L5"
@@ -4106,8 +4106,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_L6",
-      "x": -18.4,
-      "y": 1.93,
+      "x": -33.48,
+      "y": -0.99,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N3"
@@ -4123,8 +4123,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_L7",
-      "x": -19.89,
-      "y": 2.09,
+      "x": -35.87,
+      "y": -1.04,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_L6"
@@ -4140,8 +4140,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_K2",
-      "x": -21.38,
-      "y": 2.25,
+      "x": -38.26,
+      "y": -1.09,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_EXPEDITION_L7"
@@ -4163,8 +4163,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_C1",
-      "x": -8.0,
-      "y": 0.0,
+      "x": -16.74,
+      "y": -1.46,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N1"
@@ -4180,8 +4180,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_C2",
-      "x": -9.5,
-      "y": 0.0,
+      "x": -19.13,
+      "y": -1.67,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_C1"
@@ -4197,8 +4197,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_C3",
-      "x": -11.0,
-      "y": 0.0,
+      "x": -21.52,
+      "y": -1.88,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_C2"
@@ -4214,8 +4214,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_C4",
-      "x": -12.5,
-      "y": 0.0,
+      "x": -23.91,
+      "y": -2.09,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_C3"
@@ -4231,8 +4231,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_K1",
-      "x": -14.0,
-      "y": 0.0,
+      "x": -26.3,
+      "y": -2.3,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_EXPEDITION_C4"
@@ -4254,8 +4254,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_R1",
-      "x": -7.9,
-      "y": -1.25,
+      "x": -16.47,
+      "y": -2.7,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N1"
@@ -4271,8 +4271,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_R2",
-      "x": -9.38,
-      "y": -1.49,
+      "x": -18.81,
+      "y": -3.14,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_R1"
@@ -4288,8 +4288,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_R3",
-      "x": -10.86,
-      "y": -1.72,
+      "x": -21.14,
+      "y": -3.58,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_R2"
@@ -4305,8 +4305,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_N4",
-      "x": -12.35,
-      "y": -1.96,
+      "x": -23.5,
+      "y": -4.02,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_EXPEDITION_R3"
@@ -4328,8 +4328,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_R4",
-      "x": -13.92,
-      "y": -1.46,
+      "x": -26.04,
+      "y": -3.74,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N4"
@@ -4345,8 +4345,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_R5",
-      "x": -15.42,
-      "y": -1.62,
+      "x": -28.42,
+      "y": -4.11,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_R4"
@@ -4362,8 +4362,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_N5",
-      "x": -16.91,
-      "y": -1.78,
+      "x": -30.78,
+      "y": -4.48,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_EXPEDITION_R5"
@@ -4385,8 +4385,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_R6",
-      "x": -18.4,
-      "y": -1.93,
+      "x": -33.14,
+      "y": -4.84,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N5"
@@ -4402,8 +4402,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_R7",
-      "x": -19.89,
-      "y": -2.09,
+      "x": -35.51,
+      "y": -5.2,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_R6"
@@ -4419,8 +4419,8 @@
     },
     {
       "code": "ATLAS_EXPEDITION_RX",
-      "x": -13.69,
-      "y": -2.91,
+      "x": -25.55,
+      "y": -5.16,
       "kind": "SMALL",
       "parents": [
         "ATLAS_EXPEDITION_N4"
@@ -4436,8 +4436,8 @@
     },
     {
       "code": "ATLAS_CRAFT_T1",
-      "x": -1.62,
-      "y": -1.18,
+      "x": -6.68,
+      "y": -2.7,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -4453,8 +4453,8 @@
     },
     {
       "code": "ATLAS_CRAFT_T2",
-      "x": -2.83,
-      "y": -2.06,
+      "x": -8.9,
+      "y": -3.6,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_T1"
@@ -4470,8 +4470,8 @@
     },
     {
       "code": "ATLAS_CRAFT_T3",
-      "x": -4.05,
-      "y": -2.94,
+      "x": -11.14,
+      "y": -4.49,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_T2"
@@ -4487,8 +4487,8 @@
     },
     {
       "code": "ATLAS_CRAFT_N1",
-      "x": -5.26,
-      "y": -3.82,
+      "x": -13.36,
+      "y": -5.39,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRAFT_T3"
@@ -4510,8 +4510,8 @@
     },
     {
       "code": "ATLAS_CRAFT_L1",
-      "x": -7.13,
-      "y": -3.63,
+      "x": -15.9,
+      "y": -5.06,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N1"
@@ -4527,8 +4527,8 @@
     },
     {
       "code": "ATLAS_CRAFT_L2",
-      "x": -8.46,
-      "y": -4.31,
+      "x": -18.18,
+      "y": -5.73,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_L1"
@@ -4544,8 +4544,8 @@
     },
     {
       "code": "ATLAS_CRAFT_L3",
-      "x": -9.8,
-      "y": -4.99,
+      "x": -20.47,
+      "y": -6.4,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_L2"
@@ -4561,8 +4561,8 @@
     },
     {
       "code": "ATLAS_CRAFT_N2",
-      "x": -11.14,
-      "y": -5.67,
+      "x": -22.76,
+      "y": -7.06,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRAFT_L3"
@@ -4584,8 +4584,8 @@
     },
     {
       "code": "ATLAS_CRAFT_LX",
-      "x": -12.79,
-      "y": -5.69,
+      "x": -25.11,
+      "y": -6.99,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N2"
@@ -4601,8 +4601,8 @@
     },
     {
       "code": "ATLAS_CRAFT_L4",
-      "x": -12.12,
-      "y": -7.0,
+      "x": -24.91,
+      "y": -8.47,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N2"
@@ -4618,8 +4618,8 @@
     },
     {
       "code": "ATLAS_CRAFT_L5",
-      "x": -13.42,
-      "y": -7.75,
+      "x": -27.18,
+      "y": -9.22,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_L4"
@@ -4635,8 +4635,8 @@
     },
     {
       "code": "ATLAS_CRAFT_N3",
-      "x": -14.72,
-      "y": -8.5,
+      "x": -29.46,
+      "y": -9.96,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRAFT_L5"
@@ -4658,8 +4658,8 @@
     },
     {
       "code": "ATLAS_CRAFT_L6",
-      "x": -16.02,
-      "y": -9.25,
+      "x": -31.73,
+      "y": -10.71,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N3"
@@ -4675,8 +4675,8 @@
     },
     {
       "code": "ATLAS_CRAFT_L7",
-      "x": -17.32,
-      "y": -10.0,
+      "x": -34.0,
+      "y": -11.46,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_L6"
@@ -4692,8 +4692,8 @@
     },
     {
       "code": "ATLAS_CRAFT_K2",
-      "x": -18.62,
-      "y": -10.75,
+      "x": -36.28,
+      "y": -12.2,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_CRAFT_L7"
@@ -4715,8 +4715,8 @@
     },
     {
       "code": "ATLAS_CRAFT_C1",
-      "x": -6.47,
-      "y": -4.7,
+      "x": -15.58,
+      "y": -6.28,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N1"
@@ -4732,8 +4732,8 @@
     },
     {
       "code": "ATLAS_CRAFT_C2",
-      "x": -7.69,
-      "y": -5.58,
+      "x": -17.81,
+      "y": -7.18,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_C1"
@@ -4749,8 +4749,8 @@
     },
     {
       "code": "ATLAS_CRAFT_C3",
-      "x": -8.9,
-      "y": -6.47,
+      "x": -20.04,
+      "y": -8.08,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_C2"
@@ -4766,8 +4766,8 @@
     },
     {
       "code": "ATLAS_CRAFT_C4",
-      "x": -10.11,
-      "y": -7.35,
+      "x": -22.26,
+      "y": -8.98,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_C3"
@@ -4783,8 +4783,8 @@
     },
     {
       "code": "ATLAS_CRAFT_K1",
-      "x": -11.33,
-      "y": -8.23,
+      "x": -24.49,
+      "y": -9.87,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_CRAFT_C4"
@@ -4806,8 +4806,8 @@
     },
     {
       "code": "ATLAS_CRAFT_R1",
-      "x": -5.66,
-      "y": -5.66,
+      "x": -14.97,
+      "y": -7.39,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N1"
@@ -4823,8 +4823,8 @@
     },
     {
       "code": "ATLAS_CRAFT_R2",
-      "x": -6.72,
-      "y": -6.72,
+      "x": -17.08,
+      "y": -8.49,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_R1"
@@ -4840,8 +4840,8 @@
     },
     {
       "code": "ATLAS_CRAFT_R3",
-      "x": -7.78,
-      "y": -7.78,
+      "x": -19.19,
+      "y": -9.6,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_R2"
@@ -4857,8 +4857,8 @@
     },
     {
       "code": "ATLAS_CRAFT_N4",
-      "x": -8.84,
-      "y": -8.84,
+      "x": -21.3,
+      "y": -10.7,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRAFT_R3"
@@ -4880,8 +4880,8 @@
     },
     {
       "code": "ATLAS_CRAFT_R4",
-      "x": -10.4,
-      "y": -9.37,
+      "x": -23.82,
+      "y": -11.19,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N4"
@@ -4897,8 +4897,8 @@
     },
     {
       "code": "ATLAS_CRAFT_R5",
-      "x": -11.52,
-      "y": -10.37,
+      "x": -25.98,
+      "y": -12.22,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_R4"
@@ -4914,8 +4914,8 @@
     },
     {
       "code": "ATLAS_CRAFT_N5",
-      "x": -12.63,
-      "y": -11.38,
+      "x": -28.13,
+      "y": -13.27,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_CRAFT_R5"
@@ -4937,8 +4937,8 @@
     },
     {
       "code": "ATLAS_CRAFT_R6",
-      "x": -13.75,
-      "y": -12.38,
+      "x": -30.29,
+      "y": -14.3,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N5"
@@ -4954,8 +4954,8 @@
     },
     {
       "code": "ATLAS_CRAFT_R7",
-      "x": -14.86,
-      "y": -13.38,
+      "x": -32.44,
+      "y": -15.33,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_R6"
@@ -4971,8 +4971,8 @@
     },
     {
       "code": "ATLAS_CRAFT_RX",
-      "x": -9.37,
-      "y": -10.4,
+      "x": -22.95,
+      "y": -12.39,
       "kind": "SMALL",
       "parents": [
         "ATLAS_CRAFT_N4"
@@ -4988,8 +4988,8 @@
     },
     {
       "code": "ATLAS_POWER_T1",
-      "x": -0.62,
-      "y": -1.9,
+      "x": -5.59,
+      "y": -4.53,
       "kind": "SMALL",
       "parents": [
         "ATLAS_START"
@@ -5005,8 +5005,8 @@
     },
     {
       "code": "ATLAS_POWER_T2",
-      "x": -1.08,
-      "y": -3.33,
+      "x": -7.46,
+      "y": -6.05,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_T1"
@@ -5022,8 +5022,8 @@
     },
     {
       "code": "ATLAS_POWER_T3",
-      "x": -1.55,
-      "y": -4.76,
+      "x": -9.33,
+      "y": -7.56,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_T2"
@@ -5039,8 +5039,8 @@
     },
     {
       "code": "ATLAS_POWER_N1",
-      "x": -2.01,
-      "y": -6.18,
+      "x": -11.19,
+      "y": -9.07,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_POWER_T3"
@@ -5062,8 +5062,8 @@
     },
     {
       "code": "ATLAS_POWER_L1",
-      "x": -3.63,
-      "y": -7.13,
+      "x": -13.72,
+      "y": -9.51,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N1"
@@ -5079,8 +5079,8 @@
     },
     {
       "code": "ATLAS_POWER_L2",
-      "x": -4.31,
-      "y": -8.46,
+      "x": -15.7,
+      "y": -10.82,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_L1"
@@ -5096,8 +5096,8 @@
     },
     {
       "code": "ATLAS_POWER_L3",
-      "x": -4.99,
-      "y": -9.8,
+      "x": -17.69,
+      "y": -12.13,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_L2"
@@ -5113,8 +5113,8 @@
     },
     {
       "code": "ATLAS_POWER_N2",
-      "x": -5.67,
-      "y": -11.14,
+      "x": -19.68,
+      "y": -13.45,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_POWER_L3"
@@ -5136,8 +5136,8 @@
     },
     {
       "code": "ATLAS_POWER_LX",
-      "x": -7.0,
-      "y": -12.12,
+      "x": -21.96,
+      "y": -14.06,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N2"
@@ -5153,8 +5153,8 @@
     },
     {
       "code": "ATLAS_POWER_L4",
-      "x": -5.69,
-      "y": -12.79,
+      "x": -21.33,
+      "y": -15.42,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N2"
@@ -5170,8 +5170,8 @@
     },
     {
       "code": "ATLAS_POWER_L5",
-      "x": -6.3,
-      "y": -14.16,
+      "x": -23.28,
+      "y": -16.8,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_L4"
@@ -5187,8 +5187,8 @@
     },
     {
       "code": "ATLAS_POWER_N3",
-      "x": -6.91,
-      "y": -15.53,
+      "x": -25.23,
+      "y": -18.18,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_POWER_L5"
@@ -5210,8 +5210,8 @@
     },
     {
       "code": "ATLAS_POWER_L6",
-      "x": -7.52,
-      "y": -16.9,
+      "x": -27.19,
+      "y": -19.56,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N3"
@@ -5227,8 +5227,8 @@
     },
     {
       "code": "ATLAS_POWER_L7",
-      "x": -8.13,
-      "y": -18.27,
+      "x": -29.14,
+      "y": -20.94,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_L6"
@@ -5244,8 +5244,8 @@
     },
     {
       "code": "ATLAS_POWER_K2",
-      "x": -8.74,
-      "y": -19.64,
+      "x": -31.09,
+      "y": -22.33,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_POWER_L7"
@@ -5267,8 +5267,8 @@
     },
     {
       "code": "ATLAS_POWER_C1",
-      "x": -2.47,
-      "y": -7.61,
+      "x": -13.05,
+      "y": -10.58,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N1"
@@ -5284,8 +5284,8 @@
     },
     {
       "code": "ATLAS_POWER_C2",
-      "x": -2.94,
-      "y": -9.04,
+      "x": -14.92,
+      "y": -12.1,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_C1"
@@ -5301,8 +5301,8 @@
     },
     {
       "code": "ATLAS_POWER_C3",
-      "x": -3.4,
-      "y": -10.46,
+      "x": -16.78,
+      "y": -13.6,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_C2"
@@ -5318,8 +5318,8 @@
     },
     {
       "code": "ATLAS_POWER_C4",
-      "x": -3.86,
-      "y": -11.89,
+      "x": -18.64,
+      "y": -15.12,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_C3"
@@ -5335,8 +5335,8 @@
     },
     {
       "code": "ATLAS_POWER_K1",
-      "x": -4.33,
-      "y": -13.31,
+      "x": -20.5,
+      "y": -16.62,
       "kind": "KEYSTONE",
       "parents": [
         "ATLAS_POWER_C4"
@@ -5358,8 +5358,8 @@
     },
     {
       "code": "ATLAS_POWER_R1",
-      "x": -1.25,
-      "y": -7.9,
+      "x": -12.13,
+      "y": -11.45,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N1"
@@ -5375,8 +5375,8 @@
     },
     {
       "code": "ATLAS_POWER_R2",
-      "x": -1.49,
-      "y": -9.38,
+      "x": -13.83,
+      "y": -13.12,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_R1"
@@ -5392,8 +5392,8 @@
     },
     {
       "code": "ATLAS_POWER_R3",
-      "x": -1.72,
-      "y": -10.86,
+      "x": -15.52,
+      "y": -14.8,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_R2"
@@ -5409,8 +5409,8 @@
     },
     {
       "code": "ATLAS_POWER_N4",
-      "x": -1.96,
-      "y": -12.35,
+      "x": -17.23,
+      "y": -16.48,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_POWER_R3"
@@ -5432,8 +5432,8 @@
     },
     {
       "code": "ATLAS_POWER_R4",
-      "x": -2.91,
-      "y": -13.69,
+      "x": -19.48,
+      "y": -17.68,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N4"
@@ -5449,8 +5449,8 @@
     },
     {
       "code": "ATLAS_POWER_R5",
-      "x": -3.22,
-      "y": -15.16,
+      "x": -21.24,
+      "y": -19.31,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_R4"
@@ -5466,8 +5466,8 @@
     },
     {
       "code": "ATLAS_POWER_N5",
-      "x": -3.53,
-      "y": -16.63,
+      "x": -22.99,
+      "y": -20.94,
       "kind": "NOTABLE",
       "parents": [
         "ATLAS_POWER_R5"
@@ -5489,8 +5489,8 @@
     },
     {
       "code": "ATLAS_POWER_R6",
-      "x": -3.85,
-      "y": -18.1,
+      "x": -24.76,
+      "y": -22.57,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N5"
@@ -5506,8 +5506,8 @@
     },
     {
       "code": "ATLAS_POWER_R7",
-      "x": -4.16,
-      "y": -19.56,
+      "x": -26.51,
+      "y": -24.18,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_R6"
@@ -5523,8 +5523,8 @@
     },
     {
       "code": "ATLAS_POWER_RX",
-      "x": -1.46,
-      "y": -13.92,
+      "x": -18.28,
+      "y": -18.58,
       "kind": "SMALL",
       "parents": [
         "ATLAS_POWER_N4"
@@ -5534,6 +5534,558 @@
           "code": "ATLAS_PACK_SIZE",
           "values": [
             2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_T1",
+      "x": 0.0,
+      "y": -7.21,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_START"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_T2",
+      "x": 0.0,
+      "y": -9.6,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_T1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_T3",
+      "x": 0.01,
+      "y": -12.01,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_T2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_N1",
+      "x": 0.01,
+      "y": -14.4,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_INFLUENCE_T3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            4.0
+          ]
+        },
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_L1",
+      "x": -1.24,
+      "y": -16.65,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_L2",
+      "x": -1.48,
+      "y": -19.02,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_L1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_L3",
+      "x": -1.71,
+      "y": -21.39,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_L2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_N2",
+      "x": -1.94,
+      "y": -23.76,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_INFLUENCE_L3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            8.0
+          ]
+        },
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            8.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_LX",
+      "x": -2.89,
+      "y": -25.92,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_L4",
+      "x": -1.45,
+      "y": -26.28,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_L5",
+      "x": -1.6,
+      "y": -28.67,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_L4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_N3",
+      "x": -1.76,
+      "y": -31.05,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_INFLUENCE_L5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            5.0
+          ]
+        },
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_L6",
+      "x": -1.91,
+      "y": -33.44,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_L7",
+      "x": -2.07,
+      "y": -35.82,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_L6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_K2",
+      "x": -2.22,
+      "y": -38.22,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_INFLUENCE_L7"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ELDER",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_C1",
+      "x": 0.01,
+      "y": -16.8,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_C2",
+      "x": 0.02,
+      "y": -19.2,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_C1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_C3",
+      "x": 0.01,
+      "y": -21.61,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_C2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_C4",
+      "x": 0.01,
+      "y": -24.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_C3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_K1",
+      "x": 0.02,
+      "y": -26.41,
+      "kind": "KEYSTONE",
+      "parents": [
+        "ATLAS_INFLUENCE_C4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_SHAPER",
+          "values": [
+            1.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_R1",
+      "x": 1.26,
+      "y": -16.64,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_R2",
+      "x": 1.5,
+      "y": -19.0,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_R1"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_R3",
+      "x": 1.74,
+      "y": -21.37,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_R2"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_N4",
+      "x": 1.98,
+      "y": -23.75,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_INFLUENCE_R3"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_R4",
+      "x": 1.48,
+      "y": -26.27,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_R5",
+      "x": 1.64,
+      "y": -28.66,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_R4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_N5",
+      "x": 1.8,
+      "y": -31.04,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_INFLUENCE_R5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            20.0
+          ]
+        },
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_R6",
+      "x": 1.96,
+      "y": -33.43,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N5"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MAP_INFLUENCE",
+          "values": [
+            2.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_R7",
+      "x": 2.11,
+      "y": -35.82,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_R6"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_POWER",
+          "values": [
+            5.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_INFLUENCE_RX",
+      "x": 2.93,
+      "y": -25.9,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_INFLUENCE_N4"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_INFLUENCE_ITEMS",
+          "values": [
+            3.0
           ]
         }
       ]

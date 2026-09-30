@@ -250,6 +250,13 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     }
 
     private fun influence(item: ItemInstance, template: ItemTemplate, influence: Influence, dice: Dice): OrbOutcome {
+        // Карта (1.50.0) захватывается влиянием целиком: ни строк, ни тира сфера не трогает; Бездна карт не захватывает.
+        if (template.slot == com.sperance.exileforge.rules.content.Slot.MAP) {
+            if (influence !in index.campaign.maps.influence.kinds) throw RuleViolation("CR_013", listOf(name(template)))
+            if (item.influence != null) throw RuleViolation("CR_014", listOf(name(template)))
+            item.influence = influence
+            return outcome(item, template, "currency.influenced", LocaleKey.enumLabel("EnumInfluence", influence.name))
+        }
         if (!template.slot.influenceable) throw RuleViolation("CR_013", listOf(name(template)))
         if (item.rarity != Rarity.RARE) throw RuleViolation("CR_005", listOf(item.rarity.name))
         if (item.influence != null) throw RuleViolation("CR_014", listOf(name(template)))

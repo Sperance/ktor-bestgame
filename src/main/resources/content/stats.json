@@ -5826,6 +5826,31 @@
       "code": "ATLAS_MAP_TIER",
       "group": "ATLAS",
       "order": 797
+    },
+    {
+      "code": "ATLAS_MAP_INFLUENCE",
+      "group": "ATLAS",
+      "order": 798
+    },
+    {
+      "code": "ATLAS_INFLUENCE_ITEMS",
+      "group": "ATLAS",
+      "order": 799
+    },
+    {
+      "code": "ATLAS_INFLUENCE_POWER",
+      "group": "ATLAS",
+      "order": 800
+    },
+    {
+      "code": "ATLAS_INFLUENCE_SHAPER",
+      "group": "ATLAS",
+      "order": 801
+    },
+    {
+      "code": "ATLAS_INFLUENCE_ELDER",
+      "group": "ATLAS",
+      "order": 802
     }
   ]
 }

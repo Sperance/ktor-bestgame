@@ -3,6 +3,7 @@ package com.sperance.exileforge.rules.roll
 import com.sperance.exileforge.rules.content.AtlasStat
 import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.Item
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Monster
@@ -33,6 +34,8 @@ data class ActiveMap(
     val itemRarity: Rarity = Rarity.COMMON,
     /** Тир карты (1.41.0): его строки уже в [effects]; от него - тир упавшей карты и уникалки тиров. */
     val tier: Int = 0,
+    /** Влияние захваченной карты (1.50.0): его сила уже в [effects]. */
+    val influence: Influence? = null,
 )
 
 /** Добыча, опыт, карты и смерть - правила без состояния над [ContentIndex] и [Dice]. */
@@ -113,10 +116,26 @@ class LootRoller(private val index: ContentIndex) {
         Math.round(effects.entries.sumOf { (stat, value) -> value * (campaign.maps.risk[stat] ?: 0.0) }.coerceAtLeast(0.0) * 10) / 10.0
 
     /** Карта в действии: риск и прямые строки - к количеству, редкости и опыту; редкость самой карты - к первым двум. */
-    fun activeMap(mapCode: String, effects: Map<String, Double>, rarity: Rarity = Rarity.COMMON, tier: Int = 0): ActiveMap {
+    fun activeMap(mapCode: String, base: Map<String, Double>, rarity: Rarity = Rarity.COMMON, tier: Int = 0, influence: Influence? = null, atlas: Map<String, Double> = emptyMap()): ActiveMap {
+        val effects = if (influence == null) base else influenced(base, atlas)
         val risk = risk(effects)
         val own = campaign.maps.rarityBonus[rarity] ?: 0.0
-        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), risk + own + (effects[MapStat.RARITY.code] ?: 0.0), risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0), rarity, tier)
+        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), risk + own + (effects[MapStat.RARITY.code] ?: 0.0),
+            risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0), rarity, tier, influence)
+    }
+
+    /** Сила захваченной карты (1.50.0): здоровье и урон монстров - правилом и узлами атласа; риск карты платит за них, как за её строки. */
+    private fun influenced(effects: Map<String, Double>, atlas: Map<String, Double>): Map<String, Double> {
+        val power = campaign.maps.influence.power + (atlas[AtlasStat.INFLUENCE_POWER.code] ?: 0.0)
+        if (power <= 0) return effects
+        return effects + listOf(MapStat.MONSTER_LIFE.code, MapStat.MONSTER_DAMAGE.code).associateWith { (effects[it] ?: 0.0) + power }
+    }
+
+    /** Захвачена ли упавшая карта и чем (1.50.0): шанс правила и узлов атласа, влияние - из пула атласа. */
+    fun mapInfluence(dice: Dice, atlas: Map<String, Double>): Influence? {
+        val rule = campaign.maps.influence
+        if (!dice.percent(rule.chance + (atlas[AtlasStat.MAP_INFLUENCE.code] ?: 0.0))) return null
+        return dice.pickOrNull(rule.pool(atlas))
     }
 
     /**
