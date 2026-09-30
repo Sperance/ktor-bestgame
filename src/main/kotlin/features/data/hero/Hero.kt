@@ -94,6 +94,9 @@ data class Hero(
 
     @Transient override var loaded: Map<String, BsonValue>? = null
 
+    /** Отпечаток захода на чтении ([HeroRunStore]); null - заход не подкладывали, и запись героя его не трогает. */
+    @Transient var runPrint: String? = null
+
     fun item(id: String): ItemInstance? = items.firstOrNull { it.id == id }
 
     /** Копия героя или «не найдена»: чужая и несуществующая отвечают одинаково. */

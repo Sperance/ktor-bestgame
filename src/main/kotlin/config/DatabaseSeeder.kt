@@ -69,7 +69,7 @@ object DatabaseSeeder : KoinComponent {
     /** Индексы - до транзакции: создание индекса меняет каталог MongoDB и рвёт открытую транзакцию. */
     private suspend fun ensureIndexes() = coroutineScope {
         (listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes, bugs).map { async { it.ensureIndexes() } } +
-            async { IdempotentReplyStore.ensureIndexes() }).awaitAll()
+            listOf(async { IdempotentReplyStore.ensureIndexes() }, async { features.data.hero.HeroRunStore.ensureCollection() })).awaitAll()
         printLog("  → indexes ensured")
     }
 

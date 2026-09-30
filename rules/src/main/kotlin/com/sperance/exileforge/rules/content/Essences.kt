@@ -71,13 +71,32 @@ data class Essence(val kind: EssenceKind, val tier: Int, val special: Boolean) {
     val code: String get() = EssenceBook.code(kind.code, tier, special)
 
     /** Код гарантированной строки на вещи шаблона [template]; null - вещь эссенцию не берёт. Оружие чар ([WeaponType.spell]) берёт строку заклинателя. */
-    fun guarantee(template: ItemTemplate): String? = when (template.slot) {
-        Slot.WEAPON_1H, Slot.WEAPON_2H -> if (template.weaponType?.spell == true) kind.caster ?: kind.weapon else kind.weapon
+    fun guarantee(template: ItemTemplate): String? = guarantees(template).firstOrNull()
+
+    /**
+     * Кандидаты гарантии по порядку (1.62.1): строка заклинателя - семейства своего оружия (`WAND_` у жезла, `STAFF_` у посоха,
+     * `SCEPTRE_` у скипетра), затем [EssenceKind.weapon] - если такого семейства у оружия нет. Раньше посох и скипетр получали `WAND_`.
+     */
+    fun guarantees(template: ItemTemplate): List<String> {
+        val type = template.weaponType
+        if (type?.spell != true || template.slot !in WEAPON_SLOTS) return listOfNotNull(base(template))
+        val caster = kind.caster ?: return listOf(kind.weapon)
+        val own = CASTER_PREFIXES.firstOrNull { caster.startsWith(it) }?.let { "${type.name}_" + caster.removePrefix(it) } ?: caster
+        return listOf(own, kind.weapon).distinct()
+    }
+
+    private fun base(template: ItemTemplate): String? = when (template.slot) {
+        Slot.WEAPON_1H, Slot.WEAPON_2H -> kind.weapon
         Slot.QUIVER -> kind.quiver ?: kind.weapon
         Slot.SHIELD -> kind.shield ?: kind.armour
         Slot.HELMET, Slot.BODY, Slot.GLOVES, Slot.BOOTS, Slot.WINGS -> kind.armour
         Slot.BELT -> kind.belt ?: kind.jewellery
         Slot.RING, Slot.RING_2, Slot.AMULET -> kind.jewellery
         else -> null
+    }
+
+    private companion object {
+        val WEAPON_SLOTS = setOf(Slot.WEAPON_1H, Slot.WEAPON_2H)
+        val CASTER_PREFIXES = listOf("WAND_", "STAFF_", "SCEPTRE_")
     }
 }

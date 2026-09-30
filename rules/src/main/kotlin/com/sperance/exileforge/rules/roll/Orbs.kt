@@ -109,7 +109,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         val essenceName = LocaleKey.itemName(essence.code)
         if (item.corrupted) throw RuleViolation("CR_004", listOf(name(template)))
         if (item.mirrored) throw RuleViolation("CR_010", listOf(name(template)))
-        val line = essence.guarantee(template) ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
+        val lines = essence.guarantees(template).ifEmpty { throw RuleViolation("CR_029", listOf(essenceName, name(template))) }
         val tiers = index.essences.tiers
         when (item.rarity) {
             Rarity.COMMON -> Unit
@@ -117,7 +117,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
             else -> throw RuleViolation("CR_029", listOf(essenceName, name(template)))
         }
         val share = if (essence.special) 1.0 else (essence.tier - 1).toDouble() / (tiers.size - 1)
-        val forced = affixes.rollShare(line, share, dice, item.level(template)) ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
+        val forced = lines.firstNotNullOfOrNull { affixes.rollShare(it, share, dice, item.level(template)) } ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
         // Закреплённый аффикс той же группы уступает гарантии; имплисит - нет: эссенция его группы на копию не идёт
         val permanent = affixes.permanent(item.rolls)
         val taken = affixes.groups(listOf(forced))

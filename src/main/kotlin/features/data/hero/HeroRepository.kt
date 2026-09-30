@@ -31,6 +31,7 @@ import features.logic.auth.caller
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
+import org.bson.BsonDocument
 import org.bson.Document
 import org.bson.conversions.Bson
 import org.koin.core.component.KoinComponent
@@ -114,7 +115,18 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         users.update(owner, session)
     }
 
+    /** Заход героя живёт в [HeroRunStore]: в документе героя его нет. */
+    override fun stored(document: BsonDocument) {
+        (document["campaign"] as? BsonDocument)?.remove("run")
+    }
+
+    override suspend fun validateAfterUpdate(entity: Hero, session: ClientSession) {
+        super.validateAfterUpdate(entity, session)
+        if (HeroRunStore.dirty(entity)) HeroRunStore.write(entity, session)
+    }
+
     override suspend fun validateAfterDelete(entity: Hero, session: ClientSession) {
+        HeroRunStore.delete(entity._id, session)
         lots.deleteActiveBySeller(entity._id, session)
         guilds.forget(entity, session)
         // Место под героя освобождается, иначе после трёх удалений нового не создать
@@ -169,12 +181,14 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         collection.updateMany(session, readFilter(filter), Updates.combine(update, Updates.inc(CONST_FIELD_VERSION, 1L), Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now())))
     }
 
+    /** Герой для команды: с заходом ([HeroRunStore.hydrate]) и без забытых узлов атласа. */
     suspend fun requireHero(heroId: String, method: String): Hero =
-        forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })
+        HeroRunStore.hydrate(forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) }))
 
     /** Одна запись героя без транзакции (1.53.0): один документ с фильтром по версии атомарен сам, объект в памяти идёт в ногу с базой. */
     suspend fun save(hero: Hero, method: String): Hero {
-        replace(hero, method)
+        // Изменившийся заход пишется в одной транзакции с героем ([validateAfterUpdate]); иначе - одна запись без неё
+        if (HeroRunStore.dirty(hero)) transactionExecute(method) { update(hero, it) } else replace(hero, method)
         features.data.heroStats.HeroStatsStore.bump(hero._id, hero.stats)
         return hero
     }

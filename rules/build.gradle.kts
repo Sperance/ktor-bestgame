@@ -25,3 +25,23 @@ dependencies {
 }
 
 tasks.test { useJUnitPlatform() }
+
+// Симуляция экономики (отчёт, не тест): свой набор исходников поверх main - в jar правил и в check не входит,
+// новых зависимостей не требует. Запуск: ./gradlew simulateEconomy [-Pcontent=<папка content>] [-Pseeds=<N>]
+val sim: SourceSet by sourceSets.creating {
+    compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+    runtimeClasspath += output + compileClasspath + sourceSets.main.get().runtimeClasspath
+}
+
+tasks.register<JavaExec>("simulateEconomy") {
+    group = "reporting"
+    description = "Economy simulation: build/reports/economy/economy.md and economy.csv"
+    classpath = sim.runtimeClasspath
+    mainClass.set("com.sperance.exileforge.rules.sim.EconomySimKt")
+    val content = providers.gradleProperty("content").orElse(layout.projectDirectory.dir("../src/main/resources/content").asFile.path)
+    val out = layout.buildDirectory.dir("reports/economy")
+    systemProperty("content", content.get())
+    systemProperty("seeds", providers.gradleProperty("seeds").getOrElse("20"))
+    args(out.get().asFile.path)
+    outputs.upToDateWhen { false }
+}

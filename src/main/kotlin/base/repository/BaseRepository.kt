@@ -1,21 +1,16 @@
 package base.repository
 
 import CONST_FIELD_ID
-import CONST_FIELD_UPDATED
 import CONST_FIELD_VERSION
 import CONST_PAGE_SIZE_DEFAULT
 import CONST_PAGE_SIZE_MAX
-import CONST_SYSTEM_FIELDS
 import base.entity.StockEntity
 import base.entity.TrackedEntity
 import base.entity.VersionedEntity
-import base.exception.BaseException
 import base.exception.BaseRepositoryExceptions
 import base.route.CursorPage
 import base.route.PagedMongoResponse
-import com.mongodb.MongoBulkWriteException
 import com.mongodb.MongoCommandException
-import com.mongodb.MongoWriteException
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.IndexOptions
 import com.mongodb.client.model.Indexes
@@ -31,19 +26,10 @@ import config.TransactionHooks
 import config.afterCommit
 import kotlinx.coroutines.currentCoroutineContext
 import server.addons.CommandKey
-import config.MongoErrors
-import extensions.now
 import extensions.printLog
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
-import kotlinx.datetime.LocalDateTime
 import org.bson.BsonDocument
-import org.bson.BsonDocumentReader
-import org.bson.BsonDocumentWriter
-import org.bson.Document
-import org.bson.codecs.DecoderContext
-import org.bson.BsonValue
-import org.bson.codecs.EncoderContext
 import org.bson.conversions.Bson
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
@@ -72,9 +58,6 @@ data class IndexSpec(
     }
 }
 
-/** Код MongoDB «дубликат уникального ключа». */
-private const val DUPLICATE_KEY = 11000
-
 /** Коды MongoDB «такой индекс уже есть» - с другим именем или другими опциями. */
 private val INDEX_CONFLICTS = setOf(85, 86)
 
@@ -91,6 +74,9 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
     /** Коллекция драйвера: для точечных запросов наследников, которым не хватает общих. */
     val collection: MongoCollection<T> = MongoFactory.getDatabase().getCollection(collectionName, entityClass.java)
+
+    /** Документ сущности: кодек, память прочитанного и разница для записи. */
+    private val entityCodec = EntityCodec(entityClass, { collection.codecRegistry }, { managedFields }, { stored(it) })
 
     /**
      * Фильтр обычного чтения, см. [SoftDelete.readFilter]. Все выборки репозитория идут через
@@ -146,7 +132,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         requireNew(source, "insert")
         val entity = if (validation) admit(source) else source
         if (validation) validateBeforeInsert(entity, session)
-        val result = writing("insert") { collection.insertOne(session, entity) }
+        val result = writing(collectionName, "insert") { collection.insertOne(session, entity) }
         val insertedId = result.insertedId
         if (!result.wasAcknowledged() || insertedId == null) throw BaseRepositoryExceptions.funExceptionInsertInvalid("insert")
         entity._id = insertedId.asString().value
@@ -162,7 +148,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
             requireNew(it, "insertMany")
             admit(it).also { entity -> validateBeforeInsert(entity, session) }
         }
-        val result = writing("insertMany") { collection.insertMany(session, entities) }
+        val result = writing(collectionName, "insertMany") { collection.insertMany(session, entities) }
         printLog("[ADDED_MANY::$collectionName] size: ${result.insertedIds.size}")
         entities.forEachIndexed { index, entity ->
             result.insertedIds[index]?.let { id ->
@@ -186,10 +172,10 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      */
 
     suspend fun findById(id: String, includeDeleted: Boolean = false): T? =
-        collection.find(readFilter(byId(id), includeDeleted)).firstOrNull()?.tracked()
+        collection.find(readFilter(Versioning.byId(id), includeDeleted)).firstOrNull()?.tracked()
 
     suspend fun findById(id: String, session: ClientSession, includeDeleted: Boolean = false): T? =
-        collection.find(session, readFilter(byId(id), includeDeleted)).firstOrNull()?.tracked()
+        collection.find(session, readFilter(Versioning.byId(id), includeDeleted)).firstOrNull()?.tracked()
 
     /** Документ по id или ошибка из [missing]: общий вид «найди или откажи» для всех репозиториев. */
     suspend inline fun requireById(id: String, missing: (String) -> Throwable): T = findById(id) ?: throw missing(id)
@@ -197,7 +183,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     /** Есть ли документ: читается только `_id`, без самого документа. */
     suspend fun exists(id: String, includeDeleted: Boolean = false): Boolean =
         // Без документа сущности: проекция из одного `_id` не соберётся в класс с обязательными полями
-        collection.withDocumentClass<org.bson.Document>().find(readFilter(byId(id), includeDeleted))
+        collection.withDocumentClass<org.bson.Document>().find(readFilter(Versioning.byId(id), includeDeleted))
             .projection(Projections.include(CONST_FIELD_ID)).limit(1).firstOrNull() != null
 
     suspend fun findAll(includeDeleted: Boolean = false): List<T> =
@@ -265,8 +251,8 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      */
     suspend fun update(entity: T, session: ClientSession): UpdateResult {
         settle(entity)
-        val encoded = encode(entity)
-        val result = writing("update") { collection.updateOne(session, identity(entity), Updates.combine(versionBump(entity) + changes(entity, encoded))) }
+        val encoded = entityCodec.encode(entity)
+        val result = writing(collectionName, "update") { collection.updateOne(session, Versioning.identity(entity), Updates.combine(Versioning.bump(entity) + entityCodec.changes(entity, encoded))) }
         if (result.matchedCount == 0L) missed("update", entity)
         if (entity is VersionedEntity && result.modifiedCount > 0) entity.version += 1
         // Память документа сдвигается только с коммитом: откат оставляет её той, что лежит в базе
@@ -289,9 +275,9 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
     private suspend fun replace(entity: T, method: String, session: ClientSession?): UpdateResult {
         settle(entity)
-        val encoded = encode(entity)
-        val update = Updates.combine(versionBump(entity) + changes(entity, encoded))
-        val result = writing(method) { if (session == null) collection.updateOne(identity(entity), update) else collection.updateOne(session, identity(entity), update) }
+        val encoded = entityCodec.encode(entity)
+        val update = Updates.combine(Versioning.bump(entity) + entityCodec.changes(entity, encoded))
+        val result = writing(collectionName, method) { if (session == null) collection.updateOne(Versioning.identity(entity), update) else collection.updateOne(session, Versioning.identity(entity), update) }
         if (result.matchedCount == 0L) missed(method, entity)
         if (entity is VersionedEntity && result.modifiedCount > 0) entity.version += 1
         afterCommit {
@@ -299,14 +285,6 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
             cache?.updateItem(entity)
         }
         return result
-    }
-
-    /** Что пишется: изменившиеся с чтения поля и обнулённые в памяти (кодек не пишет null - поле иначе осталось бы в базе). */
-    private fun changes(entity: T, encoded: Map<String, BsonValue>): List<Bson> {
-        val loaded = (entity as? TrackedEntity)?.loaded
-        val cleared = fieldNames(entity).filterNot { it in encoded || it in CONST_SYSTEM_FIELDS || it in managedFields || (loaded != null && it !in loaded) }
-        val changed = if (loaded == null) encoded else encoded.filter { (field, value) -> loaded[field] != value }
-        return changed.map { (field, value) -> Updates.set(field, value) } + cleared.map { Updates.unset(it) }
     }
 
     /**
@@ -317,20 +295,9 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     suspend fun updateFields(entity: T, updates: Map<String, Any?>, session: ClientSession): T {
         validateBeforeUpdate(updates)
         printLog("[UPDATE::$collectionName] id: ${entity._id}")
-        val patched = patched(entity, updates.filterKeys { it != CONST_FIELD_ID && it != CONST_FIELD_VERSION })
+        val patched = entityCodec.patched(entity, updates.filterKeys { it != CONST_FIELD_ID && it != CONST_FIELD_VERSION })
         update(patched, session)
         return patched
-    }
-
-    /** Копия [entity] с полями [fields], закодированными кодеком коллекции - как их записал бы `$set`; память чтения - та же. */
-    private fun patched(entity: T, fields: Map<String, Any?>): T {
-        val codec = collection.codecRegistry.get(entityClass.java)
-        val document = BsonDocument()
-        codec.encode(BsonDocumentWriter(document), entity, EncoderContext.builder().build())
-        document.putAll(Document(fields).toBsonDocument(Document::class.java, collection.codecRegistry))
-        val copy = codec.decode(BsonDocumentReader(document), DecoderContext.builder().build())
-        if (entity is TrackedEntity && copy is TrackedEntity) copy.loaded = entity.loaded
-        return copy
     }
 
     /** То же по id: документ читается и пишется с проверкой его текущей версии. */
@@ -348,7 +315,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     private suspend fun delete(entity: T?, session: ClientSession): DeleteResult {
         printLog("[DELETE::$collectionName] id: ${entity?._id}")
         if (entity == null) throw BaseRepositoryExceptions.funExceptionEntityNull("delete")
-        val result = writing("delete") { collection.deleteOne(session, identity(entity)) }
+        val result = writing(collectionName, "delete") { collection.deleteOne(session, Versioning.identity(entity)) }
         validateAfterDelete(entity, session)
         if (result.deletedCount == 0L) missed("delete", entity)
         return result
@@ -372,64 +339,19 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
 
     // ==================== ОБЩЕЕ ====================
 
-    private fun byId(id: String): Bson = Filters.eq(CONST_FIELD_ID, id)
-
-    /** Документ по id и, у версионируемой записи, по версии, которую держит объект в памяти. */
-    private fun identity(entity: T): Bson =
-        if (entity is VersionedEntity) Filters.and(byId(entity._id), Filters.eq(CONST_FIELD_VERSION, entity.version))
-        else byId(entity._id)
-
-    /** Служебные поля следующей версии: номер и время правки. */
-    private fun versionBump(entity: T): List<Bson> =
-        if (entity is VersionedEntity) listOf(Updates.set(CONST_FIELD_VERSION, entity.version + 1), Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now()))
-        else emptyList()
-
     /** Запись по [identity] ничего не нашла: документа нет вовсе или его версия ушла вперёд. */
     private suspend fun missed(method: String, entity: T): Nothing {
         val existing = findById(entity._id) ?: throw BaseRepositoryExceptions.funExceptionFindId(method, entity._id)
-        throw BaseRepositoryExceptions.funExceptionRace(method, "current: ${existing.versionOrZero()} need: ${entity.versionOrZero()}")
+        throw BaseRepositoryExceptions.funExceptionRace(method, "current: ${Versioning.versionOf(existing)} need: ${Versioning.versionOf(entity)}")
     }
-
-    private fun StockEntity.versionOrZero(): Long = (this as? VersionedEntity)?.version ?: 0L
-
-    /**
-     * Ошибки драйвера при записи - в ошибки репозитория: дубликат уникального ключа - это гонка,
-     * всё прочее - общая ошибка с именем операции. Бизнес-ошибки проходят как есть.
-     */
-    private inline fun <R> writing(method: String, block: () -> R): R = try {
-        block()
-    } catch (e: BaseException) {
-        throw e
-    } catch (e: MongoWriteException) {
-        // Текст драйвера (имя коллекции, индекса, ключ) - в лог, клиенту только код (1.53.0)
-        printLog("[$collectionName] $method: ${e.message}", true)
-        throw if (e.code == DUPLICATE_KEY) BaseRepositoryExceptions.funExceptionRace(method, "duplicate") else BaseRepositoryExceptions.funException(method, "write")
-    } catch (e: MongoBulkWriteException) {
-        printLog("[$collectionName] $method: ${e.writeErrors.firstOrNull()?.message ?: e.message}", true)
-        throw BaseRepositoryExceptions.funException(method, "bulk")
-    } catch (e: Exception) {
-        printLog("[$collectionName] $method: ${e::class.simpleName}: ${e.message}", true)
-        throw MongoErrors.translate(method, e)
-    }
-
-    /**
-     * Поля сущности для полной записи: документ кодеком коллекции - тем же, которым её пишет
-     * insert, - минус системные и управляемые базой поля.
-     */
-    /** Имена всех сериализуемых полей конкретного класса сущности, как они лежат в документе. */
-    private fun fieldNames(entity: T): List<String> =
-        kotlinx.serialization.serializer(entity.javaClass).descriptor.let { descriptor -> List(descriptor.elementsCount, descriptor::getElementName) }
 
     /** Сущность, которая помнит документ, запоминает его, каким прочла. */
-    private fun T.tracked(): T = also { if (it is TrackedEntity) it.loaded = encode(it) }
-
-    private fun encode(entity: T): Map<String, BsonValue> {
-        val document = BsonDocument()
-        collection.codecRegistry.get(entityClass.java).encode(BsonDocumentWriter(document), entity, EncoderContext.builder().build())
-        return document.filterKeys { it !in CONST_SYSTEM_FIELDS && it !in managedFields }
-    }
+    private fun T.tracked(): T = entityCodec.tracked(this)
 
     // ==================== ХУКИ ====================
+
+    /** Убирает из документа то, что хранится не в этой коллекции (1.63.0); меняет документ на месте. */
+    protected open fun stored(document: BsonDocument) = Unit
 
     /**
      * Что из присланного разрешено записать: вызывается до [validateBeforeInsert] и может вернуть

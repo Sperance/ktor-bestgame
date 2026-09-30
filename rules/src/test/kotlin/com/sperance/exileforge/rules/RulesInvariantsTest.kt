@@ -4,6 +4,8 @@ import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.ContentLoader
 import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.EssenceBook
+import com.sperance.exileforge.rules.content.WeaponType
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -317,6 +319,36 @@ class RulesInvariantsTest {
                 assertTrue(offered.isNotEmpty() && offered.none { it.code == hybrid.code }, "${hybrid.code} offered next to ${twin.code}")
                 val groups = veils.reveal(item, template, seed % offered.size).item.rolls.mapNotNull { index.modifier(it.code) }.flatMap(index::groups)
                 assertEquals(groups.size, groups.toSet().size, "a group twice after unveiling next to ${twin.code}: $groups")
+            }
+        }
+    }
+
+    /**
+     * Эссенция заклинателя (1.62.1): жезл, посох и скипетр получают строку своего семейства (`WAND_`, `STAFF_`, `SCEPTRE_`),
+     * без него - [com.sperance.exileforge.rules.content.EssenceKind.weapon], и никогда строку чужого семейства.
+     */
+    @Test
+    fun casterEssenceGuaranteesTheLineOfItsOwnWeaponFamily() {
+        val orbs = OrbApplier(index)
+        val casters = WeaponType.entries.filter { it.spell }.associateWith { "${it.name}_" }
+        val templates = casters.keys.mapNotNull { type -> index.templates.values.firstOrNull { it.weaponType == type && !it.unique } }
+        assertEquals(casters.size, templates.size, "every caster weapon has a template")
+        index.essences.kinds.filter { it.caster != null }.forEach { kind ->
+            val caster = kind.caster!!
+            val family = casters.values.firstOrNull { caster.startsWith(it) }
+            val essence = index.essences.essences.getValue(EssenceBook.code(kind.code, index.essences.tiers.size, false))
+            templates.forEach { template ->
+                val prefix = casters.getValue(template.weaponType!!)
+                val own = family?.let { prefix + caster.removePrefix(it) }
+                val expected = when {
+                    family == null -> caster
+                    index.modifier(own!!) != null -> own
+                    else -> kind.weapon
+                }
+                val codes = orbs.applyEssence(essence, ItemInstance("i", template.code), template, Dice(1L)).item.rolls.map { it.code }
+                assertTrue(expected in codes && index.modifier(expected) != null, "${kind.code} on ${template.code}: $expected not in $codes")
+                val alien = family?.let { casters.values.filter { it != prefix }.map { other -> other + caster.removePrefix(it) } }.orEmpty()
+                assertTrue(codes.none { it in alien }, "${kind.code} on ${template.code}: foreign caster line in $codes")
             }
         }
     }
