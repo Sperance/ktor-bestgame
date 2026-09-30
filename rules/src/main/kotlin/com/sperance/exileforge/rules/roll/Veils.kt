@@ -19,7 +19,7 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
 
     /** Прячет аффикс на выпавшей копии: на свободное место или вместо случайного; true - копия изменилась. */
     fun veil(template: ItemTemplate, item: ItemInstance, dice: Dice): Boolean {
-        if (item.rarity != Rarity.UNCOMMON && item.rarity != Rarity.RARE) return false
+        if (item.rarity != Rarity.MAGIC && item.rarity != Rarity.RARE) return false
         if (template.slot.isJewelLike || template.slot.isFlask || template.slot.isTool || veiled(item) != null) return false
         val (prefixes, suffixes) = affixes.freeSlots(item.rarity, affixes.definitions(item.rolls), template.slot)
         val free = listOfNotNull(Source.PREFIX.takeIf { prefixes > 0 }, Source.SUFFIX.takeIf { suffixes > 0 })

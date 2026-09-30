@@ -28,7 +28,7 @@ object Rewards {
         reward.recipe?.let { if (it !in hero.recipes) hero.recipes += it }
         reward.equipment.forEach { item ->
             when (item.rarity) {
-                Rarity.UNCOMMON -> hero.count(Counter.ITEMS_MAGIC)
+                Rarity.MAGIC -> hero.count(Counter.ITEMS_MAGIC)
                 Rarity.RARE -> hero.count(Counter.ITEMS_RARE)
                 Rarity.UNIQUE, Rarity.MYTHICAL -> hero.count(Counter.UNIQUES)
                 Rarity.COMMON -> Unit

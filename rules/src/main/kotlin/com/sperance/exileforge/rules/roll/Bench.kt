@@ -13,7 +13,7 @@ import com.sperance.exileforge.rules.text.LocaleKey
  * свободное место своего вида и не рядом со своей группой; снимается за сферу правил.
  */
 class Bench(private val index: ContentIndex, private val affixes: AffixRoller = AffixRoller(index)) {
-    private val craftable = setOf(Rarity.UNCOMMON, Rarity.RARE)
+    private val craftable = setOf(Rarity.MAGIC, Rarity.RARE)
 
     /** Один незнакомый герою рецепт тира этой локации, если такой есть. */
     fun draw(known: Collection<String>, level: Int, dice: Dice): BenchRecipe? =

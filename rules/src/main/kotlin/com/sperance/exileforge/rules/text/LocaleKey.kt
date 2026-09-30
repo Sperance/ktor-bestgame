@@ -37,6 +37,8 @@ object LocaleKey {
     const val TRADE = "trade"
 
     fun equipmentName(code: String) = key(EQUIPMENT, code, NAME)
+    /** Имя карты с её зоной (1.43.0): «{0} Map», где {0} - [mapName] зоны. */
+    fun mapItemName() = key(EQUIPMENT, com.sperance.exileforge.rules.content.MAP_TEMPLATE, "zone")
     fun equipmentTrade(code: String) = key(EQUIPMENT, code, TRADE)
     fun equipmentDescription(code: String) = key(EQUIPMENT, code, DESCRIPTION)
     fun itemName(code: String) = key(ITEM, code, NAME)

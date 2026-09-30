@@ -42,12 +42,12 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         if (orb.mapOnly && template.slot != com.sperance.exileforge.rules.content.Slot.MAP) throw RuleViolation("CR_020", listOf(orbName(orb)))
         if (if (template.slot.isFlask) orb !in rules.flasks.orbs else orb.flaskOnly) throw RuleViolation("CR_027", listOf(orbName(orb), name(template)))
         return when (orb) {
-            Orb.ORB_OF_TRANSMUTATION -> upgrade(item, template, Rarity.COMMON, Rarity.UNCOMMON, dice)
+            Orb.ORB_OF_TRANSMUTATION -> upgrade(item, template, Rarity.COMMON, Rarity.MAGIC, dice)
             // Алхимия катит от дна редкой до потолка без одного: полный набор - только сферами сверху и ремеслом
             Orb.ORB_OF_ALCHEMY -> upgrade(item, template, Rarity.COMMON, Rarity.RARE, dice, below = 1)
-            Orb.ORB_OF_ALTERATION -> reroll(item, template, Rarity.UNCOMMON, dice)
+            Orb.ORB_OF_ALTERATION -> reroll(item, template, Rarity.MAGIC, dice)
             Orb.CHAOS_ORB -> reroll(item, template, Rarity.RARE, dice, omen?.side)
-            Orb.ORB_OF_AUGMENTATION -> augment(item, template, Rarity.UNCOMMON, dice)
+            Orb.ORB_OF_AUGMENTATION -> augment(item, template, Rarity.MAGIC, dice)
             Orb.EXALTED_ORB -> augment(item, template, Rarity.RARE, dice, omen?.side, twice = omen == Omen.GREATER_EXALTATION)
             Orb.REGAL_ORB -> regal(item, template, dice, omen?.side)
             Orb.DIVINE_ORB -> divine(item, template, dice)
@@ -150,7 +150,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     }
 
     private fun regal(item: ItemInstance, template: ItemTemplate, dice: Dice, side: Source? = null): OrbOutcome {
-        requireRarity(item, template, Rarity.UNCOMMON)
+        requireRarity(item, template, Rarity.MAGIC)
         item.rarity = Rarity.RARE
         affixes.rollExtraAffix(template, item.rarity, item.rolls, dice, item.influence, item.level(template), side)?.let { item.rolls = item.rolls + it }
         affixes.normalize(template, item.rarity, item.rolls, dice, item.influence, item.level(template))?.let { item.rolls = it }
@@ -190,7 +190,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     private fun scour(item: ItemInstance, template: ItemTemplate): OrbOutcome {
         if (item.rarity.fixed) throw RuleViolation("CR_005", listOf(item.rarity.name))
         val kept = affixes.fractured(item.rolls)
-        val target = if (kept.isEmpty()) Rarity.COMMON else Rarity.UNCOMMON
+        val target = if (kept.isEmpty()) Rarity.COMMON else Rarity.MAGIC
         if (item.rarity == target && affixes.affixes(item.rolls).size == kept.size) throw RuleViolation("CR_006", listOf(name(template)))
         item.rarity = target
         item.rolls = affixes.permanent(item.rolls) + kept
@@ -268,7 +268,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
 
     /** Сколько качества прибавит «Стеклодув»: два процента обычной фляге, один волшебной, до потолка. */
     fun baubleStep(item: ItemInstance): Int {
-        val step = when (item.rarity) { Rarity.COMMON -> rules.flasks.baubleCommon; Rarity.UNCOMMON -> rules.flasks.baubleMagic; else -> 0 }
+        val step = when (item.rarity) { Rarity.COMMON -> rules.flasks.baubleCommon; Rarity.MAGIC -> rules.flasks.baubleMagic; else -> 0 }
         return step.coerceAtMost(rules.flasks.maxQuality - item.quality).coerceAtLeast(0)
     }
 

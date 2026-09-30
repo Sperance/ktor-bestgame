@@ -40,7 +40,7 @@ class RulesInvariantsTest {
         if (item.rarity.fixed) return true
         val limits = index.limits(item.rarity, template.slot)
         val sources = item.rolls.mapNotNull { index.modifier(it.code) }.filter { it.affix }.groupingBy { it.source }.eachCount()
-        val floor = if (item.rarity == Rarity.UNCOMMON || item.rarity == Rarity.RARE) limits.floor else 0
+        val floor = if (item.rarity == Rarity.MAGIC || item.rarity == Rarity.RARE) limits.floor else 0
         return affixes(item) in floor..limits.ceiling && (sources[Source.PREFIX] ?: 0) <= limits.prefixes && (sources[Source.SUFFIX] ?: 0) <= limits.suffixes
     }
 
@@ -51,7 +51,7 @@ class RulesInvariantsTest {
         val templates = index.templates.values.filter { !it.unique && it.tables.isNotEmpty() }.distinctBy { it.slot }
         var n = 0
         templates.forEach { template ->
-            listOf(Rarity.UNCOMMON, Rarity.RARE).forEach { rarity ->
+            listOf(Rarity.MAGIC, Rarity.RARE).forEach { rarity ->
                 val item = factory.create("i", template, rarity, Dice(7L + n))
                 assertTrue(floorHeld(item), "${template.code} ${item.rarity} from the factory: ${affixes(item)} affixes")
                 Orb.entries.forEach { orb ->

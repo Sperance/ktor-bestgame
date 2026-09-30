@@ -105,7 +105,7 @@ fun PetsFile.validate(index: ContentIndex) {
     (eggs.values + orbs.keys).forEach { if (index.item(it)?.category != Item.PET) fail("pets: item $it") }
     if (PetOrbAction.entries.toSet() != orbs.values.toSet()) fail("pets: orbs")
     if (roles.keys != PetRole.entries.toSet()) fail("pets: roles")
-    listOf(Rarity.COMMON, Rarity.UNCOMMON, Rarity.RARE).forEach { rarity ->
+    listOf(Rarity.COMMON, Rarity.MAGIC, Rarity.RARE).forEach { rarity ->
         val rule = rarities[rarity] ?: fail("pets: rarity $rarity")
         if (rule.lines.size !in 1..2 || rule.floor > rule.ceiling || rule.weight < 0 || (rarity != Rarity.COMMON && rule.floor < 1)) fail("pets: rarity $rarity")
     }

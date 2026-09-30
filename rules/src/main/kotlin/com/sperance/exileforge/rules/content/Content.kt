@@ -101,8 +101,9 @@ class Content(
  * 12 - уровни 71–100: регионы 7–9, вершина сетки тиров (apex, ур. 92), ilvl до 100, моды монстров 71–100, ступень эссенций 8 (1.40.0).
  * 13 - тиры карт 1–16 (`mapTier`), вершина верстака, 43 топ-базы, 40 уникалок 75–100, новый Атлас из 10 ветвей (1.41.0).
  * 14 - без свитков зачарования: сферы `*_SCROLL`, вариант `ENCHANT` и источник `ENCHANTMENT` сняты (1.42.0).
+ * 15 - одна карта на все зоны, работы с выбором, редкость `MAGIC`, шесть видов осквернения, рекорды летописи (1.43.0).
  */
-const val RULES_VERSION = 14
+const val RULES_VERSION = 15
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -294,7 +295,7 @@ class ContentIndex(val content: Content) {
                 fail("classes: armour of ${heroClass.code} is not plain first-level armour, one to a slot")
         }
         atlasGraph.validate(atlas, stats, ::modifier)
-        professions.validate({ it in items }, ::template, { it in zones }, { classes.heroClass(it) != null })
+        professions.validate({ it in items }, ::template, { region -> campaign.regions.any { it.code == region } })
         rules.bench.costs.forEach { if (items[it.orb.name] == null) fail("rules: bench orb ${it.orb}") }
         achievements.validate()
         pets.validate(this)
@@ -376,8 +377,8 @@ private class CampaignValidator(private val index: ContentIndex) {
             if (zone.monsters.any { index.monster(it)?.boss == true }) fail("campaign: boss among monsters of ${zone.code}")
             if (index.monster(zone.corrupted)?.corrupted != true) fail("campaign: corrupted guardian of ${zone.code}")
             if (zone.monsters.any { index.monster(it)?.corrupted == true }) fail("campaign: corrupted guardian among monsters of ${zone.code}")
-            if (index.template("MAP_${zone.code}")?.slot != Slot.MAP) fail("campaign: no map template for ${zone.code}")
         }
+        if (index.template(MAP_TEMPLATE)?.slot != Slot.MAP) fail("campaign: no map template $MAP_TEMPLATE")
         val finaleBosses = content.zones.filter { it.finale }.map { it.boss }.toSet()
         val leaders = content.abyss?.leaders.orEmpty().toSet()
         content.monsters.filter { it.boss && it.code !in leaders }.forEach { boss ->

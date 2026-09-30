@@ -148,7 +148,7 @@ class AbyssRifts(private val index: ContentIndex) {
         val hoard = rule.hoard[depth - 1]
         val share = keep.coerceAtMost(1.0)
         val rare = (hoard.rare + bonus.rare).coerceIn(0.0, 100.0)
-        val items = List(dice.times(dice.between(hoard.items) * bonus.items * share)) { if (dice.percent(rare)) Rarity.RARE else Rarity.UNCOMMON }
+        val items = List(dice.times(dice.between(hoard.items) * bonus.items * share)) { if (dice.percent(rare)) Rarity.RARE else Rarity.MAGIC }
         val orbPool = index.tables.pool(listOf(rule.orbs))
         val orbs = mutableMapOf<String, Long>()
         repeat(dice.times(dice.between(hoard.orbs) * bonus.orbs * share)) { Tables.draw(orbPool, dice)?.let { orbs.merge(it, 1L, Long::plus) } }

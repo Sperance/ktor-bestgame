@@ -88,6 +88,7 @@ class LocalizationTest {
 
     private fun expectedKeys(): Set<String> = buildSet {
         index.templates.values.forEach { add(LocaleKey.equipmentName(it.code)); add(LocaleKey.equipmentTrade(it.code)); add(LocaleKey.equipmentDescription(it.code)) }
+        add(LocaleKey.mapItemName())
         index.items.values.forEach { add(LocaleKey.itemName(it.code)); add(LocaleKey.itemTrade(it.code)); add(LocaleKey.itemDescription(it.code)) }
         index.tree.byCode.values.forEach { node ->
             add(LocaleKey.skillNodeName(node.code))

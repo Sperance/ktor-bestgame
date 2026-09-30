@@ -1,6 +1,7 @@
 package com.sperance.exileforge.rules.run
 
 import com.sperance.exileforge.rules.content.AtlasStat
+import com.sperance.exileforge.rules.content.MAP_TEMPLATE
 import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Influence
@@ -351,8 +352,9 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         // Добыча монстра со скрытой строкой (1.35.0): её волшебные и редкие вещи несут скрытый аффикс.
         if (veiled) equipment.forEachIndexed { n, item -> com.sperance.exileforge.rules.roll.Veils(index, factory.affixes).veil(templates[n], item, dice) }
         loot.mapDrop(mapChance * relative(AtlasStat.MAP_DROP.code) * (1 + quantity / 100) * (1 + bonus.map / 100), zone.code, context.next, dice, context[AtlasStat.MAP_NEXT.code])
-            ?.let { code -> index.template(loot.mapTemplate(code))?.let { it to (index.zone(code)?.level ?: zone.level) } }?.let { (template, mapLevel) ->
+            ?.let { code -> index.template(MAP_TEMPLATE)?.let { Triple(it, code, index.zone(code)?.level ?: zone.level) } }?.let { (template, code, mapLevel) ->
                 val map = factory.create(itemId(draw, "$event-map"), template, loot.mapRarity(dice, context[AtlasStat.MAP_RARE.code]), dice, level = mapLevel)
+                map.mapZone = code
                 map.mapTier = loot.mapTier(mapLevel, active?.tier ?: 0, dice, context[AtlasStat.MAP_TIER.code])
                 if (dice.percent(context[AtlasStat.MAP_AFFIX.code])) factory.affixes.rollExtraAffix(template, map.rarity, map.rolls, dice, level = mapLevel)?.let { map.rolls = map.rolls + it }
                 equipment += map

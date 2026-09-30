@@ -22,7 +22,7 @@
       "code": "BARBUTE_HELMET",
       "slot": "HELMET",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 18,
       "requiredLevel": 18,
       "requiredStrength": 40,
@@ -124,7 +124,7 @@
       "code": "LEATHER_HOOD",
       "slot": "HELMET",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 20,
       "requiredLevel": 20,
       "requiredDexterity": 44,
@@ -247,7 +247,7 @@
       "code": "TORTURE_CAGE",
       "slot": "HELMET",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 17,
       "requiredLevel": 17,
       "requiredIntelligence": 37,
@@ -387,7 +387,7 @@
       "code": "VISORED_SALLET",
       "slot": "HELMET",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 23,
       "requiredLevel": 23,
       "requiredStrength": 28,
@@ -566,7 +566,7 @@
       "code": "GREAT_HELMET",
       "slot": "HELMET",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 22,
       "requiredLevel": 22,
       "requiredStrength": 26,
@@ -743,7 +743,7 @@
       "code": "IRON_MASK",
       "slot": "HELMET",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 17,
       "requiredLevel": 17,
       "requiredDexterity": 20,
@@ -881,7 +881,7 @@
       "code": "CHESTPLATE",
       "slot": "BODY",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 6,
       "requiredLevel": 6,
       "requiredStrength": 13,
@@ -902,7 +902,7 @@
       "code": "SCALE_CUIRASS",
       "slot": "BODY",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 16,
       "requiredLevel": 16,
       "requiredStrength": 35,
@@ -1027,7 +1027,7 @@
       "code": "STRAPPED_LEATHER",
       "slot": "BODY",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 9,
       "requiredLevel": 9,
       "requiredDexterity": 20,
@@ -1171,7 +1171,7 @@
       "code": "SILKEN_VEST",
       "slot": "BODY",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 11,
       "requiredLevel": 11,
       "requiredIntelligence": 24,
@@ -1303,7 +1303,7 @@
       "code": "LIGHT_BRIGANDINE",
       "slot": "BODY",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 8,
       "requiredLevel": 8,
       "requiredStrength": 10,
@@ -1480,7 +1480,7 @@
       "code": "CHAINMAIL_TUNIC",
       "slot": "BODY",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 8,
       "requiredLevel": 8,
       "requiredStrength": 10,
@@ -1687,7 +1687,7 @@
       "code": "OILED_VEST",
       "slot": "BODY",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 9,
       "requiredLevel": 9,
       "requiredDexterity": 11,
@@ -1885,7 +1885,7 @@
       "code": "PLATED_GAUNTLETS",
       "slot": "GLOVES",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 11,
       "requiredLevel": 11,
       "requiredStrength": 24,
@@ -2029,7 +2029,7 @@
       "code": "GOATHIDE_GLOVES",
       "slot": "GLOVES",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 9,
       "requiredLevel": 9,
       "requiredDexterity": 20,
@@ -2173,7 +2173,7 @@
       "code": "VELVET_GLOVES",
       "slot": "GLOVES",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 12,
       "requiredLevel": 12,
       "requiredIntelligence": 26,
@@ -2326,7 +2326,7 @@
       "code": "IRONSCALE_GAUNTLETS",
       "slot": "GLOVES",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 15,
       "requiredLevel": 15,
       "requiredStrength": 18,
@@ -2535,7 +2535,7 @@
       "code": "RINGMAIL_GLOVES",
       "slot": "GLOVES",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 19,
       "requiredLevel": 19,
       "requiredStrength": 23,
@@ -2714,7 +2714,7 @@
       "code": "STRAPPED_MITTS",
       "slot": "GLOVES",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 16,
       "requiredLevel": 16,
       "requiredDexterity": 19,
@@ -2912,7 +2912,7 @@
       "code": "STEEL_GREAVES",
       "slot": "BOOTS",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 9,
       "requiredLevel": 9,
       "requiredStrength": 20,
@@ -3056,7 +3056,7 @@
       "code": "GOATHIDE_BOOTS",
       "slot": "BOOTS",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 12,
       "requiredLevel": 12,
       "requiredDexterity": 26,
@@ -3200,7 +3200,7 @@
       "code": "VELVET_SLIPPERS",
       "slot": "BOOTS",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 9,
       "requiredLevel": 9,
       "requiredIntelligence": 20,
@@ -3353,7 +3353,7 @@
       "code": "IRONSCALE_BOOTS",
       "slot": "BOOTS",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 18,
       "requiredLevel": 18,
       "requiredStrength": 22,
@@ -3532,7 +3532,7 @@
       "code": "RINGMAIL_BOOTS",
       "slot": "BOOTS",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 13,
       "requiredLevel": 13,
       "requiredStrength": 16,
@@ -3711,7 +3711,7 @@
       "code": "STRAPPED_BOOTS",
       "slot": "BOOTS",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 16,
       "requiredLevel": 16,
       "requiredDexterity": 19,
@@ -3915,7 +3915,7 @@
       "code": "CORRODED_TOWER_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 5,
       "requiredLevel": 5,
       "requiredStrength": 11,
@@ -4101,7 +4101,7 @@
       "code": "PINE_BUCKLER",
       "slot": "SHIELD",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 8,
       "requiredLevel": 8,
       "requiredDexterity": 18,
@@ -4287,7 +4287,7 @@
       "code": "YEW_SPIRIT_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 9,
       "requiredLevel": 9,
       "requiredIntelligence": 20,
@@ -4484,7 +4484,7 @@
       "code": "FIR_ROUND_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 12,
       "requiredLevel": 12,
       "requiredStrength": 14,
@@ -4735,7 +4735,7 @@
       "code": "LINDEN_KITE_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 13,
       "requiredLevel": 13,
       "requiredStrength": 16,
@@ -4986,7 +4986,7 @@
       "code": "DRIFTWOOD_SPIKED_SHIELD",
       "slot": "SHIELD",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 12,
       "requiredLevel": 12,
       "requiredDexterity": 14,
@@ -5229,7 +5229,7 @@
       "code": "COPPER_SWORD",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 5,
       "requiredLevel": 5,
       "requiredStrength": 6,
@@ -5259,7 +5259,7 @@
       "code": "CAVALRY_SWORD",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 14,
       "requiredLevel": 14,
       "requiredStrength": 17,
@@ -5500,7 +5500,7 @@
       "code": "WHALEBONE_RAPIER",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 7,
       "requiredLevel": 7,
       "requiredDexterity": 15,
@@ -5751,7 +5751,7 @@
       "code": "JADE_HATCHET",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 6,
       "requiredLevel": 6,
       "requiredStrength": 7,
@@ -6018,7 +6018,7 @@
       "code": "GOAT_S_HORN",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 6,
       "requiredLevel": 6,
       "requiredIntelligence": 13,
@@ -6254,7 +6254,7 @@
       "code": "SHORT_BOW",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 5,
       "requiredLevel": 5,
       "requiredDexterity": 11,
@@ -6283,7 +6283,7 @@
       "code": "LONG_BOW",
       "slot": "WEAPON_1H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 12,
       "requiredLevel": 12,
       "requiredDexterity": 27,
@@ -6513,7 +6513,7 @@
       "code": "LONGSWORD",
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 8,
       "requiredLevel": 8,
       "requiredStrength": 10,
@@ -6752,7 +6752,7 @@
       "code": "ORNATE_SWORD",
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 27,
       "requiredLevel": 27,
       "requiredStrength": 32,
@@ -6782,7 +6782,7 @@
       "code": "HEADMAN_SWORD",
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 34,
       "requiredLevel": 34,
       "requiredStrength": 41,
@@ -6960,7 +6960,7 @@
       "code": "JADE_CHOPPER",
       "slot": "WEAPON_2H",
       "kind": "WEAPON",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 9,
       "requiredLevel": 9,
       "requiredStrength": 20,
@@ -7211,7 +7211,7 @@
     {
       "code": "PAUA_RING",
       "slot": "RING",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "fixed": [
         "IMPLICIT_ADD_MAXIMUM_MANA"
       ],
@@ -7222,7 +7222,7 @@
     {
       "code": "RUBY_RING",
       "slot": "RING",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 8,
       "requiredLevel": 8,
       "fixed": [
@@ -7333,7 +7333,7 @@
     {
       "code": "AMBER_AMULET",
       "slot": "AMULET",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 5,
       "requiredLevel": 5,
       "fixed": [
@@ -7418,7 +7418,7 @@
     {
       "code": "HEAVY_BELT",
       "slot": "BELT",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 8,
       "requiredLevel": 8,
       "fixed": [
@@ -7497,7 +7497,7 @@
     {
       "code": "SERRATED_ARROW_QUIVER",
       "slot": "QUIVER",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 5,
       "requiredLevel": 5,
       "requiredDexterity": 8,
@@ -7572,7 +7572,7 @@
       "code": "FEATHERED_WINGS",
       "slot": "WINGS",
       "kind": "ARMOR",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 15,
       "requiredLevel": 15,
       "requiredDexterity": 22,
@@ -7668,7 +7668,7 @@
     {
       "code": "VIRIDIAN_JEWEL",
       "slot": "JEWEL",
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "level": 20,
       "requiredLevel": 20,
       "tables": [
@@ -7686,840 +7686,9 @@
       ]
     },
     {
-      "code": "MAP_C1_TIDAL_SHORE",
+      "code": "MAP",
       "slot": "MAP",
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_SHIP_GRAVEYARD",
-      "slot": "MAP",
-      "level": 3,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_BRINE_CAVES",
-      "slot": "MAP",
-      "level": 3,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_GULL_CLIFFS",
-      "slot": "MAP",
-      "level": 3,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_DROWNED_LIGHTHOUSE",
-      "slot": "MAP",
-      "level": 5,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_ROTTING_MIRE",
-      "slot": "MAP",
-      "level": 5,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_MISTY_FERRY",
-      "slot": "MAP",
-      "level": 5,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_SMUGGLERS_GROTTO",
-      "slot": "MAP",
-      "level": 5,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_WHISPERING_WOOD",
-      "slot": "MAP",
-      "level": 7,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_BLACK_CAUSEWAY",
-      "slot": "MAP",
-      "level": 7,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_WOLF_THICKET",
-      "slot": "MAP",
-      "level": 7,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_FALLEN_RUINS",
-      "slot": "MAP",
-      "level": 9,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_OLD_OUTPOST",
-      "slot": "MAP",
-      "level": 9,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_CHIEFTAINS_BARROW",
-      "slot": "MAP",
-      "level": 9,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C1_CRYPT_OF_EXILES",
-      "slot": "MAP",
-      "level": 11,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_MINERS_VILLAGE",
-      "slot": "MAP",
-      "level": 13,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_CRYSTAL_MINES",
-      "slot": "MAP",
-      "level": 13,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_FOOTHILL_ROAD",
-      "slot": "MAP",
-      "level": 13,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_DEEP_ADITS",
-      "slot": "MAP",
-      "level": 15,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_GEODE_HOLLOW",
-      "slot": "MAP",
-      "level": 15,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_FROZEN_PASS",
-      "slot": "MAP",
-      "level": 15,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_ASHEN_WASTES",
-      "slot": "MAP",
-      "level": 15,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_GLACIER_TOMBS",
-      "slot": "MAP",
-      "level": 17,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_TROLL_CAVES",
-      "slot": "MAP",
-      "level": 17,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_EMBER_FIELDS",
-      "slot": "MAP",
-      "level": 17,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_STORM_PEAK",
-      "slot": "MAP",
-      "level": 19,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_SUNKEN_SHRINE",
-      "slot": "MAP",
-      "level": 19,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_OBSIDIAN_QUARRY",
-      "slot": "MAP",
-      "level": 19,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_SLAG_PITS",
-      "slot": "MAP",
-      "level": 19,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_FROSTFANG_GLACIER",
-      "slot": "MAP",
-      "level": 21,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_ABYSSAL_STAIR",
-      "slot": "MAP",
-      "level": 21,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_CINDER_CITADEL",
-      "slot": "MAP",
-      "level": 21,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C2_DROWNED_TEMPLE",
-      "slot": "MAP",
-      "level": 23,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_SALT_FLATS",
-      "slot": "MAP",
-      "level": 25,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_CARAVAN_ROAD",
-      "slot": "MAP",
-      "level": 25,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_RED_GORGE",
-      "slot": "MAP",
-      "level": 25,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_SINGING_DUNES",
-      "slot": "MAP",
-      "level": 27,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_BURIED_CITY",
-      "slot": "MAP",
-      "level": 27,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_VULTURE_ROOST",
-      "slot": "MAP",
-      "level": 27,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_WITHERED_OASIS",
-      "slot": "MAP",
-      "level": 27,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_GLASS_DESERT",
-      "slot": "MAP",
-      "level": 29,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_RAIDER_CAMP",
-      "slot": "MAP",
-      "level": 29,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_SCORPION_NEST",
-      "slot": "MAP",
-      "level": 29,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_MIRAGE_VALE",
-      "slot": "MAP",
-      "level": 31,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_TOMBS_OF_KINGS",
-      "slot": "MAP",
-      "level": 31,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_SANDSTONE_ARCH",
-      "slot": "MAP",
-      "level": 31,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_DRY_RIVERBED",
-      "slot": "MAP",
-      "level": 31,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_EMBALMERS_HALL",
-      "slot": "MAP",
-      "level": 33,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_SUN_TEMPLE",
-      "slot": "MAP",
-      "level": 33,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_STORM_MESA",
-      "slot": "MAP",
-      "level": 33,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C3_SUN_KINGS_PYRAMID",
-      "slot": "MAP",
-      "level": 35,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_JUNGLE_EDGE",
-      "slot": "MAP",
-      "level": 37,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_MANGROVE_DELTA",
-      "slot": "MAP",
-      "level": 37,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_OVERGROWN_ROAD",
-      "slot": "MAP",
-      "level": 37,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_ORCHID_GLADE",
-      "slot": "MAP",
-      "level": 39,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_PANTHER_TRAIL",
-      "slot": "MAP",
-      "level": 39,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_WASP_HOLLOW",
-      "slot": "MAP",
-      "level": 39,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_STRANGLER_GROVE",
-      "slot": "MAP",
-      "level": 39,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_SERPENT_SHRINE",
-      "slot": "MAP",
-      "level": 41,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_AMBER_TUNNELS",
-      "slot": "MAP",
-      "level": 41,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_WEEPING_CANOPY",
-      "slot": "MAP",
-      "level": 41,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_FUNGAL_LOWLANDS",
-      "slot": "MAP",
-      "level": 43,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_LOST_EXPEDITION",
-      "slot": "MAP",
-      "level": 43,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_BROOD_CHAMBERS",
-      "slot": "MAP",
-      "level": 43,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_FLOODED_THICKET",
-      "slot": "MAP",
-      "level": 43,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_GREAT_TREE",
-      "slot": "MAP",
-      "level": 45,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_MANTIS_GARDENS",
-      "slot": "MAP",
-      "level": 45,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_ROYAL_COMBS",
-      "slot": "MAP",
-      "level": 45,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C4_HIVE_HEART",
-      "slot": "MAP",
-      "level": 47,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_SCORCHED_FOOTHILLS",
-      "slot": "MAP",
-      "level": 49,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_BRIMSTONE_MINES",
-      "slot": "MAP",
-      "level": 49,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_FRONTIER_FORT",
-      "slot": "MAP",
-      "level": 49,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_LAVA_FIELDS",
-      "slot": "MAP",
-      "level": 51,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_OBSIDIAN_SPIRES",
-      "slot": "MAP",
-      "level": 51,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_SMELTERY",
-      "slot": "MAP",
-      "level": 51,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_SIEGE_CAMP",
-      "slot": "MAP",
-      "level": 51,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_ASHFALL_VALLEY",
-      "slot": "MAP",
-      "level": 53,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_MAGMA_RIVER",
-      "slot": "MAP",
-      "level": 53,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_OUTER_WALLS",
-      "slot": "MAP",
-      "level": 53,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_CALDERA_LAKE",
-      "slot": "MAP",
-      "level": 55,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_CINDER_WASTES",
-      "slot": "MAP",
-      "level": 55,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_WAR_FORGES",
-      "slot": "MAP",
-      "level": 55,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_BURNING_BARRACKS",
-      "slot": "MAP",
-      "level": 55,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_DRAGONS_VENT",
-      "slot": "MAP",
-      "level": 57,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_INFERNAL_GATE",
-      "slot": "MAP",
-      "level": 57,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_MOLTEN_CORE",
-      "slot": "MAP",
-      "level": 57,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C5_FLAME_CITADEL",
-      "slot": "MAP",
-      "level": 59,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_RIFT_EDGE",
-      "slot": "MAP",
-      "level": 61,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_BLIGHTED_FIELDS",
-      "slot": "MAP",
-      "level": 61,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_FORSAKEN_ABBEY",
-      "slot": "MAP",
-      "level": 61,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_WHISPERING_CHASM",
-      "slot": "MAP",
-      "level": 63,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_ROTTING_ORCHARD",
-      "slot": "MAP",
-      "level": 63,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_PLAGUE_VILLAGE",
-      "slot": "MAP",
-      "level": 63,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_OSSUARY",
-      "slot": "MAP",
-      "level": 63,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_VOID_SHORE",
-      "slot": "MAP",
-      "level": 65,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_SPORE_CATHEDRAL",
-      "slot": "MAP",
-      "level": 65,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_FALLEN_STAR",
-      "slot": "MAP",
-      "level": 65,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_CATACOMB_MAW",
-      "slot": "MAP",
-      "level": 67,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_WITHERED_WOOD",
-      "slot": "MAP",
-      "level": 67,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_ECLIPSE_ALTAR",
-      "slot": "MAP",
-      "level": 67,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_STARLESS_DEEP",
-      "slot": "MAP",
-      "level": 67,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_ROTTEN_HEART",
-      "slot": "MAP",
-      "level": 69,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_VEIL_OF_SHADOWS",
-      "slot": "MAP",
-      "level": 69,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_ENDLESS_STAIR",
-      "slot": "MAP",
-      "level": 69,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C6_ABYSSAL_THRONE",
-      "slot": "MAP",
-      "level": 70,
+      "level": 1,
       "tables": [
         "map"
       ]
@@ -35052,366 +34221,6 @@
             ]
           }
         ]
-      ]
-    },
-    {
-      "code": "MAP_C7_SKY_LANDING",
-      "slot": "MAP",
-      "level": 71,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_GLASS_DUNES",
-      "slot": "MAP",
-      "level": 71,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_THUNDER_STEPS",
-      "slot": "MAP",
-      "level": 71,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_BROKEN_BRIDGE",
-      "slot": "MAP",
-      "level": 73,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_MIRROR_FLATS",
-      "slot": "MAP",
-      "level": 73,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_LIGHTNING_SPIRE",
-      "slot": "MAP",
-      "level": 73,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_WIND_TEMPLE",
-      "slot": "MAP",
-      "level": 73,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_SHATTERED_CROWN",
-      "slot": "MAP",
-      "level": 75,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_CLOUD_CITADEL",
-      "slot": "MAP",
-      "level": 75,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_STORMWALL",
-      "slot": "MAP",
-      "level": 75,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_PRISM_CANYON",
-      "slot": "MAP",
-      "level": 75,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_FALLEN_ORRERY",
-      "slot": "MAP",
-      "level": 78,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_EYE_OF_THE_STORM",
-      "slot": "MAP",
-      "level": 78,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_SINGING_GLASS",
-      "slot": "MAP",
-      "level": 78,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C7_SHATTERED_THRONE",
-      "slot": "MAP",
-      "level": 80,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_SUNKEN_GATE",
-      "slot": "MAP",
-      "level": 81,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_CORAL_GARDENS",
-      "slot": "MAP",
-      "level": 81,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_TIDE_VAULTS",
-      "slot": "MAP",
-      "level": 81,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_DROWNED_FORUM",
-      "slot": "MAP",
-      "level": 83,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_PEARL_REEF",
-      "slot": "MAP",
-      "level": 83,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_FLOODED_AQUEDUCT",
-      "slot": "MAP",
-      "level": 83,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_LEGION_BARRACKS",
-      "slot": "MAP",
-      "level": 83,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_KELP_CATHEDRAL",
-      "slot": "MAP",
-      "level": 85,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_SEALED_CISTERN",
-      "slot": "MAP",
-      "level": 85,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_SUNKEN_MARKET",
-      "slot": "MAP",
-      "level": 85,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_BLEACHED_ATOLL",
-      "slot": "MAP",
-      "level": 85,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_TIDAL_ENGINE",
-      "slot": "MAP",
-      "level": 88,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_IMPERIAL_BATHS",
-      "slot": "MAP",
-      "level": 88,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_ABYSSAL_TRENCH",
-      "slot": "MAP",
-      "level": 88,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C8_DROWNED_THRONE",
-      "slot": "MAP",
-      "level": 90,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_GODS_THRESHOLD",
-      "slot": "MAP",
-      "level": 91,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_ASTRAL_SHORE",
-      "slot": "MAP",
-      "level": 91,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_FIELDS_OF_OBLIVION",
-      "slot": "MAP",
-      "level": 91,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_HALL_OF_JUDGEMENT",
-      "slot": "MAP",
-      "level": 93,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_CONSTELLATION_BRIDGE",
-      "slot": "MAP",
-      "level": 93,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_NAMELESS_ARCHIVE",
-      "slot": "MAP",
-      "level": 93,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_SUNFORGE",
-      "slot": "MAP",
-      "level": 93,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_ASTRAL_ORCHARD",
-      "slot": "MAP",
-      "level": 95,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_HOLLOW_PANTHEON",
-      "slot": "MAP",
-      "level": 95,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_HALL_OF_WAR",
-      "slot": "MAP",
-      "level": 95,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_STARLESS_VOID",
-      "slot": "MAP",
-      "level": 95,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_CELESTIAL_OBSERVATORY",
-      "slot": "MAP",
-      "level": 98,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_THRONE_ROAD",
-      "slot": "MAP",
-      "level": 98,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_EDGE_OF_NOTHING",
-      "slot": "MAP",
-      "level": 98,
-      "tables": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_C9_LAST_THRONE",
-      "slot": "MAP",
-      "level": 100,
-      "tables": [
-        "map"
       ]
     },
     {

@@ -7610,7 +7610,7 @@
       "tag": "rarity:map",
       "kind": "VALUE",
       "entries": {
-        "UNCOMMON": 80,
+        "MAGIC": 80,
         "RARE": 20
       }
     },
@@ -7619,7 +7619,7 @@
       "kind": "VALUE",
       "entries": {
         "COMMON": 50,
-        "UNCOMMON": 35,
+        "MAGIC": 35,
         "RARE": 15
       }
     },
@@ -7628,7 +7628,7 @@
       "kind": "VALUE",
       "entries": {
         "COMMON": 60,
-        "UNCOMMON": 30,
+        "MAGIC": 30,
         "RARE": 10
       }
     },
@@ -7637,7 +7637,7 @@
       "kind": "VALUE",
       "entries": {
         "COMMON": 40,
-        "UNCOMMON": 35,
+        "MAGIC": 35,
         "RARE": 25
       }
     },
@@ -7645,7 +7645,7 @@
       "tag": "rarity:map:smith",
       "kind": "VALUE",
       "entries": {
-        "UNCOMMON": 70,
+        "MAGIC": 70,
         "RARE": 30
       }
     },

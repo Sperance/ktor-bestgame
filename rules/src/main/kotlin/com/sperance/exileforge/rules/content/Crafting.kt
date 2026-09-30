@@ -55,7 +55,7 @@ enum class Omen(val orb: Orb) {
 @Serializable
 data class QualityRules(
     val max: Int = 20,
-    val steps: Map<Rarity, Int> = mapOf(Rarity.COMMON to 5, Rarity.UNCOMMON to 2, Rarity.RARE to 1, Rarity.UNIQUE to 1, Rarity.MYTHICAL to 1),
+    val steps: Map<Rarity, Int> = mapOf(Rarity.COMMON to 5, Rarity.MAGIC to 2, Rarity.RARE to 1, Rarity.UNIQUE to 1, Rarity.MYTHICAL to 1),
     /** Сколько вариантов предлагает сфера раскрытия. */
     val unveilChoices: Int = 3,
 ) {

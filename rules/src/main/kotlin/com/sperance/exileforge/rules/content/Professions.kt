@@ -5,13 +5,24 @@ import kotlinx.serialization.Serializable
 
 @Serializable data class JobExtra(val item: String, val chance: Double)
 @Serializable data class JobInput(val item: String, val amount: Long)
-@Serializable enum class JobKind { ITEM, EQUIPMENT, MAP, FLASK, BOOK }
+/**
+ * Вид работы. [CONDENSE] и [BOOK] - с выбором (1.43.0): игрок называет, что делать (ступень и вид эссенции,
+ * умение своего класса), и работа становится обычной [ITEM] - см. [JobRecipes]. [MAP] чертит случайную открытую
+ * зону своего региона.
+ */
+@Serializable enum class JobKind {
+    ITEM, EQUIPMENT, MAP, FLASK, BOOK, CONDENSE;
+
+    val chosen: Boolean get() = this == BOOK || this == CONDENSE
+}
 
 @Serializable
 data class Job(
     val code: String, val level: Int, val seconds: Double, val nothing: Double, val output: String, val experience: Double,
     val extra: List<JobExtra> = emptyList(), val kind: JobKind = JobKind.ITEM, val inputs: List<JobInput> = emptyList(),
-    val band: List<Int> = emptyList(), val map: String = "", val additives: Boolean = false,
+    val band: List<Int> = emptyList(), val region: String = "", val additives: Boolean = false,
+    /** Прибавка опыта за ступень выбора сверх первой (сгущение эссенций). */
+    val step: Double = 0.0,
 )
 
 /** Правила ремесла: шансы ручной работы и уникалки, таблицы баз, уникалок, строк и редкостей кузнеца и картографа. */
@@ -35,7 +46,7 @@ data class CraftsFile(val rules: CraftsRules, val professions: List<Profession>,
 
     fun profession(code: String): Profession? = professions.firstOrNull { it.code == code }
 
-    fun validate(items: (String) -> Boolean, template: (String) -> ItemTemplate?, zone: (String) -> Boolean, heroClass: (String) -> Boolean) {
+    fun validate(items: (String) -> Boolean, template: (String) -> ItemTemplate?, region: (String) -> Boolean) {
         rules.let { r ->
             if (r.offlineHours <= 0 || r.maxLevel < 2 || r.levelSpeed !in 0.0..90.0 || r.levelFind < 0 || r.luckCap !in 0.0..100.0 || r.experienceBase <= 0 || r.experiencePower <= 0) fail("professions: rules")
         }
@@ -51,9 +62,10 @@ data class CraftsFile(val rules: CraftsRules, val professions: List<Profession>,
             when (job.kind) {
                 JobKind.ITEM -> if (!items(job.output)) fail("professions: output of ${job.code}")
                 JobKind.EQUIPMENT -> if (job.band.size != 2 || job.band[0] > job.band[1]) fail("professions: band of ${job.code}")
-                JobKind.MAP -> if (!zone(job.map)) fail("professions: map of ${job.code}")
+                JobKind.MAP -> if (!region(job.region)) fail("professions: region of ${job.code}")
                 JobKind.FLASK -> if (template(job.output)?.slot?.isFlask != true) fail("professions: flask of ${job.code}")
-                JobKind.BOOK -> if (!heroClass(job.output) || job.band.size != 1) fail("professions: book of ${job.code}")
+                JobKind.BOOK -> if (job.band.size != 1 || job.output.isNotEmpty()) fail("professions: book of ${job.code}")
+                JobKind.CONDENSE -> if (job.output.isNotEmpty() || job.inputs.isNotEmpty() || job.step < 0) fail("professions: condense of ${job.code}")
             }
         }
         professions.forEach { if (it.jobs.none { job -> job.level == 1 }) fail("professions: no first-level work in ${it.code}") }

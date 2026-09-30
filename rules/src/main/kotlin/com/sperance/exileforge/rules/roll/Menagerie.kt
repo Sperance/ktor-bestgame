@@ -120,7 +120,7 @@ class Menagerie(private val index: ContentIndex) {
     }
 
     companion object {
-        val RARITIES = listOf(Rarity.COMMON, Rarity.UNCOMMON, Rarity.RARE)
+        val RARITIES = listOf(Rarity.COMMON, Rarity.MAGIC, Rarity.RARE)
         /** Ключ удара в листе роли: он становится ударом стихии вида. */
         const val ATTACK_BASE = "STOCK_ATTACK_PHYSICAL"
     }

@@ -127,7 +127,7 @@ class CampaignService : KoinComponent {
         val dice = Dice.system()
         val item = itemId?.let { hero.requireItem(it, method) }
         val template = item?.let { index.template(it.template) }
-        if (item != null && (template == null || template.slot != Slot.MAP || template.code != loot.mapTemplate(mapCode) || item.equipped))
+        if (item != null && (template == null || template.slot != Slot.MAP || item.mapZone != mapCode || item.equipped))
             throw CampaignExceptions.funExceptionMapItem(method, template?.code ?: item.template)
         val active = item?.let { loot.activeMap(mapCode, loot.atlasPowers(loot.mapEffects(it, bonuses.mapEffect), bonuses.effects), it.rarity, it.mapTier) }
         val sheet = index.sheetOf(hero).stats

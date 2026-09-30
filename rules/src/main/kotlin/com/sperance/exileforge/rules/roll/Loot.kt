@@ -154,9 +154,6 @@ class LootRoller(private val index: ContentIndex) {
         return effects.mapValues { (_, value) -> Math.round(value * atlasEffect * 10) / 10.0 }
     }
 
-    /** Код шаблона карты локации. */
-    fun mapTemplate(mapCode: String): String = "MAP_$mapCode"
-
     /** Что стоила смерть: доля опыта уровня, не ниже его порога. */
     fun deathLoss(rule: DeathRule, mapLevel: Int, experience: Double, floor: Double, next: Double?): Double {
         if (mapLevel < rule.fromLevel || rule.experienceShare <= 0 || next == null || next <= floor) return 0.0

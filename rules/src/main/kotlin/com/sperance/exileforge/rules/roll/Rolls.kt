@@ -63,6 +63,8 @@ data class ItemInstance(
     @SerialName("uv") var unveil: List<Roll> = emptyList(),
     /** Тир карты (1.41.0): у карт уровня [com.sperance.exileforge.rules.content.MapTierRule.fromLevel] и выше - 1..max, у прочих 0. */
     @SerialName("mt") var mapTier: Int = 0,
+    /** Зона карты (1.43.0): все карты - один шаблон [com.sperance.exileforge.rules.content.MAP_TEMPLATE], место - здесь. */
+    @SerialName("mz") var mapZone: String = "",
 ) {
     /** Уровень, на котором катаются аффиксы копии. */
     fun level(template: ItemTemplate): Int = if (itemLevel > 0) itemLevel else template.level

@@ -29,6 +29,8 @@ data class ActiveWork(
     val seed: Long = 0,
     val cycles: Long = 0,
     val totals: WorkTally = WorkTally(),
+    /** Выбор работы с выбором (1.43.0): код предмета на выходе; у прочих пусто. */
+    val choice: String = "",
 )
 
 /** Итог работы с её запуска: числа без самих вещей - вещи уже в тайнике. */

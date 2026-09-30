@@ -33,10 +33,10 @@ enum class QuestScope { ANY, ZONE, REGION }
 
 /** Выводимые «счётчики» заданий: не копятся, а читаются из героя. */
 object QuestCounter {
-    const val LEVEL = "LEVEL"
-    const val ZONES = "ZONES"
-    const val ATLAS = "ATLAS"
-    const val TREE = "TREE"
+    const val LEVEL = Counter.LEVEL
+    const val ZONES = Counter.ZONES
+    const val ATLAS = Counter.ATLAS
+    const val TREE = Counter.TREE
     /** Шаг сюжета «пройти зону»: 1, если зона в пройденных. */
     const val CLEAR = "CLEAR"
 
@@ -147,7 +147,7 @@ data class QuestRules(
         if (goals.isEmpty() || goals.map { it.code }.toSet().size != goals.size) fail("quests: goals")
         goals.forEach { goal ->
             if (goal.counter !in Counter.ALL && goal.counter !in QuestCounter.DERIVED) fail("quests: ${goal.code} counts unknown ${goal.counter}")
-            if (goal.counter in Counter.MAX || goal.counter == QuestCounter.CLEAR) fail("quests: ${goal.code} cannot count ${goal.counter}")
+            if (goal.counter in Counter.MAX && goal.counter !in Counter.DERIVED || goal.counter == QuestCounter.CLEAR) fail("quests: ${goal.code} cannot count ${goal.counter}")
             if (goal.base <= 0.0 || goal.perLevel < 0.0 || goal.weight <= 0 || goal.kinds.isEmpty()) fail("quests: ${goal.code} numbers")
             if (goal.scope != QuestScope.ANY && goal.counter !in QuestCounter.COMBAT) fail("quests: ${goal.code} scope outside combat")
             if (goal.conditional && goal.counter !in QuestCounter.COMBAT) fail("quests: ${goal.code} conditions outside combat")
@@ -183,7 +183,7 @@ data class QuestRules(
             if (chapter.steps.isEmpty()) fail("quests: chapter ${chapter.region} is empty")
             val zones = index.campaign.regions.first { it.code == chapter.region }.zones.map { it.code }.toSet()
             chapter.steps.forEach { step ->
-                if (step.counter !in Counter.ALL && step.counter !in QuestCounter.DERIVED || step.counter in Counter.MAX) fail("quests: step ${step.code} counts ${step.counter}")
+                if (step.counter !in Counter.ALL && step.counter !in QuestCounter.DERIVED || step.counter in Counter.MAX && step.counter !in Counter.DERIVED) fail("quests: step ${step.code} counts ${step.counter}")
                 if (step.target <= 0) fail("quests: step ${step.code} target")
                 if (step.zone.isNotEmpty() && step.zone !in zones) fail("quests: step ${step.code} zone ${step.zone} is outside ${chapter.region}")
                 if (step.counter == QuestCounter.CLEAR && step.zone.isEmpty()) fail("quests: step ${step.code} clears no zone")
@@ -412,15 +412,7 @@ object QuestProgress {
     }
 
     /** Выводимые счётчики, которые меряются рекордом героя (1.30.0): откат узлов их не опускает. */
-    val PEAKED = setOf(QuestCounter.LEVEL, QuestCounter.ZONES, QuestCounter.ATLAS, QuestCounter.TREE)
-
-    /** Значение выводимого счётчика по состоянию героя. */
-    fun derived(counter: String, level: Int, zones: Collection<String>, atlas: Int, tree: Int, zone: String): Long = when (counter) {
-        QuestCounter.LEVEL -> level.toLong()
-        QuestCounter.ZONES -> zones.size.toLong()
-        QuestCounter.ATLAS -> atlas.toLong()
-        QuestCounter.TREE -> tree.toLong()
-        QuestCounter.CLEAR -> if (zone in zones) 1 else 0
-        else -> 0
-    }
+    /** Значение выводимой цели по летописи героя [chronicle]; шаг сюжета [QuestCounter.CLEAR] - пройдена ли зона [zone]. */
+    fun derived(counter: String, chronicle: Map<String, Long>, cleared: Collection<String>, zone: String): Long =
+        if (counter == QuestCounter.CLEAR) (if (zone in cleared) 1 else 0) else chronicle[counter] ?: 0L
 }

@@ -389,7 +389,7 @@
       ]
     },
     {
-      "rarity": "UNCOMMON",
+      "rarity": "MAGIC",
       "weight": 28,
       "target": 1.5,
       "reward": 2.0,
@@ -490,7 +490,7 @@
       "count": 3,
       "rarities": [
         "COMMON",
-        "UNCOMMON",
+        "MAGIC",
         "RARE"
       ],
       "target": 1.0,
@@ -501,7 +501,7 @@
       "kind": "WEEKLY",
       "count": 3,
       "rarities": [
-        "UNCOMMON",
+        "MAGIC",
         "RARE",
         "UNIQUE"
       ],
@@ -514,7 +514,7 @@
       "count": 0,
       "rarities": [
         "COMMON",
-        "UNCOMMON",
+        "MAGIC",
         "RARE",
         "UNIQUE"
       ],
@@ -527,7 +527,7 @@
       "count": 0,
       "rarities": [
         "COMMON",
-        "UNCOMMON",
+        "MAGIC",
         "RARE",
         "UNIQUE"
       ],
@@ -540,7 +540,7 @@
       "count": 2,
       "rarities": [
         "COMMON",
-        "UNCOMMON",
+        "MAGIC",
         "RARE"
       ],
       "target": 1.0,
@@ -551,7 +551,7 @@
       "kind": "GUILD_DAILY",
       "count": 2,
       "rarities": [
-        "UNCOMMON",
+        "MAGIC",
         "RARE"
       ],
       "target": 0.6,
@@ -562,7 +562,7 @@
       "kind": "GUILD_WEEKLY",
       "count": 3,
       "rarities": [
-        "UNCOMMON",
+        "MAGIC",
         "RARE",
         "UNIQUE"
       ],
@@ -611,14 +611,14 @@
           "counter": "CLEAR",
           "target": 1,
           "zone": "C1_DROWNED_LIGHTHOUSE",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S1_SMUGGLERS",
           "counter": "BOSSES",
           "target": 1,
           "zone": "C1_SMUGGLERS_GROTTO",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S1_BARROW",
@@ -657,14 +657,14 @@
           "code": "S2_TOOLS",
           "counter": "ORBS_USED",
           "target": 5,
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S2_PASS",
           "counter": "CLEAR",
           "target": 1,
           "zone": "C2_FROZEN_PASS",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S2_PEAK",
@@ -703,14 +703,14 @@
           "counter": "KILLS_RARE",
           "target": 3,
           "zone": "C3_RAIDER_CAMP",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S3_TOMBS",
           "counter": "CLEAR",
           "target": 1,
           "zone": "C3_TOMBS_OF_KINGS",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S3_EMBALMER",
@@ -743,20 +743,20 @@
           "counter": "CLEAR",
           "target": 1,
           "zone": "C4_LOST_EXPEDITION",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S4_BROOD",
           "counter": "KILLS",
           "target": 80,
           "zone": "C4_BROOD_CHAMBERS",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S4_CRAFT",
           "counter": "CRAFT_MADE",
           "target": 2,
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S4_TREE",
@@ -789,20 +789,20 @@
           "counter": "BOSSES",
           "target": 1,
           "zone": "C5_FRONTIER_FORT",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S5_LEVEL",
           "counter": "LEVEL",
           "target": 55,
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S5_FORGES",
           "counter": "KILLS_RARE",
           "target": 5,
           "zone": "C5_WAR_FORGES",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S5_GATE",
@@ -835,14 +835,14 @@
           "counter": "BOSSES",
           "target": 1,
           "zone": "C6_FORSAKEN_ABBEY",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S6_OSSUARY",
           "counter": "KILLS",
           "target": 120,
           "zone": "C6_OSSUARY",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S6_STAR",
@@ -882,14 +882,14 @@
           "counter": "BOSSES",
           "target": 1,
           "zone": "C7_MIRROR_FLATS",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S7_3",
           "counter": "KILLS",
           "target": 140,
           "zone": "C7_WIND_TEMPLE",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S7_4",
@@ -929,14 +929,14 @@
           "counter": "BOSSES",
           "target": 1,
           "zone": "C8_PEARL_REEF",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S8_3",
           "counter": "KILLS",
           "target": 140,
           "zone": "C8_LEGION_BARRACKS",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S8_4",
@@ -976,14 +976,14 @@
           "counter": "BOSSES",
           "target": 1,
           "zone": "C9_CONSTELLATION_BRIDGE",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S9_3",
           "counter": "KILLS",
           "target": 140,
           "zone": "C9_SUNFORGE",
-          "rarity": "UNCOMMON"
+          "rarity": "MAGIC"
         },
         {
           "code": "S9_4",

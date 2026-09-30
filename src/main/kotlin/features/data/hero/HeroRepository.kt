@@ -12,9 +12,9 @@ import com.mongodb.client.model.Projections
 import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.HeroClass
-import com.sperance.exileforge.rules.content.QuestProgress
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.TakenNode
@@ -65,16 +65,8 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         trackPeaks(entity)
     }
 
-    /**
-     * Рекорды выводимых счётчиков заданий (1.30.0) растут на каждой записи: откатить узлы до записи рекорда, чтобы
-     * взять их снова «с нуля», нельзя - откат сам пишет героя.
-     */
-    private fun trackPeaks(hero: Hero) {
-        QuestProgress.PEAKED.forEach { counter ->
-            val value = QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, "")
-            if (value > (hero.peaks[counter] ?: 0L)) hero.peaks[counter] = value
-        }
-    }
+    /** Рекорды выводимых счётчиков летописи растут на каждой записи: откат узлов не опускает их ниже взятого. */
+    private fun trackPeaks(hero: Hero) = Counter.record(hero.counters, hero.derived())
 
     /**
      * Сверка копий героя с контентом (1.30.0 - и на чтении): показанное клиенту равно тому, что ляжет

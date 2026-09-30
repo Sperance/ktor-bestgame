@@ -73,7 +73,7 @@ object EquipSlots {
 /** Редкость копии: сколько аффиксов она несёт - решают правила ([RarityLimits]); уникалка и мифик закреплены шаблоном. */
 @Serializable
 enum class Rarity {
-    COMMON, UNCOMMON, RARE, UNIQUE, MYTHICAL;
+    COMMON, MAGIC, RARE, UNIQUE, MYTHICAL;
 
     val fixed: Boolean get() = this == UNIQUE || this == MYTHICAL
 
@@ -102,6 +102,9 @@ data class UniqueLine(
  * броня, урон, скорость - готовыми строками, [fixed] - коды имплиситов, [lines] - строки уникалки,
  * из которых собираются описания `UNIQUE_<код>_<i>`; [tables] - теги таблиц, откуда катятся аффиксы.
  */
+/** Шаблон карты (1.43.0): один на все зоны, зона - в [com.sperance.exileforge.rules.roll.ItemInstance.mapZone]. */
+const val MAP_TEMPLATE = "MAP"
+
 @Serializable
 data class ItemTemplate(
     val code: String,

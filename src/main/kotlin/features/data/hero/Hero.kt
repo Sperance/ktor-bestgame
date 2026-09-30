@@ -80,8 +80,6 @@ data class Hero(
     var quests: QuestLog = QuestLog(),
     /** Поток наград захода (1.30.0): его семя клиенту не отдаётся никогда - ни снимком, ни общим CRUD. */
     var rewards: RewardStream = RewardStream(),
-    /** Рекорды производных заданий (1.30.0): сколько узлов дерева, атласа и пройденных зон у героя бывало. */
-    var peaks: MutableMap<String, Long> = mutableMapOf(),
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -123,8 +121,11 @@ data class Hero(
         QuestProgress.advance(quests, counter, amount, campaign.run?.zone, guild?.id, System.currentTimeMillis())
     }
 
-    /** Счётчики вместе с выводимыми из героя: уровень, пройденные зоны, узлы атласа. */
-    fun chronicle(): Map<String, Long> = Counter.values(counters, level, campaign.cleared.size, atlas.size)
+    /** Нынешние выводимые счётчики: уровень, пройденные зоны, узлы атласа и дерева. */
+    fun derived(): Map<String, Long> = Counter.derived(level, campaign.cleared.size, atlas.size, tree.size)
+
+    /** Летопись: хранимые счётчики, выводимые - рекордом. */
+    fun chronicle(): Map<String, Long> = Counter.values(counters, derived())
 
     /** Золото герою - в кошелёк и в летопись. */
     fun gain(gold: Long) {

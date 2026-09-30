@@ -4,8 +4,9 @@ import com.sperance.exileforge.rules.fail
 import kotlinx.serialization.Serializable
 
 /**
- * Счётчики летописи героя (1.3.0): что сервер считает по ходу игры. Сумма копится ([add]), рекорд
- * держит наибольшее ([MAX]), а [DERIVED] не хранится вовсе - выводится из героя, когда нужен.
+ * Счётчики летописи героя (1.3.0): что сервер считает по ходу игры - единственный источник для достижений и
+ * заданий (1.42.0). Сумма копится ([add]), рекорд держит наибольшее ([MAX]); выводимые [DERIVED] - уровень, зоны,
+ * узлы атласа и дерева - хранятся рекордом: откат узлов их не уменьшает.
  */
 object Counter {
     const val KILLS = "KILLS"
@@ -34,9 +35,14 @@ object Counter {
     const val LEVEL = "LEVEL"
     const val ZONES = "ZONES"
     const val ATLAS = "ATLAS"
+    /** Взятые узлы дерева: выводимый, в летописи не показывается - только цель заданий. */
+    const val TREE = "TREE"
+
+    /** Выводимые из состояния героя: хранятся рекордом, см. [derived]. */
+    val DERIVED = setOf(LEVEL, ZONES, ATLAS, TREE)
 
     /** Рекорды: пишется наибольшее значение, а не сумма. */
-    val MAX = setOf(ABYSS_DEPTH)
+    val MAX = setOf(ABYSS_DEPTH) + DERIVED
 
     /** Все счётчики по разделам летописи, в порядке показа. */
     val SECTIONS: Map<String, List<String>> = linkedMapOf(
@@ -45,11 +51,18 @@ object Counter {
         "CRAFT" to listOf(ORBS_USED, ESSENCES_USED, MIRRORS, CRAFT_CYCLES, CRAFT_MADE),
         "PROGRESS" to listOf(LEVEL, ZONES, ATLAS),
     )
-    val ALL: Set<String> = SECTIONS.values.flatten().toSet()
+    val ALL: Set<String> = SECTIONS.values.flatten().toSet() + DERIVED
 
-    /** Счётчики героя вместе с выводимыми: уровень, число пройденных зон и взятых узлов атласа. */
-    fun values(counters: Map<String, Long>, level: Int, zones: Int, atlas: Int): Map<String, Long> =
-        counters + mapOf(LEVEL to level.toLong(), ZONES to zones.toLong(), ATLAS to atlas.toLong())
+    /** Нынешние значения выводимых счётчиков по состоянию героя. */
+    fun derived(level: Int, zones: Int, atlas: Int, tree: Int): Map<String, Long> =
+        mapOf(LEVEL to level.toLong(), ZONES to zones.toLong(), ATLAS to atlas.toLong(), TREE to tree.toLong())
+
+    /** Вписывает нынешние [derived] в [counters] рекордом. */
+    fun record(counters: MutableMap<String, Long>, derived: Map<String, Long>) = derived.forEach { (counter, value) -> add(counters, counter, value) }
+
+    /** Летопись целиком: хранимые счётчики, выводимые - наибольшее из рекорда и нынешнего значения. */
+    fun values(counters: Map<String, Long>, derived: Map<String, Long>): Map<String, Long> =
+        counters + derived.mapValues { (counter, value) -> maxOf(value, counters[counter] ?: 0L) }
 
     /** Прибавить к счётчику в [counters]: сумма или рекорд - как велит его вид. */
     fun add(counters: MutableMap<String, Long>, counter: String, amount: Long = 1) {

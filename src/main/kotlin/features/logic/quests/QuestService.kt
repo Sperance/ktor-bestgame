@@ -300,15 +300,10 @@ class QuestService : KoinComponent {
     }
 
     private fun derivedValue(hero: Hero, counter: String, zone: String): Long =
-        if (counter in QuestProgress.PEAKED) peak(hero, counter)
-        else QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, zone)
+        QuestProgress.derived(counter, hero.chronicle(), hero.campaign.cleared, zone)
 
-    /** Рекорд счётчика: сохранённый и нынешнее значение - что больше; запись героя держит его сама ([features.data.hero.HeroRepository]). */
-    private fun peak(hero: Hero, counter: String): Long {
-        val value = maxOf(hero.peaks[counter] ?: 0L, QuestProgress.derived(counter, hero.level, hero.campaign.cleared, hero.atlas.size, hero.tree.size, ""))
-        hero.peaks[counter] = value
-        return value
-    }
+    /** Рекорд выводимого счётчика по летописи героя. */
+    private fun peak(hero: Hero, counter: String): Long = hero.chronicle()[counter] ?: 0L
 
     /**
      * Недостижимое не выдаётся (1.30.0 - по посчитанной цели [target]): уровень и зоны до потолка, узлы атласа - в

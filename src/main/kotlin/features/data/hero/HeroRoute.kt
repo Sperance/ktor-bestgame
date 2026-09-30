@@ -162,7 +162,7 @@ class HeroRoute(
             get { call.respondOk(crafts.state(call.heroId)) }
             post("/start") {
                 val additives = call.request.queryParameters["additives"]?.split(',').orEmpty()
-                call.respondWithHero(crafts.start(call.heroId, call.queryParam("job"), additives))
+                call.respondWithHero(crafts.start(call.heroId, call.queryParam("job"), call.optionalParam("choice").orEmpty(), additives))
             }
             post("/stop") { call.respondWithHero(crafts.stop(call.heroId)) }
         }

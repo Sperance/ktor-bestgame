@@ -13,9 +13,9 @@ import kotlin.math.max
  * добычи они не меняют, реплей их не касается.
  */
 
-/** Группа осквернения: стихия, яд, защита, герой, проклятие. */
+/** Группа осквернения: стихия, яд, защита, герой. */
 @Serializable
-enum class DesecrationGroup { ELEMENTAL, POISON, DEFENCE, WEAKNESS, CURSE }
+enum class DesecrationGroup { ELEMENTAL, POISON, DEFENCE, WEAKNESS }
 
 /** Вид пятна: код (он же ключ `desecration.<code>` локали), группа, строки `MAP_HERO_*` на первом уровне и вес. */
 @Serializable

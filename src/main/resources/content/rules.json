@@ -1,7 +1,7 @@
 {
   "rarities": {
     "COMMON": {},
-    "UNCOMMON": {
+    "MAGIC": {
       "prefixes": 1,
       "suffixes": 1,
       "affixes": [
@@ -67,7 +67,7 @@
     "neutralQuality": 0.5,
     "rarity": {
       "COMMON": 1.0,
-      "UNCOMMON": 1.5,
+      "MAGIC": 1.5,
       "RARE": 2.5,
       "UNIQUE": 8.0,
       "MYTHICAL": 20.0
@@ -177,7 +177,7 @@
     "experiencePower": 1.9,
     "rarityWeights": {
       "COMMON": 100.0,
-      "UNCOMMON": 40.0,
+      "MAGIC": 40.0,
       "RARE": 15.0,
       "UNIQUE": 1.0,
       "MYTHICAL": 0.2

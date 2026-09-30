@@ -71,7 +71,7 @@ data class SellRules(
     val affixShare: Double = 0.15,
     val qualityFloor: Double = 0.5,
     val neutralQuality: Double = 0.5,
-    val rarity: Map<Rarity, Double> = mapOf(Rarity.COMMON to 1.0, Rarity.UNCOMMON to 1.5, Rarity.RARE to 2.5, Rarity.UNIQUE to 8.0, Rarity.MYTHICAL to 20.0),
+    val rarity: Map<Rarity, Double> = mapOf(Rarity.COMMON to 1.0, Rarity.MAGIC to 1.5, Rarity.RARE to 2.5, Rarity.UNIQUE to 8.0, Rarity.MYTHICAL to 20.0),
 )
 
 @Serializable data class BenchCost(val orb: Orb, val amount: Long)
@@ -172,7 +172,7 @@ data class LootRules(
     val goldTaper: GrowthTaper? = null,
     val experienceWindow: ExperienceWindow = ExperienceWindow(),
     val experiencePower: Double = 1.9,
-    val rarityWeights: Map<Rarity, Double> = mapOf(Rarity.COMMON to 100.0, Rarity.UNCOMMON to 40.0, Rarity.RARE to 15.0, Rarity.UNIQUE to 1.0, Rarity.MYTHICAL to 0.2),
+    val rarityWeights: Map<Rarity, Double> = mapOf(Rarity.COMMON to 100.0, Rarity.MAGIC to 40.0, Rarity.RARE to 15.0, Rarity.UNIQUE to 1.0, Rarity.MYTHICAL to 0.2),
     val uniqueReach: Int = 10,
     val recipeChance: Double = 0.10,
     /** Уровень предмета (ilvl, 1.33.0): потолок (1.40.0 - 100) и прибавка к уровню зоны от редкости убитого монстра. */
@@ -216,7 +216,7 @@ data class RunRules(val newSeedSeconds: Int = 30)
 
 /** Зверинец (1.5.0): сколько питомцев держит герой и сколько золота даёт отпущенный за уровень по редкости. */
 @Serializable
-data class PetRules(val cap: Int = 20, val releaseGold: Map<Rarity, Long> = mapOf(Rarity.COMMON to 20L, Rarity.UNCOMMON to 60L, Rarity.RARE to 200L)) {
+data class PetRules(val cap: Int = 20, val releaseGold: Map<Rarity, Long> = mapOf(Rarity.COMMON to 20L, Rarity.MAGIC to 60L, Rarity.RARE to 200L)) {
     fun releasePrice(rarity: Rarity, level: Int): Long = (releaseGold[rarity] ?: 0L) * level.coerceAtLeast(1)
 }
 
@@ -268,7 +268,7 @@ data class ChargeRule(val max: String, val lines: List<PowerLine>)
 @Serializable
 data class EngineRules(
     val rarities: Map<String, RarityLimits> = mapOf(
-        "COMMON" to RarityLimits(), "UNCOMMON" to RarityLimits(1, 1, listOf(1, 2)), "RARE" to RarityLimits(3, 3, listOf(4, 6)),
+        "COMMON" to RarityLimits(), "MAGIC" to RarityLimits(1, 1, listOf(1, 2)), "RARE" to RarityLimits(3, 3, listOf(4, 6)),
         "RARE:JEWEL" to RarityLimits(2, 2, listOf(3, 4)), "UNIQUE" to RarityLimits(), "MYTHICAL" to RarityLimits(),
     ),
     val merchant: MerchantRules = MerchantRules(),

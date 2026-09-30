@@ -14,8 +14,8 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
 
     /** Редкость, под которую роллится новая копия шаблона. */
     fun rarityFor(template: ItemTemplate, wanted: Rarity): Rarity = when {
-        template.slot.isJewelLike && wanted == Rarity.COMMON -> Rarity.UNCOMMON
-        template.slot.isFlask && wanted == Rarity.RARE -> Rarity.UNCOMMON
+        template.slot.isJewelLike && wanted == Rarity.COMMON -> Rarity.MAGIC
+        template.slot.isFlask && wanted == Rarity.RARE -> Rarity.MAGIC
         else -> wanted
     }
 
