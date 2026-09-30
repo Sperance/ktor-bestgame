@@ -401,6 +401,11 @@ ORB_EMBLEM = {  # the signs of the old client-side orbs, in a 100-unit box centr
     "MOON": ("M58 26 A24 24 0 1 0 58 74 A18 18 0 1 1 58 26 Z", True),
     "FLAME": ("M50 24 Q66 42 60 56 Q70 52 66 64 A16 16 0 0 1 34 62 Q30 50 42 44 Q42 54 48 54 Q40 38 50 24 Z", True),
     "HEART": ("M50 72 L30 52 A11 11 0 0 1 50 36 A11 11 0 0 1 70 52 Z", True),
+    # 1.35.0: a whetstone's bar with its edge, an armour plate with rivets, a lifted veil, a catalyst's stoppered vial.
+    "WHET": ("M26 58 L62 34 L74 42 L38 66 Z M34 54 L60 37", True),
+    "PLATE": ("M30 30 H70 V52 Q70 68 50 76 Q30 68 30 52 Z M38 38 a3 3 0 1 1 -0.1 0 Z M62 38 a3 3 0 1 1 -0.1 0 Z", True),
+    "VEIL": ("M26 34 Q50 22 74 34 L70 70 Q60 62 50 70 Q40 62 30 70 Z M40 46 a3 3 0 1 1 -0.1 0 Z M60 46 a3 3 0 1 1 -0.1 0 Z", True),
+    "VIAL": ("M44 24 H56 V30 H54 V42 Q66 48 66 60 A16 16 0 0 1 34 60 Q34 48 46 42 V30 H44 Z", True),
     "SKULL": ("M34 48 A16 16 0 1 1 66 48 V58 H60 V66 H40 V58 H34 Z M42 46 a4 4 0 1 1 -0.1 0 Z M58 46 a4 4 0 1 1 -0.1 0 Z", True),
     "DOTS": ("M40 40 a6 6 0 1 1 -0.1 0 Z M60 40 a6 6 0 1 1 -0.1 0 Z M50 58 a6 6 0 1 1 -0.1 0 Z M34 60 a4 4 0 1 1 -0.1 0 Z M66 60 a4 4 0 1 1 -0.1 0 Z", True),
     "RUNE": ("M50 24 V76 M50 36 L64 26 M50 50 L36 40 M50 50 L64 62", False),
@@ -432,6 +437,21 @@ ORBS = {
     "PET_ORB_UPGRADE": ("#e8a060", "PAW", False), "PET_ORB_REROLL": ("#d4a030", "PAW", False),
     "PET_ORB_AUGMENT": ("#6fa0e0", "PAW", False), "PET_ORB_DIVINE": ("#ffe8a0", "PAW", True),
     "PET_ORB_ANNUL": ("#c8d0e0", "PAW", False), "PET_ORB_GROWTH": ("#80d070", "PAW", False),
+    # 1.35.0: quality, unveiling and the catalysts, each vial in its kind's colour.
+    "WHETSTONE": ("#b8b0a0", "WHET", False), "ARMOURERS_SCRAP": ("#98a4b0", "PLATE", False),
+    "UNVEILING_ORB": ("#c0a0f0", "VEIL", True),
+    "CATALYST_LIFE": ("#e06070", "VIAL", False), "CATALYST_DEFENCE": ("#90a8c0", "VIAL", False),
+    "CATALYST_ELEMENTAL": ("#70c8e8", "VIAL", False), "CATALYST_PHYSICAL": ("#c09070", "VIAL", False),
+    "CATALYST_CHAOS": ("#80c060", "VIAL", False), "CATALYST_SPEED": ("#e8d070", "VIAL", False),
+    "CATALYST_ATTRIBUTE": ("#d0a0e0", "VIAL", False), "CATALYST_CASTER": ("#8090f0", "VIAL", False),
+}
+# An omen (1.35.0): the orb it changes, drawn as a bone talisman in that orb's colour; the side it keeps to, if any.
+OMENS = {
+    "SINISTRAL_CHAOS": ("CHAOS_ORB", "L"), "DEXTRAL_CHAOS": ("CHAOS_ORB", "R"),
+    "SINISTRAL_EXALTATION": ("EXALTED_ORB", "L"), "DEXTRAL_EXALTATION": ("EXALTED_ORB", "R"), "GREATER_EXALTATION": ("EXALTED_ORB", None),
+    "SINISTRAL_CORONATION": ("REGAL_ORB", "L"), "DEXTRAL_CORONATION": ("REGAL_ORB", "R"),
+    "SINISTRAL_ANNULMENT": ("ORB_OF_ANNULMENT", "L"), "DEXTRAL_ANNULMENT": ("ORB_OF_ANNULMENT", "R"),
+    "LIGHT": ("DIVINE_ORB", None), "CORRUPTION": ("VAAL_ORB", None),
 }
 
 
@@ -451,6 +471,36 @@ def orb(hue, emblem, rays):
     parts.append(piece(sign, hue) if filled else line(sign, hue, 5))
     parts.append(glaze("M26 36 C30 26 38 20 46 18 L46 22 C39 24 32 30 29 38Z", "white", .55))
     return [dict(p, d=str(Path(p["d"]) * Matrix("scale(0.64)")), **({"line": p["line"] * .64} if "line" in p else {})) for p in parts]
+
+
+def omen(hue, emblem, side):
+    """A talisman in a 100 box, scaled to 64: a cord, a bone plaque in the orb's colour, its sign, and the kept side lit."""
+    parts = [line("M50 6 Q50 14 50 18", "#8a5a34", 3),
+             piece("M50 16 L78 32 V66 L50 88 L22 66 V32 Z", "bone"),
+             piece("M50 24 L70 36 V62 L50 78 L30 62 V36 Z", hue),
+             glaze("M50 24 L70 36 V62 L50 50 Z", "white", .22)]
+    if side:
+        half = "M50 24 L30 36 V62 L50 78 Z" if side == "L" else "M50 24 L70 36 V62 L50 78 Z"
+        parts.append(glaze(half, "black", .28))
+    d, filled = ORB_EMBLEM[emblem]
+    sign = str(Path(d) * Matrix("translate(50, 51) scale(0.45) translate(-50, -50)"))
+    parts.append(piece(sign, "#15171a") if filled else line(sign, "#15171a", 2.6))
+    parts += [piece(circ(50, 12, 4), "gold"), glaze("M30 36 L50 24 L50 30 L35 39 Z", "white", .5)]
+    return [dict(p, d=str(Path(p["d"]) * Matrix("scale(0.64)")), **({"line": p["line"] * .64} if "line" in p else {})) for p in parts]
+
+
+def collar(band, stud, tag):
+    """A pet's collar (1.35.0): an open band with a buckle, studs round it and a hanging tag."""
+    parts = [piece(circ(32, 26, 21) + circ(32, 26, 15), band, evenOdd=True),
+             piece("M26 44 h12 v7 h-12z", "steel"), piece("M29 46 h6 v3 h-6z", "#15171a")]
+    parts += [piece(circ(32 + 18 * math.cos(a), 26 + 18 * math.sin(a), 2), stud) for a in (math.pi * k / 4 for k in (4, 5, 6, 7, 0))]
+    parts += [line("M32 51 V54", "gold", 1.6), piece("M32 53 L40 60 L32 63 L24 60Z", tag), glaze("M32 53 L32 63 L24 60Z", "white", .3),
+              glaze("M14 20 C16 12 24 7 32 6 L32 10 C25 11 19 15 17 22Z", "white", .35)]
+    return parts
+
+
+COLLARS = {"LEATHER": ("leather", "bronze", "bronze"), "STUDDED": ("leather", "steel", "steel"), "BRASS": ("bronze", "gold", "#e0b040"),
+           "RUNED": ("darkwood", "runic", "runic"), "ALPHA": ("gold", "silver", "#e0304a")}
 
 
 # ------------------------------------------------------------------------------------ sprites table
@@ -657,6 +707,10 @@ def equipment(atlas, t):
     elif slot == "AMULET":
         gem = glass or stone(code)
         put(f"amulet_{gem[1:]}", amulet(gem))
+    elif slot == "COLLAR":
+        kind = next((k for k in COLLARS if k in code), "LEATHER")
+        band, stud, tag = COLLARS[kind]
+        put(f"collar_{kind}", collar(glass or band, stud, glass2 or tag))
     elif slot == "BELT":
         strap, detail = ("steel", "chain") if "CHAIN" in code else ("cloth", "plain") if "SASH" in code else ("leather", "studs")
         put(f"belt_{detail}", mark(belt(glass2 or strap, detail), look, anchor("BELT")))
@@ -699,7 +753,7 @@ SLOTS = {
     "BELT": lambda: belt("leather", "plain"), "WEAPON_1H": lambda: (sword("steel", "gold", "leather"), 40),
     "WEAPON_2H": lambda: (longsword("steel", "gold", "leather"), 45), "QUIVER": lambda: quiver("paper"),
     "SHIELD": lambda: shield("KITE", "steel", "steel", "gold"), "WINGS": lambda: wings("leather", "bone", False),
-    "JEWEL": lambda: jewel("#808080"), "MAP": lambda: game_map("paper"),
+    "JEWEL": lambda: jewel("#808080"), "MAP": lambda: game_map("paper"), "COLLAR": lambda: collar("leather", "steel", "gold"),
     "FLASK": lambda: flask("glass", False), "FLASK_2": lambda: flask("glass", False), "FLASK_3": lambda: flask("glass", False),
     **{s: (lambda s=s: tool(s, "steel")) for s in ("TOOL_MINING", "TOOL_HERBALISM", "TOOL_WOODCUTTING", "TOOL_SMITHING",
                                                   "TOOL_ALCHEMY", "TOOL_CARTOGRAPHY", "TOOL_ENCHANTING")},
@@ -755,6 +809,11 @@ def item(atlas, i):
     if code in ORBS:
         hue, emblem, rays = ORBS[code]
         atlas.put(key, f"orb_{code}", orb(hue, emblem, rays))
+    elif cat == "OMEN":
+        name = code.removeprefix("OMEN_")
+        orb_code, side = OMENS[name]
+        hue, emblem, _ = ORBS[orb_code]
+        atlas.put(key, f"omen_{name}", omen(hue, emblem, side))
     elif cat == "ESSENCE":
         m = re.match(r"ESSENCE_([A-Z_]+?)(?:_(\d+))?$", code)
         name, tier = m.group(1), int(m.group(2) or 0)
