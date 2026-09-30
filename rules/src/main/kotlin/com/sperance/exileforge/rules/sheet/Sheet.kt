@@ -297,7 +297,8 @@ object SellPrice {
         val rules = index.rules.sell
         val price = base(index, template, if (template.slot == Slot.MAP) item.level(template) else template.level) * (rules.rarity[item.rarity] ?: 1.0) * (1.0 + rules.affixShare * item.rolls.size) *
             (rules.qualityFloor + quality(item.rolls, rules.neutralQuality)) * goldBonus(index, stats)
-        return floor(price).toLong().coerceAtLeast(1L)
+        val sell = floor(price).toLong().coerceAtLeast(1L)
+        return if (item.resale > 0) sell.coerceAtMost(item.resale) else sell
     }
 
     /**
@@ -309,6 +310,9 @@ object SellPrice {
 
     /** Какая доля цены витрины - потолок продажи торговцу. */
     const val RESALE_SHARE = 0.9
+
+    /** Потолок продажи вещи, купленной у торговца за [price] ([ItemInstance.resale]). */
+    fun resaleCap(price: Long): Long = floor(price * RESALE_SHARE).toLong().coerceAtLeast(1L)
 
     /** База шаблона: своя цена или [SellRules.base] × рост золота до [level] - уровня шаблона, у карты - уровня её зоны. */
     fun base(index: ContentIndex, template: ItemTemplate, level: Int = template.level): Double =

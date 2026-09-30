@@ -17,6 +17,7 @@ import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.logic.crafts.CraftsService
 import features.logic.pets.PetState
+import features.logic.trade.MerchantService
 import features.logic.trade.MerchantStock
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.response.respond
@@ -87,6 +88,7 @@ object HeroSnapshots : KoinComponent {
     private val heroes: HeroRepository by inject()
     private val crafts: CraftsService by inject()
     private val content: ContentStore by inject()
+    private val merchant: MerchantService by inject()
 
     /** Части, которые клиент назвал в [HEADER]; битый заголовок значит «ничего нет». */
     fun known(header: String?): Map<String, String> =
@@ -123,7 +125,7 @@ object HeroSnapshots : KoinComponent {
         part(TREE, ListSerializer(TakenNode.serializer()), hero.tree)
         part(CAMPAIGN, CampaignState.serializer(), hero.campaign)
         part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work))
-        part(MERCHANT, MerchantStock.serializer(), hero.merchant ?: MerchantStock())
+        part(MERCHANT, MerchantStock.serializer(), merchant.current(hero))
         part(PETS, PetState.serializer(), PetState.of(hero, content.index.rules.pets.cap))
         return HeroSnapshot(hero.version.toString(), parts)
     }
@@ -139,7 +141,7 @@ object HeroSnapshots : KoinComponent {
     /** Снимок, если клиент его просил: заголовок [HEADER] есть, пусть и пустой (`none`). */
     suspend fun forCall(call: ApplicationCall): HeroSnapshot? {
         val header = call.request.headers[HEADER] ?: return null
-        return afterCommand(call.request.queryParameters["heroId"], header)
+        return afterCommand(call.heroContext?.heroId, header)
     }
 }
 

@@ -1,5 +1,6 @@
 package server.addons
 
+import base.cache.BoundedCache
 import features.data.auth.AuthSessionRepository
 import features.logic.auth.Tokens
 import io.ktor.http.HttpHeaders
@@ -10,7 +11,6 @@ import io.ktor.server.plugins.origin
 import io.ktor.server.plugins.ratelimit.RateLimit
 import io.ktor.server.plugins.ratelimit.RateLimitName
 import org.koin.mp.KoinPlatform.getKoin
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
@@ -62,7 +62,7 @@ fun Application.configureRateLimit() {
 object RateKeys {
     private const val TTL = 60_000L
     private const val MAX = 50_000
-    private val known = ConcurrentHashMap<String, Pair<String?, Long>>()
+    private val known = BoundedCache<String, String?>(MAX, TTL)
     private val sessions: AuthSessionRepository by lazy { getKoin().get() }
 
     suspend fun of(call: ApplicationCall): String {
@@ -73,11 +73,9 @@ object RateKeys {
 
     private suspend fun userOf(token: String): String? {
         val key = Tokens.hash(token)
-        val now = System.currentTimeMillis()
-        known[key]?.takeIf { it.second > now }?.let { return it.first }
-        if (known.size > MAX) known.clear()
+        known.lookup(key)?.let { return it.value }
         val user = runCatching { sessions.resolve(token)?.userId }.getOrNull()
-        known[key] = user to now + TTL
+        known.put(key, user)
         return user
     }
 }

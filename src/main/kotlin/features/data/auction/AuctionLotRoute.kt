@@ -23,7 +23,7 @@ class AuctionLotRoute(private val repo: AuctionLotRepository) : BaseRoute<Auctio
 ) {
     override fun additionalRoutes(route: Route) = with(route) {
         get("/search") {
-            call.respondOk(repo.search(call.heroId, searchFrom(call), call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
+            call.respondOk(repo.search(call.heroId, searchFrom(call), call.request.queryParameters["after"], call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
         }
         get("/my") {
             call.respondOk(repo.findBySeller(call.heroId))

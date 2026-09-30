@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.61.0"
+const val SERVER_VERSION = "1.62.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -33,8 +33,10 @@ const val SERVER_VERSION = "1.61.0"
  * 34 - задания без зон (`Quest.zones`, `QuestScope`, `HIGH_ZONE` сняты), `POST hero/skilltree/refundBranch`, `FightTally.killer` (1.52.0).
  * 35 - повтор по `Idempotency-Key` без тела (`data: null`), журнал не больше 64 событий (422 `CP_022`), 503 `BRY_007` при
  *      недоступной базе, `WorkView.seed` всегда 0, потолок башни `tower.maxFloor`, отказ без `errorClass`/`errorMethod` (1.53.0).
+ * 36 - витрина аукциона по курсору (`after` вместо `page`, ответ `CursorPage`), `rules` в манифесте, `ItemInstance.resale`,
+ *      `MerchantStock.level` (1.62.0).
  */
-const val API_REVISION = 35
+const val API_REVISION = 36
 
 /**
  * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой

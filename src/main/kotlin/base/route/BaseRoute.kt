@@ -217,6 +217,13 @@ data class ApiMongoResponse<T>(
     }
 }
 
+/**
+ * Страница по курсору (1.62.0): документы после `_id` курсора, без `skip` - стоимость не растёт с номером страницы.
+ * [next] - курсор следующей страницы, `null` - дальше пусто; [totalItems] - сколько всего подходит под фильтр.
+ */
+@Serializable
+data class CursorPage<T>(val items: List<T>, val next: String? = null, val totalItems: Long = 0)
+
 @Serializable
 data class PagedMongoResponse<T>(
     val items: List<T>,

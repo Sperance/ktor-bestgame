@@ -65,6 +65,11 @@ data class ItemInstance(
     @SerialName("mt") var mapTier: Int = 0,
     /** Зона карты (1.43.0): все карты - один шаблон [com.sperance.exileforge.rules.content.MAP_TEMPLATE], место - здесь. */
     @SerialName("mz") var mapZone: String = "",
+    /**
+     * Потолок цены продажи торговцу (1.62.0), 0 - без потолка. Вещь с витрины торговца несёт долю цены покупки: какой бы
+     * её ни сделали сферами и ремеслом, продать её дороже покупки нельзя - арбитраж «купил, улучшил, продал» закрыт.
+     */
+    @SerialName("rs") val resale: Long = 0,
 ) {
     /** Уровень, на котором катаются аффиксы копии. */
     fun level(template: ItemTemplate): Int = if (itemLevel > 0) itemLevel else template.level

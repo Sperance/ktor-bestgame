@@ -27,6 +27,10 @@ import io.ktor.server.response.respondBytes
 import io.ktor.util.AttributeKey
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import kotlin.coroutines.AbstractCoroutineContextElement
+import kotlin.coroutines.CoroutineContext
 import kotlinx.serialization.json.JsonObject
 import java.security.MessageDigest
 
@@ -86,6 +90,23 @@ interface ReplyStore {
     suspend fun claim(account: String, key: String, request: String): Claim
     suspend fun complete(account: String, key: String, reply: StoredReply)
     suspend fun release(account: String, key: String)
+
+    /**
+     * Метка «команда исполнена» в транзакции самой команды (1.62.0): коммит изменения и метки атомарен. Ключ с меткой
+     * не освобождается и не перехватывается, а повтор отвечает [StoredReply.REPLAY_OK], даже если ответ не записан.
+     */
+    suspend fun commit(session: ClientSession, account: String, key: String) {}
+}
+
+/**
+ * Ключ исполняемой команды в контексте корутины: [config.MongoFactory.transactionExecute] пишет по нему метку
+ * [ReplyStore.commit] перед коммитом, а одиночная запись героя ([base.repository.BaseRepository.replace]) под ним
+ * идёт транзакцией - так изменение и метка не расходятся.
+ */
+class CommandKey(val account: String, val key: String, private val store: ReplyStore) : AbstractCoroutineContextElement(CommandKey) {
+    companion object Key : CoroutineContext.Key<CommandKey>
+
+    suspend fun commit(session: ClientSession) = store.commit(session, account, key)
 }
 
 object Idempotency {
@@ -121,9 +142,8 @@ object Idempotency {
     }
 
     /**
-     * Запись ответа с [COMPLETE_TRIES] попытками. Если база так и не приняла её, ключ остаётся
-     * «в работе» и через срок брошенного ключа будет перехвачен: повтор тогда выполнит уже
-     * выполненную команду ещё раз. Редкий случай (база недоступна секунды подряд) - потому и повторы.
+     * Запись ответа с [COMPLETE_TRIES] попытками. Если база так и не приняла её, ключ остаётся «в работе»; изменение
+     * команды уже несёт метку [ReplyStore.commit], поэтому повтор не выполнит его снова, а ответит [StoredReply.REPLAY_OK].
      */
     internal suspend fun completeWithRetry(store: ReplyStore, account: String, key: String, reply: StoredReply) {
         var pause = COMPLETE_BACKOFF_MS
@@ -179,7 +199,7 @@ fun Application.installIdempotency(
             Claim.Taken -> {
                 call.attributes.put(Idempotency.Pending, account to key)
                 try {
-                    proceed()
+                    withContext(CommandKey(account, key, store)) { proceed() }
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Throwable) {

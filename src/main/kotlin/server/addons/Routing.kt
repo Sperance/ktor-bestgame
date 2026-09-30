@@ -2,6 +2,7 @@ package server.addons
 
 import API_REVISION
 import SERVER_VERSION
+import com.sperance.exileforge.rules.content.RULES_VERSION
 import base.exception.ApplicationExceptions
 import base.route.ApiMongoResponse
 import base.route.RouteRegistry
@@ -94,7 +95,7 @@ fun Application.configureRouting() {
         route("/static") {
             get("/index.json") {
                 val manifest = StaticManifest(SERVER_VERSION, API_REVISION, ALL_ROUTES.sortedBy { it.path }, LocaleCache.manifest(),
-                    IconCache.manifest(), PortraitCache.manifest(), content.manifest)
+                    IconCache.manifest(), PortraitCache.manifest(), content.manifest, RULES_VERSION)
                 call.respondText(Json.encodeToString(StaticManifest.serializer(), manifest), ContentType.Application.Json)
             }
         }
@@ -149,6 +150,8 @@ data class StaticManifest(
     val icons: IconManifest,
     val portraits: PortraitManifest,
     val content: ContentManifest,
+    /** Версия правил (1.62.0): клиент с другими правилами катит заходы иначе - ему нужна новая сборка, а не только контент. */
+    val rules: Int,
 )
 
 /**

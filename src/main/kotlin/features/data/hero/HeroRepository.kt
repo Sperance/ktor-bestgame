@@ -131,10 +131,10 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     }
 
     /** Владелец героя - одно поле по `_id`: доступ спрашивает его на каждой команде, а владелец не меняется, так что ответ помнится (1.53.0). */
-    suspend fun ownerOf(heroId: String): String? = owners[heroId] ?: collection.withDocumentClass<Document>().find(readFilter(Filters.eq("_id", heroId)))
-        .projection(Projections.include("userId")).limit(1).firstOrNull()?.getString("userId")?.also { if (owners.size >= OWNERS_MAX) owners.clear(); owners[heroId] = it }
+    suspend fun ownerOf(heroId: String): String? = owners.get(heroId) ?: collection.withDocumentClass<Document>().find(readFilter(Filters.eq("_id", heroId)))
+        .projection(Projections.include("userId")).limit(1).firstOrNull()?.getString("userId")?.also { owners.put(heroId, it) }
 
-    private val owners = java.util.concurrent.ConcurrentHashMap<String, String>()
+    private val owners = base.cache.BoundedCache<String, String>(OWNERS_MAX)
 
     /** Имя, класс и уровень героев [ids] - три поля без тайника: для состава и заявок гильдии. */
     suspend fun cards(ids: Collection<String>): Map<String, HeroCard> {

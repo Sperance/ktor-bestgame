@@ -16,15 +16,23 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.bson.Document
+import java.util.concurrent.atomic.AtomicBoolean
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import server.addons.AppJson
+import server.addons.CommandKey
+import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration.Companion.milliseconds
 
 object MongoFactory {
-    private var mongoClient = createMongoClient()
+    /**
+     * Клиент один на процесс: переподключение к серверу, выбор узла и повтор чтения/записи драйвер делает сам.
+     * Замена клиента - только если он не отдаёт базу вовсе; старый закрывается уже после публикации нового,
+     * так что ни один поток не получит закрытый клиент посреди запроса.
+     */
+    @Volatile private var mongoClient = createMongoClient()
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    private var isReconnecting = false
+    private val reconnecting = AtomicBoolean(false)
 
     fun getDatabase(): MongoDatabase {
         return try {
@@ -44,37 +52,33 @@ object MongoFactory {
         val settings = MongoClientSettings.builder()
             .applyConnectionString(ConnectionString(connectionString))
             .codecRegistry(codecRegistry)
+            .retryWrites(true)
+            .retryReads(true)
             .build()
 
         return MongoClient.create(settings)
     }
 
     private fun reconnect() {
-        if (isReconnecting) return
-        isReconnecting = true
-
+        if (!reconnecting.compareAndSet(false, true)) return
         scope.launch {
             try {
-                printLog("[MongoFactory] Attempting to reconnect to MongoDB...", true)
-
-                try {
-                    mongoClient.close()
-                } catch (_: Exception) {}
-
-                val newClient = createMongoClient()
-                newClient.getDatabase("admin").runCommand(Document("ping", 1))
-
-                printLog("[MongoFactory] ✅ Reconnected to MongoDB successfully", true)
-                mongoClient = newClient
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                printLog("[MongoFactory] Failed to reconnect to MongoDB", true)
-
-                if (isActive) delay(5000.milliseconds)
-                if (isActive) reconnect()
+                while (isActive) {
+                    val fresh = createMongoClient()
+                    val alive = runCatching { fresh.getDatabase("admin").runCommand(Document("ping", 1)) }
+                        .onFailure { printLog("[MongoFactory] Failed to reconnect to MongoDB: ${it.message}", true); runCatching { fresh.close() } }
+                        .isSuccess
+                    if (alive) {
+                        val old = mongoClient
+                        mongoClient = fresh
+                        runCatching { old.close() }
+                        printLog("[MongoFactory] Reconnected to MongoDB", true)
+                        break
+                    }
+                    delay(5000.milliseconds)
+                }
             } finally {
-                isReconnecting = false
+                reconnecting.set(false)
             }
         }
     }
@@ -84,6 +88,8 @@ object MongoFactory {
             printLog("[TR::start::${session.hashCode()}] $transactionName ", true)
             session.startTransaction()
             val hooks = TransactionHooks()
+            // Команда по Idempotency-Key: метка исполнения коммитится вместе с изменением
+            coroutineContext[CommandKey]?.let { command -> hooks.beforeCommit(command) { command.commit(it) } }
             try {
                 val result = withContext(hooks) { body(session).also { hooks.runBeforeCommit(session) } }
                 if (session.hasActiveTransaction()) {

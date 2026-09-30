@@ -30,7 +30,8 @@ object HeroLocks {
 
 fun Application.installHeroLocks() {
     intercept(ApplicationCallPipeline.Call) {
-        val heroId = call.request.queryParameters["heroId"]
-        if (heroId.isNullOrBlank()) proceed() else HeroLocks.withLock(heroId) { proceed() }
+        // Ключ очереди - доверенный герой, проверенный доступом, а не сырой параметр запроса
+        val heroId = call.heroContext?.heroId
+        if (heroId == null) proceed() else HeroLocks.withLock(heroId) { proceed() }
     }
 }

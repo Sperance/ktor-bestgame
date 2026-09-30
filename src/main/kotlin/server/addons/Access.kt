@@ -9,6 +9,8 @@ import features.logic.auth.AccessPolicy.Need
 import features.logic.auth.Caller
 import features.logic.auth.SessionCache
 import features.logic.auth.Tokens
+import features.logic.hero.HeroContext
+import features.logic.hero.HeroContextKey
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.server.application.Application
@@ -65,16 +67,15 @@ fun Application.configureAccess() {
 
         if (need == Need.ADMIN && !caller.isAdmin) throw AuthExceptions.funExceptionAdminOnly("access", path)
 
-        if (!caller.isAdmin) {
-            query["userId"]?.let { if (it != user._id) throw AuthExceptions.funExceptionNotYourAccount("access", it) }
-            // Герой по heroId, а в общем CRUD героев - по id.
-            val heroId = query["heroId"] ?: query["id"]?.takeIf { AccessPolicy.canonical(path) == "/api/v1/hero" }
-            heroId?.let { id ->
-                val owner = heroes.ownerOf(id)
-                // Несуществующий персонаж пропускается: маршрут сам скажет, что его нет, а
-                // ответ «не ваш» на «нет такого» подтверждал бы, что чужой id существует.
-                if (owner != null && owner != user._id) throw AuthExceptions.funExceptionNotYourCharacter("access", id)
-            }
+        if (!caller.isAdmin) query["userId"]?.let { if (it != user._id) throw AuthExceptions.funExceptionNotYourAccount("access", it) }
+        // Герой по heroId, а в общем CRUD героев - по id.
+        val heroId = query["heroId"] ?: query["id"]?.takeIf { AccessPolicy.canonical(path) == "/api/v1/hero" }
+        heroId?.takeIf { it.isNotBlank() }?.let { id ->
+            // Несуществующий персонаж пропускается: маршрут сам скажет, что его нет, а
+            // ответ «не ваш» на «нет такого» подтверждал бы, что чужой id существует.
+            val owner = heroes.ownerOf(id) ?: return@let
+            if (owner != user._id && !caller.isAdmin) throw AuthExceptions.funExceptionNotYourCharacter("access", id)
+            call.attributes.put(HeroContextKey, HeroContext(id, owner))
         }
 
         call.attributes.put(CallerKey, caller)

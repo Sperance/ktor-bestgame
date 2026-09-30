@@ -4,22 +4,22 @@ import CONST_FIELD_ID
 import CONST_FIELD_UPDATED
 import CONST_FIELD_VERSION
 import CONST_PAGE_SIZE_DEFAULT
+import CONST_PAGE_SIZE_MAX
 import CONST_SYSTEM_FIELDS
 import base.entity.StockEntity
 import base.entity.TrackedEntity
 import base.entity.VersionedEntity
 import base.exception.BaseException
 import base.exception.BaseRepositoryExceptions
+import base.route.CursorPage
 import base.route.PagedMongoResponse
 import com.mongodb.MongoBulkWriteException
 import com.mongodb.MongoCommandException
 import com.mongodb.MongoWriteException
 import com.mongodb.client.model.Filters
-import com.mongodb.client.model.FindOneAndUpdateOptions
 import com.mongodb.client.model.IndexOptions
 import com.mongodb.client.model.Indexes
 import com.mongodb.client.model.Projections
-import com.mongodb.client.model.ReturnDocument
 import com.mongodb.client.model.Sorts
 import com.mongodb.client.model.Updates
 import com.mongodb.client.result.DeleteResult
@@ -27,7 +27,10 @@ import com.mongodb.client.result.UpdateResult
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import config.MongoFactory
+import config.TransactionHooks
 import config.afterCommit
+import kotlinx.coroutines.currentCoroutineContext
+import server.addons.CommandKey
 import config.MongoErrors
 import extensions.now
 import extensions.printLog
@@ -35,7 +38,10 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
 import org.bson.BsonDocument
+import org.bson.BsonDocumentReader
 import org.bson.BsonDocumentWriter
+import org.bson.Document
+import org.bson.codecs.DecoderContext
 import org.bson.BsonValue
 import org.bson.codecs.EncoderContext
 import org.bson.conversions.Bson
@@ -234,6 +240,16 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         return PagedMongoResponse(items, request.page, totalItems, request.totalPages(totalItems))
     }
 
+    /** Страница по курсору: документы с `_id` больше [after] (пустой - с начала) в порядке `_id`, не больше [size]. */
+    suspend fun findAfter(filter: Bson, after: String?, size: Int = CONST_PAGE_SIZE_DEFAULT, includeDeleted: Boolean = false): CursorPage<T> {
+        val limit = size.coerceIn(1, CONST_PAGE_SIZE_MAX)
+        val query = readFilter(filter, includeDeleted)
+        val page = after?.takeIf { it.isNotBlank() }?.let { Filters.and(query, Filters.gt(CONST_FIELD_ID, it)) } ?: query
+        val found = collection.find(page).sort(Sorts.ascending(CONST_FIELD_ID)).limit(limit + 1).toList()
+        val items = found.take(limit).onEach { it.tracked() }
+        return CursorPage(items, items.lastOrNull()?._id?.takeIf { found.size > limit }, collection.countDocuments(query))
+    }
+
     suspend fun findPaged(page: Int, pageSize: Int = CONST_PAGE_SIZE_DEFAULT, includeDeleted: Boolean = false): PagedMongoResponse<T> =
         findPaged(Filters.empty(), page, pageSize, includeDeleted = includeDeleted)
 
@@ -265,13 +281,23 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * нужна сессия: хуки кеша идут сразу.
      */
     suspend fun replace(entity: T, method: String): UpdateResult {
+        // Команда по Idempotency-Key (1.62.0): запись идёт транзакцией, чтобы метка исполнения коммитилась вместе с ней
+        val ctx = currentCoroutineContext()
+        if (ctx[CommandKey] != null && ctx[TransactionHooks] == null) return MongoFactory.transactionExecute(method) { replace(entity, method, it) }
+        return replace(entity, method, null)
+    }
+
+    private suspend fun replace(entity: T, method: String, session: ClientSession?): UpdateResult {
         settle(entity)
         val encoded = encode(entity)
-        val result = writing(method) { collection.updateOne(identity(entity), Updates.combine(versionBump(entity) + changes(entity, encoded))) }
+        val update = Updates.combine(versionBump(entity) + changes(entity, encoded))
+        val result = writing(method) { if (session == null) collection.updateOne(identity(entity), update) else collection.updateOne(session, identity(entity), update) }
         if (result.matchedCount == 0L) missed(method, entity)
         if (entity is VersionedEntity && result.modifiedCount > 0) entity.version += 1
-        if (entity is TrackedEntity) entity.loaded = encoded
-        cache?.updateItem(entity)
+        afterCommit {
+            if (entity is TrackedEntity) entity.loaded = encoded
+            cache?.updateItem(entity)
+        }
         return result
     }
 
@@ -284,24 +310,27 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     }
 
     /**
-     * Частичная запись полей [updates] с оптимистичной блокировкой; отвечает документом после
-     * записи. Объект [entity] в памяти не меняется.
+     * Частичная запись полей [updates] с оптимистичной блокировкой; отвечает документом после записи.
+     * Объект [entity] в памяти не меняется. С 1.62.0 - одна запись: поля накладываются на копию,
+     * копия приводится к инвариантам ([settle]) и пишется [update] - раньше доролл шёл второй записью.
      */
     suspend fun updateFields(entity: T, updates: Map<String, Any?>, session: ClientSession): T {
         validateBeforeUpdate(updates)
-        val fields = updates.filterKeys { it != CONST_FIELD_ID && it != CONST_FIELD_VERSION }.map { (field, value) -> Updates.set(field, value) }
         printLog("[UPDATE::$collectionName] id: ${entity._id}")
-        val options = FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER)
-        val result = writing("updateFields") {
-            collection.findOneAndUpdate(session, identity(entity), Updates.combine(versionBump(entity) + fields), options)
-        } ?: throw BaseRepositoryExceptions.funException("updateFields", "Not found object with id ${entity._id} after update")
-        validateAfterUpdate(result, session)
-        // Частичная запись держит те же правила, что полная (0.71.0): правка, оставившая волшебную или
-        // редкую копию без аффиксов, доролливает её до дна редкости, как любое другое изменение.
-        val before = encode(result)
-        settle(result)
-        if (encode(result) != before) update(result, session)
-        return result
+        val patched = patched(entity, updates.filterKeys { it != CONST_FIELD_ID && it != CONST_FIELD_VERSION })
+        update(patched, session)
+        return patched
+    }
+
+    /** Копия [entity] с полями [fields], закодированными кодеком коллекции - как их записал бы `$set`; память чтения - та же. */
+    private fun patched(entity: T, fields: Map<String, Any?>): T {
+        val codec = collection.codecRegistry.get(entityClass.java)
+        val document = BsonDocument()
+        codec.encode(BsonDocumentWriter(document), entity, EncoderContext.builder().build())
+        document.putAll(Document(fields).toBsonDocument(Document::class.java, collection.codecRegistry))
+        val copy = codec.decode(BsonDocumentReader(document), DecoderContext.builder().build())
+        if (entity is TrackedEntity && copy is TrackedEntity) copy.loaded = entity.loaded
+        return copy
     }
 
     /** То же по id: документ читается и пишется с проверкой его текущей версии. */

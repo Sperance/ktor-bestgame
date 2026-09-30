@@ -5,6 +5,7 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.IndexOptions
 import com.mongodb.client.model.Indexes
 import com.mongodb.client.model.Updates
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import config.MongoFactory
 import kotlinx.coroutines.flow.firstOrNull
@@ -30,6 +31,8 @@ object IdempotentReplyStore : ReplyStore {
     private const val STALE_MS = 2 * 60_000L
     private const val PENDING = "pending"
     private const val DONE = "done"
+    /** Метка [ReplyStore.commit]: изменение команды закоммичено вместе с ней. */
+    private const val COMMITTED = "committed"
 
     private val collection: MongoCollection<Document> by lazy { MongoFactory.getDatabase().getCollection(COLLECTION, Document::class.java) }
 
@@ -58,12 +61,14 @@ object IdempotentReplyStore : ReplyStore {
             if (found.getString("request")?.let { it != request } == true) return Claim.Mismatch
             if (found.getString("state") == DONE) return Claim.Done(
                 StoredReply(found.getInteger("status"), found.getString("contentType"), found.get("body", Binary::class.java)?.data))
+            // Изменение команды закоммичено, а ответ не записан: выполнять снова нельзя - повтор без тела
+            if (found.getBoolean(COMMITTED, false)) return Claim.Done(StoredReply(200, null, null))
             val since = found.getDate("createdAt") ?: Date(0)
             if (System.currentTimeMillis() - since.time < STALE_MS) return Claim.Busy
             // Перехват брошенного ключа - одной записью и только того, что прочитан: из двух
             // одновременных перехватов createdAt совпадёт лишь у первого
             val takeover = collection.updateOne(
-                Filters.and(Filters.eq("_id", id), Filters.eq("state", PENDING), Filters.eq("createdAt", since)),
+                Filters.and(Filters.eq("_id", id), Filters.eq("state", PENDING), Filters.ne(COMMITTED, true), Filters.eq("createdAt", since)),
                 Updates.combine(Updates.set("createdAt", Date()), Updates.set("request", request)),
             )
             if (takeover.modifiedCount == 1L) return Claim.Taken
@@ -80,7 +85,12 @@ object IdempotentReplyStore : ReplyStore {
         ))
     }
 
+    /** Исполненную команду не освобождает: её повтор должен получить ответ, а не выполниться снова. */
     override suspend fun release(account: String, key: String) {
-        collection.deleteOne(Filters.and(Filters.eq("_id", id(account, key)), Filters.eq("state", PENDING)))
+        collection.deleteOne(Filters.and(Filters.eq("_id", id(account, key)), Filters.eq("state", PENDING), Filters.ne(COMMITTED, true)))
+    }
+
+    override suspend fun commit(session: ClientSession, account: String, key: String) {
+        collection.updateOne(session, Filters.and(Filters.eq("_id", id(account, key)), Filters.eq("state", PENDING)), Updates.set(COMMITTED, true))
     }
 }

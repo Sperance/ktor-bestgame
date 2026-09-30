@@ -4,7 +4,7 @@ import base.exception.model.AuctionExceptions
 import base.exception.model.CharacterExceptions
 import base.repository.BaseRepository
 import base.repository.IndexSpec
-import base.route.PagedMongoResponse
+import base.route.CursorPage
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
@@ -46,9 +46,10 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     override val indexes = listOf(IndexSpec.on("status", "_id"), IndexSpec.on("sellerId", "status"), IndexSpec.on("itemCode"), IndexSpec.on("status", "expiresAt"))
 
-    suspend fun search(heroId: String, search: AuctionSearch, page: Int, size: Int): PagedMongoResponse<AuctionLot> {
+    /** Витрина по курсору (1.62.0): страница после лота [after], без `skip`. */
+    suspend fun search(heroId: String, search: AuctionSearch, after: String?, size: Int): CursorPage<AuctionLot> {
         requireTrader(heroId, "search")
-        val found = findPaged(search.toFilter(), page, size)
+        val found = findAfter(search.toFilter(), after, size)
         return found.copy(items = found.items.map { reconciled(it) })
     }
 
