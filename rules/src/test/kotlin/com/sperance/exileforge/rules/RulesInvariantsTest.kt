@@ -14,6 +14,8 @@ import com.sperance.exileforge.rules.run.Run
 import com.sperance.exileforge.rules.run.RunContext
 import com.sperance.exileforge.rules.run.RewardDraws
 import com.sperance.exileforge.rules.content.Source
+import com.sperance.exileforge.rules.content.SkillNodeType
+import com.sperance.exileforge.rules.content.TreeAllocation
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -130,5 +132,24 @@ class RulesInvariantsTest {
         // Отклонённое убийство (нет такого жетона) номер не тянет
         assertEquals(null, run.kill(run.count, 0, false, draws))
         assertEquals(6L, draws.drawn)
+    }
+
+    /** Путь к дальнему узлу (1.37.0): кратчайший, от взятого, узел с выбором - только целью, и каждый его шаг - законное взятие. */
+    @Test
+    fun treePathIsShortestAndLegal() {
+        val tree = index.tree
+        val start = tree.byCode.values.first { it.type == SkillNodeType.START && it.code != "SCION_START" }.code
+        val target = tree.byCode.values.filter { it.type == SkillNodeType.NOTABLE && it.openTo(start) }
+            .mapNotNull { n -> TreeAllocation.path(tree, listOf(start), start, n.code)?.let { n to it } }
+            .maxBy { it.second.size }
+        val taken = mutableListOf(start)
+        target.second.forEach { code ->
+            val node = tree.node(code)!!
+            TreeAllocation.requireAllocatable(tree, node, taken, start, 999, if (node.options.isEmpty()) null else 0)
+            assertTrue(code == target.first.code || node.options.isEmpty(), "узел с выбором в середине пути: $code")
+            taken += code
+        }
+        assertEquals(target.first.code, target.second.last())
+        assertEquals(null, TreeAllocation.path(tree, taken, start, target.first.code))
     }
 }

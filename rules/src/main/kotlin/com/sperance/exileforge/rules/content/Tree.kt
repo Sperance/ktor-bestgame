@@ -96,6 +96,32 @@ class TreeGraph(nodes: Collection<TreeNode>) {
 
 /** Правила прокачки дерева: со стартового узла класса, только соседи взятого, откат без обрыва. */
 object TreeAllocation {
+    /**
+     * Кратчайший путь к [target] от взятого (1.37.0): невзятые узлы по порядку, последний - сама цель; null - пути нет.
+     * Узел с выбором (атрибут, мастерство) бывает только целью: вариант промежуточного узла герой выбирает сам, шагом.
+     * Путь берётся весь разом - за сумму цен его узлов.
+     */
+    fun path(graph: TreeGraph, taken: Collection<String>, startNode: String, target: String): List<String>? {
+        val goal = graph.node(target) ?: return null
+        val set = taken.toHashSet()
+        if (target in set || goal.type == SkillNodeType.START || !goal.openTo(startNode)) return null
+        val from = HashMap<String, String>()
+        val queue = ArrayDeque(set.filter { graph.node(it)?.type != SkillNodeType.MASTERY })
+        val seen = HashSet(set)
+        while (queue.isNotEmpty()) {
+            val current = queue.removeFirst()
+            for (next in graph.neighbours(current)) {
+                if (!seen.add(next)) continue
+                val node = graph.node(next) ?: continue
+                if (node.type == SkillNodeType.START || !node.openTo(startNode)) continue
+                from[next] = current
+                if (next == target) return generateSequence(target) { from[it]?.takeIf { prev -> prev !in set } }.toList().reversed()
+                if (node.options.isEmpty() && node.type != SkillNodeType.MASTERY) queue.addLast(next)
+            }
+        }
+        return null
+    }
+
     fun requireAllocatable(graph: TreeGraph, node: TreeNode, taken: Collection<String>, startNode: String, available: Int, choice: Int?) {
         if (node.options.isEmpty() != (choice == null) || (choice != null && choice !in node.options.indices))
             throw RuleViolation("ST_018", listOf("${node.code}: $choice of ${node.options.size}"))

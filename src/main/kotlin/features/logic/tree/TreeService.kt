@@ -47,6 +47,28 @@ class TreeService : KoinComponent {
         return state(heroes.save(hero, method))
     }
 
+    /**
+     * Весь путь к узлу разом (1.37.0): кратчайший путь правил, за сумму цен; [choice] - вариант самой цели.
+     * Каждый шаг проходит те же проверки, что и одиночное взятие; герой сохраняется один раз.
+     */
+    suspend fun allocatePath(heroId: String, nodeCode: String, choice: Int?): TreeState {
+        val method = "allocatePath"
+        val hero = heroes.requireHero(heroId, method)
+        index.tree.node(nodeCode) ?: throw SkillTreeExceptions.funExceptionNodeNotFound(method, nodeCode)
+        val start = index.heroClass(hero.heroClass)?.startNode ?: throw SkillTreeExceptions.funExceptionNoStart(method, hero.heroClass)
+        val path = TreeAllocation.path(index.tree, hero.tree.map { it.code }, start, nodeCode)
+            ?: throw SkillTreeExceptions.funExceptionNotAdjacent(method, nodeCode)
+        var available = state(hero).available
+        path.forEach { code ->
+            val node = index.tree.node(code)!!
+            val pick = choice.takeIf { code == nodeCode }
+            TreeAllocation.requireAllocatable(index.tree, node, hero.tree.map { it.code }, start, available, pick)
+            hero.tree += TakenNode(code, pick)
+            available -= node.cost
+        }
+        return state(heroes.save(hero, method))
+    }
+
     /** Другой вариант взятого атрибутного узла за Сферу хаоса; мастерство меняется только возвратом. */
     suspend fun rechoose(heroId: String, nodeCode: String, choice: Int): TreeState {
         val method = "rechoose"
