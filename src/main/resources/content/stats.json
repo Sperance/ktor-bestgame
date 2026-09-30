@@ -5466,6 +5466,291 @@
       "code": "STOCK_VEILED_LOOT",
       "group": "HERO",
       "order": 3478
+    },
+    {
+      "code": "POWER_MARKSMANS_FOCUS",
+      "group": "POWER",
+      "order": 3431
+    },
+    {
+      "code": "POWER_LONE_QUARRY",
+      "group": "POWER",
+      "order": 3432
+    },
+    {
+      "code": "POWER_HEADSMAN",
+      "group": "POWER",
+      "order": 3433
+    },
+    {
+      "code": "POWER_WIND_AT_BACK",
+      "group": "POWER",
+      "order": 3434
+    },
+    {
+      "code": "POWER_CANTORS_BREATH",
+      "group": "POWER",
+      "order": 3435
+    },
+    {
+      "code": "POWER_BLACK_SAP",
+      "group": "POWER",
+      "order": 3436
+    },
+    {
+      "code": "POWER_WARDING_MANTRA",
+      "group": "POWER",
+      "order": 3437
+    },
+    {
+      "code": "POWER_TURNING_STEEL",
+      "group": "POWER",
+      "order": 3438
+    },
+    {
+      "code": "POWER_SHRUG_OFF",
+      "group": "POWER",
+      "order": 3439
+    },
+    {
+      "code": "POWER_GRANITE_HIDE",
+      "group": "POWER",
+      "order": 3440
+    },
+    {
+      "code": "POWER_RECOUP_WARD",
+      "group": "POWER",
+      "order": 3441
+    },
+    {
+      "code": "POWER_FLARE_UP",
+      "group": "POWER",
+      "order": 3442
+    },
+    {
+      "code": "POWER_DEEP_FREEZE",
+      "group": "POWER",
+      "order": 3443
+    },
+    {
+      "code": "POWER_QUICK_ROT",
+      "group": "POWER",
+      "order": 3444
+    },
+    {
+      "code": "POWER_SPELLSTORM",
+      "group": "POWER",
+      "order": 3445
+    },
+    {
+      "code": "POWER_ARCANE_TIDE",
+      "group": "POWER",
+      "order": 3446
+    },
+    {
+      "code": "POWER_KILLING_FEVER",
+      "group": "POWER",
+      "order": 3447
+    },
+    {
+      "code": "POWER_SHROUDED_STEP",
+      "group": "POWER",
+      "order": 3448
+    },
+    {
+      "code": "POWER_MOURNING_BELL",
+      "group": "POWER",
+      "order": 3449
+    },
+    {
+      "code": "POWER_PACK_RALLY",
+      "group": "POWER",
+      "order": 3450
+    },
+    {
+      "code": "POWER_PACK_BOND",
+      "group": "POWER",
+      "order": 3451
+    },
+    {
+      "code": "POWER_GRAVE_OATH",
+      "group": "POWER",
+      "order": 3452
+    },
+    {
+      "code": "POWER_WHISPERED_DOOM",
+      "group": "POWER",
+      "order": 3453
+    },
+    {
+      "code": "POWER_RAIDERS_TOLL",
+      "group": "POWER",
+      "order": 3454
+    },
+    {
+      "code": "POWER_VAAL_DEBT",
+      "group": "POWER",
+      "order": 3455
+    },
+    {
+      "code": "POWER_HIVE_SONG",
+      "group": "POWER",
+      "order": 3456
+    },
+    {
+      "code": "POWER_SPORE_CLOUD",
+      "group": "POWER",
+      "order": 3457
+    },
+    {
+      "code": "POWER_FURNACE_CORE",
+      "group": "POWER",
+      "order": 3458
+    },
+    {
+      "code": "POWER_PLAGUE_TOUCH",
+      "group": "POWER",
+      "order": 3459
+    },
+    {
+      "code": "POWER_BLOOD_HEX",
+      "group": "POWER",
+      "order": 3460
+    },
+    {
+      "code": "POWER_ENDLESS_SIEGE",
+      "group": "POWER",
+      "order": 3461
+    },
+    {
+      "code": "POWER_ABYSS_GRIN",
+      "group": "POWER",
+      "order": 3462
+    },
+    {
+      "code": "POWER_VOID_TRADE",
+      "group": "POWER",
+      "order": 3463
+    },
+    {
+      "code": "POWER_HUNGER_OF_DEPTHS",
+      "group": "POWER",
+      "order": 3464
+    },
+    {
+      "code": "POWER_TWIN_FANGS",
+      "group": "POWER",
+      "order": 3465
+    },
+    {
+      "code": "POWER_UNDERTOW_PULL",
+      "group": "POWER",
+      "order": 3466
+    },
+    {
+      "code": "POWER_SACRIFICIAL_EDGE",
+      "group": "POWER",
+      "order": 3467
+    },
+    {
+      "code": "POWER_WHETTED",
+      "group": "POWER",
+      "order": 3468
+    },
+    {
+      "code": "POWER_GUARD_DOG",
+      "group": "POWER",
+      "order": 3469
+    },
+    {
+      "code": "POWER_ALPHA_BLOOD",
+      "group": "POWER",
+      "order": 3470
+    },
+    {
+      "code": "POWER_LAST_HOWL",
+      "group": "POWER",
+      "order": 3471
+    },
+    {
+      "code": "POWER_CARTOGRAPHERS_LUCK",
+      "group": "POWER",
+      "order": 3472
+    },
+    {
+      "code": "POWER_TRAILFINDER",
+      "group": "POWER",
+      "order": 3473
+    },
+    {
+      "code": "POWER_ROAD_WEARY",
+      "group": "POWER",
+      "order": 3474
+    },
+    {
+      "code": "POWER_CRYSTAL_SIGHT",
+      "group": "POWER",
+      "order": 3475
+    },
+    {
+      "code": "POWER_PRISM_CLEAVE",
+      "group": "POWER",
+      "order": 3476
+    },
+    {
+      "code": "POWER_STAR_HEART",
+      "group": "POWER",
+      "order": 3477
+    },
+    {
+      "code": "POWER_ATLAS_BURDEN",
+      "group": "POWER",
+      "order": 3478
+    },
+    {
+      "code": "POWER_FALLING_SKY",
+      "group": "POWER",
+      "order": 3479
+    },
+    {
+      "code": "POWER_ECLIPSE_VEIL",
+      "group": "POWER",
+      "order": 3480
+    },
+    {
+      "code": "POWER_SOVEREIGN_ORDER",
+      "group": "POWER",
+      "order": 3481
+    },
+    {
+      "code": "POWER_KINGDOM_HUNGER",
+      "group": "POWER",
+      "order": 3482
+    },
+    {
+      "code": "POWER_ENDURING_BLOCK",
+      "group": "POWER",
+      "order": 3483
+    },
+    {
+      "code": "POWER_TEMPERED_SOUL",
+      "group": "POWER",
+      "order": 3484
+    },
+    {
+      "code": "POWER_WILDFIRE_SPREAD",
+      "group": "POWER",
+      "order": 3485
+    },
+    {
+      "code": "POWER_SULPHUR_BREATH",
+      "group": "POWER",
+      "order": 3486
+    },
+    {
+      "code": "POWER_CHARGED_EDGE",
+      "group": "POWER",
+      "order": 3487
     }
   ]
 }

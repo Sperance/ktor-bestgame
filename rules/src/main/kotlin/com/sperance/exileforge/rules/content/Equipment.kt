@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.content
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /** Слот экипировки. `RING_2` и `FLASK_2`/`FLASK_3` - места надетого, шаблона с таким слотом не бывает. */
@@ -90,7 +91,11 @@ enum class TemplateKind { WEAPON, ARMOR, ACCESSORY }
 
 /** Строка уникалки в файле: эффект и диапазон её единственного тира. */
 @Serializable
-data class UniqueLine(val stat: String, val op: Op = Op.ADD, val range: Range)
+data class UniqueLine(
+    val stat: String, val op: Op = Op.ADD, val range: Range,
+    /** Условие боя (1.36.0): строка уникалки, как условный модификатор, работает только пока оно держится. */
+    @SerialName("when") val condition: Condition? = null,
+)
 
 /**
  * Шаблон предмета (`equipment.json`). Копия не хранит ни базы, ни закреплённых строк: [base] -
@@ -135,7 +140,7 @@ data class ItemTemplate(
         ModifierFamily(
             code = lineCode(index),
             source = Source.UNIQUE,
-            effects = line.map { Effect(it.stat, it.op) },
+            effects = line.map { Effect(it.stat, it.op, condition = it.condition) },
             tiers = listOf(Tier(level, 0, line.map { it.range })),
             tags = listOf("unique", slot.tag),
         )

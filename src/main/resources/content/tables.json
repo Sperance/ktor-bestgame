@@ -2811,7 +2811,32 @@
         "KEEPERS_CHARITY": 100,
         "TASTE_OF_SPITE": 60,
         "SURFS_ROAR": 60,
-        "INNER_TIDE": 100
+        "INNER_TIDE": 100,
+        "HAWKSWORN_BAND": 100,
+        "THE_LONE_ARROW": 100,
+        "GALLOWS_GRIP": 100,
+        "STORMCHASER_BOOTS": 100,
+        "CANTORS_CIRCLET": 100,
+        "BLACKSAP_CLEAVER": 100,
+        "SUPPLICANTS_SHAWL": 100,
+        "DEFLECTORS_BUCKLER": 100,
+        "OXHIDE_HAUBERK": 100,
+        "GRANITE_WILL": 100,
+        "RECOIL_SIGIL": 100,
+        "THUNDERKISS": 100,
+        "WINTERS_LONG_BREATH": 100,
+        "CANKERBLOOM": 100,
+        "THE_STORMGLASS": 100,
+        "TIDEMOTHERS_SASH": 100,
+        "CHARGEBEARERS_YOKE": 100,
+        "SIGIL_OF_THE_HIDDEN": 100,
+        "CRESTFALL_PAULDRONS": 100,
+        "EXECUTIONERS_ASSIZE": 100,
+        "ECLIPSE_REGALIA": 100,
+        "KINGDOMGRINDER": 100,
+        "BULWARK_OF_ENDLESS_DAWN": 100,
+        "CROWN_OF_SPORES_AND_ASH": 100,
+        "THE_CHARGED_HEART": 100
       }
     },
     {
@@ -3590,7 +3615,27 @@
         "KEEPERS_CHARITY": 100,
         "TASTE_OF_SPITE": 60,
         "SURFS_ROAR": 60,
-        "INNER_TIDE": 100
+        "INNER_TIDE": 100,
+        "HAWKSWORN_BAND": 100,
+        "THE_LONE_ARROW": 100,
+        "GALLOWS_GRIP": 100,
+        "STORMCHASER_BOOTS": 100,
+        "CANTORS_CIRCLET": 100,
+        "BLACKSAP_CLEAVER": 100,
+        "SUPPLICANTS_SHAWL": 100,
+        "DEFLECTORS_BUCKLER": 100,
+        "OXHIDE_HAUBERK": 100,
+        "GRANITE_WILL": 100,
+        "RECOIL_SIGIL": 100,
+        "THUNDERKISS": 100,
+        "WINTERS_LONG_BREATH": 100,
+        "CANKERBLOOM": 100,
+        "THE_STORMGLASS": 100,
+        "TIDEMOTHERS_SASH": 100,
+        "CHARGEBEARERS_YOKE": 100,
+        "SIGIL_OF_THE_HIDDEN": 100,
+        "CRESTFALL_PAULDRONS": 100,
+        "EXECUTIONERS_ASSIZE": 100
       }
     },
     {
@@ -3709,7 +3754,27 @@
         "KEEPERS_CHARITY": 100,
         "TASTE_OF_SPITE": 60,
         "SURFS_ROAR": 60,
-        "INNER_TIDE": 100
+        "INNER_TIDE": 100,
+        "HAWKSWORN_BAND": 100,
+        "THE_LONE_ARROW": 100,
+        "GALLOWS_GRIP": 100,
+        "STORMCHASER_BOOTS": 100,
+        "CANTORS_CIRCLET": 100,
+        "BLACKSAP_CLEAVER": 100,
+        "SUPPLICANTS_SHAWL": 100,
+        "DEFLECTORS_BUCKLER": 100,
+        "OXHIDE_HAUBERK": 100,
+        "GRANITE_WILL": 100,
+        "RECOIL_SIGIL": 100,
+        "THUNDERKISS": 100,
+        "WINTERS_LONG_BREATH": 100,
+        "CANKERBLOOM": 100,
+        "THE_STORMGLASS": 100,
+        "TIDEMOTHERS_SASH": 100,
+        "CHARGEBEARERS_YOKE": 100,
+        "SIGIL_OF_THE_HIDDEN": 100,
+        "CRESTFALL_PAULDRONS": 100,
+        "EXECUTIONERS_ASSIZE": 100
       }
     },
     {
@@ -3739,7 +3804,12 @@
         "WORLDBLOOD": 100,
         "TOUCH_OF_THE_REFLECTED": 100,
         "ASH_OF_THE_FALLEN_STAR": 100,
-        "STONEBLOOD": 100
+        "STONEBLOOD": 100,
+        "ECLIPSE_REGALIA": 100,
+        "KINGDOMGRINDER": 100,
+        "BULWARK_OF_ENDLESS_DAWN": 100,
+        "CROWN_OF_SPORES_AND_ASH": 100,
+        "THE_CHARGED_HEART": 100
       }
     },
     {
@@ -3907,7 +3977,8 @@
       "tag": "boss:BOSS_OLD_WEREWOLF",
       "kind": "TEMPLATE",
       "entries": {
-        "OLD_WOLFS_PAWS": 100
+        "OLD_WOLFS_PAWS": 100,
+        "OLD_GREYS_TORC": 100
       }
     },
     {
@@ -3939,7 +4010,8 @@
       "kind": "TEMPLATE",
       "entries": {
         "RIME_LICHS_PHYLACTERY": 100,
-        "LICHS_HUSH": 100
+        "LICHS_HUSH": 100,
+        "RIMELICHS_PHYLACTERY": 100
       }
     },
     {
@@ -3954,7 +4026,8 @@
       "tag": "boss:BOSS_ABYSS_HERALD",
       "kind": "TEMPLATE",
       "entries": {
-        "HERALDS_DESCENT": 100
+        "HERALDS_DESCENT": 100,
+        "HERALDS_TONGUE": 100
       }
     },
     {
@@ -3992,7 +4065,8 @@
       "tag": "boss:BOSS_MUMMY_KING",
       "kind": "TEMPLATE",
       "entries": {
-        "DUNE_KINGS_GRAVEWRAP": 100
+        "DUNE_KINGS_GRAVEWRAP": 100,
+        "MUMMY_KINGS_WRAPPINGS": 100
       }
     },
     {
@@ -4007,7 +4081,8 @@
       "tag": "boss:BOSS_SHADOW_PANTHER",
       "kind": "TEMPLATE",
       "entries": {
-        "PANTHERS_VELVET": 100
+        "PANTHERS_VELVET": 100,
+        "PANTHERS_SHADOWSTEP": 100
       }
     },
     {
@@ -4029,7 +4104,8 @@
       "tag": "boss:BOSS_SPORE_LORD",
       "kind": "TEMPLATE",
       "entries": {
-        "SPORELORDS_MANTLE": 100
+        "SPORELORDS_MANTLE": 100,
+        "SPORELORDS_CROWN": 100
       }
     },
     {
@@ -4058,7 +4134,8 @@
       "tag": "boss:BOSS_FURNACE_MASTER",
       "kind": "TEMPLATE",
       "entries": {
-        "FURNACE_MASTERS_TONGS": 100
+        "FURNACE_MASTERS_TONGS": 100,
+        "FURNACE_HEART_GAUNTLETS": 100
       }
     },
     {
@@ -4089,7 +4166,8 @@
       "kind": "TEMPLATE",
       "entries": {
         "PLAGUE_DOCTORS_TINCTURE": 100,
-        "PLAGUE_DOCTORS_SHROUD": 100
+        "PLAGUE_DOCTORS_SHROUD": 100,
+        "PLAGUE_DOCTORS_BEAK": 100
       }
     },
     {
@@ -4111,7 +4189,8 @@
       "tag": "boss:BOSS_ENDLESS_WARDEN",
       "kind": "TEMPLATE",
       "entries": {
-        "LAST_THUNDER": 100
+        "LAST_THUNDER": 100,
+        "ENDLESS_WARDENS_BULWARK": 100
       }
     },
     {
@@ -4125,7 +4204,8 @@
       "tag": "boss:BOSS_NEST_QUEEN",
       "kind": "TEMPLATE",
       "entries": {
-        "FEATHERFALL": 100
+        "FEATHERFALL": 100,
+        "NESTWARDENS_HOOD": 100
       }
     },
     {
@@ -4182,7 +4262,8 @@
       "tag": "boss:BOSS_WHISPERER",
       "kind": "TEMPLATE",
       "entries": {
-        "INDIGO_WHISPER": 100
+        "INDIGO_WHISPER": 100,
+        "WHISPERERS_LOOP": 100
       }
     },
     {
@@ -4217,7 +4298,8 @@
       "tag": "boss:BOSS_RAIDER_KHAN",
       "kind": "TEMPLATE",
       "entries": {
-        "RAIDERS_CLOAK": 100
+        "RAIDERS_CLOAK": 100,
+        "KHANS_BLOODPRICE": 100
       }
     },
     {
@@ -4329,7 +4411,13 @@
         "EMBER_LOCKET": 100,
         "TEMPERERS_MALLET": 100,
         "ANNEALED_BAND": 100,
-        "BRASS_FORGE_DOME": 100
+        "BRASS_FORGE_DOME": 100,
+        "WHETSTONE_HEART": 100,
+        "COLLAR_OF_THE_FIRST_HOUND": 100,
+        "PACKLEADERS_BAND": 100,
+        "IRONJAW_COLLAR": 100,
+        "BEASTSOUL_CHOKER": 100,
+        "WILDMOTHERS_GARLAND": 100
       }
     },
     {
@@ -4354,7 +4442,13 @@
         "ENTHRONED_DARKNESS": 100,
         "ELDERS_WARD": 100,
         "VOID_FLETCHING": 100,
-        "GHOST_REAPER": 100
+        "GHOST_REAPER": 100,
+        "GRIN_OF_THE_DEEP": 100,
+        "VOIDBARGAIN": 100,
+        "CHASM_HUNGER_BELT": 100,
+        "TWINFANG_DIRK": 100,
+        "ABYSSAL_ONSLAUGHT_GREAVES": 100,
+        "HEART_OF_THE_UNDERTOW": 100
       }
     },
     {
@@ -4373,7 +4467,11 @@
         "ALTARS_REBUKE": 100,
         "ALTARS_DISFAVOUR": 100,
         "ALTAR_PROTOTYPE": 100,
-        "ALTARS_CARESS": 100
+        "ALTARS_CARESS": 100,
+        "SACRIFICIAL_THORN": 100,
+        "BLOODDEBT_BRACERS": 100,
+        "THE_BRICKED_IDOL": 100,
+        "OMENWEAVE_MANTLE": 100
       }
     },
     {
@@ -4390,7 +4488,10 @@
         "CARTOGRAPHERS_FLETCH": 100,
         "WAYSTONE_WARD": 100,
         "TINKERS_CINCH": 100,
-        "WANDERERS_FINERY": 100
+        "WANDERERS_FINERY": 100,
+        "CARTOGRAPHERS_COMPASS": 100,
+        "WAYFARERS_TREADS": 100,
+        "ATLAS_WANDERERS_CLOAK": 100
       }
     },
     {
@@ -4407,7 +4508,10 @@
         "PRISM_PINIONS": 100,
         "CRYSTALWRIGHTS_TOUCH": 100,
         "CRYSTAL_SEAL": 100,
-        "BALANCED_PRISM": 100
+        "BALANCED_PRISM": 100,
+        "PRISMSIGHT_LENS": 100,
+        "SHARDBLOOD_EDGE": 100,
+        "GEODE_OF_PATIENCE": 100
       }
     },
     {
@@ -4419,7 +4523,9 @@
         "MERIDIAN_STRIDERS": 100,
         "HORIZONS_EDGE": 100,
         "WINGS_OF_THE_UNCHARTED": 100,
-        "INSTINCT_OF_THE_HOLLOW": 100
+        "INSTINCT_OF_THE_HOLLOW": 100,
+        "BURDEN_OF_ATLAS": 100,
+        "STARFALL_SCEPTRE": 100
       }
     },
     {

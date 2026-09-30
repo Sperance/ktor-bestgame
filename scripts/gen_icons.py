@@ -597,7 +597,75 @@ THEMES = [
 ]
 
 
+# 1.36.0: the new uniques are drawn by hand: glass, second colour, sign and the sign's colour.
+UNIQUE_ART = {
+    "HAWKSWORN_BAND": ("#d9a53a", "#8a5a34", "CROSSHAIR", "#f0e2c0"),
+    "THE_LONE_ARROW": ("#5f9a4e", "#8a5a34", "ARROW", "#f0e2c0"),
+    "GALLOWS_GRIP": ("#5e3b22", "#b9c2cf", "NOOSE", "#e4dcc4"),
+    "STORMCHASER_BOOTS": ("#3a78e8", "#dfe6ee", "BOLT", "#f2d03a"),
+    "CANTORS_CIRCLET": ("#8a6ae0", "#d9a53a", "BELL", "#f0e2c0"),
+    "BLACKSAP_CLEAVER": ("#2b1d2e", "#6a3ab0", "ROOT", "#80c060"),
+    "SUPPLICANTS_SHAWL": ("#e6d4a6", "#7a4fc0", "HANDS", "#7a4fc0"),
+    "DEFLECTORS_BUCKLER": ("#b9c2cf", "#c98a4a", "SWIRL", "#f0e2c0"),
+    "OXHIDE_HAUBERK": ("#a8784a", "#5e3b22", "HORN", "#e4dcc4"),
+    "GRANITE_WILL": ("#827c73", "#dfe6ee", "MOUNTAIN", "#e4dcc4"),
+    "RECOIL_SIGIL": ("#8a6ae0", "#dfe6ee", "RETURN", "#bfe3ef"),
+    "THUNDERKISS": ("#f2d03a", "#3a78e8", "LIPS", "#3a78e8"),
+    "WINTERS_LONG_BREATH": ("#6fc8f0", "#dfe6ee", "SNOW", "#dfe6ee"),
+    "CANKERBLOOM": ("#7fcf4a", "#5a3a8a", "BLOOM", "#c86ad6"),
+    "THE_STORMGLASS": ("#bfe3ef", "#3a9ae8", "HOURGLASS", "#f2d03a"),
+    "TIDEMOTHERS_SASH": ("#3a9ae8", "#38b8b0", "WAVE", "#dfe6ee"),
+    "CHARGEBEARERS_YOKE": ("#c02a3a", "#d9a53a", "CHAIN", "#f0e2c0"),
+    "SIGIL_OF_THE_HIDDEN": ("#3c3a44", "#9b59d6", "EYE", "#c86ad6"),
+    "CRESTFALL_PAULDRONS": ("#d44fb0", "#e8bb45", "WING", "#f0e2c0"),
+    "EXECUTIONERS_ASSIZE": ("#b9c2cf", "#c02a3a", "SCALES", "#e4dcc4"),
+    "NESTWARDENS_HOOD": ("#8a5a34", "#e4dcc4", "EGG", "#e4dcc4"),
+    "OLD_GREYS_TORC": ("#8e97a3", "#d9a53a", "PAW", "#e4dcc4"),
+    "RIMELICHS_PHYLACTERY": ("#6fc8f0", "#3c3a44", "SKULL", "#bfe3ef"),
+    "HERALDS_TONGUE": ("#6a3ab0", "#15171a", "TONGUE", "#c86ad6"),
+    "KHANS_BLOODPRICE": ("#c02a3a", "#8a5a34", "FANG", "#f0e2c0"),
+    "MUMMY_KINGS_WRAPPINGS": ("#e6d4a6", "#d9a53a", "ANKH", "#8a5a34"),
+    "PANTHERS_SHADOWSTEP": ("#15171a", "#5f9a4e", "CLAW", "#9fd8e8"),
+    "SPORELORDS_CROWN": ("#7fcf4a", "#8a5a34", "MUSHROOM", "#e4dcc4"),
+    "FURNACE_HEART_GAUNTLETS": ("#ef6a3a", "#3c3a44", "ANVIL", "#f2c53a"),
+    "PLAGUE_DOCTORS_BEAK": ("#3c3a44", "#7fcf4a", "BEAK", "#e4dcc4"),
+    "WHISPERERS_LOOP": ("#9b59d6", "#15171a", "SPIRAL", "#c86ad6"),
+    "ENDLESS_WARDENS_BULWARK": ("#3c3a44", "#d9a53a", "GATE", "#f2c53a"),
+    "GRIN_OF_THE_DEEP": ("#6a3ab0", "#15171a", "GRIN", "#a26bff"),
+    "VOIDBARGAIN": ("#15171a", "#8a4fe8", "RIFT", "#a26bff"),
+    "CHASM_HUNGER_BELT": ("#5a3a8a", "#7fcf4a", "MAW", "#80c060"),
+    "TWINFANG_DIRK": ("#8a4fe8", "#dfe6ee", "TWINFANG", "#f0e2c0"),
+    "ABYSSAL_ONSLAUGHT_GREAVES": ("#15171a", "#6a3ab0", "COMET", "#a26bff"),
+    "HEART_OF_THE_UNDERTOW": ("#38b8b0", "#15171a", "WHIRL", "#a26bff"),
+    "SACRIFICIAL_THORN": ("#e04030", "#15171a", "THORN", "#e04030"),
+    "BLOODDEBT_BRACERS": ("#c02a3a", "#d9a53a", "COIN", "#f2c53a"),
+    "THE_BRICKED_IDOL": ("#827c73", "#e04030", "IDOL", "#e04030"),
+    "OMENWEAVE_MANTLE": ("#e04030", "#3c3a44", "OMEN", "#e8f4ff"),
+    "WHETSTONE_HEART": ("#b8b0a0", "#c98a4a", "WHET", "#f0e2c0"),
+    "COLLAR_OF_THE_FIRST_HOUND": ("#8b5530", "#c98a4a", "PAW", "#e4dcc4"),
+    "PACKLEADERS_BAND": ("#d9a53a", "#8b5530", "HOWL", "#f0e2c0"),
+    "IRONJAW_COLLAR": ("#8e97a3", "#b9c2cf", "JAW", "#dfe6ee"),
+    "BEASTSOUL_CHOKER": ("#c02a3a", "#8b5530", "HEART", "#f0e2c0"),
+    "WILDMOTHERS_GARLAND": ("#5f9a4e", "#e89a2a", "LEAF", "#e4dcc4"),
+    "CARTOGRAPHERS_COMPASS": ("#e8bb45", "#8a5a34", "COMPASS", "#f0e2c0"),
+    "WAYFARERS_TREADS": ("#a8784a", "#5f9a4e", "ROAD", "#f0e2c0"),
+    "ATLAS_WANDERERS_CLOAK": ("#e6d4a6", "#3a78e8", "MAP", "#8a5a34"),
+    "PRISMSIGHT_LENS": ("#bfe3ef", "#9b59d6", "PRISM", "#eaf6ff"),
+    "SHARDBLOOD_EDGE": ("#9fd8e8", "#c02a3a", "SHARD", "#eaf6ff"),
+    "GEODE_OF_PATIENCE": ("#9b59d6", "#827c73", "GEODE", "#eaf6ff"),
+    "BURDEN_OF_ATLAS": ("#827c73", "#d9a53a", "GLOBE", "#f0e2c0"),
+    "STARFALL_SCEPTRE": ("#1e2240", "#f2d03a", "STAR", "#f2d03a"),
+    "ECLIPSE_REGALIA": ("#15171a", "#f2c53a", "ECLIPSE", "#f2c53a"),
+    "KINGDOMGRINDER": ("#2b1d2e", "#c02a3a", "MAW", "#e04030"),
+    "BULWARK_OF_ENDLESS_DAWN": ("#f2c53a", "#dfe6ee", "SUN", "#f2c53a"),
+    "CROWN_OF_SPORES_AND_ASH": ("#ef6a3a", "#7fcf4a", "FLAME", "#7fcf4a"),
+    "THE_CHARGED_HEART": ("#c02a3a", "#3a78e8", "TRIAD", "#f2c53a"),
+}
+
+
 def theme(code):
+    if code in UNIQUE_ART:
+        return UNIQUE_ART[code]
     for keys, glass, second, sign, sign_col in THEMES:
         if any(k in code for k in keys):
             return glass, second, sign, sign_col
@@ -608,6 +676,52 @@ def theme(code):
 ACCENT_EMBLEM = {
     "SNOW": ("M50 22 V78 M26 36 L74 64 M74 36 L26 64", False),
     "BOLT": ("M58 20 L34 54 H50 L42 80 L68 44 H52 Z", True),
+    # 1.36.0: hand-drawn signs of the new uniques.
+    "CROSSHAIR": ("M50 32 a18 18 0 1 1 -0.1 0 Z M50 22 V40 M50 60 V78 M22 50 H40 M60 50 H78", False),
+    "ARROW": ("M28 72 L68 32 M68 32 H54 M68 32 V46 M28 72 L22 66 M28 72 L34 78 M35 65 L29 59 M35 65 L41 71", False),
+    "NOOSE": ("M50 22 V36 M50 36 a10 13 0 1 0 0.1 0 Z M43 34 H57 M44 29 H56", False),
+    "BELL": ("M50 24 Q36 26 36 44 V58 L28 66 H72 L64 58 V44 Q64 26 50 24 Z M44 70 A6 6 0 0 0 56 70 Z", True),
+    "ROOT": ("M50 22 V50 M50 50 Q40 58 30 76 M50 50 Q52 62 46 78 M50 50 Q62 58 72 74 M40 62 L30 62 M60 60 L68 54", False),
+    "HANDS": ("M48 24 Q40 36 38 56 L34 76 H48 Z M52 24 Q60 36 62 56 L66 76 H52 Z", False),
+    "SWIRL": ("M24 30 L50 56 L76 30 M28 70 H72 M50 56 V70", False),
+    "HORN": ("M24 30 Q22 58 44 60 H56 Q78 58 76 30 Q70 50 56 50 H44 Q30 50 24 30 Z M44 60 V72 H56 V60 Z", True),
+    "MOUNTAIN": ("M20 74 L42 34 L50 48 L58 28 L80 74 Z", True),
+    "RETURN": ("M68 42 A20 20 0 1 0 70 58 M68 42 V26 M68 42 H52", False),
+    "LIPS": ("M24 50 Q36 34 50 42 Q64 34 76 50 Q64 70 50 68 Q36 70 24 50 Z M24 50 Q50 56 76 50", False),
+    "BLOOM": ("".join(f"M{50 + 14 * math.cos(a):.1f} {50 + 14 * math.sin(a) - 9:.1f} a9 9 0 1 1 -0.1 0 Z" for a in (math.pi * (2 * k / 5 - .5) for k in range(5))), True),
+    "HOURGLASS": ("M32 24 H68 L52 50 L68 76 H32 L48 50 Z", True),
+    "CHAIN": ("M32 36 H46 A8 8 0 0 1 46 52 H32 A8 8 0 0 1 32 36 Z M54 48 H68 A8 8 0 0 1 68 64 H54 A8 8 0 0 1 54 48 Z", False),
+    "WING": ("M26 72 Q28 40 76 24 Q66 40 70 46 Q58 50 62 58 Q48 60 50 68 Q38 66 26 72 Z", True),
+    "SCALES": ("M50 24 V74 M36 74 H64 M26 36 H74 M26 36 L20 56 H32 Z M74 36 L68 56 H80 Z", False),
+    "EGG": ("M50 22 Q70 24 70 54 A20 20 0 0 1 30 54 Q30 24 50 22 Z", True),
+    "TONGUE": ("M32 30 Q50 42 68 30 M50 36 V58 Q50 66 40 76 M50 58 Q50 66 60 76", False),
+    "FANG": ("M32 26 H68 L55 74 Q50 80 45 74 Z", True),
+    "ANKH": ("M50 22 a9 12 0 1 1 -0.1 0 Z M30 48 H70 M50 46 V78", False),
+    "CLAW": ("M30 26 Q44 50 34 76 M48 24 Q62 50 52 78 M66 26 Q78 50 70 74", False),
+    "MUSHROOM": ("M22 52 Q24 26 50 26 Q76 26 78 52 Z M44 54 H56 V76 H44 Z", True),
+    "ANVIL": ("M22 34 H74 Q74 46 60 48 V58 H66 V70 H34 V58 H40 V48 Q26 46 22 34 Z", True),
+    "BEAK": ("M28 30 Q52 26 58 40 L80 72 L52 56 Q30 58 28 44 Z", True),
+    "GATE": ("M28 76 V40 Q28 24 50 24 Q72 24 72 40 V76 M28 50 H72 M39 30 V76 M50 24 V76 M61 30 V76", False),
+    "GRIN": ("M22 42 Q50 82 78 42 Q50 60 22 42 Z M34 51 V58 M42 55 V63 M50 56 V65 M58 55 V63 M66 51 V58", False),
+    "MAW": ("M22 32 Q50 20 78 32 L70 44 L63 34 L57 44 L50 34 L43 44 L37 34 L30 44 Z M22 68 Q50 80 78 68 L70 56 L63 66 L57 56 L50 66 L43 56 L37 66 L30 56 Z", True),
+    "TWINFANG": ("M28 26 H46 L39 76 Z M54 26 H72 L61 76 Z", True),
+    "COMET": ("M64 38 a12 12 0 1 1 -0.1 0 Z M54 44 L22 30 M52 52 L20 56 M56 60 L32 78", False),
+    "WHIRL": ("M50 26 A24 24 0 1 1 26 50 M50 36 A14 14 0 1 1 36 50 M50 46 A4 4 0 1 1 46 50", False),
+    "THORN": ("M50 22 L56 50 L50 78 L44 50 Z M53 38 L68 30 M47 56 L32 48 M53 64 L66 60", False),
+    "IDOL": ("M40 22 H60 V36 H68 V50 H60 V78 H40 V50 H32 V36 H40 Z", True),
+    "OMEN": ("M50 22 L78 72 H22 Z M36 56 Q50 44 64 56 Q50 66 36 56 Z", False),
+    "JAW": ("M22 32 H78 V46 Q78 74 50 78 Q22 74 22 46 Z", True),
+    "HOWL": ("M44 28 A22 22 0 1 0 44 72 A16 16 0 1 1 44 28 Z M60 36 Q68 50 60 64 M70 28 Q82 50 70 72", False),
+    "LEAF": ("M24 76 Q24 30 76 24 Q72 72 24 76 Z M24 76 L60 40", False),
+    "COMPASS": ("M50 20 L57 50 L50 80 L43 50 Z M20 50 L50 44 L80 50 L50 56 Z", True),
+    "ROAD": ("M38 78 L46 22 M62 78 L54 22 M50 74 V66 M50 58 V50 M50 42 V36", False),
+    "MAP": ("M22 30 L40 24 L60 30 L78 24 V70 L60 76 L40 70 L22 76 Z M40 24 V70 M60 30 V76", False),
+    "PRISM": ("M50 24 L74 70 H26 Z M20 52 L38 49 M62 46 L80 38 M62 52 L80 54 M62 58 L78 70", False),
+    "SHARD": ("M42 20 L64 34 L58 80 L38 58 Z", True),
+    "GEODE": ("M50 22 L74 36 V64 L50 78 L26 64 V36 Z M40 44 L50 38 L60 44 V56 L50 62 L40 56 Z", False),
+    "GLOBE": ("M50 26 a24 24 0 1 1 -0.1 0 Z M26 50 H74 M50 26 Q34 50 50 74 M50 26 Q66 50 50 74", False),
+    "ECLIPSE": ("M50 34 a16 16 0 1 1 -0.1 0 Z M50 20 V28 M50 72 V80 M20 50 H28 M72 50 H80 M57 40 a10 10 0 1 1 -0.1 0 Z", False),
+    "TRIAD": ("M50 24 a9 9 0 1 1 -0.1 0 Z M31 56 a9 9 0 1 1 -0.1 0 Z M69 56 a9 9 0 1 1 -0.1 0 Z", True),
 }
 
 
@@ -641,6 +755,8 @@ ANCHOR = {
     "BODY": (32, 30, 12), "GLOVES": (27, 31, 11), "BOOTS": {"BASE_ARMOUR": (27, 23, 10), "BASE_EVASION": (27, 22, 11), "BASE_ENERGY_SHIELD": (28, 25, 10)},
     "SHIELD": (32, 32, 16), "BELT": (32, 32, 10), "FLASK_ROUND": (32, 47, 11), "FLASK_TALL": (32, 48, 10),
     "QUIVER": (33, 40, 11), "WINGS": (32, 32, 11),
+    # 1.36.0: only the hand-drawn uniques bear a sign on these.
+    "RING": (32, 40, 11), "AMULET": (32, 47, 12), "JEWEL": (32, 32, 16), "COLLAR": (32, 26, 14), "WAND_SIGN": (32, 42, 10),
 }
 
 
@@ -671,6 +787,9 @@ def equipment(atlas, t):
     halo = rays() if t.get("rarity") == "MYTHICAL" else []
     name = f"u_{code}" if unique else None
 
+    def drawn(parts, where):
+        return mark(parts, look, anchor(where)) if code in UNIQUE_ART else parts
+
     def put(base_name, parts, rot=0):
         atlas.put(key, name or base_name, halo + parts, rot)
 
@@ -681,7 +800,7 @@ def equipment(atlas, t):
         guard = glass2 or TIER_GUARD[lv]
         if draw is wand:
             gem = glass or stone(code)
-            put(f"wand_{gem[1:]}", wand(gem, "darkwood"), rot)
+            put(f"wand_{gem[1:]}", drawn(wand(gem, "darkwood"), "WAND_SIGN"), rot)
             return
         if draw is bow:
             parts = bow(glass2 or ["wood", "#7a3a26", "#5e3b22"][lv], "leather")
@@ -703,14 +822,14 @@ def equipment(atlas, t):
         put(f"shield_{shape}_{face[1:]}_{lv}", mark(parts, look, anchor("SHIELD")))
     elif slot == "RING":
         gem = glass or stone(code)
-        put(f"ring_{gem[1:]}", ring("silver" if "IRON" in code else "gold", gem))
+        put(f"ring_{gem[1:]}", drawn(ring("silver" if "IRON" in code else "gold", gem), "RING"))
     elif slot == "AMULET":
         gem = glass or stone(code)
-        put(f"amulet_{gem[1:]}", amulet(gem))
+        put(f"amulet_{gem[1:]}", drawn(amulet(gem), "AMULET"))
     elif slot == "COLLAR":
         kind = next((k for k in COLLARS if k in code), "LEATHER")
         band, stud, tag = COLLARS[kind]
-        put(f"collar_{kind}", collar(glass or band, stud, glass2 or tag))
+        put(f"collar_{kind}", drawn(collar(glass or band, stud, glass2 or tag), "COLLAR"))
     elif slot == "BELT":
         strap, detail = ("steel", "chain") if "CHAIN" in code else ("cloth", "plain") if "SASH" in code else ("leather", "studs")
         put(f"belt_{detail}", mark(belt(glass2 or strap, detail), look, anchor("BELT")))
@@ -728,8 +847,8 @@ def equipment(atlas, t):
         put(f"wings_{'f' if feathered else 'b'}_{hue[1:]}",
             mark(wings(hue, "#d9a53a" if feathered else "#e4dcc4", feathered), look, anchor("WINGS")))
     elif slot == "JEWEL":
-        gem = {"CRIMSON": "#d0304a", "VIRIDIAN": "#3aa870", "COBALT": "#3a6fe0"}.get(code.split("_")[0], hashed(code))
-        put(f"jewel_{gem[1:]}", jewel(gem))
+        gem = glass if code in UNIQUE_ART else {"CRIMSON": "#d0304a", "VIRIDIAN": "#3aa870", "COBALT": "#3a6fe0"}.get(code.split("_")[0], hashed(code))
+        put(f"jewel_{gem[1:]}", drawn(jewel(gem), "JEWEL"))
     elif slot == "MAP":
         circle = re.match(r"MAP_(C\d+)", code)
         seal = MAP_SEAL.get(circle.group(1) if circle else "", "#c8c8c8")
