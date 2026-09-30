@@ -146,6 +146,8 @@ class TrialService : KoinComponent {
                 hero.count(Counter.BOSSES)
                 hero.count(Counter.RUSH_BOSSES)
                 plan.zones.getOrNull(event.index)?.let { hero.stats.add(Stat.BOSS, it.boss) }
+                hero.stats.add(Stat.RARITY, com.sperance.exileforge.rules.content.MonsterRarity.UNIQUE.name)
+                hero.stats.record(Stat.LEVEL_MAX, run.heroLevel.toLong())
                 Reward.NONE
             }
             TrialEventKind.FLOOR -> {
@@ -157,6 +159,7 @@ class TrialService : KoinComponent {
                     towerBest = maxOf(trials.towerBest, floor))
                 Plausibility.pace(hero, TOWER, run.startedAt, now, floor - first + 1, FLOOR_SECONDS, "tower_floor_seconds")
                 hero.count(Counter.TOWER_FLOOR, floor.toLong())
+                hero.stats.record(Stat.LEVEL_MAX, tower.level(run.heroLevel, floor).toLong())
                 if (floor % rules.atlasFloors == 0) AtlasPoints.earn(hero.earned, AtlasPoints.TOWER, floor.toString())
                 val abyss = index.campaign.abyss
                 if (tower.hoard(floor)) hero.count(Counter.TOWER_HOARDS)
@@ -165,7 +168,7 @@ class TrialService : KoinComponent {
                     .hoard(tower.hoardDepth(abyss, floor), 1.0, draws, tower.hoardScale(floor))
             }
             TrialEventKind.FIGHT -> {
-                event.fight?.let(hero.stats::fight)
+                event.fight?.let { hero.stats.fight(it) { code -> index.monster(code) != null } }
                 Reward.NONE
             }
             TrialEventKind.END -> {

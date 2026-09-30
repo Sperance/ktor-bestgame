@@ -237,6 +237,7 @@ class HeroRoute(
                 call.respondWithHero(tree.allocatePath(call.heroId, call.queryParam("nodeCode"), choice))
             }
             post("/refund") { call.respondWithHero(tree.refund(call.heroId, call.queryParam("nodeCode"))) }
+            post("/refundBranch") { call.respondWithHero(tree.refundBranch(call.heroId, call.queryParam("nodeCode"))) }
             post("/plan") { call.respondWithHero(tree.plan(call.heroId, TreePlan.parse(call.optionalParam("nodes").orEmpty()))) }
             post("/rechoose") {
                 val choice = call.queryParam("choice").let { it.toIntOrNull() ?: throw SkillTreeExceptions.funExceptionChoice("rechoose", it) }

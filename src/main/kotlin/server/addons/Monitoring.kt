@@ -23,6 +23,7 @@ fun Application.configureMonitoring() {
             val remoteHost = call.request.origin.remoteHost
             val contentLength = call.request.contentLength() ?: 0
             val duration = call.processingTimeMillis()
+            features.data.routeTiming.RouteTimings.record(method.value, path, duration, status)
             val startTime = System.currentTimeMillis() - duration
 
             val res = buildString {

@@ -69,4 +69,5 @@ suspend fun Application.configureModules() {
     configureIpBlocking()
 
     DatabaseSeeder.seed()
+    features.data.routeTiming.RouteTimings.start(this)
 }

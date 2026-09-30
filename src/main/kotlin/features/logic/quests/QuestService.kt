@@ -18,7 +18,6 @@ import com.sperance.exileforge.rules.content.QuestLog
 import com.sperance.exileforge.rules.content.QuestProgress
 import com.sperance.exileforge.rules.content.QuestReward
 import com.sperance.exileforge.rules.content.QuestRules
-import com.sperance.exileforge.rules.content.QuestScope
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.text.LocaleKey
@@ -173,10 +172,10 @@ class QuestService : KoinComponent {
         val step = chapter.steps.getOrNull(log.step) ?: return null
         val region = index.campaign.regions.first { it.code == chapter.region }
         val level = step.zone.takeIf { it.isNotEmpty() }?.let { index.zone(it)?.level } ?: region.zones.maxOf { it.level }
-        val counted = step.zone.isNotEmpty() && step.counter !in QuestCounter.DERIVED
+        // Задания не привязаны к зоне (1.52.0): зона шага - лишь место в подписи, счёт идёт в любой.
         return Quest(
             ObjectId().toHexString(), QuestKind.STORY, step.code, step.counter, step.rarity, step.target,
-            zones = if (counted) listOf(step.zone) else emptyList(), place = step.zone.ifEmpty { region.code },
+            place = step.zone.ifEmpty { region.code },
             reward = reward(hero, QuestKind.STORY, step.rarity, minOf(level, hero.level).coerceAtLeast(1), Dice.system()),
         ).also { derive(hero, it) }
     }
@@ -200,21 +199,10 @@ class QuestService : KoinComponent {
         val candidates = rules.goals.filter { kind in it.kinds && it.minLevel <= hero.level && it.code !in taken && feasible(hero, it.counter, targetOf(it)) }
         val goal = weighted(candidates, dice) { it.weight } ?: return null
         val target = targetOf(goal)
-        var zones = emptyList<String>()
-        var place = ""
-        if (goal.scope == QuestScope.REGION) {
-            val region = frontierRegion(hero)
-            zones = unlocked(hero).filter { code -> region.zones.any { it.code == code } }
-            place = region.code
-        }
-        val conditions = if (!goal.conditional) mutableListOf() else dice.shuffled(QuestCondition.entries).take(rarityRule.conditions).toMutableList()
-        if (QuestCondition.HIGH_ZONE in conditions) {
-            val high = (zones.ifEmpty { unlocked(hero) }).filter { (index.zone(it)?.level ?: 0) >= level - rules.highZoneSlack }
-            if (high.isEmpty()) conditions -= QuestCondition.HIGH_ZONE else zones = high
-        }
+        val conditions = if (!goal.conditional) emptyList() else dice.shuffled(QuestCondition.entries).take(rarityRule.conditions)
         val start = if (goal.counter in QuestCounter.DERIVED) derivedValue(hero, goal.counter, "") else 0
         return Quest(
-            ObjectId().toHexString(), kind, goal.code, goal.counter, rarity, target, start = start, zones = zones, place = place,
+            ObjectId().toHexString(), kind, goal.code, goal.counter, rarity, target, start = start,
             conditions = conditions.sortedBy { it.ordinal }, reward = reward(hero, kind, rarity, level, dice),
             expiresAt = if (kind == QuestKind.CONTRACT) now + hours(rarity) else 0,
         )
@@ -325,13 +313,6 @@ class QuestService : KoinComponent {
         else -> true
     }
 
-    private fun unlocked(hero: Hero): List<String> = index.world.unlocked(hero.campaign.cleared)
-
-    /** Регион, где герой сейчас: самая высокая открытая зона не выше его уровня (+2), иначе первая. */
-    private fun frontierRegion(hero: Hero) = unlocked(hero).mapNotNull { index.zone(it) }
-        .filter { it.level <= hero.level + 2 }.maxByOrNull { it.level }
-        ?.let { zone -> index.campaign.regions.first { region -> region.zones.any { it.code == zone.code } } }
-        ?: index.campaign.regions.first()
 
     private fun <T> weighted(items: List<T>, dice: Dice, weight: (T) -> Int): T? {
         val total = items.sumOf(weight)

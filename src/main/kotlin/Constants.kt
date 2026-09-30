@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.51.0"
+const val SERVER_VERSION = "1.52.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -30,8 +30,9 @@ const val SERVER_VERSION = "1.51.0"
  * 31 - ключ раша `RUSH_KEY`: `POST hero/trials/key` собирает его из фрагментов, раш тратит ключ (1.48.0).
  * 32 - статистика героя: события `FIGHT` с итогом боя `fight`, `GET hero/stats`, новые счётчики летописи (1.49.0).
  * 33 - захваченные карты: `ActiveMap.influence`, сферы Создателя и Древнего на карте, ветка атласа «Влияние», атлас веером (1.50.0).
+ * 34 - задания без зон (`Quest.zones`, `QuestScope`, `HIGH_ZONE` сняты), `POST hero/skilltree/refundBranch`, `FightTally.killer` (1.52.0).
  */
-const val API_REVISION = 33
+const val API_REVISION = 34
 
 /**
  * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой

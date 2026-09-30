@@ -127,7 +127,7 @@ data class Hero(
     /** Счётчик летописи: сумма или рекорд - как велит его вид; тот же прирост двигает задания героя в зоне открытого захода. */
     fun count(counter: String, amount: Long = 1) {
         Counter.add(counters, counter, amount)
-        QuestProgress.advance(quests, counter, amount, campaign.run?.zone, guild?.id, System.currentTimeMillis())
+        QuestProgress.advance(quests, counter, amount, guild?.id, System.currentTimeMillis())
     }
 
     /** Нынешние выводимые счётчики: уровень, пройденные зоны, узлы атласа и дерева. */

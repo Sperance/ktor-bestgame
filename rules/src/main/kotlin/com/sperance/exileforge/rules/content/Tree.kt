@@ -65,11 +65,13 @@ class TreeGraph(nodes: Collection<TreeNode>) {
         return neighbours(code).any { it in set && !isMastery(it) }
     }
 
-    fun isConnected(taken: Collection<String>): Boolean {
-        if (taken.isEmpty()) return true
+    fun isConnected(taken: Collection<String>): Boolean = taken.isEmpty() || detached(taken).isEmpty()
+
+    /** Взятое, что не держится за старт (1.52.0): без стартового узла - всё. */
+    fun detached(taken: Collection<String>): Set<String> {
         val remaining = taken.toHashSet()
         val roots = remaining.filter { byCode[it]?.type == SkillNodeType.START }
-        if (roots.isEmpty()) return false
+        if (roots.isEmpty()) return remaining
         val queue = ArrayDeque(roots)
         remaining.removeAll(roots.toSet())
         while (queue.isNotEmpty()) {
@@ -77,7 +79,7 @@ class TreeGraph(nodes: Collection<TreeNode>) {
             if (isMastery(current)) continue
             neighbours(current).forEach { next -> if (remaining.remove(next)) queue.addLast(next) }
         }
-        return remaining.isEmpty()
+        return remaining
     }
 
     fun validate(modifier: (String) -> ModifierDef?) {
@@ -141,6 +143,13 @@ object TreeAllocation {
         if (node.code !in taken) throw RuleViolation("ST_006", listOf(node.code))
         if (node.type == SkillNodeType.START) throw RuleViolation("ST_012", listOf(node.code))
         if (!graph.isConnected(taken.filterNot { it == node.code })) throw RuleViolation("ST_011", listOf(node.code))
+    }
+
+    /** Ветка узла (1.52.0): он сам и всё взятое, что без него отрывается от старта, - снимается одним откатом. */
+    fun branch(graph: TreeGraph, node: TreeNode, taken: Collection<String>): List<String> {
+        if (node.code !in taken) throw RuleViolation("ST_006", listOf(node.code))
+        if (node.type == SkillNodeType.START) throw RuleViolation("ST_012", listOf(node.code))
+        return listOf(node.code) + graph.detached(taken.filterNot { it == node.code })
     }
 
     fun requireSocketEmpty(node: TreeNode, socketed: Collection<String>) {

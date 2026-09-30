@@ -158,6 +158,7 @@ class CampaignService : KoinComponent {
         // Задания на сутки выдаются и здесь: заход, начатый до первого взгляда на доску, тоже идёт в зачёт
         quests.refresh(hero, now, Dice.system())
         hero.count(Counter.RUNS)
+        hero.stats.add(Stat.ZONE_RUNS, mapCode)
         heroes.save(hero, method)
         return startOf(run, zone)
     }
@@ -261,7 +262,11 @@ class CampaignService : KoinComponent {
                 Plausibility.kills(hero, state, now)
                 hero.count(Counter.KILLS)
                 val monster = run.spawn(event.i, event.vaal).pack.getOrNull(event.m)
-                monster?.let { hero.stats.add(Stat.KILL, it.code) }
+                monster?.let {
+                    hero.stats.add(Stat.KILL, it.code)
+                    hero.stats.add(Stat.RARITY, it.rarity.name)
+                    hero.stats.record(Stat.LEVEL_MAX, zone.level.toLong())
+                }
                 when (monster?.rarity) {
                     MonsterRarity.MAGIC -> hero.count(Counter.KILLS_MAGIC)
                     MonsterRarity.RARE -> hero.count(Counter.KILLS_RARE)
@@ -274,6 +279,7 @@ class CampaignService : KoinComponent {
                 if (window.left <= 0) return null
                 campaignState.chests[mapCode] = window.copy(left = window.left - 1)
                 hero.count(Counter.CHESTS)
+                hero.stats.add(Stat.ZONE_CHESTS, mapCode)
                 state.tally.chests++
                 Outcome(run.chest(draws))
             }
@@ -285,6 +291,8 @@ class CampaignService : KoinComponent {
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
                 hero.count(Counter.BOSSES)
                 hero.stats.add(Stat.BOSS, zone.boss)
+                hero.stats.add(Stat.RARITY, MonsterRarity.UNIQUE.name)
+                hero.stats.record(Stat.LEVEL_MAX, zone.level.toLong())
                 if (campaignState.activeMap?.mapCode == mapCode) hero.count(Counter.MAP_BOSSES)
                 if (campaignState.activeMap?.takeIf { it.mapCode == mapCode }?.itemRarity == Rarity.RARE) AtlasPoints.earn(hero.earned, AtlasPoints.RARE, mapCode)
                 state.tally.bosses++
@@ -362,11 +370,12 @@ class CampaignService : KoinComponent {
                 val lost = loot.deathLoss(campaign.combat.death, zone.level, hero.experience, index.classes.threshold(hero.level) ?: 0.0, index.classes.nextThreshold(hero.level))
                 hero.experience -= lost
                 hero.count(Counter.DEATHS)
+                hero.stats.add(Stat.ZONE_DEATHS, mapCode)
                 close(campaignState, mapCode)
                 Outcome(lost = lost)
             }
             RunEventKind.FIGHT -> {
-                event.fight?.let(hero.stats::fight)
+                event.fight?.let { hero.stats.fight(it) { code -> index.monster(code) != null } }
                 Outcome()
             }
             RunEventKind.LEAVE -> {

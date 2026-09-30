@@ -6,7 +6,6 @@
       "counter": "KILLS",
       "base": 40,
       "perLevel": 0.6,
-      "scope": "REGION",
       "kinds": [
         "DAILY",
         "WEEKLY",
@@ -25,7 +24,6 @@
       "counter": "KILLS_MAGIC",
       "base": 8,
       "perLevel": 0.1,
-      "scope": "REGION",
       "kinds": [
         "DAILY",
         "WEEKLY",
@@ -82,7 +80,6 @@
       "counter": "RUNS",
       "base": 3,
       "perLevel": 0,
-      "scope": "REGION",
       "kinds": [
         "DAILY",
         "WEEKLY",
@@ -453,7 +450,7 @@
       "weight": 2,
       "target": 3.0,
       "reward": 8.0,
-      "conditions": 3,
+      "conditions": 2,
       "contractHours": 24,
       "orbs": [
         {
@@ -587,7 +584,6 @@
     "experience": 0.5,
     "sharedLevel": 20
   },
-  "highZoneSlack": 2,
   "story": [
     {
       "region": "REGION_1",

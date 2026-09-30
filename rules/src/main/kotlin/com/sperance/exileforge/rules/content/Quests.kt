@@ -22,14 +22,10 @@ enum class QuestCategory { COMBAT, CRAFT, ECONOMY, PROGRESS }
 
 /**
  * Условие задания - «аффикс», его число задаёт редкость: [NO_DEATH] - смерть обнуляет прогресс, [ONE_RUN] - начало
- * захода обнуляет прогресс, [HIGH_ZONE] - в зачёт идут только зоны не ниже уровня героя. Подпись - `quest.condition.<код>`.
+ * захода обнуляет прогресс. Подпись - `quest.condition.<код>`. Задания не привязаны к зонам (1.52.0): счёт идёт где угодно.
  */
 @Serializable
-enum class QuestCondition { NO_DEATH, ONE_RUN, HIGH_ZONE }
-
-/** Где идёт цель боя: где угодно, в одной зоне или в регионе. */
-@Serializable
-enum class QuestScope { ANY, ZONE, REGION }
+enum class QuestCondition { NO_DEATH, ONE_RUN }
 
 /** Выводимые «счётчики» заданий: не копятся, а читаются из героя. */
 object QuestCounter {
@@ -56,7 +52,6 @@ data class QuestGoal(
     val counter: String,
     val base: Double,
     val perLevel: Double = 0.0,
-    val scope: QuestScope = QuestScope.ANY,
     val kinds: Set<QuestKind> = emptySet(),
     val weight: Int = 10,
     val minLevel: Int = 1,
@@ -125,7 +120,6 @@ data class QuestRules(
     val board: QuestBoardRule = QuestBoardRule(),
     val guild: GuildQuestRule = GuildQuestRule(),
     /** HIGH_ZONE: зона не ниже уровня героя минус столько. */
-    val highZoneSlack: Int = 2,
     val story: List<StoryChapter> = emptyList(),
 ) {
     fun kind(kind: QuestKind): QuestKindRule? = kinds.firstOrNull { it.kind == kind }
@@ -149,7 +143,6 @@ data class QuestRules(
             if (goal.counter !in Counter.ALL && goal.counter !in QuestCounter.DERIVED) fail("quests: ${goal.code} counts unknown ${goal.counter}")
             if (goal.counter in Counter.MAX && goal.counter !in Counter.DERIVED || goal.counter == QuestCounter.CLEAR) fail("quests: ${goal.code} cannot count ${goal.counter}")
             if (goal.base <= 0.0 || goal.perLevel < 0.0 || goal.weight <= 0 || goal.kinds.isEmpty()) fail("quests: ${goal.code} numbers")
-            if (goal.scope != QuestScope.ANY && goal.counter !in QuestCounter.COMBAT) fail("quests: ${goal.code} scope outside combat")
             if (goal.conditional && goal.counter !in QuestCounter.COMBAT) fail("quests: ${goal.code} conditions outside combat")
             if (goal.counter in QuestCounter.DERIVED && (QuestKind.GUILD_DAILY in goal.kinds || QuestKind.GUILD_WEEKLY in goal.kinds)) fail("quests: ${goal.code} shared goals count only tallies")
         }
@@ -206,7 +199,7 @@ data class QuestReward(
 
 /**
  * Задание героя. [goal] - код цели или шага сюжета, [counter] - что его двигает, [start] - значение выводимого
- * счётчика при выдаче, [zones] - где идёт зачёт (пусто - везде), [place] - зона или регион для подписи,
+ * счётчика при выдаче, [place] - зона или регион для подписи,
  * [expiresAt] - когда сгорит (0 - со сменой суток или недели).
  */
 @Serializable
@@ -219,7 +212,6 @@ data class Quest(
     val target: Long,
     var progress: Long = 0,
     val start: Long = 0,
-    val zones: List<String> = emptyList(),
     val place: String = "",
     val conditions: List<QuestCondition> = emptyList(),
     val reward: QuestReward = QuestReward(),
@@ -372,10 +364,10 @@ object QuestClock {
 /** Как счётчик летописи двигает задания героя. */
 object QuestProgress {
     /**
-     * Счётчик [counter] вырос на [amount] в зоне [zone] (null - вне захода); [guildId] - гильдия героя.
+     * Счётчик [counter] вырос на [amount]; [guildId] - гильдия героя.
      * Смерть и начало захода обнуляют незавершённые задания с условием; вклад в общие цели гильдии копится за сутки и неделю.
      */
-    fun advance(log: QuestLog, counter: String, amount: Long, zone: String?, guildId: String?, now: Long) {
+    fun advance(log: QuestLog, counter: String, amount: Long, guildId: String?, now: Long) {
         if (amount <= 0) return
         log.active().forEach { quest ->
             if (quest.claimed || quest.done) return@forEach
@@ -384,7 +376,6 @@ object QuestProgress {
                 counter == Counter.RUNS && QuestCondition.ONE_RUN in quest.conditions -> quest.progress = 0
             }
             if (quest.counter != counter || quest.derived) return@forEach
-            if (quest.zones.isNotEmpty() && zone !in quest.zones) return@forEach
             quest.progress = (quest.progress + amount).coerceAtMost(quest.target)
         }
         if (guildId == null) return

@@ -22,6 +22,8 @@ data class FightTally(
     val maxHit: Long = 0,
     val boss: Boolean = false,
     val won: Boolean = true,
+    /** Кто нанёс последний удар проигранного боя (1.52.0): код монстра. */
+    val killer: String? = null,
 ) {
     /** Тот же итог в пределах правдоподобия: без отрицательных чисел, чужих типов урона и боёв длиннее часа. */
     fun sane(): FightTally = copy(
@@ -29,7 +31,7 @@ data class FightTally(
         taken = taken.coerceIn(0, MAX_DAMAGE), healed = healed.coerceIn(0, MAX_DAMAGE),
         hits = hits.coerceIn(0, MAX_COUNT), crits = crits.coerceIn(0, MAX_COUNT), misses = misses.coerceIn(0, MAX_COUNT),
         blocked = blocked.coerceIn(0, MAX_COUNT), evaded = evaded.coerceIn(0, MAX_COUNT), ailments = ailments.coerceIn(0, MAX_COUNT),
-        millis = millis.coerceIn(0, MAX_MILLIS), maxHit = maxHit.coerceIn(0, MAX_DAMAGE),
+        millis = millis.coerceIn(0, MAX_MILLIS), maxHit = maxHit.coerceIn(0, MAX_DAMAGE), killer = killer?.take(64),
     )
 
     companion object {
@@ -61,18 +63,26 @@ object Stat {
     const val BLOCKED = "BLOCKED"
     const val EVADED = "EVADED"
     const val AILMENTS = "AILMENTS"
+    /** Уровень сильнейшего убитого монстра (1.52.0). */
+    const val LEVEL_MAX = "LEVEL_MAX"
 
     const val KILL = "KILL"
     const val BOSS = "BOSS"
     const val FOUND = "FOUND"
     const val SPENT = "SPENT"
     const val JOB = "JOB"
+    /** 1.52.0: убийства по редкости монстра, смерти по убийце, заходы, смерти и сундуки по зонам. */
+    const val RARITY = "RARITY"
+    const val KILLER = "KILLER"
+    const val ZONE_RUNS = "ZONE_RUNS"
+    const val ZONE_DEATHS = "ZONE_DEATHS"
+    const val ZONE_CHESTS = "ZONE_CHESTS"
 
-    val MAX = setOf(FIGHT_LONGEST, HIT_MAX)
+    val MAX = setOf(FIGHT_LONGEST, HIT_MAX, LEVEL_MAX)
     val MIN = setOf(BOSS_FASTEST)
     /** Боевые строки летописи по порядку показа; урон по типам - `DEALT:<тип>` сразу под [DEALT]. */
-    val COMBAT = listOf(FIGHTS, FIGHTS_WON, FIGHT_SECONDS, FIGHT_LONGEST, BOSS_FASTEST, DEALT, HIT_MAX, TAKEN, HEALED, HITS, CRITS, MISSES, BLOCKED, EVADED, AILMENTS)
-    val GROUPS = listOf(KILL, BOSS, FOUND, SPENT, JOB)
+    val COMBAT = listOf(FIGHTS, FIGHTS_WON, FIGHT_SECONDS, FIGHT_LONGEST, BOSS_FASTEST, LEVEL_MAX, DEALT, HIT_MAX, TAKEN, HEALED, HITS, CRITS, MISSES, BLOCKED, EVADED, AILMENTS)
+    val GROUPS = listOf(RARITY, KILL, BOSS, KILLER, ZONE_RUNS, ZONE_DEATHS, ZONE_CHESTS, FOUND, SPENT, JOB)
 
     fun of(group: String, code: String) = "$group:$code"
     fun dealt(type: String) = of(DEALT, type)
@@ -94,8 +104,10 @@ class StatTally {
     }
 
     /** Итог боя в статистику - уже в пределах правдоподобия. */
-    fun fight(raw: FightTally) {
+    /** Итог боя; [known] - есть ли такой монстр: убийца не из контента не пишется. */
+    fun fight(raw: FightTally, known: (String) -> Boolean = { true }) {
         val f = raw.sane()
+        if (!f.won) f.killer?.takeIf(known)?.let { add(Stat.KILLER, it) }
         add(Stat.FIGHTS)
         if (f.won) add(Stat.FIGHTS_WON)
         val seconds = f.millis / 1000

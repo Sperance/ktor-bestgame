@@ -107,6 +107,19 @@ class TreeService : KoinComponent {
         return state(heroes.save(hero, method))
     }
 
+    /** Откат ветки (1.52.0): узел и всё, что за ним висит, - по сфере сожаления за каждый. */
+    suspend fun refundBranch(heroId: String, nodeCode: String): TreeState {
+        val method = "refundBranch"
+        val hero = heroes.requireHero(heroId, method)
+        val node = index.tree.node(nodeCode) ?: throw SkillTreeExceptions.funExceptionNodeNotFound(method, nodeCode)
+        val branch = TreeAllocation.branch(index.tree, node, hero.tree.map { it.code })
+        val sockets = hero.sockets()
+        branch.mapNotNull { index.tree.node(it) }.forEach { TreeAllocation.requireSocketEmpty(it, sockets) }
+        spendRegret(hero, branch.size, method)
+        hero.tree.removeAll { it.code in branch }
+        return state(heroes.save(hero, method))
+    }
+
     /** Полный сброс: по сфере за каждый возвращаемый узел, герой остаётся на стартовом узле класса. */
     suspend fun reset(heroId: String): TreeState {
         val method = "reset"
