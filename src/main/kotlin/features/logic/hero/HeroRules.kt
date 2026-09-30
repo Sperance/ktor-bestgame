@@ -3,8 +3,11 @@ package features.logic.hero
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.TreePlan
 import com.sperance.exileforge.rules.roll.Menagerie
+import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.run.Reward
+import com.sperance.exileforge.rules.sheet.SellPrice
 import com.sperance.exileforge.rules.sheet.SheetCalculator
 import com.sperance.exileforge.rules.sheet.SheetResult
 import com.sperance.exileforge.rules.sheet.sourcedLines
@@ -34,13 +37,37 @@ object Rewards {
                 Rarity.COMMON -> Unit
             }
         }
-        return Stash.receive(hero, reward.equipment, index)
+        return autoSell(hero, reward.equipment, index) + Stash.receive(hero, reward.equipment.filterNot { sold(hero, it, index) }, index)
     }
+
+    /** Добыча, что фильтр героя продаёт сразу: золото в кошелёк, в тайник она не ложится. */
+    private fun autoSell(hero: Hero, items: List<ItemInstance>, index: ContentIndex): Received {
+        val sold = items.filter { sold(hero, it, index) }
+        if (sold.isEmpty()) return Received()
+        val sheet = index.sheetOf(hero).stats
+        val gold = sold.sumOf { item -> index.template(item.template)?.let { SellPrice.of(index, it, item, sheet) } ?: 0L }
+        hero.gain(gold)
+        hero.count(Counter.ITEMS_SOLD, sold.size.toLong())
+        return Received(sold = sold.size, gold = gold)
+    }
+
+    private fun sold(hero: Hero, item: ItemInstance, index: ContentIndex): Boolean =
+        index.template(item.template)?.let { hero.autoSell.sells(it, item) } == true
 
     /** Уровень только растёт: потеря опыта не забирает вложенных очков дерева. */
     fun addExperience(hero: Hero, amount: Double, index: ContentIndex) {
         hero.experience += amount
         val reached = index.classes.levelOf(hero.experience)
-        if (reached > hero.level) hero.level = reached
+        if (reached > hero.level) {
+            hero.level = reached
+            followPlan(hero, index)
+        }
+    }
+
+    /** Берёт узлы плана дерева, на которые теперь хватает очков (1.45.0). */
+    fun followPlan(hero: Hero, index: ContentIndex) {
+        val start = index.heroClass(hero.heroClass)?.startNode ?: return
+        val available = index.classes.pointsTotal(hero.level) - index.tree.spent(hero.tree)
+        hero.tree += TreePlan.follow(index.tree, hero.plannedTree, hero.tree.map { it.code }, start, available)
     }
 }

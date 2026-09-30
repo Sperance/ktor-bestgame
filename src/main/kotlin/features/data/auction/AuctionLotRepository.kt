@@ -226,36 +226,19 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         return lot
     }
 
-    /** Сколько лотов героя на витрине и сколько мест у него всего. */
+    /** Сколько лотов героя на витрине и сколько мест всего (1.44.0: мест поровну у всех, не покупаются). */
     suspend fun slots(heroId: String): AuctionSlots {
         val seller = requireTrader(heroId, "slots")
         return slotsOf(seller, active(seller._id))
     }
 
-    /** Докупает одно место за золото; цена растёт с каждым купленным. */
-    suspend fun buySlot(heroId: String): AuctionSlots {
-        val method = "buySlot"
-        val seller = requireTrader(heroId, method)
-        if (rules.baseSlots + seller.auctionSlots >= rules.maxSlots) throw AuctionExceptions.funExceptionSlotsMax(method, rules.maxSlots.toString())
-        val price = rules.slotPrice(seller.auctionSlots)
-        if (seller.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
-        seller.pay(price)
-        seller.auctionSlots += 1
-        heroes.save(seller, method)
-        return slotsOf(seller, active(seller._id), seller.money)
-    }
-
-    private fun slotsOf(seller: Hero, used: Int, money: Long = 0): AuctionSlots {
-        val limit = rules.baseSlots + seller.auctionSlots
-        return AuctionSlots(used, limit, rules.maxSlots, if (limit >= rules.maxSlots) 0 else rules.slotPrice(seller.auctionSlots), money)
-    }
+    private fun slotsOf(@Suppress("UNUSED_PARAMETER") seller: Hero, used: Int): AuctionSlots = AuctionSlots(used, rules.slots)
 
     private suspend fun active(sellerId: String): Int =
         count(Filters.and(Filters.eq("sellerId", sellerId), Filters.eq("status", LotStatus.ACTIVE.name))).toInt()
 
     private suspend fun requirePlace(seller: Hero, method: String) {
-        val limit = rules.baseSlots + seller.auctionSlots
-        if (active(seller._id) >= limit) throw AuctionExceptions.funExceptionLotLimit(method, limit.toString())
+        if (active(seller._id) >= rules.slots) throw AuctionExceptions.funExceptionLotLimit(method, rules.slots.toString())
     }
 
     /** Герой аукциона; сперва закрываются его истёкшие лоты - товар возвращается прежде, чем он что-то сделает. */
@@ -290,4 +273,4 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
 /** Места под лоты героя: базовые сразу, по одному докупается за золото до потолка; [price] - цена следующего, 0 - больше не купить. */
 @Serializable
-data class AuctionSlots(val used: Int, val limit: Int, val max: Int, val price: Long, val money: Long = 0)
+data class AuctionSlots(val used: Int, val limit: Int)

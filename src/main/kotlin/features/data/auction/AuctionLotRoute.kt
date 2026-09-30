@@ -37,9 +37,6 @@ class AuctionLotRoute(private val repo: AuctionLotRepository) : BaseRoute<Auctio
         get("/slots") {
             call.respondOk(repo.slots(call.heroId))
         }
-        post("/slots") {
-            call.respondOk(repo.buySlot(call.heroId))
-        }
         post("/buy") {
             call.respondOk(repo.buy(call.heroId, call.queryParam("lotId")))
         }

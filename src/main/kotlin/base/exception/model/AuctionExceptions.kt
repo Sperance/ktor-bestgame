@@ -19,7 +19,6 @@ object AuctionExceptions {
     fun funExceptionAmount(errorMethod: String, value: String? = "") = AuctionException("Auction amount $value must be positive", errorMethod, "AU_009", listOf(value.orEmpty()))
     fun funExceptionItemEquipped(errorMethod: String, value: String? = "") = AuctionException("Item $value must be unequipped before it goes on sale", errorMethod, "AU_010", listOf(value.orEmpty()))
     fun funExceptionLotLimit(errorMethod: String, value: String? = "") = AuctionException("All $value lot places are taken", errorMethod, "AU_012", listOf(value.orEmpty()))
-    fun funExceptionSlotsMax(errorMethod: String, value: String? = "") = AuctionException("No more than $value lot places", errorMethod, "AU_013", listOf(value.orEmpty()))
     fun funExceptionItemLocked(errorMethod: String, value: String? = "") = AuctionException("Item $value is locked: unlock it before it goes on sale", errorMethod, "AU_014", listOf(value.orEmpty()))
     fun funExceptionSellerStackFull(errorMethod: String, value: String? = "") = AuctionException("The seller cannot hold more than $value of the price orb: the purchase is refused", errorMethod, "AU_015", listOf(value.orEmpty()))
     fun funExceptionStackFull(errorMethod: String, value: String? = "") = AuctionException("You cannot hold more than $value of this item: the purchase is refused", errorMethod, "AU_016", listOf(value.orEmpty()))

@@ -1,5 +1,9 @@
 package features.logic.inventory
 
+import base.exception.BaseRouteExceptions
+import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.SlotGroup
+import com.sperance.exileforge.rules.content.AutoSell
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
 import base.exception.model.SkillTreeExceptions
@@ -130,6 +134,15 @@ class InventoryService : KoinComponent {
      * Замок на вещь (1.28.0): в тайнике, надетую или в переполнении. Запертую нельзя продать и выставить
      * на аукцион, и переполнение не продаёт её само; сферы и ремесло замок не держит.
      */
+    /** Строка фильтра добычи (1.45.0): какие группы слотов редкости [rarity] торговец забирает сразу; пустые [groups] - никакие. */
+    suspend fun autoSell(heroId: String, rarity: Rarity, groups: Set<SlotGroup>): AutoSell {
+        val method = "autoSell"
+        if (rarity !in AutoSell.SELLABLE) throw BaseRouteExceptions.funExceptionQuery(method, "rarity")
+        val hero = heroes.requireHero(heroId, method)
+        hero.autoSell = hero.autoSell.with(rarity, groups)
+        return heroes.save(hero, method).autoSell
+    }
+
     suspend fun lock(heroId: String, itemId: String, locked: Boolean): ItemInstance {
         val method = "lock"
         val hero = heroes.requireHero(heroId, method)

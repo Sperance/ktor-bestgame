@@ -120,11 +120,10 @@ data class StarterRules(val gold: Long = 0, val toolPrefix: String = "BRONZE_")
 /** Аукцион; [lotDays] - сколько дней лот стоит на витрине (1.30.0): потом товар возвращается продавцу, сбор не возвращается. */
 @Serializable
 data class AuctionRules(
-    val baseSlots: Int = 5, val maxSlots: Int = 20, val firstSlotPrice: Double = 500.0, val slotGrowth: Double = 1.5, val minLevel: Int = 1,
+    /** Мест под лоты у каждого героя (1.44.0): поровну и без докупки. */
+    val slots: Int = 12, val minLevel: Int = 1,
     val buyerFee: Double = 0.0, val lotDays: Int = 30,
 ) {
-    fun slotPrice(bought: Int): Long = Math.round(firstSlotPrice * Math.pow(slotGrowth, bought.toDouble()))
-
     /** Сбор с покупателя золотом (1.13.0): [buyerFee] процентов цены лота в ценах сфер [orbPrice]; в дробях - без переполнения Long. */
     fun fee(orbPrice: Long, price: Long): Long = Math.round(orbPrice.toDouble() * price.toDouble() * buyerFee / 100).coerceAtLeast(0)
 
@@ -301,7 +300,7 @@ data class EngineRules(
         if (merchant.orbs.markup < 1 || merchant.orbs.growth < 1) fail("rules: merchant orbs")
         if (orbs.vaalShift.size != 2 || orbs.vaalShift[0] > orbs.vaalShift[1] || orbs.fractureMinAffixes < 1 || orbs.maxAlchemyLines < 0) fail("rules: orbs")
         if (loot.rarityWeights.keys != Rarity.entries.toSet()) fail("rules: loot rarity weights")
-        if (auction.baseSlots < 0 || auction.maxSlots < auction.baseSlots || auction.buyerFee < 0) fail("rules: auction")
+        if (auction.slots < 1 || auction.buyerFee < 0) fail("rules: auction")
         stash.validate()
         if (run.newSeedSeconds < 0) fail("rules: run")
         if (auction.lotDays <= 0) fail("rules: auction.lotDays")

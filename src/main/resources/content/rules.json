@@ -142,10 +142,7 @@
     "toolPrefix": "BRONZE_"
   },
   "auction": {
-    "baseSlots": 5,
-    "maxSlots": 20,
-    "firstSlotPrice": 500.0,
-    "slotGrowth": 1.5,
+    "slots": 12,
     "minLevel": 1,
     "buyerFee": 10.0,
     "lotDays": 30

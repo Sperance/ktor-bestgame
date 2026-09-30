@@ -1,5 +1,6 @@
 package features.logic.tree
 
+import features.logic.hero.Rewards
 import base.exception.model.SkillTreeExceptions
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Orb
@@ -66,6 +67,16 @@ class TreeService : KoinComponent {
             hero.tree += TakenNode(code, pick)
             available -= node.cost
         }
+        return state(heroes.save(hero, method))
+    }
+
+    /** Задаёт план дерева (1.45.0) и сразу берёт из него всё, на что хватает очков; пустой план - план снят. */
+    suspend fun plan(heroId: String, plan: List<TakenNode>): TreeState {
+        val method = "treePlan"
+        val hero = heroes.requireHero(heroId, method)
+        plan.firstOrNull { index.tree.node(it.code) == null }?.let { throw SkillTreeExceptions.funExceptionNodeNotFound(method, it.code) }
+        hero.plannedTree = plan.distinctBy { it.code }.toMutableList()
+        Rewards.followPlan(hero, index)
         return state(heroes.save(hero, method))
     }
 

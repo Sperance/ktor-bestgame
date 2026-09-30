@@ -2910,7 +2910,6 @@
   "error.AU_010": "Item {0} must be unequipped before it goes on sale",
   "error.AU_011": "Auction lot {0} carries no goods",
   "error.AU_012": "All {0} lot places are taken",
-  "error.AU_013": "There can be no more than {0} lot places",
   "error.AU_014": "Item {0} is locked: unlock it to put it up for sale",
   "error.AU_015": "The seller cannot hold more than {0} of the price orb: the purchase is refused",
   "error.AU_016": "You cannot hold more than {0} of this item: nothing was spent",

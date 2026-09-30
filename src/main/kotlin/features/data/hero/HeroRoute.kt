@@ -1,5 +1,7 @@
 package features.data.hero
 
+import com.sperance.exileforge.rules.content.TreePlan
+import com.sperance.exileforge.rules.content.SlotGroup
 import base.exception.BaseRouteExceptions
 import base.exception.model.SkillExceptions
 import base.exception.model.SkillTreeExceptions
@@ -141,6 +143,12 @@ class HeroRoute(
         }
 
         // Тайник: места, докупка пачек, переполнение - забрать или продать.
+        post("/autosell") {
+            val rarity = call.queryParam("rarity").let { code -> Rarity.entries.firstOrNull { it.name == code } } ?: throw BaseRouteExceptions.funExceptionQuery("autosell", "rarity")
+            val groups = call.optionalParam("groups").orEmpty().split(',').filter { it.isNotBlank() }
+                .map { code -> SlotGroup.entries.firstOrNull { it.name == code } ?: throw BaseRouteExceptions.funExceptionQuery("autosell", "groups") }.toSet()
+            call.respondWithHero(inventory.autoSell(call.heroId, rarity, groups))
+        }
         route("/stash") {
             get { call.respondOk(inventory.stash(call.heroId)) }
             post("/expand") { call.respondWithHero(inventory.expandStash(call.heroId)) }
@@ -216,6 +224,7 @@ class HeroRoute(
                 call.respondWithHero(tree.allocatePath(call.heroId, call.queryParam("nodeCode"), choice))
             }
             post("/refund") { call.respondWithHero(tree.refund(call.heroId, call.queryParam("nodeCode"))) }
+            post("/plan") { call.respondWithHero(tree.plan(call.heroId, TreePlan.parse(call.optionalParam("nodes").orEmpty()))) }
             post("/rechoose") {
                 val choice = call.queryParam("choice").let { it.toIntOrNull() ?: throw SkillTreeExceptions.funExceptionChoice("rechoose", it) }
                 call.respondWithHero(tree.rechoose(call.heroId, call.queryParam("nodeCode"), choice))

@@ -3,6 +3,7 @@ package features.data.hero
 import base.entity.TrackedEntity
 import base.entity.VersionedEntity
 import base.exception.model.CharacterExceptions
+import com.sperance.exileforge.rules.content.AutoSell
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.Pet
 import com.sperance.exileforge.rules.content.QuestLog
@@ -52,6 +53,8 @@ data class Hero(
     /** Сумка: код предмета - сколько. */
     var bag: MutableMap<String, Long> = mutableMapOf(),
     var tree: MutableList<TakenNode> = mutableListOf(),
+    /** План дерева (1.45.0): узлы, что сервер возьмёт сам, как хватит очков. */
+    var plannedTree: MutableList<TakenNode> = mutableListOf(),
     var skills: HeroSkills = HeroSkills(),
     /** Взятые узлы атласа без корня и засчитанные достижения `<вид>:<зона>`. */
     var atlas: MutableList<String> = mutableListOf(),
@@ -60,9 +63,11 @@ data class Hero(
     var recipes: MutableList<String> = mutableListOf(),
     var professions: MutableMap<String, ProfessionProgress> = mutableMapOf(),
     var work: ActiveWork? = null,
+    /** Метки неправдоподобных заходов (1.45.0): награды выданы, решает администратор. */
+    var flags: MutableList<features.logic.campaign.RunFlag> = mutableListOf(),
+    /** Фильтр добычи (1.45.0): что торговец забирает из добычи захода сразу. */
+    var autoSell: AutoSell = AutoSell(),
     var merchant: MerchantStock? = null,
-    /** Мест под лоты аукциона докуплено сверх базовых. */
-    var auctionSlots: Int = 0,
     /** Летопись героя (1.3.0): счётчики [Counter] - сумма или рекорд. */
     var counters: MutableMap<String, Long> = mutableMapOf(),
     /** Титул у имени - код одного из открытых достижениями; пусто - без титула. */

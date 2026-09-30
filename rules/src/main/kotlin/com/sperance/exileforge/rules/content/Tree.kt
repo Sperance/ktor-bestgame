@@ -155,3 +155,33 @@ object TreeAllocation {
         if (template.slot == Slot.JEWEL && template.unique && template.code in others) throw RuleViolation("ST_022", listOf(LocaleKey.equipmentName(template.code)))
     }
 }
+
+/**
+ * План дерева (1.45.0): узлы, которые герой собирается взять, по порядку. Сервер хранит его и берёт узлы сам,
+ * как только на них хватает очков: [follow] идёт по плану и берёт подряд всё, что законно взять сейчас, - первый
+ * узел, на который не хватает очков или к которому ещё нет пути, останавливает шаг: порядок плана - порядок игрока.
+ */
+object TreePlan {
+    /** Узлы плана [plan], которые можно взять сейчас по порядку, при [available] свободных очках. */
+    fun follow(graph: TreeGraph, plan: List<TakenNode>, taken: Collection<String>, startNode: String, available: Int): List<TakenNode> {
+        val have = taken.toMutableList()
+        var left = available
+        val took = mutableListOf<TakenNode>()
+        for (step in plan) {
+            if (step.code in have) continue
+            val node = graph.node(step.code) ?: break
+            val legal = runCatching { TreeAllocation.requireAllocatable(graph, node, have, startNode, left, step.choice) }.isSuccess
+            if (!legal) break
+            have += step.code
+            left -= node.cost
+            took += step
+        }
+        return took
+    }
+
+    /** Разбор плана с провода: `код` или `код:вариант` через запятую. */
+    fun parse(text: String): List<TakenNode> = text.split(',').map { it.trim() }.filter { it.isNotEmpty() }.map { part ->
+        val code = part.substringBefore(':')
+        TakenNode(code, part.substringAfter(':', "").takeIf { it.isNotEmpty() }?.toIntOrNull())
+    }
+}

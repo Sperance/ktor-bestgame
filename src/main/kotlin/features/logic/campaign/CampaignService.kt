@@ -256,6 +256,7 @@ class CampaignService : KoinComponent {
                 if (key in killed) return null
                 val reward = run.kill(event.i, event.m, event.vaal, draws) ?: return null
                 killed += key
+                Plausibility.kills(hero, state, now)
                 hero.count(Counter.KILLS)
                 when (run.spawn(event.i, event.vaal).pack.getOrNull(event.m)?.rarity) {
                     MonsterRarity.MAGIC -> hero.count(Counter.KILLS_MAGIC)
@@ -275,6 +276,7 @@ class CampaignService : KoinComponent {
             RunEventKind.BOSS -> {
                 if (now < (campaignState.bosses[mapCode] ?: 0L)) return null
                 campaignState.bosses[mapCode] = now + (bonuses.bossRespawnHours(campaign.bosses.respawnHours) * 3_600_000).toLong()
+                Plausibility.boss(hero, state, now)
                 if (mapCode !in campaignState.cleared) campaignState.cleared += mapCode
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
                 hero.count(Counter.BOSSES)
