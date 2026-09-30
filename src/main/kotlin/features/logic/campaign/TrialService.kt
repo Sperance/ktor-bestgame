@@ -6,6 +6,7 @@ import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.Region
 import com.sperance.exileforge.rules.content.RushPlan
+import com.sperance.exileforge.rules.content.Stat
 import com.sperance.exileforge.rules.content.TrialEvent
 import com.sperance.exileforge.rules.content.TrialEventKind
 import com.sperance.exileforge.rules.content.TrialKind
@@ -89,6 +90,7 @@ class TrialService : KoinComponent {
         val run = TrialRun(ObjectId().toHexString(), kind, kotlin.random.Random.nextLong(), hero.level, System.currentTimeMillis(), region, floor)
         hero.campaign.trials = hero.campaign.trials.copy(run = run)
         hero.count(Counter.RUNS)
+        hero.count(Counter.TRIALS)
         heroes.save(hero, method)
         return TrialStart(run, context(hero, run))
     }
@@ -142,6 +144,8 @@ class TrialService : KoinComponent {
                 hero.campaign.trials = trials.copy(run = run.copy(killed = run.killed + 1))
                 Plausibility.pace(hero, run.region, run.startedAt, now, run.killed + 1, Plausibility.BOSS_SECONDS, "rush_boss_seconds")
                 hero.count(Counter.BOSSES)
+                hero.count(Counter.RUSH_BOSSES)
+                plan.zones.getOrNull(event.index)?.let { hero.stats.add(Stat.BOSS, it.boss) }
                 Reward.NONE
             }
             TrialEventKind.FLOOR -> {
@@ -155,9 +159,14 @@ class TrialService : KoinComponent {
                 hero.count(Counter.TOWER_FLOOR, floor.toLong())
                 if (floor % rules.atlasFloors == 0) AtlasPoints.earn(hero.earned, AtlasPoints.TOWER, floor.toString())
                 val abyss = index.campaign.abyss
+                if (tower.hoard(floor)) hero.count(Counter.TOWER_HOARDS)
                 if (!tower.hoard(floor) || abyss == null) Reward.NONE
                 else Run(index, TrialRules.arena(index.campaign, tower.level(run.heroLevel, floor)), run.seed, context)
                     .hoard(tower.hoardDepth(abyss, floor), 1.0, draws, tower.hoardScale(floor))
+            }
+            TrialEventKind.FIGHT -> {
+                event.fight?.let(hero.stats::fight)
+                Reward.NONE
             }
             TrialEventKind.END -> {
                 hero.campaign.trials = trials.copy(run = null)

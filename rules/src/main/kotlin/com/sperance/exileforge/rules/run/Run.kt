@@ -69,7 +69,9 @@ data class RunContext(
 }
 
 @Serializable
-enum class RunEventKind { KILL, CHEST, BOSS, CORRUPT, CRYSTAL, CRYSTAL_VAAL, VAAL_OPEN, VAAL_LEAVE, ABYSS_OPEN, ABYSS_CLAIM, SUMMON, FALL, LEAVE }
+enum class RunEventKind { KILL, CHEST, BOSS, CORRUPT, CRYSTAL, CRYSTAL_VAAL, VAAL_OPEN, VAAL_LEAVE, ABYSS_OPEN, ABYSS_CLAIM, SUMMON, FALL, LEAVE,
+    /** Бой окончен (1.49.0): его итог [RunEvent.fight] - только в статистику героя. */
+    FIGHT }
 
 /**
  * Событие захода в журнале клиента: порядковый номер [n] (сервер применяет каждый номер один раз),
@@ -86,6 +88,8 @@ data class RunEvent(
     val fallen: Boolean = false,
     /** Убийство внутри Ваал-зоны: жетон из её ряда, добыча с её бонусом. */
     val vaal: Boolean = false,
+    /** Итог боя события [RunEventKind.FIGHT] (1.49.0). */
+    val fight: com.sperance.exileforge.rules.content.FightTally? = null,
 )
 
 /**

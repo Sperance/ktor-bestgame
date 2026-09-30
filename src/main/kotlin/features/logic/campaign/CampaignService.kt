@@ -10,6 +10,7 @@ import com.sperance.exileforge.rules.content.MonsterRarity
 import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.content.Stat
 import com.sperance.exileforge.rules.content.WorldKind
 import com.sperance.exileforge.rules.content.Zone
 import com.sperance.exileforge.rules.roll.AbyssRifts
@@ -258,7 +259,9 @@ class CampaignService : KoinComponent {
                 killed += key
                 Plausibility.kills(hero, state, now)
                 hero.count(Counter.KILLS)
-                when (run.spawn(event.i, event.vaal).pack.getOrNull(event.m)?.rarity) {
+                val monster = run.spawn(event.i, event.vaal).pack.getOrNull(event.m)
+                monster?.let { hero.stats.add(Stat.KILL, it.code) }
+                when (monster?.rarity) {
                     MonsterRarity.MAGIC -> hero.count(Counter.KILLS_MAGIC)
                     MonsterRarity.RARE -> hero.count(Counter.KILLS_RARE)
                     else -> Unit
@@ -280,6 +283,8 @@ class CampaignService : KoinComponent {
                 if (mapCode !in campaignState.cleared) campaignState.cleared += mapCode
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
                 hero.count(Counter.BOSSES)
+                hero.stats.add(Stat.BOSS, zone.boss)
+                if (campaignState.activeMap?.mapCode == mapCode) hero.count(Counter.MAP_BOSSES)
                 if (campaignState.activeMap?.takeIf { it.mapCode == mapCode }?.itemRarity == Rarity.RARE) AtlasPoints.earn(hero.earned, AtlasPoints.RARE, mapCode)
                 state.tally.bosses++
                 Outcome(run.boss(draws))
@@ -287,6 +292,7 @@ class CampaignService : KoinComponent {
             RunEventKind.VAAL_OPEN -> {
                 if (campaignState.corruptionOpened || campaignState.vaalZone?.mapCode == mapCode) return null
                 campaignState.vaalZone = run.vaalZone(draws)
+                hero.count(Counter.VAAL_ZONES)
                 Outcome()
             }
             RunEventKind.VAAL_LEAVE -> {
@@ -303,6 +309,7 @@ class CampaignService : KoinComponent {
                 campaignState.vaalZone = null
                 AtlasPoints.earn(hero.earned, AtlasPoints.VAAL, mapCode)
                 hero.count(Counter.VAAL_GUARDIANS)
+                hero.stats.add(Stat.BOSS, zone.corrupted)
                 Outcome(reward)
             }
             RunEventKind.CRYSTAL -> {
@@ -310,6 +317,7 @@ class CampaignService : KoinComponent {
                 val crystal = window.crystals.getOrNull(event.index) ?: return null
                 campaignState.crystals[mapCode] = window.copy(crystals = window.crystals.filterIndexed { i, _ -> i != event.index })
                 hero.count(Counter.CRYSTALS)
+                hero.stats.add(Stat.KILL, crystal.guardian)
                 state.tally.crystals++
                 Outcome(run.crystal(crystal, draws))
             }
@@ -355,6 +363,10 @@ class CampaignService : KoinComponent {
                 hero.count(Counter.DEATHS)
                 close(campaignState, mapCode)
                 Outcome(lost = lost)
+            }
+            RunEventKind.FIGHT -> {
+                event.fight?.let(hero.stats::fight)
+                Outcome()
             }
             RunEventKind.LEAVE -> {
                 if (now >= (campaignState.bosses[mapCode] ?: 0L)) return null

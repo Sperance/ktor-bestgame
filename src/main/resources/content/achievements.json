@@ -225,6 +225,108 @@
         100
       ],
       "title": "CARTOGRAPHER"
+    },
+    {
+      "code": "TOWER_CLIMBER",
+      "counter": "TOWER_FLOOR",
+      "tiers": [
+        10,
+        25,
+        50
+      ],
+      "title": "TOWER_LORD"
+    },
+    {
+      "code": "RUSH_MASTER",
+      "counter": "RUSH_CLEARS",
+      "tiers": [
+        1,
+        4,
+        9
+      ],
+      "title": "RUSH_MASTER"
+    },
+    {
+      "code": "RUSH_HUNTER",
+      "counter": "RUSH_BOSSES",
+      "tiers": [
+        15,
+        150,
+        750
+      ]
+    },
+    {
+      "code": "HOARD_KEEPER",
+      "counter": "TOWER_HOARDS",
+      "tiers": [
+        5,
+        40,
+        200
+      ]
+    },
+    {
+      "code": "TRIALIST",
+      "counter": "TRIALS",
+      "tiers": [
+        5,
+        50,
+        300
+      ],
+      "title": "TRIALIST"
+    },
+    {
+      "code": "MAP_CONQUEROR",
+      "counter": "MAP_BOSSES",
+      "tiers": [
+        10,
+        100,
+        1000
+      ],
+      "title": "MAP_CONQUEROR"
+    },
+    {
+      "code": "VAAL_WALKER",
+      "counter": "VAAL_ZONES",
+      "tiers": [
+        5,
+        50,
+        250
+      ]
+    },
+    {
+      "code": "ORB_HOARDER",
+      "counter": "ORBS_FOUND",
+      "tiers": [
+        100,
+        1000,
+        10000
+      ]
+    },
+    {
+      "code": "ESSENCE_FINDER",
+      "counter": "ESSENCES_FOUND",
+      "tiers": [
+        50,
+        500,
+        5000
+      ]
+    },
+    {
+      "code": "MAP_FINDER",
+      "counter": "MAPS_FOUND",
+      "tiers": [
+        10,
+        100,
+        1000
+      ]
+    },
+    {
+      "code": "MYTH_SEEKER",
+      "counter": "MYTHICS",
+      "tiers": [
+        1
+      ],
+      "title": "MYTH_SEEKER"
     }
   ]
 }

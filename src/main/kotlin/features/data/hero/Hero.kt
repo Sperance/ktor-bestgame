@@ -97,6 +97,9 @@ data class Hero(
     fun item(id: String): ItemInstance? = items.firstOrNull { it.id == id }
 
     /** Копия героя или «не найдена»: чужая и несуществующая отвечают одинаково. */
+    /** Прирост статистики этой команды (1.49.0): пишется в `HeroStats` после записи героя. */
+    @Transient val stats: com.sperance.exileforge.rules.content.StatTally = com.sperance.exileforge.rules.content.StatTally()
+
     fun requireItem(id: String, method: String): ItemInstance = item(id) ?: throw CharacterExceptions.funExceptionItemNotFound(method, id)
 
     /** Всё, что работает на герое: надетое и вставленное в гнёзда. */
@@ -111,6 +114,7 @@ data class Hero(
         val owned = bag[code] ?: 0L
         if (owned < amount) throw CharacterExceptions.funExceptionItemLowZero(method, "$code:$owned")
         if (owned == amount) bag.remove(code) else bag[code] = owned - amount
+        stats.add(com.sperance.exileforge.rules.content.Stat.SPENT, code, amount)
     }
 
     /** Кладёт в сумку до потолка стопки [cap]: излишек сгорает, а не срывает выдачу. */

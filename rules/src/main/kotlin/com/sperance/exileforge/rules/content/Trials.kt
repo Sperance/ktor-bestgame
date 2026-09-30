@@ -153,8 +153,10 @@ class RushPlan(val region: Region) {
 
 /** События журнала испытания: босс раша пал, этаж башни пройден, испытание кончилось - гибелью ([TrialEvent.fallen]) или уходом. */
 @Serializable
-enum class TrialEventKind { BOSS, FLOOR, END }
+enum class TrialEventKind { BOSS, FLOOR, END,
+    /** Бой окончен (1.49.0): итог [TrialEvent.fight] - только в статистику героя. */
+    FIGHT }
 
 /** Событие испытания [n]: [index] - номер босса раша или этаж башни. */
 @Serializable
-data class TrialEvent(val n: Int, val kind: TrialEventKind, val index: Int = 0, val fallen: Boolean = false)
+data class TrialEvent(val n: Int, val kind: TrialEventKind, val index: Int = 0, val fallen: Boolean = false, val fight: FightTally? = null)

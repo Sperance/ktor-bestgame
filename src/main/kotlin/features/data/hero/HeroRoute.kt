@@ -195,6 +195,9 @@ class HeroRoute(
         }
 
         // Кампания по семени: вход выдаёт семя и контекст, журнал событий проигрывается сервером.
+        // Статистика героя (1.49.0): вся, ненулевая, отдельным запросом летописи.
+        get("/stats") { repo.requireHero(call.heroId, "stats"); call.respondOk(features.data.heroStats.HeroStatsStore.read(call.heroId)) }
+
         route("/campaign") {
             get("/progress") { call.respondOk(campaign.progress(call.heroId)) }
             post("/start") { call.respondWithHero(campaign.start(call.heroId, call.mapCode, call.optionalParam("itemId"))) }

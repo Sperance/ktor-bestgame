@@ -139,6 +139,7 @@ class CraftsService : KoinComponent {
         gains.items.forEach { (code, amount) -> hero.earn(code, amount, index.rules.maxStack) }
         Stash.receive(hero, made, index)
         hero.count(Counter.CRAFT_CYCLES, result.gains.cycles.toLong())
+        hero.stats.add(com.sperance.exileforge.rules.content.Stat.JOB, job.code, result.gains.cycles.toLong())
         // Книга переписчика - тоже сделанная вещь, хоть и ложится в сумку.
         val books = if (job.output.startsWith(SkillRules.BOOK_PREFIX)) result.gains.items[job.output] ?: 0L else 0L
         hero.count(Counter.CRAFT_MADE, made.size + books)

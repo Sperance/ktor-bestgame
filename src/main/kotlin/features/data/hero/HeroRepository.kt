@@ -165,6 +165,7 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     /** Одна запись героя своей транзакцией: версия проверяется, объект в памяти идёт в ногу с базой. */
     suspend fun save(hero: Hero, method: String): Hero {
         transactionExecute(method) { session -> update(hero, session) }
+        features.data.heroStats.HeroStatsStore.bump(hero._id, hero.stats)
         return hero
     }
 }
