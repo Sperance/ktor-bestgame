@@ -28841,6 +28841,57 @@
           "alpha": 0.5
         }
       ]
+    },
+    "gl_trial_crest": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 6 L54 14 C54 34 46 50 32 58 C18 50 10 34 10 14 Z",
+          "color": "#8a6a2a",
+          "line": 2.4
+        },
+        {
+          "d": "M32 6 L54 14 C54 34 46 50 32 58 L32 6Z",
+          "color": "#d9b24c",
+          "alpha": 0.95
+        },
+        {
+          "d": "M32 6 L32 58 C18 50 10 34 10 14 Z",
+          "color": "#6b5220",
+          "alpha": 0.55
+        },
+        {
+          "d": "M30 18 L38 30 L30 32 L36 46",
+          "color": "#1c1408",
+          "line": 2.2
+        }
+      ]
+    },
+    "gl_trial_seal": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M32 6 A26 26 0 1 1 31.9 6Z",
+          "color": "#6a1f2c",
+          "line": 2.4
+        },
+        {
+          "d": "M32 10 A22 22 0 1 1 31.9 10Z",
+          "color": "#b8343f",
+          "alpha": 0.95
+        },
+        {
+          "d": "M24 46 V26 H28 V20 H36 V26 H40 V46 Z",
+          "color": "#f1d7a0",
+          "alpha": 0.95
+        },
+        {
+          "d": "M30 46 V38 A2 2 0 0 1 34 38 V46",
+          "color": "#6a1f2c"
+        }
+      ]
     }
   },
   "icons": {
@@ -31121,6 +31172,8 @@
     "item.WORLDROOT": "gl_herb_worldroot",
     "item.ELDERHEART_LOG": "gl_log_elderheart",
     "item.WORLDTREE_LOG": "gl_log_worldtree",
-    "item.STAR_FLUX": "gl_flux_star"
+    "item.STAR_FLUX": "gl_flux_star",
+    "item.CREST_FRAGMENT": "gl_trial_crest",
+    "item.TOWER_SEAL": "gl_trial_seal"
   }
 }

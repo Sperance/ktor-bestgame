@@ -23,6 +23,8 @@ import com.sperance.exileforge.rules.run.RunEvent
 import config.ContentStore
 import features.logic.atlas.AtlasService
 import features.logic.campaign.CampaignService
+import features.logic.campaign.TrialService
+import com.sperance.exileforge.rules.content.TrialEvent
 import features.logic.crafts.CraftsService
 import features.logic.hero.HeroSnapshots
 import features.logic.hero.Rewards
@@ -55,6 +57,7 @@ class HeroRoute(
     private val crafts: CraftsService,
     private val merchant: MerchantService,
     private val campaign: CampaignService,
+    private val trials: TrialService,
     private val pets: PetService,
     private val quests: QuestService,
 ) : BaseRoute<Hero>(
@@ -211,6 +214,12 @@ class HeroRoute(
                 val books = call.queryParam("books").split(',').map { it.trim() }.filter { it.isNotEmpty() }
                 call.respondWithHero(skills.exchange(call.heroId, books, call.queryParam("skill")))
             }
+        }
+        // Испытания (1.47.0): босс-раш региона, башня и журнал испытания
+        route("/trials") {
+            post("/rush") { call.respondWithHero(trials.rush(call.heroId, call.queryParam("region"))) }
+            post("/tower") { call.respondWithHero(trials.tower(call.heroId)) }
+            post("/events") { call.respondWithHero(trials.events(call.heroId, call.receive<List<TrialEvent>>())) }
         }
 
         route("/skilltree") {

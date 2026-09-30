@@ -1226,5 +1226,7 @@
   "item.WORLDROOT.trade": "Worldroot",
   "item.ELDERHEART_LOG.trade": "Elderheart Log",
   "item.WORLDTREE_LOG.trade": "Worldtree Log",
-  "item.STAR_FLUX.trade": "Star Flux"
+  "item.STAR_FLUX.trade": "Star Flux",
+  "item.CREST_FRAGMENT.trade": "Crest Fragment",
+  "item.TOWER_SEAL.trade": "Tower Seal"
 }

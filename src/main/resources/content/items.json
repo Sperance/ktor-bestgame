@@ -2357,6 +2357,18 @@
       "category": "PET",
       "subCategory": "EGG",
       "price": 250
+    },
+    {
+      "code": "CREST_FRAGMENT",
+      "category": "MATERIAL",
+      "subCategory": "TRIAL",
+      "price": 150
+    },
+    {
+      "code": "TOWER_SEAL",
+      "category": "MATERIAL",
+      "subCategory": "TRIAL",
+      "price": 200
     }
   ]
 }

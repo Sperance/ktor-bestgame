@@ -164,7 +164,7 @@ class CampaignService : KoinComponent {
         run.startedAt, run.applied, run.killed.toList(), run.vaalKilled.toList(), run.tally.copy())
 
     /** Контекст захода: проценты героя с монстров каждой редкости - лист и силы уникалок, - атлас, карта, Ваал-зона, связи. */
-    private fun context(hero: Hero, zone: Zone, sheet: Map<String, Double>): RunContext {
+    internal fun context(hero: Hero, zone: Zone, sheet: Map<String, Double> = index.sheetOf(hero).stats): RunContext {
         val powers = index.powers
         val bonuses = MonsterRarity.entries.associate { rarity ->
             fun power(kind: WorldKind) = powers.worldBonus(sheet, kind, rarity)

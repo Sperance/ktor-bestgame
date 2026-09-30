@@ -55,7 +55,7 @@ class AtlasGraph(nodes: Collection<AtlasNode>) {
     }
 
     fun validate(tree: AtlasTree, stats: StatRegistry, modifier: (String) -> ModifierDef?) {
-        tree.points.forEach { (kind, amount) -> if (kind !in AtlasPoints.KINDS || amount < 0) fail("atlas: points $kind") }
+        tree.points.forEach { (kind, amount) -> if (kind !in AtlasPoints.ALL || amount < 0) fail("atlas: points $kind") }
         if (tree.cap <= 0) fail("atlas: cap")
         if (tree.respec.perNode < 0 || tree.respec.perLevel < 0) fail("atlas: respec")
         if (byCode.size != tree.nodes.size) fail("atlas: node codes")
@@ -90,7 +90,11 @@ object AtlasPoints {
     const val BOSS = "boss"
     const val RARE = "rare"
     const val VAAL = "vaal"
+    /** Испытания (1.47.0): первая зачистка региона в раше и каждый рубеж башни; в пределе зон не считаются. */
+    const val RUSH = "rush"
+    const val TOWER = "tower"
     val KINDS = setOf(BOSS, RARE, VAAL)
+    val ALL = KINDS + setOf(RUSH, TOWER)
 
     fun key(kind: String, mapCode: String) = "$kind:$mapCode"
     fun earn(earned: MutableCollection<String>, kind: String, mapCode: String): Boolean = key(kind, mapCode).let { it !in earned && earned.add(it) }

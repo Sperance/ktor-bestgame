@@ -2,7 +2,9 @@
   "points": {
     "boss": 1,
     "rare": 1,
-    "vaal": 1
+    "vaal": 1,
+    "rush": 1,
+    "tower": 1
   },
   "cap": 132,
   "respec": {

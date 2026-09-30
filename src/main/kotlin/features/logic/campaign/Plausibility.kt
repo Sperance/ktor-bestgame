@@ -37,12 +37,20 @@ object Plausibility {
         if (seconds < BOSS_SECONDS) flag(hero, state, now, "boss_seconds", seconds)
     }
 
+    /** Испытание (1.47.0) [place], начатое в [startedAt]: [done] боссов или этажей быстрее [seconds] секунд на каждый - метка [reason]. */
+    fun pace(hero: Hero, place: String, startedAt: Long, now: Long, done: Int, seconds: Double, reason: String) {
+        val spent = ((now - startedAt) / 1000.0).coerceAtLeast(0.1)
+        if (done > 0 && spent < done * seconds) flag(hero, place, startedAt, now, reason, spent / done)
+    }
+
     private fun seconds(state: RunState, now: Long): Double = ((now - state.startedAt) / 1000.0).coerceAtLeast(0.1)
 
-    private fun flag(hero: Hero, state: RunState, now: Long, reason: String, value: Double) {
-        if (hero.flags.any { it.zone == state.zone && it.reason == reason && it.at >= state.startedAt }) return
-        hero.flags += RunFlag(now, state.zone, reason, Math.round(value * 100) / 100.0)
+    private fun flag(hero: Hero, state: RunState, now: Long, reason: String, value: Double) = flag(hero, state.zone, state.startedAt, now, reason, value)
+
+    private fun flag(hero: Hero, zone: String, startedAt: Long, now: Long, reason: String, value: Double) {
+        if (hero.flags.any { it.zone == zone && it.reason == reason && it.at >= startedAt }) return
+        hero.flags += RunFlag(now, zone, reason, Math.round(value * 100) / 100.0)
         while (hero.flags.size > KEEP) hero.flags.removeAt(0)
-        printLog("[Plausibility] hero ${hero._id} (${hero.name}) zone ${state.zone}: $reason = $value", true)
+        printLog("[Plausibility] hero ${hero._id} (${hero.name}) zone $zone: $reason = $value", true)
     }
 }

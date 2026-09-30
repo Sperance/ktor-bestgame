@@ -8113,5 +8113,11 @@
   "choice.ARMOUR_STR.name": "Броня силы",
   "choice.ARMOUR_DEX.name": "Броня ловкости",
   "choice.ARMOUR_INT.name": "Броня интеллекта",
-  "choice.JEWELLERY.name": "Бижутерия"
+  "choice.JEWELLERY.name": "Бижутерия",
+  "item.CREST_FRAGMENT.name": "Фрагмент герба",
+  "item.CREST_FRAGMENT.description": "Пять фрагментов открывают босс-раш зачищенного региона",
+  "item.TOWER_SEAL.name": "Печать башни",
+  "item.TOWER_SEAL.description": "Открывает вход в бесконечную башню с последнего чекпоинта",
+  "error.CP_022": "Регион {0} ещё не зачищен целиком",
+  "error.CP_023": "Испытание не открыто: сначала войдите"
 }

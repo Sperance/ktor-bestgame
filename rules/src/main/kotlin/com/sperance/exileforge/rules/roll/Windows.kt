@@ -120,7 +120,10 @@ class EssenceCrystals(private val index: ContentIndex) {
 /** Копилка, какой её видит герой. */
 @Serializable data class AbyssHoardView(val items: List<Int>, val rare: Double, val orbs: List<Int>, val unique: Double, val experience: Double)
 
-data class HoardBonus(val items: Double = 1.0, val rare: Double = 0.0, val orbs: Double = 1.0, val unique: Double = 1.0, val experience: Double = 0.0)
+data class HoardBonus(val items: Double = 1.0, val rare: Double = 0.0, val orbs: Double = 1.0, val unique: Double = 1.0, val experience: Double = 0.0) {
+    /** Копилка в [grow] раз больше: вещи, сферы и опыт (клад башни, 1.47.0). */
+    fun scaled(grow: Double): HoardBonus = if (grow == 1.0) this else copy(items = items * grow, orbs = orbs * grow, experience = experience * grow)
+}
 data class HoardRoll(val items: List<Rarity>, val orbs: Map<String, Long>, val unique: Boolean, val experience: Double) {
     companion object { val EMPTY = HoardRoll(emptyList(), emptyMap(), false, 0.0) }
 }

@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.46.0"
+const val SERVER_VERSION = "1.47.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -26,8 +26,9 @@ const val SERVER_VERSION = "1.46.0"
  * 28 - план дерева `skilltree/plan`, фильтр добычи `hero/autosell`, места аукциона без докупки (без `POST auctionlot/slots`) (1.45.0).
  * 29 - секрет устройства от сервера (`user/byDeviceId` без тела отвечает `deviceSecret`, вход - по секрету), отчёты
  *      об ошибках `POST bugreport`, 403 `AUTH_006` блокировки (1.46.0).
+ * 30 - испытания: `hero/trials/rush|tower|events`, `campaign.trials` героя, раздел `trials` кампании (1.47.0).
  */
-const val API_REVISION = 29
+const val API_REVISION = 30
 
 /**
  * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой

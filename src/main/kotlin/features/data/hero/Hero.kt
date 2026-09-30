@@ -204,6 +204,8 @@ data class CampaignState(
     var run: RunState? = null,
     /** Когда герой последний раз получил новое семя захода, мс эпохи: чаще правила `run.newSeedSeconds` - нельзя. */
     var seededAt: Long = 0,
+    /** Испытания (1.47.0): открытое, рекорд башни, лучшие времена и зачистки раша. */
+    var trials: com.sperance.exileforge.rules.content.TrialProgress = com.sperance.exileforge.rules.content.TrialProgress(),
 )
 
 /**

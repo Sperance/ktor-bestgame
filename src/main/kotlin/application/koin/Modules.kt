@@ -51,6 +51,7 @@ val repositoryModule = module {
     single { CraftsService() }
     single { MerchantService() }
     single { CampaignService() }
+    single { features.logic.campaign.TrialService() }
     single { PetService() }
     single { QuestService() }
 }
@@ -64,7 +65,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get(), get()),
-                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
+                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
                 GuildRoute(get()),
                 RedemptionCodesRoute(get()),

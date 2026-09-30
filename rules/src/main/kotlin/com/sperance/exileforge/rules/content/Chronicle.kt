@@ -19,6 +19,9 @@ object Counter {
     const val RUNS = "RUNS"
     const val CHESTS = "CHESTS"
     const val CRYSTALS = "CRYSTALS"
+    /** Испытания (1.47.0): рекорд этажа башни и зачистки регионов в раше. */
+    const val TOWER_FLOOR = "TOWER_FLOOR"
+    const val RUSH_CLEARS = "RUSH_CLEARS"
     const val ITEMS_MAGIC = "ITEMS_MAGIC"
     const val ITEMS_RARE = "ITEMS_RARE"
     const val UNIQUES = "UNIQUES"
@@ -42,11 +45,11 @@ object Counter {
     val DERIVED = setOf(LEVEL, ZONES, ATLAS, TREE)
 
     /** Рекорды: пишется наибольшее значение, а не сумма. */
-    val MAX = setOf(ABYSS_DEPTH) + DERIVED
+    val MAX = setOf(ABYSS_DEPTH, TOWER_FLOOR) + DERIVED
 
     /** Все счётчики по разделам летописи, в порядке показа. */
     val SECTIONS: Map<String, List<String>> = linkedMapOf(
-        "COMBAT" to listOf(KILLS, KILLS_MAGIC, KILLS_RARE, BOSSES, VAAL_GUARDIANS, DEATHS, ABYSS_DEPTH, RUNS, CHESTS, CRYSTALS),
+        "COMBAT" to listOf(KILLS, KILLS_MAGIC, KILLS_RARE, BOSSES, VAAL_GUARDIANS, DEATHS, ABYSS_DEPTH, TOWER_FLOOR, RUSH_CLEARS, RUNS, CHESTS, CRYSTALS),
         "LOOT" to listOf(ITEMS_MAGIC, ITEMS_RARE, UNIQUES, GOLD_EARNED, GOLD_SPENT, ITEMS_SOLD, AUCTION_SOLD, AUCTION_BOUGHT),
         "CRAFT" to listOf(ORBS_USED, ESSENCES_USED, MIRRORS, CRAFT_CYCLES, CRAFT_MADE),
         "PROGRESS" to listOf(LEVEL, ZONES, ATLAS),

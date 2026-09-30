@@ -8113,5 +8113,11 @@
   "choice.ARMOUR_STR.name": "Armour of Strength",
   "choice.ARMOUR_DEX.name": "Armour of Dexterity",
   "choice.ARMOUR_INT.name": "Armour of Intelligence",
-  "choice.JEWELLERY.name": "Jewellery"
+  "choice.JEWELLERY.name": "Jewellery",
+  "item.CREST_FRAGMENT.name": "Crest Fragment",
+  "item.CREST_FRAGMENT.description": "Five fragments open the boss rush of a cleared region",
+  "item.TOWER_SEAL.name": "Tower Seal",
+  "item.TOWER_SEAL.description": "Opens the endless tower from the last checkpoint",
+  "error.CP_022": "Region {0} is not fully cleared yet",
+  "error.CP_023": "No trial is open: enter one first"
 }

@@ -293,6 +293,8 @@ data class CampaignFile(
     val abyss: AbyssRule? = null,
     /** Осквернение (1.4.0): пятна на земле зон; нет раздела - нет пятен. */
     val desecration: DesecrationRule? = null,
+    /** Испытания (1.47.0): босс-раш и башня; нет раздела - нет испытаний. */
+    val trials: TrialRules? = null,
     /** Таблица весов редкостей монстров. */
     val rarityTable: String = "rarity:monster",
 ) {

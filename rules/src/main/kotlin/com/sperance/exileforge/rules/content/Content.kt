@@ -103,8 +103,9 @@ class Content(
  * 14 - без свитков зачарования: сферы `*_SCROLL`, вариант `ENCHANT` и источник `ENCHANTMENT` сняты (1.42.0).
  * 15 - одна карта на все зоны, работы с выбором, редкость `MAGIC`, шесть видов осквернения, рекорды летописи (1.43.0).
  * 16 - перегонка и огранка самоцветов, выбор кузнеца, работы 45/50 и новые материалы (1.44.0).
+ * 17 - испытания: босс-раш и башня, фрагменты герба и печати башни в добыче (1.47.0).
  */
-const val RULES_VERSION = 16
+const val RULES_VERSION = 17
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -414,6 +415,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         }
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }
         content.abyss?.let(::validateAbyss)
+        content.trials?.let { if (content.abyss == null) fail("trials: the tower needs the Abyss"); it.validate(index) }
         content.desecration?.let(::validateDesecration)
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) fail("campaign: behaviour of form $it") }

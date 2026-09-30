@@ -10,6 +10,8 @@ import com.sperance.exileforge.rules.content.Monster
 import com.sperance.exileforge.rules.content.MonsterRarity
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.RarityRule
+import com.sperance.exileforge.rules.content.RushRule
+import com.sperance.exileforge.rules.content.TrialRules
 import com.sperance.exileforge.rules.content.Zone
 import com.sperance.exileforge.rules.roll.AbyssRifts
 import com.sperance.exileforge.rules.roll.ActiveMap
@@ -273,18 +275,46 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         return grant(draw, template.loot, zone.level, rule, "e", experienceFor(template, rule, null), extra, extraItems = essences, book = crystals.bookChance)
     }
 
-    /** Копилка Бездны за [depth] ступеней: волшебные и редкие базы с влиянием Бездны, сферы, уникалка, опыт; [keep] - уцелевшая доля. */
-    fun hoard(depth: Int, keep: Double, draws: RewardDraws): Reward {
+    /**
+     * Копилка Бездны за [depth] ступеней: волшебные и редкие базы с влиянием Бездны, сферы, уникалка, опыт; [keep] - уцелевшая доля,
+     * [grow] - во сколько раз копилка больше своей глубины (клад башни, 1.47.0).
+     */
+    fun hoard(depth: Int, keep: Double, draws: RewardDraws, grow: Double = 1.0): Reward {
         val rule = campaign.abyss ?: return Reward.NONE
         val draw = draws.next()
         val dice = draw.dice
         val rifts = AbyssRifts(index)
-        val roll = rifts.roll(rule, depth, hoardBonus(rule), keep, dice)
+        val roll = rifts.roll(rule, depth, hoardBonus(rule).scaled(grow), keep, dice)
         val bases = index.templatePoolUpTo(rule.tables, zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE && template.slot.influenceable }
         val itemLevel = itemLevel(zone.level, MonsterRarity.RARE)
         val equipment = roll.items.mapIndexedNotNull { i, rarity -> Tables.draw(bases, dice)?.let { factory.createInfluenced("h$depth-$i", it, rarity, Influence.ABYSS, dice, itemLevel) } } +
             listOfNotNull(loot.unique(rule.uniques, zone.level, dice).takeIf { roll.unique }?.let { factory.create("h$depth-u", it, Rarity.UNIQUE, dice, level = itemLevel) })
         return Reward(roll.experience, 0, roll.orbs, equipment.map { it.copy(id = itemId(draw, it.id)) })
+    }
+
+    /**
+     * Сундук босс-раша (1.47.0): сферы и опыт за каждого павшего из [bosses] (первые [killed]), за полную зачистку - уникалка из
+     * собственных таблиц боссов региона, за скорость [fast] - редкие вещи. Боссы раша сами ничего не роняют: всё здесь.
+     */
+    fun rushChest(rule: RushRule, bosses: List<Monster>, killed: Int, fast: Boolean, draws: RewardDraws): Reward {
+        val draw = draws.next()
+        val dice = draw.dice
+        val fallen = bosses.take(killed.coerceIn(0, bosses.size))
+        val orbPool = index.tables.pool(listOf(rule.orbTable))
+        val orbs = mutableMapOf<String, Long>()
+        repeat(fallen.sumOf { dice.between(rule.orbs) }) { Tables.draw(orbPool, dice)?.let { orbs.merge(it, 1L, Long::plus) } }
+        val unique = campaign.rarity(MonsterRarity.UNIQUE)
+        val experience = fallen.sumOf { experienceFor(it, unique, null) }
+        val itemLevel = itemLevel(zone.level, MonsterRarity.UNIQUE)
+        val full = bosses.isNotEmpty() && fallen.size == bosses.size
+        val own = bosses.flatMap { it.tables }.distinct()
+        val prize = if (!full) null
+            else own.takeIf { it.isNotEmpty() }?.let { Tables.draw(index.templatePool(it), dice) } ?: loot.unique(rule.uniqueTables.ifEmpty { campaign.bosses.tables }, zone.level, dice)
+        val bases = index.templatePoolUpTo(rule.itemTables, zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE }
+        val rares = if (fast && full) List(rule.fastItems) { Tables.draw(bases, dice) }.filterNotNull() else emptyList()
+        val equipment = listOfNotNull(prize?.let { factory.create(itemId(draw, "rush-u"), it, Rarity.UNIQUE, dice, level = itemLevel) }) +
+            rares.mapIndexed { n, template -> factory.create(itemId(draw, "rush-$n"), template, Rarity.RARE, dice, level = itemLevel) }
+        return Reward(experience, 0, orbs, equipment)
     }
 
     /** Прибавки к копилке героя в зоне: строки карты, атлас, силы уникалок; опыт единицы - обычный монстр Бездны с бонусом героя. */
@@ -369,6 +399,11 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val recipe = if (rare && dice.chance(index.rules.loot.recipeChance * relative(AtlasStat.RECIPE.code))) com.sperance.exileforge.rules.roll.Bench(index).draw(context.recipes, level, dice)?.code else null
         // Яйцо питомца (1.5.0) - последним броском, чтобы прежние потоки не сдвинулись: биом зоны решает, чьё оно.
         if (egg > 0 && dice.chance((egg * (1 + quantity / 100)).coerceAtMost(1.0))) index.pets.eggs[zone.biome]?.let { items.merge(it, 1L, Long::plus) }
+        // Фрагмент герба и печать башни (1.47.0) - ещё позже яйца: множитель количества редкости источника, прежние потоки не сдвигаются.
+        campaign.trials?.let { trials ->
+            if (dice.percent(trials.crest * rule.quantity)) items.merge(TrialRules.CREST, 1L, Long::plus)
+            if (dice.percent(trials.seal * rule.quantity)) items.merge(TrialRules.SEAL, 1L, Long::plus)
+        }
         return Reward(experience, rolled.gold, items, equipment, recipe)
     }
 

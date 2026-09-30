@@ -18,4 +18,6 @@ object CampaignExceptions {
     fun funExceptionEventOrder(errorMethod: String, value: String? = "") = CampaignException("Run event $value is out of order", errorMethod, "CP_019", listOf(value.orEmpty()))
     fun funExceptionContentChanged(errorMethod: String, value: String? = "") = CampaignException("The world changed since run $value began: it is closed", errorMethod, "CP_020", listOf(value.orEmpty()))
     fun funExceptionSeedTooSoon(errorMethod: String, value: String? = "") = CampaignException("A new run can begin in $value s", errorMethod, "CP_021", listOf(value.orEmpty()))
+    fun funExceptionRegionClosed(errorMethod: String, value: String? = "") = CampaignException("Region $value is not cleared", errorMethod, "CP_022", listOf(value.orEmpty()))
+    fun funExceptionNoTrial(errorMethod: String, value: String? = "") = CampaignException("No trial is open", errorMethod, "CP_023", listOf(value.orEmpty()))
 }

@@ -10509,5 +10509,92 @@
         "weight": 100
       }
     ]
+  },
+  "trials": {
+    "crest": 0.8,
+    "seal": 0.8,
+    "atlasFloors": 25,
+    "rush": {
+      "key": 5,
+      "life": 25.0,
+      "flaskCharges": 1.0,
+      "orbs": [
+        1,
+        2
+      ],
+      "orbTable": "orbs:abyss",
+      "uniqueTables": [],
+      "itemTables": [
+        "drop"
+      ],
+      "seconds": 45.0,
+      "fastItems": 1
+    },
+    "tower": {
+      "levelStep": 2,
+      "growth": 8.0,
+      "hoardEvery": 5,
+      "hoardGrowth": 15.0,
+      "modEvery": 10,
+      "modHoard": 10.0,
+      "checkpoint": 10,
+      "mods": [
+        {
+          "stat": "MAP_MONSTER_LIFE",
+          "op": "INCREASED",
+          "value": 40
+        },
+        {
+          "stat": "MAP_MONSTER_DAMAGE",
+          "op": "INCREASED",
+          "value": 30
+        },
+        {
+          "stat": "MAP_MONSTER_SPEED",
+          "op": "INCREASED",
+          "value": 20
+        },
+        {
+          "stat": "MAP_MONSTER_RESIST",
+          "op": "ADD",
+          "value": 30
+        },
+        {
+          "stat": "MAP_MONSTER_PENETRATION",
+          "op": "ADD",
+          "value": 15
+        },
+        {
+          "stat": "MAP_MONSTER_CRITICAL",
+          "op": "ADD",
+          "value": 15
+        },
+        {
+          "stat": "MAP_MONSTER_ARMOUR",
+          "op": "INCREASED",
+          "value": 60
+        },
+        {
+          "stat": "MAP_HERO_RESIST",
+          "op": "ADD",
+          "value": 25
+        },
+        {
+          "stat": "MAP_HERO_REGEN",
+          "op": "INCREASED",
+          "value": 60
+        },
+        {
+          "stat": "MAP_HERO_MAX_RESIST",
+          "op": "ADD",
+          "value": 8
+        },
+        {
+          "stat": "MAP_MONSTER_EXTRA_ELEMENTAL",
+          "op": "ADD",
+          "value": 20
+        }
+      ]
+    }
   }
 }
