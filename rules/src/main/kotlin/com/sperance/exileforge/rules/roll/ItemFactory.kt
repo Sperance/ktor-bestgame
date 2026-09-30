@@ -53,6 +53,18 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         return if (tier == roll.tier) roll else roll.copy(tier = tier)
     }
 
+    /**
+     * Аффикс, чьё семейство ушло из пула вещи, а его группу там держит своё семейство слота с теми же эффектами (1.61.0:
+     * заклинательские WAND_/SCEPTRE_ рядом с бижутерными), переезжает в него на тот же тир - старый жезл не слабеет.
+     */
+    private fun rehome(template: ItemTemplate, roll: Roll): Roll {
+        val def = index.modifier(roll.code)?.takeIf { it.affix && !it.crafted } ?: return roll
+        val pool = affixes.affixPool(template)
+        if (pool.any { it.value.code == def.code }) return roll
+        val home = pool.firstOrNull { (other) -> other.groupKey == def.groupKey && other.source == def.source && other.effects == def.effects }?.value ?: return roll
+        return roll.copy(code = home.code, tier = if (roll.rolled) roll.tier.coerceIn(1, home.tiers.size) else roll.tier)
+    }
+
     /** Держит ли копия дно своей редкости: волшебная и редкая - не меньше аффиксов, чем велит правило. */
     fun meetsFloor(template: ItemTemplate, item: ItemInstance): Boolean =
         item.rarity.fixed || item.rolls.count(affixes::isAffix) >= index.limits(item.rarity, template.slot).floor
@@ -76,6 +88,8 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         }
         val known = item.rolls.filter { index.modifier(it.code) != null }
         if (known.size != item.rolls.size) { item.rolls = known; changed = true }
+        val rehomed = item.rolls.map { rehome(template, it) }
+        if (rehomed != item.rolls) { item.rolls = rehomed; changed = true }
         // Копия без своего уровня (до 1.33.0) катилась на уровне зоны - её тиры уровнем шаблона не режутся
         val fitted = item.rolls.map { fitTier(it, if (item.itemLevel > 0) item.itemLevel else Int.MAX_VALUE) }
         if (fitted != item.rolls) { item.rolls = fitted; changed = true }

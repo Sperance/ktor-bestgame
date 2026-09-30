@@ -248,9 +248,18 @@ data class ModifierDef(
     val monster: Boolean get() = source == Source.MONSTER
     val rolls: Boolean get() = tiers.isNotEmpty()
 
+    /** Уровень, с которого описание вообще катается (1.61.0): порог его худшего тира; без тиров - 1. */
+    val minLevel: Int = tiers.minOfOrNull { it.level } ?: 1
+
+    /** Открыто ли описание вещи уровня [level]: аффикс, чей худший тир выше уровня вещи, в её пул не входит (1.61.0). */
+    fun openAt(level: Int): Boolean = minLevel <= level
+
     fun tier(number: Int): Tier? = tiers.getOrNull(number - 1)
 
-    /** Лучший тир, открытый на [level] (номер, тир); на уровне ниже всех - самый слабый. */
+    /**
+     * Лучший тир, открытый на [level] (номер, тир); на уровне ниже всех - самый слабый. Аффиксы сюда ниже порога уже не
+     * попадают ([openAt]); самый слабый остаётся строке эссенции (гарантия не отказывает вещи низкого уровня) и старым копиям.
+     */
     fun bestTierAt(level: Int): Pair<Int, Tier>? {
         val open = tiers.withIndex().filter { it.value.level <= level }.maxByOrNull { it.value.level }
             ?: tiers.withIndex().minByOrNull { it.value.level } ?: return null

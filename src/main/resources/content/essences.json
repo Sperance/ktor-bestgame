@@ -64,7 +64,7 @@
     {
       "code": "HATRED",
       "weapon": "ADD_COLD_DAMAGE@LOCAL",
-      "caster": "ADD_COLD_DAMAGE_TO_SPELLS",
+      "caster": "WAND_ADD_COLD_DAMAGE_TO_SPELLS",
       "quiver": "ADD_COLD_DAMAGE",
       "armour": "ADD_COLD_RESISTANCE",
       "jewellery": "ADD_COLD_DAMAGE",
@@ -90,7 +90,7 @@
     {
       "code": "ANGER",
       "weapon": "ADD_FIRE_DAMAGE@LOCAL",
-      "caster": "ADD_FIRE_DAMAGE_TO_SPELLS",
+      "caster": "WAND_ADD_FIRE_DAMAGE_TO_SPELLS",
       "quiver": "ADD_FIRE_DAMAGE",
       "armour": "ADD_FIRE_RESISTANCE",
       "jewellery": "ADD_FIRE_DAMAGE",
@@ -100,7 +100,7 @@
     {
       "code": "TORMENT",
       "weapon": "ADD_LIGHTNING_DAMAGE@LOCAL",
-      "caster": "ADD_LIGHTNING_DAMAGE_TO_SPELLS",
+      "caster": "WAND_ADD_LIGHTNING_DAMAGE_TO_SPELLS",
       "quiver": "ADD_LIGHTNING_DAMAGE",
       "armour": "ADD_LIGHTNING_RESISTANCE",
       "jewellery": "ADD_LIGHTNING_DAMAGE",
@@ -135,7 +135,7 @@
     {
       "code": "WRATH",
       "weapon": "INCREASED_SKILL_DAMAGE",
-      "caster": "INCREASED_SPELL_DAMAGE",
+      "caster": "WAND_INCREASED_SPELL_DAMAGE",
       "armour": "INCREASED_SPELL_DAMAGE",
       "jewellery": "INCREASED_SPELL_DAMAGE",
       "monster": "MOB_ESS_WRATH"
@@ -200,7 +200,7 @@
     {
       "code": "MISERY",
       "weapon": "ONSLAUGHT_ON_KILL",
-      "caster": "INCREASED_CAST_SPEED",
+      "caster": "WAND_INCREASED_CAST_SPEED",
       "armour": "INCREASED_CAST_SPEED",
       "jewellery": "INCREASED_CAST_SPEED",
       "monster": "MOB_ESS_MISERY"

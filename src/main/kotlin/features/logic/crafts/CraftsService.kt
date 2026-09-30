@@ -219,7 +219,8 @@ class CraftsService : KoinComponent {
                 val item = factory.create(Hero.newItemId(), base, rarity, dice, level = itemLevel)
                 val guaranteed = additives.mapNotNull { crafting.additives[it] }
                 val kind = if (base.slot.isWeapon) "weapon" else "armour"
-                val random = Tables.draw(index.modifierPool(listOf("handcrafted:smith:$kind") + crafting.modifiers).filter { it.value.code !in guaranteed }, dice)?.code
+                val random = Tables.draw(index.modifierPool(listOf("handcrafted:smith:$kind") + crafting.modifiers)
+                    .filter { it.value.code !in guaranteed && affixes.bears(base, it.value) }, dice)?.code
                     ?.takeIf { dice.percent(crafting.handcraftedChance) }
                 val handcrafted = (guaranteed + listOfNotNull(random)).distinct().take(crafting.maxHandcrafted)
                 item.also { it.rolls = it.rolls + handcrafted.mapNotNull { code -> affixes.rollCode(code, itemLevel, dice) } }

@@ -31,7 +31,7 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
     }
 
     /**
-     * Варианты раскрытия скрытого аффикса [item]: разные гибриды его стороны на уровне копии, чьи группы ([ContentIndex.groups])
+     * Варианты раскрытия скрытого аффикса [item]: разные гибриды его стороны, открытые уровнем копии (1.61.0), чьи группы ([ContentIndex.groups])
      * не заняты остальными строками копии. Все гибриды стороны заняты - обычные аффиксы этой стороны из таблиц копии, так что
      * скрытый аффикс раскрывается всегда. Ждущий выбор, который строки копии с тех пор перекрыли целиком, предлагается заново.
      */
@@ -40,14 +40,15 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
         val taken = affixes.groups(item.rolls.filterNot { it === veil })
         if (item.unveil.any { fits(it, taken) }) throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))
         val side = if (veil.code == PREFIX) Source.PREFIX else Source.SUFFIX
-        val pool = index.modifierPool(listOf("$TABLE:${side.name.lowercase()}")).filter { affixes.fits(it.value, taken) }
-            .ifEmpty { affixes.affixPool(template, item.influence).filter { it.value.source == side && affixes.fits(it.value, taken) } }
+        val level = item.level(template)
+        val pool = index.modifierPool(listOf("$TABLE:${side.name.lowercase()}")).filter { it.value.openAt(level) && affixes.fits(it.value, taken) }
+            .ifEmpty { affixes.affixPool(template, item.influence).filter { it.value.source == side && it.value.openAt(level) && affixes.fits(it.value, taken) } }
             .toMutableList()
         val options = mutableListOf<Roll>()
         while (options.size < index.rules.quality.unveilChoices && pool.isNotEmpty()) {
             val def = Tables.draw(pool, dice) ?: break
             pool.removeAll { it.value.code == def.code }
-            affixes.roll(def, item.level(template), dice)?.let(options::add)
+            affixes.roll(def, level, dice)?.let(options::add)
         }
         if (options.isEmpty()) throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))
         item.unveil = options

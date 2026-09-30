@@ -4,6 +4,7 @@ import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.ModifierDef
+import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.Source
@@ -32,6 +33,16 @@ class AffixRoller(private val index: ContentIndex) {
     /** Встанет ли [def] рядом с занятыми группами [taken]: ни одной общей группы. */
     fun fits(def: ModifierDef, taken: Set<String>): Boolean = index.groups(def).none { it in taken }
 
+    /**
+     * Есть ли у базы [template] что увеличивать локальной строке [def] (1.61.0): локальное «увеличение» ложится на базу вещи
+     * (`Sheet.foldItem`), и без базы своей характеристики строка мертва - ручная работа кузнеца такую не ставит.
+     */
+    fun bears(template: ItemTemplate, def: ModifierDef): Boolean {
+        if (!def.local) return true
+        val base = template.base.flatMapTo(HashSet()) { line -> index.modifier(line.code)?.effects.orEmpty().filter { it.op == Op.ADD }.map { it.stat } }
+        return def.effects.none { it.op == Op.INCREASED && it.stat !in base }
+    }
+
     /** Новая копия: закреплённые строки шаблона и аффиксы под редкость на уровне предмета [level]. */
     fun roll(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, level: Int = template.level): List<Roll> =
         rollPermanent(template, dice).let { permanent -> permanent + rollAffixes(template, rarity, dice, influence, permanent, level = level) }
@@ -53,7 +64,7 @@ class AffixRoller(private val index: ContentIndex) {
         val (prefixes, suffixes) = freeSlots(rarity, keptDefs, template.slot)
         val limits = index.limits(rarity, template.slot)
         val limit = (dice.between(limits.floor, (limits.ceiling - below).coerceAtLeast(limits.floor)) - keptDefs.count { it.affix }).coerceAtLeast(0)
-        return pickAffixes(affixPool(template, influence).onSide(side), prefixes, suffixes, groups(kept), limit, dice).mapNotNull { roll(it, level, dice) }
+        return pickAffixes(affixPool(template, influence).onSide(side), prefixes, suffixes, groups(kept), limit, dice, level).mapNotNull { roll(it, level, dice) }
     }
 
     /**
@@ -111,18 +122,19 @@ class AffixRoller(private val index: ContentIndex) {
     private fun rollOne(pool: List<Weighted<ModifierDef>>, template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, level: Int): Roll? {
         val defs = definitions(current)
         val (prefixes, suffixes) = freeSlots(rarity, defs, template.slot)
-        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), groups(current), 1, dice).firstOrNull()?.let { roll(it, level, dice) }
+        return pickAffixes(pool, minOf(prefixes, 1), minOf(suffixes, 1), groups(current), 1, dice, level).firstOrNull()?.let { roll(it, level, dice) }
     }
 
     /**
      * Взвешенный выбор аффиксов на свободные места без повторов группы: места двух видов тянутся из одного мешка;
-     * [taken] - группы, уже занятые копией ([groups]).
+     * [taken] - группы, уже занятые копией ([groups]); [level] - уровень вещи: описание, чей худший тир выше него, не
+     * тянется (1.61.0) - одно место на все пути ролла (добыча, сферы, эссенции, доведение до дна, карты, влияние).
      */
-    fun pickAffixes(pool: Collection<Weighted<ModifierDef>>, prefixes: Int, suffixes: Int, taken: Set<String>, limit: Int, dice: Dice): List<ModifierDef> {
+    fun pickAffixes(pool: Collection<Weighted<ModifierDef>>, prefixes: Int, suffixes: Int, taken: Set<String>, limit: Int, dice: Dice, level: Int): List<ModifierDef> {
         val groups = taken.toHashSet()
         var freePrefixes = prefixes
         var freeSuffixes = suffixes
-        val candidates = pool.filterTo(ArrayList()) { (def) -> def.affix && fits(def, groups) }
+        val candidates = pool.filterTo(ArrayList()) { (def) -> def.affix && def.openAt(level) && fits(def, groups) }
         val picked = mutableListOf<ModifierDef>()
         while (picked.size < limit && candidates.isNotEmpty()) {
             val live = candidates.filter { (def) -> if (def.source == Source.PREFIX) freePrefixes > 0 else freeSuffixes > 0 }
@@ -172,7 +184,9 @@ class AffixRoller(private val index: ContentIndex) {
 
     /**
      * Описание на тире, взятом долей [tierShare] лестницы: 0 - худший, 1 - лучший. Тир выше открытого уровнем
-     * вещи [level] (1.57.0) опускается до лучшего открытого - вершина эссенции не падает на вещь низкого уровня.
+     * вещи [level] (1.57.0) опускается до лучшего открытого - вершина эссенции не падает на вещь низкого уровня. Ни одного
+     * открытого (вещь ниже порога строки, 1.61.0) - самый слабый тир: гарантия эссенции не отказывает, фильтр пула по уровню
+     * ([ModifierDef.openAt]) её не касается.
      */
     fun rollShare(code: String, tierShare: Double, dice: Dice, level: Int = Int.MAX_VALUE): Roll? {
         val def = index.modifier(code) ?: return null

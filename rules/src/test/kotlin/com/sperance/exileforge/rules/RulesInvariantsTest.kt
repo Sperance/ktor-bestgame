@@ -76,6 +76,37 @@ class RulesInvariantsTest {
         }
     }
 
+    /**
+     * Пул аффиксов гейтится уровнем вещи (1.61.0): ни ролл, ни сфера не ставят аффикс, чей худший тир выше уровня вещи, и
+     * волшебная и редкая вещь низкого уровня всё равно добирает дно своей редкости.
+     */
+    @Test
+    fun noAffixRollsAboveTheItemLevelAndLowLevelItemsKeepTheirFloor() {
+        val factory = ItemFactory(index)
+        val orbs = OrbApplier(index)
+        val templates = index.templates.values.filter { !it.unique && it.tables.isNotEmpty() }.distinctBy { it.tables }
+        fun check(item: ItemInstance, level: Int, what: String) {
+            assertTrue(floorHeld(item), "$what: ${item.rarity} ${affixes(item)} affixes at ilvl $level")
+            val above = item.rolls.mapNotNull { index.modifier(it.code) }.filter { it.affix && !it.openAt(level) }
+            assertTrue(above.isEmpty(), "$what: ${above.map { it.code to it.minLevel }} on ilvl $level")
+        }
+        var n = 0L
+        templates.forEach { template ->
+            listOf(1, 5, 10).forEach { level ->
+                listOf(Rarity.MAGIC, Rarity.RARE).forEach { rarity ->
+                    repeat(3) {
+                        val item = factory.create("i", template, rarity, Dice(9_000L + n++), level = level)
+                        check(item, level, "${template.code} $rarity from the factory")
+                        Orb.entries.forEach { orb ->
+                            val outcome = runCatching { orbs.apply(orb, item.copy(rolls = item.rolls.toList()), template, Dice(n++)) { "new" } }.getOrNull() ?: return@forEach
+                            check(outcome.item, level, "${template.code} $rarity after $orb")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     @Test
     fun aChainOfOrbsFromCommonHoldsFloorAndCeiling() {
         val factory = ItemFactory(index)
