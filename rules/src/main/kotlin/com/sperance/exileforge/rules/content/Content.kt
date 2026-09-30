@@ -111,8 +111,9 @@ class Content(
  * 22 - потолок башни `tower.maxFloor`, Empowering не выше тира уровня карты, сдвиг Ваала только аффиксов, кап `STOCK_GOLD` цены продажи (1.53.0).
  * 23 - сумка без лимита стака (`maxStack` убран), отказы дерева с ключами имён узлов (1.54.0).
  * 24 - свой шанс и множитель крита чар, база крита в листе, без осквернённой земли, самоцветы с 5 уровня героя, аффиксы без минусов (1.56.0).
+ * 25 - локальные % от базы предмета, база урона крита 100, «увеличенный урон» складывается, проклятие ударившего, ремесло и эссенции по тиру уровня, кап уникальных ×3, моды профессий `STOCK_WORK_*`, без темноты и замедления карт (1.57.0).
  */
-const val RULES_VERSION = 24
+const val RULES_VERSION = 25
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -262,6 +263,9 @@ class ContentIndex(val content: Content) {
         WornCount.STATS.forEach { if (it !in stats) fail("stats: worn count $it is missing") }
         rules.validate()
         rules.merchant.orbs.codes.forEach { if (orb(it) == null) fail("rules: merchant orb $it") }
+        // Семейство с кодом, что уже был, молча затирало прежнее в [families] (1.57.0: два MOB_SUPPRESSING)
+        (content.modifiers.families.map { it.code } + content.equipment.templates.flatMap { t -> t.lines.indices.map(t::lineCode) })
+            .groupingBy { it }.eachCount().filterValues { it > 1 }.keys.firstOrNull()?.let { fail("modifiers: duplicate family code $it") }
         families.values.forEach { family -> family.problem()?.let { fail("modifiers: $it") } }
         if (definitions.size != byCode.size) fail("modifiers: duplicate definition codes")
         definitions.forEach { def ->

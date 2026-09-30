@@ -75,7 +75,8 @@ class SheetExplainer(private val index: ContentIndex, private val base: Map<Stri
     }
 
     fun explain(stat: String): StatBreakdown {
-        val shares = operations.filter { it.stat == stat }.map { op ->
+        // Увеличение урона вообще (1.57.0) - вклад каждого вида удара, а не самого урона вообще.
+        val shares = operations.flatMap(calculator::spread).filter { it.stat == stat }.map { op ->
             val from = op.perStat?.let { raw[it] ?: 0.0 } ?: 0.0
             Share(op.source, op.op, op.resolve(from), op.perStat, from, op.value, op.perAmount, op.local)
         }.filter { it.value != 0.0 || it.op == Op.SET }

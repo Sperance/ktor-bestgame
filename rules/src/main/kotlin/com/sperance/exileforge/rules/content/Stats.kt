@@ -37,8 +37,11 @@ enum class CoreStat(val code: String) {
     CHEST_QUANTITY("STOCK_CHEST_QUANTITY"),
     WORK_SPEED("STOCK_WORK_SPEED"), WORK_YIELD("STOCK_WORK_YIELD"), WORK_LUCK("STOCK_WORK_LUCK"),
     WORK_EXPERIENCE("STOCK_WORK_EXPERIENCE"), WORK_FIND("STOCK_WORK_FIND"), WORK_DOUBLE("STOCK_WORK_DOUBLE"), WORK_SAVE("STOCK_WORK_SAVE"),
+    WORK_RARITY("STOCK_WORK_RARITY"), WORK_ITEM_LEVEL("STOCK_WORK_ITEM_LEVEL"), WORK_UNIQUE("STOCK_WORK_UNIQUE"),
     ATTACK_PHYSICAL("STOCK_ATTACK_PHYSICAL"), ATTACK_MAGICAL("STOCK_ATTACK_MAGICAL"),
-    CRITICAL_CHANCE("STOCK_CRITICAL_CHANCE"), CRITICAL_MULTIPLIER("STOCK_CRITICAL_MULTIPLIER"),
+    ATTACK_FIRE("STOCK_ATTACK_FIRE"), ATTACK_COLD("STOCK_ATTACK_COLD"), ATTACK_LIGHTNING("STOCK_ATTACK_LIGHTNING"), ATTACK_CHAOS("STOCK_ATTACK_CHAOS"),
+    DAMAGE("STOCK_DAMAGE"),
+    CRITICAL_CHANCE("STOCK_CRITICAL_CHANCE"), CRITICAL_MULTIPLIER("STOCK_CRITICAL_MULTIPLIER"), CRITICAL_DAMAGE("STOCK_CRITICAL_DAMAGE"),
     SPELL_CRITICAL_CHANCE("STOCK_SPELL_CRITICAL_CHANCE"), SPELL_CRITICAL_MULTIPLIER("STOCK_SPELL_CRITICAL_MULTIPLIER"),
     BORROW_SKILLS("STOCK_BORROW_SKILLS"),
     MAP_QUANTITY("MAP_QUANTITY"), MAP_RARITY("MAP_RARITY"), MAP_EXPERIENCE("MAP_EXPERIENCE"), MAP_CHESTS("MAP_CHESTS"),
@@ -46,6 +49,21 @@ enum class CoreStat(val code: String) {
     MAP_BOOKS("MAP_BOOKS"), MAP_ABYSS_CRACKS("MAP_ABYSS_CRACKS"), MAP_ABYSS_DEPTH("MAP_ABYSS_DEPTH"),
     MAP_ABYSS_HOARD("MAP_ABYSS_HOARD"), MAP_ABYSS_UNIQUE("MAP_ABYSS_UNIQUE"), MAP_ABYSS_ORBS("MAP_ABYSS_ORBS"),
     MAP_ABYSS_RARE("MAP_ABYSS_RARE"),
+}
+
+/**
+ * Урон вообще (1.57.0): увеличение `STOCK_DAMAGE` - обычное увеличение урона каждого вида удара, оно складывается с его
+ * увеличениями, как в PoE; прибавка и «больше» `STOCK_DAMAGE` - отдельный множитель боя «больше урона».
+ */
+object GenericDamage {
+    val STAT: String = CoreStat.DAMAGE.code
+    /** Виды урона удара героя, на которые ложится увеличение урона вообще. */
+    val HITS: List<String> = listOf(CoreStat.ATTACK_PHYSICAL, CoreStat.ATTACK_FIRE, CoreStat.ATTACK_COLD, CoreStat.ATTACK_LIGHTNING, CoreStat.ATTACK_CHAOS).map { it.code }
+
+    fun spreads(stat: String, op: Op): Boolean = stat == STAT && op == Op.INCREASED
+
+    /** Куда ложится операция [op] над [stat]: увеличение урона вообще - в каждый вид удара, остальное - в свой стат. */
+    fun targets(stat: String, op: Op): List<String> = if (spreads(stat, op)) HITS else listOf(stat)
 }
 
 /** Реестр характеристик: порядок подсчёта, проценты, группы. */

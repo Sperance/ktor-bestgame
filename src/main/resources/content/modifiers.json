@@ -61,26 +61,41 @@
             ],
             "top": [
               [
-                95,
-                105
+                61,
+                68
               ]
             ],
             "bottom": [
               [
-                6,
-                12
+                4,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  114,
-                  126
+                  69,
+                  81
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET",
+            "COLLAR"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -347,26 +362,31 @@
             ],
             "top": [
               [
-                30,
-                36
+                21,
+                25
               ]
             ],
             "bottom": [
               [
-                3,
-                5
+                2,
+                3
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  36,
-                  43
+                  25,
+                  30
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "BELT",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -500,22 +520,22 @@
             ],
             "top": [
               [
-                70,
-                80
+                44,
+                51
               ]
             ],
             "bottom": [
               [
-                6,
-                12
+                4,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  84,
-                  96
+                  53,
+                  61
                 ]
               ]
             }
@@ -526,8 +546,7 @@
             "BODY",
             "GLOVES",
             "BOOTS",
-            "SHIELD",
-            "WINGS"
+            "SHIELD"
           ]
         }
       ]
@@ -803,22 +822,22 @@
             ],
             "top": [
               [
-                70,
-                80
+                44,
+                51
               ]
             ],
             "bottom": [
               [
-                6,
-                12
+                4,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  84,
-                  96
+                  53,
+                  61
                 ]
               ]
             }
@@ -829,8 +848,7 @@
             "BODY",
             "GLOVES",
             "BOOTS",
-            "SHIELD",
-            "WINGS"
+            "SHIELD"
           ]
         }
       ]
@@ -1022,22 +1040,22 @@
             ],
             "top": [
               [
-                70,
-                80
+                44,
+                51
               ]
             ],
             "bottom": [
               [
-                6,
-                12
+                4,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  84,
-                  96
+                  53,
+                  61
                 ]
               ]
             }
@@ -1048,8 +1066,8 @@
             "BODY",
             "GLOVES",
             "BOOTS",
-            "SHIELD",
-            "WINGS"
+            "WINGS",
+            "SHIELD"
           ]
         }
       ]
@@ -1930,7 +1948,7 @@
               "level": 80,
               "values": [
                 [
-                  6,
+                  5,
                   7
                 ]
               ]
@@ -2412,26 +2430,41 @@
             ],
             "top": [
               [
-                36,
-                40
+                26,
+                29
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                4,
+                7
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  43,
-                  48
+                  29,
+                  35
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET",
+            "COLLAR"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -2540,26 +2573,41 @@
             ],
             "top": [
               [
-                36,
-                40
+                26,
+                29
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                4,
+                7
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  43,
-                  48
+                  29,
+                  35
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET",
+            "COLLAR"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -2668,26 +2716,41 @@
             ],
             "top": [
               [
-                36,
-                40
+                26,
+                29
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                4,
+                7
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  43,
-                  48
+                  29,
+                  35
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET",
+            "COLLAR"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -2795,8 +2858,8 @@
             ],
             "top": [
               [
-                25,
-                28
+                24,
+                26
               ]
             ],
             "bottom": [
@@ -2809,12 +2872,26 @@
               "level": 80,
               "values": [
                 [
-                  30,
-                  34
+                  27,
+                  32
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -2922,26 +2999,39 @@
             ],
             "top": [
               [
-                12,
-                14
+                9,
+                11
               ]
             ],
             "bottom": [
               [
-                3,
-                5
+                2,
+                4
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  14,
-                  17
+                  11,
+                  13
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "QUIVER",
+            "SHIELD",
+            "AMULET",
+            "COLLAR"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -3804,26 +3894,40 @@
             ],
             "top": [
               [
-                38,
-                42
+                28,
+                31
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                4,
+                7
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  46,
-                  50
+                  32,
+                  37
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -3931,26 +4035,40 @@
             ],
             "top": [
               [
-                38,
-                42
+                28,
+                31
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                4,
+                7
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  46,
-                  50
+                  32,
+                  37
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -4058,26 +4176,39 @@
             ],
             "top": [
               [
-                38,
-                42
+                28,
+                31
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                4,
+                7
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  46,
-                  50
+                  32,
+                  37
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "WEAPON_1H",
+            "QUIVER",
+            "SHIELD",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -4717,22 +4848,22 @@
             ],
             "top": [
               [
-                110,
-                130
+                80,
+                95
               ]
             ],
             "bottom": [
               [
-                10,
-                20
+                7,
+                15
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  132,
-                  156
+                  96,
+                  114
                 ]
               ]
             }
@@ -5018,26 +5149,32 @@
             ],
             "top": [
               [
-                24,
-                28
+                19,
+                22
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                5,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  29,
-                  34
+                  22,
+                  27
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -5206,26 +5343,32 @@
             ],
             "top": [
               [
-                24,
-                28
+                19,
+                22
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                5,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  29,
-                  34
+                  22,
+                  27
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -5394,26 +5537,32 @@
             ],
             "top": [
               [
-                24,
-                28
+                19,
+                22
               ]
             ],
             "bottom": [
               [
-                6,
-                10
+                5,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  29,
-                  34
+                  22,
+                  27
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -5662,50 +5811,58 @@
             ],
             "top": [
               [
-                18,
-                22
+                15,
+                18
               ],
               [
-                18,
-                22
+                15,
+                18
               ],
               [
-                18,
-                22
+                15,
+                18
               ]
             ],
             "bottom": [
               [
-                5,
-                8
+                4,
+                6
               ],
               [
-                5,
-                8
+                4,
+                6
               ],
               [
-                5,
-                8
+                4,
+                6
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  22,
-                  26
+                  17,
+                  21
                 ],
                 [
-                  22,
-                  26
+                  17,
+                  21
                 ],
                 [
-                  22,
-                  26
+                  17,
+                  21
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -6011,26 +6168,34 @@
             ],
             "top": [
               [
-                28,
-                32
+                21,
+                24
               ]
             ],
             "bottom": [
               [
-                10,
-                14
+                7,
+                10
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  34,
-                  38
+                  25,
+                  28
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -6133,26 +6298,34 @@
             ],
             "top": [
               [
-                28,
-                32
+                21,
+                24
               ]
             ],
             "bottom": [
               [
-                10,
-                14
+                7,
+                10
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  34,
-                  38
+                  25,
+                  28
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -6370,22 +6543,22 @@
             ],
             "top": [
               [
-                20,
-                22
+                15,
+                16
               ]
             ],
             "bottom": [
               [
-                5,
-                7
+                4,
+                5
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  24,
-                  26
+                  17,
+                  19
                 ]
               ]
             }
@@ -6480,22 +6653,22 @@
             ],
             "top": [
               [
-                25,
-                25
+                22,
+                22
               ]
             ],
             "bottom": [
               [
-                8,
-                8
+                7,
+                7
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  30,
-                  30
+                  26,
+                  26
                 ]
               ]
             }
@@ -6671,14 +6844,14 @@
             ],
             "top": [
               [
-                16,
-                20
+                10.9,
+                13.7
               ]
             ],
             "bottom": [
               [
-                1,
-                2
+                0.7,
+                1.4
               ]
             ],
             "precision": 1,
@@ -6686,12 +6859,23 @@
               "level": 80,
               "values": [
                 [
-                  19.2,
-                  24.0
+                  12.9,
+                  16.4
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "GLOVES",
+            "RING",
+            "BOOTS",
+            "WINGS",
+            "BELT",
+            "SHIELD",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -6933,14 +7117,14 @@
             ],
             "top": [
               [
-                1,
-                1.2
+                0.9,
+                1.0
               ]
             ],
             "bottom": [
               [
                 0.2,
-                0.4
+                0.3
               ]
             ],
             "precision": 1,
@@ -6948,12 +7132,20 @@
               "level": 80,
               "values": [
                 [
-                  1.2,
-                  1.4
+                  0.9,
+                  1.2
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "IMPLICIT",
@@ -7103,26 +7295,34 @@
             ],
             "top": [
               [
-                10,
-                14
+                8,
+                11
               ]
             ],
             "bottom": [
               [
                 1,
-                3
+                2
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  12,
-                  17
+                  9,
+                  13
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -7290,7 +7490,13 @@
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "BOOTS",
+            "BELT",
+            "SHIELD",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -7416,8 +7622,8 @@
             ],
             "top": [
               [
-                12,
-                15
+                11,
+                14
               ]
             ],
             "bottom": [
@@ -7430,12 +7636,19 @@
               "level": 80,
               "values": [
                 [
-                  14,
-                  18
+                  13,
+                  17
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -7517,8 +7730,8 @@
             ],
             "top": [
               [
-                12,
-                15
+                11,
+                14
               ]
             ],
             "bottom": [
@@ -7531,12 +7744,19 @@
               "level": 80,
               "values": [
                 [
-                  14,
-                  18
+                  13,
+                  17
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -7618,8 +7838,8 @@
             ],
             "top": [
               [
-                12,
-                15
+                11,
+                14
               ]
             ],
             "bottom": [
@@ -7632,12 +7852,19 @@
               "level": 80,
               "values": [
                 [
-                  14,
-                  18
+                  13,
+                  17
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -7719,8 +7946,8 @@
             ],
             "top": [
               [
-                12,
-                15
+                11,
+                14
               ]
             ],
             "bottom": [
@@ -7733,12 +7960,19 @@
               "level": 80,
               "values": [
                 [
-                  14,
-                  18
+                  13,
+                  17
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -7820,8 +8054,8 @@
             ],
             "top": [
               [
-                12,
-                15
+                11,
+                14
               ]
             ],
             "bottom": [
@@ -7834,12 +8068,18 @@
               "level": 80,
               "values": [
                 [
-                  14,
-                  18
+                  13,
+                  17
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -7922,26 +8162,34 @@
             ],
             "top": [
               [
-                30,
-                36
+                24,
+                28
               ]
             ],
             "bottom": [
               [
-                8,
-                12
+                6,
+                9
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  36,
-                  43
+                  27,
+                  34
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -8003,26 +8251,34 @@
             ],
             "top": [
               [
-                30,
-                36
+                24,
+                28
               ]
             ],
             "bottom": [
               [
-                8,
-                12
+                6,
+                9
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  36,
-                  43
+                  27,
+                  34
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -8084,26 +8340,34 @@
             ],
             "top": [
               [
-                30,
-                36
+                24,
+                28
               ]
             ],
             "bottom": [
               [
-                8,
-                12
+                6,
+                9
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  36,
-                  43
+                  27,
+                  34
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -8914,26 +9178,33 @@
             ],
             "top": [
               [
-                22,
-                26
+                21,
+                24
               ]
             ],
             "bottom": [
               [
-                8,
-                12
+                7,
+                11
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  26,
-                  31
+                  24,
+                  29
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -9258,26 +9529,33 @@
             ],
             "top": [
               [
-                18,
-                22
+                15,
+                19
               ]
             ],
             "bottom": [
               [
-                6,
-                9
+                5,
+                8
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  22,
-                  26
+                  19,
+                  22
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -9599,12 +9877,19 @@
               "level": 80,
               "values": [
                 [
-                  10,
+                  9,
                   12
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -9701,12 +9986,19 @@
               "level": 80,
               "values": [
                 [
-                  10,
+                  9,
                   12
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -9803,12 +10095,19 @@
               "level": 80,
               "values": [
                 [
-                  10,
+                  9,
                   12
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -9905,12 +10204,19 @@
               "level": 80,
               "values": [
                 [
-                  10,
+                  9,
                   12
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER",
+            "AMULET"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -10061,26 +10367,32 @@
             ],
             "top": [
               [
-                40,
-                55
+                30,
+                42
               ]
             ],
             "bottom": [
               [
-                3,
-                6
+                2,
+                5
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  48,
-                  66
+                  36,
+                  50
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "BODY",
+            "BELT",
+            "SHIELD"
+          ]
         },
         {
           "kind": "CORRUPTED",
@@ -13337,19 +13649,23 @@
       ],
       "grid": {
         "levels": [
-          30,
+          82,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
           [
-            15,
-            20
+            30,
+            40
           ]
         ],
         "bottom": [
           [
-            6,
-            10
+            3,
+            5
           ]
         ]
       },
@@ -15231,7 +15547,10 @@
       "grid": {
         "levels": [
           82,
-          38,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -15242,8 +15561,8 @@
         ],
         "bottom": [
           [
-            20,
-            30
+            4,
+            8
           ]
         ],
         "apex": {
@@ -15695,7 +16014,10 @@
       "grid": {
         "levels": [
           82,
-          38,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -15706,8 +16028,8 @@
         ],
         "bottom": [
           [
-            15,
-            20
+            4,
+            7
           ]
         ],
         "apex": {
@@ -17009,39 +17331,6 @@
       ]
     },
     {
-      "code": "MAP_HERO_LIGHT",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "MAP_HERO_LIGHT",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          60,
-          40,
-          20,
-          1
-        ],
-        "top": [
-          [
-            30,
-            40
-          ]
-        ],
-        "bottom": [
-          [
-            10,
-            15
-          ]
-        ]
-      },
-      "tags": [
-        "map"
-      ]
-    },
-    {
       "code": "MAP_HERO_RESIST",
       "source": "SUFFIX",
       "effects": [
@@ -17066,39 +17355,6 @@
           [
             6,
             10
-          ]
-        ]
-      },
-      "tags": [
-        "map"
-      ]
-    },
-    {
-      "code": "MAP_HERO_SLOW",
-      "source": "PREFIX",
-      "effects": [
-        {
-          "stat": "MAP_HERO_SLOW",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          60,
-          40,
-          20,
-          1
-        ],
-        "top": [
-          [
-            20,
-            25
-          ]
-        ],
-        "bottom": [
-          [
-            5,
-            8
           ]
         ]
       },
@@ -17453,10 +17709,11 @@
         ],
         "bottom": [
           [
-            0.5,
-            1
+            1,
+            1.5
           ]
-        ]
+        ],
+        "precision": 1
       },
       "tags": [
         "map",
@@ -17710,8 +17967,8 @@
         ],
         "top": [
           [
-            12,
-            12
+            5,
+            5
           ]
         ],
         "bottom": [
@@ -19826,7 +20083,10 @@
       "grid": {
         "levels": [
           82,
-          38,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -19866,13 +20126,16 @@
       "grid": {
         "levels": [
           82,
-          38,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
           [
-            3,
-            4
+            4,
+            6
           ]
         ],
         "bottom": [
@@ -19885,8 +20148,8 @@
           "level": 92,
           "values": [
             [
-              4,
-              5
+              5,
+              7
             ]
           ]
         }
@@ -23108,14 +23371,14 @@
         ],
         "top": [
           [
-            5,
-            5
+            8,
+            12
           ]
         ],
         "bottom": [
           [
-            5,
-            5
+            8,
+            12
           ]
         ]
       },
@@ -23138,14 +23401,14 @@
         ],
         "top": [
           [
-            10,
-            10
+            15,
+            25
           ]
         ],
         "bottom": [
           [
-            10,
-            10
+            15,
+            25
           ]
         ]
       },
@@ -23168,13 +23431,13 @@
         "top": [
           [
             1,
-            1
+            2
           ]
         ],
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ]
       },
@@ -23197,14 +23460,14 @@
         ],
         "top": [
           [
-            25,
-            25
+            20,
+            30
           ]
         ],
         "bottom": [
           [
-            25,
-            25
+            20,
+            30
           ]
         ]
       },
@@ -23227,13 +23490,13 @@
         "top": [
           [
             10,
-            10
+            20
           ]
         ],
         "bottom": [
           [
             10,
-            10
+            20
           ]
         ]
       },
@@ -23256,13 +23519,13 @@
         "top": [
           [
             1,
-            1
+            2
           ]
         ],
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ]
       },
@@ -23285,13 +23548,13 @@
         "top": [
           [
             1,
-            1
+            2
           ]
         ],
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ]
       },
@@ -23343,14 +23606,14 @@
         ],
         "top": [
           [
-            15,
-            15
+            20,
+            30
           ]
         ],
         "bottom": [
           [
-            15,
-            15
+            20,
+            30
           ]
         ]
       },
@@ -23373,13 +23636,13 @@
         "top": [
           [
             10,
-            10
+            15
           ]
         ],
         "bottom": [
           [
             10,
-            10
+            15
           ]
         ]
       },
@@ -23402,13 +23665,13 @@
         "top": [
           [
             5,
-            5
+            10
           ]
         ],
         "bottom": [
           [
             5,
-            5
+            10
           ]
         ]
       },
@@ -23431,13 +23694,13 @@
         "top": [
           [
             1,
-            1
+            2
           ]
         ],
         "bottom": [
           [
             1,
-            1
+            2
           ]
         ]
       },
@@ -25139,6 +25402,9 @@
         },
         {
           "stat": "STOCK_STUN_THRESHOLD"
+        },
+        {
+          "stat": "STOCK_ARMOR"
         }
       ],
       "grid": {
@@ -25157,6 +25423,10 @@
           [
             19,
             25
+          ],
+          [
+            50,
+            69
           ]
         ],
         "bottom": [
@@ -25167,6 +25437,10 @@
           [
             5,
             8
+          ],
+          [
+            15,
+            25
           ]
         ],
         "apex": {
@@ -25179,6 +25453,10 @@
             [
               24,
               31
+            ],
+            [
+              62,
+              86
             ]
           ]
         }
@@ -25452,36 +25730,89 @@
           "stat": "STOCK_THORNS"
         }
       ],
-      "grid": {
-        "levels": [
-          60,
-          40,
-          25,
-          12,
-          1
-        ],
-        "top": [
-          [
-            31,
-            44
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            10
-          ]
-        ],
-        "apex": {
-          "level": 80,
+      "tiers": [
+        {
+          "level": 82,
           "values": [
             [
-              39,
-              55
+              73,
+              122
+            ]
+          ]
+        },
+        {
+          "level": 72,
+          "values": [
+            [
+              60,
+              101
+            ]
+          ]
+        },
+        {
+          "level": 62,
+          "values": [
+            [
+              50,
+              83
+            ]
+          ]
+        },
+        {
+          "level": 52,
+          "values": [
+            [
+              40,
+              66
+            ]
+          ]
+        },
+        {
+          "level": 42,
+          "values": [
+            [
+              31,
+              51
+            ]
+          ]
+        },
+        {
+          "level": 32,
+          "values": [
+            [
+              23,
+              39
+            ]
+          ]
+        },
+        {
+          "level": 22,
+          "values": [
+            [
+              17,
+              29
+            ]
+          ]
+        },
+        {
+          "level": 12,
+          "values": [
+            [
+              13,
+              21
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "values": [
+            [
+              6,
+              10
             ]
           ]
         }
-      },
+      ],
       "tags": [
         "monster",
         "thorns"
@@ -25553,34 +25884,34 @@
         ],
         "top": [
           [
-            100,
-            125
+            32,
+            40
           ],
           [
-            100,
-            125
+            32,
+            40
           ]
         ],
         "bottom": [
           [
-            40,
-            50
+            13,
+            16
           ],
           [
-            40,
-            50
+            13,
+            16
           ]
         ],
         "apex": {
           "level": 80,
           "values": [
             [
-              125,
-              156
+              40,
+              50
             ],
             [
-              125,
-              156
+              40,
+              50
             ]
           ]
         }
@@ -25644,36 +25975,89 @@
           "stat": "STOCK_HEALTH_ON_HIT"
         }
       ],
-      "grid": {
-        "levels": [
-          60,
-          40,
-          25,
-          12,
-          1
-        ],
-        "top": [
-          [
-            10,
-            15
-          ]
-        ],
-        "bottom": [
-          [
-            3,
-            5
-          ]
-        ],
-        "apex": {
-          "level": 80,
+      "tiers": [
+        {
+          "level": 82,
           "values": [
             [
-              12,
-              19
+              119,
+              199
+            ]
+          ]
+        },
+        {
+          "level": 72,
+          "values": [
+            [
+              90,
+              150
+            ]
+          ]
+        },
+        {
+          "level": 62,
+          "values": [
+            [
+              68,
+              113
+            ]
+          ]
+        },
+        {
+          "level": 52,
+          "values": [
+            [
+              48,
+              81
+            ]
+          ]
+        },
+        {
+          "level": 42,
+          "values": [
+            [
+              33,
+              56
+            ]
+          ]
+        },
+        {
+          "level": 32,
+          "values": [
+            [
+              22,
+              37
+            ]
+          ]
+        },
+        {
+          "level": 22,
+          "values": [
+            [
+              14,
+              24
+            ]
+          ]
+        },
+        {
+          "level": 12,
+          "values": [
+            [
+              9,
+              15
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "values": [
+            [
+              3,
+              5
             ]
           ]
         }
-      },
+      ],
       "tags": [
         "monster",
         "leech"
@@ -26125,6 +26509,9 @@
         {
           "stat": "STOCK_STUN_THRESHOLD",
           "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_STUN_THRESHOLD"
         }
       ],
       "grid": {
@@ -26143,6 +26530,10 @@
           [
             100,
             125
+          ],
+          [
+            19,
+            25
           ]
         ],
         "bottom": [
@@ -26153,6 +26544,10 @@
           [
             40,
             60
+          ],
+          [
+            5,
+            8
           ]
         ],
         "apex": {
@@ -26165,6 +26560,10 @@
             [
               125,
               156
+            ],
+            [
+              24,
+              31
             ]
           ]
         }
@@ -26299,6 +26698,12 @@
         },
         {
           "stat": "STOCK_RESIST_ALL"
+        },
+        {
+          "stat": "STOCK_ARMOR"
+        },
+        {
+          "stat": "STOCK_EVASION"
         }
       ],
       "grid": {
@@ -26321,6 +26726,14 @@
           [
             38,
             50
+          ],
+          [
+            50,
+            69
+          ],
+          [
+            50,
+            69
           ]
         ],
         "bottom": [
@@ -26335,6 +26748,14 @@
           [
             15,
             20
+          ],
+          [
+            15,
+            25
+          ],
+          [
+            15,
+            25
           ]
         ],
         "apex": {
@@ -26351,6 +26772,14 @@
             [
               48,
               62
+            ],
+            [
+              62,
+              86
+            ],
+            [
+              62,
+              86
             ]
           ]
         }
@@ -26900,7 +27329,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -26954,7 +27386,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27054,7 +27489,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27095,7 +27533,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27313,7 +27754,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27360,7 +27804,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27425,7 +27872,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27466,7 +27916,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27507,7 +27960,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27549,7 +28005,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27590,7 +28049,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27631,7 +28093,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27672,7 +28137,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27716,7 +28184,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27769,7 +28240,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27810,7 +28284,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27851,7 +28328,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27896,7 +28376,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27949,7 +28432,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -27990,7 +28476,10 @@
       ],
       "grid": {
         "levels": [
-          20,
+          60,
+          40,
+          25,
+          12,
           1
         ],
         "top": [
@@ -28500,7 +28989,10 @@
       "grid": {
         "levels": [
           82,
-          38,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -28515,12 +29007,12 @@
         ],
         "bottom": [
           [
-            10,
-            15
+            4,
+            7
           ],
           [
-            2,
-            3
+            1,
+            2
           ]
         ],
         "apex": {
@@ -29994,297 +30486,6 @@
       ]
     },
     {
-      "code": "ESS_FREE_SKILL_CHANCE",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_FREE_SKILL_CHANCE"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              8,
-              12
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_AURA_EFFECT",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_AURA_EFFECT",
-          "op": "INCREASED"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              15,
-              25
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_PASSIVE_LEVELS",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_PASSIVE_LEVEL"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              1,
-              2
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_ATTACK_LEVELS",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_ATTACK_LEVEL"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              1,
-              2
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_CURSE_LEVELS",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_CURSE_LEVEL"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              1,
-              2
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_CURSE_WHEN_HIT",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_CURSE_WHEN_HIT"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              10,
-              20
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_DAMAGE_VS_CURSED",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_DAMAGE_VS_CURSED",
-          "op": "INCREASED"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              20,
-              30
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_FLASK_CHARGE_PER_KILL",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_FLASK_CHARGES_PER_KILL"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              1,
-              1
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_FLASK_DURATION",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_FLASK_DURATION",
-          "op": "INCREASED"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              20,
-              30
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_WARCRY_ATTACK_SPEED",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_WARCRY_SPEED"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              10,
-              15
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_WARCRY_HEAL",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_WARCRY_HEAL"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              5,
-              10
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
-      "code": "ESS_WARCRY_LEVELS",
-      "source": "ESSENCE",
-      "effects": [
-        {
-          "stat": "STOCK_WARCRY_LEVEL"
-        }
-      ],
-      "tiers": [
-        {
-          "level": 1,
-          "values": [
-            [
-              1,
-              2
-            ]
-          ]
-        }
-      ],
-      "tags": [
-        "essence",
-        "special"
-      ]
-    },
-    {
       "code": "RARITY_STOCK_HEALTH_MORE",
       "source": "RULE",
       "effects": [
@@ -31097,26 +31298,33 @@
             ],
             "top": [
               [
-                65,
-                80
+                47,
+                58
               ]
             ],
             "bottom": [
               [
-                10,
-                19
+                7,
+                14
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  84,
-                  94
+                  52,
+                  68
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "HELMET",
+            "RING",
+            "WEAPON_1H",
+            "SHIELD",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -31177,26 +31385,31 @@
             ],
             "top": [
               [
-                28,
-                32
+                21,
+                24
               ]
             ],
             "bottom": [
               [
-                10,
-                14
+                7,
+                10
               ]
             ],
             "apex": {
               "level": 80,
               "values": [
                 [
-                  34,
-                  38
+                  25,
+                  28
                 ]
               ]
             }
-          }
+          },
+          "slots": [
+            "RING",
+            "WEAPON_1H",
+            "AMULET"
+          ]
         }
       ]
     },
@@ -31845,8 +32058,10 @@
       "grid": {
         "levels": [
           82,
-          52,
-          24,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -31887,7 +32102,10 @@
       "grid": {
         "levels": [
           82,
-          38,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -31928,7 +32146,10 @@
       "grid": {
         "levels": [
           82,
-          38,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -32009,8 +32230,10 @@
       "grid": {
         "levels": [
           82,
-          52,
-          24,
+          64,
+          46,
+          29,
+          14,
           1
         ],
         "top": [
@@ -32947,6 +33170,103 @@
       ]
     },
     {
+      "code": "WORK_CRAFT_RARITY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_RARITY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          40,
+          25,
+          10
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            5
+          ]
+        ]
+      },
+      "tags": [
+        "work"
+      ]
+    },
+    {
+      "code": "WORK_CRAFT_LEVEL",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_ITEM_LEVEL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          40,
+          25,
+          10
+        ],
+        "top": [
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "work"
+      ]
+    },
+    {
+      "code": "WORK_CRAFT_UNIQUE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_UNIQUE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          55,
+          40,
+          25,
+          10
+        ],
+        "top": [
+          [
+            40,
+            50
+          ]
+        ],
+        "bottom": [
+          [
+            10,
+            15
+          ]
+        ]
+      },
+      "tags": [
+        "work"
+      ]
+    },
+    {
       "code": "COND_DAMAGE_LOW_LIFE",
       "source": "SUFFIX",
       "effects": [
@@ -33788,35 +34108,89 @@
           "stat": "STOCK_ACCURACY"
         }
       ],
-      "grid": {
-        "levels": [
-          60,
-          40,
-          20,
-          1
-        ],
-        "top": [
-          [
-            80,
-            120
-          ]
-        ],
-        "bottom": [
-          [
-            10,
-            20
-          ]
-        ],
-        "apex": {
-          "level": 80,
+      "tiers": [
+        {
+          "level": 82,
           "values": [
             [
-              100,
-              150
+              120,
+              173
+            ]
+          ]
+        },
+        {
+          "level": 72,
+          "values": [
+            [
+              106,
+              153
+            ]
+          ]
+        },
+        {
+          "level": 62,
+          "values": [
+            [
+              93,
+              134
+            ]
+          ]
+        },
+        {
+          "level": 52,
+          "values": [
+            [
+              79,
+              114
+            ]
+          ]
+        },
+        {
+          "level": 42,
+          "values": [
+            [
+              66,
+              95
+            ]
+          ]
+        },
+        {
+          "level": 32,
+          "values": [
+            [
+              52,
+              75
+            ]
+          ]
+        },
+        {
+          "level": 22,
+          "values": [
+            [
+              39,
+              56
+            ]
+          ]
+        },
+        {
+          "level": 12,
+          "values": [
+            [
+              25,
+              36
+            ]
+          ]
+        },
+        {
+          "level": 1,
+          "values": [
+            [
+              10,
+              15
             ]
           ]
         }
-      },
+      ],
       "tags": [
         "monster",
         "accuracy"
@@ -36274,39 +36648,6 @@
       "minRarity": "MAGIC"
     },
     {
-      "code": "MOB_SUPPRESSING",
-      "source": "MONSTER",
-      "effects": [
-        {
-          "stat": "STOCK_SPELL_SUPPRESSION"
-        }
-      ],
-      "grid": {
-        "levels": [
-          95,
-          83,
-          71
-        ],
-        "top": [
-          [
-            35,
-            50
-          ]
-        ],
-        "bottom": [
-          [
-            20,
-            28
-          ]
-        ]
-      },
-      "tags": [
-        "monster",
-        "defence"
-      ],
-      "minRarity": "RARE"
-    },
-    {
       "code": "MOB_DOUBLING",
       "source": "MONSTER",
       "effects": [
@@ -36477,6 +36818,9 @@
         },
         {
           "stat": "STOCK_SPELL_SUPPRESSION"
+        },
+        {
+          "stat": "STOCK_ENERGY_SHIELD"
         }
       ],
       "grid": {
@@ -36493,6 +36837,10 @@
           [
             30,
             40
+          ],
+          [
+            40,
+            55
           ]
         ],
         "bottom": [
@@ -36503,6 +36851,10 @@
           [
             20,
             30
+          ],
+          [
+            25,
+            35
           ]
         ]
       },

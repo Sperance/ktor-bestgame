@@ -5,6 +5,7 @@ import com.sperance.exileforge.rules.content.CraftsRules
 import com.sperance.exileforge.rules.content.Job
 import com.sperance.exileforge.rules.content.JobExtra
 import com.sperance.exileforge.rules.content.JobKind
+import com.sperance.exileforge.rules.content.Rarity
 import kotlinx.serialization.Serializable
 import kotlin.math.floor
 import kotlin.math.max
@@ -61,13 +62,25 @@ data class WorkBonus(
     /** Шанс удвоить выход цикла и шанс вернуть его материалы (1.34.0), в процентах. */
     val double: Double = 0.0,
     val save: Double = 0.0,
+    /**
+     * Сделанные вещи (1.57.0): шанс в процентах, что вещь, карта, фляга или самоцвет выйдет на ступень редкости выше,
+     * прибавка к их уровню предмета и процент к шансу уникалки кузнеца.
+     */
+    val rarity: Double = 0.0,
+    val itemLevel: Double = 0.0,
+    val unique: Double = 0.0,
 ) {
+    /** Редкость сделанной вещи с бонусом [rarity]: обычная и волшебная поднимаются на ступень, редкая и выше остаются. */
+    fun raise(rarity: Rarity, dice: Dice): Rarity =
+        if (this.rarity > 0 && rarity < Rarity.RARE && dice.percent(this.rarity)) Rarity.entries[rarity.ordinal + 1] else rarity
+
     companion object {
         /** Бонусы из листа: характеристики `STOCK_WORK_*`. */
         fun of(stats: Map<String, Double>) = WorkBonus(
             stats[CoreStat.WORK_SPEED.code] ?: 0.0, stats[CoreStat.WORK_YIELD.code] ?: 0.0, stats[CoreStat.WORK_LUCK.code] ?: 0.0,
             stats[CoreStat.WORK_EXPERIENCE.code] ?: 0.0, stats[CoreStat.WORK_FIND.code] ?: 0.0,
             stats[CoreStat.WORK_DOUBLE.code] ?: 0.0, stats[CoreStat.WORK_SAVE.code] ?: 0.0,
+            stats[CoreStat.WORK_RARITY.code] ?: 0.0, stats[CoreStat.WORK_ITEM_LEVEL.code] ?: 0.0, stats[CoreStat.WORK_UNIQUE.code] ?: 0.0,
         )
     }
 }

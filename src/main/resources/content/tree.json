@@ -21007,6 +21007,52 @@
       "y": 1314
     },
     {
+      "code": "SHA_T8_1",
+      "type": "SMALL",
+      "lines": [
+        {
+          "code": "ADD_CHAOS_RESISTANCE",
+          "values": [
+            12
+          ]
+        },
+        {
+          "code": "ADD_MAXIMUM_LIFE",
+          "values": [
+            10
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_N0_4"
+      ],
+      "x": -476,
+      "y": 1994
+    },
+    {
+      "code": "SHA_K8",
+      "type": "KEYSTONE",
+      "lines": [
+        {
+          "code": "PASSIVE_SET_CHAOS_RESISTANCE",
+          "values": [
+            75
+          ]
+        },
+        {
+          "code": "ADD_ALL_ELEMENTAL_RESISTANCES",
+          "values": [
+            -15
+          ]
+        }
+      ],
+      "connections": [
+        "SHA_T8_1"
+      ],
+      "x": -411,
+      "y": 2107
+    },
+    {
       "code": "SCN_T6_1",
       "type": "SMALL",
       "lines": [

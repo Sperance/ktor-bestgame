@@ -2076,7 +2076,7 @@
         {
           "code": "ATLAS_MONSTER_SPEED",
           "values": [
-            1.2
+            2.4
           ]
         }
       ]
@@ -2185,7 +2185,7 @@
         {
           "code": "ATLAS_MONSTER_SPEED",
           "values": [
-            1.2
+            2.4
           ]
         }
       ]
@@ -3695,6 +3695,63 @@
       ]
     },
     {
+      "code": "ATLAS_ABYSS_B15",
+      "x": -44.91,
+      "y": 2.4,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_B12"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_POWER",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_B16",
+      "x": -42.39,
+      "y": 0.77,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_ABYSS_B15"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_POWER",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_ABYSS_B17",
+      "x": -39.54,
+      "y": -0.16,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_ABYSS_B16"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_ABYSS_POWER",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_ABYSS_HOARD",
+          "values": [
+            20.0
+          ]
+        }
+      ]
+    },
+    {
       "code": "ATLAS_VAAL_B01",
       "x": 30.08,
       "y": 26.29,
@@ -4204,6 +4261,63 @@
           "code": "ATLAS_CRYSTAL_ESSENCES",
           "values": [
             15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_B15",
+      "x": -31.65,
+      "y": 46.49,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_B08"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GUARDIAN_POWER",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_B16",
+      "x": -30.02,
+      "y": 49.01,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRYSTALS_B15"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GUARDIAN_POWER",
+          "values": [
+            6.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRYSTALS_B17",
+      "x": -29.09,
+      "y": 51.86,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRYSTALS_B16"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_GUARDIAN_POWER",
+          "values": [
+            15.0
+          ]
+        },
+        {
+          "code": "ATLAS_CRYSTAL_ESSENCES",
+          "values": [
+            20.0
           ]
         }
       ]
@@ -4722,6 +4836,63 @@
       ]
     },
     {
+      "code": "ATLAS_CRAFT_B15",
+      "x": 22.59,
+      "y": 53.81,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_B06"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOOKS_OWN",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_B16",
+      "x": 24.22,
+      "y": 56.33,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_CRAFT_B15"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOOKS_OWN",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_CRAFT_B17",
+      "x": 25.15,
+      "y": 59.18,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_CRAFT_B16"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_BOOKS_OWN",
+          "values": [
+            40.0
+          ]
+        },
+        {
+          "code": "ATLAS_BOOKS",
+          "values": [
+            15.0
+          ]
+        }
+      ]
+    },
+    {
       "code": "ATLAS_POWER_B01",
       "x": 58.34,
       "y": 7.97,
@@ -4825,7 +4996,7 @@
         {
           "code": "ATLAS_MONSTER_SPEED",
           "values": [
-            2.0
+            4.0
           ]
         }
       ]
@@ -4911,7 +5082,7 @@
         {
           "code": "ATLAS_MONSTER_SPEED",
           "values": [
-            2.0
+            4.0
           ]
         }
       ]
@@ -7800,6 +7971,40 @@
       ]
     },
     {
+      "code": "ATLAS_EXPEDITION_C18",
+      "x": -69.3,
+      "y": 4.67,
+      "kind": "SMALL",
+      "parents": [
+        "ATLAS_EXPEDITION_C04"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_MANA_REGEN",
+          "values": [
+            14.0
+          ]
+        }
+      ]
+    },
+    {
+      "code": "ATLAS_EXPEDITION_C19",
+      "x": -66.78,
+      "y": 3.04,
+      "kind": "NOTABLE",
+      "parents": [
+        "ATLAS_EXPEDITION_C18"
+      ],
+      "lines": [
+        {
+          "code": "ATLAS_SKILL_LEVEL",
+          "values": [
+            1.0
+          ]
+        }
+      ]
+    },
+    {
       "code": "ATLAS_CRAFT_C01",
       "x": 74.04,
       "y": 16.15,
@@ -8223,7 +8428,7 @@
         {
           "code": "ATLAS_MONSTER_SPEED",
           "values": [
-            2.8
+            5.6
           ]
         }
       ]
@@ -8354,7 +8559,7 @@
         {
           "code": "ATLAS_MONSTER_SPEED",
           "values": [
-            2.8
+            5.6
           ]
         }
       ]
@@ -9520,7 +9725,7 @@
         {
           "code": "ATLAS_MONSTER_SPEED",
           "values": [
-            0.7
+            1.4
           ]
         }
       ]

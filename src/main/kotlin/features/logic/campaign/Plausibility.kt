@@ -2,6 +2,7 @@ package features.logic.campaign
 
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.CoreStat
+import com.sperance.exileforge.rules.content.GenericDamage
 import com.sperance.exileforge.rules.roll.RolledMonster
 import extensions.printLog
 import features.data.hero.Hero
@@ -41,10 +42,10 @@ object Plausibility {
     /** С какой метки за сутки невозможные события отклоняются. */
     const val REJECT_AFTER = 3
     private const val DAY_MS = 24 * 3_600_000L
-    private const val CRITICAL_DAMAGE = "STOCK_CRITICAL_DAMAGE"
 
     /**
      * Урон героя в секунду по листу: сумма ударов всех стихий на скорость атаки с ожиданием крита; без оружия - кулаки.
+     * Увеличения урона вообще (1.57.0) уже сложены листом с увеличениями каждого вида удара, как их складывает бой.
      * Крит (1.56.0) - больший из атак и заклинаний: у заклинаний свои шанс и множитель, а журнал не говорит, чем убито.
      */
     fun dps(index: ContentIndex, sheet: Map<String, Double>): Double {
@@ -52,8 +53,10 @@ object Plausibility {
         val hit = ATTACKS.sumOf { (sheet[it] ?: 0.0).coerceAtLeast(0.0) }.takeIf { it > 0 } ?: combat.unarmed.damage
         val speed = (sheet["STOCK_ATTACK_SPEED"] ?: 0.0).takeIf { it > 0 }?.coerceIn(0.3, 5.0) ?: combat.unarmed.speed
         val critical = combat.critical
-        val attack = critFactor(sheet[CoreStat.CRITICAL_CHANCE.code] ?: critical.chance, (sheet[CoreStat.CRITICAL_MULTIPLIER.code] ?: critical.multiplier) + (sheet[CRITICAL_DAMAGE] ?: 0.0))
-        val spell = critFactor(sheet[CoreStat.SPELL_CRITICAL_CHANCE.code] ?: critical.spellChance, sheet[CoreStat.SPELL_CRITICAL_MULTIPLIER.code] ?: critical.spellMultiplier)
+        // Урон крита (1.57.0) растит прибавку крита атак и заклинаний, как в бою.
+        val damage = sheet[CoreStat.CRITICAL_DAMAGE.code]
+        val attack = critFactor(sheet[CoreStat.CRITICAL_CHANCE.code] ?: critical.chance, critical.effective(sheet[CoreStat.CRITICAL_MULTIPLIER.code] ?: critical.multiplier, damage))
+        val spell = critFactor(sheet[CoreStat.SPELL_CRITICAL_CHANCE.code] ?: critical.spellChance, critical.effective(sheet[CoreStat.SPELL_CRITICAL_MULTIPLIER.code] ?: critical.spellMultiplier, damage))
         return (hit * speed * maxOf(attack, spell)).coerceAtLeast(1.0)
     }
 
@@ -115,5 +118,5 @@ object Plausibility {
         return hero.flags.count { now - it.at < DAY_MS } >= REJECT_AFTER
     }
 
-    private val ATTACKS = listOf("STOCK_ATTACK_PHYSICAL", "STOCK_ATTACK_FIRE", "STOCK_ATTACK_COLD", "STOCK_ATTACK_LIGHTNING", "STOCK_ATTACK_CHAOS")
+    private val ATTACKS = GenericDamage.HITS
 }

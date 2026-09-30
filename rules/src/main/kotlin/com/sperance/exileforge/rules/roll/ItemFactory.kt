@@ -4,6 +4,7 @@ import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.Source
 
 /**
  * Копии из шаблонов. Самоцвет и карта не бывают обычными (без аффикса они ничего не дают), фляга не
@@ -39,6 +40,19 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         return item
     }
 
+    /**
+     * Тир старого ролла по нынешней лестнице (1.57.0): номер за её концом - худший тир; аффикс или строка эссенции на тире,
+     * что уровень вещи [level] ещё не открывает (лестница стала длиннее, вершина эссенции), - лучший открытый. Верстачные не трогаются.
+     */
+    private fun fitTier(roll: Roll, level: Int): Roll {
+        val def = index.modifier(roll.code) ?: return roll
+        if (!roll.rolled || def.tiers.isEmpty() || def.crafted) return roll
+        val within = roll.tier.coerceIn(1, def.tiers.size)
+        val open = if (def.affix || def.source == Source.ESSENCE) def.bestTierAt(level)?.first ?: within else within
+        val tier = maxOf(within, open)
+        return if (tier == roll.tier) roll else roll.copy(tier = tier)
+    }
+
     /** Держит ли копия дно своей редкости: волшебная и редкая - не меньше аффиксов, чем велит правило. */
     fun meetsFloor(template: ItemTemplate, item: ItemInstance): Boolean =
         item.rarity.fixed || item.rolls.count(affixes::isAffix) >= index.limits(item.rarity, template.slot).floor
@@ -62,6 +76,9 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         }
         val known = item.rolls.filter { index.modifier(it.code) != null }
         if (known.size != item.rolls.size) { item.rolls = known; changed = true }
+        // Копия без своего уровня (до 1.33.0) катилась на уровне зоны - её тиры уровнем шаблона не режутся
+        val fitted = item.rolls.map { fitTier(it, if (item.itemLevel > 0) item.itemLevel else Int.MAX_VALUE) }
+        if (fitted != item.rolls) { item.rolls = fitted; changed = true }
         val fixed = template.fixedCodes.filter { code -> index.modifier(code)?.source?.permanent == true }
         val missing = fixed.filter { code -> item.rolls.none { it.code == code } }
         if (missing.isNotEmpty()) {

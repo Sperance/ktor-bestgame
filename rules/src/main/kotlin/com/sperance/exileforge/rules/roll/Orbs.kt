@@ -117,7 +117,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
             else -> throw RuleViolation("CR_029", listOf(essenceName, name(template)))
         }
         val share = if (essence.special) 1.0 else (essence.tier - 1).toDouble() / (tiers.size - 1)
-        val forced = affixes.rollShare(line, share, dice) ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
+        val forced = affixes.rollShare(line, share, dice, item.level(template)) ?: throw RuleViolation("CR_029", listOf(essenceName, name(template)))
         val group = affixes.definitions(listOf(forced)).map { it.groupKey }.toSet()
         val kept = affixes.fractured(item.rolls).filterNot { held -> affixes.definitions(listOf(held)).any { it.groupKey in group } }
         val around = if (affixes.isAffix(forced)) kept + forced else kept

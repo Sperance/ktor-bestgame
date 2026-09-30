@@ -924,7 +924,9 @@
         "tool"
       ],
       "entries": {
-        "WORK_ALCHEMY_MASTERY": 500
+        "WORK_ALCHEMY_MASTERY": 500,
+        "WORK_CRAFT_LEVEL": 100,
+        "WORK_CRAFT_RARITY": 100
       }
     },
     {
@@ -934,7 +936,8 @@
         "tool"
       ],
       "entries": {
-        "WORK_CARTOGRAPHY_MASTERY": 500
+        "WORK_CARTOGRAPHY_MASTERY": 500,
+        "WORK_CRAFT_RARITY": 150
       }
     },
     {
@@ -944,6 +947,8 @@
         "tool"
       ],
       "entries": {
+        "WORK_CRAFT_LEVEL": 100,
+        "WORK_CRAFT_RARITY": 100,
         "WORK_ENCHANTING_MASTERY": 500
       }
     },
@@ -954,7 +959,9 @@
         "tool"
       ],
       "entries": {
-        "WORK_HERBALISM_MASTERY": 500
+        "WORK_FIND": 900,
+        "WORK_HERBALISM_MASTERY": 500,
+        "WORK_LUCK_AND_FIND": 300
       }
     },
     {
@@ -964,6 +971,8 @@
         "tool"
       ],
       "entries": {
+        "WORK_FIND": 900,
+        "WORK_LUCK_AND_FIND": 300,
         "WORK_MINING_MASTERY": 500
       }
     },
@@ -974,6 +983,9 @@
         "tool"
       ],
       "entries": {
+        "WORK_CRAFT_LEVEL": 100,
+        "WORK_CRAFT_RARITY": 150,
+        "WORK_CRAFT_UNIQUE": 100,
         "WORK_SMITHING_MASTERY": 500
       }
     },
@@ -984,6 +996,8 @@
         "tool"
       ],
       "entries": {
+        "WORK_FIND": 900,
+        "WORK_LUCK_AND_FIND": 300,
         "WORK_WOODCUTTING_MASTERY": 500
       }
     },
@@ -1991,13 +2005,11 @@
         "MAP_HERO_HASTE": 40,
         "MAP_HERO_LEECH": 40,
         "MAP_HERO_LIFE": 40,
-        "MAP_HERO_LIGHT": 80,
         "MAP_HERO_MANA_REGEN": 70,
         "MAP_HERO_MAX_RESIST": 60,
         "MAP_HERO_RECOVERY": 80,
         "MAP_HERO_REGEN": 80,
         "MAP_HERO_RESIST": 100,
-        "MAP_HERO_SLOW": 80,
         "MAP_HERO_VULNERABILITY": 60,
         "MAP_ITEM_LEVEL": 30,
         "MAP_MAGIC_MONSTERS": 60,
@@ -2102,16 +2114,9 @@
       "tag": "tool",
       "kind": "MODIFIER",
       "entries": {
-        "INCREASED_CHEST_QUANTITY": 80,
-        "INCREASED_EXPERIENCE_GAIN": 60,
-        "INCREASED_ITEM_RARITY": 100,
-        "INCREASED_LIGHT_RADIUS": 100,
-        "INCREASED_SELL_VALUE": 150,
         "WORK_DOUBLE_OUTPUT": 150,
-        "WORK_EXPERIENCE": 800,
-        "WORK_FIND": 800,
+        "WORK_EXPERIENCE": 860,
         "WORK_LUCK": 1000,
-        "WORK_LUCK_AND_FIND": 300,
         "WORK_MATERIAL_SAVE": 150,
         "WORK_SPEED": 1000,
         "WORK_SPEED_AND_YIELD": 300,
@@ -7661,12 +7666,10 @@
         "MAP_HERO_CRIT": 70,
         "MAP_HERO_DAMAGE_TAKEN": 70,
         "MAP_HERO_DEFENCES": 70,
-        "MAP_HERO_LIGHT": 100,
         "MAP_HERO_MAX_RESIST": 70,
         "MAP_HERO_RECOVERY": 70,
         "MAP_HERO_REGEN": 100,
         "MAP_HERO_RESIST": 100,
-        "MAP_HERO_SLOW": 100,
         "MAP_MONSTER_AILMENTS": 70,
         "MAP_MONSTER_ARMOUR": 70,
         "MAP_MONSTER_CRITICAL": 70,

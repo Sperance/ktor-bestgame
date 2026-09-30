@@ -731,11 +731,6 @@
       "order": 405
     },
     {
-      "code": "MAP_HERO_LIGHT",
-      "group": "MAP",
-      "order": 406
-    },
-    {
       "code": "MAP_HERO_RESIST",
       "group": "MAP",
       "order": 408
@@ -774,11 +769,6 @@
       "code": "MAP_RARE_MONSTERS",
       "group": "MAP",
       "order": 415
-    },
-    {
-      "code": "MAP_HERO_SLOW",
-      "group": "MAP",
-      "order": 416
     },
     {
       "code": "MAP_HERO_DEGEN",
@@ -5419,6 +5409,23 @@
       "code": "STOCK_WORK_SAVE",
       "group": "HERO",
       "order": 3469,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_WORK_RARITY",
+      "group": "HERO",
+      "order": 3495,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_WORK_ITEM_LEVEL",
+      "group": "HERO",
+      "order": 3496
+    },
+    {
+      "code": "STOCK_WORK_UNIQUE",
+      "group": "HERO",
+      "order": 3497,
       "kind": "PERCENT"
     },
     {

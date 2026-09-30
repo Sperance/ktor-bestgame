@@ -125,7 +125,8 @@ class CraftsService : KoinComponent {
         val progress = hero.professions[profession.code] ?: ProfessionProgress()
         val dice = Dice.system()
         // Кости циклов - с потока героя (1.53.0): семя не уходит клиенту, а перезапуск работы продолжает поток, а не катит новый
-        val result = Work.settle(file.rules, job, progress, bonus(hero, profession), work.settledAt, System.currentTimeMillis(), hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
+        val bonus = bonus(hero, profession)
+        val result = Work.settle(file.rules, job, progress, bonus, work.settledAt, System.currentTimeMillis(), hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
         // Самоцветы - не раньше `loot.jewelHeroLevel`: огранка ниже него ничего не даёт, кузнец тянет другую базу
         val bases = index.forHero(when (job.kind) {
@@ -134,7 +135,9 @@ class CraftsService : KoinComponent {
             else -> emptyList()
         }, hero.level)
         val zones = if (job.kind == JobKind.MAP) charted(hero, job) else emptyList()
-        val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, index.rules.loot.craftedItemLevel(hero.level, result.progress.level, file.rules.maxLevel), dice, bases, zones, hero.level) }.filterNotNull()
+        // Прибавка инструмента к уровню сделанной вещи (1.57.0) - поверх уровня героя, не выше потолка уровня предмета
+        val itemLevel = index.rules.loot.craftedItemLevel(hero.level + bonus.itemLevel.toInt().coerceAtLeast(0), result.progress.level, file.rules.maxLevel)
+        val made = List(result.gains.made) { craft(job, work.additives, result.progress.level, itemLevel, dice, bases, zones, hero.level, bonus) }.filterNotNull()
         hero.professions[profession.code] = result.progress
         val gains = result.gains.copy(equipment = made)
         hero.rewards.crafted += result.gains.cycles
@@ -202,16 +205,17 @@ class CraftsService : KoinComponent {
      * Вещь кузнеца, карта картографа или фляга алхимика за удачный цикл: база своего диапазона (или с
      * шансом уникалка), редкость по таблице, ручная работа от примесей и ещё одна с шансом.
      */
-    private fun craft(job: Job, additives: List<String>, level: Int, itemLevel: Int, dice: Dice, bases: List<Weighted<ItemTemplate>>, zones: List<String>, heroLevel: Int): ItemInstance? {
+    private fun craft(job: Job, additives: List<String>, level: Int, itemLevel: Int, dice: Dice, bases: List<Weighted<ItemTemplate>>, zones: List<String>, heroLevel: Int,
+                      bonus: WorkBonus = WorkBonus()): ItemInstance? {
         val crafting = file.crafting
         return when (job.kind) {
             JobKind.EQUIPMENT -> {
-                if (dice.percent(crafting.uniqueChance * (1 + level / 50.0))) {
+                if (dice.percent(crafting.uniqueChance * (1 + level / 50.0) * (1 + bonus.unique.coerceAtLeast(0.0) / 100))) {
                     // Уникалка по уровню ремесла и дальности уникалок (1.18.0), а не любая из таблицы
                     Tables.draw(index.forHero(index.templatePoolUpTo(crafting.uniques, level + index.rules.loot.uniqueReach), heroLevel), dice)?.let { return factory.create(Hero.newItemId(), it, Rarity.UNIQUE, dice, level = itemLevel) }
                 }
                 val base = Tables.draw(bases, dice) ?: return null
-                val rarity = Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.COMMON
+                val rarity = bonus.raise(Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.COMMON, dice)
                 val item = factory.create(Hero.newItemId(), base, rarity, dice, level = itemLevel)
                 val guaranteed = additives.mapNotNull { crafting.additives[it] }
                 val kind = if (base.slot.isWeapon) "weapon" else "armour"
@@ -222,16 +226,16 @@ class CraftsService : KoinComponent {
             }
             JobKind.JEWEL -> {
                 val base = Tables.draw(bases, dice) ?: return null
-                factory.create(Hero.newItemId(), base, Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.MAGIC, dice, level = itemLevel)
+                factory.create(Hero.newItemId(), base, bonus.raise(Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.MAGIC, dice), dice, level = itemLevel)
             }
             JobKind.FLASK -> {
                 val base = index.template(job.output) ?: return null
-                factory.create(Hero.newItemId(), base, if (dice.percent(crafting.flaskMagicChance)) Rarity.MAGIC else Rarity.COMMON, dice, level = itemLevel)
+                factory.create(Hero.newItemId(), base, bonus.raise(if (dice.percent(crafting.flaskMagicChance)) Rarity.MAGIC else Rarity.COMMON, dice), dice, level = itemLevel)
             }
             JobKind.MAP -> {
                 val base = index.template(MAP_TEMPLATE) ?: return null
                 val zone = dice.pickOrNull(zones) ?: return null
-                val rarity = Tables.value<Rarity>(index.tables, crafting.mapRarities, dice) ?: Rarity.MAGIC
+                val rarity = bonus.raise(Tables.value<Rarity>(index.tables, crafting.mapRarities, dice) ?: Rarity.MAGIC, dice)
                 val mapLevel = index.zone(zone)?.level ?: itemLevel
                 val item = factory.create(Hero.newItemId(), base, rarity, dice, level = mapLevel).also { it.mapZone = zone }
                 if (job.tier > 0) item.mapTier = dice.between(1, job.tier)

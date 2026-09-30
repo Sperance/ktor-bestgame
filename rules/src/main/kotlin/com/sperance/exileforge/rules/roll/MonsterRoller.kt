@@ -54,7 +54,8 @@ class MonsterRoller(private val index: ContentIndex) {
         return Math.round(value * factor.pow(campaign.growthTaper.steps(level)) * 100.0) / 100.0
     }
 
-    fun stats(monster: Monster, level: Int): Map<String, Double> = (campaign.defaults + monster.stats).mapValues { (stat, value) -> scale(stat, value, level) }
+    /** Характеристики монстра на уровне; урон крита (1.57.0) - с базы боя, чтобы его увеличения не ложились на ноль. */
+    fun stats(monster: Monster, level: Int): Map<String, Double> = (campaign.combat.critical.fighterBase + campaign.defaults + monster.stats).mapValues { (stat, value) -> scale(stat, value, level) }
 
     /** Описание на тире уровня [tierLevel], плоские прибавки поднятые по росту до [level]. */
     fun raise(def: ModifierDef, weight: Int, level: Int, tierLevel: Int = level): MonsterMod {

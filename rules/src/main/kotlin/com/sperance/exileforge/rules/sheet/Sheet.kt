@@ -3,6 +3,7 @@ package com.sperance.exileforge.rules.sheet
 import com.sperance.exileforge.rules.content.Catalyst
 import com.sperance.exileforge.rules.content.Condition
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.GenericDamage
 import com.sperance.exileforge.rules.content.HeroClass
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Line
@@ -85,9 +86,13 @@ class SheetCalculator(private val index: ContentIndex) {
         def.effects.mapIndexedNotNull { i, effect -> values.getOrNull(i)?.let { StatOperation(effect.stat, effect.op, it, effect.perStat, effect.perAmount, source, condition = effect.condition) } }
     }
 
+    /** Операция там, где она считается: увеличение урона вообще ([GenericDamage], 1.57.0) - в каждом виде удара. */
+    fun spread(operation: StatOperation): List<StatOperation> =
+        GenericDamage.targets(operation.stat, operation.op).map { if (it == operation.stat) operation else operation.copy(stat = it) }
+
     /** Свод до сил уникалок: характеристики в порядке реестра, источник конверсии посчитан раньше приёмника. */
     fun raw(base: Map<String, Double>, operations: Collection<StatOperation>): MutableMap<String, Double> {
-        val byStat = operations.filter { it.condition == null }.groupBy { it.stat }
+        val byStat = operations.filter { it.condition == null }.flatMap(::spread).groupBy { it.stat }
         val result = LinkedHashMap<String, Double>()
         (byStat.keys + base.keys).sortedBy { stats.order(it) }.forEach { stat ->
             val applied = byStat[stat].orEmpty().map { it.op to it.resolve(it.perStat?.let { s -> result[s] } ?: 0.0) }
@@ -100,7 +105,10 @@ class SheetCalculator(private val index: ContentIndex) {
     fun compute(base: Map<String, Double>, operations: Collection<StatOperation>, trace: ((SheetStep) -> Unit)? = null): Map<String, Double> =
         index.powers.applySheet(raw(base, operations), trace, stats::isPercent)
 
-    /** Строки вещи в операции над героем: локальные свёрнуты внутри от нулевой базы и отданы прибавкой. */
+    /**
+     * Строки вещи в операции над героем. Локальные (1.57.0) сворачиваются внутри вещи поверх её базы, как в PoE:
+     * `(база + локальные прибавки) × (1 + локальные увеличения)` - и отдаются одной прибавкой на характеристику.
+     */
     fun foldItem(template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null, quality: Int = 0, catalyst: Catalyst? = null): List<StatOperation> {
         // Качество (1.35.0): с катализатором - модификаторы его вида, без него - база и локальная защита или физический урон.
         val share = 1 + quality.coerceAtLeast(0) / 100.0
@@ -109,13 +117,21 @@ class SheetCalculator(private val index: ContentIndex) {
         fun based(ops: List<StatOperation>) = if (catalyst != null || quality <= 0) ops
             else ops.map { if (it.stat in QualityRules.BASE_STATS && it.op == Op.ADD) it.copy(value = it.value * share) else it }
         val (local, global) = rolls.partition { index.modifier(it.code)?.local == true }
-        val baseOps = based(expand(template.base, source))
-        if (local.isEmpty()) return baseOps + own(global)
+        val baseOps = expand(template.base, source)
+        if (local.isEmpty()) return based(baseOps) + own(global)
         val localOps = own(local)
-        val folded = compute(emptyMap(), localOps).filterValues { it != 0.0 }
-            .map { (stat, value) -> StatOperation(stat, Op.ADD, value, source = source, local = localOps.filter { it.stat == stat }) }
-        return baseOps + based(folded) + own(global)
+        val touched = localOps.mapTo(HashSet()) { it.stat }
+        // База ложится под локальные строки своей характеристики; её прочие строки и чужие характеристики остаются как есть.
+        val (carried, kept) = baseOps.partition { it.stat in touched && it.op == Op.ADD && it.perStat == null && it.condition == null }
+        val start = carried.groupBy { it.stat }.mapValues { (_, ops) -> ops.sumOf { it.value } }
+        val folded = raw(start, localOps).filterKeys { it in touched }.filterValues { it != 0.0 }
+            .map { (stat, value) -> StatOperation(stat, Op.ADD, value, source = source, local = (carried + localOps).filter { it.stat == stat }) }
+        return based(kept + folded) + own(global)
     }
+
+    /** Что несёт база вещи с её локальными строками и качеством, по характеристике: подсказка вещи и лист - одним правилом. */
+    fun itemBase(template: ItemTemplate, rolls: Collection<Roll>, quality: Int = 0, catalyst: Catalyst? = null): Map<String, Double> =
+        raw(emptyMap(), foldItem(template, rolls.filter { index.modifier(it.code)?.local == true }, quality = quality, catalyst = catalyst))
 
     /** Что дают строки сами по себе - по строке на характеристику и операцию. */
     fun contributions(operations: Collection<StatOperation>): List<StatContribution> = operations

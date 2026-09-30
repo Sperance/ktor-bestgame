@@ -43,13 +43,27 @@ data class AilmentRule(
 /**
  * Крит (1.56.0): шанс и множитель атак и свои - у заклинаний ([spellChance], [spellMultiplier]; без них - как у атак).
  * [sheetBase] - база листа героя: увеличения шанса и прибавки к множителю ложатся на неё, а не на ноль.
+ * Урон крита (1.57.0) - [damage] процентов прибавки крита сверх обычного удара, у героя и у монстра ([fighterBase]):
+ * «увеличение урона критических ударов» растит эту долю, 0 - крит бьёт как обычный удар.
  */
 @Serializable
-data class CriticalRule(val chance: Double, val multiplier: Double, val spellChance: Double = chance, val spellMultiplier: Double = multiplier) {
-    val sheetBase: Map<String, Double> get() = mapOf(
+data class CriticalRule(
+    val chance: Double, val multiplier: Double, val spellChance: Double = chance, val spellMultiplier: Double = multiplier, val damage: Double = 100.0,
+) {
+    /** База каждого бойца: урон крита, на который ложатся его увеличения. */
+    val fighterBase: Map<String, Double> get() = mapOf(CoreStat.CRITICAL_DAMAGE.code to damage)
+
+    val sheetBase: Map<String, Double> get() = fighterBase + mapOf(
         CoreStat.CRITICAL_CHANCE.code to chance, CoreStat.CRITICAL_MULTIPLIER.code to multiplier,
         CoreStat.SPELL_CRITICAL_CHANCE.code to spellChance, CoreStat.SPELL_CRITICAL_MULTIPLIER.code to spellMultiplier,
     )
+
+    /**
+     * Множитель крита в процентах с уроном крита: прибавка [multiplier] сверх 100 растёт на [critDamage]/100 -
+     * 150% при уроне крита 140 бьют на 170%. Урона крита нет в листе - его база [damage].
+     */
+    fun effective(multiplier: Double, critDamage: Double?): Double =
+        100 + (multiplier.coerceAtLeast(100.0) - 100) * (critDamage ?: damage).coerceAtLeast(0.0) / 100
 }
 @Serializable data class ArmourRule(val factor: Double)
 @Serializable data class EvasionRule(val base: Double, val perLevel: Double)

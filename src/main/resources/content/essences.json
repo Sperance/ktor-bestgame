@@ -186,30 +186,30 @@
   "specials": [
     {
       "code": "INSANITY",
-      "weapon": "ESS_FREE_SKILL_CHANCE",
-      "armour": "ESS_AURA_EFFECT",
-      "jewellery": "ESS_PASSIVE_LEVELS",
+      "weapon": "ESS_INSANITY_WEAPON",
+      "armour": "ESS_INSANITY_ARMOUR",
+      "jewellery": "ESS_INSANITY_JEWELLERY",
       "monster": "MOB_ESS_INSANITY"
     },
     {
       "code": "HORROR",
-      "weapon": "ESS_DAMAGE_VS_CURSED",
-      "armour": "ESS_CURSE_WHEN_HIT",
-      "jewellery": "ESS_CURSE_LEVELS",
+      "weapon": "ESS_HORROR_WEAPON",
+      "armour": "ESS_HORROR_ARMOUR",
+      "jewellery": "ESS_HORROR_JEWELLERY",
       "monster": "MOB_ESS_HORROR"
     },
     {
       "code": "DELIRIUM",
-      "weapon": "ESS_ATTACK_LEVELS",
-      "armour": "ESS_FLASK_CHARGE_PER_KILL",
-      "jewellery": "ESS_FLASK_DURATION",
+      "weapon": "ESS_DELIRIUM_WEAPON",
+      "armour": "ESS_DELIRIUM_ARMOUR",
+      "jewellery": "ESS_DELIRIUM_JEWELLERY",
       "monster": "MOB_ESS_DELIRIUM"
     },
     {
       "code": "HYSTERIA",
-      "weapon": "ESS_WARCRY_ATTACK_SPEED",
-      "armour": "ESS_WARCRY_HEAL",
-      "jewellery": "ESS_WARCRY_LEVELS",
+      "weapon": "ESS_HYSTERIA_WEAPON",
+      "armour": "ESS_HYSTERIA_ARMOUR",
+      "jewellery": "ESS_HYSTERIA_JEWELLERY",
       "monster": "MOB_ESS_HYSTERIA"
     }
   ],

@@ -8978,8 +8978,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              100.0,
-              150.0
+              66.0,
+              99.0
             ]
           }
         ],
@@ -9138,8 +9138,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              100.0,
-              150.0
+              94.0,
+              141.0
             ]
           }
         ],
@@ -9202,8 +9202,8 @@
           {
             "stat": "STOCK_HEALTH",
             "range": [
-              500.0,
-              500.0
+              474.0,
+              474.0
             ]
           }
         ],
@@ -9268,16 +9268,16 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              120.0,
-              150.0
+              79.0,
+              99.0
             ]
           },
           {
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              120.0,
-              150.0
+              79.0,
+              99.0
             ]
           }
         ],
@@ -9351,8 +9351,8 @@
             "stat": "STOCK_ATTACK_PHYSICAL",
             "op": "INCREASED",
             "range": [
-              600.0,
-              800.0
+              123.0,
+              165.0
             ]
           }
         ],
@@ -9518,16 +9518,16 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              150.0,
-              200.0
+              105.0,
+              141.0
             ]
           },
           {
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              150.0,
-              200.0
+              74.0,
+              99.0
             ]
           }
         ],
@@ -9890,8 +9890,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              80.0,
-              120.0
+              66.0,
+              99.0
             ]
           }
         ],
@@ -10470,8 +10470,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              200.0,
-              250.0
+              112.0,
+              141.0
             ]
           }
         ],
@@ -10562,8 +10562,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              150.0,
-              200.0
+              105.0,
+              141.0
             ]
           }
         ],
@@ -13257,8 +13257,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              100.0,
-              140.0
+              70.0,
+              99.0
             ]
           }
         ],
@@ -14280,8 +14280,8 @@
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              100.0,
-              140.0
+              70.0,
+              99.0
             ]
           }
         ],
@@ -14345,8 +14345,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              120.0,
-              160.0
+              74.0,
+              99.0
             ]
           }
         ],
@@ -15087,7 +15087,7 @@
       "lines": [
         [
           {
-            "stat": "STOCK_ATTACK_MAGICAL",
+            "stat": "STOCK_SPELL_DAMAGE",
             "op": "INCREASED",
             "range": [
               60.0,
@@ -15486,8 +15486,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              120.0,
-              160.0
+              105.0,
+              141.0
             ]
           }
         ],
@@ -18417,8 +18417,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              81.0,
-              108.0
+              74.0,
+              99.0
             ]
           }
         ],
@@ -18640,8 +18640,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              81.0,
-              108.0
+              74.0,
+              99.0
             ]
           }
         ],
@@ -20420,8 +20420,8 @@
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              80.0,
-              110.0
+              72.0,
+              99.0
             ]
           }
         ],
@@ -21026,8 +21026,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              100.0,
-              140.0
+              70.0,
+              99.0
             ]
           }
         ],
@@ -22457,8 +22457,8 @@
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              80.0,
-              110.0
+              72.0,
+              99.0
             ]
           }
         ],
@@ -22778,8 +22778,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              120.0,
-              160.0
+              105.0,
+              141.0
             ]
           }
         ],
@@ -22916,8 +22916,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              90.0,
-              120.0
+              74.0,
+              99.0
             ]
           }
         ],
@@ -23173,8 +23173,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              180.0,
-              220.0
+              81.0,
+              99.0
             ]
           }
         ],
@@ -23444,7 +23444,7 @@
       "lines": [
         [
           {
-            "stat": "STOCK_ATTACK_MAGICAL",
+            "stat": "STOCK_SPELL_DAMAGE",
             "op": "INCREASED",
             "range": [
               120.0,
@@ -23577,8 +23577,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              150.0,
-              200.0
+              105.0,
+              141.0
             ]
           }
         ],
@@ -23624,8 +23624,8 @@
           {
             "stat": "STOCK_ATTACK_LIGHTNING",
             "range": [
-              150.0,
-              220.0
+              81.0,
+              120.0
             ]
           }
         ],
@@ -23690,8 +23690,8 @@
             "stat": "STOCK_EXPERIENCE",
             "op": "INCREASED",
             "range": [
-              25.0,
-              35.0
+              15.0,
+              21.0
             ]
           }
         ],
@@ -23700,8 +23700,8 @@
             "stat": "STOCK_QUANTITY",
             "op": "INCREASED",
             "range": [
-              30.0,
-              40.0
+              29.0,
+              39.0
             ]
           }
         ],
@@ -23710,8 +23710,8 @@
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              150.0,
-              200.0
+              74.0,
+              99.0
             ]
           }
         ],
@@ -23952,8 +23952,8 @@
           {
             "stat": "STOCK_ENERGY_SHIELD",
             "range": [
-              200.0,
-              260.0
+              136.0,
+              177.0
             ]
           }
         ],
@@ -24429,8 +24429,8 @@
             "stat": "STOCK_CRITICAL_CHANCE",
             "op": "INCREASED",
             "range": [
-              100.0,
-              150.0
+              90.0,
+              135.0
             ]
           }
         ],
@@ -24618,8 +24618,8 @@
             "stat": "STOCK_ATTACK_SPEED",
             "op": "INCREASED",
             "range": [
-              100.0,
-              100.0
+              84.0,
+              84.0
             ]
           }
         ],
@@ -25772,8 +25772,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              100.0,
-              100.0
+              99.0,
+              99.0
             ]
           }
         ],
@@ -26260,8 +26260,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              300.0,
-              400.0
+              105.0,
+              141.0
             ]
           }
         ],
@@ -26332,8 +26332,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              150.0,
-              150.0
+              99.0,
+              99.0
             ]
           }
         ],
@@ -26342,8 +26342,8 @@
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              150.0,
-              150.0
+              99.0,
+              99.0
             ]
           }
         ],
@@ -26510,8 +26510,8 @@
             "stat": "STOCK_EVASION",
             "op": "INCREASED",
             "range": [
-              200.0,
-              300.0
+              66.0,
+              99.0
             ]
           }
         ],
@@ -26628,8 +26628,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              400.0,
-              500.0
+              112.0,
+              141.0
             ]
           }
         ],
@@ -26755,8 +26755,8 @@
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              150.0,
-              200.0
+              74.0,
+              99.0
             ]
           }
         ],
@@ -28958,8 +28958,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              250.0,
-              300.0
+              117.0,
+              141.0
             ]
           }
         ],
@@ -28968,8 +28968,8 @@
             "stat": "STOCK_ENERGY_SHIELD",
             "op": "INCREASED",
             "range": [
-              250.0,
-              300.0
+              82.0,
+              99.0
             ]
           }
         ],
@@ -29153,8 +29153,8 @@
             "stat": "STOCK_ARMOR",
             "op": "INCREASED",
             "range": [
-              100.0,
-              150.0
+              94.0,
+              141.0
             ]
           }
         ],
@@ -35419,8 +35419,8 @@
           {
             "stat": "STOCK_ENERGY_SHIELD",
             "range": [
-              180.0,
-              240.0
+              132.0,
+              177.0
             ]
           }
         ],
@@ -36635,8 +36635,8 @@
           {
             "stat": "STOCK_ENERGY_SHIELD",
             "range": [
-              180.0,
-              240.0
+              132.0,
+              177.0
             ]
           }
         ],
@@ -36911,8 +36911,8 @@
           {
             "stat": "STOCK_ENERGY_SHIELD",
             "range": [
-              150.0,
-              200.0
+              132.0,
+              177.0
             ]
           }
         ],
@@ -37031,8 +37031,8 @@
           {
             "stat": "STOCK_ENERGY_SHIELD",
             "range": [
-              200.0,
-              260.0
+              136.0,
+              177.0
             ]
           }
         ],
@@ -37094,8 +37094,8 @@
           {
             "stat": "STOCK_ATTACK_PHYSICAL",
             "range": [
-              130.0,
-              170.0
+              123.0,
+              162.0
             ]
           }
         ],
@@ -37638,8 +37638,8 @@
           {
             "stat": "STOCK_ENERGY_SHIELD",
             "range": [
-              200.0,
-              260.0
+              136.0,
+              177.0
             ]
           }
         ],

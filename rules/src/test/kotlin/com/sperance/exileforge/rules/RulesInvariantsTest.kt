@@ -18,6 +18,12 @@ import com.sperance.exileforge.rules.content.Source
 import com.sperance.exileforge.rules.table.Weighted
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.TreeAllocation
+import com.sperance.exileforge.rules.content.GenericDamage
+import com.sperance.exileforge.rules.content.Op
+import com.sperance.exileforge.rules.content.tenths
+import com.sperance.exileforge.rules.roll.Roll
+import com.sperance.exileforge.rules.sheet.SheetCalculator
+import com.sperance.exileforge.rules.sheet.StatOperation
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -200,5 +206,32 @@ class RulesInvariantsTest {
         val closed = tree.byCode.values.filter { it.type == SkillNodeType.JEWEL_SOCKET && it.only == null }
             .flatMap { socket -> starts.filter { socket.code !in open.getValue(it) }.map { "${socket.code} от $it" } }
         assertTrue(closed.isEmpty(), "гнездо закрыто: $closed")
+    }
+
+    /**
+     * Локальные строки (1.57.0) растят базу своей вещи, как в PoE, - одинаково в листе и в подсказке; увеличение урона
+     * вообще складывается с увеличениями вида удара, а урон крита по базе 100 не трогает множитель.
+     */
+    @Test
+    fun localLinesGrowTheItemsOwnBase() {
+        val calc = SheetCalculator(index)
+        val sword = index.template("RUSTED_SWORD")!!
+        val increased = Roll("INCREASED_PHYSICAL_DAMAGE@LOCAL", tier = 1, share = 1.0)
+        val flat = Roll("ADD_PHYSICAL_DAMAGE@LOCAL", tier = 1, share = 1.0)
+        val (inc, add) = listOf(increased, flat).map { it.values(index).single() }
+        val base = sword.base.first { it.code == "BASE_PHYSICAL_DAMAGE" }.values.single()
+        val shown = calc.itemBase(sword, listOf(increased, flat))[PHYSICAL]
+        assertEquals(tenths((base + add) * (1 + inc / 100)), shown)
+        assertEquals(shown, calc.raw(emptyMap(), calc.foldItem(sword, listOf(increased, flat)))[PHYSICAL])
+
+        val general = StatOperation(GenericDamage.STAT, Op.INCREASED, 20.0)
+        val sheet = calc.raw(emptyMap(), listOf(StatOperation(PHYSICAL, Op.ADD, 100.0), StatOperation(PHYSICAL, Op.INCREASED, 30.0), general))
+        assertEquals(150.0, sheet[PHYSICAL])
+        assertEquals(0.0, sheet[GenericDamage.STAT] ?: 0.0)
+        assertEquals(150.0, index.campaign.combat.critical.effective(150.0, null))
+    }
+
+    private companion object {
+        const val PHYSICAL = "STOCK_ATTACK_PHYSICAL"
     }
 }

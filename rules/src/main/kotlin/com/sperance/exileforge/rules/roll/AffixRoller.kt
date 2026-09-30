@@ -158,12 +158,16 @@ class AffixRoller(private val index: ContentIndex) {
         return roll.copy(tier = roll.tier - 1, share = dice.share())
     }
 
-    /** Описание на тире, взятом долей [tierShare] лестницы: 0 - худший, 1 - лучший, уровень не спрашивается. */
-    fun rollShare(code: String, tierShare: Double, dice: Dice): Roll? {
+    /**
+     * Описание на тире, взятом долей [tierShare] лестницы: 0 - худший, 1 - лучший. Тир выше открытого уровнем
+     * вещи [level] (1.57.0) опускается до лучшего открытого - вершина эссенции не падает на вещь низкого уровня.
+     */
+    fun rollShare(code: String, tierShare: Double, dice: Dice, level: Int = Int.MAX_VALUE): Roll? {
         val def = index.modifier(code) ?: return null
         val count = def.tiers.size.takeIf { it > 0 } ?: return null
-        val number = (count - Math.round(tierShare.coerceIn(0.0, 1.0) * (count - 1)).toInt()).coerceIn(1, count)
-        return Roll(def.code, number, dice.share())
+        val shared = (count - Math.round(tierShare.coerceIn(0.0, 1.0) * (count - 1)).toInt()).coerceIn(1, count)
+        val open = def.bestTierAt(level)?.first ?: shared
+        return Roll(def.code, maxOf(shared, open), dice.share())
     }
 
     /** Таблицы аффиксов копии: таблицы шаблона и, под влиянием, таблицы влияния. */
