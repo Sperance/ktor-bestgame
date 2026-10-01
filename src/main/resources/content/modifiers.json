@@ -32650,6 +32650,68 @@
       ]
     },
     {
+      "code": "INCUBATOR_SLOT",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_INCUBATOR_SLOTS"
+        }
+      ],
+      "grid": {
+        "levels": [
+          30
+        ],
+        "top": [
+          [
+            1,
+            1
+          ]
+        ],
+        "bottom": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "pet"
+      ]
+    },
+    {
+      "code": "REDUCED_HATCH_TIME",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_HATCH_TIME"
+        }
+      ],
+      "grid": {
+        "levels": [
+          68,
+          52,
+          36,
+          20,
+          1
+        ],
+        "top": [
+          [
+            -30,
+            -26
+          ]
+        ],
+        "bottom": [
+          [
+            -8,
+            -5
+          ]
+        ]
+      },
+      "tags": [
+        "pet"
+      ]
+    },
+    {
       "code": "DAMAGE_PER_STRENGTH",
       "source": "SUFFIX",
       "effects": [

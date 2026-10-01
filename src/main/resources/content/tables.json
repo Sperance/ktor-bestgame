@@ -7671,12 +7671,14 @@
         "ADD_LIGHTNING_RESISTANCE": 300,
         "ADD_MAXIMUM_LIFE": 400,
         "COND_DAMAGE_PET_ALIVE": 300,
+        "INCUBATOR_SLOT": 100,
         "PET_ADD_ARMOUR": 800,
         "PET_ATTACK_SPEED": 800,
         "PET_INCREASED_DAMAGE": 1000,
         "PET_INCREASED_LIFE": 1000,
         "PET_LEVEL": 200,
-        "PET_RESISTANCES": 800
+        "PET_RESISTANCES": 800,
+        "REDUCED_HATCH_TIME": 600
       }
     },
     {
