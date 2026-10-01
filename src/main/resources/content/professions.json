@@ -1164,7 +1164,7 @@
         {
           "code": "MAGUS_BREW",
           "level": 15,
-          "seconds": 300,
+          "seconds": 360,
           "nothing": 30,
           "output": "ORB_OF_REGRET",
           "experience": 15,
@@ -1178,6 +1178,10 @@
             {
               "item": "BARK",
               "amount": 2
+            },
+            {
+              "item": "ORB_OF_TRANSMUTATION",
+              "amount": 4
             }
           ]
         },
@@ -1203,8 +1207,8 @@
         },
         {
           "code": "PERIL_BREW",
-          "level": 18,
-          "seconds": 350,
+          "level": 20,
+          "seconds": 450,
           "nothing": 32,
           "output": "BLESSED_ORB",
           "experience": 17,
@@ -1218,6 +1222,10 @@
             {
               "item": "BARK",
               "amount": 2
+            },
+            {
+              "item": "ORB_OF_ALTERATION",
+              "amount": 6
             }
           ]
         },
@@ -1243,8 +1251,8 @@
         },
         {
           "code": "MERCY_BREW",
-          "level": 20,
-          "seconds": 400,
+          "level": 24,
+          "seconds": 600,
           "nothing": 35,
           "output": "VAAL_ORB",
           "experience": 20,
@@ -1258,6 +1266,10 @@
             {
               "item": "BARK",
               "amount": 2
+            },
+            {
+              "item": "ORB_OF_ALCHEMY",
+              "amount": 3
             }
           ]
         },
@@ -1324,7 +1336,7 @@
         {
           "code": "ESSENCE_BREW",
           "level": 22,
-          "seconds": 420,
+          "seconds": 480,
           "nothing": 36,
           "output": "UNVEILING_ORB",
           "experience": 26,
@@ -1338,6 +1350,10 @@
             {
               "item": "SAPPHIRE",
               "amount": 1
+            },
+            {
+              "item": "ORB_OF_ALTERATION",
+              "amount": 4
             }
           ]
         },
@@ -1403,8 +1419,8 @@
         },
         {
           "code": "ELITE_BREW",
-          "level": 25,
-          "seconds": 400,
+          "level": 28,
+          "seconds": 600,
           "nothing": 35,
           "output": "OMEN_CORRUPTION",
           "experience": 24,
@@ -1422,6 +1438,10 @@
             {
               "item": "BARK",
               "amount": 1
+            },
+            {
+              "item": "ORB_OF_ALCHEMY",
+              "amount": 3
             }
           ]
         },
@@ -1467,8 +1487,8 @@
         },
         {
           "code": "SCRIBE_BREW",
-          "level": 28,
-          "seconds": 420,
+          "level": 36,
+          "seconds": 900,
           "nothing": 36,
           "output": "OMEN_CHOICE",
           "experience": 30,
@@ -1482,6 +1502,10 @@
             {
               "item": "GLOWCAP",
               "amount": 2
+            },
+            {
+              "item": "CHAOS_ORB",
+              "amount": 3
             }
           ]
         },
@@ -1507,8 +1531,8 @@
         },
         {
           "code": "BOUNTY_BREW",
-          "level": 30,
-          "seconds": 450,
+          "level": 38,
+          "seconds": 1200,
           "nothing": 38,
           "output": "ORB_OF_ANNULMENT",
           "experience": 28,
@@ -1529,14 +1553,14 @@
             },
             {
               "item": "CHAOS_ORB",
-              "amount": 3
+              "amount": 7
             }
           ]
         },
         {
           "code": "TREASURE_BREW",
-          "level": 30,
-          "seconds": 450,
+          "level": 32,
+          "seconds": 600,
           "nothing": 38,
           "output": "OMEN_LIGHT",
           "experience": 32,
@@ -1550,6 +1574,10 @@
             {
               "item": "SILVER_ORE",
               "amount": 2
+            },
+            {
+              "item": "ORB_OF_ALCHEMY",
+              "amount": 3
             }
           ]
         },
@@ -1615,8 +1643,8 @@
         },
         {
           "code": "GILDED_BREW",
-          "level": 34,
-          "seconds": 450,
+          "level": 35,
+          "seconds": 600,
           "nothing": 38,
           "output": "OMEN_GREATER_EXALTATION",
           "experience": 32,
@@ -1630,13 +1658,17 @@
             {
               "item": "TOPAZ",
               "amount": 1
+            },
+            {
+              "item": "REGAL_ORB",
+              "amount": 1
             }
           ]
         },
         {
           "code": "EMPOWERING_BREW",
-          "level": 35,
-          "seconds": 600,
+          "level": 40,
+          "seconds": 1200,
           "nothing": 45,
           "output": "OMEN_TIER",
           "experience": 35,
@@ -1654,6 +1686,10 @@
             {
               "item": "BARK",
               "amount": 2
+            },
+            {
+              "item": "REGAL_ORB",
+              "amount": 3
             }
           ]
         },
@@ -1724,7 +1760,7 @@
         {
           "code": "WARDEN_BREW",
           "level": 42,
-          "seconds": 450,
+          "seconds": 1800,
           "nothing": 38,
           "output": "FRACTURING_ORB",
           "experience": 32,
@@ -1741,7 +1777,11 @@
             },
             {
               "item": "DIVINE_ORB",
-              "amount": 2
+              "amount": 1
+            },
+            {
+              "item": "CHAOS_ORB",
+              "amount": 10
             }
           ]
         },
