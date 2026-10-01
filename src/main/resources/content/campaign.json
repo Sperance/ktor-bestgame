@@ -1,7 +1,4 @@
 {
-  "rangedForms": [
-    "WRAITH"
-  ],
   "defaults": {
     "STOCK_CRITICAL_CHANCE": 5,
     "STOCK_CRITICAL_MULTIPLIER": 150
@@ -151,7 +148,6 @@
     },
     {
       "code": "BRINE_SPITTER",
-      "range": "RANGED",
       "form": "SERPENT",
       "experience": 20,
       "loot": "loot:T1",
@@ -215,7 +211,6 @@
     },
     {
       "code": "THORN_DRYAD",
-      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 22,
       "loot": "loot:T2",
@@ -260,7 +255,6 @@
     },
     {
       "code": "BONE_ARCHER",
-      "range": "RANGED",
       "form": "UNDEAD",
       "experience": 20,
       "loot": "loot:T2",
@@ -443,7 +437,6 @@
     },
     {
       "code": "TEMPLE_ZEALOT",
-      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 24,
       "loot": "loot:T3",
@@ -476,7 +469,6 @@
     },
     {
       "code": "ABYSSAL_ACOLYTE",
-      "range": "RANGED",
       "form": "WRAITH",
       "experience": 26,
       "loot": "loot:T3",
@@ -550,7 +542,6 @@
     },
     {
       "code": "SANDSTORM_SPIRIT",
-      "range": "RANGED",
       "form": "WRAITH",
       "experience": 25,
       "loot": "loot:T4",
@@ -581,7 +572,6 @@
     },
     {
       "code": "CANYON_RAIDER",
-      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 23,
       "loot": "loot:T4",
@@ -648,7 +638,6 @@
     },
     {
       "code": "BLOWGUN_HUNTER",
-      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 23,
       "loot": "loot:T5",
@@ -688,7 +677,6 @@
     },
     {
       "code": "BROOD_SPITTER",
-      "range": "RANGED",
       "form": "INSECT",
       "experience": 24,
       "loot": "loot:T5",
@@ -757,7 +745,6 @@
     },
     {
       "code": "CITADEL_WARLOCK",
-      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 26,
       "loot": "loot:T6",
@@ -814,7 +801,6 @@
     },
     {
       "code": "ABYSSAL_SHADE",
-      "range": "RANGED",
       "form": "WRAITH",
       "experience": 27,
       "loot": "loot:T6",
@@ -3855,7 +3841,6 @@
     },
     {
       "code": "CHASM_WHISPERER",
-      "range": "RANGED",
       "form": "WRAITH",
       "experience": 26,
       "loot": "loot:T3",
@@ -3891,7 +3876,6 @@
     },
     {
       "code": "CHASM_HEXER",
-      "range": "RANGED",
       "form": "HUMANOID",
       "experience": 26,
       "loot": "loot:T3",
@@ -3952,7 +3936,6 @@
     },
     {
       "code": "CHASM_WHISPER_QUEEN",
-      "range": "RANGED",
       "form": "WRAITH",
       "experience": 60,
       "loot": "loot:BOSS_3",
@@ -4068,7 +4051,6 @@
     },
     {
       "code": "FALLEN_SERAPH",
-      "range": "RANGED",
       "form": "ANGEL",
       "experience": 27,
       "loot": "loot:T7",
@@ -4085,7 +4067,6 @@
     },
     {
       "code": "ZEPHYR_WRAITH",
-      "range": "RANGED",
       "form": "WRAITH",
       "experience": 27,
       "loot": "loot:T7",
@@ -4581,7 +4562,6 @@
     },
     {
       "code": "PEARL_SIREN",
-      "range": "RANGED",
       "form": "ANGEL",
       "experience": 29,
       "loot": "loot:T8",
@@ -5088,7 +5068,6 @@
     },
     {
       "code": "OBLIVION_SHADE",
-      "range": "RANGED",
       "form": "WRAITH",
       "experience": 34,
       "loot": "loot:T9",
@@ -5119,7 +5098,6 @@
     },
     {
       "code": "FALLEN_ARCHON",
-      "range": "RANGED",
       "form": "ANGEL",
       "experience": 33,
       "loot": "loot:T9",

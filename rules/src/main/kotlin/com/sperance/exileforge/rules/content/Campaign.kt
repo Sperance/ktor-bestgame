@@ -12,10 +12,6 @@ enum class MonsterRarity {
     }
 }
 
-/** Ряд монстра в бою: ближний - первый, дальний - второй и бьёт с первой секунды. */
-@Serializable
-enum class MonsterRange { MELEE, RANGED }
-
 /**
  * Правило редкости монстра. Вес - в таблице `rarity:monster`; здесь - сколько модификаторов
  * несёт, во сколько раз сильнее их значения ([modifierPower]), «больше» ко всем растущим
@@ -148,7 +144,6 @@ data class Monster(
     val fixed: List<String> = emptyList(),
     val tables: List<String> = emptyList(),
     val corrupted: Boolean = false,
-    val range: MonsterRange? = null,
     val skills: List<String> = emptyList(),
 )
 
@@ -339,7 +334,6 @@ data class CampaignFile(
     val fountains: FountainRule = FountainRule(),
     val corruption: CorruptionRule = CorruptionRule(),
     val vaal: VaalRule = VaalRule(),
-    val rangedForms: Set<String> = emptySet(),
     val abyss: AbyssRule? = null,
     /** Испытания (1.47.0): босс-раш и башня; нет раздела - нет испытаний. */
     val trials: TrialRules? = null,
@@ -349,8 +343,6 @@ data class CampaignFile(
     val zones: List<Zone> get() = regions.flatMap { it.zones }
 
     fun rarity(rarity: MonsterRarity): RarityRule = rarities.first { it.rarity == rarity }
-
-    fun range(monster: Monster): MonsterRange = monster.range ?: if (monster.form in rangedForms) MonsterRange.RANGED else MonsterRange.MELEE
 
     fun behaviourOf(monster: Monster): BehaviourRule = monster.behaviour ?: behaviour.forms[monster.form] ?: behaviour.default
 

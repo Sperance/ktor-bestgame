@@ -4,7 +4,6 @@ import com.sperance.exileforge.rules.content.BehaviourRule
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.ModifierDef
 import com.sperance.exileforge.rules.content.Monster
-import com.sperance.exileforge.rules.content.MonsterRange
 import com.sperance.exileforge.rules.content.MonsterRarity
 import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.RarityRule
@@ -31,12 +30,9 @@ data class RolledMonster(
     val modifiers: List<MonsterMod>,
     val stats: Map<String, Double>,
     val behaviour: BehaviourRule,
-    val range: MonsterRange,
     val skills: List<String> = emptyList(),
     val mapBuffs: List<MonsterEffect> = emptyList(),
-) {
-    val ranged: Boolean get() = range == MonsterRange.RANGED
-}
+)
 
 /** Босс или страж на уровне зоны: сигнатурные строки и таблица, из которой при каждой встрече добираются ещё. */
 data class GuardianView(val monster: Monster, val level: Int, val stats: Map<String, Double>, val signature: List<MonsterMod>, val pool: List<MonsterMod>, val rolls: List<Int>)
@@ -96,7 +92,7 @@ class MonsterRoller(private val index: ContentIndex) {
     /** Монстр [code] редкости [rule] с уже вытянутыми строками - для стражей кристаллов (редкий + строки эссенций) и волн Бездны. */
     fun build(monster: Monster, level: Int, rule: RarityRule, modifiers: List<MonsterMod>, dice: Dice, extra: List<MonsterEffect> = emptyList(), skills: List<String> = monster.skills): RolledMonster {
         val stats = fold(stats(monster, level), rarityEffects(rule) + modifiers.flatMap { it.effects } + extra)
-        return RolledMonster(monster.code, monster.form, rule.rarity, modifiers, stats, campaign.behaviourOf(monster), campaign.range(monster), skills, extra)
+        return RolledMonster(monster.code, monster.form, rule.rarity, modifiers, stats, campaign.behaviourOf(monster), skills, extra)
     }
 
     /** [count] строк таблицы для редкости [rule]: тир открывает строки по `minRarity`, без повторов, значения брошены с силой редкости. */
