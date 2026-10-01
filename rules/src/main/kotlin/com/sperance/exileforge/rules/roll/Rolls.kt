@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.roll
 
+import com.sperance.exileforge.rules.content.BaseVariance
 import com.sperance.exileforge.rules.content.Catalyst
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Influence
@@ -75,9 +76,17 @@ data class ItemInstance(
      * ([com.sperance.exileforge.rules.roll.Choices.choose]); любая следующая сфера на копии их снимает.
      */
     @SerialName("of") var offer: List<Roll> = emptyList(),
+    /**
+     * Качество базы (1.67.0): 90..110 процентов броне, уклонению, энерощиту и урону шаблона
+     * ([com.sperance.exileforge.rules.content.BaseVariance]); копия до разброса - 100. Зеркало и порча его не трогают.
+     */
+    @SerialName("bq") val baseQuality: Int = BaseVariance.NEUTRAL,
 ) {
     /** Уровень, на котором катаются аффиксы копии. */
     fun level(template: ItemTemplate): Int = if (itemLevel > 0) itemLevel else template.level
+
+    /** Множитель базы копии: её качество базы и уровень предмета сверх уровня шаблона - одно правило листа и подсказки. */
+    fun baseScale(template: ItemTemplate, variance: BaseVariance): Double = variance.scale(template, baseQuality, itemLevel)
 
     val equipped: Boolean get() = slot != null
     val socketed: Boolean get() = !socket.isNullOrBlank()

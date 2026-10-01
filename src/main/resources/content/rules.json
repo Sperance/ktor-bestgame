@@ -195,7 +195,14 @@
     },
     "uniqueReach": 10,
     "recipeChance": 0.1,
-    "jewelHeroLevel": 5
+    "jewelHeroLevel": 5,
+    "baseVariance": {
+      "min": 90,
+      "max": 110,
+      "perLevel": 1.0,
+      "cap": 20.0,
+      "lines": ["BASE_ARMOUR", "BASE_EVASION", "BASE_ENERGY_SHIELD", "BASE_PHYSICAL_DAMAGE"]
+    }
   },
   "maxCharacters": 3,
   "stash": {

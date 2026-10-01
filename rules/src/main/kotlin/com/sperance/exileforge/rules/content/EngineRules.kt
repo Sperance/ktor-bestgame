@@ -166,6 +166,44 @@ data class StashRules(
 }
 
 /**
+ * Разброс базы вещи: копия катит качество базы [min]..[max] процентов и получает [perLevel] процента за каждый уровень
+ * предмета сверх уровня шаблона, не больше [cap]. Множитель ложится только на строки базы [lines] - броню, уклонение,
+ * энерощит и урон оружия; блок, крит, скорость и требования шаблона не меняются.
+ */
+@Serializable
+data class BaseVariance(
+    val min: Int = 90,
+    val max: Int = 110,
+    val perLevel: Double = 1.0,
+    val cap: Double = 20.0,
+    val lines: Set<String> = setOf("BASE_ARMOUR", "BASE_EVASION", "BASE_ENERGY_SHIELD", "BASE_PHYSICAL_DAMAGE"),
+) {
+    /** Множитель базы копии шаблона [template] с качеством базы [quality] (0 - как 100) и уровнем предмета [itemLevel] (0 - уровень шаблона). */
+    fun scale(template: ItemTemplate, quality: Int, itemLevel: Int): Double {
+        val rolled = if (quality > 0) quality else NEUTRAL
+        val above = if (itemLevel > 0) (itemLevel - template.level).coerceAtLeast(0) else 0
+        return rolled / 100.0 * (1 + (perLevel * above).coerceAtMost(cap) / 100.0)
+    }
+
+    /** Строки базы шаблона под множителем [scale]: значения округлены до целого, ненулевое не падает ниже единицы. */
+    fun base(template: ItemTemplate, scale: Double): List<Line> =
+        if (scale == 1.0) template.base
+        else template.base.map { line ->
+            if (line.code !in lines) line
+            else line.copy(values = line.values.map { value -> if (value == 0.0) value else Math.round(value * scale).toDouble().coerceAtLeast(1.0) })
+        }
+
+    fun validate() {
+        if (min !in 1..max || perLevel < 0 || cap < 0) fail("loot: baseVariance")
+    }
+
+    companion object {
+        /** Качество базы копии до разброса. */
+        const val NEUTRAL = 100
+    }
+}
+
+/**
  * Добыча: рост золота с уровнем и его спад [goldTaper] (1.13.0; нет - спад роста монстров), степень опыта,
  * веса редкости шаблона в тяге, дальность уникалок боссов, шанс рецепта.
  */
@@ -185,6 +223,8 @@ data class LootRules(
     val craftItemLevelBonus: Int = 10,
     /** С какого уровня героя ему выпадают самоцветы - из любого источника: добыча, награды, торговец, ремесло, коды. */
     val jewelHeroLevel: Int = 5,
+    /** Разброс базы (1.67.0): качество базы копии и прибавка за уровень предмета сверх уровня шаблона. */
+    val baseVariance: BaseVariance = BaseVariance(),
 ) {
     /** Может ли герой уровня [heroLevel] получить новую вещь шаблона [template]: самоцвет - не раньше [jewelHeroLevel]. */
     fun obtainable(template: ItemTemplate, heroLevel: Int): Boolean = template.slot != Slot.JEWEL || heroLevel >= jewelHeroLevel
@@ -315,6 +355,7 @@ data class EngineRules(
         if (merchant.orbs.markup < 1 || merchant.orbs.growth < 1) fail("rules: merchant orbs")
         if (orbs.vaalShift.size != 2 || orbs.vaalShift[0] > orbs.vaalShift[1] || orbs.fractureMinAffixes < 1 || orbs.maxAlchemyLines < 0 || orbs.choices < 1) fail("rules: orbs")
         if (loot.rarityWeights.keys != Rarity.entries.toSet()) fail("rules: loot rarity weights")
+        loot.baseVariance.validate()
         if (auction.slots < 1 || auction.buyerFee < 0 || auction.currencies.isEmpty()) fail("rules: auction")
         stash.validate()
         if (run.newSeedSeconds < 0) fail("rules: run")

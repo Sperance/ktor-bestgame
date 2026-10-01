@@ -27,6 +27,7 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         val item = ItemInstance(
             id, template.code, actual, affixes.roll(template, actual, dice, influence, itemLevel),
             influence = influence, corrupted = template.corrupted, itemLevel = itemLevel,
+            baseQuality = index.rules.loot.baseVariance.let { dice.between(it.min, it.max) },
         )
         affixes.ensureAffixes(template, item, dice)
         return item

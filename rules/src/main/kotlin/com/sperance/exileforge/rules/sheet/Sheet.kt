@@ -105,7 +105,7 @@ class SheetCalculator(private val index: ContentIndex) {
     }
 
     /** Строки труда инструмента [tool] (1.65.0): каждый процент его качества - процент к их значениям. */
-    fun toolOperations(tool: com.sperance.exileforge.rules.roll.ItemInstance): List<StatOperation> {
+    fun toolOperations(tool: ItemInstance): List<StatOperation> {
         val share = 1 + tool.quality.coerceAtLeast(0) / 100.0
         return expandRolls(tool.rolls).map { if (share == 1.0) it else it.copy(value = it.value * share) }
     }
@@ -118,7 +118,9 @@ class SheetCalculator(private val index: ContentIndex) {
      * Строки вещи в операции над героем. Локальные (1.57.0) сворачиваются внутри вещи поверх её базы, как в PoE:
      * `(база + локальные прибавки) × (1 + локальные увеличения)` - и отдаются одной прибавкой на характеристику.
      */
-    fun foldItem(template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null, quality: Int = 0, catalyst: Catalyst? = null): List<StatOperation> {
+    fun foldItem(
+        template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null, quality: Int = 0, catalyst: Catalyst? = null, baseScale: Double = 1.0,
+    ): List<StatOperation> {
         // Качество (1.35.0): с катализатором - модификаторы его вида, без него - база и локальная защита или физический урон.
         val share = 1 + quality.coerceAtLeast(0) / 100.0
         val boosted: (Roll) -> Boolean = { roll -> catalyst != null && quality > 0 && index.modifier(roll.code)?.let { catalyst.covers(it.tags) } == true }
@@ -126,7 +128,8 @@ class SheetCalculator(private val index: ContentIndex) {
         fun based(ops: List<StatOperation>) = if (catalyst != null || quality <= 0) ops
             else ops.map { if (it.stat in QualityRules.BASE_STATS && it.op == Op.ADD) it.copy(value = it.value * share) else it }
         val (local, global) = rolls.partition { index.modifier(it.code)?.local == true }
-        val baseOps = expand(template.base, source)
+        // Разброс базы (1.67.0): качество базы копии и её уровень сверх шаблона - до качества и локальных строк.
+        val baseOps = expand(index.rules.loot.baseVariance.base(template, baseScale), source)
         if (local.isEmpty()) return based(baseOps) + own(global)
         val localOps = own(local)
         val touched = localOps.mapTo(HashSet()) { it.stat }
@@ -139,8 +142,16 @@ class SheetCalculator(private val index: ContentIndex) {
     }
 
     /** Что несёт база вещи с её локальными строками и качеством, по характеристике: подсказка вещи и лист - одним правилом. */
-    fun itemBase(template: ItemTemplate, rolls: Collection<Roll>, quality: Int = 0, catalyst: Catalyst? = null): Map<String, Double> =
-        raw(emptyMap(), foldItem(template, rolls.filter { index.modifier(it.code)?.local == true }, quality = quality, catalyst = catalyst))
+    fun itemBase(template: ItemTemplate, rolls: Collection<Roll>, quality: Int = 0, catalyst: Catalyst? = null, baseScale: Double = 1.0): Map<String, Double> =
+        raw(emptyMap(), foldItem(template, rolls.filter { index.modifier(it.code)?.local == true }, quality = quality, catalyst = catalyst, baseScale = baseScale))
+
+    /** База копии [item] целиком: её строки, качество и разброс базы. */
+    fun itemBase(template: ItemTemplate, item: ItemInstance): Map<String, Double> =
+        itemBase(template, item.rolls, item.quality, item.catalyst, baseScale(template, item))
+
+    /** Множитель базы копии [item] по правилам добычи. */
+    fun baseScale(template: ItemTemplate, item: ItemInstance): Double =
+        item.baseScale(template, index.rules.loot.baseVariance)
 
     /** Что дают строки сами по себе - по строке на характеристику и операцию. */
     fun contributions(operations: Collection<StatOperation>): List<StatContribution> = operations
@@ -193,7 +204,7 @@ class SheetCalculator(private val index: ContentIndex) {
                 if (unmet.isNotEmpty()) { inactive += InactiveItem(item.id, template.code, unmet); return@forEach }
             }
             active += item.id
-            val folded = foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id), item.quality, item.catalyst)
+            val folded = foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id), item.quality, item.catalyst, baseScale(template, item))
             worn += Worn(item, template, folded)
             operations += folded
             stale = true
