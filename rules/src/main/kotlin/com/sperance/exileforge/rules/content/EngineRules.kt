@@ -262,10 +262,18 @@ data class ExperienceWindow(val base: Double = 3.0, val perLevel: Double = 16.0,
 @Serializable
 data class RunRules(val newSeedSeconds: Int = 30)
 
-/** Зверинец (1.5.0): сколько питомцев держит герой и сколько золота даёт отпущенный за уровень по редкости. */
+/**
+ * Зверинец (1.5.0): сколько питомцев держит герой и сколько золота даёт отпущенный по редкости. С инкубатором (1.67.0) платятся
+ * только уровни, набранные после вылупления: золото редкости × (1 + уровень − уровень вылупления) - питомец, вылупившийся
+ * сильным, не печатает золото.
+ */
 @Serializable
 data class PetRules(val cap: Int = 20, val releaseGold: Map<Rarity, Long> = mapOf(Rarity.COMMON to 20L, Rarity.MAGIC to 60L, Rarity.RARE to 200L)) {
-    fun releasePrice(rarity: Rarity, level: Int): Long = (releaseGold[rarity] ?: 0L) * level.coerceAtLeast(1)
+    fun releasePrice(rarity: Rarity, level: Int, hatchLevel: Int = 1): Long =
+        (releaseGold[rarity] ?: 0L) * (1 + (level - hatchLevel.coerceAtLeast(1)).coerceAtLeast(0))
+
+    /** Цена отпускаемого питомца [pet]: его редкость и уровни, набранные после вылупления. */
+    fun releasePrice(pet: Pet): Long = releasePrice(pet.rarity, pet.level, pet.hatchLevel)
 }
 
 /**

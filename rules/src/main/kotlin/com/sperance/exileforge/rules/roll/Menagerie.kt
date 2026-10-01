@@ -45,7 +45,7 @@ class Menagerie(private val index: ContentIndex) {
         val kind = Tables.draw(file.species.filter { it.biome == biome }, PetSpecies::weight, dice) ?: return null
         val rule = file.rarities.getValue(rarity)
         val grown = level.coerceIn(1, maxLevel)
-        return Pet(id, kind.code, rarity, experience = index.classes.threshold(grown) ?: 0.0, level = grown, lines = roll(kind, dice.between(rule.lines), emptyList(), dice))
+        return Pet(id, kind.code, rarity, experience = index.classes.threshold(grown) ?: 0.0, level = grown, hatchLevel = grown, lines = roll(kind, dice.between(rule.lines), emptyList(), dice))
     }
 
     /** Редкость яйца по весам редкостей. */

@@ -139,13 +139,13 @@ class PetService : KoinComponent {
         }
     }
 
-    /** Отпустить питомца за золото по его редкости и уровню. */
+    /** Отпустить питомца за золото по его редкости и уровням, набранным после вылупления. */
     suspend fun release(heroId: String, petId: String): PetState = command(heroId, "petRelease") { hero, _ ->
         val pet = requirePet(hero, petId, "petRelease")
         hero.pets.remove(pet)
         if (hero.petCombat == pet.id) hero.petCombat = ""
         if (hero.petHelper == pet.id) hero.petHelper = ""
-        hero.gain(index.rules.pets.releasePrice(pet.rarity, pet.level))
+        hero.gain(index.rules.pets.releasePrice(pet))
     }
 
     private fun requirePet(hero: Hero, id: String, method: String): Pet = hero.pet(id) ?: throw CharacterExceptions.funExceptionPetNotFound(method, id)

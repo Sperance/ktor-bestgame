@@ -38,6 +38,11 @@ class IncubatorTest {
         assertEquals(incubation.rarity, pet.rarity)
         assertEquals(incubation.level, pet.level)
         assertTrue(pet.level in 20..40)
+        assertEquals(pet.level, pet.hatchLevel)
+        val gold = index.rules.pets.releaseGold.getValue(pet.rarity)
+        assertEquals(gold, index.rules.pets.releasePrice(pet))
+        assertEquals(gold * 4, index.rules.pets.releasePrice(pet.copy(level = pet.level + 3)))
+        assertEquals(gold * 10, index.rules.pets.releasePrice(pet.copy(level = 10, hatchLevel = 1)))
     }
 
     @Test

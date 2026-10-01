@@ -166,6 +166,8 @@ data class Pet(
     val corrupted: Boolean = false,
     val quality: Int = 0,
     val offer: List<PetLine> = emptyList(),
+    /** Уровень вылупления (1.67.0): от него считаются уровни, за которые платит отпуск; у питомцев до инкубатора - 1. */
+    @SerialName("hl") val hatchLevel: Int = 1,
 )
 
 /** Строка питомца: модификатор и доли ролла по его эффектам; [fractured] (1.65.0) - закреплена сферой закрепления. */
