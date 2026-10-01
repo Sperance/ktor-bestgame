@@ -26,6 +26,12 @@ data class PetState(
     val pets: List<Pet> = emptyList(), val combat: String = "", val helper: String = "", val cap: Int = 0,
     val incubator: IncubatorState = IncubatorState(),
 ) {
+    /**
+     * Зверинец без полей часов - `now`, остатка и готовности мест: по нему считается отпечаток части снимка, чтобы она не
+     * пересылалась на каждом чтении. Клиент держит сдвиг от полученного `now` и досчитывает остаток по `readyAt` сам.
+     */
+    fun withoutClock(): PetState = copy(incubator = incubator.copy(now = 0, entries = incubator.entries.map { it.copy(remainingSeconds = 0, ready = false) }))
+
     companion object {
         /** Зверинец героя на часах [now]: открытые места инкубатора - по листу героя, занятые сверх них тоже видны. */
         fun of(hero: Hero, index: ContentIndex, now: Long = System.currentTimeMillis()): PetState {

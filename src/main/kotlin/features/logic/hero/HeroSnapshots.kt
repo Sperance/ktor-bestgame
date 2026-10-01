@@ -112,9 +112,10 @@ object HeroSnapshots : KoinComponent {
 
     fun of(hero: Hero, known: Map<String, String>): HeroSnapshot {
         val parts = LinkedHashMap<String, HeroPart>()
-        fun <T> part(name: String, serializer: KSerializer<T>, value: T) {
+        // [stable] - то же значение без полей часов: отпечаток меняется только с настоящей переменой части, часы едут в ней как есть.
+        fun <T> part(name: String, serializer: KSerializer<T>, value: T, stable: T = value) {
             val json = RulesJson.encodeToJsonElement(serializer, value)
-            val hash = sha256(json.toString()).take(16)
+            val hash = sha256((if (stable === value) json else RulesJson.encodeToJsonElement(serializer, stable)).toString()).take(16)
             if (known[name] != hash) parts[name] = HeroPart(hash, json)
         }
         part(HERO, HeroView.serializer(), HeroView.of(hero))
@@ -127,7 +128,8 @@ object HeroSnapshots : KoinComponent {
         part(CAMPAIGN, CampaignState.serializer(), hero.campaign)
         part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work, hero.craftsAway))
         part(MERCHANT, MerchantStock.serializer(), merchant.current(hero))
-        part(PETS, PetState.serializer(), PetState.of(hero, content.index))
+        val pets = PetState.of(hero, content.index)
+        part(PETS, PetState.serializer(), pets, pets.withoutClock())
         return HeroSnapshot(hero.version.toString(), parts)
     }
 
