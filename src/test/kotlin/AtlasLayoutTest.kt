@@ -7,6 +7,7 @@ import kotlin.test.assertTrue
 /**
  * Правило владельца (1.41.0) и для Атласа: связи узлов не пересекаются и не проходят сквозь чужие узлы, узлы не сливаются.
  * Атлас (1.51.0) - созвездия механик и звёздные тропы между ними; связи без циклов по родителям, петли - через нескольких родителей.
+ * Узлы разнесены (раскладка без слипаний на телефоне): любые два - не ближе [NODE_GAP] единиц, связь - не ближе [EDGE_GAP] к чужому узлу.
  */
 class AtlasLayoutTest {
     private val nodes = ContentStore.load().index.atlas.nodes
@@ -40,7 +41,7 @@ class AtlasLayoutTest {
     }
 
     private companion object {
-        const val EDGE_GAP = 0.4
-        const val NODE_GAP = 1.0
+        const val EDGE_GAP = 2.0
+        const val NODE_GAP = 4.0
     }
 }
