@@ -206,13 +206,16 @@ class RulesInvariantsTest {
         assertTrue(dropped.none { index.template(it.template)?.slot == Slot.JEWEL }, "a jewel below hero level $gate")
     }
 
+    /** Характеристики, где минус - польза: срок вылупления инкубатора (1.67.0) - чем меньше, тем быстрее. */
+    private val LOWER_IS_BETTER = setOf(com.sperance.exileforge.rules.content.IncubatorRules.HATCH_TIME)
+
     /** Обычные аффиксы предметов (префиксы и суффиксы, кроме строк карт) - без минусов: ни одна строка не вредит герою. */
     @Test
     fun ordinaryAffixesCarryNoDebuff() {
         val debuffs = index.definitions.filter { it.source.affix && it.effects.none { e -> e.stat.startsWith("MAP_") } }.flatMap { def ->
             def.effects.withIndex().filter { (i, effect) ->
                 val values = def.tiers.flatMap { it.values.getOrNull(i).orEmpty() }
-                if (effect.stat.endsWith("_TAKEN")) values.any { it > 0 } else values.any { it < 0 }
+                if (effect.stat.endsWith("_TAKEN") || effect.stat in LOWER_IS_BETTER) values.any { it > 0 } else values.any { it < 0 }
             }.map { (_, effect) -> "${def.code}: ${effect.stat}" }
         }
         assertTrue(debuffs.isEmpty(), "affix debuffs: $debuffs")
