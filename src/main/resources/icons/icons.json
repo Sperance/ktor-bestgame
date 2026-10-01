@@ -44256,6 +44256,138 @@
           "alpha": 0.96
         }
       ]
+    },
+    "gl_u_the_nest": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M11 26 a21 21 0 1 0 42 0 a21 21 0 1 0 -42 0ZM17 26 a15 15 0 1 0 30 0 a15 15 0 1 0 -30 0Z",
+          "color": "#a8784a",
+          "evenOdd": true
+        },
+        {
+          "d": "M26 44 h12 v7 h-12z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M29 46 h6 v3 h-6z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M12 26 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M17.27 13.27 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M30 8 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M42.73 13.27 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M48 26 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M32 51 V54",
+          "color": "#d9a53a",
+          "line": 1.6
+        },
+        {
+          "d": "M32 53 L40 60 L32 63 L24 60Z",
+          "color": "#efe6cf"
+        },
+        {
+          "d": "M32 53 L32 63 L24 60Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        },
+        {
+          "d": "M14 20 C16 12 24 7 32 6 L32 10 C25 11 19 15 17 22Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        },
+        {
+          "d": "M25 26 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 19.47 Q 36.67 19.93 36.67 26.93 A 4.67 4.67 0 0 1 27.33 26.93 Q 27.33 19.93 32 19.47 Z",
+          "color": "#f0e2c0"
+        }
+      ]
+    },
+    "gl_u_warm_scales": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M11 26 a21 21 0 1 0 42 0 a21 21 0 1 0 -42 0ZM17 26 a15 15 0 1 0 30 0 a15 15 0 1 0 -30 0Z",
+          "color": "#d8602a",
+          "evenOdd": true
+        },
+        {
+          "d": "M26 44 h12 v7 h-12z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M29 46 h6 v3 h-6z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M12 26 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M17.27 13.27 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M30 8 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M42.73 13.27 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M48 26 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M32 51 V54",
+          "color": "#d9a53a",
+          "line": 1.6
+        },
+        {
+          "d": "M32 53 L40 60 L32 63 L24 60Z",
+          "color": "#3a8a6a"
+        },
+        {
+          "d": "M32 53 L32 63 L24 60Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        },
+        {
+          "d": "M14 20 C16 12 24 7 32 6 L32 10 C25 11 19 15 17 22Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        },
+        {
+          "d": "M25 26 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 19.93 Q 35.73 24.13 34.33 27.4 Q 36.67 26.47 35.73 29.27 A 3.74 3.74 0 0 1 28.27 28.8 Q 27.33 26 30.13 24.6 Q 30.13 26.93 31.53 26.93 Q 29.67 23.2 32 19.93 Z",
+          "color": "#ffd070"
+        }
+      ]
     }
   },
   "icons": {
@@ -46394,6 +46526,8 @@
     "equipment.IRONJAW_COLLAR": "gl_u_ironjaw_collar",
     "equipment.BEASTSOUL_CHOKER": "gl_u_beastsoul_choker",
     "equipment.WILDMOTHERS_GARLAND": "gl_u_wildmothers_garland",
+    "equipment.THE_NEST": "gl_u_the_nest",
+    "equipment.WARM_SCALES": "gl_u_warm_scales",
     "equipment.CARTOGRAPHERS_COMPASS": "gl_u_cartographers_compass",
     "equipment.WAYFARERS_TREADS": "gl_u_wayfarers_treads",
     "equipment.ATLAS_WANDERERS_CLOAK": "gl_u_atlas_wanderers_cloak",

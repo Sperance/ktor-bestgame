@@ -709,6 +709,8 @@ UNIQUE_ART = {
     "IRONJAW_COLLAR": ("#8e97a3", "#b9c2cf", "JAW", "#dfe6ee"),
     "BEASTSOUL_CHOKER": ("#c02a3a", "#8b5530", "HEART", "#f0e2c0"),
     "WILDMOTHERS_GARLAND": ("#5f9a4e", "#e89a2a", "LEAF", "#e4dcc4"),
+    "THE_NEST": ("#a8784a", "#efe6cf", "EGG", "#f0e2c0"),
+    "WARM_SCALES": ("#d8602a", "#3a8a6a", "FLAME", "#ffd070"),
     "CARTOGRAPHERS_COMPASS": ("#e8bb45", "#8a5a34", "COMPASS", "#f0e2c0"),
     "WAYFARERS_TREADS": ("#a8784a", "#5f9a4e", "ROAD", "#f0e2c0"),
     "ATLAS_WANDERERS_CLOAK": ("#e6d4a6", "#3a78e8", "MAP", "#8a5a34"),

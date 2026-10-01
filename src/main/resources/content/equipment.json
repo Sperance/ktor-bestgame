@@ -33194,6 +33194,120 @@
       ]
     },
     {
+      "code": "THE_NEST",
+      "slot": "COLLAR",
+      "rarity": "UNIQUE",
+      "level": 35,
+      "requiredLevel": 35,
+      "fixed": [
+        "PET_INCREASED_LIFE@IMPLICIT"
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_INCUBATOR_SLOTS",
+            "range": [
+              2.0,
+              2.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HATCH_TIME",
+            "range": [
+              50.0,
+              50.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PET_HEALTH",
+            "range": [
+              20.0,
+              30.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PACK_BOND",
+            "range": [
+              8.0,
+              12.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_GUARD_DOG",
+            "range": [
+              5.0,
+              8.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "code": "WARM_SCALES",
+      "slot": "COLLAR",
+      "rarity": "UNIQUE",
+      "level": 50,
+      "requiredLevel": 50,
+      "fixed": [
+        "PET_RESISTANCES@IMPLICIT"
+      ],
+      "lines": [
+        [
+          {
+            "stat": "STOCK_HATCH_TIME",
+            "range": [
+              -40.0,
+              -40.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_HATCH_RARITY_UP",
+            "range": [
+              25.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "STOCK_PET_RESIST",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_ALPHA_BLOOD",
+            "range": [
+              15.0,
+              25.0
+            ]
+          }
+        ],
+        [
+          {
+            "stat": "POWER_PACK_RALLY",
+            "range": [
+              3.0,
+              5.0
+            ]
+          }
+        ]
+      ]
+    },
+    {
       "code": "CARTOGRAPHERS_COMPASS",
       "slot": "AMULET",
       "rarity": "UNIQUE",
