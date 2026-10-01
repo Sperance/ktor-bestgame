@@ -218,9 +218,15 @@ class AffixRoller(private val index: ContentIndex) {
         index.affixPool(if (influence == null) template.tables else template.tables + influenceTags(influence, template.slot))
 
     companion object {
-        /** Таблицы влияния слота; у инструмента (1.65.0) - только его своя: общие строки влияния - боевые. */
-        fun influenceTags(influence: Influence, slot: Slot): List<String> =
-            if (slot.isTool) listOf("influence:${influence.name}:${slot.tag}") else listOf("influence:${influence.name}:${slot.tag}", "influence:${influence.name}")
+        /**
+         * Таблицы влияния слота; у инструмента (1.65.0) - только его своя: общие строки влияния - боевые. Влияние карты - её
+         * захват, а не строки: сферы на захваченной карте не тянут боевые строки влияния героя.
+         */
+        fun influenceTags(influence: Influence, slot: Slot): List<String> = when {
+            slot == Slot.MAP -> emptyList()
+            slot.isTool -> listOf("influence:${influence.name}:${slot.tag}")
+            else -> listOf("influence:${influence.name}:${slot.tag}", "influence:${influence.name}")
+        }
         fun corruptionTag(slot: Slot): String = "corruption:${slot.tag}"
     }
 }
