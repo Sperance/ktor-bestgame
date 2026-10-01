@@ -50,9 +50,25 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     suspend fun search(heroId: String, search: AuctionSearch, after: String?, size: Int): CursorPage<AuctionLot> {
         requireTrader(heroId, "search")
         search.priceOrb?.let { requireOrb(it, "search") }
-        val found = findAfter(search.toFilter(currencies = rules.currencies.map { it.name }), after, size)
+        val found = findAfter(search.toFilter(currencies = currencyCodes(), items = index.items.keys), after, size)
         return found.copy(items = found.items.map { reconciled(it) })
     }
+
+    /**
+     * Уборка на старте: открытые лоты, которые уже не продать - стопка снятого или неизвестного предмета, цена не в валюте
+     * аукциона, - закрываются, товар возвращается продавцу (снятый код - своей заменой). Повторный запуск ничего не находит.
+     */
+    suspend fun closeUntradable() {
+        val stale = Filters.or(
+            Filters.nin("priceOrb", currencyCodes()),
+            Filters.and(Filters.eq("kind", LotKind.ITEM.name), Filters.nin("item", index.items.keys)),
+        )
+        val lots = findByFilter(Filters.and(Filters.eq("status", LotStatus.ACTIVE.name), stale))
+        lots.forEach { lot -> quietly("close untradable ${lot._id}") { HeroLocks.withLock(lot.sellerId) { expire(lot, LotStatus.CANCELLED) } } }
+        if (lots.isNotEmpty()) printLog("  → ${lots.size} untradable auction lots closed")
+    }
+
+    private fun currencyCodes(): List<String> = rules.currencies.map { it.name }
 
     /** Поисковый текст - в коды предметов по словарю языка: названий в лотах нет, а поиск остаётся на сервере. */
     fun codesMatching(language: String, text: String): List<String> {
@@ -113,6 +129,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         val buyer = requireTrader(heroId, method)
         val lot = requireOpenLot(lotId, method)
         if (lot.sellerId == heroId) throw AuctionExceptions.funExceptionOwnLot(method, lotId)
+        if (lot.kind == LotKind.ITEM && index.item(lot.item) == null) throw AuctionExceptions.funExceptionLotClosed(method, lotId)
         requireOrb(lot.priceOrb, method)
         val seller = heroes.findById(lot.sellerId) ?: throw CharacterExceptions.funExceptionNotFound(method, lot.sellerId)
         val fee = lot.fee
@@ -155,7 +172,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     private fun giveBack(lot: AuctionLot, owner: Hero) {
         when (lot.kind) {
             LotKind.EQUIPMENT -> Stash.giveBack(owner, goods(lot), index)
-            LotKind.ITEM -> owner.earn(lot.item, lot.amount)
+            LotKind.ITEM -> owner.earn(index.rules.retired[lot.item] ?: lot.item, lot.amount)
         }
     }
 
@@ -201,14 +218,14 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         due.forEach { lot -> quietly("expire ${lot._id}") { HeroLocks.withLock(lot.sellerId) { expire(lot) } } }
     }
 
-    private suspend fun expire(lot: AuctionLot) {
+    private suspend fun expire(lot: AuctionLot, status: LotStatus = LotStatus.EXPIRED) {
         val seller = heroes.findById(lot.sellerId)
         if (seller != null) {
             giveBack(lot, seller)
         }
         transactionExecute("auction expire ${lot._id}") { session ->
             seller?.let { heroes.update(it, session) }
-            close(lot, LotStatus.EXPIRED, null, session)
+            close(lot, status, null, session)
         }
     }
 

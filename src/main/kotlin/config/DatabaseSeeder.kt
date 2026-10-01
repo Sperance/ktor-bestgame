@@ -66,6 +66,7 @@ object DatabaseSeeder : KoinComponent {
             seedHeroes(session)
             seedRedemptionCodes(session)
         }
+        lots.closeUntradable()
         blockListCache.initializeCache()
         printLog("Database seeding completed")
     }
