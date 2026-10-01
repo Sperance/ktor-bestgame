@@ -1257,7 +1257,6 @@
       "entries": {
         "HC_MAP_CHESTS": 60,
         "HC_MAP_EXPERIENCE": 80,
-        "HC_MAP_FOUNTAINS": 50,
         "HC_MAP_GOLD": 60,
         "HC_MAP_QUANTITY": 100,
         "HC_MAP_RARITY": 100
@@ -1822,9 +1821,7 @@
         "MAP_CRYSTALS": 50,
         "MAP_EXPERIENCE": 60,
         "MAP_FLASK_CHARGES": 70,
-        "MAP_FOUNTAINS": 40,
         "MAP_GOLD": 60,
-        "MAP_HERO_ATTACK_SPEED": 40,
         "MAP_HERO_BLOCK": 60,
         "MAP_HERO_BUFF_DURATION": 50,
         "MAP_HERO_CRIT": 60,
@@ -1832,9 +1829,6 @@
         "MAP_HERO_DEFENCES": 80,
         "MAP_HERO_ENFEEBLE": 60,
         "MAP_HERO_FLASK_EFFECT": 60,
-        "MAP_HERO_HASTE": 40,
-        "MAP_HERO_LEECH": 40,
-        "MAP_HERO_LIFE": 40,
         "MAP_HERO_MANA_REGEN": 70,
         "MAP_HERO_MAX_RESIST": 60,
         "MAP_HERO_RECOVERY": 80,

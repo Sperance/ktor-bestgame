@@ -1,6 +1,10 @@
 package com.sperance.exileforge.rules
 
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.roll.AffixRoller
+import com.sperance.exileforge.rules.content.StatGroup
+import com.sperance.exileforge.rules.content.Influence
+import com.sperance.exileforge.rules.content.MAP_TEMPLATE
 import com.sperance.exileforge.rules.content.ContentLoader
 import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.Rarity
@@ -362,8 +366,45 @@ class RulesInvariantsTest {
         }
     }
 
+    /**
+     * Карта (2.x) только усложняет заход и платит за риск: ни одна строка пулов карт (ролл, сферы, ремесло, порча, Ваал,
+     * алхимия, влияние захваченной карты) не усиливает героя и не ослабляет монстров. Запрещённые статы названы явно;
+     * минус у строки-угрозы (монстры, дебафы героя) переворачивает её в помощь - потому и он запрещён.
+     */
+    @Test
+    fun mapPoolsNeverHelpTheHero() {
+        val map = index.template(MAP_TEMPLATE)!!
+        val crafting = index.professions.crafting
+        val pools = listOf(map.tables, listOf(AffixRoller.corruptionTag(Slot.MAP)), listOf(index.campaign.vaal.pool),
+            listOf(index.rules.orbs.mapAlchemy), crafting.mapModifiers) +
+            Influence.entries.map { map.tables + AffixRoller.influenceTags(it, Slot.MAP) }
+        val reachable = pools.flatMap { index.modifierPool(it) }.map { it.value }.distinctBy { it.code }
+        assertTrue(reachable.isNotEmpty())
+        (MAP_HERO_BUFFS + HERO_COMBAT).forEach { assertTrue(it in index.stats, "unknown forbidden stat $it") }
+        val bad = reachable.flatMap { def ->
+            def.effects.withIndex().filter { (i, effect) ->
+                effect.stat in MAP_HERO_BUFFS || effect.stat in HERO_COMBAT || index.stats[effect.stat]?.group != StatGroup.MAP ||
+                    isThreat(effect.stat) && def.tiers.any { tier -> tier.values.getOrNull(i).orEmpty().any { it < 0 } }
+            }.map { (_, effect) -> "${def.code}: ${effect.stat}" }
+        }
+        assertTrue(bad.isEmpty(), "map lines that help the hero: $bad")
+    }
+
+    private fun isThreat(stat: String) = stat.startsWith("MAP_MONSTER_") || stat.startsWith("MAP_HERO_") || stat in MAP_THREATS
+
     private companion object {
         const val PHYSICAL = "STOCK_ATTACK_PHYSICAL"
         const val CORRUPTION_TABLES = "corruption:"
+        /** Статы группы MAP, что помогают герою: скорость, атака, здоровье, вампиризм, источники лечения. */
+        val MAP_HERO_BUFFS = setOf("MAP_HERO_HASTE", "MAP_HERO_ATTACK_SPEED", "MAP_HERO_LIFE", "MAP_HERO_LEECH", "MAP_FOUNTAINS")
+        /** Прочие строки-угрозы карты, чей минус помог бы герою. */
+        val MAP_THREATS = setOf("MAP_ABYSS_LIFE", "MAP_ABYSS_DAMAGE", "MAP_FLASK_CHARGES", "MAP_SKILL_COST")
+        /** Боевые статы героя: скорости, запасы, вампиризм, восстановление, сопротивления, урон. */
+        val HERO_COMBAT = setOf(
+            "STOCK_MOVEMENT_SPEED", "STOCK_ATTACK_SPEED", "STOCK_CAST_SPEED", "STOCK_HEALTH", "STOCK_ENERGY_SHIELD", "STOCK_MANA",
+            "STOCK_LEECH_ALL", "STOCK_LEECH_PHYSICAL", "STOCK_LEECH_MANA", "STOCK_HEALTH_REGEN", "STOCK_MANA_REGEN", "STOCK_ENERGY_REGEN",
+            "STOCK_LIFE_REGEN_PERCENT", "STOCK_ENERGY_REGEN_PERCENT", "STOCK_RESIST_ALL", "STOCK_ALL_RESISTANCES", "STOCK_RESIST_FIRE",
+            "STOCK_RESIST_COLD", "STOCK_RESIST_LIGHTNING", "STOCK_RESIST_CHAOS", "STOCK_DAMAGE",
+        )
     }
 }
