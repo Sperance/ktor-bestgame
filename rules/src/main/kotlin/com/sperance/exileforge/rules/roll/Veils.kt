@@ -10,7 +10,7 @@ import com.sperance.exileforge.rules.text.LocaleKey
 
 /**
  * Скрытые модификаторы (1.35.0), как Veiled в PoE: редкий монстр со строкой `MOB_VEILED` роняет волшебную или редкую
- * вещь, чей аффикс скрыт; сфера раскрытия предлагает [com.sperance.exileforge.rules.content.QualityRules.unveilChoices]
+ * вещь (с 1.65.0 и инструмент), чей аффикс скрыт; сфера раскрытия предлагает [com.sperance.exileforge.rules.content.QualityRules.unveilChoices]
  * гибридов из таблицы `veiled:<сторона>`, игрок выбирает один - он встаёт на место скрытого.
  */
 class Veils(private val index: ContentIndex, private val affixes: AffixRoller = AffixRoller(index)) {
@@ -20,7 +20,7 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
     /** Прячет аффикс на выпавшей копии: на свободное место или вместо случайного; true - копия изменилась. */
     fun veil(template: ItemTemplate, item: ItemInstance, dice: Dice): Boolean {
         if (item.rarity != Rarity.MAGIC && item.rarity != Rarity.RARE) return false
-        if (template.slot.isJewelLike || template.slot.isFlask || template.slot.isTool || veiled(item) != null) return false
+        if (template.slot.isJewelLike || template.slot.isFlask || veiled(item) != null) return false
         val (prefixes, suffixes) = affixes.freeSlots(item.rarity, affixes.definitions(item.rolls), template.slot)
         val free = listOfNotNull(Source.PREFIX.takeIf { prefixes > 0 }, Source.SUFFIX.takeIf { suffixes > 0 })
         val replaced = if (free.isEmpty()) affixes.affixes(item.rolls).filterNot { it.fractured }.takeIf { it.isNotEmpty() }?.let(dice::pick) else null
@@ -41,7 +41,7 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
         if (item.unveil.any { fits(it, taken) }) throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))
         val side = if (veil.code == PREFIX) Source.PREFIX else Source.SUFFIX
         val level = item.level(template)
-        val pool = index.modifierPool(listOf("$TABLE:${side.name.lowercase()}")).filter { it.value.openAt(level) && affixes.fits(it.value, taken) }
+        val pool = index.modifierPool(listOf(table(template, side))).filter { it.value.openAt(level) && affixes.fits(it.value, taken) }
             .ifEmpty { affixes.affixPool(template, item.influence).filter { it.value.source == side && it.value.openAt(level) && affixes.fits(it.value, taken) } }
             .toMutableList()
         val options = mutableListOf<Roll>()
@@ -65,6 +65,10 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
         item.unveil = emptyList()
         return OrbOutcome(item, null, "currency.unveiled", listOf(LocaleKey.equipmentName(template.code)))
     }
+
+    /** Гибриды стороны: у инструмента (1.65.0) - свои, строк труда (`veiled:tool:<сторона>`). */
+    private fun table(template: ItemTemplate, side: Source): String =
+        listOfNotNull(TABLE, template.slot.tag.takeIf { template.slot.isTool }, side.name.lowercase()).joinToString(":")
 
     private fun fits(option: Roll, taken: Set<String>): Boolean = affixes.definition(option)?.let { affixes.fits(it, taken) } == true
 

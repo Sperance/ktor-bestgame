@@ -362,7 +362,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     private fun craftBoosts(): Map<String, Double> = buildMap {
         context[AtlasStat.OMENS.code].takeIf { it != 0.0 }?.let { put("OMEN_", it) }
         context[AtlasStat.CATALYSTS.code].takeIf { it != 0.0 }?.let { put("CATALYST_", it) }
-        context[AtlasStat.QUALITY_ORBS.code].takeIf { it != 0.0 }?.let { put("WHETSTONE", it); put("ARMOURERS_SCRAP", it) }
+        context[AtlasStat.QUALITY_ORBS.code].takeIf { it != 0.0 }?.let { put(com.sperance.exileforge.rules.content.Orb.QUALITY_ORB.name, it) }
     }
 
     /** Собственные таблицы боссов: только то, что герою уже выпадает. */

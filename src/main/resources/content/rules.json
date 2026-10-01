@@ -118,13 +118,13 @@
       0.8,
       1.2
     ],
-    "maxAlchemyLines": 3
+    "maxAlchemyLines": 3,
+    "mapAlchemy": "alchemy:map",
+    "choices": 3
   },
   "flasks": {
     "starter": "FLASK_SMALL_LIFE",
     "maxQuality": 20,
-    "baubleCommon": 2,
-    "baubleMagic": 1,
     "orbs": [
       "ORB_OF_TRANSMUTATION",
       "ORB_OF_ALTERATION",
@@ -134,7 +134,7 @@
       "BLESSED_ORB",
       "DIVINE_ORB",
       "VAAL_ORB",
-      "GLASSBLOWERS_BAUBLE"
+      "QUALITY_ORB"
     ]
   },
   "starter": {
@@ -145,7 +145,21 @@
     "slots": 12,
     "minLevel": 1,
     "buyerFee": 10.0,
-    "lotDays": 30
+    "lotDays": 30,
+    "currencies": [
+      "ORB_OF_TRANSMUTATION",
+      "ORB_OF_AUGMENTATION",
+      "ORB_OF_ALTERATION",
+      "ORB_OF_ALCHEMY",
+      "REGAL_ORB",
+      "CHAOS_ORB",
+      "EXALTED_ORB",
+      "DIVINE_ORB",
+      "ORB_OF_ANNULMENT",
+      "ORB_OF_SCOURING",
+      "BLESSED_ORB",
+      "ORB_OF_CHANCE"
+    ]
   },
   "loot": {
     "goldGrowth": 1.1,
@@ -249,5 +263,27 @@
         ]
       }
     }
+  },
+  "retired": {
+    "PET_ORB_UPGRADE": "ORB_OF_CHANCE",
+    "PET_ORB_REROLL": "ORB_OF_ALTERATION",
+    "PET_ORB_AUGMENT": "ORB_OF_AUGMENTATION",
+    "PET_ORB_DIVINE": "ORB_OF_ALTERATION",
+    "PET_ORB_ANNUL": "ORB_OF_ALTERATION",
+    "WHETSTONE": "QUALITY_ORB",
+    "ARMOURERS_SCRAP": "QUALITY_ORB",
+    "GLASSBLOWERS_BAUBLE": "QUALITY_ORB",
+    "ESSENCE_ORB": "ORB_OF_ALTERATION",
+    "SCRIBE_ORB": "ORB_OF_ALTERATION",
+    "PERIL_ORB": "CHAOS_ORB",
+    "MERCY_ORB": "CHAOS_ORB",
+    "EMPOWERING_ORB": "CHAOS_ORB",
+    "HORDE_ORB": "CHAOS_ORB",
+    "MAGUS_ORB": "CHAOS_ORB",
+    "ELITE_ORB": "CHAOS_ORB",
+    "BOUNTY_ORB": "CHAOS_ORB",
+    "TREASURE_ORB": "CHAOS_ORB",
+    "GILDED_ORB": "CHAOS_ORB",
+    "WARDEN_ORB": "CHAOS_ORB"
   }
 }

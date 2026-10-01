@@ -104,6 +104,12 @@ class SheetCalculator(private val index: ContentIndex) {
         return result
     }
 
+    /** Строки труда инструмента [tool] (1.65.0): каждый процент его качества - процент к их значениям. */
+    fun toolOperations(tool: com.sperance.exileforge.rules.roll.ItemInstance): List<StatOperation> {
+        val share = 1 + tool.quality.coerceAtLeast(0) / 100.0
+        return expandRolls(tool.rolls).map { if (share == 1.0) it else it.copy(value = it.value * share) }
+    }
+
     /** Итог по операциям: свод и силы уникалок поверх; [trace] слышит каждый шаг сил. */
     fun compute(base: Map<String, Double>, operations: Collection<StatOperation>, trace: ((SheetStep) -> Unit)? = null): Map<String, Double> =
         index.powers.applySheet(raw(base, operations), trace, stats::isPercent)

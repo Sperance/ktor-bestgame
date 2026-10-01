@@ -315,6 +315,9 @@ class ContentIndex(val content: Content) {
         content.items.items.let { list -> if (list.map { it.code }.toSet().size != list.size) fail("items: duplicate codes") }
         Orb.entries.forEach { if (items[it.name]?.category != Item.CURRENCY) fail("items: orb ${it.name} has no item") }
         Omen.entries.forEach { if (items[it.code]?.category != Item.OMEN) fail("items: omen ${it.code} has no item") }
+        rules.retired.forEach { (old, new) -> if (old in items || new !in items) fail("rules: retired $old -> $new") }
+        if (tables.kind(rules.orbs.mapAlchemy) != TableKind.MODIFIER || modifierPool(listOf(rules.orbs.mapAlchemy)).any { it.value.source != Source.ALCHEMY })
+            fail("rules: map alchemy table ${rules.orbs.mapAlchemy}")
         essences.validate(::modifier)
         essences.essences.keys.forEach { if (items[it]?.category != Item.ESSENCE) fail("items: essence $it has no item") }
         skills.validate(stats, classes.classes.map { it.code })

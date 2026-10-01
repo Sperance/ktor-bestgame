@@ -1951,84 +1951,6 @@
       "price": 20000
     },
     {
-      "code": "EMPOWERING_ORB",
-      "category": "CURRENCY",
-      "subCategory": "EMPOWERING_ORB",
-      "price": 2500
-    },
-    {
-      "code": "MERCY_ORB",
-      "category": "CURRENCY",
-      "subCategory": "MERCY_ORB",
-      "price": 900
-    },
-    {
-      "code": "PERIL_ORB",
-      "category": "CURRENCY",
-      "subCategory": "PERIL_ORB",
-      "price": 700
-    },
-    {
-      "code": "HORDE_ORB",
-      "category": "CURRENCY",
-      "subCategory": "HORDE_ORB",
-      "price": 400
-    },
-    {
-      "code": "MAGUS_ORB",
-      "category": "CURRENCY",
-      "subCategory": "MAGUS_ORB",
-      "price": 500
-    },
-    {
-      "code": "ELITE_ORB",
-      "category": "CURRENCY",
-      "subCategory": "ELITE_ORB",
-      "price": 1200
-    },
-    {
-      "code": "BOUNTY_ORB",
-      "category": "CURRENCY",
-      "subCategory": "BOUNTY_ORB",
-      "price": 1500
-    },
-    {
-      "code": "TREASURE_ORB",
-      "category": "CURRENCY",
-      "subCategory": "TREASURE_ORB",
-      "price": 1300
-    },
-    {
-      "code": "GILDED_ORB",
-      "category": "CURRENCY",
-      "subCategory": "GILDED_ORB",
-      "price": 900
-    },
-    {
-      "code": "WARDEN_ORB",
-      "category": "CURRENCY",
-      "subCategory": "WARDEN_ORB",
-      "price": 1800
-    },
-    {
-      "code": "ESSENCE_ORB",
-      "category": "CURRENCY",
-      "subCategory": "ESSENCE_ORB",
-      "price": 40
-    },
-    {
-      "code": "SCRIBE_ORB",
-      "category": "CURRENCY",
-      "subCategory": "SCRIBE_ORB",
-      "price": 40
-    },
-    {
-      "code": "GLASSBLOWERS_BAUBLE",
-      "category": "CURRENCY",
-      "subCategory": "GLASSBLOWERS_BAUBLE",
-      "price": 25
-    },
-    {
       "code": "PET_EGG_JUNGLE",
       "category": "PET",
       "subCategory": "EGG",
@@ -2137,52 +2059,10 @@
       "price": 150
     },
     {
-      "code": "PET_ORB_UPGRADE",
-      "category": "PET",
-      "subCategory": "PET_ORB",
-      "price": 60
-    },
-    {
-      "code": "PET_ORB_REROLL",
-      "category": "PET",
-      "subCategory": "PET_ORB",
-      "price": 50
-    },
-    {
-      "code": "PET_ORB_AUGMENT",
-      "category": "PET",
-      "subCategory": "PET_ORB",
-      "price": 40
-    },
-    {
-      "code": "PET_ORB_DIVINE",
-      "category": "PET",
-      "subCategory": "PET_ORB",
-      "price": 80
-    },
-    {
-      "code": "PET_ORB_ANNUL",
-      "category": "PET",
-      "subCategory": "PET_ORB",
-      "price": 70
-    },
-    {
       "code": "PET_ORB_GROWTH",
       "category": "PET",
       "subCategory": "PET_ORB",
       "price": 90
-    },
-    {
-      "code": "WHETSTONE",
-      "category": "CURRENCY",
-      "subCategory": "WHETSTONE",
-      "price": 40
-    },
-    {
-      "code": "ARMOURERS_SCRAP",
-      "category": "CURRENCY",
-      "subCategory": "ARMOURERS_SCRAP",
-      "price": 30
     },
     {
       "code": "UNVEILING_ORB",
@@ -2191,51 +2071,57 @@
       "price": 400
     },
     {
-      "code": "CATALYST_LIFE",
+      "code": "QUALITY_ORB",
       "category": "CURRENCY",
-      "subCategory": "CATALYST_LIFE",
+      "subCategory": "QUALITY_ORB",
+      "price": 40
+    },
+    {
+      "code": "CATALYST_LIFE",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
       "code": "CATALYST_DEFENCE",
-      "category": "CURRENCY",
-      "subCategory": "CATALYST_DEFENCE",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
       "code": "CATALYST_ELEMENTAL",
-      "category": "CURRENCY",
-      "subCategory": "CATALYST_ELEMENTAL",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
       "code": "CATALYST_PHYSICAL",
-      "category": "CURRENCY",
-      "subCategory": "CATALYST_PHYSICAL",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
       "code": "CATALYST_CHAOS",
-      "category": "CURRENCY",
-      "subCategory": "CATALYST_CHAOS",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
       "code": "CATALYST_SPEED",
-      "category": "CURRENCY",
-      "subCategory": "CATALYST_SPEED",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
       "code": "CATALYST_ATTRIBUTE",
-      "category": "CURRENCY",
-      "subCategory": "CATALYST_ATTRIBUTE",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
       "code": "CATALYST_CASTER",
-      "category": "CURRENCY",
-      "subCategory": "CATALYST_CASTER",
+      "category": "OMEN",
+      "subCategory": "OMEN",
       "price": 60
     },
     {
@@ -2303,6 +2189,18 @@
       "category": "OMEN",
       "subCategory": "OMEN",
       "price": 800
+    },
+    {
+      "code": "OMEN_CHOICE",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 1500
+    },
+    {
+      "code": "OMEN_TIER",
+      "category": "OMEN",
+      "subCategory": "OMEN",
+      "price": 2000
     },
     {
       "code": "PET_EGG_SKYREACH",

@@ -676,11 +676,6 @@
     }
   },
   "orbs": {
-    "PET_ORB_UPGRADE": "UPGRADE",
-    "PET_ORB_REROLL": "REROLL",
-    "PET_ORB_AUGMENT": "AUGMENT",
-    "PET_ORB_DIVINE": "DIVINE",
-    "PET_ORB_ANNUL": "ANNUL",
     "PET_ORB_GROWTH": "GROWTH"
   },
   "eggs": {

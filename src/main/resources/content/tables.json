@@ -4633,16 +4633,8 @@
           "chance": 0.08
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.015,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.025,
           "amount": [
             1,
             1
@@ -4719,16 +4711,8 @@
           "chance": 0.09
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.015,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.025,
           "amount": [
             1,
             1
@@ -4821,16 +4805,8 @@
           "chance": 0.1
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.015,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.025,
           "amount": [
             1,
             1
@@ -4987,16 +4963,8 @@
           "chance": 0.1
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.015,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.025,
           "amount": [
             1,
             1
@@ -5169,16 +5137,8 @@
           ]
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.015,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.025,
           "amount": [
             1,
             1
@@ -5351,16 +5311,8 @@
           ]
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.01,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.015,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.025,
           "amount": [
             1,
             1
@@ -5519,23 +5471,31 @@
           "chance": 0.25
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.03,
+          "ref": "item:REGAL_ORB",
+          "chance": 0.00514,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.04,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.02,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.00333,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.05,
           "amount": [
             1,
@@ -5543,16 +5503,16 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.03,
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0004,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.03,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00053,
           "amount": [
             1,
             1
@@ -5594,7 +5554,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.1,
+          "chance": 0.10514,
           "amount": [
             1,
             1
@@ -5602,7 +5562,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.08,
+          "chance": 0.08333,
           "amount": [
             1,
             1
@@ -5625,23 +5585,15 @@
           "chance": 0.4
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.03,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.02,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.05,
           "amount": [
             1,
@@ -5649,16 +5601,16 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.03,
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0004,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.03,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00053,
           "amount": [
             1,
             1
@@ -5700,7 +5652,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.12,
+          "chance": 0.12514,
           "amount": [
             1,
             1
@@ -5708,7 +5660,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.1,
+          "chance": 0.10333,
           "amount": [
             1,
             1
@@ -5747,23 +5699,15 @@
           "chance": 0.45
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.03,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.02,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.05,
           "amount": [
             1,
@@ -5771,16 +5715,16 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.03,
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0004,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.03,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00053,
           "amount": [
             1,
             1
@@ -5814,7 +5758,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.15,
+          "chance": 0.15514,
           "amount": [
             1,
             1
@@ -5822,7 +5766,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.12,
+          "chance": 0.12333,
           "amount": [
             1,
             1
@@ -5846,7 +5790,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.01,
+          "chance": 0.0104,
           "amount": [
             1,
             1
@@ -5869,40 +5813,16 @@
           "chance": 0.5
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.03,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.02,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.03,
           "amount": [
             1,
             1
@@ -5918,7 +5838,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.005,
+          "chance": 0.00553,
           "amount": [
             1,
             1
@@ -5944,7 +5864,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.18,
+          "chance": 0.18514,
           "amount": [
             1,
             1
@@ -5952,7 +5872,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.15,
+          "chance": 0.15333,
           "amount": [
             1,
             1
@@ -5976,7 +5896,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.02,
+          "chance": 0.0204,
           "amount": [
             1,
             1
@@ -5999,40 +5919,16 @@
           "chance": 0.55
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.03,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.02,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.04,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.05,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.03,
           "amount": [
             1,
             1
@@ -6048,7 +5944,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.01,
+          "chance": 0.01053,
           "amount": [
             1,
             1
@@ -6109,23 +6005,31 @@
           "chance": 0.2
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.06,
+          "ref": "item:REGAL_ORB",
+          "chance": 0.01029,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.08,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.04,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.00667,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.1,
           "amount": [
             1,
@@ -6133,16 +6037,16 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.06,
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0008,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00105,
           "amount": [
             1,
             1
@@ -6219,23 +6123,31 @@
           "chance": 0.25
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.06,
+          "ref": "item:REGAL_ORB",
+          "chance": 0.01029,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.08,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.04,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.00667,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.1,
           "amount": [
             1,
@@ -6243,16 +6155,16 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.06,
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0008,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00105,
           "amount": [
             1,
             1
@@ -6302,7 +6214,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.06,
+          "chance": 0.07029,
           "amount": [
             1,
             1
@@ -6310,7 +6222,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.05,
+          "chance": 0.05667,
           "amount": [
             1,
             1
@@ -6345,23 +6257,15 @@
           "chance": 0.3
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.04,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.1,
           "amount": [
             1,
@@ -6369,16 +6273,16 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.06,
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0008,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00105,
           "amount": [
             1,
             1
@@ -6487,6 +6391,22 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -6516,7 +6436,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.08,
+          "chance": 0.09029,
           "amount": [
             1,
             1
@@ -6524,7 +6444,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.06,
+          "chance": 0.06667,
           "amount": [
             1,
             1
@@ -6559,23 +6479,15 @@
           "chance": 0.32
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.04,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.1,
           "amount": [
             1,
@@ -6583,16 +6495,16 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.06,
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.0008,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00105,
           "amount": [
             1,
             1
@@ -6701,6 +6613,22 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -6722,7 +6650,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.1,
+          "chance": 0.11029,
           "amount": [
             1,
             1
@@ -6730,7 +6658,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.08,
+          "chance": 0.08667,
           "amount": [
             1,
             1
@@ -6754,7 +6682,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.01,
+          "chance": 0.0108,
           "amount": [
             1,
             1
@@ -6773,23 +6701,15 @@
           "chance": 0.34
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.04,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.1,
           "amount": [
             1,
@@ -6797,16 +6717,8 @@
           ]
         },
         {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.00105,
           "amount": [
             1,
             1
@@ -6931,6 +6843,22 @@
             1,
             1
           ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
         }
       ],
       "gold": [
@@ -6952,7 +6880,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.12,
+          "chance": 0.13029,
           "amount": [
             1,
             1
@@ -6960,7 +6888,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.1,
+          "chance": 0.10667,
           "amount": [
             1,
             1
@@ -6984,7 +6912,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.02,
+          "chance": 0.0208,
           "amount": [
             1,
             1
@@ -7011,40 +6939,16 @@
           "chance": 0.36
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.06,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.04,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.08,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.06,
           "amount": [
             1,
             1
@@ -7076,7 +6980,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.01,
+          "chance": 0.01105,
           "amount": [
             1,
             1
@@ -7173,6 +7077,22 @@
         {
           "ref": "item:OMEN_CORRUPTION",
           "chance": 0.004,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.002,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.002,
           "amount": [
             1,
             1
@@ -7720,7 +7640,9 @@
         "OMEN_DEXTRAL_ANNULMENT": 6,
         "OMEN_LIGHT": 6,
         "OMEN_CORRUPTION": 6,
-        "UNVEILING_ORB": 15
+        "UNVEILING_ORB": 15,
+        "OMEN_CHOICE": 3,
+        "OMEN_TIER": 3
       }
     },
     {
@@ -7860,16 +7782,8 @@
           ]
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.011,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.0165,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.0275,
           "amount": [
             1,
             1
@@ -7959,7 +7873,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.198,
+          "chance": 0.20366,
           "amount": [
             1,
             1
@@ -7967,7 +7881,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.165,
+          "chance": 0.16867,
           "amount": [
             1,
             1
@@ -7991,7 +7905,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.022,
+          "chance": 0.02244,
           "amount": [
             1,
             1
@@ -8014,40 +7928,16 @@
           "chance": 0.605
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.033,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.022,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.044,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.055,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.033,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.033,
           "amount": [
             1,
             1
@@ -8063,7 +7953,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.011,
+          "chance": 0.01158,
           "amount": [
             1,
             1
@@ -8097,7 +7987,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.132,
+          "chance": 0.14331,
           "amount": [
             1,
             1
@@ -8105,7 +7995,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.11,
+          "chance": 0.11733,
           "amount": [
             1,
             1
@@ -8129,7 +8019,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.022,
+          "chance": 0.02288,
           "amount": [
             1,
             1
@@ -8156,40 +8046,16 @@
           "chance": 0.396
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.066,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.044,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.088,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.11,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.066,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.066,
           "amount": [
             1,
             1
@@ -8221,7 +8087,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.011,
+          "chance": 0.01216,
           "amount": [
             1,
             1
@@ -8318,6 +8184,22 @@
         {
           "ref": "item:OMEN_CORRUPTION",
           "chance": 0.0044,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0022,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0022,
           "amount": [
             1,
             1
@@ -8516,16 +8398,8 @@
           ]
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.012,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.018,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.03,
           "amount": [
             1,
             1
@@ -8615,7 +8489,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.216,
+          "chance": 0.22217,
           "amount": [
             1,
             1
@@ -8623,7 +8497,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.18,
+          "chance": 0.184,
           "amount": [
             1,
             1
@@ -8647,7 +8521,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.024,
+          "chance": 0.02448,
           "amount": [
             1,
             1
@@ -8670,40 +8544,16 @@
           "chance": 0.66
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.036,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.024,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.048,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.06,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.036,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.036,
           "amount": [
             1,
             1
@@ -8719,7 +8569,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.012,
+          "chance": 0.01263,
           "amount": [
             1,
             1
@@ -8753,7 +8603,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.144,
+          "chance": 0.15634,
           "amount": [
             1,
             1
@@ -8761,7 +8611,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.12,
+          "chance": 0.128,
           "amount": [
             1,
             1
@@ -8785,7 +8635,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.024,
+          "chance": 0.02496,
           "amount": [
             1,
             1
@@ -8812,40 +8662,16 @@
           "chance": 0.432
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.072,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.048,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.096,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.072,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.072,
           "amount": [
             1,
             1
@@ -8877,7 +8703,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.012,
+          "chance": 0.01326,
           "amount": [
             1,
             1
@@ -8974,6 +8800,22 @@
         {
           "ref": "item:OMEN_CORRUPTION",
           "chance": 0.0048,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0024,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0024,
           "amount": [
             1,
             1
@@ -9172,16 +9014,8 @@
           ]
         },
         {
-          "ref": "item:WHETSTONE",
-          "chance": 0.013,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ARMOURERS_SCRAP",
-          "chance": 0.0195,
+          "ref": "item:QUALITY_ORB",
+          "chance": 0.0325,
           "amount": [
             1,
             1
@@ -9271,7 +9105,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.234,
+          "chance": 0.24069,
           "amount": [
             1,
             1
@@ -9279,7 +9113,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.195,
+          "chance": 0.19933,
           "amount": [
             1,
             1
@@ -9303,7 +9137,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.026,
+          "chance": 0.02652,
           "amount": [
             1,
             1
@@ -9326,40 +9160,16 @@
           "chance": 0.715
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.039,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.026,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.052,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.065,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.039,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.039,
           "amount": [
             1,
             1
@@ -9375,7 +9185,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.013,
+          "chance": 0.01368,
           "amount": [
             1,
             1
@@ -9409,7 +9219,7 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.156,
+          "chance": 0.16937,
           "amount": [
             1,
             1
@@ -9417,7 +9227,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.13,
+          "chance": 0.13867,
           "amount": [
             1,
             1
@@ -9441,7 +9251,7 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.026,
+          "chance": 0.02704,
           "amount": [
             1,
             1
@@ -9468,40 +9278,16 @@
           "chance": 0.468
         },
         {
-          "ref": "item:PET_ORB_UPGRADE",
-          "chance": 0.078,
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.052,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "item:PET_ORB_REROLL",
-          "chance": 0.104,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_AUGMENT",
+          "ref": "item:ORB_OF_AUGMENTATION",
           "chance": 0.13,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_DIVINE",
-          "chance": 0.078,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_ORB_ANNUL",
-          "chance": 0.078,
           "amount": [
             1,
             1
@@ -9533,7 +9319,7 @@
         },
         {
           "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.013,
+          "chance": 0.01437,
           "amount": [
             1,
             1
@@ -9630,6 +9416,22 @@
         {
           "ref": "item:OMEN_CORRUPTION",
           "chance": 0.0052,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0026,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0026,
           "amount": [
             1,
             1
@@ -9943,6 +9745,66 @@
         "APEX_CIRCLET": 100,
         "CLIMBERS_GRIP": 100,
         "ZENITH_BOW": 100
+      }
+    },
+    {
+      "tag": "alchemy:map",
+      "kind": "MODIFIER",
+      "entries": {
+        "ALC_MAP_PACK": 100,
+        "ALC_MAP_MAGIC": 100,
+        "ALC_MAP_RARE": 80,
+        "ALC_MAP_LOOT": 60,
+        "ALC_MAP_CHESTS": 70,
+        "ALC_MAP_GOLD": 90,
+        "ALC_MAP_BOSS": 60,
+        "ALC_MAP_CRYSTALS": 100,
+        "ALC_MAP_BOOKS": 100
+      }
+    },
+    {
+      "tag": "corruption:tool",
+      "kind": "MODIFIER",
+      "entries": {
+        "TOOL_CORRUPT_SPEED": 100,
+        "TOOL_CORRUPT_YIELD": 100,
+        "TOOL_CORRUPT_LUCK": 100,
+        "TOOL_CORRUPT_DOUBLE": 80,
+        "TOOL_CORRUPT_SAVE": 80
+      }
+    },
+    {
+      "tag": "influence:SHAPER:tool",
+      "kind": "MODIFIER",
+      "entries": {
+        "SHAPER_WORK_SPEED_AND_DOUBLE": 100,
+        "SHAPER_WORK_RARITY": 100,
+        "SHAPER_WORK_EXPERIENCE_AND_LUCK": 100
+      }
+    },
+    {
+      "tag": "influence:ELDER:tool",
+      "kind": "MODIFIER",
+      "entries": {
+        "ELDER_WORK_YIELD_AND_SAVE": 100,
+        "ELDER_WORK_FIND_AND_ITEM_LEVEL": 100,
+        "ELDER_WORK_UNIQUE": 100
+      }
+    },
+    {
+      "tag": "veiled:tool:prefix",
+      "kind": "MODIFIER",
+      "entries": {
+        "VEILED_WORK_SPEED_AND_SAVE": 100,
+        "VEILED_WORK_YIELD_AND_EXPERIENCE": 100
+      }
+    },
+    {
+      "tag": "veiled:tool:suffix",
+      "kind": "MODIFIER",
+      "entries": {
+        "VEILED_WORK_LUCK_AND_DOUBLE": 100,
+        "VEILED_WORK_FIND_AND_RARITY": 100
       }
     }
   ]

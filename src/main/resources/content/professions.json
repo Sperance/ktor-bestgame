@@ -22,12 +22,8 @@
           "experience": 4,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "ore"
@@ -51,12 +47,8 @@
           "experience": 9,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "ore"
@@ -70,12 +62,8 @@
           "experience": 18,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "gem"
@@ -89,12 +77,8 @@
           "experience": 16,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "ore"
@@ -108,12 +92,8 @@
           "experience": 30,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "gem"
@@ -127,12 +107,8 @@
           "experience": 26,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "ore"
@@ -146,12 +122,8 @@
           "experience": 45,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "gem"
@@ -165,12 +137,8 @@
           "experience": 40,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "ore"
@@ -184,12 +152,8 @@
           "experience": 40,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "ore"
@@ -203,12 +167,8 @@
           "experience": 60,
           "extra": [
             {
-              "item": "WHETSTONE",
-              "chance": 3
-            },
-            {
-              "item": "ARMOURERS_SCRAP",
-              "chance": 2
+              "item": "QUALITY_ORB",
+              "chance": 5
             }
           ],
           "chain": "gem"
@@ -398,7 +358,7 @@
               "chance": 8
             },
             {
-              "item": "GLASSBLOWERS_BAUBLE",
+              "item": "QUALITY_ORB",
               "chance": 3
             },
             {
@@ -431,7 +391,7 @@
               "chance": 8
             },
             {
-              "item": "GLASSBLOWERS_BAUBLE",
+              "item": "QUALITY_ORB",
               "chance": 3
             },
             {
@@ -454,7 +414,7 @@
               "chance": 8
             },
             {
-              "item": "GLASSBLOWERS_BAUBLE",
+              "item": "QUALITY_ORB",
               "chance": 3
             },
             {
@@ -477,7 +437,7 @@
               "chance": 8
             },
             {
-              "item": "GLASSBLOWERS_BAUBLE",
+              "item": "QUALITY_ORB",
               "chance": 3
             },
             {
@@ -500,7 +460,7 @@
               "chance": 8
             },
             {
-              "item": "GLASSBLOWERS_BAUBLE",
+              "item": "QUALITY_ORB",
               "chance": 3
             },
             {
@@ -524,7 +484,7 @@
               "chance": 8
             },
             {
-              "item": "GLASSBLOWERS_BAUBLE",
+              "item": "QUALITY_ORB",
               "chance": 3
             },
             {
@@ -547,7 +507,7 @@
               "chance": 8
             },
             {
-              "item": "GLASSBLOWERS_BAUBLE",
+              "item": "QUALITY_ORB",
               "chance": 3
             },
             {
@@ -1030,7 +990,7 @@
           "level": 10,
           "seconds": 300,
           "nothing": 30,
-          "output": "HORDE_ORB",
+          "output": "ORB_OF_CHANCE",
           "experience": 12,
           "extra": [],
           "kind": "ITEM",
@@ -1106,7 +1066,7 @@
           "level": 12,
           "seconds": 300,
           "nothing": 30,
-          "output": "GLASSBLOWERS_BAUBLE",
+          "output": "QUALITY_ORB",
           "experience": 14,
           "extra": [],
           "kind": "ITEM",
@@ -1206,7 +1166,7 @@
           "level": 15,
           "seconds": 300,
           "nothing": 30,
-          "output": "MAGUS_ORB",
+          "output": "ORB_OF_REGRET",
           "experience": 15,
           "extra": [],
           "kind": "ITEM",
@@ -1246,7 +1206,7 @@
           "level": 18,
           "seconds": 350,
           "nothing": 32,
-          "output": "PERIL_ORB",
+          "output": "BLESSED_ORB",
           "experience": 17,
           "extra": [],
           "kind": "ITEM",
@@ -1286,7 +1246,7 @@
           "level": 20,
           "seconds": 400,
           "nothing": 35,
-          "output": "MERCY_ORB",
+          "output": "VAAL_ORB",
           "experience": 20,
           "extra": [],
           "kind": "ITEM",
@@ -1366,7 +1326,7 @@
           "level": 22,
           "seconds": 420,
           "nothing": 36,
-          "output": "ESSENCE_ORB",
+          "output": "UNVEILING_ORB",
           "experience": 26,
           "extra": [],
           "kind": "ITEM",
@@ -1446,7 +1406,7 @@
           "level": 25,
           "seconds": 400,
           "nothing": 35,
-          "output": "ELITE_ORB",
+          "output": "OMEN_CORRUPTION",
           "experience": 24,
           "extra": [],
           "kind": "ITEM",
@@ -1510,7 +1470,7 @@
           "level": 28,
           "seconds": 420,
           "nothing": 36,
-          "output": "SCRIBE_ORB",
+          "output": "OMEN_CHOICE",
           "experience": 30,
           "extra": [],
           "kind": "ITEM",
@@ -1550,7 +1510,7 @@
           "level": 30,
           "seconds": 450,
           "nothing": 38,
-          "output": "BOUNTY_ORB",
+          "output": "ORB_OF_ANNULMENT",
           "experience": 28,
           "extra": [],
           "kind": "ITEM",
@@ -1566,6 +1526,10 @@
             {
               "item": "BARK",
               "amount": 2
+            },
+            {
+              "item": "CHAOS_ORB",
+              "amount": 3
             }
           ]
         },
@@ -1574,7 +1538,7 @@
           "level": 30,
           "seconds": 450,
           "nothing": 38,
-          "output": "TREASURE_ORB",
+          "output": "OMEN_LIGHT",
           "experience": 32,
           "extra": [],
           "kind": "ITEM",
@@ -1654,7 +1618,7 @@
           "level": 34,
           "seconds": 450,
           "nothing": 38,
-          "output": "GILDED_ORB",
+          "output": "OMEN_GREATER_EXALTATION",
           "experience": 32,
           "extra": [],
           "kind": "ITEM",
@@ -1674,7 +1638,7 @@
           "level": 35,
           "seconds": 600,
           "nothing": 45,
-          "output": "EMPOWERING_ORB",
+          "output": "OMEN_TIER",
           "experience": 35,
           "extra": [],
           "kind": "ITEM",
@@ -1762,7 +1726,7 @@
           "level": 42,
           "seconds": 450,
           "nothing": 38,
-          "output": "WARDEN_ORB",
+          "output": "FRACTURING_ORB",
           "experience": 32,
           "extra": [],
           "kind": "ITEM",
@@ -1774,6 +1738,10 @@
             {
               "item": "RUBY",
               "amount": 1
+            },
+            {
+              "item": "DIVINE_ORB",
+              "amount": 2
             }
           ]
         },

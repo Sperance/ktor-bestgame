@@ -8,6 +8,7 @@ import com.sperance.exileforge.rules.content.PetLine
 import com.sperance.exileforge.rules.content.PetLineRule
 import com.sperance.exileforge.rules.content.PetOrbAction
 import com.sperance.exileforge.rules.content.PetSpecies
+import com.sperance.exileforge.rules.content.PetRarityRule
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.sheet.SheetCalculator
 import com.sperance.exileforge.rules.sheet.SourceKind
@@ -29,6 +30,9 @@ class Menagerie(private val index: ContentIndex) {
 
     fun species(code: String): PetSpecies? = species[code]
 
+    /** Правило строк редкости [rarity]: дно и потолок. */
+    fun rule(rarity: Rarity): PetRarityRule? = file.rarities[rarity]
+
     fun isEgg(code: String): Boolean = code in file.eggs.values
 
     fun orb(code: String): PetOrbAction? = file.orbs[code]
@@ -42,23 +46,12 @@ class Menagerie(private val index: ContentIndex) {
         return Pet(id, kind.code, rarity, lines = roll(kind, dice.between(rule.lines), emptyList(), dice))
     }
 
-    /** Сфера [action] на питомце: новый питомец или null, если сфера на нём ничего не делает. */
-    fun apply(action: PetOrbAction, pet: Pet, dice: Dice): Pet? {
-        val kind = species(pet.species) ?: return null
-        val rule = file.rarities[pet.rarity] ?: return null
-        return when (action) {
-            PetOrbAction.UPGRADE -> {
-                val next = RARITIES.getOrNull(RARITIES.indexOf(pet.rarity) + 1) ?: return null
-                val nextRule = file.rarities.getValue(next)
-                pet.copy(rarity = next, lines = roll(kind, max(nextRule.floor, pet.lines.size + 1).coerceAtMost(nextRule.ceiling), pet.lines, dice))
-            }
-            PetOrbAction.REROLL -> if (pet.rarity == Rarity.COMMON) null else pet.copy(lines = roll(kind, dice.between(rule.lines), emptyList(), dice))
-            PetOrbAction.AUGMENT -> if (pet.lines.size >= rule.ceiling || pool(kind).size <= pet.lines.size) null
-                else pet.copy(lines = roll(kind, pet.lines.size + 1, pet.lines, dice))
-            PetOrbAction.DIVINE -> if (pet.lines.isEmpty()) null else pet.copy(lines = pet.lines.map { line -> line.copy(shares = line.shares.map { dice.share() }) })
-            PetOrbAction.ANNUL -> if (pet.lines.size <= rule.floor) null else pet.copy(lines = pet.lines.toMutableList().apply { removeAt(dice.nextInt(size)) })
-            PetOrbAction.GROWTH -> if (pet.level >= maxLevel) null else gain(pet, (index.classes.threshold(pet.level + 1) ?: pet.experience) - pet.experience)
-        }?.takeIf { it.lines.size >= (file.rarities[it.rarity]?.floor ?: 0) }
+    /**
+     * Собственная сфера питомцев [action] (1.65.0 - только рост уровня; редкость и строки меняют сферы ремесла, [PetForge]):
+     * новый питомец или null, если сфера на нём ничего не делает.
+     */
+    fun apply(action: PetOrbAction, pet: Pet, dice: Dice): Pet? = when (action) {
+        PetOrbAction.GROWTH -> if (pet.level >= maxLevel) null else gain(pet, (index.classes.threshold(pet.level + 1) ?: pet.experience) - pet.experience)
     }
 
     /** Опыт питомцу: уровень только растёт, до потолка героя. */
@@ -68,10 +61,10 @@ class Menagerie(private val index: ContentIndex) {
         return pet.copy(experience = total, level = max(pet.level, index.classes.levelOf(total)))
     }
 
-    /** Строки питомца значениями его уровня. */
+    /** Строки питомца значениями его уровня и качества (1.65.0: каждый процент качества - процент к значению строки). */
     fun lines(pet: Pet): List<Line> {
         val kind = species(pet.species) ?: return emptyList()
-        val growth = 1 + file.lineGrowth * (pet.level - 1).coerceAtLeast(0)
+        val growth = (1 + file.lineGrowth * (pet.level - 1).coerceAtLeast(0)) * (1 + pet.quality.coerceAtLeast(0) / 100.0)
         val rules = pool(kind).associateBy { it.code }
         return pet.lines.mapNotNull { line ->
             val rule = rules[line.code] ?: return@mapNotNull null
@@ -106,16 +99,19 @@ class Menagerie(private val index: ContentIndex) {
     /** Лечение героя поддержкой, % здоровья в секунду. */
     fun supportHeal(pet: Pet): Double = file.supportHeal[0] * (1 + file.supportHeal.getOrElse(1) { 0.0 } * (pet.level - 1))
 
+    /** Одна новая строка из пула, которой у питомца нет и нет среди [also]; null - пул исчерпан. */
+    fun rollOne(kind: PetSpecies, keep: List<PetLine>, dice: Dice, also: Collection<String> = emptyList()): PetLine? {
+        val taken = keep.mapTo(HashSet()) { it.code } + also
+        val rule = Tables.draw(pool(kind).filter { it.code !in taken }, PetLineRule::weight, dice) ?: return null
+        return PetLine(rule.code, rule.values.map { dice.share() })
+    }
+
     fun pool(kind: PetSpecies): List<PetLineRule> = file.lines.filter { it.kind == kind.kind && (kind.kind == PetKind.COMBAT || it.focus == kind.focus) }
 
     /** Строки до [count]: [keep] остаются, новые - из пула без повторов по весам. */
-    private fun roll(kind: PetSpecies, count: Int, keep: List<PetLine>, dice: Dice): List<PetLine> {
+    fun roll(kind: PetSpecies, count: Int, keep: List<PetLine>, dice: Dice): List<PetLine> {
         val lines = keep.toMutableList()
-        while (lines.size < count) {
-            val taken = lines.mapTo(HashSet()) { it.code }
-            val rule = Tables.draw(pool(kind).filter { it.code !in taken }, PetLineRule::weight, dice) ?: break
-            lines += PetLine(rule.code, rule.values.map { dice.share() })
-        }
+        while (lines.size < count) lines += rollOne(kind, lines, dice) ?: break
         return lines
     }
 

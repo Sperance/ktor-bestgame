@@ -120,7 +120,11 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
 
     /** Карта в действии: риск и прямые строки - к количеству, редкости и опыту; редкость самой карты - к первым двум. */
     fun activeMap(mapCode: String, base: Map<String, Double>, rarity: Rarity = Rarity.COMMON, tier: Int = 0, influence: Influence? = null, atlas: Map<String, Double> = emptyMap()): ActiveMap {
-        val effects = if (influence == null) base else influenced(base, atlas)
+        val effects = if (influence == null) base else influenced(base, atlas).let { captured ->
+            // Бездна (1.65.0) открывает на карте расщелины - как строка карты `MAP_ABYSS_CRACKS`.
+            if (influence != Influence.ABYSS) captured
+            else captured + (MapStat.ABYSS_CRACKS.code to (captured[MapStat.ABYSS_CRACKS.code] ?: 0.0) + campaign.maps.influence.abyssCracks)
+        }
         val risk = risk(effects)
         val own = campaign.maps.rarityBonus[rarity] ?: 0.0
         return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), risk + own + (effects[MapStat.RARITY.code] ?: 0.0),
@@ -171,6 +175,8 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
             val values = roll.values(def)
             def.effects.forEachIndexed { i, effect -> effects.merge(effect.stat, values.getOrElse(i) { 0.0 }, Double::plus) }
         }
+        // Качество карты (1.65.0): каждый процент - процент к количеству добычи.
+        if (item.quality > 0) effects.merge(MapStat.QUANTITY.code, item.quality.toDouble(), Double::plus)
         // Тир карты (1.41.0): его строки за каждую ступень - поверх строк самой карты.
         campaign.maps.tiers?.takeIf { item.mapTier > 0 }?.effects?.forEach { (stat, perTier) -> effects.merge(stat, perTier * item.mapTier, Double::plus) }
         return effects.mapValues { (_, value) -> Math.round(value * atlasEffect * 10) / 10.0 }

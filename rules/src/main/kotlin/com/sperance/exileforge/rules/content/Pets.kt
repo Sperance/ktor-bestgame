@@ -21,9 +21,9 @@ enum class PetRole { TANK, FIGHTER, SUPPORT }
 @Serializable
 enum class PetFocus { AURA, LOOT, CRAFT }
 
-/** Что делает сфера питомца - набор как у вещей и рост уровня. */
+/** Что делает собственная сфера питомцев (1.65.0): только рост уровня - редкость и строки меняют сферы ремесла вещей. */
 @Serializable
-enum class PetOrbAction { UPGRADE, REROLL, AUGMENT, DIVINE, ANNUL, GROWTH }
+enum class PetOrbAction { GROWTH }
 
 /** Вид питомца: код (ключ `pet.<code>` локали), род, биом яйца, вес; у боевого - роль и стихия, у помощника - дело. */
 @Serializable
@@ -81,7 +81,10 @@ data class PetsFile(
 @Serializable
 data class PetEggChance(val rare: Double = 0.02, val boss: Double = 0.2)
 
-/** Копия питомца в зверинце: вид, редкость, опыт и уровень, строки долями ролла. */
+/**
+ * Копия питомца в зверинце: вид, редкость, опыт и уровень, строки долями ролла. С 1.65.0 - порча (сферы его больше не меняют),
+ * качество (каждый процент усиливает строки) и варианты строки [offer], что ждут выбора игрока после сферы со знамением выбора.
+ */
 @Serializable
 data class Pet(
     val id: String,
@@ -90,11 +93,14 @@ data class Pet(
     @SerialName("xp") val experience: Double = 0.0,
     val level: Int = 1,
     val lines: List<PetLine> = emptyList(),
+    val corrupted: Boolean = false,
+    val quality: Int = 0,
+    val offer: List<PetLine> = emptyList(),
 )
 
-/** Строка питомца: модификатор и доли ролла по его эффектам. */
+/** Строка питомца: модификатор и доли ролла по его эффектам; [fractured] (1.65.0) - закреплена сферой закрепления. */
 @Serializable
-data class PetLine(val code: String, @SerialName("p") val shares: List<Double>)
+data class PetLine(val code: String, @SerialName("p") val shares: List<Double>, @SerialName("f") val fractured: Boolean = false)
 
 /** Проверка `pets.json` по контенту: яйца и сферы - предметы питомцев, строки - модификаторы, пулы полны на любую редкость. */
 fun PetsFile.validate(index: ContentIndex) {

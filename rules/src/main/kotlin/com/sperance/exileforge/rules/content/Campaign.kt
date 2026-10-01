@@ -186,7 +186,12 @@ data class MapInfluenceRule(
     val items: Double = 15.0,
     val power: Double = 20.0,
     val kinds: List<Influence> = listOf(Influence.SHAPER, Influence.ELDER),
+    /** Расщелин Бездны сверх окна на карте, захваченной Бездной (1.65.0: Бездну карте даёт только её сфера). */
+    val abyssCracks: Int = 2,
 ) {
+    /** Захватывает ли карту влияние [influence]: случайные захваты [kinds] и Бездна от сферы. */
+    fun accepts(influence: Influence): Boolean = influence in kinds || influence == Influence.ABYSS
+
     /** Влияния случайного захвата при узлах атласа [atlas]: «только Создатель» или «только Древний»; оба - оба. */
     fun pool(atlas: Map<String, Double>): List<Influence> {
         val shaper = (atlas[AtlasStat.INFLUENCE_SHAPER.code] ?: 0.0) > 0

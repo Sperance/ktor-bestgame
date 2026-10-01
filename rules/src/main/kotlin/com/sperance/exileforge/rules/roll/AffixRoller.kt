@@ -97,6 +97,23 @@ class AffixRoller(private val index: ContentIndex) {
                        side: Source? = null): Roll? =
         rollExtraFrom(affixPool(template, influence).onSide(side), template, rarity, current, dice, level)
 
+    /**
+     * Варианты одного аффикса сверх имеющихся - знамение выбора (1.65.0): до [count] разных, каждый встаёт на копию сам по себе,
+     * группы вариантов не повторяются; пусто - мест нет.
+     */
+    fun candidates(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence?, level: Int, count: Int): List<Roll> {
+        if (current.count(::isAffix) >= index.limits(rarity, template.slot).ceiling) return emptyList()
+        val pool = affixPool(template, influence).toMutableList()
+        val options = mutableListOf<Roll>()
+        while (options.size < count) {
+            val next = rollOne(pool, template, rarity, current, dice, level) ?: break
+            options += next
+            val taken = definition(next)?.let(index::groups).orEmpty()
+            pool.removeAll { (def) -> index.groups(def).any { it in taken } }
+        }
+        return options
+    }
+
     /** Пул одной стороны аффиксов - знамение (1.35.0); null - обе. */
     private fun List<Weighted<ModifierDef>>.onSide(side: Source?): List<Weighted<ModifierDef>> = if (side == null) this else filter { it.value.source == side }
 
@@ -201,7 +218,9 @@ class AffixRoller(private val index: ContentIndex) {
         index.affixPool(if (influence == null) template.tables else template.tables + influenceTags(influence, template.slot))
 
     companion object {
-        fun influenceTags(influence: Influence, slot: Slot): List<String> = listOf("influence:${influence.name}:${slot.tag}", "influence:${influence.name}")
+        /** Таблицы влияния слота; у инструмента (1.65.0) - только его своя: общие строки влияния - боевые. */
+        fun influenceTags(influence: Influence, slot: Slot): List<String> =
+            if (slot.isTool) listOf("influence:${influence.name}:${slot.tag}") else listOf("influence:${influence.name}:${slot.tag}", "influence:${influence.name}")
         fun corruptionTag(slot: Slot): String = "corruption:${slot.tag}"
     }
 }

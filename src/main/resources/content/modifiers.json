@@ -37215,6 +37215,591 @@
       "tags": [
         "atlas"
       ]
+    },
+    {
+      "code": "TOOL_CORRUPT_SPEED",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_SPEED",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          40,
+          1
+        ],
+        "top": [
+          [
+            12,
+            15
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            9
+          ]
+        ]
+      },
+      "tags": [
+        "work",
+        "corruption"
+      ]
+    },
+    {
+      "code": "TOOL_CORRUPT_YIELD",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_YIELD"
+        }
+      ],
+      "grid": {
+        "levels": [
+          40,
+          1
+        ],
+        "top": [
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "work",
+        "corruption"
+      ]
+    },
+    {
+      "code": "TOOL_CORRUPT_LUCK",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_LUCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          40,
+          1
+        ],
+        "top": [
+          [
+            15,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "tags": [
+        "work",
+        "corruption"
+      ]
+    },
+    {
+      "code": "TOOL_CORRUPT_DOUBLE",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_DOUBLE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          40,
+          1
+        ],
+        "top": [
+          [
+            5,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "work",
+        "corruption"
+      ]
+    },
+    {
+      "code": "TOOL_CORRUPT_SAVE",
+      "source": "CORRUPTION",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_SAVE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          40,
+          1
+        ],
+        "top": [
+          [
+            6,
+            8
+          ]
+        ],
+        "bottom": [
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "work",
+        "corruption"
+      ]
+    },
+    {
+      "code": "SHAPER_WORK_SPEED_AND_DOUBLE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_SPEED",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_WORK_DOUBLE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50,
+          30,
+          10
+        ],
+        "top": [
+          [
+            14,
+            18
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            8
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "influence",
+        "work",
+        "hybrid"
+      ],
+      "influence": "SHAPER"
+    },
+    {
+      "code": "SHAPER_WORK_RARITY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_RARITY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50,
+          30,
+          10
+        ],
+        "top": [
+          [
+            16,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "influence",
+        "work"
+      ],
+      "influence": "SHAPER"
+    },
+    {
+      "code": "SHAPER_WORK_EXPERIENCE_AND_LUCK",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_EXPERIENCE",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_WORK_LUCK"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50,
+          30,
+          10
+        ],
+        "top": [
+          [
+            20,
+            25
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            10
+          ],
+          [
+            4,
+            6
+          ]
+        ]
+      },
+      "tags": [
+        "influence",
+        "work",
+        "hybrid"
+      ],
+      "influence": "SHAPER"
+    },
+    {
+      "code": "ELDER_WORK_YIELD_AND_SAVE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_YIELD"
+        },
+        {
+          "stat": "STOCK_WORK_SAVE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50,
+          30,
+          10
+        ],
+        "top": [
+          [
+            20,
+            25
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "influence",
+        "work",
+        "hybrid"
+      ],
+      "influence": "ELDER"
+    },
+    {
+      "code": "ELDER_WORK_FIND_AND_ITEM_LEVEL",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_FIND",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_WORK_ITEM_LEVEL"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50,
+          30,
+          10
+        ],
+        "top": [
+          [
+            20,
+            25
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            10
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "tags": [
+        "influence",
+        "work",
+        "hybrid"
+      ],
+      "influence": "ELDER"
+    },
+    {
+      "code": "ELDER_WORK_UNIQUE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_UNIQUE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          50,
+          30,
+          10
+        ],
+        "top": [
+          [
+            50,
+            60
+          ]
+        ],
+        "bottom": [
+          [
+            20,
+            25
+          ]
+        ]
+      },
+      "tags": [
+        "influence",
+        "work"
+      ],
+      "influence": "ELDER"
+    },
+    {
+      "code": "VEILED_WORK_SPEED_AND_SAVE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_SPEED",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_WORK_SAVE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          45,
+          25,
+          1
+        ],
+        "top": [
+          [
+            16,
+            20
+          ],
+          [
+            6,
+            8
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            8
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "work",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "VEILED_WORK_YIELD_AND_EXPERIENCE",
+      "source": "PREFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_YIELD"
+        },
+        {
+          "stat": "STOCK_WORK_EXPERIENCE",
+          "op": "INCREASED"
+        }
+      ],
+      "grid": {
+        "levels": [
+          45,
+          25,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ],
+          [
+            16,
+            20
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            10
+          ],
+          [
+            6,
+            8
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "work",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "VEILED_WORK_LUCK_AND_DOUBLE",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_LUCK"
+        },
+        {
+          "stat": "STOCK_WORK_DOUBLE"
+        }
+      ],
+      "grid": {
+        "levels": [
+          45,
+          25,
+          1
+        ],
+        "top": [
+          [
+            20,
+            25
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            10
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "work",
+        "hybrid"
+      ]
+    },
+    {
+      "code": "VEILED_WORK_FIND_AND_RARITY",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_WORK_FIND",
+          "op": "INCREASED"
+        },
+        {
+          "stat": "STOCK_WORK_RARITY"
+        }
+      ],
+      "grid": {
+        "levels": [
+          45,
+          25,
+          1
+        ],
+        "top": [
+          [
+            16,
+            20
+          ],
+          [
+            8,
+            10
+          ]
+        ],
+        "bottom": [
+          [
+            6,
+            8
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "tags": [
+        "veiled",
+        "work",
+        "hybrid"
+      ]
     }
   ]
 }

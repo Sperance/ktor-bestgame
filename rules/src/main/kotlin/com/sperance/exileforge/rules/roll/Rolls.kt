@@ -70,6 +70,11 @@ data class ItemInstance(
      * её ни сделали сферами и ремеслом, продать её дороже покупки нельзя - арбитраж «купил, улучшил, продал» закрыт.
      */
     @SerialName("rs") val resale: Long = 0,
+    /**
+     * Варианты строки на выбор (1.65.0): их предложила сфера алхимии или возвышения со знамением выбора, игрок берёт один
+     * ([com.sperance.exileforge.rules.roll.Choices.choose]); любая следующая сфера на копии их снимает.
+     */
+    @SerialName("of") var offer: List<Roll> = emptyList(),
 ) {
     /** Уровень, на котором катаются аффиксы копии. */
     fun level(template: ItemTemplate): Int = if (itemLevel > 0) itemLevel else template.level

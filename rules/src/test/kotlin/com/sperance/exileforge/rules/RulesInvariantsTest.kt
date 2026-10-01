@@ -10,7 +10,9 @@ import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.Menagerie
-import com.sperance.exileforge.rules.content.PetOrbAction
+import com.sperance.exileforge.rules.content.Omen
+import com.sperance.exileforge.rules.roll.OrbTarget
+import com.sperance.exileforge.rules.roll.PetOutcome
 import com.sperance.exileforge.rules.roll.OrbApplier
 import com.sperance.exileforge.rules.roll.Veils
 import com.sperance.exileforge.rules.run.Run
@@ -129,15 +131,22 @@ class RulesInvariantsTest {
         }
     }
 
+    /** Сферы ремесла на питомце (1.65.0) держат дно и потолок его редкости, как на вещи; закреплённая строка не уходит. */
     @Test
     fun aPetKeepsItsRaritysLinesThroughAnyOrb() {
         val pets = Menagerie(index)
+        val orbs = OrbApplier(index)
         val dice = Dice(7L)
         index.pets.eggs.values.forEach { egg ->
             repeat(40) { n ->
                 var pet = pets.hatch(egg, "p$n", dice)!!
                 repeat(30) {
-                    pet = pets.apply(PetOrbAction.entries[dice.nextInt(PetOrbAction.entries.size)], pet, dice) ?: pet
+                    val orb = Orb.entries[dice.nextInt(Orb.entries.size)]
+                    val omen = if (dice.chance(0.2)) Omen.CHOICE else null
+                    val fractured = pet.lines.filter { it.fractured }
+                    pet = (runCatching { orbs.apply(orb, OrbTarget.Beast(pet), dice, omen) }.getOrNull() as? PetOutcome)?.pet ?: pet
+                    pet.offer.firstOrNull()?.let { pet = orbs.choose(pet, 0).pet }
+                    if (orb != Orb.ORB_OF_SCOURING) fractured.forEach { line -> assertTrue(pet.lines.any { it.code == line.code && it.fractured }, "fractured ${line.code} lost to $orb") }
                     val rule = index.pets.rarities.getValue(pet.rarity)
                     assertTrue(pet.lines.size in rule.floor..rule.ceiling, "${pet.species} ${pet.rarity}: ${pet.lines.size} lines")
                     assertEquals(pet.lines.size, pet.lines.map { it.code }.toSet().size, "a line twice on ${pet.species}")

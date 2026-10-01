@@ -12,21 +12,10 @@ enum class Orb {
     ORB_OF_TRANSMUTATION, ORB_OF_AUGMENTATION, ORB_OF_ALTERATION, ORB_OF_ALCHEMY, REGAL_ORB, CHAOS_ORB, EXALTED_ORB, DIVINE_ORB,
     ORB_OF_ANNULMENT, ORB_OF_SCOURING, BLESSED_ORB, VAAL_ORB, ORB_OF_CHANCE, MIRROR_OF_KALANDRA, FRACTURING_ORB,
     SHAPERS_ORB, ELDER_ORB, ABYSS_ORB, ORB_OF_REGRET,
-    EMPOWERING_ORB, MERCY_ORB, PERIL_ORB, HORDE_ORB, MAGUS_ORB, ELITE_ORB, BOUNTY_ORB, TREASURE_ORB, GILDED_ORB, WARDEN_ORB, ESSENCE_ORB, SCRIBE_ORB,
-    GLASSBLOWERS_BAUBLE,
-    /** 1.35.0: качество оружия и брони, сфера раскрытия скрытого модификатора, катализаторы по виду. */
-    WHETSTONE, ARMOURERS_SCRAP, UNVEILING_ORB,
-    CATALYST_LIFE, CATALYST_DEFENCE, CATALYST_ELEMENTAL, CATALYST_PHYSICAL, CATALYST_CHAOS, CATALYST_SPEED, CATALYST_ATTRIBUTE, CATALYST_CASTER;
+    /** 1.35.0: сфера раскрытия скрытого модификатора; 1.65.0: сфера качества - база, фляга, инструмент, карта, питомец, с катализатором - вид. */
+    UNVEILING_ORB, QUALITY_ORB;
 
-    val mapOnly: Boolean get() = ordinal >= EMPOWERING_ORB.ordinal && ordinal <= SCRIBE_ORB.ordinal
-    val flaskOnly: Boolean get() = this == GLASSBLOWERS_BAUBLE
-    val catalyst: Catalyst? get() = if (name.startsWith("CATALYST_")) Catalyst.valueOf(name.removePrefix("CATALYST_")) else null
     val influence: Influence? get() = when (this) { SHAPERS_ORB -> Influence.SHAPER; ELDER_ORB -> Influence.ELDER; ABYSS_ORB -> Influence.ABYSS; else -> null }
-    /** Строка «Алхимия», которую кладёт сфера алхимика; null у прочих. */
-    val alchemyLine: String? get() = when (this) {
-        HORDE_ORB -> "ALC_MAP_PACK"; MAGUS_ORB -> "ALC_MAP_MAGIC"; ELITE_ORB -> "ALC_MAP_RARE"; BOUNTY_ORB -> "ALC_MAP_LOOT"; TREASURE_ORB -> "ALC_MAP_CHESTS"
-        GILDED_ORB -> "ALC_MAP_GOLD"; WARDEN_ORB -> "ALC_MAP_BOSS"; ESSENCE_ORB -> "ALC_MAP_CRYSTALS"; SCRIBE_ORB -> "ALC_MAP_BOOKS"; else -> null
-    }
 
     companion object {
         private val byName = entries.associateBy { it.name }
@@ -89,7 +78,10 @@ data class BenchRules(
     fun tierFor(level: Int): Int = (maxTier - (level - 1) * maxTier / maxMapLevel).coerceIn(1, maxTier)
 }
 
-/** Сферы: шанс уникалки у Orb of Chance и её таблицы, минимум аффиксов для закрепления, сдвиг Ваал, потолок строк алхимии. */
+/**
+ * Сферы: шанс уникалки у Orb of Chance и её таблицы, минимум аффиксов для закрепления, сдвиг Ваал, потолок строк алхимии карты
+ * и таблица этих строк [mapAlchemy] (1.65.0: их кладёт сфера алхимии на карту), сколько вариантов даёт знамение выбора [choices].
+ */
 @Serializable
 data class OrbRules(
     val chanceUniquePercent: Double = 5.0,
@@ -98,16 +90,16 @@ data class OrbRules(
     val fractureMinAffixes: Int = 4,
     val vaalShift: List<Double> = listOf(0.8, 1.2),
     val maxAlchemyLines: Int = 3,
+    val mapAlchemy: String = "alchemy:map",
+    val choices: Int = 3,
 )
 
-/** Фляги: стартовая, потолок качества, шаги «Стеклодува», сферы, что фляга принимает. */
+/** Фляги: стартовая, потолок качества, сферы, что фляга принимает (качество - сферой качества по шагу [QualityRules]). */
 @Serializable
 data class FlaskRules(
     val starter: String = "FLASK_SMALL_LIFE",
     val maxQuality: Int = 20,
-    val baubleCommon: Int = 2,
-    val baubleMagic: Int = 1,
-    val orbs: List<Orb> = listOf(Orb.ORB_OF_TRANSMUTATION, Orb.ORB_OF_ALTERATION, Orb.ORB_OF_AUGMENTATION, Orb.ORB_OF_SCOURING, Orb.ORB_OF_CHANCE, Orb.BLESSED_ORB, Orb.DIVINE_ORB, Orb.VAAL_ORB, Orb.GLASSBLOWERS_BAUBLE),
+    val orbs: List<Orb> = listOf(Orb.ORB_OF_TRANSMUTATION, Orb.ORB_OF_ALTERATION, Orb.ORB_OF_AUGMENTATION, Orb.ORB_OF_SCOURING, Orb.ORB_OF_CHANCE, Orb.BLESSED_ORB, Orb.DIVINE_ORB, Orb.VAAL_ORB, Orb.QUALITY_ORB),
 )
 
 /**
@@ -123,12 +115,24 @@ data class AuctionRules(
     /** Мест под лоты у каждого героя (1.44.0): поровну и без докупки. */
     val slots: Int = 12, val minLevel: Int = 1,
     val buyerFee: Double = 0.0, val lotDays: Int = 30,
+    /** Валюта аукциона (1.65.0): цена лота, покупка и фильтр витрины - только этими базовыми сферами; товаром идёт любой предмет. */
+    val currencies: List<Orb> = BASE_CURRENCIES,
 ) {
+    /** Можно ли назначить цену в предмете [code]. */
+    fun trades(code: String): Boolean = currencies.any { it.name == code }
+
     /** Сбор с покупателя золотом (1.13.0): [buyerFee] процентов цены лота в ценах сфер [orbPrice]; в дробях - без переполнения Long. */
     fun fee(orbPrice: Long, price: Long): Long = Math.round(orbPrice.toDouble() * price.toDouble() * buyerFee / 100).coerceAtLeast(0)
 
     /** Срок лота в миллисекундах. */
     val lotMillis: Long get() = lotDays * 86_400_000L
+
+    companion object {
+        val BASE_CURRENCIES = listOf(
+            Orb.ORB_OF_TRANSMUTATION, Orb.ORB_OF_AUGMENTATION, Orb.ORB_OF_ALTERATION, Orb.ORB_OF_ALCHEMY, Orb.REGAL_ORB, Orb.CHAOS_ORB, Orb.EXALTED_ORB,
+            Orb.DIVINE_ORB, Orb.ORB_OF_ANNULMENT, Orb.ORB_OF_SCOURING, Orb.BLESSED_ORB, Orb.ORB_OF_CHANCE,
+        )
+    }
 }
 
 /**
@@ -291,6 +295,11 @@ data class EngineRules(
     val charges: ChargeRules = ChargeRules(),
     val quality: QualityRules = QualityRules(),
     val maxCharacters: Int = 3,
+    /**
+     * Снятые предметы сумки (1.65.0): старый код → код, которым он становится в сумке героя при чтении документа. Так сферы
+     * питомцев, сферы карт и качества прежних версий не остаются в сумке мёртвым грузом.
+     */
+    val retired: Map<String, String> = emptyMap(),
 ) {
     /** Места аффиксов редкости на предмете слота: `<редкость>:<слот>` перекрывает `<редкость>`. */
     fun limits(rarity: Rarity, slot: Slot? = null): RarityLimits =
@@ -304,9 +313,9 @@ data class EngineRules(
         if (bench.costs.isEmpty() || bench.maxMapLevel < 1) fail("rules: bench")
         if (merchant.minOffers < 0 || merchant.minOffers > merchant.maxOffers || merchant.markup < 1 || merchant.windowHours <= 0) fail("rules: merchant")
         if (merchant.orbs.markup < 1 || merchant.orbs.growth < 1) fail("rules: merchant orbs")
-        if (orbs.vaalShift.size != 2 || orbs.vaalShift[0] > orbs.vaalShift[1] || orbs.fractureMinAffixes < 1 || orbs.maxAlchemyLines < 0) fail("rules: orbs")
+        if (orbs.vaalShift.size != 2 || orbs.vaalShift[0] > orbs.vaalShift[1] || orbs.fractureMinAffixes < 1 || orbs.maxAlchemyLines < 0 || orbs.choices < 1) fail("rules: orbs")
         if (loot.rarityWeights.keys != Rarity.entries.toSet()) fail("rules: loot rarity weights")
-        if (auction.slots < 1 || auction.buyerFee < 0) fail("rules: auction")
+        if (auction.slots < 1 || auction.buyerFee < 0 || auction.currencies.isEmpty()) fail("rules: auction")
         stash.validate()
         if (run.newSeedSeconds < 0) fail("rules: run")
         if (auction.lotDays <= 0) fail("rules: auction.lotDays")
