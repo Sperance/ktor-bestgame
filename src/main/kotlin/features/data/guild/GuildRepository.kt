@@ -691,9 +691,15 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         }
     }
 
-    private suspend fun guildOf(heroId: String): Guild? = findByFilter(Filters.eq("members.heroId", heroId)).firstOrNull()
+    private suspend fun guildOf(heroId: String): Guild? = findByFilter(Filters.eq("members.heroId", heroId)).firstOrNull()?.let(::retireOrbs)
 
-    private suspend fun requireGuild(guildId: String, method: String): Guild = findById(guildId) ?: throw GuildExceptions.funExceptionNotFound(method, guildId)
+    private suspend fun requireGuild(guildId: String, method: String): Guild =
+        retireOrbs(findById(guildId) ?: throw GuildExceptions.funExceptionNotFound(method, guildId))
+
+    /** Снятые сферы казны становятся своей заменой из правил - как в сумке героя: в казне не остаётся кодов, которых нет в контенте. */
+    private fun retireOrbs(guild: Guild): Guild = guild.also {
+        index.rules.retired.forEach { (old, new) -> guild.treasuryOrbs.remove(old)?.let { amount -> guild.treasuryOrbs.merge(new, amount, Long::plus) } }
+    }
 
     /** Герой вне гильдии и не ждёт конца запрета на вступление. */
     private suspend fun requireFree(heroId: String, method: String): Hero {
