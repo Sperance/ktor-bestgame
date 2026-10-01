@@ -5166,7 +5166,7 @@
   "stat.template.ATLAS_VAAL_UNIQUE.ADD": "{v}% increased chance of Vaal Unique Items",
   "stat.template.ATLAS_OMENS.ADD": "{v}% more Omens found in your Maps",
   "stat.template.ATLAS_CATALYSTS.ADD": "{v}% more Catalysts found in your Maps",
-  "stat.template.ATLAS_QUALITY_ORBS.ADD": "{v}% more Whetstones and Armourer’s Scraps found in your Maps",
+  "stat.template.ATLAS_QUALITY_ORBS.ADD": "{v}% more Orbs of Quality found in your Maps",
   "stat.template.ATLAS_VEILED.ADD": "{v}% chance for loot of magic and rare monsters to be veiled",
   "stat.template.ATLAS_MONSTER_LIFE.ADD": "Monsters in your Maps have {v}% more life (rewarded as risk)",
   "stat.template.ATLAS_MONSTER_DAMAGE.ADD": "Monsters in your Maps deal {v}% more damage (rewarded as risk)",

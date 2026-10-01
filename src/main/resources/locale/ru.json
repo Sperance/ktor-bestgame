@@ -5166,7 +5166,7 @@
   "stat.template.ATLAS_VAAL_UNIQUE.ADD": "{v}% больше шанс уникалки Ваал",
   "stat.template.ATLAS_OMENS.ADD": "{v}% больше знамений на картах",
   "stat.template.ATLAS_CATALYSTS.ADD": "{v}% больше катализаторов на картах",
-  "stat.template.ATLAS_QUALITY_ORBS.ADD": "{v}% больше точильных камней и обрезков брони на картах",
+  "stat.template.ATLAS_QUALITY_ORBS.ADD": "{v}% больше сфер качества на картах",
   "stat.template.ATLAS_VEILED.ADD": "{v}% шанс скрытой строки на добыче волшебных и редких монстров",
   "stat.template.ATLAS_MONSTER_LIFE.ADD": "Монстры на картах: {v}% больше здоровья (награда за риск)",
   "stat.template.ATLAS_MONSTER_DAMAGE.ADD": "Монстры на картах: {v}% больше урона (награда за риск)",
