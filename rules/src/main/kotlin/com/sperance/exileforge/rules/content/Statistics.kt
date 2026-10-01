@@ -71,8 +71,12 @@ object Stat {
     const val FOUND = "FOUND"
     const val SPENT = "SPENT"
     const val JOB = "JOB"
-    /** 1.52.0: убийства по редкости монстра, смерти по убийце, заходы, смерти и сундуки по зонам. */
+    /**
+     * Убийства по редкости монстра (1.52.0) не хранятся: это счётчики летописи [Counter.KILLS], [Counter.KILLS_MAGIC],
+     * [Counter.KILLS_RARE], [Counter.BOSSES] - группа выводится из них в [fromCounters].
+     */
     const val RARITY = "RARITY"
+    /** 1.52.0: смерти по убийце, заходы, смерти и сундуки по зонам. */
     const val KILLER = "KILLER"
     const val ZONE_RUNS = "ZONE_RUNS"
     const val ZONE_DEATHS = "ZONE_DEATHS"
@@ -84,8 +88,26 @@ object Stat {
     val COMBAT = listOf(FIGHTS, FIGHTS_WON, FIGHT_SECONDS, FIGHT_LONGEST, BOSS_FASTEST, LEVEL_MAX, DEALT, HIT_MAX, TAKEN, HEALED, HITS, CRITS, MISSES, BLOCKED, EVADED, AILMENTS)
     val GROUPS = listOf(RARITY, KILL, BOSS, KILLER, ZONE_RUNS, ZONE_DEATHS, ZONE_CHESTS, FOUND, SPENT, JOB)
 
+    /** Группы, выводимые из счётчиков летописи: в коллекции статистики не хранятся, старые записи в них не читаются. */
+    val DERIVED_GROUPS = setOf(RARITY)
+
     fun of(group: String, code: String) = "$group:$code"
     fun dealt(type: String) = of(DEALT, type)
+
+    fun derived(key: String): Boolean = key.substringBefore(':', "") in DERIVED_GROUPS
+
+    /** Строки статистики, которые дублировали бы счётчики летописи, - из самих [counters] героя; нулевые опущены. */
+    fun fromCounters(counters: Map<String, Long>): Map<String, Long> {
+        fun count(code: String) = counters[code] ?: 0L
+        val magic = count(Counter.KILLS_MAGIC)
+        val rare = count(Counter.KILLS_RARE)
+        return mapOf(
+            of(RARITY, MonsterRarity.NORMAL.name) to (count(Counter.KILLS) - magic - rare).coerceAtLeast(0),
+            of(RARITY, MonsterRarity.MAGIC.name) to magic,
+            of(RARITY, MonsterRarity.RARE.name) to rare,
+            of(RARITY, MonsterRarity.UNIQUE.name) to count(Counter.BOSSES),
+        ).filterValues { it > 0 }
+    }
 }
 
 /** Прирост статистики за одну команду: суммы и рекорды; пишется одним обновлением после записи героя. */
@@ -95,7 +117,7 @@ class StatTally {
     val lows = mutableMapOf<String, Long>()
     val empty: Boolean get() = sums.isEmpty() && highs.isEmpty() && lows.isEmpty()
 
-    fun add(key: String, amount: Long = 1) { if (amount > 0) sums.merge(key, amount, Long::plus) }
+    fun add(key: String, amount: Long = 1) { if (amount > 0 && !Stat.derived(key)) sums.merge(key, amount, Long::plus) }
     fun add(group: String, code: String, amount: Long = 1) = add(Stat.of(group, code), amount)
 
     fun record(key: String, value: Long) {

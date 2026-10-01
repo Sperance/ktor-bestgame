@@ -272,7 +272,6 @@ class CampaignService : KoinComponent {
                 hero.count(Counter.KILLS)
                 monster.let {
                     hero.stats.add(Stat.KILL, it.code)
-                    hero.stats.add(Stat.RARITY, it.rarity.name)
                     hero.stats.record(Stat.LEVEL_MAX, zone.level.toLong())
                 }
                 when (monster.rarity) {
@@ -299,7 +298,6 @@ class CampaignService : KoinComponent {
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
                 hero.count(Counter.BOSSES)
                 hero.stats.add(Stat.BOSS, zone.boss)
-                hero.stats.add(Stat.RARITY, MonsterRarity.UNIQUE.name)
                 hero.stats.record(Stat.LEVEL_MAX, zone.level.toLong())
                 if (campaignState.activeMap?.mapCode == mapCode) hero.count(Counter.MAP_BOSSES)
                 if (campaignState.activeMap?.takeIf { it.mapCode == mapCode }?.itemRarity == Rarity.RARE) AtlasPoints.earn(hero.earned, AtlasPoints.RARE, mapCode)

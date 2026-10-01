@@ -147,7 +147,6 @@ class TrialService : KoinComponent {
                 hero.count(Counter.BOSSES)
                 hero.count(Counter.RUSH_BOSSES)
                 plan.zones.getOrNull(event.index)?.let { hero.stats.add(Stat.BOSS, it.boss) }
-                hero.stats.add(Stat.RARITY, com.sperance.exileforge.rules.content.MonsterRarity.UNIQUE.name)
                 hero.stats.record(Stat.LEVEL_MAX, run.heroLevel.toLong())
                 Reward.NONE
             }
