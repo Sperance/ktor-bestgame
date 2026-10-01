@@ -34,7 +34,7 @@ object AccessPolicy {
      * Целиком их читает только администратор; игрок видит своё через игровые маршруты.
      */
     val privateCollections = setOf(
-        "user", "hero", "auctionlot", "redemptioncodes", "blocklist", "authsession", "guild", "guildevent", "bugreport", "herostats", "routetiming",
+        "user", "hero", "auctionlot", "redemptioncodes", "blocklist", "authsession", "guild", "guildevent", "bugreport", "herostats", "routetiming", "mail",
     )
 
     /** Игровые маршруты, которыми выдаётся что-то из ничего: тестировщику (1.69.0) - своим героям, администратору - любым. */

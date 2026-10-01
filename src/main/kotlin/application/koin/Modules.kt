@@ -44,6 +44,7 @@ val repositoryModule = module {
     single { BlockListRepository() }
     single { RedemptionCodesRepository() }
     single { features.data.bugReport.BugReportRepository() }
+    single { features.data.mail.MailRepository() }
     single { InventoryService() }
     single { TreeService() }
     single { AtlasService() }
@@ -70,7 +71,8 @@ val routeModule = module {
                 GuildRoute(get()),
                 RedemptionCodesRoute(get()),
                 features.data.bugReport.BugReportRoute(get(), get()),
-                features.data.admin.AdminRoute(get(), get()),
+                features.data.admin.AdminRoute(get(), get(), get(), get()),
+                features.data.mail.MailRoute(get()),
             )
         )
     }
