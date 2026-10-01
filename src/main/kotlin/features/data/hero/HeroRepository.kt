@@ -93,6 +93,11 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     /** Узлы атласа, которых контент больше не знает, уходят (1.30.0): они не держат возврат и не едят очко. */
     private fun forgetUnknownAtlas(hero: Hero): Hero = hero.also { it.atlas.retainAll { code -> index.atlasGraph.node(code) != null } }
 
+    /** Снятые предметы сумки (1.65.0) становятся своей заменой из правил: в сумке не остаётся кодов, которых нет в контенте. */
+    private fun retireItems(hero: Hero): Hero = hero.also {
+        index.rules.retired.forEach { (old, new) -> hero.bag.remove(old)?.let { amount -> hero.bag.merge(new, amount, Long::plus) } }
+    }
+
     override suspend fun validateBeforeInsert(entity: Hero, session: ClientSession) {
         val method = "validateBeforeInsert"
         val player = caller()?.takeUnless { it.isAdmin }
@@ -181,9 +186,9 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         collection.updateMany(session, readFilter(filter), Updates.combine(update, Updates.inc(CONST_FIELD_VERSION, 1L), Updates.set(CONST_FIELD_UPDATED, LocalDateTime.now())))
     }
 
-    /** Герой для команды: с заходом ([HeroRunStore.hydrate]) и без забытых узлов атласа. */
+    /** Герой для команды: с заходом ([HeroRunStore.hydrate]), без забытых узлов атласа и снятых предметов сумки. */
     suspend fun requireHero(heroId: String, method: String): Hero =
-        HeroRunStore.hydrate(forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) }))
+        HeroRunStore.hydrate(retireItems(forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })))
 
     /** Одна запись героя без транзакции (1.53.0): один документ с фильтром по версии атомарен сам, объект в памяти идёт в ногу с базой. */
     suspend fun save(hero: Hero, method: String): Hero {

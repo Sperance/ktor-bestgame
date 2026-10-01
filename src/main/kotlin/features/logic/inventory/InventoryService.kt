@@ -179,6 +179,14 @@ class InventoryService : KoinComponent {
         return finish(hero, orbs.reveal(item, template(item, method), choice), method)
     }
 
+    /** Выбор [choice] из вариантов знамения выбора (1.65.0): бесплатно, одной записью. */
+    suspend fun choose(heroId: String, itemId: String, choice: Int): CurrencyApplyResponse {
+        val method = "choose"
+        val hero = heroes.requireHero(heroId, method)
+        val item = hero.requireItem(itemId, method)
+        return finish(hero, orbs.choose(item, template(item, method), choice), method)
+    }
+
     /** Эссенция [essenceCode] на копию - так же, одной записью со списанием. */
     suspend fun applyEssence(heroId: String, itemId: String, essenceCode: String): CurrencyApplyResponse {
         val method = "applyEssence"

@@ -1,10 +1,14 @@
 package features.logic.pets
 
 import base.exception.model.CharacterExceptions
+import base.exception.model.CurrencyExceptions
+import com.sperance.exileforge.rules.content.Counter
+import com.sperance.exileforge.rules.content.Omen
 import com.sperance.exileforge.rules.content.Pet
 import com.sperance.exileforge.rules.content.PetKind
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.Menagerie
+import com.sperance.exileforge.rules.roll.OrbApplier
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
@@ -29,6 +33,7 @@ class PetService : KoinComponent {
     private val content: ContentStore by inject()
     private val index get() = content.index
     private val cap: Int get() = index.rules.pets.cap
+    private val orbs by lazy { OrbApplier(index) }
 
     suspend fun state(heroId: String): PetState = PetState.of(heroes.requireHero(heroId, "pets"), cap)
 
@@ -39,12 +44,32 @@ class PetService : KoinComponent {
         hero.pets += pets.hatch(egg, Hero.newItemId(), Dice.system()) ?: throw CharacterExceptions.funExceptionNotPetItem("petHatch", egg)
     }
 
-    suspend fun orb(heroId: String, petId: String, orb: String): PetState = command(heroId, "petOrb") { hero, pets ->
-        val action = pets.orb(orb) ?: throw CharacterExceptions.funExceptionNotPetItem("petOrb", orb)
-        val pet = requirePet(hero, petId, "petOrb")
-        val next = pets.apply(action, pet, Dice.system()) ?: throw CharacterExceptions.funExceptionPetOrbIdle("petOrb", orb)
-        hero.spend(orb, 1, "petOrb")
+    /**
+     * Сфера на питомце (1.65.0): сфера ремесла вещей - через [OrbApplier] с целью-питомцем и знамением [omenCode], сфера роста - своя.
+     * Сфера и знамение списываются той же записью; отказ правила их не съедает.
+     */
+    suspend fun orb(heroId: String, petId: String, orb: String, omenCode: String? = null): PetState = command(heroId, "petOrb") { hero, pets ->
+        val method = "petOrb"
+        val pet = requirePet(hero, petId, method)
+        val crafting = index.orb(orb)
+        if (crafting != null) {
+            val omen = omenCode?.let { Omen.of(it) ?: throw CurrencyExceptions.funExceptionNotCurrency(method, it) }
+            val outcome = orbs.apply(crafting, pet, Dice.system(), omen)
+            hero.spend(orb, 1, method)
+            omen?.let { hero.spend(it.code, 1, method) }
+            hero.count(Counter.ORBS_USED)
+            hero.replacePet(outcome.pet)
+            return@command
+        }
+        val action = pets.orb(orb) ?: throw CharacterExceptions.funExceptionNotPetItem(method, orb)
+        val next = pets.apply(action, pet, Dice.system()) ?: throw CharacterExceptions.funExceptionPetOrbIdle(method, orb)
+        hero.spend(orb, 1, method)
         hero.replacePet(next)
+    }
+
+    /** Выбор [choice] из вариантов знамения выбора на питомце (1.65.0): бесплатно. */
+    suspend fun choose(heroId: String, petId: String, choice: Int): PetState = command(heroId, "petChoose") { hero, _ ->
+        hero.replacePet(orbs.choose(requirePet(hero, petId, "petChoose"), choice).pet)
     }
 
     /** Питомец в дело на место своего рода; повторно - снять с места. */

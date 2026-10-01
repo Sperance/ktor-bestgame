@@ -49,7 +49,8 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     /** Витрина по курсору (1.62.0): страница после лота [after], без `skip`. */
     suspend fun search(heroId: String, search: AuctionSearch, after: String?, size: Int): CursorPage<AuctionLot> {
         requireTrader(heroId, "search")
-        val found = findAfter(search.toFilter(), after, size)
+        search.priceOrb?.let { requireOrb(it, "search") }
+        val found = findAfter(search.toFilter(currencies = rules.currencies.map { it.name }), after, size)
         return found.copy(items = found.items.map { reconciled(it) })
     }
 
@@ -112,6 +113,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         val buyer = requireTrader(heroId, method)
         val lot = requireOpenLot(lotId, method)
         if (lot.sellerId == heroId) throw AuctionExceptions.funExceptionOwnLot(method, lotId)
+        requireOrb(lot.priceOrb, method)
         val seller = heroes.findById(lot.sellerId) ?: throw CharacterExceptions.funExceptionNotFound(method, lot.sellerId)
         val fee = lot.fee
         if (buyer.money < fee) throw CharacterExceptions.funExceptionGold(method, fee.toString())
@@ -261,7 +263,8 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     private fun requireOrb(code: String, method: String) {
         val item = index.item(code) ?: throw CharacterExceptions.funExceptionItemNotFound(method, code)
-        if (item.category != Item.CURRENCY) throw AuctionExceptions.funExceptionPriceNotOrb(method, code)
+        // Цена (1.65.0) - только базовыми сферами ремесла правил аукциона; товаром идёт любой предмет.
+        if (item.category != Item.CURRENCY || !index.rules.auction.trades(code)) throw AuctionExceptions.funExceptionPriceNotOrb(method, code)
     }
 
     /** Цена больше нуля. */

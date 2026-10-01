@@ -1,5 +1,6 @@
 package features.data.hero
 
+import io.ktor.server.application.ApplicationCall
 import com.sperance.exileforge.rules.content.TreePlan
 import com.sperance.exileforge.rules.content.SlotGroup
 import base.exception.BaseRouteExceptions
@@ -118,6 +119,10 @@ class HeroRoute(
         post("/unsocket") { call.respondWithHero(inventory.unsocket(call.heroId, call.itemId)) }
         post("/sell") { call.respondWithHero(inventory.sell(call.heroId, call.itemId)) }
         post("/orb") { call.respondWithHero(inventory.applyOrb(call.heroId, call.itemId, call.queryParam("orb"), call.optionalParam("omen"))) }
+        post("/choose") {
+            val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("choose", "choice")
+            call.respondWithHero(inventory.choose(call.heroId, call.itemId, choice))
+        }
         post("/unveil") {
             val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("unveil", "choice")
             call.respondWithHero(inventory.unveil(call.heroId, call.itemId, choice))
@@ -163,7 +168,11 @@ class HeroRoute(
         route("/pets") {
             get { call.respondOk(pets.state(call.heroId)) }
             post("/hatch") { call.respondWithHero(pets.hatch(call.heroId, call.queryParam("egg"))) }
-            post("/orb") { call.respondWithHero(pets.orb(call.heroId, call.queryParam("petId"), call.queryParam("orb"))) }
+            post("/orb") { call.respondWithHero(pets.orb(call.heroId, call.queryParam("petId"), call.queryParam("orb"), call.optionalParam("omen"))) }
+            post("/choose") {
+                val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("petChoose", "choice")
+                call.respondWithHero(pets.choose(call.heroId, call.queryParam("petId"), choice))
+            }
             post("/activate") { call.respondWithHero(pets.activate(call.heroId, call.queryParam("petId"))) }
             post("/release") { call.respondWithHero(pets.release(call.heroId, call.queryParam("petId"))) }
         }
@@ -252,8 +261,8 @@ class HeroRoute(
         route("/atlas") {
             get("/state") { call.respondOk(atlas.state(call.heroId)) }
             post("/allocate") { call.respondWithHero(atlas.allocate(call.heroId, call.queryParam("nodeCode"))) }
-            post("/refund") { call.respondWithHero(atlas.refund(call.heroId, call.queryParam("nodeCode"))) }
-            post("/reset") { call.respondWithHero(atlas.reset(call.heroId)) }
+            post("/refund") { call.respondWithHero(atlas.refund(call.heroId, call.queryParam("nodeCode"), call.regret())) }
+            post("/reset") { call.respondWithHero(atlas.reset(call.heroId, call.regret())) }
         }
     }
 }
@@ -261,3 +270,6 @@ class HeroRoute(
 /** Условие слота по имени; неизвестное - отказ, а не тихое «как готово». */
 private fun condition(name: String): SlotCondition =
     SlotCondition.entries.firstOrNull { it.name == name } ?: throw SkillExceptions.funExceptionCondition("condition", name)
+
+/** Откат атласа сферами сожаления (1.65.0) вместо золота: `regret=true`. */
+private fun ApplicationCall.regret(): Boolean = optionalParam("regret")?.toBooleanStrictOrNull() == true

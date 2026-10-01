@@ -258,7 +258,7 @@ class CraftsService : KoinComponent {
     /** Бонусы труда: ветка дерева из листа героя (инструменты в него не входят) и инструмент своей профессии. */
     private fun bonus(sheet: Map<String, Double>, tool: ItemInstance?): WorkBonus {
         val stats = sheet.toMutableMap()
-        tool?.let { SheetCalculator(index).expandRolls(it.rolls).forEach { op -> stats.merge(op.stat, op.value, Double::plus) } }
+        tool?.let { SheetCalculator(index).toolOperations(it).forEach { op -> stats.merge(op.stat, op.value, Double::plus) } }
         return WorkBonus.of(stats)
     }
 }

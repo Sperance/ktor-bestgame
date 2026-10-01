@@ -134,7 +134,7 @@ class CampaignService : KoinComponent {
         if (item != null && (template == null || template.slot != Slot.MAP || item.mapZone != mapCode || item.equipped))
             throw CampaignExceptions.funExceptionMapItem(method, template?.code ?: item.template)
         val active = item?.let { loot.activeMap(mapCode, loot.atlasPowers(loot.mapEffects(it, bonuses.mapEffect), bonuses.effects), it.rarity, it.mapTier,
-            it.influence?.takeIf { influence -> influence in campaign.maps.influence.kinds }, bonuses.effects) }
+            it.influence?.takeIf(campaign.maps.influence::accepts), bonuses.effects) }
         val sheet = index.sheetOf(hero).stats
         val chests = Chests.window(state.chests[mapCode], System.currentTimeMillis(), campaign.chests, sheet[CoreStat.CHEST_QUANTITY.code] ?: 0.0, bonuses.chests, dice)
         state.chests[mapCode] = chests.copy(left = chests.left + (active?.effects?.get(CoreStat.MAP_CHESTS.code)?.toInt() ?: 0))

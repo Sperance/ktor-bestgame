@@ -1,6 +1,8 @@
 package features.logic.atlas
 
 import base.exception.model.CharacterExceptions
+import base.exception.model.SkillTreeExceptions
+import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.AtlasAllocation
 import com.sperance.exileforge.rules.content.AtlasBonuses
 import com.sperance.exileforge.rules.content.AtlasPoints
@@ -40,26 +42,34 @@ class AtlasService : KoinComponent {
         return state(heroes.save(hero, method))
     }
 
-    suspend fun refund(heroId: String, nodeCode: String): AtlasState {
+    /** Откат узла: золотом по цене контента или, с [regret] (1.65.0), сферой сожаления - как узел дерева навыков. */
+    suspend fun refund(heroId: String, nodeCode: String, regret: Boolean = false): AtlasState {
         val method = "refundAtlas"
         val hero = heroes.requireHero(heroId, method)
         AtlasAllocation.requireRefundable(index.atlasGraph, nodeCode, hero.atlas)
-        charge(hero, index.atlas.respec.price(hero.level, 1), method)
+        charge(hero, 1, regret, method)
         hero.atlas.remove(nodeCode)
         return state(heroes.save(hero, method))
     }
 
-    /** Полный сброс стоит столько же, сколько поузловой откат всего взятого. */
-    suspend fun reset(heroId: String): AtlasState {
+    /** Полный сброс стоит столько же, сколько поузловой откат всего взятого: золотом или сферой сожаления за узел. */
+    suspend fun reset(heroId: String, regret: Boolean = false): AtlasState {
         val method = "resetAtlas"
         val hero = heroes.requireHero(heroId, method)
         if (hero.atlas.isEmpty()) return state(hero)
-        charge(hero, index.atlas.respec.price(hero.level, hero.atlas.size), method)
+        charge(hero, hero.atlas.size, regret, method)
         hero.atlas.clear()
         return state(heroes.save(hero, method))
     }
 
-    private fun charge(hero: Hero, price: Long, method: String) {
+    private fun charge(hero: Hero, nodes: Int, regret: Boolean, method: String) {
+        if (regret) {
+            val owned = hero.bag[Orb.ORB_OF_REGRET.name] ?: 0L
+            if (owned < nodes) throw SkillTreeExceptions.funExceptionNoRegret(method, "$nodes, have $owned")
+            hero.spend(Orb.ORB_OF_REGRET.name, nodes.toLong(), method)
+            return
+        }
+        val price = index.atlas.respec.price(hero.level, nodes)
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
         hero.pay(price)
     }
