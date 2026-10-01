@@ -254,9 +254,12 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
 
     /** Очищение карты (1.65.0): обычной карта не бывает - волшебная с одним случайным аффиксом (закреплённые остаются). */
     private fun scourMap(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
-        val kept = affixes.permanent(item.rolls) + affixes.fractured(item.rolls)
+        val fractured = affixes.fractured(item.rolls)
+        val kept = affixes.permanent(item.rolls) + fractured
+        // Волшебная карта, на которой лишь закреплённые аффиксы, осталась бы прежней: сфера не тратится.
+        if (item.rarity == Rarity.MAGIC && fractured.isNotEmpty() && item.rolls.size == kept.size) throw RuleViolation("CR_006", listOf(name(template)))
         item.rarity = Rarity.MAGIC
-        item.rolls = kept + listOfNotNull(if (affixes.fractured(item.rolls).isEmpty()) affixes.rollExtraAffix(template, Rarity.MAGIC, kept, dice, item.influence, item.level(template)) else null)
+        item.rolls = kept + listOfNotNull(if (fractured.isEmpty()) affixes.rollExtraAffix(template, Rarity.MAGIC, kept, dice, item.influence, item.level(template)) else null)
         return outcome(item, template, "currency.scoured_map")
     }
 
