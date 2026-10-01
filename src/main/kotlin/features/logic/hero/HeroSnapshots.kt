@@ -7,6 +7,7 @@ import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.sha256
 import com.sperance.exileforge.rules.roll.ActiveWork
+import com.sperance.exileforge.rules.roll.CraftsAway
 import com.sperance.exileforge.rules.roll.ItemBuckets
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.ProfessionProgress
@@ -65,7 +66,7 @@ data class HeroView(
 
 /** Ремёсла героя как они лежат: прогресс профессий и идущая работа; виды считает клиент правилами. */
 @Serializable
-data class WorkState(val professions: Map<String, ProfessionProgress> = emptyMap(), val work: ActiveWork? = null)
+data class WorkState(val professions: Map<String, ProfessionProgress> = emptyMap(), val work: ActiveWork? = null, val away: CraftsAway? = null)
 
 /**
  * Снимки героя для ответов команд и `GET /hero/view`. Версия части - отпечаток её JSON: совпал -
@@ -124,7 +125,7 @@ object HeroSnapshots : KoinComponent {
         part(BAG, MapSerializer(String.serializer(), Long.serializer()), hero.bag)
         part(TREE, ListSerializer(TakenNode.serializer()), hero.tree)
         part(CAMPAIGN, CampaignState.serializer(), hero.campaign)
-        part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work))
+        part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work, hero.craftsAway))
         part(MERCHANT, MerchantStock.serializer(), merchant.current(hero))
         part(PETS, PetState.serializer(), PetState.of(hero, content.index.rules.pets.cap))
         return HeroSnapshot(hero.version.toString(), parts)

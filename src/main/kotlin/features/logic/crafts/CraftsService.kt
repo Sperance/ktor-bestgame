@@ -18,6 +18,8 @@ import com.sperance.exileforge.rules.content.SmithChoice
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.roll.ActiveWork
 import com.sperance.exileforge.rules.roll.AffixRoller
+import com.sperance.exileforge.rules.roll.AwayStop
+import com.sperance.exileforge.rules.roll.CraftsAway
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -58,10 +60,13 @@ data class ProfessionView(val code: String, val tool: String, val level: Int, va
 data class WorkView(val profession: String, val job: String, val settledAt: Long, val cycleMillis: Long, val nextAt: Long, val additives: List<String> = emptyList(),
                     val seed: Long = 0, val cycle: Long = 0, val startedAt: Long = 0, val totals: WorkTally = WorkTally(), val choice: String = "")
 
-/** Всё о ремёслах героя одним ответом; [gains] - что добыли циклы, досчитанные этим обращением. */
+/**
+ * Всё о ремёслах героя одним ответом; [gains] - что добыли циклы, досчитанные этим обращением, [away] - последний
+ * досчёт за отлучку не короче пяти минут (1.66.0), тот же, что в части `crafts` снимка героя.
+ */
 @Serializable
 data class CraftsState(val now: Long, val rules: CraftsRules, val professions: List<ProfessionView>, val work: WorkView?, val gains: WorkGains,
-                       val additives: Map<String, String> = emptyMap(), val maxAdditives: Int = 0)
+                       val additives: Map<String, String> = emptyMap(), val maxAdditives: Int = 0, val away: CraftsAway? = null)
 
 /**
  * Ремёсла героя: работа идёт на сервере по времени и досчитывается при каждом обращении, добыча
@@ -116,7 +121,9 @@ class CraftsService : KoinComponent {
 
     /**
      * Досчитывает работу до сейчас и кладёт добычу герою; изменившийся герой записывается. Зовётся перед
-     * всем, что читает или тратит сумку, чтобы добытое не терялось между экранами.
+     * всем, что читает или тратит сумку, чтобы добытое не терялось между экранами. Отлучка (1.66.0) - время с
+     * последнего чтения героя ([Hero.seenAt], не реже раза в [SEEN_STEP]) или с последнего цикла; не короче
+     * [CraftsAway.MIN_MILLIS] - и досчёт ложится в [Hero.craftsAway] для сводки «Пока вас не было».
      */
     suspend fun settle(hero: Hero): WorkGains {
         val method = "craftsSettle"
@@ -126,8 +133,13 @@ class CraftsService : KoinComponent {
         val dice = Dice.system()
         // Кости циклов - с потока героя (1.53.0): семя не уходит клиенту, а перезапуск работы продолжает поток, а не катит новый
         val bonus = bonus(hero, profession)
-        val result = Work.settle(file.rules, job, progress, bonus, work.settledAt, System.currentTimeMillis(), hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
-        if (result.settledAt == work.settledAt && !result.gains.starved) return result.gains
+        val now = System.currentTimeMillis()
+        val since = maxOf(work.settledAt, hero.seenAt)
+        val result = Work.settle(file.rules, job, progress, bonus, work.settledAt, now, hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
+        if (result.settledAt == work.settledAt && !result.gains.starved) {
+            if (now - hero.seenAt >= SEEN_STEP) { hero.seenAt = now; heroes.save(hero, method) }
+            return result.gains
+        }
         // Самоцветы - не раньше `loot.jewelHeroLevel`: огранка ниже него ничего не даёт, кузнец тянет другую базу
         val bases = index.forHero(when (job.kind) {
             JobKind.EQUIPMENT -> craftBases(job).filter { base -> SmithChoice.of(work.choice)?.fits(base.value) == true }
@@ -145,7 +157,20 @@ class CraftsService : KoinComponent {
         // Возврат материалов (1.53.0) мог вернуть весь расход цикла: нулевое списание - не отказ
         gains.spent.forEach { (code, amount) -> if (amount > 0) hero.spend(code, amount, method) }
         gains.items.forEach { (code, amount) -> hero.earn(code, amount) }
-        Stash.receive(hero, made, index)
+        val received = Stash.receive(hero, made, index)
+        hero.seenAt = now
+        if (now - since >= CraftsAway.MIN_MILLIS) {
+            val stop = when {
+                result.gains.starved -> AwayStop.INPUTS
+                now > work.settledAt + (file.rules.offlineHours * 3_600_000).toLong() -> AwayStop.CAP
+                received.overflowed + received.sold > 0 -> AwayStop.FULL
+                else -> null
+            }
+            val gained = result.gains.items.mapValues { it.value.toInt() } + made.groupingBy { it.template }.eachCount()
+            hero.craftsAway = CraftsAway(since, now, work.profession, work.job, work.choice, result.gains.cycles,
+                gained.filterValues { it > 0 }, result.gains.spent.mapValues { it.value.toInt() }.filterValues { it > 0 },
+                result.gains.experience, result.gains.levels, stop)
+        }
         hero.count(Counter.CRAFT_CYCLES, result.gains.cycles.toLong())
         hero.stats.add(com.sperance.exileforge.rules.content.Stat.JOB, job.code, result.gains.cycles.toLong())
         // Книга переписчика - тоже сделанная вещь, хоть и ложится в сумку.
@@ -175,7 +200,7 @@ class CraftsService : KoinComponent {
                 WorkView(work.profession, work.job, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives, 0, work.cycles, work.startedAt, work.totals, work.choice)
             }
         }
-        return CraftsState(System.currentTimeMillis(), rules, professions, work, gains, file.crafting.additives, file.crafting.maxAdditives)
+        return CraftsState(System.currentTimeMillis(), rules, professions, work, gains, file.crafting.additives, file.crafting.maxAdditives, hero.craftsAway)
     }
 
     private fun jobView(job: Job, level: Int, bonus: WorkBonus, open: Boolean = true, choice: String = "", options: List<JobView> = emptyList()): JobView {
@@ -260,5 +285,10 @@ class CraftsService : KoinComponent {
         val stats = sheet.toMutableMap()
         tool?.let { SheetCalculator(index).toolOperations(it).forEach { op -> stats.merge(op.stat, op.value, Double::plus) } }
         return WorkBonus.of(stats)
+    }
+
+    private companion object {
+        /** Как часто чтение без новых циклов отмечает героя увиденным: запись не чаще раза в минуту. */
+        const val SEEN_STEP = 60_000L
     }
 }

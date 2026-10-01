@@ -14,6 +14,7 @@ import com.sperance.exileforge.rules.roll.AbyssRun
 import com.sperance.exileforge.rules.roll.AbyssWindow
 import com.sperance.exileforge.rules.roll.ActiveMap
 import com.sperance.exileforge.rules.roll.ActiveWork
+import com.sperance.exileforge.rules.roll.CraftsAway
 import com.sperance.exileforge.rules.roll.ChestWindow
 import com.sperance.exileforge.rules.roll.CrystalWindow
 import com.sperance.exileforge.rules.roll.ItemInstance
@@ -63,6 +64,10 @@ data class Hero(
     var recipes: MutableList<String> = mutableListOf(),
     var professions: MutableMap<String, ProfessionProgress> = mutableMapOf(),
     var work: ActiveWork? = null,
+    /** Когда игрок последний раз читал героя при идущей работе (1.66.0): начало отлучки для [craftsAway]. */
+    var seenAt: Long = 0,
+    /** Последний досчёт за отлучку не короче пяти минут (1.66.0); клиент показывает его один раз. */
+    var craftsAway: CraftsAway? = null,
     /** Метки неправдоподобных заходов (1.45.0): награды выданы, решает администратор. */
     var flags: MutableList<features.logic.campaign.RunFlag> = mutableListOf(),
     /** Фильтр добычи (1.45.0): что торговец забирает из добычи захода сразу. */

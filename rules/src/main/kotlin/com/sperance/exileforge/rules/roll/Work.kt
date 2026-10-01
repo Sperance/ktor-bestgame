@@ -101,6 +101,34 @@ data class WorkGains(
     val isEmpty: Boolean get() = cycles == 0
 }
 
+/** Почему досчёт за отлучку не дошёл до конца: кончились материалы (работа встала), упёрся в `offlineHours`, тайник полон. */
+@Serializable
+enum class AwayStop { INPUTS, CAP, FULL }
+
+/**
+ * Итог досчёта за отлучку (1.66.0): с какого и до какого момента (мс эпохи) герой не заходил, какая работа шла,
+ * сколько циклов, что добыто (сумка и сделанные вещи - по коду) и потрачено, опыт и уровни профессии, и почему
+ * досчёт оборвался, если оборвался. Пишется, когда отлучка не короче [MIN_MILLIS]; клиент показывает его один раз.
+ */
+@Serializable
+data class CraftsAway(
+    val since: Long,
+    val until: Long,
+    val profession: String,
+    val job: String,
+    val choice: String = "",
+    val cycles: Int = 0,
+    val gained: Map<String, Int> = emptyMap(),
+    val spent: Map<String, Int> = emptyMap(),
+    val xp: Double = 0.0,
+    val levels: Int = 0,
+    val stopReason: AwayStop? = null,
+) {
+    companion object {
+        const val MIN_MILLIS = 5 * 60_000L
+    }
+}
+
 /** Итог досчёта: прогресс профессии после него, до какого момента досчитано и что добыто. */
 data class Settlement(val progress: ProfessionProgress, val settledAt: Long, val gains: WorkGains)
 
