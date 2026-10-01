@@ -53,7 +53,7 @@ class PetService : KoinComponent {
         val pet = requirePet(hero, petId, method)
         val crafting = index.orb(orb)
         if (crafting != null) {
-            val omen = omenCode?.let { Omen.of(it) ?: throw CurrencyExceptions.funExceptionNotCurrency(method, it) }
+            val omen = omenCode?.takeIf { it.isNotBlank() }?.let { Omen.of(it) ?: throw CurrencyExceptions.funExceptionNotCurrency(method, it) }
             val outcome = orbs.apply(crafting, pet, Dice.system(), omen)
             hero.spend(orb, 1, method)
             omen?.let { hero.spend(it.code, 1, method) }
