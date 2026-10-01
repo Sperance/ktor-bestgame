@@ -3073,6 +3073,165 @@
           100
         ]
       }
+    },
+    {
+      "code": "MOB_REND",
+      "icon": "bleeding",
+      "mana": 8,
+      "cooldown": 7.0,
+      "spell": false,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          160,
+          160
+        ],
+        "ailments": [
+          {
+            "ailment": "BLEED",
+            "chance": [
+              60,
+              60
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_WEB",
+      "icon": "poison",
+      "mana": 10,
+      "cooldown": 14.0,
+      "spell": true,
+      "curse": {
+        "duration": 5,
+        "targets": 1,
+        "stats": [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "value": [
+              -20,
+              -20
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_FROST_BREATH",
+      "icon": "cold",
+      "mana": 12,
+      "cooldown": 8.0,
+      "spell": true,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          140,
+          140
+        ],
+        "element": "COLD",
+        "convert": [
+          100,
+          100
+        ],
+        "ailments": [
+          {
+            "ailment": "CHILL",
+            "chance": [
+              100,
+              100
+            ]
+          },
+          {
+            "ailment": "FREEZE",
+            "chance": [
+              15,
+              15
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_FLAME_BREATH",
+      "icon": "fire",
+      "mana": 12,
+      "cooldown": 8.0,
+      "spell": true,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          150,
+          150
+        ],
+        "element": "FIRE",
+        "convert": [
+          100,
+          100
+        ],
+        "ailments": [
+          {
+            "ailment": "IGNITE",
+            "chance": [
+              40,
+              40
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "MOB_THUNDERCLAP",
+      "icon": "lightning",
+      "mana": 12,
+      "cooldown": 9.0,
+      "spell": false,
+      "hit": {
+        "targets": 1,
+        "weapon": [
+          160,
+          160
+        ],
+        "element": "LIGHTNING",
+        "convert": [
+          60,
+          60
+        ],
+        "ailments": [
+          {
+            "ailment": "SHOCK",
+            "chance": [
+              40,
+              40
+            ]
+          }
+        ],
+        "stun": [
+          60,
+          60
+        ]
+      }
+    },
+    {
+      "code": "MOB_BONE_ARMOUR",
+      "icon": "armour",
+      "mana": 12,
+      "cooldown": 15.0,
+      "spell": true,
+      "buff": {
+        "duration": 6,
+        "stats": [
+          {
+            "stat": "STOCK_ARMOR",
+            "op": "INCREASED",
+            "value": [
+              60,
+              60
+            ]
+          }
+        ]
+      }
     }
   ]
 }

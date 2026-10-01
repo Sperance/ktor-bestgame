@@ -190,14 +190,25 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val dice = streams.of(if (vaal) "vaalMonster" else "monster", i)
         val packDice = streams.of(if (vaal) "vaalPack" else "pack", i)
         val size = if (packDice.chance(PACK_CHANCE)) 2 + packDice.nextInt(PACK_MAX - 1) else 1
-        val members = List(size) { m -> if (m == 0) roll(dice) else roll(packDice) }
+        val levels = streams.of(if (vaal) "vaalLevel" else "level", i)
+        val members = List(size) { m -> roll(if (m == 0) dice else packDice, monsterLevel(levels)) }
         return Spawn(i, members)
     }
 
-    private fun roll(dice: Dice): RolledMonster {
+    private fun roll(dice: Dice, level: Int): RolledMonster {
         val code = dice.pick(zone.monsters)
         val rule = rarityRule(dice)
-        return monsters.roll(zone, code, pool, dice, context.extraRareMods, rule)
+        return monsters.roll(zone, code, pool, dice, context.extraRareMods, rule, level)
+    }
+
+    /**
+     * Уровень очередного не-босса (1.69.0): в заходе по карте - уровень зоны ± `maps.levelSpread` равномерно на своём потоке
+     * [levels] (прочие броски жетона не сдвигаются), в пределах 1..[MAX_MONSTER_LEVEL]; без карты - ровно уровень зоны.
+     */
+    private fun monsterLevel(levels: Dice): Int {
+        val spread = campaign.maps.levelSpread
+        if (context.active == null || spread <= 0) return zone.level
+        return (zone.level - spread + levels.nextInt(2 * spread + 1)).coerceIn(1, MAX_MONSTER_LEVEL)
     }
 
     /**
@@ -224,7 +235,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val rule = campaign.rarity(monster.rarity)
         val draw = draws.next()
         val zoneBonus = if (vaal) context.vaal else null
-        return grant(draw, template.loot, zone.level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus),
+        val level = monster.level.takeIf { it > 0 } ?: zone.level
+        return grant(draw, template.loot, level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus, level),
             mapChance = campaign.maps.dropChance * rule.quantity, zoneBonus = zoneBonus, rare = monster.rarity == MonsterRarity.RARE,
             book = if (monster.rarity == MonsterRarity.RARE) index.skills.rules.books.rare else 0.0,
             egg = if (monster.rarity == MonsterRarity.RARE) index.pets.eggChance.rare else 0.0,
@@ -358,8 +370,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     fun vaalZone(draws: RewardDraws): VaalZone =
         com.sperance.exileforge.rules.roll.VaalZones(index).roll(zone.code, zone.level, draws.next().dice, com.sperance.exileforge.rules.content.AtlasBonuses(context.atlas))
 
-    private fun experienceFor(monster: Monster, rule: RarityRule, zoneBonus: VaalZone?): Double =
-        loot.experience(monster, zone.level, rule, context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code],
+    private fun experienceFor(monster: Monster, rule: RarityRule, zoneBonus: VaalZone?, level: Int = zone.level): Double =
+        loot.experience(monster, level, rule, context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code],
             context.heroLevel)
 
     /**
@@ -453,6 +465,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         const val PACK_MAX = 6
         /** Шаг жетона убийства `i * PACK_SLOTS + m`: не меньше [PACK_MAX], иначе жетоны разных стай совпадут. */
         const val PACK_SLOTS = 8
+        /** Потолок уровня монстра с разбросом карты: уровень зон и героя. */
+        const val MAX_MONSTER_LEVEL = 100
         private val INFLUENCEABLE = setOf(Rarity.MAGIC, Rarity.RARE)
     }
 }

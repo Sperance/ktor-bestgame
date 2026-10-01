@@ -119,7 +119,8 @@
         "STOCK_ATTACK_SPEED": 1.0,
         "STOCK_HEALTH": 18,
         "STOCK_ATTACK_PHYSICAL": 4
-      }
+      },
+      "trait": "TRAIT_CHILLING_TOUCH"
     },
     {
       "code": "SHORE_CRAB",
@@ -132,7 +133,8 @@
         "STOCK_HEALTH": 14,
         "STOCK_ATTACK_PHYSICAL": 3,
         "STOCK_ARMOR": 18
-      }
+      },
+      "trait": "TRAIT_PROVOKE"
     },
     {
       "code": "CAVE_BAT",
@@ -144,7 +146,8 @@
         "STOCK_HEALTH": 9,
         "STOCK_ATTACK_PHYSICAL": 2.5,
         "STOCK_EVASION": 30
-      }
+      },
+      "trait": "TRAIT_LEECHING"
     },
     {
       "code": "BRINE_SPITTER",
@@ -157,7 +160,8 @@
         "STOCK_ATTACK_PHYSICAL": 2,
         "STOCK_ATTACK_COLD": 2.5,
         "STOCK_RESIST_COLD": 30
-      }
+      },
+      "trait": "TRAIT_SKILL_ICE_BOLT"
     },
     {
       "code": "MIRE_ZOMBIE",
@@ -169,7 +173,8 @@
         "STOCK_HEALTH": 26,
         "STOCK_ATTACK_PHYSICAL": 5,
         "STOCK_STUN_THRESHOLD": 6
-      }
+      },
+      "trait": "TRAIT_REGROWTH"
     },
     {
       "code": "BOG_LURKER",
@@ -182,7 +187,8 @@
         "STOCK_ATTACK_PHYSICAL": 3,
         "STOCK_ATTACK_CHAOS": 2,
         "STOCK_RESIST_CHAOS": 40
-      }
+      },
+      "trait": "TRAIT_SKILL_SPIT"
     },
     {
       "code": "SWAMP_LEECH",
@@ -194,7 +200,8 @@
         "STOCK_HEALTH": 16,
         "STOCK_ATTACK_PHYSICAL": 3,
         "STOCK_LEECH_ALL": 8
-      }
+      },
+      "trait": "TRAIT_REGROWTH"
     },
     {
       "code": "FERAL_WOLF",
@@ -207,7 +214,8 @@
         "STOCK_ATTACK_PHYSICAL": 4,
         "STOCK_EVASION": 20,
         "STOCK_CRITICAL_CHANCE": 8
-      }
+      },
+      "trait": "TRAIT_RENDING"
     },
     {
       "code": "THORN_DRYAD",
@@ -224,7 +232,8 @@
         "STOCK_CAST_SPEED": 0.7,
         "STOCK_MANA": 24,
         "STOCK_MANA_REGEN": 1.5
-      }
+      },
+      "trait": "TRAIT_SKILL_HEAL"
     },
     {
       "code": "WOOD_SPIDER",
@@ -237,7 +246,8 @@
         "STOCK_ATTACK_PHYSICAL": 2.5,
         "STOCK_ATTACK_CHAOS": 2,
         "STOCK_EVASION": 25
-      }
+      },
+      "trait": "TRAIT_SKILL_WEB"
     },
     {
       "code": "SKELETON_WARRIOR",
@@ -251,7 +261,8 @@
         "STOCK_BLOCK_CHANCE": 20,
         "STOCK_ARMOR": 15,
         "STOCK_RESIST_COLD": 20
-      }
+      },
+      "trait": "TRAIT_SHIELD_WALL"
     },
     {
       "code": "BONE_ARCHER",
@@ -263,7 +274,8 @@
         "STOCK_HEALTH": 13,
         "STOCK_ATTACK_PHYSICAL": 5,
         "STOCK_CRITICAL_CHANCE": 12
-      }
+      },
+      "trait": "TRAIT_KEEN_EYE"
     },
     {
       "code": "RUIN_SENTRY",
@@ -277,7 +289,8 @@
         "STOCK_ATTACK_PHYSICAL": 6,
         "STOCK_ARMOR": 40,
         "STOCK_STUN_THRESHOLD": 10
-      }
+      },
+      "trait": "TRAIT_PROVOKE"
     },
     {
       "code": "GHOUL",
@@ -289,7 +302,8 @@
         "STOCK_HEALTH": 20,
         "STOCK_ATTACK_PHYSICAL": 4.5,
         "STOCK_LEECH_ALL": 5
-      }
+      },
+      "trait": "TRAIT_BERSERK"
     },
     {
       "code": "CRYPT_WRAITH",
@@ -307,7 +321,8 @@
         "STOCK_CAST_SPEED": 0.9,
         "STOCK_MANA": 30,
         "STOCK_MANA_REGEN": 2
-      }
+      },
+      "trait": "TRAIT_SKILL_ICE_BOLT"
     },
     {
       "code": "CRYSTAL_GOLEM",
@@ -321,7 +336,8 @@
         "STOCK_ATTACK_LIGHTNING": 4,
         "STOCK_ARMOR": 45,
         "STOCK_RESIST_LIGHTNING": 50
-      }
+      },
+      "trait": "TRAIT_STORMCHARGED"
     },
     {
       "code": "SHARD_SCUTTLER",
@@ -334,7 +350,8 @@
         "STOCK_ATTACK_PHYSICAL": 2,
         "STOCK_ATTACK_LIGHTNING": 3,
         "STOCK_EVASION": 25
-      }
+      },
+      "trait": "TRAIT_STATIC"
     },
     {
       "code": "TUNNEL_DWELLER",
@@ -347,7 +364,8 @@
         "STOCK_ATTACK_PHYSICAL": 5,
         "STOCK_ARMOR": 15,
         "STOCK_CRITICAL_CHANCE": 7
-      }
+      },
+      "trait": "TRAIT_KEEN_EYE"
     },
     {
       "code": "CINDER_HOUND",
@@ -360,7 +378,8 @@
         "STOCK_ATTACK_PHYSICAL": 2.5,
         "STOCK_ATTACK_FIRE": 3.5,
         "STOCK_RESIST_FIRE": 50
-      }
+      },
+      "trait": "TRAIT_BURNING_BLOOD"
     },
     {
       "code": "ASH_REVENANT",
@@ -374,7 +393,8 @@
         "STOCK_ATTACK_FIRE": 3,
         "STOCK_RESIST_FIRE": 30,
         "STOCK_HEALTH_REGEN": 0.6
-      }
+      },
+      "trait": "TRAIT_SMOULDER"
     },
     {
       "code": "MAGMA_SLUG",
@@ -387,7 +407,8 @@
         "STOCK_ATTACK_FIRE": 5,
         "STOCK_ARMOR": 30,
         "STOCK_RESIST_FIRE": 75
-      }
+      },
+      "trait": "TRAIT_FIRE_BURST"
     },
     {
       "code": "FROST_TROLL",
@@ -402,7 +423,8 @@
         "STOCK_RESIST_COLD": 50,
         "STOCK_HEALTH_REGEN": 1,
         "STOCK_STUN_THRESHOLD": 12
-      }
+      },
+      "trait": "TRAIT_REGROWTH"
     },
     {
       "code": "ICE_WRAITH",
@@ -420,7 +442,8 @@
         "STOCK_CAST_SPEED": 0.9,
         "STOCK_MANA": 32,
         "STOCK_MANA_REGEN": 2
-      }
+      },
+      "trait": "TRAIT_FROSTBITE"
     },
     {
       "code": "SNOW_STALKER",
@@ -433,7 +456,8 @@
         "STOCK_ATTACK_PHYSICAL": 5,
         "STOCK_EVASION": 35,
         "STOCK_CRITICAL_CHANCE": 10
-      }
+      },
+      "trait": "TRAIT_FROSTBITE"
     },
     {
       "code": "TEMPLE_ZEALOT",
@@ -451,7 +475,8 @@
         "STOCK_CAST_SPEED": 0.8,
         "STOCK_MANA": 30,
         "STOCK_MANA_REGEN": 2
-      }
+      },
+      "trait": "TRAIT_SKILL_FIREBALL"
     },
     {
       "code": "DEEP_ONE",
@@ -465,7 +490,8 @@
         "STOCK_ATTACK_COLD": 3,
         "STOCK_RESIST_COLD": 40,
         "STOCK_LEECH_ALL": 3
-      }
+      },
+      "trait": "TRAIT_SKILL_MANA_DRAIN"
     },
     {
       "code": "ABYSSAL_ACOLYTE",
@@ -482,7 +508,8 @@
         "STOCK_CAST_SPEED": 1.0,
         "STOCK_MANA": 40,
         "STOCK_MANA_REGEN": 3
-      }
+      },
+      "trait": "TRAIT_SKILL_CHAOS_RING"
     },
     {
       "code": "TEMPLE_GUARDIAN",
@@ -497,7 +524,8 @@
         "STOCK_ARMOR": 50,
         "STOCK_BLOCK_CHANCE": 25,
         "STOCK_STUN_THRESHOLD": 14
-      }
+      },
+      "trait": "TRAIT_PROVOKE"
     },
     {
       "code": "SAND_SCORPION",
@@ -511,7 +539,8 @@
         "STOCK_ATTACK_CHAOS": 2,
         "STOCK_ARMOR": 25,
         "STOCK_RESIST_CHAOS": 30
-      }
+      },
+      "trait": "TRAIT_IRONHIDE"
     },
     {
       "code": "DUNE_STALKER",
@@ -524,7 +553,8 @@
         "STOCK_ATTACK_PHYSICAL": 5,
         "STOCK_EVASION": 35,
         "STOCK_CRITICAL_CHANCE": 10
-      }
+      },
+      "trait": "TRAIT_AMBUSHER"
     },
     {
       "code": "MUMMY",
@@ -538,7 +568,8 @@
         "STOCK_ARMOR": 20,
         "STOCK_RESIST_CHAOS": 30,
         "STOCK_STUN_THRESHOLD": 8
-      }
+      },
+      "trait": "TRAIT_SKILL_VULNERABILITY"
     },
     {
       "code": "SANDSTORM_SPIRIT",
@@ -556,7 +587,8 @@
         "STOCK_CAST_SPEED": 0.9,
         "STOCK_MANA": 32,
         "STOCK_MANA_REGEN": 2
-      }
+      },
+      "trait": "TRAIT_SKILL_ZAP"
     },
     {
       "code": "CLIFF_VULTURE",
@@ -568,7 +600,8 @@
         "STOCK_HEALTH": 13,
         "STOCK_ATTACK_PHYSICAL": 4,
         "STOCK_EVASION": 35
-      }
+      },
+      "trait": "TRAIT_RENDING"
     },
     {
       "code": "CANYON_RAIDER",
@@ -581,7 +614,8 @@
         "STOCK_ATTACK_PHYSICAL": 5,
         "STOCK_CRITICAL_CHANCE": 9,
         "STOCK_EVASION": 15
-      }
+      },
+      "trait": "TRAIT_AMBUSHER"
     },
     {
       "code": "SANDSTONE_GOLEM",
@@ -595,7 +629,8 @@
         "STOCK_ATTACK_PHYSICAL": 6,
         "STOCK_ARMOR": 50,
         "STOCK_STUN_THRESHOLD": 12
-      }
+      },
+      "trait": "TRAIT_PROVOKE"
     },
     {
       "code": "EMERALD_PANTHER",
@@ -608,7 +643,8 @@
         "STOCK_ATTACK_PHYSICAL": 5.5,
         "STOCK_EVASION": 40,
         "STOCK_CRITICAL_CHANCE": 12
-      }
+      },
+      "trait": "TRAIT_SKILL_REND"
     },
     {
       "code": "SPORELING",
@@ -621,7 +657,8 @@
         "STOCK_ATTACK_CHAOS": 4,
         "STOCK_RESIST_CHAOS": 50,
         "STOCK_HEALTH_REGEN": 1
-      }
+      },
+      "trait": "TRAIT_SKILL_SPIT"
     },
     {
       "code": "GIANT_MANTIS",
@@ -634,7 +671,8 @@
         "STOCK_ATTACK_PHYSICAL": 6,
         "STOCK_CRITICAL_CHANCE": 12,
         "STOCK_EVASION": 25
-      }
+      },
+      "trait": "TRAIT_FRENZIED"
     },
     {
       "code": "BLOWGUN_HUNTER",
@@ -648,7 +686,8 @@
         "STOCK_ATTACK_CHAOS": 3,
         "STOCK_POISON_CHANCE": 15,
         "STOCK_EVASION": 20
-      }
+      },
+      "trait": "TRAIT_SKILL_SPIT"
     },
     {
       "code": "HIVE_DRONE",
@@ -660,7 +699,8 @@
         "STOCK_HEALTH": 12,
         "STOCK_ATTACK_PHYSICAL": 3.5,
         "STOCK_EVASION": 35
-      }
+      },
+      "trait": "TRAIT_NIMBLE"
     },
     {
       "code": "HIVE_SOLDIER",
@@ -673,7 +713,8 @@
         "STOCK_ATTACK_PHYSICAL": 6,
         "STOCK_ARMOR": 35,
         "STOCK_BLOCK_CHANCE": 15
-      }
+      },
+      "trait": "TRAIT_SHIELD_WALL"
     },
     {
       "code": "BROOD_SPITTER",
@@ -685,7 +726,8 @@
         "STOCK_HEALTH": 16,
         "STOCK_ATTACK_CHAOS": 4.5,
         "STOCK_RESIST_CHAOS": 40
-      }
+      },
+      "trait": "TRAIT_SKILL_SPIT"
     },
     {
       "code": "LAVA_IMP",
@@ -698,7 +740,8 @@
         "STOCK_ATTACK_FIRE": 5,
         "STOCK_RESIST_FIRE": 60,
         "STOCK_EVASION": 20
-      }
+      },
+      "trait": "TRAIT_FIRE_BURST"
     },
     {
       "code": "MAGMA_GOLEM",
@@ -713,7 +756,8 @@
         "STOCK_ATTACK_FIRE": 4,
         "STOCK_ARMOR": 55,
         "STOCK_RESIST_FIRE": 75
-      }
+      },
+      "trait": "TRAIT_PROVOKE"
     },
     {
       "code": "FIRE_DRAKE",
@@ -726,7 +770,8 @@
         "STOCK_ATTACK_PHYSICAL": 3,
         "STOCK_ATTACK_FIRE": 5,
         "STOCK_RESIST_FIRE": 50
-      }
+      },
+      "trait": "TRAIT_SKILL_FLAME_BREATH"
     },
     {
       "code": "INFERNAL_KNIGHT",
@@ -741,7 +786,8 @@
         "STOCK_ARMOR": 45,
         "STOCK_BLOCK_CHANCE": 20,
         "STOCK_RESIST_FIRE": 40
-      }
+      },
+      "trait": "TRAIT_SKILL_WARCRY"
     },
     {
       "code": "CITADEL_WARLOCK",
@@ -758,7 +804,8 @@
         "STOCK_CAST_SPEED": 0.9,
         "STOCK_MANA": 36,
         "STOCK_MANA_REGEN": 2.5
-      }
+      },
+      "trait": "TRAIT_SKILL_ENFEEBLE"
     },
     {
       "code": "GARGOYLE",
@@ -771,7 +818,8 @@
         "STOCK_ATTACK_PHYSICAL": 5,
         "STOCK_ARMOR": 40,
         "STOCK_EVASION": 20
-      }
+      },
+      "trait": "TRAIT_SKILL_STONESKIN"
     },
     {
       "code": "VOID_SPAWN",
@@ -784,7 +832,8 @@
         "STOCK_ATTACK_PHYSICAL": 3,
         "STOCK_ATTACK_CHAOS": 6,
         "STOCK_RESIST_CHAOS": 60
-      }
+      },
+      "trait": "TRAIT_VOLATILE"
     },
     {
       "code": "ABYSS_CRAWLER",
@@ -797,7 +846,8 @@
         "STOCK_ATTACK_PHYSICAL": 4,
         "STOCK_ATTACK_CHAOS": 3,
         "STOCK_EVASION": 30
-      }
+      },
+      "trait": "TRAIT_VOIDTOUCHED"
     },
     {
       "code": "ABYSSAL_SHADE",
@@ -815,7 +865,8 @@
         "STOCK_CAST_SPEED": 1.0,
         "STOCK_MANA": 40,
         "STOCK_MANA_REGEN": 3
-      }
+      },
+      "trait": "TRAIT_ENERGY_WEAVE"
     },
     {
       "code": "BLIGHTCAP",
@@ -828,7 +879,8 @@
         "STOCK_ATTACK_CHAOS": 5,
         "STOCK_RESIST_CHAOS": 60,
         "STOCK_HEALTH_REGEN": 1.5
-      }
+      },
+      "trait": "TRAIT_REGROWTH"
     },
     {
       "code": "PLAGUE_BEARER",
@@ -842,7 +894,8 @@
         "STOCK_ATTACK_CHAOS": 3,
         "STOCK_LEECH_ALL": 4,
         "STOCK_RESIST_CHAOS": 40
-      }
+      },
+      "trait": "TRAIT_VOLATILE"
     },
     {
       "code": "PLAGUE_WASP",
@@ -855,7 +908,8 @@
         "STOCK_ATTACK_PHYSICAL": 3,
         "STOCK_ATTACK_CHAOS": 3,
         "STOCK_EVASION": 35
-      }
+      },
+      "trait": "TRAIT_VENOM_STING"
     },
     {
       "code": "BOSS_TIDECALLER",
@@ -3823,7 +3877,8 @@
         "STOCK_ATTACK_PHYSICAL": 2.5,
         "STOCK_ATTACK_CHAOS": 4,
         "STOCK_RESIST_CHAOS": 50
-      }
+      },
+      "trait": "TRAIT_BERSERK"
     },
     {
       "code": "CHASM_LEECH",
@@ -3837,7 +3892,8 @@
         "STOCK_ATTACK_CHAOS": 1.5,
         "STOCK_LEECH_ALL": 10,
         "STOCK_HEALTH_ON_HIT": 3
-      }
+      },
+      "trait": "TRAIT_VOLATILE"
     },
     {
       "code": "CHASM_WHISPERER",
@@ -3858,7 +3914,8 @@
       "skills": [
         "MOB_ENFEEBLE",
         "MOB_CHAOS_RING"
-      ]
+      ],
+      "trait": "TRAIT_SKILL_MANA_DRAIN"
     },
     {
       "code": "CHASM_STALKER",
@@ -3872,7 +3929,8 @@
         "STOCK_ATTACK_CHAOS": 2,
         "STOCK_EVASION": 40,
         "STOCK_POISON_CHANCE": 25
-      }
+      },
+      "trait": "TRAIT_AMBUSHER"
     },
     {
       "code": "CHASM_HEXER",
@@ -3892,7 +3950,8 @@
       "skills": [
         "MOB_VULNERABILITY",
         "MOB_SPIT"
-      ]
+      ],
+      "trait": "TRAIT_DEATH_PRAYER"
     },
     {
       "code": "CHASM_BRUTE",
@@ -3909,7 +3968,8 @@
       },
       "skills": [
         "MOB_SLAM"
-      ]
+      ],
+      "trait": "TRAIT_LAST_STAND"
     },
     {
       "code": "CHASM_PIT_MASTER",
@@ -3997,7 +4057,8 @@
         "STOCK_ATTACK_PHYSICAL": 3.09,
         "STOCK_ATTACK_LIGHTNING": 4.12,
         "STOCK_EVASION": 40
-      }
+      },
+      "trait": "TRAIT_STATIC"
     },
     {
       "code": "GLASS_STALKER",
@@ -4010,7 +4071,8 @@
         "STOCK_ATTACK_PHYSICAL": 6.18,
         "STOCK_ATTACK_COLD": 3.09,
         "STOCK_ARMOR": 40
-      }
+      },
+      "trait": "TRAIT_KEEN_EYE"
     },
     {
       "code": "SKY_SENTINEL",
@@ -4023,7 +4085,8 @@
         "STOCK_ATTACK_PHYSICAL": 7.21,
         "STOCK_ARMOR": 80,
         "STOCK_RESIST_ALL": 20
-      }
+      },
+      "trait": "TRAIT_WARDED"
     },
     {
       "code": "THUNDER_DRAKE",
@@ -4035,7 +4098,8 @@
         "STOCK_HEALTH": 28.84,
         "STOCK_ATTACK_LIGHTNING": 8.24,
         "STOCK_RESIST_LIGHTNING": 60
-      }
+      },
+      "trait": "TRAIT_SKILL_THUNDERCLAP"
     },
     {
       "code": "SHARD_GOLEM",
@@ -4047,7 +4111,8 @@
         "STOCK_HEALTH": 37.08,
         "STOCK_ATTACK_PHYSICAL": 8.24,
         "STOCK_ARMOR": 60
-      }
+      },
+      "trait": "TRAIT_SKILL_SLAM"
     },
     {
       "code": "FALLEN_SERAPH",
@@ -4063,7 +4128,8 @@
         "STOCK_CAST_SPEED": 1.0,
         "STOCK_MANA": 45,
         "STOCK_MANA_REGEN": 3
-      }
+      },
+      "trait": "TRAIT_SKILL_ZAP"
     },
     {
       "code": "ZEPHYR_WRAITH",
@@ -4079,7 +4145,8 @@
         "STOCK_CAST_SPEED": 1.0,
         "STOCK_MANA": 40,
         "STOCK_MANA_REGEN": 3
-      }
+      },
+      "trait": "TRAIT_NIMBLE"
     },
     {
       "code": "CORRUPTED_7",
@@ -4521,7 +4588,8 @@
         "STOCK_ATTACK_PHYSICAL": 7.49,
         "STOCK_ARMOR": 60,
         "STOCK_BLOCK_CHANCE": 20
-      }
+      },
+      "trait": "TRAIT_SKILL_BONE_ARMOUR"
     },
     {
       "code": "CORAL_BEHEMOTH",
@@ -4533,7 +4601,8 @@
         "STOCK_HEALTH": 40.66,
         "STOCK_ATTACK_PHYSICAL": 8.56,
         "STOCK_ARMOR": 90
-      }
+      },
+      "trait": "TRAIT_THORNS"
     },
     {
       "code": "ABYSSAL_EEL",
@@ -4545,7 +4614,8 @@
         "STOCK_HEALTH": 21.4,
         "STOCK_ATTACK_LIGHTNING": 6.42,
         "STOCK_EVASION": 40
-      }
+      },
+      "trait": "TRAIT_STORM_BURST"
     },
     {
       "code": "TIDE_CONSTRUCT",
@@ -4558,7 +4628,8 @@
         "STOCK_ATTACK_COLD": 7.49,
         "STOCK_ARMOR": 70,
         "STOCK_RESIST_COLD": 60
-      }
+      },
+      "trait": "TRAIT_SKILL_FROST_BREATH"
     },
     {
       "code": "PEARL_SIREN",
@@ -4574,7 +4645,8 @@
         "STOCK_CAST_SPEED": 1.0,
         "STOCK_MANA": 45,
         "STOCK_MANA_REGEN": 3
-      }
+      },
+      "trait": "TRAIT_SKILL_ENFEEBLE"
     },
     {
       "code": "DEEP_LURKER",
@@ -4587,7 +4659,8 @@
         "STOCK_ATTACK_CHAOS": 6.42,
         "STOCK_RESIST_CHAOS": 50,
         "STOCK_HEALTH_REGEN": 1.5
-      }
+      },
+      "trait": "TRAIT_SKILL_CHAOS_RING"
     },
     {
       "code": "BRINE_DRAKE",
@@ -4599,7 +4672,8 @@
         "STOCK_HEALTH": 32.1,
         "STOCK_ATTACK_COLD": 8.56,
         "STOCK_RESIST_COLD": 60
-      }
+      },
+      "trait": "TRAIT_SKILL_FROST_BREATH"
     },
     {
       "code": "CORRUPTED_8",
@@ -5038,7 +5112,8 @@
         "STOCK_ATTACK_FIRE": 3.33,
         "STOCK_ARMOR": 90,
         "STOCK_RESIST_ALL": 25
-      }
+      },
+      "trait": "TRAIT_LAST_STAND"
     },
     {
       "code": "ASTRAL_BEAST",
@@ -5051,7 +5126,8 @@
         "STOCK_ATTACK_PHYSICAL": 5.55,
         "STOCK_ATTACK_LIGHTNING": 4.44,
         "STOCK_EVASION": 50
-      }
+      },
+      "trait": "TRAIT_SKILL_THUNDERCLAP"
     },
     {
       "code": "GODSWORN_ZEALOT",
@@ -5064,7 +5140,8 @@
         "STOCK_ATTACK_PHYSICAL": 6.66,
         "STOCK_ATTACK_FIRE": 4.44,
         "STOCK_BLOCK_CHANCE": 20
-      }
+      },
+      "trait": "TRAIT_HOWL"
     },
     {
       "code": "OBLIVION_SHADE",
@@ -5081,7 +5158,8 @@
         "STOCK_MANA": 45,
         "STOCK_MANA_REGEN": 3,
         "STOCK_RESIST_CHAOS": 60
-      }
+      },
+      "trait": "TRAIT_PENETRATING"
     },
     {
       "code": "STAR_DRAGON",
@@ -5094,7 +5172,8 @@
         "STOCK_ATTACK_FIRE": 5.55,
         "STOCK_ATTACK_LIGHTNING": 5.55,
         "STOCK_RESIST_ALL": 20
-      }
+      },
+      "trait": "TRAIT_PENETRATING"
     },
     {
       "code": "FALLEN_ARCHON",
@@ -5110,7 +5189,8 @@
         "STOCK_CAST_SPEED": 1.0,
         "STOCK_MANA": 50,
         "STOCK_MANA_REGEN": 3
-      }
+      },
+      "trait": "TRAIT_SKILL_FIREBALL"
     },
     {
       "code": "VOID_TITAN",
@@ -5123,7 +5203,8 @@
         "STOCK_ATTACK_PHYSICAL": 7.77,
         "STOCK_ATTACK_CHAOS": 4.44,
         "STOCK_RESIST_CHAOS": 60
-      }
+      },
+      "trait": "TRAIT_SKILL_SLAM"
     },
     {
       "code": "CORRUPTED_9",
@@ -5590,8 +5671,8 @@
             "SHORE_CRAB"
           ],
           "count": [
-            32,
-            44
+            37,
+            51
           ],
           "light": 1.2,
           "chestLoot": "loot:CHEST_1",
@@ -5617,8 +5698,8 @@
             "BRINE_SPITTER"
           ],
           "count": [
-            32,
-            44
+            37,
+            51
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_1",
@@ -5644,8 +5725,8 @@
             "BRINE_SPITTER"
           ],
           "count": [
-            32,
-            44
+            37,
+            51
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_1",
@@ -5671,8 +5752,8 @@
             "DROWNED"
           ],
           "count": [
-            32,
-            44
+            37,
+            51
           ],
           "light": 1.3,
           "chestLoot": "loot:CHEST_1",
@@ -5698,8 +5779,8 @@
             "BRINE_SPITTER"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 1.0,
           "chestLoot": "loot:CHEST_1",
@@ -5726,8 +5807,8 @@
             "SWAMP_LEECH"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_1",
@@ -5754,8 +5835,8 @@
             "SWAMP_LEECH"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_1",
@@ -5781,8 +5862,8 @@
             "DROWNED"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_1",
@@ -5809,8 +5890,8 @@
             "WOOD_SPIDER"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 1.0,
           "chestLoot": "loot:CHEST_2",
@@ -5837,8 +5918,8 @@
             "MIRE_ZOMBIE"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_2",
@@ -5863,8 +5944,8 @@
             "WOOD_SPIDER"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 0.95,
           "chestLoot": "loot:CHEST_2",
@@ -5891,8 +5972,8 @@
             "RUIN_SENTRY"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 1.0,
           "chestLoot": "loot:CHEST_2",
@@ -5919,8 +6000,8 @@
             "FERAL_WOLF"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 1.0,
           "chestLoot": "loot:CHEST_2",
@@ -5946,8 +6027,8 @@
             "BONE_ARCHER"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_2",
@@ -5976,8 +6057,8 @@
             "BONE_ARCHER"
           ],
           "count": [
-            38,
-            50
+            44,
+            57
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_2",
@@ -6012,8 +6093,8 @@
             "CAVE_BAT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_2",
@@ -6039,8 +6120,8 @@
             "TUNNEL_DWELLER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_2",
@@ -6066,8 +6147,8 @@
             "TUNNEL_DWELLER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_2",
@@ -6093,8 +6174,8 @@
             "SHARD_SCUTTLER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_3",
@@ -6121,8 +6202,8 @@
             "CAVE_BAT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_3",
@@ -6149,8 +6230,8 @@
             "SNOW_STALKER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_3",
@@ -6176,8 +6257,8 @@
             "MAGMA_SLUG"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_3",
@@ -6203,8 +6284,8 @@
             "SNOW_STALKER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_3",
@@ -6231,8 +6312,8 @@
             "CAVE_BAT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_3",
@@ -6259,8 +6340,8 @@
             "ASH_REVENANT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.95,
           "chestLoot": "loot:CHEST_3",
@@ -6286,8 +6367,8 @@
             "CRYSTAL_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.2,
           "chestLoot": "loot:CHEST_3",
@@ -6314,8 +6395,8 @@
             "TEMPLE_GUARDIAN"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_3",
@@ -6342,8 +6423,8 @@
             "ASH_REVENANT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_3",
@@ -6368,8 +6449,8 @@
             "CINDER_HOUND"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.95,
           "chestLoot": "loot:CHEST_3",
@@ -6395,8 +6476,8 @@
             "SNOW_STALKER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.15,
           "chestLoot": "loot:CHEST_3",
@@ -6423,8 +6504,8 @@
             "TEMPLE_ZEALOT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_3",
@@ -6450,8 +6531,8 @@
             "TEMPLE_GUARDIAN"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_3",
@@ -6481,8 +6562,8 @@
             "TEMPLE_GUARDIAN"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_3",
@@ -6517,8 +6598,8 @@
             "MUMMY"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.25,
           "chestLoot": "loot:CHEST_4",
@@ -6544,8 +6625,8 @@
             "SAND_SCORPION"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.25,
           "chestLoot": "loot:CHEST_4",
@@ -6571,8 +6652,8 @@
             "SANDSTONE_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_4",
@@ -6598,8 +6679,8 @@
             "SAND_SCORPION"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.25,
           "chestLoot": "loot:CHEST_4",
@@ -6626,8 +6707,8 @@
             "SANDSTONE_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.0,
           "chestLoot": "loot:CHEST_4",
@@ -6654,8 +6735,8 @@
             "CANYON_RAIDER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_4",
@@ -6681,8 +6762,8 @@
             "CLIFF_VULTURE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.25,
           "chestLoot": "loot:CHEST_4",
@@ -6709,8 +6790,8 @@
             "SANDSTONE_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.25,
           "chestLoot": "loot:CHEST_4",
@@ -6737,8 +6818,8 @@
             "CLIFF_VULTURE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_4",
@@ -6764,8 +6845,8 @@
             "SANDSTONE_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_4",
@@ -6791,8 +6872,8 @@
             "MUMMY"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.25,
           "chestLoot": "loot:CHEST_4",
@@ -6819,8 +6900,8 @@
             "SANDSTONE_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_4",
@@ -6847,8 +6928,8 @@
             "CANYON_RAIDER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_4",
@@ -6874,8 +6955,8 @@
             "CLIFF_VULTURE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.25,
           "chestLoot": "loot:CHEST_4",
@@ -6901,8 +6982,8 @@
             "SANDSTORM_SPIRIT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_4",
@@ -6930,8 +7011,8 @@
             "CANYON_RAIDER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_4",
@@ -6958,8 +7039,8 @@
             "CANYON_RAIDER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.1,
           "chestLoot": "loot:CHEST_4",
@@ -6989,8 +7070,8 @@
             "SAND_SCORPION"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_4",
@@ -7025,8 +7106,8 @@
             "GIANT_MANTIS"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7052,8 +7133,8 @@
             "GIANT_MANTIS"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_5",
@@ -7079,8 +7160,8 @@
             "SPORELING"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.0,
           "chestLoot": "loot:CHEST_5",
@@ -7106,8 +7187,8 @@
             "HIVE_DRONE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7134,8 +7215,8 @@
             "GIANT_MANTIS"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7161,8 +7242,8 @@
             "HIVE_SOLDIER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_5",
@@ -7188,8 +7269,8 @@
             "BLOWGUN_HUNTER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7215,8 +7296,8 @@
             "SPORELING"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_5",
@@ -7243,8 +7324,8 @@
             "BROOD_SPITTER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_5",
@@ -7271,8 +7352,8 @@
             "HIVE_DRONE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7298,8 +7379,8 @@
             "GIANT_MANTIS"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7326,8 +7407,8 @@
             "SPORELING"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 1.0,
           "chestLoot": "loot:CHEST_5",
@@ -7354,8 +7435,8 @@
             "HIVE_SOLDIER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_5",
@@ -7381,8 +7462,8 @@
             "BROOD_SPITTER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_5",
@@ -7409,8 +7490,8 @@
             "BLOWGUN_HUNTER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7436,8 +7517,8 @@
             "SPORELING"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_5",
@@ -7463,8 +7544,8 @@
             "HIVE_DRONE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_5",
@@ -7494,8 +7575,8 @@
             "GIANT_MANTIS"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_5",
@@ -7530,8 +7611,8 @@
             "MAGMA_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -7557,8 +7638,8 @@
             "CITADEL_WARLOCK"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -7584,8 +7665,8 @@
             "GARGOYLE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_6",
@@ -7611,8 +7692,8 @@
             "MAGMA_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -7639,8 +7720,8 @@
             "LAVA_IMP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -7667,8 +7748,8 @@
             "LAVA_IMP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -7694,8 +7775,8 @@
             "GARGOYLE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_6",
@@ -7722,8 +7803,8 @@
             "GARGOYLE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_6",
@@ -7749,8 +7830,8 @@
             "LAVA_IMP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -7776,8 +7857,8 @@
             "CITADEL_WARLOCK"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_6",
@@ -7803,8 +7884,8 @@
             "MAGMA_GOLEM"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -7831,8 +7912,8 @@
             "INFERNAL_KNIGHT"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_6",
@@ -7859,8 +7940,8 @@
             "CITADEL_WARLOCK"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_6",
@@ -7886,8 +7967,8 @@
             "LAVA_IMP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_6",
@@ -7914,8 +7995,8 @@
             "GARGOYLE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -7942,8 +8023,8 @@
             "GARGOYLE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_6",
@@ -7969,8 +8050,8 @@
             "LAVA_IMP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -8000,8 +8081,8 @@
             "LAVA_IMP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_6",
@@ -8036,8 +8117,8 @@
             "ABYSSAL_SHADE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8063,8 +8144,8 @@
             "PLAGUE_WASP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -8090,8 +8171,8 @@
             "VOID_SPAWN"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -8117,8 +8198,8 @@
             "ABYSS_CRAWLER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8145,8 +8226,8 @@
             "PLAGUE_BEARER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -8173,8 +8254,8 @@
             "BLIGHTCAP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -8200,8 +8281,8 @@
             "ABYSSAL_SHADE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_6",
@@ -8227,8 +8308,8 @@
             "ABYSS_CRAWLER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8255,8 +8336,8 @@
             "ABYSSAL_SHADE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -8282,8 +8363,8 @@
             "PLAGUE_WASP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8309,8 +8390,8 @@
             "ABYSSAL_SHADE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_6",
@@ -8337,8 +8418,8 @@
             "PLAGUE_BEARER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -8365,8 +8446,8 @@
             "PLAGUE_BEARER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.85,
           "chestLoot": "loot:CHEST_6",
@@ -8392,8 +8473,8 @@
             "ABYSSAL_SHADE"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8419,8 +8500,8 @@
             "PLAGUE_WASP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.75,
           "chestLoot": "loot:CHEST_6",
@@ -8447,8 +8528,8 @@
             "ABYSS_CRAWLER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8475,8 +8556,8 @@
             "PLAGUE_WASP"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8506,8 +8587,8 @@
             "PLAGUE_BEARER"
           ],
           "count": [
-            44,
-            57
+            51,
+            66
           ],
           "light": 0.6,
           "chestLoot": "loot:CHEST_6",
@@ -8542,8 +8623,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_7",
@@ -8569,8 +8650,8 @@
             "SKY_SENTINEL"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_7",
@@ -8596,8 +8677,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_7",
@@ -8623,8 +8704,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_7",
@@ -8651,8 +8732,8 @@
             "SKY_SENTINEL"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_7",
@@ -8679,8 +8760,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_7",
@@ -8706,8 +8787,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_7",
@@ -8734,8 +8815,8 @@
             "SKY_SENTINEL"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_7",
@@ -8763,8 +8844,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_7",
@@ -8792,8 +8873,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_7",
@@ -8820,8 +8901,8 @@
             "SKY_SENTINEL"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_7",
@@ -8848,8 +8929,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_7",
@@ -8876,8 +8957,8 @@
             "ZEPHYR_WRAITH"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_7",
@@ -8904,8 +8985,8 @@
             "SKY_SENTINEL"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_7",
@@ -8934,8 +9015,8 @@
             "SHARD_GOLEM"
           ],
           "count": [
-            46,
-            60
+            53,
+            69
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_7",
@@ -8970,8 +9051,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_8",
@@ -8997,8 +9078,8 @@
             "ABYSSAL_EEL"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_8",
@@ -9024,8 +9105,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_8",
@@ -9051,8 +9132,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_8",
@@ -9079,8 +9160,8 @@
             "ABYSSAL_EEL"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_8",
@@ -9107,8 +9188,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_8",
@@ -9134,8 +9215,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_8",
@@ -9162,8 +9243,8 @@
             "ABYSSAL_EEL"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_8",
@@ -9191,8 +9272,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_8",
@@ -9220,8 +9301,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_8",
@@ -9248,8 +9329,8 @@
             "ABYSSAL_EEL"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_8",
@@ -9276,8 +9357,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_8",
@@ -9304,8 +9385,8 @@
             "BRINE_DRAKE"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_8",
@@ -9332,8 +9413,8 @@
             "ABYSSAL_EEL"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_8",
@@ -9362,8 +9443,8 @@
             "PEARL_SIREN"
           ],
           "count": [
-            48,
-            62
+            55,
+            71
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_8",
@@ -9398,8 +9479,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_9",
@@ -9425,8 +9506,8 @@
             "GODSWORN_ZEALOT"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_9",
@@ -9452,8 +9533,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_9",
@@ -9479,8 +9560,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_9",
@@ -9507,8 +9588,8 @@
             "GODSWORN_ZEALOT"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_9",
@@ -9535,8 +9616,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_9",
@@ -9562,8 +9643,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_9",
@@ -9590,8 +9671,8 @@
             "GODSWORN_ZEALOT"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_9",
@@ -9619,8 +9700,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_9",
@@ -9648,8 +9729,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_9",
@@ -9676,8 +9757,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_9",
@@ -9704,8 +9785,8 @@
             "GODSWORN_ZEALOT"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.9,
           "chestLoot": "loot:CHEST_9",
@@ -9732,8 +9813,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_9",
@@ -9760,8 +9841,8 @@
             "VOID_TITAN"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.7,
           "chestLoot": "loot:CHEST_9",
@@ -9791,8 +9872,8 @@
             "STAR_DRAGON"
           ],
           "count": [
-            50,
-            64
+            57,
+            74
           ],
           "light": 0.8,
           "chestLoot": "loot:CHEST_9",
@@ -9939,7 +10020,8 @@
       }
     },
     "opening": 50,
-    "preparationCap": 75
+    "preparationCap": 75,
+    "reinforceDelay": 3.0
   },
   "behaviour": {
     "default": {
@@ -10154,6 +10236,7 @@
     "dropChance": 0.03,
     "bossChance": 0.4,
     "nextChance": 0.25,
+    "levelSpread": 2,
     "uniqueChance": 0.08,
     "uniqueTables": [
       "unique:map"
@@ -10442,7 +10525,8 @@
       "hoardGrowth": 15.0,
       "modEvery": 10,
       "modHoard": 10.0,
-      "checkpoint": 10, "maxFloor": 100,
+      "checkpoint": 10,
+      "maxFloor": 100,
       "mods": [
         {
           "stat": "MAP_MONSTER_LIFE",
@@ -10500,6 +10584,698 @@
           "value": 20
         }
       ]
+    }
+  },
+  "traits": {
+    "list": [
+      {
+        "code": "TRAIT_DISCIPLINE",
+        "icon": "combat",
+        "lines": [
+          {
+            "stat": "STOCK_ACCURACY",
+            "op": "INCREASED",
+            "value": 20
+          },
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "op": "ADD",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_CARAPACE",
+        "icon": "armour",
+        "lines": [
+          {
+            "stat": "STOCK_PHYSICAL_REDUCTION",
+            "op": "ADD",
+            "value": 8
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_FLUTTER",
+        "icon": "evasion",
+        "lines": [
+          {
+            "stat": "STOCK_EVASION",
+            "op": "INCREASED",
+            "value": 25
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_COILED_STRIKE",
+        "icon": "poison",
+        "trigger": {
+          "act": "FIRST_STRIKE",
+          "value": 50
+        }
+      },
+      {
+        "code": "TRAIT_SLIME",
+        "icon": "regen",
+        "lines": [
+          {
+            "stat": "STOCK_LIFE_REGEN_PERCENT",
+            "op": "ADD",
+            "value": 0.8
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_PACK_HUNTER",
+        "icon": "summon",
+        "trigger": {
+          "act": "RALLY",
+          "lines": [
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "value": 20
+            }
+          ],
+          "duration": 6
+        }
+      },
+      {
+        "code": "TRAIT_VENOM",
+        "icon": "poison",
+        "lines": [
+          {
+            "stat": "STOCK_POISON_CHANCE",
+            "op": "ADD",
+            "value": 12
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_UNDYING",
+        "icon": "dark",
+        "lines": [
+          {
+            "stat": "STOCK_IMMUNE_BLEED",
+            "op": "SET",
+            "value": 1
+          },
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_STONE_BODY",
+        "icon": "stun",
+        "lines": [
+          {
+            "stat": "STOCK_STUN_THRESHOLD",
+            "op": "INCREASED",
+            "value": 50
+          },
+          {
+            "stat": "STOCK_ARMOR",
+            "op": "INCREASED",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_ETHEREAL",
+        "icon": "cold",
+        "lines": [
+          {
+            "stat": "STOCK_PHYSICAL_TAKEN",
+            "op": "ADD",
+            "value": -15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_BLOODLUST",
+        "icon": "bleeding",
+        "trigger": {
+          "act": "ENRAGE",
+          "threshold": 35,
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "MORE",
+              "value": 20
+            },
+            {
+              "stat": "STOCK_ATTACK_SPEED",
+              "op": "INCREASED",
+              "value": 15
+            }
+          ]
+        }
+      },
+      {
+        "code": "TRAIT_STINGER",
+        "icon": "poison",
+        "lines": [
+          {
+            "stat": "STOCK_POISON_CHANCE",
+            "op": "ADD",
+            "value": 15
+          },
+          {
+            "stat": "STOCK_POISON_DAMAGE",
+            "op": "INCREASED",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_SPORE_BURST",
+        "icon": "chaos",
+        "trigger": {
+          "act": "BURST",
+          "value": 10,
+          "element": "CHAOS"
+        }
+      },
+      {
+        "code": "TRAIT_SWARM",
+        "icon": "speed",
+        "lines": [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "value": 12
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_HELLFIRE",
+        "icon": "fire",
+        "lines": [
+          {
+            "stat": "STOCK_IGNITE_CHANCE",
+            "op": "ADD",
+            "value": 10
+          },
+          {
+            "stat": "STOCK_RESIST_FIRE",
+            "op": "ADD",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_SHATTER",
+        "icon": "cold",
+        "trigger": {
+          "act": "BURST",
+          "value": 10,
+          "element": "COLD"
+        }
+      },
+      {
+        "code": "TRAIT_PLATING",
+        "icon": "armour",
+        "lines": [
+          {
+            "stat": "STOCK_DAMAGE_TAKEN",
+            "op": "ADD",
+            "value": -10
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_DRAGON_SCALES",
+        "icon": "fire",
+        "lines": [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "op": "ADD",
+            "value": 12
+          },
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "ADD",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_RADIANCE",
+        "icon": "lightning",
+        "trigger": {
+          "act": "MEND",
+          "value": 15
+        }
+      },
+      {
+        "code": "TRAIT_PROVOKE",
+        "icon": "armour",
+        "lines": [
+          {
+            "stat": "STOCK_TAUNT",
+            "op": "SET",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_RENDING",
+        "icon": "bleeding",
+        "lines": [
+          {
+            "stat": "STOCK_BLEED_CHANCE",
+            "op": "ADD",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_FROSTBITE",
+        "icon": "cold",
+        "lines": [
+          {
+            "stat": "STOCK_FREEZE_CHANCE",
+            "op": "ADD",
+            "value": 8
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_STATIC",
+        "icon": "lightning",
+        "lines": [
+          {
+            "stat": "STOCK_SHOCK_CHANCE",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_SMOULDER",
+        "icon": "fire",
+        "lines": [
+          {
+            "stat": "STOCK_IGNITE_CHANCE",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_LEECHING",
+        "icon": "leech",
+        "lines": [
+          {
+            "stat": "STOCK_LEECH_ALL",
+            "op": "ADD",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_THORNS",
+        "icon": "mirror",
+        "lines": [
+          {
+            "stat": "STOCK_REFLECT",
+            "op": "ADD",
+            "value": 8
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_REGROWTH",
+        "icon": "regen",
+        "lines": [
+          {
+            "stat": "STOCK_LIFE_REGEN_PERCENT",
+            "op": "ADD",
+            "value": 1.2
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_KEEN_EYE",
+        "icon": "critical",
+        "lines": [
+          {
+            "stat": "STOCK_CRITICAL_CHANCE",
+            "op": "ADD",
+            "value": 5
+          },
+          {
+            "stat": "STOCK_CRITICAL_MULTIPLIER",
+            "op": "ADD",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_SHIELD_WALL",
+        "icon": "block",
+        "lines": [
+          {
+            "stat": "STOCK_BLOCK_CHANCE",
+            "op": "ADD",
+            "value": 12
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_NIMBLE",
+        "icon": "evasion",
+        "lines": [
+          {
+            "stat": "STOCK_EVASION",
+            "op": "INCREASED",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_IRONHIDE",
+        "icon": "armour",
+        "lines": [
+          {
+            "stat": "STOCK_ARMOR",
+            "op": "INCREASED",
+            "value": 40
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_FRENZIED",
+        "icon": "speed",
+        "lines": [
+          {
+            "stat": "STOCK_ATTACK_SPEED",
+            "op": "INCREASED",
+            "value": 18
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_WARDED",
+        "icon": "resist",
+        "lines": [
+          {
+            "stat": "STOCK_RESIST_ALL",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_PENETRATING",
+        "icon": "magical",
+        "lines": [
+          {
+            "stat": "STOCK_PENETRATE_ELEMENTAL",
+            "op": "ADD",
+            "value": 10
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_ENERGY_WEAVE",
+        "icon": "shield",
+        "lines": [
+          {
+            "stat": "STOCK_ENERGY_SHIELD",
+            "op": "INCREASED",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_CHILLING_TOUCH",
+        "icon": "cold",
+        "lines": [
+          {
+            "stat": "STOCK_PHYSICAL_AS_EXTRA_COLD",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_BURNING_BLOOD",
+        "icon": "fire",
+        "lines": [
+          {
+            "stat": "STOCK_PHYSICAL_AS_EXTRA_FIRE",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_STORMCHARGED",
+        "icon": "lightning",
+        "lines": [
+          {
+            "stat": "STOCK_PHYSICAL_AS_EXTRA_LIGHTNING",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_VOIDTOUCHED",
+        "icon": "chaos",
+        "lines": [
+          {
+            "stat": "STOCK_PHYSICAL_AS_EXTRA_CHAOS",
+            "op": "ADD",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_FIRE_BURST",
+        "icon": "fire",
+        "trigger": {
+          "act": "BURST",
+          "value": 12,
+          "element": "FIRE"
+        }
+      },
+      {
+        "code": "TRAIT_VOLATILE",
+        "icon": "chaos",
+        "trigger": {
+          "act": "BURST",
+          "value": 12,
+          "element": "CHAOS"
+        }
+      },
+      {
+        "code": "TRAIT_STORM_BURST",
+        "icon": "lightning",
+        "trigger": {
+          "act": "BURST",
+          "value": 12,
+          "element": "LIGHTNING"
+        }
+      },
+      {
+        "code": "TRAIT_LAST_STAND",
+        "icon": "armour",
+        "trigger": {
+          "act": "ENRAGE",
+          "threshold": 30,
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE_TAKEN",
+              "op": "ADD",
+              "value": -25
+            }
+          ]
+        }
+      },
+      {
+        "code": "TRAIT_BERSERK",
+        "icon": "bleeding",
+        "trigger": {
+          "act": "ENRAGE",
+          "threshold": 40,
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "MORE",
+              "value": 25
+            }
+          ]
+        }
+      },
+      {
+        "code": "TRAIT_AMBUSHER",
+        "icon": "evasion",
+        "trigger": {
+          "act": "FIRST_STRIKE",
+          "value": 70
+        }
+      },
+      {
+        "code": "TRAIT_HOWL",
+        "icon": "summon",
+        "trigger": {
+          "act": "RALLY",
+          "lines": [
+            {
+              "stat": "STOCK_DAMAGE",
+              "op": "INCREASED",
+              "value": 20
+            }
+          ],
+          "duration": 6
+        }
+      },
+      {
+        "code": "TRAIT_DEATH_PRAYER",
+        "icon": "health",
+        "trigger": {
+          "act": "MEND",
+          "value": 18
+        }
+      },
+      {
+        "code": "TRAIT_SKILL_FIREBALL",
+        "icon": "fire",
+        "skill": "MOB_FIREBALL"
+      },
+      {
+        "code": "TRAIT_SKILL_ICE_BOLT",
+        "icon": "cold",
+        "skill": "MOB_ICE_BOLT"
+      },
+      {
+        "code": "TRAIT_SKILL_ZAP",
+        "icon": "lightning",
+        "skill": "MOB_ZAP"
+      },
+      {
+        "code": "TRAIT_SKILL_SPIT",
+        "icon": "poison",
+        "skill": "MOB_SPIT"
+      },
+      {
+        "code": "TRAIT_SKILL_WARCRY",
+        "icon": "combat",
+        "skill": "MOB_WARCRY"
+      },
+      {
+        "code": "TRAIT_SKILL_ENFEEBLE",
+        "icon": "dark",
+        "skill": "MOB_ENFEEBLE"
+      },
+      {
+        "code": "TRAIT_SKILL_VULNERABILITY",
+        "icon": "bleeding",
+        "skill": "MOB_VULNERABILITY"
+      },
+      {
+        "code": "TRAIT_SKILL_SLAM",
+        "icon": "earth",
+        "skill": "MOB_SLAM"
+      },
+      {
+        "code": "TRAIT_SKILL_HEAL",
+        "icon": "health",
+        "skill": "MOB_HEAL"
+      },
+      {
+        "code": "TRAIT_SKILL_STONESKIN",
+        "icon": "armour",
+        "skill": "MOB_STONESKIN"
+      },
+      {
+        "code": "TRAIT_SKILL_MANA_DRAIN",
+        "icon": "mana",
+        "skill": "MOB_MANA_DRAIN"
+      },
+      {
+        "code": "TRAIT_SKILL_CHAOS_RING",
+        "icon": "chaos",
+        "skill": "MOB_CHAOS_RING"
+      },
+      {
+        "code": "TRAIT_SKILL_REND",
+        "icon": "bleeding",
+        "skill": "MOB_REND"
+      },
+      {
+        "code": "TRAIT_SKILL_WEB",
+        "icon": "poison",
+        "skill": "MOB_WEB"
+      },
+      {
+        "code": "TRAIT_SKILL_FROST_BREATH",
+        "icon": "cold",
+        "skill": "MOB_FROST_BREATH"
+      },
+      {
+        "code": "TRAIT_SKILL_FLAME_BREATH",
+        "icon": "fire",
+        "skill": "MOB_FLAME_BREATH"
+      },
+      {
+        "code": "TRAIT_SKILL_THUNDERCLAP",
+        "icon": "lightning",
+        "skill": "MOB_THUNDERCLAP"
+      },
+      {
+        "code": "TRAIT_SKILL_BONE_ARMOUR",
+        "icon": "armour",
+        "skill": "MOB_BONE_ARMOUR"
+      },
+      {
+        "code": "TRAIT_VENOM_STING",
+        "icon": "poison",
+        "lines": [
+          {
+            "stat": "STOCK_POISON_CHANCE",
+            "op": "ADD",
+            "value": 20
+          },
+          {
+            "stat": "STOCK_POISON_DAMAGE",
+            "op": "INCREASED",
+            "value": 25
+          }
+        ]
+      }
+    ],
+    "forms": {
+      "HUMANOID": "TRAIT_DISCIPLINE",
+      "CRAB": "TRAIT_CARAPACE",
+      "BAT": "TRAIT_FLUTTER",
+      "SERPENT": "TRAIT_COILED_STRIKE",
+      "SLUG": "TRAIT_SLIME",
+      "BEAST": "TRAIT_PACK_HUNTER",
+      "SPIDER": "TRAIT_VENOM",
+      "UNDEAD": "TRAIT_UNDYING",
+      "GOLEM": "TRAIT_STONE_BODY",
+      "WRAITH": "TRAIT_ETHEREAL",
+      "BRUTE": "TRAIT_BLOODLUST",
+      "SCORPION": "TRAIT_STINGER",
+      "FUNGUS": "TRAIT_SPORE_BURST",
+      "INSECT": "TRAIT_SWARM",
+      "DEMON": "TRAIT_HELLFIRE",
+      "CRYSTAL": "TRAIT_SHATTER",
+      "CONSTRUCT": "TRAIT_PLATING",
+      "DRAGON": "TRAIT_DRAGON_SCALES",
+      "ANGEL": "TRAIT_RADIANCE"
+    },
+    "power": {
+      "NORMAL": 1.0,
+      "MAGIC": 1.5,
+      "RARE": 2.0,
+      "UNIQUE": 2.0
     }
   }
 }

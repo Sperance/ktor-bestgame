@@ -103,6 +103,7 @@ class LocalizationTest {
             region.zones.forEach { add(LocaleKey.mapName(it.code)); add(LocaleKey.mapDescription(it.code)) }
         }
         index.monsters.keys.forEach { add(LocaleKey.monsterName(it)) }
+        index.campaign.traits.list.forEach { add(LocaleKey.traitName(it.code)); add(LocaleKey.traitDescription(it.code)) }
         index.professions.professions.forEach { profession ->
             add(LocaleKey.professionName(profession.code)); add(LocaleKey.professionDescription(profession.code))
             profession.jobs.forEach { add(LocaleKey.jobName(it.code)) }

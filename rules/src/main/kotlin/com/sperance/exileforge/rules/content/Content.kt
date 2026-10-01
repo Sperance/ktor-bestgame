@@ -398,6 +398,7 @@ private class CampaignValidator(private val index: ContentIndex) {
             monster.stats.keys.forEach(::stat)
             lootTable(monster.loot, monster.code)
             monster.skills.forEach { if (index.skills.monsterByCode[it] == null) fail("campaign: skill $it of ${monster.code}") }
+            monster.trait?.let { if (content.traits.byCode[it] == null) fail("campaign: trait $it of ${monster.code}") }
             if (monster.skills.isNotEmpty() && (monster.stats[CoreStat.MANA.code] ?: 0.0) <= 0) fail("campaign: skilled ${monster.code} without mana")
             if ((monster.stats[CoreStat.ATTACK_MAGICAL.code] ?: 0.0) > 0 && (monster.stats[CoreStat.MANA.code] ?: 0.0) <= 0) fail("campaign: caster ${monster.code} without mana")
             monster.tables.forEach(::templateTable)
@@ -406,6 +407,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         val codes = content.zones.map { it.code }
         if (codes.toSet().size != codes.size) fail("campaign: map codes")
         validateWorld()
+        validateTraits(content.traits)
         val bossModifiers = index.modifierPool(content.bosses.modifiers).map { it.value.code }.toSet()
         content.zones.forEach { zone ->
             if (zone.monsters.size !in 2..4) fail("campaign: monsters of ${zone.code}")
@@ -467,6 +469,28 @@ private class CampaignValidator(private val index: ContentIndex) {
     private fun stat(name: String) { if (name !in stats) fail("campaign: stat $name") }
     private fun templateTable(tag: String) { if (index.tables.kind(tag) != TableKind.TEMPLATE) fail("campaign: template table $tag") }
     private fun lootTable(tag: String, owner: String) { if (index.tables.kind(tag) != TableKind.LOOT) fail("campaign: loot table $tag of $owner") }
+
+    /** Свойства монстров (1.69.0): коды без повторов, строки по известным статам, навыки - умения монстров, у каждой формы - своё. */
+    private fun validateTraits(rule: TraitRules) {
+        if (rule.byCode.size != rule.list.size) fail("traits: codes")
+        rule.list.forEach { trait ->
+            (trait.lines + trait.trigger?.lines.orEmpty()).forEach { stat(it.stat) }
+            trait.skill?.let { if (index.skills.monsterByCode[it] == null) fail("traits: skill $it of ${trait.code}") }
+            trait.trigger?.let { t ->
+                val bad = when (t.act) {
+                    TraitAct.BURST -> t.value <= 0 || t.element == null
+                    TraitAct.ENRAGE -> t.threshold !in 1.0..99.0 || t.lines.isEmpty()
+                    TraitAct.FIRST_STRIKE, TraitAct.MEND -> t.value <= 0
+                    TraitAct.RALLY -> t.lines.isEmpty() || t.duration <= 0
+                }
+                if (bad) fail("traits: trigger of ${trait.code}")
+            }
+            if (trait.lines.isEmpty() && trait.trigger == null && trait.skill == null) fail("traits: ${trait.code} does nothing")
+        }
+        rule.forms.forEach { (form, code) -> if (rule.byCode[code] == null) fail("traits: $code of form $form") }
+        content.monsters.filter { !it.boss && !it.corrupted }.map { it.form }.distinct().forEach { if (it !in rule.forms) fail("traits: form $it has none") }
+        if (rule.power.values.any { it <= 0 }) fail("traits: power")
+    }
 
     private fun validateWorld() {
         val world = content.world
@@ -547,6 +571,7 @@ private class CampaignValidator(private val index: ContentIndex) {
         if (rules.evasion.perLevel < 0 || rules.stun.share < 0 || rules.stun.duration < 0) fail("combat: stun")
         if (rules.shield.rechargeDelay < 0 || rules.shield.rechargePerSecond < 0) fail("combat: shield")
         if (rules.retreat.delay < 0) fail("combat: retreat.delay")
+        if (rules.reinforceDelay < 0) fail("combat: reinforceDelay")
         if (rules.death.fromLevel < 1) fail("combat: death.fromLevel")
         percent(rules.death.experienceShare, "death.experienceShare")
         rules.ailments.forEach { rule ->

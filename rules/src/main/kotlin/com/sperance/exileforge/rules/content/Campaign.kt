@@ -119,6 +119,8 @@ data class CombatRules(
     val accuracy: AccuracyRule = AccuracyRule(),
     val buffs: BuffRules = BuffRules(),
     val defence: DefenceRule = DefenceRule(),
+    /** Подкрепление стаи (1.69.0): сколько секунд место павшего пустует, прежде чем следующий из очереди встанет на него. */
+    val reinforceDelay: Double = 0.0,
 ) {
     /**
      * Какая доля перезарядки умения идёт в начале боя: подготовка умения на его уровне (или [opening], если своей нет),
@@ -145,6 +147,8 @@ data class Monster(
     val tables: List<String> = emptyList(),
     val corrupted: Boolean = false,
     val skills: List<String> = emptyList(),
+    /** Своё свойство типа (1.69.0) - код из `traits.list`; к нему добавляется свойство формы. */
+    val trait: String? = null,
 )
 
 @Serializable data class ServiceRule(val summonPerLevel: Long)
@@ -170,6 +174,8 @@ data class MapRule(
     val tiers: MapTierRule? = null,
     /** Карты, захваченные влиянием (1.50.0). */
     val influence: MapInfluenceRule = MapInfluenceRule(),
+    /** Разброс уровня монстров захода по карте (1.69.0): каждый не-босс - уровень зоны ± [levelSpread], равномерно. */
+    val levelSpread: Int = 0,
 ) {
     /** Шанс уникалки Атласа героя с [nodes] взятыми узлами атласа. */
     fun atlasChance(nodes: Int): Double = atlasUniqueChance * (1 + nodes.coerceAtLeast(0) / atlasUniqueNodes)
@@ -342,6 +348,8 @@ data class CampaignFile(
     val abyss: AbyssRule? = null,
     /** Испытания (1.47.0): босс-раш и башня; нет раздела - нет испытаний. */
     val trials: TrialRules? = null,
+    /** Свойства монстров (1.69.0). */
+    val traits: TraitRules = TraitRules(),
     /** Таблица весов редкостей монстров. */
     val rarityTable: String = "rarity:monster",
 ) {

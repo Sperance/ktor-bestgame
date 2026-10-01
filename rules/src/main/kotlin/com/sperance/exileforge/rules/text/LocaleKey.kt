@@ -25,6 +25,7 @@ object LocaleKey {
     const val REGION = "region"
     const val MAP = "map"
     const val MONSTER = "monster"
+    const val TRAIT = "trait"
     const val PROFESSION = "profession"
     const val JOB = "job"
     const val ATLAS_NODE = "atlas.node"
@@ -58,6 +59,9 @@ object LocaleKey {
     fun mapName(code: String) = key(MAP, code, NAME)
     fun mapDescription(code: String) = key(MAP, code, DESCRIPTION)
     fun monsterName(code: String) = key(MONSTER, code, NAME)
+    /** Свойство монстра (1.69.0): название и описание; в описании `{0}` - сила отклика, `{1}` - порог здоровья, `{2}` - секунды. */
+    fun traitName(code: String) = key(TRAIT, code, NAME)
+    fun traitDescription(code: String) = key(TRAIT, code, DESCRIPTION)
     fun professionName(code: String) = key(PROFESSION, code, NAME)
     fun professionDescription(code: String) = key(PROFESSION, code, DESCRIPTION)
     fun jobName(code: String) = key(JOB, code, NAME)

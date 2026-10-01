@@ -5,6 +5,7 @@ import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.ModifierDef
 import com.sperance.exileforge.rules.content.Monster
 import com.sperance.exileforge.rules.content.MonsterRarity
+import com.sperance.exileforge.rules.content.MonsterTrait
 import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.RarityRule
 import com.sperance.exileforge.rules.content.Zone
@@ -32,6 +33,10 @@ data class RolledMonster(
     val behaviour: BehaviourRule,
     val skills: List<String> = emptyList(),
     val mapBuffs: List<MonsterEffect> = emptyList(),
+    /** Уровень монстра (1.69.0): по нему его статы, опыт и уровень добычи; 0 - уровень зоны. */
+    val level: Int = 0,
+    /** Свойства монстра (1.69.0): форма, затем тип; их строки уже в [stats], отклики читает бой. */
+    val traits: List<String> = emptyList(),
 )
 
 /** Босс или страж на уровне зоны: сигнатурные строки и таблица, из которой при каждой встрече добираются ещё. */
@@ -84,18 +89,30 @@ class MonsterRoller(private val index: ContentIndex) {
     }
 
     /** Редкость и модификаторы монстра [code] зоны при встрече; [extraRareMods] - лишние строки редкого от атласа. */
-    fun roll(zone: Zone, code: String, pool: List<MonsterMod>, dice: Dice, extraRareMods: Int = 0, rule: RarityRule = rarityRule(dice)): RolledMonster {
+    fun roll(zone: Zone, code: String, pool: List<MonsterMod>, dice: Dice, extraRareMods: Int = 0, rule: RarityRule = rarityRule(dice),
+             level: Int = zone.level): RolledMonster {
         val monster = index.monster(code) ?: throw IllegalArgumentException("unknown monster $code")
         var count = dice.between(rule.modifiers)
         if (rule.rarity == MonsterRarity.RARE && count > 0) count += extraRareMods
-        val picked = draw(pool, zone.level, rule, count, dice)
-        return build(monster, zone.level, rule, picked, dice)
+        val picked = draw(pool, level, rule, count, dice)
+        return build(monster, level, rule, picked, dice)
     }
 
     /** Монстр [code] редкости [rule] с уже вытянутыми строками - для стражей кристаллов (редкий + строки эссенций) и волн Бездны. */
     fun build(monster: Monster, level: Int, rule: RarityRule, modifiers: List<MonsterMod>, dice: Dice, extra: List<MonsterEffect> = emptyList(), skills: List<String> = monster.skills): RolledMonster {
-        val stats = fold(stats(monster, level), rarityEffects(rule) + modifiers.flatMap { it.effects } + extra)
-        return RolledMonster(monster.code, monster.form, rule.rarity, modifiers, stats, campaign.behaviourOf(monster), skills, extra)
+        val traits = campaign.traits.of(monster)
+        val stats = fold(stats(monster, level), rarityEffects(rule) + modifiers.flatMap { it.effects } + extra + traitEffects(traits, rule.rarity))
+        val own = (skills + traits.mapNotNull { it.skill }).distinct()
+        return RolledMonster(monster.code, monster.form, rule.rarity, modifiers, stats, campaign.behaviourOf(monster), own, extra, level, traits.map { it.code })
+    }
+
+    /** Строки свойств (1.69.0) на силе редкости [rarity]; навык свойства приносит ману, если своей у монстра нет. */
+    fun traitEffects(traits: List<MonsterTrait>, rarity: MonsterRarity): List<MonsterEffect> {
+        val power = campaign.traits.power(rarity)
+        return traits.flatMap { trait ->
+            trait.lines.map { MonsterEffect(it.stat, it.op, campaign.traits.scaled(it, power)) } +
+                listOfNotNull(trait.skill?.let { MonsterEffect(MANA, Op.ADD, TRAIT_MANA) })
+        }
     }
 
     /** [count] строк таблицы для редкости [rule]: тир открывает строки по `minRarity`, без повторов, значения брошены с силой редкости. */
@@ -147,5 +164,8 @@ class MonsterRoller(private val index: ContentIndex) {
 
     private companion object {
         const val BLOCK = "STOCK_BLOCK_CHANCE"
+        const val MANA = "STOCK_MANA"
+        /** Мана, которую навык свойства приносит с собой: на два-три применения. */
+        const val TRAIT_MANA = 30.0
     }
 }
