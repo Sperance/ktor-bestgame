@@ -61,8 +61,5 @@ val SEED_TEST_PLAYER_PASSWORD: String? = env("TEST_PLAYER_PASSWORD")
  */
 val TRUSTED_PROXIES: List<String> = env("TRUSTED_PROXIES")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()
 
-/** Разовая очистка базы (1.53.0) только по явному флагу: `WIPE_DB` равен метке [config.DatabaseWipe.MARKER]. */
-val WIPE_DB: String? = env("WIPE_DB")
-
 /** Адреса, которым разрешён доступ из браузера (CORS), через запятую. Не задано - никому. */
 val CORS_HOSTS: List<String> = env("CORS_HOSTS")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()

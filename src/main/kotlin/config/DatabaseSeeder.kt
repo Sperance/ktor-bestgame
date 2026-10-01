@@ -24,14 +24,18 @@ import features.caches.BlockListCache
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import org.bson.Document
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 /**
- * Старт базы (1.0.0): разовая очистка [DatabaseWipe], индексы, и на пустой базе - аккаунты из
+ * Старт базы (1.0.0): уборка устаревших коллекций, индексы, и на пустой базе - аккаунты из
  * окружения, по герою на каждый и один промокод. Справочников в базе нет: контент читает [ContentStore].
  */
 object DatabaseSeeder : KoinComponent {
+
+    /** Коллекции прежних версий: `Migration` - метки снятой разовой очистки базы. */
+    private val OBSOLETE_COLLECTIONS = listOf("Migration")
 
     private val users: UserRepository by inject()
     private val sessions: AuthSessionRepository by inject()
@@ -54,7 +58,7 @@ object DatabaseSeeder : KoinComponent {
         }
 
         printLog("Database seeding started")
-        DatabaseWipe.runOnce()
+        dropObsoleteCollections()
         ensureIndexes()
 
         transactionExecute { session ->
@@ -64,6 +68,12 @@ object DatabaseSeeder : KoinComponent {
         }
         blockListCache.initializeCache()
         printLog("Database seeding completed")
+    }
+
+    /** Сносит коллекции, которые сервер больше не ведёт; повторный drop отсутствующей коллекции - no-op. */
+    private suspend fun dropObsoleteCollections() {
+        val database = MongoFactory.getDatabase()
+        OBSOLETE_COLLECTIONS.forEach { database.getCollection(it, Document::class.java).drop() }
     }
 
     /** Индексы - до транзакции: создание индекса меняет каталог MongoDB и рвёт открытую транзакцию. */
