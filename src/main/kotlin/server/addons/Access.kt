@@ -66,6 +66,7 @@ fun Application.configureAccess() {
         val caller = Caller(user, token)
 
         if (need == Need.ADMIN && !caller.isAdmin) throw AuthExceptions.funExceptionAdminOnly("access", path)
+        if (need == Need.TESTER && !caller.isTester) throw AuthExceptions.funExceptionAdminOnly("access", path)
 
         if (!caller.isAdmin) query["userId"]?.let { if (it != user._id) throw AuthExceptions.funExceptionNotYourAccount("access", it) }
         // Герой по heroId, а в общем CRUD героев - по id.

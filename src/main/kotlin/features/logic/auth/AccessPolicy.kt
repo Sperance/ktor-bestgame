@@ -15,7 +15,7 @@ import io.ktor.http.decodeURLPart
  */
 object AccessPolicy {
 
-    enum class Need { PUBLIC, SIGNED_IN, ADMIN }
+    enum class Need { PUBLIC, SIGNED_IN, TESTER, ADMIN }
 
     /** Вход и регистрация - то, что делается без токена. */
     private val publicPosts = setOf(
@@ -37,8 +37,11 @@ object AccessPolicy {
         "user", "hero", "auctionlot", "redemptioncodes", "blocklist", "authsession", "guild", "guildevent", "bugreport", "herostats", "routetiming",
     )
 
-    /** Игровые маршруты, которыми администратор выдаёт что-то из ничего. */
-    private const val ADMIN_PREFIX = "/api/v1/hero/grant/"
+    /** Игровые маршруты, которыми выдаётся что-то из ничего: тестировщику (1.69.0) - своим героям, администратору - любым. */
+    private const val GRANT_PREFIX = "/api/v1/hero/grant/"
+
+    /** Управление аккаунтами тестировщиков (1.69.0). */
+    private const val ADMIN_PREFIX = "/api/v1/admin/"
 
     /**
      * Путь так, как его видит маршрутизатор Ktor: пустые сегменты отброшены, `%XX` раскрыты.
@@ -61,6 +64,7 @@ object AccessPolicy {
         if (path == "/static/index.json") return Need.PUBLIC
         if (path in publicSystem) return Need.PUBLIC
         if (verb == "POST" && path in publicPosts) return Need.PUBLIC
+        if (path.startsWith(GRANT_PREFIX)) return Need.TESTER
         if (path.startsWith(ADMIN_PREFIX)) return Need.ADMIN
         if (path.startsWith("/system/")) return Need.ADMIN
         if (path == "/swagger" || path.startsWith("/swagger/")) return Need.ADMIN

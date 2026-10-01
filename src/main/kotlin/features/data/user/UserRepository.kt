@@ -5,6 +5,7 @@ import CONST_FIELD_VERSION
 import base.exception.model.UserExceptions
 import base.repository.BaseRepository
 import base.repository.IndexSpec
+import application.enums.EnumUserRoles
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.now
@@ -187,4 +188,45 @@ class UserRepository : BaseRepository<User>(User::class) {
         return "system.success"
     }
 
+    // ==================== Тестировщики (1.69.0) ====================
+
+    suspend fun testers(): List<TesterAccount> =
+        findByFilter(Filters.eq("role", EnumUserRoles.TESTER.name)).sortedBy { it.login }.map { it.toTester() }
+
+    /** Новый тестировщик с логином [login] и случайным паролем: пароль в ответе один раз, в базе - только хеш. */
+    suspend fun createTester(login: String): TesterAccount {
+        val clean = login.trim()
+        val password = Passwords.generate()
+        val user = transactionExecute("createTester $clean") { session ->
+            insert(User(name = clean, email = "$clean@$TESTER_MAIL", age = TESTER_AGE, login = clean, password = password, role = EnumUserRoles.TESTER), session)
+        }
+        return user.toTester(password)
+    }
+
+    /** Новый случайный пароль тестировщику: старый перестаёт подходить сразу. */
+    suspend fun resetTester(id: String): TesterAccount {
+        val user = requireTester(id, "resetTester")
+        val password = Passwords.generate()
+        storeHash(user._id, offCpu { Passwords.hash(password) })
+        return user.toTester(password)
+    }
+
+    suspend fun setTesterActive(id: String, active: Boolean): TesterAccount {
+        val user = requireTester(id, "setTesterActive")
+        user.isActive = active
+        transactionExecute("setTesterActive $id") { session -> update(user, session) }
+        return user.toTester()
+    }
+
+    private suspend fun requireTester(id: String, method: String): User =
+        findById(id)?.takeIf { it.role == EnumUserRoles.TESTER } ?: throw UserExceptions.funExceptionFoundUserId(method, id)
+
+    private fun User.toTester(password: String? = null) = TesterAccount(_id, login, isActive, lastLoginDate?.toString(), password)
 }
+
+/** Аккаунт тестировщика для администратора (1.69.0); [password] - только в ответе на создание и сброс. */
+@kotlinx.serialization.Serializable
+data class TesterAccount(val id: String, val login: String, val active: Boolean, val lastLogin: String?, val password: String? = null)
+
+private const val TESTER_MAIL = "tester.exileforge"
+private const val TESTER_AGE = 18

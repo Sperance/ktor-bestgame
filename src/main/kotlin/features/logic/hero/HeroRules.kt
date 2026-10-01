@@ -79,7 +79,7 @@ object Rewards {
     /** Берёт узлы плана дерева, на которые теперь хватает очков (1.45.0). */
     fun followPlan(hero: Hero, index: ContentIndex) {
         val start = index.heroClass(hero.heroClass)?.startNode ?: return
-        val available = index.classes.pointsTotal(hero.level) - index.tree.spent(hero.tree)
+        val available = index.classes.pointsTotal(hero.level) + hero.bonusPoints - index.tree.spent(hero.tree)
         hero.tree += TreePlan.follow(index.tree, hero.plannedTree, hero.tree.map { it.code }, start, available)
     }
 }

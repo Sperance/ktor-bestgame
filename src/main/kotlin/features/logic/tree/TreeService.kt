@@ -30,7 +30,7 @@ class TreeService : KoinComponent {
     private val index: ContentIndex get() = content.index
 
     fun state(hero: Hero): TreeState {
-        val total = index.classes.pointsTotal(hero.level)
+        val total = index.classes.pointsTotal(hero.level) + hero.bonusPoints
         val spent = index.tree.spent(hero.tree)
         val calculator = SheetCalculator(index)
         return TreeState(total, spent, total - spent, hero.tree.toList(), calculator.contributions(calculator.expand(index.tree.lines(hero.tree))))

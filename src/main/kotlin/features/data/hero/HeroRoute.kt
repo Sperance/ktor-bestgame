@@ -84,8 +84,31 @@ class HeroRoute(
             else call.respondOk(snapshot)
         }
 
-        // Администратор выдаёт из ничего: опыт, стопку, вещь по шаблону.
+        // Окно тестирования (1.69.0) и администратор выдают из ничего: опыт, стопку, вещь по шаблону и всё остальное ниже.
         route("/grant") {
+            /** Выдача [what] герою запроса и ответ его снимком. */
+            suspend fun io.ktor.server.routing.RoutingContext.grant(method: String, what: features.logic.hero.TesterGrants.(features.data.hero.Hero) -> Unit) {
+                val hero = repo.requireHero(call.heroId, method)
+                features.logic.hero.TesterGrants(content.index).what(hero)
+                call.respondWithHero(repo.save(hero, method).level)
+            }
+            post("/gold") { grant("grantGold") { gold(it, call.queryParam("amount", 0L)) } }
+            post("/level") { grant("grantLevel") { level(it, call.queryParam("level", 1)) } }
+            post("/skillPoints") { grant("grantSkillPoints") { skillPoints(it, call.queryParam("amount", 0)) } }
+            post("/atlasPoints") { grant("grantAtlasPoints") { atlasPoints(it) } }
+            post("/zones") { grant("grantZones") { zones(it) } }
+            post("/rares") { grant("grantRares") { rares(it, call.queryParam("count", 1)) } }
+            post("/map") {
+                val rarity = call.optionalParam("rarity")?.let { Rarity.of(it) } ?: Rarity.RARE
+                grant("grantMap") { if (!map(it, call.queryParam("zone"), rarity)) throw base.exception.model.CharacterExceptions.funExceptionEquipmentNotFound("grantMap", call.queryParam("zone")) }
+            }
+            post("/profession") { grant("grantProfession") { profession(it, call.optionalParam("code").orEmpty(), call.queryParam("level", 1)) } }
+            post("/recipes") { grant("grantRecipes") { recipes(it) } }
+            post("/reset") {
+                val what = call.queryParam("what").let { name -> features.logic.hero.TesterReset.entries.firstOrNull { it.name == name } }
+                    ?: throw BaseRouteExceptions.funExceptionQuery("grantReset", "what=${call.queryParam("what")}")
+                grant("grantReset") { reset(it, what) }
+            }
             post("/experience") {
                 val hero = repo.requireHero(call.heroId, "grantExperience")
                 Rewards.addExperience(hero, call.queryParam("amount", 0.0).coerceAtLeast(0.0), content.index)

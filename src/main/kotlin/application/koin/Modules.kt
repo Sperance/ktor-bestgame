@@ -70,6 +70,7 @@ val routeModule = module {
                 GuildRoute(get()),
                 RedemptionCodesRoute(get()),
                 features.data.bugReport.BugReportRoute(get(), get()),
+                features.data.admin.AdminRoute(get(), get()),
             )
         )
     }

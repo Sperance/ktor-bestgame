@@ -23,6 +23,20 @@ object Passwords {
     /** Подставной хеш (1.46.0): с ним сверяется пароль неизвестного логина, чтобы ответ шёл столько же, сколько с известным. */
     val DECOY: String by lazy { hash("decoy-${random.nextLong()}") }
 
+    /** Случайный пароль (1.69.0) по правилам аккаунта: [GENERATED] знаков, есть цифра и заглавная, без пробелов и похожих букв. */
+    fun generate(): String {
+        val lower = "abcdefghijkmnpqrstuvwxyz"
+        val upper = "ABCDEFGHJKLMNPQRSTUVWXYZ"
+        val digits = "23456789"
+        val all = lower + upper + digits
+        val chars = mutableListOf(upper[random.nextInt(upper.length)], digits[random.nextInt(digits.length)])
+        repeat(GENERATED - chars.size) { chars += all[random.nextInt(all.length)] }
+        chars.shuffle(random)
+        return chars.joinToString("")
+    }
+
+    private const val GENERATED = 12
+
     fun hash(password: String, iterations: Int = ITERATIONS): String {
         val salt = ByteArray(SALT_BYTES).also(random::nextBytes)
         return encode(iterations, salt, derive(password, salt, iterations))

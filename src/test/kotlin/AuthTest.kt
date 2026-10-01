@@ -142,10 +142,11 @@ class AuthTest {
     }
 
     @Test
-    fun granting_and_the_system_switches_are_for_an_administrator() {
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/equipment"))
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/experience"))
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/item"))
+    fun granting_is_for_a_tester_and_the_system_switches_for_an_administrator() {
+        assertEquals(Need.TESTER, need("POST", "/api/v1/hero/grant/equipment"))
+        assertEquals(Need.TESTER, need("POST", "/api/v1/hero/grant/experience"))
+        assertEquals(Need.TESTER, need("POST", "/api/v1/hero/grant/item"))
+        assertEquals(Need.ADMIN, need("POST", "/api/v1/admin/testers"))
         assertEquals(Need.ADMIN, need("GET", "/system/unknown"))
     }
 
@@ -160,7 +161,7 @@ class AuthTest {
         assertEquals(Need.ADMIN, need("POST", "//api/v1/redemptioncodes"))
         assertEquals(Need.ADMIN, need("PUT", "/api/v1//hero", "id" to "x"))
         assertEquals(Need.ADMIN, need("GET", "/api/v1/%68ero"))
-        assertEquals(Need.ADMIN, need("POST", "/api/v1/hero/grant/%49tem"))
+        assertEquals(Need.TESTER, need("POST", "/api/v1/hero/grant/%49tem"))
         assertEquals("/api/v1/hero", AccessPolicy.canonical("//api//v1/%68ero/"))
     }
 }

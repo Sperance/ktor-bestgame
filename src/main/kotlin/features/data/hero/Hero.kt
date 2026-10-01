@@ -57,6 +57,8 @@ data class Hero(
     var tree: MutableList<TakenNode> = mutableListOf(),
     /** План дерева (1.45.0): узлы, что сервер возьмёт сам, как хватит очков. */
     var plannedTree: MutableList<TakenNode> = mutableListOf(),
+    /** Очки дерева сверх уровня (1.69.0): их выдаёт только окно тестирования. */
+    var bonusPoints: Int = 0,
     var skills: HeroSkills = HeroSkills(),
     /** Взятые узлы атласа без корня и засчитанные достижения `<вид>:<зона>`. */
     var atlas: MutableList<String> = mutableListOf(),

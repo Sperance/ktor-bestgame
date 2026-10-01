@@ -15,6 +15,8 @@ import kotlin.coroutines.coroutineContext
  */
 class Caller(val user: User, val token: String) : AbstractCoroutineContextElement(Key) {
     val isAdmin: Boolean get() = user.role == EnumUserRoles.ADMIN
+    /** Окно тестирования (1.69.0): тестировщику и администратору. */
+    val isTester: Boolean get() = isAdmin || user.role == EnumUserRoles.TESTER
     companion object Key : CoroutineContext.Key<Caller>
 }
 
