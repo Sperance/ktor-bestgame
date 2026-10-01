@@ -49,6 +49,10 @@ data class AuctionLot(
     var closedAt: LocalDateTime? = null,
     /** Когда лот снимается с витрины, мс эпохи UTC (1.30.0); ноль - старый лот, срок выводится из [createdAt]. */
     var expiresAt: Long = 0,
+    /** Сделка (1.69.0): имя покупателя, когда продано (мс эпохи UTC) и снимок вещи - для истории; товар уже у покупателя. */
+    var buyerName: String = "",
+    var soldAt: Long = 0,
+    var sold: ItemInstance? = null,
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,

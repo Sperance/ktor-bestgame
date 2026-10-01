@@ -161,6 +161,7 @@
       "ORB_OF_CHANCE"
     ]
   },
+  "inputs": {"heroName": 24, "login": 32, "password": 64, "search": 40, "server": 200, "code": 64, "number": 12, "report": 2000, "suggestion": 1000, "mailSubject": 80, "mailBody": 2000},
   "loot": {
     "goldGrowth": 1.1,
     "goldTaper": {

@@ -27,4 +27,5 @@ object UserExceptions {
     fun funExceptionFoundUserId(errorMethod: String, value: String? = "") = UserException("User with id $value not found", errorMethod, "US_012", listOf(value.orEmpty()))
     fun funExceptionEmptyDevice(errorMethod: String, value: String? = "") = UserException("Field `deviceId` is empty", errorMethod, "US_014", listOf(value.orEmpty()))
     fun funExceptionDeviceNotFound(errorMethod: String, value: String? = "") = UserException("Device is not known", errorMethod, "US_015")
+    fun funExceptionLoginLength(errorMethod: String, value: String? = "") = UserException("Login length is invalid: $value", errorMethod, "US_016", listOf(value.orEmpty()))
 }

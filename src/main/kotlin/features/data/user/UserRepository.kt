@@ -17,6 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class UserRepository : BaseRepository<User>(User::class) {
+    /** Длина логина (1.69.0): то же, что `rules.inputs.login` у клиента. */
+    private companion object { const val MAX_LOGIN = 32 }
+
     // Вход по устройству ищет аккаунт по device_id на каждом старте клиента
     // Аккаунт по устройству живёт без почты и логина: уникальны только заполненные значения,
     // иначе второй такой аккаунт упирался в пустую строку первого
@@ -31,6 +34,7 @@ class UserRepository : BaseRepository<User>(User::class) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
         if (entity.age !in 12..120) throw UserExceptions.funExceptionInvalidAge("validateBeforeInsert", entity.age.toString())
         if (entity.password.length < 6) throw UserExceptions.funExceptionInvalidPassword("validateBeforeInsert")
+        if (entity.login.length !in 1..MAX_LOGIN) throw UserExceptions.funExceptionLoginLength("validateBeforeInsert", "1-$MAX_LOGIN")
         // Уникальность проверяется и по мягко удалённым: их документы никуда
         // не делись, и уникальный индекс всё равно не даст занять логин или почту
         if (findByLogin(entity.login, includeDeleted = true) != null) throw UserExceptions.funExceptionLoginExists("validateBeforeInsert", entity.login)

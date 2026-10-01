@@ -117,6 +117,8 @@ data class AuctionRules(
     val buyerFee: Double = 0.0, val lotDays: Int = 30,
     /** Валюта аукциона (1.65.0): цена лота, покупка и фильтр витрины - только этими базовыми сферами; товаром идёт любой предмет. */
     val currencies: List<Orb> = BASE_CURRENCIES,
+    /** Сколько дней сделка видна в истории героя (1.69.0): продажи и покупки. */
+    val historyDays: Int = 7,
 ) {
     /** Можно ли назначить цену в предмете [code]. */
     fun trades(code: String): Boolean = currencies.any { it.name == code }
@@ -319,6 +321,13 @@ data class ChargeRules(
 @Serializable
 data class ChargeRule(val max: String, val lines: List<PowerLine>)
 
+/** Сколько символов принимает каждое поле ввода (1.69.0). */
+@Serializable
+data class InputLimits(
+    val heroName: Int = 24, val login: Int = 32, val password: Int = 64, val search: Int = 40, val server: Int = 200, val code: Int = 64,
+    val number: Int = 12, val report: Int = 2000, val suggestion: Int = 1000, val mailSubject: Int = 80, val mailBody: Int = 2000,
+)
+
 /**
  * Правила движка (`rules.json`): всё, что раньше было константами кода, - места аффиксов редкостей,
  * торговец, цена, верстак, сферы, фляги, стартовый набор, аукцион, добыча, тайник, заход.
@@ -336,6 +345,8 @@ data class EngineRules(
     val flasks: FlaskRules = FlaskRules(),
     val starter: StarterRules = StarterRules(),
     val auction: AuctionRules = AuctionRules(),
+    /** Длины полей ввода (1.69.0): клиент режет ввод и показывает счётчик, сервер проверяет то же. */
+    val inputs: InputLimits = InputLimits(),
     val loot: LootRules = LootRules(),
     val stash: StashRules = StashRules(),
     val run: RunRules = RunRules(),

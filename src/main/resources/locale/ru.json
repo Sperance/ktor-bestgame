@@ -8281,5 +8281,6 @@
   "skill.MOB_FROST_BREATH.name": "Ледяное дыхание",
   "skill.MOB_FLAME_BREATH.name": "Огненное дыхание",
   "skill.MOB_THUNDERCLAP.name": "Раскат грома",
-  "skill.MOB_BONE_ARMOUR.name": "Костяная броня"
+  "skill.MOB_BONE_ARMOUR.name": "Костяная броня",
+  "error.US_016": "Длина логина вне пределов: {0}"
 }

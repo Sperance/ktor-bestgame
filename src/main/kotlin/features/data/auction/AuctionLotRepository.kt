@@ -44,7 +44,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     private val index: ContentIndex get() = content.index
     private val rules get() = index.rules.auction
 
-    override val indexes = listOf(IndexSpec.on("status", "_id"), IndexSpec.on("sellerId", "status"), IndexSpec.on("itemCode"), IndexSpec.on("status", "expiresAt"))
+    override val indexes = listOf(IndexSpec.on("status", "_id"), IndexSpec.on("sellerId", "status"), IndexSpec.on("itemCode"), IndexSpec.on("status", "expiresAt"), IndexSpec.on("buyerId", "soldAt"), IndexSpec.on("sellerId", "soldAt"))
 
     /** Витрина по курсору (1.62.0): страница после лота [after], без `skip`. */
     suspend fun search(heroId: String, search: AuctionSearch, after: String?, size: Int): CursorPage<AuctionLot> {
@@ -140,11 +140,22 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         deliver(lot, buyer)
         buyer.count(Counter.AUCTION_BOUGHT)
         seller.count(Counter.AUCTION_SOLD)
+        lot.buyerName = buyer.name
+        lot.soldAt = System.currentTimeMillis()
+        lot.sold = lot.equipment
         return transactionExecute("auction $method $lotId") { session ->
             heroes.update(buyer, session)
             heroes.update(seller, session)
             close(lot, LotStatus.SOLD, heroId, session)
         }
+    }
+
+    /** История сделок героя (1.69.0): его продажи и покупки за `auction.historyDays` дней, новые первыми. */
+    suspend fun history(heroId: String): List<AuctionLot> {
+        requireTrader(heroId, "history")
+        val since = System.currentTimeMillis() - rules.historyDays * DAY_MS
+        return findByFilter(Filters.and(Filters.eq("status", LotStatus.SOLD.name), Filters.gte("soldAt", since),
+            Filters.or(Filters.eq("sellerId", heroId), Filters.eq("buyerId", heroId)))).sortedByDescending { it.soldAt }
     }
 
     suspend fun cancel(heroId: String, lotId: String): AuctionLot {
@@ -179,6 +190,8 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     private fun goods(lot: AuctionLot) = (lot.equipment ?: throw AuctionExceptions.funExceptionLotBroken("deliver", lot._id)).copy(slot = null, socket = null)
 
     private fun expiry(): Long = System.currentTimeMillis() + rules.lotMillis
+
+    private companion object { const val DAY_MS = 24 * 3_600_000L }
 
     /**
      * Лот, каким его показывают: вещь сверена с контентом так же, как её сверит запись героя. Изменилось

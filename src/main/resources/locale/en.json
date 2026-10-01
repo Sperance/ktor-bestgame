@@ -8281,5 +8281,6 @@
   "skill.MOB_FROST_BREATH.name": "Frost Breath",
   "skill.MOB_FLAME_BREATH.name": "Flame Breath",
   "skill.MOB_THUNDERCLAP.name": "Thunderclap",
-  "skill.MOB_BONE_ARMOUR.name": "Bone Armour"
+  "skill.MOB_BONE_ARMOUR.name": "Bone Armour",
+  "error.US_016": "Login length is out of range: {0}"
 }

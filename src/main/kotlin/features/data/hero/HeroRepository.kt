@@ -104,7 +104,8 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
         if (player != null && entity.userId != player.user._id) throw AuthExceptions.funExceptionNotYourAccount(method, entity.userId)
         if (entity.name.isBlank()) throw CharacterExceptions.funExceptionName(method)
         // Длина имени (1.53.0): документ и уникальный индекс не раздуваются присланной простынёй
-        if (entity.name.length !in MIN_NAME..MAX_NAME) throw CharacterExceptions.funExceptionNameLength(method, "$MIN_NAME-$MAX_NAME")
+        val longest = minOf(MAX_NAME, index.rules.inputs.heroName)
+        if (entity.name.length !in MIN_NAME..longest) throw CharacterExceptions.funExceptionNameLength(method, "$MIN_NAME-$longest")
         val heroClass = index.heroClass(entity.heroClass) ?: throw ProgressionExceptions.funExceptionClassNotFound(method, entity.heroClass)
         // Имя уникально в индексе, поэтому занятым считается и имя мягко удалённого героя
         if (findByField(Hero::name, entity.name, includeDeleted = true) != null) throw CharacterExceptions.funExceptionNameDuplicate(method, entity.name)
