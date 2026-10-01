@@ -29,6 +29,8 @@ object Plausibility {
     const val KILLS_PER_SECOND = 4.0
     /** Босс раньше этого числа секунд с входа - значит, до него не дошли. */
     const val BOSS_SECONDS = 8.0
+    /** Ступень Бездны (1.68.0) - волна монстров: быстрее этого числа секунд на ступень её не пройти. */
+    const val ABYSS_DEPTH_SECONDS = 4.0
     /** Меток на герое не больше: старые уходят. */
     const val KEEP = 20
     /** Во сколько раз бой может идти быстрее расчётного: криты, умения по площади, питомцы, лаг журнала. */
@@ -80,10 +82,23 @@ object Plausibility {
         return true
     }
 
-    /** Босс захода [state]: до него прошло хоть сколько-то времени; `false` - событие отклонить. */
-    fun boss(hero: Hero, state: RunState, now: Long): Boolean {
-        val seconds = seconds(state, now)
-        return !(seconds < BOSS_SECONDS && flag(hero, state, now, "boss_seconds", seconds, BOSS_SECONDS / seconds))
+    /**
+     * Страж захода - босс или (1.68.0) страж порчи: не раньше [BOSS_SECONDS] с входа, и его бой - [guardian] без строк, нижняя
+     * оценка - ложится в работу захода, как стая; `false` - событие отклонить.
+     */
+    fun guardian(hero: Hero, state: RunState, now: Long, pace: Pace, guardian: RolledMonster?): Boolean {
+        val elapsed = seconds(state, now)
+        val seconds = elapsed + PROMPT_SECONDS
+        val work = state.work + (guardian?.let { packSeconds(listOf(it), pace.dps) } ?: 0.0)
+        // Одна метка на одно нарушение: слишком ранний страж мерится порогом секунд, остальной - работой захода
+        val tooFast = when {
+            elapsed < BOSS_SECONDS -> flag(hero, state, now, "boss_seconds", elapsed, BOSS_SECONDS / elapsed)
+            seconds + SLACK_SECONDS < work / MARGIN -> flag(hero, state, now, "guardian_seconds", work / seconds, work / MARGIN / (seconds + SLACK_SECONDS))
+            else -> false
+        }
+        if (tooFast) return false
+        state.work = work
+        return true
     }
 
     /** Испытание (1.47.0) [place], начатое в [startedAt]: [done] боссов или этажей быстрее [seconds] секунд на каждый - метка [reason]; `false` - отклонить. */

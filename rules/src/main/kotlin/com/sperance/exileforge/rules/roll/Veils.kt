@@ -55,8 +55,13 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
         return OrbOutcome(item, null, "currency.unveil_offer", listOf(LocaleKey.equipmentName(template.code), options.size.toString()))
     }
 
-    /** Выбор игрока [choice] встаёт на место скрытого аффикса; вариант, чью группу копия с тех пор заняла, не встаёт. */
+    /**
+     * Выбор игрока [choice] встаёт на место скрытого аффикса; вариант, чью группу копия с тех пор заняла, не встаёт.
+     * Осквернённая и отражённая копии неизменны и через выбор: раскрытие - такая же мутация, как сфера.
+     */
     fun reveal(item: ItemInstance, template: ItemTemplate, choice: Int): OrbOutcome {
+        if (item.corrupted) throw RuleViolation("CR_004", listOf(LocaleKey.equipmentName(template.code)))
+        if (item.mirrored) throw RuleViolation("CR_010", listOf(LocaleKey.equipmentName(template.code)))
         val veil = veiled(item)
         val option = item.unveil.getOrNull(choice)
         if (veil == null || option == null) throw RuleViolation("CR_032", listOf(LocaleKey.equipmentName(template.code)))

@@ -94,7 +94,12 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         // Копия без своего уровня (до 1.33.0) катилась на уровне зоны - её тиры уровнем шаблона не режутся
         val fitted = item.rolls.map { fitTier(it, if (item.itemLevel > 0) item.itemLevel else Int.MAX_VALUE) }
         if (fitted != item.rolls) { item.rolls = fitted; changed = true }
-        val fixed = template.fixedCodes.filter { code -> index.modifier(code)?.source?.permanent == true }
+        // Порча, что заменила имплиситы (исход IMPLICIT сферы ваал), их место заняла навсегда: дороллить их обратно - двойной бонус.
+        val replaced = item.corrupted && item.rolls.any { it.code !in template.fixedCodes && index.modifier(it.code)?.source == Source.CORRUPTION }
+        val fixed = template.fixedCodes.filter { code ->
+            val source = index.modifier(code)?.source
+            source?.permanent == true && !(replaced && source == Source.IMPLICIT)
+        }
         val missing = fixed.filter { code -> item.rolls.none { it.code == code } }
         if (missing.isNotEmpty()) {
             item.rolls = item.rolls + missing.mapNotNull { affixes.rollCode(it, template.level, dice) }

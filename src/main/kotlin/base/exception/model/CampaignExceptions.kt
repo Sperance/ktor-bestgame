@@ -22,6 +22,10 @@ object CampaignExceptions {
     fun funExceptionEventOrder(errorMethod: String, value: String? = "") = CampaignException("Run event $value is out of order", errorMethod, "CP_019", listOf(value.orEmpty()))
     fun funExceptionContentChanged(errorMethod: String, value: String? = "") = CampaignException("The world changed since run $value began: it is closed", errorMethod, "CP_020", listOf(value.orEmpty()))
     fun funExceptionSeedTooSoon(errorMethod: String, value: String? = "") = CampaignException("A new run can begin in $value s", errorMethod, "CP_021", listOf(value.orEmpty()))
-    fun funExceptionRegionClosed(errorMethod: String, value: String? = "") = CampaignException("Region $value is not cleared", errorMethod, "CP_022", listOf(value.orEmpty()))
+    fun funExceptionRegionClosed(errorMethod: String, value: String? = "") = CampaignException("Region $value is not cleared", errorMethod, "CP_024", listOf(value.orEmpty()))
+    /** Башня пройдена до потолка (1.68.0): вход отклоняется до списания печати. */
+    fun funExceptionTowerConquered(errorMethod: String, value: String? = "") = CampaignException("The tower is conquered up to floor $value", errorMethod, "CP_025", listOf(value.orEmpty()))
+    /** Журнал чужого захода (1.68.0): его `runId` не совпал с открытым заходом - ни одно событие не принято. */
+    fun funExceptionRunMismatch(errorMethod: String, value: String? = "") = CampaignException("The journal belongs to run $value, which is not the open one", errorMethod, "CP_026", listOf(value.orEmpty()))
     fun funExceptionNoTrial(errorMethod: String, value: String? = "") = CampaignException("No trial is open", errorMethod, "CP_023", listOf(value.orEmpty()))
 }

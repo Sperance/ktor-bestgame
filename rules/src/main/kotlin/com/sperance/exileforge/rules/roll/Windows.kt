@@ -114,8 +114,8 @@ class EssenceCrystals(private val index: ContentIndex) {
 /** Окно расщелин Бездны у героя: до [refreshAt] стоят те, что остались, - по глубине каждой. */
 @Serializable data class AbyssWindow(val refreshAt: Long = 0, val cracks: List<Int> = emptyList())
 
-/** Открытый спуск: зона и сколько ступеней в нём. */
-@Serializable data class AbyssRun(val mapCode: String, val depth: Int)
+/** Открытый спуск: зона, сколько ступеней в нём и (1.68.0) когда открыт - глубина сверяется с прошедшим временем. */
+@Serializable data class AbyssRun(val mapCode: String, val depth: Int, val openedAt: Long = 0)
 
 /** Копилка, какой её видит герой. */
 @Serializable data class AbyssHoardView(val items: List<Int>, val rare: Double, val orbs: List<Int>, val unique: Double, val experience: Double)

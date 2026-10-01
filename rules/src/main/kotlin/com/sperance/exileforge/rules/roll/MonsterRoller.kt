@@ -68,11 +68,14 @@ class MonsterRoller(private val index: ContentIndex) {
 
     fun zonePool(zone: Zone): List<MonsterMod> = pool(zone.tables, zone.level)
 
-    /** Босс, страж порчи или вожак Бездны на уровне [level]: сигнатуры на тире `level + tierReach`, таблица на тире уровня. */
+    /**
+     * Босс, страж порчи или вожак Бездны на уровне [level]: сигнатуры на тире `level + tierReach`, таблица на тире уровня.
+     * Дополнительные строки таблицы - только открытые уровнем зоны, как у обычных монстров ([draw]): тир сверх уровня - удел сигнатур.
+     */
     fun guardian(code: String, level: Int, tables: List<String> = campaign.bosses.modifiers, rolls: List<Int> = campaign.bosses.rollsAt(level), tierReach: Int = campaign.bosses.tierReach): GuardianView {
         val monster = index.monster(code) ?: throw IllegalArgumentException("unknown monster $code")
         val signature = monster.fixed.mapNotNull { fixed -> index.modifier(fixed)?.let { raise(it, index.tables.weight(fixed, tables), level, level + tierReach) } }
-        return GuardianView(monster, level, stats(monster, level), signature, pool(tables, level).filter { it.code !in monster.fixed }, rolls)
+        return GuardianView(monster, level, stats(monster, level), signature, pool(tables, level).filter { it.code !in monster.fixed && it.minLevel <= level }, rolls)
     }
 
     fun rarityRule(dice: Dice): RarityRule {

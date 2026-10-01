@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.67.0"
+const val SERVER_VERSION = "1.68.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -35,8 +35,10 @@ const val SERVER_VERSION = "1.67.0"
  *      недоступной базе, `WorkView.seed` всегда 0, потолок башни `tower.maxFloor`, отказ без `errorClass`/`errorMethod` (1.53.0).
  * 36 - витрина аукциона по курсору (`after` вместо `page`, ответ `CursorPage`), `rules` в манифесте, `ItemInstance.resale`,
  *      `MerchantStock.level` (1.62.0).
+ * 41 - журналы `campaign/events` и `trials/events` только с `runId` своего захода (422 `CP_026` - чужой), их отчёт с `runId`
+ *      хранится для повтора по ключу, смерть в Ваал-зоне - `FALL` с `vaal`, вход в покорённую башню - `CP_025` (1.68.0).
  */
-const val API_REVISION = 40
+const val API_REVISION = 41
 
 /**
  * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой

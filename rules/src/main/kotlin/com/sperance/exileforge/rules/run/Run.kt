@@ -171,6 +171,17 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         (dice.between(zone.count) * (1 + (mapEffect(MapStat.PACK_SIZE.code) + context[AtlasStat.PACK_SIZE.code]) / 100)).toInt().coerceAtLeast(1)
     }
 
+    /**
+     * Портал Ваал этого захода (1.68.0): у зоны с порчей - с шансом правила порчи и атласа, на потоке `portal` семени. Клиент
+     * ставит портал этим же броском, сервер не открывает Ваал-зону без него.
+     */
+    val portal: Boolean by lazy {
+        zone.corrupted.isNotBlank() && streams.of("portal").chance((campaign.corruption.chance * (1 + context[AtlasStat.VAAL_CHANCE.code] / 100)).coerceIn(0.0, 1.0))
+    }
+
+    /** Страж [code] уникальной редкости без строк таблицы - нижняя оценка его стойкости для темпа захода. */
+    fun guardianFloor(code: String): RolledMonster? = index.monster(code)?.let { monsters.build(it, zone.level, campaign.rarity(MonsterRarity.UNIQUE), emptyList(), Dice(seed)) }
+
     /** Жетонов в Ваал-зоне: бросок зоны на своём потоке. */
     val vaalCount: Int by lazy { streams.of("vaalCount").between(zone.count).coerceAtLeast(1) }
 

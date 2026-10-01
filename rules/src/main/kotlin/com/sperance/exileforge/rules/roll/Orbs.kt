@@ -305,6 +305,9 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
 
     private fun vaal(item: ItemInstance, template: ItemTemplate, dice: Dice, sure: Boolean = false): OrbOutcome {
         item.corrupted = true
+        // Осквернённую копию больше не меняет ничто, так что ждущие выборы теряют смысл.
+        item.unveil = emptyList()
+        item.offer = emptyList()
         // Знамение порчи (1.35.0): порча не проходит впустую.
         return when (dice.pick(if (sure) VaalOutcome.entries - VaalOutcome.NOTHING else VaalOutcome.entries)) {
             VaalOutcome.NOTHING -> outcome(item, template, "currency.vaal_nothing")
@@ -336,7 +339,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         val unique = Tables.draw(index.templatePoolUpTo(rules.orbs.chanceUniques, template.level + index.rules.loot.uniqueReach).filter { it.value.slot == template.slot }, dice)
         if (unique != null && dice.percent(rules.orbs.chanceUniquePercent)) {
             val reborn = factory.create(item.id, unique, Rarity.UNIQUE, dice, level = item.level(template))
-            return OrbOutcome(reborn.also { it.slot = item.slot; it.socket = item.socket; it.quality = item.quality; it.catalyst = item.catalyst }, null, "currency.chance_unique", listOf(name(template), name(unique)))
+            return OrbOutcome(reborn.inheriting(item), null, "currency.chance_unique", listOf(name(template), name(unique)))
         }
         val wanted = Tables.value<Rarity>(index.tables, rules.orbs.chanceRarities, dice) ?: Rarity.COMMON
         val rarity = factory.rarityFor(template, wanted)
@@ -347,7 +350,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     }
 
     private fun mirror(item: ItemInstance, template: ItemTemplate, newId: () -> String): OrbOutcome =
-        OrbOutcome(item, item.copy(id = newId(), rolls = item.rolls.toList(), slot = null, socket = null, mirrored = true, locked = false), "currency.mirrored", listOf(name(template)))
+        OrbOutcome(item, item.copy(id = newId(), rolls = item.rolls.toList(), slot = null, socket = null, mirrored = true, locked = false, unveil = emptyList(), offer = emptyList()), "currency.mirrored", listOf(name(template)))
 
     private fun fracture(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         if (item.rarity != Rarity.RARE) throw RuleViolation("CR_005", listOf(item.rarity.name))

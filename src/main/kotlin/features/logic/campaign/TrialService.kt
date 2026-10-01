@@ -40,6 +40,8 @@ data class TrialReward(val n: Int, val kind: TrialEventKind, val reward: RewardV
 data class TrialReport(
     val applied: Int, val rejected: List<Int>, val rewards: List<TrialReward>, val trials: TrialProgress,
     val level: Int, val experience: Double, val money: Long, val received: Received = Received(),
+    /** Испытание, к которому относится отчёт (1.68.0). */
+    val runId: String = "",
 )
 
 /**
@@ -82,21 +84,26 @@ class TrialService : KoinComponent {
         val method = "tower"
         val rules = rules(method)
         val hero = heroes.requireHero(heroId, method)
+        // Башня покорена (1.68.0): этажа после потолка нет - печать не тратится на заход, который не пройти
+        val first = rules.tower.start(hero.campaign.trials.towerBest)
+        if (first > rules.tower.maxFloor) throw CampaignExceptions.funExceptionTowerConquered(method, rules.tower.maxFloor.toString())
         hero.spend(TrialRules.SEAL, 1, method)
-        return open(hero, TrialKind.TOWER, "", rules.tower.start(hero.campaign.trials.towerBest), method)
+        return open(hero, TrialKind.TOWER, "", first, method)
     }
 
     private suspend fun open(hero: Hero, kind: TrialKind, region: String, floor: Int, method: String): TrialStart {
-        val run = TrialRun(ObjectId().toHexString(), kind, kotlin.random.Random.nextLong(), hero.level, System.currentTimeMillis(), region, floor)
+        val opened = TrialRun(ObjectId().toHexString(), kind, kotlin.random.Random.nextLong(), hero.level, System.currentTimeMillis(), region, floor)
+        val run = opened.copy(context = context(hero, opened))
         hero.campaign.trials = hero.campaign.trials.copy(run = run)
         hero.count(Counter.RUNS)
         hero.count(Counter.TRIALS)
         heroes.save(hero, method)
-        return TrialStart(run, context(hero, run))
+        return TrialStart(run, run.context!!)
     }
 
-    private fun context(hero: Hero, run: TrialRun): RunContext =
-        campaign.context(hero, TrialRules.arena(index.campaign, run.heroLevel)).copy(active = null, vaal = null, next = emptyList())
+    /** Контекст испытания: замороженный на вход, у испытаний прежних версий - собранный заново. */
+    private fun context(hero: Hero, run: TrialRun): RunContext = run.context
+        ?: campaign.context(hero, TrialRules.arena(index.campaign, run.heroLevel)).copy(active = null, vaal = null, next = emptyList())
 
     private fun region(code: String, method: String): Region =
         index.campaign.regions.firstOrNull { it.code == code } ?: throw CampaignExceptions.funExceptionMapNotFound(method, code)
@@ -105,12 +112,14 @@ class TrialService : KoinComponent {
      * Журнал испытания: события по номерам, каждый один раз, как у захода. Событие не по правилу (не тот босс, не тот
      * этаж, не тот вид) отклоняется без награды, но номер двигает. Конец испытания закрывает его: раш - сундуком.
      */
-    suspend fun events(heroId: String, events: List<TrialEvent>): TrialReport {
+    suspend fun events(heroId: String, runId: String, events: List<TrialEvent>): TrialReport {
         val method = "trialEvents"
         if (events.size > MAX_EVENTS) throw CampaignExceptions.funExceptionTooManyEvents(method, MAX_EVENTS.toString())
         val rules = rules(method)
         val hero = heroes.requireHero(heroId, method)
         var run = hero.campaign.trials.run ?: throw CampaignExceptions.funExceptionNoTrial(method, "")
+        // Журнал привязан к испытанию (1.68.0): опоздавший пакет прежнего входа не ложится на новый
+        if (run.id != runId) throw CampaignExceptions.funExceptionRunMismatch(method, runId)
         val draws = hero.rewards.draws()
         val context = context(hero, run)
         val rejected = mutableListOf<Int>()
@@ -130,7 +139,7 @@ class TrialService : KoinComponent {
         }
         hero.rewards.drawn = draws.drawn
         heroes.save(hero, method)
-        return TrialReport(hero.campaign.trials.run?.applied ?: run.applied, rejected, rewards, hero.campaign.trials, hero.level, hero.experience, hero.money, received)
+        return TrialReport(hero.campaign.trials.run?.applied ?: run.applied, rejected, rewards, hero.campaign.trials, hero.level, hero.experience, hero.money, received, runId)
     }
 
     /** Одно событие; null - правило его не пустило. */
@@ -155,8 +164,8 @@ class TrialService : KoinComponent {
                 val tower = rules.tower
                 val floor = run.floor
                 if (floor > tower.maxFloor) return null
-                val first = tower.start(trials.towerBest)
-                if (!Plausibility.pace(hero, TOWER, run.startedAt, now, floor - first + 1, FLOOR_SECONDS, "tower_floor_seconds")) return null
+                // Темп - от этажа входа: рекорд растёт по ходу, и счёт от него сбрасывал бы работу на каждом чекпоинте
+                if (!Plausibility.pace(hero, TOWER, run.startedAt, now, floor - run.entry + 1, FLOOR_SECONDS, "tower_floor_seconds")) return null
                 // Потолок башни (1.53.0): последний этаж пройден - испытание закрыто, как по END
                 hero.campaign.trials = trials.copy(run = if (floor >= tower.maxFloor) null else run.copy(floor = floor + 1, hoards = run.hoards + if (tower.hoard(floor)) 1 else 0),
                     towerBest = maxOf(trials.towerBest, floor))

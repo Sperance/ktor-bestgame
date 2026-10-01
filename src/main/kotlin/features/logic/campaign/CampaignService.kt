@@ -74,7 +74,9 @@ data class CrystalOutcome(val index: Int, val crystal: Crystal)
  */
 @Serializable
 data class RunReport(val applied: Int, val rejected: List<Int>, val reward: RewardView, val lost: Double, val level: Int, val experience: Double, val money: Long,
-                     val progress: CampaignProgress, val open: Boolean, val received: Received = Received(), val rewards: List<EventReward> = emptyList())
+                     val progress: CampaignProgress, val open: Boolean, val received: Received = Received(), val rewards: List<EventReward> = emptyList(),
+                     /** Заход, к которому относится отчёт (1.68.0). */
+                     val runId: String = "")
 
 /**
  * Кампания по семени (1.0.0). `start` замораживает контекст героя и выдаёт семя: клиент ставит по нему
@@ -91,6 +93,9 @@ data class RunReport(val applied: Int, val rejected: List<Int>, val reward: Rewa
  */
 /** Событий в одном журнале не больше (1.53.0): клиент шлёт по шесть, офлайн-очередь режется на батчи. */
 const val MAX_EVENTS = 64
+
+/** События, чей темп мерится по листу героя ([Plausibility.Pace]): убийство и стражи. */
+private val PACED = setOf(RunEventKind.KILL, RunEventKind.BOSS, RunEventKind.CORRUPT)
 
 class CampaignService : KoinComponent {
     private val heroes: HeroRepository by inject()
@@ -207,13 +212,15 @@ class CampaignService : KoinComponent {
      * мёртв, призыв не по карману), отклоняется без награды, но номер продвигает: журнал клиента не застревает.
      * Награда каждого события ложится на героя сразу (1.30.0): гибель считает потерю от уже выданного опыта.
      */
-    suspend fun events(heroId: String, events: List<RunEvent>): RunReport {
+    suspend fun events(heroId: String, runId: String, events: List<RunEvent>): RunReport {
         val method = "events"
         if (events.size > MAX_EVENTS) throw CampaignExceptions.funExceptionTooManyEvents(method, MAX_EVENTS.toString())
         val hero = heroes.requireHero(heroId, method)
         // Задания на сутки - до событий: сменившийся день не съедает прирост журнала
         quests.refresh(hero, System.currentTimeMillis(), Dice.system())
         val state = hero.campaign.run ?: throw CampaignExceptions.funExceptionNoRun(method, "")
+        // Журнал привязан к заходу (1.68.0): опоздавший пакет прежнего захода не ложится на новый и ничего в нём не двигает
+        if (state.id != runId) throw CampaignExceptions.funExceptionRunMismatch(method, runId)
         if (state.content != index.hash) {
             close(hero.campaign, state.zone)
             heroes.save(hero, method)
@@ -223,8 +230,8 @@ class CampaignService : KoinComponent {
         val runs = Runs(hero, state, zone)
         val bonuses = atlas.bonuses(hero)
         val draws = hero.rewards.draws()
-        // Лист героя - до событий, и только для батча с убийством: батч сундука или итога боя его не считает
-        val pace = lazy { Plausibility.Pace(index, hero) }.apply { if (events.any { it.kind == RunEventKind.KILL }) value }
+        // Лист героя - до событий, и только для батча с боем: батч сундука или итога боя его не считает
+        val pace = lazy { Plausibility.Pace(index, hero) }.apply { if (events.any { it.kind in PACED }) value }
         var total = Reward.NONE
         var lost = 0.0
         var received = Received()
@@ -248,7 +255,7 @@ class CampaignService : KoinComponent {
         hero.rewards.drawn = draws.drawn
         heroes.save(hero, method)
         return RunReport(state.applied, rejected, RewardView.of(total), lost, hero.level, hero.experience, hero.money, progressOf(hero), hero.campaign.run != null,
-            received, rewards)
+            received, rewards, state.id)
     }
 
     private class Outcome(val reward: Reward = Reward.NONE, val lost: Double = 0.0, val crystal: CrystalOutcome? = null)
@@ -292,7 +299,7 @@ class CampaignService : KoinComponent {
             }
             RunEventKind.BOSS -> {
                 if (now < (campaignState.bosses[mapCode] ?: 0L)) return null
-                if (!Plausibility.boss(hero, state, now)) return null
+                if (!Plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.boss))) return null
                 campaignState.bosses[mapCode] = now + (bonuses.bossRespawnHours(campaign.bosses.respawnHours) * 3_600_000).toLong()
                 if (mapCode !in campaignState.cleared) campaignState.cleared += mapCode
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
@@ -306,6 +313,8 @@ class CampaignService : KoinComponent {
             }
             RunEventKind.VAAL_OPEN -> {
                 if (campaignState.corruptionOpened || campaignState.vaalZone?.mapCode == mapCode) return null
+                // Портала нет на этом семени (1.68.0) - и Ваал-зоны нет: клиент ставит его тем же броском
+                if (!run.portal) return null
                 campaignState.vaalZone = run.vaalZone(draws)
                 hero.count(Counter.VAAL_ZONES)
                 Outcome()
@@ -318,6 +327,7 @@ class CampaignService : KoinComponent {
             }
             RunEventKind.CORRUPT -> {
                 campaignState.vaalZone?.takeIf { it.mapCode == mapCode } ?: return null
+                if (!Plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.corrupted))) return null
                 val reward = run.corrupt(draws) ?: return null
                 state.tally.corrupts++
                 campaignState.corruptionOpened = true
@@ -351,12 +361,14 @@ class CampaignService : KoinComponent {
                 val crack = window.cracks.getOrNull(event.index) ?: return null
                 campaignState.abyss[mapCode] = window.copy(cracks = window.cracks.filterIndexed { i, _ -> i != event.index })
                 val depth = campaignState.activeMap?.takeIf { it.mapCode == mapCode }?.effects?.get(CoreStat.MAP_ABYSS_DEPTH.code) ?: 0.0
-                campaignState.abyssRun = AbyssRun(mapCode, AbyssRifts(index).depth(rule, crack, depth))
+                campaignState.abyssRun = AbyssRun(mapCode, AbyssRifts(index).depth(rule, crack, depth), now)
                 Outcome()
             }
             RunEventKind.ABYSS_CLAIM -> {
                 val descent = campaignState.abyssRun?.takeIf { it.mapCode == mapCode } ?: return null
                 if (event.depth !in 0..descent.depth) return null
+                // Ступени - волны боя (1.68.0): глубина не быстрее их темпа с открытия расщелины
+                if (!event.fallen && !Plausibility.pace(hero, mapCode, descent.openedAt, now, event.depth, Plausibility.ABYSS_DEPTH_SECONDS, "abyss_depth_seconds")) return null
                 campaignState.abyssRun = null
                 if (!event.fallen) hero.count(Counter.ABYSS_DEPTH, event.depth.toLong())
                 // Гибель в Бездне сжигает копилку целиком; счёт копилок заход ведёт и тогда
@@ -377,6 +389,8 @@ class CampaignService : KoinComponent {
                 hero.experience -= lost
                 hero.count(Counter.DEATHS)
                 hero.stats.add(Stat.ZONE_DEATHS, mapCode)
+                // Гибель в Ваал-зоне (1.68.0) - та же смерть, а Ваал-зона этой карты при ней израсходована
+                if (event.vaal) campaignState.corruptionOpened = true
                 close(campaignState, mapCode)
                 Outcome(lost = lost)
             }

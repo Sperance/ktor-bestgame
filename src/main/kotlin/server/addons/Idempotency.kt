@@ -35,8 +35,8 @@ import kotlinx.serialization.json.JsonObject
 import java.security.MessageDigest
 
 /**
- * Ответ команды: статус, тип и тело. С 1.53.0 тело хранится только у отказа (4xx): оно короткое и говорит, почему.
- * Успех хранится без тела - повтор отвечает [REPLAY_OK], а клиент по [Idempotency.REPLAY_HEADER] сам перечитывает героя;
+ * Ответ команды: статус, тип и тело. С 1.53.0 тело хранится только у отказа (4xx): оно короткое и говорит, почему,
+ * и (1.68.0) у команд с [Idempotency.KeepReport] - отчёт без снимка героя. Прочий успех хранится без тела - повтор отвечает [REPLAY_OK], а клиент по [Idempotency.REPLAY_HEADER] сам перечитывает героя;
  * так коллекция ответов не растёт на килобайт с каждой командой.
  */
 class StoredReply(val status: Int, val contentType: String?, val body: ByteArray?) {
@@ -44,13 +44,7 @@ class StoredReply(val status: Int, val contentType: String?, val body: ByteArray
      * Тело для повтора - без снимка героя `hero`: он снят на момент первого ответа и мог устареть,
      * а клиент по [Idempotency.REPLAY_HEADER] сам перечитывает героя. Не JSON-объект - как есть.
      */
-    fun replayBody(): ByteArray {
-        val body = body ?: return REPLAY_OK
-        if (contentType?.let(ContentType::parse)?.match(ContentType.Application.Json) != true) return body
-        val json = runCatching { AppJson.parseToJsonElement(body.decodeToString()) }.getOrNull() as? JsonObject ?: return body
-        if (HERO_FIELD !in json) return body
-        return AppJson.encodeToString(JsonObject.serializer(), JsonObject(json - HERO_FIELD)).encodeToByteArray()
-    }
+    fun replayBody(): ByteArray = body?.let { withoutHero(it, contentType) } ?: REPLAY_OK
 
     /** Тип тела повтора: у успеха без тела - JSON конверта [REPLAY_OK]. */
     fun replayContentType(): ContentType? = if (body == null) ContentType.Application.Json else contentType?.let(ContentType::parse)
@@ -64,6 +58,17 @@ class StoredReply(val status: Int, val contentType: String?, val body: ByteArray
 
         /** Отказы длиннее не хранятся: такого тела у отказа не бывает, а хранить чужое незачем. */
         const val MAX_REFUSAL_BYTES = 4_096
+
+        /** Потолок хранимого отчёта команды с [Idempotency.KeepReport]: отчёт журнала без снимка героя. */
+        const val MAX_REPORT_BYTES = 65_536
+
+        /** Тело [body] без снимка героя; не JSON-объект - как есть. */
+        fun withoutHero(body: ByteArray, contentType: String?): ByteArray {
+            if (contentType?.let(ContentType::parse)?.match(ContentType.Application.Json) != true) return body
+            val json = runCatching { AppJson.parseToJsonElement(body.decodeToString()) }.getOrNull() as? JsonObject ?: return body
+            if (HERO_FIELD !in json) return body
+            return AppJson.encodeToString(JsonObject.serializer(), JsonObject(json - HERO_FIELD)).encodeToByteArray()
+        }
     }
 }
 
@@ -162,7 +167,16 @@ object Idempotency {
     }
 
     internal val Pending = AttributeKey<Pair<String, String>>("idempotency")
+
+    /**
+     * Метка маршрута (1.68.0): успех этой команды хранится отчётом без снимка героя, и повтор отдаёт его, а не `data: null`.
+     * Для журналов захода и испытания: их отчёт (награды по событиям) не восстановить перечитыванием героя.
+     */
+    val KeepReport = AttributeKey<Unit>("idempotency.keepReport")
 }
+
+/** Успех текущей команды хранится отчётом: повтор по тому же ключу вернёт его ([Idempotency.KeepReport]). */
+fun ApplicationCall.keepIdempotentReport() = attributes.put(Idempotency.KeepReport, Unit)
 
 /**
  * Повтор команды без повторного выполнения (1.28.0). POST с заголовком [Idempotency.HEADER] от
@@ -228,8 +242,15 @@ fun Application.installIdempotency(
         val body = (outgoing as? OutgoingContent.ByteArrayContent)?.bytes()
         try {
             if (body == null || status.value >= 500) store.release(account, key)
-            else Idempotency.completeWithRetry(store, account, key,
-                StoredReply(status.value, outgoing?.contentType?.toString(), body.takeIf { status.value >= 300 && it.size <= StoredReply.MAX_REFUSAL_BYTES }))
+            else {
+                val type = outgoing?.contentType?.toString()
+                val kept = when {
+                    status.value >= 300 -> body.takeIf { it.size <= StoredReply.MAX_REFUSAL_BYTES }
+                    call.attributes.contains(Idempotency.KeepReport) -> StoredReply.withoutHero(body, type).takeIf { it.size <= StoredReply.MAX_REPORT_BYTES }
+                    else -> null
+                }
+                Idempotency.completeWithRetry(store, account, key, StoredReply(status.value, type, kept))
+            }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

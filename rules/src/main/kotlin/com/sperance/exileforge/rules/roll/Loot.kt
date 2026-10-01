@@ -97,9 +97,12 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
         return pick(index.forHero(index.templatePoolUpTo(tags, level), heroLevel), bonus, dice)
     }
 
-    /** Уникалка из таблиц [tags] не старше `level + uniqueReach`; за неимением - любая из них. */
+    /**
+     * Уникалка из таблиц [tags] не старше `level + uniqueReach`; за неимением - ничего (1.68.0): вещь эндгейма не падает
+     * в начальной зоне в обход потолка уровня.
+     */
     fun unique(tags: List<String>, level: Int, dice: Dice): ItemTemplate? =
-        Tables.draw(index.forHero(index.templatePoolUpTo(tags, level + rules.uniqueReach), heroLevel).ifEmpty { index.forHero(index.templatePool(tags), heroLevel) }, dice)
+        Tables.draw(index.forHero(index.templatePoolUpTo(tags, level + rules.uniqueReach), heroLevel), dice)
 
     /** Выпала ли карта: [chance] уже с количеством; карта следующей зоны - одна из [next] наугад. */
     fun mapDrop(chance: Double, mapCode: String, next: List<String>, dice: Dice, nextBonus: Double = 0.0): String? {

@@ -1,5 +1,6 @@
 package com.sperance.exileforge.rules.content
 
+import com.sperance.exileforge.rules.run.RunContext
 import com.sperance.exileforge.rules.fail
 import com.sperance.exileforge.rules.roll.Streams
 import kotlinx.serialization.Serializable
@@ -118,6 +119,8 @@ enum class TrialKind { RUSH, TOWER }
 /**
  * Открытое испытание героя (1.47.0): [seed] боёв клиента, [region] раша или [floor] - этаж башни, который сейчас
  * идёт (с 1), [killed] боссов раша, [hoards] кладов башни, когда оно начато.
+ * [entry] (1.68.0) - этаж входа: темп захода считается от него, а не от рекорда, растущего по ходу.
+ * [context] (1.68.0) - контекст героя, замороженный на вход: награды всего испытания катятся по нему, а не по листу на момент журнала.
  */
 @Serializable
 data class TrialRun(
@@ -131,6 +134,8 @@ data class TrialRun(
     val killed: Int = 0,
     val hoards: Int = 0,
     val applied: Int = 0,
+    val entry: Int = floor,
+    val context: RunContext? = null,
 )
 
 /** Испытания героя: открытое [run], рекорд башни [towerBest], лучшее время раша по региону (секунды), зачищенные в раше регионы. */

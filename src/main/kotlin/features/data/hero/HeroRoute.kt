@@ -37,6 +37,7 @@ import features.logic.quests.QuestService
 import features.logic.skills.SkillService
 import features.logic.trade.MerchantService
 import features.logic.tree.TreeService
+import server.addons.keepIdempotentReport
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.request.receive
@@ -221,7 +222,11 @@ class HeroRoute(
         route("/campaign") {
             get("/progress") { call.respondOk(campaign.progress(call.heroId)) }
             post("/start") { call.respondWithHero(campaign.start(call.heroId, call.mapCode, call.optionalParam("itemId"))) }
-            post("/events") { call.respondWithHero(campaign.events(call.heroId, call.receive<List<RunEvent>>())) }
+            // Журнал (1.68.0) - только своего захода `runId`; его отчёт хранится для повтора по ключу
+            post("/events") {
+                call.keepIdempotentReport()
+                call.respondWithHero(campaign.events(call.heroId, call.queryParam("runId"), call.receive<List<RunEvent>>()))
+            }
         }
 
         // Умения класса: книга учит уровень, слоты с условиями, условия глотков фляг, обмен книг.
@@ -243,7 +248,10 @@ class HeroRoute(
             post("/rush") { call.respondWithHero(trials.rush(call.heroId, call.queryParam("region"))) }
             post("/tower") { call.respondWithHero(trials.tower(call.heroId)) }
             post("/key") { call.respondWithHero(trials.forgeKey(call.heroId).bag) }
-            post("/events") { call.respondWithHero(trials.events(call.heroId, call.receive<List<TrialEvent>>())) }
+            post("/events") {
+                call.keepIdempotentReport()
+                call.respondWithHero(trials.events(call.heroId, call.queryParam("runId"), call.receive<List<TrialEvent>>()))
+            }
         }
 
         route("/skilltree") {

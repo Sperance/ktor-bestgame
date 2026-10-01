@@ -181,40 +181,55 @@ class SheetCalculator(private val index: ContentIndex) {
         val operations = ArrayList<StatOperation>(expand(heroClass?.lines.orEmpty(), heroClass?.let { StatSource(SourceKind.CLASS, it.code) }))
         operations += expand(lines)
         val own = operations.size
-        val worn = mutableListOf<Worn>()
-        var stats = compute(base, operations)
-        var stale = false
-        val active = mutableListOf<String>()
         val inactive = mutableListOf<InactiveItem>()
         val uniqueJewels = HashSet<String>()
-        equipped.sortedBy { it.slot?.ordinal ?: Int.MAX_VALUE }.forEach { item ->
-            val template = index.template(item.template) ?: return@forEach
-            if (template.slot.isTool || template.slot.isFlask) return@forEach
+        val candidates = equipped.sortedBy { it.slot?.ordinal ?: Int.MAX_VALUE }.mapNotNull { item ->
+            val template = index.template(item.template) ?: return@mapNotNull null
+            if (template.slot.isTool || template.slot.isFlask) return@mapNotNull null
             val socket = item.socket
             if (!socket.isNullOrBlank() && socket !in takenNodes) {
-                inactive += InactiveItem(item.id, template.code, listOf("socket: need $socket, have none")); return@forEach
+                inactive += InactiveItem(item.id, template.code, listOf("socket: need $socket, have none")); return@mapNotNull null
             }
             // Уникальный самоцвет - один такой на героя (1.31.0): второй, вставленный в обход правила, не работает.
             if (template.slot == Slot.JEWEL && template.unique && !uniqueJewels.add(template.code)) {
-                inactive += InactiveItem(item.id, template.code, listOf("unique jewel: one ${template.code} per hero")); return@forEach
+                inactive += InactiveItem(item.id, template.code, listOf("unique jewel: one ${template.code} per hero")); return@mapNotNull null
             }
-            if (template.demanding) {
-                if (stale) { stats = compute(base, operations); stale = false }
-                val unmet = Requirements.unmet(template, level, stats)
-                if (unmet.isNotEmpty()) { inactive += InactiveItem(item.id, template.code, unmet); return@forEach }
-            }
-            active += item.id
-            val folded = foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id), item.quality, item.catalyst, baseScale(template, item))
-            worn += Worn(item, template, folded)
-            operations += folded
-            stale = true
+            Worn(item, template, foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id), item.quality, item.catalyst, baseScale(template, item)))
         }
+        val worn = activeSet(candidates, level) { set -> compute(base, operations + set.flatMap { it.ops }) }
+        worn.forEach { operations += it.ops }
+        var stats = compute(base, operations)
+        (candidates - worn.toSet()).forEach { inactive += InactiveItem(it.item.id, it.template.code, Requirements.unmet(it.template, level, stats)) }
+        val active = worn.map { it.item.id }
         // Счёт надетого и силы слотов (1.32.0) ложатся на готовый набор: требования вещей их не видят.
         val counted = base + WornCount.of(equipped, worn.map { it.item to it.template })
         val slotted = slotted(worn)
         if (slotted != null) { operations.subList(own, operations.size).clear(); operations += slotted }
-        if (stale || slotted != null || counted.size != base.size) stats = compute(counted, operations)
+        if (slotted != null || counted.size != base.size) stats = compute(counted, operations)
         return SheetResult(stats, active, inactive, counted, operations)
+    }
+
+    /**
+     * Работающие вещи из [candidates] - наименьшая неподвижная точка, не зависящая от порядка слотов: сперва вещи без требований,
+     * затем волнами те, чьи требования покрывает лист уже работающих ([stats] набора); вещь не держит своё требование ни сама,
+     * ни по кругу с другой. Вещь, чьё требование потом отняла другая (минус к характеристике), снимается, пока набор не устоится.
+     */
+    private fun activeSet(candidates: List<Worn>, level: Int, stats: (Collection<Worn>) -> Map<String, Double>): List<Worn> {
+        val active = LinkedHashSet(candidates.filterNot { it.template.demanding })
+        val pending = candidates.filterTo(mutableListOf()) { it.template.demanding }
+        while (pending.isNotEmpty()) {
+            val sheet = stats(active)
+            val met = pending.filter { Requirements.unmet(it.template, level, sheet).isEmpty() }
+            if (met.isEmpty()) break
+            active += met
+            pending -= met.toSet()
+        }
+        while (true) {
+            val lost = active.filter { w -> w.template.demanding && Requirements.unmet(w.template, level, stats(active - w)).isNotEmpty() }
+            if (lost.isEmpty()) break
+            active -= lost.toSet()
+        }
+        return candidates.filter { it in active }
     }
 
     /** Работающая вещь героя: копия, шаблон и её операции. */
