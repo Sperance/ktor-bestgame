@@ -214,10 +214,14 @@ class CraftsService : KoinComponent {
                     // Уникалка по уровню ремесла и дальности уникалок (1.18.0), а не любая из таблицы
                     Tables.draw(index.forHero(index.templatePoolUpTo(crafting.uniques, level + index.rules.loot.uniqueReach), heroLevel), dice)?.let { return factory.create(Hero.newItemId(), it, Rarity.UNIQUE, dice, level = itemLevel) }
                 }
-                val base = Tables.draw(bases, dice) ?: return null
+                // Примесь выбирает и базу (1.63.1): локальный % брони, уклонения или ЭЩ куётся только на вещь с этой защитой,
+                // а если такой в диапазоне нет - мёртвая строка не ставится вовсе.
+                val wanted = additives.mapNotNull { crafting.additives[it] }.mapNotNull(index::modifier)
+                val fit = bases.filter { base -> wanted.all { affixes.bears(base.value, it) } }
+                val base = Tables.draw(fit.ifEmpty { bases }, dice) ?: return null
                 val rarity = bonus.raise(Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.COMMON, dice)
                 val item = factory.create(Hero.newItemId(), base, rarity, dice, level = itemLevel)
-                val guaranteed = additives.mapNotNull { crafting.additives[it] }
+                val guaranteed = wanted.filter { affixes.bears(base, it) }.map { it.code }
                 val kind = if (base.slot.isWeapon) "weapon" else "armour"
                 val random = Tables.draw(index.modifierPool(listOf("handcrafted:smith:$kind") + crafting.modifiers)
                     .filter { it.value.code !in guaranteed && affixes.bears(base, it.value) }, dice)?.code

@@ -103,10 +103,10 @@ interface ReplyStore {
  * [ReplyStore.commit] перед коммитом, а одиночная запись героя ([base.repository.BaseRepository.replace]) под ним
  * идёт транзакцией - так изменение и метка не расходятся.
  */
-class CommandKey(val account: String, val key: String, private val store: ReplyStore) : AbstractCoroutineContextElement(CommandKey) {
+class CommandKey(val account: String, val command: String, private val store: ReplyStore) : AbstractCoroutineContextElement(CommandKey) {
     companion object Key : CoroutineContext.Key<CommandKey>
 
-    suspend fun commit(session: ClientSession) = store.commit(session, account, key)
+    suspend fun commit(session: ClientSession) = store.commit(session, account, command)
 }
 
 object Idempotency {

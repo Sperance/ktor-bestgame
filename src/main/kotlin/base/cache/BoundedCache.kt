@@ -22,9 +22,9 @@ class BoundedCache<K : Any, V>(private val maxSize: Int, private val ttlMs: Long
         Lookup(entry.value)
     }
 
-    fun put(key: K, value: V, now: Long = System.currentTimeMillis()) = synchronized(map) { map[key] = Entry(value, now) }
+    fun put(key: K, value: V, now: Long = System.currentTimeMillis()) { synchronized(map) { map[key] = Entry(value, now) } }
 
-    fun remove(key: K) = synchronized(map) { map.remove(key) }
+    fun remove(key: K) { synchronized(map) { map.remove(key) } }
 
     fun removeIf(predicate: (V) -> Boolean) = synchronized(map) { map.values.removeIf { predicate(it.value) } }
 
