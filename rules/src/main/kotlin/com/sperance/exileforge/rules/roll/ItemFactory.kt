@@ -101,6 +101,8 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         }
         if (affixes.ensureAffixes(template, item, dice)) changed = true
         if (template.corrupted && !item.corrupted) { item.corrupted = true; changed = true }
+        // Варианты выбора считались для прежней вещи: изменилась она - предложение снимается.
+        if (changed) item.offer = emptyList()
         return changed
     }
 }

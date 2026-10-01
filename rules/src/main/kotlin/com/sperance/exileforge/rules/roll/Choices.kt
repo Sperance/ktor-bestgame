@@ -25,6 +25,8 @@ class Choices(private val index: ContentIndex, private val affixes: AffixRoller 
 
     fun choose(item: ItemInstance, template: ItemTemplate, choice: Int): OrbOutcome {
         val name = LocaleKey.equipmentName(template.code)
+        if (item.corrupted) throw RuleViolation("CR_004", listOf(name))
+        if (item.mirrored) throw RuleViolation("CR_010", listOf(name))
         val option = item.offer.getOrNull(choice) ?: throw RuleViolation("CR_034", listOf(name))
         val def = affixes.definition(option) ?: throw RuleViolation("CR_034", listOf(name))
         if (def.source == Source.ALCHEMY) {
