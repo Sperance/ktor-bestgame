@@ -2,31 +2,64 @@ package features.logic.pets
 
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
+import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
+import com.sperance.exileforge.rules.content.Incubation
 import com.sperance.exileforge.rules.content.Omen
 import com.sperance.exileforge.rules.content.Pet
 import com.sperance.exileforge.rules.content.PetKind
+import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.Menagerie
 import com.sperance.exileforge.rules.roll.OrbApplier
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.logic.hero.sheetOf
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-/** Зверинец как его видит клиент: питомцы, активные боевой и помощник, потолок. */
+/** Зверинец как его видит клиент: питомцы, активные боевой и помощник, потолок, инкубатор (1.67.0). */
 @Serializable
-data class PetState(val pets: List<Pet> = emptyList(), val combat: String = "", val helper: String = "", val cap: Int = 0) {
+data class PetState(
+    val pets: List<Pet> = emptyList(), val combat: String = "", val helper: String = "", val cap: Int = 0,
+    val incubator: IncubatorState = IncubatorState(),
+) {
     companion object {
-        fun of(hero: Hero, cap: Int) = PetState(hero.pets.toList(), hero.petCombat, hero.petHelper, cap)
+        /** Зверинец героя на часах [now]: открытые места инкубатора - по листу героя, занятые сверх них тоже видны. */
+        fun of(hero: Hero, index: ContentIndex, now: Long = System.currentTimeMillis()): PetState {
+            val open = Menagerie(index).incubatorSlots(index.sheetOf(hero).stats)
+            val bySlot = hero.incubator.associateBy { it.slot }
+            val shown = (0 until maxOf(open, (bySlot.keys.maxOrNull() ?: -1) + 1)).map { IncubatorSlot.of(it, it < open, bySlot[it], now) }
+            return PetState(hero.pets.toList(), hero.petCombat, hero.petHelper, index.rules.pets.cap, IncubatorState(open, index.pets.incubator.maxSlots, shown, now))
+        }
+    }
+}
+
+/** Инкубатор героя: открытых мест [slots] из [max] и каждое место - пустое или с яйцом; [now] - часы сервера, мс эпохи. */
+@Serializable
+data class IncubatorState(val slots: Int = 0, val max: Int = 0, val entries: List<IncubatorSlot> = emptyList(), val now: Long = 0)
+
+/**
+ * Место инкубатора: [egg] пусто - место свободно; иначе решённые при закладке [rarity] и [level], срок [readyAt] (мс эпохи),
+ * остаток [remainingSeconds] и готовность [ready]. [open] - false у занятого места сверх нынешнего числа открытых (снят ошейник).
+ */
+@Serializable
+data class IncubatorSlot(
+    val slot: Int, val open: Boolean = true, val egg: String = "", val rarity: Rarity? = null, val level: Int = 0,
+    val startedAt: Long = 0, val readyAt: Long = 0, val remainingSeconds: Long = 0, val ready: Boolean = false,
+) {
+    companion object {
+        fun of(slot: Int, open: Boolean, incubation: Incubation?, now: Long): IncubatorSlot = incubation?.let {
+            IncubatorSlot(slot, open, it.egg, it.rarity, it.level, it.startedAt, it.readyAt, (it.remainingMillis(now) + 999) / 1000, it.ready(now))
+        } ?: IncubatorSlot(slot, open)
     }
 }
 
 /**
- * Зверинец героя (1.5.0): яйцо из сумки вылупляется питомцем, сфера питомцев меняет питомца, один боевой
- * и один помощник в деле, лишнего можно отпустить за золото. Всё - одной записью документа героя.
+ * Зверинец героя (1.5.0): яйцо из сумки ложится в инкубатор и вылупляется питомцем по сроку (1.67.0), сфера питомцев меняет
+ * питомца, один боевой и один помощник в деле, лишнего можно отпустить за золото. Всё - одной записью документа героя.
  */
 class PetService : KoinComponent {
     private val heroes: HeroRepository by inject()
@@ -35,13 +68,37 @@ class PetService : KoinComponent {
     private val cap: Int get() = index.rules.pets.cap
     private val orbs by lazy { OrbApplier(index) }
 
-    suspend fun state(heroId: String): PetState = PetState.of(heroes.requireHero(heroId, "pets"), cap)
+    suspend fun state(heroId: String): PetState = PetState.of(heroes.requireHero(heroId, "pets"), index)
 
-    suspend fun hatch(heroId: String, egg: String): PetState = command(heroId, "petHatch") { hero, pets ->
-        if (!pets.isEgg(egg)) throw CharacterExceptions.funExceptionNotPetItem("petHatch", egg)
-        if (hero.pets.size >= cap) throw CharacterExceptions.funExceptionMenagerieFull("petHatch", "$cap")
-        hero.spend(egg, 1, "petHatch")
-        hero.pets += pets.hatch(egg, Hero.newItemId(), Dice.system()) ?: throw CharacterExceptions.funExceptionNotPetItem("petHatch", egg)
+    /**
+     * Закладка яйца [egg] в место [slot] инкубатора (1.67.0; null - первое свободное открытое). Яйцо списывается сразу; место
+     * в зверинце держится за ним, чтобы вылупившемуся всегда было куда встать.
+     */
+    suspend fun incubate(heroId: String, egg: String, slot: Int? = null): PetState = command(heroId, "petIncubate") { hero, pets ->
+        val method = "petIncubate"
+        if (!pets.isEgg(egg)) throw CharacterExceptions.funExceptionNotPetItem(method, egg)
+        if (hero.pets.size + hero.incubator.size >= cap) throw CharacterExceptions.funExceptionMenagerieFull(method, "$cap")
+        val sheet = index.sheetOf(hero).stats
+        val open = pets.incubatorSlots(sheet)
+        val taken = hero.incubator.mapTo(HashSet()) { it.slot }
+        val place = slot ?: (0 until open).firstOrNull { it !in taken } ?: throw CharacterExceptions.funExceptionIncubatorSlot(method, "")
+        if (place !in 0 until open || place in taken) throw CharacterExceptions.funExceptionIncubatorSlot(method, "$place")
+        hero.spend(egg, 1, method)
+        hero.incubator += pets.incubate(egg, place, hero.level, sheet, System.currentTimeMillis(), Dice.system())
+            ?: throw CharacterExceptions.funExceptionNotPetItem(method, egg)
+    }
+
+    /** Прежняя мгновенная команда: теперь закладывает яйцо в первое свободное место инкубатора. */
+    suspend fun hatch(heroId: String, egg: String): PetState = incubate(heroId, egg)
+
+    /** Забрать вылупившегося из места [slot]: готовность - по часам сервера, питомец встаёт в зверинец. */
+    suspend fun collect(heroId: String, slot: Int): PetState = command(heroId, "petCollect") { hero, pets ->
+        val method = "petCollect"
+        val incubation = hero.incubator.firstOrNull { it.slot == slot } ?: throw CharacterExceptions.funExceptionIncubationNotReady(method, "$slot")
+        if (!incubation.ready(System.currentTimeMillis())) throw CharacterExceptions.funExceptionIncubationNotReady(method, "$slot")
+        if (hero.pets.size >= cap) throw CharacterExceptions.funExceptionMenagerieFull(method, "$cap")
+        hero.pets += pets.hatch(incubation, Hero.newItemId(), Dice.system()) ?: throw CharacterExceptions.funExceptionNotPetItem(method, incubation.egg)
+        hero.incubator.remove(incubation)
     }
 
     /**
@@ -95,8 +152,9 @@ class PetService : KoinComponent {
 
     private suspend fun command(heroId: String, method: String, block: (Hero, Menagerie) -> Unit): PetState {
         val hero = heroes.requireHero(heroId, method)
-        block(hero, Menagerie(index))
+        val pets = Menagerie(index)
+        block(hero, pets)
         heroes.save(hero, method)
-        return PetState.of(hero, cap)
+        return PetState.of(hero, index)
     }
 }

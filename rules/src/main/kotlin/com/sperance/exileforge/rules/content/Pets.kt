@@ -3,6 +3,7 @@ package com.sperance.exileforge.rules.content
 import com.sperance.exileforge.rules.fail
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.math.pow
 
 /*
  * Питомцы (1.5.0). Файл `pets.json`: виды по биомам, их пул строк, сферы питомцев, яйца, редкости и рост.
@@ -76,7 +77,76 @@ data class PetsFile(
     val supportHeal: List<Double> = listOf(1.0, 0.02),
     /** Доля ударов врага по питомцу, что не танк (танк держит все, пока стоит). */
     val drawFire: Double = 0.3,
+    /** Инкубатор (1.67.0): места, уровень вылупившегося и срок вылупления. */
+    val incubator: IncubatorRules = IncubatorRules(),
 )
+
+/**
+ * Инкубатор (1.67.0). Яйцо не знает ни уровня, ни редкости - их решает начало инкубации: редкость - веса редкостей
+ * (и шанс [STOCK_HATCH_RARITY_UP][RARITY_UP] поднять её на ступень), уровень - уровень героя в момент закладки, умноженный
+ * на долю из [levelShare] (не ниже 1): яйцо, заложенное сильным героем, растит сильного питомца.
+ *
+ * Срок: оценка `s = levelWeight × (уровень / потолок)^levelPower + (1 - levelWeight) × rarityScore[редкость]` в 0..1,
+ * минуты - геометрически от [minMinutes] (s = 0: первый уровень, обычный) до [maxMinutes] (s = 1: потолок, редкий).
+ * Стат [HATCH_TIME] (проценты, минус - быстрее) множит срок, сокращая его не больше чем на [maxReduction] процентов.
+ * Мест [baseSlots] плюс стат [SLOTS], всего не больше [maxSlots].
+ */
+@Serializable
+data class IncubatorRules(
+    val baseSlots: Int = 1,
+    val maxSlots: Int = 3,
+    val minMinutes: Double = 5.0,
+    val maxMinutes: Double = 480.0,
+    val levelWeight: Double = 0.6,
+    val levelPower: Double = 1.0,
+    val rarityScore: Map<Rarity, Double> = mapOf(Rarity.COMMON to 0.0, Rarity.MAGIC to 0.5, Rarity.RARE to 1.0),
+    val levelShare: List<Double> = listOf(0.5, 1.0),
+    val maxReduction: Double = 75.0,
+) {
+    /** Открытых мест при стате мест [bonus] листа героя. */
+    fun slots(bonus: Double): Int = (baseSlots + bonus.toInt().coerceAtLeast(0)).coerceAtMost(maxSlots)
+
+    /** Срок вылупления, мс: питомец уровня [level] из [maxLevel] редкости [rarity] при стате срока [hatchTime] листа героя. */
+    fun durationMillis(level: Int, maxLevel: Int, rarity: Rarity, hatchTime: Double): Long {
+        val depth = (level.coerceAtLeast(1) - 1).toDouble() / (maxLevel - 1).coerceAtLeast(1)
+        val score = (levelWeight * depth.coerceIn(0.0, 1.0).pow(levelPower) + (1 - levelWeight) * (rarityScore[rarity] ?: 0.0)).coerceIn(0.0, 1.0)
+        val minutes = minMinutes * (maxMinutes / minMinutes).pow(score)
+        val factor = (1 + hatchTime / 100).coerceAtLeast(1 - maxReduction / 100)
+        return (minutes * factor * MINUTE).toLong()
+    }
+
+    fun validate() {
+        if (baseSlots < 1 || maxSlots < baseSlots || minMinutes <= 0 || maxMinutes < minMinutes || levelWeight !in 0.0..1.0 || levelPower <= 0 ||
+            maxReduction !in 0.0..99.0 || levelShare.size != 2 || levelShare[0] !in 0.0..levelShare[1] || rarityScore.values.any { it !in 0.0..1.0 }
+        ) fail("pets: incubator")
+    }
+
+    companion object {
+        const val SLOTS = "STOCK_INCUBATOR_SLOTS"
+        const val HATCH_TIME = "STOCK_HATCH_TIME"
+        const val RARITY_UP = "STOCK_HATCH_RARITY_UP"
+        val STATS = listOf(SLOTS, HATCH_TIME, RARITY_UP)
+        private const val MINUTE = 60_000.0
+    }
+}
+
+/**
+ * Яйцо в месте [slot] инкубатора (1.67.0): решённые при закладке редкость [rarity] и уровень [level], начало [startedAt]
+ * и срок [readyAt] (мс эпохи). Вид и строки катятся при вылуплении - по биому яйца [egg]. Готовность считается по часам
+ * на чтении: инкубатор зреет и без игрока.
+ */
+@Serializable
+data class Incubation(
+    val slot: Int,
+    val egg: String,
+    val rarity: Rarity,
+    val level: Int,
+    val startedAt: Long,
+    val readyAt: Long,
+) {
+    fun ready(now: Long): Boolean = now >= readyAt
+    fun remainingMillis(now: Long): Long = (readyAt - now).coerceAtLeast(0)
+}
 
 @Serializable
 data class PetEggChance(val rare: Double = 0.02, val boss: Double = 0.2)
@@ -131,6 +201,8 @@ fun PetsFile.validate(index: ContentIndex) {
         if (lines.count { it.kind == kind.kind && (kind.kind == PetKind.COMBAT || it.focus == kind.focus) } < most) fail("pets: pool of ${kind.code}")
     }
     biomes.forEach { biome -> PetKind.entries.forEach { kind -> if (species.none { it.biome == biome && it.kind == kind }) fail("pets: no $kind of $biome") } }
+    incubator.validate()
+    IncubatorRules.STATS.forEach { if (it !in index.stats) fail("pets: incubator stat $it") }
     if (eggChance.rare !in 0.0..1.0 || eggChance.boss !in 0.0..1.0 || lineGrowth < 0 || experienceShare < 0 || drawFire !in 0.0..1.0) fail("pets: rule")
 }
 

@@ -44108,6 +44108,154 @@
           "alpha": 0.5
         }
       ]
+    },
+    "stat_stock_incubator_slots": {
+      "viewBox": 24,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 2 13 Q 12 25 22 13 L 19.5 13 Q 12 21 4.5 13 z",
+          "color": "#a8784a",
+          "line": 2.2
+        },
+        {
+          "d": "M 2 13 Q 12 25 22 13 L 19.5 13 Q 12 21 4.5 13 z",
+          "color": "#a8784a",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 6.5 6.4 C 9.1 6.4 9.1 13.24 6.5 13.24 C 3.9 13.24 3.9 6.4 6.5 6.4 z",
+          "color": "#efe6cf",
+          "line": 1.6
+        },
+        {
+          "d": "M 6.5 6.4 C 9.1 6.4 9.1 13.24 6.5 13.24 C 3.9 13.24 3.9 6.4 6.5 6.4 z",
+          "color": "#efe6cf",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 12 4.5 C 14.8 4.5 14.8 12.1 12 12.1 C 9.2 12.1 9.2 4.5 12 4.5 z",
+          "color": "#7fcf4a",
+          "line": 1.6
+        },
+        {
+          "d": "M 12 4.5 C 14.8 4.5 14.8 12.1 12 12.1 C 9.2 12.1 9.2 4.5 12 4.5 z",
+          "color": "#7fcf4a",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 17.5 6.4 C 20.1 6.4 20.1 13.24 17.5 13.24 C 14.9 13.24 14.9 6.4 17.5 6.4 z",
+          "color": "#6fc8f0",
+          "line": 1.6
+        },
+        {
+          "d": "M 17.5 6.4 C 20.1 6.4 20.1 13.24 17.5 13.24 C 14.9 13.24 14.9 6.4 17.5 6.4 z",
+          "color": "#6fc8f0",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 3.5 17.5 Q 12 23 20.5 17.5",
+          "color": "#6a4428",
+          "line": 1.1
+        },
+        {
+          "d": "M 3.5 17.5 Q 12 23 20.5 17.5",
+          "color": "#6a4428",
+          "alpha": 0.96
+        }
+      ]
+    },
+    "stat_stock_hatch_time": {
+      "viewBox": 24,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 9 3 C 15 3 15 18.2 9 18.2 C 3 18.2 3 3 9 3 z",
+          "color": "#f0d8a0",
+          "line": 2.4
+        },
+        {
+          "d": "M 9 3 C 15 3 15 18.2 9 18.2 C 3 18.2 3 3 9 3 z",
+          "color": "#f0d8a0",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 6 9 l 2 2 l 2 -3 l 2 3",
+          "color": "#8a5a34",
+          "line": 1.0
+        },
+        {
+          "d": "M 6 9 l 2 2 l 2 -3 l 2 3",
+          "color": "#8a5a34",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 12.5 17.5 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 z",
+          "color": "#f2c53a",
+          "line": 1.6
+        },
+        {
+          "d": "M 12.5 17.5 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 z",
+          "color": "#f2c53a",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 17.5 14.3 V 17.5 L 19.8 19",
+          "color": "#2a1f3a",
+          "line": 1.3
+        },
+        {
+          "d": "M 17.5 14.3 V 17.5 L 19.8 19",
+          "color": "#2a1f3a",
+          "alpha": 0.96
+        }
+      ]
+    },
+    "stat_stock_hatch_rarity_up": {
+      "viewBox": 24,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 9 4 C 15 4 15 19.2 9 19.2 C 3 19.2 3 4 9 4 z",
+          "color": "#b88af0",
+          "line": 2.4
+        },
+        {
+          "d": "M 9 4 C 15 4 15 19.2 9 19.2 C 3 19.2 3 4 9 4 z",
+          "color": "#b88af0",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 5.5 13 l 1.7 -2 l 1.7 2 l 1.7 -2 l 1.7 2 l 1.7 -2",
+          "color": "#f2c53a",
+          "line": 1.0
+        },
+        {
+          "d": "M 5.5 13 l 1.7 -2 l 1.7 2 l 1.7 -2 l 1.7 2 l 1.7 -2",
+          "color": "#f2c53a",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 18 3 L 22.5 9 H 19.8 V 15 H 16.2 V 9 H 13.5 z",
+          "color": "#7fcf4a",
+          "line": 1.6
+        },
+        {
+          "d": "M 18 3 L 22.5 9 H 19.8 V 15 H 16.2 V 9 H 13.5 z",
+          "color": "#7fcf4a",
+          "alpha": 0.96
+        },
+        {
+          "d": "M 18 17 l 1.2 2.4 l 2.6 0.4 l -1.9 1.8 l 0.5 2.6 l -2.4 -1.3 l -2.4 1.3 l 0.5 -2.6 l -1.9 -1.8 l 2.6 -0.4 z",
+          "color": "#f2c53a",
+          "line": 1.0
+        },
+        {
+          "d": "M 18 17 l 1.2 2.4 l 2.6 0.4 l -1.9 1.8 l 0.5 2.6 l -2.4 -1.3 l -2.4 1.3 l 0.5 -2.6 l -1.9 -1.8 l 2.6 -0.4 z",
+          "color": "#f2c53a",
+          "alpha": 0.96
+        }
+      ]
     }
   },
   "icons": {
@@ -45870,6 +46018,9 @@
     "stat.STOCK_PET_LIFE": "stat_stock_pet_life",
     "stat.STOCK_PET_ARMOR": "stat_stock_pet_armor",
     "stat.STOCK_PET_RESIST": "stat_stock_pet_resist",
+    "stat.STOCK_INCUBATOR_SLOTS": "stat_stock_incubator_slots",
+    "stat.STOCK_HATCH_TIME": "stat_stock_hatch_time",
+    "stat.STOCK_HATCH_RARITY_UP": "stat_stock_hatch_rarity_up",
     "stat.STOCK_MANA_BEFORE_LIFE": "stat_stock_mana_before_life",
     "stat.STOCK_LEECH_TO_SHIELD": "stat_stock_leech_to_shield",
     "stat.STOCK_SHIELD_DEGEN_PERCENT": "stat_stock_shield_degen_percent",

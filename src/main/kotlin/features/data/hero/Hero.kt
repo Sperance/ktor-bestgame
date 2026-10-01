@@ -5,6 +5,7 @@ import base.entity.VersionedEntity
 import base.exception.model.CharacterExceptions
 import com.sperance.exileforge.rules.content.AutoSell
 import com.sperance.exileforge.rules.content.Counter
+import com.sperance.exileforge.rules.content.Incubation
 import com.sperance.exileforge.rules.content.Pet
 import com.sperance.exileforge.rules.content.QuestLog
 import com.sperance.exileforge.rules.content.QuestProgress
@@ -81,6 +82,8 @@ data class Hero(
     var pets: MutableList<Pet> = mutableListOf(),
     var petCombat: String = "",
     var petHelper: String = "",
+    /** Инкубатор (1.67.0): заложенные яйца по местам; созревают по часам, забирает их игрок. */
+    var incubator: MutableList<Incubation> = mutableListOf(),
     var campaign: CampaignState = CampaignState(),
     /** Гильдия героя (1.20.0): копия членства без чтения гильдии; null - не состоит. */
     var guild: HeroGuild? = null,

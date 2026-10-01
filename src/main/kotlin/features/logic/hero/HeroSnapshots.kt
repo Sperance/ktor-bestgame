@@ -127,7 +127,7 @@ object HeroSnapshots : KoinComponent {
         part(CAMPAIGN, CampaignState.serializer(), hero.campaign)
         part(CRAFTS, WorkState.serializer(), WorkState(hero.professions, hero.work, hero.craftsAway))
         part(MERCHANT, MerchantStock.serializer(), merchant.current(hero))
-        part(PETS, PetState.serializer(), PetState.of(hero, content.index.rules.pets.cap))
+        part(PETS, PetState.serializer(), PetState.of(hero, content.index))
         return HeroSnapshot(hero.version.toString(), parts)
     }
 

@@ -740,5 +740,23 @@
     1.0,
     0.02
   ],
-  "drawFire": 0.3
+  "drawFire": 0.3,
+  "incubator": {
+    "baseSlots": 1,
+    "maxSlots": 3,
+    "minMinutes": 5.0,
+    "maxMinutes": 480.0,
+    "levelWeight": 0.6,
+    "levelPower": 1.0,
+    "rarityScore": {
+      "COMMON": 0.0,
+      "MAGIC": 0.5,
+      "RARE": 1.0
+    },
+    "levelShare": [
+      0.5,
+      1.0
+    ],
+    "maxReduction": 75.0
+  }
 }

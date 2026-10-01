@@ -1,6 +1,8 @@
 package com.sperance.exileforge.rules.roll
 
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Incubation
+import com.sperance.exileforge.rules.content.IncubatorRules
 import com.sperance.exileforge.rules.content.Line
 import com.sperance.exileforge.rules.content.Pet
 import com.sperance.exileforge.rules.content.PetKind
@@ -37,14 +39,38 @@ class Menagerie(private val index: ContentIndex) {
 
     fun orb(code: String): PetOrbAction? = file.orbs[code]
 
-    /** Из яйца [egg] - питомец [id]: вид его биома по весам, редкость по весам, строки её числа. */
-    fun hatch(egg: String, id: String, dice: Dice): Pet? {
+    /** Из яйца [egg] - питомец [id]: вид его биома по весам, редкость [rarity] (нет - по весам) и уровень [level], строки числа редкости. */
+    fun hatch(egg: String, id: String, dice: Dice, rarity: Rarity = rollRarity(dice), level: Int = 1): Pet? {
         val biome = file.eggs.entries.firstOrNull { it.value == egg }?.key ?: return null
         val kind = Tables.draw(file.species.filter { it.biome == biome }, PetSpecies::weight, dice) ?: return null
-        val rarity = Tables.draw(RARITIES, { file.rarities[it]?.weight ?: 0.0 }, dice) ?: Rarity.COMMON
         val rule = file.rarities.getValue(rarity)
-        return Pet(id, kind.code, rarity, lines = roll(kind, dice.between(rule.lines), emptyList(), dice))
+        val grown = level.coerceIn(1, maxLevel)
+        return Pet(id, kind.code, rarity, experience = index.classes.threshold(grown) ?: 0.0, level = grown, lines = roll(kind, dice.between(rule.lines), emptyList(), dice))
     }
+
+    /** Редкость яйца по весам редкостей. */
+    fun rollRarity(dice: Dice): Rarity = Tables.draw(RARITIES, { file.rarities[it]?.weight ?: 0.0 }, dice) ?: Rarity.COMMON
+
+    /** Открытых мест инкубатора по листу героя [sheet]. */
+    fun incubatorSlots(sheet: Map<String, Double>): Int = file.incubator.slots(sheet[IncubatorRules.SLOTS] ?: 0.0)
+
+    /**
+     * Закладка яйца [egg] в место [slot] (1.67.0): редкость - веса и шанс листа [sheet] поднять её на ступень, уровень - доля
+     * уровня героя [heroLevel], срок - кривая инкубатора и стат срока листа. Null - не яйцо.
+     */
+    fun incubate(egg: String, slot: Int, heroLevel: Int, sheet: Map<String, Double>, now: Long, dice: Dice): Incubation? {
+        if (!isEgg(egg)) return null
+        val rules = file.incubator
+        val rolled = rollRarity(dice)
+        val rarity = if (dice.percent(sheet[IncubatorRules.RARITY_UP] ?: 0.0)) RARITIES.getOrElse(RARITIES.indexOf(rolled) + 1) { rolled } else rolled
+        val share = rules.levelShare[0] + (rules.levelShare[1] - rules.levelShare[0]) * dice.nextDouble()
+        val level = Math.round(heroLevel * share).toInt().coerceIn(1, maxLevel)
+        val duration = rules.durationMillis(level, maxLevel, rarity, sheet[IncubatorRules.HATCH_TIME] ?: 0.0)
+        return Incubation(slot, egg, rarity, level, now, now + duration)
+    }
+
+    /** Вылупление созревшего яйца [incubation] питомцем [id]: вид и строки катятся сейчас, редкость и уровень - закладки. */
+    fun hatch(incubation: Incubation, id: String, dice: Dice): Pet? = hatch(incubation.egg, id, dice, incubation.rarity, incubation.level)
 
     /**
      * Собственная сфера питомцев [action] (1.65.0 - только рост уровня; редкость и строки меняют сферы ремесла, [PetForge]):

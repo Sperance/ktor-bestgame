@@ -168,6 +168,14 @@ class HeroRoute(
         route("/pets") {
             get { call.respondOk(pets.state(call.heroId)) }
             post("/hatch") { call.respondWithHero(pets.hatch(call.heroId, call.queryParam("egg"))) }
+            post("/incubate") {
+                val slot = call.optionalParam("slot")?.let { it.toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("petIncubate", "slot") }
+                call.respondWithHero(pets.incubate(call.heroId, call.queryParam("egg"), slot))
+            }
+            post("/collect") {
+                val slot = call.queryParam("slot").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("petCollect", "slot")
+                call.respondWithHero(pets.collect(call.heroId, slot))
+            }
             post("/orb") { call.respondWithHero(pets.orb(call.heroId, call.queryParam("petId"), call.queryParam("orb"), call.optionalParam("omen"))) }
             post("/choose") {
                 val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("petChoose", "choice")

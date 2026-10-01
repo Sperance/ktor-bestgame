@@ -5184,6 +5184,23 @@
       "order": 584
     },
     {
+      "code": "STOCK_INCUBATOR_SLOTS",
+      "group": "HERO",
+      "order": 591
+    },
+    {
+      "code": "STOCK_HATCH_TIME",
+      "group": "HERO",
+      "order": 592,
+      "kind": "PERCENT"
+    },
+    {
+      "code": "STOCK_HATCH_RARITY_UP",
+      "group": "HERO",
+      "order": 593,
+      "kind": "PERCENT"
+    },
+    {
       "code": "STOCK_MANA_BEFORE_LIFE",
       "group": "HERO",
       "order": 585,

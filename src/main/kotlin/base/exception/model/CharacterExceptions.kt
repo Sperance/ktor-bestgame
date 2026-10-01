@@ -29,6 +29,8 @@ object CharacterExceptions {
     fun funExceptionPetNotFound(errorMethod: String, value: String? = "") = CharacterException("Pet $value not found", errorMethod, "CH_023", listOf(value.orEmpty()))
     fun funExceptionMenagerieFull(errorMethod: String, value: String? = "") = CharacterException("The menagerie is full: $value", errorMethod, "CH_024", listOf(value.orEmpty()))
     fun funExceptionPetOrbIdle(errorMethod: String, value: String? = "") = CharacterException("The orb does nothing to this pet: $value", errorMethod, "CH_025", listOf(value.orEmpty()))
+    fun funExceptionIncubatorSlot(errorMethod: String, value: String? = "") = CharacterException("Incubator slot $value is closed or taken", errorMethod, "CH_030", listOf(value.orEmpty()))
+    fun funExceptionIncubationNotReady(errorMethod: String, value: String? = "") = CharacterException("Nothing has hatched in incubator slot $value yet", errorMethod, "CH_031", listOf(value.orEmpty()))
     fun funExceptionNotPetItem(errorMethod: String, value: String? = "") = CharacterException("Not an egg or a pet orb: $value", errorMethod, "CH_026", listOf(value.orEmpty()))
     fun funExceptionOrbSoldOut(errorMethod: String, value: String? = "") = CharacterException("The merchant has no more $value this window", errorMethod, "CH_027", listOf(value.orEmpty()))
     fun funExceptionItemLocked(errorMethod: String, value: String? = "") = CharacterException("Item $value is locked: unlock it before it is sold", errorMethod, "CH_028", listOf(value.orEmpty()))
