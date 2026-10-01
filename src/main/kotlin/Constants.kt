@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.65.1"
+const val SERVER_VERSION = "1.66.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -36,7 +36,7 @@ const val SERVER_VERSION = "1.65.1"
  * 36 - витрина аукциона по курсору (`after` вместо `page`, ответ `CursorPage`), `rules` в манифесте, `ItemInstance.resale`,
  *      `MerchantStock.level` (1.62.0).
  */
-const val API_REVISION = 38
+const val API_REVISION = 39
 
 /**
  * Настройки развёртывания читаются из окружения, а не из кода: сервер переезжает на другой
