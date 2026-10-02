@@ -513,6 +513,24 @@ def collar(band, stud, tag):
     return parts
 
 
+def chest(body, band, lock, gem=None):
+    """A loot chest (1.71.0): a box under a rounded lid, two bands, a lock plate; some carry a gem on the lid."""
+    parts = [piece("M10 30 H54 V54 H10Z", body), piece("M10 30 C10 16 54 16 54 30Z", shade(c(body), .85)),
+             piece("M18 18 V54 H23 V18Z", band), piece("M41 18 V54 H46 V18Z", band), piece("M8 29 H56 V33 H8Z", band),
+             piece("M27 33 H37 V44 H27Z", lock), piece(circ(32, 38, 1.8), "#15171a")]
+    if gem: parts += [piece("M32 18 L36 22 L32 26 L28 22Z", gem), glaze("M32 18 L36 22 L32 22Z", "white", .4)]
+    parts += [glaze("M12 31 H30 V36 H12Z", "white", .18), glaze("M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z", "white", .3)]
+    return parts
+
+
+CHESTS = {"WOODEN": ("wood", "bronze", "bronze", None), "IRONBOUND": ("darkwood", "steel", "steel", None),
+          "ANCIENT": ("#6a5a3a", "gold", "gold", "#38b8b0"), "VAAL": ("#5a1a22", "#c8323a", "gold", "#e0304a"),
+          "ORBS": ("darkwood", "gold", "gold", "#3a9ae8"), "RELIC": ("#3a2a4a", "gold", "gold", "#e8a030"),
+          "ESSENCE": ("#2a3a4a", "silver", "silver", "#9b59d6"), "TREASURY": ("#8a6a2a", "gold", "#f2c53a", "#f2c53a"),
+          "ARTISAN": ("wood", "steel", "bronze", "#7fcf4a"), "BEAST": ("leather", "bronze", "bronze", "#d44fb0"),
+          "WARLORD": ("#2a2a30", "#c8323a", "steel", "#ef8a3a"), "TRIAL": ("#1e2a3a", "runic", "silver", "#5a62e0")}
+
+
 COLLARS = {"LEATHER": ("leather", "bronze", "bronze"), "STUDDED": ("leather", "steel", "steel"), "BRASS": ("bronze", "gold", "#e0b040"),
            "RUNED": ("darkwood", "runic", "runic"), "ALPHA": ("gold", "silver", "#e0304a")}
 
@@ -1068,6 +1086,8 @@ def item(atlas, i):
         biome = code.replace("PET_EGG_", "")
         hue = EGG.get(biome, hashed(code))
         atlas.put(key, f"egg_{biome}", egg("#efe6cf", hue))
+    elif cat == "CHEST":
+        atlas.put(key, f"chest_{sub}", chest(*CHESTS.get(sub, ("wood", "bronze", "bronze", None))))
     elif code.endswith("_ORE"):
         vein = ORE_VEIN.get(code[:-4], hashed(code))
         atlas.put(key, f"ore_{code[:-4]}", ore(vein))

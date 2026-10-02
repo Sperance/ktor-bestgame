@@ -46,6 +46,10 @@ data class CurrencyApplyResponse(val messageKey: String, val messageArgs: List<S
 @Serializable
 data class SellOutcome(val itemId: String, val code: String, val gold: Long, val money: Long)
 
+/** Открытый сундук-добыча (1.71.0): что из него легло герою - золото, стопки и вещи (вещи уже в тайнике или в переполнении). */
+@Serializable
+data class ChestOpening(val code: String, val gold: Long, val items: Map<String, Long>, val equipment: List<ItemInstance>)
+
 /**
  * Вещи героя: надеть, снять, вставить в гнездо, продать, сферы, эссенции и верстак. Правила - в `rules`,
  * здесь - документ героя и одна запись на команду: списание и результат не расходятся.
@@ -72,6 +76,8 @@ class InventoryService : KoinComponent {
         val template = template(item, method)
         if (template.slot == Slot.MAP) throw CharacterExceptions.funExceptionMapNotWorn(method, template.code)
         if (template.slot == Slot.JEWEL) throw CharacterExceptions.funExceptionJewelNotWorn(method, template.code)
+        // Классовая уникалка (1.71.0) - только своему классу.
+        template.heroClass?.let { if (it != hero.heroClass) throw CharacterExceptions.funExceptionRequirements(method, "${template.code}: class $it") }
         val unmet = Requirements.unmet(template, hero.level, index.sheetOf(hero).stats)
         if (unmet.isNotEmpty()) throw CharacterExceptions.funExceptionRequirements(method, "${template.code}: ${unmet.joinToString()}")
         val worn = hero.items.filter { it.id != item.id && it.slot != null && !it.socketed }
@@ -216,6 +222,23 @@ class InventoryService : KoinComponent {
         val item = hero.requireItem(itemId, method)
         hero.spend(index.rules.bench.uncraftOrb.name, 1, method)
         return finish(hero, bench.uncraft(item, template(item, method)), method)
+    }
+
+    /**
+     * Открывает сундук-добычу [code] (1.71.0): один из сумки списывается, правила катят его добычу на уровне героя костями
+     * сервера, и всё ложится герою одной записью. Не сундук или нет в сумке - отказ, ничего не тратится.
+     */
+    suspend fun openChest(heroId: String, code: String): ChestOpening {
+        val method = "openChest"
+        val hero = heroes.requireHero(heroId, method)
+        val chest = index.campaign.lootChests.firstOrNull { it.code == code } ?: throw CharacterExceptions.funExceptionItemNotFound(method, code)
+        hero.spend(code, 1, method)
+        val reward = com.sperance.exileforge.rules.roll.LootChests(index).open(chest, hero.level, Dice.system()) { Hero.newItemId() }
+        hero.gain(reward.gold)
+        reward.items.forEach { (item, amount) -> if (index.item(item) != null) hero.earn(item, amount) }
+        reward.equipment.forEach { Stash.receive(hero, it, index) }
+        heroes.save(hero, method)
+        return ChestOpening(code, reward.gold, reward.items, reward.equipment)
     }
 
     /** Места тайника героя и его переполнение. */

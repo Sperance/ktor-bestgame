@@ -130,6 +130,8 @@ data class ItemTemplate(
     val lines: List<List<UniqueLine>> = emptyList(),
     /** Копия всегда осквернена (1.32.0): сферы её не меняют - уникалки Алтаря, зеркальное кольцо. */
     val corrupted: Boolean = false,
+    /** Классовая уникалка (1.71.0): падает кому угодно, надеть может только герой этого класса. */
+    val heroClass: String? = null,
 ) {
     val unique: Boolean get() = rarity.fixed
     val demanding: Boolean get() = requiredLevel > 1 || requiredStrength > 0 || requiredDexterity > 0 || requiredIntelligence > 0
@@ -174,6 +176,8 @@ data class Item(val code: String, val category: String, val subCategory: String 
         const val PET = "PET"
         /** Знамения (1.35.0): тратятся вместе со сферой и меняют её действие. */
         const val OMEN = "OMEN"
+        /** Сундуки-добыча (1.71.0): открываются у героя, не торгуются. */
+        const val CHEST = "CHEST"
     }
 }
 

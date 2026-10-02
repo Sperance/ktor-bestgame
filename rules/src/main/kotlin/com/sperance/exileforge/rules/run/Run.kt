@@ -159,6 +159,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     val monsters = MonsterRoller(index)
     val loot = LootRoller(index, context.heroLevel)
     val factory = ItemFactory(index)
+    private val chests = com.sperance.exileforge.rules.roll.LootChests(index)
     val pool: List<MonsterMod> = monsters.zonePool(zone)
     private val campaign get() = index.campaign
 
@@ -311,7 +312,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
      * Копилка Бездны за [depth] ступеней: волшебные и редкие базы с влиянием Бездны, сферы, уникалка, опыт; [keep] - уцелевшая доля,
      * [grow] - во сколько раз копилка больше своей глубины (клад башни, 1.47.0).
      */
-    fun hoard(depth: Int, keep: Double, draws: RewardDraws, grow: Double = 1.0): Reward {
+    fun hoard(depth: Int, keep: Double, draws: RewardDraws, grow: Double = 1.0, trial: Boolean = false): Reward {
         val rule = campaign.abyss ?: return Reward.NONE
         val draw = draws.next()
         val dice = draw.dice
@@ -321,7 +322,9 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val itemLevel = itemLevel(zone.level, MonsterRarity.RARE)
         val equipment = roll.items.mapIndexedNotNull { i, rarity -> Tables.draw(bases, dice)?.let { factory.createInfluenced("h$depth-$i", it, rarity, Influence.ABYSS, dice, itemLevel) } } +
             listOfNotNull(loot.unique(rule.uniques, zone.level, dice).takeIf { roll.unique }?.let { factory.create("h$depth-u", it, Rarity.UNIQUE, dice, level = itemLevel) })
-        return Reward(roll.experience, 0, roll.orbs, equipment.map { it.copy(id = itemId(draw, it.id)) })
+        // Сундук-добыча из клада башни (1.71.0, [trial]) - последним броском; клад Бездны в зоне сундуков не даёт.
+        val items = roll.orbs.toMutableMap().apply { if (trial) chests.fromTrial(zone.level, dice).forEach { (code, amount) -> merge(code, amount, Long::plus) } }
+        return Reward(roll.experience, 0, items, equipment.map { it.copy(id = itemId(draw, it.id)) })
     }
 
     /**
@@ -346,6 +349,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val rares = if (fast && full) List(rule.fastItems) { Tables.draw(bases, dice) }.filterNotNull() else emptyList()
         val equipment = listOfNotNull(prize?.let { factory.create(itemId(draw, "rush-u"), it, Rarity.UNIQUE, dice, level = itemLevel) }) +
             rares.mapIndexed { n, template -> factory.create(itemId(draw, "rush-$n"), template, Rarity.RARE, dice, level = itemLevel) }
+        // Сундук-добыча из награды раша (1.71.0) - последним броском.
+        chests.fromTrial(zone.level, dice).forEach { (code, amount) -> orbs.merge(code, amount, Long::plus) }
         return Reward(experience, 0, orbs, equipment)
     }
 
@@ -450,6 +455,8 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             if (dice.percent(trials.crest * rule.quantity)) items.merge(TrialRules.CREST, 1L, Long::plus)
             if (dice.percent(trials.seal * rule.quantity)) items.merge(TrialRules.SEAL, 1L, Long::plus)
         }
+        // Сундуки-добыча (1.71.0) - самыми последними бросками награды: ни один прежний поток не сдвигается.
+        chests.fromMonster(level, rule.rarity, zone.finale, quantity, dice).forEach { (code, amount) -> items.merge(code, amount, Long::plus) }
         return Reward(experience, rolled.gold, items, equipment, recipe)
     }
 

@@ -151,6 +151,8 @@ class HeroRoute(
             val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("unveil", "choice")
             call.respondWithHero(inventory.unveil(call.heroId, call.itemId, choice))
         }
+        // Сундук-добыча (1.71.0): открыть один из сумки.
+        post("/chest/open") { call.respondWithHero(inventory.openChest(call.heroId, call.queryParam("code"))) }
         post("/essence") { call.respondWithHero(inventory.applyEssence(call.heroId, call.itemId, call.queryParam("essence"))) }
         get("/bench") { call.respondOk(inventory.bench(repo.requireHero(call.heroId, "bench"))) }
         post("/craft") { call.respondWithHero(inventory.craft(call.heroId, call.itemId, call.queryParam("recipe"))) }

@@ -120,8 +120,11 @@ class Content(
  *      портал Ваал по семени в правилах захода, этаж входа и замороженный контекст испытания (1.68.0).
  * 35 - свойства монстров (`traits`, поле `trait` монстра, отклики в бою), уровень монстра карты ± `maps.levelSpread`,
  *      подкрепление стаи `combat.reinforceDelay`, жетонов +15%, `rules.inputs`, `auction.historyDays` (1.69.0).
+ * 36 - сундуки-добыча `lootChests` (броски последними в награде монстра, раша и клада башни), категория предметов `CHEST`,
+ *      сундуки в награде заданий, классовые уникалки `heroClass`, у карт нет строк «больше добычи» - редкость от риска
+ *      долей `maps.riskRarity` (1.71.0).
  */
-const val RULES_VERSION = 35
+const val RULES_VERSION = 36
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -314,6 +317,7 @@ class ContentIndex(val content: Content) {
                 if (template.unique && template.uniqueEffects < MIN_UNIQUE_EFFECTS) fail("equipment: ${template.code} has ${template.uniqueEffects} unique effects, needs $MIN_UNIQUE_EFFECTS")
                 if (template.kind == TemplateKind.WEAPON && template.weaponType == null) fail("equipment: weapon type of ${template.code}")
                 if (template.level < 1 || template.requiredLevel < 1) fail("equipment: level of ${template.code}")
+                template.heroClass?.let { code -> if (!template.unique || content.classes.classes.none { it.code == code }) fail("equipment: class $code of ${template.code}") }
             }
         }
         content.items.items.let { list -> if (list.map { it.code }.toSet().size != list.size) fail("items: duplicate codes") }
@@ -459,6 +463,16 @@ private class CampaignValidator(private val index: ContentIndex) {
             (rule.uniqueTables + rule.atlasUniqueTables).forEach(::templateTable)
         }
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }
+        // Сундуки-добыча (1.71.0): предмет категории CHEST, таблица добычи, шансы в долях.
+        if (content.lootChests.map { it.code }.toSet().size != content.lootChests.size) fail("campaign: loot chests repeat")
+        content.lootChests.forEach { chest ->
+            if (index.item(chest.code)?.category != Item.CHEST) fail("campaign: loot chest ${chest.code} is not a CHEST item")
+            lootTable(chest.table, chest.code)
+            chest.uniqueTables.forEach(::templateTable)
+            chest.items.forEach { (code, range) -> if (index.item(code) == null || range.size !in 1..2 || range.any { it < 0 }) fail("campaign: loot chest ${chest.code} item $code") }
+            if (chest.rolls < 1 || chest.minLevel < 1 || listOf(chest.uniqueChance, chest.dropChance, chest.bossChance, chest.finaleChance, chest.trialChance).any { it !in 0.0..1.0 })
+                fail("campaign: loot chest ${chest.code} numbers")
+        }
         content.abyss?.let(::validateAbyss)
         content.trials?.let { if (content.abyss == null) fail("trials: the tower needs the Abyss"); it.validate(index) }
         val forms = content.monsters.map { it.form }.toSet()

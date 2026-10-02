@@ -176,7 +176,7 @@ class TrialService : KoinComponent {
                 if (tower.hoard(floor)) hero.count(Counter.TOWER_HOARDS)
                 if (!tower.hoard(floor) || abyss == null) Reward.NONE
                 else Run(index, TrialRules.arena(index.campaign, tower.level(run.heroLevel, floor)), run.seed, context)
-                    .hoard(tower.hoardDepth(abyss, floor), 1.0, draws, tower.hoardScale(floor))
+                    .hoard(tower.hoardDepth(abyss, floor), 1.0, draws, tower.hoardScale(floor), trial = true)
             }
             TrialEventKind.FIGHT -> {
                 event.fight?.let { hero.stats.fight(it) { code -> index.monster(code) != null } }

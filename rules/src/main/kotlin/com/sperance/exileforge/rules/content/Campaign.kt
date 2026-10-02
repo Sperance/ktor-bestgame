@@ -161,6 +161,11 @@ data class MapRule(
     val bossChance: Double,
     val nextChance: Double,
     val risk: Map<String, Double>,
+    /**
+     * Доля риска, что идёт в редкость (1.71.0): у карт больше нет строк «больше добычи» - количество и редкость дают только
+     * вредные строки, количество полным риском, редкость - этой долей.
+     */
+    val riskRarity: Double = .6,
     val rarityBonus: Map<Rarity, Double> = emptyMap(),
     val rarities: String = "rarity:map",
     /** Уникалка с босса карты (1.19.0): шанс и собственный пул карт. */
@@ -352,6 +357,8 @@ data class CampaignFile(
     val traits: TraitRules = TraitRules(),
     /** Таблица весов редкостей монстров. */
     val rarityTable: String = "rarity:monster",
+    /** Сундуки-добыча (1.71.0): предметы сумки, что падают редко и открываются у героя; порядок списка - порядок бросков. */
+    val lootChests: List<LootChest> = emptyList(),
 ) {
     val zones: List<Zone> get() = regions.flatMap { it.zones }
 
@@ -388,3 +395,26 @@ class WorldGraph(zones: List<Zone>) {
         return codes.toSet() - seen
     }
 }
+
+/**
+ * Сундук-добыча (1.71.0): предмет сумки [code] (категория `CHEST`), не торгуется и не берёт сфер. Падает с монстра шансом
+ * [dropChance] (с множителем количества редкости монстра), с босса зоны - [bossChance], с босса финала региона ещё и
+ * [finaleChance], из награды испытания - [trialChance]; не ниже уровня зоны [minLevel]. Открытый, он катит таблицу добычи
+ * [table] [rolls] раз по правилу редкости монстра [rarity] на уровне героя, с шансом [uniqueChance] - уникалку из
+ * [uniqueTables], и кладёт [items] (код - [от, до]).
+ */
+@Serializable
+data class LootChest(
+    val code: String,
+    val table: String,
+    val rolls: Int = 1,
+    val rarity: MonsterRarity = MonsterRarity.RARE,
+    val uniqueChance: Double = 0.0,
+    val uniqueTables: List<String> = emptyList(),
+    val items: Map<String, List<Long>> = emptyMap(),
+    val dropChance: Double = 0.0,
+    val bossChance: Double = 0.0,
+    val finaleChance: Double = 0.0,
+    val trialChance: Double = 0.0,
+    val minLevel: Int = 1,
+)

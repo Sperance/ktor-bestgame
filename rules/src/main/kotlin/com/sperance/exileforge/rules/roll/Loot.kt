@@ -121,7 +121,7 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
     fun risk(effects: Map<String, Double>): Double =
         Math.round(effects.entries.sumOf { (stat, value) -> value * (campaign.maps.risk[stat] ?: 0.0) }.coerceAtLeast(0.0) * 10) / 10.0
 
-    /** Карта в действии: риск и прямые строки - к количеству, редкости и опыту; редкость самой карты - к первым двум. */
+    /** Карта в действии: риск - к количеству и опыту, его доля - к редкости; тир карты и её редкость - к количеству и редкости. */
     fun activeMap(mapCode: String, base: Map<String, Double>, rarity: Rarity = Rarity.COMMON, tier: Int = 0, influence: Influence? = null, atlas: Map<String, Double> = emptyMap()): ActiveMap {
         val effects = if (influence == null) base else influenced(base, atlas).let { captured ->
             // Бездна (1.65.0) открывает на карте расщелины - как строка карты `MAP_ABYSS_CRACKS`.
@@ -130,7 +130,9 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
         }
         val risk = risk(effects)
         val own = campaign.maps.rarityBonus[rarity] ?: 0.0
-        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), risk + own + (effects[MapStat.RARITY.code] ?: 0.0),
+        // Строки «больше добычи» ушли из пулов карт (1.71.0): добычу растят вредные строки - чем выше их тир, тем больше риск.
+        val rarityRisk = Math.round(risk * campaign.maps.riskRarity * 10) / 10.0
+        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), rarityRisk + own + (effects[MapStat.RARITY.code] ?: 0.0),
             risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0), rarity, tier, influence)
     }
 

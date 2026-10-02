@@ -383,6 +383,24 @@
           "amount": 1,
           "weight": 2
         }
+      ],
+      "chestChance": 0.03,
+      "chests": [
+        {
+          "code": "CHEST_WOODEN",
+          "amount": 1,
+          "weight": 3
+        },
+        {
+          "code": "CHEST_ARTISAN",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_TREASURY",
+          "amount": 1,
+          "weight": 1
+        }
       ]
     },
     {
@@ -413,6 +431,34 @@
           "amount": 1,
           "weight": 1
         }
+      ],
+      "chestChance": 0.08,
+      "chests": [
+        {
+          "code": "CHEST_WOODEN",
+          "amount": 1,
+          "weight": 3
+        },
+        {
+          "code": "CHEST_IRONBOUND",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_ARTISAN",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_TREASURY",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_ORBS",
+          "amount": 1,
+          "weight": 1
+        }
       ]
     },
     {
@@ -440,6 +486,34 @@
         },
         {
           "code": "BLESSED_ORB",
+          "amount": 1,
+          "weight": 2
+        }
+      ],
+      "chestChance": 0.18,
+      "chests": [
+        {
+          "code": "CHEST_IRONBOUND",
+          "amount": 1,
+          "weight": 3
+        },
+        {
+          "code": "CHEST_ORBS",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_ESSENCE",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_BEAST",
+          "amount": 1,
+          "weight": 1
+        },
+        {
+          "code": "CHEST_TREASURY",
           "amount": 1,
           "weight": 2
         }
@@ -475,6 +549,34 @@
         },
         {
           "code": "ORB_OF_ANNULMENT",
+          "amount": 1,
+          "weight": 1
+        }
+      ],
+      "chestChance": 0.4,
+      "chests": [
+        {
+          "code": "CHEST_ANCIENT",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_ORBS",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_ESSENCE",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_BEAST",
+          "amount": 1,
+          "weight": 1
+        },
+        {
+          "code": "CHEST_RELIC",
           "amount": 1,
           "weight": 1
         }

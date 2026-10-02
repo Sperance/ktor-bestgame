@@ -74,6 +74,9 @@ data class QuestRarityRule(
     val conditions: Int = 0,
     val contractHours: Int = 1,
     val orbs: List<QuestOrb> = emptyList(),
+    /** Сундук-добыча в награде (1.71.0): шанс [chestChance] и какой - по весам [chests]. */
+    val chestChance: Double = 0.0,
+    val chests: List<QuestOrb> = emptyList(),
 )
 
 /** Вид: сколько заданий, какие редкости, множители цели и награды, сколько сфер тянется из таблицы редкости. */
@@ -154,6 +157,10 @@ data class QuestRules(
             rule.orbs.forEach { orb ->
                 if (orb.code == Orb.MIRROR_OF_KALANDRA.name) fail("quests: the Mirror is never a quest reward")
                 if (index.item(orb.code)?.category != Item.CURRENCY || orb.amount <= 0 || orb.weight <= 0) fail("quests: orb ${orb.code} of ${rule.rarity}")
+            }
+            if (rule.chestChance !in 0.0..1.0 || (rule.chestChance > 0 && rule.chests.isEmpty())) fail("quests: chest chance of ${rule.rarity}")
+            rule.chests.forEach { chest ->
+                if (index.item(chest.code)?.category != Item.CHEST || chest.amount <= 0 || chest.weight <= 0) fail("quests: chest ${chest.code} of ${rule.rarity}")
             }
         }
         QuestKind.entries.forEach { kind ->

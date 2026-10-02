@@ -11277,5 +11277,134 @@
       "RARE": 2.0,
       "UNIQUE": 2.0
     }
-  }
+  },
+  "lootChests": [
+    {
+      "code": "CHEST_WOODEN",
+      "table": "loot:LCHEST_WOODEN",
+      "rolls": 1,
+      "rarity": "MAGIC",
+      "dropChance": 0.004,
+      "bossChance": 0.05
+    },
+    {
+      "code": "CHEST_IRONBOUND",
+      "table": "loot:LCHEST_IRONBOUND",
+      "rolls": 1,
+      "rarity": "RARE",
+      "dropChance": 0.0012,
+      "bossChance": 0.04,
+      "minLevel": 8
+    },
+    {
+      "code": "CHEST_ANCIENT",
+      "table": "loot:LCHEST_ANCIENT",
+      "rolls": 1,
+      "rarity": "UNIQUE",
+      "uniqueChance": 0.35,
+      "uniqueTables": [
+        "unique:world"
+      ],
+      "dropChance": 0.0002,
+      "bossChance": 0.01,
+      "finaleChance": 0.1,
+      "minLevel": 20
+    },
+    {
+      "code": "CHEST_VAAL",
+      "table": "loot:LCHEST_VAAL",
+      "rolls": 1,
+      "rarity": "RARE",
+      "uniqueChance": 0.2,
+      "uniqueTables": [
+        "unique:vaal"
+      ],
+      "dropChance": 0.00025,
+      "bossChance": 0.006,
+      "minLevel": 30
+    },
+    {
+      "code": "CHEST_ORBS",
+      "table": "loot:LCHEST_ORBS",
+      "rolls": 1,
+      "rarity": "RARE",
+      "dropChance": 0.0005,
+      "bossChance": 0.008,
+      "minLevel": 5
+    },
+    {
+      "code": "CHEST_RELIC",
+      "table": "loot:LCHEST_RELIC",
+      "rolls": 1,
+      "rarity": "UNIQUE",
+      "uniqueChance": 1.0,
+      "uniqueTables": [
+        "unique:world"
+      ],
+      "dropChance": 4e-05,
+      "bossChance": 0.004,
+      "finaleChance": 0.08,
+      "minLevel": 15
+    },
+    {
+      "code": "CHEST_ESSENCE",
+      "table": "loot:LCHEST_ESSENCE",
+      "rolls": 1,
+      "rarity": "RARE",
+      "dropChance": 0.0006,
+      "bossChance": 0.01,
+      "minLevel": 12
+    },
+    {
+      "code": "CHEST_TREASURY",
+      "table": "loot:LCHEST_TREASURY",
+      "rolls": 1,
+      "rarity": "RARE",
+      "dropChance": 0.0008,
+      "bossChance": 0.01,
+      "minLevel": 3
+    },
+    {
+      "code": "CHEST_ARTISAN",
+      "table": "loot:LCHEST_ARTISAN",
+      "rolls": 1,
+      "rarity": "MAGIC",
+      "dropChance": 0.0015,
+      "minLevel": 3
+    },
+    {
+      "code": "CHEST_BEAST",
+      "table": "loot:LCHEST_BEAST",
+      "rolls": 1,
+      "rarity": "RARE",
+      "dropChance": 0.0003,
+      "bossChance": 0.006,
+      "minLevel": 10
+    },
+    {
+      "code": "CHEST_WARLORD",
+      "table": "loot:LCHEST_WARLORD",
+      "rolls": 1,
+      "rarity": "UNIQUE",
+      "uniqueChance": 0.15,
+      "uniqueTables": [
+        "unique:world"
+      ],
+      "bossChance": 0.03,
+      "finaleChance": 0.5,
+      "minLevel": 5
+    },
+    {
+      "code": "CHEST_TRIAL",
+      "table": "loot:LCHEST_TRIAL",
+      "rolls": 1,
+      "rarity": "UNIQUE",
+      "uniqueChance": 0.1,
+      "uniqueTables": [
+        "unique:world"
+      ],
+      "trialChance": 0.25,
+      "minLevel": 10
+    }
+  ]
 }

@@ -44388,6 +44388,1062 @@
           "color": "#ffd070"
         }
       ]
+    },
+    "gl_u_bloodfirst_cleaver": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 21.74 14.72 l 3.63 -1.69 l 20.29 43.5 l -3.63 1.69 z",
+          "color": "#3a1a1a"
+        },
+        {
+          "d": "M 24.52 11.22 C 34.61 2.1 45.72 4.64 50.43 12.37 C 53.33 20.95 47.29 29.29 33.81 31.15 Z",
+          "color": "#b01a2a"
+        },
+        {
+          "d": "M 22.58 16.53 L 16.54 24.87 L 27.23 26.5 Z",
+          "color": "#b01a2a"
+        },
+        {
+          "d": "M 20.83 15.14 l 5.44 -2.54 l 1.69 3.63 l -5.44 2.54 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 35.05 18.44 a 5.5 5.5 -25 0 0 9.97 -4.65 a 5.5 5.5 -25 0 0 -9.97 4.65 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 38.18 12.13 Q 42.54 14.54 43.32 16.2 A 2.93 2.93 -25 0 1 38 18.68 Q 37.23 17.02 38.18 12.13 Z",
+          "color": "#ff7a7a"
+        }
+      ]
+    },
+    "gl_u_unyielding_carapace": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 10 L26 8 C28 14 36 14 38 8 L46 10 L56 18 L52 30 L48 28 L48 57 L16 57 L16 28 L12 30 L8 18Z",
+          "color": "#3a9ae8"
+        },
+        {
+          "d": "M8 18 L18 10 L20 21 L12 30Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M56 18 L46 10 L44 21 L52 30Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M31 16 h2 v26 h-2z",
+          "color": "#000000",
+          "alpha": 0.4
+        },
+        {
+          "d": "M16 42 h32 v5 h-32z",
+          "color": "#1a4568"
+        },
+        {
+          "d": "M26 30 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 24.8 L 32 35.2 M 32 27.2 L 34.8 25.2 M 32 30 L 29.2 28 M 32 30 L 34.8 32.4",
+          "color": "#f2c53a",
+          "line": 1.8
+        }
+      ]
+    },
+    "gl_u_windwhisper_longbow": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 36.84 3.62 C 51.76 23.78 34.76 53.22 9.84 50.38 L 11.44 53.61 C 39.09 55.72 56.09 26.28 40.44 3.39 Z",
+          "color": "#1a4568"
+        },
+        {
+          "d": "M 37.21 4.98 L 11.21 50.02",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M 38.83 30.17 l 6.06 3.5 l -5 8.66 l -6.06 -3.5 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 35.46 34 a 4.5 4.5 30 0 0 7.79 4.5 a 4.5 4.5 30 0 0 -7.79 -4.5 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 41.31 32.87 L 37.41 39.63 M 40.41 34.43 L 42.98 34.18 M 39.36 36.25 L 38.29 33.9 M 39.36 36.25 L 40.28 38.86",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
+    },
+    "gl_u_starhunter_quiver": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M36 4 L40 5 L37 20 L33 19Z",
+          "color": "#f0d890"
+        },
+        {
+          "d": "M44 7 L48 9 L42 22 L38 20Z",
+          "color": "#f0d890"
+        },
+        {
+          "d": "M27 6 L31 6 L31 20 L27 20Z",
+          "color": "#f0d890"
+        },
+        {
+          "d": "M18 20 L44 16 L50 54 L28 60Z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M18 20 L44 16 L45 23 L19 27Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M26 34 L46 30",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M27.5 40 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 33 35.6 L 34.1 38.9 L 37.58 38.9 L 34.83 40.92 L 35.93 44.4 L 33 42.2 L 30.07 44.4 L 31.17 40.92 L 28.42 38.9 L 31.9 38.9 Z",
+          "color": "#fff6d0"
+        }
+      ]
+    },
+    "gl_u_emberwitch_wand": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 37.24 21.02 L 40.52 23.32 L 16.19 56.33 L 14.55 55.18 Z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M 48.63 8.24 L 48.63 20.45 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#e8602a"
+        },
+        {
+          "d": "M 36.59 19.34 l 5.73 4.02 l -2.29 3.28 l -5.73 -4.02 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 48.63 8.24 L 37.74 23.81 L 37.16 12.42 Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_u_coven_eye": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M14 5 C14 28 26 36 32 38 C38 36 50 28 50 5 L47 5 C47 26 36 33 32 34 C28 33 17 26 17 5Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M20 47 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M25 47 a7 7 0 1 0 14 0 a7 7 0 1 0 -14 0Z",
+          "color": "#d44fb0"
+        },
+        {
+          "d": "M27.5 45 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#ffffff",
+          "alpha": 0.6
+        }
+      ]
+    },
+    "gl_u_challengers_edge": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 50.64 9.78 L 49.21 17.72 L 29.54 40.38 L 24.18 35.88 L 43.08 12.58 Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M 44.96 15.46 l 1.07 0.9 l -17.36 20.68 l -1.07 -0.9 z",
+          "color": "#000000",
+          "alpha": 0.35
+        },
+        {
+          "d": "M 16.9 29.77 l 19.92 16.71 l -3.21 3.83 l -19.92 -16.71 z",
+          "color": "#6c3e1a"
+        },
+        {
+          "d": "M 21.73 40.35 l 3.83 3.21 l -7.07 8.43 l -3.83 -3.21 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 11.64 50.82 a 3.5 3.5 40 0 0 5.36 4.5 a 3.5 3.5 40 0 0 -5.36 -4.5 Z",
+          "color": "#6c3e1a"
+        },
+        {
+          "d": "M 21.8 37.15 a 4.5 4.5 40 0 0 6.89 5.79 a 4.5 4.5 40 0 0 -6.89 -5.79 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27.76 37.06 L 22.74 43.03 M 26.6 38.43 L 29.17 38.64 M 25.25 40.04 L 24.61 37.54 M 25.25 40.04 L 25.7 42.77",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
+    },
+    "gl_u_final_lunge_gauntlets": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 40 L18 22 C18 18 22 18 22 22 L22 12 C22 8 27 8 27 12 L27 10 C27 6 32 6 32 10 L32 12 C32 8 37 8 37 12 L37 26 L42 20 C45 17 49 20 46 24 L42 34 L42 40Z",
+          "color": "#5a62e0"
+        },
+        {
+          "d": "M18 27 h19 v4 h-19z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M17 40 h26 v18 h-26z",
+          "color": "#282c65"
+        },
+        {
+          "d": "M21.5 31 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27 26.23 L 27 35.77 M 27 28.43 L 29.57 26.6 M 27 31 L 24.43 29.17 M 27 31 L 29.57 33.2",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_dawnbringer_sceptre": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 32.08 28.4 l 3.28 2.29 l -14.34 20.48 l -3.28 -2.29 z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M 48.63 8.24 L 53.06 21.11 L 41.83 32.78 L 27.91 23.03 L 35.03 8.49 Z",
+          "color": "#f0d890"
+        },
+        {
+          "d": "M 48.63 8.24 L 34.87 27.9 L 27.91 23.03 L 35.03 8.49 Z",
+          "color": "#000000",
+          "alpha": 0.2
+        },
+        {
+          "d": "M 45.19 13.16 L 45.68 22.05 L 37.16 24.63 L 36.67 15.74 Z",
+          "color": "#3a3a8a"
+        },
+        {
+          "d": "M 45.19 13.16 L 37.16 24.63 L 36.67 15.74 Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        },
+        {
+          "d": "M 29.71 23.07 l 11.47 8.03 l -2.29 3.28 l -11.47 -8.03 z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 14.79 50.47 a 3.5 3.5 35 0 0 5.73 4.02 a 3.5 3.5 35 0 0 -5.73 -4.02 Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M 22.58 37.61 a 4.5 4.5 35 0 0 7.37 5.16 a 4.5 4.5 35 0 0 -7.37 -5.16 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 28.33 37.24 L 27.52 39.97 L 29.85 41.61 L 27.06 41.67 L 26.17 44.52 L 25.23 41.67 L 22.23 41.76 L 24.61 39.95 L 23.71 37.3 L 26.04 38.94 Z",
+          "color": "#fff6d0"
+        }
+      ]
+    },
+    "gl_u_holy_verdict_bulwark": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M14 5 h36 v40 L32 60 L14 45Z",
+          "color": "#6a6e78"
+        },
+        {
+          "d": "M19 10 h26 v33 L32 54 L19 43Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M30 12 h4 v38 h-4z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M20 24 h24 v4 h-24z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M24 32 a8 8 0 1 0 16 0 a8 8 0 1 0 -16 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 32 25.6 L 37.6 28.8 L 37.6 35.2 L 32 38.4 L 26.4 35.2 L 26.4 28.8 Z M 32 28.8 L 34.93 30.4 L 34.93 33.6 L 32 35.2 L 29.07 33.6 L 29.07 30.4 Z",
+          "color": "#f2c53a"
+        }
+      ]
+    },
+    "gl_u_silent_fang": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 49.87 9.14 L 51.41 10.43 L 28.39 39.41 L 25.33 36.84 Z",
+          "color": "#b01a2a"
+        },
+        {
+          "d": "M 17.15 32.59 C 22.29 26.46 39.14 40.6 34 46.73 L 31.43 49.8 L 14.57 35.65 Z",
+          "color": "#3a1a1a"
+        },
+        {
+          "d": "M 21.09 41.12 l 3.83 3.21 l -6.43 7.66 l -3.83 -3.21 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 12.35 50.75 a 3 3 40 0 0 4.6 3.86 a 3 3 40 0 0 -4.6 -3.86 Z",
+          "color": "#3a1a1a"
+        },
+        {
+          "d": "M 22.77 36 a 4.5 4.5 40 0 0 6.89 5.79 a 4.5 4.5 40 0 0 -6.89 -5.79 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 28.53 36.14 Q 28.25 40.21 27.28 41.36 A 2.4 2.4 40 0 1 23.61 38.27 Q 24.57 37.12 28.53 36.14 Z",
+          "color": "#ff7a7a"
+        }
+      ]
+    },
+    "gl_u_duskstep_boots": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M18 6 h18 v30 L50 42 C57 44 57 54 50 56 L18 56Z",
+          "color": "#c8d6e6"
+        },
+        {
+          "d": "M16 5 h22 v7 h-22z",
+          "color": "#5a6068"
+        },
+        {
+          "d": "M20 18 H34 M20 24 H34 M20 30 H34",
+          "color": "#e6d4a6",
+          "line": 1.2
+        },
+        {
+          "d": "M16 54 h39 v5 h-39z",
+          "color": "#26211d"
+        },
+        {
+          "d": "M21.5 22 a5.5 5.5 0 1 0 11 0 a5.5 5.5 0 1 0 -11 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27 17.23 L 27 26.77 M 27 19.43 L 29.57 17.6 M 27 22 L 24.43 20.17 M 27 22 L 29.57 24.2",
+          "color": "#f2c53a",
+          "line": 1.65
+        }
+      ]
+    },
+    "gl_u_exiles_heirloom": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M 50.64 9.78 L 49.21 17.72 L 29.54 40.38 L 24.18 35.88 L 43.08 12.58 Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M 44.96 15.46 l 1.07 0.9 l -17.36 20.68 l -1.07 -0.9 z",
+          "color": "#000000",
+          "alpha": 0.35
+        },
+        {
+          "d": "M 16.9 29.77 l 19.92 16.71 l -3.21 3.83 l -19.92 -16.71 z",
+          "color": "#6d591a"
+        },
+        {
+          "d": "M 21.73 40.35 l 3.83 3.21 l -7.07 8.43 l -3.83 -3.21 z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M 11.64 50.82 a 3.5 3.5 40 0 0 5.36 4.5 a 3.5 3.5 40 0 0 -5.36 -4.5 Z",
+          "color": "#6d591a"
+        },
+        {
+          "d": "M 21.8 37.15 a 4.5 4.5 40 0 0 6.89 5.79 a 4.5 4.5 40 0 0 -6.89 -5.79 Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M 27.76 37.06 L 22.74 43.03 M 26.6 38.43 L 29.17 38.64 M 25.25 40.04 L 24.61 37.54 M 25.25 40.04 L 25.7 42.77",
+          "color": "#f2c53a",
+          "line": 1.4
+        }
+      ]
+    },
+    "gl_u_ascendant_signet": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M14 40 a18 18 0 1 0 36 0 a18 18 0 1 0 -36 0ZM19.5 40 a12.5 12.5 0 1 0 25 0 a12.5 12.5 0 1 0 -25 0Z",
+          "color": "#d9a53a",
+          "evenOdd": true
+        },
+        {
+          "d": "M25 21 h14 v5 h-14z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M32 5 L42 14 L32 24 L22 14Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M32 5 L32 24 L22 14Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_wooden": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#8a5a34"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#754c2c"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_ironbound": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#50321d"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_ancient": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#6a5a3a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#5a4c31"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#38b8b0"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_vaal": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#5a1a22"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#4c161d"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#c8323a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#c8323a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#c8323a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#e0304a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_orbs": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#5e3b22"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#50321d"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#3a9ae8"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_relic": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#3a2a4a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#31243f"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#e8a030"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_essence": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#2a3a4a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#24313f"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#9b59d6"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_treasury": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#8a6a2a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#755a24"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#f2c53a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_artisan": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#8a5a34"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#754c2c"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#7fcf4a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_beast": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#8b5530"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#764829"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#d44fb0"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_warlord": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#2a2a30"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#242429"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#c8323a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#c8323a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#c8323a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#ef8a3a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_trial": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#1e2a3a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#1a2431"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#6fd3c8"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#6fd3c8"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#6fd3c8"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#5a62e0"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
     }
   },
   "icons": {
@@ -46777,6 +47833,32 @@
     "stat.STOCK_VEILED_LOOT": "stat_stock_veiled_loot",
     "item.QUALITY_ORB": "gl_orb_quality_orb",
     "item.OMEN_CHOICE": "gl_omen_choice",
-    "item.OMEN_TIER": "gl_omen_tier"
+    "item.OMEN_TIER": "gl_omen_tier",
+    "equipment.BLOODFIRST_CLEAVER": "gl_u_bloodfirst_cleaver",
+    "equipment.UNYIELDING_CARAPACE": "gl_u_unyielding_carapace",
+    "equipment.WINDWHISPER_LONGBOW": "gl_u_windwhisper_longbow",
+    "equipment.STARHUNTER_QUIVER": "gl_u_starhunter_quiver",
+    "equipment.EMBERWITCH_WAND": "gl_u_emberwitch_wand",
+    "equipment.COVEN_EYE": "gl_u_coven_eye",
+    "equipment.CHALLENGERS_EDGE": "gl_u_challengers_edge",
+    "equipment.FINAL_LUNGE_GAUNTLETS": "gl_u_final_lunge_gauntlets",
+    "equipment.DAWNBRINGER_SCEPTRE": "gl_u_dawnbringer_sceptre",
+    "equipment.HOLY_VERDICT_BULWARK": "gl_u_holy_verdict_bulwark",
+    "equipment.SILENT_FANG": "gl_u_silent_fang",
+    "equipment.DUSKSTEP_BOOTS": "gl_u_duskstep_boots",
+    "equipment.EXILES_HEIRLOOM": "gl_u_exiles_heirloom",
+    "equipment.ASCENDANT_SIGNET": "gl_u_ascendant_signet",
+    "item.CHEST_WOODEN": "gl_chest_wooden",
+    "item.CHEST_IRONBOUND": "gl_chest_ironbound",
+    "item.CHEST_ANCIENT": "gl_chest_ancient",
+    "item.CHEST_VAAL": "gl_chest_vaal",
+    "item.CHEST_ORBS": "gl_chest_orbs",
+    "item.CHEST_RELIC": "gl_chest_relic",
+    "item.CHEST_ESSENCE": "gl_chest_essence",
+    "item.CHEST_TREASURY": "gl_chest_treasury",
+    "item.CHEST_ARTISAN": "gl_chest_artisan",
+    "item.CHEST_BEAST": "gl_chest_beast",
+    "item.CHEST_WARLORD": "gl_chest_warlord",
+    "item.CHEST_TRIAL": "gl_chest_trial"
   }
 }

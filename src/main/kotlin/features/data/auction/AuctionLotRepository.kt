@@ -112,7 +112,9 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         requireOrb(priceOrb, method)
         requirePrice(price, method)
         if (amount <= 0) throw AuctionExceptions.funExceptionAmount(method, amount.toString())
-        index.item(code) ?: throw CharacterExceptions.funExceptionItemNotFound(method, code)
+        val item = index.item(code) ?: throw CharacterExceptions.funExceptionItemNotFound(method, code)
+        // Сундуки-добыча не торгуются (1.71.0): только открыть.
+        if (item.category == com.sperance.exileforge.rules.content.Item.CHEST) throw AuctionExceptions.funExceptionNotTradeable(method, code)
         seller.spend(code, amount, method)
         return transactionExecute("auction $method $code") { session ->
             heroes.update(seller, session)

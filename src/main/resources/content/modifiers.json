@@ -10171,39 +10171,6 @@
       ]
     },
     {
-      "code": "CURSE_MAP_LOOT",
-      "source": "CORRUPTION",
-      "effects": [
-        {
-          "stat": "MAP_QUANTITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          40,
-          1
-        ],
-        "top": [
-          [
-            -12,
-            -10
-          ]
-        ],
-        "bottom": [
-          [
-            -8,
-            -6
-          ]
-        ]
-      },
-      "tags": [
-        "corruption",
-        "curse",
-        "map"
-      ]
-    },
-    {
       "code": "JEWEL_INCREASED_MAXIMUM_LIFE",
       "source": "PREFIX",
       "effects": [
@@ -15692,74 +15659,6 @@
       ]
     },
     {
-      "code": "MAP_QUANTITY",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "MAP_QUANTITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          60,
-          40,
-          20,
-          1
-        ],
-        "top": [
-          [
-            14,
-            18
-          ]
-        ],
-        "bottom": [
-          [
-            4,
-            6
-          ]
-        ]
-      },
-      "tags": [
-        "map",
-        "reward"
-      ]
-    },
-    {
-      "code": "MAP_RARITY",
-      "source": "SUFFIX",
-      "effects": [
-        {
-          "stat": "MAP_RARITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          60,
-          40,
-          20,
-          1
-        ],
-        "top": [
-          [
-            25,
-            30
-          ]
-        ],
-        "bottom": [
-          [
-            6,
-            10
-          ]
-        ]
-      },
-      "tags": [
-        "map",
-        "reward"
-      ]
-    },
-    {
       "code": "MAP_EXPERIENCE",
       "source": "SUFFIX",
       "effects": [
@@ -15888,74 +15787,6 @@
       },
       "tags": [
         "map",
-        "reward"
-      ]
-    },
-    {
-      "code": "HC_MAP_QUANTITY",
-      "source": "HANDCRAFTED",
-      "effects": [
-        {
-          "stat": "MAP_QUANTITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          55,
-          28,
-          1
-        ],
-        "top": [
-          [
-            10,
-            12
-          ]
-        ],
-        "bottom": [
-          [
-            3,
-            5
-          ]
-        ]
-      },
-      "tags": [
-        "map",
-        "handcrafted",
-        "reward"
-      ]
-    },
-    {
-      "code": "HC_MAP_RARITY",
-      "source": "HANDCRAFTED",
-      "effects": [
-        {
-          "stat": "MAP_RARITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          55,
-          28,
-          1
-        ],
-        "top": [
-          [
-            15,
-            20
-          ]
-        ],
-        "bottom": [
-          [
-            5,
-            8
-          ]
-        ]
-      },
-      "tags": [
-        "map",
-        "handcrafted",
         "reward"
       ]
     },
@@ -16144,37 +15975,6 @@
           [
             40,
             50
-          ]
-        ]
-      },
-      "tags": [
-        "map",
-        "alchemy"
-      ]
-    },
-    {
-      "code": "ALC_MAP_LOOT",
-      "source": "ALCHEMY",
-      "effects": [
-        {
-          "stat": "MAP_QUANTITY",
-          "op": "INCREASED"
-        }
-      ],
-      "grid": {
-        "levels": [
-          1
-        ],
-        "top": [
-          [
-            8,
-            10
-          ]
-        ],
-        "bottom": [
-          [
-            8,
-            10
           ]
         ]
       },
