@@ -1,6 +1,7 @@
-# Авто-деплой сервера: каждый пуш в рабочую ветку - проверки, толстый JAR, выкладка на VPS по SSH, перезапуск и проверка здоровья.
-# Секреты репозитория: DEPLOY_HOST (IP VPS), DEPLOY_USER (exileforge), DEPLOY_SSH_KEY (закрытый ключ из scripts/setup_vps.sh).
-# Включается переменной репозитория DEPLOY_ENABLED=true, когда VPS подготовлен.
+# Авто-деплой сервера: каждый пуш в рабочую ветку - проверки контента, затем на VPS по SSH запускается
+# /opt/exileforge/update.sh --update --keep-data --no-logs: код до последнего коммита ветки, пересборка Docker-образа,
+# базы сохраняются, verify.sh и откат на прежнюю версию при неудаче.
+# Секреты: DEPLOY_HOST (IP VPS), DEPLOY_SSH_KEY (из scripts/setup_deploy_key.sh). Включается переменной DEPLOY_ENABLED=true.
 name: Deploy server
 
 on:
@@ -16,6 +17,7 @@ jobs:
   deploy:
     if: ${{ vars.DEPLOY_ENABLED == 'true' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -26,38 +28,18 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
+      # Сломанный контент не уезжает на сервер: сборка образа на VPS идёт только после зелёных проверок.
       - name: Content and contract checks
         run: bash gradlew test --tests LocalizationTest --tests SeedDataTest --tests SkillTreeTest --tests TradeTest --tests AuthTest --tests IconsTest
 
-      - name: Fat JAR
-        run: |
-          bash gradlew buildFatJar
-          cp build/libs/*-all.jar server.jar
-
-      - name: Upload and restart
+      - name: Update the server on the VPS
         env:
           HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
           KEY: ${{ secrets.DEPLOY_SSH_KEY }}
         run: |
           install -m 600 /dev/null key && printf '%s\n' "$KEY" > key
-          ssh_opts="-i key -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20"
-          scp $ssh_opts server.jar "$USER@$HOST:/opt/exileforge/server.jar.new"
-          # Старый JAR остаётся рядом: при неудачном старте его возвращает откат ниже.
-          ssh $ssh_opts "$USER@$HOST" 'cd /opt/exileforge && cp -f server.jar server.jar.prev 2>/dev/null; mv -f server.jar.new server.jar && sudo systemctl restart exileforge'
-
-      - name: Health check (rollback on failure)
-        env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          for i in $(seq 1 30); do
-            if curl -fsS "http://$HOST:8080/system/health" >/dev/null; then echo "server is up"; exit 0; fi
-            sleep 4
-          done
-          echo "health check failed, rolling back"
-          ssh -i key -o StrictHostKeyChecking=accept-new "$USER@$HOST" 'cd /opt/exileforge && [ -f server.jar.prev ] && mv -f server.jar.prev server.jar && sudo systemctl restart exileforge'
-          exit 1
+          # Ключ на VPS привязан к одной команде (update.sh без вопросов): её код выхода - итог деплоя.
+          ssh -i key -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 "root@$HOST" deploy
 
       - name: Forget the key
         if: always()
