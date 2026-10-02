@@ -1,5 +1,9 @@
 package application.koin
 
+import ASANA_BUG_SECTION
+import ASANA_PROJECT
+import ASANA_SUGGESTION_SECTION
+import ASANA_TOKEN
 import base.route.RouteRegistry
 import config.ContentStore
 import config.MongoBackupManager
@@ -43,6 +47,7 @@ val repositoryModule = module {
     single { GuildEventRepository() }
     single { BlockListRepository() }
     single { RedemptionCodesRepository() }
+    single<features.data.bugReport.FeedbackExport> { features.data.bugReport.AsanaExport(ASANA_TOKEN, ASANA_PROJECT, ASANA_BUG_SECTION, ASANA_SUGGESTION_SECTION) }
     single { features.data.bugReport.BugReportRepository() }
     single { features.data.mail.MailRepository() }
     single { InventoryService() }

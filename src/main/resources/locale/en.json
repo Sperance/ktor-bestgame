@@ -8286,6 +8286,8 @@
   "error.BUG_002": "A suggestion can be sent only when signed in",
   "error.BUG_003": "This suggestion cannot be voted on",
   "error.BUG_004": "Report {0} not found",
+  "error.BUG_005": "Asana export is off: ASANA_TOKEN is not set on the server",
+  "error.BUG_006": "Asana refused ({0})",
   "error.ML_001": "This hero is not of your account",
   "error.ML_002": "The letter has nothing to claim",
   "error.ML_003": "The letter has no subject",

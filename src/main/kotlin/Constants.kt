@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.69.0"
+const val SERVER_VERSION = "1.70.0"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему
@@ -64,6 +64,15 @@ val SEED_TEST_PLAYER_PASSWORD: String? = env("TEST_PLAYER_PASSWORD")
  * `*` - любой. Не задано - заголовки не читаются, и за прокси все игроки были бы одним адресом для лимитов и блок-листа.
  */
 val TRUSTED_PROXIES: List<String> = env("TRUSTED_PROXIES")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()
+
+/**
+ * Выгрузка отчётов игроков в Asana (1.70.0): личный токен, проект и секции для ошибок и предложений. Без токена кнопка
+ * администратора отвечает отказом; проект и секции по умолчанию - проект KTOR, «Баги» и «Обсудить».
+ */
+val ASANA_TOKEN: String? = env("ASANA_TOKEN")
+val ASANA_PROJECT: String = env("ASANA_PROJECT") ?: "1218745509544018"
+val ASANA_BUG_SECTION: String = env("ASANA_BUG_SECTION") ?: "1218745973530327"
+val ASANA_SUGGESTION_SECTION: String = env("ASANA_SUGGESTION_SECTION") ?: "1218746245464196"
 
 /** Адреса, которым разрешён доступ из браузера (CORS), через запятую. Не задано - никому. */
 val CORS_HOSTS: List<String> = env("CORS_HOSTS")?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()

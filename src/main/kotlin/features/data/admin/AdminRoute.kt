@@ -39,6 +39,8 @@ class AdminRoute(private val users: UserRepository, private val sessions: AuthSe
                         ?: throw BaseRouteExceptions.funExceptionQuery("feedbackStatus", "status")
                     call.respondOk(reports.setStatus(call.queryParam("id"), status, call.optionalParam("reason").orEmpty()))
                 }
+                // В Asana (1.70.0): задача из отчёта, ссылка в нём и статус «в работе».
+                post("/asana") { call.respondOk(reports.exportToAsana(call.queryParam("id"))) }
             }
             // Письмо одному аккаунту или всем (1.69.0), с вложением или без.
             post("/mail") { call.respondOk(mail.send(call.receive<MailRequest>())) }

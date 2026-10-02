@@ -25,7 +25,7 @@ enum class Vote { LIKE, DISLIKE, NONE }
  * Отчёт игрока (1.46.0), как его прислала кнопка «Жучок»: текст, где он был ([screen] и [context] - вкладка, окно, герой,
  * зона, версии, устройство) и хвост журнала запросов клиента без токенов. [userId] - аккаунт живой сессии, если игрок вошёл;
  * [address] - адрес отправителя. С 1.69.0 это и предложение ([kind]): за него голосуют [likes] и [dislikes] (id аккаунтов),
- * [rating] - их разность для сортировки; [reason] - слово администратора при смене статуса.
+ * [rating] - их разность для сортировки; [reason] - слово администратора при смене статуса; [asanaUrl] - задача в Asana (1.70.0).
  */
 @Serializable
 data class BugReport(
@@ -41,6 +41,8 @@ data class BugReport(
     var dislikes: MutableList<String> = mutableListOf(),
     var rating: Int = 0,
     var reason: String = "",
+    /** Задача в Asana, если администратор выгрузил отчёт (1.70.0); пусто - не выгружен. */
+    var asanaUrl: String = "",
 
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,

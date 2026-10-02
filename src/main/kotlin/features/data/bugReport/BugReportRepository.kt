@@ -20,6 +20,7 @@ class BugReportRepository : BaseRepository<BugReport>(entityClass = BugReport::c
     private val mail: MailRepository by inject()
     private val users: UserRepository by inject()
     private val content: ContentStore by inject()
+    private val export: FeedbackExport by inject()
 
     override val indexes = listOf(IndexSpec.on("status", "createdAt"), IndexSpec.on("createdAt"), IndexSpec.on("kind", "status", "rating"), IndexSpec.on("userId"))
 
@@ -80,7 +81,22 @@ class BugReportRepository : BaseRepository<BugReport>(entityClass = BugReport::c
         return AdminReport(report, report.userId?.let { users.findById(it)?.login })
     }
 
+    /**
+     * В Asana (1.70.0): задача с текстом и контекстом, ссылка на неё в отчёте и статус «в работе» (автору - письмо, как при
+     * любой смене статуса). Уже выгруженный отчёт второй задачи не получает.
+     */
+    suspend fun exportToAsana(id: String): AdminReport {
+        val report = findById(id) ?: throw BaseException("No report $id", "BugReport", "asana", "BUG_004", listOf(id))
+        val login = report.userId?.let { users.findById(it)?.login }
+        if (report.asanaUrl.isNotBlank()) return AdminReport(report, login)
+        report.asanaUrl = export.export(report, login).ifBlank { ASANA_EXPORTED }
+        transactionExecute("report asana $id") { session -> update(report, session) }
+        return setStatus(id, BugStatus.IN_PROGRESS, report.reason)
+    }
+
     private companion object {
+        /** Задача создана, но Asana не вернула ссылку: отметка, что второй раз выгружать не надо. */
+        const val ASANA_EXPORTED = "asana"
         const val MAX_CONTEXT_KEYS = 40
         const val MAX_KEY = 80
         const val MAX_VALUE = 400
