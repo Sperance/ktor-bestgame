@@ -11491,7 +11491,7 @@
           "rarity": "MAGIC",
           "rareChance": 0.5,
           "tables": [
-            "jewel"
+            "drop"
           ],
           "slots": [
             "JEWEL"

@@ -81,7 +81,8 @@ class LootChests(private val index: ContentIndex) {
             repeat(spec.count) {
                 if (!dice.chance(spec.chance)) return@repeat
                 gear(loot, spec, chest, level, main, dice)?.let { template ->
-                    val rarity = if (spec.rarity == Rarity.MAGIC && dice.chance(spec.rareChance)) Rarity.RARE else spec.rarity
+                    // Не ниже редкости самой базы: редкая база и в сундуке редкая.
+                    val rarity = maxOf(if (spec.rarity == Rarity.MAGIC && dice.chance(spec.rareChance)) Rarity.RARE else spec.rarity, template.rarity)
                     val item = if (spec.influenced && template.slot.influenceable)
                         factory.createInfluenced(newId(), template, rarity, dice.pick(Influence.entries), dice, itemLevel)
                     else factory.create(newId(), template, rarity, dice, level = itemLevel)
