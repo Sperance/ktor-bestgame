@@ -528,7 +528,9 @@ CHESTS = {"WOODEN": ("wood", "bronze", "bronze", None), "IRONBOUND": ("darkwood"
           "ORBS": ("darkwood", "gold", "gold", "#3a9ae8"), "RELIC": ("#3a2a4a", "gold", "gold", "#e8a030"),
           "ESSENCE": ("#2a3a4a", "silver", "silver", "#9b59d6"), "TREASURY": ("#8a6a2a", "gold", "#f2c53a", "#f2c53a"),
           "ARTISAN": ("wood", "steel", "bronze", "#7fcf4a"), "BEAST": ("leather", "bronze", "bronze", "#d44fb0"),
-          "WARLORD": ("#2a2a30", "#c8323a", "steel", "#ef8a3a"), "TRIAL": ("#1e2a3a", "runic", "silver", "#5a62e0")}
+          "WARLORD": ("#2a2a30", "#c8323a", "steel", "#ef8a3a"), "TRIAL": ("#1e2a3a", "runic", "silver", "#5a62e0"),
+          "CARTOGRAPHER": ("#3a4a2a", "bronze", "bronze", "#e8d8a0"), "JEWELLER": ("#2a1a3a", "silver", "gold", "#e04ad0"),
+          "SEER": ("#1a2a3a", "runic", "silver", "#4ae0d0"), "CLASS": ("#4a3a2a", "gold", "steel", "#f0f0f0")}
 
 
 COLLARS = {"LEATHER": ("leather", "bronze", "bronze"), "STUDDED": ("leather", "steel", "steel"), "BRASS": ("bronze", "gold", "#e0b040"),

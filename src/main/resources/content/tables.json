@@ -39,22 +39,17 @@
         "ADD_ACCURACY_RATING": 500,
         "ADD_ATTACK_SKILL_LEVEL": 100,
         "ADD_CHAOS_DAMAGE": 300,
-        "ADD_CHAOS_RESISTANCE": 120,
         "ADD_COLD_DAMAGE": 500,
-        "ADD_COLD_RESISTANCE": 200,
         "ADD_CRITICAL_STRIKE_MULTIPLIER": 700,
         "ADD_CRITICAL_VAMPIRE": 150,
         "ADD_DEXTERITY": 400,
         "ADD_FIRE_DAMAGE": 500,
-        "ADD_FIRE_RESISTANCE": 200,
         "ADD_INTELLIGENCE": 400,
         "ADD_LIFE_LEECH": 200,
         "ADD_LIFE_ON_HIT": 300,
         "ADD_LIGHTNING_DAMAGE": 500,
-        "ADD_LIGHTNING_RESISTANCE": 200,
         "ADD_MANA_LEECH": 250,
         "ADD_MANA_ON_KILL": 300,
-        "ADD_MAXIMUM_LIFE": 150,
         "ADD_PHYSICAL_LIFE_LEECH": 500,
         "ADD_SKILL_TARGET": 80,
         "ADD_STRENGTH": 400,
@@ -102,7 +97,18 @@
         "PHYSICAL_AS_EXTRA_COLD": 150,
         "PHYSICAL_AS_EXTRA_FIRE": 150,
         "PHYSICAL_AS_EXTRA_LIGHTNING": 150,
-        "POWER_CHARGE_ON_KILL": 120
+        "POWER_CHARGE_ON_KILL": 120,
+        "INCREASED_ACCURACY_RATING": 200,
+        "INCREASED_IGNITE_DURATION": 100,
+        "INCREASED_CHILL_DURATION": 100,
+        "INCREASED_FREEZE_DURATION": 100,
+        "INCREASED_SHOCK_DURATION": 100,
+        "INCREASED_SHOCK_EFFECT": 150,
+        "INCREASED_CHILL_EFFECT": 150,
+        "FASTER_DAMAGING_AILMENTS": 100,
+        "UNHOLY_MIGHT_ON_KILL": 60,
+        "COND_DAMAGE_RECENT_KILL": 80,
+        "COND_DAMAGE_VS_FULL_LIFE": 60
       }
     },
     {
@@ -132,8 +138,6 @@
         "INCREASED_MAXIMUM_LIFE": 80,
         "INCREASED_RESERVATION_EFFICIENCY": 250,
         "INCREASED_SHIELD_RECHARGE": 250,
-        "INCREASED_SPELL_CRITICAL_CHANCE": 100,
-        "INCREASED_SPELL_DAMAGE": 120,
         "MAXIMUM_POWER_CHARGES": 40,
         "PET_ADD_ARMOUR": 80,
         "PET_INCREASED_DAMAGE": 150,
@@ -143,7 +147,8 @@
         "PREFIX_ADD_AURA_SKILL_LEVEL": 60,
         "PREFIX_INCREASED_ITEM_RARITY": 150,
         "REDUCED_CRITICAL_DAMAGE_TAKEN": 100,
-        "REDUCED_SKILL_COST": 300
+        "REDUCED_SKILL_COST": 300,
+        "INCREASED_ACCURACY_RATING": 100
       }
     },
     {
@@ -181,7 +186,10 @@
         "REDUCED_DAMAGE_TAKEN": 150,
         "REDUCED_ELEMENTAL_DAMAGE_TAKEN": 200,
         "REDUCED_PHYSICAL_DAMAGE_TAKEN": 200,
-        "SPELL_SUPPRESSION": 300
+        "SPELL_SUPPRESSION": 300,
+        "RECOVER_LIFE_ON_KILL": 100,
+        "COND_RESISTANCES_FULL_SHIELD": 60,
+        "COND_ARMOUR_ENDURANCE_CHARGE": 60
       }
     },
     {
@@ -214,7 +222,6 @@
         "INCREASED_ATTACK_SPEED": 400,
         "INCREASED_BLEED_DAMAGE": 100,
         "INCREASED_BURNING_DAMAGE": 100,
-        "INCREASED_CAST_SPEED": 300,
         "INCREASED_CRITICAL_STRIKE_CHANCE": 150,
         "INCREASED_CURSE_EFFECT": 250,
         "INCREASED_DAMAGE_VS_AILED": 200,
@@ -230,7 +237,17 @@
         "PHYSICAL_AS_EXTRA_FIRE": 80,
         "PHYSICAL_AS_EXTRA_LIGHTNING": 80,
         "SKILL_PREPARATION": 250,
-        "ADD_LIFE_REGENERATION": 0
+        "ADD_LIFE_REGENERATION": 0,
+        "INCREASED_CHEST_QUANTITY": 80,
+        "INCREASED_ACCURACY_RATING": 150,
+        "INCREASED_IGNITE_DURATION": 80,
+        "INCREASED_CHILL_DURATION": 80,
+        "INCREASED_FREEZE_DURATION": 80,
+        "INCREASED_SHOCK_DURATION": 80,
+        "INCREASED_SHOCK_EFFECT": 100,
+        "INCREASED_CHILL_EFFECT": 100,
+        "RECOVER_LIFE_ON_KILL": 80,
+        "COND_ATTACK_SPEED_FULL_LIFE": 60
       }
     },
     {
@@ -269,7 +286,10 @@
         "ONSLAUGHT_ON_KILL": 150,
         "PREFIX_INCREASED_ITEM_RARITY": 150,
         "SPELL_SUPPRESSION": 250,
-        "ADD_LIFE_REGENERATION": 0
+        "ADD_LIFE_REGENERATION": 0,
+        "AVOID_ELEMENTAL_AILMENTS": 150,
+        "INCREASED_CHEST_QUANTITY": 80,
+        "COND_SPEED_FRENZY_CHARGE": 60
       }
     },
     {
@@ -308,7 +328,8 @@
         "INCREASED_WARCRY_EFFECT": 250,
         "PET_ADD_ARMOUR": 100,
         "PET_INCREASED_DAMAGE": 100,
-        "PET_INCREASED_LIFE": 100
+        "PET_INCREASED_LIFE": 100,
+        "AVOID_ELEMENTAL_AILMENTS": 100
       }
     },
     {
@@ -405,7 +426,13 @@
         "PHYSICAL_AS_EXTRA_COLD": 80,
         "PHYSICAL_AS_EXTRA_FIRE": 80,
         "PHYSICAL_AS_EXTRA_LIGHTNING": 80,
-        "PREFIX_INCREASED_ITEM_RARITY": 250
+        "PREFIX_INCREASED_ITEM_RARITY": 250,
+        "DAMAGE_PER_FRENZY_CHARGE": 60,
+        "DAMAGE_PER_POWER_CHARGE": 60,
+        "DAMAGE_PER_ENDURANCE_CHARGE": 60,
+        "INCREASED_SHOCK_EFFECT": 100,
+        "INCREASED_CHILL_EFFECT": 100,
+        "FASTER_DAMAGING_AILMENTS": 80
       }
     },
     {
@@ -498,7 +525,10 @@
         "REDUCED_FREEZE_DURATION_ON_SELF": 150,
         "REDUCED_IGNITE_DURATION_ON_SELF": 150,
         "REDUCED_POISON_DURATION_ON_SELF": 150,
-        "REDUCED_SHOCK_DURATION_ON_SELF": 150
+        "REDUCED_SHOCK_DURATION_ON_SELF": 150,
+        "AVOID_ELEMENTAL_AILMENTS": 100,
+        "INCREASED_CHEST_QUANTITY": 80,
+        "RECOVER_LIFE_ON_KILL": 120
       }
     },
     {
@@ -1751,7 +1781,23 @@
         "JEWEL_PENETRATE_ELEMENTAL_RESISTANCES": 120,
         "JEWEL_INCREASED_SPELL_DAMAGE": 200,
         "JEWEL_INCREASED_MAXIMUM_MANA": 250,
-        "JEWEL_INCREASED_CAST_SPEED": 200
+        "JEWEL_INCREASED_CAST_SPEED": 200,
+        "JEWEL_PENETRATE_COLD_RESISTANCE": 100,
+        "JEWEL_PENETRATE_FIRE_RESISTANCE": 100,
+        "JEWEL_PENETRATE_LIGHTNING_RESISTANCE": 100,
+        "JEWEL_INCREASED_RECOVERY_RATE": 120,
+        "JEWEL_REDUCED_DAMAGE_TAKEN": 80,
+        "JEWEL_ADD_REFLECT": 80,
+        "JEWEL_ADD_BLOCK_CHANCE": 100,
+        "JEWEL_INCREASED_CRITICAL_DAMAGE": 120,
+        "JEWEL_ADD_THORNS": 100,
+        "JEWEL_ADD_CRITICAL_VAMPIRE": 60,
+        "JEWEL_INCREASED_BLEED_DURATION": 80,
+        "JEWEL_INCREASED_CHILL_DURATION": 80,
+        "JEWEL_INCREASED_FREEZE_DURATION": 80,
+        "JEWEL_INCREASED_IGNITE_DURATION": 80,
+        "JEWEL_INCREASED_POISON_DURATION": 80,
+        "JEWEL_INCREASED_SHOCK_DURATION": 80
       }
     },
     {
@@ -1898,7 +1944,6 @@
         "INCREASED_DAMAGE_VS_SHOCKED": 100,
         "INCREASED_ELEMENTAL_DAMAGE": 200,
         "INCREASED_ELEMENTAL_DAMAGE_WITH_ATTACKS": 250,
-        "INCREASED_MOVEMENT_SPEED": 100,
         "INCREASED_POISON_DAMAGE": 200,
         "MAXIMUM_FRENZY_CHARGES": 40,
         "ONSLAUGHT_ON_KILL": 100,
@@ -9813,54 +9858,2236 @@
       }
     },
     {
-      "tag": "loot:LCHEST_WOODEN",
+      "tag": "loot:LCHEST_WOODEN_T1",
       "kind": "LOOT",
+      "gold": [
+        60,
+        210
+      ],
       "entries": [
         {
           "ref": "item:ORB_OF_TRANSMUTATION",
-          "chance": 0.6,
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
           "amount": [
             1,
             3
           ]
         },
         {
-          "ref": "item:ORB_OF_AUGMENTATION",
-          "chance": 0.4,
-          "amount": [
-            1,
-            2
-          ]
-        },
-        {
           "ref": "item:ORB_OF_ALTERATION",
-          "chance": 0.3,
+          "chance": 0.67,
           "amount": [
             1,
             2
           ]
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.9
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.5
         }
-      ],
-      "gold": [
-        150,
-        300
       ]
     },
     {
-      "tag": "loot:LCHEST_IRONBOUND",
+      "tag": "loot:LCHEST_WOODEN_T2",
       "kind": "LOOT",
+      "gold": [
+        90,
+        300
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T3",
+      "kind": "LOOT",
+      "gold": [
+        120,
+        390
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T4",
+      "kind": "LOOT",
+      "gold": [
+        150,
+        480
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T5",
+      "kind": "LOOT",
+      "gold": [
+        180,
+        570
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T6",
+      "kind": "LOOT",
+      "gold": [
+        210,
+        660
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T7",
+      "kind": "LOOT",
+      "gold": [
+        240,
+        750
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T8",
+      "kind": "LOOT",
+      "gold": [
+        270,
+        840
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T9",
+      "kind": "LOOT",
+      "gold": [
+        300,
+        930
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WOODEN_T10",
+      "kind": "LOOT",
+      "gold": [
+        330,
+        1020
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 0.67,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T1",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:COPPER_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:WORMWOOD",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:BIRCH_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:TOPAZ",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T2",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:IRON_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:CAVE_MUSHROOM",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:OAK_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:TOPAZ",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:IRON_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:BLOODWORT",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:OAK_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:SAPPHIRE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:SILVER_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:AMBER_RESIN",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:YEW_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:SAPPHIRE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:SILVER_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:SHADEBLOOM",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:IRONWOOD_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:SAPPHIRE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:MITHRIL_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:GLOWCAP",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:IRONWOOD_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:RUBY",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:MITHRIL_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:MOON_LOTUS",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:GHOST_ASH_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:RUBY",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ADAMANT_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:VOID_ROOT",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:WORLDTREE_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:RUBY",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ADAMANT_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:WORLDROOT",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:WORLDTREE_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:ONYX",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ARTISAN_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:STARMETAL_ORE",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:STARBLOOM",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:ELDERHEART_LOG",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:ONYX",
+          "chance": 0.75,
+          "amount": [
+            3,
+            6
+          ]
+        },
+        {
+          "ref": "item:QUALITY_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:BLOOD_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STAR_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STONE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FIRE_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:FROST_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:STORM_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:QUICK_FLUX",
+          "chance": 0.0571,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_LIFE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_DEFENCE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ELEMENTAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_PHYSICAL",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CHAOS",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_SPEED",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_ATTRIBUTE",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CATALYST_CASTER",
+          "chance": 0.0312,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T1",
+      "kind": "LOOT",
+      "gold": [
+        1000,
+        3500
+      ],
       "entries": [
         {
           "ref": "item:ORB_OF_ALCHEMY",
-          "chance": 0.5,
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T2",
+      "kind": "LOOT",
+      "gold": [
+        1500,
+        5000
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T3",
+      "kind": "LOOT",
+      "gold": [
+        2000,
+        6500
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T4",
+      "kind": "LOOT",
+      "gold": [
+        2500,
+        8000
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T5",
+      "kind": "LOOT",
+      "gold": [
+        3000,
+        9500
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T6",
+      "kind": "LOOT",
+      "gold": [
+        3500,
+        11000
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T7",
+      "kind": "LOOT",
+      "gold": [
+        4000,
+        12500
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T8",
+      "kind": "LOOT",
+      "gold": [
+        4500,
+        14000
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T9",
+      "kind": "LOOT",
+      "gold": [
+        5000,
+        15500
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TREASURY_T10",
+      "kind": "LOOT",
+      "gold": [
+        5500,
+        17000
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T1",
+      "kind": "LOOT",
+      "gold": [
+        100,
+        350
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
           "amount": [
             1,
             2
@@ -9868,7 +12095,7 @@
         },
         {
           "ref": "item:ORB_OF_ALTERATION",
-          "chance": 0.5,
+          "chance": 1,
           "amount": [
             2,
             4
@@ -9876,7 +12103,7 @@
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.25,
+          "chance": 0.35,
           "amount": [
             1,
             1
@@ -9884,53 +12111,435 @@
         },
         {
           "ref": "item:REGAL_ORB",
-          "chance": 0.15,
+          "chance": 0.2,
           "amount": [
             1,
             1
           ]
-        },
-        {
-          "ref": "table:drop",
-          "chance": 1.0
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.8
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.5
         }
-      ],
-      "gold": [
-        400,
-        800
       ]
     },
     {
-      "tag": "loot:LCHEST_ANCIENT",
+      "tag": "loot:LCHEST_IRONBOUND_T2",
       "kind": "LOOT",
+      "gold": [
+        150,
+        500
+      ],
       "entries": [
         {
-          "ref": "item:CHAOS_ORB",
-          "chance": 0.6,
-          "amount": [
-            1,
-            3
-          ]
-        },
-        {
-          "ref": "item:REGAL_ORB",
-          "chance": 0.4,
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
           "amount": [
             1,
             2
           ]
         },
         {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T3",
+      "kind": "LOOT",
+      "gold": [
+        200,
+        650
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T4",
+      "kind": "LOOT",
+      "gold": [
+        250,
+        800
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T5",
+      "kind": "LOOT",
+      "gold": [
+        300,
+        950
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T6",
+      "kind": "LOOT",
+      "gold": [
+        350,
+        1100
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T7",
+      "kind": "LOOT",
+      "gold": [
+        400,
+        1250
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T8",
+      "kind": "LOOT",
+      "gold": [
+        450,
+        1400
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T9",
+      "kind": "LOOT",
+      "gold": [
+        500,
+        1550
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_IRONBOUND_T10",
+      "kind": "LOOT",
+      "gold": [
+        550,
+        1700
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.35,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T1",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 2.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
           "ref": "item:EXALTED_ORB",
-          "chance": 0.08,
+          "chance": 0.02,
           "amount": [
             1,
             1
@@ -9938,106 +12547,146 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.04,
+          "chance": 0.01,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "table:drop",
-          "chance": 1.0
-        },
-        {
-          "ref": "table:drop",
-          "chance": 1.0
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.8
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.6
-        }
-      ],
-      "gold": [
-        1000,
-        2000
-      ]
-    },
-    {
-      "tag": "loot:LCHEST_VAAL",
-      "kind": "LOOT",
-      "entries": [
-        {
-          "ref": "item:VAAL_ORB",
-          "chance": 1.0,
-          "amount": [
-            2,
-            4
-          ]
-        },
-        {
-          "ref": "item:CHAOS_ORB",
-          "chance": 0.4,
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
           "amount": [
             1,
             1
           ]
-        },
-        {
-          "ref": "table:drop",
-          "chance": 1.0
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.7
         }
-      ],
-      "gold": [
-        600,
-        1200
       ]
     },
     {
-      "tag": "loot:LCHEST_ORBS",
+      "tag": "loot:LCHEST_ORBS_T2",
       "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
       "entries": [
         {
           "ref": "item:ORB_OF_TRANSMUTATION",
-          "chance": 1.0,
+          "chance": 4,
           "amount": [
-            3,
-            6
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 3,
+          "amount": [
+            1,
+            1
           ]
         },
         {
           "ref": "item:ORB_OF_ALTERATION",
-          "chance": 1.0,
+          "chance": 2.5,
           "amount": [
-            3,
-            6
+            1,
+            1
           ]
         },
         {
           "ref": "item:ORB_OF_ALCHEMY",
-          "chance": 0.8,
+          "chance": 0.5,
           "amount": [
             1,
-            3
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1.5,
+          "amount": [
+            1,
+            1
           ]
         },
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.6,
+          "chance": 0.7,
           "amount": [
             1,
-            2
+            1
           ]
         },
         {
           "ref": "item:REGAL_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
           "chance": 0.5,
           "amount": [
             1,
@@ -10046,15 +12695,187 @@
         },
         {
           "ref": "item:BLESSED_ORB",
-          "chance": 0.4,
+          "chance": 0.5,
           "amount": [
             1,
-            2
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_TRANSMUTATION",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_AUGMENTATION",
+          "chance": 1.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.7,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
           ]
         },
         {
           "ref": "item:ORB_OF_SCOURING",
-          "chance": 0.4,
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 2.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.8,
           "amount": [
             1,
             1
@@ -10062,10 +12883,3508 @@
         },
         {
           "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 2.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.8,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALTERATION",
+          "chance": 2.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.8,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 1.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.7,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 1.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.7,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ORBS_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 2,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 1.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.7,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_ANNULMENT",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T2",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_2",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_3",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ESSENCE_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ESSENCE_GREED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_GREED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_CONTEMPT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HATRED_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WOE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_FEAR_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_ANGER_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_TORMENT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SORROW_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_RAGE_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_SUFFERING_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_WRATH_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_4",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DOUBT_5",
+          "chance": 0.1042,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_INSANITY",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HORROR",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_DELIRIUM",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ESSENCE_HYSTERIA",
+          "chance": 0.0125,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T1",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T2",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_BEAST_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:PET_ORB_GROWTH",
+          "chance": 1,
+          "amount": [
+            2,
+            5
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_JUNGLE",
+          "chance": 0.15,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_CRYPT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_DESERT",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_FROST",
+          "chance": 0.1,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_VOLCANO",
+          "chance": 0.04,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:PET_EGG_ABYSS",
+          "chance": 0.01,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
           "chance": 0.4,
           "amount": [
             1,
             1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_VAAL_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:VAAL_ORB",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ANCIENT_T2",
+      "kind": "LOOT",
+      "gold": [
+        450,
+        1500
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
           ]
         },
         {
@@ -10078,407 +16397,361 @@
         },
         {
           "ref": "item:DIVINE_ORB",
-          "chance": 0.03,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ORB_OF_ANNULMENT",
-          "chance": 0.03,
+          "chance": 0.02,
           "amount": [
             1,
             1
           ]
         }
-      ],
-      "gold": [
-        0,
-        0
       ]
     },
     {
-      "tag": "loot:LCHEST_RELIC",
+      "tag": "loot:LCHEST_ANCIENT_T3",
       "kind": "LOOT",
-      "entries": [
-        {
-          "ref": "table:drop",
-          "chance": 0.6
-        }
-      ],
       "gold": [
-        300,
-        600
-      ]
-    },
-    {
-      "tag": "loot:LCHEST_ESSENCE",
-      "kind": "LOOT",
-      "entries": [
-        {
-          "ref": "item:ESSENCE_GREED_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_CONTEMPT_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_HATRED_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_WOE_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_FEAR_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_ANGER_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_TORMENT_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_SORROW_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_RAGE_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_SUFFERING_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_WRATH_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_DOUBT_3",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_GREED_4",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_CONTEMPT_4",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_HATRED_4",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_WOE_4",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_FEAR_4",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:ESSENCE_ANGER_4",
-          "chance": 0.12,
-          "amount": [
-            1,
-            1
-          ]
-        }
+        600,
+        1950
       ],
-      "gold": [
-        200,
-        400
-      ]
-    },
-    {
-      "tag": "loot:LCHEST_TREASURY",
-      "kind": "LOOT",
       "entries": [
         {
-          "ref": "item:ORB_OF_ALCHEMY",
-          "chance": 0.3,
-          "amount": [
-            1,
-            1
-          ]
-        }
-      ],
-      "gold": [
-        3000,
-        6000
-      ]
-    },
-    {
-      "tag": "loot:LCHEST_ARTISAN",
-      "kind": "LOOT",
-      "entries": [
-        {
-          "ref": "item:COPPER_ORE",
-          "chance": 0.4,
-          "amount": [
-            3,
-            6
-          ]
-        },
-        {
-          "ref": "item:IRON_ORE",
-          "chance": 0.4,
-          "amount": [
-            2,
-            5
-          ]
-        },
-        {
-          "ref": "item:SILVER_ORE",
-          "chance": 0.25,
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
           "amount": [
             1,
             3
           ]
         },
         {
-          "ref": "item:OAK_LOG",
-          "chance": 0.4,
-          "amount": [
-            3,
-            6
-          ]
-        },
-        {
-          "ref": "item:YEW_LOG",
-          "chance": 0.25,
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
           "amount": [
             1,
-            3
+            2
           ]
         },
         {
-          "ref": "item:BLOODWORT",
-          "chance": 0.4,
-          "amount": [
-            2,
-            4
-          ]
-        },
-        {
-          "ref": "item:AMBER_RESIN",
-          "chance": 0.25,
-          "amount": [
-            1,
-            3
-          ]
-        },
-        {
-          "ref": "item:FIRE_FLUX",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:FROST_FLUX",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:STORM_FLUX",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:QUALITY_ORB",
-          "chance": 0.5,
-          "amount": [
-            1,
-            3
-          ]
-        },
-        {
-          "ref": "item:CATALYST_LIFE",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:CATALYST_DEFENCE",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:CATALYST_ELEMENTAL",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        }
-      ],
-      "gold": [
-        200,
-        400
-      ]
-    },
-    {
-      "tag": "loot:LCHEST_BEAST",
-      "kind": "LOOT",
-      "entries": [
-        {
-          "ref": "item:PET_ORB_GROWTH",
-          "chance": 1.0,
-          "amount": [
-            1,
-            3
-          ]
-        },
-        {
-          "ref": "item:PET_EGG_JUNGLE",
-          "chance": 0.2,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_EGG_CRYPT",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_EGG_DESERT",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_EGG_FROST",
-          "chance": 0.15,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_EGG_VOLCANO",
-          "chance": 0.1,
-          "amount": [
-            1,
-            1
-          ]
-        },
-        {
-          "ref": "item:PET_EGG_ABYSS",
+          "ref": "item:EXALTED_ORB",
           "chance": 0.05,
           "amount": [
             1,
             1
           ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
         }
-      ],
-      "gold": [
-        150,
-        300
       ]
     },
     {
-      "tag": "loot:LCHEST_WARLORD",
+      "tag": "loot:LCHEST_ANCIENT_T4",
       "kind": "LOOT",
+      "gold": [
+        750,
+        2400
+      ],
       "entries": [
         {
           "ref": "item:CHAOS_ORB",
-          "chance": 0.7,
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ANCIENT_T5",
+      "kind": "LOOT",
+      "gold": [
+        900,
+        2850
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ANCIENT_T6",
+      "kind": "LOOT",
+      "gold": [
+        1050,
+        3300
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ANCIENT_T7",
+      "kind": "LOOT",
+      "gold": [
+        1200,
+        3750
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ANCIENT_T8",
+      "kind": "LOOT",
+      "gold": [
+        1350,
+        4200
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ANCIENT_T9",
+      "kind": "LOOT",
+      "gold": [
+        1500,
+        4650
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_ANCIENT_T10",
+      "kind": "LOOT",
+      "gold": [
+        1650,
+        5100
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            3
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.05,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:DIVINE_ORB",
+          "chance": 0.02,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T1",
+      "kind": "LOOT",
+      "gold": [
+        100,
+        350
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
           "amount": [
             1,
             2
@@ -10494,37 +16767,331 @@
         },
         {
           "ref": "item:EXALTED_ORB",
-          "chance": 0.06,
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T2",
+      "kind": "LOOT",
+      "gold": [
+        150,
+        500
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
           "amount": [
             1,
             1
           ]
         },
         {
-          "ref": "table:drop",
-          "chance": 1.0
-        },
-        {
-          "ref": "table:drop",
-          "chance": 1.0
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.7
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
         }
-      ],
-      "gold": [
-        800,
-        1600
       ]
     },
     {
-      "tag": "loot:LCHEST_TRIAL",
+      "tag": "loot:LCHEST_WARLORD_T3",
       "kind": "LOOT",
+      "gold": [
+        200,
+        650
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T4",
+      "kind": "LOOT",
+      "gold": [
+        250,
+        800
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T5",
+      "kind": "LOOT",
+      "gold": [
+        300,
+        950
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T6",
+      "kind": "LOOT",
+      "gold": [
+        350,
+        1100
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T7",
+      "kind": "LOOT",
+      "gold": [
+        400,
+        1250
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T8",
+      "kind": "LOOT",
+      "gold": [
+        450,
+        1400
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T9",
+      "kind": "LOOT",
+      "gold": [
+        500,
+        1550
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_WARLORD_T10",
+      "kind": "LOOT",
+      "gold": [
+        550,
+        1700
+      ],
+      "entries": [
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:REGAL_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:EXALTED_ORB",
+          "chance": 0.03,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T1",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
       "entries": [
         {
           "ref": "item:CREST_FRAGMENT",
-          "chance": 1.0,
+          "chance": 1,
           "amount": [
             2,
             4
@@ -10553,19 +17120,1879 @@
             1,
             1
           ]
-        },
-        {
-          "ref": "table:drop",
-          "chance": 1.0
-        },
-        {
-          "ref": "table:drop",
-          "chance": 0.6
         }
-      ],
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T2",
+      "kind": "LOOT",
       "gold": [
-        500,
-        1000
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_TRIAL_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:CREST_FRAGMENT",
+          "chance": 1,
+          "amount": [
+            2,
+            4
+          ]
+        },
+        {
+          "ref": "item:TOWER_SEAL",
+          "chance": 0.6,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ABYSS_ORB",
+          "chance": 0.3,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:CHAOS_ORB",
+          "chance": 0.5,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T1",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T2",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_CARTOGRAPHER_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:ORB_OF_ALCHEMY",
+          "chance": 1,
+          "amount": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T2",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T3",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T4",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T5",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T6",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T7",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T8",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T9",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "loot:LCHEST_SEER_T10",
+      "kind": "LOOT",
+      "gold": [
+        0,
+        0
+      ],
+      "entries": [
+        {
+          "ref": "item:OMEN_SINISTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CHAOS",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_LIGHT",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CORRUPTION",
+          "chance": 0.25,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_GREATER_EXALTATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_CORONATION",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_SINISTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_DEXTRAL_ANNULMENT",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_CHOICE",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:OMEN_TIER",
+          "chance": 0.0556,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_REGRET",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:ORB_OF_SCOURING",
+          "chance": 0.5,
+          "amount": [
+            1,
+            2
+          ]
+        },
+        {
+          "ref": "item:BLESSED_ORB",
+          "chance": 0.4,
+          "amount": [
+            1,
+            1
+          ]
+        },
+        {
+          "ref": "item:UNVEILING_ORB",
+          "chance": 0.2,
+          "amount": [
+            1,
+            1
+          ]
+        }
       ]
     }
   ]

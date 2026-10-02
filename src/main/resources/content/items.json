@@ -2275,75 +2275,915 @@
       "price": 200
     },
     {
-      "code": "CHEST_WOODEN",
+      "code": "CHEST_WOODEN_T1",
       "category": "CHEST",
       "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_IRONBOUND",
+      "code": "CHEST_WOODEN_T2",
       "category": "CHEST",
-      "subCategory": "IRONBOUND",
+      "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_ANCIENT",
+      "code": "CHEST_WOODEN_T3",
       "category": "CHEST",
-      "subCategory": "ANCIENT",
+      "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_VAAL",
+      "code": "CHEST_WOODEN_T4",
       "category": "CHEST",
-      "subCategory": "VAAL",
+      "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_ORBS",
+      "code": "CHEST_WOODEN_T5",
       "category": "CHEST",
-      "subCategory": "ORBS",
+      "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_RELIC",
+      "code": "CHEST_WOODEN_T6",
       "category": "CHEST",
-      "subCategory": "RELIC",
+      "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_ESSENCE",
+      "code": "CHEST_WOODEN_T7",
       "category": "CHEST",
-      "subCategory": "ESSENCE",
+      "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_TREASURY",
+      "code": "CHEST_WOODEN_T8",
       "category": "CHEST",
-      "subCategory": "TREASURY",
+      "subCategory": "WOODEN",
       "price": 0
     },
     {
-      "code": "CHEST_ARTISAN",
+      "code": "CHEST_WOODEN_T9",
+      "category": "CHEST",
+      "subCategory": "WOODEN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WOODEN_T10",
+      "category": "CHEST",
+      "subCategory": "WOODEN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T1",
       "category": "CHEST",
       "subCategory": "ARTISAN",
       "price": 0
     },
     {
-      "code": "CHEST_BEAST",
+      "code": "CHEST_ARTISAN_T2",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T3",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T4",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T5",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T6",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T7",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T8",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T9",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ARTISAN_T10",
+      "category": "CHEST",
+      "subCategory": "ARTISAN",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T1",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T2",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T3",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T4",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T5",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T6",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T7",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T8",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T9",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TREASURY_T10",
+      "category": "CHEST",
+      "subCategory": "TREASURY",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T1",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T2",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T3",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T4",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T5",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T6",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T7",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T8",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T9",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_IRONBOUND_T10",
+      "category": "CHEST",
+      "subCategory": "IRONBOUND",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T1",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T2",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T3",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T4",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T5",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T6",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T7",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T8",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T9",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ORBS_T10",
+      "category": "CHEST",
+      "subCategory": "ORBS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T2",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T3",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T4",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T5",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T6",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T7",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T8",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T9",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ESSENCE_T10",
+      "category": "CHEST",
+      "subCategory": "ESSENCE",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T1",
       "category": "CHEST",
       "subCategory": "BEAST",
       "price": 0
     },
     {
-      "code": "CHEST_WARLORD",
+      "code": "CHEST_BEAST_T2",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T3",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T4",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T5",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T6",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T7",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T8",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T9",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_BEAST_T10",
+      "category": "CHEST",
+      "subCategory": "BEAST",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T3",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T4",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T5",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T6",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T7",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T8",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T9",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_VAAL_T10",
+      "category": "CHEST",
+      "subCategory": "VAAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T2",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T3",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T4",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T5",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T6",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T7",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T8",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T9",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_ANCIENT_T10",
+      "category": "CHEST",
+      "subCategory": "ANCIENT",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T2",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T3",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T4",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T5",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T6",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T7",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T8",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T9",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_RELIC_T10",
+      "category": "CHEST",
+      "subCategory": "RELIC",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T1",
       "category": "CHEST",
       "subCategory": "WARLORD",
       "price": 0
     },
     {
-      "code": "CHEST_TRIAL",
+      "code": "CHEST_WARLORD_T2",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T3",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T4",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T5",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T6",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T7",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T8",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T9",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_WARLORD_T10",
+      "category": "CHEST",
+      "subCategory": "WARLORD",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T1",
       "category": "CHEST",
       "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T2",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T3",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T4",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T5",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T6",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T7",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T8",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T9",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_TRIAL_T10",
+      "category": "CHEST",
+      "subCategory": "TRIAL",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T1",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T2",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T3",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T4",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T5",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T6",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T7",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T8",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T9",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER_T10",
+      "category": "CHEST",
+      "subCategory": "CARTOGRAPHER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T2",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T3",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T4",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T5",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T6",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T7",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T8",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T9",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_JEWELLER_T10",
+      "category": "CHEST",
+      "subCategory": "JEWELLER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T2",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T3",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T4",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T5",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T6",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T7",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T8",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T9",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_SEER_T10",
+      "category": "CHEST",
+      "subCategory": "SEER",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T2",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T3",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T4",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T5",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T6",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T7",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T8",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T9",
+      "category": "CHEST",
+      "subCategory": "CLASS",
+      "price": 0
+    },
+    {
+      "code": "CHEST_CLASS_T10",
+      "category": "CHEST",
+      "subCategory": "CLASS",
       "price": 0
     }
   ]

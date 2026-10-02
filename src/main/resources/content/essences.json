@@ -45,7 +45,7 @@
     {
       "code": "GREED",
       "weapon": "ADD_LIFE_ON_HIT",
-      "caster": "ADD_MAXIMUM_LIFE",
+      "caster": "ADD_LIFE_ON_KILL",
       "quiver": "ADD_MAXIMUM_LIFE",
       "armour": "ADD_MAXIMUM_LIFE",
       "jewellery": "ADD_MAXIMUM_LIFE",

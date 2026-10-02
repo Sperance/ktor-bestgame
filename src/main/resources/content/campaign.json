@@ -11281,130 +11281,264 @@
   "lootChests": [
     {
       "code": "CHEST_WOODEN",
-      "table": "loot:LCHEST_WOODEN",
-      "rolls": 1,
-      "rarity": "MAGIC",
-      "dropChance": 0.004,
-      "bossChance": 0.05
+      "gear": [
+        {
+          "count": 2,
+          "rarity": "MAGIC",
+          "rareChance": 0.25,
+          "tables": [
+            "drop"
+          ]
+        }
+      ],
+      "dropChance": 0.001116,
+      "bossChance": 0.05,
+      "table": "loot:LCHEST_WOODEN"
+    },
+    {
+      "code": "CHEST_ARTISAN",
+      "dropChance": 0.001116,
+      "minLevel": 3,
+      "table": "loot:LCHEST_ARTISAN"
+    },
+    {
+      "code": "CHEST_TREASURY",
+      "jackpotChance": 0.1,
+      "jackpot": 3.0,
+      "dropChance": 0.000558,
+      "bossChance": 0.03,
+      "minLevel": 3,
+      "table": "loot:LCHEST_TREASURY"
     },
     {
       "code": "CHEST_IRONBOUND",
-      "table": "loot:LCHEST_IRONBOUND",
-      "rolls": 1,
-      "rarity": "RARE",
-      "dropChance": 0.0012,
-      "bossChance": 0.04,
-      "minLevel": 8
+      "gear": [
+        {
+          "count": 3,
+          "rarity": "RARE",
+          "tables": [
+            "drop"
+          ]
+        }
+      ],
+      "bossChance": 0.06,
+      "minLevel": 8,
+      "table": "loot:LCHEST_IRONBOUND"
     },
     {
-      "code": "CHEST_ANCIENT",
-      "table": "loot:LCHEST_ANCIENT",
-      "rolls": 1,
-      "rarity": "UNIQUE",
-      "uniqueChance": 0.35,
-      "uniqueTables": [
-        "unique:world"
-      ],
-      "dropChance": 0.0002,
+      "code": "CHEST_ORBS",
+      "dropChance": 0.000368,
       "bossChance": 0.01,
-      "finaleChance": 0.1,
-      "minLevel": 20
+      "minLevel": 5,
+      "table": "loot:LCHEST_ORBS"
+    },
+    {
+      "code": "CHEST_ESSENCE",
+      "dropChance": 0.000368,
+      "bossChance": 0.01,
+      "minLevel": 12,
+      "table": "loot:LCHEST_ESSENCE"
+    },
+    {
+      "code": "CHEST_BEAST",
+      "dropChance": 0.000279,
+      "bossChance": 0.01,
+      "minLevel": 10,
+      "table": "loot:LCHEST_BEAST"
     },
     {
       "code": "CHEST_VAAL",
-      "table": "loot:LCHEST_VAAL",
-      "rolls": 1,
-      "rarity": "RARE",
+      "gear": [
+        {
+          "count": 2,
+          "rarity": "RARE",
+          "corrupted": true,
+          "tables": [
+            "drop"
+          ]
+        }
+      ],
       "uniqueChance": 0.2,
       "uniqueTables": [
         "unique:vaal"
       ],
-      "dropChance": 0.00025,
+      "dropChance": 0.00019,
       "bossChance": 0.006,
-      "minLevel": 30
+      "minLevel": 30,
+      "table": "loot:LCHEST_VAAL"
     },
     {
-      "code": "CHEST_ORBS",
-      "table": "loot:LCHEST_ORBS",
-      "rolls": 1,
-      "rarity": "RARE",
-      "dropChance": 0.0005,
-      "bossChance": 0.008,
-      "minLevel": 5
+      "code": "CHEST_ANCIENT",
+      "gear": [
+        {
+          "count": 3,
+          "rarity": "RARE",
+          "tables": [
+            "drop"
+          ]
+        },
+        {
+          "count": 1,
+          "rarity": "RARE",
+          "influenced": true,
+          "tables": [
+            "drop"
+          ]
+        }
+      ],
+      "uniqueChance": 0.35,
+      "uniqueTables": [
+        "unique:world"
+      ],
+      "dropChance": 0.000279,
+      "bossChance": 0.01,
+      "finaleChance": 0.1,
+      "minLevel": 20,
+      "table": "loot:LCHEST_ANCIENT"
     },
     {
       "code": "CHEST_RELIC",
-      "table": "loot:LCHEST_RELIC",
-      "rolls": 1,
-      "rarity": "UNIQUE",
       "uniqueChance": 1.0,
       "uniqueTables": [
         "unique:world"
       ],
-      "dropChance": 4e-05,
+      "uniqueFlat": true,
+      "dropChance": 5.6e-05,
       "bossChance": 0.004,
       "finaleChance": 0.08,
       "minLevel": 15
     },
     {
-      "code": "CHEST_ESSENCE",
-      "table": "loot:LCHEST_ESSENCE",
-      "rolls": 1,
-      "rarity": "RARE",
-      "dropChance": 0.0006,
-      "bossChance": 0.01,
-      "minLevel": 12
-    },
-    {
-      "code": "CHEST_TREASURY",
-      "table": "loot:LCHEST_TREASURY",
-      "rolls": 1,
-      "rarity": "RARE",
-      "dropChance": 0.0008,
-      "bossChance": 0.01,
-      "minLevel": 3
-    },
-    {
-      "code": "CHEST_ARTISAN",
-      "table": "loot:LCHEST_ARTISAN",
-      "rolls": 1,
-      "rarity": "MAGIC",
-      "dropChance": 0.0015,
-      "minLevel": 3
-    },
-    {
-      "code": "CHEST_BEAST",
-      "table": "loot:LCHEST_BEAST",
-      "rolls": 1,
-      "rarity": "RARE",
-      "dropChance": 0.0003,
-      "bossChance": 0.006,
-      "minLevel": 10
-    },
-    {
       "code": "CHEST_WARLORD",
-      "table": "loot:LCHEST_WARLORD",
-      "rolls": 1,
-      "rarity": "UNIQUE",
+      "gear": [
+        {
+          "count": 3,
+          "rarity": "RARE",
+          "tables": [
+            "drop"
+          ]
+        }
+      ],
+      "slots": [
+        "HELMET",
+        "BODY",
+        "GLOVES",
+        "BOOTS",
+        "WEAPON_1H",
+        "WEAPON_2H",
+        "SHIELD",
+        "QUIVER"
+      ],
       "uniqueChance": 0.15,
       "uniqueTables": [
         "unique:world"
       ],
       "bossChance": 0.03,
-      "finaleChance": 0.5,
-      "minLevel": 5
+      "finaleChance": 0.25,
+      "minLevel": 5,
+      "table": "loot:LCHEST_WARLORD"
     },
     {
       "code": "CHEST_TRIAL",
-      "table": "loot:LCHEST_TRIAL",
-      "rolls": 1,
-      "rarity": "UNIQUE",
+      "gear": [
+        {
+          "count": 2,
+          "rarity": "RARE",
+          "tables": [
+            "drop"
+          ]
+        }
+      ],
       "uniqueChance": 0.1,
       "uniqueTables": [
         "unique:world"
       ],
-      "trialChance": 0.25,
-      "minLevel": 10
+      "trialChance": 0.0667,
+      "trialPerLevel": 0.00333,
+      "trialMax": 0.4,
+      "minLevel": 10,
+      "table": "loot:LCHEST_TRIAL"
+    },
+    {
+      "code": "CHEST_CARTOGRAPHER",
+      "maps": {
+        "count": 3,
+        "spread": 2,
+        "rareChance": 0.3
+      },
+      "dropChance": 0.000368,
+      "bossChance": 0.05,
+      "minLevel": 5,
+      "table": "loot:LCHEST_CARTOGRAPHER"
+    },
+    {
+      "code": "CHEST_JEWELLER",
+      "gear": [
+        {
+          "count": 2,
+          "rarity": "RARE",
+          "slots": [
+            "RING",
+            "AMULET",
+            "BELT"
+          ],
+          "tables": [
+            "drop"
+          ]
+        },
+        {
+          "count": 1,
+          "rarity": "MAGIC",
+          "rareChance": 0.5,
+          "tables": [
+            "jewel"
+          ],
+          "slots": [
+            "JEWEL"
+          ]
+        }
+      ],
+      "slots": [
+        "RING",
+        "AMULET",
+        "BELT",
+        "JEWEL"
+      ],
+      "uniqueChance": 0.1,
+      "uniqueTables": [
+        "unique:world"
+      ],
+      "dropChance": 0.000279,
+      "bossChance": 0.015,
+      "minLevel": 15
+    },
+    {
+      "code": "CHEST_SEER",
+      "dropChance": 0.000223,
+      "bossChance": 0.01,
+      "minLevel": 20,
+      "table": "loot:LCHEST_SEER"
+    },
+    {
+      "code": "CHEST_CLASS",
+      "gear": [
+        {
+          "count": 2,
+          "rarity": "RARE",
+          "classFit": true,
+          "tables": [
+            "drop"
+          ]
+        }
+      ],
+      "uniqueChance": 0.15,
+      "uniqueTables": [
+        "unique:world"
+      ],
+      "classUnique": true,
+      "bossChance": 0.01,
+      "finaleChance": 0.05,
+      "minLevel": 20
     }
   ]
 }

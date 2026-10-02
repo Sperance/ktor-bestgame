@@ -160,7 +160,8 @@ data class QuestRules(
             }
             if (rule.chestChance !in 0.0..1.0 || (rule.chestChance > 0 && rule.chests.isEmpty())) fail("quests: chest chance of ${rule.rarity}")
             rule.chests.forEach { chest ->
-                if (index.item(chest.code)?.category != Item.CHEST || chest.amount <= 0 || chest.weight <= 0) fail("quests: chest ${chest.code} of ${rule.rarity}")
+                // Вид сундука (1.72.0): тир берётся по уровню задания.
+                if (index.campaign.lootChests.none { it.code == chest.code } || chest.amount <= 0 || chest.weight <= 0) fail("quests: chest ${chest.code} of ${rule.rarity}")
             }
         }
         QuestKind.entries.forEach { kind ->

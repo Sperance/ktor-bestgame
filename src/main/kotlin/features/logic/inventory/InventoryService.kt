@@ -225,15 +225,16 @@ class InventoryService : KoinComponent {
     }
 
     /**
-     * Открывает сундук-добычу [code] (1.71.0): один из сумки списывается, правила катят его добычу на уровне героя костями
-     * сервера, и всё ложится герою одной записью. Не сундук или нет в сумке - отказ, ничего не тратится.
+     * Открывает сундук-добычу [code] (1.71.0): один из сумки списывается, правила катят его добычу на уровне его тира (1.72.0)
+     * под класс героя костями сервера, и всё ложится герою одной записью. Не сундук или нет в сумке - отказ, ничего не тратится.
      */
     suspend fun openChest(heroId: String, code: String): ChestOpening {
         val method = "openChest"
         val hero = heroes.requireHero(heroId, method)
-        val chest = index.campaign.lootChests.firstOrNull { it.code == code } ?: throw CharacterExceptions.funExceptionItemNotFound(method, code)
+        val chests = com.sperance.exileforge.rules.roll.LootChests(index)
+        val (chest, tier) = chests.resolve(code) ?: throw CharacterExceptions.funExceptionItemNotFound(method, code)
         hero.spend(code, 1, method)
-        val reward = com.sperance.exileforge.rules.roll.LootChests(index).open(chest, hero.level, Dice.system()) { Hero.newItemId() }
+        val reward = chests.open(chest, tier, hero.heroClass, Dice.system()) { Hero.newItemId() }
         hero.gain(reward.gold)
         reward.items.forEach { (item, amount) -> if (index.item(item) != null) hero.earn(item, amount) }
         reward.equipment.forEach { Stash.receive(hero, it, index) }

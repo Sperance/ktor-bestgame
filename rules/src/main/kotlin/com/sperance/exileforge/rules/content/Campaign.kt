@@ -397,24 +397,80 @@ class WorldGraph(zones: List<Zone>) {
 }
 
 /**
- * Сундук-добыча (1.71.0): предмет сумки [code] (категория `CHEST`), не торгуется и не берёт сфер. Падает с монстра шансом
- * [dropChance] (с множителем количества редкости монстра), с босса зоны - [bossChance], с босса финала региона ещё и
- * [finaleChance], из награды испытания - [trialChance]; не ниже уровня зоны [minLevel]. Открытый, он катит таблицу добычи
- * [table] [rolls] раз по правилу редкости монстра [rarity] на уровне героя, с шансом [uniqueChance] - уникалку из
- * [uniqueTables], и кладёт [items] (код - [от, до]).
+ * Сундук-добыча (1.71.0, тиры с 1.72.0): вид [code] (`CHEST_WOODEN`), предмет сумки - его тир по уровню источника, по
+ * [LEVELS_PER_TIER] уровней (`CHEST_WOODEN_T3` - уровни 21-30), открывается на верхнем уровне тира. Торгуется только на
+ * аукционе, сфер не берёт.
+ *
+ * Где падает: с монстра шансом [dropChance] (с множителем количества его редкости), с босса зоны - [bossChance], с босса
+ * финала региона ещё и [finaleChance], из награды испытания - [trialChance] и [trialPerLevel] за каждый уровень арены, не
+ * выше [trialMax]; не ниже уровня [minLevel].
+ *
+ * Что внутри: таблица добычи своего тира ([tableOf]) [rolls] раз, шансы и золото как записаны (редкость [rarity] решает
+ * лишь уровень вещей), с шансом
+ * [jackpotChance] золото в [jackpot] раз больше; вещи [gear]; уникалка с шансом [uniqueChance] из [uniqueTables]
+ * ([uniqueFlat] - все поровну, [classUnique] - только класса открывшего); карты [maps]; стопки [items] (код - [от, до]).
+ * [slots] - каким слотам быть вещам и уникалке, пусто - любым.
  */
 @Serializable
 data class LootChest(
     val code: String,
-    val table: String,
+    val table: String? = null,
     val rolls: Int = 1,
     val rarity: MonsterRarity = MonsterRarity.RARE,
+    val jackpotChance: Double = 0.0,
+    val jackpot: Double = 1.0,
+    val gear: List<ChestGear> = emptyList(),
+    val slots: List<Slot> = emptyList(),
     val uniqueChance: Double = 0.0,
     val uniqueTables: List<String> = emptyList(),
+    val uniqueFlat: Boolean = false,
+    val classUnique: Boolean = false,
+    val maps: ChestMaps? = null,
     val items: Map<String, List<Long>> = emptyMap(),
     val dropChance: Double = 0.0,
     val bossChance: Double = 0.0,
     val finaleChance: Double = 0.0,
     val trialChance: Double = 0.0,
+    val trialPerLevel: Double = 0.0,
+    val trialMax: Double = 1.0,
     val minLevel: Int = 1,
+) {
+    /** Тиры, в которых сундук бывает: от тира [minLevel] до последнего. */
+    val tiers: IntRange get() = tierOf(minLevel)..MAX_TIER
+
+    /** Таблица добычи тира [tier]: у каждого тира своя (`loot:LCHEST_ORBS_T3`), сферы растут с землями. */
+    fun tableOf(tier: Int): String? = table?.let { "${it}_T$tier" }
+
+    /** Код предмета сундука тира [tier]. */
+    fun tierCode(tier: Int): String = "${code}_T$tier"
+
+    companion object {
+        const val LEVELS_PER_TIER = 10
+        const val MAX_TIER = 10
+        fun tierOf(level: Int): Int = ((level.coerceAtLeast(1) - 1) / LEVELS_PER_TIER + 1).coerceAtMost(MAX_TIER)
+        /** Верхний уровень тира: на нём сундук открывается. */
+        fun levelOf(tier: Int): Int = tier * LEVELS_PER_TIER
+    }
+}
+
+/**
+ * Вещи сундука: [count] штук, каждая с шансом [chance], из таблиц [tables] редкости [rarity] (волшебная станет редкой с
+ * шансом [rareChance]); [influenced] - с влиянием, [corrupted] - осквернённая сферой Ваал, [classFit] - под атрибуты класса
+ * открывшего (оружие и броня его требований).
+ */
+@Serializable
+data class ChestGear(
+    val count: Int = 1,
+    val chance: Double = 1.0,
+    val tables: List<String> = listOf("drop"),
+    val rarity: Rarity = Rarity.RARE,
+    val rareChance: Double = 0.0,
+    val influenced: Boolean = false,
+    val corrupted: Boolean = false,
+    val classFit: Boolean = false,
+    val slots: List<Slot> = emptyList(),
 )
+
+/** Карты сундука: [count] штук зон в [spread] тирах сундука от его тира, редкая - с шансом [rareChance]. */
+@Serializable
+data class ChestMaps(val count: Int = 1, val spread: Int = 2, val rareChance: Double = 0.0)

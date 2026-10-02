@@ -123,8 +123,10 @@ class Content(
  * 36 - сундуки-добыча `lootChests` (броски последними в награде монстра, раша и клада башни), категория предметов `CHEST`,
  *      сундуки в награде заданий, классовые уникалки `heroClass`, у карт нет строк «больше добычи» - редкость от риска
  *      долей `maps.riskRarity` (1.71.0).
+ * 37 - сундуки тирами по 10 уровней (`CHEST_*_T1..T10`), их вещи `gear`, карты `maps`, джекпот, классовые уникалки и шанс
+ *      испытаний от уровня арены; торгуются на аукционе; пулы модификаторов по смыслу слотов (1.72.0).
  */
-const val RULES_VERSION = 36
+const val RULES_VERSION = 37
 
 /**
  * Загрузка контента из текста файлов ([read] отдаёт текст по имени) с проверкой каждого файла и
@@ -463,14 +465,20 @@ private class CampaignValidator(private val index: ContentIndex) {
             (rule.uniqueTables + rule.atlasUniqueTables).forEach(::templateTable)
         }
         content.chests.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.refreshHours <= 0 || it.quantity <= 0) fail("campaign: chests") }
-        // Сундуки-добыча (1.71.0): предмет категории CHEST, таблица добычи, шансы в долях.
+        // Сундуки-добыча (1.71.0, тиры 1.72.0): каждый тир - предмет категории CHEST, таблицы добычи и вещей, шансы в долях.
         if (content.lootChests.map { it.code }.toSet().size != content.lootChests.size) fail("campaign: loot chests repeat")
         content.lootChests.forEach { chest ->
-            if (index.item(chest.code)?.category != Item.CHEST) fail("campaign: loot chest ${chest.code} is not a CHEST item")
-            lootTable(chest.table, chest.code)
+            chest.tiers.forEach { tier -> if (index.item(chest.tierCode(tier))?.category != Item.CHEST) fail("campaign: loot chest ${chest.tierCode(tier)} is not a CHEST item") }
+            chest.tiers.forEach { tier -> chest.tableOf(tier)?.let { lootTable(it, chest.code) } }
             chest.uniqueTables.forEach(::templateTable)
+            chest.gear.forEach { gear ->
+                gear.tables.forEach(::templateTable)
+                if (gear.count < 1 || gear.chance !in 0.0..1.0 || gear.rareChance !in 0.0..1.0 || gear.rarity.fixed) fail("campaign: loot chest ${chest.code} gear")
+            }
+            chest.maps?.let { if (it.count < 1 || it.spread < 0 || it.rareChance !in 0.0..1.0) fail("campaign: loot chest ${chest.code} maps") }
             chest.items.forEach { (code, range) -> if (index.item(code) == null || range.size !in 1..2 || range.any { it < 0 }) fail("campaign: loot chest ${chest.code} item $code") }
-            if (chest.rolls < 1 || chest.minLevel < 1 || listOf(chest.uniqueChance, chest.dropChance, chest.bossChance, chest.finaleChance, chest.trialChance).any { it !in 0.0..1.0 })
+            if (chest.rolls < 1 || chest.minLevel < 1 || chest.jackpot < 1 || chest.trialPerLevel < 0 ||
+                listOf(chest.uniqueChance, chest.dropChance, chest.bossChance, chest.finaleChance, chest.trialChance, chest.trialMax, chest.jackpotChance).any { it !in 0.0..1.0 })
                 fail("campaign: loot chest ${chest.code} numbers")
         }
         content.abyss?.let(::validateAbyss)

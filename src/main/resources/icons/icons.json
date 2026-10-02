@@ -45444,6 +45444,218 @@
           "alpha": 0.3
         }
       ]
+    },
+    "gl_chest_cartographer": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#3a4a2a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#313f24"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#c98a4a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#e8d8a0"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_jeweller": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#2a1a3a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#241631"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#e04ad0"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_seer": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#1a2a3a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#162431"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#6fd3c8"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#6fd3c8"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#6fd3c8"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#dfe6ee"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#4ae0d0"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
+    },
+    "gl_chest_class": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 30 H54 V54 H10Z",
+          "color": "#4a3a2a"
+        },
+        {
+          "d": "M10 30 C10 16 54 16 54 30Z",
+          "color": "#3f3124"
+        },
+        {
+          "d": "M18 18 V54 H23 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M41 18 V54 H46 V18Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M8 29 H56 V33 H8Z",
+          "color": "#d9a53a"
+        },
+        {
+          "d": "M27 33 H37 V44 H27Z",
+          "color": "#b9c2cf"
+        },
+        {
+          "d": "M30.2 38 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0Z",
+          "color": "#15171a"
+        },
+        {
+          "d": "M32 18 L36 22 L32 26 L28 22Z",
+          "color": "#f0f0f0"
+        },
+        {
+          "d": "M32 18 L36 22 L32 22Z",
+          "color": "#ffffff",
+          "alpha": 0.4
+        },
+        {
+          "d": "M12 31 H30 V36 H12Z",
+          "color": "#ffffff",
+          "alpha": 0.18
+        },
+        {
+          "d": "M12 28 C13 20 24 18 30 18 L30 22 C24 22 16 24 14 29Z",
+          "color": "#ffffff",
+          "alpha": 0.3
+        }
+      ]
     }
   },
   "icons": {
@@ -47848,17 +48060,157 @@
     "equipment.DUSKSTEP_BOOTS": "gl_u_duskstep_boots",
     "equipment.EXILES_HEIRLOOM": "gl_u_exiles_heirloom",
     "equipment.ASCENDANT_SIGNET": "gl_u_ascendant_signet",
-    "item.CHEST_WOODEN": "gl_chest_wooden",
-    "item.CHEST_IRONBOUND": "gl_chest_ironbound",
-    "item.CHEST_ANCIENT": "gl_chest_ancient",
-    "item.CHEST_VAAL": "gl_chest_vaal",
-    "item.CHEST_ORBS": "gl_chest_orbs",
-    "item.CHEST_RELIC": "gl_chest_relic",
-    "item.CHEST_ESSENCE": "gl_chest_essence",
-    "item.CHEST_TREASURY": "gl_chest_treasury",
-    "item.CHEST_ARTISAN": "gl_chest_artisan",
-    "item.CHEST_BEAST": "gl_chest_beast",
-    "item.CHEST_WARLORD": "gl_chest_warlord",
-    "item.CHEST_TRIAL": "gl_chest_trial"
+    "item.CHEST_WOODEN_T1": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T2": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T3": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T4": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T5": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T6": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T7": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T8": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T9": "gl_chest_wooden",
+    "item.CHEST_WOODEN_T10": "gl_chest_wooden",
+    "item.CHEST_ARTISAN_T1": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T2": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T3": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T4": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T5": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T6": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T7": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T8": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T9": "gl_chest_artisan",
+    "item.CHEST_ARTISAN_T10": "gl_chest_artisan",
+    "item.CHEST_TREASURY_T1": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T2": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T3": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T4": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T5": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T6": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T7": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T8": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T9": "gl_chest_treasury",
+    "item.CHEST_TREASURY_T10": "gl_chest_treasury",
+    "item.CHEST_IRONBOUND_T1": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T2": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T3": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T4": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T5": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T6": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T7": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T8": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T9": "gl_chest_ironbound",
+    "item.CHEST_IRONBOUND_T10": "gl_chest_ironbound",
+    "item.CHEST_ORBS_T1": "gl_chest_orbs",
+    "item.CHEST_ORBS_T2": "gl_chest_orbs",
+    "item.CHEST_ORBS_T3": "gl_chest_orbs",
+    "item.CHEST_ORBS_T4": "gl_chest_orbs",
+    "item.CHEST_ORBS_T5": "gl_chest_orbs",
+    "item.CHEST_ORBS_T6": "gl_chest_orbs",
+    "item.CHEST_ORBS_T7": "gl_chest_orbs",
+    "item.CHEST_ORBS_T8": "gl_chest_orbs",
+    "item.CHEST_ORBS_T9": "gl_chest_orbs",
+    "item.CHEST_ORBS_T10": "gl_chest_orbs",
+    "item.CHEST_ESSENCE_T2": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T3": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T4": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T5": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T6": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T7": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T8": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T9": "gl_chest_essence",
+    "item.CHEST_ESSENCE_T10": "gl_chest_essence",
+    "item.CHEST_BEAST_T1": "gl_chest_beast",
+    "item.CHEST_BEAST_T2": "gl_chest_beast",
+    "item.CHEST_BEAST_T3": "gl_chest_beast",
+    "item.CHEST_BEAST_T4": "gl_chest_beast",
+    "item.CHEST_BEAST_T5": "gl_chest_beast",
+    "item.CHEST_BEAST_T6": "gl_chest_beast",
+    "item.CHEST_BEAST_T7": "gl_chest_beast",
+    "item.CHEST_BEAST_T8": "gl_chest_beast",
+    "item.CHEST_BEAST_T9": "gl_chest_beast",
+    "item.CHEST_BEAST_T10": "gl_chest_beast",
+    "item.CHEST_VAAL_T3": "gl_chest_vaal",
+    "item.CHEST_VAAL_T4": "gl_chest_vaal",
+    "item.CHEST_VAAL_T5": "gl_chest_vaal",
+    "item.CHEST_VAAL_T6": "gl_chest_vaal",
+    "item.CHEST_VAAL_T7": "gl_chest_vaal",
+    "item.CHEST_VAAL_T8": "gl_chest_vaal",
+    "item.CHEST_VAAL_T9": "gl_chest_vaal",
+    "item.CHEST_VAAL_T10": "gl_chest_vaal",
+    "item.CHEST_ANCIENT_T2": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T3": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T4": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T5": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T6": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T7": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T8": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T9": "gl_chest_ancient",
+    "item.CHEST_ANCIENT_T10": "gl_chest_ancient",
+    "item.CHEST_RELIC_T2": "gl_chest_relic",
+    "item.CHEST_RELIC_T3": "gl_chest_relic",
+    "item.CHEST_RELIC_T4": "gl_chest_relic",
+    "item.CHEST_RELIC_T5": "gl_chest_relic",
+    "item.CHEST_RELIC_T6": "gl_chest_relic",
+    "item.CHEST_RELIC_T7": "gl_chest_relic",
+    "item.CHEST_RELIC_T8": "gl_chest_relic",
+    "item.CHEST_RELIC_T9": "gl_chest_relic",
+    "item.CHEST_RELIC_T10": "gl_chest_relic",
+    "item.CHEST_WARLORD_T1": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T2": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T3": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T4": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T5": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T6": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T7": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T8": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T9": "gl_chest_warlord",
+    "item.CHEST_WARLORD_T10": "gl_chest_warlord",
+    "item.CHEST_TRIAL_T1": "gl_chest_trial",
+    "item.CHEST_TRIAL_T2": "gl_chest_trial",
+    "item.CHEST_TRIAL_T3": "gl_chest_trial",
+    "item.CHEST_TRIAL_T4": "gl_chest_trial",
+    "item.CHEST_TRIAL_T5": "gl_chest_trial",
+    "item.CHEST_TRIAL_T6": "gl_chest_trial",
+    "item.CHEST_TRIAL_T7": "gl_chest_trial",
+    "item.CHEST_TRIAL_T8": "gl_chest_trial",
+    "item.CHEST_TRIAL_T9": "gl_chest_trial",
+    "item.CHEST_TRIAL_T10": "gl_chest_trial",
+    "item.CHEST_CARTOGRAPHER_T1": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T2": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T3": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T4": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T5": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T6": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T7": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T8": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T9": "gl_chest_cartographer",
+    "item.CHEST_CARTOGRAPHER_T10": "gl_chest_cartographer",
+    "item.CHEST_JEWELLER_T2": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T3": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T4": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T5": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T6": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T7": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T8": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T9": "gl_chest_jeweller",
+    "item.CHEST_JEWELLER_T10": "gl_chest_jeweller",
+    "item.CHEST_SEER_T2": "gl_chest_seer",
+    "item.CHEST_SEER_T3": "gl_chest_seer",
+    "item.CHEST_SEER_T4": "gl_chest_seer",
+    "item.CHEST_SEER_T5": "gl_chest_seer",
+    "item.CHEST_SEER_T6": "gl_chest_seer",
+    "item.CHEST_SEER_T7": "gl_chest_seer",
+    "item.CHEST_SEER_T8": "gl_chest_seer",
+    "item.CHEST_SEER_T9": "gl_chest_seer",
+    "item.CHEST_SEER_T10": "gl_chest_seer",
+    "item.CHEST_CLASS_T2": "gl_chest_class",
+    "item.CHEST_CLASS_T3": "gl_chest_class",
+    "item.CHEST_CLASS_T4": "gl_chest_class",
+    "item.CHEST_CLASS_T5": "gl_chest_class",
+    "item.CHEST_CLASS_T6": "gl_chest_class",
+    "item.CHEST_CLASS_T7": "gl_chest_class",
+    "item.CHEST_CLASS_T8": "gl_chest_class",
+    "item.CHEST_CLASS_T9": "gl_chest_class",
+    "item.CHEST_CLASS_T10": "gl_chest_class"
   }
 }

@@ -89,8 +89,6 @@
             "BOOTS",
             "WINGS",
             "BELT",
-            "WEAPON_1H",
-            "WEAPON_2H",
             "QUIVER",
             "SHIELD",
             "AMULET",
@@ -1620,8 +1618,6 @@
             "BOOTS",
             "WINGS",
             "BELT",
-            "WEAPON_1H",
-            "WEAPON_2H",
             "QUIVER",
             "SHIELD",
             "AMULET",
@@ -1763,8 +1759,6 @@
             "BOOTS",
             "WINGS",
             "BELT",
-            "WEAPON_1H",
-            "WEAPON_2H",
             "QUIVER",
             "SHIELD",
             "AMULET",
@@ -1906,8 +1900,6 @@
             "BOOTS",
             "WINGS",
             "BELT",
-            "WEAPON_1H",
-            "WEAPON_2H",
             "QUIVER",
             "SHIELD",
             "AMULET",
@@ -2048,8 +2040,6 @@
             "BOOTS",
             "WINGS",
             "BELT",
-            "WEAPON_1H",
-            "WEAPON_2H",
             "QUIVER",
             "SHIELD",
             "AMULET"
@@ -30576,7 +30566,6 @@
             }
           },
           "slots": [
-            "HELMET",
             "RING",
             "SHIELD",
             "AMULET"

@@ -217,7 +217,9 @@ class QuestService : KoinComponent {
         val orbs = HashMap<String, Long>()
         repeat(kindRule.orbs) { weighted(rarityRule.orbs, dice) { it.weight }?.let { orbs.merge(it.code, it.amount, Long::plus) } }
         // Сундук-добыча (1.71.0): после сфер, чтобы их броски не сдвинулись.
-        if (rarityRule.chests.isNotEmpty() && dice.chance(rarityRule.chestChance)) weighted(rarityRule.chests, dice) { it.weight }?.let { orbs.merge(it.code, it.amount, Long::plus) }
+        if (rarityRule.chests.isNotEmpty() && dice.chance(rarityRule.chestChance)) weighted(rarityRule.chests, dice) { it.weight }?.let { chest ->
+            com.sperance.exileforge.rules.roll.LootChests(index).code(chest.code, level)?.let { orbs.merge(it, chest.amount, Long::plus) }
+        }
         return QuestReward(
             gold, rules.experience(index.classes, level, scale), orbs,
             guildExperience = if (kind == QuestKind.GUILD) (gold * rules.guild.experience).toLong() else 0,

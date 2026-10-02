@@ -440,22 +440,22 @@
           "weight": 3
         },
         {
-          "code": "CHEST_IRONBOUND",
-          "amount": 1,
-          "weight": 2
-        },
-        {
-          "code": "CHEST_ARTISAN",
-          "amount": 1,
-          "weight": 2
-        },
-        {
           "code": "CHEST_TREASURY",
           "amount": 1,
           "weight": 2
         },
         {
           "code": "CHEST_ORBS",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_CARTOGRAPHER",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_ARTISAN",
           "amount": 1,
           "weight": 1
         }
@@ -498,12 +498,17 @@
           "weight": 3
         },
         {
-          "code": "CHEST_ORBS",
+          "code": "CHEST_ESSENCE",
           "amount": 1,
           "weight": 2
         },
         {
-          "code": "CHEST_ESSENCE",
+          "code": "CHEST_JEWELLER",
+          "amount": 1,
+          "weight": 2
+        },
+        {
+          "code": "CHEST_SEER",
           "amount": 1,
           "weight": 2
         },
@@ -513,9 +518,9 @@
           "weight": 1
         },
         {
-          "code": "CHEST_TREASURY",
+          "code": "CHEST_ANCIENT",
           "amount": 1,
-          "weight": 2
+          "weight": 1
         }
       ]
     },
@@ -558,22 +563,17 @@
         {
           "code": "CHEST_ANCIENT",
           "amount": 1,
-          "weight": 2
+          "weight": 3
         },
         {
-          "code": "CHEST_ORBS",
+          "code": "CHEST_WARLORD",
           "amount": 1,
           "weight": 2
         },
         {
-          "code": "CHEST_ESSENCE",
+          "code": "CHEST_CLASS",
           "amount": 1,
-          "weight": 2
-        },
-        {
-          "code": "CHEST_BEAST",
-          "amount": 1,
-          "weight": 1
+          "weight": 3
         },
         {
           "code": "CHEST_RELIC",
