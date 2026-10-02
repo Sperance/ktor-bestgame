@@ -37455,6 +37455,220 @@
         "work",
         "hybrid"
       ]
+    },
+    {
+      "code": "STUN_BUILDUP",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_STUN_BUILDUP"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            30,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              38,
+              48
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "physical",
+        "stun"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                18,
+                22
+              ]
+            ],
+            "bottom": [
+              [
+                6,
+                9
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  23,
+                  27
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
+        },
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                28,
+                38
+              ]
+            ],
+            "bottom": [
+              [
+                10,
+                15
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "code": "ELECTROCUTE_BUILDUP",
+      "source": "SUFFIX",
+      "effects": [
+        {
+          "stat": "STOCK_ELECTROCUTE_BUILDUP"
+        }
+      ],
+      "grid": {
+        "levels": [
+          82,
+          64,
+          46,
+          29,
+          14,
+          1
+        ],
+        "top": [
+          [
+            30,
+            40
+          ]
+        ],
+        "bottom": [
+          [
+            8,
+            12
+          ]
+        ],
+        "apex": {
+          "level": 92,
+          "values": [
+            [
+              38,
+              48
+            ]
+          ]
+        }
+      },
+      "tags": [
+        "ailment",
+        "lightning"
+      ],
+      "variants": [
+        {
+          "kind": "CRAFTED",
+          "grid": {
+            "levels": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "top": [
+              [
+                18,
+                22
+              ]
+            ],
+            "bottom": [
+              [
+                6,
+                9
+              ]
+            ],
+            "apex": {
+              "level": 80,
+              "values": [
+                [
+                  23,
+                  27
+                ]
+              ]
+            }
+          },
+          "slots": [
+            "GLOVES",
+            "WEAPON_1H",
+            "WEAPON_2H",
+            "QUIVER"
+          ]
+        },
+        {
+          "kind": "CORRUPTED",
+          "grid": {
+            "levels": [
+              40,
+              1
+            ],
+            "top": [
+              [
+                28,
+                38
+              ]
+            ],
+            "bottom": [
+              [
+                10,
+                15
+              ]
+            ]
+          }
+        }
+      ]
     }
   ]
 }

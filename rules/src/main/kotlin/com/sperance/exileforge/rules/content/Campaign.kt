@@ -64,6 +64,33 @@ data class CriticalRule(
 @Serializable data class ArmourRule(val factor: Double)
 @Serializable data class EvasionRule(val base: Double, val perLevel: Double)
 @Serializable data class StunRule(val share: Double, val duration: Double)
+
+/**
+ * Шкалы накопления (1.73.0, как в PoE2): удар копит оглушение (физический урон целиком, прочий - долей [stunOther], крит -
+ * в [stunCrit] раз), заморозку (холод) и электрошок (молния) долей запаса цели - её здоровья на множитель [pools] её
+ * редкости ([heroPool] у героя и питомца; оглушению ещё порог). Полная шкала срабатывает и пустеет, на [immunity] секунд
+ * цель к ней глуха; без новых ударов [decayDelay] секунд шкалы тают на [decayPerSecond] в секунду.
+ */
+@Serializable
+data class BuildupRule(
+    val pools: Map<MonsterRarity, Double> = mapOf(MonsterRarity.NORMAL to .5, MonsterRarity.MAGIC to .7, MonsterRarity.RARE to 1.2, MonsterRarity.UNIQUE to 2.5),
+    val heroPool: Double = 1.0,
+    val stunOther: Double = .5,
+    val stunCrit: Double = 1.5,
+    val decayDelay: Double = 2.0,
+    val decayPerSecond: Double = .25,
+    val immunity: Double = 4.0,
+    val stun: BuildupEffect = BuildupEffect(1.5, 1.0, 25.0),
+    val freeze: BuildupEffect = BuildupEffect(2.0, 1.2, 50.0),
+    val electrocute: BuildupEffect = BuildupEffect(1.5, 1.0, 30.0),
+)
+
+/**
+ * Что даёт полная шкала: цель не действует [duration] секунд ([bossDuration] - босс) и получает больше на [bonus]
+ * процентов: оглушённая - любого урона, замороженная - первым ударом, что разбивает лёд, под электрошоком - молнии.
+ */
+@Serializable
+data class BuildupEffect(val duration: Double, val bossDuration: Double, val bonus: Double)
 @Serializable data class ShieldRule(val rechargeDelay: Double, val rechargePerSecond: Double)
 @Serializable data class RetreatRule(val delay: Double)
 @Serializable data class DeathRule(val fromLevel: Int, val experienceShare: Double)
@@ -121,6 +148,8 @@ data class CombatRules(
     val defence: DefenceRule = DefenceRule(),
     /** Подкрепление стаи (1.69.0): сколько секунд место павшего пустует, прежде чем следующий из очереди встанет на него. */
     val reinforceDelay: Double = 0.0,
+    /** Шкалы накопления (1.73.0): есть - оглушение и заморозка копятся шкалой вместо порога и шанса; нет - по-старому. */
+    val buildup: BuildupRule? = null,
 ) {
     /**
      * Какая доля перезарядки умения идёт в начале боя: подготовка умения на его уровне (или [opening], если своей нет),

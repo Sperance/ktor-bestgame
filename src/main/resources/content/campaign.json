@@ -935,7 +935,8 @@
       ],
       "tables": [
         "boss:BOSS_TIDECALLER"
-      ]
+      ],
+      "trait": "TRAIT_CRUSHER"
     },
     {
       "code": "BOSS_BRINE_MOTHER",
@@ -1044,7 +1045,8 @@
       ],
       "tables": [
         "boss:BOSS_RUIN_WARDEN"
-      ]
+      ],
+      "trait": "TRAIT_UNSHAKEN"
     },
     {
       "code": "BOSS_CRYPT_LORD",
@@ -1124,7 +1126,8 @@
       ],
       "tables": [
         "boss:BOSS_ASHEN_TYRANT"
-      ]
+      ],
+      "trait": "TRAIT_CRUSHER"
     },
     {
       "code": "BOSS_FROST_MONARCH",
@@ -1153,7 +1156,8 @@
       ],
       "tables": [
         "boss:BOSS_FROST_MONARCH"
-      ]
+      ],
+      "trait": "TRAIT_ICE_SHELL"
     },
     {
       "code": "BOSS_DROWNED_GOD",
@@ -1210,7 +1214,8 @@
       ],
       "tables": [
         "boss:BOSS_SORROW_CAPTAIN"
-      ]
+      ],
+      "trait": "TRAIT_CRUSHER"
     },
     {
       "code": "BOSS_NEST_QUEEN",
@@ -1265,7 +1270,8 @@
       ],
       "tables": [
         "boss:BOSS_LAMP_WARDEN"
-      ]
+      ],
+      "trait": "TRAIT_ICE_SHELL"
     },
     {
       "code": "BOSS_FERRYMAN",
@@ -1505,7 +1511,8 @@
       "fixed": [
         "BOSS_COLOSSAL",
         "MOB_JUGGERNAUT"
-      ]
+      ],
+      "trait": "TRAIT_UNSHAKEN"
     },
     {
       "code": "BOSS_GEODE_SPINNER",
@@ -1591,7 +1598,8 @@
       ],
       "tables": [
         "boss:BOSS_ELDER_TROLL"
-      ]
+      ],
+      "trait": "TRAIT_CRUSHER"
     },
     {
       "code": "BOSS_HOUND_MOTHER",
@@ -1647,7 +1655,8 @@
       ],
       "tables": [
         "boss:BOSS_THUNDER_CALLER"
-      ]
+      ],
+      "trait": "TRAIT_GROUNDED"
     },
     {
       "code": "BOSS_DEEP_PRIESTESS",
@@ -1702,7 +1711,8 @@
       "fixed": [
         "BOSS_SIEGE",
         "MOB_FIREPROOF"
-      ]
+      ],
+      "trait": "TRAIT_UNSHAKEN"
     },
     {
       "code": "BOSS_SLAG_WORM",
@@ -1881,7 +1891,8 @@
       "fixed": [
         "BOSS_COLOSSAL",
         "MOB_CRUSHING"
-      ]
+      ],
+      "trait": "TRAIT_CRUSHER"
     },
     {
       "code": "BOSS_DUNE_SIREN",
@@ -2015,7 +2026,8 @@
       "fixed": [
         "BOSS_MIRROR_SHELL",
         "MOB_MIRRORED"
-      ]
+      ],
+      "trait": "TRAIT_UNSHAKEN"
     },
     {
       "code": "BOSS_RAIDER_KHAN",
@@ -2794,7 +2806,8 @@
       "fixed": [
         "BOSS_COLOSSAL",
         "MOB_FLAMING"
-      ]
+      ],
+      "trait": "TRAIT_CRUSHER"
     },
     {
       "code": "BOSS_SULPHUR_KING",
@@ -2928,7 +2941,8 @@
       ],
       "tables": [
         "boss:BOSS_FURNACE_MASTER"
-      ]
+      ],
+      "trait": "TRAIT_GROUNDED"
     },
     {
       "code": "BOSS_ETERNAL_BESIEGER",
@@ -3110,7 +3124,8 @@
       ],
       "tables": [
         "boss:BOSS_WARSMITH"
-      ]
+      ],
+      "trait": "TRAIT_GROUNDED"
     },
     {
       "code": "BOSS_BURNING_CAPTAIN",
@@ -4164,7 +4179,8 @@
       "fixed": [
         "MOB_SHOCKING",
         "MOB_WARDED"
-      ]
+      ],
+      "trait": "TRAIT_GROUNDED"
     },
     {
       "code": "BOSS_WIND_HERALD",
@@ -4193,7 +4209,8 @@
       ],
       "tables": [
         "boss:BOSS_WIND_HERALD"
-      ]
+      ],
+      "trait": "TRAIT_GROUNDED"
     },
     {
       "code": "BOSS_GLASS_MATRIARCH",
@@ -4222,7 +4239,8 @@
       ],
       "tables": [
         "boss:BOSS_GLASS_MATRIARCH"
-      ]
+      ],
+      "trait": "TRAIT_ICE_SHELL"
     },
     {
       "code": "BOSS_THUNDER_WYRM",
@@ -4277,7 +4295,8 @@
       ],
       "tables": [
         "boss:BOSS_BRIDGE_KEEPER"
-      ]
+      ],
+      "trait": "TRAIT_UNSHAKEN"
     },
     {
       "code": "BOSS_MIRROR_KNIGHT",
@@ -4356,7 +4375,8 @@
       "fixed": [
         "BOSS_SIEGE",
         "MOB_FIREPROOF"
-      ]
+      ],
+      "trait": "TRAIT_UNSHAKEN"
     },
     {
       "code": "BOSS_CROWN_SHARD",
@@ -4381,7 +4401,8 @@
       "fixed": [
         "BOSS_EXECUTIONER",
         "MOB_SWIFT"
-      ]
+      ],
+      "trait": "TRAIT_ICE_SHELL"
     },
     {
       "code": "BOSS_CLOUD_MARSHAL",
@@ -4408,7 +4429,8 @@
       "fixed": [
         "BOSS_TEMPEST",
         "MOB_SHOCKING"
-      ]
+      ],
+      "trait": "TRAIT_GROUNDED"
     },
     {
       "code": "BOSS_STORM_TITAN",
@@ -4459,7 +4481,8 @@
       ],
       "tables": [
         "boss:BOSS_PRISM_HUNTER"
-      ]
+      ],
+      "trait": "TRAIT_ICE_SHELL"
     },
     {
       "code": "BOSS_ORRERY_ENGINE",
@@ -4489,7 +4512,8 @@
       ],
       "tables": [
         "boss:BOSS_ORRERY_ENGINE"
-      ]
+      ],
+      "trait": "TRAIT_UNSHAKEN"
     },
     {
       "code": "BOSS_STILL_EYE",
@@ -10021,7 +10045,8 @@
     },
     "opening": 50,
     "preparationCap": 75,
-    "reinforceDelay": 3.0
+    "reinforceDelay": 3.0,
+    "buildup": {}
   },
   "behaviour": {
     "default": {
@@ -11246,6 +11271,60 @@
             "stat": "STOCK_POISON_DAMAGE",
             "op": "INCREASED",
             "value": 25
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_UNSHAKEN",
+        "icon": "stun",
+        "lines": [
+          {
+            "stat": "STOCK_STUN_POOL",
+            "op": "ADD",
+            "value": 100
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_ICE_SHELL",
+        "icon": "cold",
+        "lines": [
+          {
+            "stat": "STOCK_IMMUNE_FREEZE",
+            "op": "SET",
+            "value": 1
+          },
+          {
+            "stat": "STOCK_RESIST_COLD",
+            "op": "ADD",
+            "value": -20
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_GROUNDED",
+        "icon": "lightning",
+        "lines": [
+          {
+            "stat": "STOCK_IMMUNE_ELECTROCUTE",
+            "op": "SET",
+            "value": 1
+          },
+          {
+            "stat": "STOCK_SHOCK_TAKEN",
+            "op": "ADD",
+            "value": -50
+          }
+        ]
+      },
+      {
+        "code": "TRAIT_CRUSHER",
+        "icon": "strength",
+        "lines": [
+          {
+            "stat": "STOCK_STUN_BUILDUP",
+            "op": "ADD",
+            "value": 100
           }
         ]
       }

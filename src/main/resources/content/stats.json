@@ -5894,6 +5894,26 @@
       "code": "ATLAS_INFLUENCE_ELDER",
       "group": "ATLAS",
       "order": 802
+    },
+    {
+      "code": "STOCK_STUN_BUILDUP",
+      "group": "HERO",
+      "order": 594
+    },
+    {
+      "code": "STOCK_ELECTROCUTE_BUILDUP",
+      "group": "HERO",
+      "order": 595
+    },
+    {
+      "code": "STOCK_IMMUNE_ELECTROCUTE",
+      "group": "HERO",
+      "order": 596
+    },
+    {
+      "code": "STOCK_STUN_POOL",
+      "group": "HERO",
+      "order": 597
     }
   ]
 }

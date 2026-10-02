@@ -108,7 +108,9 @@
         "FASTER_DAMAGING_AILMENTS": 100,
         "UNHOLY_MIGHT_ON_KILL": 60,
         "COND_DAMAGE_RECENT_KILL": 80,
-        "COND_DAMAGE_VS_FULL_LIFE": 60
+        "COND_DAMAGE_VS_FULL_LIFE": 60,
+        "STUN_BUILDUP": 300,
+        "ELECTROCUTE_BUILDUP": 300
       }
     },
     {
@@ -247,7 +249,9 @@
         "INCREASED_SHOCK_EFFECT": 100,
         "INCREASED_CHILL_EFFECT": 100,
         "RECOVER_LIFE_ON_KILL": 80,
-        "COND_ATTACK_SPEED_FULL_LIFE": 60
+        "COND_ATTACK_SPEED_FULL_LIFE": 60,
+        "STUN_BUILDUP": 150,
+        "ELECTROCUTE_BUILDUP": 150
       }
     },
     {
@@ -578,7 +582,8 @@
         "INCREASED_POISON_DURATION": 0,
         "MAXIMUM_FRENZY_CHARGES": 0,
         "PENETRATE_ELEMENTAL_RESISTANCES": 0,
-        "POWER_CHARGE_ON_KILL": 0
+        "POWER_CHARGE_ON_KILL": 0,
+        "STUN_BUILDUP": 600
       }
     },
     {
@@ -790,7 +795,8 @@
         "INCREASED_CRITICAL_STRIKE_CHANCE": 0,
         "INCREASED_POISON_DURATION": 0,
         "MAXIMUM_FRENZY_CHARGES": 0,
-        "ONSLAUGHT_ON_KILL": 0
+        "ONSLAUGHT_ON_KILL": 0,
+        "STUN_BUILDUP": 500
       }
     },
     {
@@ -1952,7 +1958,8 @@
         "PHYSICAL_AS_EXTRA_CHAOS": 100,
         "PHYSICAL_AS_EXTRA_COLD": 100,
         "PHYSICAL_AS_EXTRA_FIRE": 100,
-        "PHYSICAL_AS_EXTRA_LIGHTNING": 100
+        "PHYSICAL_AS_EXTRA_LIGHTNING": 100,
+        "ELECTROCUTE_BUILDUP": 200
       }
     },
     {
