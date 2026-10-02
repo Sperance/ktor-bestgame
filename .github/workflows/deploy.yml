@@ -1,0 +1,64 @@
+# Авто-деплой сервера: каждый пуш в рабочую ветку - проверки, толстый JAR, выкладка на VPS по SSH, перезапуск и проверка здоровья.
+# Секреты репозитория: DEPLOY_HOST (IP VPS), DEPLOY_USER (exileforge), DEPLOY_SSH_KEY (закрытый ключ из scripts/setup_vps.sh).
+# Включается переменной репозитория DEPLOY_ENABLED=true, когда VPS подготовлен.
+name: Deploy server
+
+on:
+  push:
+    branches: [ "claude/tender-pasteur-a36kj2" ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Content and contract checks
+        run: bash gradlew test --tests LocalizationTest --tests SeedDataTest --tests SkillTreeTest --tests TradeTest --tests AuthTest --tests IconsTest
+
+      - name: Fat JAR
+        run: |
+          bash gradlew buildFatJar
+          cp build/libs/*-all.jar server.jar
+
+      - name: Upload and restart
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          install -m 600 /dev/null key && printf '%s\n' "$KEY" > key
+          ssh_opts="-i key -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20"
+          scp $ssh_opts server.jar "$USER@$HOST:/opt/exileforge/server.jar.new"
+          # Старый JAR остаётся рядом: при неудачном старте его возвращает откат ниже.
+          ssh $ssh_opts "$USER@$HOST" 'cd /opt/exileforge && cp -f server.jar server.jar.prev 2>/dev/null; mv -f server.jar.new server.jar && sudo systemctl restart exileforge'
+
+      - name: Health check (rollback on failure)
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS "http://$HOST:8080/system/health" >/dev/null; then echo "server is up"; exit 0; fi
+            sleep 4
+          done
+          echo "health check failed, rolling back"
+          ssh -i key -o StrictHostKeyChecking=accept-new "$USER@$HOST" 'cd /opt/exileforge && [ -f server.jar.prev ] && mv -f server.jar.prev server.jar && sudo systemctl restart exileforge'
+          exit 1
+
+      - name: Forget the key
+        if: always()
+        run: rm -f key
