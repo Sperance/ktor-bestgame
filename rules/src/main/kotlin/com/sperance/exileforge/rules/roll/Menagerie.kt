@@ -1,6 +1,7 @@
 package com.sperance.exileforge.rules.roll
 
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.hybridOf
 import com.sperance.exileforge.rules.content.Incubation
 import com.sperance.exileforge.rules.content.IncubatorRules
 import com.sperance.exileforge.rules.content.Line
