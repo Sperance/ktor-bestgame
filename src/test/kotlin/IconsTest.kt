@@ -63,7 +63,11 @@ class IconsTest {
         var args = 0
         for (token in tokens) {
             val command = ARITY[token.uppercase()]
-            if (command == null) { if (arity == 0) return false; args++; continue }
+            if (command == null) {
+                if (arity == 0) return false
+                args++
+                continue
+            }
             if (arity > 0 && (args == 0 || args % arity != 0)) return false
             if (arity == 0 && args > 0) return false
             arity = command

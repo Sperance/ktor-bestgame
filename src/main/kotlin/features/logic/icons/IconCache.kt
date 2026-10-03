@@ -72,13 +72,11 @@ object IconCache {
         printLog("[IconCache] initialized: sprites=$sprites icons=$keys hash=$fingerprint")
     }
 
-    private fun sha256(text: String): String =
-        MessageDigest.getInstance("SHA-256").digest(text.toByteArray())
-            .take(8).joinToString("") { "%02x".format(it) }
+    private fun sha256(text: String): String = MessageDigest.getInstance("SHA-256").digest(text.toByteArray())
+        .take(8).joinToString("") { "%02x".format(it) }
 
-    private fun resource(name: String): String =
-        javaClass.classLoader.getResourceAsStream("$FOLDER/$name")
-            ?.bufferedReader()
-            ?.use { it.readText() }
-            ?: throw LocaleExceptions.funExceptionFileNotFound("resource", "$FOLDER/$name")
+    private fun resource(name: String): String = javaClass.classLoader.getResourceAsStream("$FOLDER/$name")
+        ?.bufferedReader()
+        ?.use { it.readText() }
+        ?: throw LocaleExceptions.funExceptionFileNotFound("resource", "$FOLDER/$name")
 }

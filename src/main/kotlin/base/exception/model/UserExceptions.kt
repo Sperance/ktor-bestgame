@@ -4,9 +4,7 @@ import base.exception.BaseException
 
 object UserExceptions {
     open class UserException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "User", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{UserException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{UserException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funExceptionInvalidEmail(errorMethod: String, value: String? = "") = UserException("Invalid email $value", errorMethod, "US_002", listOf(value.orEmpty()))

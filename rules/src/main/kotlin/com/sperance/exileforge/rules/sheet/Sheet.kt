@@ -27,8 +27,13 @@ import kotlin.math.floor
  * [local] - локальные строки вещи, свёрнутые в эту прибавку; расчёту не нужны, их читает разбивка.
  */
 data class StatOperation(
-    val stat: String, val op: Op, val value: Double, val perStat: String? = null, val perAmount: Double = 1.0,
-    val source: StatSource? = null, val local: List<StatOperation> = emptyList(),
+    val stat: String,
+    val op: Op,
+    val value: Double,
+    val perStat: String? = null,
+    val perAmount: Double = 1.0,
+    val source: StatSource? = null,
+    val local: List<StatOperation> = emptyList(),
     /** Условие боя (1.34.0): такая операция в свод листа не входит - её кладёт бой. */
     val condition: Condition? = null,
 ) {
@@ -90,8 +95,7 @@ class SheetCalculator(private val index: ContentIndex) {
      * Операция там, где она считается ([StatSpread]): увеличение урона вообще ([GenericDamage], 1.57.0) - в каждом виде удара,
      * общая характеристика «ко всем X» ([GenericStat], 1.58.0) - в каждом своём члене.
      */
-    fun spread(operation: StatOperation): List<StatOperation> =
-        StatSpread.targets(operation.stat, operation.op).map { if (it == operation.stat) operation else operation.copy(stat = it) }
+    fun spread(operation: StatOperation): List<StatOperation> = StatSpread.targets(operation.stat, operation.op).map { if (it == operation.stat) operation else operation.copy(stat = it) }
 
     /** Свод до сил уникалок: характеристики в порядке реестра, источник конверсии посчитан раньше приёмника. */
     fun raw(base: Map<String, Double>, operations: Collection<StatOperation>): MutableMap<String, Double> {
@@ -111,22 +115,29 @@ class SheetCalculator(private val index: ContentIndex) {
     }
 
     /** Итог по операциям: свод и силы уникалок поверх; [trace] слышит каждый шаг сил. */
-    fun compute(base: Map<String, Double>, operations: Collection<StatOperation>, trace: ((SheetStep) -> Unit)? = null): Map<String, Double> =
-        index.powers.applySheet(raw(base, operations), trace, stats::isPercent)
+    fun compute(base: Map<String, Double>, operations: Collection<StatOperation>, trace: ((SheetStep) -> Unit)? = null): Map<String, Double> = index.powers.applySheet(raw(base, operations), trace, stats::isPercent)
 
     /**
      * Строки вещи в операции над героем. Локальные (1.57.0) сворачиваются внутри вещи поверх её базы, как в PoE:
      * `(база + локальные прибавки) × (1 + локальные увеличения)` - и отдаются одной прибавкой на характеристику.
      */
     fun foldItem(
-        template: ItemTemplate, rolls: Collection<Roll>, source: StatSource? = null, quality: Int = 0, catalyst: Catalyst? = null, baseScale: Double = 1.0,
+        template: ItemTemplate,
+        rolls: Collection<Roll>,
+        source: StatSource? = null,
+        quality: Int = 0,
+        catalyst: Catalyst? = null,
+        baseScale: Double = 1.0,
     ): List<StatOperation> {
         // Качество (1.35.0): с катализатором - модификаторы его вида, без него - база и локальная защита или физический урон.
         val share = 1 + quality.coerceAtLeast(0) / 100.0
         val boosted: (Roll) -> Boolean = { roll -> catalyst != null && quality > 0 && index.modifier(roll.code)?.let { catalyst.covers(it.tags) } == true }
         fun own(rolls: Collection<Roll>) = rolls.flatMap { roll -> expandRolls(listOf(roll), source).let { ops -> if (boosted(roll)) ops.map { it.copy(value = it.value * share) } else ops } }
-        fun based(ops: List<StatOperation>) = if (catalyst != null || quality <= 0) ops
-            else ops.map { if (it.stat in QualityRules.BASE_STATS && it.op == Op.ADD) it.copy(value = it.value * share) else it }
+        fun based(ops: List<StatOperation>) = if (catalyst != null || quality <= 0) {
+            ops
+        } else {
+            ops.map { if (it.stat in QualityRules.BASE_STATS && it.op == Op.ADD) it.copy(value = it.value * share) else it }
+        }
         val (local, global) = rolls.partition { index.modifier(it.code)?.local == true }
         // Разброс базы (1.67.0): качество базы копии и её уровень сверх шаблона - до качества и локальных строк.
         val baseOps = expand(index.rules.loot.baseVariance.base(template, baseScale), source)
@@ -142,16 +153,13 @@ class SheetCalculator(private val index: ContentIndex) {
     }
 
     /** Что несёт база вещи с её локальными строками и качеством, по характеристике: подсказка вещи и лист - одним правилом. */
-    fun itemBase(template: ItemTemplate, rolls: Collection<Roll>, quality: Int = 0, catalyst: Catalyst? = null, baseScale: Double = 1.0): Map<String, Double> =
-        raw(emptyMap(), foldItem(template, rolls.filter { index.modifier(it.code)?.local == true }, quality = quality, catalyst = catalyst, baseScale = baseScale))
+    fun itemBase(template: ItemTemplate, rolls: Collection<Roll>, quality: Int = 0, catalyst: Catalyst? = null, baseScale: Double = 1.0): Map<String, Double> = raw(emptyMap(), foldItem(template, rolls.filter { index.modifier(it.code)?.local == true }, quality = quality, catalyst = catalyst, baseScale = baseScale))
 
     /** База копии [item] целиком: её строки, качество и разброс базы. */
-    fun itemBase(template: ItemTemplate, item: ItemInstance): Map<String, Double> =
-        itemBase(template, item.rolls, item.quality, item.catalyst, baseScale(template, item))
+    fun itemBase(template: ItemTemplate, item: ItemInstance): Map<String, Double> = itemBase(template, item.rolls, item.quality, item.catalyst, baseScale(template, item))
 
     /** Множитель базы копии [item] по правилам добычи. */
-    fun baseScale(template: ItemTemplate, item: ItemInstance): Double =
-        item.baseScale(template, index.rules.loot.baseVariance)
+    fun baseScale(template: ItemTemplate, item: ItemInstance): Double = item.baseScale(template, index.rules.loot.baseVariance)
 
     /** Что дают строки сами по себе - по строке на характеристику и операцию. */
     fun contributions(operations: Collection<StatOperation>): List<StatContribution> = operations
@@ -174,7 +182,11 @@ class SheetCalculator(private val index: ContentIndex) {
      * [takenNodes] - взятые узлы (самоцвет считается, пока взято его гнездо). Инструменты и фляги в лист не входят.
      */
     fun calculate(
-        level: Int, heroClass: HeroClass?, lines: Collection<SourcedLine>, equipped: Collection<ItemInstance>, takenNodes: Set<String>,
+        level: Int,
+        heroClass: HeroClass?,
+        lines: Collection<SourcedLine>,
+        equipped: Collection<ItemInstance>,
+        takenNodes: Set<String>,
     ): SheetResult {
         // База крита (1.56.0) - из правил боя: увеличения атак и заклинаний ложатся на свои 5% и 150%, а не на ноль.
         val base = index.campaign.combat.critical.sheetBase + heroClass?.baseOn(level).orEmpty()
@@ -188,11 +200,13 @@ class SheetCalculator(private val index: ContentIndex) {
             if (template.slot.isTool || template.slot.isFlask) return@mapNotNull null
             val socket = item.socket
             if (!socket.isNullOrBlank() && socket !in takenNodes) {
-                inactive += InactiveItem(item.id, template.code, listOf("socket: need $socket, have none")); return@mapNotNull null
+                inactive += InactiveItem(item.id, template.code, listOf("socket: need $socket, have none"))
+                return@mapNotNull null
             }
             // Уникальный самоцвет - один такой на героя (1.31.0): второй, вставленный в обход правила, не работает.
             if (template.slot == Slot.JEWEL && template.unique && !uniqueJewels.add(template.code)) {
-                inactive += InactiveItem(item.id, template.code, listOf("unique jewel: one ${template.code} per hero")); return@mapNotNull null
+                inactive += InactiveItem(item.id, template.code, listOf("unique jewel: one ${template.code} per hero"))
+                return@mapNotNull null
             }
             Worn(item, template, foldItem(template, item.rolls, StatSource(SourceKind.ITEM, item.id), item.quality, item.catalyst, baseScale(template, item)))
         }
@@ -204,7 +218,10 @@ class SheetCalculator(private val index: ContentIndex) {
         // Счёт надетого и силы слотов (1.32.0) ложатся на готовый набор: требования вещей их не видят.
         val counted = base + WornCount.of(equipped, worn.map { it.item to it.template })
         val slotted = slotted(worn)
-        if (slotted != null) { operations.subList(own, operations.size).clear(); operations += slotted }
+        if (slotted != null) {
+            operations.subList(own, operations.size).clear()
+            operations += slotted
+        }
         if (slotted != null || counted.size != base.size) stats = compute(counted, operations)
         return SheetResult(stats, active, inactive, counted, operations)
     }
@@ -255,6 +272,7 @@ class SheetCalculator(private val index: ContentIndex) {
                     SlotOp.MIRROR -> other?.let { source ->
                         mirrored[i] = mirrored[i] + source.ops.filter { it.stat !in rules }.map { it.scaled(value / 100).copy(source = StatSource(SourceKind.ITEM, holder.item.id)) }
                     }
+
                     SlotOp.AMPLIFY -> worn.indices.filter { j -> reaches(rule, holder, worn[j], i == j) }.forEach { j -> factor[j] *= (1 + value / 100).coerceAtLeast(0.0) }
                 }
             }
@@ -273,7 +291,11 @@ class SheetCalculator(private val index: ContentIndex) {
         }
     }
 
-    private fun otherRingPlace(slot: Slot?): Slot? = when (slot) { Slot.RING -> Slot.RING_2; Slot.RING_2 -> Slot.RING; else -> null }
+    private fun otherRingPlace(slot: Slot?): Slot? = when (slot) {
+        Slot.RING -> Slot.RING_2
+        Slot.RING_2 -> Slot.RING
+        else -> null
+    }
 }
 
 /** Операция, умноженная на [factor]: SET остаётся как есть. */
@@ -337,8 +359,7 @@ object SellPrice {
      * Множитель `STOCK_GOLD` (1.53.0) не выше [RESALE_SHARE] наценки торговца: витрина стоит базу × наценку, и продать ему
      * купленное дороже покупки нельзя ни с каким листом - купить и сразу продать всегда в убыток.
      */
-    fun goldBonus(index: ContentIndex, stats: Map<String, Double>): Double =
-        (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0).coerceAtMost(index.rules.merchant.markup * RESALE_SHARE)
+    fun goldBonus(index: ContentIndex, stats: Map<String, Double>): Double = (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0).coerceAtMost(index.rules.merchant.markup * RESALE_SHARE)
 
     /** Какая доля цены витрины - потолок продажи торговцу. */
     const val RESALE_SHARE = 0.9
@@ -347,8 +368,7 @@ object SellPrice {
     fun resaleCap(price: Long): Long = floor(price * RESALE_SHARE).toLong().coerceAtLeast(1L)
 
     /** База шаблона: своя цена или [SellRules.base] × рост золота до [level] - уровня шаблона, у карты - уровня её зоны. */
-    fun base(index: ContentIndex, template: ItemTemplate, level: Int = template.level): Double =
-        template.price?.toDouble() ?: (index.rules.sell.base * index.rules.loot.goldScale(level, index.campaign.growthTaper))
+    fun base(index: ContentIndex, template: ItemTemplate, level: Int = template.level): Double = template.price?.toDouble() ?: (index.rules.sell.base * index.rules.loot.goldScale(level, index.campaign.growthTaper))
 
     /** Качество роллов 0..1: средняя доля строк; без строк - [neutral]. */
     fun quality(rolls: List<Roll>, neutral: Double): Double = if (rolls.isEmpty()) neutral else rolls.sumOf { it.share.coerceIn(0.0, 1.0) } / rolls.size

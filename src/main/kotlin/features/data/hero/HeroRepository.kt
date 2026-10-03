@@ -39,7 +39,9 @@ import org.bson.conversions.Bson
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
+class HeroRepository :
+    BaseRepository<Hero>(Hero::class),
+    KoinComponent {
     private val users: UserRepository by inject()
     private val lots: AuctionLotRepository by inject()
     private val guilds: GuildRepository by inject()
@@ -60,9 +62,11 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
      * От игрока берутся только имя, описание и класс, остальное начинается с нуля; администратор и
      * сидинг пишут как есть.
      */
-    override suspend fun admit(entity: Hero): Hero =
-        if (caller()?.isAdmin != false) entity
-        else Hero(userId = entity.userId, name = entity.name.trim(), description = entity.description.trim().take(MAX_DESCRIPTION), heroClass = entity.heroClass)
+    override suspend fun admit(entity: Hero): Hero = if (caller()?.isAdmin != false) {
+        entity
+    } else {
+        Hero(userId = entity.userId, name = entity.name.trim(), description = entity.description.trim().take(MAX_DESCRIPTION), heroClass = entity.heroClass)
+    }
 
     /**
      * Перед каждой записью героя его копии сверяются с контентом (1.1.0): пропавшие описания уходят,
@@ -167,16 +171,18 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     /** Гильдейские счётчики заданий героев (1.21.0) - только они, без документов целиком. */
     suspend fun guildTallies(ids: Collection<String>): Map<String, GuildQuestLog> {
         if (ids.isEmpty()) return emptyMap()
-        fun counts(doc: Document?): MutableMap<String, Long> =
-            doc?.entries?.associateTo(HashMap()) { (key, value) -> key to ((value as? Number)?.toLong() ?: 0L) } ?: mutableMapOf()
+        fun counts(doc: Document?): MutableMap<String, Long> = doc?.entries?.associateTo(HashMap()) { (key, value) -> key to ((value as? Number)?.toLong() ?: 0L) } ?: mutableMapOf()
         return collection.withDocumentClass<Document>().find(readFilter(Filters.`in`("_id", ids)))
             .projection(Projections.include("quests.guild")).toList()
             .mapNotNull { doc ->
                 val guild = (doc["quests"] as? Document)?.get("guild") as? Document ?: return@mapNotNull null
                 val id = guild.getString("id") ?: return@mapNotNull null
                 doc.getString("_id") to GuildQuestLog(
-                    id, (guild["day"] as? Number)?.toLong() ?: 0, (guild["week"] as? Number)?.toLong() ?: 0,
-                    counts(guild["dayCounts"] as? Document), counts(guild["weekCounts"] as? Document),
+                    id,
+                    (guild["day"] as? Number)?.toLong() ?: 0,
+                    (guild["week"] as? Number)?.toLong() ?: 0,
+                    counts(guild["dayCounts"] as? Document),
+                    counts(guild["weekCounts"] as? Document),
                 )
             }.toMap()
     }
@@ -190,8 +196,7 @@ class HeroRepository : BaseRepository<Hero>(Hero::class), KoinComponent {
     }
 
     /** Герой для команды: с заходом ([HeroRunStore.hydrate]), без забытых узлов атласа и снятых предметов сумки. */
-    suspend fun requireHero(heroId: String, method: String): Hero =
-        HeroRunStore.hydrate(retireItems(forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })))
+    suspend fun requireHero(heroId: String, method: String): Hero = HeroRunStore.hydrate(retireItems(forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })))
 
     /** Одна запись героя без транзакции (1.53.0): один документ с фильтром по версии атомарен сам, объект в памяти идёт в ногу с базой. */
     suspend fun save(hero: Hero, method: String): Hero {

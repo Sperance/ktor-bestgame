@@ -38,8 +38,14 @@ data class TrialReward(val n: Int, val kind: TrialEventKind, val reward: RewardV
 /** Итог журнала испытания: сколько принято, что отклонено, награды по событиям, испытания героя и где он теперь. */
 @Serializable
 data class TrialReport(
-    val applied: Int, val rejected: List<Int>, val rewards: List<TrialReward>, val trials: TrialProgress,
-    val level: Int, val experience: Double, val money: Long, val received: Received = Received(),
+    val applied: Int,
+    val rejected: List<Int>,
+    val rewards: List<TrialReward>,
+    val trials: TrialProgress,
+    val level: Int,
+    val experience: Double,
+    val money: Long,
+    val received: Received = Received(),
     /** Испытание, к которому относится отчёт (1.68.0). */
     val runId: String = "",
 )
@@ -105,8 +111,7 @@ class TrialService : KoinComponent {
     private fun context(hero: Hero, run: TrialRun): RunContext = run.context
         ?: campaign.context(hero, TrialRules.arena(index.campaign, run.heroLevel)).copy(active = null, vaal = null, next = emptyList())
 
-    private fun region(code: String, method: String): Region =
-        index.campaign.regions.firstOrNull { it.code == code } ?: throw CampaignExceptions.funExceptionMapNotFound(method, code)
+    private fun region(code: String, method: String): Region = index.campaign.regions.firstOrNull { it.code == code } ?: throw CampaignExceptions.funExceptionMapNotFound(method, code)
 
     /**
      * Журнал испытания: события по номерам, каждый один раз, как у захода. Событие не по правилу (не тот босс, не тот
@@ -131,7 +136,10 @@ class TrialService : KoinComponent {
             run = run.copy(applied = run.applied + 1)
             hero.campaign.trials = hero.campaign.trials.copy(run = run)
             val outcome = apply(hero, run, event, rules, context, draws)
-            if (outcome == null) { rejected += event.n; continue }
+            if (outcome == null) {
+                rejected += event.n
+                continue
+            }
             run = hero.campaign.trials.run ?: run
             received += Rewards.grant(hero, outcome, index)
             rewards += TrialReward(event.n, event.kind, RewardView.of(outcome))
@@ -159,6 +167,7 @@ class TrialService : KoinComponent {
                 hero.stats.record(Stat.LEVEL_MAX, run.heroLevel.toLong())
                 Reward.NONE
             }
+
             TrialEventKind.FLOOR -> {
                 if (run.kind != TrialKind.TOWER || event.index != run.floor) return null
                 val tower = rules.tower
@@ -167,21 +176,28 @@ class TrialService : KoinComponent {
                 // Темп - от этажа входа: рекорд растёт по ходу, и счёт от него сбрасывал бы работу на каждом чекпоинте
                 if (!Plausibility.pace(hero, TOWER, run.startedAt, now, floor - run.entry + 1, FLOOR_SECONDS, "tower_floor_seconds")) return null
                 // Потолок башни (1.53.0): последний этаж пройден - испытание закрыто, как по END
-                hero.campaign.trials = trials.copy(run = if (floor >= tower.maxFloor) null else run.copy(floor = floor + 1, hoards = run.hoards + if (tower.hoard(floor)) 1 else 0),
-                    towerBest = maxOf(trials.towerBest, floor))
+                hero.campaign.trials = trials.copy(
+                    run = if (floor >= tower.maxFloor) null else run.copy(floor = floor + 1, hoards = run.hoards + if (tower.hoard(floor)) 1 else 0),
+                    towerBest = maxOf(trials.towerBest, floor),
+                )
                 hero.count(Counter.TOWER_FLOOR, floor.toLong())
                 hero.stats.record(Stat.LEVEL_MAX, tower.level(run.heroLevel, floor).toLong())
                 if (floor % rules.atlasFloors == 0) AtlasPoints.earn(hero.earned, AtlasPoints.TOWER, floor.toString())
                 val abyss = index.campaign.abyss
                 if (tower.hoard(floor)) hero.count(Counter.TOWER_HOARDS)
-                if (!tower.hoard(floor) || abyss == null) Reward.NONE
-                else Run(index, TrialRules.arena(index.campaign, tower.level(run.heroLevel, floor)), run.seed, context)
-                    .hoard(tower.hoardDepth(abyss, floor), 1.0, draws, tower.hoardScale(floor), trial = true)
+                if (!tower.hoard(floor) || abyss == null) {
+                    Reward.NONE
+                } else {
+                    Run(index, TrialRules.arena(index.campaign, tower.level(run.heroLevel, floor)), run.seed, context)
+                        .hoard(tower.hoardDepth(abyss, floor), 1.0, draws, tower.hoardScale(floor), trial = true)
+                }
             }
+
             TrialEventKind.FIGHT -> {
                 event.fight?.let { hero.stats.fight(it) { code -> index.monster(code) != null } }
                 Reward.NONE
             }
+
             TrialEventKind.END -> {
                 hero.campaign.trials = trials.copy(run = null)
                 if (event.fallen) hero.count(Counter.DEATHS)
@@ -212,6 +228,7 @@ class TrialService : KoinComponent {
     private companion object {
         /** Место меток правдоподобия башни. */
         const val TOWER = "tower"
+
         /** Этаж башни быстрее этого числа секунд - метка правдоподобия. */
         const val FLOOR_SECONDS = 3.0
     }

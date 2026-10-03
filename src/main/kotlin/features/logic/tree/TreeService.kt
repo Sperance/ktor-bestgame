@@ -1,6 +1,5 @@
 package features.logic.tree
 
-import features.logic.hero.Rewards
 import base.exception.model.SkillTreeExceptions
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Orb
@@ -12,6 +11,7 @@ import com.sperance.exileforge.rules.sheet.StatContribution
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.logic.hero.Rewards
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

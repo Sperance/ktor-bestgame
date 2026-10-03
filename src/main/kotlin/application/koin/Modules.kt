@@ -12,10 +12,10 @@ import features.caches.BlockListCache
 import features.data.auction.AuctionLotRepository
 import features.data.auction.AuctionLotRoute
 import features.data.auth.AuthSessionRepository
+import features.data.blockList.BlockListRepository
 import features.data.guild.GuildEventRepository
 import features.data.guild.GuildRepository
 import features.data.guild.GuildRoute
-import features.data.blockList.BlockListRepository
 import features.data.hero.HeroRepository
 import features.data.hero.HeroRoute
 import features.data.redemptionCodes.RedemptionCodesRepository
@@ -25,11 +25,11 @@ import features.data.user.UserRoute
 import features.logic.atlas.AtlasService
 import features.logic.campaign.CampaignService
 import features.logic.crafts.CraftsService
-import features.logic.pets.PetService
 import features.logic.inventory.InventoryService
+import features.logic.pets.PetService
+import features.logic.quests.QuestService
 import features.logic.skills.SkillService
 import features.logic.trade.MerchantService
-import features.logic.quests.QuestService
 import features.logic.tree.TreeService
 import org.koin.dsl.module
 
@@ -79,7 +79,7 @@ val routeModule = module {
                 features.data.bugReport.BugReportRoute(get(), get()),
                 features.data.admin.AdminRoute(get(), get(), get(), get()),
                 features.data.mail.MailRoute(get()),
-            )
+            ),
         )
     }
 }
@@ -104,5 +104,5 @@ val allModules = listOf(
     cacheModule,
     routeModule,
     backupModule,
-    systemMonitorModule
+    systemMonitorModule,
 )

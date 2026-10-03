@@ -141,7 +141,11 @@ object ContentLoader {
         val texts = ContentFiles.ALL.associateWith(read)
         fun <T> parse(name: String, serializer: KSerializer<T>): T = try {
             RulesJson.decodeFromString(serializer, texts.getValue(name))
-        } catch (e: ContentException) { throw e } catch (e: Exception) { fail("$name: ${e.message}") }
+        } catch (e: ContentException) {
+            throw e
+        } catch (e: Exception) {
+            fail("$name: ${e.message}")
+        }
 
         val content = Content(
             stats = parse(ContentFiles.STATS, StatsFile.serializer()),
@@ -204,6 +208,7 @@ class ContentIndex(val content: Content) {
     val families: Map<String, ModifierFamily> = (content.modifiers.families + content.equipment.templates.flatMap { it.uniqueFamilies() }).associateBy { it.code }
     val definitions: List<ModifierDef> = families.values.flatMap { it.definitions() }
     private val byCode: Map<String, ModifierDef> = definitions.associateBy { it.code }
+
     /**
      * Группы исключения описаний: у всех - своя [ModifierDef.groupKey]; скрытый гибрид (тег `veiled`) сверх неё занимает
      * группу каждого одноэффектного аффикса, чей эффект он повторяет (тот же стат, операция, пересчёт и условие, та же
@@ -245,6 +250,7 @@ class ContentIndex(val content: Content) {
     private val templatePools = ConcurrentHashMap<List<String>, List<Weighted<ItemTemplate>>>()
 
     fun modifier(code: String): ModifierDef? = byCode[code]
+
     /** Группы, которые описание занимает на носителе: два описания с общей группой на одном носителе не встают. */
     fun groups(def: ModifierDef): Set<String> = groupsByCode[def.code] ?: setOf(def.groupKey)
     fun template(code: String): ItemTemplate? = templates[code]
@@ -271,8 +277,7 @@ class ContentIndex(val content: Content) {
      * Пул [pool] без того, что герою уровня [heroLevel] ещё не выпадает (самоцветы - до `loot.jewelHeroLevel`): тяга из
      * остатка заменяет такую вещь другой, так что количество добычи не падает; пустой остаток - ничего.
      */
-    fun forHero(pool: List<Weighted<ItemTemplate>>, heroLevel: Int?): List<Weighted<ItemTemplate>> =
-        if (heroLevel == null) pool else pool.filter { rules.loot.obtainable(it.value, heroLevel) }
+    fun forHero(pool: List<Weighted<ItemTemplate>>, heroLevel: Int?): List<Weighted<ItemTemplate>> = if (heroLevel == null) pool else pool.filter { rules.loot.obtainable(it.value, heroLevel) }
 
     /** Взвешенный ролл тира описания [code] на уровне [level]: номер и тир; ни одного открытого - самый слабый. */
     fun rollTier(code: String, level: Int, dice: Dice): Pair<Int, Tier>? = ladders[code]?.pick(level) { total -> dice.nextLong(total) }
@@ -330,8 +335,9 @@ class ContentIndex(val content: Content) {
         Orb.entries.forEach { if (items[it.name]?.category != Item.CURRENCY) fail("items: orb ${it.name} has no item") }
         Omen.entries.forEach { if (items[it.code]?.category != Item.OMEN) fail("items: omen ${it.code} has no item") }
         rules.retired.forEach { (old, new) -> if (old in items || new !in items) fail("rules: retired $old -> $new") }
-        if (tables.kind(rules.orbs.mapAlchemy) != TableKind.MODIFIER || modifierPool(listOf(rules.orbs.mapAlchemy)).any { it.value.source != Source.ALCHEMY })
+        if (tables.kind(rules.orbs.mapAlchemy) != TableKind.MODIFIER || modifierPool(listOf(rules.orbs.mapAlchemy)).any { it.value.source != Source.ALCHEMY }) {
             fail("rules: map alchemy table ${rules.orbs.mapAlchemy}")
+        }
         essences.validate(::modifier)
         essences.essences.keys.forEach { if (items[it]?.category != Item.ESSENCE) fail("items: essence $it has no item") }
         skills.validate(stats, classes.classes.map { it.code })
@@ -346,8 +352,9 @@ class ContentIndex(val content: Content) {
         }
         classes.classes.forEach { heroClass ->
             val armour = heroClass.armour.map { code -> template(code) ?: fail("classes: armour $code of ${heroClass.code}") }
-            if (armour.any { it.kind != TemplateKind.ARMOR || it.unique || it.requiredLevel > 1 } || armour.map { it.slot }.toSet().size != armour.size)
+            if (armour.any { it.kind != TemplateKind.ARMOR || it.unique || it.requiredLevel > 1 } || armour.map { it.slot }.toSet().size != armour.size) {
                 fail("classes: armour of ${heroClass.code} is not plain first-level armour, one to a slot")
+            }
         }
         atlasGraph.validate(atlas, stats, ::modifier)
         professions.validate({ it in items }, ::template, { region -> campaign.regions.any { it.code == region } })
@@ -450,7 +457,10 @@ private class CampaignValidator(private val index: ContentIndex) {
         }
         if (content.services.summonPerLevel <= 0) fail("campaign: services")
         content.fountains.let { if (it.count.size != 2 || it.count[0] < 0 || it.count[0] > it.count[1] || it.heal !in 0.0..100.0) fail("campaign: fountains") }
-        content.corruption.let { rule -> if (rule.chance !in 0.0..1.0 || rule.uniqueChance !in 0.0..1.0 || rule.tables.isEmpty()) fail("campaign: corruption"); rule.tables.forEach(::templateTable) }
+        content.corruption.let { rule ->
+            if (rule.chance !in 0.0..1.0 || rule.uniqueChance !in 0.0..1.0 || rule.tables.isEmpty()) fail("campaign: corruption")
+            rule.tables.forEach(::templateTable)
+        }
         content.vaal.let { rule ->
             val pool = index.modifierPool(listOf(rule.pool))
             if (rule.mods.size != 2 || rule.mods[0] < 1 || rule.mods[0] > rule.mods[1] || rule.mods[1] > pool.size || rule.power <= 0 || rule.reward < 0 || rule.perMod < 0) fail("campaign: vaal")
@@ -458,7 +468,10 @@ private class CampaignValidator(private val index: ContentIndex) {
         content.maps.let { rule ->
             if (listOf(rule.dropChance, rule.bossChance, rule.nextChance).any { it !in 0.0..1.0 }) fail("campaign: maps")
             if (index.tables.kind(rule.rarities) != TableKind.VALUE) fail("campaign: maps.rarities")
-            rule.risk.forEach { (name, weight) -> stat(name); if (weight == 0.0) fail("campaign: maps.risk $name") }
+            rule.risk.forEach { (name, weight) ->
+                stat(name)
+                if (weight == 0.0) fail("campaign: maps.risk $name")
+            }
             if (rule.rarityBonus.values.any { it < 0 }) fail("campaign: maps.rarityBonus")
             if (rule.uniqueChance !in 0.0..1.0 || rule.atlasUniqueChance !in 0.0..1.0 || rule.atlasUniqueNodes <= 0) fail("campaign: maps unique chances")
             rule.tiers?.let { tiers ->
@@ -482,11 +495,16 @@ private class CampaignValidator(private val index: ContentIndex) {
             chest.maps?.let { if (it.count < 1 || it.spread < 0 || it.rareChance !in 0.0..1.0) fail("campaign: loot chest ${chest.code} maps") }
             chest.items.forEach { (code, range) -> if (index.item(code) == null || range.size !in 1..2 || range.any { it < 0 }) fail("campaign: loot chest ${chest.code} item $code") }
             if (chest.rolls < 1 || chest.minLevel < 1 || chest.jackpot < 1 || chest.trialPerLevel < 0 ||
-                listOf(chest.uniqueChance, chest.dropChance, chest.bossChance, chest.finaleChance, chest.trialChance, chest.trialMax, chest.jackpotChance).any { it !in 0.0..1.0 })
+                listOf(chest.uniqueChance, chest.dropChance, chest.bossChance, chest.finaleChance, chest.trialChance, chest.trialMax, chest.jackpotChance).any { it !in 0.0..1.0 }
+            ) {
                 fail("campaign: loot chest ${chest.code} numbers")
+            }
         }
         content.abyss?.let(::validateAbyss)
-        content.trials?.let { if (content.abyss == null) fail("trials: the tower needs the Abyss"); it.validate(index) }
+        content.trials?.let {
+            if (content.abyss == null) fail("trials: the tower needs the Abyss")
+            it.validate(index)
+        }
         val forms = content.monsters.map { it.form }.toSet()
         content.behaviour.forms.keys.forEach { if (it !in forms) fail("campaign: behaviour of form $it") }
         (listOf(content.behaviour.default, content.bosses.behaviour) + content.behaviour.forms.values + content.monsters.mapNotNull { it.behaviour }).forEach(::validateBehaviour)
@@ -494,9 +512,15 @@ private class CampaignValidator(private val index: ContentIndex) {
         if (index.tables.kind(index.essences.crystals.vaal) != TableKind.VALUE) fail("essences: vaal table")
     }
 
-    private fun stat(name: String) { if (name !in stats) fail("campaign: stat $name") }
-    private fun templateTable(tag: String) { if (index.tables.kind(tag) != TableKind.TEMPLATE) fail("campaign: template table $tag") }
-    private fun lootTable(tag: String, owner: String) { if (index.tables.kind(tag) != TableKind.LOOT) fail("campaign: loot table $tag of $owner") }
+    private fun stat(name: String) {
+        if (name !in stats) fail("campaign: stat $name")
+    }
+    private fun templateTable(tag: String) {
+        if (index.tables.kind(tag) != TableKind.TEMPLATE) fail("campaign: template table $tag")
+    }
+    private fun lootTable(tag: String, owner: String) {
+        if (index.tables.kind(tag) != TableKind.LOOT) fail("campaign: loot table $tag of $owner")
+    }
 
     /** Свойства монстров (1.69.0): коды без повторов, строки по известным статам, навыки - умения монстров, у каждой формы - своё. */
     private fun validateTraits(rule: TraitRules) {
@@ -555,7 +579,10 @@ private class CampaignValidator(private val index: ContentIndex) {
         if (rule.waves.isEmpty() || rule.hoard.size != rule.waves.size) fail("abyss: depths")
         if (rule.depth.size != 2 || rule.depth[0] < 1 || rule.depth[0] > rule.depth[1] || rule.depth[1] > rule.waves.size) fail("abyss: depth")
         if (rule.monsters.isEmpty()) fail("abyss: monsters")
-        rule.monsters.forEach { code -> val monster = index.monster(code) ?: fail("abyss: monster $code"); if (monster.boss || monster.corrupted || code in zoned) fail("abyss: monster $code") }
+        rule.monsters.forEach { code ->
+            val monster = index.monster(code) ?: fail("abyss: monster $code")
+            if (monster.boss || monster.corrupted || code in zoned) fail("abyss: monster $code")
+        }
         rule.waves.forEachIndexed { i, wave -> if (wave.count.size != 2 || wave.count[0] < 1 || wave.count[0] > wave.count[1] || wave.level < 0 || wave.magic < 0 || wave.rare < 0 || wave.magic + wave.rare > 100) fail("abyss: wave ${i + 1}") }
         rule.hoard.forEachIndexed { i, hoard ->
             if (hoard.items.size != 2 || hoard.items[0] < 0 || hoard.items[0] > hoard.items[1] || hoard.orbs.size != 2 || hoard.orbs[0] < 0 || hoard.orbs[0] > hoard.orbs[1] || hoard.rare !in 0.0..100.0 || hoard.unique !in 0.0..100.0 || hoard.experience < 0) fail("abyss: hoard ${i + 1}")
@@ -584,16 +611,29 @@ private class CampaignValidator(private val index: ContentIndex) {
     private fun validateCombat(rules: CombatRules) {
         val ailments = stats.ailments()
         val damage = stats.stats.map { it.code }.filter { it.startsWith("STOCK_ATTACK_") }.toSet()
-        fun positive(value: Double, name: String) { if (value <= 0) fail("combat: $name") }
-        fun percent(value: Double, name: String) { if (value !in 0.0..100.0) fail("combat: $name") }
-        percent(rules.variance, "variance"); percent(rules.resistCap, "resistCap")
-        rules.ceilings.all.forEach { percent(it.base, "ceiling ${it.raise}"); percent(it.hard, "ceiling ${it.raise}"); if (it.hard < it.base || it.raise !in stats) fail("combat: ceiling ${it.raise}") }
-        percent(rules.resistHardCap, "resistHardCap"); percent(rules.ailmentDurationCap, "ailmentDurationCap")
+        fun positive(value: Double, name: String) {
+            if (value <= 0) fail("combat: $name")
+        }
+        fun percent(value: Double, name: String) {
+            if (value !in 0.0..100.0) fail("combat: $name")
+        }
+        percent(rules.variance, "variance")
+        percent(rules.resistCap, "resistCap")
+        rules.ceilings.all.forEach {
+            percent(it.base, "ceiling ${it.raise}")
+            percent(it.hard, "ceiling ${it.raise}")
+            if (it.hard < it.base || it.raise !in stats) fail("combat: ceiling ${it.raise}")
+        }
+        percent(rules.resistHardCap, "resistHardCap")
+        percent(rules.ailmentDurationCap, "ailmentDurationCap")
         rules.resistPenalty.forEach { percent(it, "resistPenalty") }
         if (rules.resistHardCap < rules.resistCap) fail("combat: resistHardCap")
-        positive(rules.unarmed.damage, "unarmed.damage"); positive(rules.unarmed.speed, "unarmed.speed")
-        percent(rules.critical.chance, "critical.chance"); if (rules.critical.multiplier < 100) fail("combat: critical.multiplier")
-        percent(rules.critical.spellChance, "critical.spellChance"); if (rules.critical.spellMultiplier < 100) fail("combat: critical.spellMultiplier")
+        positive(rules.unarmed.damage, "unarmed.damage")
+        positive(rules.unarmed.speed, "unarmed.speed")
+        percent(rules.critical.chance, "critical.chance")
+        if (rules.critical.multiplier < 100) fail("combat: critical.multiplier")
+        percent(rules.critical.spellChance, "critical.spellChance")
+        if (rules.critical.spellMultiplier < 100) fail("combat: critical.spellMultiplier")
         positive(rules.armour.factor, "armour.factor")
         positive(rules.evasion.base, "evasion.base")
         if (rules.evasion.perLevel < 0 || rules.stun.share < 0 || rules.stun.duration < 0) fail("combat: stun")
@@ -605,7 +645,8 @@ private class CampaignValidator(private val index: ContentIndex) {
         rules.ailments.forEach { rule ->
             if (rule.ailment !in ailments) fail("combat: ailment ${rule.ailment}")
             if (rule.type !in damage) fail("combat: ailment ${rule.ailment} by ${rule.type}")
-            percent(rule.chance, "ailment ${rule.ailment} chance"); percent(rule.threshold, "ailment ${rule.ailment} threshold")
+            percent(rule.chance, "ailment ${rule.ailment} chance")
+            percent(rule.threshold, "ailment ${rule.ailment} threshold")
             rule.heroChance?.let { percent(it, "ailment ${rule.ailment} heroChance") }
             if (rule.magnitude < 0 || rule.duration <= 0) fail("combat: ailment ${rule.ailment}")
         }

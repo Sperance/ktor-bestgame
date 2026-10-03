@@ -54,13 +54,27 @@ data class BugReport(
     fun votable(by: String): Boolean = kind == FeedbackKind.SUGGESTION && userId != by && status in OPEN
 
     /** Предложение в общем списке (1.69.0): без автора - его видит только администратор. */
-    fun toPublic(viewer: String) = SuggestionView(_id, text, status, likes.size, dislikes.size,
-        when (viewer) { in likes -> Vote.LIKE; in dislikes -> Vote.DISLIKE; else -> Vote.NONE }, userId == viewer, createdAt.toString())
+    fun toPublic(viewer: String) = SuggestionView(
+        _id,
+        text,
+        status,
+        likes.size,
+        dislikes.size,
+        when (viewer) {
+            in likes -> Vote.LIKE
+            in dislikes -> Vote.DISLIKE
+            else -> Vote.NONE
+        },
+        userId == viewer,
+        createdAt.toString(),
+    )
 
     /** Своё - автору (1.69.0): вид, статус и слово администратора. */
     fun toOwn() = OwnReport(_id, kind, text, status, reason, likes.size, dislikes.size, createdAt.toString())
 
-    companion object { val OPEN = setOf(BugStatus.NEW, BugStatus.IN_PROGRESS) }
+    companion object {
+        val OPEN = setOf(BugStatus.NEW, BugStatus.IN_PROGRESS)
+    }
 }
 
 @Serializable
@@ -75,5 +89,10 @@ data class AdminReport(val report: BugReport, val login: String?)
 
 /** Тело отчёта с клиента; пределы - в [BugReportRepository]. */
 @Serializable
-data class BugReportRequest(val text: String, val screen: String = "", val context: Map<String, String> = emptyMap(), val requests: List<String> = emptyList(),
-    val kind: FeedbackKind = FeedbackKind.BUG)
+data class BugReportRequest(
+    val text: String,
+    val screen: String = "",
+    val context: Map<String, String> = emptyMap(),
+    val requests: List<String> = emptyList(),
+    val kind: FeedbackKind = FeedbackKind.BUG,
+)

@@ -8,12 +8,11 @@ import base.exception.BaseException
 import base.exception.BaseRouteExceptions
 import base.repository.BaseRepository
 import base.repository.EntityCache
-import io.ktor.http.ContentType
-import io.ktor.server.response.respondText
-import java.util.concurrent.atomic.AtomicReference
 import config.MongoFactory.transactionExecute
 import extensions.saveChildren
+import io.ktor.http.ContentType
 import io.ktor.server.request.receive
+import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.delete
@@ -32,6 +31,7 @@ import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import server.addons.AppJson
+import java.util.concurrent.atomic.AtomicReference
 
 interface RouteRegistrar {
     fun register(routing: Routing)
@@ -47,14 +47,19 @@ fun apiPath(collection: String): String = "/api/v$CONST_API_VERSION/$collection"
 enum class Crud {
     /** `GET` - вся коллекция, с `?id=` - один документ. */
     READ,
+
     /** `GET /paged`. */
     PAGED,
+
     /** `GET /count`. */
     COUNT,
+
     /** `POST` - массив новых документов. */
     CREATE,
+
     /** `PUT ?id=` - изменённые поля. */
     UPDATE,
+
     /** `DELETE ?id=`. */
     DELETE,
 }
@@ -108,7 +113,9 @@ open class BaseRoute<T : StockEntity>(
                 val key = requireId(id, "readRoute")
                 call.respondJson(oneResponse, ApiMongoResponse.ok((cache?.findById(key) ?: repository.findById(key))?.let(::present)))
             }
+
             cache != null -> call.respondText(cachedList(cache), ContentType.Application.Json)
+
             else -> call.respondJson(listResponse, ApiMongoResponse.ok(repository.findAll().map(::present)))
         }
     }
@@ -182,13 +189,16 @@ open class BaseRoute<T : StockEntity>(
 /** JSON-значение в тип, который драйвер Mongo запишет как есть. */
 private fun JsonElement.toNative(): Any? = when (this) {
     is JsonNull -> null
+
     is JsonPrimitive -> when {
         isString -> content
         content == "true" || content == "false" -> content.toBoolean()
         '.' in content -> content.toDoubleOrNull()
         else -> content.toIntOrNull() ?: content.toLongOrNull() ?: content
     }
+
     is JsonArray -> map { it.toNative() }
+
     is JsonObject -> mapValues { it.value.toNative() }
 }
 
@@ -229,5 +239,5 @@ data class PagedMongoResponse<T>(
     val items: List<T>,
     val page: Int,
     val totalItems: Long,
-    val totalPages: Int
+    val totalPages: Int,
 )

@@ -29,8 +29,7 @@ data class PageRequest(
     /**
      * Сколько всего страниц при таком размере.
      */
-    fun totalPages(totalItems: Long): Int =
-        if (totalItems <= 0) 0 else ((totalItems + size - 1) / size).toInt()
+    fun totalPages(totalItems: Long): Int = if (totalItems <= 0) 0 else ((totalItems + size - 1) / size).toInt()
 
     companion object {
         /**
@@ -39,7 +38,7 @@ data class PageRequest(
          */
         fun of(page: Int, size: Int): PageRequest = PageRequest(
             page = page.coerceAtLeast(0),
-            size = size.coerceIn(1, CONST_PAGE_SIZE_MAX)
+            size = size.coerceIn(1, CONST_PAGE_SIZE_MAX),
         )
     }
 }

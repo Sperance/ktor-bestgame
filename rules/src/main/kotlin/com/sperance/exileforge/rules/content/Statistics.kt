@@ -63,6 +63,7 @@ object Stat {
     const val BLOCKED = "BLOCKED"
     const val EVADED = "EVADED"
     const val AILMENTS = "AILMENTS"
+
     /** Уровень сильнейшего убитого монстра (1.52.0). */
     const val LEVEL_MAX = "LEVEL_MAX"
 
@@ -71,11 +72,13 @@ object Stat {
     const val FOUND = "FOUND"
     const val SPENT = "SPENT"
     const val JOB = "JOB"
+
     /**
      * Убийства по редкости монстра (1.52.0) не хранятся: это счётчики летописи [Counter.KILLS], [Counter.KILLS_MAGIC],
      * [Counter.KILLS_RARE], [Counter.BOSSES] - группа выводится из них в [fromCounters].
      */
     const val RARITY = "RARITY"
+
     /** 1.52.0: смерти по убийце, заходы, смерти и сундуки по зонам. */
     const val KILLER = "KILLER"
     const val ZONE_RUNS = "ZONE_RUNS"
@@ -84,6 +87,7 @@ object Stat {
 
     val MAX = setOf(FIGHT_LONGEST, HIT_MAX, LEVEL_MAX)
     val MIN = setOf(BOSS_FASTEST)
+
     /** Боевые строки летописи по порядку показа; урон по типам - `DEALT:<тип>` сразу под [DEALT]. */
     val COMBAT = listOf(FIGHTS, FIGHTS_WON, FIGHT_SECONDS, FIGHT_LONGEST, BOSS_FASTEST, LEVEL_MAX, DEALT, HIT_MAX, TAKEN, HEALED, HITS, CRITS, MISSES, BLOCKED, EVADED, AILMENTS)
     val GROUPS = listOf(RARITY, KILL, BOSS, KILLER, ZONE_RUNS, ZONE_DEATHS, ZONE_CHESTS, FOUND, SPENT, JOB)
@@ -117,7 +121,9 @@ class StatTally {
     val lows = mutableMapOf<String, Long>()
     val empty: Boolean get() = sums.isEmpty() && highs.isEmpty() && lows.isEmpty()
 
-    fun add(key: String, amount: Long = 1) { if (amount > 0 && !Stat.derived(key)) sums.merge(key, amount, Long::plus) }
+    fun add(key: String, amount: Long = 1) {
+        if (amount > 0 && !Stat.derived(key)) sums.merge(key, amount, Long::plus)
+    }
     fun add(group: String, code: String, amount: Long = 1) = add(Stat.of(group, code), amount)
 
     fun record(key: String, value: Long) {
@@ -126,6 +132,7 @@ class StatTally {
     }
 
     /** Итог боя в статистику - уже в пределах правдоподобия. */
+
     /** Итог боя; [known] - есть ли такой монстр: убийца не из контента не пишется. */
     fun fight(raw: FightTally, known: (String) -> Boolean = { true }) {
         val f = raw.sane()
@@ -136,7 +143,10 @@ class StatTally {
         add(Stat.FIGHT_SECONDS, seconds)
         record(Stat.FIGHT_LONGEST, seconds)
         if (f.boss && f.won) record(Stat.BOSS_FASTEST, seconds.coerceAtLeast(1))
-        f.dealt.forEach { (type, amount) -> add(Stat.DEALT, amount); add(Stat.dealt(type), amount) }
+        f.dealt.forEach { (type, amount) ->
+            add(Stat.DEALT, amount)
+            add(Stat.dealt(type), amount)
+        }
         record(Stat.HIT_MAX, f.maxHit)
         add(Stat.TAKEN, f.taken)
         add(Stat.HEALED, f.healed)
@@ -148,5 +158,9 @@ class StatTally {
         add(Stat.AILMENTS, f.ailments.toLong())
     }
 
-    fun clear() { sums.clear(); highs.clear(); lows.clear() }
+    fun clear() {
+        sums.clear()
+        highs.clear()
+        lows.clear()
+    }
 }

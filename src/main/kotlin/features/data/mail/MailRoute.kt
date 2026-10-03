@@ -18,7 +18,10 @@ class MailRoute(private val repo: MailRepository) : RouteRegistrar {
             get("/inbox") { call.respondOk(repo.inbox(me())) }
             post("/read") { call.respondOk(repo.markRead(me(), call.queryParam("id"))) }
             post("/claim") { call.respondOk(repo.claim(me(), call.queryParam("id"), call.heroId)) }
-            post("/delete") { repo.remove(me(), call.queryParam("id")); call.respondOk(true) }
+            post("/delete") {
+                repo.remove(me(), call.queryParam("id"))
+                call.respondOk(true)
+            }
         }
     }
 }

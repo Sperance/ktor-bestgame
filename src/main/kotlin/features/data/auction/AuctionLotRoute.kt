@@ -16,11 +16,12 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 
 /** Маршруты аукциона. Каждый требует героя: аукцион открывается с уровня правил. */
-class AuctionLotRoute(private val repo: AuctionLotRepository) : BaseRoute<AuctionLot>(
-    repository = repo,
-    entitySerializer = AuctionLot.serializer(),
-    operations = emptySet(),
-) {
+class AuctionLotRoute(private val repo: AuctionLotRepository) :
+    BaseRoute<AuctionLot>(
+        repository = repo,
+        entitySerializer = AuctionLot.serializer(),
+        operations = emptySet(),
+    ) {
     override fun additionalRoutes(route: Route) = with(route) {
         get("/search") {
             call.respondOk(repo.search(call.heroId, searchFrom(call), call.request.queryParameters["after"], call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))

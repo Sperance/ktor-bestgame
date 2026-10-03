@@ -1,15 +1,15 @@
 package com.sperance.exileforge.rules.roll
 
 import com.sperance.exileforge.rules.content.AtlasStat
-import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.DeathRule
 import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.Item
 import com.sperance.exileforge.rules.content.ItemTemplate
+import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.Monster
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.RarityRule
-import com.sperance.exileforge.rules.content.DeathRule
 import com.sperance.exileforge.rules.table.Ref
 import com.sperance.exileforge.rules.table.TableKind
 import com.sperance.exileforge.rules.table.Tables
@@ -61,8 +61,17 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
      * Броски по таблице добычи [tag]: количество - множитель шанса каждой строки, шанс больше единицы -
      * гарантированные выпадения и остаток шансом; золото растёт со своим спадом или спадом роста монстров.
      */
-    fun roll(tag: String, level: Int, rarity: RarityRule, quantity: Double, goldBonus: Double, dice: Dice, goldShare: Double = 1.0, orbShare: Double = 1.0,
-             boosts: Map<String, Double> = emptyMap()): RolledLoot {
+    fun roll(
+        tag: String,
+        level: Int,
+        rarity: RarityRule,
+        quantity: Double,
+        goldBonus: Double,
+        dice: Dice,
+        goldShare: Double = 1.0,
+        orbShare: Double = 1.0,
+        boosts: Map<String, Double> = emptyMap(),
+    ): RolledLoot {
         val entries = index.tables.loot(tag).orEmpty()
         val goldRange = index.tables.gold(tag) ?: listOf(0L, 0L)
         val multiplier = rarity.quantity * (1 + quantity / 100)
@@ -85,11 +94,10 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
     }
 
     /** Какой шаблон выпал из тяги: вес в таблице на вес редкости; всё, кроме обычного, растёт от [bonus] процентов редкости. */
-    fun pick(candidates: List<Weighted<ItemTemplate>>, bonus: Double, dice: Dice): ItemTemplate? =
-        Tables.draw(candidates, { (template, weight) ->
-            val base = weight * (rules.rarityWeights[template.rarity] ?: 0.0)
-            if (template.rarity == Rarity.COMMON) base else base * (1 + bonus / 100)
-        }, dice)?.value
+    fun pick(candidates: List<Weighted<ItemTemplate>>, bonus: Double, dice: Dice): ItemTemplate? = Tables.draw(candidates, { (template, weight) ->
+        val base = weight * (rules.rarityWeights[template.rarity] ?: 0.0)
+        if (template.rarity == Rarity.COMMON) base else base * (1 + bonus / 100)
+    }, dice)?.value
 
     /** Шаблон из таблиц [tags] на уровне [level] с бонусом редкости; прямой шаблон ([Ref.table] нет) - сам. */
     fun pickFrom(pools: List<String>, level: Int, bonus: Double, dice: Dice): ItemTemplate? {
@@ -101,8 +109,7 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
      * Уникалка из таблиц [tags] не старше `level + uniqueReach`; за неимением - ничего (1.68.0): вещь эндгейма не падает
      * в начальной зоне в обход потолка уровня.
      */
-    fun unique(tags: List<String>, level: Int, dice: Dice): ItemTemplate? =
-        Tables.draw(index.forHero(index.templatePoolUpTo(tags, level + rules.uniqueReach), heroLevel), dice)
+    fun unique(tags: List<String>, level: Int, dice: Dice): ItemTemplate? = Tables.draw(index.forHero(index.templatePoolUpTo(tags, level + rules.uniqueReach), heroLevel), dice)
 
     /** Выпала ли карта: [chance] уже с количеством; карта следующей зоны - одна из [next] наугад. */
     fun mapDrop(chance: Double, mapCode: String, next: List<String>, dice: Dice, nextBonus: Double = 0.0): String? {
@@ -111,29 +118,42 @@ class LootRoller(private val index: ContentIndex, private val heroLevel: Int? = 
     }
 
     /** Редкость упавшей карты по таблице; [rareBonus] - проценты к весу редкой. */
-    fun mapRarity(dice: Dice, rareBonus: Double = 0.0): Rarity =
-        Tables.value<Rarity>(index.tables, campaign.maps.rarities, dice) { if (it == Rarity.RARE) 1 + rareBonus / 100 else 1.0 } ?: Rarity.COMMON
+    fun mapRarity(dice: Dice, rareBonus: Double = 0.0): Rarity = Tables.value<Rarity>(index.tables, campaign.maps.rarities, dice) { if (it == Rarity.RARE) 1 + rareBonus / 100 else 1.0 } ?: Rarity.COMMON
 
     /**
      * Сколько процентов даёт риск карты: единица каждой вредной строки по её весу; бафы героя (1.14.0) весят
      * меньше нуля и срезают награду, но не ниже нуля.
      */
-    fun risk(effects: Map<String, Double>): Double =
-        Math.round(effects.entries.sumOf { (stat, value) -> value * (campaign.maps.risk[stat] ?: 0.0) }.coerceAtLeast(0.0) * 10) / 10.0
+    fun risk(effects: Map<String, Double>): Double = Math.round(effects.entries.sumOf { (stat, value) -> value * (campaign.maps.risk[stat] ?: 0.0) }.coerceAtLeast(0.0) * 10) / 10.0
 
     /** Карта в действии: риск - к количеству и опыту, его доля - к редкости; тир карты и её редкость - к количеству и редкости. */
     fun activeMap(mapCode: String, base: Map<String, Double>, rarity: Rarity = Rarity.COMMON, tier: Int = 0, influence: Influence? = null, atlas: Map<String, Double> = emptyMap()): ActiveMap {
-        val effects = if (influence == null) base else influenced(base, atlas).let { captured ->
-            // Бездна (1.65.0) открывает на карте расщелины - как строка карты `MAP_ABYSS_CRACKS`.
-            if (influence != Influence.ABYSS) captured
-            else captured + (MapStat.ABYSS_CRACKS.code to (captured[MapStat.ABYSS_CRACKS.code] ?: 0.0) + campaign.maps.influence.abyssCracks)
+        val effects = if (influence == null) {
+            base
+        } else {
+            influenced(base, atlas).let { captured ->
+                // Бездна (1.65.0) открывает на карте расщелины - как строка карты `MAP_ABYSS_CRACKS`.
+                if (influence != Influence.ABYSS) {
+                    captured
+                } else {
+                    captured + (MapStat.ABYSS_CRACKS.code to (captured[MapStat.ABYSS_CRACKS.code] ?: 0.0) + campaign.maps.influence.abyssCracks)
+                }
+            }
         }
         val risk = risk(effects)
         val own = campaign.maps.rarityBonus[rarity] ?: 0.0
         // Строки «больше добычи» ушли из пулов карт (1.71.0): добычу растят вредные строки - чем выше их тир, тем больше риск.
         val rarityRisk = Math.round(risk * campaign.maps.riskRarity * 10) / 10.0
-        return ActiveMap(mapCode, effects, risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0), rarityRisk + own + (effects[MapStat.RARITY.code] ?: 0.0),
-            risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0), rarity, tier, influence)
+        return ActiveMap(
+            mapCode,
+            effects,
+            risk + own + (effects[MapStat.QUANTITY.code] ?: 0.0),
+            rarityRisk + own + (effects[MapStat.RARITY.code] ?: 0.0),
+            risk + (effects[MapStat.EXPERIENCE.code] ?: 0.0),
+            rarity,
+            tier,
+            influence,
+        )
     }
 
     /** Сила захваченной карты (1.50.0): здоровье и урон монстров - правилом и узлами атласа; риск карты платит за них, как за её строки. */

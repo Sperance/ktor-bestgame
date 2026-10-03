@@ -61,15 +61,21 @@ class MonsterRoller(private val index: ContentIndex) {
     /** Описание на тире уровня [tierLevel], плоские прибавки поднятые по росту до [level]. */
     fun raise(def: ModifierDef, weight: Int, level: Int, tierLevel: Int = level): MonsterMod {
         val (number, tier) = def.bestTierAt(tierLevel) ?: (1 to com.sperance.exileforge.rules.content.Tier(1, 0, def.effects.map { listOf(0.0, 0.0) }))
-        return MonsterMod(def.code, weight, def.tiers.minOfOrNull { it.level } ?: 1, def.minRarity ?: MonsterRarity.MAGIC, def.effects.mapIndexed { i, effect ->
-            val (min, max) = tier.values[i]
-            if (effect.op == Op.ADD) MonsterEffect(effect.stat, effect.op, scale(effect.stat, min, level), scale(effect.stat, max, level)) else MonsterEffect(effect.stat, effect.op, min, max)
-        }, number)
+        return MonsterMod(
+            def.code,
+            weight,
+            def.tiers.minOfOrNull { it.level } ?: 1,
+            def.minRarity ?: MonsterRarity.MAGIC,
+            def.effects.mapIndexed { i, effect ->
+                val (min, max) = tier.values[i]
+                if (effect.op == Op.ADD) MonsterEffect(effect.stat, effect.op, scale(effect.stat, min, level), scale(effect.stat, max, level)) else MonsterEffect(effect.stat, effect.op, min, max)
+            },
+            number,
+        )
     }
 
     /** Модификаторы таблиц [tags] на уровне зоны [level]. */
-    fun pool(tags: List<String>, level: Int, tierLevel: Int = level): List<MonsterMod> =
-        index.modifierPool(tags).filter { it.value.monster }.map { (def, weight) -> raise(def, weight, level, tierLevel) }
+    fun pool(tags: List<String>, level: Int, tierLevel: Int = level): List<MonsterMod> = index.modifierPool(tags).filter { it.value.monster }.map { (def, weight) -> raise(def, weight, level, tierLevel) }
 
     fun zonePool(zone: Zone): List<MonsterMod> = pool(zone.tables, zone.level)
 
@@ -89,8 +95,15 @@ class MonsterRoller(private val index: ContentIndex) {
     }
 
     /** Редкость и модификаторы монстра [code] зоны при встрече; [extraRareMods] - лишние строки редкого от атласа. */
-    fun roll(zone: Zone, code: String, pool: List<MonsterMod>, dice: Dice, extraRareMods: Int = 0, rule: RarityRule = rarityRule(dice),
-             level: Int = zone.level): RolledMonster {
+    fun roll(
+        zone: Zone,
+        code: String,
+        pool: List<MonsterMod>,
+        dice: Dice,
+        extraRareMods: Int = 0,
+        rule: RarityRule = rarityRule(dice),
+        level: Int = zone.level,
+    ): RolledMonster {
         val monster = index.monster(code) ?: throw IllegalArgumentException("unknown monster $code")
         var count = dice.between(rule.modifiers)
         if (rule.rarity == MonsterRarity.RARE && count > 0) count += extraRareMods
@@ -124,10 +137,12 @@ class MonsterRoller(private val index: ContentIndex) {
     /** Значения строки внутри её тира: одна доля на все эффекты, умноженные на силу редкости. */
     fun rolled(mod: MonsterMod, power: Double, dice: Dice): MonsterMod {
         val share = dice.nextDouble()
-        return mod.copy(effects = mod.effects.map { effect ->
-            val value = tenths((effect.value + (effect.max - effect.value) * share) * power)
-            effect.copy(value = value, max = value)
-        })
+        return mod.copy(
+            effects = mod.effects.map { effect ->
+                val value = tenths((effect.value + (effect.max - effect.value) * share) * power)
+                effect.copy(value = value, max = value)
+            },
+        )
     }
 
     /** Босс зоны при встрече: уникальная редкость, сигнатуры и `rolls` строк его таблицы; [extra] - что карта делает с боссом. */
@@ -165,6 +180,7 @@ class MonsterRoller(private val index: ContentIndex) {
     private companion object {
         const val BLOCK = "STOCK_BLOCK_CHANCE"
         const val MANA = "STOCK_MANA"
+
         /** Мана, которую навык свойства приносит с собой: на два-три применения. */
         const val TRAIT_MANA = 30.0
     }

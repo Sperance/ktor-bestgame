@@ -58,8 +58,7 @@ object LocaleCache {
      *
      * @throws LocaleExceptions.LocaleException если языка нет в манифесте
      */
-    fun bundle(language: String): LocaleBundle =
-        bundles[language] ?: throw LocaleExceptions.funExceptionUnknownLanguage("bundle", language)
+    fun bundle(language: String): LocaleBundle = bundles[language] ?: throw LocaleExceptions.funExceptionUnknownLanguage("bundle", language)
 
     /**
      * Язык по умолчанию из манифеста.
@@ -72,6 +71,7 @@ object LocaleCache {
      * Ключ, который есть и в общем, и в языковом файле, - ошибка старта: какая из двух строк
      * верная, сервер решать не берётся, а тихий выбор одной спрятал бы вторую навсегда.
      */
+
     /** Тело словаря языка, сжатое gzip (1.53.1): для клиента, который принимает сжатие. */
     fun gzip(language: String): ByteArray = gzips[language] ?: throw LocaleExceptions.funExceptionUnknownLanguage("gzip", language)
 
@@ -86,8 +86,9 @@ object LocaleCache {
         bundles = declared.languages.associate { language ->
             val own = json.decodeFromString(strings, resource("${language.code}.json"))
             val clash = own.keys intersect common.keys
-            if (clash.isNotEmpty())
+            if (clash.isNotEmpty()) {
                 throw LocaleExceptions.funException("initializeCache", "${language.code}.json repeats $COMMON: ${clash.take(5)}")
+            }
             val merged = common + own
             language.code to LocaleBundle(language.code, merged.toSortedMap())
         }
@@ -98,9 +99,11 @@ object LocaleCache {
         // Отпечаток считается из того, что отдаётся, а не берётся из манифеста: отпечаток,
         // который правят руками, перестаёт работать ровно тогда, когда он нужен -
         // строку поправили, забыли обновить число, и клиенты об этом не узнают никогда.
-        manifest = declared.copy(languages = declared.languages.map {
-            it.copy(hash = sha256(documents.getValue(it.code)))
-        })
+        manifest = declared.copy(
+            languages = declared.languages.map {
+                it.copy(hash = sha256(documents.getValue(it.code)))
+            },
+        )
 
         printLog("[LocaleCache] initialized: ${bundles.entries.joinToString { "${it.key}=${it.value.size}" }}, common=${common.size}")
     }
@@ -108,16 +111,13 @@ object LocaleCache {
     /**
      * Тело словаря языка: общий словарь и языковой, склеенные в один.
      */
-    fun document(language: String): String =
-        documents[language] ?: throw LocaleExceptions.funExceptionUnknownLanguage("document", language)
+    fun document(language: String): String = documents[language] ?: throw LocaleExceptions.funExceptionUnknownLanguage("document", language)
 
-    private fun sha256(text: String): String =
-        MessageDigest.getInstance("SHA-256").digest(text.toByteArray())
-            .take(8).joinToString("") { "%02x".format(it) }
+    private fun sha256(text: String): String = MessageDigest.getInstance("SHA-256").digest(text.toByteArray())
+        .take(8).joinToString("") { "%02x".format(it) }
 
-    private fun resource(name: String): String =
-        javaClass.classLoader.getResourceAsStream("$FOLDER/$name")
-            ?.bufferedReader()
-            ?.use { it.readText() }
-            ?: throw LocaleExceptions.funExceptionFileNotFound("resource", "$FOLDER/$name")
+    private fun resource(name: String): String = javaClass.classLoader.getResourceAsStream("$FOLDER/$name")
+        ?.bufferedReader()
+        ?.use { it.readText() }
+        ?: throw LocaleExceptions.funExceptionFileNotFound("resource", "$FOLDER/$name")
 }

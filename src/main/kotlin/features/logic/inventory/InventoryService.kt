@@ -1,12 +1,10 @@
 package features.logic.inventory
 
 import base.exception.BaseRouteExceptions
-import com.sperance.exileforge.rules.content.Rarity
-import com.sperance.exileforge.rules.content.SlotGroup
-import com.sperance.exileforge.rules.content.AutoSell
 import base.exception.model.CharacterExceptions
 import base.exception.model.CurrencyExceptions
 import base.exception.model.SkillTreeExceptions
+import com.sperance.exileforge.rules.content.AutoSell
 import com.sperance.exileforge.rules.content.BenchRecipe
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
@@ -14,8 +12,10 @@ import com.sperance.exileforge.rules.content.EquipSlots
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Omen
 import com.sperance.exileforge.rules.content.Orb
+import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SkillNodeType
 import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.content.SlotGroup
 import com.sperance.exileforge.rules.content.TreeAllocation
 import com.sperance.exileforge.rules.roll.Bench
 import com.sperance.exileforge.rules.roll.Dice
@@ -61,8 +61,7 @@ class InventoryService : KoinComponent {
     private val orbs by lazy { OrbApplier(index) }
     private val bench by lazy { Bench(index) }
 
-    private fun template(item: ItemInstance, method: String): ItemTemplate =
-        index.template(item.template) ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.template)
+    private fun template(item: ItemInstance, method: String): ItemTemplate = index.template(item.template) ?: throw CharacterExceptions.funExceptionEquipmentNotFound(method, item.template)
 
     /**
      * Надевает вещь в её слот, снимая то, что этот слот занимает и с чем она не носится (двуручное
@@ -141,6 +140,7 @@ class InventoryService : KoinComponent {
      * Замок на вещь (1.28.0): в тайнике, надетую или в переполнении. Запертую нельзя продать и выставить
      * на аукцион, и переполнение не продаёт её само; сферы и ремесло замок не держит.
      */
+
     /** Строка фильтра добычи (1.45.0): какие группы слотов редкости [rarity] торговец забирает сразу; пустые [groups] - никакие. */
     suspend fun autoSell(heroId: String, rarity: Rarity, groups: Set<SlotGroup>): AutoSell {
         val method = "autoSell"
@@ -190,8 +190,9 @@ class InventoryService : KoinComponent {
         val rule = index.rules.brews.temper
         val smith = hero.professions[SMITHING]?.level ?: 1
         val ore = rule.oreFor(template.level)
-        if (item.tempered || item.corrupted || !(template.slot.isWeapon || template.slot.isArmour) || ore == null || smith < rule.smithLevel)
+        if (item.tempered || item.corrupted || !(template.slot.isWeapon || template.slot.isArmour) || ore == null || smith < rule.smithLevel) {
             throw CharacterExceptions.funExceptionTemper(method, template.code)
+        }
         hero.spend(ore, rule.ore, method)
         val dice = Dice.system()
         item.quality = maxOf(item.quality, dice.between(rule.minQuality, rule.maxQuality))

@@ -24,15 +24,16 @@ class LootChests(private val index: ContentIndex) {
     private val chests: List<LootChest> get() = index.campaign.lootChests
 
     /** Сундуки с монстра редкости [rarity] в зоне уровня [level]; [finale] - босс финала региона; [quantity] - проценты количества. */
-    fun fromMonster(level: Int, rarity: MonsterRarity, finale: Boolean, quantity: Double, dice: Dice): Map<String, Long> =
-        roll(level, dice) { chest ->
-            if (rarity == MonsterRarity.UNIQUE) chest.bossChance + if (finale) chest.finaleChance else 0.0
-            else chest.dropChance * index.campaign.rarity(rarity).quantity * (1 + quantity / 100)
+    fun fromMonster(level: Int, rarity: MonsterRarity, finale: Boolean, quantity: Double, dice: Dice): Map<String, Long> = roll(level, dice) { chest ->
+        if (rarity == MonsterRarity.UNIQUE) {
+            chest.bossChance + if (finale) chest.finaleChance else 0.0
+        } else {
+            chest.dropChance * index.campaign.rarity(rarity).quantity * (1 + quantity / 100)
         }
+    }
 
     /** Сундуки из награды испытания на уровне арены [level]: шанс растёт с её уровнем. */
-    fun fromTrial(level: Int, dice: Dice): Map<String, Long> =
-        roll(level, dice) { if (it.trialChance <= 0) 0.0 else (it.trialChance + it.trialPerLevel * level).coerceAtMost(it.trialMax) }
+    fun fromTrial(level: Int, dice: Dice): Map<String, Long> = roll(level, dice) { if (it.trialChance <= 0) 0.0 else (it.trialChance + it.trialPerLevel * level).coerceAtMost(it.trialMax) }
 
     private fun roll(level: Int, dice: Dice, chance: (LootChest) -> Double): Map<String, Long> {
         val found = LinkedHashMap<String, Long>()
@@ -83,27 +84,36 @@ class LootChests(private val index: ContentIndex) {
                 gear(loot, spec, chest, level, main, dice)?.let { template ->
                     // Не ниже редкости самой базы: редкая база и в сундуке редкая.
                     val rarity = maxOf(if (spec.rarity == Rarity.MAGIC && dice.chance(spec.rareChance)) Rarity.RARE else spec.rarity, template.rarity)
-                    val item = if (spec.influenced && template.slot.influenceable)
+                    val item = if (spec.influenced && template.slot.influenceable) {
                         factory.createInfluenced(newId(), template, rarity, dice.pick(Influence.entries), dice, itemLevel)
-                    else factory.create(newId(), template, rarity, dice, level = itemLevel)
+                    } else {
+                        factory.create(newId(), template, rarity, dice, level = itemLevel)
+                    }
                     // Осквернённая сферой Ваал, как её осквернил бы игрок: что вышло, то и легло; вещь, что сферы не берёт, - как есть.
-                    equipment += if (!spec.corrupted) item
-                        else runCatching { OrbApplier(index).apply(Orb.VAAL_ORB, item, template, dice, null, newId).item }.getOrDefault(item)
+                    equipment += if (!spec.corrupted) {
+                        item
+                    } else {
+                        runCatching { OrbApplier(index).apply(Orb.VAAL_ORB, item, template, dice, null, newId).item }.getOrDefault(item)
+                    }
                 }
             }
         }
-        if (chest.uniqueTables.isNotEmpty() && dice.chance(chest.uniqueChance)) unique(chest, level, heroClass, dice)?.let {
-            equipment += factory.create(newId(), it, Rarity.UNIQUE, dice, level = itemLevel)
+        if (chest.uniqueTables.isNotEmpty() && dice.chance(chest.uniqueChance)) {
+            unique(chest, level, heroClass, dice)?.let {
+                equipment += factory.create(newId(), it, Rarity.UNIQUE, dice, level = itemLevel)
+            }
         }
         chest.maps?.let { rule ->
             val template = index.template(MAP_TEMPLATE)
             val zones = index.campaign.zones.filter { LootChest.tierOf(it.level) in (tier - rule.spread)..(tier + rule.spread) }
-            if (template != null && zones.isNotEmpty()) repeat(rule.count) {
-                val zone = dice.pick(zones)
-                val map = factory.create(newId(), template, if (dice.chance(rule.rareChance)) Rarity.RARE else Rarity.MAGIC, dice, level = zone.level)
-                map.mapZone = zone.code
-                map.mapTier = loot.mapTier(zone.level, 0, dice)
-                equipment += map
+            if (template != null && zones.isNotEmpty()) {
+                repeat(rule.count) {
+                    val zone = dice.pick(zones)
+                    val map = factory.create(newId(), template, if (dice.chance(rule.rareChance)) Rarity.RARE else Rarity.MAGIC, dice, level = zone.level)
+                    map.mapZone = zone.code
+                    map.mapTier = loot.mapTier(zone.level, 0, dice)
+                    equipment += map
+                }
             }
         }
         chest.items.forEach { (code, range) ->

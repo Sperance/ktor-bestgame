@@ -27,10 +27,14 @@ data class CombatProfile(val attack: Double, val spell: Double, val ailment: Dou
             val hit = GenericDamage.HITS.sumOf(::stat).takeIf { it > 0 } ?: combat.unarmed.damage
             val speed = (sheet["STOCK_ATTACK_SPEED"] ?: 0.0).takeIf { it > 0 }?.coerceIn(0.3, 5.0) ?: combat.unarmed.speed
             val damage = sheet[CoreStat.CRITICAL_DAMAGE.code]
-            val attackCrit = critFactor(sheet[CoreStat.CRITICAL_CHANCE.code] ?: critical.chance,
-                critical.effective(sheet[CoreStat.CRITICAL_MULTIPLIER.code] ?: critical.multiplier, damage))
-            val spellCrit = critFactor(sheet[CoreStat.SPELL_CRITICAL_CHANCE.code] ?: critical.spellChance,
-                critical.effective(sheet[CoreStat.SPELL_CRITICAL_MULTIPLIER.code] ?: critical.spellMultiplier, damage))
+            val attackCrit = critFactor(
+                sheet[CoreStat.CRITICAL_CHANCE.code] ?: critical.chance,
+                critical.effective(sheet[CoreStat.CRITICAL_MULTIPLIER.code] ?: critical.multiplier, damage),
+            )
+            val spellCrit = critFactor(
+                sheet[CoreStat.SPELL_CRITICAL_CHANCE.code] ?: critical.spellChance,
+                critical.effective(sheet[CoreStat.SPELL_CRITICAL_MULTIPLIER.code] ?: critical.spellMultiplier, damage),
+            )
             val attack = hit * speed * attackCrit
             // Заклинание: удар с прибавками чар, темп - скорость атаки с ускорением чар, крит - свой
             val spellHit = hit + sheet.filterKeys { it.startsWith(SPELL_ADD) }.values.sumOf { it.coerceAtLeast(0.0) }
@@ -42,7 +46,6 @@ data class CombatProfile(val attack: Double, val spell: Double, val ailment: Dou
         }
 
         /** Ожидаемый множитель урона от крита: шанс и множитель в процентах. */
-        private fun critFactor(chance: Double, multiplier: Double): Double =
-            1 + (chance / 100).coerceIn(0.0, 1.0) * (multiplier.coerceAtLeast(100.0) / 100 - 1)
+        private fun critFactor(chance: Double, multiplier: Double): Double = 1 + (chance / 100).coerceIn(0.0, 1.0) * (multiplier.coerceAtLeast(100.0) / 100 - 1)
     }
 }

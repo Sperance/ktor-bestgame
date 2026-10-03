@@ -1,8 +1,8 @@
 package features.logic.campaign
 
 import com.sperance.exileforge.rules.content.ContentIndex
-import com.sperance.exileforge.rules.sheet.CombatProfile
 import com.sperance.exileforge.rules.roll.RolledMonster
+import com.sperance.exileforge.rules.sheet.CombatProfile
 import extensions.printLog
 import features.data.hero.Hero
 import features.data.hero.RunState
@@ -11,9 +11,14 @@ import kotlinx.serialization.Serializable
 
 /** Метка подозрительного захода (1.45.0): когда, где и что не сошлось; решает администратор. */
 @Serializable
-data class RunFlag(val at: Long, val zone: String, val reason: String, val value: Double,
+data class RunFlag(
+    val at: Long,
+    val zone: String,
+    val reason: String,
+    val value: Double,
     /** Вес метки (1.63.0): 1-3 по тому, во сколько раз превышен порог; старые метки весят 1. */
-    val weight: Int = 1)
+    val weight: Int = 1,
+)
 
 /**
  * Правдоподобие захода (1.45.0, 1.53.0). Бой считает клиент, сервер верит его журналу: убийства он и так пускает
@@ -27,24 +32,32 @@ data class RunFlag(val at: Long, val zone: String, val reason: String, val value
 object Plausibility {
     /** Больше убийств в секунду с начала захода не бывает даже у сильнейших героев. */
     const val KILLS_PER_SECOND = 4.0
+
     /** Босс раньше этого числа секунд с входа - значит, до него не дошли. */
     const val BOSS_SECONDS = 8.0
+
     /** Ступень Бездны (1.68.0) - волна монстров: быстрее этого числа секунд на ступень её не пройти. */
     const val ABYSS_DEPTH_SECONDS = 4.0
+
     /** Меток на герое не больше: старые уходят. */
     const val KEEP = 20
+
     /** Во сколько раз бой может идти быстрее расчётного: криты, умения по площади, питомцы, лаг журнала. */
     const val MARGIN = 3.0
+
     /** Секунд сверх расчёта, которые заход получает даром: стая у входа и пауза до первого батча. */
     const val SLACK_SECONDS = 10.0
+
     /**
      * Секунд, которые убийство получает сверх прошедших: клиент шлёт убийство ручного боя, едва враг пал, а не после
      * трёх секунд тишины и конца боя, как прежде, - честный заход мерится так же строго, как до того. Постоянная на
      * заход, а не на убийство: ускоренному клиенту она даёт не больше прежней задержки журнала.
      */
     const val PROMPT_SECONDS = 4.0
+
     /** С какого веса меток за сутки подозрение пишется в аудит. */
     const val AUDIT_SCORE = 3
+
     /** С какого веса меток за сутки невозможные события отклоняются. */
     const val REJECT_SCORE = 6
     private const val DAY_MS = 24 * 3_600_000L
@@ -53,8 +66,7 @@ object Plausibility {
     fun dps(index: ContentIndex, sheet: Map<String, Double>): Double = CombatProfile.of(index, sheet).best
 
     /** Ожидаемые секунды боя со стаей: сильнейший её монстр на урон героя - нижняя оценка, удар по площади кладёт стаю разом. */
-    fun packSeconds(pack: List<RolledMonster>, dps: Double): Double =
-        (pack.maxOfOrNull { (it.stats["STOCK_HEALTH"] ?: 0.0) + (it.stats["STOCK_ENERGY_SHIELD"] ?: 0.0) } ?: 0.0) / dps
+    fun packSeconds(pack: List<RolledMonster>, dps: Double): Double = (pack.maxOfOrNull { (it.stats["STOCK_HEALTH"] ?: 0.0) + (it.stats["STOCK_ENERGY_SHIELD"] ?: 0.0) } ?: 0.0) / dps
 
     /** Темп героя на заход: урон в секунду по листу, посчитанный один раз на журнал. */
     class Pace(val dps: Double) {
@@ -73,8 +85,10 @@ object Plausibility {
             // Первые десяток убийств - стая у входа: темп мерится, когда выборка уже не случайна
             kills > 10 && kills > seconds * KILLS_PER_SECOND ->
                 flag(hero, state, now, "kills_per_second", kills / seconds, kills / (seconds * KILLS_PER_SECOND))
+
             seconds + SLACK_SECONDS < work / MARGIN ->
                 flag(hero, state, now, "fight_seconds", work / seconds.coerceAtLeast(0.1), work / MARGIN / (seconds + SLACK_SECONDS))
+
             else -> false
         }
         if (tooFast) return false
@@ -109,8 +123,7 @@ object Plausibility {
 
     private fun seconds(state: RunState, now: Long): Double = ((now - state.startedAt) / 1000.0).coerceAtLeast(0.1)
 
-    private fun flag(hero: Hero, state: RunState, now: Long, reason: String, value: Double, excess: Double) =
-        flag(hero, state.zone, state.startedAt, now, reason, value, excess)
+    private fun flag(hero: Hero, state: RunState, now: Long, reason: String, value: Double, excess: Double) = flag(hero, state.zone, state.startedAt, now, reason, value, excess)
 
     /** Вес нарушения по [excess] - во сколько раз превышен порог: до полутора раз 1, до трёх 2, дальше 3. */
     fun weight(excess: Double): Int = when {

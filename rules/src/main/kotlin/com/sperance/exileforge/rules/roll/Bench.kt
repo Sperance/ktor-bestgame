@@ -16,8 +16,7 @@ class Bench(private val index: ContentIndex, private val affixes: AffixRoller = 
     private val craftable = setOf(Rarity.MAGIC, Rarity.RARE)
 
     /** Один незнакомый герою рецепт тира этой локации, если такой есть. */
-    fun draw(known: Collection<String>, level: Int, dice: Dice): BenchRecipe? =
-        dice.pickOrNull(index.bench.filter { it.tier == index.rules.bench.tierFor(level) && it.code !in known })
+    fun draw(known: Collection<String>, level: Int, dice: Dice): BenchRecipe? = dice.pickOrNull(index.bench.filter { it.tier == index.rules.bench.tierFor(level) && it.code !in known })
 
     fun craft(item: ItemInstance, template: ItemTemplate, recipe: BenchRecipe, known: Collection<String>, dice: Dice): OrbOutcome {
         requireModifiable(item, template)

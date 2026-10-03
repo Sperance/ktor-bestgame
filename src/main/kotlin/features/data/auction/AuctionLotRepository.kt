@@ -17,15 +17,15 @@ import config.ContentStore
 import config.MongoFactory.transactionExecute
 import extensions.now
 import extensions.printLog
-import kotlinx.coroutines.CancellationException
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.mail.MailAttachment
 import features.data.mail.MailRepository
 import features.logic.hero.HeroLocks
-import kotlinx.coroutines.flow.toList
 import features.logic.hero.Stash
 import features.logic.locale.LocaleCache
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
@@ -40,7 +40,9 @@ import org.koin.core.component.inject
  * Стопки в сумке не ограничены, так что оплата и товар-стопка доходят целиком. Вещь лота сверяется с контентом,
  * когда лот показывают.
  */
-class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), KoinComponent {
+class AuctionLotRepository :
+    BaseRepository<AuctionLot>(AuctionLot::class),
+    KoinComponent {
     private val heroes: HeroRepository by inject()
     private val content: ContentStore by inject()
     private val mail: MailRepository by inject()
@@ -158,8 +160,13 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     suspend fun history(heroId: String): List<AuctionLot> {
         requireTrader(heroId, "history")
         val since = System.currentTimeMillis() - rules.historyDays * DAY_MS
-        return findByFilter(Filters.and(Filters.eq("status", LotStatus.SOLD.name), Filters.gte("soldAt", since),
-            Filters.or(Filters.eq("sellerId", heroId), Filters.eq("buyerId", heroId)))).sortedByDescending { it.soldAt }
+        return findByFilter(
+            Filters.and(
+                Filters.eq("status", LotStatus.SOLD.name),
+                Filters.gte("soldAt", since),
+                Filters.or(Filters.eq("sellerId", heroId), Filters.eq("buyerId", heroId)),
+            ),
+        ).sortedByDescending { it.soldAt }
     }
 
     suspend fun cancel(heroId: String, lotId: String): AuctionLot {
@@ -249,8 +256,11 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         if (seller != null && !byMail) giveBack(lot, seller)
         val parcel = if (byMail) returned(lot) else null
         transactionExecute("auction expire ${lot._id}") { session ->
-            if (byMail) mail.system(seller!!.userId, MAIL_EXPIRED, listOf(lot.itemCode, lot.amount.toString()), parcel!!, session)
-            else seller?.let { heroes.update(it, session) }
+            if (byMail) {
+                mail.system(seller!!.userId, MAIL_EXPIRED, listOf(lot.itemCode, lot.amount.toString()), parcel!!, session)
+            } else {
+                seller?.let { heroes.update(it, session) }
+            }
             close(lot, status, null, session)
         }
     }
@@ -272,14 +282,25 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         if (!lot.extendable(rules.extendWindowMillis)) throw AuctionExceptions.funExceptionNotExtendable(method, lotId)
         lot.expiresAt += rules.lotMillis
         lot.warned = false
-        return transactionExecute("auction $method $lotId") { session -> update(lot, session); lot }
+        return transactionExecute("auction $method $lotId") { session ->
+            update(lot, session)
+            lot
+        }
     }
 
     /** Письмо «лот снимется через сутки» (1.74.0) пачкой по [limit]; зовёт [features.logic.trade.AuctionExpiry]. */
     suspend fun warnDue(limit: Int) {
         val now = System.currentTimeMillis()
-        val due = collection.find(readFilter(Filters.and(Filters.eq("status", LotStatus.ACTIVE.name), Filters.ne("warned", true),
-            Filters.gt("expiresAt", now), Filters.lte("expiresAt", now + rules.extendWindowMillis)))).limit(limit).toList()
+        val due = collection.find(
+            readFilter(
+                Filters.and(
+                    Filters.eq("status", LotStatus.ACTIVE.name),
+                    Filters.ne("warned", true),
+                    Filters.gt("expiresAt", now),
+                    Filters.lte("expiresAt", now + rules.extendWindowMillis),
+                ),
+            ),
+        ).limit(limit).toList()
         due.forEach { lot ->
             quietly("warn ${lot._id}") {
                 val seller = heroes.findById(lot.sellerId) ?: return@quietly
@@ -306,9 +327,13 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
     suspend fun priceHint(heroId: String, itemCode: String, rarity: com.sperance.exileforge.rules.content.Rarity?, itemLevel: Int): PriceHint? {
         requireTrader(heroId, "priceHint")
         val since = System.currentTimeMillis() - rules.historyDays * DAY_MS
-        val filters = listOfNotNull(Filters.eq("status", LotStatus.SOLD.name), Filters.gte("soldAt", since), Filters.eq("itemCode", itemCode),
+        val filters = listOfNotNull(
+            Filters.eq("status", LotStatus.SOLD.name),
+            Filters.gte("soldAt", since),
+            Filters.eq("itemCode", itemCode),
             rarity?.let { Filters.eq("rarity", it.name) },
-            if (itemLevel > 0) Filters.and(Filters.gte("itemLevel", itemLevel - rules.priceLevelSpread), Filters.lte("itemLevel", itemLevel + rules.priceLevelSpread)) else null)
+            if (itemLevel > 0) Filters.and(Filters.gte("itemLevel", itemLevel - rules.priceLevelSpread), Filters.lte("itemLevel", itemLevel + rules.priceLevelSpread)) else null,
+        )
         val sales = findByFilter(Filters.and(filters))
         val (orb, inOrb) = sales.groupBy { it.priceOrb }.maxByOrNull { it.value.size } ?: return null
         if (inOrb.size < rules.priceSales) return null
@@ -319,9 +344,13 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     /** Попутная работа (срок, сверка): гонка версий или сбой базы её откладывает до следующего запроса, но не срывает запрос. */
     private suspend fun quietly(what: String, block: suspend () -> Unit) {
-        try { block() }
-        catch (e: CancellationException) { throw e }
-        catch (e: Exception) { printLog("[Auction] $what: ${e.message}") }
+        try {
+            block()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            printLog("[Auction] $what: ${e.message}")
+        }
     }
 
     private suspend fun close(lot: AuctionLot, status: LotStatus, buyerId: String?, session: ClientSession): AuctionLot {
@@ -341,8 +370,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     private fun slotsOf(@Suppress("UNUSED_PARAMETER") seller: Hero, used: Int): AuctionSlots = AuctionSlots(used, rules.slots)
 
-    private suspend fun active(sellerId: String): Int =
-        count(Filters.and(Filters.eq("sellerId", sellerId), Filters.eq("status", LotStatus.ACTIVE.name))).toInt()
+    private suspend fun active(sellerId: String): Int = count(Filters.and(Filters.eq("sellerId", sellerId), Filters.eq("status", LotStatus.ACTIVE.name))).toInt()
 
     private suspend fun requirePlace(seller: Hero, method: String) {
         if (active(seller._id) >= rules.slots) throw AuctionExceptions.funExceptionLotLimit(method, rules.slots.toString())

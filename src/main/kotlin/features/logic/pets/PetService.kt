@@ -23,7 +23,10 @@ import org.koin.core.component.inject
 /** Зверинец как его видит клиент: питомцы, активные боевой и помощник, потолок, инкубатор (1.67.0). */
 @Serializable
 data class PetState(
-    val pets: List<Pet> = emptyList(), val combat: String = "", val helper: String = "", val cap: Int = 0,
+    val pets: List<Pet> = emptyList(),
+    val combat: String = "",
+    val helper: String = "",
+    val cap: Int = 0,
     val incubator: IncubatorState = IncubatorState(),
 ) {
     /**
@@ -53,8 +56,15 @@ data class IncubatorState(val slots: Int = 0, val max: Int = 0, val entries: Lis
  */
 @Serializable
 data class IncubatorSlot(
-    val slot: Int, val open: Boolean = true, val egg: String = "", val rarity: Rarity? = null, val level: Int = 0,
-    val startedAt: Long = 0, val readyAt: Long = 0, val remainingSeconds: Long = 0, val ready: Boolean = false,
+    val slot: Int,
+    val open: Boolean = true,
+    val egg: String = "",
+    val rarity: Rarity? = null,
+    val level: Int = 0,
+    val startedAt: Long = 0,
+    val readyAt: Long = 0,
+    val remainingSeconds: Long = 0,
+    val ready: Boolean = false,
 ) {
     companion object {
         fun of(slot: Int, open: Boolean, incubation: Incubation?, now: Long): IncubatorSlot = incubation?.let {
@@ -172,7 +182,9 @@ class PetService : KoinComponent {
         if (hybrid != null) {
             if (hero.pets.size >= cap) throw CharacterExceptions.funExceptionMenagerieFull(method, "$cap")
             hero.pets += hybrid
-        } else pets.breedEgg(a, b, dice)?.let { hero.earn(it, 1) }
+        } else {
+            pets.breedEgg(a, b, dice)?.let { hero.earn(it, 1) }
+        }
         hero.replacePet(a.copy(tiredUntil = now + rule.restMillis))
         hero.replacePet(b.copy(tiredUntil = now + rule.restMillis))
     }

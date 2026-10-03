@@ -15,7 +15,8 @@ enum class Catalyst(val tags: Set<String>) {
     CHAOS(setOf("chaos")),
     SPEED(setOf("speed")),
     ATTRIBUTE(setOf("attribute")),
-    CASTER(setOf("caster", "mana"));
+    CASTER(setOf("caster", "mana")),
+    ;
 
     fun covers(tags: Collection<String>): Boolean = tags.any { it in this.tags }
 }
@@ -28,14 +29,28 @@ enum class Catalyst(val tags: Set<String>) {
  */
 @Serializable
 enum class Omen(val orbs: Set<Orb>, val catalyst: Catalyst? = null) {
-    SINISTRAL_CHAOS(Orb.CHAOS_ORB), DEXTRAL_CHAOS(Orb.CHAOS_ORB),
-    SINISTRAL_EXALTATION(Orb.EXALTED_ORB), DEXTRAL_EXALTATION(Orb.EXALTED_ORB), GREATER_EXALTATION(Orb.EXALTED_ORB),
-    SINISTRAL_CORONATION(Orb.REGAL_ORB), DEXTRAL_CORONATION(Orb.REGAL_ORB),
-    SINISTRAL_ANNULMENT(Orb.ORB_OF_ANNULMENT), DEXTRAL_ANNULMENT(Orb.ORB_OF_ANNULMENT), LIGHT(Orb.ORB_OF_ANNULMENT),
+    SINISTRAL_CHAOS(Orb.CHAOS_ORB),
+    DEXTRAL_CHAOS(Orb.CHAOS_ORB),
+    SINISTRAL_EXALTATION(Orb.EXALTED_ORB),
+    DEXTRAL_EXALTATION(Orb.EXALTED_ORB),
+    GREATER_EXALTATION(Orb.EXALTED_ORB),
+    SINISTRAL_CORONATION(Orb.REGAL_ORB),
+    DEXTRAL_CORONATION(Orb.REGAL_ORB),
+    SINISTRAL_ANNULMENT(Orb.ORB_OF_ANNULMENT),
+    DEXTRAL_ANNULMENT(Orb.ORB_OF_ANNULMENT),
+    LIGHT(Orb.ORB_OF_ANNULMENT),
     CORRUPTION(Orb.VAAL_ORB),
-    CHOICE(Orb.ORB_OF_ALCHEMY, Orb.EXALTED_ORB), TIER(Orb.DIVINE_ORB),
-    CATALYST_LIFE(Catalyst.LIFE), CATALYST_DEFENCE(Catalyst.DEFENCE), CATALYST_ELEMENTAL(Catalyst.ELEMENTAL), CATALYST_PHYSICAL(Catalyst.PHYSICAL),
-    CATALYST_CHAOS(Catalyst.CHAOS), CATALYST_SPEED(Catalyst.SPEED), CATALYST_ATTRIBUTE(Catalyst.ATTRIBUTE), CATALYST_CASTER(Catalyst.CASTER);
+    CHOICE(Orb.ORB_OF_ALCHEMY, Orb.EXALTED_ORB),
+    TIER(Orb.DIVINE_ORB),
+    CATALYST_LIFE(Catalyst.LIFE),
+    CATALYST_DEFENCE(Catalyst.DEFENCE),
+    CATALYST_ELEMENTAL(Catalyst.ELEMENTAL),
+    CATALYST_PHYSICAL(Catalyst.PHYSICAL),
+    CATALYST_CHAOS(Catalyst.CHAOS),
+    CATALYST_SPEED(Catalyst.SPEED),
+    CATALYST_ATTRIBUTE(Catalyst.ATTRIBUTE),
+    CATALYST_CASTER(Catalyst.CASTER),
+    ;
 
     constructor(vararg orbs: Orb) : this(orbs.toSet())
     constructor(catalyst: Catalyst) : this(setOf(Orb.QUALITY_ORB), catalyst)

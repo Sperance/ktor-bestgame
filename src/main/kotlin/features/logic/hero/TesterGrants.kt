@@ -20,7 +20,9 @@ enum class TesterReset { TREE, ATLAS, BAG, STASH, CAMPAIGN }
 class TesterGrants(private val index: ContentIndex) {
     private val factory = ItemFactory(index)
 
-    fun gold(hero: Hero, amount: Long) { hero.money += amount.coerceIn(0, MAX_GOLD) }
+    fun gold(hero: Hero, amount: Long) {
+        hero.money += amount.coerceIn(0, MAX_GOLD)
+    }
 
     /** Уровень [level] ровно: опыт - порог уровня, план дерева берёт то, на что теперь хватает очков. */
     fun level(hero: Hero, level: Int) {
@@ -85,10 +87,17 @@ class TesterGrants(private val index: ContentIndex) {
 
     fun reset(hero: Hero, what: TesterReset) {
         when (what) {
-            TesterReset.TREE -> { hero.tree.clear(); hero.plannedTree.clear() }
+            TesterReset.TREE -> {
+                hero.tree.clear()
+                hero.plannedTree.clear()
+            }
+
             TesterReset.ATLAS -> hero.atlas.clear()
+
             TesterReset.BAG -> hero.bag.clear()
+
             TesterReset.STASH -> hero.items.removeAll { it.slot == null && it.socket == null }
+
             TesterReset.CAMPAIGN -> hero.campaign.cleared.clear()
         }
     }

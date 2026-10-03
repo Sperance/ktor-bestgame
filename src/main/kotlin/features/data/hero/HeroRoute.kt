@@ -1,8 +1,5 @@
 package features.data.hero
 
-import io.ktor.server.application.ApplicationCall
-import com.sperance.exileforge.rules.content.TreePlan
-import com.sperance.exileforge.rules.content.SlotGroup
 import base.exception.BaseRouteExceptions
 import base.exception.model.SkillExceptions
 import base.exception.model.SkillTreeExceptions
@@ -18,6 +15,9 @@ import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SkillKind
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.SlotCondition
+import com.sperance.exileforge.rules.content.SlotGroup
+import com.sperance.exileforge.rules.content.TreePlan
+import com.sperance.exileforge.rules.content.TrialEvent
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.run.RunEvent
@@ -25,7 +25,6 @@ import config.ContentStore
 import features.logic.atlas.AtlasService
 import features.logic.campaign.CampaignService
 import features.logic.campaign.TrialService
-import com.sperance.exileforge.rules.content.TrialEvent
 import features.logic.crafts.CraftsService
 import features.logic.hero.HeroSnapshots
 import features.logic.hero.Rewards
@@ -37,9 +36,9 @@ import features.logic.quests.QuestService
 import features.logic.skills.SkillService
 import features.logic.trade.MerchantService
 import features.logic.tree.TreeService
-import server.addons.keepIdempotentReport
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
+import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
 import io.ktor.server.response.header
 import io.ktor.server.response.respond
@@ -47,6 +46,7 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
+import server.addons.keepIdempotentReport
 
 /** Маршруты героя: общий CRUD документа и все игровые команды под `/api/v1/hero`. */
 class HeroRoute(
@@ -81,8 +81,11 @@ class HeroRoute(
             val snapshot = HeroSnapshots.of(call.heroId, HeroSnapshots.known(call.request.headers[HeroSnapshots.HEADER]))
             val etag = "\"${snapshot.version}\""
             call.response.header(HttpHeaders.ETag, etag)
-            if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) call.respond(HttpStatusCode.NotModified)
-            else call.respondOk(snapshot)
+            if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) {
+                call.respond(HttpStatusCode.NotModified)
+            } else {
+                call.respondOk(snapshot)
+            }
         }
 
         // Окно тестирования (1.69.0) и администратор выдают из ничего: опыт, стопку, вещь по шаблону и всё остальное ниже.
@@ -173,8 +176,9 @@ class HeroRoute(
         post("/title") {
             val hero = repo.requireHero(call.heroId, "title")
             val title = call.optionalParam("title").orEmpty()
-            if (title.isNotBlank() && title !in content.index.achievements.titles(hero.chronicle()))
+            if (title.isNotBlank() && title !in content.index.achievements.titles(hero.chronicle())) {
                 throw base.exception.model.CharacterExceptions.funExceptionTitleLocked("title", title)
+            }
             hero.title = title
             call.respondWithHero(repo.save(hero, "title").title)
         }
@@ -316,8 +320,7 @@ class HeroRoute(
 }
 
 /** Условие слота по имени; неизвестное - отказ, а не тихое «как готово». */
-private fun condition(name: String): SlotCondition =
-    SlotCondition.entries.firstOrNull { it.name == name } ?: throw SkillExceptions.funExceptionCondition("condition", name)
+private fun condition(name: String): SlotCondition = SlotCondition.entries.firstOrNull { it.name == name } ?: throw SkillExceptions.funExceptionCondition("condition", name)
 
 /** Откат атласа сферами сожаления (1.65.0) вместо золота: `regret=true`. */
 private fun ApplicationCall.regret(): Boolean = optionalParam("regret")?.toBooleanStrictOrNull() == true

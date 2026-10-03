@@ -25,13 +25,17 @@ import java.util.concurrent.atomic.AtomicLongArray
 object RouteTimings {
     private const val COLLECTION = "RouteTiming"
     private const val FLUSH_MS = 60_000L
+
     /** Верхние границы корзин, мс; последняя - всё, что дольше. */
     val BUCKETS = longArrayOf(10, 25, 50, 100, 250, 500, 1000, 2500)
     private val ID = Regex("/([0-9a-fA-F]{24}|\\d+)(?=/|$)")
 
     private class Tally {
-        val count = AtomicLong(); val total = AtomicLong(); val errors = AtomicLong()
-        val max = AtomicLong(); val buckets = AtomicLongArray(BUCKETS.size + 1)
+        val count = AtomicLong()
+        val total = AtomicLong()
+        val errors = AtomicLong()
+        val max = AtomicLong()
+        val buckets = AtomicLongArray(BUCKETS.size + 1)
     }
 
     private val tallies = ConcurrentHashMap<String, Tally>()
@@ -60,8 +64,11 @@ object RouteTimings {
         tallies.keys.toList().forEach { route ->
             val tally = tallies.remove(route) ?: return@forEach
             val updates = mutableListOf(
-                Updates.set("day", day), Updates.set("route", route),
-                Updates.inc("count", tally.count.get()), Updates.inc("totalMs", tally.total.get()), Updates.inc("errors", tally.errors.get()),
+                Updates.set("day", day),
+                Updates.set("route", route),
+                Updates.inc("count", tally.count.get()),
+                Updates.inc("totalMs", tally.total.get()),
+                Updates.inc("errors", tally.errors.get()),
                 Updates.max("maxMs", tally.max.get()),
             )
             (0..BUCKETS.size).forEach { i ->

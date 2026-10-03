@@ -4,9 +4,7 @@ import base.exception.BaseException
 
 object AuctionExceptions {
     open class AuctionException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "Auction", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{AuctionException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{AuctionException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funExceptionLevel(errorMethod: String, value: String? = "") = AuctionException("Character level $value is too low for the auction", errorMethod, "AU_002", listOf(value.orEmpty()))

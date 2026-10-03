@@ -9,13 +9,37 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 enum class Orb {
-    ORB_OF_TRANSMUTATION, ORB_OF_AUGMENTATION, ORB_OF_ALTERATION, ORB_OF_ALCHEMY, REGAL_ORB, CHAOS_ORB, EXALTED_ORB, DIVINE_ORB,
-    ORB_OF_ANNULMENT, ORB_OF_SCOURING, BLESSED_ORB, VAAL_ORB, ORB_OF_CHANCE, MIRROR_OF_KALANDRA, FRACTURING_ORB,
-    SHAPERS_ORB, ELDER_ORB, ABYSS_ORB, ORB_OF_REGRET,
-    /** 1.35.0: сфера раскрытия скрытого модификатора; 1.65.0: сфера качества - база, фляга, инструмент, карта, питомец, с катализатором - вид. */
-    UNVEILING_ORB, QUALITY_ORB;
+    ORB_OF_TRANSMUTATION,
+    ORB_OF_AUGMENTATION,
+    ORB_OF_ALTERATION,
+    ORB_OF_ALCHEMY,
+    REGAL_ORB,
+    CHAOS_ORB,
+    EXALTED_ORB,
+    DIVINE_ORB,
+    ORB_OF_ANNULMENT,
+    ORB_OF_SCOURING,
+    BLESSED_ORB,
+    VAAL_ORB,
+    ORB_OF_CHANCE,
+    MIRROR_OF_KALANDRA,
+    FRACTURING_ORB,
+    SHAPERS_ORB,
+    ELDER_ORB,
+    ABYSS_ORB,
+    ORB_OF_REGRET,
 
-    val influence: Influence? get() = when (this) { SHAPERS_ORB -> Influence.SHAPER; ELDER_ORB -> Influence.ELDER; ABYSS_ORB -> Influence.ABYSS; else -> null }
+    /** 1.35.0: сфера раскрытия скрытого модификатора; 1.65.0: сфера качества - база, фляга, инструмент, карта, питомец, с катализатором - вид. */
+    UNVEILING_ORB,
+    QUALITY_ORB,
+    ;
+
+    val influence: Influence? get() = when (this) {
+        SHAPERS_ORB -> Influence.SHAPER
+        ELDER_ORB -> Influence.ELDER
+        ABYSS_ORB -> Influence.ABYSS
+        else -> null
+    }
 
     companion object {
         private val byName = entries.associateBy { it.name }
@@ -26,8 +50,14 @@ enum class Orb {
 /** Витрина торговца: окно, число вещей, разброс уровня, наценка, таблицы товара и весов редкости. */
 @Serializable
 data class MerchantRules(
-    val windowHours: Double = 4.0, val minOffers: Int = 12, val maxOffers: Int = 16, val levelSpread: Int = 2, val markup: Int = 3,
-    val tables: List<String> = listOf("merchant"), val rarities: String = "rarity:merchant", val flasks: List<Int> = listOf(1, 2),
+    val windowHours: Double = 4.0,
+    val minOffers: Int = 12,
+    val maxOffers: Int = 16,
+    val levelSpread: Int = 2,
+    val markup: Int = 3,
+    val tables: List<String> = listOf("merchant"),
+    val rarities: String = "rarity:merchant",
+    val flasks: List<Int> = listOf(1, 2),
     val orbs: OrbShelf = OrbShelf(),
 )
 
@@ -120,8 +150,10 @@ data class StarterRules(
 @Serializable
 data class AuctionRules(
     /** Мест под лоты у каждого героя (1.44.0): поровну и без докупки. */
-    val slots: Int = 12, val minLevel: Int = 1,
-    val buyerFee: Double = 0.0, val lotDays: Int = 30,
+    val slots: Int = 12,
+    val minLevel: Int = 1,
+    val buyerFee: Double = 0.0,
+    val lotDays: Int = 30,
     /** Валюта аукциона (1.65.0): цена лота, покупка и фильтр витрины - только этими базовыми сферами; товаром идёт любой предмет. */
     val currencies: List<Orb> = BASE_CURRENCIES,
     /** Сколько дней сделка видна в истории героя (1.69.0): продажи и покупки. */
@@ -205,12 +237,17 @@ data class BaseVariance(
     }
 
     /** Строки базы шаблона под множителем [scale]: значения округлены до целого, ненулевое не падает ниже единицы. */
-    fun base(template: ItemTemplate, scale: Double): List<Line> =
-        if (scale == 1.0) template.base
-        else template.base.map { line ->
-            if (line.code !in lines) line
-            else line.copy(values = line.values.map { value -> if (value == 0.0) value else Math.round(value * scale).toDouble().coerceAtLeast(1.0) })
+    fun base(template: ItemTemplate, scale: Double): List<Line> = if (scale == 1.0) {
+        template.base
+    } else {
+        template.base.map { line ->
+            if (line.code !in lines) {
+                line
+            } else {
+                line.copy(values = line.values.map { value -> if (value == 0.0) value else Math.round(value * scale).toDouble().coerceAtLeast(1.0) })
+            }
         }
+    }
 
     fun validate() {
         if (min !in 1..max || perLevel < 0 || cap < 0) fail("loot: baseVariance")
@@ -249,15 +286,13 @@ data class LootRules(
     fun obtainable(template: ItemTemplate, heroLevel: Int): Boolean = template.slot != Slot.JEWEL || heroLevel >= jewelHeroLevel
 
     /** Уровень выпавшей копии: зона [level], редкость источника [rarity] и прибавка карты [extra], не выше потолка. */
-    fun itemLevel(level: Int, rarity: MonsterRarity, extra: Int = 0): Int =
-        (level + (itemLevelBonus[rarity] ?: 0) + extra).coerceIn(1, maxItemLevel)
+    fun itemLevel(level: Int, rarity: MonsterRarity, extra: Int = 0): Int = (level + (itemLevelBonus[rarity] ?: 0) + extra).coerceIn(1, maxItemLevel)
 
     /** Уровень копии, созданной не добычей (торговец, ремесло, награда): уровень героя [heroLevel]. */
     fun itemLevel(heroLevel: Int): Int = heroLevel.coerceIn(1, maxItemLevel)
 
     /** Уровень вещи ремесла: уровень героя и доля уровня профессии [craftLevel] из [craftMax]. */
-    fun craftedItemLevel(heroLevel: Int, craftLevel: Int, craftMax: Int): Int =
-        itemLevel(heroLevel + craftItemLevelBonus * craftLevel.coerceIn(0, craftMax) / craftMax.coerceAtLeast(1))
+    fun craftedItemLevel(heroLevel: Int, craftLevel: Int, craftMax: Int): Int = itemLevel(heroLevel + craftItemLevelBonus * craftLevel.coerceIn(0, craftMax) / craftMax.coerceAtLeast(1))
 
     /** Во сколько раз золото на уровне [level] больше, чем на первом: рост со своим спадом или спадом роста монстров [fallback]. */
     fun goldScale(level: Int, fallback: GrowthTaper): Double = Math.pow(goldGrowth, (goldTaper ?: fallback).steps(level))
@@ -288,8 +323,7 @@ data class RunRules(val newSeedSeconds: Int = 30)
  */
 @Serializable
 data class PetRules(val cap: Int = 20, val releaseGold: Map<Rarity, Long> = mapOf(Rarity.COMMON to 20L, Rarity.MAGIC to 60L, Rarity.RARE to 200L)) {
-    fun releasePrice(rarity: Rarity, level: Int, hatchLevel: Int = 1): Long =
-        (releaseGold[rarity] ?: 0L) * (1 + (level - hatchLevel.coerceAtLeast(1)).coerceAtLeast(0))
+    fun releasePrice(rarity: Rarity, level: Int, hatchLevel: Int = 1): Long = (releaseGold[rarity] ?: 0L) * (1 + (level - hatchLevel.coerceAtLeast(1)).coerceAtLeast(0))
 
     /** Цена отпускаемого питомца [pet]: его редкость и уровни, набранные после вылупления. */
     fun releasePrice(pet: Pet): Long = releasePrice(pet.rarity, pet.level, pet.hatchLevel)
@@ -311,16 +345,17 @@ data class ChargeRules(
             listOf(PowerLine("STOCK_ATTACK_SPEED", Op.INCREASED, 2.0), PowerLine("STOCK_CAST_SPEED", Op.INCREASED, 2.0), PowerLine("STOCK_DAMAGE", Op.MORE, 2.0)),
         ),
         ChargeKind.POWER to ChargeRule(
-            "STOCK_MAX_POWER_CHARGES", listOf(PowerLine("STOCK_CRITICAL_CHANCE", Op.INCREASED, 20.0), PowerLine("STOCK_SPELL_CRITICAL_CHANCE", Op.INCREASED, 20.0)),
+            "STOCK_MAX_POWER_CHARGES",
+            listOf(PowerLine("STOCK_CRITICAL_CHANCE", Op.INCREASED, 20.0), PowerLine("STOCK_SPELL_CRITICAL_CHANCE", Op.INCREASED, 20.0)),
         ),
         ChargeKind.ENDURANCE to ChargeRule(
-            "STOCK_MAX_ENDURANCE_CHARGES", listOf(PowerLine("STOCK_PHYSICAL_REDUCTION", Op.ADD, 2.0), PowerLine("STOCK_RESIST_ALL", Op.ADD, 2.0)),
+            "STOCK_MAX_ENDURANCE_CHARGES",
+            listOf(PowerLine("STOCK_PHYSICAL_REDUCTION", Op.ADD, 2.0), PowerLine("STOCK_RESIST_ALL", Op.ADD, 2.0)),
         ),
     ),
 ) {
     /** Сколько зарядов вида [kind] держит герой с листом [sheet]. */
-    fun max(kind: ChargeKind, sheet: Map<String, Double>): Int =
-        kinds[kind]?.let { (maximum + (sheet[it.max] ?: 0.0).toInt()).coerceAtLeast(0) } ?: 0
+    fun max(kind: ChargeKind, sheet: Map<String, Double>): Int = kinds[kind]?.let { (maximum + (sheet[it.max] ?: 0.0).toInt()).coerceAtLeast(0) } ?: 0
 
     /** Срок заряда у героя с листом [sheet], секунды. */
     fun lifetime(sheet: Map<String, Double>): Double = (duration * (1 + (sheet[durationStat] ?: 0.0) / 100)).coerceAtLeast(0.0)
@@ -341,8 +376,17 @@ data class ChargeRule(val max: String, val lines: List<PowerLine>)
 /** Сколько символов принимает каждое поле ввода (1.69.0). */
 @Serializable
 data class InputLimits(
-    val heroName: Int = 24, val login: Int = 32, val password: Int = 64, val search: Int = 40, val server: Int = 200, val code: Int = 64,
-    val number: Int = 12, val report: Int = 2000, val suggestion: Int = 1000, val mailSubject: Int = 80, val mailBody: Int = 2000,
+    val heroName: Int = 24,
+    val login: Int = 32,
+    val password: Int = 64,
+    val search: Int = 40,
+    val server: Int = 200,
+    val code: Int = 64,
+    val number: Int = 12,
+    val report: Int = 2000,
+    val suggestion: Int = 1000,
+    val mailSubject: Int = 80,
+    val mailBody: Int = 2000,
 )
 
 /**
@@ -352,8 +396,12 @@ data class InputLimits(
 @Serializable
 data class EngineRules(
     val rarities: Map<String, RarityLimits> = mapOf(
-        "COMMON" to RarityLimits(), "MAGIC" to RarityLimits(1, 1, listOf(1, 2)), "RARE" to RarityLimits(3, 3, listOf(4, 6)),
-        "RARE:JEWEL" to RarityLimits(2, 2, listOf(3, 4)), "UNIQUE" to RarityLimits(), "MYTHICAL" to RarityLimits(),
+        "COMMON" to RarityLimits(),
+        "MAGIC" to RarityLimits(1, 1, listOf(1, 2)),
+        "RARE" to RarityLimits(3, 3, listOf(4, 6)),
+        "RARE:JEWEL" to RarityLimits(2, 2, listOf(3, 4)),
+        "UNIQUE" to RarityLimits(),
+        "MYTHICAL" to RarityLimits(),
     ),
     val merchant: MerchantRules = MerchantRules(),
     val sell: SellRules = SellRules(),
@@ -382,8 +430,7 @@ data class EngineRules(
     val retired: Map<String, String> = emptyMap(),
 ) {
     /** Места аффиксов редкости на предмете слота: `<редкость>:<слот>` перекрывает `<редкость>`. */
-    fun limits(rarity: Rarity, slot: Slot? = null): RarityLimits =
-        slot?.let { rarities["${rarity.name}:${it.name}"] } ?: rarities[rarity.name] ?: RarityLimits()
+    fun limits(rarity: Rarity, slot: Slot? = null): RarityLimits = slot?.let { rarities["${rarity.name}:${it.name}"] } ?: rarities[rarity.name] ?: RarityLimits()
 
     fun validate() {
         Rarity.entries.forEach { if (it.name !in rarities) fail("rules: rarity ${it.name} without limits") }

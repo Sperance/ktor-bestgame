@@ -4,9 +4,7 @@ import base.exception.BaseException
 
 object QuestExceptions {
     open class QuestException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "Quest", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{QuestException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{QuestException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funExceptionNotFound(errorMethod: String, value: String? = "") = QuestException("Quest $value not found", errorMethod, "QU_001", listOf(value.orEmpty()))

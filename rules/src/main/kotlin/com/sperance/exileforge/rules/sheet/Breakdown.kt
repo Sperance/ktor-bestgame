@@ -27,8 +27,13 @@ fun TreeGraph.sourcedLines(taken: Collection<TakenNode>): List<SourcedLine> = ta
  * источника [perStat], по [each] за каждые [per]. [local] - локальные строки вещи, свёрнутые в эту прибавку.
  */
 data class Share(
-    val source: StatSource?, val op: Op, val value: Double,
-    val perStat: String? = null, val perValue: Double = 0.0, val each: Double = 0.0, val per: Double = 1.0,
+    val source: StatSource?,
+    val op: Op,
+    val value: Double,
+    val perStat: String? = null,
+    val perValue: Double = 0.0,
+    val each: Double = 0.0,
+    val per: Double = 1.0,
     val local: List<StatOperation> = emptyList(),
 )
 
@@ -51,11 +56,11 @@ class StatBreakdown(val stat: String, val percent: Boolean, val base: Double, va
     val flatSum: Double get() = tenths(base + flat.sumOf { it.value })
     val increasedSum: Double get() = tenths(increased.sumOf { it.value })
     val moreFactor: Double get() = more.fold(1.0) { acc, it -> acc * (1 + it.value / 100) }
+
     /** Итог формулы до сдвигов. */
     val formed: Double get() = ModifierMath.apply(base, shares.map { it.op to it.value }, percent)
 
-    fun shifted(extra: List<Shift>): StatBreakdown =
-        if (extra.isEmpty()) this else StatBreakdown(stat, percent, base, shares, shifts + extra, tenths(total + extra.sumOf { it.delta }))
+    fun shifted(extra: List<Shift>): StatBreakdown = if (extra.isEmpty()) this else StatBreakdown(stat, percent, base, shares, shifts + extra, tenths(total + extra.sumOf { it.delta }))
 }
 
 /**

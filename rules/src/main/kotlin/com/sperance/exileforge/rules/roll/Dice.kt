@@ -13,17 +13,22 @@ class Dice(private val random: Random) {
     fun nextDouble(): Double = random.nextDouble()
     fun nextInt(bound: Int): Int = random.nextInt(bound)
     fun nextLong(bound: Long): Long = random.nextLong(bound)
+
     /** Целое от [from] до [until] включительно; вырожденный диапазон - его начало. */
     fun between(from: Int, until: Int): Int = if (until > from) random.nextInt(from, until + 1) else from
     fun between(from: Long, until: Long): Long = if (until > from) random.nextLong(from, until + 1) else from
     fun between(range: List<Int>): Int = between(range[0], range.getOrElse(1) { range[0] })
     fun betweenLong(range: List<Long>): Long = between(range[0], range.getOrElse(1) { range[0] })
+
     /** Доля ролла `[0, 1)`, округлённая до тысячных: столько и хранится на копии. */
     fun share(): Double = floor(random.nextDouble() * 1000) / 1000
+
     /** Событие с шансом [percent] процентов. */
     fun percent(percent: Double): Boolean = random.nextDouble() * 100 < percent
+
     /** Событие с шансом [chance] от 0 до 1. */
     fun chance(chance: Double): Boolean = random.nextDouble() < chance
+
     /** Дробное ожидание целиком: целая часть и остаток шансом. */
     fun times(expected: Double): Int {
         val whole = floor(expected).toInt()

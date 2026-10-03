@@ -14,8 +14,8 @@ import com.sperance.exileforge.rules.content.MAP_TEMPLATE
 import com.sperance.exileforge.rules.content.Profession
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.SkillRules
-import com.sperance.exileforge.rules.content.SmithChoice
 import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.content.SmithChoice
 import com.sperance.exileforge.rules.roll.ActiveWork
 import com.sperance.exileforge.rules.roll.AffixRoller
 import com.sperance.exileforge.rules.roll.AwayStop
@@ -44,11 +44,23 @@ import org.koin.core.component.inject
 /** Работа профессии, как её видит герой: базовые числа и те, что дают его уровень и снаряжение. */
 @Serializable
 data class JobView(
-    val code: String, val level: Int, val seconds: Double, val cycleMillis: Long, val nothing: Double, val output: String, val experience: Double,
-    val extra: List<JobExtra>, val kind: JobKind = JobKind.ITEM, val inputs: List<JobInput> = emptyList(), val band: List<Int> = emptyList(),
-    val region: String = "", val additives: Boolean = false, val open: Boolean = true,
+    val code: String,
+    val level: Int,
+    val seconds: Double,
+    val cycleMillis: Long,
+    val nothing: Double,
+    val output: String,
+    val experience: Double,
+    val extra: List<JobExtra>,
+    val kind: JobKind = JobKind.ITEM,
+    val inputs: List<JobInput> = emptyList(),
+    val band: List<Int> = emptyList(),
+    val region: String = "",
+    val additives: Boolean = false,
+    val open: Boolean = true,
     /** Вариант работы с выбором (1.43.0): что выбрано; у самой работы - пусто, варианты - в [options]. */
-    val choice: String = "", val options: List<JobView> = emptyList(),
+    val choice: String = "",
+    val options: List<JobView> = emptyList(),
 )
 
 /** Профессия героя: уровень, опыт, сколько до следующего, инструмент в её слоте, бонусы и работы. */
@@ -57,16 +69,35 @@ data class ProfessionView(val code: String, val tool: String, val level: Int, va
 
 /** Идущая работа: когда засчитан последний цикл и когда будет следующий (мс эпохи). */
 @Serializable
-data class WorkView(val profession: String, val job: String, val settledAt: Long, val cycleMillis: Long, val nextAt: Long, val additives: List<String> = emptyList(),
-                    val seed: Long = 0, val cycle: Long = 0, val startedAt: Long = 0, val totals: WorkTally = WorkTally(), val choice: String = "")
+data class WorkView(
+    val profession: String,
+    val job: String,
+    val settledAt: Long,
+    val cycleMillis: Long,
+    val nextAt: Long,
+    val additives: List<String> = emptyList(),
+    val seed: Long = 0,
+    val cycle: Long = 0,
+    val startedAt: Long = 0,
+    val totals: WorkTally = WorkTally(),
+    val choice: String = "",
+)
 
 /**
  * Всё о ремёслах героя одним ответом; [gains] - что добыли циклы, досчитанные этим обращением, [away] - последний
  * досчёт за отлучку не короче пяти минут (1.66.0), тот же, что в части `crafts` снимка героя.
  */
 @Serializable
-data class CraftsState(val now: Long, val rules: CraftsRules, val professions: List<ProfessionView>, val work: WorkView?, val gains: WorkGains,
-                       val additives: Map<String, String> = emptyMap(), val maxAdditives: Int = 0, val away: CraftsAway? = null)
+data class CraftsState(
+    val now: Long,
+    val rules: CraftsRules,
+    val professions: List<ProfessionView>,
+    val work: WorkView?,
+    val gains: WorkGains,
+    val additives: Map<String, String> = emptyMap(),
+    val maxAdditives: Int = 0,
+    val away: CraftsAway? = null,
+)
 
 /**
  * Ремёсла героя: работа идёт на сервере по времени и досчитывается при каждом обращении, добыча
@@ -137,15 +168,21 @@ class CraftsService : KoinComponent {
         val since = maxOf(work.settledAt, hero.seenAt)
         val result = Work.settle(file.rules, job, progress, bonus, work.settledAt, now, hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) {
-            if (now - hero.seenAt >= SEEN_STEP) { hero.seenAt = now; heroes.save(hero, method) }
+            if (now - hero.seenAt >= SEEN_STEP) {
+                hero.seenAt = now
+                heroes.save(hero, method)
+            }
             return result.gains
         }
         // Самоцветы - не раньше `loot.jewelHeroLevel`: огранка ниже него ничего не даёт, кузнец тянет другую базу
-        val bases = index.forHero(when (job.kind) {
-            JobKind.EQUIPMENT -> craftBases(job).filter { base -> SmithChoice.of(work.choice)?.fits(base.value) == true }
-            JobKind.JEWEL -> index.templatesBySlot[Slot.JEWEL].orEmpty().filter { !it.unique && it.level in job.band[0]..job.band[1] }.map { Weighted(it, 1) }
-            else -> emptyList()
-        }, hero.level)
+        val bases = index.forHero(
+            when (job.kind) {
+                JobKind.EQUIPMENT -> craftBases(job).filter { base -> SmithChoice.of(work.choice)?.fits(base.value) == true }
+                JobKind.JEWEL -> index.templatesBySlot[Slot.JEWEL].orEmpty().filter { !it.unique && it.level in job.band[0]..job.band[1] }.map { Weighted(it, 1) }
+                else -> emptyList()
+            },
+            hero.level,
+        )
         val zones = if (job.kind == JobKind.MAP) charted(hero, job) else emptyList()
         // Прибавка инструмента к уровню сделанной вещи (1.57.0) - поверх уровня героя, не выше потолка уровня предмета
         val itemLevel = index.rules.loot.craftedItemLevel(hero.level + bonus.itemLevel.toInt().coerceAtLeast(0), result.progress.level, file.rules.maxLevel)
@@ -169,9 +206,11 @@ class CraftsService : KoinComponent {
                 else -> null
             }
             val gained = result.gains.items.mapValues { it.value.toInt() } + made.groupingBy { it.template }.eachCount()
-            hero.craftsAway = CraftsAway(since, now, work.profession, work.job, work.choice, result.gains.cycles,
+            hero.craftsAway = CraftsAway(
+                since, now, work.profession, work.job, work.choice, result.gains.cycles,
                 gained.filterValues { it > 0 }, result.gains.spent.mapValues { it.value.toInt() }.filterValues { it > 0 },
-                result.gains.experience, result.gains.levels, stop)
+                result.gains.experience, result.gains.levels, stop,
+            )
         }
         hero.count(Counter.CRAFT_CYCLES, result.gains.cycles.toLong())
         hero.stats.add(com.sperance.exileforge.rules.content.Stat.JOB, job.code, result.gains.cycles.toLong())
@@ -190,31 +229,40 @@ class CraftsService : KoinComponent {
             val progress = hero.professions[profession.code] ?: ProfessionProgress()
             val tool = equipped.firstOrNull { it.slot == profession.tool }
             val bonus = bonus(sheet, tool).guilded(hero)
-            ProfessionView(profession.code, profession.tool.name, progress.level, progress.experience, Work.toNext(rules, progress.level), tool, bonus,
+            ProfessionView(
+                profession.code,
+                profession.tool.name,
+                progress.level,
+                progress.experience,
+                Work.toNext(rules, progress.level),
+                tool,
+                bonus,
                 profession.jobs.sortedBy { it.level }.map { job ->
                     val options = recipes.options(job, hero.heroClass).map { jobView(it.job, progress.level, bonus, choice = it.choice) }
                     jobView(job, progress.level, bonus, open = if (job.kind == JobKind.MAP) charted(hero, job).isNotEmpty() else !job.kind.chosen || options.isNotEmpty(), options = options)
-                })
+                },
+            )
         }
         val work = hero.work?.let { work ->
             professions.firstOrNull { it.code == work.profession }?.jobs?.firstOrNull { it.code == work.job }
                 ?.let { job -> job.options.firstOrNull { it.choice == work.choice } ?: job }?.let { job ->
-                WorkView(work.profession, work.job, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives, 0, work.cycles, work.startedAt, work.totals, work.choice)
-            }
+                    WorkView(work.profession, work.job, work.settledAt, job.cycleMillis, work.settledAt + job.cycleMillis, work.additives, 0, work.cycles, work.startedAt, work.totals, work.choice)
+                }
         }
         return CraftsState(System.currentTimeMillis(), rules, professions, work, gains, file.crafting.additives, file.crafting.maxAdditives, hero.craftsAway)
     }
 
     private fun jobView(job: Job, level: Int, bonus: WorkBonus, open: Boolean = true, choice: String = "", options: List<JobView> = emptyList()): JobView {
         val rules = file.rules
-        return JobView(job.code, job.level, job.seconds, Work.cycleMillis(rules, job, level, bonus), Work.nothingChance(rules, job, bonus),
+        return JobView(
+            job.code, job.level, job.seconds, Work.cycleMillis(rules, job, level, bonus), Work.nothingChance(rules, job, bonus),
             job.output, job.experience, job.extra.map { it.copy(chance = Work.findChance(rules, it, level, bonus)) },
-            job.kind, job.inputs, job.band, job.region, job.additives, open, choice, options)
+            job.kind, job.inputs, job.band, job.region, job.additives, open, choice, options,
+        )
     }
 
     /** Работа [code] для героя: выбранный вариант [choice] или сама работа без выбора; null - такой нет. */
-    private fun recipe(hero: Hero, code: String, choice: String): Pair<Profession, Job>? =
-        file.jobs[code]?.let { (profession, job) -> recipes.resolve(job, choice, hero.heroClass)?.let { profession to it } }
+    private fun recipe(hero: Hero, code: String, choice: String): Pair<Profession, Job>? = file.jobs[code]?.let { (profession, job) -> recipes.resolve(job, choice, hero.heroClass)?.let { profession to it } }
 
     /** Открытые герою зоны региона картографа. */
     private fun charted(hero: Hero, job: Job): List<String> {
@@ -225,15 +273,23 @@ class CraftsService : KoinComponent {
     }
 
     /** Базы кузнеца в диапазоне уровней работы - один раз на досчёт. */
-    private fun craftBases(job: Job): List<Weighted<ItemTemplate>> =
-        index.templatePool(file.crafting.tables).filter { it.value.requiredLevel in job.band[0]..job.band[1] }
+    private fun craftBases(job: Job): List<Weighted<ItemTemplate>> = index.templatePool(file.crafting.tables).filter { it.value.requiredLevel in job.band[0]..job.band[1] }
 
     /**
      * Вещь кузнеца, карта картографа или фляга алхимика за удачный цикл: база своего диапазона (или с
      * шансом уникалка), редкость по таблице, ручная работа от примесей и ещё одна с шансом.
      */
-    private fun craft(job: Job, additives: List<String>, level: Int, itemLevel: Int, dice: Dice, bases: List<Weighted<ItemTemplate>>, zones: List<String>, heroLevel: Int,
-                      bonus: WorkBonus = WorkBonus()): ItemInstance? {
+    private fun craft(
+        job: Job,
+        additives: List<String>,
+        level: Int,
+        itemLevel: Int,
+        dice: Dice,
+        bases: List<Weighted<ItemTemplate>>,
+        zones: List<String>,
+        heroLevel: Int,
+        bonus: WorkBonus = WorkBonus(),
+    ): ItemInstance? {
         val crafting = file.crafting
         return when (job.kind) {
             JobKind.EQUIPMENT -> {
@@ -250,20 +306,26 @@ class CraftsService : KoinComponent {
                 val item = factory.create(Hero.newItemId(), base, rarity, dice, level = itemLevel)
                 val guaranteed = wanted.filter { affixes.bears(base, it) }.map { it.code }
                 val kind = if (base.slot.isWeapon) "weapon" else "armour"
-                val random = Tables.draw(index.modifierPool(listOf("handcrafted:smith:$kind") + crafting.modifiers)
-                    .filter { it.value.code !in guaranteed && affixes.bears(base, it.value) }, dice)?.code
+                val random = Tables.draw(
+                    index.modifierPool(listOf("handcrafted:smith:$kind") + crafting.modifiers)
+                        .filter { it.value.code !in guaranteed && affixes.bears(base, it.value) },
+                    dice,
+                )?.code
                     ?.takeIf { dice.percent(crafting.handcraftedChance) }
                 val handcrafted = (guaranteed + listOfNotNull(random)).distinct().take(crafting.maxHandcrafted)
                 item.also { it.rolls = it.rolls + handcrafted.mapNotNull { code -> affixes.rollCode(code, itemLevel, dice) } }
             }
+
             JobKind.JEWEL -> {
                 val base = Tables.draw(bases, dice) ?: return null
                 factory.create(Hero.newItemId(), base, bonus.raise(Tables.value<Rarity>(index.tables, crafting.smithRarities, dice) ?: Rarity.MAGIC, dice), dice, level = itemLevel)
             }
+
             JobKind.FLASK -> {
                 val base = index.template(job.output) ?: return null
                 factory.create(Hero.newItemId(), base, bonus.raise(if (dice.percent(crafting.flaskMagicChance)) Rarity.MAGIC else Rarity.COMMON, dice), dice, level = itemLevel)
             }
+
             JobKind.MAP -> {
                 val base = index.template(MAP_TEMPLATE) ?: return null
                 val zone = dice.pickOrNull(zones) ?: return null
@@ -274,6 +336,7 @@ class CraftsService : KoinComponent {
                 val handcrafted = Tables.draw(index.modifierPool(crafting.mapModifiers), dice)?.code?.takeIf { dice.percent(crafting.mapHandcraftedChance) }
                 item.also { it.rolls = it.rolls + listOfNotNull(handcrafted?.let { code -> affixes.rollCode(code, itemLevel, dice) }) }
             }
+
             JobKind.ITEM, JobKind.BOOK, JobKind.CONDENSE, JobKind.REFINE -> null
         }
     }
@@ -283,8 +346,7 @@ class CraftsService : KoinComponent {
     private fun bonus(hero: Hero, profession: Profession): WorkBonus = bonus(index.sheetOf(hero).stats, tool(hero, profession)).guilded(hero)
 
     /** Мастерские древа гильдии (1.74.0): прибавка к скорости труда участника. */
-    private fun WorkBonus.guilded(hero: Hero): WorkBonus =
-        copy(speed = speed + (hero.guild?.bonuses?.get(com.sperance.exileforge.rules.content.GuildEffect.CRAFT_SPEED) ?: 0.0))
+    private fun WorkBonus.guilded(hero: Hero): WorkBonus = copy(speed = speed + (hero.guild?.bonuses?.get(com.sperance.exileforge.rules.content.GuildEffect.CRAFT_SPEED) ?: 0.0))
 
     /** Бонусы труда: ветка дерева из листа героя (инструменты в него не входят) и инструмент своей профессии. */
     private fun bonus(sheet: Map<String, Double>, tool: ItemInstance?): WorkBonus {

@@ -1,7 +1,6 @@
 package features.logic.locale
 
 import com.sperance.exileforge.rules.text.LocaleKey
-
 import kotlinx.serialization.Serializable
 
 /**

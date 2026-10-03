@@ -29,8 +29,10 @@ data class AuctionSearch(
      * с ценой в валюте аукциона; с [items] - только стопки предметов, которые контент знает (снятый код не продаётся).
      */
     fun toFilter(now: Long = System.currentTimeMillis(), currencies: List<String>? = null, items: Collection<String>? = null): Bson {
-        val conditions = mutableListOf<Bson>(Filters.eq("status", LotStatus.ACTIVE.name),
-            Filters.or(Filters.exists("expiresAt", false), Filters.eq("expiresAt", 0L), Filters.gt("expiresAt", now)))
+        val conditions = mutableListOf<Bson>(
+            Filters.eq("status", LotStatus.ACTIVE.name),
+            Filters.or(Filters.exists("expiresAt", false), Filters.eq("expiresAt", 0L), Filters.gt("expiresAt", now)),
+        )
         kind?.let { conditions.add(Filters.eq("kind", it.name)) }
         slot?.let { conditions.add(Filters.eq("slot", it.name)) }
         rarity?.let { conditions.add(Filters.eq("rarity", it.name)) }

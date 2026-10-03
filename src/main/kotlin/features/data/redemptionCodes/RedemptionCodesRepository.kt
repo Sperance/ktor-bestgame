@@ -21,7 +21,9 @@ import kotlinx.datetime.LocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(RedemptionCodes::class), KoinComponent {
+class RedemptionCodesRepository :
+    BaseRepository<RedemptionCodes>(RedemptionCodes::class),
+    KoinComponent {
     private val heroes: HeroRepository by inject()
     private val users: UserRepository by inject()
     private val content: ContentStore by inject()
@@ -72,8 +74,11 @@ class RedemptionCodesRepository : BaseRepository<RedemptionCodes>(RedemptionCode
         treasure.forEach { reward ->
             when (reward.kind) {
                 RedemptionKind.ITEM -> hero.earn(reward.item, reward.amount.toLong())
+
                 RedemptionKind.EXPERIENCE -> Rewards.addExperience(hero, reward.amount, index)
+
                 RedemptionKind.GOLD -> hero.gain(reward.amount.toLong())
+
                 // Самоцвет герою ниже `loot.jewelHeroLevel` не выдаётся - как из любого другого источника
                 RedemptionKind.EQUIPMENT -> index.template(reward.item)?.takeIf { index.rules.loot.obtainable(it, hero.level) }?.let { template ->
                     Stash.receive(hero, List(reward.amount.toInt()) { factory.create(Hero.newItemId(), template, template.rarity, dice, level = index.rules.loot.itemLevel(hero.level)) }, index)

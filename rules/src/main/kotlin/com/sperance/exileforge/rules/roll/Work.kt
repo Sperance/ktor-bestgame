@@ -45,8 +45,15 @@ data class WorkTally(
     val experience: Double = 0.0,
     val levels: Int = 0,
 ) {
-    operator fun plus(gains: WorkGains) = WorkTally(cycles + gains.cycles, nothing + gains.nothing, items.merge(gains.items),
-        spent.merge(gains.spent), made + gains.equipment.size, experience + gains.experience, levels + gains.levels)
+    operator fun plus(gains: WorkGains) = WorkTally(
+        cycles + gains.cycles,
+        nothing + gains.nothing,
+        items.merge(gains.items),
+        spent.merge(gains.spent),
+        made + gains.equipment.size,
+        experience + gains.experience,
+        levels + gains.levels,
+    )
 
     private fun Map<String, Long>.merge(other: Map<String, Long>) = (keys + other.keys).associateWith { (this[it] ?: 0) + (other[it] ?: 0) }
 }
@@ -71,8 +78,7 @@ data class WorkBonus(
     val unique: Double = 0.0,
 ) {
     /** Редкость сделанной вещи с бонусом [rarity]: обычная и волшебная поднимаются на ступень, редкая и выше остаются. */
-    fun raise(rarity: Rarity, dice: Dice): Rarity =
-        if (this.rarity > 0 && rarity < Rarity.RARE && dice.percent(this.rarity)) Rarity.entries[rarity.ordinal + 1] else rarity
+    fun raise(rarity: Rarity, dice: Dice): Rarity = if (this.rarity > 0 && rarity < Rarity.RARE && dice.percent(this.rarity)) Rarity.entries[rarity.ordinal + 1] else rarity
 
     companion object {
         /** Бонусы из листа: характеристики `STOCK_WORK_*`. */
@@ -134,8 +140,7 @@ data class Settlement(val progress: ProfessionProgress, val settledAt: Long, val
 
 /** Правила ремёсел - чистые функции: время и кости приходят снаружи, одинаково на сервере и клиенте. */
 object Work {
-    fun toNext(rules: CraftsRules, level: Int): Double? =
-        if (level >= rules.maxLevel) null else Math.round(rules.experienceBase * level.toDouble().pow(rules.experiencePower)).toDouble()
+    fun toNext(rules: CraftsRules, level: Int): Double? = if (level >= rules.maxLevel) null else Math.round(rules.experienceBase * level.toDouble().pow(rules.experiencePower)).toDouble()
 
     private fun levelShare(rules: CraftsRules, level: Int) = (level - 1).toDouble() / (rules.maxLevel - 1)
 
@@ -147,12 +152,10 @@ object Work {
 
     fun nothingChance(rules: CraftsRules, job: Job, bonus: WorkBonus): Double = job.nothing * (1 - bonus.luck.coerceIn(0.0, rules.luckCap) / 100)
 
-    fun findChance(rules: CraftsRules, extra: JobExtra, level: Int, bonus: WorkBonus): Double =
-        (extra.chance * (1 + rules.levelFind / 100 * levelShare(rules, level)) * (1 + max(0.0, bonus.find) / 100)).coerceAtMost(100.0)
+    fun findChance(rules: CraftsRules, extra: JobExtra, level: Int, bonus: WorkBonus): Double = (extra.chance * (1 + rules.levelFind / 100 * levelShare(rules, level)) * (1 + max(0.0, bonus.find) / 100)).coerceAtMost(100.0)
 
     /** Что уходит за цикл: вход работы и по одной каждой примеси. */
-    fun perCycle(job: Job, additives: List<String>): Map<String, Long> =
-        (job.inputs.map { it.item to it.amount } + additives.map { it to 1L }).groupBy({ it.first }, { it.second }).mapValues { it.value.sum() }
+    fun perCycle(job: Job, additives: List<String>): Map<String, Long> = (job.inputs.map { it.item to it.amount } + additives.map { it to 1L }).groupBy({ it.first }, { it.second }).mapValues { it.value.sum() }
 
     /** Кости цикла [index] работы с зерном [seed]: «ничего», лишняя единица, каждая находка - в этом порядке. */
     fun cycleDice(seed: Long, index: Long): Dice = Dice(Random(seed xor (index * -7046029254386353131L)))
@@ -161,8 +164,18 @@ object Work {
      * Досчёт циклов с [settledAt] до [now], но не дальше `offlineHours` после [settledAt]. Уровень может
      * вырасти на середине; [stock] - сумка, откуда ремесло тратит и встаёт, когда не хватает.
      */
-    fun settle(rules: CraftsRules, job: Job, progress: ProfessionProgress, bonus: WorkBonus, settledAt: Long, now: Long, seed: Long, firstCycle: Long,
-               stock: Map<String, Long> = emptyMap(), additives: List<String> = emptyList()): Settlement {
+    fun settle(
+        rules: CraftsRules,
+        job: Job,
+        progress: ProfessionProgress,
+        bonus: WorkBonus,
+        settledAt: Long,
+        now: Long,
+        seed: Long,
+        firstCycle: Long,
+        stock: Map<String, Long> = emptyMap(),
+        additives: List<String> = emptyList(),
+    ): Settlement {
         val cap = (rules.offlineHours * 3_600_000).toLong()
         val end = minOf(now, settledAt + cap)
         var level = progress.level
@@ -181,17 +194,31 @@ object Work {
         while (true) {
             val cycle = cycleMillis(rules, job, level, bonus)
             if (t + cycle > end) break
-            if (need.any { (item, amount) -> (left[item] ?: 0) < amount }) { starved = true; break }
-            need.forEach { (item, amount) -> left.merge(item, -amount, Long::plus); spent.merge(item, amount, Long::plus) }
+            if (need.any { (item, amount) -> (left[item] ?: 0) < amount }) {
+                starved = true
+                break
+            }
+            need.forEach { (item, amount) ->
+                left.merge(item, -amount, Long::plus)
+                spent.merge(item, amount, Long::plus)
+            }
             t += cycle
             val dice = cycleDice(seed, firstCycle + cycles)
             cycles++
-            if (dice.percent(nothingChance(rules, job, bonus))) { nothing++; continue }
+            if (dice.percent(nothingChance(rules, job, bonus))) {
+                nothing++
+                continue
+            }
             val extraUnits = max(0.0, bonus.yield) / 100
             val whole = floor(extraUnits).toLong()
             // Броски удвоения и возврата (1.34.0) - только при своих бонусах, чтобы прежние циклы катились как прежде.
             val units = (1 + whole + if (dice.chance(extraUnits - whole)) 1 else 0) * if (bonus.double > 0 && dice.percent(bonus.double)) 2 else 1
-            if (bonus.save > 0 && dice.percent(bonus.save)) need.forEach { (item, amount) -> left.merge(item, amount, Long::plus); spent.merge(item, -amount, Long::plus) }
+            if (bonus.save > 0 && dice.percent(bonus.save)) {
+                need.forEach { (item, amount) ->
+                    left.merge(item, amount, Long::plus)
+                    spent.merge(item, -amount, Long::plus)
+                }
+            }
             if (job.kind == JobKind.ITEM) items.merge(job.output, units, Long::plus) else made += units.toInt()
             job.extra.forEach { extra -> if (dice.percent(findChance(rules, extra, level, bonus))) items.merge(extra.item, 1, Long::plus) }
             val xp = job.experience * (1 + max(0.0, bonus.experience) / 100)

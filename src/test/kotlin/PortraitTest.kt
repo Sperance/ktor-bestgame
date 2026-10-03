@@ -22,7 +22,9 @@ class PortraitTest {
 
     private val index = ContentStore.load().index
 
-    init { PortraitCache.initializeCache(index) }
+    init {
+        PortraitCache.initializeCache(index)
+    }
 
     @Test
     fun every_class_and_every_monster_form_has_a_portrait() {

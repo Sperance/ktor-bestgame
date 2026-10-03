@@ -5,7 +5,11 @@ import kotlinx.serialization.Serializable
 /** Редкость монстра: обычный, магический, редкий; `UNIQUE` - только босс. */
 @Serializable
 enum class MonsterRarity {
-    NORMAL, MAGIC, RARE, UNIQUE;
+    NORMAL,
+    MAGIC,
+    RARE,
+    UNIQUE,
+    ;
 
     companion object {
         fun of(name: String): MonsterRarity? = entries.firstOrNull { it.name == name }
@@ -31,11 +35,18 @@ data class RarityRule(
 
 @Serializable
 data class AilmentRule(
-    val ailment: String, val type: String, val chance: Double, val magnitude: Double = 0.0, val duration: Double,
-    val threshold: Double = 0.0, val stacks: Boolean = false, val heroChance: Double? = null,
+    val ailment: String,
+    val type: String,
+    val chance: Double,
+    val magnitude: Double = 0.0,
+    val duration: Double,
+    val threshold: Double = 0.0,
+    val stacks: Boolean = false,
+    val heroChance: Double? = null,
 )
 
 @Serializable data class UnarmedRule(val damage: Double, val speed: Double)
+
 /**
  * Крит (1.56.0): шанс и множитель атак и свои - у заклинаний ([spellChance], [spellMultiplier]; без них - как у атак).
  * [sheetBase] - база листа героя: увеличения шанса и прибавки к множителю ложатся на неё, а не на ноль.
@@ -44,25 +55,33 @@ data class AilmentRule(
  */
 @Serializable
 data class CriticalRule(
-    val chance: Double, val multiplier: Double, val spellChance: Double = chance, val spellMultiplier: Double = multiplier, val damage: Double = 100.0,
+    val chance: Double,
+    val multiplier: Double,
+    val spellChance: Double = chance,
+    val spellMultiplier: Double = multiplier,
+    val damage: Double = 100.0,
 ) {
     /** База каждого бойца: урон крита, на который ложатся его увеличения. */
     val fighterBase: Map<String, Double> get() = mapOf(CoreStat.CRITICAL_DAMAGE.code to damage)
 
     val sheetBase: Map<String, Double> get() = fighterBase + mapOf(
-        CoreStat.CRITICAL_CHANCE.code to chance, CoreStat.CRITICAL_MULTIPLIER.code to multiplier,
-        CoreStat.SPELL_CRITICAL_CHANCE.code to spellChance, CoreStat.SPELL_CRITICAL_MULTIPLIER.code to spellMultiplier,
+        CoreStat.CRITICAL_CHANCE.code to chance,
+        CoreStat.CRITICAL_MULTIPLIER.code to multiplier,
+        CoreStat.SPELL_CRITICAL_CHANCE.code to spellChance,
+        CoreStat.SPELL_CRITICAL_MULTIPLIER.code to spellMultiplier,
     )
 
     /**
      * Множитель крита в процентах с уроном крита: прибавка [multiplier] сверх 100 растёт на [critDamage]/100 -
      * 150% при уроне крита 140 бьют на 170%. Урона крита нет в листе - его база [damage].
      */
-    fun effective(multiplier: Double, critDamage: Double?): Double =
-        100 + (multiplier.coerceAtLeast(100.0) - 100) * (critDamage ?: damage).coerceAtLeast(0.0) / 100
+    fun effective(multiplier: Double, critDamage: Double?): Double = 100 + (multiplier.coerceAtLeast(100.0) - 100) * (critDamage ?: damage).coerceAtLeast(0.0) / 100
 }
+
 @Serializable data class ArmourRule(val factor: Double)
+
 @Serializable data class EvasionRule(val base: Double, val perLevel: Double)
+
 @Serializable data class StunRule(val share: Double, val duration: Double)
 
 /**
@@ -91,11 +110,17 @@ data class BuildupRule(
  */
 @Serializable
 data class BuildupEffect(val duration: Double, val bossDuration: Double, val bonus: Double)
+
 @Serializable data class ShieldRule(val rechargeDelay: Double, val rechargePerSecond: Double)
+
 @Serializable data class RetreatRule(val delay: Double)
+
 @Serializable data class DeathRule(val fromLevel: Int, val experienceShare: Double)
+
 @Serializable data class LoneWolfRule(val dealt: Double = 10.0, val taken: Double = 10.0)
+
 @Serializable data class ManaRule(val regen: Double = 3.0)
+
 @Serializable data class FlaskRule(val perKill: Map<MonsterRarity, Double> = mapOf(MonsterRarity.NORMAL to 1.0, MonsterRarity.MAGIC to 2.0, MonsterRarity.RARE to 3.0, MonsterRarity.UNIQUE to 5.0))
 
 /**
@@ -155,8 +180,7 @@ data class CombatRules(
      * Какая доля перезарядки умения идёт в начале боя: подготовка умения на его уровне (или [opening], если своей нет),
      * укороченная быстрой подготовкой героя [quickness] в пределах [preparationCap].
      */
-    fun preparation(skill: SkillDefinition, level: Int, quickness: Double): Double =
-        (skill.prepare?.at(level) ?: opening).coerceIn(0.0, 100.0) / 100 * (1 - quickness.coerceIn(0.0, preparationCap) / 100)
+    fun preparation(skill: SkillDefinition, level: Int, quickness: Double): Double = (skill.prepare?.at(level) ?: opening).coerceIn(0.0, 100.0) / 100 * (1 - quickness.coerceIn(0.0, preparationCap) / 100)
 }
 
 /**
@@ -181,6 +205,7 @@ data class Monster(
 )
 
 @Serializable data class ServiceRule(val summonPerLevel: Long)
+
 @Serializable data class FountainRule(val count: List<Int> = listOf(0, 2), val heal: Double = 30.0)
 
 /** Карты-предметы: шансы падения, риск за вредные строки; веса редкости - таблица `rarity:map`. */
@@ -198,12 +223,15 @@ data class MapRule(
     val rarityBonus: Map<Rarity, Double> = emptyMap(),
     val rarities: String = "rarity:map",
     /** Уникалка с босса карты (1.19.0): шанс и собственный пул карт. */
-    val uniqueChance: Double = 0.0, val uniqueTables: List<String> = emptyList(),
+    val uniqueChance: Double = 0.0,
+    val uniqueTables: List<String> = emptyList(),
     /**
      * Уникалка Атласа с босса захода по карте-предмету (1.31.0): шанс [atlasUniqueChance] растёт с узлами атласа героя -
      * × (1 + узлы / [atlasUniqueNodes]), то есть вдвое на [atlasUniqueNodes] узлах.
      */
-    val atlasUniqueChance: Double = 0.0, val atlasUniqueTables: List<String> = emptyList(), val atlasUniqueNodes: Double = 100.0,
+    val atlasUniqueChance: Double = 0.0,
+    val atlasUniqueTables: List<String> = emptyList(),
+    val atlasUniqueNodes: Double = 100.0,
     /** Тиры карт (1.41.0): карты верхних зон несут ступень 1..max; нет раздела - тиров нет. */
     val tiers: MapTierRule? = null,
     /** Карты, захваченные влиянием (1.50.0). */
@@ -251,8 +279,12 @@ data class MapInfluenceRule(
  */
 @Serializable
 data class MapTierRule(
-    val fromLevel: Int, val max: Int, val effects: Map<String, Double> = emptyMap(), val climb: Double = 30.0,
-    val uniqueChance: Double = 0.0, val uniqueTables: List<String> = emptyList(),
+    val fromLevel: Int,
+    val max: Int,
+    val effects: Map<String, Double> = emptyMap(),
+    val climb: Double = 30.0,
+    val uniqueChance: Double = 0.0,
+    val uniqueTables: List<String> = emptyList(),
 )
 
 /**
@@ -261,24 +293,36 @@ data class MapTierRule(
  */
 @Serializable
 data class BossRule(
-    val respawnHours: Double, val uniqueChance: Double, val ownUniqueChance: Double, val behaviour: BehaviourRule,
-    val tables: List<String> = emptyList(), val modifiers: List<String> = listOf("boss"), val rolls: List<Int> = listOf(1, 2), val tierReach: Int = 5,
-    val goldShare: Double = 1.0, val orbShare: Double = 1.0,
+    val respawnHours: Double,
+    val uniqueChance: Double,
+    val ownUniqueChance: Double,
+    val behaviour: BehaviourRule,
+    val tables: List<String> = emptyList(),
+    val modifiers: List<String> = listOf("boss"),
+    val rolls: List<Int> = listOf(1, 2),
+    val tierReach: Int = 5,
+    val goldShare: Double = 1.0,
+    val orbShare: Double = 1.0,
     /** Стражи зон ниже [earlyUntil] катают [earlyRolls] строк вместо [rolls] (1.8.0): первые акты - без лотереи модов. */
-    val earlyRolls: List<Int> = rolls, val earlyUntil: Int = 0,
+    val earlyRolls: List<Int> = rolls,
+    val earlyUntil: Int = 0,
     /** Потолок шанса блока стража со всеми строками (1.8.0), ниже общего [CombatRules.blockCap]. */
     val blockCap: Double = 100.0,
     /** Мифическая вещь с босса карты (1.18.0): шанс и таблицы. */
-    val mythicChance: Double = 0.0, val mythicTables: List<String> = emptyList(),
+    val mythicChance: Double = 0.0,
+    val mythicTables: List<String> = emptyList(),
 ) {
     fun rollsAt(level: Int): List<Int> = if (level < earlyUntil) earlyRolls else rolls
 }
 
 @Serializable
 data class CorruptionRule(
-    val chance: Double = 0.0, val uniqueChance: Double = 0.0, val tables: List<String> = emptyList(),
+    val chance: Double = 0.0,
+    val uniqueChance: Double = 0.0,
+    val tables: List<String> = emptyList(),
     /** Мифическая вещь со стража Ваал-зоны (1.18.0). */
-    val mythicChance: Double = 0.0, val mythicTables: List<String> = emptyList(),
+    val mythicChance: Double = 0.0,
+    val mythicTables: List<String> = emptyList(),
 )
 
 /** Ваал-зона: строки из таблицы [pool], лучшего тира уровня карты и в [power] раз сильнее. */
@@ -287,14 +331,23 @@ data class VaalRule(val mods: List<Int> = listOf(3, 8), val power: Double = 1.5,
 
 @Serializable
 data class BehaviourRule(
-    val type: String, val wanderSpeed: Double, val chaseSpeed: Double, val sight: Double,
-    val wanderRadius: Double = 0.0, val wake: Double = 0.0, val giveUp: Double,
+    val type: String,
+    val wanderSpeed: Double,
+    val chaseSpeed: Double,
+    val sight: Double,
+    val wanderRadius: Double = 0.0,
+    val wake: Double = 0.0,
+    val giveUp: Double,
 ) {
-    companion object { val types = setOf("WANDER", "PATROL", "AMBUSH", "SLEEP") }
+    companion object {
+        val types = setOf("WANDER", "PATROL", "AMBUSH", "SLEEP")
+    }
 }
 
 @Serializable data class BehaviourTable(val default: BehaviourRule, val forms: Map<String, BehaviourRule> = emptyMap())
+
 @Serializable data class WorldPoint(val x: Int, val y: Int)
+
 @Serializable data class WorldRule(val width: Int, val height: Int)
 
 /**
@@ -335,6 +388,7 @@ data class Zone(
 )
 
 @Serializable data class ChestRule(val count: List<Int>, val refreshHours: Double, val quantity: Double, val rarityBonus: Double)
+
 @Serializable data class Region(val code: String, val label: WorldPoint, val zones: List<Zone>)
 
 /** Бездна: расщелины, волны и копилки; [orbs] - таблица сфер копилки, [tables]/[uniques]/[modifiers] - таблицы. */
@@ -358,6 +412,7 @@ data class AbyssRule(
 }
 
 @Serializable data class AbyssWave(val count: List<Int>, val level: Int = 0, val magic: Double = 0.0, val rare: Double = 0.0, val leader: String? = null)
+
 @Serializable data class AbyssHoard(val items: List<Int>, val rare: Double = 0.0, val orbs: List<Int>, val unique: Double = 0.0, val experience: Double = 0.0)
 
 /** Файл `campaign.json`: мир, монстры, правила редкостей, боя и всего, что происходит в зоне. */
@@ -477,6 +532,7 @@ data class LootChest(
         const val LEVELS_PER_TIER = 10
         const val MAX_TIER = 10
         fun tierOf(level: Int): Int = ((level.coerceAtLeast(1) - 1) / LEVELS_PER_TIER + 1).coerceAtMost(MAX_TIER)
+
         /** Верхний уровень тира: на нём сундук открывается. */
         fun levelOf(tier: Int): Int = tier * LEVELS_PER_TIER
     }

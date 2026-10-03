@@ -20,11 +20,12 @@ import server.addons.BUG_LIMIT
  * адреса. Сессия, если она есть, узнаётся здесь же: политика доступа этот маршрут не проверяет. Читает коллекцию
  * только администратор (общее чтение закрытой коллекции).
  */
-class BugReportRoute(private val repo: BugReportRepository, private val sessions: AuthSessionRepository) : BaseRoute<BugReport>(
-    repository = repo,
-    entitySerializer = BugReport.serializer(),
-    operations = setOf(Crud.READ),
-) {
+class BugReportRoute(private val repo: BugReportRepository, private val sessions: AuthSessionRepository) :
+    BaseRoute<BugReport>(
+        repository = repo,
+        entitySerializer = BugReport.serializer(),
+        operations = setOf(Crud.READ),
+    ) {
     override fun additionalRoutes(route: Route) = with(route) {
         // Предложения игроков (1.69.0): общий список без авторов, голос, свои отчёты.
         get("/suggestions") { call.respondOk(repo.suggestions(features.data.mail.me())) }

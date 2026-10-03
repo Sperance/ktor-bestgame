@@ -12,8 +12,7 @@ import kotlin.test.assertEquals
 
 /** Прогресс заданий: обнуление условиями, потолок и вклад в гильдию. */
 class QuestProgressTest {
-    private fun quest(vararg conditions: QuestCondition) =
-        Quest("q", QuestKind.DAILY, "KILL", Counter.KILLS, Rarity.RARE, 10, conditions = conditions.toList())
+    private fun quest(vararg conditions: QuestCondition) = Quest("q", QuestKind.DAILY, "KILL", Counter.KILLS, Rarity.RARE, 10, conditions = conditions.toList())
 
     @Test
     fun `kills count anywhere and stop at the target`() {

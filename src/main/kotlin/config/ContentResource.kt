@@ -24,9 +24,8 @@ object ContentResource {
      */
     const val FOLDER = "content"
 
-    fun read(name: String): String =
-        javaClass.classLoader.getResourceAsStream("$FOLDER/$name")
-            ?.bufferedReader()
-            ?.use { it.readText() }
-            ?: throw LocaleExceptions.funExceptionFileNotFound("resource", "$FOLDER/$name")
+    fun read(name: String): String = javaClass.classLoader.getResourceAsStream("$FOLDER/$name")
+        ?.bufferedReader()
+        ?.use { it.readText() }
+        ?: throw LocaleExceptions.funExceptionFileNotFound("resource", "$FOLDER/$name")
 }

@@ -2,24 +2,26 @@ package features.data.user
 
 import CONST_FIELD_ID
 import CONST_FIELD_VERSION
+import application.enums.EnumUserRoles
 import base.exception.model.UserExceptions
 import base.repository.BaseRepository
 import base.repository.IndexSpec
-import application.enums.EnumUserRoles
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.now
-import kotlinx.datetime.LocalDateTime
-import com.mongodb.client.model.Filters
-import com.mongodb.client.model.Updates
 import features.logic.auth.Passwords
 import features.logic.auth.Tokens
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.LocalDateTime
 
 class UserRepository : BaseRepository<User>(User::class) {
     /** Длина логина (1.69.0): то же, что `rules.inputs.login` у клиента. */
-    private companion object { const val MAX_LOGIN = 32 }
+    private companion object {
+        const val MAX_LOGIN = 32
+    }
 
     // Вход по устройству ищет аккаунт по device_id на каждом старте клиента
     // Аккаунт по устройству живёт без почты и логина: уникальны только заполненные значения,
@@ -29,7 +31,6 @@ class UserRepository : BaseRepository<User>(User::class) {
         IndexSpec.uniqueFilled("idx_unique_login_filled", "login"),
         IndexSpec.uniqueFilled("idx_unique_device_filled", "device_id"),
     )
-
 
     override suspend fun validateBeforeInsert(entity: User, session: ClientSession) {
         if (!entity.email.contains("@")) throw UserExceptions.funExceptionInvalidEmail("validateBeforeInsert", entity.email)
@@ -89,16 +90,12 @@ class UserRepository : BaseRepository<User>(User::class) {
     /**
      * @param includeDeleted true - найдётся и мягко удалённый пользователь
      */
-    suspend fun findByEmail(email: String, includeDeleted: Boolean = false): User? {
-        return findByField(User::email, email, includeDeleted)
-    }
+    suspend fun findByEmail(email: String, includeDeleted: Boolean = false): User? = findByField(User::email, email, includeDeleted)
 
     /**
      * @param includeDeleted true - найдётся и мягко удалённый пользователь
      */
-    suspend fun findByLogin(login: String, includeDeleted: Boolean = false): User? {
-        return findByField(User::login, login, includeDeleted)
-    }
+    suspend fun findByLogin(login: String, includeDeleted: Boolean = false): User? = findByField(User::login, login, includeDeleted)
 
     /**
      * Аккаунт устройства (1.46.0): сервер сам выдаёт устройству случайный секрет, в базе - только его хеш.
@@ -127,18 +124,20 @@ class UserRepository : BaseRepository<User>(User::class) {
      * активаций (хоть разными персонажами) проходит одна. Версия растёт, чтобы полная запись
      * по устаревшему чтению не стёрла отметку. Отвечает, была ли отметка новой.
      */
-    suspend fun claimRedemption(userId: String, codeId: String, session: ClientSession): Boolean =
-        collection.updateOne(
-            session,
-            Filters.and(Filters.eq(CONST_FIELD_ID, userId), Filters.ne(User::redeemedCodes.name, codeId)),
-            Updates.combine(Updates.addToSet(User::redeemedCodes.name, codeId), Updates.inc(CONST_FIELD_VERSION, 1L)),
-        ).modifiedCount == 1L
+    suspend fun claimRedemption(userId: String, codeId: String, session: ClientSession): Boolean = collection.updateOne(
+        session,
+        Filters.and(Filters.eq(CONST_FIELD_ID, userId), Filters.ne(User::redeemedCodes.name, codeId)),
+        Updates.combine(Updates.addToSet(User::redeemedCodes.name, codeId), Updates.inc(CONST_FIELD_VERSION, 1L)),
+    ).modifiedCount == 1L
 
     suspend fun authenticate(login: String, password: String): User {
         val found = findByLogin(login)
         // Неизвестный логин проверяется против подставного хеша (1.46.0): по времени ответа не узнать, какие логины есть.
         val user = found?.takeIf { offCpu { Passwords.verify(password, it.password) } }
-            ?: run { if (found == null) offCpu { Passwords.verify(password, Passwords.DECOY) }; null }
+            ?: run {
+                if (found == null) offCpu { Passwords.verify(password, Passwords.DECOY) }
+                null
+            }
             ?: throw UserExceptions.funExceptionPasswordLoginPass("authenticate")
 
         if (!user.isActive) throw UserExceptions.funExceptionInactive("authenticate", user.login)
@@ -165,7 +164,7 @@ class UserRepository : BaseRepository<User>(User::class) {
     private suspend fun storeHash(userId: String, hash: String) {
         collection.updateOne(
             Filters.eq("_id", userId),
-            Updates.combine(Updates.set("password", hash), Updates.inc("version", 1L))
+            Updates.combine(Updates.set("password", hash), Updates.inc("version", 1L)),
         )
     }
 
@@ -190,8 +189,7 @@ class UserRepository : BaseRepository<User>(User::class) {
 
     // ==================== Тестировщики (1.69.0) ====================
 
-    suspend fun testers(): List<TesterAccount> =
-        findByFilter(Filters.eq("role", EnumUserRoles.TESTER.name)).sortedBy { it.login }.map { it.toTester() }
+    suspend fun testers(): List<TesterAccount> = findByFilter(Filters.eq("role", EnumUserRoles.TESTER.name)).sortedBy { it.login }.map { it.toTester() }
 
     /** Новый тестировщик с логином [login] и случайным паролем: пароль в ответе один раз, в базе - только хеш. */
     suspend fun createTester(login: String): TesterAccount {
@@ -218,8 +216,7 @@ class UserRepository : BaseRepository<User>(User::class) {
         return user.toTester()
     }
 
-    private suspend fun requireTester(id: String, method: String): User =
-        findById(id)?.takeIf { it.role == EnumUserRoles.TESTER } ?: throw UserExceptions.funExceptionFoundUserId(method, id)
+    private suspend fun requireTester(id: String, method: String): User = findById(id)?.takeIf { it.role == EnumUserRoles.TESTER } ?: throw UserExceptions.funExceptionFoundUserId(method, id)
 
     private fun User.toTester(password: String? = null) = TesterAccount(_id, login, isActive, lastLoginDate?.toString(), password)
 }

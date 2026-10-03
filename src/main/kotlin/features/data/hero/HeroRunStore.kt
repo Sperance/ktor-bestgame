@@ -39,8 +39,16 @@ object HeroRunStore {
         val stored = collection.find(Filters.eq("_id", hero._id)).firstOrNull()?.run
         val legacy = hero.campaign.run
         when {
-            stored != null -> { hero.campaign.run = stored; hero.runPrint = print(stored) }
-            legacy != null -> { hero.runPrint = MIGRATE; hero.loaded = hero.loaded?.minus("campaign") }
+            stored != null -> {
+                hero.campaign.run = stored
+                hero.runPrint = print(stored)
+            }
+
+            legacy != null -> {
+                hero.runPrint = MIGRATE
+                hero.loaded = hero.loaded?.minus("campaign")
+            }
+
             else -> hero.runPrint = print(null)
         }
         return hero
@@ -52,8 +60,11 @@ object HeroRunStore {
     /** Пишет заход героя в транзакции [session]: закрытый удаляется. */
     suspend fun write(hero: Hero, session: ClientSession) {
         val run = hero.campaign.run
-        if (run == null) collection.deleteOne(session, Filters.eq("_id", hero._id))
-        else collection.replaceOne(session, Filters.eq("_id", hero._id), HeroRun(hero._id, run), ReplaceOptions().upsert(true))
+        if (run == null) {
+            collection.deleteOne(session, Filters.eq("_id", hero._id))
+        } else {
+            collection.replaceOne(session, Filters.eq("_id", hero._id), HeroRun(hero._id, run), ReplaceOptions().upsert(true))
+        }
         val print = print(run)
         config.afterCommit { hero.runPrint = print }
     }

@@ -2,10 +2,10 @@ package server.addons
 
 import API_REVISION
 import SERVER_VERSION
-import com.sperance.exileforge.rules.content.RULES_VERSION
 import base.exception.ApplicationExceptions
 import base.route.ApiMongoResponse
 import base.route.RouteRegistry
+import com.sperance.exileforge.rules.content.RULES_VERSION
 import config.ContentManifest
 import config.ContentStore
 import config.MongoFactory
@@ -24,8 +24,8 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.openapi.OpenApiInfo
-import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.Application
+import io.ktor.server.application.ApplicationCall
 import io.ktor.server.plugins.openapi.openAPI
 import io.ktor.server.response.header
 import io.ktor.server.response.respond
@@ -77,8 +77,11 @@ fun Application.configureRouting() {
                 val section = call.parameters["section"].orEmpty()
                 val code = call.parameters["file"].orEmpty().removeSuffix(".svg")
                 val body = PortraitCache.document(section, code)
-                if (body == null) call.respond(HttpStatusCode.NotFound)
-                else call.respondText(body, ContentType.Image.SVG)
+                if (body == null) {
+                    call.respond(HttpStatusCode.NotFound)
+                } else {
+                    call.respondText(body, ContentType.Image.SVG)
+                }
             }
         }
 
@@ -94,8 +97,16 @@ fun Application.configureRouting() {
         // 0.48.0: один манифест на старт - маршруты, словари, иконки, портреты и контент.
         route("/static") {
             get("/index.json") {
-                val manifest = StaticManifest(SERVER_VERSION, API_REVISION, ALL_ROUTES.sortedBy { it.path }, LocaleCache.manifest(),
-                    IconCache.manifest(), PortraitCache.manifest(), content.manifest, RULES_VERSION)
+                val manifest = StaticManifest(
+                    SERVER_VERSION,
+                    API_REVISION,
+                    ALL_ROUTES.sortedBy { it.path },
+                    LocaleCache.manifest(),
+                    IconCache.manifest(),
+                    PortraitCache.manifest(),
+                    content.manifest,
+                    RULES_VERSION,
+                )
                 call.respondText(Json.encodeToString(StaticManifest.serializer(), manifest), ContentType.Application.Json)
             }
         }
@@ -114,11 +125,15 @@ fun Application.configureRouting() {
                 try {
                     val ping = MongoFactory.getDatabase().runCommand(Document("ping", 1))
                     if (ping.getDouble("ok") == 1.0) {
-                        call.respond(ApiMongoResponse.ok(mapOf(
-                            "status" to "ok",
-                            "database" to "connected",
-                            "timestamp" to System.currentTimeMillis()
-                        ).toString()))
+                        call.respond(
+                            ApiMongoResponse.ok(
+                                mapOf(
+                                    "status" to "ok",
+                                    "database" to "connected",
+                                    "timestamp" to System.currentTimeMillis(),
+                                ).toString(),
+                            ),
+                        )
                     } else {
                         call.respond(HttpStatusCode.ServiceUnavailable, ApiMongoResponse.error(ApplicationExceptions.funExceptionDisconnected("/health")))
                     }
@@ -166,5 +181,7 @@ private suspend fun ApplicationCall.respondStatic(hash: String, text: () -> Stri
     if (request.headers[HttpHeaders.AcceptEncoding]?.contains("gzip") == true) {
         response.header(HttpHeaders.ContentEncoding, "gzip")
         respondBytes(gzip(), ContentType.Application.Json)
-    } else respondText(text(), ContentType.Application.Json)
+    } else {
+        respondText(text(), ContentType.Application.Json)
+    }
 }

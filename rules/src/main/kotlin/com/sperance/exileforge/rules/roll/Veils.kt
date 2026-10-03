@@ -72,8 +72,7 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
     }
 
     /** Гибриды стороны: у инструмента (1.65.0) - свои, строк труда (`veiled:tool:<сторона>`). */
-    private fun table(template: ItemTemplate, side: Source): String =
-        listOfNotNull(TABLE, template.slot.tag.takeIf { template.slot.isTool }, side.name.lowercase()).joinToString(":")
+    private fun table(template: ItemTemplate, side: Source): String = listOfNotNull(TABLE, template.slot.tag.takeIf { template.slot.isTool }, side.name.lowercase()).joinToString(":")
 
     private fun fits(option: Roll, taken: Set<String>): Boolean = affixes.definition(option)?.let { affixes.fits(it, taken) } == true
 
@@ -81,6 +80,7 @@ class Veils(private val index: ContentIndex, private val affixes: AffixRoller = 
         const val PREFIX = "VEILED_PREFIX"
         const val SUFFIX = "VEILED_SUFFIX"
         const val TABLE = "veiled"
+
         /** Стат строки монстра, чья добыча несёт скрытый аффикс. */
         const val LOOT = "STOCK_VEILED_LOOT"
     }

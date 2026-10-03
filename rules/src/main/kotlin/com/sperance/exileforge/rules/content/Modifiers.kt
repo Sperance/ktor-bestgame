@@ -15,11 +15,24 @@ enum class Op { ADD, INCREASED, MORE, SET }
  */
 @Serializable
 enum class Source {
-    IMPLICIT, PREFIX, SUFFIX, UNIQUE, CORRUPTION, PASSIVE, HANDCRAFTED, ALCHEMY, MONSTER, ESSENCE,
+    IMPLICIT,
+    PREFIX,
+    SUFFIX,
+    UNIQUE,
+    CORRUPTION,
+    PASSIVE,
+    HANDCRAFTED,
+    ALCHEMY,
+    MONSTER,
+    ESSENCE,
+
     /** Прибавка узла атласа: значения фиксирует узел, тиров нет. */
     ATLAS,
+
     /** Строка редкости монстра или базы класса: значения фиксированы носителем. */
-    RULE;
+    RULE,
+
+    ;
 
     val affix: Boolean get() = this == PREFIX || this == SUFFIX
 
@@ -33,7 +46,12 @@ enum class Source {
  */
 @Serializable
 enum class VariantKind(val suffix: String?) {
-    NATURAL(null), LOCAL("LOCAL"), CRAFTED("CRAFTED"), IMPLICIT("IMPLICIT"), CORRUPTED("CORRUPTED");
+    NATURAL(null),
+    LOCAL("LOCAL"),
+    CRAFTED("CRAFTED"),
+    IMPLICIT("IMPLICIT"),
+    CORRUPTED("CORRUPTED"),
+    ;
 
     companion object {
         const val SEPARATOR = "@"
@@ -50,10 +68,24 @@ enum class VariantKind(val suffix: String?) {
  */
 @Serializable
 enum class Condition(val target: Boolean = false) {
-    LOW_LIFE, FULL_LIFE, FULL_SHIELD,
-    RECENT_KILL, RECENT_HIT_TAKEN, RECENT_BLOCK, RECENT_CRIT,
-    ONSLAUGHT, FORTIFIED, FRENZY_CHARGE, POWER_CHARGE, ENDURANCE_CHARGE, FLASK_ACTIVE, PET_ALIVE,
-    VS_RARE(true), VS_UNIQUE(true), VS_FULL_LIFE(true);
+    LOW_LIFE,
+    FULL_LIFE,
+    FULL_SHIELD,
+    RECENT_KILL,
+    RECENT_HIT_TAKEN,
+    RECENT_BLOCK,
+    RECENT_CRIT,
+    ONSLAUGHT,
+    FORTIFIED,
+    FRENZY_CHARGE,
+    POWER_CHARGE,
+    ENDURANCE_CHARGE,
+    FLASK_ACTIVE,
+    PET_ALIVE,
+    VS_RARE(true),
+    VS_UNIQUE(true),
+    VS_FULL_LIFE(true),
+    ;
 
     companion object {
         /** Сколько секунд событие считается «недавним». */
@@ -136,8 +168,7 @@ data class TierGrid(
         else -> null
     }
 
-    private fun round(value: Double, precision: Int): Double =
-        BigDecimal.valueOf(value).setScale(precision, RoundingMode.HALF_EVEN).toDouble()
+    private fun round(value: Double, precision: Int): Double = BigDecimal.valueOf(value).setScale(precision, RoundingMode.HALF_EVEN).toDouble()
 }
 
 /** Вершина сетки (1.40.0): уровень, с которого открыта, и диапазон на каждый эффект. */
@@ -200,18 +231,30 @@ data class ModifierFamily(
 
     fun problem(): String? = when {
         code.isBlank() -> "blank family code"
+
         code.contains(VariantKind.SEPARATOR) -> "$code: a family code carries no variant separator"
+
         effects.isEmpty() -> "$code: no effects"
+
         grid == null && tiers.isEmpty() && source.tiered -> "$code: no tiers"
+
         source == Source.MONSTER && minRarity == null -> "$code: a monster modifier needs minRarity"
+
         source != Source.MONSTER && minRarity != null -> "$code: minRarity on a non-monster modifier"
+
         variants.map { it.kind }.let { it.toSet().size != it.size || VariantKind.NATURAL in it } -> "$code: variants"
+
         variants.any { (it.kind == VariantKind.LOCAL || it.kind == VariantKind.CRAFTED) && !source.affix } -> "$code: a local or crafted variant of a non-affix"
+
         effects.any { e -> e.condition?.target == true && (e.stat != Condition.TARGET_STAT || e.op != Op.INCREASED || e.perStat != null) } ->
             "$code: a target condition takes only increased ${Condition.TARGET_STAT}"
+
         effects.any { it.condition != null && (local || it.perStat != null) } -> "$code: a conditional effect is neither local nor a conversion"
-        else -> (listOfNotNull(grid?.problem(effects.size)) + ownTiers().mapNotNull { it.problem(effects.size) } +
-            variants.flatMap { v -> listOfNotNull(v.grid?.problem(effects.size)) + v.tiers.mapNotNull { it.problem(effects.size) } })
+
+        else -> (
+            listOfNotNull(grid?.problem(effects.size)) + ownTiers().mapNotNull { it.problem(effects.size) } +
+                variants.flatMap { v -> listOfNotNull(v.grid?.problem(effects.size)) + v.tiers.mapNotNull { it.problem(effects.size) } }
+            )
             .firstOrNull()?.let { "$code: $it" }
     }
 }
@@ -243,6 +286,7 @@ data class ModifierDef(
     /** Группа исключения: два описания одной группы на одном носителе не встают. */
     val groupKey: String get() = group ?: family
     val affix: Boolean get() = source.affix
+
     /** Скрытый гибрид (тег [VEILED]): его группы исключения шире своей - см. [ContentIndex.groups]. */
     val veiled: Boolean get() = VEILED in tags
     val monster: Boolean get() = source == Source.MONSTER
@@ -289,7 +333,10 @@ class TierLadder(tiers: List<Tier>) {
     private val levels = IntArray(byLevel.size) { byLevel[it].second.level }
     private val cumulative = LongArray(byLevel.size).also { sums ->
         var total = 0L
-        byLevel.forEachIndexed { index, (number, tier) -> total += (tier.weight.takeIf { it > 0 } ?: number).toLong(); sums[index] = total }
+        byLevel.forEachIndexed { index, (number, tier) ->
+            total += (tier.weight.takeIf { it > 0 } ?: number).toLong()
+            sums[index] = total
+        }
     }
 
     /** Открытых тиров на уровне [level]: первая позиция с порогом выше уровня. */

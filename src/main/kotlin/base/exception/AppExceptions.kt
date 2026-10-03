@@ -19,7 +19,7 @@ open class BaseException(
     val errorClass: String,
     val errorMethod: String?,
     val errorCode: String,
-    val messageArgs: List<String> = emptyList()
+    val messageArgs: List<String> = emptyList(),
 ) : RuntimeException(message) {
     /**
      * Отказ временный: сбой базы, гонка версий - тот же запрос чуть позже может пройти. Такой отказ

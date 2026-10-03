@@ -33,10 +33,12 @@ object QuestCounter {
     const val ZONES = Counter.ZONES
     const val ATLAS = Counter.ATLAS
     const val TREE = Counter.TREE
+
     /** Шаг сюжета «пройти зону»: 1, если зона в пройденных. */
     const val CLEAR = "CLEAR"
 
     val DERIVED = setOf(LEVEL, ZONES, ATLAS, TREE, CLEAR)
+
     /** Счётчики боя: только их ограничивают зоны и условия. */
     val COMBAT = setOf(Counter.KILLS, Counter.KILLS_MAGIC, Counter.KILLS_RARE, Counter.BOSSES, Counter.CHESTS, Counter.CRYSTALS, Counter.RUNS)
 }
@@ -267,7 +269,9 @@ data class QuestLog(
 ) {
     /** Личные задания, которые идут прямо сейчас: ежедневные, недельные, контракты, шаг сюжета (листки доски - нет). */
     fun personal(): Sequence<Quest> = sequence {
-        yieldAll(daily); yieldAll(weekly); yieldAll(contracts)
+        yieldAll(daily)
+        yieldAll(weekly)
+        yieldAll(contracts)
         story?.let { yield(it) }
     }
 
@@ -405,13 +409,19 @@ object QuestProgress {
             else -> current.copy(id = guildId, day = day, week = week, dayCounts = mutableMapOf(), weekCounts = mutableMapOf())
         }
         log.guild = guild
-        if (guild.day != day) { guild.day = day; guild.dayCounts = mutableMapOf() }
-        if (guild.week != week) { guild.week = week; guild.weekCounts = mutableMapOf() }
+        if (guild.day != day) {
+            guild.day = day
+            guild.dayCounts = mutableMapOf()
+        }
+        if (guild.week != week) {
+            guild.week = week
+            guild.weekCounts = mutableMapOf()
+        }
         return guild
     }
 
     /** Выводимые счётчики, которые меряются рекордом героя (1.30.0): откат узлов их не опускает. */
+
     /** Значение выводимой цели по летописи героя [chronicle]; шаг сюжета [QuestCounter.CLEAR] - пройдена ли зона [zone]. */
-    fun derived(counter: String, chronicle: Map<String, Long>, cleared: Collection<String>, zone: String): Long =
-        if (counter == QuestCounter.CLEAR) (if (zone in cleared) 1 else 0) else chronicle[counter] ?: 0L
+    fun derived(counter: String, chronicle: Map<String, Long>, cleared: Collection<String>, zone: String): Long = if (counter == QuestCounter.CLEAR) (if (zone in cleared) 1 else 0) else chronicle[counter] ?: 0L
 }

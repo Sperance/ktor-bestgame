@@ -31,6 +31,7 @@ object IdempotentReplyStore : ReplyStore {
     private const val STALE_MS = 2 * 60_000L
     private const val PENDING = "pending"
     private const val DONE = "done"
+
     /** Метка [ReplyStore.commit]: изменение команды закоммичено вместе с ней. */
     private const val COMMITTED = "committed"
 
@@ -41,8 +42,10 @@ object IdempotentReplyStore : ReplyStore {
     /** Индекс срока жизни - при старте, до первой транзакции, как индексы репозиториев. */
     suspend fun ensureIndexes() {
         runCatching {
-            collection.createIndex(Indexes.ascending("createdAt"),
-                IndexOptions().name("idx_ttl_created").expireAfter(Idempotency.TTL_HOURS, TimeUnit.HOURS))
+            collection.createIndex(
+                Indexes.ascending("createdAt"),
+                IndexOptions().name("idx_ttl_created").expireAfter(Idempotency.TTL_HOURS, TimeUnit.HOURS),
+            )
         }
     }
 
@@ -50,8 +53,10 @@ object IdempotentReplyStore : ReplyStore {
         val id = id(account, key)
         repeat(2) {
             try {
-                collection.insertOne(Document("_id", id).append("account", account).append("key", key)
-                    .append("request", request).append("state", PENDING).append("createdAt", Date()))
+                collection.insertOne(
+                    Document("_id", id).append("account", account).append("key", key)
+                        .append("request", request).append("state", PENDING).append("createdAt", Date()),
+                )
                 return Claim.Taken
             } catch (e: MongoWriteException) {
                 if (e.code != DUPLICATE_KEY) throw e
@@ -59,8 +64,9 @@ object IdempotentReplyStore : ReplyStore {
             val found = collection.find(Filters.eq("_id", id)).firstOrNull() ?: return@repeat
             // Ответы до привязки к запросу отпечатка не несут - им верим
             if (found.getString("request")?.let { it != request } == true) return Claim.Mismatch
-            if (found.getString("state") == DONE) return Claim.Done(
-                StoredReply(found.getInteger("status"), found.getString("contentType"), found.get("body", Binary::class.java)?.data))
+            if (found.getString("state") == DONE) {
+                return Claim.Done(StoredReply(found.getInteger("status"), found.getString("contentType"), found.get("body", Binary::class.java)?.data))
+            }
             // Изменение команды закоммичено, а ответ не записан: выполнять снова нельзя - повтор без тела
             if (found.getBoolean(COMMITTED, false)) return Claim.Done(StoredReply(200, null, null))
             val since = found.getDate("createdAt") ?: Date(0)
@@ -77,12 +83,15 @@ object IdempotentReplyStore : ReplyStore {
     }
 
     override suspend fun complete(account: String, key: String, reply: StoredReply) {
-        collection.updateOne(Filters.eq("_id", id(account, key)), Updates.combine(
-            Updates.set("state", DONE),
-            Updates.set("status", reply.status),
-            Updates.set("contentType", reply.contentType),
-            reply.body?.let { Updates.set("body", Binary(it)) } ?: Updates.unset("body"),
-        ))
+        collection.updateOne(
+            Filters.eq("_id", id(account, key)),
+            Updates.combine(
+                Updates.set("state", DONE),
+                Updates.set("status", reply.status),
+                Updates.set("contentType", reply.contentType),
+                reply.body?.let { Updates.set("body", Binary(it)) } ?: Updates.unset("body"),
+            ),
+        )
     }
 
     /** Исполненную команду не освобождает: её повтор должен получить ответ, а не выполниться снова. */

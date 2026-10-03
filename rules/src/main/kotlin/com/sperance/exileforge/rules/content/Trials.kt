@@ -1,8 +1,8 @@
 package com.sperance.exileforge.rules.content
 
-import com.sperance.exileforge.rules.run.RunContext
 import com.sperance.exileforge.rules.fail
 import com.sperance.exileforge.rules.roll.Streams
+import com.sperance.exileforge.rules.run.RunContext
 import kotlinx.serialization.Serializable
 
 /** Строка этажа башни (1.47.0): строка карты [stat] действием [op] на [value] - монстрам или герою, как на карте. */
@@ -53,8 +53,7 @@ data class TowerRule(
     fun power(floor: Int): Double = growth * (floor - 1).coerceAtLeast(0)
 
     /** Строки этажа: по одной на каждый пройденный десяток, выбранные его номером. */
-    fun mods(floor: Int): List<TowerMod> =
-        if (mods.isEmpty()) emptyList() else (1..floor / modEvery).map { Streams(MOD_SEED).of("towerMod", it).pick(mods) }
+    fun mods(floor: Int): List<TowerMod> = if (mods.isEmpty()) emptyList() else (1..floor / modEvery).map { Streams(MOD_SEED).of("towerMod", it).pick(mods) }
 
     fun hoard(floor: Int): Boolean = floor > 0 && floor % hoardEvery == 0
 
@@ -68,14 +67,22 @@ data class TowerRule(
     fun floor(abyss: AbyssRule, heroLevel: Int, floor: Int): TowerFloor {
         val leaders = abyss.leaders
         val leader = if (hoard(floor) && leaders.isNotEmpty()) leaders[(floor / hoardEvery - 1) % leaders.size] else null
-        return TowerFloor(floor, level(heroLevel, floor), abyss.waves[(floor - 1).coerceIn(0, abyss.waves.lastIndex)].copy(leader = leader),
-            power(floor), mods(floor), hoard(floor))
+        return TowerFloor(
+            floor,
+            level(heroLevel, floor),
+            abyss.waves[(floor - 1).coerceIn(0, abyss.waves.lastIndex)].copy(leader = leader),
+            power(floor),
+            mods(floor),
+            hoard(floor),
+        )
     }
 
     /** Глубина Бездны, чей клад лежит на этаже [floor]. */
     fun hoardDepth(abyss: AbyssRule, floor: Int): Int = (floor / hoardEvery).coerceIn(1, abyss.hoard.size)
 
-    private companion object { const val MOD_SEED = 0x546F776572L }
+    private companion object {
+        const val MOD_SEED = 0x546F776572L
+    }
 }
 
 /** Этаж башни: номер, уровень монстров, волна (с лидером на этаже клада), «больше» здоровья и урона, строки этажа и есть ли клад. */
@@ -103,6 +110,7 @@ data class TrialRules(
 
     companion object {
         const val CREST = "CREST_FRAGMENT"
+
         /** Ключ раша (1.48.0): собирается из фрагментов герба, открывает раш любого зачищенного региона. */
         const val KEY = "RUSH_KEY"
         const val SEAL = "TOWER_SEAL"
@@ -160,9 +168,14 @@ class RushPlan(val region: Region) {
 
 /** События журнала испытания: босс раша пал, этаж башни пройден, испытание кончилось - гибелью ([TrialEvent.fallen]) или уходом. */
 @Serializable
-enum class TrialEventKind { BOSS, FLOOR, END,
+enum class TrialEventKind {
+    BOSS,
+    FLOOR,
+    END,
+
     /** Бой окончен (1.49.0): итог [TrialEvent.fight] - только в статистику героя. */
-    FIGHT }
+    FIGHT,
+}
 
 /** Событие испытания [n]: [index] - номер босса раша или этаж башни. */
 @Serializable

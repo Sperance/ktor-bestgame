@@ -44,7 +44,12 @@ class IdempotencyTest {
         var runs = 0
         application {
             installIdempotency(MemoryStore()) { "account" }
-            routing { post("/command") { runs++; call.respondText("run $runs") } }
+            routing {
+                post("/command") {
+                    runs++
+                    call.respondText("run $runs")
+                }
+            }
         }
         val first = client.post("/command") { header(Idempotency.HEADER, "key-00000001") }
         val second = client.post("/command") { header(Idempotency.HEADER, "key-00000001") }

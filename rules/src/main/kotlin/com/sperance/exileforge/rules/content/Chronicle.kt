@@ -19,9 +19,11 @@ object Counter {
     const val RUNS = "RUNS"
     const val CHESTS = "CHESTS"
     const val CRYSTALS = "CRYSTALS"
+
     /** Испытания (1.47.0): рекорд этажа башни и зачистки регионов в раше. */
     const val TOWER_FLOOR = "TOWER_FLOOR"
     const val RUSH_CLEARS = "RUSH_CLEARS"
+
     /** 1.49.0: боссы раша, клады башни, вошедшие испытания, боссы карт, Ваал-зоны; найденные сферы, эссенции, карты, мифические. */
     const val RUSH_BOSSES = "RUSH_BOSSES"
     const val TOWER_HOARDS = "TOWER_HOARDS"
@@ -48,6 +50,7 @@ object Counter {
     const val LEVEL = "LEVEL"
     const val ZONES = "ZONES"
     const val ATLAS = "ATLAS"
+
     /** Взятые узлы дерева: выводимый, в летописи не показывается - только цель заданий. */
     const val TREE = "TREE"
 
@@ -68,15 +71,13 @@ object Counter {
     val ALL: Set<String> = SECTIONS.values.flatten().toSet() + DERIVED
 
     /** Нынешние значения выводимых счётчиков по состоянию героя. */
-    fun derived(level: Int, zones: Int, atlas: Int, tree: Int): Map<String, Long> =
-        mapOf(LEVEL to level.toLong(), ZONES to zones.toLong(), ATLAS to atlas.toLong(), TREE to tree.toLong())
+    fun derived(level: Int, zones: Int, atlas: Int, tree: Int): Map<String, Long> = mapOf(LEVEL to level.toLong(), ZONES to zones.toLong(), ATLAS to atlas.toLong(), TREE to tree.toLong())
 
     /** Вписывает нынешние [derived] в [counters] рекордом. */
     fun record(counters: MutableMap<String, Long>, derived: Map<String, Long>) = derived.forEach { (counter, value) -> add(counters, counter, value) }
 
     /** Летопись целиком: хранимые счётчики, выводимые - наибольшее из рекорда и нынешнего значения. */
-    fun values(counters: Map<String, Long>, derived: Map<String, Long>): Map<String, Long> =
-        counters + derived.mapValues { (counter, value) -> maxOf(value, counters[counter] ?: 0L) }
+    fun values(counters: Map<String, Long>, derived: Map<String, Long>): Map<String, Long> = counters + derived.mapValues { (counter, value) -> maxOf(value, counters[counter] ?: 0L) }
 
     /** Прибавить к счётчику в [counters]: сумма или рекорд - как велит его вид. */
     fun add(counters: MutableMap<String, Long>, counter: String, amount: Long = 1) {
@@ -103,8 +104,7 @@ data class AchievementsFile(val achievements: List<Achievement> = emptyList()) {
     val byCode: Map<String, Achievement> by lazy { achievements.associateBy { it.code } }
 
     /** Титулы, что открыли значения [values]: золото или единственная ступень достижения. */
-    fun titles(values: Map<String, Long>): List<String> =
-        achievements.filter { it.title.isNotBlank() && it.complete(values[it.counter] ?: 0L) }.map { it.title }
+    fun titles(values: Map<String, Long>): List<String> = achievements.filter { it.title.isNotBlank() && it.complete(values[it.counter] ?: 0L) }.map { it.title }
 
     fun validate() {
         if (byCode.size != achievements.size) fail("achievements: duplicate codes")

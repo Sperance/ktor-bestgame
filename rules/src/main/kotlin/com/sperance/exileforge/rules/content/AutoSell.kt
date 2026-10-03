@@ -6,7 +6,13 @@ import kotlinx.serialization.Serializable
 /** Группа слотов фильтра добычи: так игрок и думает о вещах - оружие, броня, бижутерия, фляги, самоцветы, карты. */
 @Serializable
 enum class SlotGroup {
-    WEAPON, ARMOUR, JEWELLERY, FLASK, JEWEL, MAP;
+    WEAPON,
+    ARMOUR,
+    JEWELLERY,
+    FLASK,
+    JEWEL,
+    MAP,
+    ;
 
     companion object {
         fun of(slot: Slot): SlotGroup? = when {
@@ -29,9 +35,8 @@ enum class SlotGroup {
 @Serializable
 data class AutoSell(val sell: Map<Rarity, Set<SlotGroup>> = emptyMap()) {
 
-    fun sells(template: ItemTemplate, item: ItemInstance): Boolean =
-        item.rarity in SELLABLE && !item.locked && !item.corrupted && item.influence == null && item.rolls.none { it.fractured } &&
-            SlotGroup.of(template.slot)?.let { it in sell[item.rarity].orEmpty() } == true
+    fun sells(template: ItemTemplate, item: ItemInstance): Boolean = item.rarity in SELLABLE && !item.locked && !item.corrupted && item.influence == null && item.rolls.none { it.fractured } &&
+        SlotGroup.of(template.slot)?.let { it in sell[item.rarity].orEmpty() } == true
 
     /** Фильтр с новой строкой редкости [rarity]: пустой набор групп убирает её. */
     fun with(rarity: Rarity, groups: Set<SlotGroup>): AutoSell = copy(sell = if (groups.isEmpty()) sell - rarity else sell + (rarity to groups))

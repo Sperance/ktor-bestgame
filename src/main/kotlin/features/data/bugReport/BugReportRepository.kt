@@ -16,7 +16,9 @@ import org.koin.core.component.inject
  * лайком или дизлайком; автор видит свои отчёты со статусом; администратор - всё с авторами, меняет статус, и автор
  * получает об этом письмо.
  */
-class BugReportRepository : BaseRepository<BugReport>(entityClass = BugReport::class), KoinComponent {
+class BugReportRepository :
+    BaseRepository<BugReport>(entityClass = BugReport::class),
+    KoinComponent {
     private val mail: MailRepository by inject()
     private val users: UserRepository by inject()
     private val content: ContentStore by inject()
@@ -31,15 +33,21 @@ class BugReportRepository : BaseRepository<BugReport>(entityClass = BugReport::c
         if (text.isEmpty()) throw BaseException("Bug report text is empty", "BugReport", "file", "BUG_001")
         if (request.kind == FeedbackKind.SUGGESTION && userId == null) throw BaseException("A suggestion needs an account", "BugReport", "file", "BUG_002")
         val context = request.context.entries.take(MAX_CONTEXT_KEYS).associate { (key, value) -> key.take(MAX_KEY) to value.take(MAX_VALUE) }
-        val report = BugReport(text, request.screen.take(MAX_KEY), context, request.requests.takeLast(MAX_REQUESTS).map { it.take(MAX_VALUE) }, userId, address,
-            kind = request.kind)
+        val report = BugReport(
+            text,
+            request.screen.take(MAX_KEY),
+            context,
+            request.requests.takeLast(MAX_REQUESTS).map { it.take(MAX_VALUE) },
+            userId,
+            address,
+            kind = request.kind,
+        )
         return transactionExecute("bug report") { session -> insert(report, session) }._id
     }
 
     /** Общий список предложений: всё, кроме закрытых, по рейтингу (лайки минус дизлайки), затем новые первыми. */
-    suspend fun suggestions(viewer: String): List<SuggestionView> =
-        findByFilter(Filters.and(Filters.eq("kind", FeedbackKind.SUGGESTION.name), Filters.ne("status", BugStatus.WONTFIX.name)))
-            .sortedWith(compareByDescending<BugReport> { it.rating }.thenByDescending { it.createdAt }).map { it.toPublic(viewer) }
+    suspend fun suggestions(viewer: String): List<SuggestionView> = findByFilter(Filters.and(Filters.eq("kind", FeedbackKind.SUGGESTION.name), Filters.ne("status", BugStatus.WONTFIX.name)))
+        .sortedWith(compareByDescending<BugReport> { it.rating }.thenByDescending { it.createdAt }).map { it.toPublic(viewer) }
 
     /** Голос [vote] аккаунта [viewer] за предложение [id]: один на аккаунт, повтор того же снимает; своё и закрытое - `BUG_003`. */
     suspend fun vote(viewer: String, id: String, vote: Vote): SuggestionView {
@@ -75,8 +83,10 @@ class BugReportRepository : BaseRepository<BugReport>(entityClass = BugReport::c
         report.status = status
         report.reason = reason.trim().take(MAX_VALUE)
         transactionExecute("report status $id") { session -> update(report, session) }
-        if (changed) report.userId?.let { author ->
-            mail.system(author, MAIL_KEY, listOf(report.kind.name, status.name, report.text.take(EXCERPT), report.reason))
+        if (changed) {
+            report.userId?.let { author ->
+                mail.system(author, MAIL_KEY, listOf(report.kind.name, status.name, report.text.take(EXCERPT), report.reason))
+            }
         }
         return AdminReport(report, report.userId?.let { users.findById(it)?.login })
     }

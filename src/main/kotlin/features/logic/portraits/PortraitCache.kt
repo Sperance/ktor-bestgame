@@ -52,10 +52,9 @@ object PortraitCache {
     private var fingerprint: String = ""
 
     /** Все ключи, под которыми сервер ищет файл: классы, формы монстров и сами монстры. */
-    fun candidates(index: ContentIndex): List<String> =
-        index.classes.classes.map { "$CLASS.${it.code}" } +
-            index.monsters.values.map { it.form }.distinct().map { "$FORM.$it" } +
-            index.monsters.keys.map { "$MONSTER.$it" }
+    fun candidates(index: ContentIndex): List<String> = index.classes.classes.map { "$CLASS.${it.code}" } +
+        index.monsters.values.map { it.form }.distinct().map { "$FORM.$it" } +
+        index.monsters.keys.map { "$MONSTER.$it" }
 
     fun manifest(): PortraitManifest = PortraitManifest(fingerprint, portraits = hashes)
 
@@ -73,10 +72,8 @@ object PortraitCache {
 
     fun path(key: String): String = "$FOLDER/${key.substringBefore('.')}/${key.substringAfter('.')}.svg"
 
-    private fun read(key: String): String? =
-        javaClass.classLoader.getResourceAsStream(path(key))?.bufferedReader()?.use { it.readText() }
+    private fun read(key: String): String? = javaClass.classLoader.getResourceAsStream(path(key))?.bufferedReader()?.use { it.readText() }
 
-    private fun sha256(text: String): String =
-        MessageDigest.getInstance("SHA-256").digest(text.toByteArray())
-            .take(8).joinToString("") { "%02x".format(it) }
+    private fun sha256(text: String): String = MessageDigest.getInstance("SHA-256").digest(text.toByteArray())
+        .take(8).joinToString("") { "%02x".format(it) }
 }

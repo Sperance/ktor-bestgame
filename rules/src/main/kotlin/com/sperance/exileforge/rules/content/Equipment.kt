@@ -6,19 +6,47 @@ import kotlinx.serialization.Serializable
 /** Слот экипировки. `RING_2` и `FLASK_2`/`FLASK_3` - места надетого, шаблона с таким слотом не бывает. */
 @Serializable
 enum class Slot {
-    HELMET, BODY, GLOVES, RING, BOOTS, WINGS, BELT, WEAPON_1H, WEAPON_2H, QUIVER, SHIELD, AMULET, RING_2, JEWEL, MAP,
-    FLASK, FLASK_2, FLASK_3,
-    TOOL_MINING, TOOL_HERBALISM, TOOL_WOODCUTTING, TOOL_SMITHING, TOOL_ALCHEMY, TOOL_CARTOGRAPHY, TOOL_ENCHANTING,
+    HELMET,
+    BODY,
+    GLOVES,
+    RING,
+    BOOTS,
+    WINGS,
+    BELT,
+    WEAPON_1H,
+    WEAPON_2H,
+    QUIVER,
+    SHIELD,
+    AMULET,
+    RING_2,
+    JEWEL,
+    MAP,
+    FLASK,
+    FLASK_2,
+    FLASK_3,
+    TOOL_MINING,
+    TOOL_HERBALISM,
+    TOOL_WOODCUTTING,
+    TOOL_SMITHING,
+    TOOL_ALCHEMY,
+    TOOL_CARTOGRAPHY,
+    TOOL_ENCHANTING,
+
     /** Ошейник питомца (1.35.0): место героя, чьи строки `STOCK_PET_*` доходят до питомца; только ремесло кузнеца. */
-    COLLAR;
+    COLLAR,
+
+    ;
 
     val isTool: Boolean get() = name.startsWith("TOOL_")
     val isFlask: Boolean get() = this == FLASK || this == FLASK_2 || this == FLASK_3
     val isWeapon: Boolean get() = this == WEAPON_1H || this == WEAPON_2H
+
     /** Самоцвет и карта: не носятся на теле, не бывают обычными и пустыми. */
     val isJewelLike: Boolean get() = this == JEWEL || this == MAP
+
     /** Может ли нести влияние: не самоцвет, не карта, не инструмент и не фляга. */
     val influenceable: Boolean get() = !isJewelLike && !isTool && !isFlask && this != COLLAR
+
     /** Броня под обрезки брони (1.35.0). */
     val isArmour: Boolean get() = this == HELMET || this == BODY || this == GLOVES || this == BOOTS || this == SHIELD || this == WINGS
 
@@ -41,7 +69,17 @@ enum class Slot {
 /** Вид оружия. Оружие заклинаний - жезл, посох (двуручный, блокирует) и скипетр ([spell]). */
 @Serializable
 enum class WeaponType {
-    SWORD, LONGSWORD, BOW, WAND, AXE, DOUBLEAXE, DOUBLESWORD, BLADE, STAFF, SCEPTRE;
+    SWORD,
+    LONGSWORD,
+    BOW,
+    WAND,
+    AXE,
+    DOUBLEAXE,
+    DOUBLESWORD,
+    BLADE,
+    STAFF,
+    SCEPTRE,
+    ;
 
     /** Оружие заклинателя: его таблицы катят строки заклинаний, а носитель бьёт из второго ряда, как с жезлом. */
     val spell: Boolean get() = this == WAND || this == STAFF || this == SCEPTRE
@@ -79,7 +117,12 @@ object EquipSlots {
 /** Редкость копии: сколько аффиксов она несёт - решают правила ([RarityLimits]); уникалка и мифик закреплены шаблоном. */
 @Serializable
 enum class Rarity {
-    COMMON, MAGIC, RARE, UNIQUE, MYTHICAL;
+    COMMON,
+    MAGIC,
+    RARE,
+    UNIQUE,
+    MYTHICAL,
+    ;
 
     val fixed: Boolean get() = this == UNIQUE || this == MYTHICAL
 
@@ -98,7 +141,9 @@ enum class TemplateKind { WEAPON, ARMOR, ACCESSORY }
 /** Строка уникалки в файле: эффект и диапазон её единственного тира. */
 @Serializable
 data class UniqueLine(
-    val stat: String, val op: Op = Op.ADD, val range: Range,
+    val stat: String,
+    val op: Op = Op.ADD,
+    val range: Range,
     /** Условие боя (1.36.0): строка уникалки, как условный модификатор, работает только пока оно держится. */
     @SerialName("when") val condition: Condition? = null,
 )
@@ -108,6 +153,7 @@ data class UniqueLine(
  * броня, урон, скорость - готовыми строками, [fixed] - коды имплиситов, [lines] - строки уникалки,
  * из которых собираются описания `UNIQUE_<код>_<i>`; [tables] - теги таблиц, откуда катятся аффиксы.
  */
+
 /** Шаблон карты (1.43.0): один на все зоны, зона - в [com.sperance.exileforge.rules.roll.ItemInstance.mapZone]. */
 const val MAP_TEMPLATE = "MAP"
 
@@ -145,7 +191,6 @@ data class ItemTemplate(
     /** Все закреплённые описания копии: имплиситы шаблона и строки уникалки. */
     val fixedCodes: List<String> get() = fixed + lines.indices.map(::lineCode)
 
-
     /** Семейства строк уникалки: по одному тиру на уровне предмета, как в файле. */
     fun uniqueFamilies(): List<ModifierFamily> = lines.mapIndexed { index, line ->
         ModifierFamily(
@@ -172,10 +217,13 @@ data class Item(val code: String, val category: String, val subCategory: String 
         const val BOOK = "BOOK"
         const val ESSENCE = "ESSENCE"
         const val MATERIAL = "MATERIAL"
+
         /** Яйца и сферы питомцев (1.5.0). */
         const val PET = "PET"
+
         /** Знамения (1.35.0): тратятся вместе со сферой и меняют её действие. */
         const val OMEN = "OMEN"
+
         /** Сундуки-добыча (1.71.0): открываются у героя, не торгуются. */
         const val CHEST = "CHEST"
     }

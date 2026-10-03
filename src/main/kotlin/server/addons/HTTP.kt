@@ -2,12 +2,12 @@ package server.addons
 
 import CORS_HOSTS
 import TRUSTED_PROXIES
-import io.ktor.server.plugins.mutableOriginConnectionPoint
 import features.logic.hero.HeroSnapshots
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.server.plugins.mutableOriginConnectionPoint
 
 /** Доверяет ли [TRUSTED_PROXIES] сокету с адреса [address]. */
 private fun trusted(address: String): Boolean = TRUSTED_PROXIES.any { it == "*" || it == address }
@@ -35,19 +35,21 @@ fun Application.configureHTTP() {
     }
     // Приложению на Android CORS не нужен вовсе - это правило браузеров. Поэтому по умолчанию
     // из браузера не пускается никто, а веб-клиенту адрес разрешают явно, через CORS_HOSTS.
-    if (CORS_HOSTS.isNotEmpty()) install(CORS) {
-        allowMethod(HttpMethod.Options)
-        allowMethod(HttpMethod.Put)
-        allowMethod(HttpMethod.Delete)
-        allowMethod(HttpMethod.Patch)
-        allowHeader(HttpHeaders.Authorization)
-        allowHeader(HttpHeaders.ContentType)
-        allowHeader(Idempotency.HEADER)
-        allowHeader(HeroSnapshots.HEADER)
-        exposeHeader(Idempotency.REPLAY_HEADER)
-        CORS_HOSTS.forEach { host ->
-            val scheme = host.substringBefore("://", "https")
-            allowHost(host.substringAfter("://"), schemes = listOf(scheme))
+    if (CORS_HOSTS.isNotEmpty()) {
+        install(CORS) {
+            allowMethod(HttpMethod.Options)
+            allowMethod(HttpMethod.Put)
+            allowMethod(HttpMethod.Delete)
+            allowMethod(HttpMethod.Patch)
+            allowHeader(HttpHeaders.Authorization)
+            allowHeader(HttpHeaders.ContentType)
+            allowHeader(Idempotency.HEADER)
+            allowHeader(HeroSnapshots.HEADER)
+            exposeHeader(Idempotency.REPLAY_HEADER)
+            CORS_HOSTS.forEach { host ->
+                val scheme = host.substringBefore("://", "https")
+                allowHost(host.substringAfter("://"), schemes = listOf(scheme))
+            }
         }
     }
 }

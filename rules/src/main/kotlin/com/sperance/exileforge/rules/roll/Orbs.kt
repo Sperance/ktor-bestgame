@@ -85,32 +85,52 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         // Выбор, что ждал игрока, снимает любая следующая сфера (1.65.0): варианты не переживают перемену копии.
         item.offer = emptyList()
         val choice = omen == Omen.CHOICE
-        if (template.slot == Slot.MAP) when (orb) {
-            Orb.ORB_OF_ALCHEMY -> return alchemyLine(item, template, dice, choice)
-            Orb.ORB_OF_SCOURING -> return scourMap(item, template, dice)
-            Orb.DIVINE_ORB -> if (omen == Omen.TIER) return empower(item, template, dice)
-            else -> Unit
+        if (template.slot == Slot.MAP) {
+            when (orb) {
+                Orb.ORB_OF_ALCHEMY -> return alchemyLine(item, template, dice, choice)
+                Orb.ORB_OF_SCOURING -> return scourMap(item, template, dice)
+                Orb.DIVINE_ORB -> if (omen == Omen.TIER) return empower(item, template, dice)
+                else -> Unit
+            }
         }
         return when (orb) {
             Orb.ORB_OF_TRANSMUTATION -> upgrade(item, template, Rarity.COMMON, Rarity.MAGIC, dice)
+
             // Алхимия катит от дна редкой до потолка без одного: полный набор - только сферами сверху и ремеслом
             Orb.ORB_OF_ALCHEMY -> if (choice) alchemyChoice(item, template, dice) else upgrade(item, template, Rarity.COMMON, Rarity.RARE, dice, below = 1)
+
             Orb.ORB_OF_ALTERATION -> reroll(item, template, Rarity.MAGIC, dice)
+
             Orb.CHAOS_ORB -> reroll(item, template, Rarity.RARE, dice, omen?.side)
+
             Orb.ORB_OF_AUGMENTATION -> augment(item, template, Rarity.MAGIC, dice)
+
             Orb.EXALTED_ORB -> if (choice) exaltChoice(item, template, dice) else augment(item, template, Rarity.RARE, dice, omen?.side, twice = omen == Omen.GREATER_EXALTATION)
+
             Orb.REGAL_ORB -> regal(item, template, dice, omen?.side)
+
             Orb.DIVINE_ORB -> if (omen == Omen.TIER) raiseOne(item, template, dice) else divine(item, template, dice)
+
             Orb.BLESSED_ORB -> blessed(item, template, dice)
+
             Orb.ORB_OF_ANNULMENT -> annul(item, template, dice, omen)
+
             Orb.ORB_OF_SCOURING -> scour(item, template)
+
             Orb.VAAL_ORB -> vaal(item, template, dice, sure = omen == Omen.CORRUPTION)
+
             Orb.ORB_OF_CHANCE -> chance(item, template, dice)
+
             Orb.MIRROR_OF_KALANDRA -> mirror(item, template, newId)
+
             Orb.FRACTURING_ORB -> fracture(item, template, dice)
+
             Orb.SHAPERS_ORB, Orb.ELDER_ORB, Orb.ABYSS_ORB -> influence(item, template, orb.influence!!, dice)
+
             Orb.ORB_OF_REGRET -> throw RuleViolation("CR_009", listOf(orb.name))
+
             Orb.UNVEILING_ORB -> veils.offer(item, template, dice)
+
             Orb.QUALITY_ORB -> quality(item, template, omen?.catalyst)
         }
     }
@@ -119,12 +139,12 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
      * Эссенция: обычная вещь становится редкой с гарантированной строкой на тире её ступени; ступень,
      * что перебрасывает редкие, и особая берут и редкую. Волшебную, уникальную, флягу, карту, самоцвет не берёт.
      */
+
     /**
      * Пойдёт ли сфера на копию: пробный бросок над её копией, отказ правила - нет. Кузница клиента
      * показывает только такие сферы; сама копия не меняется.
      */
-    fun accepts(orb: Orb, item: ItemInstance, template: ItemTemplate, omen: Omen? = null): Boolean =
-        runCatching { apply(orb, item.copy(), template, Dice(PROBE), omen) { PROBE_ID } }.isSuccess
+    fun accepts(orb: Orb, item: ItemInstance, template: ItemTemplate, omen: Omen? = null): Boolean = runCatching { apply(orb, item.copy(), template, Dice(PROBE), omen) { PROBE_ID } }.isSuccess
 
     /** Раскрытие скрытого аффикса выбором игрока [choice] из предложенных сферой раскрытия (1.35.0). */
     fun reveal(item: ItemInstance, template: ItemTemplate, choice: Int): OrbOutcome = veils.reveal(item, template, choice)
@@ -142,8 +162,11 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
      */
     private fun quality(item: ItemInstance, template: ItemTemplate, catalyst: Catalyst?): OrbOutcome {
         val slot = template.slot
-        val fits = if (catalyst != null) !slot.isFlask && slot != Slot.MAP && !slot.isTool
-            else slot.isWeapon || slot.isArmour || slot.isFlask || slot.isTool || slot == Slot.MAP
+        val fits = if (catalyst != null) {
+            !slot.isFlask && slot != Slot.MAP && !slot.isTool
+        } else {
+            slot.isWeapon || slot.isArmour || slot.isFlask || slot.isTool || slot == Slot.MAP
+        }
         if (!fits) throw RuleViolation("CR_033", listOf(name(template)))
         val max = if (slot.isFlask) rules.flasks.maxQuality else rules.quality.max
         val current = if (item.catalyst == catalyst) item.quality else 0
@@ -154,8 +177,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     }
 
     /** То же для эссенции. */
-    fun accepts(essence: Essence, item: ItemInstance, template: ItemTemplate): Boolean =
-        runCatching { applyEssence(essence, item.copy(), template, Dice(PROBE)) }.isSuccess
+    fun accepts(essence: Essence, item: ItemInstance, template: ItemTemplate): Boolean = runCatching { applyEssence(essence, item.copy(), template, Dice(PROBE)) }.isSuccess
 
     fun applyEssence(essence: Essence, item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         val essenceName = LocaleKey.itemName(essence.code)
@@ -225,8 +247,11 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         val permanent = affixes.permanent(item.rolls)
         item.rolls = permanent + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, permanent, below = 2, level = item.level(template))
         val options = affixes.candidates(template, item.rarity, item.rolls, dice, item.influence, item.level(template), rules.orbs.choices)
-        return if (options.isNotEmpty()) offer(item, template, options)
-            else outcome(item, template, "currency.upgraded", LocaleKey.rarity(item.rarity), affixes.affixes(item.rolls).size.toString())
+        return if (options.isNotEmpty()) {
+            offer(item, template, options)
+        } else {
+            outcome(item, template, "currency.upgraded", LocaleKey.rarity(item.rarity), affixes.affixes(item.rolls).size.toString())
+        }
     }
 
     /** Возвышение со знамением выбора (1.65.0): вместо случайного аффикса - варианты на выбор. */
@@ -264,7 +289,11 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
     }
 
     private fun divine(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
-        val rerollable: (ModifierDef) -> Boolean = if (item.rarity.fixed) { { it.source == Source.UNIQUE } } else { { it.affix } }
+        val rerollable: (ModifierDef) -> Boolean = if (item.rarity.fixed) {
+            { it.source == Source.UNIQUE }
+        } else {
+            { it.affix }
+        }
         val count = affixes.definitions(item.rolls.filterNot { it.fractured }).count(rerollable)
         if (count == 0) throw RuleViolation("CR_006", listOf(name(template)))
         item.rolls = affixes.rerollShares(item.rolls, dice, rerollable)
@@ -311,18 +340,23 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         // Знамение порчи (1.35.0): порча не проходит впустую.
         return when (dice.pick(if (sure) VaalOutcome.entries - VaalOutcome.NOTHING else VaalOutcome.entries)) {
             VaalOutcome.NOTHING -> outcome(item, template, "currency.vaal_nothing")
+
             VaalOutcome.IMPLICIT -> {
                 val rest = item.rolls.filterNot { affixes.definition(it)?.source == Source.IMPLICIT }
                 val corruption = affixes.rollFrom(listOf(AffixRoller.corruptionTag(template.slot)), item.level(template), dice, rest)
                 if (corruption != null) item.rolls = rest + corruption
                 outcome(item, template, if (corruption != null) "currency.vaal_modifier" else "currency.vaal_nothing")
             }
-            VaalOutcome.RARE -> if (item.rarity.fixed || template.slot.isFlask) outcome(item, template, "currency.vaal_nothing") else {
+
+            VaalOutcome.RARE -> if (item.rarity.fixed || template.slot.isFlask) {
+                outcome(item, template, "currency.vaal_nothing")
+            } else {
                 val kept = affixes.permanent(item.rolls) + affixes.fractured(item.rolls)
                 item.rarity = Rarity.RARE
                 item.rolls = kept + affixes.rollAffixes(template, Rarity.RARE, dice, item.influence, kept, level = item.level(template))
                 outcome(item, template, "currency.vaal_rare", affixes.affixes(item.rolls).size.toString())
             }
+
             VaalOutcome.SHIFT -> {
                 val (low, high) = rules.orbs.vaalShift
                 // Сдвиг (1.53.0) только аффиксов: имплиситы и закреплённые строки уникальных остаются в своём диапазоне
@@ -349,8 +383,7 @@ class OrbApplier(private val index: ContentIndex, private val affixes: AffixRoll
         return outcome(item, template, "currency.chance_rarity", LocaleKey.rarity(rarity))
     }
 
-    private fun mirror(item: ItemInstance, template: ItemTemplate, newId: () -> String): OrbOutcome =
-        OrbOutcome(item, item.copy(id = newId(), rolls = item.rolls.toList(), slot = null, socket = null, mirrored = true, locked = false, unveil = emptyList(), offer = emptyList()), "currency.mirrored", listOf(name(template)))
+    private fun mirror(item: ItemInstance, template: ItemTemplate, newId: () -> String): OrbOutcome = OrbOutcome(item, item.copy(id = newId(), rolls = item.rolls.toList(), slot = null, socket = null, mirrored = true, locked = false, unveil = emptyList(), offer = emptyList()), "currency.mirrored", listOf(name(template)))
 
     private fun fracture(item: ItemInstance, template: ItemTemplate, dice: Dice): OrbOutcome {
         if (item.rarity != Rarity.RARE) throw RuleViolation("CR_005", listOf(item.rarity.name))

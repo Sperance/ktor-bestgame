@@ -6,10 +6,8 @@ import base.exception.BaseException
  * Отказы в доступе. Код ответа у них свой - 401 или 403, см. [status].
  */
 object AuthExceptions {
-    open class AuthException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList(), val status: Int) :
-        BaseException(message, "Auth", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String =
-            "{AuthException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
+    open class AuthException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList(), val status: Int) : BaseException(message, "Auth", errorMethod, errorCode, messageArgs) {
+        override fun toString(): String = "{AuthException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funExceptionNoToken(errorMethod: String, value: String? = "") = AuthException("Sign-in required", errorMethod, "AUTH_001", listOf(value.orEmpty()), 401)

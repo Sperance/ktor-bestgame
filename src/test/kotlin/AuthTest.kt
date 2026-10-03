@@ -67,8 +67,7 @@ class AuthTest {
 
     // ==================== Доступ ====================
 
-    private fun need(method: String, path: String, vararg query: Pair<String, String>) =
-        AccessPolicy.need(method, path) { name -> query.firstOrNull { it.first == name }?.second }
+    private fun need(method: String, path: String, vararg query: Pair<String, String>) = AccessPolicy.need(method, path) { name -> query.firstOrNull { it.first == name }?.second }
 
     @Test
     fun only_signing_in_and_static_files_are_open() {

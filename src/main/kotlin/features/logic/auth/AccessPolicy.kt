@@ -48,8 +48,7 @@ object AccessPolicy {
      * Политика обязана судить о том же пути, по которому выберут обработчик, иначе
      * `//api/v1/character` или `/api/v1/%63haracter` дошли бы до закрытого маршрута в обход проверки.
      */
-    fun canonical(rawPath: String): String =
-        rawPath.split('/').filter { it.isNotEmpty() }.joinToString("/", prefix = "/") { it.decodeURLPart() }
+    fun canonical(rawPath: String): String = rawPath.split('/').filter { it.isNotEmpty() }.joinToString("/", prefix = "/") { it.decodeURLPart() }
 
     /**
      * @param query параметр строки запроса по имени - нужен, чтобы отличить чтение одного
@@ -80,12 +79,18 @@ object AccessPolicy {
             // маршрутами, где сервер сам проверяет правила. Исключение - собственный герой:
             // создать и отпустить его игрок может сам, а чей он, проверяется отдельно.
             verb != "GET" && verb != "HEAD" ->
-                if (collection == "hero" && segments.size == 1 && verb in setOf("POST", "DELETE")) Need.SIGNED_IN
-                else Need.ADMIN
+                if (collection == "hero" && segments.size == 1 && verb in setOf("POST", "DELETE")) {
+                    Need.SIGNED_IN
+                } else {
+                    Need.ADMIN
+                }
+
             // Своего героя по id читать можно: принадлежность проверяется отдельно.
             // Без id это список всех героев сервера - он только для администратора.
             collection == "hero" && segments.size == 1 && !query("id").isNullOrBlank() -> Need.SIGNED_IN
+
             collection in privateCollections -> Need.ADMIN
+
             else -> Need.SIGNED_IN
         }
     }

@@ -3,6 +3,7 @@ package server.addons
 import base.exception.BaseException
 import base.exception.model.IdempotencyExceptions
 import base.route.ApiMongoResponse
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import extensions.printLog
 import features.data.idempotency.IdempotentReplyStore
 import features.logic.auth.caller
@@ -14,10 +15,10 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.ApplicationCallPipeline
 import io.ktor.server.application.call
-import io.ktor.server.request.httpMethod
 import io.ktor.server.application.install
 import io.ktor.server.application.pluginOrNull
 import io.ktor.server.plugins.doublereceive.DoubleReceive
+import io.ktor.server.request.httpMethod
 import io.ktor.server.request.path
 import io.ktor.server.request.receiveText
 import io.ktor.server.response.ApplicationSendPipeline
@@ -28,11 +29,10 @@ import io.ktor.util.AttributeKey
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import com.mongodb.kotlin.client.coroutine.ClientSession
-import kotlin.coroutines.AbstractCoroutineContextElement
-import kotlin.coroutines.CoroutineContext
 import kotlinx.serialization.json.JsonObject
 import java.security.MessageDigest
+import kotlin.coroutines.AbstractCoroutineContextElement
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Ответ команды: статус, тип и тело. С 1.53.0 тело хранится только у отказа (4xx): оно короткое и говорит, почему,
@@ -204,12 +204,15 @@ fun Application.installIdempotency(
         if (!Idempotency.valid(key)) throw IdempotencyExceptions.funExceptionBadKey("idempotency", key.take(80))
         when (val claim = store.claim(account, key, Idempotency.fingerprint(call))) {
             Claim.Busy -> throw IdempotencyExceptions.funExceptionBusy("idempotency", key)
+
             Claim.Mismatch -> throw IdempotencyExceptions.funExceptionMismatch("idempotency", key)
+
             is Claim.Done -> {
                 call.response.header(Idempotency.REPLAY_HEADER, "true")
                 call.respondBytes(claim.reply.replayBody(), claim.reply.replayContentType(), HttpStatusCode.fromValue(claim.reply.status))
                 finish()
             }
+
             Claim.Taken -> {
                 call.attributes.put(Idempotency.Pending, account to key)
                 try {
@@ -241,8 +244,9 @@ fun Application.installIdempotency(
         val status = outgoing?.status ?: call.response.status() ?: HttpStatusCode.OK
         val body = (outgoing as? OutgoingContent.ByteArrayContent)?.bytes()
         try {
-            if (body == null || status.value >= 500) store.release(account, key)
-            else {
+            if (body == null || status.value >= 500) {
+                store.release(account, key)
+            } else {
                 val type = outgoing?.contentType?.toString()
                 val kept = when {
                     status.value >= 300 -> body.takeIf { it.size <= StoredReply.MAX_REFUSAL_BYTES }

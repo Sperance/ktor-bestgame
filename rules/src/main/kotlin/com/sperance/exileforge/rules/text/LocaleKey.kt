@@ -38,33 +38,39 @@ object LocaleKey {
     const val TRADE = "trade"
 
     fun equipmentName(code: String) = key(EQUIPMENT, code, NAME)
+
     /** Имя карты с её зоной (1.43.0): «{0} Map», где {0} - [mapName] зоны. */
     fun mapItemName() = key(EQUIPMENT, com.sperance.exileforge.rules.content.MAP_TEMPLATE, "zone")
     fun equipmentTrade(code: String) = key(EQUIPMENT, code, TRADE)
+
     /** Лор уникального и мифического предмета; у баз (обычных, волшебных, редких шаблонов) описания нет. */
     fun equipmentDescription(code: String) = key(EQUIPMENT, code, DESCRIPTION)
     fun itemName(code: String) = key(ITEM, code, NAME)
     fun itemTrade(code: String) = key(ITEM, code, TRADE)
     fun itemDescription(code: String) = key(ITEM, code, DESCRIPTION)
     fun modifierName(code: String) = key(MODIFIER, code, NAME)
+
     /** Хвост строки условного эффекта (1.34.0): «на низком здоровье». */
     fun condition(condition: Condition) = "condition.${condition.name}"
     fun skillNodeName(code: String) = key(SKILL_NODE, code, NAME)
     fun skillNodeDescription(code: String) = key(SKILL_NODE, code, DESCRIPTION)
     fun className(code: String) = key(CHARACTER_CLASS, code, NAME)
     fun classDescription(code: String) = key(CHARACTER_CLASS, code, DESCRIPTION)
+
     /** Текст экрана выбора класса: [ClassText] - роль, история, стиль, сильные и слабые стороны, архетипы. */
     fun classText(code: String, field: ClassText) = key(CHARACTER_CLASS, code, field.key)
     fun regionName(code: String) = key(REGION, code, NAME)
     fun mapName(code: String) = key(MAP, code, NAME)
     fun mapDescription(code: String) = key(MAP, code, DESCRIPTION)
     fun monsterName(code: String) = key(MONSTER, code, NAME)
+
     /** Свойство монстра (1.69.0): название и описание; в описании `{0}` - сила отклика, `{1}` - порог здоровья, `{2}` - секунды. */
     fun traitName(code: String) = key(TRAIT, code, NAME)
     fun traitDescription(code: String) = key(TRAIT, code, DESCRIPTION)
     fun professionName(code: String) = key(PROFESSION, code, NAME)
     fun professionDescription(code: String) = key(PROFESSION, code, DESCRIPTION)
     fun jobName(code: String) = key(JOB, code, NAME)
+
     /** Выбор работы, что не предмет (1.44.0): группа и атрибут кузнеца. */
     fun choiceName(code: String) = key("choice", code, NAME)
     fun atlasNodeName(code: String) = key(ATLAS_NODE, code, NAME)
@@ -86,12 +92,15 @@ object LocaleKey {
     fun questTitle(kind: QuestKind, goal: String) = if (kind == QuestKind.STORY) key("$QUEST.story", goal, NAME) else "$QUEST.goal.$goal"
 
     /** Подпись характеристики: прежние перечисления - по группе реестра. */
-    fun statLabel(stat: StatDef): String = enumLabel(when (stat.group) {
-        StatGroup.BOOL -> "EnumStatBool"
-        StatGroup.PROFESSION -> "EnumStatProfession"
-        StatGroup.BATTLE -> "EnumStatBattle"
-        else -> "EnumStatStock"
-    }, stat.code)
+    fun statLabel(stat: StatDef): String = enumLabel(
+        when (stat.group) {
+            StatGroup.BOOL -> "EnumStatBool"
+            StatGroup.PROFESSION -> "EnumStatProfession"
+            StatGroup.BATTLE -> "EnumStatBattle"
+            else -> "EnumStatStock"
+        },
+        stat.code,
+    )
 
     private fun key(section: String, code: String, field: String) = "$section.$code.$field"
 }

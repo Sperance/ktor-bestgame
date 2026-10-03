@@ -5,9 +5,7 @@ import base.exception.BaseException
 /** Отказы книги умений и слотов (с 0.69.0). */
 object SkillExceptions {
     open class SkillException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "Skill", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{SkillException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{SkillException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funExceptionContent(errorMethod: String, value: String? = "") = SkillException("Skill content is invalid: $value", errorMethod, "SK_001", listOf(value.orEmpty()))
@@ -15,8 +13,7 @@ object SkillExceptions {
     fun funExceptionOtherClass(errorMethod: String, value: String? = "") = SkillException("Skill $value belongs to another class", errorMethod, "SK_003", listOf(value.orEmpty()))
     fun funExceptionNoBook(errorMethod: String, value: String? = "") = SkillException("There is no book of $value in the bag", errorMethod, "SK_004", listOf(value.orEmpty()))
     fun funExceptionMaxLevel(errorMethod: String, value: String? = "") = SkillException("Skill $value is already at its highest level", errorMethod, "SK_005", listOf(value.orEmpty()))
-    fun funExceptionRequirement(errorMethod: String, skill: String = "", level: String = "", need: String = "") =
-        SkillException("Skill $skill level $level needs $need", errorMethod, "SK_006", listOf(skill, level, need))
+    fun funExceptionRequirement(errorMethod: String, skill: String = "", level: String = "", need: String = "") = SkillException("Skill $skill level $level needs $need", errorMethod, "SK_006", listOf(skill, level, need))
     fun funExceptionNotLearned(errorMethod: String, value: String? = "") = SkillException("Skill $value is not learned", errorMethod, "SK_007", listOf(value.orEmpty()))
     fun funExceptionSlotLocked(errorMethod: String, value: String? = "") = SkillException("This slot opens at level $value", errorMethod, "SK_008", listOf(value.orEmpty()))
     fun funExceptionWrongKind(errorMethod: String, value: String? = "") = SkillException("Skill $value does not fit this slot", errorMethod, "SK_009", listOf(value.orEmpty()))

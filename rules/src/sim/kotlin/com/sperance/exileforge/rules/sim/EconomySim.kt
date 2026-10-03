@@ -30,14 +30,28 @@ import java.util.Locale
 
 /** Строка отчёта: архетип (класс) на уровне; всё «в час» - на чистое время боя захода. */
 data class EconomyRow(
-    val heroClass: String, val level: Int, val zone: String, val zoneLevel: Int, val dps: Double,
-    val ttk: Double, val runSeconds: Double, val xpPerHour: Double, val goldPerHour: Double, val orbsPerHour: Double,
-    val itemsPerHour: Double, val autoSellPerHour: Double, val runGold: Double, val worstItem: String, val worstPrice: Long,
+    val heroClass: String,
+    val level: Int,
+    val zone: String,
+    val zoneLevel: Int,
+    val dps: Double,
+    val ttk: Double,
+    val runSeconds: Double,
+    val xpPerHour: Double,
+    val goldPerHour: Double,
+    val orbsPerHour: Double,
+    val itemsPerHour: Double,
+    val autoSellPerHour: Double,
+    val runGold: Double,
+    val worstItem: String,
+    val worstPrice: Long,
 ) {
     /** Одна вещь дороже [OUTLIER]× золота захода - выброс экономики. */
     val outlier: Boolean get() = worstPrice > OUTLIER * runGold
 
-    companion object { const val OUTLIER = 10.0 }
+    companion object {
+        const val OUTLIER = 10.0
+    }
 }
 
 /** Проверка арбитража торговца на уровне: худший случай «купил обычную - сделал лучшую редкую - продал». */
@@ -105,8 +119,7 @@ class EconomySim(private val index: ContentIndex, private val seeds: Int = 20) {
     fun gear(heroClass: HeroClass, level: Int): List<ItemInstance> {
         val own = calculator.calculate(level, heroClass, emptyList(), emptyList(), emptySet()).stats
         val wearable = index.templates.values.filter { !it.unique && !it.corrupted && it.tables.isNotEmpty() && Requirements.unmet(it, level, own).isEmpty() }
-        fun best(slot: Slot, fits: (ItemTemplate) -> Boolean = { true }) =
-            wearable.filter { it.slot == slot && fits(it) }.maxWithOrNull(compareBy({ it.requiredLevel }, { it.level }, { it.code }))
+        fun best(slot: Slot, fits: (ItemTemplate) -> Boolean = { true }) = wearable.filter { it.slot == slot && fits(it) }.maxWithOrNull(compareBy({ it.requiredLevel }, { it.level }, { it.code }))
         val start = index.template(heroClass.weapon)
         val weapon = start?.let { best(it.slot) { t -> t.weaponType == it.weaponType } }
         val offhand = when {
@@ -150,8 +163,13 @@ class EconomySim(private val index: ContentIndex, private val seeds: Int = 20) {
             val bought = factory.create("m", template, Rarity.COMMON, Dice(SEED), level = index.rules.loot.itemLevel(level))
             val price = SellPrice.of(index, template, bought) * rules.markup
             val crafted = best(template, index.rules.loot.itemLevel(level))
-            Arbitrage(level, template.code, price, SellPrice.of(index, template, crafted, MAX_GOLD),
-                SellPrice.of(index, template, crafted.copy(resale = SellPrice.resaleCap(price)), MAX_GOLD))
+            Arbitrage(
+                level,
+                template.code,
+                price,
+                SellPrice.of(index, template, crafted, MAX_GOLD),
+                SellPrice.of(index, template, crafted.copy(resale = SellPrice.resaleCap(price)), MAX_GOLD),
+            )
         }.maxWithOrNull(compareBy({ it.capped.toDouble() / it.price }, { it.crafted.toDouble() / it.price }))
     }
 
@@ -160,12 +178,12 @@ class EconomySim(private val index: ContentIndex, private val seeds: Int = 20) {
         const val SEED = 20_260_930L
         const val AVERAGE = 0.5
         val ARMOUR = listOf(Slot.HELMET, Slot.BODY, Slot.GLOVES, Slot.BOOTS, Slot.WINGS, Slot.BELT, Slot.AMULET, Slot.RING)
+
         /** `STOCK_GOLD` выше любого потолка: [SellPrice.goldBonus] сам срежет его до предела. */
         val MAX_GOLD = mapOf("STOCK_GOLD" to 1e6)
 
         /** Секунды боя со стаей - как `Plausibility.packSeconds` сервера. */
-        fun packSeconds(pack: List<RolledMonster>, dps: Double): Double =
-            (pack.maxOfOrNull { (it.stats["STOCK_HEALTH"] ?: 0.0) + (it.stats["STOCK_ENERGY_SHIELD"] ?: 0.0) } ?: 0.0) / dps
+        fun packSeconds(pack: List<RolledMonster>, dps: Double): Double = (pack.maxOfOrNull { (it.stats["STOCK_HEALTH"] ?: 0.0) + (it.stats["STOCK_ENERGY_SHIELD"] ?: 0.0) } ?: 0.0) / dps
     }
 }
 
@@ -176,8 +194,10 @@ object EconomyReport {
     private fun f(value: Double) = String.format(Locale.ROOT, "%.1f", value)
 
     private fun cells(row: EconomyRow) = with(row) {
-        listOf(heroClass, "$level", zone, "$zoneLevel", f(dps), f(ttk), f(runSeconds), f(xpPerHour), f(goldPerHour), f(orbsPerHour),
-            f(itemsPerHour), f(autoSellPerHour), f(runGold), worstItem, "$worstPrice", if (outlier) "YES" else "")
+        listOf(
+            heroClass, "$level", zone, "$zoneLevel", f(dps), f(ttk), f(runSeconds), f(xpPerHour), f(goldPerHour), f(orbsPerHour),
+            f(itemsPerHour), f(autoSellPerHour), f(runGold), worstItem, "$worstPrice", if (outlier) "YES" else "",
+        )
     }
 
     fun csv(rows: List<EconomyRow>): String = (listOf(header) + rows.map(::cells)).joinToString("\n", postfix = "\n") { it.joinToString(",") }

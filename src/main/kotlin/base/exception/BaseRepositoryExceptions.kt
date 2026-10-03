@@ -6,9 +6,7 @@ object BaseRepositoryExceptions {
         /** Ошибка драйвера (таймаут, сеть, WriteConflict) и гонка версий проходят на повторе. */
         override val isTransient: Boolean get() = errorCode in TRANSIENT_CODES
 
-        override fun toString(): String {
-            return "{BaseRepositoryException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{BaseRepositoryException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     private val TRANSIENT_CODES = setOf("BRY_001", "BRY_002", "BRY_007")

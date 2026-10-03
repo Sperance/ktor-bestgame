@@ -67,7 +67,9 @@ class MongoBackupManager(
                 zip.putNextEntry(ZipEntry("$name.jsonl"))
                 val writer = zip.bufferedWriter()
                 database.getCollection(name, Document::class.java).find().collect { document ->
-                    writer.write(document.toJson(json)); writer.newLine(); documents++
+                    writer.write(document.toJson(json))
+                    writer.newLine()
+                    documents++
                 }
                 writer.flush()
                 zip.closeEntry()
@@ -81,9 +83,8 @@ class MongoBackupManager(
 
     fun shutdown() = scope.cancel()
 
-    private fun archives(): List<File> =
-        directory.listFiles { file -> file.isFile && file.name.startsWith(PREFIX) && file.name.endsWith(SUFFIX) }
-            ?.sortedByDescending(File::lastModified).orEmpty()
+    private fun archives(): List<File> = directory.listFiles { file -> file.isFile && file.name.startsWith(PREFIX) && file.name.endsWith(SUFFIX) }
+        ?.sortedByDescending(File::lastModified).orEmpty()
 
     private fun latest(): File? = archives().firstOrNull()
 

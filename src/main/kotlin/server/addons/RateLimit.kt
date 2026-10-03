@@ -16,10 +16,13 @@ import kotlin.time.Duration.Companion.minutes
 
 /** Лимит на вход: пароли и секреты устройств подбираются именно здесь. */
 val LOGIN_LIMIT = RateLimitName("login")
+
 /** Промокоды (1.46.0): перебор кодов. */
 val REDEEM_LIMIT = RateLimitName("redeem")
+
 /** Смена пароля (1.46.0): перебор старого пароля под чужой сессией. */
 val PASSWORD_LIMIT = RateLimitName("password")
+
 /** Отчёты об ошибках (1.46.0): их пишут и без входа. */
 val BUG_LIMIT = RateLimitName("bug")
 

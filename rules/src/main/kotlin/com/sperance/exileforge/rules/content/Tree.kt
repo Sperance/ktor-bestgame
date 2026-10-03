@@ -41,7 +41,10 @@ class TreeGraph(nodes: Collection<TreeNode>) {
     private val adjacency: Map<String, Set<String>> = HashMap<String, MutableSet<String>>().also { edges ->
         nodes.forEach { node ->
             val own = edges.getOrPut(node.code) { LinkedHashSet() }
-            node.connections.forEach { other -> own += other; edges.getOrPut(other) { LinkedHashSet() } += node.code }
+            node.connections.forEach { other ->
+                own += other
+                edges.getOrPut(other) { LinkedHashSet() } += node.code
+            }
         }
     }
 
@@ -125,8 +128,9 @@ object TreeAllocation {
     }
 
     fun requireAllocatable(graph: TreeGraph, node: TreeNode, taken: Collection<String>, startNode: String, available: Int, choice: Int?) {
-        if (node.options.isEmpty() != (choice == null) || (choice != null && choice !in node.options.indices))
+        if (node.options.isEmpty() != (choice == null) || (choice != null && choice !in node.options.indices)) {
             throw RuleViolation("ST_018", listOf("${node.code}: $choice of ${node.options.size}"))
+        }
         if (node.code in taken) throw RuleViolation("ST_005", listOf(LocaleKey.skillNodeName(node.code)))
         if (node.type == SkillNodeType.START) {
             if (taken.isNotEmpty()) throw RuleViolation("ST_009", listOf(LocaleKey.skillNodeName(taken.first())))

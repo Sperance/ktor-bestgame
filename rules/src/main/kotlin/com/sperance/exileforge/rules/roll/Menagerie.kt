@@ -1,7 +1,6 @@
 package com.sperance.exileforge.rules.roll
 
 import com.sperance.exileforge.rules.content.ContentIndex
-import com.sperance.exileforge.rules.content.hybridOf
 import com.sperance.exileforge.rules.content.Incubation
 import com.sperance.exileforge.rules.content.IncubatorRules
 import com.sperance.exileforge.rules.content.Line
@@ -10,9 +9,10 @@ import com.sperance.exileforge.rules.content.PetKind
 import com.sperance.exileforge.rules.content.PetLine
 import com.sperance.exileforge.rules.content.PetLineRule
 import com.sperance.exileforge.rules.content.PetOrbAction
-import com.sperance.exileforge.rules.content.PetSpecies
 import com.sperance.exileforge.rules.content.PetRarityRule
+import com.sperance.exileforge.rules.content.PetSpecies
 import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.hybridOf
 import com.sperance.exileforge.rules.sheet.SheetCalculator
 import com.sperance.exileforge.rules.sheet.SourceKind
 import com.sperance.exileforge.rules.sheet.SourcedLine
@@ -64,8 +64,7 @@ class Menagerie(private val index: ContentIndex) {
     }
 
     /** Яйцо биома одного из родителей. */
-    fun breedEgg(a: Pet, b: Pet, dice: Dice): String? =
-        listOfNotNull(species(a.species), species(b.species)).filter { it.element2 == null }.randomOrNullBy(dice)?.let { file.eggs[it.biome] }
+    fun breedEgg(a: Pet, b: Pet, dice: Dice): String? = listOfNotNull(species(a.species), species(b.species)).filter { it.element2 == null }.randomOrNullBy(dice)?.let { file.eggs[it.biome] }
 
     private fun <T> List<T>.randomOrNullBy(dice: Dice): T? = if (isEmpty()) null else this[dice.between(0, size - 1)]
 
@@ -115,10 +114,14 @@ class Menagerie(private val index: ContentIndex) {
         val rules = pool(kind).associateBy { it.code }
         return pet.lines.mapNotNull { line ->
             val rule = rules[line.code] ?: return@mapNotNull null
-            Line(line.code, rule.values.mapIndexed { i, range ->
-                val low = range[0]; val high = range.getOrElse(1) { low }
-                Math.round((low + (high - low) * (line.shares.getOrNull(i) ?: 0.0)) * growth * 10) / 10.0
-            })
+            Line(
+                line.code,
+                rule.values.mapIndexed { i, range ->
+                    val low = range[0]
+                    val high = range.getOrElse(1) { low }
+                    Math.round((low + (high - low) * (line.shares.getOrNull(i) ?: 0.0)) * growth * 10) / 10.0
+                },
+            )
         }
     }
 
@@ -166,6 +169,7 @@ class Menagerie(private val index: ContentIndex) {
 
     companion object {
         val RARITIES = listOf(Rarity.COMMON, Rarity.MAGIC, Rarity.RARE)
+
         /** Ключ удара в листе роли: он становится ударом стихии вида. */
         const val ATTACK_BASE = "STOCK_ATTACK_PHYSICAL"
     }

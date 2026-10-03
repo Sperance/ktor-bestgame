@@ -4,23 +4,42 @@ import com.sperance.exileforge.rules.fail
 import kotlinx.serialization.Serializable
 
 @Serializable data class JobExtra(val item: String, val chance: Double)
+
 @Serializable data class JobInput(val item: String, val amount: Long)
+
 /**
  * Вид работы. С выбором (1.43.0, см. [JobRecipes]) - [CONDENSE], [BOOK], [REFINE] и [EQUIPMENT]: игрок называет,
  * что делать (ступень и вид эссенции, умение своего класса, что перегнать, группа и атрибут вещи кузнеца), и работа
  * получает свой вход и выход. [MAP] чертит случайную открытую зону своего региона, [JEWEL] - гранит самоцвет (1.44.0).
  */
 @Serializable enum class JobKind {
-    ITEM, EQUIPMENT, MAP, FLASK, BOOK, CONDENSE, REFINE, JEWEL;
+    ITEM,
+    EQUIPMENT,
+    MAP,
+    FLASK,
+    BOOK,
+    CONDENSE,
+    REFINE,
+    JEWEL,
+    ;
 
     val chosen: Boolean get() = this == BOOK || this == CONDENSE || this == REFINE || this == EQUIPMENT
 }
 
 @Serializable
 data class Job(
-    val code: String, val level: Int, val seconds: Double, val nothing: Double, val output: String, val experience: Double,
-    val extra: List<JobExtra> = emptyList(), val kind: JobKind = JobKind.ITEM, val inputs: List<JobInput> = emptyList(),
-    val band: List<Int> = emptyList(), val region: String = "", val additives: Boolean = false,
+    val code: String,
+    val level: Int,
+    val seconds: Double,
+    val nothing: Double,
+    val output: String,
+    val experience: Double,
+    val extra: List<JobExtra> = emptyList(),
+    val kind: JobKind = JobKind.ITEM,
+    val inputs: List<JobInput> = emptyList(),
+    val band: List<Int> = emptyList(),
+    val region: String = "",
+    val additives: Boolean = false,
     /** Прибавка опыта за ступень выбора сверх первой (сгущение эссенций). */
     val step: Double = 0.0,
     /** Цепочка добычи (1.44.0): выходы работ одной цепочки перегоняются [REFINE] по порядку уровней. */
@@ -34,10 +53,19 @@ data class Job(
 /** Правила ремесла: шансы ручной работы и уникалки, таблицы баз, уникалок, строк и редкостей кузнеца и картографа. */
 @Serializable
 data class CraftingRules(
-    val handcraftedChance: Double = 20.0, val maxHandcrafted: Int = 3, val maxAdditives: Int = 2, val uniqueChance: Double = 0.5,
-    val smithRarities: String = "rarity:smith", val mapRarities: String = "rarity:map:smith", val mapHandcraftedChance: Double = 25.0,
-    val flaskMagicChance: Double = 20.0, val additives: Map<String, String> = emptyMap(),
-    val tables: List<String> = emptyList(), val uniques: List<String> = emptyList(), val modifiers: List<String> = emptyList(), val mapModifiers: List<String> = emptyList(),
+    val handcraftedChance: Double = 20.0,
+    val maxHandcrafted: Int = 3,
+    val maxAdditives: Int = 2,
+    val uniqueChance: Double = 0.5,
+    val smithRarities: String = "rarity:smith",
+    val mapRarities: String = "rarity:map:smith",
+    val mapHandcraftedChance: Double = 25.0,
+    val flaskMagicChance: Double = 20.0,
+    val additives: Map<String, String> = emptyMap(),
+    val tables: List<String> = emptyList(),
+    val uniques: List<String> = emptyList(),
+    val modifiers: List<String> = emptyList(),
+    val mapModifiers: List<String> = emptyList(),
 )
 
 @Serializable data class Profession(val code: String, val tool: Slot, val jobs: List<Job>)

@@ -66,8 +66,10 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
             return null
         }
         if (found.lastUsedAt.plus(TOUCH_EVERY) < now) {
-            collection.updateOne(Filters.eq("_id", found._id),
-                Updates.combine(Updates.set("lastUsedAt", now), Updates.set("expiresAt", now.plus(LIFETIME))))
+            collection.updateOne(
+                Filters.eq("_id", found._id),
+                Updates.combine(Updates.set("lastUsedAt", now), Updates.set("expiresAt", now.plus(LIFETIME))),
+            )
         }
         return found
     }
@@ -81,11 +83,13 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
     /** Все сессии аккаунта, кроме, возможно, текущей - после смены пароля или блокировки. */
     suspend fun revokeAll(userId: String, except: String? = null) {
         SessionCache.evictUser(userId)
-        val filter = if (except == null) Filters.eq("userId", userId)
-            else Filters.and(Filters.eq("userId", userId), Filters.ne("tokenHash", Tokens.hash(except)))
+        val filter = if (except == null) {
+            Filters.eq("userId", userId)
+        } else {
+            Filters.and(Filters.eq("userId", userId), Filters.ne("tokenHash", Tokens.hash(except)))
+        }
         collection.deleteMany(filter)
     }
 
-    private fun LocalDateTime.plus(duration: Duration): LocalDateTime =
-        toInstant(TimeZone.UTC).plus(duration).toLocalDateTime(TimeZone.UTC)
+    private fun LocalDateTime.plus(duration: Duration): LocalDateTime = toInstant(TimeZone.UTC).plus(duration).toLocalDateTime(TimeZone.UTC)
 }

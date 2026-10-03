@@ -82,12 +82,17 @@ class QuestService : KoinComponent {
         quest.claimed = true
         when (quest.kind) {
             QuestKind.CONTRACT -> log.contracts.remove(quest)
+
             QuestKind.STORY -> {
                 log.story = null
                 log.step++
-                if (log.step >= rules.story.getOrNull(log.chapter)?.steps?.size ?: 0) { log.chapter++; log.step = 0 }
+                if (log.step >= rules.story.getOrNull(log.chapter)?.steps?.size ?: 0) {
+                    log.chapter++
+                    log.step = 0
+                }
                 refresh(hero, now, dice)
             }
+
             else -> Unit
         }
     }
@@ -125,9 +130,14 @@ class QuestService : KoinComponent {
      */
     fun refresh(hero: Hero, now: Long, dice: Dice): Boolean {
         val log = hero.quests
-        val before = log.copy(daily = log.daily.map { it.copy() }.toMutableList(), weekly = log.weekly.map { it.copy() }.toMutableList(),
-            offers = log.offers.toMutableList(), contracts = log.contracts.map { it.copy() }.toMutableList(), story = log.story?.copy(),
-            guild = log.guild?.let { it.copy(quests = it.quests.map { q -> q.copy() }.toMutableList(), claimed = it.claimed.toMutableList()) })
+        val before = log.copy(
+            daily = log.daily.map { it.copy() }.toMutableList(),
+            weekly = log.weekly.map { it.copy() }.toMutableList(),
+            offers = log.offers.toMutableList(),
+            contracts = log.contracts.map { it.copy() }.toMutableList(),
+            story = log.story?.copy(),
+            guild = log.guild?.let { it.copy(quests = it.quests.map { q -> q.copy() }.toMutableList(), claimed = it.claimed.toMutableList()) },
+        )
         val day = QuestClock.day(now)
         val week = QuestClock.week(now)
         if (log.day != day) {
@@ -150,7 +160,10 @@ class QuestService : KoinComponent {
     /** Личные гильдейские на сутки; вне гильдии гильдейской части нет, смена гильдии обнуляет только вклад. */
     private fun refreshGuild(hero: Hero, log: QuestLog, day: Long, week: Long, now: Long, dice: Dice) {
         val guildId = hero.guild?.id
-        if (guildId == null) { log.guild = null; return }
+        if (guildId == null) {
+            log.guild = null
+            return
+        }
         val guild = QuestProgress.guildLog(log, guildId, day, week)
         if (guild.rolled != day) {
             guild.rolled = day
@@ -174,7 +187,12 @@ class QuestService : KoinComponent {
         val level = step.zone.takeIf { it.isNotEmpty() }?.let { index.zone(it)?.level } ?: region.zones.maxOf { it.level }
         // Задания не привязаны к зоне (1.52.0): зона шага - лишь место в подписи, счёт идёт в любой.
         return Quest(
-            ObjectId().toHexString(), QuestKind.STORY, step.code, step.counter, step.rarity, step.target,
+            ObjectId().toHexString(),
+            QuestKind.STORY,
+            step.code,
+            step.counter,
+            step.rarity,
+            step.target,
             place = step.zone.ifEmpty { region.code },
             reward = reward(hero, QuestKind.STORY, step.rarity, minOf(level, hero.level).coerceAtLeast(1), Dice.system()),
         ).also { derive(hero, it) }
@@ -217,11 +235,15 @@ class QuestService : KoinComponent {
         val orbs = HashMap<String, Long>()
         repeat(kindRule.orbs) { weighted(rarityRule.orbs, dice) { it.weight }?.let { orbs.merge(it.code, it.amount, Long::plus) } }
         // Сундук-добыча (1.71.0): после сфер, чтобы их броски не сдвинулись.
-        if (rarityRule.chests.isNotEmpty() && dice.chance(rarityRule.chestChance)) weighted(rarityRule.chests, dice) { it.weight }?.let { chest ->
-            com.sperance.exileforge.rules.roll.LootChests(index).code(chest.code, level)?.let { orbs.merge(it, chest.amount, Long::plus) }
+        if (rarityRule.chests.isNotEmpty() && dice.chance(rarityRule.chestChance)) {
+            weighted(rarityRule.chests, dice) { it.weight }?.let { chest ->
+                com.sperance.exileforge.rules.roll.LootChests(index).code(chest.code, level)?.let { orbs.merge(it, chest.amount, Long::plus) }
+            }
         }
         return QuestReward(
-            gold, rules.experience(index.classes, level, scale), orbs,
+            gold,
+            rules.experience(index.classes, level, scale),
+            orbs,
             guildExperience = if (kind == QuestKind.GUILD) (gold * rules.guild.experience).toLong() else 0,
         )
     }
@@ -291,8 +313,7 @@ class QuestService : KoinComponent {
         quest.progress = (value - quest.start).coerceIn(0, quest.target)
     }
 
-    private fun derivedValue(hero: Hero, counter: String, zone: String): Long =
-        QuestProgress.derived(counter, hero.chronicle(), hero.campaign.cleared, zone)
+    private fun derivedValue(hero: Hero, counter: String, zone: String): Long = QuestProgress.derived(counter, hero.chronicle(), hero.campaign.cleared, zone)
 
     /** Рекорд выводимого счётчика по летописи героя. */
     private fun peak(hero: Hero, counter: String): Long = hero.chronicle()[counter] ?: 0L
@@ -303,26 +324,32 @@ class QuestService : KoinComponent {
      */
     private fun feasible(hero: Hero, counter: String, target: Long): Boolean = when (counter) {
         QuestCounter.LEVEL -> hero.level + target <= index.classes.maxLevel
+
         QuestCounter.ZONES -> hero.campaign.cleared.size + target <= index.campaign.zones.size
+
         QuestCounter.ATLAS -> {
             val atlas = index.atlas
             val earnable = index.zones.size.toLong() * AtlasPoints.KINDS.sumOf { atlas.points[it] ?: 0 }
             val reachable = minOf(earnable, atlas.cap.toLong(), atlas.nodes.size - 1L)
             peak(hero, counter) + target <= reachable
         }
+
         QuestCounter.TREE -> {
             val points = index.classes.pointsTotal(index.classes.maxLevel) - index.tree.spent(hero.tree)
             peak(hero, counter) + target <= minOf(hero.tree.size.toLong() + points, index.tree.byCode.size.toLong())
         }
+
         else -> true
     }
-
 
     private fun <T> weighted(items: List<T>, dice: Dice, weight: (T) -> Int): T? {
         val total = items.sumOf(weight)
         if (total <= 0) return null
         var left = dice.nextInt(total)
-        return items.firstOrNull { left -= weight(it); left < 0 }
+        return items.firstOrNull {
+            left -= weight(it)
+            left < 0
+        }
     }
 
     companion object {

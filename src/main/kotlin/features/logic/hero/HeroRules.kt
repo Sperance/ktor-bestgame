@@ -6,8 +6,8 @@ import com.sperance.exileforge.rules.content.Item
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Stat
 import com.sperance.exileforge.rules.content.TreePlan
-import com.sperance.exileforge.rules.roll.Menagerie
 import com.sperance.exileforge.rules.roll.ItemInstance
+import com.sperance.exileforge.rules.roll.Menagerie
 import com.sperance.exileforge.rules.run.Reward
 import com.sperance.exileforge.rules.sheet.SellPrice
 import com.sperance.exileforge.rules.sheet.SheetCalculator
@@ -16,9 +16,13 @@ import com.sperance.exileforge.rules.sheet.sourcedLines
 import features.data.hero.Hero
 
 /** Лист героя правилами `rules`: класс на уровне, строки дерева, питомцы, надетое и гнёзда - то же, что считает клиент. */
-fun ContentIndex.sheetOf(hero: Hero): SheetResult =
-    SheetCalculator(this).calculate(hero.level, heroClass(hero.heroClass), tree.sourcedLines(hero.tree) + Menagerie(this).helperSourced(hero.activePets()), hero.equipped,
-        hero.tree.mapTo(HashSet()) { it.code })
+fun ContentIndex.sheetOf(hero: Hero): SheetResult = SheetCalculator(this).calculate(
+    hero.level,
+    heroClass(hero.heroClass),
+    tree.sourcedLines(hero.tree) + Menagerie(this).helperSourced(hero.activePets()),
+    hero.equipped,
+    hero.tree.mapTo(HashSet()) { it.code },
+)
 
 /** Награда ложится на героя: стопки в сумку до потолка, опыт с уровнем, золото, рецепт и копии вещей - через тайник. */
 object Rewards {
@@ -42,9 +46,16 @@ object Rewards {
         reward.equipment.forEach { item ->
             when (item.rarity) {
                 Rarity.MAGIC -> hero.count(Counter.ITEMS_MAGIC)
+
                 Rarity.RARE -> hero.count(Counter.ITEMS_RARE)
+
                 Rarity.UNIQUE -> hero.count(Counter.UNIQUES)
-                Rarity.MYTHICAL -> { hero.count(Counter.UNIQUES); hero.count(Counter.MYTHICS) }
+
+                Rarity.MYTHICAL -> {
+                    hero.count(Counter.UNIQUES)
+                    hero.count(Counter.MYTHICS)
+                }
+
                 Rarity.COMMON -> Unit
             }
             if (item.mapZone.isNotEmpty()) hero.count(Counter.MAPS_FOUND)
@@ -63,8 +74,7 @@ object Rewards {
         return Received(sold = sold.size, gold = gold)
     }
 
-    private fun sold(hero: Hero, item: ItemInstance, index: ContentIndex): Boolean =
-        index.template(item.template)?.let { hero.autoSell.sells(it, item) } == true
+    private fun sold(hero: Hero, item: ItemInstance, index: ContentIndex): Boolean = index.template(item.template)?.let { hero.autoSell.sells(it, item) } == true
 
     /** Уровень только растёт: потеря опыта не забирает вложенных очков дерева. */
     fun addExperience(hero: Hero, amount: Double, index: ContentIndex) {

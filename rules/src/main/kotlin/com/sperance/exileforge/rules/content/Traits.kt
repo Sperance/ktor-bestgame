@@ -55,9 +55,11 @@ data class TraitRules(
     fun power(rarity: MonsterRarity): Double = power[rarity] ?: 1.0
 
     /** Свойства монстра: формы, затем своё; у босса и порченого стража - ни одного. */
-    fun of(monster: Monster): List<MonsterTrait> =
-        if (monster.boss || monster.corrupted) emptyList()
-        else listOfNotNull(forms[monster.form], monster.trait).distinct().mapNotNull(byCode::get)
+    fun of(monster: Monster): List<MonsterTrait> = if (monster.boss || monster.corrupted) {
+        emptyList()
+    } else {
+        listOfNotNull(forms[monster.form], monster.trait).distinct().mapNotNull(byCode::get)
+    }
 
     /** Значение [value] строки или отклика на силе [power]; [Op.SET] - как есть. */
     fun scaled(line: TraitLine, power: Double): Double = if (line.op == Op.SET) line.value else line.value * power

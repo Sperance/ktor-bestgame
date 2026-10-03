@@ -10,10 +10,11 @@ import kotlin.time.Clock
 import kotlin.time.Instant
 
 fun printLog(text: Any? = "", system: Boolean = false) {
-    if (text is String && system)
+    if (text is String && system) {
         LogManager.log(text)
-    else
+    } else {
         LogManager.log("\t$text")
+    }
 }
 
 fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime(TimeZone.UTC)
@@ -40,8 +41,8 @@ fun Route.saveChildren(depth: Int = 0) {
             ALL_ROUTES.add(
                 RouteInfo(
                     path = route.path,
-                    method = method
-                )
+                    method = method,
+                ),
             )
         } else {
             route.children.forEach { child ->

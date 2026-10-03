@@ -17,7 +17,8 @@ class AtlasLayoutTest {
     private fun ccw(a: AtlasNode, b: AtlasNode, c: AtlasNode) = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
 
     private fun distance(p: AtlasNode, a: AtlasNode, b: AtlasNode): Double {
-        val dx = b.x - a.x; val dy = b.y - a.y
+        val dx = b.x - a.x
+        val dy = b.y - a.y
         val t = (((p.x - a.x) * dx + (p.y - a.y) * dy) / (dx * dx + dy * dy).coerceAtLeast(1e-9)).coerceIn(0.0, 1.0)
         return hypot(p.x - a.x - t * dx, p.y - a.y - t * dy)
     }

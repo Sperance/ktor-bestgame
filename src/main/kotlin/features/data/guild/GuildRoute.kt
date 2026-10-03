@@ -17,21 +17,30 @@ import io.ktor.server.routing.post
 import server.addons.AppJson
 
 /** Маршруты гильдии (`/api/v1/guild/...`): каждый от имени героя `heroId`, команды отвечают со снимком героя. */
-class GuildRoute(private val repo: GuildRepository) : BaseRoute<Guild>(
-    repository = repo,
-    entitySerializer = Guild.serializer(),
-    operations = emptySet(),
-) {
+class GuildRoute(private val repo: GuildRepository) :
+    BaseRoute<Guild>(
+        repository = repo,
+        entitySerializer = Guild.serializer(),
+        operations = emptySet(),
+    ) {
     override fun additionalRoutes(route: Route) = with(route) {
         get("/mine") { call.respondOk(repo.mine(call.heroId)) }
         get("/search") {
             call.respondOk(repo.search(call.heroId, call.optionalParam("text"), call.optionalParam("faction"), call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
         }
         post("/create") {
-            call.respondWithHero(repo.create(
-                call.heroId, call.queryParam("name"), call.queryParam("tag"), call.queryParam("faction"), call.queryParam("emblem"), call.queryParam("color"),
-                call.mode() ?: GuildMode.OPEN, call.queryParam("minLevel", 1),
-            ))
+            call.respondWithHero(
+                repo.create(
+                    call.heroId,
+                    call.queryParam("name"),
+                    call.queryParam("tag"),
+                    call.queryParam("faction"),
+                    call.queryParam("emblem"),
+                    call.queryParam("color"),
+                    call.mode() ?: GuildMode.OPEN,
+                    call.queryParam("minLevel", 1),
+                ),
+            )
         }
         post("/join") { call.respondWithHero(repo.join(call.heroId, call.queryParam("guildId"))) }
         post("/apply") { call.respondWithHero(repo.submitApplication(call.heroId, call.queryParam("guildId"))) }
@@ -47,10 +56,16 @@ class GuildRoute(private val repo: GuildRepository) : BaseRoute<Guild>(
         post("/transfer") { call.respondWithHero(repo.transfer(call.heroId, call.queryParam("memberId"))) }
         post("/disband") { call.respondWithHero(repo.disband(call.heroId)) }
         post("/settings") {
-            call.respondWithHero(repo.settings(
-                call.heroId, call.mode(), call.optionalParam("minLevel")?.let { it.toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("settings", "minLevel=$it") },
-                call.optionalParam("emblem"), call.optionalParam("color"), call.announcement(),
-            ))
+            call.respondWithHero(
+                repo.settings(
+                    call.heroId,
+                    call.mode(),
+                    call.optionalParam("minLevel")?.let { it.toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("settings", "minLevel=$it") },
+                    call.optionalParam("emblem"),
+                    call.optionalParam("color"),
+                    call.announcement(),
+                ),
+            )
         }
         post("/contribute") { call.respondWithHero(repo.contribute(call.heroId, call.queryParam("item"), call.queryParam("amount", 0L))) }
         post("/tree/take") { call.respondWithHero(repo.takeNode(call.heroId, call.queryParam("node"))) }

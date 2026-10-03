@@ -100,11 +100,15 @@ class EssenceCrystals(private val index: ContentIndex) {
     fun vaal(crystal: Crystal, dice: Dice): Pair<String, Crystal> {
         val outcome = Tables.draw(index.tables.pool(listOf(book.crystals.vaal)), dice) ?: EssenceBook.VAAL_STRONGER
         val changed = when (outcome) {
-            EssenceBook.VAAL_UPGRADE -> crystal.copy(essences = crystal.essences.map { code ->
-                val essence = book.essences[code]
-                if (essence == null || essence.special) code else EssenceBook.code(essence.kind.code, (essence.tier + 1).coerceAtMost(book.tiers.size), false)
-            })
+            EssenceBook.VAAL_UPGRADE -> crystal.copy(
+                essences = crystal.essences.map { code ->
+                    val essence = book.essences[code]
+                    if (essence == null || essence.special) code else EssenceBook.code(essence.kind.code, (essence.tier + 1).coerceAtMost(book.tiers.size), false)
+                },
+            )
+
             EssenceBook.VAAL_SPECIAL -> crystal.copy(essences = crystal.essences.toMutableList().also { it[dice.nextInt(it.size)] = EssenceBook.code(dice.pick(book.specials).code, 0, true) })
+
             else -> crystal.copy(stronger = true)
         }
         return outcome to changed.copy(vaal = true)
@@ -125,7 +129,9 @@ data class HoardBonus(val items: Double = 1.0, val rare: Double = 0.0, val orbs:
     fun scaled(grow: Double): HoardBonus = if (grow == 1.0) this else copy(items = items * grow, orbs = orbs * grow, experience = experience * grow)
 }
 data class HoardRoll(val items: List<Rarity>, val orbs: Map<String, Long>, val unique: Boolean, val experience: Double) {
-    companion object { val EMPTY = HoardRoll(emptyList(), emptyMap(), false, 0.0) }
+    companion object {
+        val EMPTY = HoardRoll(emptyList(), emptyMap(), false, 0.0)
+    }
 }
 
 class AbyssRifts(private val index: ContentIndex) {

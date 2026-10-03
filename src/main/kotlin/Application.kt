@@ -26,27 +26,34 @@ import server.addons.configureStatusPages
 fun main() {
     printLog("\n\n***** Starting up", true)
 
-    val server = embeddedServer(Netty,
+    val server = embeddedServer(
+        Netty,
         configure = {
-            connector { port = SERVER_PORT; host = "0.0.0.0" }
-            shutdownGracePeriod = 10_000L },
+            connector {
+                port = SERVER_PORT
+                host = "0.0.0.0"
+            }
+            shutdownGracePeriod = 10_000L
+        },
         module = {
             startKoin { modules(allModules) }
             configureModules()
-        }
+        },
     )
 
-    Runtime.getRuntime().addShutdownHook(Thread {
-        val backupManager: MongoBackupManager = getKoin().get()
-        try {
-            backupManager.shutdown()
-            LogManager.shutdown()
-            SystemMonitor.stop()
-        } catch (e: Exception) {
-            printLog("Error stopping: ${e.message}")
-        }
-        printLog("\n\n***** Server stopped", true)
-    })
+    Runtime.getRuntime().addShutdownHook(
+        Thread {
+            val backupManager: MongoBackupManager = getKoin().get()
+            try {
+                backupManager.shutdown()
+                LogManager.shutdown()
+                SystemMonitor.stop()
+            } catch (e: Exception) {
+                printLog("Error stopping: ${e.message}")
+            }
+            printLog("\n\n***** Server stopped", true)
+        },
+    )
 
     server.start(wait = true)
 }

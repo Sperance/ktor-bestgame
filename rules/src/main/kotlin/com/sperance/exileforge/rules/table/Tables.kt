@@ -71,8 +71,11 @@ object EntriesSerializer : KSerializer<List<TableEntry>> {
     override fun serialize(encoder: Encoder, value: List<TableEntry>) {
         val json = encoder as? JsonEncoder ?: return encoder.encodeSerializableValue(list, value)
         val plain = value.all { it.chance == null && it.amount == null && it.minLevel == 0 }
-        if (plain) json.encodeJsonElement(JsonObject(value.associate { it.ref to JsonPrimitive(it.weight) }))
-        else json.encodeSerializableValue(list, value)
+        if (plain) {
+            json.encodeJsonElement(JsonObject(value.associate { it.ref to JsonPrimitive(it.weight) }))
+        } else {
+            json.encodeSerializableValue(list, value)
+        }
     }
 
     override fun deserialize(decoder: Decoder): List<TableEntry> {
@@ -115,8 +118,7 @@ class TableSet(tables: Collection<Table>) {
     fun weight(code: String, tags: List<String>): Int = tags.firstNotNullOfOrNull { resolved[it]?.get(code)?.weight } ?: 0
 
     /** Записи [candidates] с положительным весом по [tags], в порядке кандидатов. */
-    fun <T> of(candidates: Iterable<T>, tags: List<String>, code: (T) -> String): List<Weighted<T>> =
-        candidates.mapNotNull { candidate -> weight(code(candidate), tags).takeIf { it > 0 }?.let { Weighted(candidate, it) } }
+    fun <T> of(candidates: Iterable<T>, tags: List<String>, code: (T) -> String): List<Weighted<T>> = candidates.mapNotNull { candidate -> weight(code(candidate), tags).takeIf { it > 0 }?.let { Weighted(candidate, it) } }
 
     /** Все коды тяги по [tags] с весами: записи первого тега, потом невиданные из следующих. */
     fun pool(tags: List<String>, level: Int = Int.MAX_VALUE): List<Weighted<String>> {
@@ -155,12 +157,14 @@ class TableSet(tables: Collection<Table>) {
             same.flatMap { it.entries }.forEach { entry ->
                 when {
                     Ref.isTable(entry.ref) -> if (entry.code !in raw) fail("table $tag: unknown table ${entry.code}")
+
                     kind == TableKind.LOOT -> {
                         val refKind = entry.kind ?: fail("table $tag: a loot entry names its kind, got ${entry.ref}")
                         if (!exists(refKind, entry.code)) fail("table $tag: unknown ${entry.ref}")
                         if (entry.chance == null || entry.chance !in 0.0..1.0) fail("table $tag: chance of ${entry.ref}")
                         entry.amount?.let { if (it.size != 2 || it[0] > it[1] || it[0] < 0) fail("table $tag: amount of ${entry.ref}") }
                     }
+
                     else -> if (!exists(entry.kind ?: kind, entry.code)) fail("table $tag: unknown ${entry.ref}")
                 }
                 if (entry.weight < 0) fail("table $tag: weight of ${entry.ref}")
@@ -176,7 +180,10 @@ object Tables {
         val total = pool.sumOf { it.weight.toLong() }
         if (total <= 0) return null
         var point = dice.nextLong(total)
-        pool.forEach { entry -> point -= entry.weight; if (point < 0) return entry.value }
+        pool.forEach { entry ->
+            point -= entry.weight
+            if (point < 0) return entry.value
+        }
         return pool.last().value
     }
 
@@ -186,7 +193,10 @@ object Tables {
         val total = weights.sum()
         if (total <= 0.0) return null
         var point = dice.nextDouble() * total
-        pool.forEachIndexed { index, entry -> point -= weights[index]; if (point < 0) return entry }
+        pool.forEachIndexed { index, entry ->
+            point -= weights[index]
+            if (point < 0) return entry
+        }
         return pool.last()
     }
 

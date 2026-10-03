@@ -34,17 +34,26 @@ class AsanaExport(private val token: String?, private val project: String, priva
 
     override suspend fun export(report: BugReport, login: String?): String {
         val token = token ?: throw BaseException("Asana export is off: no ASANA_TOKEN", "BugReport", "asana", "BUG_005")
-        val task = post(token, "tasks?opt_fields=permalink_url", buildJsonObject {
-            putJsonObject("data") {
-                put("name", title(report))
-                put("notes", notes(report, login))
-                putJsonArray("projects") { add(JsonPrimitive(project)) }
-            }
-        })
+        val task = post(
+            token,
+            "tasks?opt_fields=permalink_url",
+            buildJsonObject {
+                putJsonObject("data") {
+                    put("name", title(report))
+                    put("notes", notes(report, login))
+                    putJsonArray("projects") { add(JsonPrimitive(project)) }
+                }
+            },
+        )
         val gid = task["gid"]?.jsonPrimitive?.content
         // Секцию API ставит только отдельным вызовом, не при создании задачи.
-        if (gid != null) post(token, "sections/${if (report.kind == FeedbackKind.BUG) bugSection else suggestionSection}/addTask",
-            buildJsonObject { putJsonObject("data") { put("task", gid) } })
+        if (gid != null) {
+            post(
+                token,
+                "sections/${if (report.kind == FeedbackKind.BUG) bugSection else suggestionSection}/addTask",
+                buildJsonObject { putJsonObject("data") { put("task", gid) } },
+            )
+        }
         return task["permalink_url"]?.jsonPrimitive?.content.orEmpty()
     }
 
@@ -57,9 +66,15 @@ class AsanaExport(private val token: String?, private val project: String, priva
             .POST(HttpRequest.BodyPublishers.ofString(body.toString()))
             .build()
         val response = withContext(Dispatchers.IO) { http.send(request, HttpResponse.BodyHandlers.ofString()) }
-        if (response.statusCode() !in 200..299)
-            throw BaseException("Asana refused $path: ${response.statusCode()} ${response.body().take(ERROR_TAIL)}", "BugReport", "asana", "BUG_006",
-                listOf(response.statusCode().toString()))
+        if (response.statusCode() !in 200..299) {
+            throw BaseException(
+                "Asana refused $path: ${response.statusCode()} ${response.body().take(ERROR_TAIL)}",
+                "BugReport",
+                "asana",
+                "BUG_006",
+                listOf(response.statusCode().toString()),
+            )
+        }
         return json.parseToJsonElement(response.body()).jsonObject["data"]?.jsonObject ?: JsonObject(emptyMap())
     }
 
@@ -76,8 +91,16 @@ class AsanaExport(private val token: String?, private val project: String, priva
         appendLine("Автор: ${login ?: report.userId ?: "—"} · ${report.address}")
         if (report.kind == FeedbackKind.SUGGESTION) appendLine("Голоса: +${report.likes.size} / -${report.dislikes.size}")
         if (report.screen.isNotBlank()) appendLine("Экран: ${report.screen}")
-        if (report.context.isNotEmpty()) { appendLine(); appendLine("Контекст:"); report.context.forEach { (k, v) -> appendLine("  $k: $v") } }
-        if (report.requests.isNotEmpty()) { appendLine(); appendLine("Журнал запросов:"); report.requests.forEach { appendLine("  $it") } }
+        if (report.context.isNotEmpty()) {
+            appendLine()
+            appendLine("Контекст:")
+            report.context.forEach { (k, v) -> appendLine("  $k: $v") }
+        }
+        if (report.requests.isNotEmpty()) {
+            appendLine()
+            appendLine("Журнал запросов:")
+            report.requests.forEach { appendLine("  $it") }
+        }
     }
 
     private companion object {

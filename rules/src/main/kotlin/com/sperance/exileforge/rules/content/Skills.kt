@@ -14,13 +14,32 @@ import kotlin.math.ceil
 
 @Serializable
 enum class SkillType(val kind: SkillKind) {
-    ATTACK(SkillKind.ACTIVE), SPELL(SkillKind.ACTIVE), WARCRY(SkillKind.ACTIVE), CURSE(SkillKind.ACTIVE),
-    HEAL(SkillKind.ACTIVE), GUARD(SkillKind.ACTIVE), AURA(SkillKind.PASSIVE), BONUS(SkillKind.PASSIVE), TRIGGER(SkillKind.PASSIVE),
+    ATTACK(SkillKind.ACTIVE),
+    SPELL(SkillKind.ACTIVE),
+    WARCRY(SkillKind.ACTIVE),
+    CURSE(SkillKind.ACTIVE),
+    HEAL(SkillKind.ACTIVE),
+    GUARD(SkillKind.ACTIVE),
+    AURA(SkillKind.PASSIVE),
+    BONUS(SkillKind.PASSIVE),
+    TRIGGER(SkillKind.PASSIVE),
 }
 
 @Serializable
 enum class SlotCondition {
-    READY, FIGHT_START, RARE_OR_BOSS, LIFE_50, LIFE_35, LIFE_20, MANA_30, SHIELD_BROKEN, ENEMIES_3, AILING, MANUAL;
+    READY,
+    FIGHT_START,
+    RARE_OR_BOSS,
+    LIFE_50,
+    LIFE_35,
+    LIFE_20,
+    MANA_30,
+    SHIELD_BROKEN,
+    ENEMIES_3,
+    AILING,
+    MANUAL,
+    ;
+
     val flaskOnly: Boolean get() = this == MANA_30
 }
 
@@ -40,27 +59,49 @@ object ScaleSerializer : KSerializer<Scale> {
 }
 
 @Serializable data class SkillStat(val stat: String, val op: Op = Op.ADD, val value: Scale)
+
 @Serializable data class SkillAilment(val ailment: String, val chance: Scale)
+
 @Serializable data class SpellDamage(val element: String, val min: Scale, val max: Scale)
 
 @Serializable
 data class SkillHit(
-    val targets: Int = 1, val hits: Int = 1, val weapon: Scale? = null, val spell: SpellDamage? = null, val element: String? = null,
-    val convert: Scale? = null, val ailments: List<SkillAilment> = emptyList(), val stats: List<SkillStat> = emptyList(),
-    val finisher: Scale? = null, val stun: Scale? = null,
+    val targets: Int = 1,
+    val hits: Int = 1,
+    val weapon: Scale? = null,
+    val spell: SpellDamage? = null,
+    val element: String? = null,
+    val convert: Scale? = null,
+    val ailments: List<SkillAilment> = emptyList(),
+    val stats: List<SkillStat> = emptyList(),
+    val finisher: Scale? = null,
+    val stun: Scale? = null,
 )
 
 @Serializable data class SkillDot(val targets: Int = 1, val element: String, val min: Scale, val max: Scale, val duration: Double, val ailments: List<SkillAilment> = emptyList())
+
 @Serializable data class SkillBuff(val duration: Double, val stats: List<SkillStat> = emptyList(), val counter: Scale? = null, val nextCrit: Boolean = false)
+
 @Serializable data class SkillCurse(val duration: Double, val targets: Int = 0, val stats: List<SkillStat>)
+
 @Serializable data class SkillHeal(val life: Scale? = null, val mana: Scale? = null, val cleanse: Boolean = false)
+
 @Serializable data class SkillBarrier(val life: Scale, val duration: Double)
 
 @Serializable
 data class SkillTrigger(
-    val on: SkillEvent, val chance: Scale? = null, val cooldown: Double = 0.0, val heal: SkillHeal? = null, val shield: Scale? = null,
-    val barrier: SkillBarrier? = null, val buff: SkillBuff? = null, val hit: SkillHit? = null, val flaskCharges: Int = 0,
-    val ailment: String? = null, val twice: Boolean = false, val refund: Boolean = false,
+    val on: SkillEvent,
+    val chance: Scale? = null,
+    val cooldown: Double = 0.0,
+    val heal: SkillHeal? = null,
+    val shield: Scale? = null,
+    val barrier: SkillBarrier? = null,
+    val buff: SkillBuff? = null,
+    val hit: SkillHit? = null,
+    val flaskCharges: Int = 0,
+    val ailment: String? = null,
+    val twice: Boolean = false,
+    val refund: Boolean = false,
 )
 
 /**
@@ -73,10 +114,24 @@ data class SkillCharges(val kind: ChargeKind, val gain: Scale? = null, val consu
 
 @Serializable
 data class SkillDefinition(
-    val code: String, val heroClass: String, val type: SkillType, val unlock: Int, val icon: String,
-    val mana: Scale? = null, val cooldown: Double = 0.0, val reserve: Double = 0.0, val condition: SlotCondition = SlotCondition.READY,
-    val hit: SkillHit? = null, val dot: SkillDot? = null, val buff: SkillBuff? = null, val curse: SkillCurse? = null, val heal: SkillHeal? = null,
-    val shield: Scale? = null, val barrier: SkillBarrier? = null, val stats: List<SkillStat> = emptyList(), val lowLife: Boolean = false,
+    val code: String,
+    val heroClass: String,
+    val type: SkillType,
+    val unlock: Int,
+    val icon: String,
+    val mana: Scale? = null,
+    val cooldown: Double = 0.0,
+    val reserve: Double = 0.0,
+    val condition: SlotCondition = SlotCondition.READY,
+    val hit: SkillHit? = null,
+    val dot: SkillDot? = null,
+    val buff: SkillBuff? = null,
+    val curse: SkillCurse? = null,
+    val heal: SkillHeal? = null,
+    val shield: Scale? = null,
+    val barrier: SkillBarrier? = null,
+    val stats: List<SkillStat> = emptyList(),
+    val lowLife: Boolean = false,
     val trigger: SkillTrigger? = null,
     /** Подготовка (3.13.0 клиента): сколько процентов перезарядки идёт в начале боя, от первого уровня умения к последнему. */
     val prepare: Scale? = null,
@@ -89,19 +144,35 @@ data class SkillDefinition(
 
 @Serializable
 data class MonsterSkill(
-    val code: String, val icon: String, val mana: Double, val cooldown: Double, val spell: Boolean = true,
-    val hit: SkillHit? = null, val buff: SkillBuff? = null, val curse: SkillCurse? = null, val heal: SkillHeal? = null, val manaBurn: Double = 0.0,
+    val code: String,
+    val icon: String,
+    val mana: Double,
+    val cooldown: Double,
+    val spell: Boolean = true,
+    val hit: SkillHit? = null,
+    val buff: SkillBuff? = null,
+    val curse: SkillCurse? = null,
+    val heal: SkillHeal? = null,
+    val manaBurn: Double = 0.0,
 )
 
 @Serializable data class ClassSkills(val code: String, val attributes: List<String>, val mana: Double)
+
 @Serializable data class BookRule(val boss: Double, val bossOwnClass: Double, val rare: Double, val guardian: Double, val reach: Int)
+
 @Serializable data class ExchangeRule(val books: Int, val goldPerLevel: Long)
+
 @Serializable data class AttributeRule(val single: List<Double>, val dual: List<Double>, val triple: List<Double>)
 
 @Serializable
 data class SkillBookRules(
-    val activeSlots: List<Int>, val passiveSlots: List<Int>, val manaPerLevel: Double, val attributes: AttributeRule,
-    val books: BookRule, val exchange: ExchangeRule, val casterSpells: Map<String, String> = emptyMap(),
+    val activeSlots: List<Int>,
+    val passiveSlots: List<Int>,
+    val manaPerLevel: Double,
+    val attributes: AttributeRule,
+    val books: BookRule,
+    val exchange: ExchangeRule,
+    val casterSpells: Map<String, String> = emptyMap(),
 )
 
 /** Файл `skills.json`: правила, классы, умения классов и монстров. */
@@ -128,7 +199,10 @@ data class SkillBook(val rules: SkillBookRules, val classes: List<ClassSkills>, 
             val own = ofClass(heroClass.code)
             val charged = own.count { it.charges != null }
             if (own.count { it.kind == SkillKind.ACTIVE && it.charges == null } != ACTIVE_PER_CLASS || own.count { it.kind == SkillKind.PASSIVE } != PASSIVE_PER_CLASS ||
-                charged > CHARGE_SKILLS_PER_CLASS) fail("skills: skills of ${heroClass.code}")
+                charged > CHARGE_SKILLS_PER_CLASS
+            ) {
+                fail("skills: skills of ${heroClass.code}")
+            }
             if (own.none { it.kind == SkillKind.ACTIVE && it.unlock == 1 } || own.none { it.kind == SkillKind.PASSIVE && it.unlock == 1 }) fail("skills: first skills of ${heroClass.code}")
         }
         val monster = monsterSkills.map { it.code }
@@ -151,6 +225,7 @@ data class SkillBook(val rules: SkillBookRules, val classes: List<ClassSkills>, 
                 if (listOfNotNull(skill.hit, skill.dot, skill.buff, skill.curse, skill.heal, skill.shield, skill.barrier).isEmpty()) fail("skills: action of $code")
                 if (skill.condition.flaskOnly) fail("skills: condition of $code")
             }
+
             SkillKind.PASSIVE -> {
                 if (skill.mana != null || skill.cooldown > 0) fail("skills: cost of passive $code")
                 when (skill.type) {
@@ -183,6 +258,7 @@ data class SkillBook(val rules: SkillBookRules, val classes: List<ClassSkills>, 
     companion object {
         const val ACTIVE_PER_CLASS = 6
         const val PASSIVE_PER_CLASS = 8
+
         /** Умений зарядов (1.32.0) на класс - сверх [ACTIVE_PER_CLASS] активных. */
         const val CHARGE_SKILLS_PER_CLASS = 1
         private const val RANDOM = "RANDOM"
@@ -210,13 +286,16 @@ data class SkillNeed(val heroLevel: Int, val attributes: Map<String, Int>)
 class SkillRules(val book: SkillBook) {
     private val rules get() = book.rules
 
-    fun heroLevel(skill: SkillDefinition, level: Int): Int =
-        ceil(skill.unlock + (MAX_HERO_LEVEL - skill.unlock) * (level - 1) / (MAX_LEVEL - 1.0) - 1e-9).toInt()
+    fun heroLevel(skill: SkillDefinition, level: Int): Int = ceil(skill.unlock + (MAX_HERO_LEVEL - skill.unlock) * (level - 1) / (MAX_LEVEL - 1.0) - 1e-9).toInt()
 
     fun need(skill: SkillDefinition, level: Int): SkillNeed {
         val heroLevel = heroLevel(skill, level)
         val heroClass = book.classesByCode.getValue(skill.heroClass)
-        val (factor, plus) = when (heroClass.attributes.size) { 1 -> rules.attributes.single; 2 -> rules.attributes.dual; else -> rules.attributes.triple }
+        val (factor, plus) = when (heroClass.attributes.size) {
+            1 -> rules.attributes.single
+            2 -> rules.attributes.dual
+            else -> rules.attributes.triple
+        }
         val amount = ceil(factor * heroLevel + plus - 1e-9).toInt()
         return SkillNeed(heroLevel, heroClass.attributes.associateWith { amount })
     }
@@ -250,6 +329,7 @@ class SkillRules(val book: SkillBook) {
 
     companion object {
         const val MAX_LEVEL = 20
+
         /** Потолок уровня умения с прибавками вещей, атласа и карты (1.17.0): дальше шкала не тянется. */
         const val MAX_BOOSTED_LEVEL = 25
         const val MAX_HERO_LEVEL = 70

@@ -6,11 +6,12 @@ import application.enums.EnumUserRoles
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import config.MongoFactory.transactionExecute
 import extensions.printLog
+import features.caches.BlockListCache
 import features.data.auction.AuctionLotRepository
-import features.data.guild.GuildEventRepository
-import features.data.guild.GuildRepository
 import features.data.auth.AuthSessionRepository
 import features.data.blockList.BlockListRepository
+import features.data.guild.GuildEventRepository
+import features.data.guild.GuildRepository
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.idempotency.IdempotentReplyStore
@@ -20,7 +21,6 @@ import features.data.redemptionCodes.RedemptionItem
 import features.data.redemptionCodes.RedemptionKind
 import features.data.user.User
 import features.data.user.UserRepository
-import features.caches.BlockListCache
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -81,8 +81,10 @@ object DatabaseSeeder : KoinComponent {
 
     /** Индексы - до транзакции: создание индекса меняет каталог MongoDB и рвёт открытую транзакцию. */
     private suspend fun ensureIndexes() = coroutineScope {
-        (listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes, bugs, mail).map { async { it.ensureIndexes() } } +
-            listOf(async { IdempotentReplyStore.ensureIndexes() }, async { features.data.hero.HeroRunStore.ensureCollection() })).awaitAll()
+        (
+            listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes, bugs, mail).map { async { it.ensureIndexes() } } +
+                listOf(async { IdempotentReplyStore.ensureIndexes() }, async { features.data.hero.HeroRunStore.ensureCollection() })
+            ).awaitAll()
         printLog("  → indexes ensured")
     }
 
@@ -92,7 +94,10 @@ object DatabaseSeeder : KoinComponent {
             SEED_ADMIN_PASSWORD?.let { add(User(name = "Admin", email = "admin@game.com", age = 25, login = "admin", password = it, role = EnumUserRoles.ADMIN)) }
             SEED_TEST_PLAYER_PASSWORD?.let { add(User(name = "TestPlayer", email = "player@game.com", age = 22, login = "test1", password = it)) }
         }
-        if (seeded.isEmpty()) { printLog("  → ADMIN_PASSWORD and TEST_PLAYER_PASSWORD are not set, no users seeded"); return }
+        if (seeded.isEmpty()) {
+            printLog("  → ADMIN_PASSWORD and TEST_PLAYER_PASSWORD are not set, no users seeded")
+            return
+        }
         users.insertMany(seeded, session)
         printLog("  → ${seeded.size} users created")
     }
@@ -111,10 +116,19 @@ object DatabaseSeeder : KoinComponent {
 
     private suspend fun seedRedemptionCodes(session: ClientSession) {
         if (codes.count() > 0) return
-        codes.insertMany(listOf(RedemptionCodes("ALFA_BETA_GAMMA", listOf(
-            RedemptionItem(RedemptionKind.EXPERIENCE, amount = 500.0),
-            RedemptionItem(RedemptionKind.GOLD, amount = 100.0),
-        ), "")), session)
+        codes.insertMany(
+            listOf(
+                RedemptionCodes(
+                    "ALFA_BETA_GAMMA",
+                    listOf(
+                        RedemptionItem(RedemptionKind.EXPERIENCE, amount = 500.0),
+                        RedemptionItem(RedemptionKind.GOLD, amount = 100.0),
+                    ),
+                    "",
+                ),
+            ),
+            session,
+        )
         printLog("  → 1 redemption code created")
     }
 }

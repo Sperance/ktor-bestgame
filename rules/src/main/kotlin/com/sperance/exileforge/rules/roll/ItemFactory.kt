@@ -25,8 +25,13 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
         val actual = rarityFor(template, rarity)
         val itemLevel = level.coerceIn(1, index.rules.loot.maxItemLevel)
         val item = ItemInstance(
-            id, template.code, actual, affixes.roll(template, actual, dice, influence, itemLevel),
-            influence = influence, corrupted = template.corrupted, itemLevel = itemLevel,
+            id,
+            template.code,
+            actual,
+            affixes.roll(template, actual, dice, influence, itemLevel),
+            influence = influence,
+            corrupted = template.corrupted,
+            itemLevel = itemLevel,
             baseQuality = index.rules.loot.baseVariance.let { dice.between(it.min, it.max) },
         )
         affixes.ensureAffixes(template, item, dice)
@@ -67,12 +72,10 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
     }
 
     /** Держит ли копия дно своей редкости: волшебная и редкая - не меньше аффиксов, чем велит правило. */
-    fun meetsFloor(template: ItemTemplate, item: ItemInstance): Boolean =
-        item.rarity.fixed || item.rolls.count(affixes::isAffix) >= index.limits(item.rarity, template.slot).floor
+    fun meetsFloor(template: ItemTemplate, item: ItemInstance): Boolean = item.rarity.fixed || item.rolls.count(affixes::isAffix) >= index.limits(item.rarity, template.slot).floor
 
     /** Пустой ли самоцвет или карта: обычный или без единого аффикса; уникальный самоцвет (1.31.0) несёт строки шаблона и пустым не бывает. */
-    fun empty(template: ItemTemplate, item: ItemInstance): Boolean =
-        template.slot.isJewelLike && !item.rarity.fixed && (item.rarity == Rarity.COMMON || item.rolls.none(affixes::isAffix))
+    fun empty(template: ItemTemplate, item: ItemInstance): Boolean = template.slot.isJewelLike && !item.rarity.fixed && (item.rarity == Rarity.COMMON || item.rolls.none(affixes::isAffix))
 
     /**
      * Сверка старой копии с шаблоном: недопустимая редкость (обычный самоцвет или карта, редкая фляга)
@@ -88,12 +91,21 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
             changed = true
         }
         val known = item.rolls.filter { index.modifier(it.code) != null }
-        if (known.size != item.rolls.size) { item.rolls = known; changed = true }
+        if (known.size != item.rolls.size) {
+            item.rolls = known
+            changed = true
+        }
         val rehomed = item.rolls.map { rehome(template, it) }
-        if (rehomed != item.rolls) { item.rolls = rehomed; changed = true }
+        if (rehomed != item.rolls) {
+            item.rolls = rehomed
+            changed = true
+        }
         // Копия без своего уровня (до 1.33.0) катилась на уровне зоны - её тиры уровнем шаблона не режутся
         val fitted = item.rolls.map { fitTier(it, if (item.itemLevel > 0) item.itemLevel else Int.MAX_VALUE) }
-        if (fitted != item.rolls) { item.rolls = fitted; changed = true }
+        if (fitted != item.rolls) {
+            item.rolls = fitted
+            changed = true
+        }
         // Порча, что заменила имплиситы (исход IMPLICIT сферы ваал), их место заняла навсегда: дороллить их обратно - двойной бонус.
         val replaced = item.corrupted && item.rolls.any { it.code !in template.fixedCodes && index.modifier(it.code)?.source == Source.CORRUPTION }
         val fixed = template.fixedCodes.filter { code ->
@@ -106,7 +118,10 @@ class ItemFactory(val index: ContentIndex, val affixes: AffixRoller = AffixRolle
             changed = true
         }
         if (affixes.ensureAffixes(template, item, dice)) changed = true
-        if (template.corrupted && !item.corrupted) { item.corrupted = true; changed = true }
+        if (template.corrupted && !item.corrupted) {
+            item.corrupted = true
+            changed = true
+        }
         // Варианты выбора считались для прежней вещи: изменилась она - предложение снимается.
         if (changed) item.offer = emptyList()
         return changed

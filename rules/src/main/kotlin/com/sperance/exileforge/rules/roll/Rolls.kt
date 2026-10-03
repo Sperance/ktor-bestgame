@@ -95,8 +95,12 @@ data class ItemInstance(
      * с его видом, замок игрока и потолок перепродажи - ни замок, ни потолок не снимаются способом превращения.
      */
     fun inheriting(origin: ItemInstance): ItemInstance = copy(
-        slot = origin.slot, socket = origin.socket, quality = origin.quality, catalyst = origin.catalyst,
-        locked = origin.locked, resale = origin.resale,
+        slot = origin.slot,
+        socket = origin.socket,
+        quality = origin.quality,
+        catalyst = origin.catalyst,
+        locked = origin.locked,
+        resale = origin.resale,
     )
 
     val equipped: Boolean get() = slot != null

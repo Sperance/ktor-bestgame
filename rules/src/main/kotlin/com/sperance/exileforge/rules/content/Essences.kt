@@ -4,6 +4,7 @@ import com.sperance.exileforge.rules.fail
 import kotlinx.serialization.Serializable
 
 @Serializable data class EssenceTier(val code: String, val level: Int, val rerollsRare: Boolean = false)
+
 /**
  * Вид эссенции: гарантированная строка по роду вещи. [weapon] - оружие атак, [armour] - броня, [jewellery] - кольцо и амулет;
  * необязательные [caster] (жезл, посох, скипетр), [quiver], [shield] и [belt] без своего значения берут [weapon], [weapon], [armour] и [jewellery].
@@ -27,10 +28,17 @@ data class EssenceKind(
 /** Кристаллы зоны: окно как у сундуков; [vaal] - таблица исходов сферы Ваал, [modifiers] - таблицы строк стражей. */
 @Serializable
 data class CrystalRule(
-    val count: List<Int>, val refreshHours: Double, val essences: List<Int>, val lowerChance: Double,
-    val modifiers: List<String>, val bookChance: Double, val vaal: String = "vaal:crystal", val stronger: Double,
+    val count: List<Int>,
+    val refreshHours: Double,
+    val essences: List<Int>,
+    val lowerChance: Double,
+    val modifiers: List<String>,
+    val bookChance: Double,
+    val vaal: String = "vaal:crystal",
+    val stronger: Double,
     /** Уникалка со стража кристалла (1.19.0): шанс и собственный пул механики. */
-    val uniqueChance: Double = 0.0, val uniqueTables: List<String> = emptyList(),
+    val uniqueChance: Double = 0.0,
+    val uniqueTables: List<String> = emptyList(),
 )
 
 @Serializable data class CondenseRule(val inputs: Int, val levels: List<Int>, val seconds: Int)

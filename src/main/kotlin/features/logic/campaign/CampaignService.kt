@@ -34,10 +34,10 @@ import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.hero.RunState
 import features.logic.atlas.AtlasService
-import features.logic.quests.QuestService
 import features.logic.hero.Received
 import features.logic.hero.Rewards
 import features.logic.hero.sheetOf
+import features.logic.quests.QuestService
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 import org.koin.core.component.KoinComponent
@@ -73,10 +73,21 @@ data class CrystalOutcome(val index: Int, val crystal: Crystal)
  * одной строке на каждое принятое в этом ответе, по возрастанию номера), потеря опыта смерти и где герой теперь.
  */
 @Serializable
-data class RunReport(val applied: Int, val rejected: List<Int>, val reward: RewardView, val lost: Double, val level: Int, val experience: Double, val money: Long,
-                     val progress: CampaignProgress, val open: Boolean, val received: Received = Received(), val rewards: List<EventReward> = emptyList(),
-                     /** Заход, к которому относится отчёт (1.68.0). */
-                     val runId: String = "")
+data class RunReport(
+    val applied: Int,
+    val rejected: List<Int>,
+    val reward: RewardView,
+    val lost: Double,
+    val level: Int,
+    val experience: Double,
+    val money: Long,
+    val progress: CampaignProgress,
+    val open: Boolean,
+    val received: Received = Received(),
+    val rewards: List<EventReward> = emptyList(),
+    /** Заход, к которому относится отчёт (1.68.0). */
+    val runId: String = "",
+)
 
 /**
  * Кампания по семени (1.0.0). `start` замораживает контекст героя и выдаёт семя: клиент ставит по нему
@@ -91,6 +102,7 @@ data class RunReport(val applied: Int, val rejected: List<Int>, val reward: Rewa
  * `run.newSeedSeconds`, чем бы ни закрылся прежний заход; вход без карты в зону открытого захода продолжает
  * его, а заход, начатый на другом контенте, закрывается, а не проигрывается иначе, чем его видел клиент.
  */
+
 /** Событий в одном журнале не больше (1.53.0): клиент шлёт по шесть, офлайн-очередь режется на батчи. */
 const val MAX_EVENTS = 64
 
@@ -137,14 +149,23 @@ class CampaignService : KoinComponent {
         val dice = Dice.system()
         val item = itemId?.let { hero.requireItem(it, method) }
         val template = item?.let { index.template(it.template) }
-        if (item != null && (template == null || template.slot != Slot.MAP || item.mapZone != mapCode || item.equipped))
+        if (item != null && (template == null || template.slot != Slot.MAP || item.mapZone != mapCode || item.equipped)) {
             throw CampaignExceptions.funExceptionMapItem(method, template?.code ?: item.template)
+        }
         val brews = index.rules.brews
         if (scarabs.isNotEmpty() && (item == null || scarabs.size > brews.scarabsPerMap)) throw CampaignExceptions.funExceptionBrew(method, scarabs.joinToString())
         val scarabLines = scarabs.map { code -> brews.scarab(code) ?: throw CampaignExceptions.funExceptionBrew(method, code) }
         val potionLines = potion?.let { brews.potion(it) ?: throw CampaignExceptions.funExceptionBrew(method, it) }
-        val active = item?.let { loot.activeMap(mapCode, (listOf(loot.atlasPowers(loot.mapEffects(it, bonuses.mapEffect), bonuses.effects)) + scarabLines).summed(), it.rarity,
-            it.mapTier, it.influence?.takeIf(campaign.maps.influence::accepts), bonuses.effects) }
+        val active = item?.let {
+            loot.activeMap(
+                mapCode,
+                (listOf(loot.atlasPowers(loot.mapEffects(it, bonuses.mapEffect), bonuses.effects)) + scarabLines).summed(),
+                it.rarity,
+                it.mapTier,
+                it.influence?.takeIf(campaign.maps.influence::accepts),
+                bonuses.effects,
+            )
+        }
         scarabs.groupingBy { it }.eachCount().forEach { (code, count) -> hero.spend(code, count.toLong(), method) }
         potion?.let { hero.spend(it, 1, method) }
         val sheet = index.sheetOf(hero).stats
@@ -179,8 +200,10 @@ class CampaignService : KoinComponent {
         return startOf(run, zone)
     }
 
-    private fun startOf(run: RunState, zone: Zone) = RunStart(run.id, run.seed, zone.code, zone.level, run.context, Run(index, zone, run.seed, run.context).count,
-        run.startedAt, run.applied, run.killed.toList(), run.vaalKilled.toList(), run.tally.copy())
+    private fun startOf(run: RunState, zone: Zone) = RunStart(
+        run.id, run.seed, zone.code, zone.level, run.context, Run(index, zone, run.seed, run.context).count,
+        run.startedAt, run.applied, run.killed.toList(), run.vaalKilled.toList(), run.tally.copy(),
+    )
 
     /** Контекст захода: проценты героя с монстров каждой редкости - лист и силы уникалок, - атлас, карта, Ваал-зона, связи. */
     internal fun context(hero: Hero, zone: Zone, sheet: Map<String, Double> = index.sheetOf(hero).stats): RunContext {
@@ -192,15 +215,19 @@ class CampaignService : KoinComponent {
                 rarity = (sheet[CoreStat.RARITY.code] ?: 0.0) + power(WorldKind.RARITY),
                 experience = (sheet[CoreStat.EXPERIENCE.code] ?: 0.0) + power(WorldKind.EXPERIENCE),
                 gold = (sheet[CoreStat.GOLD.code] ?: 0.0) + power(WorldKind.GOLD),
-                map = power(WorldKind.MAP), book = power(WorldKind.BOOK), unique = power(WorldKind.UNIQUE),
+                map = power(WorldKind.MAP),
+                book = power(WorldKind.BOOK),
+                unique = power(WorldKind.UNIQUE),
             )
         }
         val atlasBonuses = atlas.bonuses(hero)
         // Древо гильдии (1.74.0): строки боя и добычи - в заход вместе с атласом; хозяйство остаётся гильдии.
         val guild = hero.guild?.bonuses.orEmpty().filterKeys { !it.startsWith(GUILD_PREFIX) }
-        return RunContext(hero.heroClass, hero.level, bonuses, listOf(atlasBonuses.effects, guild).summed(), hero.campaign.activeMap?.takeIf { it.mapCode == zone.code },
+        return RunContext(
+            hero.heroClass, hero.level, bonuses, listOf(atlasBonuses.effects, guild).summed(), hero.campaign.activeMap?.takeIf { it.mapCode == zone.code },
             hero.campaign.vaalZone?.takeIf { it.mapCode == zone.code }, atlasBonuses.extraRareMods, index.world.next(zone.code), hero.recipes.toList(),
-            atlasNodes = hero.atlas.size)
+            atlasNodes = hero.atlas.size,
+        )
     }
 
     /**
@@ -252,8 +279,9 @@ class CampaignService : KoinComponent {
             if (event.n > state.applied) throw CampaignExceptions.funExceptionEventOrder(method, "${event.n}, expected ${state.applied}")
             val outcome = apply(hero, state, zone, event, runs.current(), bonuses, draws, pace)
             state.applied++
-            if (outcome == null) rejected += event.n
-            else {
+            if (outcome == null) {
+                rejected += event.n
+            } else {
                 received += Rewards.grant(hero, outcome.reward, index)
                 total += outcome.reward
                 lost += outcome.lost
@@ -264,8 +292,10 @@ class CampaignService : KoinComponent {
         }
         hero.rewards.drawn = draws.drawn
         heroes.save(hero, method)
-        return RunReport(state.applied, rejected, RewardView.of(total), lost, hero.level, hero.experience, hero.money, progressOf(hero), hero.campaign.run != null,
-            received, rewards, state.id)
+        return RunReport(
+            state.applied, rejected, RewardView.of(total), lost, hero.level, hero.experience, hero.money, progressOf(hero), hero.campaign.run != null,
+            received, rewards, state.id,
+        )
     }
 
     private class Outcome(val reward: Reward = Reward.NONE, val lost: Double = 0.0, val crystal: CrystalOutcome? = null)
@@ -298,6 +328,7 @@ class CampaignService : KoinComponent {
                 }
                 Outcome(reward)
             }
+
             RunEventKind.CHEST -> {
                 val window = campaignState.chests[mapCode] ?: return null
                 if (window.left <= 0) return null
@@ -307,6 +338,7 @@ class CampaignService : KoinComponent {
                 state.tally.chests++
                 Outcome(run.chest(draws))
             }
+
             RunEventKind.BOSS -> {
                 if (now < (campaignState.bosses[mapCode] ?: 0L)) return null
                 if (!Plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.boss))) return null
@@ -321,6 +353,7 @@ class CampaignService : KoinComponent {
                 state.tally.bosses++
                 Outcome(run.boss(draws))
             }
+
             RunEventKind.VAAL_OPEN -> {
                 if (campaignState.corruptionOpened || campaignState.vaalZone?.mapCode == mapCode) return null
                 // Портала нет на этом семени (1.68.0) - и Ваал-зоны нет: клиент ставит его тем же броском
@@ -329,12 +362,14 @@ class CampaignService : KoinComponent {
                 hero.count(Counter.VAAL_ZONES)
                 Outcome()
             }
+
             RunEventKind.VAAL_LEAVE -> {
                 campaignState.vaalZone?.takeIf { it.mapCode == mapCode } ?: return null
                 campaignState.corruptionOpened = true
                 campaignState.vaalZone = null
                 Outcome()
             }
+
             RunEventKind.CORRUPT -> {
                 campaignState.vaalZone?.takeIf { it.mapCode == mapCode } ?: return null
                 if (!Plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.corrupted))) return null
@@ -347,6 +382,7 @@ class CampaignService : KoinComponent {
                 hero.stats.add(Stat.BOSS, zone.corrupted)
                 Outcome(reward)
             }
+
             RunEventKind.CRYSTAL -> {
                 val window = campaignState.crystals[mapCode] ?: return null
                 val crystal = window.crystals.getOrNull(event.index) ?: return null
@@ -356,6 +392,7 @@ class CampaignService : KoinComponent {
                 state.tally.crystals++
                 Outcome(run.crystal(crystal, draws))
             }
+
             RunEventKind.CRYSTAL_VAAL -> {
                 val window = campaignState.crystals[mapCode] ?: return null
                 val crystal = window.crystals.getOrNull(event.index) ?: return null
@@ -365,6 +402,7 @@ class CampaignService : KoinComponent {
                 campaignState.crystals[mapCode] = window.copy(crystals = window.crystals.toMutableList().also { it[event.index] = changed })
                 Outcome(crystal = CrystalOutcome(event.index, changed))
             }
+
             RunEventKind.ABYSS_OPEN -> {
                 val rule = campaign.abyss ?: return null
                 val window = campaignState.abyss[mapCode] ?: return null
@@ -374,6 +412,7 @@ class CampaignService : KoinComponent {
                 campaignState.abyssRun = AbyssRun(mapCode, AbyssRifts(index).depth(rule, crack, depth), now)
                 Outcome()
             }
+
             RunEventKind.ABYSS_CLAIM -> {
                 val descent = campaignState.abyssRun?.takeIf { it.mapCode == mapCode } ?: return null
                 if (event.depth !in 0..descent.depth) return null
@@ -385,6 +424,7 @@ class CampaignService : KoinComponent {
                 state.tally.hoards++
                 Outcome(run.hoard(event.depth, if (event.fallen) 0.0 else 1.0, draws))
             }
+
             RunEventKind.SUMMON -> {
                 if (now >= (campaignState.bosses[mapCode] ?: 0L)) return null
                 val price = campaign.services.summonPerLevel * zone.level
@@ -394,6 +434,7 @@ class CampaignService : KoinComponent {
                 campaignState.bosses.remove(mapCode)
                 Outcome()
             }
+
             RunEventKind.FALL -> {
                 val lost = loot.deathLoss(campaign.combat.death, zone.level, hero.experience, index.classes.threshold(hero.level) ?: 0.0, index.classes.nextThreshold(hero.level))
                 hero.experience -= lost
@@ -406,10 +447,12 @@ class CampaignService : KoinComponent {
                 campaignState.seededAt = 0
                 Outcome(lost = lost)
             }
+
             RunEventKind.FIGHT -> {
                 event.fight?.let { hero.stats.fight(it) { code -> index.monster(code) != null } }
                 Outcome()
             }
+
             RunEventKind.LEAVE -> {
                 if (now >= (campaignState.bosses[mapCode] ?: 0L)) return null
                 close(campaignState, mapCode)

@@ -60,6 +60,5 @@ class EntityCodec<T : StockEntity>(
     }
 
     /** Имена всех сериализуемых полей конкретного класса сущности, как они лежат в документе. */
-    private fun fieldNames(entity: T): List<String> =
-        kotlinx.serialization.serializer(entity.javaClass).descriptor.let { descriptor -> List(descriptor.elementsCount, descriptor::getElementName) }
+    private fun fieldNames(entity: T): List<String> = kotlinx.serialization.serializer(entity.javaClass).descriptor.let { descriptor -> List(descriptor.elementsCount, descriptor::getElementName) }
 }

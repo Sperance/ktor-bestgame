@@ -5,18 +5,18 @@ import base.entity.VersionedEntity
 import base.exception.model.CharacterExceptions
 import com.sperance.exileforge.rules.content.AutoSell
 import com.sperance.exileforge.rules.content.Counter
+import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.content.Incubation
 import com.sperance.exileforge.rules.content.Pet
 import com.sperance.exileforge.rules.content.QuestLog
 import com.sperance.exileforge.rules.content.QuestProgress
 import com.sperance.exileforge.rules.content.TakenNode
-import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.roll.AbyssRun
 import com.sperance.exileforge.rules.roll.AbyssWindow
 import com.sperance.exileforge.rules.roll.ActiveMap
 import com.sperance.exileforge.rules.roll.ActiveWork
-import com.sperance.exileforge.rules.roll.CraftsAway
 import com.sperance.exileforge.rules.roll.ChestWindow
+import com.sperance.exileforge.rules.roll.CraftsAway
 import com.sperance.exileforge.rules.roll.CrystalWindow
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.ProfessionProgress
@@ -103,7 +103,8 @@ data class Hero(
     override var deleted: Boolean = false,
     override val createdAt: LocalDateTime = LocalDateTime.now(),
     override var updatedAt: LocalDateTime = LocalDateTime.now(),
-) : VersionedEntity, TrackedEntity {
+) : VersionedEntity,
+    TrackedEntity {
 
     @Transient override var loaded: Map<String, BsonValue>? = null
 
@@ -113,6 +114,7 @@ data class Hero(
     fun item(id: String): ItemInstance? = items.firstOrNull { it.id == id }
 
     /** Копия героя или «не найдена»: чужая и несуществующая отвечают одинаково. */
+
     /** Прирост статистики этой команды (1.49.0): пишется в `HeroStats` после записи героя. */
     @Transient val stats: com.sperance.exileforge.rules.content.StatTally = com.sperance.exileforge.rules.content.StatTally()
 
@@ -155,8 +157,14 @@ data class Hero(
     /** Сделанное героем для проверок Пути изгнанника. */
     fun pathFacts(): com.sperance.exileforge.rules.content.PathFacts {
         val chronicle = chronicle()
-        return com.sperance.exileforge.rules.content.PathFacts(chronicle[Counter.ZONES] ?: 0, pathEquipped, tree.size, skills,
-            chronicle[Counter.BOSSES] ?: 0, chronicle[Counter.ORBS_USED] ?: 0)
+        return com.sperance.exileforge.rules.content.PathFacts(
+            chronicle[Counter.ZONES] ?: 0,
+            pathEquipped,
+            tree.size,
+            skills,
+            chronicle[Counter.BOSSES] ?: 0,
+            chronicle[Counter.ORBS_USED] ?: 0,
+        )
     }
 
     /** Золото герою - в кошелёк и в летопись. */
@@ -197,7 +205,12 @@ data class Hero(
  * уже выдано. Награды захода берут кости отсюда, а не из семени захода: клиент их не предскажет.
  */
 @Serializable
-data class RewardStream(var seed: Long = 0, var drawn: Long = 0, /** Циклов ремесла (1.53.0), скатанных на потоке героя. */ var crafted: Long = 0) {
+data class RewardStream(
+    var seed: Long = 0,
+    var drawn: Long = 0,
+    /** Циклов ремесла (1.53.0), скатанных на потоке героя. */
+    var crafted: Long = 0,
+) {
     /** Кости наград; семя появляется при первом обращении. */
     fun draws(): com.sperance.exileforge.rules.run.RewardDraws {
         while (seed == 0L) seed = java.security.SecureRandom().nextLong()

@@ -4,12 +4,12 @@ import base.exception.BaseException
 import base.repository.BaseRepository
 import base.repository.IndexSpec
 import com.mongodb.client.model.Filters
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import config.ContentStore
 import config.MongoFactory.transactionExecute
-import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.user.UserRepository
@@ -22,7 +22,9 @@ import org.koin.core.component.inject
  * [MAIL_DAYS] дней; истёкшие уходят при чтении ящика. Вложение забирает один герой аккаунта, один раз, одной транзакцией
  * с героем.
  */
-class MailRepository : BaseRepository<Mail>(Mail::class), KoinComponent {
+class MailRepository :
+    BaseRepository<Mail>(Mail::class),
+    KoinComponent {
     private val heroes: HeroRepository by inject()
     private val users: UserRepository by inject()
     private val content: ContentStore by inject()
@@ -38,7 +40,10 @@ class MailRepository : BaseRepository<Mail>(Mail::class), KoinComponent {
     }
 
     suspend fun markRead(userId: String, id: String): Mail = mine(userId, id, "markRead").also { mail ->
-        if (!mail.read) { mail.read = true; transactionExecute("mail read $id") { session -> update(mail, session) } }
+        if (!mail.read) {
+            mail.read = true
+            transactionExecute("mail read $id") { session -> update(mail, session) }
+        }
     }
 
     suspend fun remove(userId: String, id: String) {
@@ -70,8 +75,17 @@ class MailRepository : BaseRepository<Mail>(Mail::class), KoinComponent {
         val factory = ItemFactory(index)
         attachment.equipment.forEach { piece ->
             val template = index.template(piece.template) ?: return@forEach
-            Stash.receive(hero, factory.create(Hero.newItemId(), template, piece.rarity ?: template.rarity, Dice.system(),
-                level = index.rules.loot.itemLevel(hero.level)), index)
+            Stash.receive(
+                hero,
+                factory.create(
+                    Hero.newItemId(),
+                    template,
+                    piece.rarity ?: template.rarity,
+                    Dice.system(),
+                    level = index.rules.loot.itemLevel(hero.level),
+                ),
+                index,
+            )
         }
     }
 
@@ -93,8 +107,11 @@ class MailRepository : BaseRepository<Mail>(Mail::class), KoinComponent {
         if (subject.isEmpty()) throw mailError("Mail subject is empty", method, "ML_003")
         request.attachment.items.keys.forEach { if (index.item(it) == null) throw mailError("Unknown item $it", method, "ML_004", listOf(it)) }
         request.attachment.equipment.forEach { if (index.template(it.template) == null) throw mailError("Unknown template ${it.template}", method, "ML_004", listOf(it.template)) }
-        val targets = if (request.login.isBlank()) users.findByFilter(Filters.eq("isActive", true)).map { it._id }
-        else listOf(users.findByLogin(request.login.trim())?._id ?: throw mailError("No account ${request.login}", method, "ML_005", listOf(request.login)))
+        val targets = if (request.login.isBlank()) {
+            users.findByFilter(Filters.eq("isActive", true)).map { it._id }
+        } else {
+            listOf(users.findByLogin(request.login.trim())?._id ?: throw mailError("No account ${request.login}", method, "ML_005", listOf(request.login)))
+        }
         val expiresAt = expiry()
         transactionExecute("mail send ${targets.size}") { session ->
             targets.forEach { insert(Mail(it, MailKind.ADMIN, subject = subject, body = body, attachment = request.attachment, expiresAt = expiresAt), session) }
@@ -102,8 +119,7 @@ class MailRepository : BaseRepository<Mail>(Mail::class), KoinComponent {
         return targets.size
     }
 
-    private suspend fun mine(userId: String, id: String, method: String): Mail =
-        findById(id)?.takeIf { it.userId == userId && it.expiresAt > System.currentTimeMillis() } ?: throw mailError("Mail $id not found", method, "ML_006", listOf(id))
+    private suspend fun mine(userId: String, id: String, method: String): Mail = findById(id)?.takeIf { it.userId == userId && it.expiresAt > System.currentTimeMillis() } ?: throw mailError("Mail $id not found", method, "ML_006", listOf(id))
 
     private fun expiry(): Long = System.currentTimeMillis() + MAIL_DAYS * DAY_MS
 

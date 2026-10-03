@@ -1,8 +1,8 @@
 package features.logic.hero
 
-import com.sperance.exileforge.rules.content.AutoSell
 import base.route.ApiMongoResponse
 import com.sperance.exileforge.rules.RulesJson
+import com.sperance.exileforge.rules.content.AutoSell
 import com.sperance.exileforge.rules.content.HeroSkills
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.content.sha256
@@ -46,8 +46,19 @@ data class HeroSnapshot(val version: String, val parts: Map<String, HeroPart>)
 /** Герой без вещей, сумки, дерева и кампании - те лежат своими частями; [stashSlots] - докупленные пачки мест тайника. */
 @Serializable
 data class HeroView(
-    val id: String, val userId: String, val name: String, val description: String, val heroClass: String, val level: Int, val experience: Double,
-    val money: Long, val skills: HeroSkills, val atlas: List<String>, val earned: List<String>, val recipes: List<String>, val version: Long,
+    val id: String,
+    val userId: String,
+    val name: String,
+    val description: String,
+    val heroClass: String,
+    val level: Int,
+    val experience: Double,
+    val money: Long,
+    val skills: HeroSkills,
+    val atlas: List<String>,
+    val earned: List<String>,
+    val recipes: List<String>,
+    val version: Long,
     val stashSlots: Int = 0,
     /** Летопись (1.3.0): накопленные счётчики - выводимые клиент добавит сам - и титул у имени. */
     val counters: Map<String, Long> = emptyMap(),
@@ -63,9 +74,11 @@ data class HeroView(
     val pathEquipped: Boolean = false,
 ) {
     companion object {
-        fun of(hero: Hero) = HeroView(hero._id, hero.userId, hero.name, hero.description, hero.heroClass, hero.level, hero.experience, hero.money,
+        fun of(hero: Hero) = HeroView(
+            hero._id, hero.userId, hero.name, hero.description, hero.heroClass, hero.level, hero.experience, hero.money,
             hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.version, hero.stashSlots,
-            hero.counters.toMap(), hero.title, hero.autoSell, hero.plannedTree.toList(), hero.bonusPoints, hero.pathStep, hero.pathEquipped)
+            hero.counters.toMap(), hero.title, hero.autoSell, hero.plannedTree.toList(), hero.bonusPoints, hero.pathStep, hero.pathEquipped,
+        )
     }
 }
 
@@ -97,12 +110,11 @@ object HeroSnapshots : KoinComponent {
     private val merchant: MerchantService by inject()
 
     /** Части, которые клиент назвал в [HEADER]; битый заголовок значит «ничего нет». */
-    fun known(header: String?): Map<String, String> =
-        header.orEmpty().split(',').mapNotNull { pair ->
-            val name = pair.substringBefore('=', "").trim()
-            val hash = pair.substringAfter('=', "").trim()
-            if (name.isEmpty() || hash.isEmpty()) null else name to hash
-        }.toMap()
+    fun known(header: String?): Map<String, String> = header.orEmpty().split(',').mapNotNull { pair ->
+        val name = pair.substringBefore('=', "").trim()
+        val hash = pair.substringAfter('=', "").trim()
+        if (name.isEmpty() || hash.isEmpty()) null else name to hash
+    }.toMap()
 
     /**
      * Снимок героя сейчас; работа ремесла досчитывается первой, иначе сумка отстала бы от добытого, а копии
@@ -117,6 +129,7 @@ object HeroSnapshots : KoinComponent {
 
     fun of(hero: Hero, known: Map<String, String>): HeroSnapshot {
         val parts = LinkedHashMap<String, HeroPart>()
+
         // [stable] - то же значение без полей часов: отпечаток меняется только с настоящей переменой части, часы едут в ней как есть.
         fun <T> part(name: String, serializer: KSerializer<T>, value: T, stable: T = value) {
             val json = RulesJson.encodeToJsonElement(serializer, value)
@@ -141,9 +154,14 @@ object HeroSnapshots : KoinComponent {
     /** Снимок для ответа команды: команда уже прошла, сбой снимка её не отменяет - клиент перечитает героя сам. */
     suspend fun afterCommand(heroId: String?, header: String?): HeroSnapshot? {
         if (heroId.isNullOrBlank()) return null
-        return try { of(heroId, known(header)) }
-        catch (e: CancellationException) { throw e }
-        catch (e: Exception) { printLog("[HeroSnapshots] $heroId: ${e.message}"); null }
+        return try {
+            of(heroId, known(header))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            printLog("[HeroSnapshots] $heroId: ${e.message}")
+            null
+        }
     }
 
     /** Снимок, если клиент его просил: заголовок [HEADER] есть, пусть и пустой (`none`). */
@@ -154,5 +172,4 @@ object HeroSnapshots : KoinComponent {
 }
 
 /** Ответ команды героя: данные и рядом снимок героя после неё. */
-suspend inline fun <reified T> ApplicationCall.respondWithHero(data: T) =
-    respond(ApiMongoResponse(success = true, data = data, hero = HeroSnapshots.forCall(this)))
+suspend inline fun <reified T> ApplicationCall.respondWithHero(data: T) = respond(ApiMongoResponse(success = true, data = data, hero = HeroSnapshots.forCall(this)))

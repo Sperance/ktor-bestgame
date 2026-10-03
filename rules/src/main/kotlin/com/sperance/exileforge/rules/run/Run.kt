@@ -1,11 +1,11 @@
 package com.sperance.exileforge.rules.run
 
 import com.sperance.exileforge.rules.content.AtlasStat
-import com.sperance.exileforge.rules.content.MAP_TEMPLATE
-import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.ItemTemplate
+import com.sperance.exileforge.rules.content.MAP_TEMPLATE
+import com.sperance.exileforge.rules.content.MapStat
 import com.sperance.exileforge.rules.content.Monster
 import com.sperance.exileforge.rules.content.MonsterRarity
 import com.sperance.exileforge.rules.content.Rarity
@@ -69,9 +69,24 @@ data class RunContext(
 }
 
 @Serializable
-enum class RunEventKind { KILL, CHEST, BOSS, CORRUPT, CRYSTAL, CRYSTAL_VAAL, VAAL_OPEN, VAAL_LEAVE, ABYSS_OPEN, ABYSS_CLAIM, SUMMON, FALL, LEAVE,
+enum class RunEventKind {
+    KILL,
+    CHEST,
+    BOSS,
+    CORRUPT,
+    CRYSTAL,
+    CRYSTAL_VAAL,
+    VAAL_OPEN,
+    VAAL_LEAVE,
+    ABYSS_OPEN,
+    ABYSS_CLAIM,
+    SUMMON,
+    FALL,
+    LEAVE,
+
     /** Бой окончен (1.49.0): его итог [RunEvent.fight] - только в статистику героя. */
-    FIGHT }
+    FIGHT,
+}
 
 /**
  * Событие захода в журнале клиента: порядковый номер [n] (сервер применяет каждый номер один раз),
@@ -101,8 +116,17 @@ data class RunEvent(
  */
 @Serializable
 data class RunStart(
-    val id: String, val seed: Long, val zone: String, val level: Int, val context: RunContext, val count: Int, val startedAt: Long,
-    val applied: Int = 0, val killed: List<Int> = emptyList(), val vaalKilled: List<Int> = emptyList(), val tally: RunTally = RunTally(),
+    val id: String,
+    val seed: Long,
+    val zone: String,
+    val level: Int,
+    val context: RunContext,
+    val count: Int,
+    val startedAt: Long,
+    val applied: Int = 0,
+    val killed: List<Int> = emptyList(),
+    val vaalKilled: List<Int> = emptyList(),
+    val tally: RunTally = RunTally(),
 )
 
 /** Что принесло одно событие: опыт, золото, стопки по коду предмета, копии вещей, найденный рецепт. */
@@ -113,10 +137,17 @@ data class Reward(
     val equipment: List<ItemInstance> = emptyList(),
     val recipe: String? = null,
 ) {
-    operator fun plus(other: Reward) = Reward(experience + other.experience, gold + other.gold,
-        (items.keys + other.items.keys).associateWith { (items[it] ?: 0L) + (other.items[it] ?: 0L) }, equipment + other.equipment, recipe ?: other.recipe)
+    operator fun plus(other: Reward) = Reward(
+        experience + other.experience,
+        gold + other.gold,
+        (items.keys + other.items.keys).associateWith { (items[it] ?: 0L) + (other.items[it] ?: 0L) },
+        equipment + other.equipment,
+        recipe ?: other.recipe,
+    )
 
-    companion object { val NONE = Reward() }
+    companion object {
+        val NONE = Reward()
+    }
 }
 
 /**
@@ -143,7 +174,9 @@ class RewardDraws(private val seed: Long, drawn: Long) {
         return Draw(Dice(Streams.mix(seed, STREAM, n)), "w${n.toString(36)}")
     }
 
-    private companion object { const val STREAM = 0x5245574152445FL }
+    private companion object {
+        const val STREAM = 0x5245574152445FL
+    }
 }
 
 /** Жетон карты: пак монстров, стоящий на одном месте; первый - вожак. */
@@ -222,7 +255,12 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val rare = rarer * (1 + (mapEffect(MapStat.RARE_MONSTERS.code) + context[AtlasStat.RARE_MONSTERS.code]) / 100)
         val magicFloor = mapEffect(MapStat.MONSTER_MAGIC_MIN.code) > 0
         val rarity = Tables.value<MonsterRarity>(index.tables, campaign.rarityTable, dice) {
-            when (it) { MonsterRarity.NORMAL -> if (magicFloor) 0.0 else 1.0; MonsterRarity.MAGIC -> magic; MonsterRarity.RARE -> rare; else -> 1.0 }
+            when (it) {
+                MonsterRarity.NORMAL -> if (magicFloor) 0.0 else 1.0
+                MonsterRarity.MAGIC -> magic
+                MonsterRarity.RARE -> rare
+                else -> 1.0
+            }
         } ?: MonsterRarity.NORMAL
         return campaign.rarity(rarity)
     }
@@ -237,12 +275,14 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val draw = draws.next()
         val zoneBonus = if (vaal) context.vaal else null
         val level = monster.level.takeIf { it > 0 } ?: zone.level
-        return grant(draw, template.loot, level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus, level),
+        return grant(
+            draw, template.loot, level, rule, if (vaal) "kv$i-$m" else "k$i-$m", experienceFor(template, rule, zoneBonus, level),
             mapChance = campaign.maps.dropChance * rule.quantity, zoneBonus = zoneBonus, rare = monster.rarity == MonsterRarity.RARE,
             book = if (monster.rarity == MonsterRarity.RARE) index.skills.rules.books.rare else 0.0,
             egg = if (monster.rarity == MonsterRarity.RARE) index.pets.eggChance.rare else 0.0,
             veiled = (monster.stats[com.sperance.exileforge.rules.roll.Veils.LOOT] ?: 0.0) > 0 ||
-                (monster.rarity >= MonsterRarity.MAGIC && draw.dice.percent(context[AtlasStat.VEILED.code])))
+                (monster.rarity >= MonsterRarity.MAGIC && draw.dice.percent(context[AtlasStat.VEILED.code])),
+        )
     }
 
     /** Открыт очередной сундук захода: таблица сундуков зоны с множителями правила и атласа. */
@@ -272,8 +312,10 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
             campaign.maps.tiers?.let { rule -> context.active?.tier?.takeIf { it > 0 }?.let { pooled(rule.uniqueTables, rule.uniqueChance * it, dice) } },
         )
         val bossLoot = context[AtlasStat.BOSS_LOOT.code] + (context.active?.effects?.get(MapStat.BOSS_POWER.code) ?: 0.0)
-        val reward = grant(draw, template.loot, zone.level, rule, "b", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
-            book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass, goldShare = bosses.goldShare, orbShare = bosses.orbShare, egg = index.pets.eggChance.boss)
+        val reward = grant(
+            draw, template.loot, zone.level, rule, "b", experienceFor(template, rule, null), extra, campaign.maps.bossChance, extraQuantity = bossLoot, rare = true,
+            book = index.skills.rules.books.boss, ownShare = index.skills.rules.books.bossOwnClass, goldShare = bosses.goldShare, orbShare = bosses.orbShare, egg = index.pets.eggChance.boss,
+        )
         // Босс захваченной карты (1.50.0) всегда роняет редкую вещь её влияния.
         val influence = context.active?.influence ?: return reward
         val bases = index.templatePoolUpTo(campaign.abyss?.tables ?: listOf("drop"), zone.level).filter { (template) -> template.rarity < Rarity.UNIQUE && template.slot.influenceable }
@@ -343,8 +385,11 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
         val itemLevel = itemLevel(zone.level, MonsterRarity.UNIQUE)
         val full = bosses.isNotEmpty() && fallen.size == bosses.size
         val own = bosses.flatMap { it.tables }.distinct()
-        val prize = if (!full) null
-            else own.takeIf { it.isNotEmpty() }?.let { Tables.draw(ownPool(it), dice) } ?: loot.unique(rule.uniqueTables.ifEmpty { campaign.bosses.tables }, zone.level, dice)
+        val prize = if (!full) {
+            null
+        } else {
+            own.takeIf { it.isNotEmpty() }?.let { Tables.draw(ownPool(it), dice) } ?: loot.unique(rule.uniqueTables.ifEmpty { campaign.bosses.tables }, zone.level, dice)
+        }
         val bases = index.forHero(index.templatePoolUpTo(rule.itemTables, zone.level), context.heroLevel).filter { (template) -> template.rarity < Rarity.UNIQUE }
         val rares = if (fast && full) List(rule.fastItems) { Tables.draw(bases, dice) }.filterNotNull() else emptyList()
         val equipment = listOfNotNull(prize?.let { factory.create(itemId(draw, "rush-u"), it, Rarity.UNIQUE, dice, level = itemLevel) }) +
@@ -372,19 +417,21 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     fun crystalVaal(crystal: Crystal, draws: RewardDraws): Pair<String, Crystal> = com.sperance.exileforge.rules.roll.EssenceCrystals(index).vaal(crystal, draws.next().dice)
 
     /** Ваал-зона этого захода: её бонусы к добыче - тоже награда, кости из потока наград. */
-    fun vaalZone(draws: RewardDraws): VaalZone =
-        com.sperance.exileforge.rules.roll.VaalZones(index).roll(zone.code, zone.level, draws.next().dice, com.sperance.exileforge.rules.content.AtlasBonuses(context.atlas))
+    fun vaalZone(draws: RewardDraws): VaalZone = com.sperance.exileforge.rules.roll.VaalZones(index).roll(zone.code, zone.level, draws.next().dice, com.sperance.exileforge.rules.content.AtlasBonuses(context.atlas))
 
-    private fun experienceFor(monster: Monster, rule: RarityRule, zoneBonus: VaalZone?, level: Int = zone.level): Double =
-        loot.experience(monster, level, rule, context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code],
-            context.heroLevel)
+    private fun experienceFor(monster: Monster, rule: RarityRule, zoneBonus: VaalZone?, level: Int = zone.level): Double = loot.experience(
+        monster,
+        level,
+        rule,
+        context.bonus(rule.rarity).experience + (context.active?.experience ?: 0.0) + (zoneBonus?.experience ?: 0.0) + context[AtlasStat.EXPERIENCE.code],
+        context.heroLevel,
+    )
 
     /**
      * Вещь из пула механики - мифическая (1.18.0), карт или кристаллов (1.19.0): бросок только при шансе и
      * таблицах, чтобы кости прежних наград не сдвигались.
      */
-    private fun pooled(tables: List<String>, chance: Double, dice: Dice): ItemTemplate? =
-        if (chance <= 0 || tables.isEmpty() || !dice.chance(uniqueChance(chance))) null else loot.unique(tables, zone.level, dice)
+    private fun pooled(tables: List<String>, chance: Double, dice: Dice): ItemTemplate? = if (chance <= 0 || tables.isEmpty() || !dice.chance(uniqueChance(chance))) null else loot.unique(tables, zone.level, dice)
 
     /** Ремесло атласа (1.41.0): проценты к шансу строк добычи по началу кода предмета. */
     private fun craftBoosts(): Map<String, Double> = buildMap {
@@ -404,10 +451,24 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
      * умения и рецепт верстака. Копии получают id `r<семя>-<метка награды>-<событие>-<номер>`.
      */
     private fun grant(
-        draw: Draw, table: String, level: Int, rule: RarityRule, event: String, experience: Double,
-        extra: List<ItemTemplate> = emptyList(), mapChance: Double = 0.0, zoneBonus: VaalZone? = null, extraQuantity: Double = 0.0,
-        extraItems: Map<String, Long> = emptyMap(), rare: Boolean = false, book: Double = 0.0, ownShare: Double = 0.0,
-        goldShare: Double = 1.0, orbShare: Double = 1.0, egg: Double = 0.0, veiled: Boolean = false,
+        draw: Draw,
+        table: String,
+        level: Int,
+        rule: RarityRule,
+        event: String,
+        experience: Double,
+        extra: List<ItemTemplate> = emptyList(),
+        mapChance: Double = 0.0,
+        zoneBonus: VaalZone? = null,
+        extraQuantity: Double = 0.0,
+        extraItems: Map<String, Long> = emptyMap(),
+        rare: Boolean = false,
+        book: Double = 0.0,
+        ownShare: Double = 0.0,
+        goldShare: Double = 1.0,
+        orbShare: Double = 1.0,
+        egg: Double = 0.0,
+        veiled: Boolean = false,
     ): Reward {
         val dice = draw.dice
         val bonus = context.bonus(rule.rarity)
@@ -447,7 +508,10 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
                 val template = templates.getOrNull(n) ?: return@forEachIndexed
                 if (item.influence != null || item.rarity !in INFLUENCEABLE || !template.slot.influenceable || !dice.percent(chance)) return@forEachIndexed
                 val rolls = item.rolls.toMutableList()
-                if (factory.affixes.forceInfluenced(template, item.rarity, rolls, influence, dice, item.level(template))) { item.rolls = rolls; item.influence = influence }
+                if (factory.affixes.forceInfluenced(template, item.rarity, rolls, influence, dice, item.level(template))) {
+                    item.rolls = rolls
+                    item.influence = influence
+                }
             }
         }
         // Фрагмент герба и печать башни (1.47.0) - ещё позже яйца: множитель количества редкости источника, прежние потоки не сдвигаются.
@@ -468,10 +532,13 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
 
     companion object {
         const val PACK_CHANCE = 0.35
+
         /** Жёсткий предел стаи вместе с вожаком. */
         const val PACK_MAX = 6
+
         /** Шаг жетона убийства `i * PACK_SLOTS + m`: не меньше [PACK_MAX], иначе жетоны разных стай совпадут. */
         const val PACK_SLOTS = 8
+
         /** Потолок уровня монстра с разбросом карты: уровень зон и героя. */
         const val MAX_MONSTER_LEVEL = 100
         private val INFLUENCEABLE = setOf(Rarity.MAGIC, Rarity.RARE)

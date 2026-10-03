@@ -5,9 +5,7 @@ import base.exception.model.CharacterExceptions.CharacterException
 
 object RedemptionCodesExceptions {
     open class RedemptionCodesException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "RedemptionCodes", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{RedemptionCodesException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{RedemptionCodesException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funException(errorMethod: String, value: String? = "") = RedemptionCodesException(value, errorMethod, "RDC_001", listOf(value.orEmpty()))

@@ -39,16 +39,27 @@ object Stash {
         if (items.isEmpty()) return Received()
         val capacity = capacity(hero, index)
         val overflowMax = index.rules.stash.overflowSlots
-        val taken = HashSet<String>().apply { hero.items.mapTo(this) { it.id }; hero.overflow.mapTo(this) { it.id } }
+        val taken = HashSet<String>().apply {
+            hero.items.mapTo(this) { it.id }
+            hero.overflow.mapTo(this) { it.id }
+        }
         val sheet by lazy { index.sheetOf(hero).stats }
         var received = Received()
         items.forEach { incoming ->
             // Id копии обязан быть единственным у героя: иначе надеть, продать или выставить можно было бы не ту
             val item = if (taken.add(incoming.id)) incoming else incoming.copy(id = Hero.newItemId()).also { taken += it.id }
             received += when {
-                hero.items.size < capacity -> { hero.items += item; Received(stashed = 1) }
+                hero.items.size < capacity -> {
+                    hero.items += item
+                    Received(stashed = 1)
+                }
+
                 // Запертую вещь торговец сам не забирает: она ждёт в переполнении и сверх его мест
-                hero.overflow.size < overflowMax || item.locked -> { hero.overflow += item; Received(overflowed = 1) }
+                hero.overflow.size < overflowMax || item.locked -> {
+                    hero.overflow += item
+                    Received(overflowed = 1)
+                }
+
                 else -> {
                     val gold = index.template(item.template)?.let { SellPrice.of(index, it, item, sheet) } ?: 0L
                     hero.gain(gold)
@@ -74,8 +85,11 @@ object Stash {
         val method = "stashClaim"
         val free = capacity(hero, index) - hero.items.size
         if (free <= 0) throw CharacterExceptions.funExceptionStashFull(method, hero.items.size.toString())
-        val moving = if (itemId != null) listOf(hero.overflow.firstOrNull { it.id == itemId } ?: throw CharacterExceptions.funExceptionItemNotFound(method, itemId))
-            else hero.overflow.take(free)
+        val moving = if (itemId != null) {
+            listOf(hero.overflow.firstOrNull { it.id == itemId } ?: throw CharacterExceptions.funExceptionItemNotFound(method, itemId))
+        } else {
+            hero.overflow.take(free)
+        }
         hero.overflow.removeAll(moving.toSet())
         hero.items += moving
         return moving.size

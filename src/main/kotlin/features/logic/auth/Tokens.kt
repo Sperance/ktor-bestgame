@@ -21,8 +21,7 @@ object Tokens {
 
     fun issue(): String = encoder.encodeToString(ByteArray(32).also(random::nextBytes))
 
-    fun hash(token: String): String =
-        MessageDigest.getInstance("SHA-256").digest(token.toByteArray(Charsets.US_ASCII)).joinToString("") { "%02x".format(it) }
+    fun hash(token: String): String = MessageDigest.getInstance("SHA-256").digest(token.toByteArray(Charsets.US_ASCII)).joinToString("") { "%02x".format(it) }
 
     /** Значение заголовка `Authorization: Bearer <токен>`, или null, если его нет или он чужой формы. */
     fun fromHeader(header: String?): String? {

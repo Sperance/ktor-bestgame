@@ -13,6 +13,7 @@ import javax.crypto.spec.PBEKeySpec
 object Passwords {
 
     private const val SCHEME = "pbkdf2"
+
     /** 210 000 (1.53.0, OWASP 2023): 600 000 стоили 0,6 с ядра на вход, и десяток входов в секунду клал сервер. */
     const val ITERATIONS = 210_000
     private const val KEY_BITS = 256
@@ -52,8 +53,7 @@ object Passwords {
     }
 
     /** Записан ли хеш чужим способом или с другим числом итераций, чем сейчас принято (1.53.0: и с большим - он дороже на каждом входе). */
-    fun needsRehash(stored: String): Boolean =
-        !stored.startsWith("$SCHEME$") || stored.split('$').getOrNull(1)?.toIntOrNull()?.let { it != ITERATIONS } != false
+    fun needsRehash(stored: String): Boolean = !stored.startsWith("$SCHEME$") || stored.split('$').getOrNull(1)?.toIntOrNull()?.let { it != ITERATIONS } != false
 
     private fun derive(password: String, salt: ByteArray, iterations: Int): ByteArray {
         val spec = PBEKeySpec(password.toCharArray(), salt, iterations, KEY_BITS)
@@ -64,11 +64,9 @@ object Passwords {
         }
     }
 
-    private fun encode(iterations: Int, salt: ByteArray, hash: ByteArray) =
-        "$SCHEME$$iterations$${salt.toHex()}$${hash.toHex()}"
+    private fun encode(iterations: Int, salt: ByteArray, hash: ByteArray) = "$SCHEME$$iterations$${salt.toHex()}$${hash.toHex()}"
 
     private fun ByteArray.toHex() = joinToString("") { "%02x".format(it) }
 
-    private fun String.hexToByteArrayOrNull(): ByteArray? =
-        if (length % 2 != 0) null else runCatching { chunked(2).map { it.toInt(16).toByte() }.toByteArray() }.getOrNull()
+    private fun String.hexToByteArrayOrNull(): ByteArray? = if (length % 2 != 0) null else runCatching { chunked(2).map { it.toInt(16).toByte() }.toByteArray() }.getOrNull()
 }

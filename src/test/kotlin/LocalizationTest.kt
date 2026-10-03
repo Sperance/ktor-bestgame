@@ -88,24 +88,39 @@ class LocalizationTest {
 
     private fun expectedKeys(): Set<String> = buildSet {
         index.templates.values.forEach {
-            add(LocaleKey.equipmentName(it.code)); add(LocaleKey.equipmentTrade(it.code))
+            add(LocaleKey.equipmentName(it.code))
+            add(LocaleKey.equipmentTrade(it.code))
             if (it.unique) add(LocaleKey.equipmentDescription(it.code))
         }
         add(LocaleKey.mapItemName())
-        index.items.values.forEach { add(LocaleKey.itemName(it.code)); add(LocaleKey.itemTrade(it.code)); add(LocaleKey.itemDescription(it.code)) }
+        index.items.values.forEach {
+            add(LocaleKey.itemName(it.code))
+            add(LocaleKey.itemTrade(it.code))
+            add(LocaleKey.itemDescription(it.code))
+        }
         index.tree.byCode.values.forEach { node ->
             add(LocaleKey.skillNodeName(node.code))
             if (node.type != SkillNodeType.SMALL) add(LocaleKey.skillNodeDescription(node.code))
         }
-        index.classes.classes.forEach { add(LocaleKey.className(it.code)); add(LocaleKey.classDescription(it.code)) }
+        index.classes.classes.forEach {
+            add(LocaleKey.className(it.code))
+            add(LocaleKey.classDescription(it.code))
+        }
         index.campaign.regions.forEach { region ->
             add(LocaleKey.regionName(region.code))
-            region.zones.forEach { add(LocaleKey.mapName(it.code)); add(LocaleKey.mapDescription(it.code)) }
+            region.zones.forEach {
+                add(LocaleKey.mapName(it.code))
+                add(LocaleKey.mapDescription(it.code))
+            }
         }
         index.monsters.keys.forEach { add(LocaleKey.monsterName(it)) }
-        index.campaign.traits.list.forEach { add(LocaleKey.traitName(it.code)); add(LocaleKey.traitDescription(it.code)) }
+        index.campaign.traits.list.forEach {
+            add(LocaleKey.traitName(it.code))
+            add(LocaleKey.traitDescription(it.code))
+        }
         index.professions.professions.forEach { profession ->
-            add(LocaleKey.professionName(profession.code)); add(LocaleKey.professionDescription(profession.code))
+            add(LocaleKey.professionName(profession.code))
+            add(LocaleKey.professionDescription(profession.code))
             profession.jobs.forEach { add(LocaleKey.jobName(it.code)) }
         }
         com.sperance.exileforge.rules.content.SmithChoice.entries.forEach { add(LocaleKey.choiceName(it.name)) }
@@ -117,7 +132,10 @@ class LocalizationTest {
         index.stats.stats.forEach { add(LocaleKey.statLabel(it)) }
         enums.forEach { (name, values) -> values.forEach { add(LocaleKey.enumLabel(name, it)) } }
         errorCodes().forEach { add(LocaleKey.error(it)) }
-        index.guilds.factions.forEach { add(LocaleKey.guildFactionName(it.code)); add(LocaleKey.guildFactionDescription(it.code)) }
+        index.guilds.factions.forEach {
+            add(LocaleKey.guildFactionName(it.code))
+            add(LocaleKey.guildFactionDescription(it.code))
+        }
         index.guilds.ranks.forEach { add(LocaleKey.guildRank(it.code)) }
         // Название задания в ответе «сдать всё» (1.22.0) - ключ словаря: у каждой цели и шага сюжета он свой
         index.quests.goals.forEach { add(LocaleKey.questTitle(QuestKind.DAILY, it.code)) }
@@ -127,7 +145,11 @@ class LocalizationTest {
         GuildMode.entries.forEach { add(LocaleKey.guildMode(it)) }
         GuildLogKind.entries.forEach { add(LocaleKey.guildLog(it)) }
         // Достижения и их титулы (1.52.0): имя и условие у каждого, титул - у каждого, что его даёт
-        index.achievements.achievements.forEach { add("achievement.${it.code}.name"); add("achievement.${it.code}.desc"); if (it.title.isNotBlank()) add("title.${it.title}") }
+        index.achievements.achievements.forEach {
+            add("achievement.${it.code}.name")
+            add("achievement.${it.code}.desc")
+            if (it.title.isNotBlank()) add("title.${it.title}")
+        }
         addAll(currencyKeys)
         addAll(systemKeys)
     }

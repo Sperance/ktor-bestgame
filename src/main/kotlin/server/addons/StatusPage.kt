@@ -1,13 +1,13 @@
 package server.addons
 
 import base.exception.BaseException
-import com.sperance.exileforge.rules.RuleViolation
-import base.exception.model.AuthExceptions
 import base.exception.BaseRepositoryExceptions
+import base.exception.model.AuthExceptions
 import base.exception.model.CampaignExceptions
 import base.exception.model.IdempotencyExceptions
-import extensions.printLog
 import base.route.ApiMongoResponse
+import com.sperance.exileforge.rules.RuleViolation
+import extensions.printLog
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.JsonConvertException
 import io.ktor.server.application.Application
@@ -21,12 +21,11 @@ import io.ktor.server.response.respond
 
 fun Application.configureStatusPages() {
     install(StatusPages) {
-
         // Обработка несуществующих эндпоинтов
         status(HttpStatusCode.NotFound) { call, status ->
             call.respond(
                 HttpStatusCode.NotFound,
-                ApiMongoResponse.error(BaseException("Not find endpoint ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_001"))
+                ApiMongoResponse.error(BaseException("Not find endpoint ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_001")),
             )
         }
 
@@ -34,14 +33,14 @@ fun Application.configureStatusPages() {
         status(HttpStatusCode.MethodNotAllowed) { call, status ->
             call.respond(
                 status,
-                ApiMongoResponse.error(BaseException("Unsupported method ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_002"))
+                ApiMongoResponse.error(BaseException("Unsupported method ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_002")),
             )
         }
 
         status(HttpStatusCode.Unauthorized) { call, status ->
             call.respond(
                 status,
-                ApiMongoResponse.error(BaseException("Unathorized ${call.request.uri.substringBefore("?")}. Please login", "StatusPage", null, "SP_003"))
+                ApiMongoResponse.error(BaseException("Unathorized ${call.request.uri.substringBefore("?")}. Please login", "StatusPage", null, "SP_003")),
             )
         }
 
@@ -49,7 +48,7 @@ fun Application.configureStatusPages() {
             val retryAfter = call.response.headers["Retry-After"]
             call.respond(
                 status,
-                ApiMongoResponse.error(BaseException("Too many rquests, please try again in $retryAfter seconds. ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_004"))
+                ApiMongoResponse.error(BaseException("Too many rquests, please try again in $retryAfter seconds. ${call.request.uri.substringBefore("?")}", "StatusPage", null, "SP_004")),
             )
         }
 
@@ -84,18 +83,25 @@ fun Application.configureStatusPages() {
         }
     }
 }
+
 /**
  * Бизнес-отказ как ответ: 401/403 доступа и 409/400/422 повтора команды - своим кодом, прочие отказы
  * приложения и правил игры - 400. `null` - не отказ, а сбой: его отвечает общий обработчик.
  */
 fun refusal(cause: Throwable): Pair<HttpStatusCode, BaseException>? = when (cause) {
     is AuthExceptions.AuthException -> HttpStatusCode.fromValue(cause.status) to cause
+
     is IdempotencyExceptions.IdempotencyException -> HttpStatusCode.fromValue(cause.status) to cause
+
     is CampaignExceptions.PayloadException -> HttpStatusCode.UnprocessableEntity to cause
+
     is BaseRepositoryExceptions.BaseRepositoryException -> (if (cause.errorCode == BaseRepositoryExceptions.UNAVAILABLE) HttpStatusCode.ServiceUnavailable else HttpStatusCode.BadRequest) to cause
+
     is BaseException -> HttpStatusCode.BadRequest to cause
+
     // Отказ правил игры (1.0.0): код и аргументы шаблона словаря, как у отказов сервера
     is RuleViolation -> HttpStatusCode.BadRequest to BaseException(cause.message, "Rules", null, cause.code, cause.args)
+
     else -> null
 }
 

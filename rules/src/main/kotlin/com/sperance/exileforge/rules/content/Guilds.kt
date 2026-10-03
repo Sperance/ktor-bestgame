@@ -18,9 +18,24 @@ enum class GuildMode { OPEN, APPLY, INVITE }
 
 /** Запись журнала гильдии; подпись - ключ `guild.log.<вид>` с `{0}` - героем и `{1}` - подробностью. */
 @Serializable
-enum class GuildLogKind { CREATED, JOINED, LEFT, KICKED, CONTRIBUTED, PROMOTED, DEMOTED, RANK_UP, LEVEL_UP, LEADER_CHANGED,
+enum class GuildLogKind {
+    CREATED,
+    JOINED,
+    LEFT,
+    KICKED,
+    CONTRIBUTED,
+    PROMOTED,
+    DEMOTED,
+    RANK_UP,
+    LEVEL_UP,
+    LEADER_CHANGED,
+
     /** 1.74.0: узел древа взят, древо сброшено, вещь положена в хранилище и взята из него. */
-    TREE_NODE, TREE_RESET, STASH_IN, STASH_OUT }
+    TREE_NODE,
+    TREE_RESET,
+    STASH_IN,
+    STASH_OUT,
+}
 
 /** Ветви древа гильдии (1.74.0): бой, добыча, хозяйство; подпись - `guild.branch.<код>`. */
 @Serializable
@@ -45,8 +60,7 @@ data class GuildTreeRule(val nodes: List<GuildNode> = emptyList(), val rowGate: 
     fun inBranch(taken: Map<String, Int>, branch: GuildBranch): Int = taken.entries.sumOf { (code, ranks) -> if (node(code)?.branch == branch) ranks else 0 }
 
     /** Строки взятых узлов по ключам: одинаковые складываются. */
-    fun effects(taken: Map<String, Int>): Map<String, Double> =
-        taken.mapNotNull { (code, ranks) -> node(code)?.let { it.effect to it.perRank * ranks } }.groupBy({ it.first }, { it.second }).mapValues { it.value.sum() }
+    fun effects(taken: Map<String, Int>): Map<String, Double> = taken.mapNotNull { (code, ranks) -> node(code)?.let { it.effect to it.perRank * ranks } }.groupBy({ it.first }, { it.second }).mapValues { it.value.sum() }
 
     /** Можно ли взять ещё ранг [code] при древе [taken] гильдии уровня [level]. */
     fun canTake(taken: Map<String, Int>, level: Int, code: String): Boolean {

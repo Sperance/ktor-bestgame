@@ -4,9 +4,7 @@ import base.exception.BaseException
 
 object SkillTreeExceptions {
     open class SkillTreeException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "SkillTree", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{SkillTreeException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{SkillTreeException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funException(errorMethod: String, value: String? = "") = SkillTreeException(value, errorMethod, "ST_001", listOf(value.orEmpty()))

@@ -50,14 +50,19 @@ class SkillService : KoinComponent {
         if (skill != null && skill.kind != kind) throw SkillExceptions.funExceptionWrongKind(method, skill.code)
         if (condition != null && condition.flaskOnly) throw SkillExceptions.funExceptionCondition(method, condition.name)
         hero.skills = when (kind) {
-            SkillKind.ACTIVE -> skills.copy(active = skills.active.filled(index).also { slots ->
-                if (skill != null) slots.replaceAll { if (it?.skill == skill.code) null else it }
-                slots[index] = skill?.let { ActiveSlot(it.code, condition ?: it.condition) }
-            })
-            SkillKind.PASSIVE -> skills.copy(passive = skills.passive.filled(index).also { slots ->
-                if (skill != null) slots.replaceAll { if (it == skill.code) null else it }
-                slots[index] = skill?.code
-            })
+            SkillKind.ACTIVE -> skills.copy(
+                active = skills.active.filled(index).also { slots ->
+                    if (skill != null) slots.replaceAll { if (it?.skill == skill.code) null else it }
+                    slots[index] = skill?.let { ActiveSlot(it.code, condition ?: it.condition) }
+                },
+            )
+
+            SkillKind.PASSIVE -> skills.copy(
+                passive = skills.passive.filled(index).also { slots ->
+                    if (skill != null) slots.replaceAll { if (it == skill.code) null else it }
+                    slots[index] = skill?.code
+                },
+            )
         }
         return heroes.save(hero, method).skills
     }
@@ -107,6 +112,7 @@ class SkillService : KoinComponent {
                 val free = slots.indices.firstOrNull { it < open && slots[it] == null } ?: return skills
                 skills.copy(active = slots.also { it[free] = ActiveSlot(skill.code, skill.condition) })
             }
+
             SkillKind.PASSIVE -> {
                 val open = rules.passiveSlots(heroLevel)
                 val slots = skills.passive.filled(open - 1)

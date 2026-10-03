@@ -4,9 +4,7 @@ import base.exception.BaseException
 
 object GuildExceptions {
     open class GuildException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "Guild", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{GuildException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{GuildException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funExceptionNotFound(errorMethod: String, value: String? = "") = GuildException("Guild $value not found", errorMethod, "GU_001", listOf(value.orEmpty()))

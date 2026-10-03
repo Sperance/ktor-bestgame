@@ -19,16 +19,25 @@ class TransactionHooks : AbstractCoroutineContextElement(TransactionHooks) {
     private val before = LinkedHashMap<Any, suspend (ClientSession) -> Unit>()
     private val after = ArrayList<() -> Unit>()
 
-    fun beforeCommit(key: Any, action: suspend (ClientSession) -> Unit) = synchronized(before) { before.putIfAbsent(key, action); Unit }
+    fun beforeCommit(key: Any, action: suspend (ClientSession) -> Unit) = synchronized(before) {
+        before.putIfAbsent(key, action)
+        Unit
+    }
 
-    fun afterCommit(action: () -> Unit) = synchronized(after) { after += action; Unit }
+    fun afterCommit(action: () -> Unit) = synchronized(after) {
+        after += action
+        Unit
+    }
 
     suspend fun runBeforeCommit(session: ClientSession) {
         val actions = synchronized(before) { before.values.toList().also { before.clear() } }
         actions.forEach { it(session) }
     }
 
-    fun runAfterCommit() = synchronized(after) { after.forEach { it() }; after.clear() }
+    fun runAfterCommit() = synchronized(after) {
+        after.forEach { it() }
+        after.clear()
+    }
 }
 
 /** Выполнить после коммита текущей транзакции; вне транзакции - сразу. */

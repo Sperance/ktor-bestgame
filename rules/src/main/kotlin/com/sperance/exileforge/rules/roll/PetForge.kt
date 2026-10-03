@@ -30,50 +30,67 @@ class PetForge(private val index: ContentIndex, private val menagerie: Menagerie
         val fresh = pet.copy(offer = emptyList())
         val next: Pet = when (orb) {
             Orb.ORB_OF_TRANSMUTATION -> upgrade(fresh, kind, Rarity.COMMON, Rarity.MAGIC, dice)
-            Orb.ORB_OF_ALCHEMY -> if (choice) offer(upgrade(fresh, kind, Rarity.COMMON, Rarity.RARE, dice, choice = true), kind, dice, required = false)
-                else upgrade(fresh, kind, Rarity.COMMON, Rarity.RARE, dice)
+
+            Orb.ORB_OF_ALCHEMY -> if (choice) {
+                offer(upgrade(fresh, kind, Rarity.COMMON, Rarity.RARE, dice, choice = true), kind, dice, required = false)
+            } else {
+                upgrade(fresh, kind, Rarity.COMMON, Rarity.RARE, dice)
+            }
+
             Orb.REGAL_ORB -> {
                 require(fresh, Rarity.MAGIC)
                 val rare = rule(Rarity.RARE)
                 fresh.copy(rarity = Rarity.RARE, lines = menagerie.roll(kind, maxOf(rare.floor, fresh.lines.size + 1).coerceAtMost(rare.ceiling), fresh.lines, dice))
             }
+
             Orb.ORB_OF_ALTERATION -> reroll(require(fresh, Rarity.MAGIC), kind, dice)
+
             Orb.CHAOS_ORB -> reroll(require(fresh, Rarity.RARE), kind, dice)
+
             Orb.ORB_OF_AUGMENTATION -> augment(require(fresh, Rarity.MAGIC), kind, dice)
+
             Orb.EXALTED_ORB -> if (choice) offer(roomFor(require(fresh, Rarity.RARE)), kind, dice) else augment(require(fresh, Rarity.RARE), kind, dice)
+
             Orb.DIVINE_ORB -> {
                 if (fresh.lines.none { !it.fractured }) throw RuleViolation("CR_006", listOf(name))
                 fresh.copy(lines = fresh.lines.map { line -> if (line.fractured) line else line.copy(shares = line.shares.map { dice.share() }) })
             }
+
             Orb.ORB_OF_ANNULMENT -> {
                 val removable = fresh.lines.filterNot { it.fractured }
                 if (removable.isEmpty()) throw RuleViolation("CR_006", listOf(name))
                 if (fresh.lines.size <= rule(fresh.rarity).floor) throw RuleViolation("CR_025", listOf(name, LocaleKey.rarity(fresh.rarity)))
                 fresh.copy(lines = fresh.lines - dice.pick(removable))
             }
+
             Orb.ORB_OF_SCOURING -> {
                 val kept = fresh.lines.filter { it.fractured }
                 val target = if (kept.isEmpty()) Rarity.COMMON else Rarity.MAGIC
                 if (fresh.rarity == target && fresh.lines.size == kept.size) throw RuleViolation("CR_006", listOf(name))
                 fresh.copy(rarity = target, lines = kept)
             }
+
             Orb.VAAL_ORB -> vaal(fresh, kind, dice, sure = omen == Omen.CORRUPTION)
+
             Orb.ORB_OF_CHANCE -> {
                 require(fresh, Rarity.COMMON)
                 val rarity = Tables.draw(Menagerie.RARITIES - Rarity.COMMON, { index.pets.rarities[it]?.weight ?: 0.0 }, dice) ?: Rarity.MAGIC
                 fresh.copy(rarity = rarity, lines = menagerie.roll(kind, dice.between(rule(rarity).lines), emptyList(), dice))
             }
+
             Orb.FRACTURING_ORB -> {
                 if (fresh.lines.any { it.fractured }) throw RuleViolation("CR_011", listOf(name))
                 if (fresh.lines.isEmpty()) throw RuleViolation("CR_006", listOf(name))
                 val chosen = dice.pick(fresh.lines)
                 fresh.copy(lines = fresh.lines.map { if (it === chosen) it.copy(fractured = true) else it })
             }
+
             Orb.QUALITY_ORB -> {
                 val max = index.rules.quality.max
                 if (fresh.quality >= max) throw RuleViolation("CR_033", listOf(name))
                 fresh.copy(quality = (fresh.quality + index.rules.quality.step(fresh.rarity)).coerceAtMost(max))
             }
+
             Orb.BLESSED_ORB, Orb.MIRROR_OF_KALANDRA, Orb.SHAPERS_ORB, Orb.ELDER_ORB, Orb.ABYSS_ORB, Orb.ORB_OF_REGRET, Orb.UNVEILING_ORB ->
                 throw RuleViolation("CR_027", listOf(orbName(orb), name))
         }
@@ -100,8 +117,7 @@ class PetForge(private val index: ContentIndex, private val menagerie: Menagerie
         return pet.copy(rarity = to, lines = menagerie.roll(kind, count, pet.lines.filter { it.fractured }, dice))
     }
 
-    private fun reroll(pet: Pet, kind: PetSpecies, dice: Dice): Pet =
-        pet.copy(lines = menagerie.roll(kind, dice.between(rule(pet.rarity).lines), pet.lines.filter { it.fractured }, dice))
+    private fun reroll(pet: Pet, kind: PetSpecies, dice: Dice): Pet = pet.copy(lines = menagerie.roll(kind, dice.between(rule(pet.rarity).lines), pet.lines.filter { it.fractured }, dice))
 
     private fun augment(pet: Pet, kind: PetSpecies, dice: Dice): Pet {
         roomFor(pet)
@@ -117,8 +133,9 @@ class PetForge(private val index: ContentIndex, private val menagerie: Menagerie
     /** Варианты строки на выбор: разные, каких у питомца нет; без места под строку - ошибка, если выбор [required]. */
     private fun offer(pet: Pet, kind: PetSpecies, dice: Dice, required: Boolean = true): Pet {
         val options = mutableListOf<PetLine>()
-        if (pet.lines.size < rule(pet.rarity).ceiling)
+        if (pet.lines.size < rule(pet.rarity).ceiling) {
             while (options.size < index.rules.orbs.choices) options += menagerie.rollOne(kind, pet.lines, dice, options.map { it.code }) ?: break
+        }
         if (options.isEmpty() && required) throw RuleViolation("CR_007", listOf(name(pet)))
         return pet.copy(offer = options)
     }
@@ -128,8 +145,10 @@ class PetForge(private val index: ContentIndex, private val menagerie: Menagerie
         val corrupted = pet.copy(corrupted = true)
         return when (dice.pick(if (sure) PetVaal.entries - PetVaal.NOTHING else PetVaal.entries)) {
             PetVaal.NOTHING -> corrupted
+
             PetVaal.STRONG -> corrupted.lines.filterNot { it.fractured }.takeIf { it.isNotEmpty() }?.let(dice::pick)
                 ?.let { strong -> corrupted.copy(lines = corrupted.lines.map { if (it === strong) it.copy(shares = it.shares.map { 1.0 }) else it }) } ?: corrupted
+
             PetVaal.REROLL -> if (pet.rarity == Rarity.COMMON) corrupted else reroll(corrupted, kind, dice)
         }
     }

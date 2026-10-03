@@ -2,10 +2,10 @@ package com.sperance.exileforge.rules
 
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.ContentLoader
+import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.roll.Streams
-import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.text.ModifierText
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer

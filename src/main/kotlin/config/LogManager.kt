@@ -4,17 +4,17 @@ import extensions.printLog
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
-import java.io.File
-import java.io.FileWriter
 import java.io.BufferedWriter
+import java.io.File
+import java.io.FileOutputStream
+import java.io.FileWriter
+import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
-import java.io.FileOutputStream
-import java.time.Duration
-import java.time.LocalDateTime
 import kotlin.concurrent.Volatile
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -30,6 +30,7 @@ object LogManager {
     // Состояние
     @Volatile
     private var currentDate: LocalDate = LocalDate.now()
+
     @Volatile
     private var writer: BufferedWriter? = null
     private val logChannel = Channel<String>(capacity = 1000, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -230,7 +231,6 @@ object LogManager {
             }
 
             printLog("✅ Archived ${files.size} log files to ${archiveFile.name}")
-
         } catch (e: Exception) {
             printLog("Failed to create archive for month $yearMonth")
             e.printStackTrace()
@@ -241,8 +241,7 @@ object LogManager {
      * Удаление архивов старше 30 дней
      */
     private fun cleanupOldLogs() {
-
-        //Пока не удалляем ничего
+        // Пока не удалляем ничего
         if (true) return
 
         try {
@@ -286,5 +285,4 @@ object LogManager {
             scope.cancel()
         }
     }
-
 }

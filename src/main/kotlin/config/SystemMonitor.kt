@@ -38,7 +38,6 @@ object SystemMonitor {
                     // Ждём указанное количество часов
                     val delayMs = intervalHours * 60 * 60 * 1000
                     delay(delayMs.milliseconds)
-
                 } catch (e: CancellationException) {
                     printLog("[SystemMonitor] SystemMonitor cancelled", true)
                     break
@@ -99,13 +98,11 @@ object SystemMonitor {
     /**
      * Получение PID процесса
      */
-    private fun getProcessId(): String {
-        return try {
-            val pid = ManagementFactory.getRuntimeMXBean().name.split("@")[0]
-            pid
-        } catch (e: Exception) {
-            "unknown"
-        }
+    private fun getProcessId(): String = try {
+        val pid = ManagementFactory.getRuntimeMXBean().name.split("@")[0]
+        pid
+    } catch (e: Exception) {
+        "unknown"
     }
 
     /**
@@ -127,13 +124,10 @@ object SystemMonitor {
     /**
      * Форматирование размера в байтах
      */
-    private fun formatBytes(bytes: Long): String {
-        return when {
-            bytes < 1024 -> "$bytes B"
-            bytes < 1024 * 1024 -> "${bytes / 1024} KB"
-            bytes < 1024 * 1024 * 1024 -> "${"%.2f".format(bytes / (1024.0 * 1024.0))} MB"
-            else -> "${"%.2f".format(bytes / (1024.0 * 1024.0 * 1024.0))} GB"
-        }
+    private fun formatBytes(bytes: Long): String = when {
+        bytes < 1024 -> "$bytes B"
+        bytes < 1024 * 1024 -> "${bytes / 1024} KB"
+        bytes < 1024 * 1024 * 1024 -> "${"%.2f".format(bytes / (1024.0 * 1024.0))} MB"
+        else -> "${"%.2f".format(bytes / (1024.0 * 1024.0 * 1024.0))} GB"
     }
-
 }

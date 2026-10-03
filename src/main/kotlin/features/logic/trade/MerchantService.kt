@@ -1,16 +1,16 @@
 package features.logic.trade
 
+import base.cache.BoundedCache
 import base.exception.model.CharacterExceptions
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.sha256
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.sheet.SellPrice
 import com.sperance.exileforge.rules.table.Tables
-import base.cache.BoundedCache
-import com.sperance.exileforge.rules.content.sha256
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
@@ -29,7 +29,9 @@ data class MerchantOffer(val id: String, val item: ItemInstance, val price: Long
  */
 @Serializable
 data class MerchantOrb(val code: String, val price: Long, val bought: Int = 0, val left: Int = UNKNOWN) {
-    companion object { const val UNKNOWN = -1 }
+    companion object {
+        const val UNKNOWN = -1
+    }
 }
 
 /**
@@ -94,6 +96,7 @@ class MerchantService : KoinComponent {
             .ifEmpty { gear.filter { it.value.requiredLevel <= level + rules.levelSpread } }
         var serial = 0
         fun nextId(): String = sha256("$seedKey:${serial++}").take(24)
+
         // Волшебная и редкая на витрине не бывает пустой: шаблон, чья таблица не дотягивает до дна редкости,
         // заменяется другим, а после нескольких неудач торговец выкладывает вещь обычной
         fun offer(from: List<com.sperance.exileforge.rules.table.Weighted<ItemTemplate>>): MerchantOffer {

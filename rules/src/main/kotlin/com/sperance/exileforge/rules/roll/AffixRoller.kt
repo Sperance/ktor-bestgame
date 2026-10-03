@@ -24,12 +24,14 @@ class AffixRoller(private val index: ContentIndex) {
     fun isEssence(roll: Roll): Boolean = definition(roll)?.source == Source.ESSENCE
     fun isCrafted(roll: Roll): Boolean = definition(roll)?.crafted == true
     fun affixes(rolls: Collection<Roll>): List<Roll> = rolls.filter(::isAffix)
+
     /** Постоянные строки копии: всё, что не аффикс и не строка эссенции. */
     fun permanent(rolls: Collection<Roll>): List<Roll> = rolls.filterNot { isAffix(it) || isEssence(it) }
     fun fractured(rolls: Collection<Roll>): List<Roll> = rolls.filter { it.fractured }
 
     /** Группы исключения, занятые строками [rolls] - все строки копии, имплиситы и скрытые гибриды тоже: правило «одна группа на предмет» одно на все пути. */
     fun groups(rolls: Collection<Roll>): Set<String> = definitions(rolls).flatMapTo(HashSet(), index::groups)
+
     /** Встанет ли [def] рядом с занятыми группами [taken]: ни одной общей группы. */
     fun fits(def: ModifierDef, taken: Set<String>): Boolean = index.groups(def).none { it in taken }
 
@@ -44,12 +46,10 @@ class AffixRoller(private val index: ContentIndex) {
     }
 
     /** Новая копия: закреплённые строки шаблона и аффиксы под редкость на уровне предмета [level]. */
-    fun roll(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, level: Int = template.level): List<Roll> =
-        rollPermanent(template, dice).let { permanent -> permanent + rollAffixes(template, rarity, dice, influence, permanent, level = level) }
+    fun roll(template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, level: Int = template.level): List<Roll> = rollPermanent(template, dice).let { permanent -> permanent + rollAffixes(template, rarity, dice, influence, permanent, level = level) }
 
     /** Закреплённые описания шаблона: имплиситы, зачарования, порча, строки уникалки. */
-    fun rollPermanent(template: ItemTemplate, dice: Dice): List<Roll> =
-        template.fixedCodes.mapNotNull { index.modifier(it) }.filter { it.source.permanent }.mapNotNull { roll(it, template.level, dice) }
+    fun rollPermanent(template: ItemTemplate, dice: Dice): List<Roll> = template.fixedCodes.mapNotNull { index.modifier(it) }.filter { it.source.permanent }.mapNotNull { roll(it, template.level, dice) }
 
     /**
      * Случайные префиксы и суффиксы на места, которые оставила редкость: взвешенно и без повторов
@@ -57,8 +57,14 @@ class AffixRoller(private val index: ContentIndex) {
      * сколько потолок редкости ниже обычного (сфера алхимии не даёт полного набора); [level] - уровень предмета.
      */
     fun rollAffixes(
-        template: ItemTemplate, rarity: Rarity, dice: Dice, influence: Influence? = null, kept: Collection<Roll> = emptyList(), below: Int = 0,
-        level: Int = template.level, side: Source? = null,
+        template: ItemTemplate,
+        rarity: Rarity,
+        dice: Dice,
+        influence: Influence? = null,
+        kept: Collection<Roll> = emptyList(),
+        below: Int = 0,
+        level: Int = template.level,
+        side: Source? = null,
     ): List<Roll> {
         val keptDefs = definitions(kept)
         val (prefixes, suffixes) = freeSlots(rarity, keptDefs, template.slot)
@@ -93,9 +99,15 @@ class AffixRoller(private val index: ContentIndex) {
     }
 
     /** Один аффикс сверх имеющихся на свободное место; null - мест нет или таблица исчерпана. */
-    fun rollExtraAffix(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, dice: Dice, influence: Influence? = null, level: Int = template.level,
-                       side: Source? = null): Roll? =
-        rollExtraFrom(affixPool(template, influence).onSide(side), template, rarity, current, dice, level)
+    fun rollExtraAffix(
+        template: ItemTemplate,
+        rarity: Rarity,
+        current: Collection<Roll>,
+        dice: Dice,
+        influence: Influence? = null,
+        level: Int = template.level,
+        side: Source? = null,
+    ): Roll? = rollExtraFrom(affixPool(template, influence).onSide(side), template, rarity, current, dice, level)
 
     /**
      * Варианты одного аффикса сверх имеющихся - знамение выбора (1.65.0): до [count] разных, каждый встаёт на копию сам по себе,
@@ -124,14 +136,19 @@ class AffixRoller(private val index: ContentIndex) {
     }
 
     /** Один модификатор таблицы влияния - то, что делает сфера влияния. */
-    fun rollInfluenced(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, influence: Influence, dice: Dice, level: Int = template.level): Roll? =
-        rollOne(index.affixPool(influenceTags(influence, template.slot)), template, rarity, current, dice, level)
+    fun rollInfluenced(template: ItemTemplate, rarity: Rarity, current: Collection<Roll>, influence: Influence, dice: Dice, level: Int = template.level): Roll? = rollOne(index.affixPool(influenceTags(influence, template.slot)), template, rarity, current, dice, level)
 
     /** Модификатор влияния наверняка: на свободное место, а без него - вместо случайного незакреплённого аффикса. */
     fun forceInfluenced(template: ItemTemplate, rarity: Rarity, rolls: MutableList<Roll>, influence: Influence, dice: Dice, level: Int = template.level): Boolean {
-        rollInfluenced(template, rarity, rolls, influence, dice, level)?.let { rolls += it; return true }
+        rollInfluenced(template, rarity, rolls, influence, dice, level)?.let {
+            rolls += it
+            return true
+        }
         dice.shuffled(rolls.filter { isAffix(it) && !it.fractured }).forEach { old ->
-            rollInfluenced(template, rarity, rolls - old, influence, dice, level)?.let { rolls[rolls.indexOf(old)] = it; return true }
+            rollInfluenced(template, rarity, rolls - old, influence, dice, level)?.let {
+                rolls[rolls.indexOf(old)] = it
+                return true
+            }
         }
         return false
     }
@@ -214,8 +231,7 @@ class AffixRoller(private val index: ContentIndex) {
     }
 
     /** Таблицы аффиксов копии: таблицы шаблона и, под влиянием, таблицы влияния. */
-    fun affixPool(template: ItemTemplate, influence: Influence? = null): List<Weighted<ModifierDef>> =
-        index.affixPool(if (influence == null) template.tables else template.tables + influenceTags(influence, template.slot))
+    fun affixPool(template: ItemTemplate, influence: Influence? = null): List<Weighted<ModifierDef>> = index.affixPool(if (influence == null) template.tables else template.tables + influenceTags(influence, template.slot))
 
     companion object {
         /**

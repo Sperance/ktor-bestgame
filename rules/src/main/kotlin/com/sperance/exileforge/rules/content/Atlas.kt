@@ -90,6 +90,7 @@ object AtlasPoints {
     const val BOSS = "boss"
     const val RARE = "rare"
     const val VAAL = "vaal"
+
     /** Испытания (1.47.0): первая зачистка региона в раше и каждый рубеж башни; в пределе зон не считаются. */
     const val RUSH = "rush"
     const val TOWER = "tower"

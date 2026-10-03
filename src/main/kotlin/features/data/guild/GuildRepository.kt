@@ -1,6 +1,5 @@
 package features.data.guild
 
-import com.sperance.exileforge.rules.content.GuildEffect
 import base.exception.BaseException
 import base.exception.model.CharacterExceptions
 import base.exception.model.GuildExceptions
@@ -13,30 +12,31 @@ import com.mongodb.client.model.Sorts
 import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
-import com.sperance.exileforge.rules.content.GuildLogKind
-import com.sperance.exileforge.rules.content.GuildMode
-import com.sperance.exileforge.rules.content.GuildRole
-import com.sperance.exileforge.rules.content.GuildRules
+import com.sperance.exileforge.rules.content.GuildEffect
 import com.sperance.exileforge.rules.content.GuildGoal
 import com.sperance.exileforge.rules.content.GuildGoalView
+import com.sperance.exileforge.rules.content.GuildLogKind
+import com.sperance.exileforge.rules.content.GuildMode
 import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.GuildQuests
+import com.sperance.exileforge.rules.content.GuildRole
+import com.sperance.exileforge.rules.content.GuildRules
 import com.sperance.exileforge.rules.content.Item
 import com.sperance.exileforge.rules.content.Quest
 import com.sperance.exileforge.rules.content.QuestClaimed
-import com.sperance.exileforge.rules.content.QuestReward
 import com.sperance.exileforge.rules.content.QuestClock
 import com.sperance.exileforge.rules.content.QuestKind
+import com.sperance.exileforge.rules.content.QuestReward
 import com.sperance.exileforge.rules.roll.Dice
 import config.ContentStore
 import config.MongoFactory.transactionExecute
 import extensions.printLog
-import kotlinx.coroutines.flow.firstOrNull
 import features.data.hero.Hero
 import features.data.hero.HeroCard
 import features.data.hero.HeroGuild
 import features.data.hero.HeroRepository
 import features.logic.quests.QuestService
+import kotlinx.coroutines.flow.firstOrNull
 import org.bson.Document
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -47,7 +47,9 @@ import java.util.regex.Pattern
  * и каждое чтение гильдии героем сверяет её. Любое чтение и запись гильдии сначала обслуживают её: отмечают,
  * что участник заходил, и передают главенство, если глава не заходил дольше `leaderIdleDays`.
  */
-class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
+class GuildRepository :
+    BaseRepository<Guild>(Guild::class),
+    KoinComponent {
     private val heroes: HeroRepository by inject()
     private val events: GuildEventRepository by inject()
     private val content: ContentStore by inject()
@@ -268,8 +270,11 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val guild = change.guild
         transactionExecute("guild $method ${guild._id}") { session ->
             deleteById(guild, session)
-            heroes.patchGuild(Filters.`in`("_id", guild.members.map { it.heroId }),
-                Updates.combine(Updates.unset("guild"), Updates.set("guildLeftAt", System.currentTimeMillis())), session)
+            heroes.patchGuild(
+                Filters.`in`("_id", guild.members.map { it.heroId }),
+                Updates.combine(Updates.unset("guild"), Updates.set("guildLeftAt", System.currentTimeMillis())),
+                session,
+            )
             events.deleteByGuild(guild._id, session)
         }
         return outside(heroes.requireHero(heroId, method))
@@ -307,12 +312,17 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val guild = change.guild
         val me = change.record(heroId)
         val gold = item.equals(GOLD, ignoreCase = true)
-        val value = if (gold) amount else {
+        val value = if (gold) {
+            amount
+        } else {
             val stock = index.item(item)?.takeIf { it.category in DONATED && it.price > 0 } ?: throw GuildExceptions.funExceptionNotOrb(method, item)
             Math.multiplyExact(stock.price, amount)
         }
         val today = day(change.now)
-        if (me.day != today) { me.day = today; me.dayContribution = 0 }
+        if (me.day != today) {
+            me.day = today
+            me.dayContribution = 0
+        }
         val limit = (rules.dailyLimit(hero.level) * (1 + change.effect(GuildEffect.DAILY_LIMIT) / 100)).toLong()
         val left = (limit - me.dayContribution).coerceAtLeast(0)
         if (value > left) throw GuildExceptions.funExceptionDailyLimit(method, left.toString())
@@ -328,7 +338,10 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         me.contribution += value
         me.dayContribution += value
         val week = week(change.now)
-        if (me.week != week) { me.week = week; me.weekContribution = 0 }
+        if (me.week != week) {
+            me.week = week
+            me.weekContribution = 0
+        }
         me.weekContribution += value
         change.touch(hero)
         change.log(GuildLogKind.CONTRIBUTED, hero.name, "$amount ${if (gold) GOLD else item}")
@@ -423,7 +436,10 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val tab = guild.tabs.getOrNull(entry.tab) ?: GuildStashTab()
         if (me.role == GuildRole.MEMBER && rules.rankIndex(me.contribution) < tab.minRank) throw GuildExceptions.funExceptionTabRank(method, (entry.tab + 1).toString())
         val today = day(change.now)
-        if (me.takesDay != today) { me.takesDay = today; me.takes = 0 }
+        if (me.takesDay != today) {
+            me.takesDay = today
+            me.takes = 0
+        }
         val allowed = takesPerDay(change)
         if (me.role == GuildRole.MEMBER && me.takes >= allowed) throw GuildExceptions.funExceptionTakes(method, allowed.toString())
         guild.stash.remove(entry)
@@ -454,8 +470,13 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val me = change.record(change.actor._id)
         val count = tabCount(change)
         val left = if (me.role != GuildRole.MEMBER) -1 else takesPerDay(change) - (if (me.takesDay == day(change.now)) me.takes else 0)
-        return GuildStashView(change.guild.stash.toList(), List(count) { change.guild.tabs.getOrNull(it) ?: GuildStashTab() }, rules.stash.tabSize,
-            left.coerceAtLeast(if (left < 0) -1 else 0), change.actor.money)
+        return GuildStashView(
+            change.guild.stash.toList(),
+            List(count) { change.guild.tabs.getOrNull(it) ?: GuildStashTab() },
+            rules.stash.tabSize,
+            left.coerceAtLeast(if (left < 0) -1 else 0),
+            change.actor.money,
+        )
     }
 
     // ==================== ЗАДАНИЯ ====================
@@ -553,16 +574,28 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val tallies = tallies(change, hero)
         fun view(goal: GuildGoal): GuildGoalView {
             val shares = shares(tallies, change.guild, goal)
-            return GuildGoalView(goal, shares.values.sum(), shares[hero._id] ?: 0, need(change.guild, goal),
-                goal.key in hero.quests.guild?.claimed.orEmpty(), questService.sharedReward(hero, goal), shares.filterValues { it > 0 })
+            return GuildGoalView(
+                goal,
+                shares.values.sum(),
+                shares[hero._id] ?: 0,
+                need(change.guild, goal),
+                goal.key in hero.quests.guild?.claimed.orEmpty(),
+                questService.sharedReward(hero, goal),
+                shares.filterValues { it > 0 },
+            )
         }
-        return GuildQuests(hero.quests.guild?.quests.orEmpty(), board.daily.map(::view), board.weekly.map(::view),
-            QuestClock.dayEnd(change.now), QuestClock.weekEnd(change.now), hero.money)
+        return GuildQuests(
+            hero.quests.guild?.quests.orEmpty(),
+            board.daily.map(::view),
+            board.weekly.map(::view),
+            QuestClock.dayEnd(change.now),
+            QuestClock.weekEnd(change.now),
+            hero.money,
+        )
     }
 
     /** Порог доли: [GuildQuestRule.fairShare] средней доли участника, не меньше единицы. */
-    private fun need(guild: Guild, goal: GuildGoal): Long =
-        kotlin.math.ceil(goal.target.toDouble() / guild.members.size.coerceAtLeast(1) * index.quests.guild.fairShare).toLong().coerceAtLeast(1)
+    private fun need(guild: Guild, goal: GuildGoal): Long = kotlin.math.ceil(goal.target.toDouble() / guild.members.size.coerceAtLeast(1) * index.quests.guild.fairShare).toLong().coerceAtLeast(1)
 
     private suspend fun shares(change: Change, hero: Hero, goal: GuildGoal): Map<String, Long> = shares(tallies(change, hero), change.guild, goal)
 
@@ -581,8 +614,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
     }
 
     /** Гильдейские счётчики участников; свой - из героя в памяти, он свежее базы. */
-    private suspend fun tallies(change: Change, hero: Hero): Map<String, GuildQuestLog> =
-        heroes.guildTallies(change.guild.members.map { it.heroId }.filter { it != hero._id }) + listOfNotNull(hero.quests.guild?.let { hero._id to it })
+    private suspend fun tallies(change: Change, hero: Hero): Map<String, GuildQuestLog> = heroes.guildTallies(change.guild.members.map { it.heroId }.filter { it != hero._id }) + listOfNotNull(hero.quests.guild?.let { hero._id to it })
 
     // ==================== ГЕРОЙ УДАЛЁН ====================
 
@@ -630,15 +662,17 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             dirty = true
         }
 
-        suspend fun nameOf(heroId: String): String =
-            touched[heroId]?.name ?: (if (::actor.isInitialized && actor._id == heroId) actor.name else null) ?: names[heroId]
-                ?: heroes.cards(listOf(heroId))[heroId]?.name.orEmpty().also { names[heroId] = it }
+        suspend fun nameOf(heroId: String): String = touched[heroId]?.name ?: (if (::actor.isInitialized && actor._id == heroId) actor.name else null) ?: names[heroId]
+            ?: heroes.cards(listOf(heroId))[heroId]?.name.orEmpty().also { names[heroId] = it }
 
         /** Участник заходил: отметка не чаще [SEEN_STEP], затем обслуживание гильдии и сверка копии героя. */
         suspend fun visit(hero: Hero) {
             actor = hero
             val me = record(hero._id)
-            if (now - me.lastSeenAt >= SEEN_STEP) { me.lastSeenAt = now; dirty = true }
+            if (now - me.lastSeenAt >= SEEN_STEP) {
+                me.lastSeenAt = now
+                dirty = true
+            }
             maintain()
             plan()
             sync(hero)
@@ -649,7 +683,12 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             val leader = guild.leader
             if (leader != null && now - leader.lastSeenAt < rules.leaderIdleDays * DAY) return
             val heir = successor(guild, leader?.heroId) ?: return
-            if (leader != null) handOver(leader, heir, demoteTo = GuildRole.MEMBER) else { assign(heir, GuildRole.LEADER); log(GuildLogKind.LEADER_CHANGED, nameOf(heir.heroId), "") }
+            if (leader != null) {
+                handOver(leader, heir, demoteTo = GuildRole.MEMBER)
+            } else {
+                assign(heir, GuildRole.LEADER)
+                log(GuildLogKind.LEADER_CHANGED, nameOf(heir.heroId), "")
+            }
         }
 
         suspend fun handOver(from: GuildMemberRecord, to: GuildMemberRecord, demoteTo: GuildRole? = null) {
@@ -688,10 +727,15 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         fun sync(hero: Hero) {
             val me = guild.member(hero._id) ?: return
             val expected = HeroGuild(guild._id, guild.level, rules.rankIndex(me.contribution), rules.tree.effects(guild.tree))
-            if (hero.guild != expected) { hero.guild = expected; touched[hero._id] = hero }
+            if (hero.guild != expected) {
+                hero.guild = expected
+                touched[hero._id] = hero
+            }
         }
 
-        fun touch(hero: Hero) { touched[hero._id] = hero }
+        fun touch(hero: Hero) {
+            touched[hero._id] = hero
+        }
 
         /** Строка древа гильдии по ключу (1.74.0). */
         fun effect(key: String): Double = rules.tree.effects(guild.tree)[key] ?: 0.0
@@ -767,7 +811,10 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
     /** Гильдия героя-участника с обслуживанием и сверкой; [staff] - только глава и офицеры, [leader] - только глава. */
     private suspend fun acting(heroId: String, method: String, staff: Boolean = false, leader: Boolean = false): Change {
         val hero = heroes.requireHero(heroId, method)
-        val guild = guildOf(heroId) ?: run { heal(hero); throw GuildExceptions.funExceptionNotMember(method, heroId) }
+        val guild = guildOf(heroId) ?: run {
+            heal(hero)
+            throw GuildExceptions.funExceptionNotMember(method, heroId)
+        }
         val change = Change(guild)
         change.visit(hero)
         val role = change.record(heroId).role
@@ -801,7 +848,8 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val pending = Filters.or(Filters.eq("applications.heroId", heroId), Filters.eq("invites.heroId", heroId))
         val filter = except?.let { Filters.and(pending, Filters.ne("_id", it)) } ?: pending
         collection.updateMany(
-            session, readFilter(filter),
+            session,
+            readFilter(filter),
             Updates.combine(Updates.pull("applications", Document("heroId", heroId)), Updates.pull("invites", Document("heroId", heroId)), Updates.inc("version", 1L)),
         )
     }
@@ -816,8 +864,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
 
     private suspend fun guildOf(heroId: String): Guild? = findByFilter(Filters.eq("members.heroId", heroId)).firstOrNull()?.let(::retireOrbs)
 
-    private suspend fun requireGuild(guildId: String, method: String): Guild =
-        retireOrbs(findById(guildId) ?: throw GuildExceptions.funExceptionNotFound(method, guildId))
+    private suspend fun requireGuild(guildId: String, method: String): Guild = retireOrbs(findById(guildId) ?: throw GuildExceptions.funExceptionNotFound(method, guildId))
 
     /** Снятые сферы казны становятся своей заменой из правил - как в сумке героя: в казне не остаётся кодов, которых нет в контенте. */
     private fun retireOrbs(guild: Guild): Guild = guild.also {
@@ -860,8 +907,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         if (minLevel !in 1..MAX_MIN_LEVEL) throw GuildExceptions.funExceptionMinLevelValue(method, minLevel.toString())
     }
 
-    private fun rejoinAt(hero: Hero): Long? =
-        (hero.guildLeftAt + rules.rejoinHours * HOUR).takeIf { hero.guildLeftAt > 0 && it > System.currentTimeMillis() }
+    private fun rejoinAt(hero: Hero): Long? = (hero.guildLeftAt + rules.rejoinHours * HOUR).takeIf { hero.guildLeftAt > 0 && it > System.currentTimeMillis() }
 
     /** Наследник главы: старший по назначению офицер, иначе участник с наибольшим вкладом. */
     private fun successor(guild: Guild, leaderId: String?): GuildMemberRecord? {
@@ -882,16 +928,19 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         return GuildMine(view(change, me, cards), member(me, cards[hero._id], change.now))
     }
 
-    private suspend fun view(change: Change, viewer: GuildMemberRecord): GuildView =
-        view(change, viewer, heroes.cards(change.guild.members.map { it.heroId } + change.guild.applications.map { it.heroId }))
+    private suspend fun view(change: Change, viewer: GuildMemberRecord): GuildView = view(change, viewer, heroes.cards(change.guild.members.map { it.heroId } + change.guild.applications.map { it.heroId }))
 
     private fun view(change: Change, viewer: GuildMemberRecord, cards: Map<String, HeroCard>): GuildView {
         val guild = change.guild
         val staff = viewer.role != GuildRole.MEMBER
         val members = guild.members.map { member(it, cards[it.heroId], change.now) }
             .sortedWith(compareBy<GuildMember> { it.role.ordinal }.thenByDescending { it.contribution })
-        val applicants = if (!staff) emptyList() else guild.applications.mapNotNull { application ->
-            cards[application.heroId]?.let { GuildApplicant(it.id, it.name, it.heroClass, it.level, application.at) }
+        val applicants = if (!staff) {
+            emptyList()
+        } else {
+            guild.applications.mapNotNull { application ->
+                cards[application.heroId]?.let { GuildApplicant(it.id, it.name, it.heroClass, it.level, application.at) }
+            }
         }
         return GuildView(
             guild._id, guild.name, guild.tag, guild.emblem, guild.color, guild.faction, guild.level, guild.experience, rules.next(guild.level),
@@ -915,6 +964,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         const val MINUTE = 60_000L
         const val HOUR = 3_600_000L
         const val DAY = 86_400_000L
+
         /** Отметка захода пишется не чаще раза в столько: чтение не должно переписывать гильдию на каждый опрос. */
         const val SEEN_STEP = 10 * MINUTE
         const val MAX_MIN_LEVEL = 1000

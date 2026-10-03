@@ -2,11 +2,11 @@ package features.logic.atlas
 
 import base.exception.model.CharacterExceptions
 import base.exception.model.SkillTreeExceptions
-import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.AtlasAllocation
 import com.sperance.exileforge.rules.content.AtlasBonuses
 import com.sperance.exileforge.rules.content.AtlasPoints
 import com.sperance.exileforge.rules.content.ContentIndex
+import com.sperance.exileforge.rules.content.Orb
 import config.ContentStore
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
@@ -28,8 +28,12 @@ class AtlasService : KoinComponent {
 
     fun state(hero: Hero): AtlasState {
         val tree = index.atlas
-        return AtlasState(listOf(index.atlasGraph.start) + hero.atlas, hero.earned.toList(),
-            AtlasPoints.total(tree.points, hero.earned, tree.cap), AtlasPoints.available(tree.points, hero.earned, hero.atlas, tree.cap))
+        return AtlasState(
+            listOf(index.atlasGraph.start) + hero.atlas,
+            hero.earned.toList(),
+            AtlasPoints.total(tree.points, hero.earned, tree.cap),
+            AtlasPoints.available(tree.points, hero.earned, hero.atlas, tree.cap),
+        )
     }
 
     suspend fun state(heroId: String): AtlasState = state(heroes.requireHero(heroId, "atlasState"))

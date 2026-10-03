@@ -24,13 +24,13 @@ import com.mongodb.kotlin.client.coroutine.MongoCollection
 import config.MongoFactory
 import config.TransactionHooks
 import config.afterCommit
-import kotlinx.coroutines.currentCoroutineContext
-import server.addons.CommandKey
 import extensions.printLog
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
 import org.bson.BsonDocument
 import org.bson.conversions.Bson
+import server.addons.CommandKey
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 
@@ -82,8 +82,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * Фильтр обычного чтения, см. [SoftDelete.readFilter]. Все выборки репозитория идут через
      * него; наследник, который лезет в [collection] напрямую, обязан применить его сам.
      */
-    protected fun readFilter(filter: Bson? = null, includeDeleted: Boolean = false): Bson =
-        SoftDelete.readFilter(filter, includeDeleted)
+    protected fun readFilter(filter: Bson? = null, includeDeleted: Boolean = false): Bson = SoftDelete.readFilter(filter, includeDeleted)
 
     /**
      * Кеш коллекции, если она справочная: правки доезжают в него после коммита
@@ -160,8 +159,9 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     }
 
     private fun requireNew(entity: T, method: String) {
-        if (entity is VersionedEntity && entity.version != 0L)
+        if (entity is VersionedEntity && entity.version != 0L) {
             throw BaseRepositoryExceptions.funExceptionInsertVersion(method, entity.version.toString())
+        }
     }
 
     // ==================== READ ====================
@@ -171,42 +171,32 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
      * достать удалённое, например для проверки занятости уникального поля.
      */
 
-    suspend fun findById(id: String, includeDeleted: Boolean = false): T? =
-        collection.find(readFilter(Versioning.byId(id), includeDeleted)).firstOrNull()?.tracked()
+    suspend fun findById(id: String, includeDeleted: Boolean = false): T? = collection.find(readFilter(Versioning.byId(id), includeDeleted)).firstOrNull()?.tracked()
 
-    suspend fun findById(id: String, session: ClientSession, includeDeleted: Boolean = false): T? =
-        collection.find(session, readFilter(Versioning.byId(id), includeDeleted)).firstOrNull()?.tracked()
+    suspend fun findById(id: String, session: ClientSession, includeDeleted: Boolean = false): T? = collection.find(session, readFilter(Versioning.byId(id), includeDeleted)).firstOrNull()?.tracked()
 
     /** Документ по id или ошибка из [missing]: общий вид «найди или откажи» для всех репозиториев. */
     suspend inline fun requireById(id: String, missing: (String) -> Throwable): T = findById(id) ?: throw missing(id)
 
     /** Есть ли документ: читается только `_id`, без самого документа. */
-    suspend fun exists(id: String, includeDeleted: Boolean = false): Boolean =
-        // Без документа сущности: проекция из одного `_id` не соберётся в класс с обязательными полями
+    suspend fun exists(id: String, includeDeleted: Boolean = false): Boolean = // Без документа сущности: проекция из одного `_id` не соберётся в класс с обязательными полями
         collection.withDocumentClass<org.bson.Document>().find(readFilter(Versioning.byId(id), includeDeleted))
             .projection(Projections.include(CONST_FIELD_ID)).limit(1).firstOrNull() != null
 
-    suspend fun findAll(includeDeleted: Boolean = false): List<T> =
-        collection.find(readFilter(includeDeleted = includeDeleted)).toList().onEach { it.tracked() }
+    suspend fun findAll(includeDeleted: Boolean = false): List<T> = collection.find(readFilter(includeDeleted = includeDeleted)).toList().onEach { it.tracked() }
 
-    suspend fun findAll(session: ClientSession, includeDeleted: Boolean = false): List<T> =
-        collection.find(session, readFilter(includeDeleted = includeDeleted)).toList().onEach { it.tracked() }
+    suspend fun findAll(session: ClientSession, includeDeleted: Boolean = false): List<T> = collection.find(session, readFilter(includeDeleted = includeDeleted)).toList().onEach { it.tracked() }
 
     /** Первый документ, у которого поле [field] равно [value]. */
-    suspend fun <S> findByField(field: KProperty1<T, S>, value: S, includeDeleted: Boolean = false): T? =
-        collection.find(readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()?.tracked()
+    suspend fun <S> findByField(field: KProperty1<T, S>, value: S, includeDeleted: Boolean = false): T? = collection.find(readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()?.tracked()
 
-    suspend fun <S> findByField(field: KProperty1<T, S>, value: S, session: ClientSession, includeDeleted: Boolean = false): T? =
-        collection.find(session, readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()?.tracked()
+    suspend fun <S> findByField(field: KProperty1<T, S>, value: S, session: ClientSession, includeDeleted: Boolean = false): T? = collection.find(session, readFilter(Filters.eq(field.name, value), includeDeleted)).firstOrNull()?.tracked()
 
-    suspend fun findByFilter(filter: Bson, includeDeleted: Boolean = false): List<T> =
-        collection.find(readFilter(filter, includeDeleted)).toList().onEach { it.tracked() }
+    suspend fun findByFilter(filter: Bson, includeDeleted: Boolean = false): List<T> = collection.find(readFilter(filter, includeDeleted)).toList().onEach { it.tracked() }
 
-    suspend fun count(filter: Bson = Filters.empty(), includeDeleted: Boolean = false): Long =
-        collection.countDocuments(readFilter(filter, includeDeleted))
+    suspend fun count(filter: Bson = Filters.empty(), includeDeleted: Boolean = false): Long = collection.countDocuments(readFilter(filter, includeDeleted))
 
-    suspend fun count(session: ClientSession, filter: Bson = Filters.empty(), includeDeleted: Boolean = false): Long =
-        collection.countDocuments(session, readFilter(filter, includeDeleted))
+    suspend fun count(session: ClientSession, filter: Bson = Filters.empty(), includeDeleted: Boolean = false): Long = collection.countDocuments(session, readFilter(filter, includeDeleted))
 
     /**
      * Страница документов по фильтру: страницы с нуля, размер приводится [PageRequest].
@@ -217,7 +207,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         page: Int,
         pageSize: Int = CONST_PAGE_SIZE_DEFAULT,
         sort: Bson = Sorts.ascending(CONST_FIELD_ID),
-        includeDeleted: Boolean = false
+        includeDeleted: Boolean = false,
     ): PagedMongoResponse<T> {
         val request = PageRequest.of(page, pageSize)
         val query = readFilter(filter, includeDeleted)
@@ -236,8 +226,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
         return CursorPage(items, items.lastOrNull()?._id?.takeIf { found.size > limit }, collection.countDocuments(query))
     }
 
-    suspend fun findPaged(page: Int, pageSize: Int = CONST_PAGE_SIZE_DEFAULT, includeDeleted: Boolean = false): PagedMongoResponse<T> =
-        findPaged(Filters.empty(), page, pageSize, includeDeleted = includeDeleted)
+    suspend fun findPaged(page: Int, pageSize: Int = CONST_PAGE_SIZE_DEFAULT, includeDeleted: Boolean = false): PagedMongoResponse<T> = findPaged(Filters.empty(), page, pageSize, includeDeleted = includeDeleted)
 
     // ==================== UPDATE ====================
 
@@ -301,8 +290,7 @@ abstract class BaseRepository<T : StockEntity>(private val entityClass: KClass<T
     }
 
     /** То же по id: документ читается и пишется с проверкой его текущей версии. */
-    suspend fun updateFields(id: String, fields: Map<String, Any?>, session: ClientSession): T? =
-        updateFields(requireById(id) { BaseRepositoryExceptions.funExceptionFindId("updateFields", it) }, fields, session)
+    suspend fun updateFields(id: String, fields: Map<String, Any?>, session: ClientSession): T? = updateFields(requireById(id) { BaseRepositoryExceptions.funExceptionFindId("updateFields", it) }, fields, session)
 
     // ==================== DELETE ====================
 

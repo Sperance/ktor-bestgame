@@ -24,7 +24,7 @@ enum class PetFocus { AURA, LOOT, CRAFT }
 
 /** Что делает собственная сфера питомцев (1.65.0): только рост уровня - редкость и строки меняют сферы ремесла вещей. */
 @Serializable
-enum class PetOrbAction { GROWTH }
+enum class PetOrbAction { GROWTH, }
 
 /** Вид питомца: код (ключ `pet.<code>` локали), род, биом яйца, вес; у боевого - роль и стихия, у помощника - дело. */
 @Serializable
@@ -95,8 +95,7 @@ data class Breeding(val orb: String = "PET_ORB_BREEDING", val minLevel: Int = 20
 }
 
 /** Гибрид пары стихий [a] и [b] (в любом порядке) среди [species]. */
-fun List<PetSpecies>.hybridOf(a: String, b: String): PetSpecies? =
-    firstOrNull { it.element2 != null && setOf(it.element, it.element2) == setOf(a, b) && a != b }
+fun List<PetSpecies>.hybridOf(a: String, b: String): PetSpecies? = firstOrNull { it.element2 != null && setOf(it.element, it.element2) == setOf(a, b) && a != b }
 
 /**
  * Инкубатор (1.67.0). Яйцо не знает ни уровня, ни редкости - их решает начало инкубации: редкость - веса редкостей
@@ -135,7 +134,9 @@ data class IncubatorRules(
     fun validate() {
         if (baseSlots < 1 || maxSlots < baseSlots || minMinutes <= 0 || maxMinutes < minMinutes || levelWeight !in 0.0..1.0 || levelPower <= 0 ||
             maxReduction !in 0.0..99.0 || levelShare.size != 2 || levelShare[0] !in 0.0..levelShare[1] || rarityScore.values.any { it !in 0.0..1.0 }
-        ) fail("pets: incubator")
+        ) {
+            fail("pets: incubator")
+        }
     }
 
     companion object {
@@ -218,8 +219,10 @@ fun PetsFile.validate(index: ContentIndex) {
     species.forEach { kind ->
         if (kind.biome !in biomes || kind.weight <= 0) fail("pets: species ${kind.code}")
         when (kind.kind) {
-            PetKind.COMBAT -> if (kind.role == null || kind.element !in ELEMENTS || kind.focus != null || (kind.element2 != null && (kind.element2 !in ELEMENTS || kind.element2 == kind.element)))
+            PetKind.COMBAT -> if (kind.role == null || kind.element !in ELEMENTS || kind.focus != null || (kind.element2 != null && (kind.element2 !in ELEMENTS || kind.element2 == kind.element))) {
                 fail("pets: species ${kind.code}")
+            }
+
             PetKind.HELPER -> if (kind.focus == null || kind.role != null) fail("pets: species ${kind.code}")
         }
         if (lines.count { it.kind == kind.kind && (kind.kind == PetKind.COMBAT || it.focus == kind.focus) } < most) fail("pets: pool of ${kind.code}")

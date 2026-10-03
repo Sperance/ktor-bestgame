@@ -16,14 +16,18 @@ class TreeLayoutTest {
     private val at = nodes.associateBy { it.code }
 
     private fun TreeNode.radius() = when (type) {
-        SkillNodeType.SMALL -> 15.0; SkillNodeType.ATTRIBUTE -> 16.0; SkillNodeType.START -> 30.0; SkillNodeType.KEYSTONE -> 33.0
+        SkillNodeType.SMALL -> 15.0
+        SkillNodeType.ATTRIBUTE -> 16.0
+        SkillNodeType.START -> 30.0
+        SkillNodeType.KEYSTONE -> 33.0
         SkillNodeType.NOTABLE, SkillNodeType.MASTERY, SkillNodeType.JEWEL_SOCKET -> 25.0
     }
 
     private fun ccw(a: TreeNode, b: TreeNode, c: TreeNode) = (b.x - a.x).toDouble() * (c.y - a.y) - (b.y - a.y).toDouble() * (c.x - a.x)
 
     private fun distance(p: TreeNode, a: TreeNode, b: TreeNode): Double {
-        val dx = (b.x - a.x).toDouble(); val dy = (b.y - a.y).toDouble()
+        val dx = (b.x - a.x).toDouble()
+        val dy = (b.y - a.y).toDouble()
         val t = (((p.x - a.x) * dx + (p.y - a.y) * dy) / (dx * dx + dy * dy).coerceAtLeast(1.0)).coerceIn(0.0, 1.0)
         return hypot(p.x - a.x - t * dx, p.y - a.y - t * dy)
     }
@@ -31,8 +35,15 @@ class TreeLayoutTest {
     @Test
     fun links_never_cross() {
         val crossing = edges.indices.flatMap { i -> (i + 1 until edges.size).map { j -> edges[i] to edges[j] } }.filter { (e, f) ->
-            (e + f).toSet().size == 4 && at.getValue(e[0]).let { a -> at.getValue(e[1]).let { b -> at.getValue(f[0]).let { c -> at.getValue(f[1]).let { d ->
-                ccw(a, b, c) * ccw(a, b, d) < 0 && ccw(c, d, a) * ccw(c, d, b) < 0 } } } }
+            (e + f).toSet().size == 4 && at.getValue(e[0]).let { a ->
+                at.getValue(e[1]).let { b ->
+                    at.getValue(f[0]).let { c ->
+                        at.getValue(f[1]).let { d ->
+                            ccw(a, b, c) * ccw(a, b, d) < 0 && ccw(c, d, a) * ccw(c, d, b) < 0
+                        }
+                    }
+                }
+            }
         }
         assertTrue(crossing.isEmpty(), "связи пересекаются: ${crossing.size}, например ${crossing.take(5)}")
     }

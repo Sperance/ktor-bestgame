@@ -4,9 +4,7 @@ import base.exception.BaseException
 
 object CharacterExceptions {
     open class CharacterException(message: String?, errorMethod: String?, errorCode: String, messageArgs: List<String> = emptyList()) : BaseException(message, "Character", errorMethod, errorCode, messageArgs) {
-        override fun toString(): String {
-            return "{CharacterException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
-        }
+        override fun toString(): String = "{CharacterException} message = $message, errorMethod = $errorMethod, errorCode = $errorCode, errorClass = $errorClass"
     }
 
     fun funExceptionBreed(errorMethod: String, value: String? = "") = CharacterException("Pets $value cannot be bred now", errorMethod, "CH_033", listOf(value.orEmpty()))

@@ -42,11 +42,16 @@ data class PathFacts(
 ) {
     fun done(check: PathCheck): Boolean = when (check) {
         PathCheck.ZONE -> zones >= 1
+
         PathCheck.EQUIP -> equipped
+
         PathCheck.TREE -> treeNodes >= 2
+
         // Второе умение в книге или первое поднятое - Гримуар открыт со 2 уровня.
         PathCheck.SKILL -> skills.active.count { it != null } >= 2 || skills.learned.values.sum() >= 3
+
         PathCheck.BOSS -> bosses >= 1
+
         PathCheck.ORB -> orbsUsed >= 1
     }
 }

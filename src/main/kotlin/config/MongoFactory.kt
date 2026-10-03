@@ -16,11 +16,11 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.bson.Document
-import java.util.concurrent.atomic.AtomicBoolean
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import server.addons.AppJson
 import server.addons.CommandKey
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -34,19 +34,17 @@ object MongoFactory {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private val reconnecting = AtomicBoolean(false)
 
-    fun getDatabase(): MongoDatabase {
-        return try {
-            mongoClient.getDatabase(MONGO_DB)
-        } catch (e: Exception) {
-            printLog("[MongoFactory] Failed to get database, attempting reconnect", true)
-            reconnect()
-            mongoClient.getDatabase(MONGO_DB)
-        }
+    fun getDatabase(): MongoDatabase = try {
+        mongoClient.getDatabase(MONGO_DB)
+    } catch (e: Exception) {
+        printLog("[MongoFactory] Failed to get database, attempting reconnect", true)
+        reconnect()
+        mongoClient.getDatabase(MONGO_DB)
     }
 
     private fun createMongoClient(connectionString: String = "$MONGO_URI/$MONGO_DB"): MongoClient {
         val codecRegistry = CodecRegistries.fromRegistries(
-            MongoClientSettings.getDefaultCodecRegistry()
+            MongoClientSettings.getDefaultCodecRegistry(),
         )
 
         val settings = MongoClientSettings.builder()
@@ -66,7 +64,10 @@ object MongoFactory {
                 while (isActive) {
                     val fresh = createMongoClient()
                     val alive = runCatching { fresh.getDatabase("admin").runCommand(Document("ping", 1)) }
-                        .onFailure { printLog("[MongoFactory] Failed to reconnect to MongoDB: ${it.message}", true); runCatching { fresh.close() } }
+                        .onFailure {
+                            printLog("[MongoFactory] Failed to reconnect to MongoDB: ${it.message}", true)
+                            runCatching { fresh.close() }
+                        }
                         .isSuccess
                     if (alive) {
                         val old = mongoClient
