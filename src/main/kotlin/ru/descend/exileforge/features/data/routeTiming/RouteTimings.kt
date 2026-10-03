@@ -29,7 +29,7 @@ class RouteTimings(private val database: MongoDatabase) {
         /** Верхние границы корзин, мс; последняя - всё, что дольше. */
         val BUCKETS = longArrayOf(10, 25, 50, 100, 250, 500, 1000, 2500)
     }
-    private val ID = Regex("/([0-9a-fA-F]{24}|\\d+)(?=/|$)")
+    private val idPattern = Regex("/([0-9a-fA-F]{24}|\\d+)(?=/|$)")
 
     private class Tally {
         val count = AtomicLong()
@@ -44,7 +44,7 @@ class RouteTimings(private val database: MongoDatabase) {
 
     /** Один ответ: метод, путь, сколько шёл и с каким статусом. */
     fun record(method: String, path: String, millis: Long, status: Int) {
-        val key = "$method ${ID.replace(path, "/{id}")}"
+        val key = "$method ${idPattern.replace(path, "/{id}")}"
         val tally = tallies.computeIfAbsent(key) { Tally() }
         tally.count.incrementAndGet()
         tally.total.addAndGet(millis)

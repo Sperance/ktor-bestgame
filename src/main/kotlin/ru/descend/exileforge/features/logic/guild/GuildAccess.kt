@@ -19,7 +19,7 @@ import ru.descend.exileforge.features.data.guild.GuildView
 import ru.descend.exileforge.features.data.hero.Hero
 import ru.descend.exileforge.features.data.hero.HeroCard
 import ru.descend.exileforge.features.data.hero.HeroRepository
-import ru.descend.exileforge.features.logic.quests.QuestService
+import ru.descend.exileforge.features.logic.quests.QuestEngine
 
 /**
  * Общее для сервисов гильдии: гильдия героя с обслуживанием и сверкой копии, запись команды одной
@@ -31,7 +31,7 @@ class GuildAccess(
     private val heroes: HeroRepository,
     private val events: GuildEventRepository,
     private val content: ContentStore,
-    private val questService: QuestService,
+    private val questService: QuestEngine,
 ) {
     private val rules: GuildRules get() = content.index.guilds
 

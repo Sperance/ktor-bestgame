@@ -77,7 +77,7 @@ suspend fun Application.configureModules(koin: org.koin.core.Koin) {
     configureRouting(koin.get(), koin.get(), koin.get())
     configureIpBlocking(koin.get(), koin.get())
 
-    DatabaseSeeder.seed()
+    koin.get<DatabaseSeeder>().seed()
     koin.get<ru.descend.exileforge.features.data.routeTiming.RouteTimings>().start(this)
     ru.descend.exileforge.features.logic.trade.AuctionExpiry(koin.get()).start(this)
 }

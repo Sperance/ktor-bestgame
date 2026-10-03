@@ -19,7 +19,7 @@ import ru.descend.exileforge.features.data.guild.GuildRepository
 import ru.descend.exileforge.features.data.hero.Hero
 import ru.descend.exileforge.features.data.hero.HeroGuild
 import ru.descend.exileforge.features.data.hero.HeroRepository
-import ru.descend.exileforge.features.logic.quests.QuestService
+import ru.descend.exileforge.features.logic.quests.QuestEngine
 
 /** Время гильдии: сутки и недели UTC для вклада, взятий и обслуживания. */
 internal object GuildClock {
@@ -46,7 +46,7 @@ class GuildChange(
     private val heroes: HeroRepository,
     private val events: GuildEventRepository,
     private val content: ContentStore,
-    private val questService: QuestService,
+    private val questService: QuestEngine,
 ) {
     private val rules: GuildRules get() = content.index.guilds
     val now: Long = System.currentTimeMillis()
@@ -169,15 +169,15 @@ class GuildChange(
         val dice = Dice.system()
         if (board.day != day) {
             board.day = day
-            board.daily = questService.sharedGoals(QuestKind.GUILD_DAILY, QuestService.dayKey(day), guild.members.size, dice)
+            board.daily = questService.sharedGoals(QuestKind.GUILD_DAILY, QuestEngine.dayKey(day), guild.members.size, dice)
             dirty = true
         }
         if (board.week != week) {
             board.week = week
-            board.weekly = questService.sharedGoals(QuestKind.GUILD_WEEKLY, QuestService.weekKey(week), guild.members.size, dice)
+            board.weekly = questService.sharedGoals(QuestKind.GUILD_WEEKLY, QuestEngine.weekKey(week), guild.members.size, dice)
             dirty = true
         }
-        if (board.paid.removeIf { !it.startsWith(QuestService.dayKey(day)) && !it.startsWith(QuestService.weekKey(week)) }) dirty = true
+        if (board.paid.removeIf { !it.startsWith(QuestEngine.dayKey(day)) && !it.startsWith(QuestEngine.weekKey(week)) }) dirty = true
     }
 
     /**

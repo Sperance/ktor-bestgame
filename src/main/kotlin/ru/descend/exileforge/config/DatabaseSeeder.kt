@@ -5,8 +5,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.bson.Document
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.SEED_ADMIN_PASSWORD
 import ru.descend.exileforge.SEED_TEST_PLAYER_PASSWORD
 import ru.descend.exileforge.application.enums.EnumUserRoles
@@ -32,35 +30,30 @@ import ru.descend.exileforge.features.data.user.UserRepository
  * Старт базы (1.0.0): уборка устаревших коллекций, индексы, и на пустой базе - аккаунты из
  * окружения, по герою на каждый и один промокод. Справочников в базе нет: контент читает [ContentStore].
  */
-object DatabaseSeeder : KoinComponent {
+class DatabaseSeeder(
+    private val users: UserRepository,
+    private val sessions: AuthSessionRepository,
+    private val heroes: HeroRepository,
+    private val runs: ru.descend.exileforge.features.data.hero.HeroRunStore,
+    private val heroService: ru.descend.exileforge.features.logic.hero.HeroService,
+    private val lots: AuctionLotRepository,
+    private val auction: ru.descend.exileforge.features.logic.trade.AuctionService,
+    private val guilds: GuildRepository,
+    private val guildEvents: GuildEventRepository,
+    private val blockList: BlockListRepository,
+    private val codes: RedemptionCodesRepository,
+    private val bugs: ru.descend.exileforge.features.data.bugReport.BugReportRepository,
+    private val mail: ru.descend.exileforge.features.data.mail.MailRepository,
+    private val blockListCache: BlockListCache,
+    private val content: ContentStore,
+) {
 
-    /** Коллекции прежних версий: `Migration` - метки снятой разовой очистки базы. */
-    private val OBSOLETE_COLLECTIONS = listOf("Migration")
-
-    private val users: UserRepository by inject()
-    private val sessions: AuthSessionRepository by inject()
-    private val heroes: HeroRepository by inject()
-    private val runs: ru.descend.exileforge.features.data.hero.HeroRunStore by inject()
-    private val heroService: ru.descend.exileforge.features.logic.hero.HeroService by inject()
-    private val lots: AuctionLotRepository by inject()
-    private val auction: ru.descend.exileforge.features.logic.trade.AuctionService by inject()
-    private val guilds: GuildRepository by inject()
-    private val guildEvents: GuildEventRepository by inject()
-    private val blockList: BlockListRepository by inject()
-    private val codes: RedemptionCodesRepository by inject()
-    private val bugs: ru.descend.exileforge.features.data.bugReport.BugReportRepository by inject()
-    private val mail: ru.descend.exileforge.features.data.mail.MailRepository by inject()
-    private val blockListCache: BlockListCache by inject()
-    private val content: ContentStore by inject()
+    private companion object {
+        /** Коллекции прежних версий: `Migration` - метки снятой разовой очистки базы. */
+        val OBSOLETE_COLLECTIONS = listOf("Migration")
+    }
 
     suspend fun seed() {
-        try {
-            getKoin()
-        } catch (e: Exception) {
-            printLog("❌ Koin not initialized! Call startKoin first.")
-            return
-        }
-
         printLog("Database seeding started")
         dropObsoleteCollections()
         ensureIndexes()

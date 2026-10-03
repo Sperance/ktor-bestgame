@@ -16,14 +16,14 @@ import ru.descend.exileforge.features.data.guild.Guild
 import ru.descend.exileforge.features.data.guild.GuildRepository
 import ru.descend.exileforge.features.data.hero.Hero
 import ru.descend.exileforge.features.data.hero.HeroRepository
-import ru.descend.exileforge.features.logic.quests.QuestService
+import ru.descend.exileforge.features.logic.quests.QuestEngine
 
 /** Гильдейские задания (1.21.0): личные на сутки и общие цели с вкладом каждого участника, их сдача. */
 class GuildQuestService(
     private val guilds: GuildRepository,
     private val heroes: HeroRepository,
     private val content: ContentStore,
-    private val questService: QuestService,
+    private val questService: QuestEngine,
     private val access: GuildAccess,
 ) {
     private val index: ContentIndex get() = content.index

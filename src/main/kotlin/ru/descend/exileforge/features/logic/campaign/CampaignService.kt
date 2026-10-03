@@ -38,7 +38,7 @@ import ru.descend.exileforge.features.logic.atlas.AtlasService
 import ru.descend.exileforge.features.logic.hero.Received
 import ru.descend.exileforge.features.logic.hero.Rewards
 import ru.descend.exileforge.features.logic.hero.sheetOf
-import ru.descend.exileforge.features.logic.quests.QuestService
+import ru.descend.exileforge.features.logic.quests.QuestEngine
 
 /** Какие зоны герой прошёл (убил их босса) и какие ему открыты. */
 @Serializable
@@ -109,7 +109,7 @@ private val PACED = setOf(RunEventKind.KILL, RunEventKind.BOSS, RunEventKind.COR
 class CampaignService(
     private val heroes: HeroRepository,
     private val atlas: AtlasService,
-    private val quests: QuestService,
+    private val quests: QuestEngine,
     private val content: ContentStore,
 ) {
     private val index: ContentIndex get() = content.index
