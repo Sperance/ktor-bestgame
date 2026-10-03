@@ -1,0 +1,134 @@
+package ru.descend.exileforge.config
+
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import org.bson.Document
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import ru.descend.exileforge.SEED_ADMIN_PASSWORD
+import ru.descend.exileforge.SEED_TEST_PLAYER_PASSWORD
+import ru.descend.exileforge.application.enums.EnumUserRoles
+import ru.descend.exileforge.config.MongoFactory.transactionExecute
+import ru.descend.exileforge.extensions.printLog
+import ru.descend.exileforge.features.caches.BlockListCache
+import ru.descend.exileforge.features.data.auction.AuctionLotRepository
+import ru.descend.exileforge.features.data.auth.AuthSessionRepository
+import ru.descend.exileforge.features.data.blockList.BlockListRepository
+import ru.descend.exileforge.features.data.guild.GuildEventRepository
+import ru.descend.exileforge.features.data.guild.GuildRepository
+import ru.descend.exileforge.features.data.hero.Hero
+import ru.descend.exileforge.features.data.hero.HeroRepository
+import ru.descend.exileforge.features.data.idempotency.IdempotentReplyStore
+import ru.descend.exileforge.features.data.redemptionCodes.RedemptionCodes
+import ru.descend.exileforge.features.data.redemptionCodes.RedemptionCodesRepository
+import ru.descend.exileforge.features.data.redemptionCodes.RedemptionItem
+import ru.descend.exileforge.features.data.redemptionCodes.RedemptionKind
+import ru.descend.exileforge.features.data.user.User
+import ru.descend.exileforge.features.data.user.UserRepository
+
+/**
+ * Старт базы (1.0.0): уборка устаревших коллекций, индексы, и на пустой базе - аккаунты из
+ * окружения, по герою на каждый и один промокод. Справочников в базе нет: контент читает [ContentStore].
+ */
+object DatabaseSeeder : KoinComponent {
+
+    /** Коллекции прежних версий: `Migration` - метки снятой разовой очистки базы. */
+    private val OBSOLETE_COLLECTIONS = listOf("Migration")
+
+    private val users: UserRepository by inject()
+    private val sessions: AuthSessionRepository by inject()
+    private val heroes: HeroRepository by inject()
+    private val lots: AuctionLotRepository by inject()
+    private val guilds: GuildRepository by inject()
+    private val guildEvents: GuildEventRepository by inject()
+    private val blockList: BlockListRepository by inject()
+    private val codes: RedemptionCodesRepository by inject()
+    private val bugs: ru.descend.exileforge.features.data.bugReport.BugReportRepository by inject()
+    private val mail: ru.descend.exileforge.features.data.mail.MailRepository by inject()
+    private val blockListCache: BlockListCache by inject()
+    private val content: ContentStore by inject()
+
+    suspend fun seed() {
+        try {
+            getKoin()
+        } catch (e: Exception) {
+            printLog("❌ Koin not initialized! Call startKoin first.")
+            return
+        }
+
+        printLog("Database seeding started")
+        dropObsoleteCollections()
+        ensureIndexes()
+
+        transactionExecute { session ->
+            seedUsers(session)
+            seedHeroes(session)
+            seedRedemptionCodes(session)
+        }
+        lots.closeUntradable()
+        lots.closeOldEpoch()
+        blockListCache.initializeCache()
+        printLog("Database seeding completed")
+    }
+
+    /** Сносит коллекции, которые сервер больше не ведёт; повторный drop отсутствующей коллекции - no-op. */
+    private suspend fun dropObsoleteCollections() {
+        val database = MongoFactory.getDatabase()
+        OBSOLETE_COLLECTIONS.forEach { database.getCollection(it, Document::class.java).drop() }
+    }
+
+    /** Индексы - до транзакции: создание индекса меняет каталог MongoDB и рвёт открытую транзакцию. */
+    private suspend fun ensureIndexes() = coroutineScope {
+        (
+            listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes, bugs, mail).map { async { it.ensureIndexes() } } +
+                listOf(async { IdempotentReplyStore.ensureIndexes() }, async { ru.descend.exileforge.features.data.hero.HeroRunStore.ensureCollection() })
+            ).awaitAll()
+        printLog("  → indexes ensured")
+    }
+
+    private suspend fun seedUsers(session: ClientSession) {
+        if (users.count(includeDeleted = true) > 0) return
+        val seeded = buildList {
+            SEED_ADMIN_PASSWORD?.let { add(User(name = "Admin", email = "admin@game.com", age = 25, login = "admin", password = it, role = EnumUserRoles.ADMIN)) }
+            SEED_TEST_PLAYER_PASSWORD?.let { add(User(name = "TestPlayer", email = "player@game.com", age = 22, login = "test1", password = it)) }
+        }
+        if (seeded.isEmpty()) {
+            printLog("  → ADMIN_PASSWORD and TEST_PLAYER_PASSWORD are not set, no users seeded")
+            return
+        }
+        users.insertMany(seeded, session)
+        printLog("  → ${seeded.size} users created")
+    }
+
+    /** По герою каждому сидовому игроку; администратор создаёт персонажа сам. Стартовый набор выдаёт сам репозиторий. */
+    private suspend fun seedHeroes(session: ClientSession) {
+        if (heroes.count(includeDeleted = true) > 0) return
+        val all = users.findAll(session).filter { it.role != EnumUserRoles.ADMIN }
+        if (all.isEmpty()) return
+        val classes = content.index.classes.classes.map { it.code }
+        all.forEachIndexed { i, user ->
+            heroes.insert(Hero(userId = user._id, name = "${user.name} ${classes[i % classes.size].lowercase().replaceFirstChar(Char::uppercase)}", heroClass = classes[i % classes.size], level = 10, experience = content.index.classes.threshold(10) ?: 0.0), session)
+        }
+        printLog("  → ${all.size} heroes created")
+    }
+
+    private suspend fun seedRedemptionCodes(session: ClientSession) {
+        if (codes.count() > 0) return
+        codes.insertMany(
+            listOf(
+                RedemptionCodes(
+                    "ALFA_BETA_GAMMA",
+                    listOf(
+                        RedemptionItem(RedemptionKind.EXPERIENCE, amount = 500.0),
+                        RedemptionItem(RedemptionKind.GOLD, amount = 100.0),
+                    ),
+                    "",
+                ),
+            ),
+            session,
+        )
+        printLog("  → 1 redemption code created")
+    }
+}

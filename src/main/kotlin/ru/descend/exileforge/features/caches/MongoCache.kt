@@ -1,0 +1,87 @@
+package ru.descend.exileforge.features.caches
+import com.mongodb.kotlin.client.coroutine.ClientSession
+import ru.descend.exileforge.base.entity.StockEntity
+import ru.descend.exileforge.base.repository.BaseRepository
+import ru.descend.exileforge.base.repository.EntityCache
+import ru.descend.exileforge.extensions.printLog
+import java.util.concurrent.atomic.AtomicReference
+
+/**
+ * Кеш справочной коллекции (переписан в 0.49.0).
+ *
+ * Состояние - неизменяемый [Snapshot]: список, индекс по `_id` и номер ревизии. Любая правка
+ * подменяет снимок целиком, поэтому читатели никогда не видят кеш наполовину обновлённым
+ * и не ловят ConcurrentModificationException, а `findById` стоит O(1).
+ *
+ * Производные индексы (по коду, по слоту, граф дерева) наследники объявляют через [derived]:
+ * они считаются один раз на ревизию и лежат рядом со снимком, пока тот жив.
+ */
+abstract class MongoCache<T : StockEntity, R : BaseRepository<T>>(val repository: R) : EntityCache<T> {
+
+    protected class Snapshot<T : StockEntity>(val items: List<T>, val revision: Long) {
+        /** Строится при первом чтении: серия записей подряд (сидер) не пересобирает его на каждой. */
+        val byId: Map<String, T> by lazy(LazyThreadSafetyMode.PUBLICATION) { items.associateBy { it._id } }
+    }
+
+    private val snapshot = AtomicReference(Snapshot<T>(emptyList(), 0))
+
+    /**
+     * Номер снимка. Растёт при каждой записи, поэтому [ru.descend.exileforge.features.logic.world.WorldBundle] и
+     * производные индексы узнают, что справочник изменился, не сравнивая содержимое.
+     */
+    override val revision: Long get() = snapshot.get().revision
+
+    suspend fun initializeCache() = loadToCache(repository.findAll())
+
+    suspend fun initializeCache(session: ClientSession) = loadToCache(repository.findAll(session))
+
+    fun loadToCache(data: Collection<T>) {
+        replace { data.toList() }
+        printLog("[${javaClass.simpleName}] initialized cache size: ${data.size}")
+    }
+
+    /** Вставка идемпотентна: сидер пишет и перечитывает коллекцию в одной транзакции, и запись не должна лечь дважды. */
+    override fun addItem(item: T) = updateItem(item)
+
+    override fun removeItem(item: T) = replace { items -> items.filterNot { it._id == item._id } }
+
+    /** Правка на месте: порядок не сдвигается, а новая запись просто добавляется. */
+    override fun updateItem(item: T) = replace { items ->
+        val at = items.indexOfFirst { it._id == item._id }
+        if (at < 0) items + item else items.toMutableList().apply { set(at, item) }
+    }
+
+    override fun findById(id: String): T? = snapshot.get().byId[id]
+
+    /** Текущий снимок: только чтение, писать в него нельзя. */
+    override fun getCache(): List<T> = snapshot.get().items
+
+    fun isEmpty() = snapshot.get().items.isEmpty()
+
+    private fun replace(transform: (List<T>) -> List<T>) {
+        snapshot.updateAndGet { current -> Snapshot(transform(current.items), current.revision + 1) }
+    }
+
+    /**
+     * Производный индекс: [build] запускается при первом чтении на новой ревизии,
+     * дальше отдаётся готовое, пока снимок не сменится.
+     *
+     * [dependencies] - другие справочники, из которых индекс тоже читает (с 0.56.0 тяги модификаторов
+     * и шаблонов строятся по пулам): их правка пересобирает индекс так же, как своя. Ревизии только
+     * растут, поэтому сумма меняется при любой правке любого из них.
+     */
+    protected fun <V> derived(vararg dependencies: EntityCache<*>, build: (List<T>) -> V): Derived<V> = Derived(dependencies.toList(), build)
+
+    protected inner class Derived<V>(private val dependencies: List<EntityCache<*>>, private val build: (List<T>) -> V) {
+        private val built = AtomicReference<Pair<Long, V>?>(null)
+
+        fun get(): V {
+            val current = snapshot.get()
+            val revision = current.revision + dependencies.sumOf { it.revision }
+            built.get()?.takeIf { it.first == revision }?.let { return it.second }
+            val value = build(current.items)
+            built.set(revision to value)
+            return value
+        }
+    }
+}

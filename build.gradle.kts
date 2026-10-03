@@ -10,7 +10,7 @@ group = "ru.descend"
 version = "1.0.0"
 
 application {
-    mainClass = "io.ktor.server.netty.EngineMain"
+    mainClass = "ru.descend.exileforge.ApplicationKt"
 }
 
 kotlin {
@@ -42,7 +42,6 @@ dependencies {
     implementation(libs.ktor.server.rate)
     implementation(libs.ktor.server.double.receive)
     implementation(libs.logback.classic)
-    implementation(libs.ktor.server.config.yaml)
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.opensavvy.ktmongo)

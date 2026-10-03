@@ -1,0 +1,325 @@
+package ru.descend.exileforge.features.data.hero
+import com.sperance.exileforge.rules.content.Rarity
+import com.sperance.exileforge.rules.content.SkillKind
+import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.content.SlotCondition
+import com.sperance.exileforge.rules.content.SlotGroup
+import com.sperance.exileforge.rules.content.TreePlan
+import com.sperance.exileforge.rules.content.TrialEvent
+import com.sperance.exileforge.rules.roll.Dice
+import com.sperance.exileforge.rules.roll.ItemFactory
+import com.sperance.exileforge.rules.run.RunEvent
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.request.receive
+import io.ktor.server.response.header
+import io.ktor.server.response.respond
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.get
+import io.ktor.server.routing.post
+import io.ktor.server.routing.route
+import ru.descend.exileforge.base.exception.BaseRouteExceptions
+import ru.descend.exileforge.base.exception.model.SkillExceptions
+import ru.descend.exileforge.base.exception.model.SkillTreeExceptions
+import ru.descend.exileforge.base.route.BaseRoute
+import ru.descend.exileforge.base.route.Crud
+import ru.descend.exileforge.base.route.heroId
+import ru.descend.exileforge.base.route.itemId
+import ru.descend.exileforge.base.route.mapCode
+import ru.descend.exileforge.base.route.optionalParam
+import ru.descend.exileforge.base.route.queryParam
+import ru.descend.exileforge.base.route.respondOk
+import ru.descend.exileforge.config.ContentStore
+import ru.descend.exileforge.features.logic.atlas.AtlasService
+import ru.descend.exileforge.features.logic.campaign.CampaignService
+import ru.descend.exileforge.features.logic.campaign.TrialService
+import ru.descend.exileforge.features.logic.crafts.CraftsService
+import ru.descend.exileforge.features.logic.hero.HeroSnapshots
+import ru.descend.exileforge.features.logic.hero.Rewards
+import ru.descend.exileforge.features.logic.hero.Stash
+import ru.descend.exileforge.features.logic.hero.respondWithHero
+import ru.descend.exileforge.features.logic.inventory.InventoryService
+import ru.descend.exileforge.features.logic.pets.PetService
+import ru.descend.exileforge.features.logic.quests.QuestService
+import ru.descend.exileforge.features.logic.skills.SkillService
+import ru.descend.exileforge.features.logic.trade.MerchantService
+import ru.descend.exileforge.features.logic.tree.TreeService
+import ru.descend.exileforge.server.addons.keepIdempotentReport
+
+/** Маршруты героя: общий CRUD документа и все игровые команды под `/api/v1/hero`. */
+class HeroRoute(
+    private val repo: HeroRepository,
+    private val content: ContentStore,
+    private val inventory: InventoryService,
+    private val tree: TreeService,
+    private val atlas: AtlasService,
+    private val skills: SkillService,
+    private val crafts: CraftsService,
+    private val merchant: MerchantService,
+    private val campaign: CampaignService,
+    private val trials: TrialService,
+    private val pets: PetService,
+    private val quests: QuestService,
+    private val pathService: ru.descend.exileforge.features.logic.hero.ExilePathService,
+) : BaseRoute<Hero>(
+    repository = repo,
+    entitySerializer = Hero.serializer(),
+    operations = setOf(Crud.READ, Crud.COUNT, Crud.CREATE, Crud.UPDATE, Crud.DELETE),
+) {
+    /** Герой клиенту - без семени наград (1.30.0): его не видит никто, кроме сервера. */
+    override fun present(entity: Hero): Hero = entity.copy(rewards = RewardStream())
+
+    override fun additionalRoutes(route: Route) = with(route) {
+        get("/byUser") {
+            call.respondOk(repo.findByUser(call.queryParam("userId")).map(::present))
+        }
+
+        // Герой одним запросом - тот же снимок, что приходит в ответ команды, с ETag.
+        get("/view") {
+            val snapshot = HeroSnapshots.of(call.heroId, HeroSnapshots.known(call.request.headers[HeroSnapshots.HEADER]))
+            val etag = "\"${snapshot.version}\""
+            call.response.header(HttpHeaders.ETag, etag)
+            if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) {
+                call.respond(HttpStatusCode.NotModified)
+            } else {
+                call.respondOk(snapshot)
+            }
+        }
+
+        // Окно тестирования (1.69.0) и администратор выдают из ничего: опыт, стопку, вещь по шаблону и всё остальное ниже.
+        route("/grant") {
+            /** Выдача [what] герою запроса и ответ его снимком. */
+            suspend fun io.ktor.server.routing.RoutingContext.grant(method: String, what: ru.descend.exileforge.features.logic.hero.TesterGrants.(ru.descend.exileforge.features.data.hero.Hero) -> Unit) {
+                val hero = repo.requireHero(call.heroId, method)
+                ru.descend.exileforge.features.logic.hero.TesterGrants(content.index).what(hero)
+                call.respondWithHero(repo.save(hero, method).level)
+            }
+            post("/gold") { grant("grantGold") { gold(it, call.queryParam("amount", 0L)) } }
+            post("/level") { grant("grantLevel") { level(it, call.queryParam("level", 1)) } }
+            post("/skillPoints") { grant("grantSkillPoints") { skillPoints(it, call.queryParam("amount", 0)) } }
+            post("/atlasPoints") { grant("grantAtlasPoints") { atlasPoints(it) } }
+            post("/zones") { grant("grantZones") { zones(it) } }
+            post("/rares") { grant("grantRares") { rares(it, call.queryParam("count", 1)) } }
+            post("/map") {
+                val rarity = call.optionalParam("rarity")?.let { Rarity.of(it) } ?: Rarity.RARE
+                grant("grantMap") { if (!map(it, call.queryParam("zone"), rarity)) throw ru.descend.exileforge.base.exception.model.CharacterExceptions.funExceptionEquipmentNotFound("grantMap", call.queryParam("zone")) }
+            }
+            post("/profession") { grant("grantProfession") { profession(it, call.optionalParam("code").orEmpty(), call.queryParam("level", 1)) } }
+            post("/recipes") { grant("grantRecipes") { recipes(it) } }
+            post("/reset") {
+                val what = call.queryParam("what").let { name -> ru.descend.exileforge.features.logic.hero.TesterReset.entries.firstOrNull { it.name == name } }
+                    ?: throw BaseRouteExceptions.funExceptionQuery("grantReset", "what=${call.queryParam("what")}")
+                grant("grantReset") { reset(it, what) }
+            }
+            post("/experience") {
+                val hero = repo.requireHero(call.heroId, "grantExperience")
+                Rewards.addExperience(hero, call.queryParam("amount", 0.0).coerceAtLeast(0.0), content.index)
+                call.respondWithHero(repo.save(hero, "grantExperience").level)
+            }
+            post("/item") {
+                val hero = repo.requireHero(call.heroId, "grantItem")
+                val code = call.queryParam("code")
+                content.index.item(code) ?: throw ru.descend.exileforge.base.exception.model.CharacterExceptions.funExceptionItemNotFound("grantItem", code)
+                hero.earn(code, call.queryParam("amount", 1L))
+                call.respondWithHero(repo.save(hero, "grantItem").bag)
+            }
+            post("/equipment") {
+                val hero = repo.requireHero(call.heroId, "grantEquipment")
+                val code = call.queryParam("template")
+                val template = content.index.template(code) ?: throw ru.descend.exileforge.base.exception.model.CharacterExceptions.funExceptionEquipmentNotFound("grantEquipment", code)
+                val rarity = call.optionalParam("rarity")?.let { Rarity.of(it) } ?: template.rarity
+                val item = ItemFactory(content.index).create(Hero.newItemId(), template, rarity, Dice.system(), level = content.index.rules.loot.itemLevel(hero.level))
+                Stash.receive(hero, item, content.index)
+                repo.save(hero, "grantEquipment")
+                call.respondWithHero(item)
+            }
+        }
+
+        // Вещи: надеть, снять, гнездо, продать, сферы, эссенции, верстак.
+        post("/equip") {
+            val slot = call.optionalParam("slot")?.let { Slot.of(it) }
+            call.respondWithHero(inventory.equip(call.heroId, call.itemId, slot))
+        }
+        post("/path/claim") { call.respondWithHero(pathService.claim(call.heroId)) }
+        post("/unequip") { call.respondWithHero(inventory.unequip(call.heroId, call.itemId)) }
+        post("/socket") { call.respondWithHero(inventory.socket(call.heroId, call.itemId, call.queryParam("nodeCode"))) }
+        post("/unsocket") { call.respondWithHero(inventory.unsocket(call.heroId, call.itemId)) }
+        post("/sell") { call.respondWithHero(inventory.sell(call.heroId, call.itemId)) }
+        post("/orb") { call.respondWithHero(inventory.applyOrb(call.heroId, call.itemId, call.queryParam("orb"), call.optionalParam("omen"))) }
+        post("/choose") {
+            val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("choose", "choice")
+            call.respondWithHero(inventory.choose(call.heroId, call.itemId, choice))
+        }
+        post("/unveil") {
+            val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("unveil", "choice")
+            call.respondWithHero(inventory.unveil(call.heroId, call.itemId, choice))
+        }
+        // Сундук-добыча (1.71.0): открыть один из сумки.
+        post("/chest/open") { call.respondWithHero(inventory.openChest(call.heroId, call.queryParam("code"))) }
+        post("/temper") { call.respondWithHero(inventory.temper(call.heroId, call.itemId)) }
+        post("/essence") { call.respondWithHero(inventory.applyEssence(call.heroId, call.itemId, call.queryParam("essence"))) }
+        get("/bench") { call.respondOk(inventory.bench(repo.requireHero(call.heroId, "bench"))) }
+        post("/craft") { call.respondWithHero(inventory.craft(call.heroId, call.itemId, call.queryParam("recipe"))) }
+        post("/uncraft") { call.respondWithHero(inventory.uncraft(call.heroId, call.itemId)) }
+
+        // Замок на вещь (1.28.0): `locked=true|false`, в тайнике, надетую или в переполнении.
+        route("/item") {
+            post("/lock") {
+                val locked = call.queryParam("locked").toBooleanStrictOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("lock", "locked")
+                call.respondWithHero(inventory.lock(call.heroId, call.itemId, locked))
+            }
+        }
+
+        // Титул у имени: только из открытых достижениями, пустой - снять.
+        post("/title") {
+            val hero = repo.requireHero(call.heroId, "title")
+            val title = call.optionalParam("title").orEmpty()
+            if (title.isNotBlank() && title !in content.index.achievements.titles(hero.chronicle())) {
+                throw ru.descend.exileforge.base.exception.model.CharacterExceptions.funExceptionTitleLocked("title", title)
+            }
+            hero.title = title
+            call.respondWithHero(repo.save(hero, "title").title)
+        }
+
+        // Тайник: места, докупка пачек, переполнение - забрать или продать.
+        post("/autosell") {
+            val rarity = call.queryParam("rarity").let { code -> Rarity.entries.firstOrNull { it.name == code } } ?: throw BaseRouteExceptions.funExceptionQuery("autosell", "rarity")
+            val groups = call.optionalParam("groups").orEmpty().split(',').filter { it.isNotBlank() }
+                .map { code -> SlotGroup.entries.firstOrNull { it.name == code } ?: throw BaseRouteExceptions.funExceptionQuery("autosell", "groups") }.toSet()
+            call.respondWithHero(inventory.autoSell(call.heroId, rarity, groups))
+        }
+        route("/stash") {
+            get { call.respondOk(inventory.stash(call.heroId)) }
+            post("/expand") { call.respondWithHero(inventory.expandStash(call.heroId)) }
+            post("/claim") { call.respondWithHero(inventory.claimOverflow(call.heroId, call.optionalParam("itemId"))) }
+            post("/sell") { call.respondWithHero(inventory.sellOverflow(call.heroId, call.itemId)) }
+        }
+
+        // Зверинец (1.5.0): вылупить яйцо, сфера питомцев, в дело или с места, отпустить за золото.
+        route("/pets") {
+            get { call.respondOk(pets.state(call.heroId)) }
+            post("/hatch") { call.respondWithHero(pets.hatch(call.heroId, call.queryParam("egg"))) }
+            post("/incubate") {
+                val slot = call.optionalParam("slot")?.let { it.toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("petIncubate", "slot") }
+                call.respondWithHero(pets.incubate(call.heroId, call.queryParam("egg"), slot))
+            }
+            post("/collect") {
+                val slot = call.queryParam("slot").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("petCollect", "slot")
+                call.respondWithHero(pets.collect(call.heroId, slot))
+            }
+            post("/orb") { call.respondWithHero(pets.orb(call.heroId, call.queryParam("petId"), call.queryParam("orb"), call.optionalParam("omen"))) }
+            post("/choose") {
+                val choice = call.queryParam("choice").toIntOrNull() ?: throw BaseRouteExceptions.funExceptionQuery("petChoose", "choice")
+                call.respondWithHero(pets.choose(call.heroId, call.queryParam("petId"), choice))
+            }
+            post("/activate") { call.respondWithHero(pets.activate(call.heroId, call.queryParam("petId"))) }
+            post("/release") { call.respondWithHero(pets.release(call.heroId, call.queryParam("petId"))) }
+            post("/breed") { call.respondWithHero(pets.breed(call.heroId, call.queryParam("first"), call.queryParam("second"))) }
+        }
+
+        // Ремёсла: работа идёт на сервере по времени и досчитывается при каждом обращении.
+        route("/crafts") {
+            get { call.respondOk(crafts.state(call.heroId)) }
+            post("/start") {
+                val additives = call.request.queryParameters["additives"]?.split(',').orEmpty()
+                call.respondWithHero(crafts.start(call.heroId, call.queryParam("job"), call.optionalParam("choice").orEmpty(), additives))
+            }
+            post("/stop") { call.respondWithHero(crafts.stop(call.heroId)) }
+        }
+
+        // Торговец: витрина героя раз в окно правил, покупка с неё и полка сфер за золото.
+        route("/merchant") {
+            get { call.respondOk(merchant.stock(call.heroId)) }
+            post("/buy") { call.respondWithHero(merchant.buy(call.heroId, call.queryParam("offerId"))) }
+            post("/buyOrb") { call.respondWithHero(merchant.buyOrb(call.heroId, call.queryParam("code"))) }
+        }
+
+        // Задания (1.21.0): доска героя, награда, всё выполненное разом (1.22.0), контракты с доски.
+        route("/quests") {
+            get { call.respondOk(quests.board(call.heroId)) }
+            post("/claim") { call.respondWithHero(quests.claim(call.heroId, call.queryParam("questId"))) }
+            post("/claimAll") { call.respondWithHero(quests.claimAll(call.heroId)) }
+            post("/take") { call.respondWithHero(quests.take(call.heroId, call.queryParam("offerId"))) }
+            post("/abandon") { call.respondWithHero(quests.abandon(call.heroId, call.queryParam("questId"))) }
+        }
+
+        // Кампания по семени: вход выдаёт семя и контекст, журнал событий проигрывается сервером.
+        // Статистика героя (1.49.0): вся, ненулевая, отдельным запросом летописи.
+        get("/stats") {
+            val hero = repo.requireHero(call.heroId, "stats")
+            call.respondOk(ru.descend.exileforge.features.data.heroStats.HeroStatsStore.read(call.heroId, hero.counters))
+        }
+
+        route("/campaign") {
+            get("/progress") { call.respondOk(campaign.progress(call.heroId)) }
+            post("/start") {
+                val scarabs = call.optionalParam("scarabs")?.split(',')?.filter { it.isNotBlank() }.orEmpty()
+                call.respondWithHero(campaign.start(call.heroId, call.mapCode, call.optionalParam("itemId"), call.optionalParam("potion")?.takeIf { it.isNotBlank() }, scarabs))
+            }
+            // Журнал (1.68.0) - только своего захода `runId`; его отчёт хранится для повтора по ключу
+            post("/events") {
+                call.keepIdempotentReport()
+                call.respondWithHero(campaign.events(call.heroId, call.queryParam("runId"), call.receive<List<RunEvent>>()))
+            }
+        }
+
+        // Умения класса: книга учит уровень, слоты с условиями, условия глотков фляг, обмен книг.
+        route("/skills") {
+            post("/learn") { call.respondWithHero(skills.learn(call.heroId, call.queryParam("skill"))) }
+            post("/slot") {
+                val kind = call.queryParam("kind").let { name -> SkillKind.entries.firstOrNull { it.name == name } }
+                    ?: throw SkillExceptions.funExceptionSlot("slot", call.queryParam("kind"))
+                call.respondWithHero(skills.slot(call.heroId, kind, call.queryParam("index", -1), call.optionalParam("skill"), call.optionalParam("condition")?.let(::condition)))
+            }
+            post("/flask") { call.respondWithHero(skills.flask(call.heroId, call.queryParam("index", -1), call.optionalParam("condition")?.let(::condition))) }
+            post("/exchange") {
+                val books = call.queryParam("books").split(',').map { it.trim() }.filter { it.isNotEmpty() }
+                call.respondWithHero(skills.exchange(call.heroId, books, call.queryParam("skill")))
+            }
+        }
+        // Испытания (1.47.0): босс-раш региона, башня и журнал испытания
+        route("/trials") {
+            post("/rush") { call.respondWithHero(trials.rush(call.heroId, call.queryParam("region"))) }
+            post("/tower") { call.respondWithHero(trials.tower(call.heroId)) }
+            post("/key") { call.respondWithHero(trials.forgeKey(call.heroId).bag) }
+            post("/events") {
+                call.keepIdempotentReport()
+                call.respondWithHero(trials.events(call.heroId, call.queryParam("runId"), call.receive<List<TrialEvent>>()))
+            }
+        }
+
+        route("/skilltree") {
+            get("/state") { call.respondOk(tree.state(call.heroId)) }
+            post("/allocate") {
+                val choice = call.request.queryParameters["choice"]?.let { it.toIntOrNull() ?: throw SkillTreeExceptions.funExceptionChoice("allocate", it) }
+                call.respondWithHero(tree.allocate(call.heroId, call.queryParam("nodeCode"), choice))
+            }
+            post("/path") {
+                val choice = call.request.queryParameters["choice"]?.let { it.toIntOrNull() ?: throw SkillTreeExceptions.funExceptionChoice("allocatePath", it) }
+                call.respondWithHero(tree.allocatePath(call.heroId, call.queryParam("nodeCode"), choice))
+            }
+            post("/refund") { call.respondWithHero(tree.refund(call.heroId, call.queryParam("nodeCode"))) }
+            post("/refundBranch") { call.respondWithHero(tree.refundBranch(call.heroId, call.queryParam("nodeCode"))) }
+            post("/plan") { call.respondWithHero(tree.plan(call.heroId, TreePlan.parse(call.optionalParam("nodes").orEmpty()))) }
+            post("/rechoose") {
+                val choice = call.queryParam("choice").let { it.toIntOrNull() ?: throw SkillTreeExceptions.funExceptionChoice("rechoose", it) }
+                call.respondWithHero(tree.rechoose(call.heroId, call.queryParam("nodeCode"), choice))
+            }
+            post("/reset") { call.respondWithHero(tree.reset(call.heroId)) }
+        }
+
+        route("/atlas") {
+            get("/state") { call.respondOk(atlas.state(call.heroId)) }
+            post("/allocate") { call.respondWithHero(atlas.allocate(call.heroId, call.queryParam("nodeCode"))) }
+            post("/refund") { call.respondWithHero(atlas.refund(call.heroId, call.queryParam("nodeCode"), call.regret())) }
+            post("/reset") { call.respondWithHero(atlas.reset(call.heroId, call.regret())) }
+        }
+    }
+}
+
+/** Условие слота по имени; неизвестное - отказ, а не тихое «как готово». */
+private fun condition(name: String): SlotCondition = SlotCondition.entries.firstOrNull { it.name == name } ?: throw SkillExceptions.funExceptionCondition("condition", name)
+
+/** Откат атласа сферами сожаления (1.65.0) вместо золота: `regret=true`. */
+private fun ApplicationCall.regret(): Boolean = optionalParam("regret")?.toBooleanStrictOrNull() == true
