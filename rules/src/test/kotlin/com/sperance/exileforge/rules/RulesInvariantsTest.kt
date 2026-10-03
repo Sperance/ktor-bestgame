@@ -1,41 +1,41 @@
 package com.sperance.exileforge.rules
 
 import com.sperance.exileforge.rules.content.ContentIndex
-import com.sperance.exileforge.rules.roll.AffixRoller
-import com.sperance.exileforge.rules.content.StatGroup
+import com.sperance.exileforge.rules.content.ContentLoader
+import com.sperance.exileforge.rules.content.EssenceBook
+import com.sperance.exileforge.rules.content.GenericDamage
+import com.sperance.exileforge.rules.content.GenericStat
 import com.sperance.exileforge.rules.content.Influence
 import com.sperance.exileforge.rules.content.MAP_TEMPLATE
-import com.sperance.exileforge.rules.content.ContentLoader
+import com.sperance.exileforge.rules.content.Omen
+import com.sperance.exileforge.rules.content.Op
 import com.sperance.exileforge.rules.content.Orb
 import com.sperance.exileforge.rules.content.Rarity
-import com.sperance.exileforge.rules.content.EssenceBook
+import com.sperance.exileforge.rules.content.SkillNodeType
+import com.sperance.exileforge.rules.content.Slot
+import com.sperance.exileforge.rules.content.Source
+import com.sperance.exileforge.rules.content.StatGroup
+import com.sperance.exileforge.rules.content.TreeAllocation
+import com.sperance.exileforge.rules.content.VariantKind
 import com.sperance.exileforge.rules.content.WeaponType
+import com.sperance.exileforge.rules.content.tenths
+import com.sperance.exileforge.rules.roll.AffixRoller
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.roll.Menagerie
-import com.sperance.exileforge.rules.content.Omen
+import com.sperance.exileforge.rules.roll.OrbApplier
 import com.sperance.exileforge.rules.roll.OrbTarget
 import com.sperance.exileforge.rules.roll.PetOutcome
-import com.sperance.exileforge.rules.roll.OrbApplier
+import com.sperance.exileforge.rules.roll.Roll
 import com.sperance.exileforge.rules.roll.Veils
+import com.sperance.exileforge.rules.run.RewardDraws
 import com.sperance.exileforge.rules.run.Run
 import com.sperance.exileforge.rules.run.RunContext
-import com.sperance.exileforge.rules.run.RewardDraws
-import com.sperance.exileforge.rules.content.Slot
-import com.sperance.exileforge.rules.content.Source
-import com.sperance.exileforge.rules.table.TableKind
-import com.sperance.exileforge.rules.table.Weighted
-import com.sperance.exileforge.rules.content.VariantKind
-import com.sperance.exileforge.rules.content.SkillNodeType
-import com.sperance.exileforge.rules.content.TreeAllocation
-import com.sperance.exileforge.rules.content.GenericDamage
-import com.sperance.exileforge.rules.content.GenericStat
-import com.sperance.exileforge.rules.content.Op
-import com.sperance.exileforge.rules.content.tenths
-import com.sperance.exileforge.rules.roll.Roll
 import com.sperance.exileforge.rules.sheet.SheetCalculator
 import com.sperance.exileforge.rules.sheet.StatOperation
+import com.sperance.exileforge.rules.table.TableKind
+import com.sperance.exileforge.rules.table.Weighted
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -207,7 +207,7 @@ class RulesInvariantsTest {
     }
 
     /** Характеристики, где минус - польза: срок вылупления инкубатора (1.67.0) - чем меньше, тем быстрее. */
-    private val LOWER_IS_BETTER = setOf(com.sperance.exileforge.rules.content.IncubatorRules.HATCH_TIME)
+    private val lowerIsBetter = setOf(com.sperance.exileforge.rules.content.IncubatorRules.HATCH_TIME)
 
     /** Обычные аффиксы предметов (префиксы и суффиксы, кроме строк карт) - без минусов: ни одна строка не вредит герою. */
     @Test
@@ -215,7 +215,7 @@ class RulesInvariantsTest {
         val debuffs = index.definitions.filter { it.source.affix && it.effects.none { e -> e.stat.startsWith("MAP_") } }.flatMap { def ->
             def.effects.withIndex().filter { (i, effect) ->
                 val values = def.tiers.flatMap { it.values.getOrNull(i).orEmpty() }
-                if (effect.stat.endsWith("_TAKEN") || effect.stat in LOWER_IS_BETTER) values.any { it > 0 } else values.any { it < 0 }
+                if (effect.stat.endsWith("_TAKEN") || effect.stat in lowerIsBetter) values.any { it > 0 } else values.any { it < 0 }
             }.map { (_, effect) -> "${def.code}: ${effect.stat}" }
         }
         assertTrue(debuffs.isEmpty(), "affix debuffs: $debuffs")
@@ -278,7 +278,8 @@ class RulesInvariantsTest {
         val tree = index.tree
         val starts = tree.byCode.values.filter { it.type == SkillNodeType.START }.map { it.code }
         fun reach(start: String): Set<String> {
-            val seen = hashSetOf(start); val queue = ArrayDeque(listOf(start))
+            val seen = hashSetOf(start)
+            val queue = ArrayDeque(listOf(start))
             while (queue.isNotEmpty()) {
                 val current = queue.removeFirst()
                 if (tree.node(current)?.type == SkillNodeType.MASTERY) continue
@@ -378,8 +379,13 @@ class RulesInvariantsTest {
     fun mapPoolsNeverHelpTheHero() {
         val map = index.template(MAP_TEMPLATE)!!
         val crafting = index.professions.crafting
-        val pools = listOf(map.tables, listOf(AffixRoller.corruptionTag(Slot.MAP)), listOf(index.campaign.vaal.pool),
-            listOf(index.rules.orbs.mapAlchemy), crafting.mapModifiers) +
+        val pools = listOf(
+            map.tables,
+            listOf(AffixRoller.corruptionTag(Slot.MAP)),
+            listOf(index.campaign.vaal.pool),
+            listOf(index.rules.orbs.mapAlchemy),
+            crafting.mapModifiers,
+        ) +
             Influence.entries.map { map.tables + AffixRoller.influenceTags(it, Slot.MAP) }
         val reachable = pools.flatMap { index.modifierPool(it) }.map { it.value }.distinctBy { it.code }
         assertTrue(reachable.isNotEmpty())
@@ -398,10 +404,13 @@ class RulesInvariantsTest {
     private companion object {
         const val PHYSICAL = "STOCK_ATTACK_PHYSICAL"
         const val CORRUPTION_TABLES = "corruption:"
+
         /** Статы группы MAP, что помогают герою: скорость, атака, здоровье, вампиризм, источники лечения. */
         val MAP_HERO_BUFFS = setOf("MAP_HERO_HASTE", "MAP_HERO_ATTACK_SPEED", "MAP_HERO_LIFE", "MAP_HERO_LEECH", "MAP_FOUNTAINS")
+
         /** Прочие строки-угрозы карты, чей минус помог бы герою. */
         val MAP_THREATS = setOf("MAP_ABYSS_LIFE", "MAP_ABYSS_DAMAGE", "MAP_FLASK_CHARGES", "MAP_SKILL_COST")
+
         /** Боевые статы героя: скорости, запасы, вампиризм, восстановление, сопротивления, урон. */
         val HERO_COMBAT = setOf(
             "STOCK_MOVEMENT_SPEED", "STOCK_ATTACK_SPEED", "STOCK_CAST_SPEED", "STOCK_HEALTH", "STOCK_ENERGY_SHIELD", "STOCK_MANA",

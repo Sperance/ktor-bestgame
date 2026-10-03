@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm") version "2.4.20"
     kotlin("plugin.serialization") version "2.4.20"
     `java-library`
+    id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
 }
 
 group = "com.sperance.exileforge"
@@ -17,6 +18,10 @@ java {
 }
 kotlin {
     compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
+}
+
+ktlint {
+    version.set("1.8.0")
 }
 
 dependencies {

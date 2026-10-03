@@ -1,7 +1,7 @@
 const val CONST_FIELD_ID = "_id"
-const val CONST_FIELD_VERSION  = "version"
-const val CONST_FIELD_DELETED  = "deleted"
-const val CONST_FIELD_UPDATED  = "updatedAt"
+const val CONST_FIELD_VERSION = "version"
+const val CONST_FIELD_DELETED = "deleted"
+const val CONST_FIELD_UPDATED = "updatedAt"
 val CONST_SYSTEM_FIELDS = listOf("_id", "id", "version", "deleted", "createdAt", "updatedAt")
 
 const val CONST_API_VERSION = 1
@@ -16,7 +16,7 @@ const val CONST_PAGE_SIZE_MAX = 100
  * Версия сервера. Отдаётся в `static/index.json`, чтобы клиент мог сверить её с той, под
  * которую собран, а не верить своей константе на слово.
  */
-const val SERVER_VERSION = "1.74.0"
+const val SERVER_VERSION = "1.74.1"
 
 /**
  * Ревизия контракта с клиентом. Растёт, когда клиент обязан перейти на новые маршруты или схему

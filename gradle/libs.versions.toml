@@ -7,6 +7,7 @@ kotlinx_datetime_version = "0.8.0"
 ktmongo = "0.31.0"
 koin_version = "4.2.2"
 mongo_bson = "5.9.0"
+ktlint = "14.2.0"
 
 [libraries]
 ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
@@ -39,3 +40,4 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

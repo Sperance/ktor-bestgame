@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlin.plugin.serialization)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.ktlint)
 }
 
 group = "ru.descend"
@@ -14,6 +15,11 @@ application {
 
 kotlin {
     jvmToolchain(21)
+}
+
+// Стиль кода - ktlint, настройки в .editorconfig; CI падает на нарушениях.
+ktlint {
+    version.set("1.8.0")
 }
 
 ktor {

@@ -30,7 +30,7 @@ jobs:
 
       # Сломанный контент не уезжает на сервер: сборка образа на VPS идёт только после зелёных проверок.
       - name: Content and contract checks
-        run: bash gradlew test --tests LocalizationTest --tests SeedDataTest --tests SkillTreeTest --tests TradeTest --tests AuthTest --tests IconsTest
+        run: bash gradlew ktlintCheck :rules:ktlintCheck :rules:test test --tests LocalizationTest --tests AuthTest --tests IconsTest
 
       - name: Update the server on the VPS
         env:
