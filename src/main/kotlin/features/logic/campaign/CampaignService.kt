@@ -392,6 +392,8 @@ class CampaignService : KoinComponent {
                 // Гибель в Ваал-зоне (1.68.0) - та же смерть, а Ваал-зона этой карты при ней израсходована
                 if (event.vaal) campaignState.corruptionOpened = true
                 close(campaignState, mapCode)
+                // Гибель сама по себе штраф (1.74.0): новое семя после неё - сразу, без ожидания `run.newSeedSeconds`.
+                campaignState.seededAt = 0
                 Outcome(lost = lost)
             }
             RunEventKind.FIGHT -> {
