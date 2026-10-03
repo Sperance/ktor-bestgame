@@ -20,7 +20,6 @@ import io.ktor.server.routing.routingRoot
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.bson.Document
-import org.koin.ktor.ext.inject
 import ru.descend.exileforge.API_REVISION
 import ru.descend.exileforge.SERVER_VERSION
 import ru.descend.exileforge.base.exception.ApplicationExceptions
@@ -33,6 +32,7 @@ import ru.descend.exileforge.extensions.ALL_ROUTES
 import ru.descend.exileforge.extensions.RouteInfo
 import ru.descend.exileforge.extensions.printLog
 import ru.descend.exileforge.extensions.saveChildren
+import ru.descend.exileforge.features.logic.hero.HeroSnapshots
 import ru.descend.exileforge.features.logic.hero.installHeroLocks
 import ru.descend.exileforge.features.logic.icons.IconCache
 import ru.descend.exileforge.features.logic.icons.IconManifest
@@ -41,9 +41,8 @@ import ru.descend.exileforge.features.logic.locale.LocaleManifest
 import ru.descend.exileforge.features.logic.portraits.PortraitCache
 import ru.descend.exileforge.features.logic.portraits.PortraitManifest
 
-fun Application.configureRouting() {
-    val routeRegistry by inject<RouteRegistry>()
-    val content by inject<ContentStore>()
+fun Application.configureRouting(routeRegistry: RouteRegistry, content: ContentStore, snapshots: HeroSnapshots) {
+    attributes.put(HeroSnapshots.KEY, snapshots)
     installHeroLocks()
     installIdempotency()
     routing {

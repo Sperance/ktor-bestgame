@@ -6,8 +6,6 @@ import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import com.sperance.exileforge.rules.table.Tables
 import kotlinx.serialization.Serializable
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.ProgressionExceptions
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.features.data.hero.Hero
@@ -21,9 +19,10 @@ data class PathClaimed(val step: String, val next: Int)
  * Путь изгнанника (1.74.0): шаги забираются строго по очереди и только выполненные - проверка общая с клиентом
  * ([com.sperance.exileforge.rules.content.PathFacts]); награда кладётся в сумку и тайник одной записью героя.
  */
-class ExilePathService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class ExilePathService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
 
     suspend fun claim(heroId: String): PathClaimed {

@@ -7,7 +7,7 @@ import org.slf4j.event.*
 import ru.descend.exileforge.extensions.formatTimestamp
 import ru.descend.exileforge.extensions.printLog
 
-fun Application.configureMonitoring() {
+fun Application.configureMonitoring(timings: ru.descend.exileforge.features.data.routeTiming.RouteTimings) {
     install(CallLogging) {
         level = Level.INFO
         filter { call -> call.request.path().startsWith("/") }
@@ -22,7 +22,7 @@ fun Application.configureMonitoring() {
             val remoteHost = call.request.origin.remoteHost
             val contentLength = call.request.contentLength() ?: 0
             val duration = call.processingTimeMillis()
-            ru.descend.exileforge.features.data.routeTiming.RouteTimings.record(method.value, path, duration, status)
+            timings.record(method.value, path, duration, status)
             val startTime = System.currentTimeMillis() - duration
 
             val res = buildString {

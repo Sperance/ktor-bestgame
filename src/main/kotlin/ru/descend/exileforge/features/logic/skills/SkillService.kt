@@ -7,8 +7,6 @@ import com.sperance.exileforge.rules.content.SkillKind
 import com.sperance.exileforge.rules.content.SkillRules
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.SlotCondition
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.CharacterExceptions
 import ru.descend.exileforge.base.exception.model.SkillExceptions
 import ru.descend.exileforge.config.ContentStore
@@ -17,9 +15,10 @@ import ru.descend.exileforge.features.data.hero.HeroRepository
 import ru.descend.exileforge.features.logic.hero.sheetOf
 
 /** Умения героя: книга учит уровень, слоты с условиями, условия глотков фляг, обмен книг. Всё - одной записью героя. */
-class SkillService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class SkillService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
     private val rules: SkillRules get() = index.skillRules
 

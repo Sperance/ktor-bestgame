@@ -7,8 +7,6 @@ import com.sperance.exileforge.rules.content.TreeAllocation
 import com.sperance.exileforge.rules.sheet.SheetCalculator
 import com.sperance.exileforge.rules.sheet.StatContribution
 import kotlinx.serialization.Serializable
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.SkillTreeExceptions
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.features.data.hero.Hero
@@ -23,9 +21,10 @@ data class TreeState(val total: Int, val spent: Int, val available: Int, val nod
  * Дерево навыков: со стартового узла класса, только соседи взятого, откат за Сферу сожаления без
  * обрыва дерева, смена варианта атрибутного узла за Сферу хаоса. Правила - в `rules`.
  */
-class TreeService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class TreeService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
 
     fun state(hero: Hero): TreeState {

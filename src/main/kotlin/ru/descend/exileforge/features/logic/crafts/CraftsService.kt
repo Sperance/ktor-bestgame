@@ -31,8 +31,6 @@ import com.sperance.exileforge.rules.table.Tables
 import com.sperance.exileforge.rules.table.Weighted
 import com.sperance.exileforge.rules.text.LocaleKey
 import kotlinx.serialization.Serializable
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.ProfessionExceptions
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.features.data.hero.Hero
@@ -102,9 +100,10 @@ data class CraftsState(
  * Ремёсла героя: работа идёт на сервере по времени и досчитывается при каждом обращении, добыча
  * сразу ложится в сумку и тайник. Одна работа на героя; без инструмента в слоте профессии не начинается.
  */
-class CraftsService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class CraftsService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
     private val file get() = index.professions
     private val factory by lazy { ItemFactory(index) }

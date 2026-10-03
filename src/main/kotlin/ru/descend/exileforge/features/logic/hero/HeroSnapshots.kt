@@ -18,8 +18,6 @@ import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.JsonElement
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.route.ApiMongoResponse
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.extensions.printLog
@@ -91,34 +89,40 @@ data class WorkState(val professions: Map<String, ProfessionProgress> = emptyMap
  * порядок, а не весь тайник. Герой - один документ, так что снимок читает его один раз и кодирует части
  * компактным JSON правил (без значений по умолчанию).
  */
-object HeroSnapshots : KoinComponent {
-    /** Заголовок, в котором клиент перечисляет свои части: `hero=<отпечаток>,items=<отпечаток>`. */
-    const val HEADER = "X-Hero-Parts"
-    const val HERO = "hero"
-    const val OVERFLOW = "overflow"
-    const val BAG = "bag"
-    const val TREE = "tree"
-    const val CAMPAIGN = "campaign"
-    const val CRAFTS = "crafts"
-    const val MERCHANT = "merchant"
-    const val PETS = "pets"
+class HeroSnapshots(
+    private val heroes: HeroRepository,
+    private val crafts: CraftsService,
+    private val content: ContentStore,
+    private val merchant: MerchantService,
+) {
+    companion object {
+        /** Экземпляр для ответов команд: кладётся в атрибуты приложения при настройке маршрутов. */
+        val KEY = io.ktor.util.AttributeKey<HeroSnapshots>("HeroSnapshots")
 
-    private val heroes: HeroRepository by inject()
-    private val crafts: CraftsService by inject()
-    private val content: ContentStore by inject()
-    private val merchant: MerchantService by inject()
+        /** Заголовок, в котором клиент перечисляет свои части: `hero=<отпечаток>,items=<отпечаток>`. */
+        const val HEADER = "X-Hero-Parts"
+        const val HERO = "hero"
+        const val OVERFLOW = "overflow"
+        const val BAG = "bag"
+        const val TREE = "tree"
+        const val CAMPAIGN = "campaign"
+        const val CRAFTS = "crafts"
+        const val MERCHANT = "merchant"
+        const val PETS = "pets"
 
-    /** Части, которые клиент назвал в [HEADER]; битый заголовок значит «ничего нет». */
-    fun known(header: String?): Map<String, String> = header.orEmpty().split(',').mapNotNull { pair ->
-        val name = pair.substringBefore('=', "").trim()
-        val hash = pair.substringAfter('=', "").trim()
-        if (name.isEmpty() || hash.isEmpty()) null else name to hash
-    }.toMap()
+        /** Части, которые клиент назвал в [HEADER]; битый заголовок значит «ничего нет». */
+        fun known(header: String?): Map<String, String> = header.orEmpty().split(',').mapNotNull { pair ->
+            val name = pair.substringBefore('=', "").trim()
+            val hash = pair.substringAfter('=', "").trim()
+            if (name.isEmpty() || hash.isEmpty()) null else name to hash
+        }.toMap()
 
-    /**
-     * Снимок героя сейчас; работа ремесла досчитывается первой, иначе сумка отстала бы от добытого, а копии
-     * сверяются с контентом (1.30.0): клиент видит вещь такой, какой её выдаст запись.
-     */
+        /**
+         * Снимок героя сейчас; работа ремесла досчитывается первой, иначе сумка отстала бы от добытого, а копии
+         * сверяются с контентом (1.30.0): клиент видит вещь такой, какой её выдаст запись.
+         */
+    }
+
     suspend fun of(heroId: String, known: Map<String, String> = emptyMap()): HeroSnapshot {
         var hero = heroes.requireHero(heroId, "heroView")
         if (heroes.reconcile(hero)) hero = heroes.save(hero, "heroView")
@@ -171,4 +175,4 @@ object HeroSnapshots : KoinComponent {
 }
 
 /** Ответ команды героя: данные и рядом снимок героя после неё. */
-suspend inline fun <reified T> ApplicationCall.respondWithHero(data: T) = respond(ApiMongoResponse(success = true, data = data, hero = HeroSnapshots.forCall(this)))
+suspend inline fun <reified T> ApplicationCall.respondWithHero(data: T) = respond(ApiMongoResponse(success = true, data = data, hero = application.attributes[HeroSnapshots.KEY].forCall(this)))

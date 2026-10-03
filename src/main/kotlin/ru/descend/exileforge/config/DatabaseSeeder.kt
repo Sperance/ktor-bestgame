@@ -40,6 +40,7 @@ object DatabaseSeeder : KoinComponent {
     private val users: UserRepository by inject()
     private val sessions: AuthSessionRepository by inject()
     private val heroes: HeroRepository by inject()
+    private val runs: ru.descend.exileforge.features.data.hero.HeroRunStore by inject()
     private val heroService: ru.descend.exileforge.features.logic.hero.HeroService by inject()
     private val lots: AuctionLotRepository by inject()
     private val auction: ru.descend.exileforge.features.logic.trade.AuctionService by inject()
@@ -85,7 +86,7 @@ object DatabaseSeeder : KoinComponent {
     private suspend fun ensureIndexes() = coroutineScope {
         (
             listOf(users, sessions, heroes, lots, guilds, guildEvents, blockList, codes, bugs, mail).map { async { it.ensureIndexes() } } +
-                listOf(async { IdempotentReplyStore.ensureIndexes() }, async { ru.descend.exileforge.features.data.hero.HeroRunStore.ensureCollection() })
+                listOf(async { IdempotentReplyStore.ensureIndexes() }, async { runs.ensureCollection() })
             ).awaitAll()
         printLog("  → indexes ensured")
     }

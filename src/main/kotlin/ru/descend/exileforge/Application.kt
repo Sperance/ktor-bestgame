@@ -8,7 +8,6 @@ import org.koin.core.context.startKoin
 import ru.descend.exileforge.application.koin.allModules
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.config.DatabaseSeeder
-import ru.descend.exileforge.config.DatabaseSeeder.getKoin
 import ru.descend.exileforge.config.LogManager
 import ru.descend.exileforge.config.MongoBackupManager
 import ru.descend.exileforge.config.SystemMonitor
@@ -38,14 +37,15 @@ fun main() {
             shutdownGracePeriod = 10_000L
         },
         module = {
-            startKoin { modules(allModules) }
-            configureModules()
+            // Точка сборки: только здесь и в Modules.kt граф спрашивается у Koin напрямую.
+            val koin = startKoin { modules(allModules) }.koin
+            configureModules(koin)
         },
     )
 
     Runtime.getRuntime().addShutdownHook(
         Thread {
-            val backupManager: MongoBackupManager = getKoin().get()
+            val backupManager: MongoBackupManager = org.koin.core.context.GlobalContext.get().get()
             try {
                 backupManager.shutdown()
                 LogManager.shutdown()
@@ -60,24 +60,24 @@ fun main() {
     server.start(wait = true)
 }
 
-suspend fun Application.configureModules() {
+suspend fun Application.configureModules(koin: org.koin.core.Koin) {
     // Контент читается из ресурсов до всего остального: битый файл роняет старт, а не первый запрос
-    val content: ContentStore = getKoin().get()
+    val content: ContentStore = koin.get()
     LocaleCache.initializeCache()
     IconCache.initializeCache()
     PortraitCache.initializeCache(content.index)
 
     configureStatusPages()
-    configureMonitoring()
+    configureMonitoring(koin.get())
     configureSerialization()
     configureHTTP()
-    configureRateLimit()
+    configureRateLimit(koin.get())
     // Доступ проверяется до маршрутов: каждый запрос под /api и /system проходит здесь.
-    configureAccess()
-    configureRouting()
-    configureIpBlocking()
+    configureAccess(koin.get(), koin.get(), koin.get(), koin.get())
+    configureRouting(koin.get(), koin.get(), koin.get())
+    configureIpBlocking(koin.get(), koin.get())
 
     DatabaseSeeder.seed()
-    ru.descend.exileforge.features.data.routeTiming.RouteTimings.start(this)
-    ru.descend.exileforge.features.logic.trade.AuctionExpiry(getKoin().get()).start(this)
+    koin.get<ru.descend.exileforge.features.data.routeTiming.RouteTimings>().start(this)
+    ru.descend.exileforge.features.logic.trade.AuctionExpiry(koin.get()).start(this)
 }

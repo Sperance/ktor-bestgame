@@ -3,12 +3,12 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.UpdateOptions
 import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.MongoCollection
+import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import com.sperance.exileforge.rules.content.Stat
 import com.sperance.exileforge.rules.content.StatTally
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.Serializable
 import org.bson.Document
-import ru.descend.exileforge.config.MongoFactory
 import ru.descend.exileforge.extensions.printLog
 
 /** Статистика героя, как её отдаёт `GET hero/stats`: ключ - значение, только ненулевое. */
@@ -20,11 +20,13 @@ data class HeroStatsView(val values: Map<String, Long> = emptyMap())
  * атомарным обновлением после записи героя (`$inc` сумм, `$max`/`$min` рекордов), без версии: статистика не решает
  * ничего, что проверяла бы транзакция героя, а потерянный прирост - лишь недосчитанная строка летописи.
  */
-object HeroStatsStore {
-    const val COLLECTION = "HeroStats"
-    private const val VALUES = "v"
+class HeroStatsStore(private val database: MongoDatabase) {
+    companion object {
+        const val COLLECTION = "HeroStats"
+        private const val VALUES = "v"
+    }
 
-    private val collection: MongoCollection<Document> by lazy { MongoFactory.getDatabase().getCollection(COLLECTION, Document::class.java) }
+    private val collection: MongoCollection<Document> by lazy { database.getCollection(COLLECTION, Document::class.java) }
 
     /** Прирост [tally] героя [heroId]; пустой не пишется. Ошибка записи не роняет команду - только лог. */
     suspend fun bump(heroId: String, tally: StatTally) {

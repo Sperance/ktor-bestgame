@@ -8,7 +8,6 @@ import io.ktor.server.request.httpMethod
 import io.ktor.server.request.path
 import io.ktor.util.AttributeKey
 import kotlinx.coroutines.withContext
-import org.koin.ktor.ext.inject
 import ru.descend.exileforge.base.exception.model.AuthExceptions
 import ru.descend.exileforge.features.data.auth.AuthSessionRepository
 import ru.descend.exileforge.features.data.hero.HeroRepository
@@ -35,12 +34,12 @@ val CallerKey = AttributeKey<Caller>("caller")
  *
  * Администратор проходит проверку принадлежности - ему нужно работать с чужими персонажами.
  */
-fun Application.configureAccess() {
-    val sessions by inject<AuthSessionRepository>()
-    val users by inject<UserRepository>()
-    val heroes by inject<HeroRepository>()
-    val blocks by inject<ru.descend.exileforge.features.caches.BlockListCache>()
-
+fun Application.configureAccess(
+    sessions: AuthSessionRepository,
+    users: UserRepository,
+    heroes: HeroRepository,
+    blocks: ru.descend.exileforge.features.caches.BlockListCache,
+) {
     intercept(ApplicationCallPipeline.Plugins) {
         if (call.request.httpMethod == HttpMethod.Options) return@intercept
         val path = call.request.path()

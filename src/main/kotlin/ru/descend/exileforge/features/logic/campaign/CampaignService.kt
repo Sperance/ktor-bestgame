@@ -29,8 +29,6 @@ import com.sperance.exileforge.rules.run.RunEventKind
 import com.sperance.exileforge.rules.run.RunStart
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.CampaignExceptions
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.features.data.hero.Hero
@@ -108,11 +106,12 @@ const val MAX_EVENTS = 64
 /** События, чей темп мерится по листу героя ([Plausibility.Pace]): убийство и стражи. */
 private val PACED = setOf(RunEventKind.KILL, RunEventKind.BOSS, RunEventKind.CORRUPT)
 
-class CampaignService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val atlas: AtlasService by inject()
-    private val quests: QuestService by inject()
-    private val content: ContentStore by inject()
+class CampaignService(
+    private val heroes: HeroRepository,
+    private val atlas: AtlasService,
+    private val quests: QuestService,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
     private val campaign get() = index.campaign
     private val loot by lazy { LootRoller(index) }

@@ -17,8 +17,6 @@ import com.sperance.exileforge.rules.run.Run
 import com.sperance.exileforge.rules.run.RunContext
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.CampaignExceptions
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.features.data.hero.Hero
@@ -55,10 +53,11 @@ data class TrialReport(
  * клад на каждом [com.sperance.exileforge.rules.content.TowerRule.hoardEvery]-м этаже и сундук раша в конце.
  * Вход тратит ключ раша (из пяти фрагментов герба) или печать башни; новый вход закрывает прежнее испытание без награды.
  */
-class TrialService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val campaign: CampaignService by inject()
-    private val content: ContentStore by inject()
+class TrialService(
+    private val heroes: HeroRepository,
+    private val campaign: CampaignService,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
 
     private fun rules(method: String): TrialRules = index.campaign.trials ?: throw CampaignExceptions.funExceptionContent(method, "trials")

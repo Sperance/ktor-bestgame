@@ -5,8 +5,6 @@ import com.sperance.exileforge.rules.content.AtlasPoints
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Orb
 import kotlinx.serialization.Serializable
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.CharacterExceptions
 import ru.descend.exileforge.base.exception.model.SkillTreeExceptions
 import ru.descend.exileforge.config.ContentStore
@@ -18,9 +16,10 @@ import ru.descend.exileforge.features.data.hero.HeroRepository
 data class AtlasState(val allocated: List<String>, val earned: List<String>, val points: Int, val available: Int)
 
 /** Пассивное дерево атласа: взятие, откат за золото и сброс; форма дерева и цены - из контента. */
-class AtlasService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class AtlasService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
 
     fun bonuses(hero: Hero): AtlasBonuses = AtlasBonuses.of(index.atlasGraph, hero.atlas, index::modifier)

@@ -8,6 +8,7 @@ import ru.descend.exileforge.ASANA_TOKEN
 import ru.descend.exileforge.base.route.RouteRegistry
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.config.MongoBackupManager
+import ru.descend.exileforge.config.MongoFactory
 import ru.descend.exileforge.config.SystemMonitor
 import ru.descend.exileforge.features.caches.BlockListCache
 import ru.descend.exileforge.features.data.auction.AuctionLotRepository
@@ -42,7 +43,10 @@ val repositoryModule = module {
     single { UserRepository() }
     single { ru.descend.exileforge.features.logic.auth.UserService(get()) }
     single { AuthSessionRepository() }
-    single { HeroRepository(get()) }
+    single { ru.descend.exileforge.features.data.hero.HeroRunStore(MongoFactory.getDatabase()) }
+    single { ru.descend.exileforge.features.data.heroStats.HeroStatsStore(MongoFactory.getDatabase()) }
+    single { ru.descend.exileforge.features.data.routeTiming.RouteTimings(MongoFactory.getDatabase()) }
+    single { HeroRepository(get(), get(), get()) }
     single { ru.descend.exileforge.features.logic.hero.HeroService(get(), get(), get(), get(), get()) }
     single { AuctionLotRepository() }
     single { ru.descend.exileforge.features.logic.trade.AuctionService(get(), get(), get(), get()) }
@@ -56,17 +60,19 @@ val repositoryModule = module {
     single { ru.descend.exileforge.features.data.mail.MailRepository() }
     single { ru.descend.exileforge.features.logic.mail.MailService(get(), get(), get(), get()) }
     single { ru.descend.exileforge.features.logic.feedback.FeedbackService(get(), get(), get(), get(), get()) }
-    single { InventoryService() }
-    single { TreeService() }
-    single { AtlasService() }
-    single { SkillService() }
-    single { CraftsService() }
-    single { MerchantService() }
-    single { CampaignService() }
-    single { ru.descend.exileforge.features.logic.campaign.TrialService() }
-    single { PetService() }
+    single { InventoryService(get(), get()) }
+    single { TreeService(get(), get()) }
+    single { AtlasService(get(), get()) }
+    single { SkillService(get(), get()) }
+    single { CraftsService(get(), get()) }
+    single { MerchantService(get(), get()) }
+    single { CampaignService(get(), get(), get(), get()) }
+    single { ru.descend.exileforge.features.logic.campaign.TrialService(get(), get(), get()) }
+    single { PetService(get(), get()) }
     single { QuestService() }
-    single { ru.descend.exileforge.features.logic.hero.ExilePathService() }
+    single { ru.descend.exileforge.features.logic.hero.ExilePathService(get(), get()) }
+    single { ru.descend.exileforge.features.logic.hero.HeroSnapshots(get(), get(), get(), get()) }
+    single { ru.descend.exileforge.server.addons.RateKeys(get()) }
 }
 
 val cacheModule = module {
@@ -78,7 +84,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get(), get(), get()),
-                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
+                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get(), get()),
                 GuildRoute(get()),
                 RedemptionCodesRoute(get(), get()),

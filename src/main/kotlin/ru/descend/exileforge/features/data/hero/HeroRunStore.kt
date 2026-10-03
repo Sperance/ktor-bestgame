@@ -3,10 +3,10 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.mongodb.kotlin.client.coroutine.MongoCollection
+import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.nullable
-import ru.descend.exileforge.config.MongoFactory
 import ru.descend.exileforge.server.addons.AppJson
 
 /** Открытый заход героя в своей коллекции (1.63.0): `_id` - id героя. */
@@ -19,12 +19,12 @@ data class HeroRun(val _id: String, val run: RunState)
  * заход в `hero.campaign.run` при чтении ([hydrate]) и пишет его в той же транзакции, что героя ([write]) - только если
  * он изменился. Заход, оставшийся в документе героя от прежних версий, переносится при первом чтении.
  */
-object HeroRunStore {
-    private val collection: MongoCollection<HeroRun> by lazy { MongoFactory.getDatabase().getCollection("HeroRun", HeroRun::class.java) }
+class HeroRunStore(private val database: MongoDatabase) {
+    private val collection: MongoCollection<HeroRun> by lazy { database.getCollection("HeroRun", HeroRun::class.java) }
 
     /** Коллекция создаётся при старте: в транзакции её неявное создание не везде разрешено. */
     suspend fun ensureCollection() {
-        runCatching { MongoFactory.getDatabase().createCollection("HeroRun") }
+        runCatching { database.createCollection("HeroRun") }
     }
 
     /** Отпечаток захода для сравнения при записи. */
@@ -73,5 +73,7 @@ object HeroRunStore {
     }
 
     /** Метка захода, который ещё лежит в документе героя: отличается от любого отпечатка, поэтому запись его перенесёт. */
-    private const val MIGRATE = "migrate"
+    private companion object {
+        const val MIGRATE = "migrate"
+    }
 }

@@ -10,8 +10,6 @@ import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.Menagerie
 import com.sperance.exileforge.rules.roll.OrbApplier
 import kotlinx.serialization.Serializable
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.CharacterExceptions
 import ru.descend.exileforge.base.exception.model.CurrencyExceptions
 import ru.descend.exileforge.config.ContentStore
@@ -76,9 +74,10 @@ data class IncubatorSlot(
  * Зверинец героя (1.5.0): яйцо из сумки ложится в инкубатор и вылупляется питомцем по сроку (1.67.0), сфера питомцев меняет
  * питомца, один боевой и один помощник в деле, лишнего можно отпустить за золото. Всё - одной записью документа героя.
  */
-class PetService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class PetService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index get() = content.index
     private val cap: Int get() = index.rules.pets.cap
     private val orbs by lazy { OrbApplier(index) }

@@ -29,7 +29,11 @@ import ru.descend.exileforge.extensions.now
  * Создание и удаление с их последствиями для аккаунта, лотов и гильдии - в
  * [ru.descend.exileforge.features.logic.hero.HeroService].
  */
-class HeroRepository(private val content: ContentStore) : BaseRepository<Hero>(Hero::class) {
+class HeroRepository(
+    private val content: ContentStore,
+    private val runs: HeroRunStore,
+    private val stats: ru.descend.exileforge.features.data.heroStats.HeroStatsStore,
+) : BaseRepository<Hero>(Hero::class) {
     private val index: ContentIndex get() = content.index
 
     override val indexes = listOf(IndexSpec.unique("idx_unique_name", "name"), IndexSpec.on("userId"))
@@ -81,11 +85,11 @@ class HeroRepository(private val content: ContentStore) : BaseRepository<Hero>(H
 
     override suspend fun validateAfterUpdate(entity: Hero, session: ClientSession) {
         super.validateAfterUpdate(entity, session)
-        if (HeroRunStore.dirty(entity)) HeroRunStore.write(entity, session)
+        if (runs.dirty(entity)) runs.write(entity, session)
     }
 
     override suspend fun validateAfterDelete(entity: Hero, session: ClientSession) {
-        HeroRunStore.delete(entity._id, session)
+        runs.delete(entity._id, session)
     }
 
     /** Герои одного аккаунта - то, из чего он выбирает при входе; их не больше трёх, страниц нет. */
@@ -133,13 +137,13 @@ class HeroRepository(private val content: ContentStore) : BaseRepository<Hero>(H
     }
 
     /** Герой для команды: с заходом ([HeroRunStore.hydrate]), без забытых узлов атласа и снятых предметов сумки. */
-    suspend fun requireHero(heroId: String, method: String): Hero = HeroRunStore.hydrate(retireItems(forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })))
+    suspend fun requireHero(heroId: String, method: String): Hero = runs.hydrate(retireItems(forgetUnknownAtlas(requireById(heroId) { CharacterExceptions.funExceptionNotFound(method, it) })))
 
     /** Одна запись героя без транзакции (1.53.0): один документ с фильтром по версии атомарен сам, объект в памяти идёт в ногу с базой. */
     suspend fun save(hero: Hero, method: String): Hero {
         // Изменившийся заход пишется в одной транзакции с героем ([validateAfterUpdate]); иначе - одна запись без неё
-        if (HeroRunStore.dirty(hero)) transactionExecute(method) { update(hero, it) } else replace(hero, method)
-        ru.descend.exileforge.features.data.heroStats.HeroStatsStore.bump(hero._id, hero.stats)
+        if (runs.dirty(hero)) transactionExecute(method) { update(hero, it) } else replace(hero, method)
+        stats.bump(hero._id, hero.stats)
         return hero
     }
 }

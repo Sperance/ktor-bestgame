@@ -3,12 +3,12 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.UpdateOptions
 import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.MongoCollection
+import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.bson.Document
-import ru.descend.exileforge.config.MongoFactory
 import ru.descend.exileforge.extensions.printLog
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -21,12 +21,14 @@ import java.util.concurrent.atomic.AtomicLongArray
  * count, totalMs, maxMs, errors, buckets: {"<=10": n, …}}`. Ответы копятся в памяти и раз в минуту уходят в Mongo атомарными
  * `$inc`/`$max`; среднее - totalMs / count, p95 читается по корзинам. Id в пути (24 hex, числа) сводятся к `{id}`.
  */
-object RouteTimings {
-    private const val COLLECTION = "RouteTiming"
-    private const val FLUSH_MS = 60_000L
+class RouteTimings(private val database: MongoDatabase) {
+    private companion object {
+        const val COLLECTION = "RouteTiming"
+        const val FLUSH_MS = 60_000L
 
-    /** Верхние границы корзин, мс; последняя - всё, что дольше. */
-    val BUCKETS = longArrayOf(10, 25, 50, 100, 250, 500, 1000, 2500)
+        /** Верхние границы корзин, мс; последняя - всё, что дольше. */
+        val BUCKETS = longArrayOf(10, 25, 50, 100, 250, 500, 1000, 2500)
+    }
     private val ID = Regex("/([0-9a-fA-F]{24}|\\d+)(?=/|$)")
 
     private class Tally {
@@ -38,7 +40,7 @@ object RouteTimings {
     }
 
     private val tallies = ConcurrentHashMap<String, Tally>()
-    private val collection: MongoCollection<Document> by lazy { MongoFactory.getDatabase().getCollection(COLLECTION, Document::class.java) }
+    private val collection: MongoCollection<Document> by lazy { database.getCollection(COLLECTION, Document::class.java) }
 
     /** Один ответ: метод, путь, сколько шёл и с каким статусом. */
     fun record(method: String, path: String, millis: Long, status: Int) {

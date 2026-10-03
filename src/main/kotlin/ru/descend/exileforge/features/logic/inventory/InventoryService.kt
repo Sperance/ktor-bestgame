@@ -20,8 +20,6 @@ import com.sperance.exileforge.rules.roll.OrbOutcome
 import com.sperance.exileforge.rules.sheet.Requirements
 import com.sperance.exileforge.rules.sheet.SellPrice
 import kotlinx.serialization.Serializable
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.BaseRouteExceptions
 import ru.descend.exileforge.base.exception.model.CharacterExceptions
 import ru.descend.exileforge.base.exception.model.CurrencyExceptions
@@ -53,9 +51,10 @@ data class ChestOpening(val code: String, val gold: Long, val items: Map<String,
  * Вещи героя: надеть, снять, вставить в гнездо, продать, сферы, эссенции и верстак. Правила - в `rules`,
  * здесь - документ героя и одна запись на команду: списание и результат не расходятся.
  */
-class InventoryService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class InventoryService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
     private val orbs by lazy { OrbApplier(index) }
     private val bench by lazy { Bench(index) }

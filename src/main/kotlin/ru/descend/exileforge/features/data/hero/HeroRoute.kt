@@ -51,6 +51,8 @@ import ru.descend.exileforge.server.addons.keepIdempotentReport
 class HeroRoute(
     private val repo: HeroRepository,
     private val service: ru.descend.exileforge.features.logic.hero.HeroService,
+    private val snapshots: HeroSnapshots,
+    private val heroStats: ru.descend.exileforge.features.data.heroStats.HeroStatsStore,
     private val content: ContentStore,
     private val inventory: InventoryService,
     private val tree: TreeService,
@@ -82,7 +84,7 @@ class HeroRoute(
 
         // Герой одним запросом - тот же снимок, что приходит в ответ команды, с ETag.
         get("/view") {
-            val snapshot = HeroSnapshots.of(call.heroId, HeroSnapshots.known(call.request.headers[HeroSnapshots.HEADER]))
+            val snapshot = snapshots.of(call.heroId, HeroSnapshots.known(call.request.headers[HeroSnapshots.HEADER]))
             val etag = "\"${snapshot.version}\""
             call.response.header(HttpHeaders.ETag, etag)
             if (call.request.headers[HttpHeaders.IfNoneMatch] == etag) {
@@ -253,7 +255,7 @@ class HeroRoute(
         // Статистика героя (1.49.0): вся, ненулевая, отдельным запросом летописи.
         get("/stats") {
             val hero = repo.requireHero(call.heroId, "stats")
-            call.respondOk(ru.descend.exileforge.features.data.heroStats.HeroStatsStore.read(call.heroId, hero.counters))
+            call.respondOk(heroStats.read(call.heroId, hero.counters))
         }
 
         route("/campaign") {

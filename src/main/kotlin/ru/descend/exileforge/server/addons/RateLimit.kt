@@ -6,7 +6,6 @@ import io.ktor.server.application.install
 import io.ktor.server.plugins.origin
 import io.ktor.server.plugins.ratelimit.RateLimit
 import io.ktor.server.plugins.ratelimit.RateLimitName
-import org.koin.mp.KoinPlatform.getKoin
 import ru.descend.exileforge.base.cache.BoundedCache
 import ru.descend.exileforge.features.data.auth.AuthSessionRepository
 import ru.descend.exileforge.features.logic.auth.Tokens
@@ -32,11 +31,11 @@ val BUG_LIMIT = RateLimitName("bug")
  * выдуманные токены прежде давали каждый свою корзину и обходили лимит. Без живой сессии - адрес.
  * Вход ограничен отдельно и строго, по адресу: у того, кто подбирает пароль, токена ещё нет.
  */
-fun Application.configureRateLimit() {
+fun Application.configureRateLimit(keys: RateKeys) {
     install(RateLimit) {
         global {
             rateLimiter(limit = 600, refillPeriod = 1.minutes)
-            requestKey { call -> RateKeys.of(call) }
+            requestKey { call -> keys.of(call) }
         }
         register(LOGIN_LIMIT) {
             rateLimiter(limit = 10, refillPeriod = 1.minutes)
@@ -44,15 +43,15 @@ fun Application.configureRateLimit() {
         }
         register(REDEEM_LIMIT) {
             rateLimiter(limit = 5, refillPeriod = 1.minutes)
-            requestKey { call -> RateKeys.of(call) }
+            requestKey { call -> keys.of(call) }
         }
         register(PASSWORD_LIMIT) {
             rateLimiter(limit = 5, refillPeriod = 1.minutes)
-            requestKey { call -> RateKeys.of(call) }
+            requestKey { call -> keys.of(call) }
         }
         register(BUG_LIMIT) {
             rateLimiter(limit = 100, refillPeriod = 1.hours)
-            requestKey { call -> RateKeys.of(call) }
+            requestKey { call -> keys.of(call) }
         }
     }
 }
@@ -61,11 +60,13 @@ fun Application.configureRateLimit() {
  * Ключ корзины: `user:<id>` живой сессии или `ip:<адрес>`. Сессия по токену помнится минуту, чтобы лимит не стоил
  * каждому запросу чтения из базы; неизвестный токен помнится так же - перебор токенов не бьёт в базу.
  */
-object RateKeys {
-    private const val TTL = 60_000L
-    private const val MAX = 50_000
+class RateKeys(private val sessions: AuthSessionRepository) {
+    private companion object {
+        const val TTL = 60_000L
+        const val MAX = 50_000
+    }
+
     private val known = BoundedCache<String, String?>(MAX, TTL)
-    private val sessions: AuthSessionRepository by lazy { getKoin().get() }
 
     suspend fun of(call: ApplicationCall): String {
         val token = Tokens.fromHeader(call.request.headers[HttpHeaders.Authorization])

@@ -9,8 +9,6 @@ import com.sperance.exileforge.rules.roll.ItemInstance
 import com.sperance.exileforge.rules.sheet.SellPrice
 import com.sperance.exileforge.rules.table.Tables
 import kotlinx.serialization.Serializable
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.base.cache.BoundedCache
 import ru.descend.exileforge.base.exception.model.CharacterExceptions
 import ru.descend.exileforge.config.ContentStore
@@ -54,9 +52,10 @@ data class MerchantOrbPurchase(val code: String, val money: Long, val next: Long
  * бы за такую вещь, умноженное на наценку: купить и сразу продать всегда в убыток. Полка низших сфер
  * за золото - бездонный сток золота: каждая покупка дороже, пока окно не сменится.
  */
-class MerchantService : KoinComponent {
-    private val heroes: HeroRepository by inject()
-    private val content: ContentStore by inject()
+class MerchantService(
+    private val heroes: HeroRepository,
+    private val content: ContentStore,
+) {
     private val index: ContentIndex get() = content.index
 
     /** Витрины окон: один и тот же расклад не роллится заново на каждый снимок героя. */
