@@ -158,6 +158,8 @@ class CraftsService : KoinComponent {
         gains.spent.forEach { (code, amount) -> if (amount > 0) hero.spend(code, amount, method) }
         gains.items.forEach { (code, amount) -> hero.earn(code, amount) }
         val received = Stash.receive(hero, made, index)
+        // Тайник полон (1.74.0): работа встаёт, а не льёт вещи в переполнение и торговцу.
+        if (received.overflowed + received.sold > 0) hero.work = null
         hero.seenAt = now
         if (now - since >= CraftsAway.MIN_MILLIS) {
             val stop = when {
