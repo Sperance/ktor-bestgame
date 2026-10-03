@@ -15,12 +15,12 @@ import ru.descend.exileforge.base.exception.model.CharacterExceptions
 import ru.descend.exileforge.base.exception.model.ProgressionExceptions
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.features.data.auction.AuctionLotRepository
-import ru.descend.exileforge.features.data.guild.GuildRepository
 import ru.descend.exileforge.features.data.hero.Hero
 import ru.descend.exileforge.features.data.hero.HeroRepository
 import ru.descend.exileforge.features.data.user.User
 import ru.descend.exileforge.features.data.user.UserRepository
 import ru.descend.exileforge.features.logic.auth.caller
+import ru.descend.exileforge.features.logic.guild.GuildService
 
 /**
  * Жизнь героя как сущности аккаунта: создание со стартовым набором и местом на аккаунте, список
@@ -31,7 +31,7 @@ class HeroService(
     private val heroes: HeroRepository,
     private val users: UserRepository,
     private val lots: AuctionLotRepository,
-    private val guilds: GuildRepository,
+    private val guilds: GuildService,
     private val content: ContentStore,
 ) {
     private val index: ContentIndex get() = content.index

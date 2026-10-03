@@ -24,9 +24,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.descend.exileforge.base.exception.model.QuestExceptions
 import ru.descend.exileforge.config.ContentStore
-import ru.descend.exileforge.features.data.guild.GuildRepository
 import ru.descend.exileforge.features.data.hero.Hero
 import ru.descend.exileforge.features.data.hero.HeroRepository
+import ru.descend.exileforge.features.logic.guild.GuildQuestService
 import ru.descend.exileforge.features.logic.hero.Rewards
 
 /**
@@ -36,7 +36,7 @@ import ru.descend.exileforge.features.logic.hero.Rewards
  */
 class QuestService : KoinComponent {
     private val heroes: HeroRepository by inject()
-    private val guilds: GuildRepository by inject()
+    private val guilds: GuildQuestService by inject()
     private val content: ContentStore by inject()
     private val index: ContentIndex get() = content.index
     private val rules: QuestRules get() = index.quests
