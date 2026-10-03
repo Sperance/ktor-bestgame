@@ -84,3 +84,11 @@ data class AuctionLot(
         )
     }
 }
+
+/** Места под лоты героя: базовые сразу, по одному докупается за золото до потолка; [price] - цена следующего, 0 - больше не купить. */
+@Serializable
+data class AuctionSlots(val used: Int, val limit: Int)
+
+/** Подсказка цены (1.74.0): медиана [price] за штуку в сфере [priceOrb] по [sales] недавним сделкам. */
+@Serializable
+data class PriceHint(val priceOrb: String, val price: Long, val sales: Int)

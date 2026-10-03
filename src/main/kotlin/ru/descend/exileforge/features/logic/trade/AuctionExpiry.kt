@@ -4,7 +4,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import ru.descend.exileforge.extensions.printLog
-import ru.descend.exileforge.features.data.auction.AuctionLotRepository
 import kotlin.time.Duration.Companion.minutes
 
 /**
@@ -12,12 +11,12 @@ import kotlin.time.Duration.Companion.minutes
  * продавца. Прежде это делал каждый поиск по аукциону: чтение писало чужих героев мимо их очереди, и продавец
  * ловил гонку версий на своей команде.
  */
-class AuctionExpiry(private val lots: AuctionLotRepository) {
+class AuctionExpiry(private val auction: AuctionService) {
     fun start(scope: CoroutineScope) = scope.launch {
         while (isActive) {
             delay(1.minutes)
-            runCatching { lots.expireDue(BATCH) }.onFailure { printLog("[AuctionExpiry] ${it.message}", true) }
-            runCatching { lots.warnDue(BATCH) }.onFailure { printLog("[AuctionExpiry] warn: ${it.message}", true) }
+            runCatching { auction.expireDue(BATCH) }.onFailure { printLog("[AuctionExpiry] ${it.message}", true) }
+            runCatching { auction.warnDue(BATCH) }.onFailure { printLog("[AuctionExpiry] warn: ${it.message}", true) }
         }
     }
 

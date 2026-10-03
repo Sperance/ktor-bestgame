@@ -42,6 +42,7 @@ object DatabaseSeeder : KoinComponent {
     private val heroes: HeroRepository by inject()
     private val heroService: ru.descend.exileforge.features.logic.hero.HeroService by inject()
     private val lots: AuctionLotRepository by inject()
+    private val auction: ru.descend.exileforge.features.logic.trade.AuctionService by inject()
     private val guilds: GuildRepository by inject()
     private val guildEvents: GuildEventRepository by inject()
     private val blockList: BlockListRepository by inject()
@@ -68,8 +69,8 @@ object DatabaseSeeder : KoinComponent {
             seedHeroes(session)
             seedRedemptionCodes(session)
         }
-        lots.closeUntradable()
-        lots.closeOldEpoch()
+        auction.closeUntradable()
+        auction.closeOldEpoch()
         blockListCache.initializeCache()
         printLog("Database seeding completed")
     }

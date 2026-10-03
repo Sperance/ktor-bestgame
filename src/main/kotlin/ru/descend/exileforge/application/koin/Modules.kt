@@ -45,6 +45,7 @@ val repositoryModule = module {
     single { HeroRepository(get()) }
     single { ru.descend.exileforge.features.logic.hero.HeroService(get(), get(), get(), get(), get()) }
     single { AuctionLotRepository() }
+    single { ru.descend.exileforge.features.logic.trade.AuctionService(get(), get(), get(), get()) }
     single { GuildRepository() }
     single { GuildEventRepository() }
     single { BlockListRepository() }
@@ -78,7 +79,7 @@ val routeModule = module {
             listOf(
                 UserRoute(get(), get(), get()),
                 HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
-                AuctionLotRoute(get()),
+                AuctionLotRoute(get(), get()),
                 GuildRoute(get()),
                 RedemptionCodesRoute(get(), get()),
                 ru.descend.exileforge.features.data.bugReport.BugReportRoute(get(), get(), get()),

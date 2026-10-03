@@ -14,9 +14,10 @@ import ru.descend.exileforge.base.route.itemId
 import ru.descend.exileforge.base.route.queryParam
 import ru.descend.exileforge.base.route.respondOk
 import ru.descend.exileforge.features.logic.locale.LocaleCache
+import ru.descend.exileforge.features.logic.trade.AuctionService
 
 /** Маршруты аукциона. Каждый требует героя: аукцион открывается с уровня правил. */
-class AuctionLotRoute(private val repo: AuctionLotRepository) :
+class AuctionLotRoute(repo: AuctionLotRepository, private val auction: AuctionService) :
     BaseRoute<AuctionLot>(
         repository = repo,
         entitySerializer = AuctionLot.serializer(),
@@ -24,36 +25,36 @@ class AuctionLotRoute(private val repo: AuctionLotRepository) :
     ) {
     override fun additionalRoutes(route: Route) = with(route) {
         get("/search") {
-            call.respondOk(repo.search(call.heroId, searchFrom(call), call.request.queryParameters["after"], call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
+            call.respondOk(auction.search(call.heroId, searchFrom(call), call.request.queryParameters["after"], call.queryParam("size", CONST_PAGE_SIZE_DEFAULT)))
         }
         get("/my") {
-            call.respondOk(repo.findBySeller(call.heroId))
+            call.respondOk(auction.findBySeller(call.heroId))
         }
         get("/history") {
-            call.respondOk(repo.history(call.heroId))
+            call.respondOk(auction.history(call.heroId))
         }
         post("/sell/equipment") {
-            call.respondOk(repo.sellEquipment(call.heroId, call.itemId, call.queryParam("priceOrb"), call.queryParam("price", 0L)))
+            call.respondOk(auction.sellEquipment(call.heroId, call.itemId, call.queryParam("priceOrb"), call.queryParam("price", 0L)))
         }
         post("/sell/item") {
-            call.respondOk(repo.sellItem(call.heroId, call.queryParam("code"), call.queryParam("amount", 1L), call.queryParam("priceOrb"), call.queryParam("price", 0L)))
+            call.respondOk(auction.sellItem(call.heroId, call.queryParam("code"), call.queryParam("amount", 1L), call.queryParam("priceOrb"), call.queryParam("price", 0L)))
         }
         get("/slots") {
-            call.respondOk(repo.slots(call.heroId))
+            call.respondOk(auction.slots(call.heroId))
         }
         post("/buy") {
-            call.respondOk(repo.buy(call.heroId, call.queryParam("lotId")))
+            call.respondOk(auction.buy(call.heroId, call.queryParam("lotId")))
         }
         post("/extend") {
-            call.respondOk(repo.extend(call.heroId, call.queryParam("lotId")))
+            call.respondOk(auction.extend(call.heroId, call.queryParam("lotId")))
         }
         get("/price") {
             val params = call.request.queryParameters
             val rarity = params["rarity"]?.let { raw -> Rarity.entries.firstOrNull { it.name == raw } }
-            call.respondOk(repo.priceHint(call.heroId, call.queryParam("itemCode"), rarity, call.queryParam("itemLevel", 0)))
+            call.respondOk(auction.priceHint(call.heroId, call.queryParam("itemCode"), rarity, call.queryParam("itemLevel", 0)))
         }
         post("/cancel") {
-            call.respondOk(repo.cancel(call.heroId, call.queryParam("lotId")))
+            call.respondOk(auction.cancel(call.heroId, call.queryParam("lotId")))
         }
     }
 
@@ -68,7 +69,7 @@ class AuctionLotRoute(private val repo: AuctionLotRepository) :
         }
         return AuctionSearch(
             kind = enum("kind", LotKind.entries),
-            itemCodes = text("title")?.let { repo.codesMatching(language, it) },
+            itemCodes = text("title")?.let { auction.codesMatching(language, it) },
             slot = enum("slot", Slot.entries),
             rarity = enum("rarity", Rarity.entries),
             minItemLevel = text("minItemLevel")?.toIntOrNull(),
