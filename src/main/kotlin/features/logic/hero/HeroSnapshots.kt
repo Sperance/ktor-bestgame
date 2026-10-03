@@ -58,11 +58,14 @@ data class HeroView(
     val plannedTree: List<TakenNode> = emptyList(),
     /** Очки дерева сверх уровня (1.69.0). */
     val bonusPoints: Int = 0,
+    /** Путь изгнанника (1.74.0): забранные шаги и надевал ли герой вещь сам. */
+    val pathStep: Int = 0,
+    val pathEquipped: Boolean = false,
 ) {
     companion object {
         fun of(hero: Hero) = HeroView(hero._id, hero.userId, hero.name, hero.description, hero.heroClass, hero.level, hero.experience, hero.money,
             hero.skills, hero.atlas.toList(), hero.earned.toList(), hero.recipes.toList(), hero.version, hero.stashSlots,
-            hero.counters.toMap(), hero.title, hero.autoSell, hero.plannedTree.toList(), hero.bonusPoints)
+            hero.counters.toMap(), hero.title, hero.autoSell, hero.plannedTree.toList(), hero.bonusPoints, hero.pathStep, hero.pathEquipped)
     }
 }
 

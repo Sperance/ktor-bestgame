@@ -107,7 +107,14 @@ data class FlaskRules(
  * у класса, фляга - в правилах фляг. Сфер и случайных вещей нет: их находят в первой же зоне.
  */
 @Serializable
-data class StarterRules(val gold: Long = 0, val toolPrefix: String = "BRONZE_")
+data class StarterRules(
+    val gold: Long = 0,
+    val toolPrefix: String = "BRONZE_",
+    /** Сферы в сумку (1.74.0): первая волшебная вещь делается в Кузнице сразу, а не после часа фарма. */
+    val orbs: Map<String, Long> = emptyMap(),
+    /** Оружие класса волшебным с одной строкой урона (1.74.0): первые бои не тянутся. */
+    val magicWeapon: Boolean = false,
+)
 
 /** Аукцион; [lotDays] - сколько дней лот стоит на витрине (1.30.0): потом товар возвращается продавцу, сбор не возвращается. */
 @Serializable
@@ -344,6 +351,8 @@ data class EngineRules(
     val orbs: OrbRules = OrbRules(),
     val flasks: FlaskRules = FlaskRules(),
     val starter: StarterRules = StarterRules(),
+    /** Путь изгнанника (1.74.0). */
+    val path: PathRules = PathRules(),
     val auction: AuctionRules = AuctionRules(),
     /** Длины полей ввода (1.69.0): клиент режет ввод и показывает счётчик, сервер проверяет то же. */
     val inputs: InputLimits = InputLimits(),

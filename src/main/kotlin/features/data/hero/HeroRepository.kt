@@ -15,11 +15,13 @@ import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.GuildQuestLog
 import com.sperance.exileforge.rules.content.HeroClass
+import com.sperance.exileforge.rules.content.ItemTemplate
 import com.sperance.exileforge.rules.content.Rarity
 import com.sperance.exileforge.rules.content.Slot
 import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
+import com.sperance.exileforge.rules.roll.ItemInstance
 import config.ContentStore
 import config.MongoFactory.transactionExecute
 import extensions.now
@@ -217,17 +219,29 @@ object Starter {
         if (hero.skills.learned.isEmpty()) hero.skills = index.skillRules.starter(heroClass.code)
         if (hero.items.isNotEmpty()) return
         hero.money += rules.gold
+        rules.orbs.forEach { (code, amount) -> if (index.template(code) != null) hero.earn(code, amount) }
         index.template(index.rules.flasks.starter)?.let { flask ->
             hero.items += factory.create(Hero.newItemId(), flask, flask.rarity, dice).also { it.slot = Slot.FLASK }
         }
         // Оружие (1.2.0) и броня (1.12.0) класса - обычные, надетые сразу: герой не выходит на первую карту с пустыми руками
         (listOf(heroClass.weapon) + heroClass.armour).mapNotNull(index::template).forEach { gear ->
-            hero.items += factory.create(Hero.newItemId(), gear, Rarity.COMMON, dice).also { it.slot = gear.slot }
+            val weapon = rules.magicWeapon && gear.code == heroClass.weapon
+            hero.items += (if (weapon) magicWeapon(factory, gear, dice) else factory.create(Hero.newItemId(), gear, Rarity.COMMON, dice)).also { it.slot = gear.slot }
         }
         index.professions.professions.forEach { profession ->
             index.templatesBySlot[profession.tool]?.firstOrNull { it.code.startsWith(rules.toolPrefix) }?.let { tool ->
                 hero.items += factory.create(Hero.newItemId(), tool, Rarity.COMMON, dice).also { it.slot = tool.slot }
             }
         }
+    }
+
+    /** Волшебное оружие с одной строкой урона; нет такой в пуле - волшебное как выпало (дно редкости держит фабрика). */
+    private fun magicWeapon(factory: ItemFactory, template: ItemTemplate, dice: Dice): ItemInstance {
+        val item = factory.create(Hero.newItemId(), template, Rarity.MAGIC, dice)
+        val affixes = factory.affixes
+        val damage = affixes.affixPool(template).filter { (def) -> def.effects.any { "DAMAGE" in it.stat } }
+        val kept = affixes.permanent(item.rolls)
+        affixes.rollExtraFrom(damage, template, Rarity.MAGIC, kept, dice, item.itemLevel)?.let { item.rolls = kept + it }
+        return item
     }
 }

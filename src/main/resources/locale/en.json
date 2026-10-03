@@ -2467,6 +2467,7 @@
   "error.PR_004": "Level {0} must be positive",
   "error.PR_005": "Experience {0} must not be negative",
   "error.PR_006": "Experience level table is empty",
+  "error.PR_007": "This step of the Exile's Path is not done yet",
   "error.RDC_001": "Redemption code error: {0}",
   "error.RDC_002": "Redemption code {0} not found",
   "error.RDC_003": "Redemption code {0} has already been used",

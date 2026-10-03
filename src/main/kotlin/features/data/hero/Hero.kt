@@ -95,6 +95,9 @@ data class Hero(
     var quests: QuestLog = QuestLog(),
     /** Поток наград захода (1.30.0): его семя клиенту не отдаётся никогда - ни снимком, ни общим CRUD. */
     var rewards: RewardStream = RewardStream(),
+    /** Путь изгнанника (1.74.0): сколько шагов забрано и надевал ли герой вещь сам - стартовая не в счёт. */
+    var pathStep: Int = 0,
+    var pathEquipped: Boolean = false,
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -148,6 +151,13 @@ data class Hero(
 
     /** Летопись: хранимые счётчики, выводимые - рекордом. */
     fun chronicle(): Map<String, Long> = Counter.values(counters, derived())
+
+    /** Сделанное героем для проверок Пути изгнанника. */
+    fun pathFacts(): com.sperance.exileforge.rules.content.PathFacts {
+        val chronicle = chronicle()
+        return com.sperance.exileforge.rules.content.PathFacts(chronicle[Counter.ZONES] ?: 0, pathEquipped, tree.size, skills,
+            chronicle[Counter.BOSSES] ?: 0, chronicle[Counter.ORBS_USED] ?: 0)
+    }
 
     /** Золото герою - в кошелёк и в летопись. */
     fun gain(gold: Long) {

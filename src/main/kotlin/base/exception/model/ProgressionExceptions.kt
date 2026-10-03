@@ -11,5 +11,6 @@ object ProgressionExceptions {
 
     fun funExceptionClassNotFound(errorMethod: String, value: String? = "") = ProgressionException("Character class $value not found", errorMethod, "PR_003", listOf(value.orEmpty()))
     fun funExceptionLevel(errorMethod: String, value: String? = "") = ProgressionException("Level $value must be positive", errorMethod, "PR_004", listOf(value.orEmpty()))
+    fun funExceptionPathStep(errorMethod: String, value: String? = "") = ProgressionException("Path step $value is not done yet", errorMethod, "PR_007", listOf(value.orEmpty()))
     fun funExceptionExperience(errorMethod: String, value: String? = "") = ProgressionException("Experience $value must not be negative", errorMethod, "PR_005", listOf(value.orEmpty()))
 }

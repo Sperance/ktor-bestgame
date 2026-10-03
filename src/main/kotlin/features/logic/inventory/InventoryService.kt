@@ -86,6 +86,7 @@ class InventoryService : KoinComponent {
         val freed = EquipSlots.displaced(target, template.weaponType, wornWeapon) + target
         worn.filter { it.slot in freed }.forEach { it.slot = null }
         item.slot = target
+        hero.pathEquipped = true
         heroes.save(hero, method)
         return item
     }

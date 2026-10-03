@@ -60,6 +60,7 @@ val repositoryModule = module {
     single { features.logic.campaign.TrialService() }
     single { PetService() }
     single { QuestService() }
+    single { features.logic.hero.ExilePathService() }
 }
 
 val cacheModule = module {
@@ -71,7 +72,7 @@ val routeModule = module {
         RouteRegistry(
             listOf(
                 UserRoute(get(), get()),
-                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
+                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
                 GuildRoute(get()),
                 RedemptionCodesRoute(get()),

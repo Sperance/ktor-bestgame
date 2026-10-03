@@ -62,6 +62,7 @@ class HeroRoute(
     private val trials: TrialService,
     private val pets: PetService,
     private val quests: QuestService,
+    private val pathService: features.logic.hero.ExilePathService,
 ) : BaseRoute<Hero>(
     repository = repo,
     entitySerializer = Hero.serializer(),
@@ -138,6 +139,7 @@ class HeroRoute(
             val slot = call.optionalParam("slot")?.let { Slot.of(it) }
             call.respondWithHero(inventory.equip(call.heroId, call.itemId, slot))
         }
+        post("/path/claim") { call.respondWithHero(pathService.claim(call.heroId)) }
         post("/unequip") { call.respondWithHero(inventory.unequip(call.heroId, call.itemId)) }
         post("/socket") { call.respondWithHero(inventory.socket(call.heroId, call.itemId, call.queryParam("nodeCode"))) }
         post("/unsocket") { call.respondWithHero(inventory.unsocket(call.heroId, call.itemId)) }

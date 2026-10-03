@@ -139,7 +139,22 @@
   },
   "starter": {
     "gold": 25,
-    "toolPrefix": "BRONZE_"
+    "toolPrefix": "BRONZE_",
+    "orbs": {
+      "ORB_OF_TRANSMUTATION": 5,
+      "ORB_OF_AUGMENTATION": 3
+    },
+    "magicWeapon": true
+  },
+  "path": {
+    "steps": [
+      {"code": "ZONE", "check": "ZONE", "reward": {"gold": 50, "bag": {"ORB_OF_TRANSMUTATION": 3}}},
+      {"code": "EQUIP", "check": "EQUIP", "reward": {"item": "FLASK_SMALL_MANA", "rarity": "MAGIC"}},
+      {"code": "TREE", "check": "TREE", "reward": {"bag": {"ORB_OF_AUGMENTATION": 3, "ORB_OF_ALTERATION": 2}}},
+      {"code": "SKILL", "check": "SKILL", "reward": {"rare": true}},
+      {"code": "BOSS", "check": "BOSS", "reward": {"gold": 100, "bag": {"ORB_OF_ALCHEMY": 1}}},
+      {"code": "ORB", "check": "ORB", "reward": {"bag": {"CHEST_WOODEN_T1": 1}}}
+    ]
   },
   "auction": {
     "slots": 12,
