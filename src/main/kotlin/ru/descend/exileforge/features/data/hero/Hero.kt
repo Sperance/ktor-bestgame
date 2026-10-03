@@ -179,6 +179,36 @@ data class Hero(
         count(Counter.GOLD_SPENT, gold)
     }
 
+    /** Опыт герою; уровень поднимается по порогам [levelOf] и только растёт. True - уровень вырос. */
+    fun gainExperience(amount: Double, levelOf: (Double) -> Int): Boolean {
+        experience += amount.coerceAtLeast(0.0)
+        val reached = levelOf(experience)
+        if (reached <= level) return false
+        level = reached
+        return true
+    }
+
+    /** Потеря опыта (гибель): не ниже нуля, уровень не падает - вложенные очки дерева остаются. */
+    fun loseExperience(amount: Double) {
+        experience = (experience - amount.coerceAtLeast(0.0)).coerceAtLeast(0.0)
+    }
+
+    /** Уровень ровно [target] с опытом его порога [threshold] (окно тестирования, администратор). */
+    fun setLevel(target: Int, threshold: Double?) {
+        level = target.coerceAtLeast(1)
+        threshold?.let { experience = it }
+    }
+
+    /** Дополнительные очки умений в пределах [cap]. */
+    fun grantPoints(amount: Int, cap: Int) {
+        bonusPoints = (bonusPoints + amount).coerceIn(0, cap)
+    }
+
+    /** Ещё одно место тайника. */
+    fun expandStash() {
+        stashSlots += 1
+    }
+
     fun pet(id: String): Pet? = pets.firstOrNull { it.id == id }
 
     /** Питомцы в деле: боевой и помощник. */

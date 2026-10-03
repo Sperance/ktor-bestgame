@@ -435,7 +435,7 @@ class CampaignService(
 
             RunEventKind.FALL -> {
                 val lost = loot.deathLoss(campaign.combat.death, zone.level, hero.experience, index.classes.threshold(hero.level) ?: 0.0, index.classes.nextThreshold(hero.level))
-                hero.experience -= lost
+                hero.loseExperience(lost)
                 hero.count(Counter.DEATHS)
                 hero.stats.add(Stat.ZONE_DEATHS, mapCode)
                 // Гибель в Ваал-зоне (1.68.0) - та же смерть, а Ваал-зона этой карты при ней израсходована

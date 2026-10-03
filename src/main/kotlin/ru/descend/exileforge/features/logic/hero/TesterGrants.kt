@@ -20,19 +20,18 @@ class TesterGrants(private val index: ContentIndex) {
     private val factory = ItemFactory(index)
 
     fun gold(hero: Hero, amount: Long) {
-        hero.money += amount.coerceIn(0, MAX_GOLD)
+        hero.gain(amount.coerceIn(0, MAX_GOLD))
     }
 
     /** Уровень [level] ровно: опыт - порог уровня, план дерева берёт то, на что теперь хватает очков. */
     fun level(hero: Hero, level: Int) {
         val target = level.coerceIn(1, index.classes.maxLevel)
-        hero.level = target
-        hero.experience = index.classes.threshold(target) ?: hero.experience
+        hero.setLevel(target, index.classes.threshold(target))
         Rewards.followPlan(hero, index)
     }
 
     fun skillPoints(hero: Hero, amount: Int) {
-        hero.bonusPoints = (hero.bonusPoints + amount).coerceIn(0, MAX_POINTS)
+        hero.grantPoints(amount, MAX_POINTS)
         Rewards.followPlan(hero, index)
     }
 

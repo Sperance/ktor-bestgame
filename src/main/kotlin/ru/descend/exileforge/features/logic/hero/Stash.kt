@@ -114,7 +114,7 @@ object Stash {
         if (price <= 0) throw CharacterExceptions.funExceptionStashMax(method, index.rules.stash.maxSlots.toString())
         if (hero.money < price) throw CharacterExceptions.funExceptionGold(method, price.toString())
         hero.pay(price)
-        hero.stashSlots += 1
+        hero.expandStash()
         return price
     }
 }

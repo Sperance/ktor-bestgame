@@ -44,7 +44,7 @@ class MailService(
     }
 
     private fun give(hero: Hero, attachment: MailAttachment) {
-        hero.money += attachment.gold.coerceAtLeast(0)
+        hero.gain(attachment.gold)
         attachment.items.filterKeys { index.item(it) != null }.forEach { (code, amount) -> if (amount > 0) hero.earn(code, amount) }
         attachment.instances.forEach { Stash.giveBack(hero, it, index) }
         val factory = ItemFactory(index)

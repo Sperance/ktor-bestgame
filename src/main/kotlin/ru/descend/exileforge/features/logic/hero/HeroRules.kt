@@ -77,12 +77,7 @@ object Rewards {
 
     /** Уровень только растёт: потеря опыта не забирает вложенных очков дерева. */
     fun addExperience(hero: Hero, amount: Double, index: ContentIndex) {
-        hero.experience += amount
-        val reached = index.classes.levelOf(hero.experience)
-        if (reached > hero.level) {
-            hero.level = reached
-            followPlan(hero, index)
-        }
+        if (hero.gainExperience(amount, index.classes::levelOf)) followPlan(hero, index)
     }
 
     /** Берёт узлы плана дерева, на которые теперь хватает очков (1.45.0). */

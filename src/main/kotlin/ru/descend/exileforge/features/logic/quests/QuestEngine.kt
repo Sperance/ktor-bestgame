@@ -164,7 +164,7 @@ class QuestEngine(private val content: ContentStore) {
 
     /** Награда ложится на героя; золото не двигает задания «заработать» - иначе награда платила бы сама за себя. */
     fun grant(hero: Hero, reward: QuestReward) {
-        hero.money += reward.gold
+        hero.gain(reward.gold)
         Counter.add(hero.counters, Counter.GOLD_EARNED, reward.gold)
         if (reward.experience > 0) Rewards.addExperience(hero, reward.experience, index)
         reward.orbs.forEach { (code, amount) -> if (index.item(code) != null) hero.earn(code, amount) }

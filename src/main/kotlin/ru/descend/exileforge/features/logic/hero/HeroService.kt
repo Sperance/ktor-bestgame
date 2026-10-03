@@ -108,7 +108,7 @@ object Starter {
         if (hero.tree.isEmpty()) hero.tree += TakenNode(heroClass.startNode)
         if (hero.skills.learned.isEmpty()) hero.skills = index.skillRules.starter(heroClass.code)
         if (hero.items.isNotEmpty()) return
-        hero.money += rules.gold
+        hero.gain(rules.gold)
         rules.orbs.forEach { (code, amount) -> if (index.template(code) != null) hero.earn(code, amount) }
         index.template(index.rules.flasks.starter)?.let { flask ->
             hero.items += factory.create(Hero.newItemId(), flask, flask.rarity, dice).also { it.slot = Slot.FLASK }
