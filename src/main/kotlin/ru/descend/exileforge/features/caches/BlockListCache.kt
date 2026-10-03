@@ -9,6 +9,9 @@ import ru.descend.exileforge.features.data.blockList.BlockListRepository
  * Правится прямо в Mongo; кэш перечитывается раз в минуту ([ru.descend.exileforge.features.logic.auth.BlockWatch]).
  */
 class BlockListCache(repository: BlockListRepository) : MongoCache<BlockList, BlockListRepository>(repository) {
+    init {
+        repository.cache = this
+    }
 
     private fun active(): List<BlockList> = LocalDateTime.now().let { now -> getCache().filter { !it.deleted && it.expiredAt > now } }
 

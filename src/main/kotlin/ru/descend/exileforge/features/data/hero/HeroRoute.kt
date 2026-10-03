@@ -50,6 +50,7 @@ import ru.descend.exileforge.server.addons.keepIdempotentReport
 /** Маршруты героя: общий CRUD документа и все игровые команды под `/api/v1/hero`. */
 class HeroRoute(
     private val repo: HeroRepository,
+    private val service: ru.descend.exileforge.features.logic.hero.HeroService,
     private val content: ContentStore,
     private val inventory: InventoryService,
     private val tree: TreeService,
@@ -70,9 +71,13 @@ class HeroRoute(
     /** Герой клиенту - без семени наград (1.30.0): его не видит никто, кроме сервера. */
     override fun present(entity: Hero): Hero = entity.copy(rewards = RewardStream())
 
+    override suspend fun create(entities: List<Hero>, session: com.mongodb.kotlin.client.coroutine.ClientSession): List<Hero> = service.createAll(entities, session)
+
+    override suspend fun delete(id: String, session: com.mongodb.kotlin.client.coroutine.ClientSession) = service.delete(id, session)
+
     override fun additionalRoutes(route: Route) = with(route) {
         get("/byUser") {
-            call.respondOk(repo.findByUser(call.queryParam("userId")).map(::present))
+            call.respondOk(service.heroesOf(call.queryParam("userId")).map(::present))
         }
 
         // Герой одним запросом - тот же снимок, что приходит в ответ команды, с ETag.

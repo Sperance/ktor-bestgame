@@ -23,10 +23,10 @@ import ru.descend.exileforge.features.data.user.UserRepository
  * Весь путь `/api/v1/admin` закрыт политикой доступа для всех, кроме администратора.
  */
 class AdminRoute(
-    private val users: UserRepository,
+    private val users: ru.descend.exileforge.features.logic.auth.UserService,
     private val sessions: AuthSessionRepository,
-    private val reports: BugReportRepository,
-    private val mail: MailRepository,
+    private val reports: ru.descend.exileforge.features.logic.feedback.FeedbackService,
+    private val mail: ru.descend.exileforge.features.logic.mail.MailService,
 ) : RouteRegistrar {
     override fun register(routing: Routing) {
         routing.route(apiPath("admin")) {

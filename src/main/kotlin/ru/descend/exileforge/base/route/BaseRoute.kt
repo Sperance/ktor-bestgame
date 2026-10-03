@@ -1,5 +1,6 @@
 package ru.descend.exileforge.base.route
 
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import io.ktor.http.ContentType
 import io.ktor.server.request.receive
 import io.ktor.server.response.respondText
@@ -129,6 +130,14 @@ open class BaseRoute<T : StockEntity>(
         return text
     }
 
+    /** Вставка общего `POST`; сущность со своим сервисом создания подменяет её. */
+    protected open suspend fun create(entities: List<T>, session: ClientSession): List<T> = repository.insertMany(entities, session)
+
+    /** Удаление общего `DELETE`; сущность со следами в других коллекциях подменяет его. */
+    protected open suspend fun delete(id: String, session: ClientSession) {
+        repository.deleteById(id, session)
+    }
+
     private fun Route.pagedRoute() = get("/paged") {
         guarded("pagedRoute") {
             val paged = repository.findPaged(call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT))
@@ -143,9 +152,7 @@ open class BaseRoute<T : StockEntity>(
     private fun Route.createRoute() = post {
         guarded("createRoute") {
             val entities = AppJson.decodeFromJsonElement(listSerializer, call.receive<JsonArray>())
-            val created = transactionExecute("[$basePath::createRoute] ${entities.size}") { session ->
-                repository.insertMany(entities, session)
-            }
+            val created = transactionExecute("[$basePath::createRoute] ${entities.size}") { session -> create(entities, session) }
             call.respondJson(listResponse, ApiMongoResponse.ok(created.map(::present)))
         }
     }
@@ -167,7 +174,7 @@ open class BaseRoute<T : StockEntity>(
     private fun Route.deleteRoute() = delete {
         guarded("deleteRoute") {
             val id = call.idParam()
-            transactionExecute("[$basePath]::deleteRoute $id") { session -> repository.deleteById(id, session) }
+            transactionExecute("[$basePath]::deleteRoute $id") { session -> delete(id, session) }
             call.respondOk("system.deleted")
         }
     }

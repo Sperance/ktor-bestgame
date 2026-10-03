@@ -19,7 +19,7 @@ import ru.descend.exileforge.server.addons.BUG_LIMIT
  * адреса. Сессия, если она есть, узнаётся здесь же: политика доступа этот маршрут не проверяет. Читает коллекцию
  * только администратор (общее чтение закрытой коллекции).
  */
-class BugReportRoute(private val repo: BugReportRepository, private val sessions: AuthSessionRepository) :
+class BugReportRoute(private val repo: BugReportRepository, private val service: ru.descend.exileforge.features.logic.feedback.FeedbackService, private val sessions: AuthSessionRepository) :
     BaseRoute<BugReport>(
         repository = repo,
         entitySerializer = BugReport.serializer(),
@@ -38,7 +38,7 @@ class BugReportRoute(private val repo: BugReportRepository, private val sessions
             post {
                 val request = call.receive<BugReportRequest>()
                 val userId = Tokens.fromHeader(call.request.headers[HttpHeaders.Authorization])?.let { sessions.resolve(it)?.userId }
-                call.respondOk(repo.file(request, userId, call.request.origin.remoteAddress))
+                call.respondOk(service.file(request, userId, call.request.origin.remoteAddress))
             }
         }
     }

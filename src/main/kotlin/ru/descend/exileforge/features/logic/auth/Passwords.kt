@@ -1,15 +1,27 @@
 package ru.descend.exileforge.features.logic.auth
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import ru.descend.exileforge.base.exception.model.UserExceptions
 import java.security.MessageDigest
 import java.security.SecureRandom
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
-/**
- * Хеши паролей: PBKDF2-SHA256 из самого JDK, с солью и числом итераций внутри строки:
- * `pbkdf2$<итерации>$<соль>$<хеш>`. Так строка описывает себя сама, и поднять число итераций
- * потом можно, не трогая записанные хеши: [needsRehash] говорит, когда хеш пора переписать.
- */
 object Passwords {
+    /** Правила пароля (US_0xx): длина, цифра, заглавная, без пробелов. */
+    fun check(password: String) {
+        if (password.isEmpty()) throw UserExceptions.funExceptionPasswordEmpty("checkPassword")
+        if (password.length !in 6..64) throw UserExceptions.funExceptionPasswordLength("checkPassword")
+        if (password.none { it.isDigit() }) throw UserExceptions.funExceptionPasswordOneDigit("checkPassword")
+        if (password.none { it.isUpperCase() }) throw UserExceptions.funExceptionPasswordOneUppercase("checkPassword")
+        if (password.contains(" ")) throw UserExceptions.funExceptionPasswordWhitespace("checkPassword")
+    }
+
+    /**
+     * PBKDF2 на сотнях тысяч итераций - это сотни миллисекунд процессора: он считается на
+     * пуле вычислений, а не на потоках, которые обслуживают запросы.
+     */
+    suspend fun <R> offCpu(block: () -> R): R = withContext(Dispatchers.Default) { block() }
 
     private const val SCHEME = "pbkdf2"
 

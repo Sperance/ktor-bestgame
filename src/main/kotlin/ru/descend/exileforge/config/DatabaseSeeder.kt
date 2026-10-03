@@ -40,6 +40,7 @@ object DatabaseSeeder : KoinComponent {
     private val users: UserRepository by inject()
     private val sessions: AuthSessionRepository by inject()
     private val heroes: HeroRepository by inject()
+    private val heroService: ru.descend.exileforge.features.logic.hero.HeroService by inject()
     private val lots: AuctionLotRepository by inject()
     private val guilds: GuildRepository by inject()
     private val guildEvents: GuildEventRepository by inject()
@@ -109,7 +110,7 @@ object DatabaseSeeder : KoinComponent {
         if (all.isEmpty()) return
         val classes = content.index.classes.classes.map { it.code }
         all.forEachIndexed { i, user ->
-            heroes.insert(Hero(userId = user._id, name = "${user.name} ${classes[i % classes.size].lowercase().replaceFirstChar(Char::uppercase)}", heroClass = classes[i % classes.size], level = 10, experience = content.index.classes.threshold(10) ?: 0.0), session)
+            heroService.create(Hero(userId = user._id, name = "${user.name} ${classes[i % classes.size].lowercase().replaceFirstChar(Char::uppercase)}", heroClass = classes[i % classes.size], level = 10, experience = content.index.classes.threshold(10) ?: 0.0), session)
         }
         printLog("  → ${all.size} heroes created")
     }

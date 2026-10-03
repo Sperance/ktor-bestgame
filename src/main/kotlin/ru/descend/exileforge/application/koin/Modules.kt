@@ -40,16 +40,21 @@ val contentModule = module {
 
 val repositoryModule = module {
     single { UserRepository() }
+    single { ru.descend.exileforge.features.logic.auth.UserService(get()) }
     single { AuthSessionRepository() }
-    single { HeroRepository() }
+    single { HeroRepository(get()) }
+    single { ru.descend.exileforge.features.logic.hero.HeroService(get(), get(), get(), get(), get()) }
     single { AuctionLotRepository() }
     single { GuildRepository() }
     single { GuildEventRepository() }
     single { BlockListRepository() }
-    single { RedemptionCodesRepository() }
+    single { RedemptionCodesRepository(get()) }
+    single { ru.descend.exileforge.features.logic.redemption.RedemptionService(get(), get(), get(), get()) }
     single<ru.descend.exileforge.features.data.bugReport.FeedbackExport> { ru.descend.exileforge.features.data.bugReport.AsanaExport(ASANA_TOKEN, ASANA_PROJECT, ASANA_BUG_SECTION, ASANA_SUGGESTION_SECTION) }
     single { ru.descend.exileforge.features.data.bugReport.BugReportRepository() }
     single { ru.descend.exileforge.features.data.mail.MailRepository() }
+    single { ru.descend.exileforge.features.logic.mail.MailService(get(), get(), get(), get()) }
+    single { ru.descend.exileforge.features.logic.feedback.FeedbackService(get(), get(), get(), get(), get()) }
     single { InventoryService() }
     single { TreeService() }
     single { AtlasService() }
@@ -71,14 +76,14 @@ val routeModule = module {
     single {
         RouteRegistry(
             listOf(
-                UserRoute(get(), get()),
-                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
+                UserRoute(get(), get(), get()),
+                HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
                 GuildRoute(get()),
-                RedemptionCodesRoute(get()),
-                ru.descend.exileforge.features.data.bugReport.BugReportRoute(get(), get()),
+                RedemptionCodesRoute(get(), get()),
+                ru.descend.exileforge.features.data.bugReport.BugReportRoute(get(), get(), get()),
                 ru.descend.exileforge.features.data.admin.AdminRoute(get(), get(), get(), get()),
-                ru.descend.exileforge.features.data.mail.MailRoute(get()),
+                ru.descend.exileforge.features.data.mail.MailRoute(get(), get()),
             ),
         )
     }

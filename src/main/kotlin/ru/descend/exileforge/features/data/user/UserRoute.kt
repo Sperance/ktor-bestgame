@@ -20,6 +20,7 @@ import ru.descend.exileforge.server.addons.PASSWORD_LIMIT
  */
 class UserRoute(
     private val repo: UserRepository,
+    private val service: ru.descend.exileforge.features.logic.auth.UserService,
     private val sessions: AuthSessionRepository,
 ) : BaseRoute<User>(
     repository = repo,
@@ -30,14 +31,14 @@ class UserRoute(
         rateLimit(LOGIN_LIMIT) {
             post("/login") {
                 val request = call.receive<LoginRequest>()
-                call.respondOk(signedIn(repo.authenticate(request.login, request.password)))
+                call.respondOk(signedIn(service.authenticate(request.login, request.password)))
             }
             post("/byDeviceId") {
-                val (user, secret) = repo.createByDevice()
+                val (user, secret) = service.createByDevice()
                 call.respondOk(signedIn(user).copy(deviceSecret = secret))
             }
             post("/login/byDeviceId") {
-                call.respondOk(signedIn(repo.findByDeviceId(call.receive<DeviceRequest>().deviceId)))
+                call.respondOk(signedIn(service.loginByDevice(call.receive<DeviceRequest>().deviceId)))
             }
         }
         // Аккаунт текущей сессии: так клиент восстанавливает вход по сохранённому токену.
@@ -54,7 +55,7 @@ class UserRoute(
             post("/changePassword") {
                 val caller = call.attributes[CallerKey]
                 val change = call.receive<PasswordChange>()
-                val result = repo.changePassword(caller.user._id, change.password, change.newPassword)
+                val result = service.changePassword(caller.user._id, change.password, change.newPassword)
                 sessions.revokeAll(caller.user._id, except = caller.token)
                 call.respondOk(result)
             }

@@ -11,12 +11,12 @@ import ru.descend.exileforge.base.route.respondOk
 import ru.descend.exileforge.features.logic.auth.caller
 
 /** Почта (1.69.0): ящик своего аккаунта, прочитать, забрать вложение героем аккаунта, удалить. */
-class MailRoute(private val repo: MailRepository) : RouteRegistrar {
+class MailRoute(private val repo: MailRepository, private val service: ru.descend.exileforge.features.logic.mail.MailService) : RouteRegistrar {
     override fun register(routing: Routing) {
         routing.route(apiPath("mail")) {
             get("/inbox") { call.respondOk(repo.inbox(me())) }
             post("/read") { call.respondOk(repo.markRead(me(), call.queryParam("id"))) }
-            post("/claim") { call.respondOk(repo.claim(me(), call.queryParam("id"), call.heroId)) }
+            post("/claim") { call.respondOk(service.claim(me(), call.queryParam("id"), call.heroId)) }
             post("/delete") {
                 repo.remove(me(), call.queryParam("id"))
                 call.respondOk(true)

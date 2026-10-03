@@ -10,7 +10,7 @@ import ru.descend.exileforge.features.logic.hero.respondWithHero
 import ru.descend.exileforge.server.addons.REDEEM_LIMIT
 
 /** Промокоды: администратор их заводит и удаляет, игрок - погашает. */
-class RedemptionCodesRoute(private val repo: RedemptionCodesRepository) :
+class RedemptionCodesRoute(private val repo: RedemptionCodesRepository, private val service: ru.descend.exileforge.features.logic.redemption.RedemptionService) :
     BaseRoute<RedemptionCodes>(
         repository = repo,
         entitySerializer = RedemptionCodes.serializer(),
@@ -19,7 +19,7 @@ class RedemptionCodesRoute(private val repo: RedemptionCodesRepository) :
     override fun additionalRoutes(route: Route) = with(route) {
         rateLimit(REDEEM_LIMIT) {
             post("/redeem") {
-                call.respondWithHero(repo.redeem(call.heroId, call.queryParam("code")))
+                call.respondWithHero(service.redeem(call.heroId, call.queryParam("code")))
             }
         }
     }

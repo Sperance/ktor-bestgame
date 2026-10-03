@@ -7,65 +7,35 @@ import com.mongodb.kotlin.client.coroutine.ClientSession
 import com.sperance.exileforge.rules.content.ContentIndex
 import com.sperance.exileforge.rules.content.Counter
 import com.sperance.exileforge.rules.content.GuildQuestLog
-import com.sperance.exileforge.rules.content.HeroClass
-import com.sperance.exileforge.rules.content.ItemTemplate
-import com.sperance.exileforge.rules.content.Rarity
-import com.sperance.exileforge.rules.content.Slot
-import com.sperance.exileforge.rules.content.TakenNode
 import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
-import com.sperance.exileforge.rules.roll.ItemInstance
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.LocalDateTime
 import org.bson.BsonDocument
 import org.bson.Document
 import org.bson.conversions.Bson
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import ru.descend.exileforge.CONST_FIELD_UPDATED
 import ru.descend.exileforge.CONST_FIELD_VERSION
-import ru.descend.exileforge.base.exception.model.AuthExceptions
 import ru.descend.exileforge.base.exception.model.CharacterExceptions
-import ru.descend.exileforge.base.exception.model.ProgressionExceptions
 import ru.descend.exileforge.base.repository.BaseRepository
 import ru.descend.exileforge.base.repository.IndexSpec
 import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.config.MongoFactory.transactionExecute
 import ru.descend.exileforge.extensions.now
-import ru.descend.exileforge.features.data.auction.AuctionLotRepository
-import ru.descend.exileforge.features.data.guild.GuildRepository
-import ru.descend.exileforge.features.data.user.User
-import ru.descend.exileforge.features.data.user.UserRepository
-import ru.descend.exileforge.features.logic.auth.caller
 
-class HeroRepository :
-    BaseRepository<Hero>(Hero::class),
-    KoinComponent {
-    private val users: UserRepository by inject()
-    private val lots: AuctionLotRepository by inject()
-    private val guilds: GuildRepository by inject()
-    private val content: ContentStore by inject()
+/**
+ * Документ героя: чтение с починкой под контент, запись с заходом ([HeroRunStore]) и точечные выборки.
+ * Создание и удаление с их последствиями для аккаунта, лотов и гильдии - в
+ * [ru.descend.exileforge.features.logic.hero.HeroService].
+ */
+class HeroRepository(private val content: ContentStore) : BaseRepository<Hero>(Hero::class) {
     private val index: ContentIndex get() = content.index
 
     override val indexes = listOf(IndexSpec.unique("idx_unique_name", "name"), IndexSpec.on("userId"))
 
     private companion object {
         const val OWNERS_MAX = 50_000
-        const val MIN_NAME = 2
-        const val MAX_NAME = 24
-        const val MAX_DESCRIPTION = 200
-    }
-
-    /**
-     * Игрок создаёт героя общим POST и мог прислать в теле что угодно: десятый уровень, мешок золота.
-     * От игрока берутся только имя, описание и класс, остальное начинается с нуля; администратор и
-     * сидинг пишут как есть.
-     */
-    override suspend fun admit(entity: Hero): Hero = if (caller()?.isAdmin != false) {
-        entity
-    } else {
-        Hero(userId = entity.userId, name = entity.name.trim(), description = entity.description.trim().take(MAX_DESCRIPTION), heroClass = entity.heroClass)
     }
 
     /**
@@ -104,29 +74,6 @@ class HeroRepository :
         index.rules.retired.forEach { (old, new) -> hero.bag.remove(old)?.let { amount -> hero.bag.merge(new, amount, Long::plus) } }
     }
 
-    override suspend fun validateBeforeInsert(entity: Hero, session: ClientSession) {
-        val method = "validateBeforeInsert"
-        val player = caller()?.takeUnless { it.isAdmin }
-        if (player != null && entity.userId != player.user._id) throw AuthExceptions.funExceptionNotYourAccount(method, entity.userId)
-        if (entity.name.isBlank()) throw CharacterExceptions.funExceptionName(method)
-        // Длина имени (1.53.0): документ и уникальный индекс не раздуваются присланной простынёй
-        val longest = minOf(MAX_NAME, index.rules.inputs.heroName)
-        if (entity.name.length !in MIN_NAME..longest) throw CharacterExceptions.funExceptionNameLength(method, "$MIN_NAME-$longest")
-        val heroClass = index.heroClass(entity.heroClass) ?: throw ProgressionExceptions.funExceptionClassNotFound(method, entity.heroClass)
-        // Имя уникально в индексе, поэтому занятым считается и имя мягко удалённого героя
-        if (findByField(Hero::name, entity.name, includeDeleted = true) != null) throw CharacterExceptions.funExceptionNameDuplicate(method, entity.name)
-        val owner = users.findByField(User::_id, entity.userId, session) ?: throw CharacterExceptions.funExceptionUserNotFound(method, entity.userId)
-        if (owner.countCharacters >= index.rules.maxCharacters) throw CharacterExceptions.funExceptionMaxChars(method, index.rules.maxCharacters.toString())
-        Starter.grant(entity, index, heroClass)
-    }
-
-    override suspend fun validateAfterInsert(entity: Hero, session: ClientSession) {
-        val owner = users.findByField(User::_id, entity.userId, session) ?: throw CharacterExceptions.funExceptionUserNotFound("validateAfterInsert", entity.userId)
-        owner.countCharacters++
-        if (owner.countCharacters > index.rules.maxCharacters) throw CharacterExceptions.funExceptionMaxChars("validateAfterInsert", index.rules.maxCharacters.toString())
-        users.update(owner, session)
-    }
-
     /** Заход героя живёт в [HeroRunStore]: в документе героя его нет. */
     override fun stored(document: BsonDocument) {
         (document["campaign"] as? BsonDocument)?.remove("run")
@@ -139,20 +86,10 @@ class HeroRepository :
 
     override suspend fun validateAfterDelete(entity: Hero, session: ClientSession) {
         HeroRunStore.delete(entity._id, session)
-        lots.deleteActiveBySeller(entity._id, session)
-        guilds.forget(entity, session)
-        // Место под героя освобождается, иначе после трёх удалений нового не создать
-        users.findByField(User::_id, entity.userId, session)?.let { owner ->
-            owner.countCharacters = (owner.countCharacters - 1).coerceAtLeast(0)
-            users.update(owner, session)
-        }
     }
 
-    /** Герои одного игрока - то, из чего он выбирает при входе; их не больше трёх, страниц нет. */
-    suspend fun findByUser(userId: String): List<Hero> {
-        if (users.findByField(User::_id, userId) == null) throw CharacterExceptions.funExceptionUserNotFound("findByUser", userId)
-        return findByFilter(Filters.eq("userId", userId))
-    }
+    /** Герои одного аккаунта - то, из чего он выбирает при входе; их не больше трёх, страниц нет. */
+    suspend fun findByUser(userId: String): List<Hero> = findByFilter(Filters.eq("userId", userId))
 
     /** Владелец героя - одно поле по `_id`: доступ спрашивает его на каждой команде, а владелец не меняется, так что ответ помнится (1.53.0). */
     suspend fun ownerOf(heroId: String): String? = owners.get(heroId) ?: collection.withDocumentClass<Document>().find(readFilter(Filters.eq("_id", heroId)))
@@ -209,44 +146,3 @@ class HeroRepository :
 
 /** Герой в составе гильдии: только то, что видно в списке. */
 data class HeroCard(val id: String, val name: String, val heroClass: String, val level: Int)
-
-/**
- * Стартовый набор нового героя (1.12.0): узел класса, первые умения, золото на первые покупки, оружие и броня
- * класса надетыми, фляга на поясе и инструмент каждой профессии в своём слоте. Заполняет только пустое -
- * администратор может прислать героя готовым.
- */
-object Starter {
-    fun grant(hero: Hero, index: ContentIndex, heroClass: HeroClass) {
-        val dice = Dice.system()
-        val factory = ItemFactory(index)
-        val rules = index.rules.starter
-        if (hero.tree.isEmpty()) hero.tree += TakenNode(heroClass.startNode)
-        if (hero.skills.learned.isEmpty()) hero.skills = index.skillRules.starter(heroClass.code)
-        if (hero.items.isNotEmpty()) return
-        hero.money += rules.gold
-        rules.orbs.forEach { (code, amount) -> if (index.template(code) != null) hero.earn(code, amount) }
-        index.template(index.rules.flasks.starter)?.let { flask ->
-            hero.items += factory.create(Hero.newItemId(), flask, flask.rarity, dice).also { it.slot = Slot.FLASK }
-        }
-        // Оружие (1.2.0) и броня (1.12.0) класса - обычные, надетые сразу: герой не выходит на первую карту с пустыми руками
-        (listOf(heroClass.weapon) + heroClass.armour).mapNotNull(index::template).forEach { gear ->
-            val weapon = rules.magicWeapon && gear.code == heroClass.weapon
-            hero.items += (if (weapon) magicWeapon(factory, gear, dice) else factory.create(Hero.newItemId(), gear, Rarity.COMMON, dice)).also { it.slot = gear.slot }
-        }
-        index.professions.professions.forEach { profession ->
-            index.templatesBySlot[profession.tool]?.firstOrNull { it.code.startsWith(rules.toolPrefix) }?.let { tool ->
-                hero.items += factory.create(Hero.newItemId(), tool, Rarity.COMMON, dice).also { it.slot = tool.slot }
-            }
-        }
-    }
-
-    /** Волшебное оружие с одной строкой урона; нет такой в пуле - волшебное как выпало (дно редкости держит фабрика). */
-    private fun magicWeapon(factory: ItemFactory, template: ItemTemplate, dice: Dice): ItemInstance {
-        val item = factory.create(Hero.newItemId(), template, Rarity.MAGIC, dice)
-        val affixes = factory.affixes
-        val damage = affixes.affixPool(template).filter { (def) -> def.effects.any { "DAMAGE" in it.stat } }
-        val kept = affixes.permanent(item.rolls)
-        affixes.rollExtraFrom(damage, template, Rarity.MAGIC, kept, dice, item.itemLevel)?.let { item.rolls = kept + it }
-        return item
-    }
-}
