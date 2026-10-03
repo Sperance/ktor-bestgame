@@ -8772,5 +8772,19 @@
   "guild.log.TREE_NODE": "{0} took a tree node: {1}",
   "guild.log.TREE_RESET": "{0} reset the guild tree",
   "guild.log.STASH_IN": "{0} put into the stash: {1}",
-  "guild.log.STASH_OUT": "{0} took from the stash: {1}"
+  "guild.log.STASH_OUT": "{0} took from the stash: {1}",
+  "item.PET_ORB_BREEDING.name": "Orb of Breeding",
+  "item.PET_ORB_BREEDING.description": "Breeds two combat pets of level 20+ in the incubator: a 25% chance of a hybrid of their elements, otherwise an egg of one parent.",
+  "job.PET_ORB_BREEDING_BREW.name": "Brew: Orb of Breeding",
+  "error.CH_033": "Pets {0} cannot be bred now",
+  "pet.EMBER_RHINO": "Ember Rhino",
+  "pet.FROST_BEAR": "Frost Bear",
+  "pet.STORM_LION": "Storm Lion",
+  "pet.BLIGHT_HOUND": "Blight Hound",
+  "pet.STEAM_DRAKE": "Steam Drake",
+  "pet.THUNDER_PHOENIX": "Thunder Phoenix",
+  "pet.HELL_SERPENT": "Hell Serpent",
+  "pet.AURORA_FOX": "Aurora Fox",
+  "pet.VOID_WOLF": "Void Wolf",
+  "pet.STORM_WRAITH": "Storm Wraith"
 }

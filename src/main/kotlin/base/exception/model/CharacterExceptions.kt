@@ -9,6 +9,7 @@ object CharacterExceptions {
         }
     }
 
+    fun funExceptionBreed(errorMethod: String, value: String? = "") = CharacterException("Pets $value cannot be bred now", errorMethod, "CH_033", listOf(value.orEmpty()))
     fun funExceptionTemper(errorMethod: String, value: String? = "") = CharacterException("Item $value cannot be tempered", errorMethod, "CH_032", listOf(value.orEmpty()))
     fun funExceptionName(errorMethod: String, value: String? = "") = CharacterException("Character name is null or empty", errorMethod, "CH_002", listOf(value.orEmpty()))
     fun funExceptionNameLength(errorMethod: String, value: String? = "") = CharacterException("Character name must be $value characters long", errorMethod, "CH_029", listOf(value.orEmpty()))

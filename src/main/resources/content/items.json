@@ -3311,6 +3311,12 @@
       "category": "MATERIAL",
       "subCategory": "SCARAB",
       "price": 300
+    },
+    {
+      "code": "PET_ORB_BREEDING",
+      "category": "PET",
+      "subCategory": "PET_ORB",
+      "price": 400
     }
   ]
 }

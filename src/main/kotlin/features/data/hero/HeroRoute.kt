@@ -212,6 +212,7 @@ class HeroRoute(
             }
             post("/activate") { call.respondWithHero(pets.activate(call.heroId, call.queryParam("petId"))) }
             post("/release") { call.respondWithHero(pets.release(call.heroId, call.queryParam("petId"))) }
+            post("/breed") { call.respondWithHero(pets.breed(call.heroId, call.queryParam("first"), call.queryParam("second"))) }
         }
 
         // Ремёсла: работа идёт на сервере по времени и досчитывается при каждом обращении.

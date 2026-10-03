@@ -154,6 +154,29 @@ class PetService : KoinComponent {
         hero.gain(index.rules.pets.releasePrice(pet))
     }
 
+    /**
+     * Скрещивание (1.74.0): два разных боевых питомца не ниже уровня правила, бодрые, и сфера скрещивания. Гибрид встаёт
+     * в зверинец, иначе в сумку ложится яйцо биома одного из родителей; оба родителя устают на правило часов.
+     */
+    suspend fun breed(heroId: String, first: String, second: String): PetState = command(heroId, "petBreed") { hero, pets ->
+        val method = "petBreed"
+        val rule = index.pets.breeding
+        val now = System.currentTimeMillis()
+        val a = requirePet(hero, first, method)
+        val b = requirePet(hero, second, method)
+        val fit = { pet: Pet -> pets.species(pet.species)?.kind == com.sperance.exileforge.rules.content.PetKind.COMBAT && pet.level >= rule.minLevel && pet.tiredUntil <= now }
+        if (a.id == b.id || !fit(a) || !fit(b)) throw CharacterExceptions.funExceptionBreed(method, "${a.species}+${b.species}")
+        hero.spend(rule.orb, 1, method)
+        val dice = Dice.system()
+        val hybrid = pets.breed(a, b, Hero.newItemId(), dice)
+        if (hybrid != null) {
+            if (hero.pets.size >= cap) throw CharacterExceptions.funExceptionMenagerieFull(method, "$cap")
+            hero.pets += hybrid
+        } else pets.breedEgg(a, b, dice)?.let { hero.earn(it, 1) }
+        hero.replacePet(a.copy(tiredUntil = now + rule.restMillis))
+        hero.replacePet(b.copy(tiredUntil = now + rule.restMillis))
+    }
+
     private fun requirePet(hero: Hero, id: String, method: String): Pet = hero.pet(id) ?: throw CharacterExceptions.funExceptionPetNotFound(method, id)
 
     private suspend fun command(heroId: String, method: String, block: (Hero, Menagerie) -> Unit): PetState {

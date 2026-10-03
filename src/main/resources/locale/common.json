@@ -1466,5 +1466,6 @@
   "item.POTION_LIFE_T3.trade": "Greater Vitality Potion",
   "item.SCARAB_CHESTS.trade": "Cache Scarab",
   "item.SCARAB_PACK.trade": "Pack Scarab",
-  "item.SCARAB_RARITY.trade": "Fortune Scarab"
+  "item.SCARAB_RARITY.trade": "Fortune Scarab",
+  "item.PET_ORB_BREEDING.trade": "Orb of Breeding"
 }

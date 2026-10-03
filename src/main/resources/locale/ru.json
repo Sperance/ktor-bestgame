@@ -8772,5 +8772,19 @@
   "guild.log.TREE_NODE": "{0} взял узел древа: {1}",
   "guild.log.TREE_RESET": "{0} сбросил древо гильдии",
   "guild.log.STASH_IN": "{0} положил в хранилище: {1}",
-  "guild.log.STASH_OUT": "{0} взял из хранилища: {1}"
+  "guild.log.STASH_OUT": "{0} взял из хранилища: {1}",
+  "item.PET_ORB_BREEDING.name": "Сфера скрещивания",
+  "item.PET_ORB_BREEDING.description": "Скрещивает двух боевых питомцев от 20 уровня в инкубаторе: с шансом 25% рождается гибрид их стихий, иначе — яйцо одного из родителей.",
+  "job.PET_ORB_BREEDING_BREW.name": "Варка: сфера скрещивания",
+  "error.CH_033": "Питомцев {0} сейчас не скрестить",
+  "pet.EMBER_RHINO": "Огненный носорог",
+  "pet.FROST_BEAR": "Ледяной медведь",
+  "pet.STORM_LION": "Грозовой лев",
+  "pet.BLIGHT_HOUND": "Чумной пёс",
+  "pet.STEAM_DRAKE": "Паровой дракончик",
+  "pet.THUNDER_PHOENIX": "Громовой феникс",
+  "pet.HELL_SERPENT": "Адский змей",
+  "pet.AURORA_FOX": "Полярная лиса",
+  "pet.VOID_WOLF": "Волк пустоты",
+  "pet.STORM_WRAITH": "Грозовой призрак"
 }

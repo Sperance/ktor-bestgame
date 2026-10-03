@@ -46615,6 +46615,421 @@
           "alpha": 0.5
         }
       ]
+    },
+    "gl_pet_ember_rhino": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#6b4a12"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#d24a43",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#d24a43"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#6b4a12",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_frost_bear": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#5a4632"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#8fd3ff",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#8fd3ff"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#5a4632",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_storm_lion": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#8b6b2a"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#ffd34a",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#ffd34a"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#8b6b2a",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_blight_hound": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#3a2a4a"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#7fdc5a",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#7fdc5a"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#3a2a4a",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_steam_drake": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#7fd3ff"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#ff8a4d",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#ff8a4d"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#7fd3ff",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_thunder_phoenix": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#ffe04a"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#ff6a2d",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#ff6a2d"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#ffe04a",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_hell_serpent": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#5a1f6b"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#ff4d2d",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#ff4d2d"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#5a1f6b",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_aurora_fox": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#b07cff"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#9fe8ff",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#9fe8ff"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#b07cff",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_void_wolf": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#3a1f5a"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#6fb8ff",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#6fb8ff"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#3a1f5a",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_pet_storm_wraith": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M6 32 a26 26 0 1 0 52 0 a26 26 0 1 0 -52 0Z",
+          "color": "#4b2a7a"
+        },
+        {
+          "d": "M32 6 A26 26 0 0 1 32 58Z",
+          "color": "#d8c8ff",
+          "alpha": 0.85
+        },
+        {
+          "d": "M20 40 C20 28 26 20 32 20 C38 20 44 28 44 40 C44 48 38 52 32 52 C26 52 20 48 20 40Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M22 24 L18 14 L28 20Z M42 24 L46 14 L36 20Z",
+          "color": "#1a1f26",
+          "alpha": 0.75
+        },
+        {
+          "d": "M26 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z M33 36 a2.5 2.5 0 1 0 5 0 a2.5 2.5 0 1 0 -5 0Z",
+          "color": "#d8c8ff"
+        },
+        {
+          "d": "M29 45 L32 48 L35 45",
+          "color": "#4b2a7a",
+          "line": 1.6
+        },
+        {
+          "d": "M14 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.35
+        }
+      ]
+    },
+    "gl_orb_pet_orb_breeding": {
+      "viewBox": 64,
+      "style": "glass",
+      "paths": [
+        {
+          "d": "M10 32 a22 22 0 1 0 44 0 a22 22 0 1 0 -44 0Z",
+          "color": "#c0306a"
+        },
+        {
+          "d": "M18 32 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0Z",
+          "color": "#ff8fbf",
+          "alpha": 0.8
+        },
+        {
+          "d": "M32 44 C24 38 22 32 26 28 C29 26 31 28 32 30 C33 28 35 26 38 28 C42 32 40 38 32 44Z",
+          "color": "#ffffff",
+          "alpha": 0.9
+        },
+        {
+          "d": "M20 22 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0Z",
+          "color": "#ffffff",
+          "alpha": 0.5
+        }
+      ]
     }
   },
   "icons": {
@@ -49195,6 +49610,17 @@
     "item.POTION_LIFE_T3": "gl_potion_life_t3",
     "item.SCARAB_CHESTS": "gl_scarab_chests",
     "item.SCARAB_PACK": "gl_scarab_pack",
-    "item.SCARAB_RARITY": "gl_scarab_rarity"
+    "item.SCARAB_RARITY": "gl_scarab_rarity",
+    "pet.EMBER_RHINO": "gl_pet_ember_rhino",
+    "pet.FROST_BEAR": "gl_pet_frost_bear",
+    "pet.STORM_LION": "gl_pet_storm_lion",
+    "pet.BLIGHT_HOUND": "gl_pet_blight_hound",
+    "pet.STEAM_DRAKE": "gl_pet_steam_drake",
+    "pet.THUNDER_PHOENIX": "gl_pet_thunder_phoenix",
+    "pet.HELL_SERPENT": "gl_pet_hell_serpent",
+    "pet.AURORA_FOX": "gl_pet_aurora_fox",
+    "pet.VOID_WOLF": "gl_pet_void_wolf",
+    "pet.STORM_WRAITH": "gl_pet_storm_wraith",
+    "item.PET_ORB_BREEDING": "gl_orb_pet_orb_breeding"
   }
 }

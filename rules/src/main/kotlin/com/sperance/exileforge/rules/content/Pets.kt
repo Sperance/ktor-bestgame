@@ -37,6 +37,8 @@ data class PetSpecies(
     /** Стихия удара: `PHYSICAL`, `FIRE`, `COLD`, `LIGHTNING` или `CHAOS` - стат `STOCK_ATTACK_<стихия>`. */
     val element: String? = null,
     val focus: PetFocus? = null,
+    /** Гибрид (1.74.0): вторая стихия удара - удар делится поровну, лист роли сильнее на [Breeding.power]; из яиц не вылупляется. */
+    val element2: String? = null,
 )
 
 /** Строка пула: модификатор контента, кому она (род и, для помощника, дело), значения первого уровня по эффектам и вес. */
@@ -79,7 +81,22 @@ data class PetsFile(
     val drawFire: Double = 0.3,
     /** Инкубатор (1.67.0): места, уровень вылупившегося и срок вылупления. */
     val incubator: IncubatorRules = IncubatorRules(),
+    /** Скрещивание (1.74.0). */
+    val breeding: Breeding = Breeding(),
 )
+
+/**
+ * Скрещивание в инкубаторе (1.74.0): два боевых питомца не ниже [minLevel] и сфера [orb]. С шансом [hybridChance] - гибрид
+ * двух разных стихий родителей (роль - одного из них), иначе яйцо биома одного из родителей. Родители устают на [restHours].
+ */
+@Serializable
+data class Breeding(val orb: String = "PET_ORB_BREEDING", val minLevel: Int = 20, val hybridChance: Double = 0.25, val restHours: Int = 24, val power: Double = 1.2) {
+    val restMillis: Long get() = restHours * 3_600_000L
+}
+
+/** Гибрид пары стихий [a] и [b] (в любом порядке) среди [species]. */
+fun List<PetSpecies>.hybridOf(a: String, b: String): PetSpecies? =
+    firstOrNull { it.element2 != null && setOf(it.element, it.element2) == setOf(a, b) && a != b }
 
 /**
  * Инкубатор (1.67.0). Яйцо не знает ни уровня, ни редкости - их решает начало инкубации: редкость - веса редкостей
@@ -168,6 +185,10 @@ data class Pet(
     val offer: List<PetLine> = emptyList(),
     /** Уровень вылупления (1.67.0): от него считаются уровни, за которые платит отпуск; у питомцев до инкубатора - 1. */
     @SerialName("hl") val hatchLevel: Int = 1,
+    /** Устал после скрещивания до (1.74.0), мс эпохи; 0 - бодр. */
+    @SerialName("tu") val tiredUntil: Long = 0,
+    /** Роль гибрида - одного из родителей (1.74.0); null - роль вида. */
+    @SerialName("ro") val role: PetRole? = null,
 )
 
 /** Строка питомца: модификатор и доли ролла по его эффектам; [fractured] (1.65.0) - закреплена сферой закрепления. */
@@ -197,7 +218,8 @@ fun PetsFile.validate(index: ContentIndex) {
     species.forEach { kind ->
         if (kind.biome !in biomes || kind.weight <= 0) fail("pets: species ${kind.code}")
         when (kind.kind) {
-            PetKind.COMBAT -> if (kind.role == null || kind.element !in ELEMENTS || kind.focus != null) fail("pets: species ${kind.code}")
+            PetKind.COMBAT -> if (kind.role == null || kind.element !in ELEMENTS || kind.focus != null || (kind.element2 != null && (kind.element2 !in ELEMENTS || kind.element2 == kind.element)))
+                fail("pets: species ${kind.code}")
             PetKind.HELPER -> if (kind.focus == null || kind.role != null) fail("pets: species ${kind.code}")
         }
         if (lines.count { it.kind == kind.kind && (kind.kind == PetKind.COMBAT || it.focus == kind.focus) } < most) fail("pets: pool of ${kind.code}")

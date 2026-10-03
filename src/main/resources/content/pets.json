@@ -350,6 +350,96 @@
       "kind": "HELPER",
       "biome": "OBLIVION",
       "focus": "CRAFT"
+    },
+    {
+      "code": "EMBER_RHINO",
+      "kind": "COMBAT",
+      "biome": "VOLCANO",
+      "role": "TANK",
+      "element": "PHYSICAL",
+      "element2": "FIRE",
+      "weight": 1
+    },
+    {
+      "code": "FROST_BEAR",
+      "kind": "COMBAT",
+      "biome": "FROST",
+      "role": "TANK",
+      "element": "PHYSICAL",
+      "element2": "COLD",
+      "weight": 1
+    },
+    {
+      "code": "STORM_LION",
+      "kind": "COMBAT",
+      "biome": "STORMPEAK",
+      "role": "FIGHTER",
+      "element": "PHYSICAL",
+      "element2": "LIGHTNING",
+      "weight": 1
+    },
+    {
+      "code": "BLIGHT_HOUND",
+      "kind": "COMBAT",
+      "biome": "BLIGHT",
+      "role": "FIGHTER",
+      "element": "PHYSICAL",
+      "element2": "CHAOS",
+      "weight": 1
+    },
+    {
+      "code": "STEAM_DRAKE",
+      "kind": "COMBAT",
+      "biome": "VOLCANO",
+      "role": "FIGHTER",
+      "element": "FIRE",
+      "element2": "COLD",
+      "weight": 1
+    },
+    {
+      "code": "THUNDER_PHOENIX",
+      "kind": "COMBAT",
+      "biome": "ASH",
+      "role": "SUPPORT",
+      "element": "FIRE",
+      "element2": "LIGHTNING",
+      "weight": 1
+    },
+    {
+      "code": "HELL_SERPENT",
+      "kind": "COMBAT",
+      "biome": "ABYSS",
+      "role": "FIGHTER",
+      "element": "FIRE",
+      "element2": "CHAOS",
+      "weight": 1
+    },
+    {
+      "code": "AURORA_FOX",
+      "kind": "COMBAT",
+      "biome": "FROST",
+      "role": "SUPPORT",
+      "element": "COLD",
+      "element2": "LIGHTNING",
+      "weight": 1
+    },
+    {
+      "code": "VOID_WOLF",
+      "kind": "COMBAT",
+      "biome": "ABYSS",
+      "role": "TANK",
+      "element": "COLD",
+      "element2": "CHAOS",
+      "weight": 1
+    },
+    {
+      "code": "STORM_WRAITH",
+      "kind": "COMBAT",
+      "biome": "STORMPEAK",
+      "role": "SUPPORT",
+      "element": "LIGHTNING",
+      "element2": "CHAOS",
+      "weight": 1
     }
   ],
   "lines": [
@@ -758,5 +848,12 @@
       1.0
     ],
     "maxReduction": 75.0
+  },
+  "breeding": {
+    "orb": "PET_ORB_BREEDING",
+    "minLevel": 20,
+    "hybridChance": 0.25,
+    "restHours": 24,
+    "power": 1.2
   }
 }

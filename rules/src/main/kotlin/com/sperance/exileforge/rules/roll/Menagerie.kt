@@ -42,11 +42,31 @@ class Menagerie(private val index: ContentIndex) {
     /** Из яйца [egg] - питомец [id]: вид его биома по весам, редкость [rarity] (нет - по весам) и уровень [level], строки числа редкости. */
     fun hatch(egg: String, id: String, dice: Dice, rarity: Rarity = rollRarity(dice), level: Int = 1): Pet? {
         val biome = file.eggs.entries.firstOrNull { it.value == egg }?.key ?: return null
-        val kind = Tables.draw(file.species.filter { it.biome == biome }, PetSpecies::weight, dice) ?: return null
+        val kind = Tables.draw(file.species.filter { it.biome == biome && it.element2 == null }, PetSpecies::weight, dice) ?: return null
         val rule = file.rarities.getValue(rarity)
         val grown = level.coerceIn(1, maxLevel)
         return Pet(id, kind.code, rarity, experience = index.classes.threshold(grown) ?: 0.0, level = grown, hatchLevel = grown, lines = roll(kind, dice.between(rule.lines), emptyList(), dice))
     }
+
+    /**
+     * Скрещивание (1.74.0): гибрид стихий родителей с шансом правила - новый питомец первого уровня с ролью одного из
+     * родителей, - иначе null: тогда в сумку ложится яйцо биома одного из них ([breedEgg]).
+     */
+    fun breed(a: Pet, b: Pet, id: String, dice: Dice): Pet? {
+        val first = species(a.species) ?: return null
+        val second = species(b.species) ?: return null
+        val hybrid = file.species.hybridOf(first.element ?: return null, second.element ?: return null) ?: return null
+        if (!dice.chance(file.breeding.hybridChance)) return null
+        val role = if (dice.chance(0.5)) a.role ?: first.role else b.role ?: second.role
+        val rarity = rollRarity(dice)
+        return Pet(id, hybrid.code, rarity, experience = 0.0, level = 1, lines = roll(hybrid, dice.between(file.rarities.getValue(rarity).lines), emptyList(), dice), role = role)
+    }
+
+    /** Яйцо биома одного из родителей. */
+    fun breedEgg(a: Pet, b: Pet, dice: Dice): String? =
+        listOfNotNull(species(a.species), species(b.species)).filter { it.element2 == null }.randomOrNullBy(dice)?.let { file.eggs[it.biome] }
+
+    private fun <T> List<T>.randomOrNullBy(dice: Dice): T? = if (isEmpty()) null else this[dice.between(0, size - 1)]
 
     /** Редкость яйца по весам редкостей. */
     fun rollRarity(dice: Dice): Rarity = Tables.draw(RARITIES, { file.rarities[it]?.weight ?: 0.0 }, dice) ?: Rarity.COMMON
@@ -111,13 +131,15 @@ class Menagerie(private val index: ContentIndex) {
     /** Лист боевого питомца: лист роли на его уровне, как растёт монстр, удар его стихией, строки сверху. */
     fun sheet(pet: Pet): Map<String, Double> {
         val kind = species(pet.species) ?: return emptyMap()
-        val role = kind.role ?: return emptyMap()
+        val role = pet.role ?: kind.role ?: return emptyMap()
         val campaign = index.campaign
         val steps = campaign.growthTaper.steps(pet.level)
-        val base = file.roles[role].orEmpty().entries.associate { (stat, value) ->
-            val key = if (stat == ATTACK_BASE) "STOCK_ATTACK_${kind.element ?: "PHYSICAL"}" else stat
-            key to value * (campaign.growth[key] ?: 1.0).pow(steps)
-        }
+        // Гибрид (1.74.0): удар поровну двумя стихиями, весь лист роли сильнее.
+        val power = if (kind.element2 != null) file.breeding.power else 1.0
+        val base = file.roles[role].orEmpty().entries.flatMap { (stat, value) ->
+            val keys = if (stat == ATTACK_BASE) listOfNotNull(kind.element ?: "PHYSICAL", kind.element2).map { "STOCK_ATTACK_$it" } else listOf(stat)
+            keys.map { key -> key to value * power / keys.size * (campaign.growth[key] ?: 1.0).pow(steps) }
+        }.toMap()
         val calculator = SheetCalculator(index)
         return calculator.compute(campaign.defaults + base, calculator.expand(lines(pet)))
     }
