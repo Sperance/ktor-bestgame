@@ -26,6 +26,11 @@ import ru.descend.exileforge.features.data.user.UserRoute
 import ru.descend.exileforge.features.logic.atlas.AtlasService
 import ru.descend.exileforge.features.logic.campaign.CampaignService
 import ru.descend.exileforge.features.logic.crafts.CraftsService
+import ru.descend.exileforge.features.logic.guild.GuildAccess
+import ru.descend.exileforge.features.logic.guild.GuildQuestService
+import ru.descend.exileforge.features.logic.guild.GuildService
+import ru.descend.exileforge.features.logic.guild.GuildStashService
+import ru.descend.exileforge.features.logic.guild.GuildTreeService
 import ru.descend.exileforge.features.logic.inventory.InventoryService
 import ru.descend.exileforge.features.logic.pets.PetService
 import ru.descend.exileforge.features.logic.quests.QuestService
@@ -45,8 +50,13 @@ val repositoryModule = module {
     single { HeroRepository(get()) }
     single { ru.descend.exileforge.features.logic.hero.HeroService(get(), get(), get(), get(), get()) }
     single { AuctionLotRepository() }
-    single { GuildRepository() }
+    single { GuildRepository(get()) }
     single { GuildEventRepository() }
+    single { GuildAccess(get(), get(), get(), get(), get()) }
+    single { GuildService(get(), get(), get(), get(), get()) }
+    single { GuildTreeService(get(), get(), get()) }
+    single { GuildStashService(get(), get()) }
+    single { GuildQuestService(get(), get(), get(), get(), get()) }
     single { BlockListRepository() }
     single { RedemptionCodesRepository(get()) }
     single { ru.descend.exileforge.features.logic.redemption.RedemptionService(get(), get(), get(), get()) }
@@ -79,7 +89,7 @@ val routeModule = module {
                 UserRoute(get(), get(), get()),
                 HeroRoute(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get()),
                 AuctionLotRoute(get()),
-                GuildRoute(get()),
+                GuildRoute(get(), get(), get(), get(), get()),
                 RedemptionCodesRoute(get(), get()),
                 ru.descend.exileforge.features.data.bugReport.BugReportRoute(get(), get(), get()),
                 ru.descend.exileforge.features.data.admin.AdminRoute(get(), get(), get(), get()),
