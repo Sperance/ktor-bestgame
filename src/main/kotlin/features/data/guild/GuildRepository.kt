@@ -295,7 +295,8 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
 
     /**
      * Вклад золотом или сферами: всё уходит в казну, золотая стоимость - в опыт гильдии, личный вклад
-     * (ранг), неделю и суточный потолок; за стоимость герой получает знаки гильдии.
+     * (ранг), неделю и суточный потолок; за стоимость герой получает знаки гильдии. Материалы ремёсел (1.74.0)
+     * идут тем же счётом, но в казне не лежат - гильдия их расходует.
      */
     suspend fun contribute(heroId: String, item: String, amount: Long): GuildContribution {
         val method = "guildContribute"
@@ -306,8 +307,8 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         val me = change.record(heroId)
         val gold = item.equals(GOLD, ignoreCase = true)
         val value = if (gold) amount else {
-            val orb = index.item(item)?.takeIf { it.category == Item.CURRENCY && it.price > 0 } ?: throw GuildExceptions.funExceptionNotOrb(method, item)
-            Math.multiplyExact(orb.price, amount)
+            val stock = index.item(item)?.takeIf { it.category in DONATED && it.price > 0 } ?: throw GuildExceptions.funExceptionNotOrb(method, item)
+            Math.multiplyExact(stock.price, amount)
         }
         val today = day(change.now)
         if (me.day != today) { me.day = today; me.dayContribution = 0 }
@@ -319,7 +320,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             guild.treasuryGold += amount
         } else {
             hero.spend(item, amount, method)
-            guild.treasuryOrbs.merge(item, amount, Long::plus)
+            if (index.item(item)?.category == Item.CURRENCY) guild.treasuryOrbs.merge(item, amount, Long::plus)
         }
         val rankBefore = rules.rankIndex(me.contribution)
         me.contribution += value
@@ -802,3 +803,6 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         fun week(now: Long): Long = (day(now) + 3) / 7
     }
 }
+
+/** Что принимает вклад кроме золота (1.74.0): сферы - в казну, материалы ремёсел - в опыт гильдии. */
+private val DONATED = setOf(Item.CURRENCY, Item.MATERIAL, "STONE_STOCK", "WOOD_STOCK")

@@ -146,6 +146,42 @@
     },
     "magicWeapon": true
   },
+  "brews": {
+    "potions": {
+      "POTION_EXPERIENCE_T1": {"ATLAS_EXPERIENCE": 10},
+      "POTION_EXPERIENCE_T2": {"ATLAS_EXPERIENCE": 20},
+      "POTION_EXPERIENCE_T3": {"ATLAS_EXPERIENCE": 30},
+      "POTION_GOLD_T1": {"ATLAS_GOLD": 15},
+      "POTION_GOLD_T2": {"ATLAS_GOLD": 30},
+      "POTION_GOLD_T3": {"ATLAS_GOLD": 45},
+      "POTION_RARITY_T1": {"ATLAS_RARITY": 10},
+      "POTION_RARITY_T2": {"ATLAS_RARITY": 20},
+      "POTION_RARITY_T3": {"ATLAS_RARITY": 30},
+      "POTION_RESIST_T1": {"BREW_RESIST": 8},
+      "POTION_RESIST_T2": {"BREW_RESIST": 15},
+      "POTION_RESIST_T3": {"BREW_RESIST": 22},
+      "POTION_DAMAGE_T1": {"BREW_DAMAGE": 8},
+      "POTION_DAMAGE_T2": {"BREW_DAMAGE": 15},
+      "POTION_DAMAGE_T3": {"BREW_DAMAGE": 22},
+      "POTION_LIFE_T1": {"BREW_LIFE": 6},
+      "POTION_LIFE_T2": {"BREW_LIFE": 12},
+      "POTION_LIFE_T3": {"BREW_LIFE": 18}
+    },
+    "scarabs": {
+      "SCARAB_CHESTS": {"MAP_CHESTS": 1},
+      "SCARAB_PACK": {"MAP_PACK_SIZE": 15},
+      "SCARAB_RARITY": {"MAP_RARITY": 20}
+    },
+    "scarabsPerMap": 2,
+    "temper": {
+      "ore": 10,
+      "ores": {"COPPER_ORE": 1, "IRON_ORE": 13, "SILVER_ORE": 25, "MITHRIL_ORE": 40, "ADAMANT_ORE": 55, "STARMETAL_ORE": 70},
+      "minQuality": 21,
+      "maxQuality": 30,
+      "maxLevels": 5,
+      "smithLevel": 5
+    }
+  },
   "path": {
     "steps": [
       {"code": "ZONE", "check": "ZONE", "reward": {"gold": 50, "bag": {"ORB_OF_TRANSMUTATION": 3}}},

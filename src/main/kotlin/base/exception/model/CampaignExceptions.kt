@@ -12,6 +12,7 @@ object CampaignExceptions {
     fun funExceptionContent(errorMethod: String, value: String? = "") = CampaignException("Campaign content is invalid: $value", errorMethod, "CP_001", listOf(value.orEmpty()))
     fun funExceptionMapNotFound(errorMethod: String, value: String? = "") = CampaignException("Campaign map $value not found", errorMethod, "CP_002", listOf(value.orEmpty()))
     fun funExceptionMapLocked(errorMethod: String, value: String? = "") = CampaignException("Campaign map $value is not open yet", errorMethod, "CP_003", listOf(value.orEmpty()))
+    fun funExceptionBrew(errorMethod: String, value: String? = "") = CampaignException("$value cannot go into this run", errorMethod, "CP_027", listOf(value.orEmpty()))
     fun funExceptionMapItem(errorMethod: String, value: String? = "") = CampaignException("Item $value does not open this location", errorMethod, "CP_011", listOf(value.orEmpty()))
     fun funExceptionRarity(errorMethod: String, value: String? = "") = CampaignException("Unknown monster rarity $value", errorMethod, "CP_005", listOf(value.orEmpty()))
     fun funExceptionNoRun(errorMethod: String, value: String? = "") = CampaignException("No run is open on map $value", errorMethod, "CP_018", listOf(value.orEmpty()))

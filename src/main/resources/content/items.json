@@ -3185,6 +3185,132 @@
       "category": "CHEST",
       "subCategory": "CLASS",
       "price": 0
+    },
+    {
+      "code": "POTION_EXPERIENCE_T1",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 60
+    },
+    {
+      "code": "POTION_EXPERIENCE_T2",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 180
+    },
+    {
+      "code": "POTION_EXPERIENCE_T3",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 450
+    },
+    {
+      "code": "POTION_GOLD_T1",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 60
+    },
+    {
+      "code": "POTION_GOLD_T2",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 180
+    },
+    {
+      "code": "POTION_GOLD_T3",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 450
+    },
+    {
+      "code": "POTION_RARITY_T1",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 60
+    },
+    {
+      "code": "POTION_RARITY_T2",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 180
+    },
+    {
+      "code": "POTION_RARITY_T3",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 450
+    },
+    {
+      "code": "POTION_RESIST_T1",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 60
+    },
+    {
+      "code": "POTION_RESIST_T2",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 180
+    },
+    {
+      "code": "POTION_RESIST_T3",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 450
+    },
+    {
+      "code": "POTION_DAMAGE_T1",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 60
+    },
+    {
+      "code": "POTION_DAMAGE_T2",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 180
+    },
+    {
+      "code": "POTION_DAMAGE_T3",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 450
+    },
+    {
+      "code": "POTION_LIFE_T1",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 60
+    },
+    {
+      "code": "POTION_LIFE_T2",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 180
+    },
+    {
+      "code": "POTION_LIFE_T3",
+      "category": "MATERIAL",
+      "subCategory": "POTION",
+      "price": 450
+    },
+    {
+      "code": "SCARAB_CHESTS",
+      "category": "MATERIAL",
+      "subCategory": "SCARAB",
+      "price": 150
+    },
+    {
+      "code": "SCARAB_PACK",
+      "category": "MATERIAL",
+      "subCategory": "SCARAB",
+      "price": 220
+    },
+    {
+      "code": "SCARAB_RARITY",
+      "category": "MATERIAL",
+      "subCategory": "SCARAB",
+      "price": 300
     }
   ]
 }

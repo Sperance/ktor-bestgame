@@ -1,6 +1,6 @@
 {
   "rules": {
-    "offlineHours": 8,
+    "offlineHours": 12,
     "maxLevel": 50,
     "levelSpeed": 30,
     "levelFind": 50,
@@ -1868,6 +1868,366 @@
               "amount": 8
             }
           ]
+        },
+        {
+          "code": "POTION_EXPERIENCE_T1_BREW",
+          "level": 8,
+          "seconds": 400,
+          "nothing": 25,
+          "output": "POTION_EXPERIENCE_T1",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "POTION_EXPERIENCE_T2_BREW",
+          "level": 24,
+          "seconds": 700,
+          "nothing": 25,
+          "output": "POTION_EXPERIENCE_T2",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "MOON_LOTUS",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "POTION_EXPERIENCE_T3_BREW",
+          "level": 40,
+          "seconds": 1000,
+          "nothing": 25,
+          "output": "POTION_EXPERIENCE_T3",
+          "experience": 50,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 3
+            },
+            {
+              "item": "STARBLOOM",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "POTION_GOLD_T1_BREW",
+          "level": 8,
+          "seconds": 400,
+          "nothing": 25,
+          "output": "POTION_GOLD_T1",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "COPPER_ORE",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "POTION_GOLD_T2_BREW",
+          "level": 24,
+          "seconds": 700,
+          "nothing": 25,
+          "output": "POTION_GOLD_T2",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "SILVER_ORE",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "POTION_GOLD_T3_BREW",
+          "level": 40,
+          "seconds": 1000,
+          "nothing": 25,
+          "output": "POTION_GOLD_T3",
+          "experience": 50,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 3
+            },
+            {
+              "item": "ADAMANT_ORE",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "POTION_RARITY_T1_BREW",
+          "level": 8,
+          "seconds": 400,
+          "nothing": 25,
+          "output": "POTION_RARITY_T1",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "POTION_RARITY_T2_BREW",
+          "level": 24,
+          "seconds": 700,
+          "nothing": 25,
+          "output": "POTION_RARITY_T2",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "SAPPHIRE",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "POTION_RARITY_T3_BREW",
+          "level": 40,
+          "seconds": 1000,
+          "nothing": 25,
+          "output": "POTION_RARITY_T3",
+          "experience": 50,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 3
+            },
+            {
+              "item": "RUBY",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "POTION_RESIST_T1_BREW",
+          "level": 8,
+          "seconds": 400,
+          "nothing": 25,
+          "output": "POTION_RESIST_T1",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "STONE_FLUX",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "POTION_RESIST_T2_BREW",
+          "level": 24,
+          "seconds": 700,
+          "nothing": 25,
+          "output": "POTION_RESIST_T2",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "STONE_FLUX",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "POTION_RESIST_T3_BREW",
+          "level": 40,
+          "seconds": 1000,
+          "nothing": 25,
+          "output": "POTION_RESIST_T3",
+          "experience": 50,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 3
+            },
+            {
+              "item": "STONE_FLUX",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "POTION_DAMAGE_T1_BREW",
+          "level": 8,
+          "seconds": 400,
+          "nothing": 25,
+          "output": "POTION_DAMAGE_T1",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "FIRE_FLUX",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "POTION_DAMAGE_T2_BREW",
+          "level": 24,
+          "seconds": 700,
+          "nothing": 25,
+          "output": "POTION_DAMAGE_T2",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "FIRE_FLUX",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "POTION_DAMAGE_T3_BREW",
+          "level": 40,
+          "seconds": 1000,
+          "nothing": 25,
+          "output": "POTION_DAMAGE_T3",
+          "experience": 50,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 3
+            },
+            {
+              "item": "FIRE_FLUX",
+              "amount": 3
+            }
+          ]
+        },
+        {
+          "code": "POTION_LIFE_T1_BREW",
+          "level": 8,
+          "seconds": 400,
+          "nothing": 25,
+          "output": "POTION_LIFE_T1",
+          "experience": 15,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BLOODWORT",
+              "amount": 3
+            },
+            {
+              "item": "BLOOD_FLUX",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "POTION_LIFE_T2_BREW",
+          "level": 24,
+          "seconds": 700,
+          "nothing": 25,
+          "output": "POTION_LIFE_T2",
+          "experience": 30,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "GLOWCAP",
+              "amount": 3
+            },
+            {
+              "item": "BLOOD_FLUX",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "POTION_LIFE_T3_BREW",
+          "level": 40,
+          "seconds": 1000,
+          "nothing": 25,
+          "output": "POTION_LIFE_T3",
+          "experience": 50,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "VOID_ROOT",
+              "amount": 3
+            },
+            {
+              "item": "BLOOD_FLUX",
+              "amount": 3
+            }
+          ]
         }
       ]
     },
@@ -2117,6 +2477,78 @@
           ],
           "region": "REGION_9",
           "tier": 3
+        },
+        {
+          "code": "SCARAB_CHESTS_CARVE",
+          "level": 10,
+          "seconds": 600,
+          "nothing": 25,
+          "output": "SCARAB_CHESTS",
+          "experience": 25,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "BARK",
+              "amount": 2
+            },
+            {
+              "item": "OAK_LOG",
+              "amount": 3
+            },
+            {
+              "item": "AMBER_RESIN",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "code": "SCARAB_PACK_CARVE",
+          "level": 18,
+          "seconds": 600,
+          "nothing": 25,
+          "output": "SCARAB_PACK",
+          "experience": 25,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "YEW_LOG",
+              "amount": 3
+            },
+            {
+              "item": "BLOODWORT",
+              "amount": 2
+            },
+            {
+              "item": "IRON_ORE",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "code": "SCARAB_RARITY_CARVE",
+          "level": 26,
+          "seconds": 600,
+          "nothing": 25,
+          "output": "SCARAB_RARITY",
+          "experience": 25,
+          "extra": [],
+          "kind": "ITEM",
+          "inputs": [
+            {
+              "item": "IRONWOOD_LOG",
+              "amount": 2
+            },
+            {
+              "item": "TOPAZ",
+              "amount": 1
+            },
+            {
+              "item": "GLOWCAP",
+              "amount": 2
+            }
+          ]
         }
       ]
     },

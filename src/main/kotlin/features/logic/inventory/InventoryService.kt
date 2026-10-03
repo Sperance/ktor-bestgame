@@ -178,6 +178,29 @@ class InventoryService : KoinComponent {
         return finish(hero, orbs.apply(orb, item, template(item, method), Dice.system(), omen) { Hero.newItemId() }, method)
     }
 
+    /**
+     * Закалка (1.74.0): руда по уровню вещи поднимает качество оружия или брони до правила и уровень предмета на несколько
+     * ступеней - один раз на вещь; нужен кузнец не ниже правила.
+     */
+    suspend fun temper(heroId: String, itemId: String): CurrencyApplyResponse {
+        val method = "temper"
+        val hero = heroes.requireHero(heroId, method)
+        val item = hero.requireItem(itemId, method)
+        val template = template(item, method)
+        val rule = index.rules.brews.temper
+        val smith = hero.professions[SMITHING]?.level ?: 1
+        val ore = rule.oreFor(template.level)
+        if (item.tempered || item.corrupted || !(template.slot.isWeapon || template.slot.isArmour) || ore == null || smith < rule.smithLevel)
+            throw CharacterExceptions.funExceptionTemper(method, template.code)
+        hero.spend(ore, rule.ore, method)
+        val dice = Dice.system()
+        item.quality = maxOf(item.quality, dice.between(rule.minQuality, rule.maxQuality))
+        item.catalyst = null
+        item.itemLevel = (item.level(template) + dice.between(1, rule.maxLevels)).coerceAtMost(index.rules.loot.maxItemLevel)
+        item.tempered = true
+        return finish(hero, OrbOutcome(item, messageKey = "currency.tempered", messageArgs = listOf(item.quality.toString(), item.itemLevel.toString())), method)
+    }
+
     /** Выбор [choice] из вариантов, что предложила сфера раскрытия (1.35.0): бесплатно, одной записью. */
     suspend fun unveil(heroId: String, itemId: String, choice: Int): CurrencyApplyResponse {
         val method = "unveil"
@@ -269,3 +292,6 @@ class InventoryService : KoinComponent {
         return CurrencyApplyResponse.of(outcome)
     }
 }
+
+/** Профессия закалки (1.74.0). */
+private const val SMITHING = "SMITHING"

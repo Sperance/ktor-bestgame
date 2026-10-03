@@ -81,6 +81,8 @@ data class ItemInstance(
      * ([com.sperance.exileforge.rules.content.BaseVariance]); копия до разброса - 100. Зеркало и порча его не трогают.
      */
     @SerialName("bq") val baseQuality: Int = BaseVariance.NEUTRAL,
+    /** Закалена рудой кузнеца (1.74.0): второй раз нельзя. */
+    @SerialName("tp") var tempered: Boolean = false,
 ) {
     /** Уровень, на котором катаются аффиксы копии. */
     fun level(template: ItemTemplate): Int = if (itemLevel > 0) itemLevel else template.level

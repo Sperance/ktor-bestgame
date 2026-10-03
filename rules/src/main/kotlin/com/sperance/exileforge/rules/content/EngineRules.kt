@@ -363,6 +363,8 @@ data class EngineRules(
     val starter: StarterRules = StarterRules(),
     /** Путь изгнанника (1.74.0). */
     val path: PathRules = PathRules(),
+    /** Зелья, скарабеи и закалка (1.74.0). */
+    val brews: BrewRules = BrewRules(),
     val auction: AuctionRules = AuctionRules(),
     /** Длины полей ввода (1.69.0): клиент режет ввод и показывает счётчик, сервер проверяет то же. */
     val inputs: InputLimits = InputLimits(),

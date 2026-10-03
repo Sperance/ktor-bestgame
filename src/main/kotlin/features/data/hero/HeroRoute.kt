@@ -155,6 +155,7 @@ class HeroRoute(
         }
         // Сундук-добыча (1.71.0): открыть один из сумки.
         post("/chest/open") { call.respondWithHero(inventory.openChest(call.heroId, call.queryParam("code"))) }
+        post("/temper") { call.respondWithHero(inventory.temper(call.heroId, call.itemId)) }
         post("/essence") { call.respondWithHero(inventory.applyEssence(call.heroId, call.itemId, call.queryParam("essence"))) }
         get("/bench") { call.respondOk(inventory.bench(repo.requireHero(call.heroId, "bench"))) }
         post("/craft") { call.respondWithHero(inventory.craft(call.heroId, call.itemId, call.queryParam("recipe"))) }
@@ -248,7 +249,10 @@ class HeroRoute(
 
         route("/campaign") {
             get("/progress") { call.respondOk(campaign.progress(call.heroId)) }
-            post("/start") { call.respondWithHero(campaign.start(call.heroId, call.mapCode, call.optionalParam("itemId"))) }
+            post("/start") {
+                val scarabs = call.optionalParam("scarabs")?.split(',')?.filter { it.isNotBlank() }.orEmpty()
+                call.respondWithHero(campaign.start(call.heroId, call.mapCode, call.optionalParam("itemId"), call.optionalParam("potion")?.takeIf { it.isNotBlank() }, scarabs))
+            }
             // Журнал (1.68.0) - только своего захода `runId`; его отчёт хранится для повтора по ключу
             post("/events") {
                 call.keepIdempotentReport()

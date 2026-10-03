@@ -119,9 +119,10 @@ class CampaignService : KoinComponent {
     /**
      * Вход в зону. С картой [itemId] она тратится: шаблон должен быть картой этой зоны, строки ложатся
      * на добычу захода и добавляют сундуки, кристаллы и расщелины в окна зоны. Прежний заход и спуск
-     * в Бездну закрываются; порча и рецепт открываются заново только с потраченной картой.
+     * в Бездну закрываются; порча и рецепт открываются заново только с потраченной картой. Зелье [potion] (1.74.0) - одно на
+     * заход, его строки ложатся в контекст; скарабеи [scarabs] - только с картой, до правила, их строки - в строки карты.
      */
-    suspend fun start(heroId: String, mapCode: String, itemId: String?): RunStart {
+    suspend fun start(heroId: String, mapCode: String, itemId: String?, potion: String? = null, scarabs: List<String> = emptyList()): RunStart {
         val method = "start"
         val hero = heroes.requireHero(heroId, method)
         val zone = openZone(hero, mapCode, method)
@@ -138,8 +139,14 @@ class CampaignService : KoinComponent {
         val template = item?.let { index.template(it.template) }
         if (item != null && (template == null || template.slot != Slot.MAP || item.mapZone != mapCode || item.equipped))
             throw CampaignExceptions.funExceptionMapItem(method, template?.code ?: item.template)
-        val active = item?.let { loot.activeMap(mapCode, loot.atlasPowers(loot.mapEffects(it, bonuses.mapEffect), bonuses.effects), it.rarity, it.mapTier,
-            it.influence?.takeIf(campaign.maps.influence::accepts), bonuses.effects) }
+        val brews = index.rules.brews
+        if (scarabs.isNotEmpty() && (item == null || scarabs.size > brews.scarabsPerMap)) throw CampaignExceptions.funExceptionBrew(method, scarabs.joinToString())
+        val scarabLines = scarabs.map { code -> brews.scarab(code) ?: throw CampaignExceptions.funExceptionBrew(method, code) }
+        val potionLines = potion?.let { brews.potion(it) ?: throw CampaignExceptions.funExceptionBrew(method, it) }
+        val active = item?.let { loot.activeMap(mapCode, (listOf(loot.atlasPowers(loot.mapEffects(it, bonuses.mapEffect), bonuses.effects)) + scarabLines).summed(), it.rarity,
+            it.mapTier, it.influence?.takeIf(campaign.maps.influence::accepts), bonuses.effects) }
+        scarabs.groupingBy { it }.eachCount().forEach { (code, count) -> hero.spend(code, count.toLong(), method) }
+        potion?.let { hero.spend(it, 1, method) }
         val sheet = index.sheetOf(hero).stats
         val chests = Chests.window(state.chests[mapCode], System.currentTimeMillis(), campaign.chests, sheet[CoreStat.CHEST_QUANTITY.code] ?: 0.0, bonuses.chests, dice)
         state.chests[mapCode] = chests.copy(left = chests.left + (active?.effects?.get(CoreStat.MAP_CHESTS.code)?.toInt() ?: 0))
@@ -160,7 +167,8 @@ class CampaignService : KoinComponent {
             state.corruptionOpened = false
             state.vaalZone = null
         }
-        val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context(hero, zone, sheet), now, content = index.hash)
+        val context = context(hero, zone, sheet).let { base -> potionLines?.let { base.copy(atlas = listOf(base.atlas, it).summed()) } ?: base }
+        val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context, now, content = index.hash)
         state.run = run
         state.seededAt = now
         // Задания на сутки выдаются и здесь: заход, начатый до первого взгляда на доску, тоже идёт в зачёт
@@ -416,3 +424,6 @@ class CampaignService : KoinComponent {
         state.run = null
     }
 }
+
+/** Строки нескольких источников одной картой: одинаковые ключи складываются. */
+private fun List<Map<String, Double>>.summed(): Map<String, Double> = flatMap { it.entries }.groupBy({ it.key }, { it.value }).mapValues { it.value.sum() }
