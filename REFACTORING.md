@@ -8,11 +8,11 @@
 - [x] Скрипт клиента `scripts/client_server_test.py` запускает новый класс.
 
 ## Этап 2 - слои и DI
-- [ ] Репозиторий = только CRUD (`BaseRepository` + фильтры); логика - в `*Service`. Начать с `GuildRepository` (→ GuildService, GuildTreeService, GuildStashService), `AuctionLotRepository` (→ AuctionService), `HeroRepository`, `UserRepository`, `RedemptionCodesRepository`.
-- [ ] Все зависимости через конструктор; `KoinComponent`/`by inject`/`get()` только в `Modules.kt` (constructor DSL `singleOf`). Роуты получают сервисы в конструктор.
-- [ ] `HeroRunStore`, `HeroStatsStore`, `RouteTimings` получают коллекции через Koin, а не открывают сами.
-- [ ] Мутации `Hero` только через методы-операции (`earn`, `spend`, …); прямых `hero.x += …` из сервисов нет.
-- [ ] Тест Koin-графа (`koin-test` `verify`).
+- [x] Репозиторий = только CRUD; логика в `features/logic/<x>`: HeroService, UserService, MailService, FeedbackService, RedemptionService, AuctionService, Guild{Service,Tree,Stash,Quest}Service + GuildAccess/GuildChange, QuestEngine (правила) и QuestService (команды).
+- [x] Все зависимости через конструктор; Koin спрашивается только в `Modules.kt` (`singleOf`) и в точке сборки `Application.kt`.
+- [x] `HeroRunStore`, `HeroStatsStore`, `RouteTimings` - классы графа с базой в конструкторе.
+- [x] Мутации `Hero` только через методы-операции (`gain`, `pay`, `earn`, `spend`, `gainExperience`, `loseExperience`, `setLevel`, `grantPoints`, `expandStash`).
+- [x] `KoinGraphTest` собирает граф целиком без базы.
 
 ## Этап 3 - типы
 - [ ] value class для кодов в `rules/`: `ItemCode`, `ModifierCode`, `MonsterCode`, `MapCode` (`@JvmInline @Serializable`); статы - типизированный реестр вместо строк `"STOCK_*"`.
