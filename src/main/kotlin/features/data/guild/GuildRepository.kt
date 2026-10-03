@@ -1,5 +1,6 @@
 package features.data.guild
 
+import com.sperance.exileforge.rules.content.GuildEffect
 import base.exception.BaseException
 import base.exception.model.CharacterExceptions
 import base.exception.model.GuildExceptions
@@ -312,7 +313,8 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         }
         val today = day(change.now)
         if (me.day != today) { me.day = today; me.dayContribution = 0 }
-        val left = (rules.dailyLimit(hero.level) - me.dayContribution).coerceAtLeast(0)
+        val limit = (rules.dailyLimit(hero.level) * (1 + change.effect(GuildEffect.DAILY_LIMIT) / 100)).toLong()
+        val left = (limit - me.dayContribution).coerceAtLeast(0)
         if (value > left) throw GuildExceptions.funExceptionDailyLimit(method, left.toString())
         if (gold) {
             if (hero.money < amount) throw CharacterExceptions.funExceptionGold(method, amount.toString())
@@ -332,11 +334,128 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         change.log(GuildLogKind.CONTRIBUTED, hero.name, "$amount ${if (gold) GOLD else item}")
         val rankAfter = rules.rankIndex(me.contribution)
         if (rankAfter > rankBefore) change.log(GuildLogKind.RANK_UP, hero.name, rules.ranks[rankAfter].code)
-        val grown = change.grow(value, hero.name)
+        val grown = change.grow((value * (1 + change.effect(GuildEffect.GROWTH) / 100)).toLong(), hero.name)
         change.sync(hero)
         commit(change, method, grown)
         val cards = heroes.cards(guild.members.map { it.heroId })
         return GuildContribution(view(change, me, cards), member(me, cards[heroId], change.now), hero.money)
+    }
+
+    // ==================== ДРЕВО (1.74.0) ====================
+
+    /** Глава берёт ранг узла: очко за уровень гильдии, второй ряд - с правила очков в ветви. Строки - у каждого участника. */
+    suspend fun takeNode(heroId: String, node: String): GuildMine {
+        val method = "guildTreeTake"
+        val change = acting(heroId, method, leader = true)
+        val tree = rules.tree
+        if (!tree.canTake(change.guild.tree, change.guild.level, node)) throw GuildExceptions.funExceptionNode(method, node)
+        change.guild.tree.merge(node, 1, Int::plus)
+        change.log(GuildLogKind.TREE_NODE, change.actor.name, node)
+        return treeChanged(change, method)
+    }
+
+    /** Глава сбрасывает древо: очки возвращаются; бесплатно раз в правило дней. */
+    suspend fun resetTree(heroId: String): GuildMine {
+        val method = "guildTreeReset"
+        val change = acting(heroId, method, leader = true)
+        val at = change.guild.treeResetAt + rules.tree.respecDays * DAY
+        if (change.now < at) throw GuildExceptions.funExceptionRespec(method, at.toString())
+        change.guild.tree.clear()
+        change.guild.treeResetAt = change.now
+        change.log(GuildLogKind.TREE_RESET, change.actor.name, "")
+        return treeChanged(change, method)
+    }
+
+    /** Древо поменялось: строки в копии гильдии у каждого участника - одной записью. */
+    private suspend fun treeChanged(change: Change, method: String): GuildMine {
+        val guild = change.guild
+        val bonuses = rules.tree.effects(guild.tree)
+        change.sync(change.actor)
+        transactionExecute("guild $method ${guild._id}") { session ->
+            change.write(session)
+            heroes.patchGuild(Filters.and(Filters.eq("guild.id", guild._id), Filters.ne("_id", change.actor._id)), Updates.set("guild.bonuses", bonuses), session)
+        }
+        return inside(change, change.actor)
+    }
+
+    // ==================== ХРАНИЛИЩЕ (1.74.0) ====================
+
+    suspend fun stash(heroId: String): GuildStashView = stashView(reading(heroId, "guildStash"))
+
+    /**
+     * Положить в хранилище: вещь из тайника (не надетую) или стопку сумки - во вкладку [tab]; класть могут все.
+     * С этого мига вещь - гильдии.
+     */
+    suspend fun deposit(heroId: String, tab: Int, itemId: String?, code: String?, amount: Long): GuildStashView {
+        val method = "guildDeposit"
+        val change = acting(heroId, method)
+        val hero = change.actor
+        val guild = change.guild
+        if (tab !in 0 until tabCount(change)) throw GuildExceptions.funExceptionStashEntry(method, "tab $tab")
+        if (guild.stash.count { it.tab == tab } >= rules.stash.tabSize) throw GuildExceptions.funExceptionStashFull(method, (tab + 1).toString())
+        val entry = if (itemId != null) {
+            val item = hero.requireItem(itemId, method)
+            if (item.equipped || item.socketed) throw base.exception.model.AuctionExceptions.funExceptionItemEquipped(method, itemId)
+            if (item.locked) throw base.exception.model.AuctionExceptions.funExceptionItemLocked(method, itemId)
+            hero.items.remove(item)
+            GuildStashEntry(tab = tab, item = item.copy(slot = null, socket = null), by = hero.name, at = change.now)
+        } else {
+            val stack = code?.takeIf { index.item(it) != null } ?: throw CharacterExceptions.funExceptionItemNotFound(method, code.orEmpty())
+            if (amount <= 0) throw GuildExceptions.funExceptionAmount(method, amount.toString())
+            hero.spend(stack, amount, method)
+            GuildStashEntry(tab = tab, code = stack, amount = amount, by = hero.name, at = change.now)
+        }
+        guild.stash += entry
+        change.touch(hero)
+        change.log(GuildLogKind.STASH_IN, hero.name, entry.item?.template ?: "${entry.amount} ${entry.code}")
+        commit(change, method, false)
+        return stashView(change)
+    }
+
+    /** Взять из хранилища: ранг не ниже порога вкладки, взятий в сутки по правилу (глава и офицеры - без счёта); стопка - одно взятие. */
+    suspend fun take(heroId: String, entryId: String): GuildStashView {
+        val method = "guildTake"
+        val change = acting(heroId, method)
+        val hero = change.actor
+        val guild = change.guild
+        val me = change.record(heroId)
+        val entry = guild.stash.firstOrNull { it.id == entryId } ?: throw GuildExceptions.funExceptionStashEntry(method, entryId)
+        val tab = guild.tabs.getOrNull(entry.tab) ?: GuildStashTab()
+        if (me.role == GuildRole.MEMBER && rules.rankIndex(me.contribution) < tab.minRank) throw GuildExceptions.funExceptionTabRank(method, (entry.tab + 1).toString())
+        val today = day(change.now)
+        if (me.takesDay != today) { me.takesDay = today; me.takes = 0 }
+        val allowed = takesPerDay(change)
+        if (me.role == GuildRole.MEMBER && me.takes >= allowed) throw GuildExceptions.funExceptionTakes(method, allowed.toString())
+        guild.stash.remove(entry)
+        if (me.role == GuildRole.MEMBER) me.takes++
+        entry.item?.let { features.logic.hero.Stash.giveBack(hero, it, index) } ?: hero.earn(entry.code, entry.amount)
+        change.touch(hero)
+        change.log(GuildLogKind.STASH_OUT, hero.name, entry.item?.template ?: "${entry.amount} ${entry.code}")
+        commit(change, method, false)
+        return stashView(change)
+    }
+
+    /** Глава ставит вкладке порог ранга на взятие. */
+    suspend fun tabRank(heroId: String, tab: Int, minRank: Int): GuildStashView {
+        val method = "guildTabRank"
+        val change = acting(heroId, method, leader = true)
+        if (tab !in 0 until tabCount(change) || minRank !in rules.ranks.indices) throw GuildExceptions.funExceptionStashEntry(method, "tab $tab")
+        val tabs = change.guild.tabs
+        while (tabs.size <= tab) tabs += GuildStashTab()
+        tabs[tab] = GuildStashTab(minRank)
+        commit(change, method, false)
+        return stashView(change)
+    }
+
+    private fun tabCount(change: Change): Int = (rules.stash.baseTabs + change.effect(GuildEffect.STASH_TABS).toInt()).coerceIn(1, rules.stash.maxTabs)
+    private fun takesPerDay(change: Change): Int = rules.stash.takesPerDay + change.effect(GuildEffect.TAKES).toInt()
+
+    private fun stashView(change: Change): GuildStashView {
+        val me = change.record(change.actor._id)
+        val count = tabCount(change)
+        val left = if (me.role != GuildRole.MEMBER) -1 else takesPerDay(change) - (if (me.takesDay == day(change.now)) me.takes else 0)
+        return GuildStashView(change.guild.stash.toList(), List(count) { change.guild.tabs.getOrNull(it) ?: GuildStashTab() }, rules.stash.tabSize,
+            left.coerceAtLeast(if (left < 0) -1 else 0), change.actor.money)
     }
 
     // ==================== ЗАДАНИЯ ====================
@@ -568,11 +687,14 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
         /** Копия гильдии у героя - как в документе гильдии. */
         fun sync(hero: Hero) {
             val me = guild.member(hero._id) ?: return
-            val expected = HeroGuild(guild._id, guild.level, rules.rankIndex(me.contribution))
+            val expected = HeroGuild(guild._id, guild.level, rules.rankIndex(me.contribution), rules.tree.effects(guild.tree))
             if (hero.guild != expected) { hero.guild = expected; touched[hero._id] = hero }
         }
 
         fun touch(hero: Hero) { touched[hero._id] = hero }
+
+        /** Строка древа гильдии по ключу (1.74.0). */
+        fun effect(key: String): Double = rules.tree.effects(guild.tree)[key] ?: 0.0
 
         /** Уровень гильдии вырос за эту команду: копии уровня у участников надо переписать. */
         var grown = false
@@ -775,6 +897,7 @@ class GuildRepository : BaseRepository<Guild>(Guild::class), KoinComponent {
             guild._id, guild.name, guild.tag, guild.emblem, guild.color, guild.faction, guild.level, guild.experience, rules.next(guild.level),
             rules.capacity(guild.level), guild.mode, guild.minLevel, guild.announcement, guild.treasuryGold, guild.treasuryOrbs.toMap(),
             members, applicants, members.filter { it.weekContribution > 0 }.associate { it.heroId to it.weekContribution },
+            guild.tree.toMap(), (rules.tree.points(guild.level) - rules.tree.spent(guild.tree)).coerceAtLeast(0), guild.treeResetAt + rules.tree.respecDays * DAY,
         )
     }
 

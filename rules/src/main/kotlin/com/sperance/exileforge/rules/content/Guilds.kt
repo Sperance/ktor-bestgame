@@ -18,7 +18,58 @@ enum class GuildMode { OPEN, APPLY, INVITE }
 
 /** Запись журнала гильдии; подпись - ключ `guild.log.<вид>` с `{0}` - героем и `{1}` - подробностью. */
 @Serializable
-enum class GuildLogKind { CREATED, JOINED, LEFT, KICKED, CONTRIBUTED, PROMOTED, DEMOTED, RANK_UP, LEVEL_UP, LEADER_CHANGED }
+enum class GuildLogKind { CREATED, JOINED, LEFT, KICKED, CONTRIBUTED, PROMOTED, DEMOTED, RANK_UP, LEVEL_UP, LEADER_CHANGED,
+    /** 1.74.0: узел древа взят, древо сброшено, вещь положена в хранилище и взята из него. */
+    TREE_NODE, TREE_RESET, STASH_IN, STASH_OUT }
+
+/** Ветви древа гильдии (1.74.0): бой, добыча, хозяйство; подпись - `guild.branch.<код>`. */
+@Serializable
+enum class GuildBranch { COMBAT, LOOT, ECONOMY }
+
+/**
+ * Узел древа гильдии (1.74.0): ветвь, ряд (второй открыт с [GuildTreeRule.rowGate] очков в ветви), до [max] рангов;
+ * [effect] - ключ строки, [perRank] - её прибавка за ранг. Подпись - `guild.node.<code>.name` / `.desc`.
+ */
+@Serializable
+data class GuildNode(val code: String, val branch: GuildBranch, val row: Int = 1, val max: Int = 3, val effect: String, val perRank: Double)
+
+/**
+ * Древо гильдии: очко за каждый уровень гильдии, распределяет глава; бесплатный сброс раз в [respecDays] дней.
+ * Строки боя и добычи ложатся в контекст захода участников ([BrewStat] и [AtlasStat]), хозяйства - в саму гильдию ([GuildEffect]).
+ */
+@Serializable
+data class GuildTreeRule(val nodes: List<GuildNode> = emptyList(), val rowGate: Int = 3, val respecDays: Int = 7, val pointsPerLevel: Int = 1) {
+    fun node(code: String): GuildNode? = nodes.firstOrNull { it.code == code }
+    fun points(level: Int): Int = level * pointsPerLevel
+    fun spent(taken: Map<String, Int>): Int = taken.values.sum()
+    fun inBranch(taken: Map<String, Int>, branch: GuildBranch): Int = taken.entries.sumOf { (code, ranks) -> if (node(code)?.branch == branch) ranks else 0 }
+
+    /** Строки взятых узлов по ключам: одинаковые складываются. */
+    fun effects(taken: Map<String, Int>): Map<String, Double> =
+        taken.mapNotNull { (code, ranks) -> node(code)?.let { it.effect to it.perRank * ranks } }.groupBy({ it.first }, { it.second }).mapValues { it.value.sum() }
+
+    /** Можно ли взять ещё ранг [code] при древе [taken] гильдии уровня [level]. */
+    fun canTake(taken: Map<String, Int>, level: Int, code: String): Boolean {
+        val node = node(code) ?: return false
+        return (taken[code] ?: 0) < node.max && spent(taken) < points(level) && (node.row <= 1 || inBranch(taken, node.branch) >= rowGate)
+    }
+}
+
+/** Ключи строк хозяйства гильдии (1.74.0): действуют в самой гильдии, не в заходе. */
+object GuildEffect {
+    const val STASH_TABS = "GUILD_STASH_TABS"
+    const val TAKES = "GUILD_TAKES"
+    const val DAILY_LIMIT = "GUILD_DAILY_LIMIT"
+    const val GROWTH = "GUILD_GROWTH"
+    const val CRAFT_SPEED = "GUILD_CRAFT_SPEED"
+}
+
+/**
+ * Хранилище гильдии (1.74.0): [tabSize] мест во вкладке, [baseTabs] вкладок с основания (хозяйство добавляет), [takesPerDay]
+ * взятий в сутки у участника - глава и офицеры без счёта; стопка - одно взятие.
+ */
+@Serializable
+data class GuildStashRule(val tabSize: Int = 50, val baseTabs: Int = 1, val takesPerDay: Int = 10, val maxTabs: Int = 6)
 
 @Serializable
 data class GuildCreateRule(val level: Int = 20, val gold: Long = 10_000)
@@ -60,6 +111,8 @@ data class GuildRules(
     val name: List<Int> = listOf(3, 24),
     /** Длина тега: от и до. */
     val tag: List<Int> = listOf(2, 4),
+    val tree: GuildTreeRule = GuildTreeRule(),
+    val stash: GuildStashRule = GuildStashRule(),
 ) {
     val maxLevel: Int get() = levels.size
 

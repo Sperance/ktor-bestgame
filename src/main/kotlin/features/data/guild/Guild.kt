@@ -28,7 +28,30 @@ data class GuildMemberRecord(
     val joinedAt: Long = 0,
     var roleAt: Long = 0,
     var lastSeenAt: Long = 0,
+    /** Взятия из хранилища (1.74.0): сутки (UTC) и сколько взято в них. */
+    var takesDay: Long = 0,
+    var takes: Int = 0,
 )
+
+/** Вещь или стопка в хранилище гильдии (1.74.0): во вкладке [tab]; положил [by] в [at]. Принадлежит гильдии. */
+@Serializable
+data class GuildStashEntry(
+    val id: String = ObjectId().toHexString(),
+    val tab: Int = 0,
+    val item: com.sperance.exileforge.rules.roll.ItemInstance? = null,
+    val code: String = "",
+    val amount: Long = 1,
+    val by: String = "",
+    val at: Long = 0,
+)
+
+/** Вкладка хранилища (1.74.0): брать могут участники с рангом не ниже [minRank] (номер в `ranks`); класть - все. */
+@Serializable
+data class GuildStashTab(val minRank: Int = 0)
+
+/** Хранилище глазами участника (1.74.0): вещи, вкладки с порогами, мест во вкладке и сколько взятий осталось (-1 - без счёта). */
+@Serializable
+data class GuildStashView(val entries: List<GuildStashEntry>, val tabs: List<GuildStashTab>, val tabSize: Int, val takesLeft: Int, val money: Long = 0)
 
 /** Заявка героя в гильдию режима APPLY. */
 @Serializable
@@ -63,6 +86,12 @@ data class Guild(
     var invites: MutableList<GuildInvite> = mutableListOf(),
     /** Общие цели гильдии на сутки и неделю (1.21.0): выдаются сами при первом обращении в новых сутках. */
     var quests: GuildQuestBoard = GuildQuestBoard(),
+    /** Древо (1.74.0): ранги взятых узлов и когда сброшено в последний раз (мс эпохи). */
+    var tree: MutableMap<String, Int> = mutableMapOf(),
+    var treeResetAt: Long = 0,
+    /** Хранилище (1.74.0). */
+    var stash: MutableList<GuildStashEntry> = mutableListOf(),
+    var tabs: MutableList<GuildStashTab> = mutableListOf(),
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -131,6 +160,10 @@ data class GuildView(
     val members: List<GuildMember>,
     val applications: List<GuildApplicant>,
     val weekly: Map<String, Long>,
+    /** Древо (1.74.0): ранги узлов, свободные очки и с какого момента сброс бесплатен. */
+    val tree: Map<String, Int> = emptyMap(),
+    val treePoints: Int = 0,
+    val respecAt: Long = 0,
 )
 
 /** Строка поиска гильдий. */

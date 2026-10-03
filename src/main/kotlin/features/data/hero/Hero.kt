@@ -220,7 +220,13 @@ data class RewardStream(var seed: Long = 0, var drawn: Long = 0, /** Цикло�
  * гильдия переписывает сама, когда они меняются, - задания гильдии читают только героя.
  */
 @Serializable
-data class HeroGuild(val id: String, val level: Int = 1, val rank: Int = 0)
+data class HeroGuild(
+    val id: String,
+    val level: Int = 1,
+    val rank: Int = 0,
+    /** Строки древа гильдии (1.74.0): боя и добычи - в заход, скорость ремёсел - в работу. */
+    val bonuses: Map<String, Double> = emptyMap(),
+)
 
 /**
  * Кампания героя: пройденные зоны, окна сундуков, кристаллов и расщелин по зонам, боссы (когда

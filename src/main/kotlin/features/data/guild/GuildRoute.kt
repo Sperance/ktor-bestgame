@@ -53,6 +53,14 @@ class GuildRoute(private val repo: GuildRepository) : BaseRoute<Guild>(
             ))
         }
         post("/contribute") { call.respondWithHero(repo.contribute(call.heroId, call.queryParam("item"), call.queryParam("amount", 0L))) }
+        post("/tree/take") { call.respondWithHero(repo.takeNode(call.heroId, call.queryParam("node"))) }
+        post("/tree/reset") { call.respondWithHero(repo.resetTree(call.heroId)) }
+        get("/stash") { call.respondOk(repo.stash(call.heroId)) }
+        post("/stash/deposit") {
+            call.respondWithHero(repo.deposit(call.heroId, call.queryParam("tab", 0), call.optionalParam("itemId"), call.optionalParam("code"), call.queryParam("amount", 1L)))
+        }
+        post("/stash/take") { call.respondWithHero(repo.take(call.heroId, call.queryParam("entryId"))) }
+        post("/stash/tab") { call.respondWithHero(repo.tabRank(call.heroId, call.queryParam("tab", 0), call.queryParam("minRank", 0))) }
         get("/quests") { call.respondOk(repo.quests(call.heroId)) }
         post("/quests/claim") { call.respondWithHero(repo.claimQuest(call.heroId, call.optionalParam("questId"), call.optionalParam("goal"))) }
         get("/log") { call.respondOk(repo.log(call.heroId, call.queryParam("page", 0), call.queryParam("size", CONST_PAGE_SIZE_DEFAULT))) }

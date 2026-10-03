@@ -196,7 +196,9 @@ class CampaignService : KoinComponent {
             )
         }
         val atlasBonuses = atlas.bonuses(hero)
-        return RunContext(hero.heroClass, hero.level, bonuses, atlasBonuses.effects, hero.campaign.activeMap?.takeIf { it.mapCode == zone.code },
+        // Древо гильдии (1.74.0): строки боя и добычи - в заход вместе с атласом; хозяйство остаётся гильдии.
+        val guild = hero.guild?.bonuses.orEmpty().filterKeys { !it.startsWith(GUILD_PREFIX) }
+        return RunContext(hero.heroClass, hero.level, bonuses, listOf(atlasBonuses.effects, guild).summed(), hero.campaign.activeMap?.takeIf { it.mapCode == zone.code },
             hero.campaign.vaalZone?.takeIf { it.mapCode == zone.code }, atlasBonuses.extraRareMods, index.world.next(zone.code), hero.recipes.toList(),
             atlasNodes = hero.atlas.size)
     }
@@ -427,3 +429,6 @@ class CampaignService : KoinComponent {
 
 /** Строки нескольких источников одной картой: одинаковые ключи складываются. */
 private fun List<Map<String, Double>>.summed(): Map<String, Double> = flatMap { it.entries }.groupBy({ it.key }, { it.value }).mapValues { it.value.sum() }
+
+/** Ключи хозяйства гильдии - не для захода. */
+private const val GUILD_PREFIX = "GUILD_"

@@ -37,5 +37,11 @@ object GuildExceptions {
     fun funExceptionInvited(errorMethod: String, value: String? = "") = GuildException("Character $value is already invited", errorMethod, "GU_029", listOf(value.orEmpty()))
     fun funExceptionHeroName(errorMethod: String, value: String? = "") = GuildException("No character named $value", errorMethod, "GU_030", listOf(value.orEmpty()))
     fun funExceptionMinLevelValue(errorMethod: String, value: String? = "") = GuildException("Guild minimum level $value is out of range", errorMethod, "GU_031", listOf(value.orEmpty()))
+    fun funExceptionNode(errorMethod: String, value: String? = "") = GuildException("Guild tree node $value cannot be taken", errorMethod, "GU_033", listOf(value.orEmpty()))
+    fun funExceptionRespec(errorMethod: String, value: String? = "") = GuildException("The guild tree can be reset again at $value", errorMethod, "GU_034", listOf(value.orEmpty()))
+    fun funExceptionStashFull(errorMethod: String, value: String? = "") = GuildException("Guild stash tab $value is full", errorMethod, "GU_035", listOf(value.orEmpty()))
+    fun funExceptionTakes(errorMethod: String, value: String? = "") = GuildException("All $value takes from the guild stash are used today", errorMethod, "GU_036", listOf(value.orEmpty()))
+    fun funExceptionTabRank(errorMethod: String, value: String? = "") = GuildException("Guild stash tab $value needs a higher rank", errorMethod, "GU_037", listOf(value.orEmpty()))
+    fun funExceptionStashEntry(errorMethod: String, value: String? = "") = GuildException("Guild stash has no $value", errorMethod, "GU_038", listOf(value.orEmpty()))
     fun funExceptionTarget(errorMethod: String, value: String? = "") = GuildException("This cannot be done to guild member $value", errorMethod, "GU_032", listOf(value.orEmpty()))
 }

@@ -189,7 +189,7 @@ class CraftsService : KoinComponent {
         val professions = file.professions.map { profession ->
             val progress = hero.professions[profession.code] ?: ProfessionProgress()
             val tool = equipped.firstOrNull { it.slot == profession.tool }
-            val bonus = bonus(sheet, tool)
+            val bonus = bonus(sheet, tool).guilded(hero)
             ProfessionView(profession.code, profession.tool.name, progress.level, progress.experience, Work.toNext(rules, progress.level), tool, bonus,
                 profession.jobs.sortedBy { it.level }.map { job ->
                     val options = recipes.options(job, hero.heroClass).map { jobView(it.job, progress.level, bonus, choice = it.choice) }
@@ -280,7 +280,11 @@ class CraftsService : KoinComponent {
 
     private fun tool(hero: Hero, profession: Profession): ItemInstance? = hero.equipped.firstOrNull { it.slot == profession.tool }
 
-    private fun bonus(hero: Hero, profession: Profession): WorkBonus = bonus(index.sheetOf(hero).stats, tool(hero, profession))
+    private fun bonus(hero: Hero, profession: Profession): WorkBonus = bonus(index.sheetOf(hero).stats, tool(hero, profession)).guilded(hero)
+
+    /** Мастерские древа гильдии (1.74.0): прибавка к скорости труда участника. */
+    private fun WorkBonus.guilded(hero: Hero): WorkBonus =
+        copy(speed = speed + (hero.guild?.bonuses?.get(com.sperance.exileforge.rules.content.GuildEffect.CRAFT_SPEED) ?: 0.0))
 
     /** Бонусы труда: ветка дерева из листа героя (инструменты в него не входят) и инструмент своей профессии. */
     private fun bonus(sheet: Map<String, Double>, tool: ItemInstance?): WorkBonus {

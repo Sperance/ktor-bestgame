@@ -31,5 +31,28 @@
   "colors": ["#B23A3A", "#D98C2B", "#D9C23A", "#4F9A3C", "#2F8F8F", "#3A64B2", "#7A45B2", "#8A8A8A"],
   "announcement": 200,
   "name": [3, 24],
-  "tag": [2, 4]
+  "tag": [2, 4],
+  "tree": {
+    "rowGate": 3,
+    "respecDays": 7,
+    "pointsPerLevel": 1,
+    "nodes": [
+      {"code": "C_LIFE", "branch": "COMBAT", "row": 1, "max": 3, "effect": "BREW_LIFE", "perRank": 2},
+      {"code": "C_DAMAGE", "branch": "COMBAT", "row": 1, "max": 3, "effect": "BREW_DAMAGE", "perRank": 2},
+      {"code": "C_RESIST", "branch": "COMBAT", "row": 1, "max": 3, "effect": "BREW_RESIST", "perRank": 3},
+      {"code": "C_FURY", "branch": "COMBAT", "row": 2, "max": 3, "effect": "BREW_DAMAGE", "perRank": 4},
+      {"code": "C_BULWARK", "branch": "COMBAT", "row": 2, "max": 3, "effect": "BREW_LIFE", "perRank": 4},
+      {"code": "L_GOLD", "branch": "LOOT", "row": 1, "max": 3, "effect": "ATLAS_GOLD", "perRank": 5},
+      {"code": "L_EXPERIENCE", "branch": "LOOT", "row": 1, "max": 3, "effect": "ATLAS_EXPERIENCE", "perRank": 3},
+      {"code": "L_RARITY", "branch": "LOOT", "row": 1, "max": 3, "effect": "ATLAS_RARITY", "perRank": 4},
+      {"code": "L_QUANTITY", "branch": "LOOT", "row": 2, "max": 3, "effect": "ATLAS_QUANTITY", "perRank": 3},
+      {"code": "L_CHESTS", "branch": "LOOT", "row": 2, "max": 3, "effect": "ATLAS_CHEST_LOOT", "perRank": 10},
+      {"code": "E_TABS", "branch": "ECONOMY", "row": 1, "max": 3, "effect": "GUILD_STASH_TABS", "perRank": 1},
+      {"code": "E_CRAFT", "branch": "ECONOMY", "row": 1, "max": 3, "effect": "GUILD_CRAFT_SPEED", "perRank": 5},
+      {"code": "E_LIMIT", "branch": "ECONOMY", "row": 1, "max": 3, "effect": "GUILD_DAILY_LIMIT", "perRank": 10},
+      {"code": "E_TAKES", "branch": "ECONOMY", "row": 2, "max": 3, "effect": "GUILD_TAKES", "perRank": 2},
+      {"code": "E_GROWTH", "branch": "ECONOMY", "row": 2, "max": 3, "effect": "GUILD_GROWTH", "perRank": 5}
+    ]
+  },
+  "stash": {"tabSize": 50, "baseTabs": 1, "takesPerDay": 10, "maxTabs": 4}
 }
