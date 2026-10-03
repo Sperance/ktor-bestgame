@@ -10050,7 +10050,37 @@
     "opening": 50,
     "preparationCap": 75,
     "reinforceDelay": 3.0,
-    "buildup": {}
+    "buildup": {},
+    "lunge": 0.16,
+    "entry": 0.55,
+    "stagger": 0.13,
+    "minDot": 1.0,
+    "petMendEvery": 1.0,
+    "lifeDelay": 4.0,
+    "selfBurn": 0.01
+  },
+  "expedition": {
+    "heroSpeed": 3.2,
+    "heroRadius": 0.28,
+    "monsterRadius": 0.3,
+    "contact": 0.8,
+    "gatherRadius": 3.0,
+    "stageMonsters": 3,
+    "exitReach": 0.7,
+    "chestReach": 0.7,
+    "calmAfterRetreat": 4.0,
+    "chestSteps": 8,
+    "chestSpacing": 5.0,
+    "fountainSteps": 6,
+    "fountainSpacing": 8.0,
+    "defaultLight": 5.0,
+    "minLight": 2.0,
+    "maxLight": 14.0,
+    "autoWavesMin": 8,
+    "autoWavesMax": 15,
+    "autoBeat": 0.6,
+    "aftermath": 0.8,
+    "stagePause": 3.0
   },
   "behaviour": {
     "default": {

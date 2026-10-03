@@ -138,6 +138,41 @@ data class Ceilings(val block: Ceiling, val evasion: Ceiling, val physical: Ceil
     val all: List<Ceiling> get() = listOf(block, evasion, physical, critical)
 }
 
+/**
+ * Правила похода (1.74.6, прежде константы клиента): как герой ходит по карте между боями. Единицы - клетки и секунды.
+ * [heroSpeed] - шаг героя; [heroRadius] и [monsterRadius] - тела для столкновений, [contact] - дистанция начала боя;
+ * [gatherRadius] - как близко стая должна стоять к вступившей, чтобы войти в её бой, [stageMonsters] - сколько монстров
+ * слившиеся стаи ставят в одну стадию; [exitReach] и [chestReach] - дотянуться до выхода и сундука; [calmAfterRetreat] -
+ * секунды, что монстр не нападает после отступления; сундуки и источники - не ближе [chestSteps]/[fountainSteps] шагов
+ * от входа и [chestSpacing]/[fountainSpacing] друг от друга; свет - [defaultLight] без листа, в пределах [minLight]..[maxLight];
+ * автозабег - от [autoWavesMin] до [autoWavesMax] волн с шагом [autoBeat] секунд; [aftermath] - сколько висит последний
+ * удар боя, [stagePause] - пауза между стадиями боя.
+ */
+@Serializable
+data class ExpeditionRules(
+    val heroSpeed: Double = 3.2,
+    val heroRadius: Double = 0.28,
+    val monsterRadius: Double = 0.3,
+    val contact: Double = 0.8,
+    val gatherRadius: Double = 3.0,
+    val stageMonsters: Int = 3,
+    val exitReach: Double = 0.7,
+    val chestReach: Double = 0.7,
+    val calmAfterRetreat: Double = 4.0,
+    val chestSteps: Int = 8,
+    val chestSpacing: Double = 5.0,
+    val fountainSteps: Int = 6,
+    val fountainSpacing: Double = 8.0,
+    val defaultLight: Double = 5.0,
+    val minLight: Double = 2.0,
+    val maxLight: Double = 14.0,
+    val autoWavesMin: Int = 8,
+    val autoWavesMax: Int = 15,
+    val autoBeat: Double = 0.6,
+    val aftermath: Double = 0.8,
+    val stagePause: Double = 3.0,
+)
+
 /** Правила боя: числа, по которым клиент считает автобой. */
 @Serializable
 data class CombatRules(
@@ -182,6 +217,19 @@ data class CombatRules(
     val reinforceDelay: Double = 0.0,
     /** Шкалы накопления (1.73.0): есть - оглушение и заморозка копятся шкалой вместо порога и шанса; нет - по-старому. */
     val buildup: BuildupRule? = null,
+    /**
+     * Темп боя (1.74.6, прежде константы клиента): [lunge] - секунды выпада удара, [entry] - пауза перед первым
+     * ударом стаи, [stagger] - разбег между её членами; [minDot] - наименьший урон тика недуга; [petMendEvery] -
+     * раз в сколько секунд питомец-лекарь записывается в лог; [lifeDelay] - секунды до начала восстановления
+     * здоровья после удара, если лист не задал своих; [selfBurn] - доля своего здоровья в секунду за огонь на себе.
+     */
+    val lunge: Double = 0.16,
+    val entry: Double = 0.55,
+    val stagger: Double = 0.13,
+    val minDot: Double = 1.0,
+    val petMendEvery: Double = 1.0,
+    val lifeDelay: Double = 4.0,
+    val selfBurn: Double = 0.01,
 ) {
     /**
      * Какая доля перезарядки умения идёт в начале боя: подготовка умения на его уровне (или [opening], если своей нет),
@@ -450,6 +498,8 @@ data class CampaignFile(
     val rarityTable: String = "rarity:monster",
     /** Сундуки-добыча (1.71.0): предметы сумки, что падают редко и открываются у героя; порядок списка - порядок бросков. */
     val lootChests: List<LootChest> = emptyList(),
+    /** Поход (1.74.6): шаг героя, радиусы, сундуки и источники, свет, волны автозабега и паузы боя. */
+    val expedition: ExpeditionRules = ExpeditionRules(),
 ) {
     val zones: List<Zone> get() = regions.flatMap { it.zones }
 
