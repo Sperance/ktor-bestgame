@@ -15,8 +15,6 @@ data class CombatProfile(val attack: Double, val spell: Double, val ailment: Dou
     val best: Double get() = maxOf(attack, spell, ailment).coerceAtLeast(1.0)
 
     companion object {
-        /** Доля урона удара, которую недуг наносит за секунду сверх него при полной вероятности. */
-        const val AILMENT_SHARE = 0.5
         private const val SPELL_ADD = "STOCK_SPELL_ADD_"
         private val AILMENT_DAMAGE = listOf("STOCK_BURNING_DAMAGE", "STOCK_POISON_DAMAGE", "STOCK_BLEED_DAMAGE")
 
@@ -25,7 +23,7 @@ data class CombatProfile(val attack: Double, val spell: Double, val ailment: Dou
             val critical = combat.critical
             fun stat(code: String) = (sheet[code] ?: 0.0).coerceAtLeast(0.0)
             val hit = GenericDamage.HITS.sumOf(::stat).takeIf { it > 0 } ?: combat.unarmed.damage
-            val speed = (sheet["STOCK_ATTACK_SPEED"] ?: 0.0).takeIf { it > 0 }?.coerceIn(0.3, 5.0) ?: combat.unarmed.speed
+            val speed = (sheet["STOCK_ATTACK_SPEED"] ?: 0.0).takeIf { it > 0 }?.coerceIn(combat.attackSpeedMin, combat.attackSpeedMax) ?: combat.unarmed.speed
             val damage = sheet[CoreStat.CRITICAL_DAMAGE.code]
             val attackCrit = critFactor(
                 sheet[CoreStat.CRITICAL_CHANCE.code] ?: critical.chance,
@@ -41,7 +39,7 @@ data class CombatProfile(val attack: Double, val spell: Double, val ailment: Dou
             val cast = speed * (1 + stat("STOCK_CAST_SPEED") / 100)
             val spell = spellHit * cast * spellCrit
             // Недуги: доля урона сильнейшего профиля удара, усиленная лучшим увеличением урона недугов
-            val ailment = maxOf(attack, spell) * AILMENT_SHARE * (1 + AILMENT_DAMAGE.maxOf(::stat) / 100)
+            val ailment = maxOf(attack, spell) * combat.ailmentShare * (1 + AILMENT_DAMAGE.maxOf(::stat) / 100)
             return CombatProfile(attack.coerceAtLeast(1.0), spell.coerceAtLeast(1.0), ailment)
         }
 

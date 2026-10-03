@@ -32,10 +32,11 @@ class GuildAccess(
     private val events: GuildEventRepository,
     private val content: ContentStore,
     private val questService: QuestEngine,
+    private val settings: ru.descend.exileforge.config.ServerSettings,
 ) {
     private val rules: GuildRules get() = content.index.guilds
 
-    fun change(guild: Guild): GuildChange = GuildChange(guild, guilds, heroes, events, content, questService)
+    fun change(guild: Guild): GuildChange = GuildChange(guild, guilds, heroes, events, content, questService, settings)
 
     /** Гильдия героя-участника с обслуживанием и сверкой; [staff] - только глава и офицеры, [leader] - только глава. */
     suspend fun acting(heroId: String, method: String, staff: Boolean = false, leader: Boolean = false): GuildChange {

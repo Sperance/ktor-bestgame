@@ -219,11 +219,11 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     /** Жетонов в Ваал-зоне: бросок зоны на своём потоке. */
     val vaalCount: Int by lazy { streams.of("vaalCount").between(zone.count).coerceAtLeast(1) }
 
-    /** Жетон [i]: вожак, а с шансом [PACK_CHANCE] - стая из 2..[PACK_MAX] (вожак и 1..5 спутников); редкость каждого - по таблице зоны и строкам карты. */
+    /** Жетон [i]: вожак, а с шансом `run.packChance` - стая из 2..`run.packMax` (вожак и 1..5 спутников); редкость каждого - по таблице зоны и строкам карты. */
     fun spawn(i: Int, vaal: Boolean = false): Spawn {
         val dice = streams.of(if (vaal) "vaalMonster" else "monster", i)
         val packDice = streams.of(if (vaal) "vaalPack" else "pack", i)
-        val size = if (packDice.chance(PACK_CHANCE)) 2 + packDice.nextInt(PACK_MAX - 1) else 1
+        val size = if (packDice.chance(index.rules.run.packChance)) 2 + packDice.nextInt(index.rules.run.packMax - 1) else 1
         val levels = streams.of(if (vaal) "vaalLevel" else "level", i)
         val members = List(size) { m -> roll(if (m == 0) dice else packDice, monsterLevel(levels)) }
         return Spawn(i, members)
@@ -531,12 +531,7 @@ class Run(val index: ContentIndex, val zone: Zone, val seed: Long, val context: 
     private fun itemId(draw: Draw, event: String): String = "r${java.lang.Long.toHexString(seed)}-${draw.tag}-$event"
 
     companion object {
-        const val PACK_CHANCE = 0.35
-
-        /** Жёсткий предел стаи вместе с вожаком. */
-        const val PACK_MAX = 6
-
-        /** Шаг жетона убийства `i * PACK_SLOTS + m`: не меньше [PACK_MAX], иначе жетоны разных стай совпадут. */
+        /** Шаг жетона убийства `i * PACK_SLOTS + m`: не меньше `rules.run.packMax`, иначе жетоны разных стай совпадут. */
         const val PACK_SLOTS = 8
 
         /** Потолок уровня монстра с разбросом карты: уровень зон и героя. */

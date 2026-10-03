@@ -53,6 +53,7 @@ class HeroRoute(
     private val service: ru.descend.exileforge.features.logic.hero.HeroService,
     private val snapshots: HeroSnapshots,
     private val heroStats: ru.descend.exileforge.features.data.heroStats.HeroStatsStore,
+    private val settings: ru.descend.exileforge.config.ServerSettings,
     private val content: ContentStore,
     private val inventory: InventoryService,
     private val tree: TreeService,
@@ -99,7 +100,7 @@ class HeroRoute(
             /** Выдача [what] герою запроса и ответ его снимком. */
             suspend fun io.ktor.server.routing.RoutingContext.grant(method: String, what: ru.descend.exileforge.features.logic.hero.TesterGrants.(ru.descend.exileforge.features.data.hero.Hero) -> Unit) {
                 val hero = repo.requireHero(call.heroId, method)
-                ru.descend.exileforge.features.logic.hero.TesterGrants(content.index).what(hero)
+                ru.descend.exileforge.features.logic.hero.TesterGrants(content.index, settings).what(hero)
                 call.respondWithHero(repo.save(hero, method).level)
             }
             post("/gold") { grant("grantGold") { gold(it, call.queryParam("amount", 0L)) } }

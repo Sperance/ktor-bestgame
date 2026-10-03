@@ -9912,6 +9912,10 @@
     }
   ],
   "combat": {
+    "ailmentShare": 0.5,
+    "attackSpeedMin": 0.3,
+    "attackSpeedMax": 5.0,
+    "recentSeconds": 4.0,
     "variance": 20,
     "resistCap": 75,
     "ceilings": {
@@ -10612,6 +10616,7 @@
     }
   },
   "traits": {
+    "skillMana": 30.0,
     "list": [
       {
         "code": "TRAIT_DISCIPLINE",

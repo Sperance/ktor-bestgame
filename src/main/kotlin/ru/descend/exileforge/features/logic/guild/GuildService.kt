@@ -34,6 +34,7 @@ class GuildService(
     private val events: GuildEventRepository,
     private val content: ContentStore,
     private val access: GuildAccess,
+    private val settings: ru.descend.exileforge.config.ServerSettings,
 ) {
     private val rules: GuildRules get() = content.index.guilds
 
@@ -335,11 +336,10 @@ class GuildService(
     }
 
     private fun requireMinLevel(minLevel: Int, method: String) {
-        if (minLevel !in 1..MAX_MIN_LEVEL) throw GuildExceptions.funExceptionMinLevelValue(method, minLevel.toString())
+        if (minLevel !in 1..settings.guildMaxMinLevel) throw GuildExceptions.funExceptionMinLevelValue(method, minLevel.toString())
     }
 
     private companion object {
-        const val MAX_MIN_LEVEL = 1000
         val SPACES = Regex("\\s+")
     }
 }

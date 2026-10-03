@@ -13,6 +13,8 @@ import ru.descend.exileforge.config.ContentStore
 import ru.descend.exileforge.config.DatabaseSeeder
 import ru.descend.exileforge.config.MongoBackupManager
 import ru.descend.exileforge.config.MongoFactory
+import ru.descend.exileforge.config.ServerClock
+import ru.descend.exileforge.config.ServerSettings
 import ru.descend.exileforge.config.SystemMonitor
 import ru.descend.exileforge.features.caches.BlockListCache
 import ru.descend.exileforge.features.data.admin.AdminRoute
@@ -41,6 +43,7 @@ import ru.descend.exileforge.features.data.user.UserRoute
 import ru.descend.exileforge.features.logic.atlas.AtlasService
 import ru.descend.exileforge.features.logic.auth.UserService
 import ru.descend.exileforge.features.logic.campaign.CampaignService
+import ru.descend.exileforge.features.logic.campaign.Plausibility
 import ru.descend.exileforge.features.logic.campaign.TrialService
 import ru.descend.exileforge.features.logic.crafts.CraftsService
 import ru.descend.exileforge.features.logic.feedback.FeedbackService
@@ -72,6 +75,8 @@ import ru.descend.exileforge.server.addons.RateKeys
 /** Контент - из файлов ресурсов, один экземпляр на процесс; Mongo его не хранит (1.0.0). */
 val contentModule = module {
     single { ContentStore.load() }
+    single { ServerSettings.fromEnv() }
+    single<ServerClock> { ServerClock { System.currentTimeMillis() } }
 }
 
 /** Коллекции: документ, индексы, выборки. Без игровой логики. */
@@ -111,6 +116,7 @@ val serviceModule = module {
     singleOf(::SkillService)
     singleOf(::CraftsService)
     singleOf(::MerchantService)
+    singleOf(::Plausibility)
     singleOf(::CampaignService)
     singleOf(::TrialService)
     singleOf(::PetService)

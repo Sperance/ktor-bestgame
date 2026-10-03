@@ -71,7 +71,19 @@ data class CraftingRules(
 @Serializable data class Profession(val code: String, val tool: Slot, val jobs: List<Job>)
 
 @Serializable
-data class CraftsRules(val offlineHours: Double, val maxLevel: Int, val levelSpeed: Double, val levelFind: Double, val luckCap: Double, val experienceBase: Double, val experiencePower: Double)
+data class CraftsRules(
+    val offlineHours: Double,
+    val maxLevel: Int,
+    val levelSpeed: Double,
+    val levelFind: Double,
+    val luckCap: Double,
+    val experienceBase: Double,
+    val experiencePower: Double,
+    /** Отлучка короче стольких минут не пишется в журнал работ. */
+    val awayMinMinutes: Int,
+) {
+    val awayMinMillis: Long get() = awayMinMinutes * 60_000L
+}
 
 /** Файл `professions.json`. */
 @Serializable

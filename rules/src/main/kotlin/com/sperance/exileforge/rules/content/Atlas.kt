@@ -25,7 +25,14 @@ data class AtlasRespec(val perNode: Long, val perLevel: Long = 0) {
 
 /** Файл `atlas.json`: очки за достижения, потолок, цена отката и узлы. */
 @Serializable
-data class AtlasTree(val points: Map<String, Int>, val respec: AtlasRespec, val nodes: List<AtlasNode>, val cap: Int = Int.MAX_VALUE)
+data class AtlasTree(
+    val points: Map<String, Int>,
+    val respec: AtlasRespec,
+    val nodes: List<AtlasNode>,
+    val cap: Int = Int.MAX_VALUE,
+    /** Потолок ускорения возврата босса, процентов. */
+    val respawnCap: Double,
+)
 
 class AtlasGraph(nodes: Collection<AtlasNode>) {
     val byCode: Map<String, AtlasNode> = nodes.associateBy { it.code }
@@ -148,12 +155,11 @@ class AtlasBonuses(val effects: Map<String, Double> = emptyMap()) {
 
     fun recipeChance(chance: Double) = chance * relative(AtlasStat.RECIPE.code)
     fun mapChance(chance: Double) = chance * relative(AtlasStat.MAP_DROP.code)
-    fun bossRespawnHours(hours: Double) = hours * (1 - this[AtlasStat.BOSS_RESPAWN.code].coerceIn(0.0, RESPAWN_CAP) / 100)
+    fun bossRespawnHours(hours: Double, cap: Double) = hours * (1 - this[AtlasStat.BOSS_RESPAWN.code].coerceIn(0.0, cap) / 100)
 
     private fun relative(stat: String) = (1 + this[stat] / 100).coerceAtLeast(0.0)
 
     companion object {
-        const val RESPAWN_CAP = 90.0
         val NONE = AtlasBonuses()
 
         fun of(graph: AtlasGraph, allocated: Collection<String>, modifier: (String) -> ModifierDef?): AtlasBonuses {

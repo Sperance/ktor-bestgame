@@ -23,12 +23,9 @@ import ru.descend.exileforge.features.logic.quests.QuestEngine
 
 /** Время гильдии: сутки и недели UTC для вклада, взятий и обслуживания. */
 internal object GuildClock {
-    const val MINUTE = 60_000L
-    const val HOUR = 3_600_000L
-    const val DAY = 86_400_000L
-
-    /** Отметка захода пишется не чаще раза в столько: чтение не должно переписывать гильдию на каждый опрос. */
-    const val SEEN_STEP = 10 * MINUTE
+    const val MINUTE = ru.descend.exileforge.extensions.Millis.MINUTE
+    const val HOUR = ru.descend.exileforge.extensions.Millis.HOUR
+    const val DAY = ru.descend.exileforge.extensions.Millis.DAY
 
     fun day(now: Long): Long = now / DAY
 
@@ -47,6 +44,7 @@ class GuildChange(
     private val events: GuildEventRepository,
     private val content: ContentStore,
     private val questService: QuestEngine,
+    private val settings: ru.descend.exileforge.config.ServerSettings,
 ) {
     private val rules: GuildRules get() = content.index.guilds
     val now: Long = System.currentTimeMillis()
@@ -71,11 +69,11 @@ class GuildChange(
     suspend fun nameOf(heroId: String): String = touched[heroId]?.name ?: (if (::actor.isInitialized && actor._id == heroId) actor.name else null) ?: names[heroId]
         ?: heroes.cards(listOf(heroId))[heroId]?.name.orEmpty().also { names[heroId] = it }
 
-    /** Участник заходил: отметка не чаще [GuildClock.SEEN_STEP], затем обслуживание гильдии и сверка копии героя. */
+    /** Участник заходил: отметка не чаще `settings.guildSeenStepMs`, затем обслуживание гильдии и сверка копии героя. */
     suspend fun visit(hero: Hero) {
         actor = hero
         val me = record(hero._id)
-        if (now - me.lastSeenAt >= GuildClock.SEEN_STEP) {
+        if (now - me.lastSeenAt >= settings.guildSeenStepMs) {
             me.lastSeenAt = now
             dirty = true
         }

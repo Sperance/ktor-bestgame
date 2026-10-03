@@ -1,5 +1,7 @@
 {
   "rules": {
+    "boostedMaxLevel": 25,
+    "heroMaxLevel": 70,
     "activeSlots": [
       1,
       12,

@@ -11,6 +11,7 @@ import com.sperance.exileforge.rules.content.TrialKind
 import com.sperance.exileforge.rules.content.TrialProgress
 import com.sperance.exileforge.rules.content.TrialRules
 import com.sperance.exileforge.rules.content.TrialRun
+import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.run.Reward
 import com.sperance.exileforge.rules.run.RewardDraws
 import com.sperance.exileforge.rules.run.Run
@@ -57,6 +58,9 @@ class TrialService(
     private val heroes: HeroRepository,
     private val campaign: CampaignService,
     private val content: ContentStore,
+    private val settings: ru.descend.exileforge.config.ServerSettings,
+    private val plausibility: Plausibility,
+    private val clock: ru.descend.exileforge.config.ServerClock,
 ) {
     private val index: ContentIndex get() = content.index
 
@@ -96,7 +100,7 @@ class TrialService(
     }
 
     private suspend fun open(hero: Hero, kind: TrialKind, region: String, floor: Int, method: String): TrialStart {
-        val opened = TrialRun(ObjectId().toHexString(), kind, kotlin.random.Random.nextLong(), hero.level, System.currentTimeMillis(), region, floor)
+        val opened = TrialRun(ObjectId().toHexString(), kind, Dice.system().nextLong(Long.MAX_VALUE), hero.level, clock.now(), region, floor)
         val run = opened.copy(context = context(hero, opened))
         hero.campaign.trials = hero.campaign.trials.copy(run = run)
         hero.count(Counter.RUNS)
@@ -117,7 +121,7 @@ class TrialService(
      */
     suspend fun events(heroId: String, runId: String, events: List<TrialEvent>): TrialReport {
         val method = "trialEvents"
-        if (events.size > MAX_EVENTS) throw CampaignExceptions.funExceptionTooManyEvents(method, MAX_EVENTS.toString())
+        if (events.size > settings.runMaxEvents) throw CampaignExceptions.funExceptionTooManyEvents(method, settings.runMaxEvents.toString())
         val rules = rules(method)
         val hero = heroes.requireHero(heroId, method)
         var run = hero.campaign.trials.run ?: throw CampaignExceptions.funExceptionNoTrial(method, "")
@@ -150,14 +154,14 @@ class TrialService(
 
     /** Одно событие; null - правило его не пустило. */
     private fun apply(hero: Hero, run: TrialRun, event: TrialEvent, rules: TrialRules, context: RunContext, draws: RewardDraws): Reward? {
-        val now = System.currentTimeMillis()
+        val now = clock.now()
         val trials = hero.campaign.trials
         return when (event.kind) {
             TrialEventKind.BOSS -> {
                 if (run.kind != TrialKind.RUSH) return null
                 val plan = RushPlan(region(run.region, "trialEvents"))
                 if (event.index != run.killed || run.killed >= plan.size) return null
-                if (!Plausibility.pace(hero, run.region, run.startedAt, now, run.killed + 1, Plausibility.BOSS_SECONDS, "rush_boss_seconds")) return null
+                if (!plausibility.pace(hero, run.region, run.startedAt, now, run.killed + 1, Plausibility.BOSS_SECONDS, "rush_boss_seconds")) return null
                 hero.campaign.trials = trials.copy(run = run.copy(killed = run.killed + 1))
                 hero.count(Counter.BOSSES)
                 hero.count(Counter.RUSH_BOSSES)
@@ -172,7 +176,7 @@ class TrialService(
                 val floor = run.floor
                 if (floor > tower.maxFloor) return null
                 // Темп - от этажа входа: рекорд растёт по ходу, и счёт от него сбрасывал бы работу на каждом чекпоинте
-                if (!Plausibility.pace(hero, TOWER, run.startedAt, now, floor - run.entry + 1, FLOOR_SECONDS, "tower_floor_seconds")) return null
+                if (!plausibility.pace(hero, TOWER, run.startedAt, now, floor - run.entry + 1, FLOOR_SECONDS, "tower_floor_seconds")) return null
                 // Потолок башни (1.53.0): последний этаж пройден - испытание закрыто, как по END
                 hero.campaign.trials = trials.copy(
                     run = if (floor >= tower.maxFloor) null else run.copy(floor = floor + 1, hoards = run.hoards + if (tower.hoard(floor)) 1 else 0),

@@ -20,9 +20,11 @@
 - [ ] Парсинг enum из строк в роутах - общий хелпер, не `entries.firstOrNull { it.name == … }` по месту.
 
 ## Этап 4 - баланс и настройки
-- [ ] Игровые константы из Kotlin в `content/rules.json` (`EngineRules`): RESALE_SHARE, AILMENT_SHARE, лимиты умений и уровней, PACK_CHANCE/PACK_MAX, TRAIT_MANA, RESPAWN_CAP, LEVELS_PER_TIER/MAX_TIER, HARD_CAP, RECENT, MIN_UNIQUE_EFFECTS, MIN_MILLIS.
-- [ ] Инфраструктурное - один `ServerSettings` из окружения с дефолтами: срок сессии, MAX_PER_USER, MAX_EVENTS, KILLS_PER_SECOND, MAIL_DAYS, SEEN_STEP, лимиты тестера. `DAY_MS`/`HOUR` - один источник.
-- [ ] Случайность только через `Dice`: сиды забегов в CampaignService/TrialService, `System.currentTimeMillis` в TrialService - через `Clock`.
+- [x] Игровые константы в JSON контента: `merchant.resaleShare`, `run.packChance`/`packMax`, `combat.ailmentShare`/`attackSpeedMin`/`attackSpeedMax`/`recentSeconds`, `traits.skillMana`, `skills.rules.boostedMaxLevel`/`heroMaxLevel`, `atlas.respawnCap`, `professions.rules.awayMinMinutes`. Поля обязательны - значений по умолчанию в Kotlin нет.
+- [x] Остались в коде как структурные, не балансные: `SkillRules.MAX_LEVEL` (число ступеней шкалы умения), `ACTIVE/PASSIVE/CHARGE_SKILLS_PER_CLASS` (проверка состава контента), `StashRules.HARD_CAP` (защита документа), `LEVELS_PER_TIER`/`MAX_TIER` (коды сундуков `_T<n>`), `MIN_UNIQUE_EFFECTS` (проверка контента), `Run.PACK_SLOTS` (кодирование жетона).
+- [x] Инфраструктурное - `ServerSettings.fromEnv()` (сроки сессий и почты, лимиты журнала, античит, шаги отметок, окно тестирования, потолок уровня гильдии); `Millis` - один источник единиц времени; `Plausibility` - класс с настройками.
+- [x] Сиды забегов и испытаний - через `Dice.system()`; «сейчас» в TrialService - через `ServerClock` из графа.
+- [ ] Клиент: `Condition.RECENT` → `rules.recentSeconds`, `SkillRules.MAX_BOOSTED_LEVEL` → `skillRules.rules.boostedMaxLevel` (этап 6 клиента).
 
 ## Этап 5 - чистка
 - [ ] Удалить `funExceptionClassOnly` (ST_021) с ключами локали.

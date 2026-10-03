@@ -101,7 +101,6 @@ data class RunReport(
  */
 
 /** Событий в одном журнале не больше (1.53.0): клиент шлёт по шесть, офлайн-очередь режется на батчи. */
-const val MAX_EVENTS = 64
 
 /** События, чей темп мерится по листу героя ([Plausibility.Pace]): убийство и стражи. */
 private val PACED = setOf(RunEventKind.KILL, RunEventKind.BOSS, RunEventKind.CORRUPT)
@@ -111,6 +110,8 @@ class CampaignService(
     private val atlas: AtlasService,
     private val quests: QuestEngine,
     private val content: ContentStore,
+    private val settings: ru.descend.exileforge.config.ServerSettings,
+    private val plausibility: Plausibility,
 ) {
     private val index: ContentIndex get() = content.index
     private val campaign get() = index.campaign
@@ -187,7 +188,7 @@ class CampaignService(
             state.vaalZone = null
         }
         val context = context(hero, zone, sheet).let { base -> potionLines?.let { base.copy(atlas = listOf(base.atlas, it).summed()) } ?: base }
-        val run = RunState(ObjectId().toHexString(), kotlin.random.Random.nextLong(), mapCode, context, now, content = index.hash)
+        val run = RunState(ObjectId().toHexString(), Dice.system().nextLong(Long.MAX_VALUE), mapCode, context, now, content = index.hash)
         state.run = run
         state.seededAt = now
         // Задания на сутки выдаются и здесь: заход, начатый до первого взгляда на доску, тоже идёт в зачёт
@@ -249,7 +250,7 @@ class CampaignService(
      */
     suspend fun events(heroId: String, runId: String, events: List<RunEvent>): RunReport {
         val method = "events"
-        if (events.size > MAX_EVENTS) throw CampaignExceptions.funExceptionTooManyEvents(method, MAX_EVENTS.toString())
+        if (events.size > settings.runMaxEvents) throw CampaignExceptions.funExceptionTooManyEvents(method, settings.runMaxEvents.toString())
         val hero = heroes.requireHero(heroId, method)
         // Задания на сутки - до событий: сменившийся день не съедает прирост журнала
         quests.refresh(hero, System.currentTimeMillis(), Dice.system())
@@ -311,7 +312,7 @@ class CampaignService(
                 val pack = run.spawn(event.i, event.vaal).pack
                 val monster = pack.getOrNull(event.m) ?: return null
                 // Темп раньше награды (1.53.0): невозможное убийство не тратит ни жетон, ни кость награды
-                if (!Plausibility.kill(hero, state, now, pace.value, pack, (0 until Run.PACK_SLOTS).none { event.i * Run.PACK_SLOTS + it in killed })) return null
+                if (!plausibility.kill(hero, state, now, pace.value, pack, (0 until Run.PACK_SLOTS).none { event.i * Run.PACK_SLOTS + it in killed })) return null
                 val reward = run.kill(event.i, event.m, event.vaal, draws) ?: return null
                 killed += key
                 hero.count(Counter.KILLS)
@@ -339,8 +340,8 @@ class CampaignService(
 
             RunEventKind.BOSS -> {
                 if (now < (campaignState.bosses[mapCode] ?: 0L)) return null
-                if (!Plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.boss))) return null
-                campaignState.bosses[mapCode] = now + (bonuses.bossRespawnHours(campaign.bosses.respawnHours) * 3_600_000).toLong()
+                if (!plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.boss))) return null
+                campaignState.bosses[mapCode] = now + (bonuses.bossRespawnHours(campaign.bosses.respawnHours, index.atlas.respawnCap) * 3_600_000).toLong()
                 if (mapCode !in campaignState.cleared) campaignState.cleared += mapCode
                 AtlasPoints.earn(hero.earned, AtlasPoints.BOSS, mapCode)
                 hero.count(Counter.BOSSES)
@@ -370,7 +371,7 @@ class CampaignService(
 
             RunEventKind.CORRUPT -> {
                 campaignState.vaalZone?.takeIf { it.mapCode == mapCode } ?: return null
-                if (!Plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.corrupted))) return null
+                if (!plausibility.guardian(hero, state, now, pace.value, run.guardianFloor(zone.corrupted))) return null
                 val reward = run.corrupt(draws) ?: return null
                 state.tally.corrupts++
                 campaignState.corruptionOpened = true
@@ -415,7 +416,7 @@ class CampaignService(
                 val descent = campaignState.abyssRun?.takeIf { it.mapCode == mapCode } ?: return null
                 if (event.depth !in 0..descent.depth) return null
                 // Ступени - волны боя (1.68.0): глубина не быстрее их темпа с открытия расщелины
-                if (!event.fallen && !Plausibility.pace(hero, mapCode, descent.openedAt, now, event.depth, Plausibility.ABYSS_DEPTH_SECONDS, "abyss_depth_seconds")) return null
+                if (!event.fallen && !plausibility.pace(hero, mapCode, descent.openedAt, now, event.depth, Plausibility.ABYSS_DEPTH_SECONDS, "abyss_depth_seconds")) return null
                 campaignState.abyssRun = null
                 if (!event.fallen) hero.count(Counter.ABYSS_DEPTH, event.depth.toLong())
                 // Гибель в Бездне сжигает копилку целиком; счёт копилок заход ведёт и тогда

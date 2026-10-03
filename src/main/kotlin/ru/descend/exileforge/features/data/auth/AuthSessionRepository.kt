@@ -21,20 +21,14 @@ import kotlin.time.Duration.Companion.hours
 /**
  * Сессии входа: выдать, узнать по токену, отозвать.
  */
-class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSession::class) {
+class AuthSessionRepository(private val settings: ru.descend.exileforge.config.ServerSettings) : BaseRepository<AuthSession>(entityClass = AuthSession::class) {
 
     companion object {
-        /** Сколько живёт сессия без использования. */
-        val LIFETIME: Duration = 30.days
-
         /**
          * Как часто срок сдвигается в базе. Писать в базу на каждый запрос незачем:
          * час точности на тридцати днях ничего не меняет.
          */
         private val TOUCH_EVERY: Duration = 1.hours
-
-        /** Живых сессий на аккаунт (1.46.0): новая вытесняет самую старую по последнему входу. */
-        const val MAX_PER_USER = 5
     }
 
     override val indexes = listOf(IndexSpec.unique("idx_unique_token", "tokenHash"), IndexSpec.on("userId"))
@@ -47,11 +41,11 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
         // Сроки сравниваются здесь, а не запросом к базе: даты хранятся в том виде, в каком их
         // пишет сериализатор, и сравнивать их на стороне Mongo значит полагаться на формат.
         val (expired, alive) = collection.find(Filters.eq("userId", userId)).toList().partition { it.expiresAt < now }
-        val crowded = alive.sortedBy { it.lastUsedAt }.dropLast(MAX_PER_USER - 1)
+        val crowded = alive.sortedBy { it.lastUsedAt }.dropLast(settings.sessionsPerUser - 1)
         val gone = (expired + crowded).map { it._id }
         transactionExecute("auth issue") { session ->
             if (gone.isNotEmpty()) collection.deleteMany(session, Filters.`in`("_id", gone))
-            insert(AuthSession(userId = userId, tokenHash = Tokens.hash(token), expiresAt = now.plus(LIFETIME)), session)
+            insert(AuthSession(userId = userId, tokenHash = Tokens.hash(token), expiresAt = now.plus(settings.sessionDays.days)), session)
         }
         return token
     }
@@ -67,7 +61,7 @@ class AuthSessionRepository : BaseRepository<AuthSession>(entityClass = AuthSess
         if (found.lastUsedAt.plus(TOUCH_EVERY) < now) {
             collection.updateOne(
                 Filters.eq("_id", found._id),
-                Updates.combine(Updates.set("lastUsedAt", now), Updates.set("expiresAt", now.plus(LIFETIME))),
+                Updates.combine(Updates.set("lastUsedAt", now), Updates.set("expiresAt", now.plus(settings.sessionDays.days))),
             )
         }
         return found

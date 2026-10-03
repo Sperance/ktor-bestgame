@@ -149,7 +149,7 @@ class AuctionService(
     /** История сделок героя (1.69.0): его продажи и покупки за `auction.historyDays` дней, новые первыми. */
     suspend fun history(heroId: String): List<AuctionLot> {
         requireTrader(heroId, "history")
-        val since = System.currentTimeMillis() - rules.historyDays * DAY_MS
+        val since = System.currentTimeMillis() - rules.historyDays * ru.descend.exileforge.extensions.Millis.DAY
         return lots.findDeals(heroId, since)
     }
 
@@ -187,7 +187,6 @@ class AuctionService(
     private fun expiry(): Long = System.currentTimeMillis() + rules.lotMillis
 
     private companion object {
-        const val DAY_MS = 24 * 3_600_000L
         const val MAIL_EXPIRED = "mail.auction_expired"
         const val MAIL_EXPIRING = "mail.auction_expiring"
     }
@@ -298,7 +297,7 @@ class AuctionService(
      */
     suspend fun priceHint(heroId: String, itemCode: String, rarity: Rarity?, itemLevel: Int): PriceHint? {
         requireTrader(heroId, "priceHint")
-        val since = System.currentTimeMillis() - rules.historyDays * DAY_MS
+        val since = System.currentTimeMillis() - rules.historyDays * ru.descend.exileforge.extensions.Millis.DAY
         val levels = if (itemLevel > 0) (itemLevel - rules.priceLevelSpread)..(itemLevel + rules.priceLevelSpread) else null
         val sales = lots.findSales(itemCode, rarity?.name, levels, since)
         val (orb, inOrb) = sales.groupBy { it.priceOrb }.maxByOrNull { it.value.size } ?: return null

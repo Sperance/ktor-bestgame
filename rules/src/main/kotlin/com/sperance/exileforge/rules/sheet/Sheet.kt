@@ -359,13 +359,10 @@ object SellPrice {
      * Множитель `STOCK_GOLD` (1.53.0) не выше [RESALE_SHARE] наценки торговца: витрина стоит базу × наценку, и продать ему
      * купленное дороже покупки нельзя ни с каким листом - купить и сразу продать всегда в убыток.
      */
-    fun goldBonus(index: ContentIndex, stats: Map<String, Double>): Double = (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0).coerceAtMost(index.rules.merchant.markup * RESALE_SHARE)
-
-    /** Какая доля цены витрины - потолок продажи торговцу. */
-    const val RESALE_SHARE = 0.9
+    fun goldBonus(index: ContentIndex, stats: Map<String, Double>): Double = (1.0 + (stats["STOCK_GOLD"] ?: 0.0) / 100.0).coerceAtMost(index.rules.merchant.markup * index.rules.merchant.resaleShare)
 
     /** Потолок продажи вещи, купленной у торговца за [price] ([ItemInstance.resale]). */
-    fun resaleCap(price: Long): Long = floor(price * RESALE_SHARE).toLong().coerceAtLeast(1L)
+    fun resaleCap(index: ContentIndex, price: Long): Long = floor(price * index.rules.merchant.resaleShare).toLong().coerceAtLeast(1L)
 
     /** База шаблона: своя цена или [SellRules.base] × рост золота до [level] - уровня шаблона, у карты - уровня её зоны. */
     fun base(index: ContentIndex, template: ItemTemplate, level: Int = template.level): Double = template.price?.toDouble() ?: (index.rules.sell.base * index.rules.loot.goldScale(level, index.campaign.growthTaper))

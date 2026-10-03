@@ -29,6 +29,7 @@
     "MYTHICAL": {}
   },
   "merchant": {
+    "resaleShare": 0.9,
     "windowHours": 4.0,
     "minOffers": 12,
     "maxOffers": 16,
@@ -266,6 +267,8 @@
     "overflowSlots": 100
   },
   "run": {
+    "packChance": 0.35,
+    "packMax": 6,
     "newSeedSeconds": 30
   },
   "charges": {

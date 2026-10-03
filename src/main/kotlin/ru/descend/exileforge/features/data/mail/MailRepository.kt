@@ -9,10 +9,10 @@ import ru.descend.exileforge.config.MongoFactory.transactionExecute
 
 /**
  * Почта аккаунтов (1.69.0): системные письма о статусах отчётов и письма администратора одному или всем. Письмо живёт
- * [MAIL_DAYS] дней; истёкшие уходят при чтении ящика. Вложение забирает один герой аккаунта, один раз, одной транзакцией
+ * `settings.mailDays` дней; истёкшие уходят при чтении ящика. Вложение забирает один герой аккаунта, один раз, одной транзакцией
  * с героем.
  */
-class MailRepository : BaseRepository<Mail>(Mail::class) {
+class MailRepository(private val settings: ru.descend.exileforge.config.ServerSettings) : BaseRepository<Mail>(Mail::class) {
     override val indexes = listOf(IndexSpec.on("userId", "expiresAt"))
 
     /** Ящик аккаунта: живые письма, новые первыми; истёкшие удаляются тут же. */
@@ -47,12 +47,7 @@ class MailRepository : BaseRepository<Mail>(Mail::class) {
     /** Живое письмо [id] аккаунта [userId]; чужое или истёкшее - `ML_001`. */
     suspend fun mine(userId: String, id: String, method: String): Mail = findById(id)?.takeIf { it.userId == userId && it.expiresAt > System.currentTimeMillis() } ?: throw mailError("Mail $id not found", method, "ML_006", listOf(id))
 
-    fun expiry(): Long = System.currentTimeMillis() + MAIL_DAYS * DAY_MS
-
-    private companion object {
-        const val MAIL_DAYS = 30
-        const val DAY_MS = 24 * 3_600_000L
-    }
+    fun expiry(): Long = System.currentTimeMillis() + settings.mailDays * ru.descend.exileforge.extensions.Millis.DAY
 }
 
 fun mailError(message: String, method: String, code: String, args: List<String> = emptyList()) = BaseException(message, "Mail", method, code, args)

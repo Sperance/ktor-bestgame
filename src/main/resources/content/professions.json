@@ -1,5 +1,6 @@
 {
   "rules": {
+    "awayMinMinutes": 5,
     "offlineHours": 12,
     "maxLevel": 50,
     "levelSpeed": 30,

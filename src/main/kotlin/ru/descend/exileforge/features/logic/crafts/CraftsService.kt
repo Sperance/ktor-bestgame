@@ -103,6 +103,7 @@ data class CraftsState(
 class CraftsService(
     private val heroes: HeroRepository,
     private val content: ContentStore,
+    private val settings: ru.descend.exileforge.config.ServerSettings,
 ) {
     private val index: ContentIndex get() = content.index
     private val file get() = index.professions
@@ -151,7 +152,7 @@ class CraftsService(
     /**
      * Досчитывает работу до сейчас и кладёт добычу герою; изменившийся герой записывается. Зовётся перед
      * всем, что читает или тратит сумку, чтобы добытое не терялось между экранами. Отлучка (1.66.0) - время с
-     * последнего чтения героя ([Hero.seenAt], не реже раза в [SEEN_STEP]) или с последнего цикла; не короче
+     * последнего чтения героя ([Hero.seenAt], не реже раза в `settings.craftsSeenStepMs`) или с последнего цикла; не короче
      * [CraftsAway.MIN_MILLIS] - и досчёт ложится в [Hero.craftsAway] для сводки «Пока вас не было».
      */
     suspend fun settle(hero: Hero): WorkGains {
@@ -166,7 +167,7 @@ class CraftsService(
         val since = maxOf(work.settledAt, hero.seenAt)
         val result = Work.settle(file.rules, job, progress, bonus, work.settledAt, now, hero.rewards.craftSeed(), hero.rewards.crafted, hero.bag, work.additives)
         if (result.settledAt == work.settledAt && !result.gains.starved) {
-            if (now - hero.seenAt >= SEEN_STEP) {
+            if (now - hero.seenAt >= settings.craftsSeenStepMs) {
                 hero.seenAt = now
                 heroes.save(hero, method)
             }
@@ -196,7 +197,7 @@ class CraftsService(
         // Тайник полон (1.74.0): работа встаёт, а не льёт вещи в переполнение и торговцу.
         if (received.overflowed + received.sold > 0) hero.work = null
         hero.seenAt = now
-        if (now - since >= CraftsAway.MIN_MILLIS) {
+        if (now - since >= file.rules.awayMinMillis) {
             val stop = when {
                 result.gains.starved -> AwayStop.INPUTS
                 now > work.settledAt + (file.rules.offlineHours * 3_600_000).toLong() -> AwayStop.CAP
@@ -355,6 +356,5 @@ class CraftsService(
 
     private companion object {
         /** Как часто чтение без новых циклов отмечает героя увиденным: запись не чаще раза в минуту. */
-        const val SEEN_STEP = 60_000L
     }
 }

@@ -88,8 +88,6 @@ enum class Condition(val target: Boolean = false) {
     ;
 
     companion object {
-        /** Сколько секунд событие считается «недавним». */
-        const val RECENT = 4.0
         const val TARGET_STAT = "STOCK_DAMAGE"
     }
 }

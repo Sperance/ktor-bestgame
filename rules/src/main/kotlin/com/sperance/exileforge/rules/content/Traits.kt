@@ -49,6 +49,8 @@ data class TraitRules(
     val list: List<MonsterTrait> = emptyList(),
     val forms: Map<String, String> = emptyMap(),
     val power: Map<MonsterRarity, Double> = emptyMap(),
+    /** Мана, которую навык свойства приносит с собой: на два-три применения. */
+    val skillMana: Double,
 ) {
     val byCode: Map<String, MonsterTrait> by lazy { list.associateBy { it.code } }
 

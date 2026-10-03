@@ -55,6 +55,8 @@ data class MerchantRules(
     val maxOffers: Int = 16,
     val levelSpread: Int = 2,
     val markup: Int = 3,
+    /** Какая доля цены витрины - потолок продажи торговцу и предел множителя золота. */
+    val resaleShare: Double,
     val tables: List<String> = listOf("merchant"),
     val rarities: String = "rarity:merchant",
     val flasks: List<Int> = listOf(1, 2),
@@ -314,7 +316,13 @@ data class ExperienceWindow(val base: Double = 3.0, val perLevel: Double = 16.0,
 
 /** Заход: бросить открытый заход ради нового семени - не чаще [newSeedSeconds]; вход без карты в ту же зону продолжает прежний. */
 @Serializable
-data class RunRules(val newSeedSeconds: Int = 30)
+data class RunRules(
+    val newSeedSeconds: Int = 30,
+    /** Шанс, что жетон - стая, а не одиночка. */
+    val packChance: Double,
+    /** Жёсткий предел стаи вместе с вожаком; не больше [com.sperance.exileforge.rules.run.Run.PACK_SLOTS]. */
+    val packMax: Int,
+)
 
 /**
  * Зверинец (1.5.0): сколько питомцев держит герой и сколько золота даёт отпущенный по редкости. С инкубатором (1.67.0) платятся
@@ -403,7 +411,7 @@ data class EngineRules(
         "UNIQUE" to RarityLimits(),
         "MYTHICAL" to RarityLimits(),
     ),
-    val merchant: MerchantRules = MerchantRules(),
+    val merchant: MerchantRules,
     val sell: SellRules = SellRules(),
     val bench: BenchRules = BenchRules(),
     val orbs: OrbRules = OrbRules(),
@@ -418,7 +426,7 @@ data class EngineRules(
     val inputs: InputLimits = InputLimits(),
     val loot: LootRules = LootRules(),
     val stash: StashRules = StashRules(),
-    val run: RunRules = RunRules(),
+    val run: RunRules,
     val pets: PetRules = PetRules(),
     val charges: ChargeRules = ChargeRules(),
     val quality: QualityRules = QualityRules(),
@@ -438,6 +446,8 @@ data class EngineRules(
             if (limits.prefixes < 0 || limits.suffixes < 0 || limits.affixes.size != 2 || limits.affixes[0] > limits.affixes[1] || limits.affixes[1] > limits.prefixes + limits.suffixes) fail("rules: limits $key")
         }
         if (bench.costs.isEmpty() || bench.maxMapLevel < 1) fail("rules: bench")
+        if (merchant.resaleShare !in 0.0..1.0) fail("rules: merchant resaleShare")
+        if (run.packChance !in 0.0..1.0 || run.packMax !in 1..com.sperance.exileforge.rules.run.Run.PACK_SLOTS) fail("rules: run pack")
         if (merchant.minOffers < 0 || merchant.minOffers > merchant.maxOffers || merchant.markup < 1 || merchant.windowHours <= 0) fail("rules: merchant")
         if (merchant.orbs.markup < 1 || merchant.orbs.growth < 1) fail("rules: merchant orbs")
         if (orbs.vaalShift.size != 2 || orbs.vaalShift[0] > orbs.vaalShift[1] || orbs.fractureMinAffixes < 1 || orbs.maxAlchemyLines < 0 || orbs.choices < 1) fail("rules: orbs")

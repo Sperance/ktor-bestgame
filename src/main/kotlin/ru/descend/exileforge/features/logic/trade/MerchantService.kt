@@ -106,7 +106,7 @@ class MerchantService(
             }.firstOrNull { (template, item) -> factory.meetsFloor(template, item) }
                 ?: (Tables.draw(from, dice) ?: from.first().value).let { it to factory.create(id, it, Rarity.COMMON, dice, level = itemLevel) }
             val price = SellPrice.of(index, template, item) * rules.markup
-            return MerchantOffer(item.id, item.copy(resale = SellPrice.resaleCap(price)), price)
+            return MerchantOffer(item.id, item.copy(resale = SellPrice.resaleCap(index, price)), price)
         }
         val offers = if (near.isEmpty()) emptyList() else List(dice.between(rules.minOffers, rules.maxOffers)) { offer(near) }
         val shelf = flasks.filter { it.value.requiredLevel <= level }

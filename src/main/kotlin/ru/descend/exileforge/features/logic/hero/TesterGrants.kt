@@ -16,11 +16,11 @@ enum class TesterReset { TREE, ATLAS, BAG, STASH, CAMPAIGN }
  * Выдачи окна тестирования (1.69.0): тестировщик и администратор получают своему герою всё, что игрок добывает игрой, -
  * без ограничений экономики. Каждая выдача меняет только документ героя; сохраняет вызывающий.
  */
-class TesterGrants(private val index: ContentIndex) {
+class TesterGrants(private val index: ContentIndex, private val settings: ru.descend.exileforge.config.ServerSettings) {
     private val factory = ItemFactory(index)
 
     fun gold(hero: Hero, amount: Long) {
-        hero.gain(amount.coerceIn(0, MAX_GOLD))
+        hero.gain(amount.coerceIn(0, settings.testerMaxGold))
     }
 
     /** Уровень [level] ровно: опыт - порог уровня, план дерева берёт то, на что теперь хватает очков. */
@@ -31,7 +31,7 @@ class TesterGrants(private val index: ContentIndex) {
     }
 
     fun skillPoints(hero: Hero, amount: Int) {
-        hero.grantPoints(amount, MAX_POINTS)
+        hero.grantPoints(amount, settings.testerMaxPoints)
         Rewards.followPlan(hero, index)
     }
 
@@ -56,7 +56,7 @@ class TesterGrants(private val index: ContentIndex) {
     fun rares(hero: Hero, count: Int) {
         val bases = index.templatePoolUpTo(listOf(DROP), hero.level).filter { (template) -> template.rarity < Rarity.UNIQUE && !template.slot.isJewelLike }
         val dice = Dice.system()
-        repeat(count.coerceIn(1, MAX_BATCH)) {
+        repeat(count.coerceIn(1, settings.testerMaxBatch)) {
             val template = Tables.draw(bases, dice) ?: return
             Stash.receive(hero, factory.create(Hero.newItemId(), template, Rarity.RARE, dice, level = itemLevel(hero)), index)
         }
@@ -104,8 +104,5 @@ class TesterGrants(private val index: ContentIndex) {
 
     private companion object {
         const val DROP = "drop"
-        const val MAX_GOLD = 1_000_000_000L
-        const val MAX_POINTS = 1_000
-        const val MAX_BATCH = 50
     }
 }

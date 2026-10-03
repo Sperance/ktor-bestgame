@@ -173,6 +173,10 @@ data class SkillBookRules(
     val books: BookRule,
     val exchange: ExchangeRule,
     val casterSpells: Map<String, String> = emptyMap(),
+    /** Потолок уровня умения с прибавками вещей, атласа и карты (1.17.0): дальше шкала не тянется. */
+    val boostedMaxLevel: Int,
+    /** Уровень героя, на котором умение, открытое на первом, доходит до последнего уровня. */
+    val heroMaxLevel: Int,
 )
 
 /** Файл `skills.json`: правила, классы, умения классов и монстров. */
@@ -217,7 +221,7 @@ data class SkillBook(val rules: SkillBookRules, val classes: List<ClassSkills>, 
     private fun validate(skill: SkillDefinition, classes: Set<String>, stats: StatRegistry) {
         val code = skill.code
         if (skill.heroClass !in classes) fail("skills: class of $code")
-        if (skill.unlock !in 1..SkillRules.MAX_HERO_LEVEL) fail("skills: unlock of $code")
+        if (skill.unlock !in 1..rules.heroMaxLevel) fail("skills: unlock of $code")
         if (skill.icon.isBlank()) fail("skills: icon of $code")
         when (skill.kind) {
             SkillKind.ACTIVE -> {
@@ -286,7 +290,7 @@ data class SkillNeed(val heroLevel: Int, val attributes: Map<String, Int>)
 class SkillRules(val book: SkillBook) {
     private val rules get() = book.rules
 
-    fun heroLevel(skill: SkillDefinition, level: Int): Int = ceil(skill.unlock + (MAX_HERO_LEVEL - skill.unlock) * (level - 1) / (MAX_LEVEL - 1.0) - 1e-9).toInt()
+    fun heroLevel(skill: SkillDefinition, level: Int): Int = ceil(skill.unlock + (rules.heroMaxLevel - skill.unlock) * (level - 1) / (MAX_LEVEL - 1.0) - 1e-9).toInt()
 
     fun need(skill: SkillDefinition, level: Int): SkillNeed {
         val heroLevel = heroLevel(skill, level)
@@ -330,9 +334,6 @@ class SkillRules(val book: SkillBook) {
     companion object {
         const val MAX_LEVEL = 20
 
-        /** Потолок уровня умения с прибавками вещей, атласа и карты (1.17.0): дальше шкала не тянется. */
-        const val MAX_BOOSTED_LEVEL = 25
-        const val MAX_HERO_LEVEL = 70
         const val BOOK_PREFIX = "BOOK_"
         fun book(code: String): String = BOOK_PREFIX + code
     }

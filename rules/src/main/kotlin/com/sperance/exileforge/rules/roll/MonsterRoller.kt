@@ -124,7 +124,7 @@ class MonsterRoller(private val index: ContentIndex) {
         val power = campaign.traits.power(rarity)
         return traits.flatMap { trait ->
             trait.lines.map { MonsterEffect(it.stat, it.op, campaign.traits.scaled(it, power)) } +
-                listOfNotNull(trait.skill?.let { MonsterEffect(MANA, Op.ADD, TRAIT_MANA) })
+                listOfNotNull(trait.skill?.let { MonsterEffect(MANA, Op.ADD, campaign.traits.skillMana) })
         }
     }
 
@@ -180,8 +180,5 @@ class MonsterRoller(private val index: ContentIndex) {
     private companion object {
         const val BLOCK = "STOCK_BLOCK_CHANCE"
         const val MANA = "STOCK_MANA"
-
-        /** Мана, которую навык свойства приносит с собой: на два-три применения. */
-        const val TRAIT_MANA = 30.0
     }
 }
