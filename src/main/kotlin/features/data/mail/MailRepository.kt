@@ -9,6 +9,7 @@ import com.sperance.exileforge.rules.roll.Dice
 import com.sperance.exileforge.rules.roll.ItemFactory
 import config.ContentStore
 import config.MongoFactory.transactionExecute
+import com.mongodb.kotlin.client.coroutine.ClientSession
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
 import features.data.user.UserRepository
@@ -65,6 +66,7 @@ class MailRepository : BaseRepository<Mail>(Mail::class), KoinComponent {
     private fun give(hero: Hero, attachment: MailAttachment) {
         hero.money += attachment.gold.coerceAtLeast(0)
         attachment.items.filterKeys { index.item(it) != null }.forEach { (code, amount) -> if (amount > 0) hero.earn(code, amount) }
+        attachment.instances.forEach { Stash.giveBack(hero, it, index) }
         val factory = ItemFactory(index)
         attachment.equipment.forEach { piece ->
             val template = index.template(piece.template) ?: return@forEach
@@ -76,6 +78,11 @@ class MailRepository : BaseRepository<Mail>(Mail::class), KoinComponent {
     /** Системное письмо аккаунту [userId]: ключ словаря и его подстановки. */
     suspend fun system(userId: String, key: String, args: List<String>) {
         transactionExecute("mail system") { session -> insert(Mail(userId, MailKind.SYSTEM, key, args, expiresAt = expiry()), session) }
+    }
+
+    /** Системное письмо с вложением в транзакции вызывающего (1.74.0): возврат товара аукциона. */
+    suspend fun system(userId: String, key: String, args: List<String>, attachment: MailAttachment, session: ClientSession) {
+        insert(Mail(userId, MailKind.SYSTEM, key, args, attachment = attachment, expiresAt = expiry()), session)
     }
 
     /** Письмо администратора: одному аккаунту по логину или каждому аккаунту; сколько писем ушло. */

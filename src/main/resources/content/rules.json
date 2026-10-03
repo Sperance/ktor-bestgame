@@ -157,10 +157,10 @@
     ]
   },
   "auction": {
-    "slots": 12,
+    "slots": 100,
     "minLevel": 1,
     "buyerFee": 10.0,
-    "lotDays": 30,
+    "lotDays": 7,
     "currencies": [
       "ORB_OF_TRANSMUTATION",
       "ORB_OF_AUGMENTATION",

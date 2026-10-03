@@ -13,6 +13,9 @@ import kotlinx.datetime.toInstant
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId
 
+/** Эпоха аукциона (1.74.0: 7 дней, 100 мест, возврат почтой): лоты прежних эпох снимаются при старте сервера. */
+const val AUCTION_EPOCH = 1
+
 @Serializable
 enum class LotKind { EQUIPMENT, ITEM }
 
@@ -53,6 +56,10 @@ data class AuctionLot(
     var buyerName: String = "",
     var soldAt: Long = 0,
     var sold: ItemInstance? = null,
+    /** Письмо «лот скоро снимется» ушло (1.74.0); продление его сбрасывает. */
+    var warned: Boolean = false,
+    /** Эпоха аукциона (1.74.0): лоты прежней эпохи закрываются при старте, товар - продавцу ([AUCTION_EPOCH]). */
+    var epoch: Int = 0,
     override var _id: String = ObjectId().toHexString(),
     override var version: Long = 0,
     override var deleted: Boolean = false,
@@ -62,16 +69,19 @@ data class AuctionLot(
 
     fun isOnSale(now: Long = System.currentTimeMillis()): Boolean = status == LotStatus.ACTIVE && now < expiresAt
 
+    /** Можно ли продлить сейчас (1.74.0): лот на витрине и ему осталось не больше окна продления. */
+    fun extendable(window: Long, now: Long = System.currentTimeMillis()): Boolean = isOnSale(now) && expiresAt - now <= window
+
     companion object {
         fun forEquipment(seller: Hero, item: ItemInstance, template: ItemTemplate, priceOrb: String, price: Long, fee: Long, expiresAt: Long): AuctionLot = AuctionLot(
             sellerId = seller._id, sellerName = seller.name, kind = LotKind.EQUIPMENT, equipment = item.copy(slot = null, socket = null),
             priceOrb = priceOrb, price = price, fee = fee, itemCode = template.code, slot = template.slot, rarity = item.rarity, itemLevel = item.level(template),
-            expiresAt = expiresAt,
+            expiresAt = expiresAt, epoch = AUCTION_EPOCH,
         )
 
         fun forItem(seller: Hero, code: String, amount: Long, priceOrb: String, price: Long, fee: Long, expiresAt: Long): AuctionLot = AuctionLot(
             sellerId = seller._id, sellerName = seller.name, kind = LotKind.ITEM, item = code, amount = amount, priceOrb = priceOrb, price = price, fee = fee, itemCode = code,
-            expiresAt = expiresAt,
+            expiresAt = expiresAt, epoch = AUCTION_EPOCH,
         )
     }
 }

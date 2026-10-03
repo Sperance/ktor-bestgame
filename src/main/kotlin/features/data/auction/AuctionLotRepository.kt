@@ -20,6 +20,8 @@ import extensions.printLog
 import kotlinx.coroutines.CancellationException
 import features.data.hero.Hero
 import features.data.hero.HeroRepository
+import features.data.mail.MailAttachment
+import features.data.mail.MailRepository
 import features.logic.hero.HeroLocks
 import kotlinx.coroutines.flow.toList
 import features.logic.hero.Stash
@@ -41,6 +43,7 @@ import org.koin.core.component.inject
 class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), KoinComponent {
     private val heroes: HeroRepository by inject()
     private val content: ContentStore by inject()
+    private val mail: MailRepository by inject()
     private val index: ContentIndex get() = content.index
     private val rules get() = index.rules.auction
 
@@ -192,7 +195,11 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 
     private fun expiry(): Long = System.currentTimeMillis() + rules.lotMillis
 
-    private companion object { const val DAY_MS = 24 * 3_600_000L }
+    private companion object {
+        const val DAY_MS = 24 * 3_600_000L
+        const val MAIL_EXPIRED = "mail.auction_expired"
+        const val MAIL_EXPIRING = "mail.auction_expiring"
+    }
 
     /**
      * Лот, каким его показывают: вещь сверена с контентом так же, как её сверит запись героя. Изменилось
@@ -232,15 +239,82 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
         due.forEach { lot -> quietly("expire ${lot._id}") { HeroLocks.withLock(lot.sellerId) { expire(lot) } } }
     }
 
+    /**
+     * Лот уходит с витрины. Истёкший (1.74.0) возвращается продавцу письмом с товаром - тем же роллом, тайник не
+     * переполняется молча; снятый по другой причине (непродаваемый, смена эпохи) - сразу в тайник или сумку.
+     */
     private suspend fun expire(lot: AuctionLot, status: LotStatus = LotStatus.EXPIRED) {
         val seller = heroes.findById(lot.sellerId)
-        if (seller != null) {
-            giveBack(lot, seller)
-        }
+        val byMail = status == LotStatus.EXPIRED && seller != null
+        if (seller != null && !byMail) giveBack(lot, seller)
+        val parcel = if (byMail) returned(lot) else null
         transactionExecute("auction expire ${lot._id}") { session ->
-            seller?.let { heroes.update(it, session) }
+            if (byMail) mail.system(seller!!.userId, MAIL_EXPIRED, listOf(lot.itemCode, lot.amount.toString()), parcel!!, session)
+            else seller?.let { heroes.update(it, session) }
             close(lot, status, null, session)
         }
+    }
+
+    /** Товар лота во вложении письма: вещь как есть, стопка - по нынешнему коду. */
+    private fun returned(lot: AuctionLot): MailAttachment = when (lot.kind) {
+        LotKind.EQUIPMENT -> MailAttachment(instances = listOf(goods(lot)))
+        LotKind.ITEM -> MailAttachment(items = mapOf((index.rules.retired[lot.item] ?: lot.item) to lot.amount))
+    }
+
+    /**
+     * Продление (1.74.0): автор в последние часы лота ставит его на витрину ещё на `auction.lotDays` дней - сколько угодно раз.
+     */
+    suspend fun extend(heroId: String, lotId: String): AuctionLot {
+        val method = "extend"
+        requireTrader(heroId, method)
+        val lot = requireOpenLot(lotId, method)
+        if (lot.sellerId != heroId) throw AuctionExceptions.funExceptionNotSeller(method, lotId)
+        if (!lot.extendable(rules.extendWindowMillis)) throw AuctionExceptions.funExceptionNotExtendable(method, lotId)
+        lot.expiresAt += rules.lotMillis
+        lot.warned = false
+        return transactionExecute("auction $method $lotId") { session -> update(lot, session); lot }
+    }
+
+    /** Письмо «лот снимется через сутки» (1.74.0) пачкой по [limit]; зовёт [features.logic.trade.AuctionExpiry]. */
+    suspend fun warnDue(limit: Int) {
+        val now = System.currentTimeMillis()
+        val due = collection.find(readFilter(Filters.and(Filters.eq("status", LotStatus.ACTIVE.name), Filters.ne("warned", true),
+            Filters.gt("expiresAt", now), Filters.lte("expiresAt", now + rules.extendWindowMillis)))).limit(limit).toList()
+        due.forEach { lot ->
+            quietly("warn ${lot._id}") {
+                val seller = heroes.findById(lot.sellerId) ?: return@quietly
+                lot.warned = true
+                transactionExecute("auction warn ${lot._id}") { session ->
+                    mail.system(seller.userId, MAIL_EXPIRING, listOf(lot.itemCode, lot.amount.toString()), MailAttachment(), session)
+                    update(lot, session)
+                }
+            }
+        }
+    }
+
+    /** Смена эпохи (1.74.0): лоты прежних правил снимаются, товар - продавцам; повторный старт ничего не находит. */
+    suspend fun closeOldEpoch() {
+        val lots = findByFilter(Filters.and(Filters.eq("status", LotStatus.ACTIVE.name), Filters.lt("epoch", AUCTION_EPOCH)))
+        lots.forEach { lot -> quietly("close old epoch ${lot._id}") { HeroLocks.withLock(lot.sellerId) { expire(lot, LotStatus.CANCELLED) } } }
+        if (lots.isNotEmpty()) printLog("  → ${lots.size} auction lots of the previous epoch returned")
+    }
+
+    /**
+     * Подсказка цены (1.74.0): медиана продаж той же базы и редкости близкого уровня за `auction.historyDays` дней - в сфере,
+     * которой их продавали чаще; меньше `auction.priceSales` сделок - подсказки нет.
+     */
+    suspend fun priceHint(heroId: String, itemCode: String, rarity: com.sperance.exileforge.rules.content.Rarity?, itemLevel: Int): PriceHint? {
+        requireTrader(heroId, "priceHint")
+        val since = System.currentTimeMillis() - rules.historyDays * DAY_MS
+        val filters = listOfNotNull(Filters.eq("status", LotStatus.SOLD.name), Filters.gte("soldAt", since), Filters.eq("itemCode", itemCode),
+            rarity?.let { Filters.eq("rarity", it.name) },
+            if (itemLevel > 0) Filters.and(Filters.gte("itemLevel", itemLevel - rules.priceLevelSpread), Filters.lte("itemLevel", itemLevel + rules.priceLevelSpread)) else null)
+        val sales = findByFilter(Filters.and(filters))
+        val (orb, inOrb) = sales.groupBy { it.priceOrb }.maxByOrNull { it.value.size } ?: return null
+        if (inOrb.size < rules.priceSales) return null
+        val unit = inOrb.map { it.price.toDouble() / it.amount.coerceAtLeast(1) }.sorted()
+        val median = if (unit.size % 2 == 1) unit[unit.size / 2] else (unit[unit.size / 2 - 1] + unit[unit.size / 2]) / 2
+        return PriceHint(orb, kotlin.math.max(1L, kotlin.math.round(median).toLong()), inOrb.size)
     }
 
     /** Попутная работа (срок, сверка): гонка версий или сбой базы её откладывает до следующего запроса, но не срывает запрос. */
@@ -307,3 +381,7 @@ class AuctionLotRepository : BaseRepository<AuctionLot>(AuctionLot::class), Koin
 /** Места под лоты героя: базовые сразу, по одному докупается за золото до потолка; [price] - цена следующего, 0 - больше не купить. */
 @Serializable
 data class AuctionSlots(val used: Int, val limit: Int)
+
+/** Подсказка цены (1.74.0): медиана [price] за штуку в сфере [priceOrb] по [sales] недавним сделкам. */
+@Serializable
+data class PriceHint(val priceOrb: String, val price: Long, val sales: Int)

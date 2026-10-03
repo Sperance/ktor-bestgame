@@ -126,7 +126,17 @@ data class AuctionRules(
     val currencies: List<Orb> = BASE_CURRENCIES,
     /** Сколько дней сделка видна в истории героя (1.69.0): продажи и покупки. */
     val historyDays: Int = 7,
+    /**
+     * Продление (1.74.0): в последние [extendWindowHours] часов лота автор продлевает его на [lotDays] дней, сколько угодно раз;
+     * тогда же ему уходит письмо, что лот скоро снимется.
+     */
+    val extendWindowHours: Int = 24,
+    /** Подсказка цены (1.74.0): медиана продаж той же базы и редкости в пределах [priceLevelSpread] уровней за [historyDays] дней, от [priceSales] сделок. */
+    val priceSales: Int = 3,
+    val priceLevelSpread: Int = 5,
 ) {
+    val extendWindowMillis: Long get() = extendWindowHours * 3_600_000L
+
     /** Можно ли назначить цену в предмете [code]. */
     fun trades(code: String): Boolean = currencies.any { it.name == code }
 

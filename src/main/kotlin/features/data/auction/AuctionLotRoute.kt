@@ -43,6 +43,14 @@ class AuctionLotRoute(private val repo: AuctionLotRepository) : BaseRoute<Auctio
         post("/buy") {
             call.respondOk(repo.buy(call.heroId, call.queryParam("lotId")))
         }
+        post("/extend") {
+            call.respondOk(repo.extend(call.heroId, call.queryParam("lotId")))
+        }
+        get("/price") {
+            val params = call.request.queryParameters
+            val rarity = params["rarity"]?.let { raw -> Rarity.entries.firstOrNull { it.name == raw } }
+            call.respondOk(repo.priceHint(call.heroId, call.queryParam("itemCode"), rarity, call.queryParam("itemLevel", 0)))
+        }
         post("/cancel") {
             call.respondOk(repo.cancel(call.heroId, call.queryParam("lotId")))
         }

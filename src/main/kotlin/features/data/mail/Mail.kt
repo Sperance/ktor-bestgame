@@ -17,8 +17,14 @@ data class MailEquipment(val template: String, val rarity: Rarity? = null)
 
 /** Вложение письма (1.69.0): золото, стопки сумки по коду и вещи; забирает его один герой аккаунта, один раз. */
 @Serializable
-data class MailAttachment(val gold: Long = 0, val items: Map<String, Long> = emptyMap(), val equipment: List<MailEquipment> = emptyList()) {
-    val empty: Boolean get() = gold <= 0 && items.isEmpty() && equipment.isEmpty()
+data class MailAttachment(
+    val gold: Long = 0,
+    val items: Map<String, Long> = emptyMap(),
+    val equipment: List<MailEquipment> = emptyList(),
+    /** Готовые вещи как есть (1.74.0): товар истёкшего лота возвращается почтой тем же роллом. */
+    val instances: List<com.sperance.exileforge.rules.roll.ItemInstance> = emptyList(),
+) {
+    val empty: Boolean get() = gold <= 0 && items.isEmpty() && equipment.isEmpty() && instances.isEmpty()
 }
 
 /**
